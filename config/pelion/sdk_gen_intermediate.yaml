@@ -408,7 +408,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -1475,7 +1474,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -2397,7 +2395,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -3258,7 +3255,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -4125,7 +4121,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -4230,6 +4225,11 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
+          external_param: true
+          in: query
+          name: after
+          parameter_fieldname: after
+          required: false
           type: string
         - _key: data
           api_fieldname: data
@@ -4238,7 +4238,7 @@ entities:
           items:
             description: This object represents a trusted certificate in responses.
             foreign_key:
-              entity: developer_certificate
+              entity: trusted_certificate
               group: Security
             properties:
             - _key: account_id
@@ -4347,11 +4347,16 @@ entities:
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: 'The number of results to return, (range: 2-1000), or equals
-            to `total_count`'
+          default: 50
+          description: The number of results to return (2-1000), default is 50.
           entity_fieldname: limit
           example: 50
+          external_param: true
           format: int32
+          in: query
+          name: limit
+          parameter_fieldname: limit
+          required: false
           type: integer
         - _key: object
           api_fieldname: object
@@ -4362,12 +4367,19 @@ entities:
           type: string
         - _key: order
           api_fieldname: order
-          description: 'The order of the records to return based on creation time.
-            Available values: ASC, DESC; by default ASC.'
+          default: ASC
+          description: The order of the records based on creation time, ASC or DESC;
+            by default ASC
           entity_fieldname: order
           enum:
           - ASC
           - DESC
+          enum_reference: trusted_certificate_order_enum
+          external_param: true
+          in: query
+          name: order
+          parameter_fieldname: order
+          required: false
           type: string
         - _key: total_count
           api_fieldname: total_count
@@ -4552,7 +4564,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -5694,7 +5705,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -5832,16 +5842,25 @@ entities:
               items:
                 description: This object represents a user login profile in Device
                   Management.
+                foreign_key:
+                  entity: login_profile
+                  group: Accounts
                 properties:
                 - _key: id
+                  api_fieldname: id
                   description: ID of the identity provider.
+                  entity_fieldname: id
                   type: string
                 - _key: name
+                  api_fieldname: name
                   description: Name of the identity provider.
+                  entity_fieldname: name
                   readOnly: true
                   type: string
                 - _key: type
+                  api_fieldname: type
                   description: Identity provider type.
+                  entity_fieldname: type
                   enum:
                   - NATIVE
                   - MBED
@@ -6096,7 +6115,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -6325,16 +6343,25 @@ entities:
               items:
                 description: This object represents a user login profile in Device
                   Management.
+                foreign_key:
+                  entity: login_profile
+                  group: Accounts
                 properties:
                 - _key: id
+                  api_fieldname: id
                   description: ID of the identity provider.
+                  entity_fieldname: id
                   type: string
                 - _key: name
+                  api_fieldname: name
                   description: Name of the identity provider.
+                  entity_fieldname: name
                   readOnly: true
                   type: string
                 - _key: type
+                  api_fieldname: type
                   description: Identity provider type.
+                  entity_fieldname: type
                   enum:
                   - NATIVE
                   - MBED
@@ -6645,6 +6672,14 @@ entities:
     readOnly: true
     required: false
     type: integer
+  - _key: groups
+    api_fieldname: groups
+    description: A list of group IDs this API key belongs to.
+    items:
+      type: string
+    readOnly: false
+    required: false
+    type: array
   - _key: id
     api_fieldname: id
     description: The ID of the API key.
@@ -6716,7 +6751,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -6729,6 +6763,16 @@ entities:
     - account_id
     field_renames: []
     fields:
+    - _key: groups
+      api_fieldname: groups
+      description: A list of group IDs this API key belongs to.
+      entity_fieldname: groups
+      in: body
+      items:
+        type: string
+      parameter_fieldname: groups
+      required: false
+      type: array
     - _key: name
       api_fieldname: name
       description: The display name for the API key.
@@ -7035,7 +7079,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -7225,7 +7268,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -7233,6 +7275,7 @@ entities:
     - updated_at
     - key
     - name
+    - groups
     - owner
     - status
     - creation_time
@@ -7525,7 +7568,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -7855,7 +7897,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -7864,6 +7905,7 @@ entities:
     - updated_at
     - key
     - name
+    - groups
     - owner
     - status
     - creation_time
@@ -8105,7 +8147,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -8117,6 +8158,16 @@ entities:
     - account_id
     field_renames: []
     fields:
+    - _key: groups
+      api_fieldname: groups
+      description: A list of group IDs this API key belongs to.
+      entity_fieldname: groups
+      in: body
+      items:
+        type: string
+      parameter_fieldname: groups
+      required: false
+      type: array
     - _key: id
       api_fieldname: id
       description: The ID of the API key.
@@ -8480,7 +8531,12 @@ entities:
     api_fieldname: certificate_name
     description: The certificate name.
     example: customer.dlms
+    external_param: true
+    in: path
     maxLength: 50
+    name: certificate-name
+    parameter_fieldname: certificate-name
+    pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
     readOnly: true
     required: false
     type: string
@@ -8523,6 +8579,8 @@ entities:
     api_fieldname: id
     description: The ID of the certificate enrollment.
     example: 01612df56f3b0a580a010fc700000000
+    in: path
+    parameter_fieldname: device-id
     readOnly: false
     required: true
     type: string
@@ -8557,7 +8615,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -8599,7 +8656,13 @@ entities:
           description: The certificate name.
           entity_fieldname: certificate_name
           example: customer.dlms
+          external_param: true
+          in: path
           maxLength: 50
+          name: certificate-name
+          parameter_fieldname: certificate-name
+          pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
+          required: true
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -8641,6 +8704,9 @@ entities:
           description: The ID of the certificate enrollment.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
+          in: path
+          parameter_fieldname: device-id
+          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -8861,7 +8927,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -8975,20 +9040,34 @@ entities:
               group: Security
             properties:
             - _key: certificate_name
+              api_fieldname: certificate-name
               description: The certificate name.
+              entity_fieldname: certificate_name
               example: customer.dlms
+              external_param: true
+              in: path
               maxLength: 50
+              name: certificate-name
+              parameter_fieldname: certificate-name
+              pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
+              required: true
               type: string
             - _key: created_at
+              api_fieldname: created_at
               description: Creation UTC time RFC3339.
+              entity_fieldname: created_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
             - _key: device_id
+              api_fieldname: device_id
               description: The device ID.
+              entity_fieldname: device_id
               example: 01625daa23230a580a0100bd00000000
               type: string
             - _key: enroll_result
+              api_fieldname: enroll_result
+              entity_fieldname: enroll_result
               enum:
               - success
               - not_found
@@ -8996,24 +9075,37 @@ entities:
               - failure
               type: string
             - _key: enroll_status
+              api_fieldname: enroll_status
+              entity_fieldname: enroll_status
               enum:
               - new
               - completed
               type: string
             - _key: etag
+              api_fieldname: etag
               description: Entity instance signature.
+              entity_fieldname: etag
               example: '1'
               type: string
             - _key: id
+              api_fieldname: id
               description: The ID of the certificate enrollment.
+              entity_fieldname: id
               example: 01612df56f3b0a580a010fc700000000
+              in: path
+              parameter_fieldname: device-id
+              required: true
               type: string
             - _key: object
+              api_fieldname: object
+              entity_fieldname: object
               enum:
               - certificate-enrollment
               type: string
             - _key: updated_at
+              api_fieldname: updated_at
               description: Update UTC time RFC3339.
+              entity_fieldname: updated_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
@@ -9194,7 +9286,9 @@ entities:
   tags:
   - Certificate Enrollments
 - _key: certificate_issuer
-  field_renames: []
+  field_renames:
+  - _key: type
+    api_fieldname: issuer_type
   fields:
   - _key: created_at
     api_fieldname: created_at
@@ -9234,20 +9328,6 @@ entities:
     readOnly: false
     required: false
     type: object
-  - _key: issuer_type
-    api_fieldname: issuer_type
-    description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-      \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-      \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated\
-      \ signing service.\n  The users must provide their own CFSSL host_url and credentials.\n"
-    enum:
-    - GLOBAL_SIGN
-    - CFSSL_AUTH
-    enum_reference: certificate_issuer_issuer_type_enum
-    example: GLOBAL_SIGN
-    readOnly: true
-    required: false
-    type: string
   - _key: name
     api_fieldname: name
     description: Certificate issuer name, unique per account.
@@ -9291,14 +9371,14 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
     - created_at
     - id
-    - issuer_type
-    field_renames: []
+    field_renames:
+    - _key: type
+      api_fieldname: issuer_type
     fields:
     - _key: description
       api_fieldname: description
@@ -9364,7 +9444,6 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
-      issuer_type: type
     path: /v3/certificate-issuers
     responses:
     - _key: '201'
@@ -9421,7 +9500,7 @@ entities:
             \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
             \ authenticated signing service.\n  The users must provide their own CFSSL\
             \ host_url and credentials.\n"
-          entity_fieldname: issuer_type
+          entity_fieldname: type
           enum:
           - GLOBAL_SIGN
           - CFSSL_AUTH
@@ -9680,11 +9759,12 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
+    field_renames:
+    - _key: type
+      api_fieldname: issuer_type
     fields:
     - _key: id
       api_fieldname: certificate-issuer-id
@@ -9707,7 +9787,6 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
-      issuer_type: type
     path: /v3/certificate-issuers/{certificate-issuer-id}
     responses:
     - _key: '204'
@@ -9887,16 +9966,16 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
     - created_at
-    - issuer_type
     - name
     - description
     - issuer_attributes
-    field_renames: []
+    field_renames:
+    - _key: type
+      api_fieldname: issuer_type
     fields:
     - _key: id
       api_fieldname: id
@@ -9914,7 +9993,6 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
-      issuer_type: type
     path: /v3/certificate-issuers/{certificate-issuer-id}
     responses:
     - _key: '200'
@@ -9971,7 +10049,7 @@ entities:
             \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
             \ authenticated signing service.\n  The users must provide their own CFSSL\
             \ host_url and credentials.\n"
-          entity_fieldname: issuer_type
+          entity_fieldname: type
           enum:
           - GLOBAL_SIGN
           - CFSSL_AUTH
@@ -10172,14 +10250,15 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
     - has_more
     - total_count
     - data
-    field_renames: []
+    field_renames:
+    - _key: type
+      api_fieldname: issuer_type
     fields:
     - _key: after
       api_fieldname: after
@@ -10241,7 +10320,6 @@ entities:
     pagination: true
     parameter_map:
       certificate-issuer-id: id
-      issuer_type: type
     path: /v3/certificate-issuers
     responses:
     - _key: '200'
@@ -10469,13 +10547,13 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
     - created_at
-    - issuer_type
-    field_renames: []
+    field_renames:
+    - _key: type
+      api_fieldname: issuer_type
     fields:
     - _key: description
       api_fieldname: description
@@ -10550,7 +10628,6 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
-      issuer_type: type
     path: /v3/certificate-issuers/{certificate-issuer-id}
     responses:
     - _key: '200'
@@ -10607,7 +10684,7 @@ entities:
             \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
             \ authenticated signing service.\n  The users must provide their own CFSSL\
             \ host_url and credentials.\n"
-          entity_fieldname: issuer_type
+          entity_fieldname: type
           enum:
           - GLOBAL_SIGN
           - CFSSL_AUTH
@@ -10920,13 +10997,14 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
     - successful
     - message
-    field_renames: []
+    field_renames:
+    - _key: type
+      api_fieldname: issuer_type
     fields:
     - _key: id
       api_fieldname: certificate-issuer-id
@@ -10950,7 +11028,6 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
-      issuer_type: type
     path: /v3/certificate-issuers/{certificate-issuer-id}/verify
     responses:
     - _key: '200'
@@ -11258,7 +11335,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -11545,7 +11621,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -11751,7 +11826,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -12013,6 +12087,229 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Get certificate issuer configuration.
+  - _key: get_default
+    description: 'Provides the configured certificate issuer to be used when creating
+      device
+
+      certificates for LwM2M communication.<br>
+
+      '
+    drop_fields:
+    - object
+    - etag
+    - type
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - id
+    - certificate_issuer_id
+    - created_at
+    - updated_at
+    - certificate_reference
+    field_renames:
+    - _key: certificate_reference
+      api_fieldname: reference
+    fields: []
+    group_id: Security
+    method: get
+    mode: get_default
+    operation_id: getCertificateIssuerConfig
+    pagination: false
+    parameter_map:
+      certificate-issuer-configuration-id: id
+    path: /v3/certificate-issuer-configurations/lwm2m
+    responses:
+    - _key: '200'
+      description: OK.
+      schema:
+        foreign_key:
+          entity: certificate_issuer_config
+          group: Security
+        properties:
+        - _key: certificate_issuer_id
+          api_fieldname: certificate_issuer_id
+          description: 'The ID of the certificate issuer.
+
+            Null if Device Management internal HSM is used.
+
+            '
+          entity_fieldname: certificate_issuer_id
+          example: 01648415a2a30242ac18000500000000
+          type: string
+        - _key: created_at
+          api_fieldname: created_at
+          description: Created UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2017-01-01T00:00:00Z'
+          format: date-time
+          type: string
+        - _key: etag
+          api_fieldname: etag
+          description: Entity instance signature.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: 'The ID of the certificate issuer configuration.
+
+            '
+          entity_fieldname: id
+          example: 01648415a2a30242ac18000500000000
+          type: string
+        - _key: is_custom
+          api_fieldname: is_custom
+          entity_fieldname: is_custom
+          example: true
+          type: boolean
+        - _key: object
+          api_fieldname: object
+          entity_fieldname: object
+          enum:
+          - certificate-issuer-configuration
+          type: string
+        - _key: reference
+          api_fieldname: reference
+          description: The certificate name to which the certificate issuer configuration
+            applies.
+          entity_fieldname: certificate_reference
+          example: customer.dlms
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Updated UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2017-02-01T00:00:00Z'
+          format: date-time
+          type: string
+        type: object
+    - _key: '400'
+      description: Validation error.
+      schema:
+        properties:
+        - _key: code
+          description: Error code. Correlates with response status code.
+          format: int32
+          type: integer
+        - _key: fields
+          description: A list of request fields that failed the validation.
+          items:
+            properties:
+            - _key: field
+              description: Field name.
+              type: string
+            - _key: message
+              description: Error message related to the field.
+              type: string
+            type: object
+          type: array
+        - _key: message
+          description: Error message.
+          type: string
+        - _key: object
+          description: 'entity name: ''error'''
+          type: string
+        - _key: request_id
+          description: Request ID from JWT.
+          type: string
+        - _key: type
+          description: Error type.
+          type: string
+        required:
+        - code
+        - fields
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '401'
+      description: Unauthorized.
+      schema:
+        properties:
+        - _key: code
+          description: Error code. Correlates with response status code.
+          format: int32
+          type: integer
+        - _key: fields
+          description: A list of request fields that failed the validation.
+          items:
+            properties:
+            - _key: field
+              description: Field name.
+              type: string
+            - _key: message
+              description: Error message related to the field.
+              type: string
+            type: object
+          type: array
+        - _key: message
+          description: Error message.
+          type: string
+        - _key: object
+          description: 'entity name: ''error'''
+          type: string
+        - _key: request_id
+          description: Request ID from JWT.
+          type: string
+        - _key: type
+          description: Error type.
+          type: string
+        required:
+        - code
+        - fields
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden.
+      schema:
+        properties:
+        - _key: code
+          description: Error code. Correlates with response status code.
+          format: int32
+          type: integer
+        - _key: fields
+          description: A list of request fields that failed the validation.
+          items:
+            properties:
+            - _key: field
+              description: Field name.
+              type: string
+            - _key: message
+              description: Error message related to the field.
+              type: string
+            type: object
+          type: array
+        - _key: message
+          description: Error message.
+          type: string
+        - _key: object
+          description: 'entity name: ''error'''
+          type: string
+        - _key: request_id
+          description: Request ID from JWT.
+          type: string
+        - _key: type
+          description: Error type.
+          type: string
+        required:
+        - code
+        - fields
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer_config
+    return_type: certificate_issuer_config
+    summary: Get certificate issuer configuration.
   - _key: list
     description: 'Get certificate issuer configurations, optionally filtered by reference.
 
@@ -12055,7 +12352,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -12355,230 +12651,6 @@ entities:
       type: certificate_issuer_config
     return_type: paginated_response(certificate_issuer_config)
     summary: Get certificate issuer configurations.
-  - _key: lwm2m
-    description: 'Provides the configured certificate issuer to be used when creating
-      device
-
-      certificates for LwM2M communication.<br>
-
-      '
-    drop_fields:
-    - object
-    - etag
-    - type
-    - filter
-    - groups
-    - is_custom
-    - private_key
-    - sub_accounts
-    - id
-    - certificate_issuer_id
-    - created_at
-    - updated_at
-    - certificate_reference
-    field_renames:
-    - _key: certificate_reference
-      api_fieldname: reference
-    fields: []
-    group_id: Security
-    method: get
-    mode: lwm2m
-    operation_id: getCertificateIssuerConfig
-    pagination: false
-    parameter_map:
-      certificate-issuer-configuration-id: id
-    path: /v3/certificate-issuer-configurations/lwm2m
-    responses:
-    - _key: '200'
-      description: OK.
-      schema:
-        foreign_key:
-          entity: certificate_issuer_config
-          group: Security
-        properties:
-        - _key: certificate_issuer_id
-          api_fieldname: certificate_issuer_id
-          description: 'The ID of the certificate issuer.
-
-            Null if Device Management internal HSM is used.
-
-            '
-          entity_fieldname: certificate_issuer_id
-          example: 01648415a2a30242ac18000500000000
-          type: string
-        - _key: created_at
-          api_fieldname: created_at
-          description: Created UTC time RFC3339.
-          entity_fieldname: created_at
-          example: '2017-01-01T00:00:00Z'
-          format: date-time
-          type: string
-        - _key: etag
-          api_fieldname: etag
-          description: Entity instance signature.
-          entity_fieldname: etag
-          example: '1'
-          type: string
-        - _key: id
-          api_fieldname: id
-          description: 'The ID of the certificate issuer configuration.
-
-            '
-          entity_fieldname: id
-          example: 01648415a2a30242ac18000500000000
-          type: string
-        - _key: is_custom
-          api_fieldname: is_custom
-          entity_fieldname: is_custom
-          example: true
-          type: boolean
-        - _key: object
-          api_fieldname: object
-          entity_fieldname: object
-          enum:
-          - certificate-issuer-configuration
-          type: string
-        - _key: reference
-          api_fieldname: reference
-          description: The certificate name to which the certificate issuer configuration
-            applies.
-          entity_fieldname: certificate_reference
-          example: customer.dlms
-          type: string
-        - _key: updated_at
-          api_fieldname: updated_at
-          description: Updated UTC time RFC3339.
-          entity_fieldname: updated_at
-          example: '2017-02-01T00:00:00Z'
-          format: date-time
-          type: string
-        type: object
-    - _key: '400'
-      description: Validation error.
-      schema:
-        properties:
-        - _key: code
-          description: Error code. Correlates with response status code.
-          format: int32
-          type: integer
-        - _key: fields
-          description: A list of request fields that failed the validation.
-          items:
-            properties:
-            - _key: field
-              description: Field name.
-              type: string
-            - _key: message
-              description: Error message related to the field.
-              type: string
-            type: object
-          type: array
-        - _key: message
-          description: Error message.
-          type: string
-        - _key: object
-          description: 'entity name: ''error'''
-          type: string
-        - _key: request_id
-          description: Request ID from JWT.
-          type: string
-        - _key: type
-          description: Error type.
-          type: string
-        required:
-        - code
-        - fields
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    - _key: '401'
-      description: Unauthorized.
-      schema:
-        properties:
-        - _key: code
-          description: Error code. Correlates with response status code.
-          format: int32
-          type: integer
-        - _key: fields
-          description: A list of request fields that failed the validation.
-          items:
-            properties:
-            - _key: field
-              description: Field name.
-              type: string
-            - _key: message
-              description: Error message related to the field.
-              type: string
-            type: object
-          type: array
-        - _key: message
-          description: Error message.
-          type: string
-        - _key: object
-          description: 'entity name: ''error'''
-          type: string
-        - _key: request_id
-          description: Request ID from JWT.
-          type: string
-        - _key: type
-          description: Error type.
-          type: string
-        required:
-        - code
-        - fields
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    - _key: '403'
-      description: Forbidden.
-      schema:
-        properties:
-        - _key: code
-          description: Error code. Correlates with response status code.
-          format: int32
-          type: integer
-        - _key: fields
-          description: A list of request fields that failed the validation.
-          items:
-            properties:
-            - _key: field
-              description: Field name.
-              type: string
-            - _key: message
-              description: Error message related to the field.
-              type: string
-            type: object
-          type: array
-        - _key: message
-          description: Error message.
-          type: string
-        - _key: object
-          description: 'entity name: ''error'''
-          type: string
-        - _key: request_id
-          description: Request ID from JWT.
-          type: string
-        - _key: type
-          description: Error type.
-          type: string
-        required:
-        - code
-        - fields
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    return_info:
-      custom: false
-      self: true
-      type: certificate_issuer_config
-    return_type: certificate_issuer_config
-    summary: Get certificate issuer configuration.
   - _key: update
     additional_operations:
     - notes: After retrieving the resource using the `lwm2m` method, it can modified
@@ -12592,7 +12664,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -12952,7 +13023,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -13503,7 +13573,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -13702,7 +13771,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -14158,7 +14226,7 @@ entities:
       type: developer_certificate
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
-  - _key: trusted_certificate_info
+  - _key: get_trusted_certificate_info
     description: 'An endpoint for retrieving a trusted certificate by ID.
 
 
@@ -14171,7 +14239,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -14220,7 +14287,7 @@ entities:
       group: Security
     group_id: Security
     method: get
-    mode: trusted_certificate_info
+    mode: get_trusted_certificate_info
     operation_id: getCertificate
     pagination: false
     parameter_map:
@@ -14683,6 +14750,15 @@ entities:
     readOnly: false
     required: false
     type: string
+  - _key: groups
+    api_fieldname: groups
+    description: An array containing an ID of each group this device belongs to.
+    items:
+      example: '00000000000000000000000000000000'
+      type: string
+    readOnly: false
+    required: false
+    type: array
   - _key: host_gateway
     api_fieldname: host_gateway
     description: The `endpoint_name` of the host gateway, if appropriate.
@@ -14865,7 +14941,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -15036,6 +15111,17 @@ entities:
       parameter_fieldname: firmware_checksum
       required: false
       type: string
+    - _key: groups
+      api_fieldname: groups
+      description: An array containing an ID of each group this device belongs to.
+      entity_fieldname: groups
+      in: body
+      items:
+        example: '00000000000000000000000000000000'
+        type: string
+      parameter_fieldname: groups
+      required: false
+      type: array
     - _key: host_gateway
       api_fieldname: host_gateway
       description: The `endpoint_name` of the host gateway, if appropriate.
@@ -15475,7 +15561,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -15518,10 +15603,10 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
+    - groups
     - issuer_fingerprint
     - operator_suspended
     - last_operator_suspended_category
@@ -15913,7 +15998,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -16303,7 +16387,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -16403,9 +16486,6 @@ entities:
           description: The ID of the certificate enrollment.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
-          in: path
-          parameter_fieldname: certificate-enrollment-id
-          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -16687,7 +16767,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -16797,6 +16876,17 @@ entities:
       parameter_fieldname: endpoint_type
       required: false
       type: string
+    - _key: groups
+      api_fieldname: groups
+      description: An array containing an ID of each group this device belongs to.
+      entity_fieldname: groups
+      in: body
+      items:
+        example: '00000000000000000000000000000000'
+        type: string
+      parameter_fieldname: groups
+      required: false
+      type: array
     - _key: host_gateway
       api_fieldname: host_gateway
       description: The `endpoint_name` of the host gateway, if appropriate.
@@ -17258,7 +17348,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -17544,7 +17633,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -17693,7 +17781,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -17936,7 +18023,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -18383,7 +18469,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -18653,7 +18738,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -18684,7 +18768,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -18761,7 +18844,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -19216,7 +19298,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -19489,7 +19570,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -19520,7 +19600,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -19597,7 +19676,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -19999,7 +20077,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -20139,7 +20216,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -20368,6 +20444,27 @@ entities:
   swagger_models:
   - LoginHistory
   tags: []
+- _key: login_profile
+  field_renames: []
+  fields:
+  - _key: id
+    api_fieldname: id
+    description: ID of the identity provider.
+    readOnly: true
+    required: false
+    type: string
+  - _key: name
+    api_fieldname: name
+    description: Name of the identity provider.
+    readOnly: true
+    required: false
+    type: string
+  group_id: Accounts
+  methods: []
+  primary_key_field: id
+  swagger_models:
+  - LoginProfile
+  tags: []
 - _key: parent_account
   field_renames: []
   fields:
@@ -20513,7 +20610,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -20709,7 +20805,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -21056,7 +21151,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -21162,7 +21256,6 @@ entities:
     group_id: Security
     method: post
     mode: create
-    model: TrustedCertificateInternalResp
     notes: Signature is not used by the SDK as it is a deprecated field.
     operation_id: addAccountCertificate
     pagination: false
@@ -21541,7 +21634,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -21585,7 +21677,6 @@ entities:
     group_id: Security
     method: delete
     mode: delete
-    model: TrustedCertificateInternalResp
     operation_id: deleteAccountCertificate
     pagination: false
     path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
@@ -21742,7 +21833,394 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Delete trusted certificate by ID.
-  - _key: developer_certificate_info
+  - _key: get
+    description: 'An endpoint for retrieving a trusted certificate by ID.
+
+
+      **Example usage:**
+
+      `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}
+      -H ''Authorization: Bearer API_KEY''`'
+    drop_fields:
+    - object
+    - etag
+    - type
+    - filter
+    - is_custom
+    - private_key
+    - sub_accounts
+    - id
+    - created_at
+    - updated_at
+    - name
+    - description
+    - owner_id
+    - certificate
+    - service
+    - issuer
+    - subject
+    - validity
+    - status
+    - enrollment_mode
+    - certificate_fingerprint
+    field_renames: []
+    fields:
+    - _key: account_id
+      api_fieldname: account_id
+      description: The ID of the account.
+      entity_fieldname: account_id
+      example: 01619571e2e90242ac12000600000000
+      in: path
+      parameter_fieldname: account_id
+      required: true
+      type: string
+    - _key: cert_id
+      api_fieldname: cert_id
+      description: The ID of the trusted certificate to be retrieved.
+      entity_fieldname: cert_id
+      external_param: true
+      in: path
+      name: cert_id
+      parameter_fieldname: cert_id
+      required: true
+      type: string
+    - _key: device_execution_mode
+      _override: true
+      api_fieldname: device_execution_mode
+      description: Device execution mode where 1 means a developer certificate.
+      entity_fieldname: device_execution_mode
+      example: 1
+      format: int32
+      private_field: true
+      type: integer
+    - _key: is_developer_certificate
+      _override: true
+      api_fieldname: is_developer_certificate
+      description: Whether or not this certificate is a developer certificate.
+      entity_fieldname: is_developer_certificate
+      example: true
+      getter_custom_method: is_developer_certificate_getter
+      setter_custom_method: is_developer_certificate_setter
+      type: boolean
+    group_id: Security
+    method: get
+    mode: get
+    operation_id: getAccountCertificate
+    pagination: false
+    path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
+    responses:
+    - _key: '200'
+      description: successful operation
+      schema:
+        description: This object represents a trusted certificate in responses.
+        foreign_key:
+          entity: developer_certificate
+          group: Security
+        properties:
+        - _key: account_id
+          api_fieldname: account_id
+          description: The ID of the account.
+          entity_fieldname: account_id
+          example: 01619571e2e90242ac12000600000000
+          type: string
+        - _key: certificate
+          api_fieldname: certificate
+          description: X509.v3 trusted certificate in PEM format.
+          entity_fieldname: certificate
+          example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
+          in: body
+          parameter_fieldname: certificate
+          required: false
+          type: string
+        - _key: certificate_fingerprint
+          api_fieldname: certificate_fingerprint
+          description: A SHA-256 fingerprint of the certificate.
+          entity_fieldname: certificate_fingerprint
+          example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
+          type: string
+        - _key: created_at
+          api_fieldname: created_at
+          description: Creation UTC time RFC3339.
+          entity_fieldname: created_at
+          example: '2018-02-13T09:35:20Z'
+          format: date-time
+          type: string
+        - _key: description
+          api_fieldname: description
+          description: Human readable description of this certificate.
+          entity_fieldname: description
+          example: Certificate created by me.
+          in: body
+          parameter_fieldname: description
+          required: false
+          type: string
+        - _key: device_execution_mode
+          _override: true
+          api_fieldname: device_execution_mode
+          description: Device execution mode where 1 means a developer certificate.
+          entity_fieldname: device_execution_mode
+          example: 1
+          format: int32
+          private_field: true
+          type: integer
+        - _key: enrollment_mode
+          api_fieldname: enrollment_mode
+          description: If true, signature is not required. Default value false.
+          entity_fieldname: enrollment_mode
+          example: false
+          in: body
+          parameter_fieldname: enrollment_mode
+          required: false
+          type: boolean
+        - _key: etag
+          api_fieldname: etag
+          description: API resource entity version.
+          entity_fieldname: etag
+          example: '1'
+          type: string
+        - _key: id
+          api_fieldname: id
+          description: Entity ID.
+          entity_fieldname: id
+          example: 01619571d01d0242ac12000600000000
+          type: string
+        - _key: issuer
+          api_fieldname: issuer
+          description: Issuer of the certificate.
+          entity_fieldname: issuer
+          example: CN=issuer
+          type: string
+        - _key: name
+          api_fieldname: name
+          description: Certificate name.
+          entity_fieldname: name
+          example: My certificate
+          in: body
+          parameter_fieldname: name
+          required: false
+          type: string
+        - _key: object
+          api_fieldname: object
+          description: 'Entity name: always ''trusted-cert'''
+          entity_fieldname: object
+          enum:
+          - trusted-cert
+          type: string
+        - _key: owner_id
+          api_fieldname: owner_id
+          description: The ID of the owner.
+          entity_fieldname: owner_id
+          example: 01619571dad80242ac12000600000000
+          type: string
+        - _key: service
+          api_fieldname: service
+          description: Service name where the certificate is to be used.
+          entity_fieldname: service
+          enum:
+          - lwm2m
+          - bootstrap
+          enum_reference: trusted_certificate_service_enum
+          in: body
+          parameter_fieldname: service
+          required: false
+          type: string
+        - _key: status
+          api_fieldname: status
+          description: Status of the certificate.
+          entity_fieldname: status
+          enum:
+          - ACTIVE
+          - INACTIVE
+          enum_reference: trusted_certificate_status_enum
+          example: ACTIVE
+          in: body
+          parameter_fieldname: status
+          required: false
+          type: string
+        - _key: subject
+          api_fieldname: subject
+          description: Subject of the certificate.
+          entity_fieldname: subject
+          example: CN=subject
+          type: string
+        - _key: updated_at
+          api_fieldname: updated_at
+          description: Last update UTC time RFC3339.
+          entity_fieldname: updated_at
+          example: '2018-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        - _key: validity
+          api_fieldname: validity
+          description: Expiration time in UTC formatted as RFC3339.
+          entity_fieldname: validity
+          example: '2038-02-14T15:24:14Z'
+          format: date-time
+          type: string
+        required:
+        - account_id
+        - certificate
+        - certificate_fingerprint
+        - etag
+        - id
+        - issuer
+        - name
+        - object
+        - service
+        - subject
+        - validity
+        type: object
+    - _key: '401'
+      description: Authentication failure.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '403'
+      description: Forbidden, only available for admins of commercial accounts.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    - _key: '404'
+      description: Account or certificate with the given ID not found.
+      schema:
+        properties:
+        - _key: code
+          description: HTTP response code
+          example: 400
+          format: int32
+          type: integer
+        - _key: fields
+          description: Request fields which failed validation.
+          items:
+            properties:
+            - _key: message
+              description: Message describing the error condition.
+              type: string
+            - _key: name
+              description: Name of the field which caused the error.
+              type: string
+            required:
+            - name
+            - message
+            type: object
+          type: array
+        - _key: message
+          description: A human readable informative explanation
+          example: Validation error
+          type: string
+        - _key: object
+          description: Entity name, always `error`.
+          enum:
+          - error
+          type: string
+        - _key: request_id
+          description: ID of the request.
+          example: 0161991d63150242ac12000600000000
+          type: string
+        - _key: type
+          description: Error type used to categorise the error.
+          example: validation_error
+          type: string
+        required:
+        - code
+        - message
+        - object
+        - request_id
+        - type
+        type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_trusted_certificate
+    return_type: subtenant_trusted_certificate
+    summary: Get trusted certificate by ID.
+  - _key: get_developer_certificate_info
     description: 'This REST API is intended to be used by customers to fetch an existing
       developer certificate (a certificate that can be flashed into multiple devices
       to connect to bootstrap server).
@@ -21759,7 +22237,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -21800,8 +22277,7 @@ entities:
       group: Security
     group_id: Security
     method: get
-    mode: developer_certificate_info
-    model: TrustedCertificateInternalResp
+    mode: get_developer_certificate_info
     operation_id: getDeveloperCertificate
     pagination: false
     parameter_map:
@@ -22232,381 +22708,6 @@ entities:
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
     unaggregated: true
-  - _key: get
-    description: 'An endpoint for retrieving a trusted certificate by ID.
-
-
-      **Example usage:**
-
-      `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id}
-      -H ''Authorization: Bearer API_KEY''`'
-    drop_fields:
-    - object
-    - etag
-    - type
-    - filter
-    - groups
-    - is_custom
-    - private_key
-    - sub_accounts
-    field_renames: []
-    fields:
-    - _key: account_id
-      api_fieldname: account_id
-      description: Account ID.
-      entity_fieldname: account_id
-      external_param: false
-      in: path
-      name: account_id
-      parameter_fieldname: account_id
-      required: true
-      type: string
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be retrieved.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
-    - _key: device_execution_mode
-      _override: true
-      api_fieldname: device_execution_mode
-      entity_fieldname: device_execution_mode
-      private_field: true
-      type: integer
-    - _key: is_developer_certificate
-      _override: true
-      api_fieldname: is_developer_certificate
-      description: Whether or not this certificate is a developer certificate.
-      entity_fieldname: is_developer_certificate
-      example: true
-      getter_custom_method: is_developer_certificate_getter
-      setter_custom_method: is_developer_certificate_setter
-      type: boolean
-    group_id: Security
-    method: get
-    mode: get
-    model: TrustedCertificateInternalResp
-    models:
-    - TrustedCertificateInternalResp
-    operation_id: getAccountCertificate
-    pagination: false
-    path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
-    responses:
-    - _key: '200'
-      description: successful operation
-      schema:
-        description: This object represents a trusted certificate in responses.
-        foreign_key:
-          entity: developer_certificate
-          group: Security
-        properties:
-        - _key: account_id
-          api_fieldname: account_id
-          description: The ID of the account.
-          entity_fieldname: account_id
-          example: 01619571e2e90242ac12000600000000
-          type: string
-        - _key: certificate
-          api_fieldname: certificate
-          description: X509.v3 trusted certificate in PEM format.
-          entity_fieldname: certificate
-          example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
-          in: body
-          parameter_fieldname: certificate
-          required: false
-          type: string
-        - _key: certificate_fingerprint
-          api_fieldname: certificate_fingerprint
-          description: A SHA-256 fingerprint of the certificate.
-          entity_fieldname: certificate_fingerprint
-          example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
-          type: string
-        - _key: created_at
-          api_fieldname: created_at
-          description: Creation UTC time RFC3339.
-          entity_fieldname: created_at
-          example: '2018-02-13T09:35:20Z'
-          format: date-time
-          type: string
-        - _key: description
-          api_fieldname: description
-          description: Human readable description of this certificate.
-          entity_fieldname: description
-          example: Certificate created by me.
-          in: body
-          parameter_fieldname: description
-          required: false
-          type: string
-        - _key: device_execution_mode
-          _override: true
-          api_fieldname: device_execution_mode
-          description: Device execution mode where 1 means a developer certificate.
-          entity_fieldname: device_execution_mode
-          example: 1
-          format: int32
-          private_field: true
-          type: integer
-        - _key: enrollment_mode
-          api_fieldname: enrollment_mode
-          description: If true, signature is not required. Default value false.
-          entity_fieldname: enrollment_mode
-          example: false
-          in: body
-          parameter_fieldname: enrollment_mode
-          required: false
-          type: boolean
-        - _key: etag
-          api_fieldname: etag
-          description: API resource entity version.
-          entity_fieldname: etag
-          example: '1'
-          type: string
-        - _key: id
-          api_fieldname: id
-          description: Entity ID.
-          entity_fieldname: id
-          example: 01619571d01d0242ac12000600000000
-          type: string
-        - _key: issuer
-          api_fieldname: issuer
-          description: Issuer of the certificate.
-          entity_fieldname: issuer
-          example: CN=issuer
-          type: string
-        - _key: name
-          api_fieldname: name
-          description: Certificate name.
-          entity_fieldname: name
-          example: My certificate
-          in: body
-          parameter_fieldname: name
-          required: false
-          type: string
-        - _key: object
-          api_fieldname: object
-          description: 'Entity name: always ''trusted-cert'''
-          entity_fieldname: object
-          enum:
-          - trusted-cert
-          type: string
-        - _key: owner_id
-          api_fieldname: owner_id
-          description: The ID of the owner.
-          entity_fieldname: owner_id
-          example: 01619571dad80242ac12000600000000
-          type: string
-        - _key: service
-          api_fieldname: service
-          description: Service name where the certificate is to be used.
-          entity_fieldname: service
-          enum:
-          - lwm2m
-          - bootstrap
-          enum_reference: trusted_certificate_service_enum
-          in: body
-          parameter_fieldname: service
-          required: false
-          type: string
-        - _key: status
-          api_fieldname: status
-          description: Status of the certificate.
-          entity_fieldname: status
-          enum:
-          - ACTIVE
-          - INACTIVE
-          enum_reference: trusted_certificate_status_enum
-          example: ACTIVE
-          in: body
-          parameter_fieldname: status
-          required: false
-          type: string
-        - _key: subject
-          api_fieldname: subject
-          description: Subject of the certificate.
-          entity_fieldname: subject
-          example: CN=subject
-          type: string
-        - _key: updated_at
-          api_fieldname: updated_at
-          description: Last update UTC time RFC3339.
-          entity_fieldname: updated_at
-          example: '2018-02-14T15:24:14Z'
-          format: date-time
-          type: string
-        - _key: validity
-          api_fieldname: validity
-          description: Expiration time in UTC formatted as RFC3339.
-          entity_fieldname: validity
-          example: '2038-02-14T15:24:14Z'
-          format: date-time
-          type: string
-        required:
-        - account_id
-        - certificate
-        - certificate_fingerprint
-        - etag
-        - id
-        - issuer
-        - name
-        - object
-        - service
-        - subject
-        - validity
-        type: object
-    - _key: '401'
-      description: Authentication failure.
-      schema:
-        properties:
-        - _key: code
-          description: HTTP response code
-          example: 400
-          format: int32
-          type: integer
-        - _key: fields
-          description: Request fields which failed validation.
-          items:
-            properties:
-            - _key: message
-              description: Message describing the error condition.
-              type: string
-            - _key: name
-              description: Name of the field which caused the error.
-              type: string
-            required:
-            - name
-            - message
-            type: object
-          type: array
-        - _key: message
-          description: A human readable informative explanation
-          example: Validation error
-          type: string
-        - _key: object
-          description: Entity name, always `error`.
-          enum:
-          - error
-          type: string
-        - _key: request_id
-          description: ID of the request.
-          example: 0161991d63150242ac12000600000000
-          type: string
-        - _key: type
-          description: Error type used to categorise the error.
-          example: validation_error
-          type: string
-        required:
-        - code
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    - _key: '403'
-      description: Forbidden, only available for admins of commercial accounts.
-      schema:
-        properties:
-        - _key: code
-          description: HTTP response code
-          example: 400
-          format: int32
-          type: integer
-        - _key: fields
-          description: Request fields which failed validation.
-          items:
-            properties:
-            - _key: message
-              description: Message describing the error condition.
-              type: string
-            - _key: name
-              description: Name of the field which caused the error.
-              type: string
-            required:
-            - name
-            - message
-            type: object
-          type: array
-        - _key: message
-          description: A human readable informative explanation
-          example: Validation error
-          type: string
-        - _key: object
-          description: Entity name, always `error`.
-          enum:
-          - error
-          type: string
-        - _key: request_id
-          description: ID of the request.
-          example: 0161991d63150242ac12000600000000
-          type: string
-        - _key: type
-          description: Error type used to categorise the error.
-          example: validation_error
-          type: string
-        required:
-        - code
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    - _key: '404'
-      description: Account or certificate with the given ID not found.
-      schema:
-        properties:
-        - _key: code
-          description: HTTP response code
-          example: 400
-          format: int32
-          type: integer
-        - _key: fields
-          description: Request fields which failed validation.
-          items:
-            properties:
-            - _key: message
-              description: Message describing the error condition.
-              type: string
-            - _key: name
-              description: Name of the field which caused the error.
-              type: string
-            required:
-            - name
-            - message
-            type: object
-          type: array
-        - _key: message
-          description: A human readable informative explanation
-          example: Validation error
-          type: string
-        - _key: object
-          description: Entity name, always `error`.
-          enum:
-          - error
-          type: string
-        - _key: request_id
-          description: ID of the request.
-          example: 0161991d63150242ac12000600000000
-          type: string
-        - _key: type
-          description: Error type used to categorise the error.
-          example: validation_error
-          type: string
-        required:
-        - code
-        - message
-        - object
-        - request_id
-        - type
-        type: object
-    return_info:
-      custom: false
-      self: true
-      type: subtenant_trusted_certificate
-    return_type: subtenant_trusted_certificate
-    summary: Get trusted certificate by ID.
   - _key: update
     description: 'An endpoint for updating existing trusted certificates.
 
@@ -22621,7 +22722,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -22733,7 +22833,6 @@ entities:
     group_id: Security
     method: put
     mode: update
-    model: TrustedCertificateInternalResp
     notes: Signature is not used by the SDK as it is a deprecated field.
     operation_id: updateAccountCertificate
     pagination: false
@@ -23175,6 +23274,16 @@ entities:
     readOnly: false
     required: false
     type: string
+  - _key: groups
+    api_fieldname: groups
+    description: A list of IDs of the groups this user belongs to.
+    in: body
+    items:
+      type: string
+    parameter_fieldname: groups
+    readOnly: false
+    required: false
+    type: array
   - _key: id
     api_fieldname: id
     description: The ID of the user.
@@ -23244,16 +23353,25 @@ entities:
     in: body
     items:
       description: This object represents a user login profile in Device Management.
+      foreign_key:
+        entity: login_profile
+        group: Accounts
       properties:
       - _key: id
+        api_fieldname: id
         description: ID of the identity provider.
+        entity_fieldname: id
         type: string
       - _key: name
+        api_fieldname: name
         description: Name of the identity provider.
+        entity_fieldname: name
         readOnly: true
         type: string
       - _key: type
+        api_fieldname: type
         description: Identity provider type.
+        entity_fieldname: type
         enum:
         - NATIVE
         - MBED
@@ -23378,7 +23496,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -23447,6 +23564,16 @@ entities:
       parameter_fieldname: full_name
       required: false
       type: string
+    - _key: groups
+      api_fieldname: groups
+      description: A list of IDs of the groups this user belongs to.
+      entity_fieldname: groups
+      in: body
+      items:
+        type: string
+      parameter_fieldname: groups
+      required: false
+      type: array
     - _key: login_profiles
       api_fieldname: login_profiles
       description: A list of login profiles for the user. Specified as the identity
@@ -23455,16 +23582,25 @@ entities:
       in: body
       items:
         description: This object represents a user login profile in Device Management.
+        foreign_key:
+          entity: login_profile
+          group: Accounts
         properties:
         - _key: id
+          api_fieldname: id
           description: ID of the identity provider.
+          entity_fieldname: id
           type: string
         - _key: name
+          api_fieldname: name
           description: Name of the identity provider.
+          entity_fieldname: name
           readOnly: true
           type: string
         - _key: type
+          api_fieldname: type
           description: Identity provider type.
+          entity_fieldname: type
           enum: &id004
           - NATIVE
           - MBED
@@ -23605,16 +23741,13 @@ entities:
           type: string
         - _key: groups
           api_fieldname: groups
-          description: A list of group IDs this user belongs to.
+          description: A list of IDs of the groups this user belongs to.
           entity_fieldname: groups
-          external_param: true
           in: body
           items:
             type: string
-          name: groups
           parameter_fieldname: groups
           required: false
-          schema_param: true
           type: array
         - _key: id
           api_fieldname: id
@@ -23715,16 +23848,25 @@ entities:
           in: body
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
               readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
@@ -24073,7 +24215,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -24327,7 +24468,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -24340,6 +24480,7 @@ entities:
     - email
     - address
     - phone_number
+    - groups
     - email_verified
     - creation_time
     - last_login_time
@@ -24454,16 +24595,13 @@ entities:
           type: string
         - _key: groups
           api_fieldname: groups
-          description: A list of group IDs this user belongs to.
+          description: A list of IDs of the groups this user belongs to.
           entity_fieldname: groups
-          external_param: true
           in: body
           items:
             type: string
-          name: groups
           parameter_fieldname: groups
           required: false
-          schema_param: true
           type: array
         - _key: id
           api_fieldname: id
@@ -24564,16 +24702,25 @@ entities:
           in: body
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
               readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
@@ -24827,7 +24974,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -24877,6 +25023,16 @@ entities:
       parameter_fieldname: full_name
       required: false
       type: string
+    - _key: groups
+      api_fieldname: groups
+      description: A list of IDs of the groups this user belongs to.
+      entity_fieldname: groups
+      in: body
+      items:
+        type: string
+      parameter_fieldname: groups
+      required: false
+      type: array
     - _key: id
       api_fieldname: id
       description: The ID of the user.
@@ -24894,16 +25050,25 @@ entities:
       in: body
       items:
         description: This object represents a user login profile in Device Management.
+        foreign_key:
+          entity: login_profile
+          group: Accounts
         properties:
         - _key: id
+          api_fieldname: id
           description: ID of the identity provider.
+          entity_fieldname: id
           type: string
         - _key: name
+          api_fieldname: name
           description: Name of the identity provider.
+          entity_fieldname: name
           readOnly: true
           type: string
         - _key: type
+          api_fieldname: type
           description: Identity provider type.
+          entity_fieldname: type
           enum: *id004
           readOnly: true
           type: string
@@ -25039,16 +25204,13 @@ entities:
           type: string
         - _key: groups
           api_fieldname: groups
-          description: A list of group IDs this user belongs to.
+          description: A list of IDs of the groups this user belongs to.
           entity_fieldname: groups
-          external_param: true
           in: body
           items:
             type: string
-          name: groups
           parameter_fieldname: groups
           required: false
-          schema_param: true
           type: array
         - _key: id
           api_fieldname: id
@@ -25149,16 +25311,25 @@ entities:
           in: body
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
               readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
@@ -25507,7 +25678,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -25742,6 +25912,16 @@ entities:
     readOnly: true
     required: false
     type: string
+  - _key: groups
+    api_fieldname: groups
+    description: A list of IDs of the groups the user is invited to.
+    in: body
+    items:
+      type: string
+    parameter_fieldname: groups
+    readOnly: false
+    required: false
+    type: array
   - _key: id
     api_fieldname: id
     description: The ID of the invitation.
@@ -25758,16 +25938,25 @@ entities:
     in: body
     items:
       description: This object represents a user login profile in Device Management.
+      foreign_key:
+        entity: login_profile
+        group: Accounts
       properties:
       - _key: id
+        api_fieldname: id
         description: ID of the identity provider.
+        entity_fieldname: id
         type: string
       - _key: name
+        api_fieldname: name
         description: Name of the identity provider.
+        entity_fieldname: name
         readOnly: true
         type: string
       - _key: type
+        api_fieldname: type
         description: Identity provider type.
+        entity_fieldname: type
         enum:
         - NATIVE
         - MBED
@@ -25813,7 +26002,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -25842,6 +26030,16 @@ entities:
       parameter_fieldname: email
       required: true
       type: string
+    - _key: groups
+      api_fieldname: groups
+      description: A list of IDs of the groups the user is invited to.
+      entity_fieldname: groups
+      in: body
+      items:
+        type: string
+      parameter_fieldname: groups
+      required: false
+      type: array
     - _key: login_profiles
       api_fieldname: login_profiles
       description: A list of login profiles for the user. Specified as the identity
@@ -25850,16 +26048,25 @@ entities:
       in: body
       items:
         description: This object represents a user login profile in Device Management.
+        foreign_key:
+          entity: login_profile
+          group: Accounts
         properties:
         - _key: id
+          api_fieldname: id
           description: ID of the identity provider.
+          entity_fieldname: id
           type: string
         - _key: name
+          api_fieldname: name
           description: Name of the identity provider.
+          entity_fieldname: name
           readOnly: true
           type: string
         - _key: type
+          api_fieldname: type
           description: Identity provider type.
+          entity_fieldname: type
           enum:
           - NATIVE
           - MBED
@@ -25940,16 +26147,13 @@ entities:
           type: string
         - _key: groups
           api_fieldname: groups
-          description: A list of IDs of the groups this user has been invited to.
+          description: A list of IDs of the groups the user is invited to.
           entity_fieldname: groups
-          external_param: true
           in: body
           items:
             type: string
-          name: groups
           parameter_fieldname: groups
           required: false
-          schema_param: true
           type: array
         - _key: id
           api_fieldname: id
@@ -25968,16 +26172,25 @@ entities:
           in: body
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
               readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
@@ -26183,7 +26396,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -26384,7 +26596,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -26392,6 +26603,7 @@ entities:
     - updated_at
     - email
     - user_id
+    - groups
     - expiration
     - login_profiles
     field_renames: []
@@ -26468,16 +26680,13 @@ entities:
           type: string
         - _key: groups
           api_fieldname: groups
-          description: A list of IDs of the groups this user has been invited to.
+          description: A list of IDs of the groups the user is invited to.
           entity_fieldname: groups
-          external_param: true
           in: body
           items:
             type: string
-          name: groups
           parameter_fieldname: groups
           required: false
-          schema_param: true
           type: array
         - _key: id
           api_fieldname: id
@@ -26496,16 +26705,25 @@ entities:
           in: body
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
               readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
@@ -26858,7 +27076,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -26956,7 +27173,6 @@ entities:
     group_id: Security
     method: post
     mode: create
-    model: TrustedCertificateInternalResp
     notes: Signature is not used by the SDK as it is a deprecated field.
     operation_id: addCertificate
     pagination: false
@@ -27316,7 +27532,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -27350,7 +27565,6 @@ entities:
     group_id: Security
     method: delete
     mode: delete
-    model: TrustedCertificateInternalResp
     operation_id: deleteCertificate
     pagination: false
     parameter_map:
@@ -27526,7 +27740,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -27568,7 +27781,6 @@ entities:
     group_id: Security
     method: get
     mode: developer_certificate_info
-    model: TrustedCertificateInternalResp
     operation_id: getDeveloperCertificate
     pagination: false
     parameter_map:
@@ -28013,10 +28225,24 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
+    - id
+    - created_at
+    - updated_at
+    - name
+    - description
+    - account_id
+    - owner_id
+    - certificate
+    - service
+    - issuer
+    - subject
+    - validity
+    - status
+    - enrollment_mode
+    - certificate_fingerprint
     field_renames: []
     fields:
     - _key: cert_id
@@ -28032,7 +28258,10 @@ entities:
     - _key: device_execution_mode
       _override: true
       api_fieldname: device_execution_mode
+      description: Device execution mode where 1 means a developer certificate.
       entity_fieldname: device_execution_mode
+      example: 1
+      format: int32
       private_field: true
       type: integer
     - _key: is_developer_certificate
@@ -28047,9 +28276,6 @@ entities:
     group_id: Security
     method: get
     mode: get
-    model: TrustedCertificateInternalResp
-    models:
-    - TrustedCertificateInternalResp
     operation_id: getCertificate
     pagination: false
     parameter_map:
@@ -28360,7 +28586,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -28446,13 +28671,12 @@ entities:
       required: false
       type: string
     foreign_key:
-      entity: developer_certificate
+      entity: trusted_certificate
       group: Security
     foreign_key_priority: self
     group_id: Security
     method: get
     mode: list
-    model: TrustedCertificateInternalResp
     operation_id: getAllCertificates
     pagination: true
     parameter_map:
@@ -28472,11 +28696,6 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
-          external_param: true
-          in: query
-          name: after
-          parameter_fieldname: after
-          required: false
           type: string
         - _key: data
           api_fieldname: data
@@ -28485,7 +28704,7 @@ entities:
           items:
             description: This object represents a trusted certificate in responses.
             foreign_key:
-              entity: developer_certificate
+              entity: trusted_certificate
               group: Security
             properties:
             - _key: account_id
@@ -28594,16 +28813,11 @@ entities:
           type: boolean
         - _key: limit
           api_fieldname: limit
-          default: 50
-          description: The number of results to return (2-1000), default is 50.
+          description: 'The number of results to return, (range: 2-1000), or equals
+            to `total_count`'
           entity_fieldname: limit
           example: 50
-          external_param: true
           format: int32
-          in: query
-          name: limit
-          parameter_fieldname: limit
-          required: false
           type: integer
         - _key: object
           api_fieldname: object
@@ -28614,19 +28828,12 @@ entities:
           type: string
         - _key: order
           api_fieldname: order
-          default: ASC
-          description: The order of the records based on creation time, ASC or DESC;
-            by default ASC
+          description: 'The order of the records to return based on creation time.
+            Available values: ASC, DESC; by default ASC.'
           entity_fieldname: order
           enum:
           - ASC
           - DESC
-          enum_reference: account_order_enum
-          external_param: true
-          in: query
-          name: order
-          parameter_fieldname: order
-          required: false
           type: string
         - _key: total_count
           api_fieldname: total_count
@@ -28741,9 +28948,9 @@ entities:
         type: object
     return_info:
       custom: false
-      self: false
-      type: developer_certificate
-    return_type: paginated_response(developer_certificate)
+      self: true
+      type: trusted_certificate
+    return_type: paginated_response(trusted_certificate)
     summary: Get all trusted certificates.
   - _key: update
     description: 'An endpoint for updating existing trusted certificates.
@@ -28759,7 +28966,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -28863,7 +29069,6 @@ entities:
     group_id: Security
     method: put
     mode: update
-    model: TrustedCertificateInternalResp
     notes: Signature is not used by the SDK as it is a deprecated field.
     operation_id: updateCertificate
     pagination: false
@@ -29330,6 +29535,14 @@ entities:
     readOnly: false
     required: false
     type: string
+  - _key: groups
+    api_fieldname: groups
+    description: A list of IDs of the groups this user belongs to.
+    items:
+      type: string
+    readOnly: false
+    required: false
+    type: array
   - _key: id
     api_fieldname: id
     description: The ID of the user.
@@ -29396,16 +29609,25 @@ entities:
       providers the user is associated with.
     items:
       description: This object represents a user login profile in Device Management.
+      foreign_key:
+        entity: login_profile
+        group: Accounts
       properties:
       - _key: id
+        api_fieldname: id
         description: ID of the identity provider.
+        entity_fieldname: id
         type: string
       - _key: name
+        api_fieldname: name
         description: Name of the identity provider.
+        entity_fieldname: name
         readOnly: true
         type: string
       - _key: type
+        api_fieldname: type
         description: Identity provider type.
+        entity_fieldname: type
         enum:
         - NATIVE
         - MBED
@@ -29515,7 +29737,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -29576,6 +29797,16 @@ entities:
       parameter_fieldname: full_name
       required: false
       type: string
+    - _key: groups
+      api_fieldname: groups
+      description: A list of IDs of the groups this user belongs to.
+      entity_fieldname: groups
+      in: body
+      items:
+        type: string
+      parameter_fieldname: groups
+      required: false
+      type: array
     - _key: login_profiles
       api_fieldname: login_profiles
       description: A list of login profiles for the user. Specified as the identity
@@ -29584,16 +29815,25 @@ entities:
       in: body
       items:
         description: This object represents a user login profile in Device Management.
+        foreign_key:
+          entity: login_profile
+          group: Accounts
         properties:
         - _key: id
+          api_fieldname: id
           description: ID of the identity provider.
+          entity_fieldname: id
           type: string
         - _key: name
+          api_fieldname: name
           description: Name of the identity provider.
+          entity_fieldname: name
           readOnly: true
           type: string
         - _key: type
+          api_fieldname: type
           description: Identity provider type.
+          entity_fieldname: type
           enum: &id008
           - NATIVE
           - MBED
@@ -29816,16 +30056,25 @@ entities:
           entity_fieldname: login_profiles
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
               readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
@@ -30112,7 +30361,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -30356,7 +30604,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -30369,6 +30616,7 @@ entities:
     - email
     - address
     - phone_number
+    - groups
     - email_verified
     - creation_time
     - last_login_time
@@ -30557,16 +30805,25 @@ entities:
           entity_fieldname: login_profiles
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
               readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
@@ -30805,7 +31062,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -31026,16 +31282,25 @@ entities:
               items:
                 description: This object represents a user login profile in Device
                   Management.
+                foreign_key:
+                  entity: login_profile
+                  group: Accounts
                 properties:
                 - _key: id
+                  api_fieldname: id
                   description: ID of the identity provider.
+                  entity_fieldname: id
                   type: string
                 - _key: name
+                  api_fieldname: name
                   description: Name of the identity provider.
+                  entity_fieldname: name
                   readOnly: true
                   type: string
                 - _key: type
+                  api_fieldname: type
                   description: Identity provider type.
+                  entity_fieldname: type
                   enum:
                   - NATIVE
                   - MBED
@@ -31261,7 +31526,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -31303,6 +31567,16 @@ entities:
       parameter_fieldname: full_name
       required: false
       type: string
+    - _key: groups
+      api_fieldname: groups
+      description: A list of IDs of the groups this user belongs to.
+      entity_fieldname: groups
+      in: body
+      items:
+        type: string
+      parameter_fieldname: groups
+      required: false
+      type: array
     - _key: id
       api_fieldname: id
       description: The ID of the user.
@@ -31320,16 +31594,25 @@ entities:
       in: body
       items:
         description: This object represents a user login profile in Device Management.
+        foreign_key:
+          entity: login_profile
+          group: Accounts
         properties:
         - _key: id
+          api_fieldname: id
           description: ID of the identity provider.
+          entity_fieldname: id
           type: string
         - _key: name
+          api_fieldname: name
           description: Name of the identity provider.
+          entity_fieldname: name
           readOnly: true
           type: string
         - _key: type
+          api_fieldname: type
           description: Identity provider type.
+          entity_fieldname: type
           enum: *id008
           readOnly: true
           type: string
@@ -31547,16 +31830,25 @@ entities:
           entity_fieldname: login_profiles
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
               readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
@@ -31919,6 +32211,14 @@ entities:
     readOnly: true
     required: false
     type: string
+  - _key: groups
+    api_fieldname: groups
+    description: A list of IDs of the groups the user is invited to.
+    items:
+      type: string
+    readOnly: false
+    required: false
+    type: array
   - _key: id
     api_fieldname: id
     description: The ID of the invitation.
@@ -31932,16 +32232,25 @@ entities:
       providers the user is associated with.
     items:
       description: This object represents a user login profile in Device Management.
+      foreign_key:
+        entity: login_profile
+        group: Accounts
       properties:
       - _key: id
+        api_fieldname: id
         description: ID of the identity provider.
+        entity_fieldname: id
         type: string
       - _key: name
+        api_fieldname: name
         description: Name of the identity provider.
+        entity_fieldname: name
         readOnly: true
         type: string
       - _key: type
+        api_fieldname: type
         description: Identity provider type.
+        entity_fieldname: type
         enum:
         - NATIVE
         - MBED
@@ -31986,7 +32295,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -32007,6 +32315,16 @@ entities:
       parameter_fieldname: email
       required: true
       type: string
+    - _key: groups
+      api_fieldname: groups
+      description: A list of IDs of the groups the user is invited to.
+      entity_fieldname: groups
+      in: body
+      items:
+        type: string
+      parameter_fieldname: groups
+      required: false
+      type: array
     - _key: login_profiles
       api_fieldname: login_profiles
       description: A list of login profiles for the user. Specified as the identity
@@ -32015,16 +32333,25 @@ entities:
       in: body
       items:
         description: This object represents a user login profile in Device Management.
+        foreign_key:
+          entity: login_profile
+          group: Accounts
         properties:
         - _key: id
+          api_fieldname: id
           description: ID of the identity provider.
+          entity_fieldname: id
           type: string
         - _key: name
+          api_fieldname: name
           description: Name of the identity provider.
+          entity_fieldname: name
           readOnly: true
           type: string
         - _key: type
+          api_fieldname: type
           description: Identity provider type.
+          entity_fieldname: type
           enum:
           - NATIVE
           - MBED
@@ -32120,16 +32447,25 @@ entities:
           entity_fieldname: login_profiles
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
               readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
@@ -32333,7 +32669,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -32524,7 +32859,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -32533,6 +32867,7 @@ entities:
     - email
     - user_id
     - account_id
+    - groups
     - expiration
     - login_profiles
     field_renames: []
@@ -32615,16 +32950,25 @@ entities:
           entity_fieldname: login_profiles
           items:
             description: This object represents a user login profile in Device Management.
+            foreign_key:
+              entity: login_profile
+              group: Accounts
             properties:
             - _key: id
+              api_fieldname: id
               description: ID of the identity provider.
+              entity_fieldname: id
               type: string
             - _key: name
+              api_fieldname: name
               description: Name of the identity provider.
+              entity_fieldname: name
               readOnly: true
               type: string
             - _key: type
+              api_fieldname: type
               description: Identity provider type.
+              entity_fieldname: type
               enum:
               - NATIVE
               - MBED
@@ -32828,7 +33172,6 @@ entities:
     - etag
     - type
     - filter
-    - groups
     - is_custom
     - private_key
     - sub_accounts
@@ -32952,16 +33295,25 @@ entities:
               items:
                 description: This object represents a user login profile in Device
                   Management.
+                foreign_key:
+                  entity: login_profile
+                  group: Accounts
                 properties:
                 - _key: id
+                  api_fieldname: id
                   description: ID of the identity provider.
+                  entity_fieldname: id
                   type: string
                 - _key: name
+                  api_fieldname: name
                   description: Name of the identity provider.
+                  entity_fieldname: name
                   readOnly: true
                   type: string
                 - _key: type
+                  api_fieldname: type
                   description: Identity provider type.
+                  entity_fieldname: type
                   enum:
                   - NATIVE
                   - MBED
@@ -33253,14 +33605,6 @@ enums:
   values:
   - ASC
   - DESC
-- _key: certificate_issuer_issuer_type_enum
-  entity_name: certificate_issuer
-  enum_name: certificate_issuer_issuer_type_enum
-  field_name: issuer_type
-  group_id: Security
-  values:
-  - CFSSL_AUTH
-  - GLOBAL_SIGN
 - _key: device_deployed_state_enum
   entity_name: device
   enum_name: device_deployed_state_enum
@@ -33407,6 +33751,7 @@ groups:
   - login_history
   - parent_account
   - policy
+  - login_profile
   - user
   - subtenant_user
   - user_invitation
@@ -33449,7 +33794,6 @@ groups:
   - subtenant_trusted_certificate
   - developer_certificate
   enums:
-  - certificate_issuer_issuer_type_enum
   - certificate_enrollment_enroll_status_enum
   - certificate_enrollment_enroll_result_enum
   - certificate_enrollment_order_enum
