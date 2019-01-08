@@ -94,115 +94,6 @@ definitions:
     required:
     - end_market
     type: object
-  AccountCreationResp:
-    description: This object represents an account creation response.
-    properties:
-      address_line1:
-        description: Postal address line 1, not longer than 100 characters. Required
-          for commercial accounts only.
-        example: 110 Fulbourn Rd
-        type: string
-      address_line2:
-        description: Postal address line 2, not longer than 100 characters.
-        example: ' '
-        type: string
-      admin_email:
-        description: The email address of the account admin, not longer than 254 characters.
-        example: admin@arm.com
-        type: string
-      admin_full_name:
-        description: The full name of the admin user to be created.
-        example: Admin Doe
-        type: string
-      admin_id:
-        description: The ID of the admin user created.
-        example: 01619571e2e89242ac12000600000000
-        type: string
-      admin_key:
-        description: The admin API key created for the account.
-        example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
-        type: string
-      admin_name:
-        description: The username of the admin user to be created, containing alphanumerical
-          letters and -,._@+= characters. It must be at least 4 but not more than
-          30 character long.
-        example: admin
-        type: string
-      admin_password:
-        description: The password when creating a new user. It will be generated when
-          not present in the request.
-        example: PZf9eEUH43DAPE9ULINFeuj
-        type: string
-      aliases:
-        description: An array of aliases, not more than 10. An alias is not shorter
-          than 8 and not longer than 100 characters.
-        items:
-          type: string
-        type: array
-      city:
-        description: The city part of the postal address, not longer than 100 characters.
-          Required for commercial accounts only.
-        example: Cambridge
-        type: string
-      company:
-        description: The name of the company, not longer than 100 characters. Required
-          for commercial accounts only.
-        example: ARM Holdings Plc
-        type: string
-      contact:
-        description: The name of the contact person for this account, not longer than
-          100 characters. Required for commercial accounts only.
-        example: J. Doe
-        type: string
-      contract_number:
-        description: Contract number of the customer.
-        example: 1NX25_0001
-        type: string
-      country:
-        description: The country part of the postal address, not longer than 100 characters.
-          Required for commercial accounts only.
-        example: United Kingdom
-        type: string
-      customer_number:
-        description: Customer number of the customer.
-        example: 1NC25_0001
-        type: string
-      display_name:
-        description: The display name for the account, not longer than 100 characters.
-        example: ARM
-        type: string
-      email:
-        description: The company email address for this account, not longer than 254
-          characters. Required for commercial accounts only.
-        example: info@arm.com
-        type: string
-      end_market:
-        description: The end market of the account to be created.
-        example: IT
-        type: string
-      id:
-        description: Account ID.
-        example: 01619571e2e90242ac12000600000000
-        type: string
-      phone_number:
-        description: The phone number of a representative of the company, not longer
-          than 100 characters.
-        example: +44 (1223) 400 400
-        type: string
-      postal_code:
-        description: The postal code part of the postal address, not longer than 100
-          characters.
-        example: CB1 9NJ
-        type: string
-      state:
-        description: The state part of the postal address, not longer than 100 characters.
-        example: ' '
-        type: string
-    required:
-    - admin_id
-    - end_market
-    - id
-    type: object
   AccountInfo:
     description: This object represents an account in requests and responses.
     properties:
@@ -213,6 +104,36 @@ definitions:
       address_line2:
         description: Postal address line 2.
         example: ' '
+        type: string
+      admin_email:
+        description: The email address of the admin user created for this account.
+          Present only in the response for the account creation.
+        example: admin@arm.com
+        type: string
+      admin_full_name:
+        description: The full name of the admin user created for this account. Present
+          only in the response for the account creation.
+        example: Admin Doe
+        type: string
+      admin_id:
+        description: The ID of the admin user created for this account.
+        example: 01619571e2e89242ac12000600000000
+        type: string
+      admin_key:
+        description: The admin API key created for this account. Present only in the
+          response for the account creation.
+        example: ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT
+        readOnly: true
+        type: string
+      admin_name:
+        description: The username of the admin user created for this account. Present
+          only in the response for the account creation.
+        example: admin
+        type: string
+      admin_password:
+        description: The password of the admin user created for this account. Present
+          only in the response for the account creation.
+        example: PZf9eEUH43DAPE9ULINFeuj
         type: string
       aliases:
         description: An array of aliases.
@@ -268,6 +189,10 @@ definitions:
       etag:
         description: API resource entity version.
         example: '1'
+        type: string
+      expiration:
+        description: Expiration time of the account, as UTC time RFC3339.
+        format: date-time
         type: string
       expiration_warning_threshold:
         description: Indicates how many days (1-180) before account expiration a notification
@@ -377,7 +302,6 @@ definitions:
         format: date-time
         type: string
     required:
-    - aliases
     - end_market
     - etag
     - id
@@ -4324,7 +4248,7 @@ definitions:
     - success
     - user_agent
     type: object
-  LoginProfileResp:
+  LoginProfile:
     description: This object represents a user login profile in Device Management.
     properties:
       id:
@@ -4332,6 +4256,7 @@ definitions:
         type: string
       name:
         description: Name of the identity provider.
+        readOnly: true
         type: string
       type:
         description: Identity provider type.
@@ -4340,11 +4265,10 @@ definitions:
         - MBED
         - SAML2
         - OIDC
+        readOnly: true
         type: string
     required:
     - id
-    - name
-    - type
     type: object
   NotificationData:
     properties:
@@ -5307,155 +5231,6 @@ definitions:
     required:
     - quota_usage
     type: object
-  TrustedCertificateInternalResp:
-    description: This object represents a trusted certificate in responses.
-    properties:
-      account_id:
-        description: The ID of the account.
-        example: 01619571e2e90242ac12000600000000
-        type: string
-      certificate:
-        description: X509.v3 trusted certificate in PEM format.
-        example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
-        type: string
-      certificate_fingerprint:
-        description: A SHA-256 fingerprint of the certificate.
-        example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
-        type: string
-      created_at:
-        description: Creation UTC time RFC3339.
-        example: '2018-02-13T09:35:20Z'
-        format: date-time
-        type: string
-      description:
-        description: Human readable description of this certificate.
-        example: Certificate created by me.
-        type: string
-      device_execution_mode:
-        description: Device execution mode where 1 means a developer certificate.
-        example: 1
-        format: int32
-        type: integer
-      enrollment_mode:
-        description: If true, signature is not required. Default value false.
-        example: false
-        type: boolean
-      etag:
-        description: API resource entity version.
-        example: '1'
-        type: string
-      id:
-        description: Entity ID.
-        example: 01619571d01d0242ac12000600000000
-        type: string
-      issuer:
-        description: Issuer of the certificate.
-        example: CN=issuer
-        type: string
-      name:
-        description: Certificate name.
-        example: My certificate
-        type: string
-      object:
-        description: 'Entity name: always ''trusted-cert'''
-        enum:
-        - trusted-cert
-        type: string
-      owner_id:
-        description: The ID of the owner.
-        example: 01619571dad80242ac12000600000000
-        type: string
-      private_key:
-        description: Private key of the certificate in PEM or base64 encoded DER format.
-        example: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...
-        type: string
-      service:
-        description: Service name where the certificate is to be used.
-        enum:
-        - lwm2m
-        - bootstrap
-        type: string
-      status:
-        description: Status of the certificate.
-        enum:
-        - ACTIVE
-        - INACTIVE
-        example: ACTIVE
-        type: string
-      subject:
-        description: Subject of the certificate.
-        example: CN=subject
-        type: string
-      updated_at:
-        description: Last update UTC time RFC3339.
-        example: '2018-02-14T15:24:14Z'
-        format: date-time
-        type: string
-      validity:
-        description: Expiration time in UTC formatted as RFC3339.
-        example: '2038-02-14T15:24:14Z'
-        format: date-time
-        type: string
-    required:
-    - account_id
-    - certificate
-    - certificate_fingerprint
-    - etag
-    - id
-    - issuer
-    - name
-    - object
-    - private_key
-    - service
-    - subject
-    - validity
-    type: object
-  TrustedCertificateInternalRespList:
-    properties:
-      after:
-        description: The entity ID to fetch after the given one.
-        example: 01619571f3c00242ac12000600000000
-        type: string
-      data:
-        description: A list of entities.
-        items:
-          $ref: '#/definitions/TrustedCertificateInternalResp'
-        type: array
-      has_more:
-        description: Flag indicating whether there is more results.
-        example: false
-        type: boolean
-      limit:
-        description: 'The number of results to return, (range: 2-1000), or equals
-          to `total_count`'
-        example: 50
-        format: int32
-        type: integer
-      object:
-        description: 'Entity name: always ''list'''
-        enum:
-        - list
-        type: string
-      order:
-        description: 'The order of the records to return based on creation time. Available
-          values: ASC, DESC; by default ASC.'
-        enum:
-        - ASC
-        - DESC
-        type: string
-      total_count:
-        description: The total number or records, if requested. It might be returned
-          also for small lists.
-        example: 20
-        format: int32
-        type: integer
-    required:
-    - data
-    - has_more
-    - limit
-    - object
-    - total_count
-    type: object
   TrustedCertificateReq:
     description: This object represents a trusted certificate in upload requests.
     properties:
@@ -5638,45 +5413,6 @@ definitions:
     - limit
     - object
     - total_count
-    type: object
-  TrustedCertificateRootReq:
-    description: This object represents a trusted certificate in upload requests.
-    properties:
-      certificate:
-        description: A chain of X509.v3 trusted certificates in PEM format. The chain
-          must contain all certificates from root to leaf. Otherwise, the signature
-          parameter is required.
-        type: string
-      description:
-        description: Human readable description of this certificate, not longer than
-          500 characters.
-        type: string
-      enrollment_mode:
-        description: Certificate is used in enrollment mode. Default value is false.
-        type: boolean
-      name:
-        description: Certificate name, not longer than 100 characters.
-        type: string
-      service:
-        description: Service name where the certificate must be used.
-        enum:
-        - lwm2m
-        - bootstrap
-        type: string
-      signature:
-        description: 'DEPRECATED: Base64 encoded signature of the account ID signed
-          by the certificate to be uploaded. The signature must be hashed with SHA256.'
-        type: string
-      status:
-        description: Status of the certificate.
-        enum:
-        - ACTIVE
-        - INACTIVE
-        type: string
-    required:
-    - certificate
-    - name
-    - service
     type: object
   TrustedCertificateUpdateReq:
     description: This object represents a trusted certificate in update requests.
@@ -6272,11 +6008,12 @@ definitions:
           accepted.
         type: boolean
       login_profiles:
-        description: A list of login profiles for the user. Specified as IDs of the
-          identity providers the user should be associated with. The list cannot be
-          empty. A limit of 100 profiles.
+        description: A list of login profiles for the user. Specified as the identity
+          providers the user should be associated with. Only the ID attribute of the
+          login profile should be set in the request object. The list cannot be empty.
+          A limit of 100 profiles.
         items:
-          type: string
+          $ref: '#/definitions/LoginProfile'
         type: array
       password:
         description: The password when creating a new user. It will be generated when
@@ -6369,7 +6106,7 @@ definitions:
         description: A list of login profiles for the user. Specified as the identity
           providers the user is associated with.
         items:
-          $ref: '#/definitions/LoginProfileResp'
+          $ref: '#/definitions/LoginProfile'
         type: array
       object:
         description: 'Entity name: always ''user'''
@@ -6480,11 +6217,12 @@ definitions:
           type: string
         type: array
       login_profiles:
-        description: A list of login profiles for the user. Specified as IDs of the
-          identity providers the user should be associated with. The list cannot be
-          empty. A limit of 100 profiles.
+        description: A list of login profiles for the user. Specified as the identity
+          providers the user should be associated with. Only the ID attribute of the
+          login profile should be set in the request object. The list cannot be empty.
+          A limit of 100 profiles.
         items:
-          type: string
+          $ref: '#/definitions/LoginProfile'
         type: array
       valid_for_days:
         description: Specifies how many days the invitation will be valid for. The
@@ -6532,7 +6270,7 @@ definitions:
         description: A list of login profiles for the user. Specified as the identity
           providers the user is associated with.
         items:
-          $ref: '#/definitions/LoginProfileResp'
+          $ref: '#/definitions/LoginProfile'
         type: array
       object:
         description: 'Entity name: always ''user-invitation'''
@@ -6632,11 +6370,12 @@ definitions:
           to be enabled or disabled.
         type: boolean
       login_profiles:
-        description: A list of login profiles for the user. Specified as IDs of the
-          identity providers the user should be associated with. The list cannot be
-          empty. A limit of 100 profiles.
+        description: A list of login profiles for the user. Specified as the identity
+          providers the user should be associated with. Only the ID attribute of the
+          login profile should be set in the request object. The list cannot be empty.
+          A limit of 100 profiles.
         items:
-          type: string
+          $ref: '#/definitions/LoginProfile'
         type: array
       phone_number:
         description: Phone number, not longer than 100 characters.
@@ -8563,7 +8302,7 @@ paths:
         '201':
           description: Successful operation.
           schema:
-            $ref: '#/definitions/AccountCreationResp'
+            $ref: '#/definitions/AccountInfo'
         '400':
           description: Error in input data, for example invalid username.
           schema:
@@ -11089,7 +10828,7 @@ paths:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/TrustedCertificateInternalRespList'
+            $ref: '#/definitions/TrustedCertificateRespList'
         '401':
           description: Authentication failure.
           schema:
@@ -11129,7 +10868,7 @@ paths:
         name: body
         required: true
         schema:
-          $ref: '#/definitions/TrustedCertificateRootReq'
+          $ref: '#/definitions/TrustedCertificateReq'
       produces:
       - application/json
       responses:
@@ -11224,7 +10963,7 @@ paths:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/TrustedCertificateInternalResp'
+            $ref: '#/definitions/TrustedCertificateResp'
         '401':
           description: Authentication failure.
           schema:
@@ -11275,7 +11014,7 @@ paths:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/TrustedCertificateInternalResp'
+            $ref: '#/definitions/TrustedCertificateResp'
         '400':
           description: Invalid certificate data, certificate validation failed, certificate
             already expired or certificate uses unsupported, weak cipher.
