@@ -5396,11 +5396,6 @@
                     "description": "The entity ID to fetch after the given one.",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
-                    "name": "after",
-                    "in": "query",
-                    "required": false,
-                    "external_param": true,
-                    "parameter_fieldname": "after",
                     "_key": "after"
                   },
                   {
@@ -5549,7 +5544,7 @@
                       "description": "This object represents a trusted certificate in responses.",
                       "foreign_key": {
                         "group": "Security",
-                        "entity": "trusted_certificate"
+                        "entity": "developer_certificate"
                       }
                     },
                     "api_fieldname": "data",
@@ -5568,15 +5563,9 @@
                     "type": "integer",
                     "format": "int32",
                     "example": 50,
-                    "description": "The number of results to return (2-1000), default is 50.",
+                    "description": "The number of results to return, (range: 2-1000), or equals to `total_count`",
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
-                    "name": "limit",
-                    "in": "query",
-                    "required": false,
-                    "default": 50,
-                    "external_param": true,
-                    "parameter_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
@@ -5591,20 +5580,13 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records based on creation time, ASC or DESC; by default ASC",
+                    "description": "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.",
                     "enum": [
                       "ASC",
                       "DESC"
                     ],
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
-                    "name": "order",
-                    "in": "query",
-                    "required": false,
-                    "default": "ASC",
-                    "external_param": true,
-                    "parameter_fieldname": "order",
-                    "enum_reference": "trusted_certificate_order_enum",
                     "_key": "order"
                   },
                   {
@@ -36539,6 +36521,11 @@
                     "description": "The entity ID to fetch after the given one.",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
+                    "name": "after",
+                    "in": "query",
+                    "required": false,
+                    "external_param": true,
+                    "parameter_fieldname": "after",
                     "_key": "after"
                   },
                   {
@@ -36687,7 +36674,7 @@
                       "description": "This object represents a trusted certificate in responses.",
                       "foreign_key": {
                         "group": "Security",
-                        "entity": "trusted_certificate"
+                        "entity": "developer_certificate"
                       }
                     },
                     "api_fieldname": "data",
@@ -36706,9 +36693,15 @@
                     "type": "integer",
                     "format": "int32",
                     "example": 50,
-                    "description": "The number of results to return, (range: 2-1000), or equals to `total_count`",
+                    "description": "The number of results to return (2-1000), default is 50.",
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
+                    "name": "limit",
+                    "in": "query",
+                    "required": false,
+                    "default": 50,
+                    "external_param": true,
+                    "parameter_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
@@ -36723,13 +36716,20 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.",
+                    "description": "The order of the records based on creation time, ASC or DESC; by default ASC",
                     "enum": [
                       "ASC",
                       "DESC"
                     ],
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
+                    "name": "order",
+                    "in": "query",
+                    "required": false,
+                    "default": "ASC",
+                    "external_param": true,
+                    "parameter_fieldname": "order",
+                    "enum_reference": "account_order_enum",
                     "_key": "order"
                   },
                   {
@@ -36899,11 +36899,11 @@
           ],
           "path": "/v3/trusted-certificates",
           "summary": "Get all trusted certificates.",
-          "return_type": "paginated_response(trusted_certificate)",
+          "return_type": "paginated_response(developer_certificate)",
           "return_info": {
-            "self": true,
+            "self": false,
             "custom": false,
-            "type": "trusted_certificate"
+            "type": "developer_certificate"
           },
           "drop_fields": [
             "object",
@@ -36938,7 +36938,7 @@
           "pagination": true,
           "foreign_key": {
             "group": "Security",
-            "entity": "trusted_certificate"
+            "entity": "developer_certificate"
           },
           "_key": "list"
         },
