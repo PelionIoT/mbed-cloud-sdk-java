@@ -103,6 +103,7 @@ public class Connect extends AbstractModule {
     private final EndPoints endpoint;
     private final DeviceDirectory deviceDirectory;
     private final NotificationHandlersStore handlersStore;
+    private Object presubscriptionLock = new Object();
 
     /**
      * Connect module constructor.
@@ -1812,13 +1813,15 @@ public class Connect extends AbstractModule {
     @API
     public void updatePresubscriptions(@Nullable List<Presubscription> presubscriptions) throws MbedCloudException {
         final PresubscriptionArray array = PresubscriptionAdapter.reverseMapList(presubscriptions);
-        CloudCaller.call(this, "updatePresubscriptions()", null, new CloudCall<Void>() {
+        synchronized (presubscriptionLock) {
+            CloudCaller.call(this, "updatePresubscriptions()", null, new CloudCall<Void>() {
 
-            @Override
-            public Call<Void> call() {
-                return endpoint.getSubscriptions().updatePreSubscriptions(array);
-            }
-        });
+                @Override
+                public Call<Void> call() {
+                    return endpoint.getSubscriptions().updatePreSubscriptions(array);
+                }
+            });
+        }
     }
 
     /**
@@ -1839,15 +1842,17 @@ public class Connect extends AbstractModule {
             return;
         }
         checkModelValidity(presubscription, TAG_PRESUBSCRIPTION);
-        GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry("addPresubscription()");
-        if (presubscriptionRegistry != null && presubscriptionRegistry.contains(presubscription)) {
-            return;
+        synchronized (presubscriptionLock) {
+            GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry("addPresubscription()");
+            if (presubscriptionRegistry != null && presubscriptionRegistry.contains(presubscription)) {
+                return;
+            }
+            if (presubscriptionRegistry == null) {
+                presubscriptionRegistry = new GenericAdapter.MappedObjectRegistry<>();
+            }
+            presubscriptionRegistry.addNewEnty(presubscription);
+            updatePresubscriptions(presubscriptionRegistry.getEntries());
         }
-        if (presubscriptionRegistry == null) {
-            presubscriptionRegistry = new GenericAdapter.MappedObjectRegistry<>();
-        }
-        presubscriptionRegistry.addNewEnty(presubscription);
-        updatePresubscriptions(presubscriptionRegistry.getEntries());
     }
 
     /**
@@ -1867,20 +1872,22 @@ public class Connect extends AbstractModule {
         if (presubscriptions == null) {
             return;
         }
-        GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry("addSomePresubscriptions()");
-        if (presubscriptionRegistry == null) {
-            presubscriptionRegistry = new GenericAdapter.MappedObjectRegistry<>();
-        }
-        boolean requireAddition = false;
-        for (final Presubscription presubscription : presubscriptions) {
-            checkModelValidity(presubscription, TAG_PRESUBSCRIPTION);
-            if (!presubscriptionRegistry.contains(presubscription)) {
-                requireAddition = true;
-                presubscriptionRegistry.addNewEnty(presubscription);
+        synchronized (presubscriptionLock) {
+            GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry("addSomePresubscriptions()");
+            if (presubscriptionRegistry == null) {
+                presubscriptionRegistry = new GenericAdapter.MappedObjectRegistry<>();
             }
-        }
-        if (requireAddition) {
-            updatePresubscriptions(presubscriptionRegistry.getEntries());
+            boolean requireAddition = false;
+            for (final Presubscription presubscription : presubscriptions) {
+                checkModelValidity(presubscription, TAG_PRESUBSCRIPTION);
+                if (!presubscriptionRegistry.contains(presubscription)) {
+                    requireAddition = true;
+                    presubscriptionRegistry.addNewEnty(presubscription);
+                }
+            }
+            if (requireAddition) {
+                updatePresubscriptions(presubscriptionRegistry.getEntries());
+            }
         }
     }
 
@@ -1916,13 +1923,15 @@ public class Connect extends AbstractModule {
         if (presubscriptionId == null) {
             return;
         }
-        final GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry("deletePresubscription()");
-        if (presubscriptionRegistry == null || presubscriptionRegistry.isEmpty()
-            || !presubscriptionRegistry.contains(presubscriptionId)) {
-            return;
+        synchronized (presubscriptionLock) {
+            final GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry("deletePresubscription()");
+            if (presubscriptionRegistry == null || presubscriptionRegistry.isEmpty()
+                || !presubscriptionRegistry.contains(presubscriptionId)) {
+                return;
+            }
+            presubscriptionRegistry.removeEntry(presubscriptionId);
+            updatePresubscriptions(presubscriptionRegistry.getEntries());
         }
-        presubscriptionRegistry.removeEntry(presubscriptionId);
-        updatePresubscriptions(presubscriptionRegistry.getEntries());
     }
 
     /**
@@ -1954,21 +1963,23 @@ public class Connect extends AbstractModule {
         if (presubscriptions == null) {
             return;
         }
-        final GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry("deleteSomePresubscriptions()");
+        synchronized (presubscriptionLock) {
+            final GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry("deleteSomePresubscriptions()");
 
-        if (presubscriptionRegistry == null || presubscriptionRegistry.isEmpty()) {
-            return;
-        }
-        boolean requireDeletion = false;
-        for (final Presubscription presubscription : presubscriptions) {
-            if (presubscriptionRegistry.contains(presubscription.getId())) {
-                requireDeletion = true;
+            if (presubscriptionRegistry == null || presubscriptionRegistry.isEmpty()) {
+                return;
             }
-            presubscriptionRegistry.removeEntry(presubscription.getId());
+            boolean requireDeletion = false;
+            for (final Presubscription presubscription : presubscriptions) {
+                if (presubscriptionRegistry.contains(presubscription.getId())) {
+                    requireDeletion = true;
+                }
+                presubscriptionRegistry.removeEntry(presubscription.getId());
 
-        }
-        if (requireDeletion) {
-            updatePresubscriptions(presubscriptionRegistry.getEntries());
+            }
+            if (requireDeletion) {
+                updatePresubscriptions(presubscriptionRegistry.getEntries());
+            }
         }
     }
 

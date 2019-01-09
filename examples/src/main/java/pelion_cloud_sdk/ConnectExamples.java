@@ -5,7 +5,6 @@ import static org.junit.Assert.fail;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
 
 import io.reactivex.BackpressureStrategy;
@@ -71,7 +70,7 @@ public class ConnectExamples extends AbstractExample {
         try {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
-            options.setLimit(Integer.valueOf(1));
+            options.setPageSize(Integer.valueOf(1));
             Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
             if (!deviceIterator.hasNext()) {
                 fail("No endpoints registered. Aborting.");
@@ -147,7 +146,7 @@ public class ConnectExamples extends AbstractExample {
         try {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
-            options.setLimit(1);
+            options.setPageSize(1);
             Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
             if (!deviceIterator.hasNext()) {
                 fail("No endpoints registered. Aborting.");
@@ -190,16 +189,17 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void managePresubscription() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
-        try {
+        try (Connect api = new Connect(config.logLevel(CallLogLevel.BODY))) {
             // Listing already defined presubscriptions.
             List<Presubscription> listPresubscriptions = api.listPresubscriptions();
-            for (Presubscription presubscription : listPresubscriptions) {
-                log("Already defined presubscription", presubscription);
+            if (listPresubscriptions != null) {
+                for (Presubscription presubscription : listPresubscriptions) {
+                    log("Already defined presubscription", presubscription);
+                }
             }
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
-            options.setLimit(Integer.valueOf(1));
+            options.setPageSize(Integer.valueOf(1));
             Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
             if (!deviceIterator.hasNext()) {
                 fail("No endpoints registered. Aborting.");
@@ -211,22 +211,22 @@ public class ConnectExamples extends AbstractExample {
             if (observableResources == null) {
                 fail("There is no observable resources on this device");
             }
-            List<Presubscription> newPresubscriptions = new LinkedList<>();
+
             for (Resource resourceToSubscribeTo : observableResources) {
                 Presubscription presubscription = new Presubscription(resourceToSubscribeTo);
-                newPresubscriptions.add(presubscription);
                 log("New presubscription", presubscription);
+                api.addPresubscription(presubscription);
             }
-            api.updatePresubscriptions(newPresubscriptions);
             // Listing all defined presubscriptions.
             listPresubscriptions = api.listPresubscriptions();
             for (Presubscription presubscription : listPresubscriptions) {
-                log("Newly defined presubscription", presubscription);
+                log("Deleting Newly defined presubscription", presubscription);
+                api.deletePresubscription(presubscription);
             }
             // Deleting all presubscriptions present on the system.
             api.deletePresubscriptions();
         } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
+            e.printStackTrace();
             fail(e.getMessage());
         }
     }
@@ -315,7 +315,7 @@ public class ConnectExamples extends AbstractExample {
         try {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
-            options.setLimit(1);
+            options.setPageSize(1);
             Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
             if (!deviceIterator.hasNext()) {
                 fail("No endpoints registered. Aborting.");
@@ -389,7 +389,7 @@ public class ConnectExamples extends AbstractExample {
         try {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
-            options.setLimit(1);
+            options.setPageSize(1);
             Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
             if (!deviceIterator.hasNext()) {
                 fail("No endpoints registered. Aborting.");
