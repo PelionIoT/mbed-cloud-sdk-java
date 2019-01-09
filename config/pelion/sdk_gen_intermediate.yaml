@@ -4225,11 +4225,6 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
-          external_param: true
-          in: query
-          name: after
-          parameter_fieldname: after
-          required: false
           type: string
         - _key: data
           api_fieldname: data
@@ -4238,7 +4233,7 @@ entities:
           items:
             description: This object represents a trusted certificate in responses.
             foreign_key:
-              entity: trusted_certificate
+              entity: developer_certificate
               group: Security
             properties:
             - _key: account_id
@@ -4347,16 +4342,11 @@ entities:
           type: boolean
         - _key: limit
           api_fieldname: limit
-          default: 50
-          description: The number of results to return (2-1000), default is 50.
+          description: 'The number of results to return, (range: 2-1000), or equals
+            to `total_count`'
           entity_fieldname: limit
           example: 50
-          external_param: true
           format: int32
-          in: query
-          name: limit
-          parameter_fieldname: limit
-          required: false
           type: integer
         - _key: object
           api_fieldname: object
@@ -4367,19 +4357,12 @@ entities:
           type: string
         - _key: order
           api_fieldname: order
-          default: ASC
-          description: The order of the records based on creation time, ASC or DESC;
-            by default ASC
+          description: 'The order of the records to return based on creation time.
+            Available values: ASC, DESC; by default ASC.'
           entity_fieldname: order
           enum:
           - ASC
           - DESC
-          enum_reference: trusted_certificate_order_enum
-          external_param: true
-          in: query
-          name: order
-          parameter_fieldname: order
-          required: false
           type: string
         - _key: total_count
           api_fieldname: total_count
@@ -13539,11 +13522,11 @@ entities:
     - _key: private_key
       api_fieldname: developer_private_key
     fields:
-    - _key: cert_id
+    - _key: id
       api_fieldname: cert_id
       description: The ID of the trusted certificate to be deleted.
-      entity_fieldname: cert_id
-      external_param: true
+      entity_fieldname: id
+      external_param: false
       in: path
       name: cert_id
       parameter_fieldname: cert_id
@@ -13555,7 +13538,7 @@ entities:
     operation_id: deleteCertificate
     pagination: false
     parameter_map:
-      cert-id: id
+      cert_id: id
       developerCertificateId: id
     path: /v3/trusted-certificates/{cert_id}
     responses:
@@ -14199,7 +14182,6 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
     - created_at
     - updated_at
     - name
@@ -14220,16 +14202,6 @@ entities:
     - _key: private_key
       api_fieldname: developer_private_key
     fields:
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be retrieved.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
     - _key: device_execution_mode
       _override: true
       api_fieldname: device_execution_mode
@@ -14239,6 +14211,15 @@ entities:
       format: int32
       private_field: true
       type: integer
+    - _key: id
+      api_fieldname: id
+      description: Entity ID.
+      entity_fieldname: id
+      example: 01619571d01d0242ac12000600000000
+      in: path
+      parameter_fieldname: cert_id
+      required: true
+      type: string
     foreign_key:
       entity: trusted_certificate
       group: Security
@@ -14248,7 +14229,7 @@ entities:
     operation_id: getCertificate
     pagination: false
     parameter_map:
-      cert-id: id
+      cert_id: id
       developerCertificateId: id
     path: /v3/trusted-certificates/{cert_id}
     responses:
@@ -21010,6 +20991,8 @@ entities:
     api_fieldname: id
     description: Entity ID.
     example: 01619571d01d0242ac12000600000000
+    in: path
+    parameter_fieldname: cert_id
     readOnly: false
     required: true
     type: string
@@ -21219,6 +21202,8 @@ entities:
     notes: Signature is not used by the SDK as it is a deprecated field.
     operation_id: addAccountCertificate
     pagination: false
+    parameter_map:
+      cert_id: id
     path: /v3/accounts/{account_id}/trusted-certificates
     responses:
     - _key: '201'
@@ -21295,6 +21280,9 @@ entities:
           description: Entity ID.
           entity_fieldname: id
           example: 01619571d01d0242ac12000600000000
+          in: path
+          parameter_fieldname: cert_id
+          required: true
           type: string
         - _key: issuer
           api_fieldname: issuer
@@ -21609,22 +21597,22 @@ entities:
       parameter_fieldname: account_id
       required: true
       type: string
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be deleted.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
     - _key: device_execution_mode
       _override: true
       api_fieldname: device_execution_mode
       entity_fieldname: device_execution_mode
       private_field: true
       type: integer
+    - _key: id
+      api_fieldname: cert_id
+      description: The ID of the trusted certificate to be deleted.
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: cert_id
+      parameter_fieldname: cert_id
+      required: true
+      type: string
     - _key: is_developer_certificate
       _override: true
       api_fieldname: is_developer_certificate
@@ -21639,6 +21627,8 @@ entities:
     mode: delete
     operation_id: deleteAccountCertificate
     pagination: false
+    parameter_map:
+      cert_id: id
     path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
     responses:
     - _key: '204'
@@ -21809,7 +21799,6 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
     - created_at
     - updated_at
     - name
@@ -21834,16 +21823,6 @@ entities:
       parameter_fieldname: account_id
       required: true
       type: string
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be retrieved.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
     - _key: device_execution_mode
       _override: true
       api_fieldname: device_execution_mode
@@ -21853,6 +21832,15 @@ entities:
       format: int32
       private_field: true
       type: integer
+    - _key: id
+      api_fieldname: id
+      description: Entity ID.
+      entity_fieldname: id
+      example: 01619571d01d0242ac12000600000000
+      in: path
+      parameter_fieldname: cert_id
+      required: true
+      type: string
     - _key: is_developer_certificate
       _override: true
       api_fieldname: is_developer_certificate
@@ -21867,6 +21855,8 @@ entities:
     mode: get
     operation_id: getAccountCertificate
     pagination: false
+    parameter_map:
+      cert_id: id
     path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
     responses:
     - _key: '200'
@@ -21943,6 +21933,9 @@ entities:
           description: Entity ID.
           entity_fieldname: id
           example: 01619571d01d0242ac12000600000000
+          in: path
+          parameter_fieldname: cert_id
+          required: true
           type: string
         - _key: issuer
           api_fieldname: issuer
@@ -22241,6 +22234,7 @@ entities:
     operation_id: getDeveloperCertificate
     pagination: false
     parameter_map:
+      cert_id: id
       developerCertificateId: id
     path: /v3/developer-certificates/{developerCertificateId}
     responses:
@@ -22686,7 +22680,6 @@ entities:
     - private_key
     - sub_accounts
     - signature
-    - id
     - created_at
     - updated_at
     - owner_id
@@ -22703,16 +22696,6 @@ entities:
       example: 01619571e2e90242ac12000600000000
       in: path
       parameter_fieldname: account_id
-      required: true
-      type: string
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be updated.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
       required: true
       type: string
     - _key: certificate
@@ -22751,6 +22734,15 @@ entities:
       parameter_fieldname: enrollment_mode
       required: false
       type: boolean
+    - _key: id
+      api_fieldname: id
+      description: Entity ID.
+      entity_fieldname: id
+      example: 01619571d01d0242ac12000600000000
+      in: path
+      parameter_fieldname: cert_id
+      required: true
+      type: string
     - _key: is_developer_certificate
       _override: true
       api_fieldname: is_developer_certificate
@@ -22796,6 +22788,8 @@ entities:
     notes: Signature is not used by the SDK as it is a deprecated field.
     operation_id: updateAccountCertificate
     pagination: false
+    parameter_map:
+      cert_id: id
     path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
     responses:
     - _key: '200'
@@ -22872,6 +22866,9 @@ entities:
           description: Entity ID.
           entity_fieldname: id
           example: 01619571d01d0242ac12000600000000
+          in: path
+          parameter_fieldname: cert_id
+          required: true
           type: string
         - _key: issuer
           api_fieldname: issuer
@@ -27137,7 +27134,7 @@ entities:
     operation_id: addCertificate
     pagination: false
     parameter_map:
-      cert-id: id
+      cert_id: id
     path: /v3/trusted-certificates
     responses:
     - _key: '201'
@@ -27497,22 +27494,22 @@ entities:
     - sub_accounts
     field_renames: []
     fields:
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be deleted.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
     - _key: device_execution_mode
       _override: true
       api_fieldname: device_execution_mode
       entity_fieldname: device_execution_mode
       private_field: true
       type: integer
+    - _key: id
+      api_fieldname: cert_id
+      description: The ID of the trusted certificate to be deleted.
+      entity_fieldname: id
+      external_param: false
+      in: path
+      name: cert_id
+      parameter_fieldname: cert_id
+      required: true
+      type: string
     - _key: is_developer_certificate
       _override: true
       api_fieldname: is_developer_certificate
@@ -27528,7 +27525,7 @@ entities:
     operation_id: deleteCertificate
     pagination: false
     parameter_map:
-      cert-id: id
+      cert_id: id
     path: /v3/trusted-certificates/{cert_id}
     responses:
     - _key: '204'
@@ -27699,7 +27696,6 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    - id
     - created_at
     - updated_at
     - name
@@ -27716,16 +27712,6 @@ entities:
     - certificate_fingerprint
     field_renames: []
     fields:
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be retrieved.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
     - _key: device_execution_mode
       _override: true
       api_fieldname: device_execution_mode
@@ -27735,6 +27721,15 @@ entities:
       format: int32
       private_field: true
       type: integer
+    - _key: id
+      api_fieldname: id
+      description: Entity ID.
+      entity_fieldname: id
+      example: 01619571d01d0242ac12000600000000
+      in: path
+      parameter_fieldname: cert_id
+      required: true
+      type: string
     - _key: is_developer_certificate
       _override: true
       api_fieldname: is_developer_certificate
@@ -27750,7 +27745,7 @@ entities:
     operation_id: getCertificate
     pagination: false
     parameter_map:
-      cert-id: id
+      cert_id: id
     path: /v3/trusted-certificates/{cert_id}
     responses:
     - _key: '200'
@@ -28105,7 +28100,7 @@ entities:
     operation_id: getDeveloperCertificate
     pagination: false
     parameter_map:
-      cert-id: id
+      cert_id: id
       developerCertificateId: id
     path: /v3/developer-certificates/{developerCertificateId}
     responses:
@@ -28631,7 +28626,7 @@ entities:
       required: false
       type: string
     foreign_key:
-      entity: trusted_certificate
+      entity: developer_certificate
       group: Security
     foreign_key_priority: self
     group_id: Security
@@ -28640,7 +28635,7 @@ entities:
     operation_id: getAllCertificates
     pagination: true
     parameter_map:
-      cert-id: id
+      cert_id: id
     path: /v3/trusted-certificates
     responses:
     - _key: '200'
@@ -28656,6 +28651,11 @@ entities:
           description: The entity ID to fetch after the given one.
           entity_fieldname: after
           example: 01619571f3c00242ac12000600000000
+          external_param: true
+          in: query
+          name: after
+          parameter_fieldname: after
+          required: false
           type: string
         - _key: data
           api_fieldname: data
@@ -28664,7 +28664,7 @@ entities:
           items:
             description: This object represents a trusted certificate in responses.
             foreign_key:
-              entity: trusted_certificate
+              entity: developer_certificate
               group: Security
             properties:
             - _key: account_id
@@ -28773,11 +28773,16 @@ entities:
           type: boolean
         - _key: limit
           api_fieldname: limit
-          description: 'The number of results to return, (range: 2-1000), or equals
-            to `total_count`'
+          default: 50
+          description: The number of results to return (2-1000), default is 50.
           entity_fieldname: limit
           example: 50
+          external_param: true
           format: int32
+          in: query
+          name: limit
+          parameter_fieldname: limit
+          required: false
           type: integer
         - _key: object
           api_fieldname: object
@@ -28788,12 +28793,19 @@ entities:
           type: string
         - _key: order
           api_fieldname: order
-          description: 'The order of the records to return based on creation time.
-            Available values: ASC, DESC; by default ASC.'
+          default: ASC
+          description: The order of the records based on creation time, ASC or DESC;
+            by default ASC
           entity_fieldname: order
           enum:
           - ASC
           - DESC
+          enum_reference: account_order_enum
+          external_param: true
+          in: query
+          name: order
+          parameter_fieldname: order
+          required: false
           type: string
         - _key: total_count
           api_fieldname: total_count
@@ -28908,9 +28920,9 @@ entities:
         type: object
     return_info:
       custom: false
-      self: true
-      type: trusted_certificate
-    return_type: paginated_response(trusted_certificate)
+      self: false
+      type: developer_certificate
+    return_type: paginated_response(developer_certificate)
     summary: Get all trusted certificates.
   - _key: update
     description: 'An endpoint for updating existing trusted certificates.
@@ -28930,7 +28942,6 @@ entities:
     - private_key
     - sub_accounts
     - signature
-    - id
     - created_at
     - updated_at
     - account_id
@@ -28941,16 +28952,6 @@ entities:
     - certificate_fingerprint
     field_renames: []
     fields:
-    - _key: cert_id
-      api_fieldname: cert_id
-      description: The ID of the trusted certificate to be updated.
-      entity_fieldname: cert_id
-      external_param: true
-      in: path
-      name: cert_id
-      parameter_fieldname: cert_id
-      required: true
-      type: string
     - _key: certificate
       api_fieldname: certificate
       description: X509.v3 trusted certificate in PEM format.
@@ -28987,6 +28988,15 @@ entities:
       parameter_fieldname: enrollment_mode
       required: false
       type: boolean
+    - _key: id
+      api_fieldname: id
+      description: Entity ID.
+      entity_fieldname: id
+      example: 01619571d01d0242ac12000600000000
+      in: path
+      parameter_fieldname: cert_id
+      required: true
+      type: string
     - _key: is_developer_certificate
       _override: true
       api_fieldname: is_developer_certificate
@@ -29033,7 +29043,7 @@ entities:
     operation_id: updateCertificate
     pagination: false
     parameter_map:
-      cert-id: id
+      cert_id: id
     path: /v3/trusted-certificates/{cert_id}
     responses:
     - _key: '200'

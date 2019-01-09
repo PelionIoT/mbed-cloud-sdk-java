@@ -5381,11 +5381,6 @@
                     "description": "The entity ID to fetch after the given one.",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
-                    "name": "after",
-                    "in": "query",
-                    "required": false,
-                    "external_param": true,
-                    "parameter_fieldname": "after",
                     "_key": "after"
                   },
                   {
@@ -5534,7 +5529,7 @@
                       "description": "This object represents a trusted certificate in responses.",
                       "foreign_key": {
                         "group": "Security",
-                        "entity": "trusted_certificate"
+                        "entity": "developer_certificate"
                       }
                     },
                     "api_fieldname": "data",
@@ -5553,15 +5548,9 @@
                     "type": "integer",
                     "format": "int32",
                     "example": 50,
-                    "description": "The number of results to return (2-1000), default is 50.",
+                    "description": "The number of results to return, (range: 2-1000), or equals to `total_count`",
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
-                    "name": "limit",
-                    "in": "query",
-                    "required": false,
-                    "default": 50,
-                    "external_param": true,
-                    "parameter_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
@@ -5576,20 +5565,13 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records based on creation time, ASC or DESC; by default ASC",
+                    "description": "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.",
                     "enum": [
                       "ASC",
                       "DESC"
                     ],
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
-                    "name": "order",
-                    "in": "query",
-                    "required": false,
-                    "default": "ASC",
-                    "external_param": true,
-                    "parameter_fieldname": "order",
-                    "enum_reference": "trusted_certificate_order_enum",
                     "_key": "order"
                   },
                   {
@@ -18132,11 +18114,11 @@
               "description": "The ID of the trusted certificate to be deleted.",
               "required": true,
               "type": "string",
-              "entity_fieldname": "cert_id",
+              "entity_fieldname": "id",
               "api_fieldname": "cert_id",
-              "external_param": true,
+              "external_param": false,
               "parameter_fieldname": "cert_id",
-              "_key": "cert_id"
+              "_key": "id"
             }
           ],
           "method": "delete",
@@ -18386,7 +18368,7 @@
           "group_id": "Security",
           "parameter_map": {
             "developerCertificateId": "id",
-            "cert-id": "id"
+            "cert_id": "id"
           },
           "operation_id": "deleteCertificate",
           "pagination": false,
@@ -18803,18 +18785,6 @@
           ],
           "fields": [
             {
-              "name": "cert_id",
-              "in": "path",
-              "description": "The ID of the trusted certificate to be retrieved.",
-              "required": true,
-              "type": "string",
-              "entity_fieldname": "cert_id",
-              "api_fieldname": "cert_id",
-              "external_param": true,
-              "parameter_fieldname": "cert_id",
-              "_key": "cert_id"
-            },
-            {
               "type": "integer",
               "format": "int32",
               "example": 1,
@@ -18824,6 +18794,17 @@
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
               "_key": "device_execution_mode"
+            },
+            {
+              "type": "string",
+              "example": "01619571d01d0242ac12000600000000",
+              "description": "Entity ID.",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "cert_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
             }
           ],
           "method": "get",
@@ -19251,7 +19232,6 @@
             "is_custom",
             "private_key",
             "sub_accounts",
-            "id",
             "created_at",
             "updated_at",
             "name",
@@ -19270,7 +19250,7 @@
           "group_id": "Security",
           "parameter_map": {
             "developerCertificateId": "id",
-            "cert-id": "id"
+            "cert_id": "id"
           },
           "operation_id": "getCertificate",
           "unaggregated": true,
@@ -27330,6 +27310,9 @@
                     "description": "Entity ID.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "cert_id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -27755,6 +27738,9 @@
             "certificate_fingerprint"
           ],
           "group_id": "Security",
+          "parameter_map": {
+            "cert_id": "id"
+          },
           "operation_id": "addAccountCertificate",
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
           "pagination": false,
@@ -27777,24 +27763,24 @@
               "_key": "account_id"
             },
             {
-              "name": "cert_id",
-              "in": "path",
-              "description": "The ID of the trusted certificate to be deleted.",
-              "required": true,
-              "type": "string",
-              "entity_fieldname": "cert_id",
-              "api_fieldname": "cert_id",
-              "external_param": true,
-              "parameter_fieldname": "cert_id",
-              "_key": "cert_id"
-            },
-            {
               "type": "integer",
               "private_field": true,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
               "_key": "device_execution_mode"
+            },
+            {
+              "name": "cert_id",
+              "in": "path",
+              "description": "The ID of the trusted certificate to be deleted.",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "cert_id",
+              "external_param": false,
+              "parameter_fieldname": "cert_id",
+              "_key": "id"
             },
             {
               "description": "Whether or not this certificate is a developer certificate.",
@@ -28053,6 +28039,9 @@
             "sub_accounts"
           ],
           "group_id": "Security",
+          "parameter_map": {
+            "cert_id": "id"
+          },
           "operation_id": "deleteAccountCertificate",
           "pagination": false,
           "_key": "delete"
@@ -28073,18 +28062,6 @@
               "_key": "account_id"
             },
             {
-              "name": "cert_id",
-              "in": "path",
-              "description": "The ID of the trusted certificate to be retrieved.",
-              "required": true,
-              "type": "string",
-              "entity_fieldname": "cert_id",
-              "api_fieldname": "cert_id",
-              "external_param": true,
-              "parameter_fieldname": "cert_id",
-              "_key": "cert_id"
-            },
-            {
               "type": "integer",
               "format": "int32",
               "example": 1,
@@ -28094,6 +28071,17 @@
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
               "_key": "device_execution_mode"
+            },
+            {
+              "type": "string",
+              "example": "01619571d01d0242ac12000600000000",
+              "description": "Entity ID.",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "cert_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
             },
             {
               "description": "Whether or not this certificate is a developer certificate.",
@@ -28211,6 +28199,9 @@
                     "description": "Entity ID.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "cert_id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -28552,7 +28543,6 @@
             "is_custom",
             "private_key",
             "sub_accounts",
-            "id",
             "created_at",
             "updated_at",
             "name",
@@ -28568,6 +28558,9 @@
             "certificate_fingerprint"
           ],
           "group_id": "Security",
+          "parameter_map": {
+            "cert_id": "id"
+          },
           "operation_id": "getAccountCertificate",
           "pagination": false,
           "_key": "get"
@@ -28973,11 +28966,12 @@
             "security_file_content"
           ],
           "group_id": "Security",
-          "operation_id": "getDeveloperCertificate",
-          "unaggregated": true,
           "parameter_map": {
+            "cert_id": "id",
             "developerCertificateId": "id"
           },
+          "operation_id": "getDeveloperCertificate",
+          "unaggregated": true,
           "foreign_key": {
             "entity": "developer_certificate",
             "group": "Security"
@@ -28999,18 +28993,6 @@
               "in": "path",
               "required": true,
               "_key": "account_id"
-            },
-            {
-              "name": "cert_id",
-              "in": "path",
-              "description": "The ID of the trusted certificate to be updated.",
-              "required": true,
-              "type": "string",
-              "entity_fieldname": "cert_id",
-              "api_fieldname": "cert_id",
-              "external_param": true,
-              "parameter_fieldname": "cert_id",
-              "_key": "cert_id"
             },
             {
               "type": "string",
@@ -29055,6 +29037,17 @@
               "in": "body",
               "required": false,
               "_key": "enrollment_mode"
+            },
+            {
+              "type": "string",
+              "example": "01619571d01d0242ac12000600000000",
+              "description": "Entity ID.",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "cert_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
             },
             {
               "description": "Whether or not this certificate is a developer certificate.",
@@ -29214,6 +29207,9 @@
                     "description": "Entity ID.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "cert_id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -29629,7 +29625,6 @@
             "private_key",
             "sub_accounts",
             "signature",
-            "id",
             "created_at",
             "updated_at",
             "owner_id",
@@ -29639,6 +29634,9 @@
             "certificate_fingerprint"
           ],
           "group_id": "Security",
+          "parameter_map": {
+            "cert_id": "id"
+          },
           "operation_id": "updateAccountCertificate",
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
           "pagination": false,
@@ -29724,8 +29722,10 @@
           "example": "01619571d01d0242ac12000600000000",
           "description": "Entity ID.",
           "api_fieldname": "id",
-          "readOnly": false,
+          "parameter_fieldname": "cert_id",
+          "in": "path",
           "required": true,
+          "readOnly": false,
           "_key": "id"
         },
         {
@@ -35429,7 +35429,7 @@
           ],
           "group_id": "Security",
           "parameter_map": {
-            "cert-id": "id"
+            "cert_id": "id"
           },
           "operation_id": "addCertificate",
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
@@ -35441,24 +35441,24 @@
           "field_renames": [],
           "fields": [
             {
-              "name": "cert_id",
-              "in": "path",
-              "description": "The ID of the trusted certificate to be deleted.",
-              "required": true,
-              "type": "string",
-              "entity_fieldname": "cert_id",
-              "api_fieldname": "cert_id",
-              "external_param": true,
-              "parameter_fieldname": "cert_id",
-              "_key": "cert_id"
-            },
-            {
               "type": "integer",
               "private_field": true,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
               "_key": "device_execution_mode"
+            },
+            {
+              "name": "cert_id",
+              "in": "path",
+              "description": "The ID of the trusted certificate to be deleted.",
+              "required": true,
+              "type": "string",
+              "entity_fieldname": "id",
+              "api_fieldname": "cert_id",
+              "external_param": false,
+              "parameter_fieldname": "cert_id",
+              "_key": "id"
             },
             {
               "description": "Whether or not this certificate is a developer certificate.",
@@ -35718,7 +35718,7 @@
           ],
           "group_id": "Security",
           "parameter_map": {
-            "cert-id": "id"
+            "cert_id": "id"
           },
           "operation_id": "deleteCertificate",
           "pagination": false,
@@ -35729,18 +35729,6 @@
           "field_renames": [],
           "fields": [
             {
-              "name": "cert_id",
-              "in": "path",
-              "description": "The ID of the trusted certificate to be retrieved.",
-              "required": true,
-              "type": "string",
-              "entity_fieldname": "cert_id",
-              "api_fieldname": "cert_id",
-              "external_param": true,
-              "parameter_fieldname": "cert_id",
-              "_key": "cert_id"
-            },
-            {
               "type": "integer",
               "format": "int32",
               "example": 1,
@@ -35750,6 +35738,17 @@
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
               "_key": "device_execution_mode"
+            },
+            {
+              "type": "string",
+              "example": "01619571d01d0242ac12000600000000",
+              "description": "Entity ID.",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "cert_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
             },
             {
               "description": "Whether or not this certificate is a developer certificate.",
@@ -36188,7 +36187,6 @@
             "is_custom",
             "private_key",
             "sub_accounts",
-            "id",
             "created_at",
             "updated_at",
             "name",
@@ -36206,7 +36204,7 @@
           ],
           "group_id": "Security",
           "parameter_map": {
-            "cert-id": "id"
+            "cert_id": "id"
           },
           "operation_id": "getCertificate",
           "pagination": false,
@@ -36614,7 +36612,7 @@
           ],
           "group_id": "Security",
           "parameter_map": {
-            "cert-id": "id",
+            "cert_id": "id",
             "developerCertificateId": "id"
           },
           "operation_id": "getDeveloperCertificate",
@@ -36729,6 +36727,11 @@
                     "description": "The entity ID to fetch after the given one.",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
+                    "name": "after",
+                    "in": "query",
+                    "required": false,
+                    "external_param": true,
+                    "parameter_fieldname": "after",
                     "_key": "after"
                   },
                   {
@@ -36877,7 +36880,7 @@
                       "description": "This object represents a trusted certificate in responses.",
                       "foreign_key": {
                         "group": "Security",
-                        "entity": "trusted_certificate"
+                        "entity": "developer_certificate"
                       }
                     },
                     "api_fieldname": "data",
@@ -36896,9 +36899,15 @@
                     "type": "integer",
                     "format": "int32",
                     "example": 50,
-                    "description": "The number of results to return, (range: 2-1000), or equals to `total_count`",
+                    "description": "The number of results to return (2-1000), default is 50.",
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
+                    "name": "limit",
+                    "in": "query",
+                    "required": false,
+                    "default": 50,
+                    "external_param": true,
+                    "parameter_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
@@ -36913,13 +36922,20 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.",
+                    "description": "The order of the records based on creation time, ASC or DESC; by default ASC",
                     "enum": [
                       "ASC",
                       "DESC"
                     ],
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
+                    "name": "order",
+                    "in": "query",
+                    "required": false,
+                    "default": "ASC",
+                    "external_param": true,
+                    "parameter_fieldname": "order",
+                    "enum_reference": "account_order_enum",
                     "_key": "order"
                   },
                   {
@@ -37089,11 +37105,11 @@
           ],
           "path": "/v3/trusted-certificates",
           "summary": "Get all trusted certificates.",
-          "return_type": "paginated_response(trusted_certificate)",
+          "return_type": "paginated_response(developer_certificate)",
           "return_info": {
-            "self": true,
+            "self": false,
             "custom": false,
-            "type": "trusted_certificate"
+            "type": "developer_certificate"
           },
           "drop_fields": [
             "object",
@@ -37120,13 +37136,13 @@
           "foreign_key_priority": "self",
           "group_id": "Security",
           "parameter_map": {
-            "cert-id": "id"
+            "cert_id": "id"
           },
           "operation_id": "getAllCertificates",
           "pagination": true,
           "foreign_key": {
             "group": "Security",
-            "entity": "trusted_certificate"
+            "entity": "developer_certificate"
           },
           "_key": "list"
         },
@@ -37134,18 +37150,6 @@
           "description": "An endpoint for updating existing trusted certificates.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
           "field_renames": [],
           "fields": [
-            {
-              "name": "cert_id",
-              "in": "path",
-              "description": "The ID of the trusted certificate to be updated.",
-              "required": true,
-              "type": "string",
-              "entity_fieldname": "cert_id",
-              "api_fieldname": "cert_id",
-              "external_param": true,
-              "parameter_fieldname": "cert_id",
-              "_key": "cert_id"
-            },
             {
               "type": "string",
               "example": "-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
@@ -37189,6 +37193,17 @@
               "in": "body",
               "required": false,
               "_key": "enrollment_mode"
+            },
+            {
+              "type": "string",
+              "example": "01619571d01d0242ac12000600000000",
+              "description": "Entity ID.",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
+              "parameter_fieldname": "cert_id",
+              "in": "path",
+              "required": true,
+              "_key": "id"
             },
             {
               "description": "Whether or not this certificate is a developer certificate.",
@@ -37816,7 +37831,6 @@
             "private_key",
             "sub_accounts",
             "signature",
-            "id",
             "created_at",
             "updated_at",
             "account_id",
@@ -37828,7 +37842,7 @@
           ],
           "group_id": "Security",
           "parameter_map": {
-            "cert-id": "id"
+            "cert_id": "id"
           },
           "operation_id": "updateCertificate",
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
