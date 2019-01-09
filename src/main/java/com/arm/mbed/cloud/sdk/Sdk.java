@@ -37,6 +37,7 @@ import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
  */
 public class Sdk extends AbstractModule {
 
+    private static final String BUFFER = "BUFFER";
     private final Connect connectApi;
 
     /**
@@ -197,7 +198,7 @@ public class Sdk extends AbstractModule {
      */
     public @Nullable AsynchronousResponseObserver
            fetch(@NonNull Resource resource,
-                 @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy) throws MbedCloudException {
+                 @Nullable @DefaultValue(BUFFER) BackpressureStrategy strategy) throws MbedCloudException {
 
         return connectApi.createCurrentResourceValueObserver(resource, strategy);
     }
@@ -220,7 +221,7 @@ public class Sdk extends AbstractModule {
      *             if a problem occurred during request processing.
      */
     public @Nullable AsynchronousResponseObserver
-           set(@NonNull Resource resource, @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy,
+           set(@NonNull Resource resource, @Nullable @DefaultValue(BUFFER) BackpressureStrategy strategy,
                @Nullable Object value, @NonNull ResourceValueType valueType) throws MbedCloudException {
 
         return connectApi.createSetResourceValueObserver(resource, strategy, value, valueType);
@@ -244,7 +245,7 @@ public class Sdk extends AbstractModule {
      *             if a problem occurred during request processing.
      */
     public @Nullable AsynchronousResponseObserver
-           execute(@NonNull Resource resource, @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy,
+           execute(@NonNull Resource resource, @Nullable @DefaultValue(BUFFER) BackpressureStrategy strategy,
                    @Nullable Object value, @NonNull ResourceValueType valueType) throws MbedCloudException {
         return connectApi.createExecuteResourceValueObserver(resource, strategy, value, valueType);
     }
