@@ -7,6 +7,7 @@ import io.reactivex.BackpressureStrategy;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
+import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Experimental;
 import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
@@ -18,8 +19,10 @@ import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
+import com.arm.mbed.cloud.sdk.connect.subscription.ResourceValueType;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
+import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
@@ -34,6 +37,7 @@ import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
  */
 public class Sdk extends AbstractModule {
 
+    private static final String BUFFER = "BUFFER";
     private final Connect connectApi;
 
     /**
@@ -177,6 +181,73 @@ public class Sdk extends AbstractModule {
     public ResourceValueObserver subscribe(@NonNull Resource resource, @NonNull BackpressureStrategy strategy,
                                            FirstValue triggerMode) throws MbedCloudException {
         return subscribe().resourceValues(resource, strategy, triggerMode);
+    }
+
+    /**
+     * Fetches resource current value.
+     * <p>
+     * See {@link AsynchronousResponseObserver}
+     * 
+     * @param resource
+     *            resource of interest.
+     * @param strategy
+     *            backpressure strategy.
+     * @return corresponding observer.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    public @Nullable AsynchronousResponseObserver
+           fetch(@NonNull Resource resource,
+                 @Nullable @DefaultValue(BUFFER) BackpressureStrategy strategy) throws MbedCloudException {
+
+        return connectApi.createCurrentResourceValueObserver(resource, strategy);
+    }
+
+    /**
+     * Sets a resource value.
+     * <p>
+     * See {@link AsynchronousResponseObserver}
+     * 
+     * @param resource
+     *            resource of interest.
+     * @param strategy
+     *            backpressure strategy.
+     * @param value
+     *            value to set.
+     * @param valueType
+     *            type of the value to set.
+     * @return corresponding observer.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    public @Nullable AsynchronousResponseObserver
+           set(@NonNull Resource resource, @Nullable @DefaultValue(BUFFER) BackpressureStrategy strategy,
+               @Nullable Object value, @NonNull ResourceValueType valueType) throws MbedCloudException {
+
+        return connectApi.createSetResourceValueObserver(resource, strategy, value, valueType);
+    }
+
+    /**
+     * Executes an action on a resource.
+     * <p>
+     * See {@link AsynchronousResponseObserver}
+     * 
+     * @param resource
+     *            resource of interest.
+     * @param strategy
+     *            backpressure strategy.
+     * @param value
+     *            value to set.
+     * @param valueType
+     *            type of the value to set.
+     * @return corresponding observer.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    public @Nullable AsynchronousResponseObserver
+           execute(@NonNull Resource resource, @Nullable @DefaultValue(BUFFER) BackpressureStrategy strategy,
+                   @Nullable Object value, @NonNull ResourceValueType valueType) throws MbedCloudException {
+        return connectApi.createExecuteResourceValueObserver(resource, strategy, value, valueType);
     }
 
     /**

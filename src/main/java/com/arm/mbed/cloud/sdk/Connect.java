@@ -103,7 +103,7 @@ public class Connect extends AbstractModule {
     private final EndPoints endpoint;
     private final DeviceDirectory deviceDirectory;
     private final NotificationHandlersStore handlersStore;
-    private Object presubscriptionLock = new Object();
+    private final Object presubscriptionLock = new Object();
 
     /**
      * Connect module constructor.
