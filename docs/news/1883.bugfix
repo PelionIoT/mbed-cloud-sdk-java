@@ -1,1 +1,0 @@
-`Set` and `execute` resource value actions now use `/v2/device-requests/` enpoint as former endpoints are deprecated

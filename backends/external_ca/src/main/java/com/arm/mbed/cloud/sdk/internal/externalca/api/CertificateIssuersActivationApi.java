@@ -77,7 +77,11 @@ public interface CertificateIssuersActivationApi {
 
   /**
    * Get certificate issuer configurations.
-   * Get certificate issuer configurations, optionally filtered by reference. &lt;br&gt; **Example usage:**  &#x60;&#x60;&#x60; curl \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\ &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq&#x3D;dlms \\ &#x60;&#x60;&#x60; 
+   * Get certificate issuer configurations, optionally filtered by reference. &lt;br&gt; **Example usage:**  &#x60;&#x60;&#x60; curl \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\ &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq&#x3D;dlms \\ &#x60;&#x60;&#x60; Note: This endpoint does not implement pagination and therefore, list control parameters such as &#x60;limit&#x60; or &#x60;after&#x60; will be ignored by the system. 
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
+   * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
+   * @param after The ID of The item after which to retrieve the next page. (optional)
+   * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60; (optional)
    * @param referenceEq The certificate name to which the certificate issuer configuration applies. (optional)
    * @return Call&lt;CertificateIssuerConfigListResponse&gt;
    */
@@ -86,7 +90,7 @@ public interface CertificateIssuersActivationApi {
   })
   @GET("v3/certificate-issuer-configurations")
   Call<CertificateIssuerConfigListResponse> getCertificateIssuerConfigs(
-    @retrofit2.http.Query("reference__eq") String referenceEq
+    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("reference__eq") String referenceEq
   );
 
   /**

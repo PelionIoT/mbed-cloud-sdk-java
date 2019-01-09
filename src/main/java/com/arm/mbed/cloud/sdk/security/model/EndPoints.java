@@ -3,12 +3,11 @@ package com.arm.mbed.cloud.sdk.security.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
-import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.internal.certificaterenewal.api.CertificateEnrollmentsApi;
-import com.arm.mbed.cloud.sdk.internal.certificaterenewal.api.CertificateRenewalApi;
-import com.arm.mbed.cloud.sdk.internal.externalca.api.CertificateIssuersActivationApi;
-import com.arm.mbed.cloud.sdk.internal.externalca.api.CertificateIssuersApi;
+import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateEnrollmentsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateIssuersActivationApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateIssuersApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateRenewalApi;
 
 @Preamble(description = "Endpoint for Security API module")
 @Internal
@@ -22,27 +21,16 @@ public class EndPoints extends AbstractEndpoints {
     /**
      * Constructor.
      * 
-     * @param wrapper
-     *            API client {@link ApiClientWrapper}.
+     * @param services
+     *            created services {@link ServiceRegistry}.
      */
-    public EndPoints(ApiClientWrapper wrapper) {
-        super(wrapper);
+    public EndPoints(ServiceRegistry services) {
+        super(services);
 
-        certificateEnrollment = wrapper.createService(CertificateEnrollmentsApi.class);
-        certificateRenewal = wrapper.createService(CertificateRenewalApi.class);
-        certificateIssuersActivation = wrapper.createService(CertificateIssuersActivationApi.class);
-        certificateIssuers = wrapper.createService(CertificateIssuersApi.class);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param options
-     *            connection options {@link ConnectionOptions}.
-     */
-    public EndPoints(ConnectionOptions options) {
-        this(new ApiClientWrapper(options));
-
+        certificateEnrollment = initialiseService(CertificateEnrollmentsApi.class);
+        certificateRenewal = initialiseService(CertificateRenewalApi.class);
+        certificateIssuersActivation = initialiseService(CertificateIssuersActivationApi.class);
+        certificateIssuers = initialiseService(CertificateIssuersApi.class);
     }
 
     public CertificateEnrollmentsApi getCertificateEnrollment() {

@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.walkmod:gradle-walkmod-plugin:0.0.+'
+    }
+}
+plugins {
+    // Apply the java-library plugin to add support for Java Library
+    id 'java-library'
+    id 'eclipse'
+    id 'jacoco' //Code coverage
+    id 'checkstyle'
+    id 'pmd'
+  //  id "com.diffplug.gradle.spotless"
+}
+
+
+apply plugin: 'walkmod'
+dependencies {
+    api project(':foundation-core')
+    //FIXME When possible, remove dependency on pelion core.
+    api project(':pelion-sdk-core')
+    // Use JUnit test framework
+    testImplementation 'junit:junit:4.12'
+}
+
+
+compileJava {
+    // Library compatibility
+    sourceCompatibility  JavaVersion.VERSION_1_7.toString()
+    targetCompatibility  JavaVersion.VERSION_1_7.toString()
+}
+
+allprojects {
+    buildscript {
+        repositories {
+            jcenter()
+            mavenCentral()
+            maven {
+                url "https://plugins.gradle.org/m2/"
+            }
+        }
+    }
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.enabled true
+    }
+}

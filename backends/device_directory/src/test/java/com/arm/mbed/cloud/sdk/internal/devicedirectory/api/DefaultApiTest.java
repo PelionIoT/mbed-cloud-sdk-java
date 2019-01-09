@@ -1,15 +1,23 @@
 package com.arm.mbed.cloud.sdk.internal.devicedirectory.api;
 
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceBlock;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceBlockPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPutRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroup;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroupManipulation;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroupPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQuery;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPostPutRequest;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.ErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.Group;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.Group1;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,6 +38,127 @@ public class DefaultApiTest {
         api = new ApiClient().createService(DefaultApi.class);
     }
 
+    /**
+     * Create a device block
+     *
+     * Create a device block
+     */
+    @Test
+    public void blocksCreateTest() {
+        DeviceBlock deviceBlock = null;
+        // DeviceBlock response = api.blocksCreate(deviceBlock);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete a device block
+     *
+     * Delete a device block. Deleting a block will also delete blocks associated with a device.
+     */
+    @Test
+    public void blocksDeleteTest() {
+        String blockId = null;
+        // Void response = api.blocksDelete(blockId);
+
+        // TODO: test validations
+    }
+    /**
+     * List all device blocks
+     *
+     * List all device blocks
+     */
+    @Test
+    public void blocksListTest() {
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        String filter = null;
+        // DeviceBlockPage response = api.blocksList(limit, order, after, include, filter);
+
+        // TODO: test validations
+    }
+    /**
+     * Get a device block
+     *
+     * Get a device block
+     */
+    @Test
+    public void blocksRetrieveTest() {
+        String blockId = null;
+        // DeviceBlock response = api.blocksRetrieve(blockId);
+
+        // TODO: test validations
+    }
+    /**
+     * Update a device block
+     *
+     * Update a device block
+     */
+    @Test
+    public void blocksUpdateTest() {
+        String blockId = null;
+        DeviceBlock deviceBlock = null;
+        // DeviceBlock response = api.blocksUpdate(blockId, deviceBlock);
+
+        // TODO: test validations
+    }
+    /**
+     * Add a block to this device
+     *
+     * Add a block to this device.
+     */
+    @Test
+    public void deviceBlocksCreateTest() {
+        String id = null;
+        DeviceBlock block = null;
+        // DeviceBlock response = api.deviceBlocksCreate(id, block);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete a block for a device
+     *
+     * Delete a block for a device. Please note that a while a device may have multiple blocks, only user blocks may be removed through this API.
+     */
+    @Test
+    public void deviceBlocksDeleteTest() {
+        String id = null;
+        String blockId = null;
+        // Void response = api.deviceBlocksDelete(id, blockId);
+
+        // TODO: test validations
+    }
+    /**
+     * List all blocks for this device
+     *
+     * List all blocks for this device
+     */
+    @Test
+    public void deviceBlocksListTest() {
+        String id = null;
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        String filter = null;
+        // DeviceBlockPage response = api.deviceBlocksList(id, limit, order, after, include, filter);
+
+        // TODO: test validations
+    }
+    /**
+     * Get a block for a device
+     *
+     * Get a block for a device
+     */
+    @Test
+    public void deviceBlocksRetreiveTest() {
+        String id = null;
+        String blockId = null;
+        // DeviceBlock response = api.deviceBlocksRetreive(id, blockId);
+
+        // TODO: test validations
+    }
     /**
      * Create a device
      *
@@ -64,9 +193,9 @@ public class DefaultApiTest {
         Integer limit = null;
         String order = null;
         String after = null;
-        String filter = null;
         String include = null;
-        // DeviceEventPage response = api.deviceEventList(limit, order, after, filter, include);
+        String filter = null;
+        // DeviceEventPage response = api.deviceEventList(limit, order, after, include, filter);
 
         // TODO: test validations
     }
@@ -92,9 +221,9 @@ public class DefaultApiTest {
         Integer limit = null;
         String order = null;
         String after = null;
-        String filter = null;
         String include = null;
-        // DevicePage response = api.deviceList(limit, order, after, filter, include);
+        String filter = null;
+        // DevicePage response = api.deviceList(limit, order, after, include, filter);
 
         // TODO: test validations
     }
@@ -108,16 +237,16 @@ public class DefaultApiTest {
         Integer limit = null;
         String order = null;
         String after = null;
-        String filter = null;
         String include = null;
-        // DeviceEventPage response = api.deviceLogList(limit, order, after, filter, include);
+        String filter = null;
+        // DeviceEventPage response = api.deviceLogList(limit, order, after, include, filter);
 
         // TODO: test validations
     }
     /**
      * DEPRECATED: Retrieve a device event.
      *
-     * Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
+     * Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead).
      */
     @Test
     public void deviceLogRetrieveTest() {
@@ -160,9 +289,9 @@ public class DefaultApiTest {
         Integer limit = null;
         String order = null;
         String after = null;
-        String filter = null;
         String include = null;
-        // DeviceQueryPage response = api.deviceQueryList(limit, order, after, filter, include);
+        String filter = null;
+        // DeviceQueryPage response = api.deviceQueryList(limit, order, after, include, filter);
 
         // TODO: test validations
     }
@@ -192,7 +321,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * Get a devices
+     * Get a device
      *
      * Retrieve information about a specific device.
      */
@@ -213,6 +342,114 @@ public class DefaultApiTest {
         String id = null;
         DeviceDataPutRequest device = null;
         // DeviceData response = api.deviceUpdate(id, device);
+
+        // TODO: test validations
+    }
+    /**
+     * Create a group
+     *
+     * Create a group.
+     */
+    @Test
+    public void groupCreateTest() {
+        Group group = null;
+        // DeviceGroup response = api.groupCreate(group);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete a group
+     *
+     * Delete a group.
+     */
+    @Test
+    public void groupDeleteTest() {
+        String deviceGroupId = null;
+        // Void response = api.groupDelete(deviceGroupId);
+
+        // TODO: test validations
+    }
+    /**
+     * List all groups.
+     *
+     * List all groups.
+     */
+    @Test
+    public void groupListTest() {
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        String filter = null;
+        // DeviceGroupPage response = api.groupList(limit, order, after, include, filter);
+
+        // TODO: test validations
+    }
+    /**
+     * Add a device to a group
+     *
+     * Add one device to a group.
+     */
+    @Test
+    public void groupMembersAddTest() {
+        String deviceGroupId = null;
+        DeviceGroupManipulation body = null;
+        // Void response = api.groupMembersAdd(deviceGroupId, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Remove a device from a group
+     *
+     * Remove one device from a group.
+     */
+    @Test
+    public void groupMembersRemoveTest() {
+        String deviceGroupId = null;
+        DeviceGroupManipulation body = null;
+        // Void response = api.groupMembersRemove(deviceGroupId, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Get a page of devices
+     *
+     * Get a page of devices.
+     */
+    @Test
+    public void groupMembersRetrieveTest() {
+        String deviceGroupId = null;
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        String filter = null;
+        // Void response = api.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter);
+
+        // TODO: test validations
+    }
+    /**
+     * Get a group.
+     *
+     * Get a group.
+     */
+    @Test
+    public void groupRetrieveTest() {
+        String deviceGroupId = null;
+        // DeviceGroup response = api.groupRetrieve(deviceGroupId);
+
+        // TODO: test validations
+    }
+    /**
+     * Modify the attributes of a group.
+     *
+     * Modify the attributes of a group.
+     */
+    @Test
+    public void groupUpdateTest() {
+        String deviceGroupId = null;
+        Group1 group = null;
+        // DeviceGroup response = api.groupUpdate(deviceGroupId, group);
 
         // TODO: test validations
     }

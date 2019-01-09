@@ -76,12 +76,16 @@ public class CertificateIssuersActivationApiTest {
     /**
      * Get certificate issuer configurations.
      *
-     * Get certificate issuer configurations, optionally filtered by reference. &lt;br&gt; **Example usage:**  &#x60;&#x60;&#x60; curl \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\ &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq&#x3D;dlms \\ &#x60;&#x60;&#x60; 
+     * Get certificate issuer configurations, optionally filtered by reference. &lt;br&gt; **Example usage:**  &#x60;&#x60;&#x60; curl \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\ &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq&#x3D;dlms \\ &#x60;&#x60;&#x60; Note: This endpoint does not implement pagination and therefore, list control parameters such as &#x60;limit&#x60; or &#x60;after&#x60; will be ignored by the system. 
      */
     @Test
     public void getCertificateIssuerConfigsTest() {
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
         String referenceEq = null;
-        // CertificateIssuerConfigListResponse response = api.getCertificateIssuerConfigs(referenceEq);
+        // CertificateIssuerConfigListResponse response = api.getCertificateIssuerConfigs(limit, order, after, include, referenceEq);
 
         // TODO: test validations
     }

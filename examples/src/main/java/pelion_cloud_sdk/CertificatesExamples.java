@@ -29,8 +29,8 @@ public class CertificatesExamples extends AbstractExample {
             String certificateName = generateCertificateName();
             log("Certificate Name", certificateName);
             // Creating and adding a certificate
-            Certificate myCertificate = api
-                    .addDeveloperCertificate(new Certificate(certificateName, CertificateType.DEVELOPER, false));
+            Certificate myCertificate = api.addDeveloperCertificate(new Certificate(certificateName,
+                                                                                    CertificateType.DEVELOPER, false));
             log("Created developer certificate", myCertificate);
             certificateId = myCertificate.getId();
             String newName = generateCertificateName();
@@ -61,7 +61,7 @@ public class CertificatesExamples extends AbstractExample {
         try {
             // Defining query options.
             CertificateListOptions options = new CertificateListOptions();
-            options.setLimit(5);
+            options.setPageSize(5);
             // Listing certificates.
             Paginator<Certificate> certificates = api.listAllCertificates(options);
             for (Certificate certificate : certificates) {

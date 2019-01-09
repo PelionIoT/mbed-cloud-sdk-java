@@ -1,6 +1,6 @@
 /*
  * Update Service API
- * This is the API documentation for the Mbed deployment service, which is part of the update service.
+ * This is the API documentation for the Device Management deployment service, which is part of the Update service.
  *
  * OpenAPI spec version: 3
  * 
@@ -71,7 +71,7 @@ public class FirmwareImage implements Serializable {
    * The time the object was created
    * @return createdAt
   **/
-  @ApiModelProperty(required = true, value = "The time the object was created")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The time the object was created")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -104,10 +104,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * Checksum (sha256) generated for the datafile
+   * The checksum (sha256) generated for the datafile
    * @return datafileChecksum
   **/
-  @ApiModelProperty(example = "0000000000000000000000000000000000000000000000000000000000000000", required = true, value = "Checksum (sha256) generated for the datafile")
+  @ApiModelProperty(example = "0000000000000000000000000000000000000000000000000000000000000000", required = true, value = "The checksum (sha256) generated for the datafile")
   public String getDatafileChecksum() {
     return datafileChecksum;
   }
@@ -122,10 +122,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * Size of the datafile in bytes
+   * The size of the datafile in bytes
    * @return datafileSize
   **/
-  @ApiModelProperty(value = "Size of the datafile in bytes")
+  @ApiModelProperty(value = "The size of the datafile in bytes")
   public Long getDatafileSize() {
     return datafileSize;
   }
@@ -161,7 +161,7 @@ public class FirmwareImage implements Serializable {
    * The entity instance signature
    * @return etag
   **/
-  @ApiModelProperty(required = true, value = "The entity instance signature")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The entity instance signature")
   public DateTime getEtag() {
     return etag;
   }
@@ -233,7 +233,7 @@ public class FirmwareImage implements Serializable {
    * The time the object was updated
    * @return updatedAt
   **/
-  @ApiModelProperty(required = true, value = "The time the object was updated")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The time the object was updated")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }

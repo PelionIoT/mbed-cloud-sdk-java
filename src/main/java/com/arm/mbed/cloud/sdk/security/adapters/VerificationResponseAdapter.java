@@ -4,7 +4,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerVerifyResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerVerifyResponse;
 import com.arm.mbed.cloud.sdk.security.model.VerificationResponse;
 
 @Preamble(description = "Adapter for verification response model")
@@ -26,7 +26,7 @@ public final class VerificationResponseAdapter {
         if (response == null) {
             return null;
         }
-        return new VerificationResponse(TranslationUtils.toBool(response.isSuccessful(), false), response.getMessage());
+        return new VerificationResponse(response.getMessage(), TranslationUtils.toBool(response.isSuccessful(), false));
     }
 
     /**

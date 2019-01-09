@@ -1,0 +1,17 @@
+{
+  "modelPackage": "com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.model",
+  "apiPackage": "com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.api",
+  "invokerPackage": "com.arm.mbed.cloud.sdk.internal.mbedcloudcommon",
+  "artifactId": "mbedcloud_common",
+  "groupId": "com.arm.mbed.cloud.sdk",
+  "localVariablePrefix": "",
+  "licenseName": "Apache 2.0",
+  "LicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.html",
+  "serializableModel": true,
+  "fullJavaUtil": false,
+  "hideGenerationTimestamp": true,
+  "useBeanValidation": false,
+  "performBeanValidation": false,
+  "library": "retrofit2",
+  "dateLibrary": "joda"
+}

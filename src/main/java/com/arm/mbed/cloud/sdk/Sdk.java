@@ -1,6 +1,5 @@
 package com.arm.mbed.cloud.sdk;
 
-import java.io.Closeable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,12 +12,13 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
@@ -32,7 +32,7 @@ import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 /**
  * Entry point for using the SDK.
  */
-public class Sdk extends AbstractApi implements Closeable {
+public class Sdk extends AbstractModule {
 
     private final Connect connectApi;
 
@@ -45,6 +45,16 @@ public class Sdk extends AbstractApi implements Closeable {
     public Sdk(ConnectionOptions options) {
         super(options, extendUserAgent());
         connectApi = new Connect(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public Sdk(SdkContext context) {
+        this(context == null ? null : context.getConnectionOption());
     }
 
     /**
@@ -205,6 +215,19 @@ public class Sdk extends AbstractApi implements Closeable {
     }
 
     /**
+     * Unsubscribes all observers contained in the system.
+     * <p>
+     * Note: this removes any subscriptions registered server side.
+     * 
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
+    @API
+    public void unsubscribeAll() throws MbedCloudException {
+        subscribe().unsubscribeAll();
+    }
+
+    /**
      * Stops any running daemon process/thread.
      *
      * @throws MbedCloudException
@@ -227,12 +250,7 @@ public class Sdk extends AbstractApi implements Closeable {
     @API
     @Daemon(shutdown = true)
     public void quit() {
-        try {
-            stop();
-        } catch (MbedCloudException exception) {
-            // Nothing to do
-        }
-        connectApi.shutdownConnectService();
+        connectApi.close();
     }
 
     /**
@@ -240,7 +258,13 @@ public class Sdk extends AbstractApi implements Closeable {
      */
     @Override
     public void close() {
+        super.close();
         quit();
+    }
+
+    @Override
+    public Sdk clone() {
+        return new Sdk(this);
     }
 
     @Override

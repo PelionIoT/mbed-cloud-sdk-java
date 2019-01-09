@@ -17,22 +17,23 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
-import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoResp;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummary;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoRespList;
 
 import retrofit2.Call;
 
@@ -41,7 +42,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for creating and managing accounts, users, groups and API keys in the organisation.
  */
-public class AccountManagement extends AbstractApi {
+public class AccountManagement extends AbstractModule {
 
     private static final String TAG_USER_UUID = "user UUID";
     private static final String TAG_API_KEY_UUID = "apiKey UUID";
@@ -62,7 +63,23 @@ public class AccountManagement extends AbstractApi {
      */
     public AccountManagement(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public AccountManagement(SdkContext context) {
+        super(context);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    @Override
+    public AccountManagement clone() {
+        return new AccountManagement(this);
     }
 
     /**
@@ -482,7 +499,8 @@ public class AccountManagement extends AbstractApi {
                                             finalOptions.encodeSingleEqualFilter(UserListOptions.EMAIL_FILTER),
                                             finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
                                             finalOptions.encodeSingleInFilter(UserListOptions.STATUS_FILTER),
-                                            finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER));
+                                            finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER),
+                                            finalOptions.encodeSingleNotInFilter(UserListOptions.LOGIN_PROFILE_FILTER));
             }
         });
     }
@@ -1201,4 +1219,5 @@ public class AccountManagement extends AbstractApi {
     public String getModuleName() {
         return "Account Management";
     }
+
 }

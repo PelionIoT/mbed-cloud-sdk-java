@@ -11,20 +11,21 @@ import com.arm.mbed.cloud.sdk.certificates.model.Certificate;
 import com.arm.mbed.cloud.sdk.certificates.model.CertificateListOptions;
 import com.arm.mbed.cloud.sdk.certificates.model.CertificateType;
 import com.arm.mbed.cloud.sdk.certificates.model.EndPoints;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
-import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateResponseData;
-import com.arm.mbed.cloud.sdk.internal.connectorca.model.ServerCredentialsResponseData;
-import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeveloperCertificateResponseData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServerCredentialsResponseData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateResp;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRespList;
 
 import retrofit2.Call;
 
@@ -33,7 +34,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for dealing with certificates.
  */
-public class Certificates extends AbstractApi {
+public class Certificates extends AbstractModule {
 
     private static final String TAG_CERTIFICATE = "certificate";
     private static final String TAG_CERTIFICATE_ID = "certificateId";
@@ -47,7 +48,23 @@ public class Certificates extends AbstractApi {
      */
     public Certificates(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public Certificates(SdkContext context) {
+        super(context);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    @Override
+    public Certificates clone() {
+        return new Certificates(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -168,12 +185,13 @@ public class Certificates extends AbstractApi {
                                                                            finalOptions.encodeInclude(),
                                                                            finalOptions.encodeSingleEqualFilter(CertificateListOptions.NAME_FILTER),
                                                                            serviceEq,
-                                                                           TranslationUtils.convertToInteger(finalOptions.encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER),
-                                                                                                             null),
+                                                                           TranslationUtils.toInteger(finalOptions.encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER),
+                                                                                                      null),
                                                                            finalOptions.getExecutionModeFilter(),
                                                                            finalOptions.getExecutionModeNotEqualFilter(),
                                                                            finalOptions.encodeSingleEqualFilter(CertificateListOptions.OWNER_ID_FILTER),
                                                                            finalOptions.getEnrollmentFilter(),
+                                                                           finalOptions.encodeSingleEqualFilter(CertificateListOptions.STATUS_FILTER),
                                                                            finalOptions.encodeSingleLikeFilter(CertificateListOptions.ISSUER_FILTER),
                                                                            finalOptions.encodeSingleLikeFilter(CertificateListOptions.SUBJECT_FILTER));
                                     }

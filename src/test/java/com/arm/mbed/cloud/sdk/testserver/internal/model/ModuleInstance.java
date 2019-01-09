@@ -101,7 +101,7 @@ public class ModuleInstance implements Serializable, Shareable {
     @Override
     public String toString() {
         return "ModuleInstance [id=" + id + ", createdAt=" + createdAt + ", module=" + moduleName + ", hostInUse="
-                + getHostInUse() + "]";
+               + getHostInUse() + "]";
     }
 
     public Instance toInstance() {

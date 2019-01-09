@@ -4,7 +4,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceActionParameters;
-import com.arm.mbed.cloud.sdk.internal.mds.model.DeviceRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceRequest;
 
 @Preamble(description = "Adapter for resource actions")
 public final class ResourceActionAdapter {

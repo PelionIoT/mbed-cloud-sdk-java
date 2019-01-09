@@ -23,6 +23,11 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupUpdateInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderCreationReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderUpdateReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.NotificationEntryList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalRespList;
@@ -165,6 +170,21 @@ public interface AggregatorAccountAdminApi {
   );
 
   /**
+   * Create a new identity provider.
+   * An endpoint for creating a new identity provider.
+   * @param accountId Account ID. (required)
+   * @param body Details of the identity provider to be created. (required)
+   * @return Call&lt;IdentityProviderInfo&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @POST("v3/accounts/{account_id}/identity-providers")
+  Call<IdentityProviderInfo> createAccountIdentityProvider(
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Body IdentityProviderCreationReq body
+  );
+
+  /**
    * Create a user invitation.
    * An endpoint for inviting a new or an existing user to join the account.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accouns/{account-id}/user-invitations -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountId Account ID. (required)
@@ -232,6 +252,18 @@ public interface AggregatorAccountAdminApi {
   );
 
   /**
+   * Delete an identity provider by ID.
+   * An endpoint for deleting an identity provider by ID.
+   * @param accountId Account ID. (required)
+   * @param identityProviderId The ID of the identity provider to be deleted. (required)
+   * @return Call&lt;Void&gt;
+   */
+  @DELETE("v3/accounts/{account_id}/identity-providers/{identity_provider_id}")
+  Call<Void> deleteAccountIdentityProvider(
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId
+  );
+
+  /**
    * Delete a user invitation.
    * An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id}/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountId Account ID. (required)
@@ -292,6 +324,18 @@ public interface AggregatorAccountAdminApi {
   );
 
   /**
+   * Get identity provider by ID.
+   * An endpoint for retrieving an identity provider by ID.
+   * @param accountId Account ID. (required)
+   * @param identityProviderId The ID of the identity provider to be retrieved. (required)
+   * @return Call&lt;IdentityProviderInfo&gt;
+   */
+  @GET("v3/accounts/{account_id}/identity-providers/{identity_provider_id}")
+  Call<IdentityProviderInfo> getAccountIdentityProvider(
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId
+  );
+
+  /**
    * Get account info.
    * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;.
    * @param accountID The ID of the account to be fetched. (required)
@@ -314,6 +358,20 @@ public interface AggregatorAccountAdminApi {
   @GET("v3/accounts/{account-id}/user-invitations/{invitation-id}")
   Call<UserInvitationResp> getAccountInvitation(
     @retrofit2.http.Path(value = "account-id", encoded = true) String accountId, @retrofit2.http.Path(value = "invitation-id", encoded = true) String invitationId
+  );
+
+  /**
+   * Get the notification events of an account.
+   * Endpoint for retrieving notifications.
+   * @param accountId Account ID. (required)
+   * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
+   * @param after The entity ID to fetch after the given one. (optional)
+   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
+   * @return Call&lt;NotificationEntryList&gt;
+   */
+  @GET("v3/accounts/{account_id}/notifications")
+  Call<NotificationEntryList> getAccountNofificationEntries(
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order
   );
 
   /**
@@ -383,6 +441,24 @@ public interface AggregatorAccountAdminApi {
   @GET("v3/accounts/{accountID}/policy-groups")
   Call<GroupSummaryList> getAllAccountGroups(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("name__eq") String nameEq
+  );
+
+  /**
+   * Get all identity providers.
+   * An endpoint for retrieving identity providers in an array.
+   * @param accountId Account ID. (required)
+   * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
+   * @param after The entity ID to fetch after the given one. (optional)
+   * @param order The order of the records based on creation time, ASC or DESC; default ASC. (optional, default to ASC)
+   * @param include Comma separated additional data to return. Currently supported: total_count. (optional)
+   * @return Call&lt;IdentityProviderList&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @GET("v3/accounts/{account_id}/identity-providers")
+  Call<IdentityProviderList> getAllAccountIdentityProviders(
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
   );
 
   /**
@@ -642,6 +718,22 @@ public interface AggregatorAccountAdminApi {
   @PUT("v3/accounts/{accountID}/policy-groups/{groupID}")
   Call<UpdatedResponse> updateAccountGroupName(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Body GroupUpdateInfo body
+  );
+
+  /**
+   * Update an existing identity provider.
+   * An endpoint for updating an existing identity provider.
+   * @param accountId Account ID. (required)
+   * @param identityProviderId The ID of the identity provider to be updated. (required)
+   * @param body Details of the identity provider to be updated. (required)
+   * @return Call&lt;IdentityProviderInfo&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @PUT("v3/accounts/{account_id}/identity-providers/{identity_provider_id}")
+  Call<IdentityProviderInfo> updateAccountIdentityProvider(
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId, @retrofit2.http.Body IdentityProviderUpdateReq body
   );
 
   /**

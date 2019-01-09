@@ -7,22 +7,23 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
-import com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollmentListResponse;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerConfigListResponse;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerConfigResponse;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerInfo;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerInfoListResponse;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerVerifyResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollmentListResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerConfigListResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerConfigResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerInfo;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerInfoListResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerVerifyResponse;
 import com.arm.mbed.cloud.sdk.security.adapters.CertificateEnrollmentAdapter;
 import com.arm.mbed.cloud.sdk.security.adapters.CertificateIssuerAdapter;
 import com.arm.mbed.cloud.sdk.security.adapters.CertificateIssuerConfigAdapter;
@@ -43,7 +44,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for dealing with external certificates and their enrolments
  */
-public class Security extends AbstractApi {
+public class Security extends AbstractModule {
 
     private static final String TAG_CERTIFICATE_ISSUER_CONFIG = "certificateIssuerConfig";
     private static final String CERTIFICATE_ISSUER_CONFIG_ID = "certificateIssuerConfigId";
@@ -56,14 +57,30 @@ public class Security extends AbstractApi {
     private final EndPoints endpoint;
 
     /**
-     * Update module constructor.
+     * Constructor.
      *
      * @param options
      *            connection options @see {@link ConnectionOptions}.
      */
     public Security(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public Security(SdkContext context) {
+        super(context);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    @Override
+    public Security clone() {
+        return new Security(this);
     }
 
     /**
@@ -86,10 +103,10 @@ public class Security extends AbstractApi {
         final String finalDeviceId = deviceId;
         final String finalIssuerConfigurationReference = issuerConfigurationReference;
         return CloudCaller.call(this, "renewCertificate()", CertificateEnrollmentAdapter.getMapper(),
-                                new CloudCall<com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment>() {
+                                new CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>() {
 
                                     @Override
-                                    public Call<com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment>
+                                    public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>
                                            call() {
                                         return endpoint.getCertificateRenewal()
                                                        .requestCertificateRenewal(finalDeviceId,
@@ -134,10 +151,10 @@ public class Security extends AbstractApi {
 
         final String finalCertificateEnrollmentId = certificateEnrollmentId;
         return CloudCaller.call(this, "getCertificateEnrollment()", CertificateEnrollmentAdapter.getMapper(),
-                                new CloudCall<com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment>() {
+                                new CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>() {
 
                                     @Override
-                                    public Call<com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment>
+                                    public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>
                                            call() {
                                         return endpoint.getCertificateEnrollment()
                                                        .getCertificateEnrollment(finalCertificateEnrollmentId);
@@ -388,15 +405,18 @@ public class Security extends AbstractApi {
     @API
     public @Nullable ListResponse<CertificateIssuer>
            listCertificateIssuers(@Nullable CertificateIssuerListOptions options) throws MbedCloudException {
-        // final CertificateIssuerListOptions finalOptions = (options == null) ? new CertificateIssuerListOptions()
-        // : options;
-        // FIXME: use options in the list when definition is fixed.
+        final CertificateIssuerListOptions finalOptions = (options == null) ? new CertificateIssuerListOptions()
+                                                                            : options;
         return CloudCaller.call(this, "listCertificateIssuers()", CertificateIssuerAdapter.getListMapper(),
                                 new CloudCall<CertificateIssuerInfoListResponse>() {
 
                                     @Override
                                     public Call<CertificateIssuerInfoListResponse> call() {
-                                        return endpoint.getCertificateIssuers().getCertificateIssuers();
+                                        return endpoint.getCertificateIssuers()
+                                                       .getCertificateIssuers(finalOptions.getPageSize(),
+                                                                              finalOptions.getOrder().toString(),
+                                                                              finalOptions.getAfter(),
+                                                                              finalOptions.encodeInclude());
                                     }
                                 });
     }
@@ -499,8 +519,8 @@ public class Security extends AbstractApi {
                                     @Override
                                     public Call<CertificateIssuerConfigResponse> call() {
                                         return endpoint.getCertificateIssuersActivation()
-                                                       .updateCertificateIssuerConfigByID(finalCertificateIssuerConfig.getId(),
-                                                                                          CertificateIssuerConfigAdapter.reverseUpdateMap(finalCertificateIssuerConfig));
+                                                       .updateCertificateIssuerConfigByID(CertificateIssuerConfigAdapter.reverseUpdateMap(finalCertificateIssuerConfig),
+                                                                                          finalCertificateIssuerConfig.getId());
                                     }
 
                                 });
@@ -557,14 +577,17 @@ public class Security extends AbstractApi {
            listCertificateIssuerConfigs(@Nullable CertificateIssuerConfigListOptions options) throws MbedCloudException {
         final CertificateIssuerConfigListOptions finalOptions = (options == null) ? new CertificateIssuerConfigListOptions()
                                                                                   : options;
-        // FIXME fix when endpoint is using options
         return CloudCaller.call(this, "listCertificateIssuerConfigs()", CertificateIssuerConfigAdapter.getListMapper(),
                                 new CloudCall<CertificateIssuerConfigListResponse>() {
 
                                     @Override
                                     public Call<CertificateIssuerConfigListResponse> call() {
                                         return endpoint.getCertificateIssuersActivation()
-                                                       .getCertificateIssuerConfigs(finalOptions.encodeSingleEqualFilter(CertificateIssuerConfigListOptions.CERTIFICATE_REFERENCE_FILTER));
+                                                       .getCertificateIssuerConfigs(finalOptions.getPageSize(),
+                                                                                    finalOptions.getOrder().toString(),
+                                                                                    finalOptions.getAfter(),
+                                                                                    finalOptions.encodeInclude(),
+                                                                                    finalOptions.encodeSingleEqualFilter(CertificateIssuerConfigListOptions.CERTIFICATE_REFERENCE_FILTER));
                                     }
                                 });
     }
@@ -602,4 +625,5 @@ public class Security extends AbstractApi {
     public String getModuleName() {
         return "Security";
     }
+
 }

@@ -15,30 +15,15 @@ include 'lwm2m'
 project(':lwm2m').projectDir = file('../lwm2m')
 include 'backends:mbedcloud_common'
 project(':backends:mbedcloud_common').projectDir = file('../backends/mbedcloud_common')
-include 'backends:connector_ca'
-project(':backends:connector_ca').projectDir = file('../backends/connector_ca')
-include 'backends:connector_bootstrap'
-project(':backends:connector_bootstrap').projectDir = file('../backends/connector_bootstrap')
-include 'backends:enrollment'
-project(':backends:enrollment').projectDir = file('../backends/enrollment')
-include 'backends:device_directory'
-project(':backends:device_directory').projectDir = file('../backends/device_directory')
-include 'backends:iam'
-project(':backends:iam').projectDir = file('../backends/iam')
-include 'backends:mds'
-project(':backends:mds').projectDir = file('../backends/mds')
-include 'backends:statistics'
-project(':backends:statistics').projectDir = file('../backends/statistics')
-include 'backends:update_service'
-project(':backends:update_service').projectDir = file('../backends/update_service')
-include 'backends:external_ca'
-project(':backends:external_ca').projectDir = file('../backends/external_ca')
-include 'backends:certificate_renewal'
-project(':backends:certificate_renewal').projectDir = file('../backends/certificate_renewal')
-include 'backends:billing'
-project(':backends:billing').projectDir = file('../backends/billing')
+include 'backends:pelioncloud_devicemanagement'
+project(':backends:pelioncloud_devicemanagement').projectDir = file('../backends/pelioncloud_devicemanagement')
+include 'foundation-core'
+project(':foundation-core').projectDir = file('../foundation-core')
+include ':pelion-sdk-core'
+project(':pelion-sdk-core').projectDir = file('../pelion-sdk-core')
+include 'foundation-models'
+project(':foundation-models').projectDir = file('../foundation-models')
 include ':mbed-cloud-sdk-java'
 project(':mbed-cloud-sdk-java').projectDir = file('../')
-
 
 rootProject.name = 'examples'

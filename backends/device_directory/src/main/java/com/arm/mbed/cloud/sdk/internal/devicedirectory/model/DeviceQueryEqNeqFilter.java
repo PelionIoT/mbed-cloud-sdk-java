@@ -1,6 +1,6 @@
 /*
  * Device Directory API
- * This is the API Documentation for the Mbed Device Directory service.
+ * This is the API Documentation for the Device Directory service.
  *
  * OpenAPI spec version: 3
  * 
@@ -59,7 +59,7 @@ public class DeviceQueryEqNeqFilter implements Serializable {
    * Get createdAt
    * @return createdAt
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -77,7 +77,7 @@ public class DeviceQueryEqNeqFilter implements Serializable {
    * Get etag
    * @return etag
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getEtag() {
     return etag;
   }
@@ -149,7 +149,7 @@ public class DeviceQueryEqNeqFilter implements Serializable {
    * Get updatedAt
    * @return updatedAt
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }

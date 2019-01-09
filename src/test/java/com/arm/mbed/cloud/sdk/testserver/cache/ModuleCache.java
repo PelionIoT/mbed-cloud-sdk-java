@@ -30,8 +30,8 @@ public class ModuleCache {
         }
         ModuleInstance instance = map.get(id);
         if (instance == null) {
-            throw new MissingInstanceException(
-                    "No instance [" + id + "] was found in the cache for module [" + moduleId + "]");
+            throw new MissingInstanceException("No instance [" + id + "] was found in the cache for module [" + moduleId
+                                               + "]");
         }
         return instance;
     }

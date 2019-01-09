@@ -38,19 +38,14 @@ public class SdkExamples extends AbstractExample {
         // The level of logging regarding Http communications with the Cloud can also be specified (see CallLogLevel for
         // more details).
         config.setClientLogLevel(CallLogLevel.BASIC);
-        Sdk sdk = Sdk.createSdk(config);
-        // cloak
-        try {
-            // uncloak
+        try (Sdk sdk = Sdk.createSdk(config)) {
             // TODO do something with the SDK
             // Stop the SDK when you do not need it anymore.
-            sdk.quit();
-            // end of example
-
         } catch (Exception e) {
+            // TODO do something with the exception
             e.printStackTrace();
-            fail(e.getMessage());
         }
+        // end of example
     }
 
     /**
@@ -63,8 +58,7 @@ public class SdkExamples extends AbstractExample {
     public void subscribeToDeviceStateChanges() {
         ConnectionOptions config = Configuration.get();
         config.autostartDaemon(false);
-        Sdk sdk = Sdk.createSdk(config);
-        try {
+        try (Sdk sdk = Sdk.createSdk(config)) {
             // an example: subscribing to device state changes
             // Creating an Observer listening to device state changes for devices whose id starts with 016 and for
             // devices which are newly registered or expired. Such device state changes are then printed to the console
@@ -79,7 +73,8 @@ public class SdkExamples extends AbstractExample {
 
             // Listening to device state changes for 2 minutes.
             Thread.sleep(120000); // TODO do some actual work in your application
-
+            // Removing all subscriptions registered server side
+            sdk.unsubscribeAll();
             // Stopping the SDK when no longer needed.
             sdk.quit();
             // end of example
@@ -100,8 +95,7 @@ public class SdkExamples extends AbstractExample {
     public void subscribeToDeviceValueChanges() {
         ConnectionOptions config = Configuration.get();
         config.autostartDaemon(false);
-        Sdk sdk = Sdk.createSdk(config);
-        try {
+        try (Sdk sdk = Sdk.createSdk(config)) {
             // an example: subscribing to resource value changes
             // Creating an Observer listening to resource value changes for devices whose id starts with 016 and
             // resource paths starting with /3/0/. Such resource value changes are then printed to "standard out" when
@@ -141,9 +135,7 @@ public class SdkExamples extends AbstractExample {
     @Example
     public void subscribeToNewRegisteredDeviceStateChanges() {
         ConnectionOptions config = Configuration.get();
-        config.autostartDaemon(false);
-        Sdk sdk = Sdk.createSdk(config);
-        try {
+        try (Sdk sdk = Sdk.createSdk(config.autostartDaemon(false))) {
             // an example: subscribing to newly registered devices
             // Creating an Observer listening to device state changes for
             // devices which are newly registered.

@@ -5,21 +5,22 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.enrollment.adapters.EnrollmentAdapter;
 import com.arm.mbed.cloud.sdk.enrollment.model.EndPoints;
 import com.arm.mbed.cloud.sdk.enrollment.model.EnrollmentClaim;
-import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentId;
-import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentIdentities;
-import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentIdentity;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EnrollmentId;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EnrollmentIdentities;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EnrollmentIdentity;
 
 import retrofit2.Call;
 
@@ -28,7 +29,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for dealing with enrolment.
  */
-public class Enrollment extends AbstractApi {
+public class Enrollment extends AbstractModule {
 
     private static final String TAG_ENROLLMENT_ID = "device enrollment id";
     private static final String TAG_ENROLLMENT = "device enrollment claim";
@@ -43,7 +44,23 @@ public class Enrollment extends AbstractApi {
      */
     public Enrollment(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public Enrollment(SdkContext context) {
+        super(context);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    @Override
+    public Enrollment clone() {
+        return new Enrollment(this);
     }
 
     /**

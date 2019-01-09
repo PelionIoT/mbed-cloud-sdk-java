@@ -44,7 +44,8 @@ public class TestSubscriptionObserversStore {
         ScheduledExecutorService executor = null;
         try {
             List<DeviceStateNotification> receivedNotifications = new LinkedList<>();
-            SubscriptionObserversStore store = new SubscriptionObserversStore(Schedulers.computation(), null, null);
+            SubscriptionObserversStore store = new SubscriptionObserversStore(Schedulers.computation(), null, null,
+                                                                              null);
             DeviceStateObserver obs1 = store.deviceStateChanges(new DeviceStateFilterOptions().likeDevice("016%33e")
                                                                                               .equalDeviceState(DeviceState.REGISTRATION_UPDATE),
                                                                 BackpressureStrategy.BUFFER);
@@ -150,7 +151,8 @@ public class TestSubscriptionObserversStore {
         ScheduledExecutorService executor = null;
         try {
             List<ResourceValueNotification> receivedNotifications = new LinkedList<>();
-            SubscriptionObserversStore store = new SubscriptionObserversStore(Schedulers.computation(), null, null);
+            SubscriptionObserversStore store = new SubscriptionObserversStore(Schedulers.computation(), null, null,
+                                                                              null);
             ResourceValueObserver obs1 = store.resourceValues(SubscriptionFilterOptions.newFilter()
                                                                                        .likeDevice("016%33e")
                                                                                        .equalResourcePath("/1/0/3/"),
@@ -175,9 +177,9 @@ public class TestSubscriptionObserversStore {
             List<ResourceValueNotification> notifications = Stream.iterate(0, n -> n + 1).limit(102).map(i -> {
                 final ResourceValueNotification notification = (i
                                                                 % 2 == 0) ? new ResourceValueNotification("0161661e9ce10000000000010010033e",
-                                                                                                          (i % 5 == 0)
-                                                                                                                       ? "/1/0/3/"
-                                                                                                                       : "/1/2/3").payload(i)
+                                                                                                          (i
+                                                                                                           % 5 == 0) ? "/1/0/3/"
+                                                                                                                     : "/1/2/3").payload(i)
                                                                           : new ResourceValueNotification("0161661edbab000000000001001002b7",
                                                                                                           (i
                                                                                                            % 5 == 0) ? "/1/0/3/"

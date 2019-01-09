@@ -20,7 +20,7 @@ public class APIMethod {
     private DaemonControl daemonControl;
 
     public APIMethod(String name, APIMethodArgument returnArgument, List<APIMethodArgument> arguments,
-            DaemonControl daemonControl) {
+                     DaemonControl daemonControl) {
         super();
         setName(name);
         setReturnArgument(returnArgument);
@@ -110,9 +110,12 @@ public class APIMethod {
         return (arguments == null) ? 0 : arguments.size();
     }
 
-    public APIMethodResult invokeAPI(Object moduleInstance, Map<String, Map<String, Object>> argsDescription)
-            throws NoSuchMethodException, SecurityException, ClassNotFoundException, IllegalAccessException,
-            IllegalArgumentException, APICallException, InvocationTargetException {
+    public APIMethodResult
+           invokeAPI(Object moduleInstance,
+                     Map<String, Map<String, Object>> argsDescription) throws NoSuchMethodException, SecurityException,
+                                                                       ClassNotFoundException, IllegalAccessException,
+                                                                       IllegalArgumentException, APICallException,
+                                                                       InvocationTargetException {
         APIMethodResult result = new APIMethodResult();
         try {
             result.setResult(invokeMethod(moduleInstance, argsDescription));
@@ -124,9 +127,13 @@ public class APIMethod {
         return result;
     }
 
-    private Object invokeMethod(Object moduleInstance, Map<String, Map<String, Object>> argsDescription)
-            throws NoSuchMethodException, SecurityException, ClassNotFoundException, IllegalAccessException,
-            IllegalArgumentException, InvocationTargetException, APICallException {
+    private Object
+            invokeMethod(Object moduleInstance,
+                         Map<String, Map<String, Object>> argsDescription) throws NoSuchMethodException,
+                                                                           SecurityException, ClassNotFoundException,
+                                                                           IllegalAccessException,
+                                                                           IllegalArgumentException,
+                                                                           InvocationTargetException, APICallException {
         if (moduleInstance == null) {
             throw new NoSuchElementException();
         }
@@ -139,8 +146,8 @@ public class APIMethod {
 
     }
 
-    private Method fetchMethod(Class<?> moduleClass)
-            throws NoSuchMethodException, SecurityException, ClassNotFoundException {
+    private Method fetchMethod(Class<?> moduleClass) throws NoSuchMethodException, SecurityException,
+                                                     ClassNotFoundException {
         if (moduleClass == null || name == null || name.isEmpty()) {
             return null;
         }
@@ -161,8 +168,8 @@ public class APIMethod {
         return argsTypeArray.toArray(new Class[] {});
     }
 
-    private Object[] fetchArgsValues(Map<String, Map<String, Object>> argsDescription)
-            throws ClassNotFoundException, APICallException {
+    private Object[] fetchArgsValues(Map<String, Map<String, Object>> argsDescription) throws ClassNotFoundException,
+                                                                                       APICallException {
         int argsNumber = determineNumberOfArguments();
         if (argsNumber == 0 || argsDescription == null || argsDescription.isEmpty()) {
             return null;
@@ -170,7 +177,7 @@ public class APIMethod {
         List<Object> argValuesArray = new ArrayList<>(argsNumber);
         for (APIMethodArgument arg : arguments) {
             argValuesArray.add(arg.determineValue(arg.determineClass(), arg.determineContentClass(),
-                    argsDescription.get(arg.getName())));
+                                                  argsDescription.get(arg.getName())));
         }
         return argValuesArray.toArray();
     }

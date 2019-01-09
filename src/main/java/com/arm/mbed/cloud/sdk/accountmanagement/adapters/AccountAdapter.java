@@ -7,10 +7,10 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo.MfaStatusEnum;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo.StatusEnum;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo.MfaStatusEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo.StatusEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountUpdateReq;
 
 @Preamble(description = "Adapter for account model")
 @Internal
@@ -32,12 +32,13 @@ public final class AccountAdapter {
             return null;
         }
         final Account account = new Account(accountInfo.getId(), toStatus(accountInfo.getStatus()),
-                accountInfo.getCustomerNumber(), accountInfo.getSalesContact(), accountInfo.getContractNumber(),
-                accountInfo.getReferenceNote(), accountInfo.getTier(),
-                TranslationUtils.toDate(accountInfo.getCreatedAt()),
-                TranslationUtils.toDate(accountInfo.getUpgradedAt()),
-                TranslationUtils.toDate(accountInfo.getUpdatedAt()), accountInfo.getLimits(),
-                PolicyAdapter.mapList(accountInfo.getPolicies()), accountInfo.getTemplateId(), accountInfo.getReason());
+                                            accountInfo.getCustomerNumber(), accountInfo.getSalesContact(),
+                                            accountInfo.getContractNumber(), accountInfo.getReferenceNote(),
+                                            accountInfo.getTier(), TranslationUtils.toDate(accountInfo.getCreatedAt()),
+                                            TranslationUtils.toDate(accountInfo.getUpgradedAt()),
+                                            TranslationUtils.toDate(accountInfo.getUpdatedAt()),
+                                            accountInfo.getLimits(), PolicyAdapter.mapList(accountInfo.getPolicies()),
+                                            accountInfo.getTemplateId(), accountInfo.getReason());
         account.setDisplayName(accountInfo.getDisplayName());
         account.setContact(accountInfo.getContact());
         account.setCompany(accountInfo.getCompany());
@@ -50,8 +51,8 @@ public final class AccountAdapter {
         account.setCountry(accountInfo.getCountry());
         account.setEmail(accountInfo.getEmail());
         account.setAliases(accountInfo.getAliases());
-        account.setExpiryWarning(
-                TranslationUtils.toLong(accountInfo.getExpirationWarningThreshold(), Account.DEFAULT_EXPIRY_WARNING));
+        account.setExpiryWarning(TranslationUtils.toLong(accountInfo.getExpirationWarningThreshold(),
+                                                         Account.DEFAULT_EXPIRY_WARNING));
         account.setMultifactorAuthenticationStatus(toMultifactorAuthenticationStatus(accountInfo.getMfaStatus()));
         account.setNotificationEmails(accountInfo.getNotificationEmails());
         return account;
@@ -108,16 +109,16 @@ public final class AccountAdapter {
         return MultifactorAuthenticationStatus.getUnknownEnum();
     }
 
-    private static AccountUpdateReq.MfaStatusEnum toMfaStatus(
-            MultifactorAuthenticationStatus multifactorAuthenticationStatus) {
+    private static AccountUpdateReq.MfaStatusEnum
+            toMfaStatus(MultifactorAuthenticationStatus multifactorAuthenticationStatus) {
         if (multifactorAuthenticationStatus == null) {
             return null;
         }
         switch (multifactorAuthenticationStatus) {
             case ENFORCED:
-                return com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq.MfaStatusEnum.ENFORCED;
+                return com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountUpdateReq.MfaStatusEnum.ENFORCED;
             case OPTIONAL:
-                return com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq.MfaStatusEnum.OPTIONAL;
+                return com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountUpdateReq.MfaStatusEnum.OPTIONAL;
             case UNKNOWN_ENUM:
                 break;
             default:

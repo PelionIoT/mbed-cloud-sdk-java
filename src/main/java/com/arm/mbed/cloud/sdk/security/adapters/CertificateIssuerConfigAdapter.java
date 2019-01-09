@@ -9,10 +9,10 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerConfigListResponse;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerConfigRequest;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerConfigResponse;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CreateCertificateIssuerConfig;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerConfigListResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerConfigRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerConfigResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CreateCertificateIssuerConfig;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig;
 
 @Preamble(description = "Adapter for certificate issuer config")
@@ -111,8 +111,7 @@ public final class CertificateIssuerConfigAdapter {
 
             @Override
             public Boolean getHasMore() {
-                // FIXME return correct value when fixed.
-                return false;
+                return (finalList == null) ? false : finalList.isHasMore();
             }
 
             @Override

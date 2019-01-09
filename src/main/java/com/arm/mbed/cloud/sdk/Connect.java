@@ -20,7 +20,7 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
@@ -30,7 +30,7 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod.AsynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
@@ -38,6 +38,7 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.UuidGenerator;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
@@ -62,10 +63,10 @@ import com.arm.mbed.cloud.sdk.connect.subscription.adapters.ResourceActionAdapte
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceState;
-import com.arm.mbed.cloud.sdk.internal.mds.model.DeviceRequest;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
-import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
-import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.SuccessfulResponse;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
@@ -85,7 +86,7 @@ import retrofit2.Call;
  * <p>
  * 3) Setup resource subscriptions and webhooks for resource monitoring
  */
-public class Connect extends AbstractApi {
+public class Connect extends AbstractModule {
     private static final String BUFFER = "BUFFER";
     private static final String TAG_VALUE_TYPE = "valueType";
     private static final String TAG_PRESUBSCRIPTION = "presubscription";
@@ -120,6 +121,21 @@ public class Connect extends AbstractApi {
     }
 
     /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public Connect(SdkContext context) {
+        this(context == null ? null : context.getConnectionOption());
+    }
+
+    @Override
+    public Connect clone() {
+        return new Connect(this);
+    }
+
+    /**
      * Connect module constructor.
      * <p>
      * As opposed to {@link #Connect(ConnectionOptions)} which uses default thread pools for retrieving notifications,
@@ -139,7 +155,7 @@ public class Connect extends AbstractApi {
     public Connect(@NonNull ConnectionOptions options, @Nullable ExecutorService notificationHandlingThreadPool,
                    @Nullable ExecutorService notificationPullingThreadPool) {
         super(options);
-        endpoint = new EndPoints(options);
+        endpoint = new EndPoints(this.serviceRegistry);
         deviceDirectory = new DeviceDirectory(options);
         this.handlersStore = new NotificationHandlersStore(this,
                                                            (notificationPullingThreadPool == null) ? createDefaultDaemonThreadPool()
@@ -259,6 +275,17 @@ public class Connect extends AbstractApi {
         handlersStore.shutdown();
     }
 
+    @Override
+    public void close() {
+        super.close();
+        try {
+            stopNotifications();
+        } catch (MbedCloudException exception) {
+            // Nothing to do
+        }
+        shutdownConnectService();
+    }
+
     /**
      * Lists connected devices (One page).
      * <p>
@@ -373,10 +400,11 @@ public class Connect extends AbstractApi {
         final String finalDeviceId = device.getId();
 
         return CloudCaller.call(this, "listResources()", ResourceAdapter.getListMapper(finalDeviceId),
-                                new CloudCall<List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource>>() {
+                                new CloudCall<List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Resource>>() {
 
                                     @Override
-                                    public Call<List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource>> call() {
+                                    public Call<List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Resource>>
+                                           call() {
                                         return endpoint.getEndpoints().getEndpointResources(finalDeviceId);
                                     }
                                 });
@@ -729,7 +757,7 @@ public class Connect extends AbstractApi {
 
     protected ResourceAction createResourceAction(String functionName,
                                                   Mapper<ResourceActionParameters, DeviceRequest> requestMapper) {
-        final AbstractApi module = this;
+        final AbstractModule module = this;
         final String function = functionName;
         final Mapper<ResourceActionParameters, DeviceRequest> finalMapper = requestMapper;
         return new ResourceAction() {
@@ -2693,10 +2721,11 @@ public class Connect extends AbstractApi {
     @API
     public Webhook getWebhook() throws MbedCloudException {
         return CloudCaller.call(this, "getWebhook()", WebhookAdapter.getMapper(),
-                                new CloudCall<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook>() {
+                                new CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook>() {
 
                                     @Override
-                                    public Call<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook> call() {
+                                    public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook>
+                                           call() {
                                         return endpoint.getNotifications().getWebhook();
                                     }
                                 });

@@ -6,6 +6,20 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+2.2.0 (2018-11-15)
+==================
+
+### Features
+
+- It is now possible to renew certificates or manage Certificate issuers in the Security module. (#1868)
+
+- LWM2M actions on resources are now performed using solely Observers and RXJava introduced with Subscriptions. (#4)
+
+### Bugfixes
+
+- `Set` and `execute` resource value actions now use `/v2/device-requests/` enpoint as former endpoints are deprecated (#1883)
+
+
 2.1.0 (2018-10-26)
 ==================
 

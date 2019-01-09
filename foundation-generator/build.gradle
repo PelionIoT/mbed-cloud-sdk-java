@@ -1,0 +1,161 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+    dependencies {
+        classpath 'org.walkmod:gradle-walkmod-plugin:0.0.+'
+    }
+}
+
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+    id 'eclipse'
+
+    // Apply the application plugin to add support for building an application
+    id 'application'
+    id "com.diffplug.gradle.spotless" version "3.16.0"
+    id "org.hidetake.swagger.generator" version '2.16.0'
+}
+apply plugin: 'walkmod'
+
+configurations {
+    openapiCodegen
+}
+
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    // Use jcenter for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    // This dependency is found on compile classpath of this component and consumers.
+    implementation 'com.squareup:javapoet:1.11.+'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.+'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.+'
+    implementation 'info.picocli:picocli:3.8.+'
+    implementation 'com.github.dtmo.jfiglet:jfiglet:1.0.0'
+    implementation 'com.github.mifmif:generex:1.0.+'
+    implementation 'org.reflections:reflections:0.9.+'
+    implementation 'org.slf4j:slf4j-simple:1.7.7'
+    implementation 'junit:junit:4.+'
+    implementation project(':pelion-sdk-core')
+    // Backends
+    implementation project(':backends:mbedcloud_common')
+    implementation project(':backends:pelioncloud_devicemanagement')
+    openapiCodegen 'io.swagger:swagger-codegen-cli:2.3.1'   // Swagger Codegen V2
+    //swaggerCodegen 'io.swagger:swagger-codegen-cli:2.3.1'	// Uncomment when help is needed
+    // Use JUnit test framework
+    testCompile 'junit:junit:4.+'
+}
+
+def eclipseConfigFile=new File("$rootProject.projectDir/../config/eclipse/formatter.xml").canonicalPath
+def projectToExclude = ['annotations'].collect{it.toLowerCase()}
+// The following is to ensure that tasks in the following list are carried out in subprojects which are not in the exclude list above.
+def tasksNeedinSubprojectTasks = ['pmd','jacoco','test','walkmod','spotless'].collect{it.toLowerCase()}
+tasks.findAll{t -> tasksNeedinSubprojectTasks.findAll{n -> t.name.toLowerCase().contains(n)}.size()>0 }.each{ t -> subprojects.findAll{s -> projectToExclude.findAll{ex -> s.path.toLowerCase().contains(ex)}.size() == 0 }.each{s -> if(s.tasks.findAll{st -> st.name == t.name}.size() > 0){t.dependsOn("${s.path}:${t.name}")} }}
+
+
+allprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+            jcenter()
+        }
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    tasks.withType(JavaCompile) {
+        if (name == 'compileJava') {
+            if (project.name != rootProject.name){
+                sourceCompatibility JavaVersion.VERSION_1_8.toString()
+                targetCompatibility JavaVersion.VERSION_1_8.toString()
+            }
+            if ( options.compilerArgs == null || !options.compilerArgs.contains("-deprecation")){
+                options.compilerArgs += ["-deprecation"]
+            }
+            if ( options.compilerArgs == null || !options.compilerArgs.contains("-parameters")){
+                options.compilerArgs += ["-parameters"]
+            }
+            options.fork = true
+            doFirst {
+                //println  options.dump()
+                println 'Compiler args for compiling '+ project.name +' : ' + options.compilerArgs
+            }
+        }
+    }
+    apply plugin: 'com.diffplug.gradle.spotless' // Code formatting
+}
+
+walkmod {
+	chains = [ 'pmd' , 'override']
+	verbose = true
+}
+
+spotless {
+    java {
+        removeUnusedImports() // removes any unused imports
+        eclipse().configFile "${eclipseConfigFile}"
+        encoding 'Cp1252' // java will have Cp1252
+    }    
+}
+
+// Define the main class for the application
+mainClassName = 'com.arm.pelion.sdk.foundation.generator.FoundationGenerator'
+
+run {
+	classpath sourceSets.main.runtimeClasspath
+	main = mainClassName
+	args = ["-i", "$rootProject.projectDir/$foundationSourceDir/$foundationSourceFileName", "-c", "$rootProject.projectDir/$openApiCodegenConfigDir/$foundationConfigFile", "-m", "$foundationModelDestProject", "$rootProject.projectDir/../"]
+}
+
+swaggerSources {
+  def lowlevelTemplatesDir = new File("$rootProject.projectDir/$openApiCodegenTemplatesDir").canonicalPath
+  common {
+    inputFile = file(new File("$rootProject.projectDir/$commonClientBackendSourceDir/$commonClientBackendSourceFileName").canonicalPath)    
+    code {
+      language = 'java'	  
+      wipeOutputDir = true
+	  configFile = file(new File("$rootProject.projectDir/$openApiCodegenConfigDir/${project(':backends:mbedcloud_common').name}.json").canonicalPath)
+	  outputDir = file("${project(':backends:mbedcloud_common').projectDir}")
+	  templateDir = file(lowlevelTemplatesDir)
+      configuration = configurations.openapiCodegen
+      // Validate YAML before code generation
+      dependsOn validation
+    }
+  }
+  pelion {
+    inputFile = file(new File("$rootProject.projectDir/$pelionBackendSourceDir/$pelionBackendSourceFileName").canonicalPath)    
+    code {
+      language = 'java'	  
+      wipeOutputDir = true
+	  configFile = file(new File("$rootProject.projectDir/$openApiCodegenConfigDir/${project(':backends:pelioncloud_devicemanagement').name}.json").canonicalPath)
+	  outputDir = file("${project(':backends:pelioncloud_devicemanagement').projectDir}")
+	  templateDir = file(lowlevelTemplatesDir)
+      configuration = configurations.openapiCodegen
+      // Validate YAML before code generation
+      //dependsOn validation
+    }
+  }
+}
+
+project.afterEvaluate{
+  generateSwaggerCode.outputs.upToDateWhen { false }
+  spotlessApply.outputs.upToDateWhen { false }
+  compileJava.outputs.upToDateWhen { false }
+  spotlessApply.dependsOn("generateSwaggerCode")
+  compileJava.dependsOn("spotlessApply")
+}

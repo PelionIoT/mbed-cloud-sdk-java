@@ -10,11 +10,11 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerInfo;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerInfoListResponse;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerRequest;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerRequest.IssuerTypeEnum;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerUpdateRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerInfo;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerInfoListResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerRequest.IssuerTypeEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerUpdateRequest;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuer;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerType;
 
@@ -161,8 +161,7 @@ public final class CertificateIssuerAdapter {
 
             @Override
             public Boolean getHasMore() {
-                // FIXME return correct value when fixed.
-                return false;
+                return (finalList == null) ? false : finalList.isHasMore();
             }
 
             @Override

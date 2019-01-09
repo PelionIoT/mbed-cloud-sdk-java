@@ -10,13 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.testserver.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.joda.time.DateTime;
@@ -28,114 +25,112 @@ import java.io.Serializable;
 @ApiModel(description = "Description of an SDK module instance")
 
 public class Instance implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @JsonProperty("id")
-  private String id = null;
+    @JsonProperty("id")
+    private String id = null;
 
-  @JsonProperty("module")
-  private String module = null;
+    @JsonProperty("module")
+    private String module = null;
 
-  @JsonProperty("created_at")
-  private DateTime createdAt = null;
+    @JsonProperty("created_at")
+    private DateTime createdAt = null;
 
-  public Instance id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public Instance module(String module) {
-    this.module = module;
-    return this;
-  }
-
-   /**
-   * Get module
-   * @return module
-  **/
-  @ApiModelProperty(value = "")
-  public String getModule() {
-    return module;
-  }
-
-  public void setModule(String module) {
-    this.module = module;
-  }
-
-  public Instance createdAt(DateTime createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * Get createdAt
-   * @return createdAt
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(DateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public Instance id(String id) {
+        this.id = id;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get id
+     * 
+     * @return id
+     **/
+    @ApiModelProperty(value = "")
+    public String getId() {
+        return id;
     }
-    Instance instance = (Instance) o;
-    return Objects.equals(this.id, instance.id) &&
-        Objects.equals(this.module, instance.module) &&
-        Objects.equals(this.createdAt, instance.createdAt);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id, module, createdAt);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Instance {\n");
-    
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    module: ").append(toIndentedString(module)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setId(String id) {
+        this.id = id;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public Instance module(String module) {
+        this.module = module;
+        return this;
+    }
+
+    /**
+     * Get module
+     * 
+     * @return module
+     **/
+    @ApiModelProperty(value = "")
+    public String getModule() {
+        return module;
+    }
+
+    public void setModule(String module) {
+        this.module = module;
+    }
+
+    public Instance createdAt(DateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Get createdAt
+     * 
+     * @return createdAt
+     **/
+    @ApiModelProperty(value = "")
+    public DateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(DateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Instance instance = (Instance) o;
+        return Objects.equals(this.id, instance.id) && Objects.equals(this.module, instance.module)
+               && Objects.equals(this.createdAt, instance.createdAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, module, createdAt);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class Instance {\n");
+
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    module: ").append(toIndentedString(module)).append("\n");
+        sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

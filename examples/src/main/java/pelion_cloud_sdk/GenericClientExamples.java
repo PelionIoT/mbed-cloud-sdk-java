@@ -4,7 +4,7 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import com.arm.mbed.cloud.sdk.accountmanagement.model.User;
+import com.arm.mbed.cloud.sdk.accounts.model.User;
 import com.arm.mbed.cloud.sdk.common.CloudRequest;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.GenericClient;
@@ -46,6 +46,7 @@ public class GenericClientExamples extends AbstractExample {
             return data;
         }
 
+        @SuppressWarnings("unused")
         public void setData(List<User> data) {
             this.data = data;
         }
@@ -124,7 +125,8 @@ public class GenericClientExamples extends AbstractExample {
 
         CloudRequest.CloudListRequest<User, PelionListApi,
                                       ListOptions> requestDefinition = new CloudRequest.CloudListRequest<User,
-                                                                                                         PelionListApi, ListOptions>() {
+                                                                                                         PelionListApi,
+                                                                                                         ListOptions>() {
 
                                           @Override
                                           public CloudCall<ListResponse<User>>

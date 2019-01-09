@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Date;
@@ -43,6 +44,9 @@ import com.arm.mbed.cloud.sdk.testserver.model.InstanceConfiguration;
 import com.arm.mbed.cloud.sdk.testserver.model.SdkApiParameters;
 import com.arm.mbed.cloud.sdk.testutils.APICallException;
 import com.arm.mbed.cloud.sdk.testutils.Serializer;
+import com.github.dtmo.jfiglet.FigFont.PrintDirection;
+import com.github.dtmo.jfiglet.FigFontResources;
+import com.github.dtmo.jfiglet.FigletRenderer;
 
 @Preamble(description = "Test system server part in charge of carrying out a mapping of the APIs present in the SDK and invoking them when requested by the client")
 public class TestServer {
@@ -53,6 +57,7 @@ public class TestServer {
     private static final String PARAM_METHOD = "method";
     private static final String PARAM_MODULE = "module";
     private static final String PARAM_INSTANCE = "instance";
+    private static final String TOOL_NAME = "\t\t\t\t\t\t\t\tJava \t\t\t\t\t\t\t\t\t\t\tSDK Test-Server";
 
     private final int port = 5000;
     private HttpServer server;
@@ -338,8 +343,7 @@ public class TestServer {
                         sendError(setResponse(500, routingContext), null,
                                   (result.getException().getMessage() == null)
                                                                                ? "Exception of type "
-                                                                                 + result.getException()
-                                                                                 + " was raised"
+                                                                                 + result.getException() + " was raised"
                                                                                : result.getException().getMessage());
                     } else {
                         sendError(setResponse(500, routingContext), result.getMetadata().getStatusCode(),
@@ -474,29 +478,22 @@ public class TestServer {
         // logger.logInfo(JsonObject.mapFrom(defaultConnectionConfiguration).encodePrettily());
     }
 
+    public String generateText() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(System.lineSeparator());
+        try {
+            FigletRenderer figletRenderer = new FigletRenderer(FigFontResources.loadFigFontResource(FigFontResources.IVRIT_FLF));
+            figletRenderer.setPrintDirection(PrintDirection.LEFT_TO_RIGHT);
+            builder.append(figletRenderer.renderText(TOOL_NAME.replace(" ", "\n")));
+        } catch (IOException exception) {
+            // Nothing to do
+        }
+        builder.append(System.lineSeparator());
+        return builder.toString();
+    }
+
     public void logWelcomeMessage() {
-        logger.logInfo("");
-        logger.logInfo("██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗");
-        logger.logInfo("╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝");
-        logger.logInfo("                                                                                       ");
-        logger.logInfo("                 ██╗ █████╗ ██╗   ██╗ █████╗     ███████╗██████╗ ██╗  ██╗              ");
-        logger.logInfo("                 ██║██╔══██╗██║   ██║██╔══██╗    ██╔════╝██╔══██╗██║ ██╔╝              ");
-        logger.logInfo("                 ██║███████║██║   ██║███████║    ███████╗██║  ██║█████╔╝               ");
-        logger.logInfo("            ██   ██║██╔══██║╚██╗ ██╔╝██╔══██║    ╚════██║██║  ██║██╔═██╗               ");
-        logger.logInfo("            ╚█████╔╝██║  ██║ ╚████╔╝ ██║  ██║    ███████║██████╔╝██║  ██╗              ");
-        logger.logInfo("             ╚════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═╝    ╚══════╝╚═════╝ ╚═╝  ╚═╝              ");
-        logger.logInfo("                                                                                       ");
-        logger.logInfo("████████╗███████╗███████╗████████╗    ███████╗███████╗██████╗ ██╗   ██╗███████╗██████╗ ");
-        logger.logInfo("╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝    ██╔════╝██╔════╝██╔══██╗██║   ██║██╔════╝██╔══██╗");
-        logger.logInfo("   ██║   █████╗  ███████╗   ██║       ███████╗█████╗  ██████╔╝██║   ██║█████╗  ██████╔╝");
-        logger.logInfo("   ██║   ██╔══╝  ╚════██║   ██║       ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██╔══╝  ██╔══██╗");
-        logger.logInfo("   ██║   ███████╗███████║   ██║       ███████║███████╗██║  ██║ ╚████╔╝ ███████╗██║  ██║");
-        logger.logInfo("   ╚═╝   ╚══════╝╚══════╝   ╚═╝       ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝");
-        logger.logInfo("");
-        logger.logInfo("");
-        logger.logInfo("");
-        logger.logInfo("██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗██╗");
-        logger.logInfo("╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝╚═╝");
+        logger.logInfo(generateText());
     }
 
     public static void main(String[] args) {

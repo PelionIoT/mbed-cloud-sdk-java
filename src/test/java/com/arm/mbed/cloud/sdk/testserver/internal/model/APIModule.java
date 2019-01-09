@@ -136,7 +136,7 @@ public class APIModule {
             return false;
         }
         return !allMethods.stream().filter(m -> m.getDaemonControl() != DaemonControl.NONE).collect(Collectors.toList())
-                .isEmpty();
+                          .isEmpty();
     }
 
     public List<APIMethod> getStartDaemonMethods() {
@@ -160,7 +160,7 @@ public class APIModule {
             return null;
         }
         List<APIMethod> daemonMethods = allMethods.stream().filter(m -> m.getDaemonControl() == type)
-                .collect(Collectors.toList());
+                                                  .collect(Collectors.toList());
         if (daemonMethods.isEmpty()) {
             return null;
         }
@@ -199,12 +199,12 @@ public class APIModule {
     }
 
     private static Object invokeContructorWithConnectionOptions(Class<?> moduleClass,
-            ConnectionOptions connectionOptions) {
+                                                                ConnectionOptions connectionOptions) {
         try {
             Constructor<?> constructor = moduleClass.getConstructor(ConnectionOptions.class);
             return constructor.newInstance(connectionOptions);
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException e) {
+                 | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
             return null;
 
@@ -216,7 +216,7 @@ public class APIModule {
             Constructor<?> constructor = moduleClass.getConstructor();
             return constructor.newInstance();
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
-                | IllegalArgumentException | InvocationTargetException e) {
+                 | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
             return null;
 

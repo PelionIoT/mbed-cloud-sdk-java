@@ -46,7 +46,8 @@ public class APICaller {
 
     @SuppressWarnings("null")
     public APIMethodResult callAPIOnModuleInstance(ModuleInstance moduleInstance, String method,
-            Map<String, Object> parameters) throws UnknownAPIException, APICallException {
+                                                   Map<String, Object> parameters) throws UnknownAPIException,
+                                                                                   APICallException {
         if (moduleInstance == null) {
             throwMissingModule(null);
         }
@@ -101,8 +102,8 @@ public class APICaller {
     }
 
     private static void throwUnknownAPI(String module, String method) throws UnknownAPIException {
-        throw new UnknownAPIException(
-                "no such method [" + String.valueOf(method) + "] on module [" + String.valueOf(module) + "]");
+        throw new UnknownAPIException("no such method [" + String.valueOf(method) + "] on module ["
+                                      + String.valueOf(module) + "]");
     }
 
     private static void throwUnknownModule(String module) throws UnknownAPIException {
@@ -110,14 +111,16 @@ public class APICaller {
     }
 
     private static void throwMissingModule(APIModule module) throws UnknownAPIException {
-        throw new UnknownAPIException(
-                "Requested SDK module was not instantiated properly [" + String.valueOf(module) + "].");
+        throw new UnknownAPIException("Requested SDK module was not instantiated properly [" + String.valueOf(module)
+                                      + "].");
     }
 
     private static void throwAPICallException(APIModule module, APIMethod method, Exception e) throws APICallException {
         throw new APICallException("Error occurred when calling method [" + String.valueOf(method.getName())
-                + "] on module [" + String.valueOf(module.getSimpleName()) + "]. " + String.valueOf((e == null)
-                        ? "Unknown reason" : (e.getMessage() == null) ? "Type: " + e.toString() : e.getMessage()));
+                                   + "] on module [" + String.valueOf(module.getSimpleName()) + "]. "
+                                   + String.valueOf((e == null) ? "Unknown reason"
+                                                                : (e.getMessage() == null) ? "Type: " + e.toString()
+                                                                                           : e.getMessage()));
     }
 
     private static class API {
@@ -135,15 +138,15 @@ public class APICaller {
             try {
                 return method.invokeAPI(moduleInstance, argDescription);
             } catch (NoSuchMethodException | SecurityException | ClassNotFoundException | IllegalAccessException
-                    | IllegalArgumentException | InvocationTargetException e) {
+                     | IllegalArgumentException | InvocationTargetException e) {
                 // e.printStackTrace();
                 throwAPICallException(module, method, e);
             }
             return null;
         }
 
-        private Map<String, Map<String, Object>> determineArgumentJsonValues(Map<String, Object> parameters)
-                throws APICallException {
+        private Map<String, Map<String, Object>>
+                determineArgumentJsonValues(Map<String, Object> parameters) throws APICallException {
             Map<String, Map<String, Object>> argDescription = null;
             TestParameters testParameters = new TestParameters(parameters);
             if (method.determineNumberOfArguments() > 0) {
@@ -180,9 +183,11 @@ public class APICaller {
                                     // DO nothing
                                 }
                                 Entry<String, Object> unusedEntry = testParameters.pop();
-                                Map<String, Object> guessedSubMap = (unusedEntry == null) ? new HashMap<>()
-                                        : determineParameterValue(unusedEntry.getKey(), unusedEntry.getValue(),
-                                                argumentClass);
+                                Map<String,
+                                    Object> guessedSubMap = (unusedEntry == null) ? new HashMap<>()
+                                                                                  : determineParameterValue(unusedEntry.getKey(),
+                                                                                                            unusedEntry.getValue(),
+                                                                                                            argumentClass);
                                 argDescription.put(argument.getName(), guessedSubMap);
                             }
                         } else {
@@ -199,13 +204,13 @@ public class APICaller {
         }
 
         @SuppressWarnings("unchecked")
-        private Map<String, Object> determineParameterValue(String paramName, Object subMap, Class<?> paramClass)
-                throws APICallException {
+        private Map<String, Object> determineParameterValue(String paramName, Object subMap,
+                                                            Class<?> paramClass) throws APICallException {
             if (!(subMap instanceof Map)) {
                 // The parameter must be a Json primitive
                 if (subMap != null && !Utils.isPrimitiveOrWrapperType(subMap.getClass())) {
                     throwAPICallException(module, method,
-                            new Exception("Incorrect argument type [" + String.valueOf(subMap) + "]."));
+                                          new Exception("Incorrect argument type [" + String.valueOf(subMap) + "]."));
                 }
                 // In the special case of dates, we try to parse the ISO String representation
                 if (subMap != null && paramClass != null && paramClass.isAssignableFrom(Date.class)) {

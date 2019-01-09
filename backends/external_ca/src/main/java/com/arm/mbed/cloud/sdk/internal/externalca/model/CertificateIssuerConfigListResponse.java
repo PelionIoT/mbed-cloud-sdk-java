@@ -40,106 +40,17 @@ public class CertificateIssuerConfigListResponse implements Serializable {
   @SerializedName("data")
   private List<CertificateIssuerConfigResponse> data = null;
 
+  @SerializedName("has_more")
+  private Boolean hasMore = null;
+
   @SerializedName("limit")
   private Integer limit = null;
 
-  /**
-   * Describes the type of objects in the list.
-   */
-  @JsonAdapter(ObjectEnum.Adapter.class)
-  public enum ObjectEnum {
-    LIST("list");
-
-    private String value;
-
-    ObjectEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static ObjectEnum fromValue(String text) {
-      for (ObjectEnum b : ObjectEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-
-    public static class Adapter extends TypeAdapter<ObjectEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final ObjectEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public ObjectEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return ObjectEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-
   @SerializedName("object")
-  private ObjectEnum object = null;
-
-  /**
-   * The order of results.
-   */
-  @JsonAdapter(OrderEnum.Adapter.class)
-  public enum OrderEnum {
-    ASC("ASC"),
-    
-    DESC("DESC");
-
-    private String value;
-
-    OrderEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static OrderEnum fromValue(String text) {
-      for (OrderEnum b : OrderEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-
-    public static class Adapter extends TypeAdapter<OrderEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final OrderEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public OrderEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return OrderEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
+  private String object = null;
 
   @SerializedName("order")
-  private OrderEnum order = null;
+  private String order = null;
 
   @SerializedName("total_count")
   private Integer totalCount = null;
@@ -150,10 +61,10 @@ public class CertificateIssuerConfigListResponse implements Serializable {
   }
 
    /**
-   * The entity ID to fetch after current result set.
+   * An offset token for current page.
    * @return after
   **/
-  @ApiModelProperty(example = "01648415a2a30242ac18000500000000", value = "The entity ID to fetch after current result set.")
+  @ApiModelProperty(example = "01631667477600000000000100100374", value = "An offset token for current page.")
   public String getAfter() {
     return after;
   }
@@ -188,16 +99,36 @@ public class CertificateIssuerConfigListResponse implements Serializable {
     this.data = data;
   }
 
+  public CertificateIssuerConfigListResponse hasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+    return this;
+  }
+
+   /**
+   * Are there more results available.
+   * @return hasMore
+  **/
+  @ApiModelProperty(example = "false", value = "Are there more results available.")
+  public Boolean isHasMore() {
+    return hasMore;
+  }
+
+  public void setHasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+  }
+
   public CertificateIssuerConfigListResponse limit(Integer limit) {
     this.limit = limit;
     return this;
   }
 
    /**
-   * The number of results returned.
+   * How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
+   * minimum: 2
+   * maximum: 1000
    * @return limit
   **/
-  @ApiModelProperty(value = "The number of results returned.")
+  @ApiModelProperty(example = "50", value = "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.")
   public Integer getLimit() {
     return limit;
   }
@@ -206,39 +137,39 @@ public class CertificateIssuerConfigListResponse implements Serializable {
     this.limit = limit;
   }
 
-  public CertificateIssuerConfigListResponse object(ObjectEnum object) {
+  public CertificateIssuerConfigListResponse object(String object) {
     this.object = object;
     return this;
   }
 
    /**
-   * Describes the type of objects in the list.
+   * The type of this API object is a &#x60;list&#x60;.
    * @return object
   **/
-  @ApiModelProperty(value = "Describes the type of objects in the list.")
-  public ObjectEnum getObject() {
+  @ApiModelProperty(example = "list", value = "The type of this API object is a `list`.")
+  public String getObject() {
     return object;
   }
 
-  public void setObject(ObjectEnum object) {
+  public void setObject(String object) {
     this.object = object;
   }
 
-  public CertificateIssuerConfigListResponse order(OrderEnum order) {
+  public CertificateIssuerConfigListResponse order(String order) {
     this.order = order;
     return this;
   }
 
    /**
-   * The order of results.
+   * The creation time based order of the entries.
    * @return order
   **/
-  @ApiModelProperty(value = "The order of results.")
-  public OrderEnum getOrder() {
+  @ApiModelProperty(example = "DESC", value = "The creation time based order of the entries.")
+  public String getOrder() {
     return order;
   }
 
-  public void setOrder(OrderEnum order) {
+  public void setOrder(String order) {
     this.order = order;
   }
 
@@ -248,10 +179,10 @@ public class CertificateIssuerConfigListResponse implements Serializable {
   }
 
    /**
-   * The total number or records.
+   * Get totalCount
    * @return totalCount
   **/
-  @ApiModelProperty(value = "The total number or records.")
+  @ApiModelProperty(example = "1", value = "")
   public Integer getTotalCount() {
     return totalCount;
   }
@@ -272,6 +203,7 @@ public class CertificateIssuerConfigListResponse implements Serializable {
     CertificateIssuerConfigListResponse certificateIssuerConfigListResponse = (CertificateIssuerConfigListResponse) o;
     return Objects.equals(this.after, certificateIssuerConfigListResponse.after) &&
         Objects.equals(this.data, certificateIssuerConfigListResponse.data) &&
+        Objects.equals(this.hasMore, certificateIssuerConfigListResponse.hasMore) &&
         Objects.equals(this.limit, certificateIssuerConfigListResponse.limit) &&
         Objects.equals(this.object, certificateIssuerConfigListResponse.object) &&
         Objects.equals(this.order, certificateIssuerConfigListResponse.order) &&
@@ -280,7 +212,7 @@ public class CertificateIssuerConfigListResponse implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(after, data, limit, object, order, totalCount);
+    return Objects.hash(after, data, hasMore, limit, object, order, totalCount);
   }
 
 
@@ -291,6 +223,7 @@ public class CertificateIssuerConfigListResponse implements Serializable {
     
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");

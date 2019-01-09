@@ -13,11 +13,11 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign.StateEnum;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPostRequest;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPutRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaign;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaign.StateEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPostRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPutRequest;
 import com.arm.mbed.cloud.sdk.update.model.Campaign;
 import com.arm.mbed.cloud.sdk.update.model.CampaignListOptions;
 import com.arm.mbed.cloud.sdk.update.model.CampaignState;
@@ -52,9 +52,11 @@ public final class CampaignAdapter {
             return null;
         }
         final Campaign updateCampaign = new Campaign(campaign.getId(), campaign.getPhase(),
-                TranslationUtils.toUrl(campaign.getRootManifestUrl()), TranslationUtils.toDate(campaign.getCreatedAt()),
-                TranslationUtils.toDate(campaign.getStartedAt()), TranslationUtils.toDate(campaign.getFinished()),
-                TranslationUtils.toDate(campaign.getUpdatedAt()));
+                                                     TranslationUtils.toUrl(campaign.getRootManifestUrl()),
+                                                     TranslationUtils.toDate(campaign.getCreatedAt()),
+                                                     TranslationUtils.toDate(campaign.getStartedAt()),
+                                                     TranslationUtils.toDate(campaign.getFinished()),
+                                                     TranslationUtils.toDate(campaign.getUpdatedAt()));
         updateCampaign.setDescription(campaign.getDescription());
         updateCampaign.setManifestId(campaign.getRootManifestId());
         updateCampaign.setName(campaign.getName());
