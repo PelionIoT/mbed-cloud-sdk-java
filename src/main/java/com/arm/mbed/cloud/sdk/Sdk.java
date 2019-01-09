@@ -215,6 +215,19 @@ public class Sdk extends AbstractModule {
     }
 
     /**
+     * Unsubscribes all observers contained in the system.
+     * <p>
+     * Note: this removes any subscriptions registered server side.
+     * 
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
+    @API
+    public void unsubscribeAll() throws MbedCloudException {
+        subscribe().unsubscribeAll();
+    }
+
+    /**
      * Stops any running daemon process/thread.
      *
      * @throws MbedCloudException

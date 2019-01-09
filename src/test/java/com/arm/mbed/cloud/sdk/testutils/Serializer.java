@@ -434,7 +434,7 @@ public class Serializer {
         // corresponds (i.e key equals field name). If so, it tries to set the field with the value.
         // The following is a bit of a hack and has not been thoroughly tested
         try {
-            Constructor<T> constructor = objectClass.getConstructor(null);
+            Constructor<T> constructor = objectClass.getConstructor();
             if (constructor == null) {
                 throw new APICallException("Cannot find a suitable constructor for class [" + objectClass
                                            + "] which is supposed to be a POJO.");

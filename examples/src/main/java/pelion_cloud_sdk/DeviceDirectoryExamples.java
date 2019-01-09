@@ -29,7 +29,6 @@ public class DeviceDirectoryExamples extends AbstractExample {
     /**
      * Creates, updates and deletes a device.
      */
-    @SuppressWarnings("boxing")
     @Example
     public void manageDevices() {
         ConnectionOptions config = Configuration.get();
@@ -106,7 +105,7 @@ public class DeviceDirectoryExamples extends AbstractExample {
             // Finding the first 5 devices corresponding to the query.
             DeviceListOptions options = new DeviceListOptions();
             options.setFilters(myQuery.fetchFilters());
-            options.setLimit(5);
+            options.setPageSize(5);
             ListResponse<Device> matchingDevices = api.listDevices(options);
             for (Device device : matchingDevices.getData()) {
                 log("Matching device", device);
@@ -145,11 +144,11 @@ public class DeviceDirectoryExamples extends AbstractExample {
             // Getting a paginator over the first 900 devices present in the Cloud.
             // In the Java SDK, all listing APIs start with 'list'. When the method name also contains 'All',
             // the corresponding paginator is returned. Otherwise, a ListResponse (i.e. only one page) is returned.
-            Paginator<Device> paginator = api
-                    .listAllDevices(DeviceListOptions.newOptions().maxResults(900).order(Order.ASC));
+            Paginator<Device> paginator = api.listAllDevices(DeviceListOptions.newOptions().maxResults(900)
+                                                                              .order(Order.ASC));
             // For each device found, log their ID and State.
             StreamSupport.stream(paginator.spliterator(), false)
-                    .map(device -> device.getId() + " [" + device.getState() + "]").forEach(d -> log("Device", d));
+                         .map(device -> device.getId() + " [" + device.getState() + "]").forEach(d -> log("Device", d));
             // end of example
 
         } catch (Exception e) {
@@ -181,8 +180,8 @@ public class DeviceDirectoryExamples extends AbstractExample {
             Paginator<Device> paginator = api.listAllDevices(options);
             // For each device found, log their ID and State.
             StreamSupport.stream(paginator.spliterator(), false)
-                    .map(device -> device.getId() + " [" + device.getState() + "]")
-                    .forEach(d -> log("Deregistered device", d));
+                         .map(device -> device.getId() + " [" + device.getState() + "]")
+                         .forEach(d -> log("Deregistered device", d));
             // end of example
 
         } catch (Exception e) {
@@ -202,7 +201,7 @@ public class DeviceDirectoryExamples extends AbstractExample {
         try {
             // Defining listing options.
             QueryListOptions options = new QueryListOptions();
-            options.setLimit(5);
+            options.setPageSize(5);
             // Listing queries.
             ListResponse<Query> queries = api.listQueries(options);
             for (Query query : queries.getData()) {
@@ -221,18 +220,16 @@ public class DeviceDirectoryExamples extends AbstractExample {
     @Example
     public void listDeviceEvents() {
         ConnectionOptions config = Configuration.get();
-        DeviceDirectory api = new DeviceDirectory(config);
-        try {
+        try (DeviceDirectory api = new DeviceDirectory(config)) {
             // Defining query options.
             DeviceEventListOptions options = new DeviceEventListOptions();
-            options.setLimit(5);
+            options.setPageSize(5);
             // Listing device events in a page.
             ListResponse<DeviceEvent> events = api.listDeviceEvents(options);
             for (DeviceEvent event : events.getData()) {
                 log("Device event", event);
             }
         } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
             fail(e.getMessage());
         }
     }

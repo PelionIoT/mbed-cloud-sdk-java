@@ -81,6 +81,11 @@
 	</rule>
 	<rule ref="rulesets/java/strings.xml">
 	</rule>
+	<rule ref="rulesets/java/strings.xml/AvoidDuplicateLiterals">
+		<properties>
+			<property name="maxDuplicateLiterals" value="8" />
+		</properties>
+	</rule>
 	<rule ref="rulesets/java/unnecessary.xml">
 		<!-- <exclude name="UselessParentheses" /> -->
 	</rule>

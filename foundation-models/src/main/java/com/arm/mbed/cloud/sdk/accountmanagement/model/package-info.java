@@ -1,5 +1,7 @@
 /**
  * Model objects.
+ * <p>
+ * Note: Deprecated. Use {@Code accounts} package instead.
  */
 @Preamble(description = "Model objects for account management module")
 @Deprecated
