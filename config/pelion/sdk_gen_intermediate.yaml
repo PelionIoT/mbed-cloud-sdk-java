@@ -406,7 +406,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -1472,7 +1471,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -2393,7 +2391,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -3253,7 +3250,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -4119,7 +4115,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -4562,7 +4557,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -5703,7 +5697,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -6113,7 +6106,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -6749,7 +6741,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -7077,7 +7068,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -7266,7 +7256,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -7566,7 +7555,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -7895,7 +7883,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -8145,7 +8132,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -8531,12 +8517,7 @@ entities:
     api_fieldname: certificate_name
     description: The certificate name.
     example: customer.dlms
-    external_param: true
-    in: path
     maxLength: 50
-    name: certificate-name
-    parameter_fieldname: certificate-name
-    pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
     readOnly: true
     required: false
     type: string
@@ -8579,8 +8560,6 @@ entities:
     api_fieldname: id
     description: The ID of the certificate enrollment.
     example: 01612df56f3b0a580a010fc700000000
-    in: path
-    parameter_fieldname: device-id
     readOnly: false
     required: true
     type: string
@@ -8613,7 +8592,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -8656,13 +8634,7 @@ entities:
           description: The certificate name.
           entity_fieldname: certificate_name
           example: customer.dlms
-          external_param: true
-          in: path
           maxLength: 50
-          name: certificate-name
-          parameter_fieldname: certificate-name
-          pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
-          required: true
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -8704,9 +8676,6 @@ entities:
           description: The ID of the certificate enrollment.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
-          in: path
-          parameter_fieldname: device-id
-          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -8925,7 +8894,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -9040,34 +9008,20 @@ entities:
               group: Security
             properties:
             - _key: certificate_name
-              api_fieldname: certificate-name
               description: The certificate name.
-              entity_fieldname: certificate_name
               example: customer.dlms
-              external_param: true
-              in: path
               maxLength: 50
-              name: certificate-name
-              parameter_fieldname: certificate-name
-              pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
-              required: true
               type: string
             - _key: created_at
-              api_fieldname: created_at
               description: Creation UTC time RFC3339.
-              entity_fieldname: created_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
             - _key: device_id
-              api_fieldname: device_id
               description: The device ID.
-              entity_fieldname: device_id
               example: 01625daa23230a580a0100bd00000000
               type: string
             - _key: enroll_result
-              api_fieldname: enroll_result
-              entity_fieldname: enroll_result
               enum:
               - success
               - not_found
@@ -9075,37 +9029,24 @@ entities:
               - failure
               type: string
             - _key: enroll_status
-              api_fieldname: enroll_status
-              entity_fieldname: enroll_status
               enum:
               - new
               - completed
               type: string
             - _key: etag
-              api_fieldname: etag
               description: Entity instance signature.
-              entity_fieldname: etag
               example: '1'
               type: string
             - _key: id
-              api_fieldname: id
               description: The ID of the certificate enrollment.
-              entity_fieldname: id
               example: 01612df56f3b0a580a010fc700000000
-              in: path
-              parameter_fieldname: device-id
-              required: true
               type: string
             - _key: object
-              api_fieldname: object
-              entity_fieldname: object
               enum:
               - certificate-enrollment
               type: string
             - _key: updated_at
-              api_fieldname: updated_at
               description: Update UTC time RFC3339.
-              entity_fieldname: updated_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
@@ -9287,7 +9228,7 @@ entities:
   - Certificate Enrollments
 - _key: certificate_issuer
   field_renames:
-  - _key: type_test
+  - _key: type
     api_fieldname: issuer_type
   fields:
   - _key: created_at
@@ -9336,7 +9277,7 @@ entities:
     readOnly: false
     required: true
     type: string
-  - _key: type_test
+  - _key: type
     api_fieldname: issuer_type
     description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
       \ are issued by GlobalSign service. The users must provide their own GlobalSign\
@@ -9345,7 +9286,7 @@ entities:
     enum:
     - GLOBAL_SIGN
     - CFSSL_AUTH
-    enum_reference: certificate_issuer_type_test_enum
+    enum_reference: certificate_issuer_type_enum
     example: GLOBAL_SIGN
     readOnly: false
     required: true
@@ -9383,7 +9324,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -9391,7 +9331,7 @@ entities:
     - created_at
     - id
     field_renames:
-    - _key: type_test
+    - _key: type
       api_fieldname: issuer_type
     fields:
     - _key: description
@@ -9451,18 +9391,18 @@ entities:
       parameter_fieldname: name
       required: false
       type: string
-    - _key: type_test
+    - _key: type
       api_fieldname: issuer_type
       description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
         \ are issued by GlobalSign service. The users must provide their own GlobalSign\
         \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
         \ authenticated signing service.\n  The users must provide their own CFSSL\
         \ host_url and credentials.\n"
-      entity_fieldname: type_test
+      entity_fieldname: type
       enum:
       - GLOBAL_SIGN
       - CFSSL_AUTH
-      enum_reference: certificate_issuer_type_test_enum
+      enum_reference: certificate_issuer_type_enum
       example: GLOBAL_SIGN
       in: body
       parameter_fieldname: issuer_type
@@ -9531,7 +9471,7 @@ entities:
             \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
             \ authenticated signing service.\n  The users must provide their own CFSSL\
             \ host_url and credentials.\n"
-          entity_fieldname: type_test
+          entity_fieldname: type
           enum:
           - GLOBAL_SIGN
           - CFSSL_AUTH
@@ -9788,13 +9728,12 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
     - sub_accounts
     field_renames:
-    - _key: type_test
+    - _key: type
       api_fieldname: issuer_type
     fields:
     - _key: id
@@ -9995,7 +9934,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -10004,9 +9942,9 @@ entities:
     - name
     - description
     - issuer_attributes
-    - type_test
+    - type
     field_renames:
-    - _key: type_test
+    - _key: type
       api_fieldname: issuer_type
     fields:
     - _key: id
@@ -10081,7 +10019,7 @@ entities:
             \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
             \ authenticated signing service.\n  The users must provide their own CFSSL\
             \ host_url and credentials.\n"
-          entity_fieldname: type_test
+          entity_fieldname: type
           enum:
           - GLOBAL_SIGN
           - CFSSL_AUTH
@@ -10280,7 +10218,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -10289,7 +10226,7 @@ entities:
     - total_count
     - data
     field_renames:
-    - _key: type_test
+    - _key: type
       api_fieldname: issuer_type
     fields:
     - _key: after
@@ -10577,15 +10514,14 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
     - sub_accounts
     - created_at
-    - type_test
+    - type
     field_renames:
-    - _key: type_test
+    - _key: type
       api_fieldname: issuer_type
     fields:
     - _key: description
@@ -10717,7 +10653,7 @@ entities:
             \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
             \ authenticated signing service.\n  The users must provide their own CFSSL\
             \ host_url and credentials.\n"
-          entity_fieldname: type_test
+          entity_fieldname: type
           enum:
           - GLOBAL_SIGN
           - CFSSL_AUTH
@@ -11028,7 +10964,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -11036,7 +10971,7 @@ entities:
     - successful
     - message
     field_renames:
-    - _key: type_test
+    - _key: type
       api_fieldname: issuer_type
     fields:
     - _key: id
@@ -11366,7 +11301,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -11652,7 +11586,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -11857,7 +11790,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -12130,7 +12062,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -12383,7 +12314,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -12695,7 +12625,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -13054,7 +12983,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -13604,7 +13532,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -13802,7 +13729,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -14270,7 +14196,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -14970,7 +14895,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -15590,7 +15514,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -15632,7 +15555,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -16027,7 +15949,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -16416,7 +16337,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -16517,6 +16437,9 @@ entities:
           description: The ID of the certificate enrollment.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
+          in: path
+          parameter_fieldname: certificate-enrollment-id
+          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -16796,7 +16719,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -17377,7 +17299,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -17662,7 +17583,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -17810,7 +17730,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -18052,7 +17971,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -18498,7 +18416,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -18767,7 +18684,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -18797,7 +18713,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -18873,7 +18788,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -19327,7 +19241,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -19599,7 +19512,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -19629,7 +19541,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -19705,7 +19616,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -20106,7 +20016,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -20245,7 +20154,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -20490,6 +20398,18 @@ entities:
     readOnly: true
     required: false
     type: string
+  - _key: type
+    api_fieldname: type
+    description: Identity provider type.
+    enum:
+    - NATIVE
+    - MBED
+    - SAML2
+    - OIDC
+    enum_reference: login_profile_type_enum
+    readOnly: true
+    required: false
+    type: string
   group_id: Accounts
   methods: []
   primary_key_field: id
@@ -20639,7 +20559,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -20834,7 +20753,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -21182,7 +21100,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -21668,7 +21585,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -21882,7 +21798,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -22276,7 +22191,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -22761,7 +22675,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -23538,7 +23451,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -24257,7 +24169,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -24510,7 +24421,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -25016,7 +24926,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -25720,7 +25629,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -26044,7 +25952,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -26438,7 +26345,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -26638,7 +26544,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -27118,7 +27023,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -27572,7 +27476,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -27776,7 +27679,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -28139,7 +28041,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -28623,7 +28524,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -29001,7 +28901,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -29770,7 +29669,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -30394,7 +30292,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -30637,7 +30534,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -31095,7 +30991,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -31559,7 +31454,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -32328,7 +32222,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -32702,7 +32595,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -32892,7 +32784,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -33205,7 +33096,6 @@ entities:
     drop_fields:
     - object
     - etag
-    - type
     - filter
     - is_custom
     - private_key
@@ -33640,10 +33530,10 @@ enums:
   values:
   - ASC
   - DESC
-- _key: certificate_issuer_type_test_enum
+- _key: certificate_issuer_type_enum
   entity_name: certificate_issuer
-  enum_name: certificate_issuer_type_test_enum
-  field_name: type_test
+  enum_name: certificate_issuer_type_enum
+  field_name: type
   group_id: Security
   values:
   - CFSSL_AUTH
@@ -33709,6 +33599,16 @@ enums:
   - deregistered
   - registered
   - unenrolled
+- _key: login_profile_type_enum
+  entity_name: login_profile
+  enum_name: login_profile_type_enum
+  field_name: type
+  group_id: Accounts
+  values:
+  - MBED
+  - NATIVE
+  - OIDC
+  - SAML2
 - _key: subtenant_trusted_certificate_service_enum
   entity_name: subtenant_trusted_certificate
   enum_name: subtenant_trusted_certificate_service_enum
@@ -33802,6 +33702,7 @@ groups:
   - api_key
   - account
   enums:
+  - login_profile_type_enum
   - user_status_enum
   - user_order_enum
   - subtenant_user_status_enum
@@ -33837,7 +33738,7 @@ groups:
   - subtenant_trusted_certificate
   - developer_certificate
   enums:
-  - certificate_issuer_type_test_enum
+  - certificate_issuer_type_enum
   - certificate_enrollment_enroll_status_enum
   - certificate_enrollment_enroll_result_enum
   - certificate_enrollment_order_enum

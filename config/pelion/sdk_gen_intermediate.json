@@ -15,6 +15,7 @@
         "account"
       ],
       "enums": [
+        "login_profile_type_enum",
         "user_status_enum",
         "user_order_enum",
         "subtenant_user_status_enum",
@@ -58,7 +59,7 @@
         "developer_certificate"
       ],
       "enums": [
-        "certificate_issuer_type_test_enum",
+        "certificate_issuer_type_enum",
         "certificate_enrollment_enroll_status_enum",
         "certificate_enrollment_enroll_result_enum",
         "certificate_enrollment_order_enum",
@@ -177,14 +178,14 @@
     },
     {
       "entity_name": "certificate_issuer",
-      "field_name": "type_test",
-      "enum_name": "certificate_issuer_type_test_enum",
+      "field_name": "type",
+      "enum_name": "certificate_issuer_type_enum",
       "values": [
         "CFSSL_AUTH",
         "GLOBAL_SIGN"
       ],
       "group_id": "Security",
-      "_key": "certificate_issuer_type_test_enum"
+      "_key": "certificate_issuer_type_enum"
     },
     {
       "entity_name": "device",
@@ -267,6 +268,19 @@
       ],
       "group_id": "Devices",
       "_key": "device_state_enum"
+    },
+    {
+      "entity_name": "login_profile",
+      "field_name": "type",
+      "enum_name": "login_profile_type_enum",
+      "values": [
+        "MBED",
+        "NATIVE",
+        "OIDC",
+        "SAML2"
+      ],
+      "group_id": "Accounts",
+      "_key": "login_profile_type_enum"
     },
     {
       "entity_name": "subtenant_trusted_certificate",
@@ -1743,7 +1757,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -2947,7 +2960,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -4132,7 +4144,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -5240,7 +5251,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -5853,7 +5863,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -7366,7 +7375,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -7935,7 +7943,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -8628,7 +8635,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -9592,7 +9598,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -9868,7 +9873,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -10270,7 +10274,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -10709,7 +10712,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -11036,7 +11038,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -11574,7 +11575,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -11759,12 +11759,6 @@
                     "example": "customer.dlms",
                     "api_fieldname": "certificate_name",
                     "entity_fieldname": "certificate_name",
-                    "in": "path",
-                    "name": "certificate-name",
-                    "required": true,
-                    "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
-                    "external_param": true,
-                    "parameter_fieldname": "certificate-name",
                     "_key": "certificate_name"
                   },
                   {
@@ -11820,9 +11814,6 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
-                    "parameter_fieldname": "device-id",
-                    "in": "path",
-                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -12122,7 +12113,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -12233,14 +12223,6 @@
                           "maxLength": 50,
                           "description": "The certificate name.",
                           "example": "customer.dlms",
-                          "api_fieldname": "certificate-name",
-                          "entity_fieldname": "certificate_name",
-                          "in": "path",
-                          "name": "certificate-name",
-                          "required": true,
-                          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
-                          "external_param": true,
-                          "parameter_fieldname": "certificate-name",
                           "_key": "certificate_name"
                         },
                         {
@@ -12248,16 +12230,12 @@
                           "format": "date-time",
                           "description": "Creation UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
-                          "api_fieldname": "created_at",
-                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "description": "The device ID.",
                           "example": "01625daa23230a580a0100bd00000000",
-                          "api_fieldname": "device_id",
-                          "entity_fieldname": "device_id",
                           "_key": "device_id"
                         },
                         {
@@ -12268,8 +12246,6 @@
                             "forbidden",
                             "failure"
                           ],
-                          "api_fieldname": "enroll_result",
-                          "entity_fieldname": "enroll_result",
                           "_key": "enroll_result"
                         },
                         {
@@ -12278,27 +12254,18 @@
                             "new",
                             "completed"
                           ],
-                          "api_fieldname": "enroll_status",
-                          "entity_fieldname": "enroll_status",
                           "_key": "enroll_status"
                         },
                         {
                           "type": "string",
                           "description": "Entity instance signature.",
                           "example": "1",
-                          "api_fieldname": "etag",
-                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "description": "The ID of the certificate enrollment.",
                           "example": "01612df56f3b0a580a010fc700000000",
-                          "api_fieldname": "id",
-                          "entity_fieldname": "id",
-                          "parameter_fieldname": "device-id",
-                          "in": "path",
-                          "required": true,
                           "_key": "id"
                         },
                         {
@@ -12306,8 +12273,6 @@
                           "enum": [
                             "certificate-enrollment"
                           ],
-                          "api_fieldname": "object",
-                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
@@ -12315,8 +12280,6 @@
                           "format": "date-time",
                           "description": "Update UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
-                          "api_fieldname": "updated_at",
-                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         }
                       ],
@@ -12591,7 +12554,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -12631,13 +12593,8 @@
           "description": "The certificate name.",
           "example": "customer.dlms",
           "api_fieldname": "certificate_name",
-          "in": "path",
-          "name": "certificate-name",
-          "required": false,
-          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
-          "external_param": true,
-          "parameter_fieldname": "certificate-name",
           "readOnly": true,
+          "required": false,
           "_key": "certificate_name"
         },
         {
@@ -12690,10 +12647,8 @@
           "description": "The ID of the certificate enrollment.",
           "example": "01612df56f3b0a580a010fc700000000",
           "api_fieldname": "id",
-          "parameter_fieldname": "device-id",
-          "in": "path",
-          "required": true,
           "readOnly": false,
+          "required": true,
           "_key": "id"
         },
         {
@@ -12729,7 +12684,7 @@
           "field_renames": [
             {
               "api_fieldname": "issuer_type",
-              "_key": "type_test"
+              "_key": "type"
             }
           ],
           "fields": [
@@ -12797,12 +12752,12 @@
               "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
               "example": "GLOBAL_SIGN",
               "api_fieldname": "issuer_type",
-              "entity_fieldname": "type_test",
+              "entity_fieldname": "type",
               "parameter_fieldname": "issuer_type",
               "in": "body",
               "required": true,
-              "enum_reference": "certificate_issuer_type_test_enum",
-              "_key": "type_test"
+              "enum_reference": "certificate_issuer_type_enum",
+              "_key": "type"
             }
           ],
           "method": "post",
@@ -12867,7 +12822,7 @@
                     "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
                     "example": "GLOBAL_SIGN",
                     "api_fieldname": "issuer_type",
-                    "entity_fieldname": "type_test",
+                    "entity_fieldname": "type",
                     "_key": "issuer_type"
                   },
                   {
@@ -13226,7 +13181,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -13247,7 +13201,7 @@
           "field_renames": [
             {
               "api_fieldname": "issuer_type",
-              "_key": "type_test"
+              "_key": "type"
             }
           ],
           "fields": [
@@ -13535,7 +13489,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -13554,7 +13507,7 @@
           "field_renames": [
             {
               "api_fieldname": "issuer_type",
-              "_key": "type_test"
+              "_key": "type"
             }
           ],
           "fields": [
@@ -13632,7 +13585,7 @@
                     "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
                     "example": "GLOBAL_SIGN",
                     "api_fieldname": "issuer_type",
-                    "entity_fieldname": "type_test",
+                    "entity_fieldname": "type",
                     "_key": "issuer_type"
                   },
                   {
@@ -13928,7 +13881,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -13937,7 +13889,7 @@
             "name",
             "description",
             "issuer_attributes",
-            "type_test"
+            "type"
           ],
           "group_id": "Security",
           "parameter_map": {
@@ -13952,7 +13904,7 @@
           "field_renames": [
             {
               "api_fieldname": "issuer_type",
-              "_key": "type_test"
+              "_key": "type"
             }
           ],
           "fields": [
@@ -14308,7 +14260,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -14335,7 +14286,7 @@
           "field_renames": [
             {
               "api_fieldname": "issuer_type",
-              "_key": "type_test"
+              "_key": "type"
             }
           ],
           "fields": [
@@ -14468,7 +14419,7 @@
                     "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
                     "example": "GLOBAL_SIGN",
                     "api_fieldname": "issuer_type",
-                    "entity_fieldname": "type_test",
+                    "entity_fieldname": "type",
                     "_key": "issuer_type"
                   },
                   {
@@ -14890,13 +14841,12 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
             "sub_accounts",
             "created_at",
-            "type_test"
+            "type"
           ],
           "group_id": "Security",
           "parameter_map": {
@@ -14911,7 +14861,7 @@
           "field_renames": [
             {
               "api_fieldname": "issuer_type",
-              "_key": "type_test"
+              "_key": "type"
             }
           ],
           "fields": [
@@ -15287,7 +15237,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -15372,14 +15321,14 @@
           "api_fieldname": "issuer_type",
           "readOnly": false,
           "required": true,
-          "enum_reference": "certificate_issuer_type_test_enum",
-          "_key": "type_test"
+          "enum_reference": "certificate_issuer_type_enum",
+          "_key": "type"
         }
       ],
       "field_renames": [
         {
           "api_fieldname": "issuer_type",
-          "_key": "type_test"
+          "_key": "type"
         }
       ],
       "tags": [
@@ -15775,7 +15724,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -16085,7 +16033,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -16466,7 +16413,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -16776,7 +16722,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -17192,7 +17137,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -17593,7 +17537,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -18181,7 +18124,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -18464,7 +18406,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -18856,7 +18797,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -19332,7 +19272,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -20147,7 +20086,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -20221,7 +20159,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -20632,7 +20569,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -21105,7 +21041,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -21226,6 +21161,9 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "certificate-enrollment-id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -21651,7 +21589,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -22202,7 +22139,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -23023,7 +22959,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -23222,7 +23157,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -23512,7 +23446,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -23920,7 +23853,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -24331,7 +24263,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -24370,7 +24301,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -24403,7 +24333,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -24800,7 +24729,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -25246,7 +25174,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -25285,7 +25212,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -25318,7 +25244,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -25718,7 +25643,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -26019,7 +25943,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -26283,7 +26206,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -26484,6 +26406,21 @@
           "api_fieldname": "name",
           "required": false,
           "_key": "name"
+        },
+        {
+          "type": "string",
+          "description": "Identity provider type.",
+          "readOnly": true,
+          "enum": [
+            "NATIVE",
+            "MBED",
+            "SAML2",
+            "OIDC"
+          ],
+          "api_fieldname": "type",
+          "required": false,
+          "enum_reference": "login_profile_type_enum",
+          "_key": "type"
         }
       ],
       "field_renames": [],
@@ -26859,7 +26796,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -27122,7 +27058,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -27824,7 +27759,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -28131,7 +28065,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -28637,7 +28570,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -29051,7 +28983,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -29717,7 +29648,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -30869,7 +30799,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -31246,7 +31175,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -31884,7 +31812,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -32829,7 +32756,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -33134,7 +33060,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -34007,7 +33932,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -34293,7 +34217,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -34738,7 +34661,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -35509,7 +35431,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -35805,7 +35726,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -36277,7 +36197,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -36692,7 +36611,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -37190,7 +37108,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -37898,7 +37815,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -38916,7 +38832,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -39282,7 +39197,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -39870,7 +39784,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -40485,7 +40398,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -41374,7 +41286,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -42211,7 +42122,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -42486,7 +42396,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -42908,7 +42817,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
@@ -43357,7 +43265,6 @@
           "drop_fields": [
             "object",
             "etag",
-            "type",
             "filter",
             "is_custom",
             "private_key",
