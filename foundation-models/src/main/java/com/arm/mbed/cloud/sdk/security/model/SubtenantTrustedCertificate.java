@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.security.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.Objects;
@@ -22,11 +23,13 @@ public class SubtenantTrustedCertificate implements SdkModel {
     /**
      * The ID of the account.
      */
+    @Required
     private String accountId;
 
     /**
      * X509.v3 trusted certificate in PEM format.
      */
+    @Required
     private String certificate;
 
     /**
@@ -57,6 +60,7 @@ public class SubtenantTrustedCertificate implements SdkModel {
     /**
      * Entity ID.
      */
+    @Required
     private String id;
 
     /**
@@ -72,6 +76,7 @@ public class SubtenantTrustedCertificate implements SdkModel {
     /**
      * Certificate name.
      */
+    @Required
     private String name;
 
     /**
@@ -82,6 +87,7 @@ public class SubtenantTrustedCertificate implements SdkModel {
     /**
      * Service name where the certificate is to be used.
      */
+    @Required
     private SubtenantTrustedCertificateService service;
 
     /**
@@ -224,6 +230,27 @@ public class SubtenantTrustedCertificate implements SdkModel {
     }
 
     /**
+     * Constructor.
+     * 
+     * @param accountId
+     *            The ID of the account.
+     * @param certificate
+     *            X509.v3 trusted certificate in PEM format.
+     * @param id
+     *            Entity ID.
+     * @param name
+     *            Certificate name.
+     * @param service
+     *            Service name where the certificate is to be used.
+     */
+    public SubtenantTrustedCertificate(String accountId, String certificate, String id, String name,
+                                       SubtenantTrustedCertificateService service) {
+        this(accountId, certificate, (String) null, new java.util.Date(), (String) null, 0, false, id, false,
+             (String) null, name, (String) null, service, SubtenantTrustedCertificateStatus.getDefault(), (String) null,
+             new java.util.Date(), new java.util.Date());
+    }
+
+    /**
      * Gets the id of the account.
      * 
      * @return accountId
@@ -238,8 +265,19 @@ public class SubtenantTrustedCertificate implements SdkModel {
      * @param accountId
      *            The ID of the account.
      */
+    @Required
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    /**
+     * Checks whether accountId value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isAccountIdValid() {
+        return accountId != null;
     }
 
     /**
@@ -257,8 +295,19 @@ public class SubtenantTrustedCertificate implements SdkModel {
      * @param certificate
      *            X509.v3 trusted certificate in PEM format.
      */
+    @Required
     public void setCertificate(String certificate) {
         this.certificate = certificate;
+    }
+
+    /**
+     * Checks whether certificate value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isCertificateValid() {
+        return certificate != null;
     }
 
     /**
@@ -373,6 +422,7 @@ public class SubtenantTrustedCertificate implements SdkModel {
      *            Entity ID.
      */
     @Override
+    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -386,8 +436,19 @@ public class SubtenantTrustedCertificate implements SdkModel {
      *            Entity ID.
      */
     @Internal
+    @Required
     public void setSubtenantTrustedCertificateId(String subtenantTrustedCertificateId) {
         setId(subtenantTrustedCertificateId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return id != null;
     }
 
     /**
@@ -443,8 +504,19 @@ public class SubtenantTrustedCertificate implements SdkModel {
      * @param name
      *            Certificate name.
      */
+    @Required
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Checks whether name value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isNameValid() {
+        return name != null;
     }
 
     /**
@@ -481,8 +553,19 @@ public class SubtenantTrustedCertificate implements SdkModel {
      * @param service
      *            Service name where the certificate is to be used.
      */
+    @Required
     public void setService(SubtenantTrustedCertificateService service) {
         this.service = service;
+    }
+
+    /**
+     * Checks whether service value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isServiceValid() {
+        return service != null;
     }
 
     /**
@@ -758,7 +841,7 @@ public class SubtenantTrustedCertificate implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isAccountIdValid() && isCertificateValid() && isIdValid() && isNameValid() && isServiceValid();
     }
 
     /**

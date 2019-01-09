@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,7 @@ public class SubtenantUser implements SdkModel {
     /**
      * The ID of the account.
      */
+    @Required
     private String accountId;
 
     /**
@@ -43,6 +45,7 @@ public class SubtenantUser implements SdkModel {
     /**
      * The email address.
      */
+    @Required
     private String email;
 
     /**
@@ -58,6 +61,7 @@ public class SubtenantUser implements SdkModel {
     /**
      * The ID of the user.
      */
+    @Required
     private String id;
 
     /**
@@ -74,7 +78,7 @@ public class SubtenantUser implements SdkModel {
     /**
      * A list of login profiles for the user. Specified as the identity providers the user is associated with.
      */
-    private List loginProfiles;
+    private List<LoginProfile> loginProfiles;
 
     /**
      * A flag indicating that receiving marketing information has been accepted.
@@ -178,7 +182,7 @@ public class SubtenantUser implements SdkModel {
     @SuppressWarnings("PMD.CyclomaticComplexity")
     public SubtenantUser(String accountId, String address, Date createdAt, long creationTime, String email,
                          boolean emailVerified, String fullName, String id, long lastLoginTime,
-                         List<LoginHistory> loginHistory, List loginProfiles, boolean marketingAccepted,
+                         List<LoginHistory> loginHistory, List<LoginProfile> loginProfiles, boolean marketingAccepted,
                          String password, long passwordChangedTime, String phoneNumber, SubtenantUserStatus status,
                          boolean termsAccepted, boolean twoFactorAuthentication, Date updatedAt, String username) {
         super();
@@ -257,6 +261,22 @@ public class SubtenantUser implements SdkModel {
     }
 
     /**
+     * Constructor.
+     * 
+     * @param accountId
+     *            The ID of the account.
+     * @param email
+     *            The email address.
+     * @param id
+     *            The ID of the user.
+     */
+    public SubtenantUser(String accountId, String email, String id) {
+        this(accountId, (String) null, new java.util.Date(), 0L, email, false, (String) null, id, 0L, null, null, false,
+             (String) null, 0L, (String) null, SubtenantUserStatus.getDefault(), false, false, new java.util.Date(),
+             (String) null);
+    }
+
+    /**
      * Gets the id of the account.
      * 
      * @return accountId
@@ -271,8 +291,19 @@ public class SubtenantUser implements SdkModel {
      * @param accountId
      *            The ID of the account.
      */
+    @Required
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    /**
+     * Checks whether accountId value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isAccountIdValid() {
+        return accountId != null;
     }
 
     /**
@@ -347,8 +378,19 @@ public class SubtenantUser implements SdkModel {
      * @param email
      *            The email address.
      */
+    @Required
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * Checks whether email value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isEmailValid() {
+        return email != null;
     }
 
     /**
@@ -406,6 +448,7 @@ public class SubtenantUser implements SdkModel {
      *            The ID of the user.
      */
     @Override
+    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -419,8 +462,19 @@ public class SubtenantUser implements SdkModel {
      *            The ID of the user.
      */
     @Internal
+    @Required
     public void setSubtenantUserId(String subtenantUserId) {
         setId(subtenantUserId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return id != null;
     }
 
     /**
@@ -469,7 +523,7 @@ public class SubtenantUser implements SdkModel {
      * 
      * @return loginProfiles
      */
-    public List getLoginProfiles() {
+    public List<LoginProfile> getLoginProfiles() {
         return loginProfiles;
     }
 
@@ -480,7 +534,7 @@ public class SubtenantUser implements SdkModel {
      *            A list of login profiles for the user. Specified as the identity providers the user is associated
      *            with.
      */
-    public void setLoginProfiles(List loginProfiles) {
+    public void setLoginProfiles(List<LoginProfile> loginProfiles) {
         this.loginProfiles = loginProfiles;
     }
 
@@ -872,7 +926,7 @@ public class SubtenantUser implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isAccountIdValid() && isEmailValid() && isIdValid();
     }
 
     /**

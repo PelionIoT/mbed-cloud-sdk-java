@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.devices.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 
@@ -40,6 +41,7 @@ public class DeviceEnrollment implements SdkModel {
     /**
      * Enrollment identity.
      */
+    @Required
     private String enrollmentIdentity;
 
     /**
@@ -51,6 +53,7 @@ public class DeviceEnrollment implements SdkModel {
     /**
      * Enrollment identity.
      */
+    @Required
     private String id;
 
     /**
@@ -123,6 +126,19 @@ public class DeviceEnrollment implements SdkModel {
     public DeviceEnrollment(String id) {
         this();
         setId(id);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param enrollmentIdentity
+     *            Enrollment identity.
+     * @param id
+     *            Enrollment identity.
+     */
+    public DeviceEnrollment(String enrollmentIdentity, String id) {
+        this((String) null, new java.util.Date(), new java.util.Date(), (String) null, enrollmentIdentity,
+             new java.util.Date(), id);
     }
 
     /**
@@ -234,6 +250,7 @@ public class DeviceEnrollment implements SdkModel {
      * @param enrollmentIdentity
      *            Enrollment identity.
      */
+    @Required
     public void setEnrollmentIdentity(String enrollmentIdentity) {
         this.enrollmentIdentity = enrollmentIdentity;
     }
@@ -245,7 +262,8 @@ public class DeviceEnrollment implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isEnrollmentIdentityValid() {
-        return (enrollmentIdentity == null || enrollmentIdentity.matches("^A-[A-Za-z0-9:]{95}$"));
+        return enrollmentIdentity != null
+               && (enrollmentIdentity == null || enrollmentIdentity.matches("^A-[A-Za-z0-9:]{95}$"));
     }
 
     /**
@@ -291,6 +309,7 @@ public class DeviceEnrollment implements SdkModel {
      *            Enrollment identity.
      */
     @Override
+    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -306,6 +325,7 @@ public class DeviceEnrollment implements SdkModel {
      *            Enrollment identity.
      */
     @Internal
+    @Required
     public void setDeviceEnrollmentId(String deviceEnrollmentId) {
         setId(deviceEnrollmentId);
     }
@@ -317,7 +337,7 @@ public class DeviceEnrollment implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isIdValid() {
-        return (id == null || id.matches("^[A-Za-z0-9]{32}"));
+        return id != null && (id == null || id.matches("^[A-Za-z0-9]{32}"));
     }
 
     /**

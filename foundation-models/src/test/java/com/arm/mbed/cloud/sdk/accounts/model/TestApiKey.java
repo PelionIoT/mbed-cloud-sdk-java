@@ -16,12 +16,12 @@ public class TestApiKey {
     @Test
     public void testClone() {
         try {
-            ApiKey apikey1 = new ApiKey("aa4c19f316bfe600a3eefd6c7a082c82", new java.util.Date(1546622513159L), 23,
-                                        "8eeb201a-c479-4f54-b34e-ed24e3224171", "90091640-4fcc-4abf-9a5f-4cce5b50ae3c",
-                                        11, "3a473ea0-0eff-41cd-8d0b-74af1eb06a28",
-                                        "23daf94b-8c84-4ee3-a2cd-c5a4635510ad",
+            ApiKey apikey1 = new ApiKey("d65d492ecbd43eabf5ee2c3544a74f9a", new java.util.Date(1547041496548L), 66,
+                                        "8f03e05d-2f33-4944-b2b5-719e89e3cad8", "0a19b5a0-6472-4abf-bafe-da55af135063",
+                                        -75, "1585191d-c638-4303-8445-3b7175ccbaba",
+                                        "9feb6fe9-0211-430a-82b6-d69611faef91",
                                         com.arm.mbed.cloud.sdk.accounts.model.ApiKeyStatus.getDefault(),
-                                        new java.util.Date(1546622515608L));
+                                        new java.util.Date(1547041497092L));
             ApiKey apikey2 = apikey1.clone();
             assertNotNull(apikey1);
             assertNotNull(apikey2);
@@ -38,18 +38,18 @@ public class TestApiKey {
     @Test
     public void testHashCode() {
         try {
-            ApiKey apikey1 = new ApiKey("fd1ff32addde72327d3fddab960f9d8b", new java.util.Date(1546622514984L), 52,
-                                        "c7a87d08-f789-4d9c-be51-b2ff9b2ad758", "c6d81da5-0a05-4d25-b4ee-dda62bb45956",
-                                        -62, "0963f62e-97c1-42f6-82d6-24e75f81949c",
-                                        "ef090b3f-c873-4457-bcea-eae2cc1b93b6",
+            ApiKey apikey1 = new ApiKey("d2d87ef4aff862ab98c9b8ce3a1aab1f", new java.util.Date(1547041497848L), -117,
+                                        "abaa2bee-1c24-41b0-a1a7-0cd8cbfc5eee", "718ea023-35b8-4c59-bb2b-743a5f91d868",
+                                        -109, "0eab57a2-3a5f-491c-bbda-62aceb2314c0",
+                                        "dca208b5-9d31-4e35-8964-dfda42d6cd20",
                                         com.arm.mbed.cloud.sdk.accounts.model.ApiKeyStatus.getDefault(),
-                                        new java.util.Date(1546622512664L));
-            ApiKey apikey2 = new ApiKey("fd1ff32addde72327d3fddab960f9d8b", new java.util.Date(1546622514984L), 52,
-                                        "c7a87d08-f789-4d9c-be51-b2ff9b2ad758", "c6d81da5-0a05-4d25-b4ee-dda62bb45956",
-                                        -62, "0963f62e-97c1-42f6-82d6-24e75f81949c",
-                                        "ef090b3f-c873-4457-bcea-eae2cc1b93b6",
+                                        new java.util.Date(1547041489089L));
+            ApiKey apikey2 = new ApiKey("d2d87ef4aff862ab98c9b8ce3a1aab1f", new java.util.Date(1547041497848L), -117,
+                                        "abaa2bee-1c24-41b0-a1a7-0cd8cbfc5eee", "718ea023-35b8-4c59-bb2b-743a5f91d868",
+                                        -109, "0eab57a2-3a5f-491c-bbda-62aceb2314c0",
+                                        "dca208b5-9d31-4e35-8964-dfda42d6cd20",
                                         com.arm.mbed.cloud.sdk.accounts.model.ApiKeyStatus.getDefault(),
-                                        new java.util.Date(1546622512664L));
+                                        new java.util.Date(1547041489089L));
             assertNotNull(apikey1);
             assertNotNull(apikey2);
             assertNotSame(apikey2, apikey1);
@@ -69,20 +69,18 @@ public class TestApiKey {
      */
     @Test
     public void testIsValid() {
-        ApiKey apikey = new ApiKey("59ab7be6b91bfff78a7c264dbcaca3a0", new java.util.Date(1546622507695L), -62,
-                                   "f4a11f4e-40f4-43f4-9a9c-7aa301b44e92", "f21b6432-7ccd-433f-96b2-c83bb12495ad", 8,
-                                   "3e901cea-06f1-4c64-8e3b-76a6697906a0", "a7c99287-80d4-4274-9369-bf41386876d5",
+        ApiKey apikey = new ApiKey("a8b663ee450d9cd4dcdc587cbfda9080", new java.util.Date(1547041492841L), -87,
+                                   "ba01dd85-f754-4167-8469-ab5e70b7f31c", "904425b1-3580-45dc-b2d9-c33a099408a1", -9,
+                                   "448e6bee-eead-475c-b2b6-7e83cf1a64b1", "7d372861-9ee0-438e-a699-12c06ed2dd40",
                                    com.arm.mbed.cloud.sdk.accounts.model.ApiKeyStatus.getDefault(),
-                                   new java.util.Date(1546622507505L));
+                                   new java.util.Date(1547041488979L));
         assertTrue(apikey.isValid());
-        ApiKey apikeyInvalid = new ApiKey("S8F8`8)W瘿K8暢`躇L�?�\\]-8!ෘ븯X]웧88?W8C;88K8``篯�?Y8+�?SC.Q88J^",
-                                          new java.util.Date(1546622508012L), -83,
-                                          "f6435264-2b2c-4bab-be66-364f361aa4ae",
-                                          "6f2d0b45-aeb5-4d7a-9109-9d73396c4ba5", -103,
-                                          "c266bbea-c840-4c65-971f-b0db9d0fe59e",
-                                          "66c32dad-fc72-48b1-857b-df8cd8e5c06c",
+        ApiKey apikeyInvalid = new ApiKey("媧K22&22뀬2=뺘ZڮED2C2㞙횲ⱪ2=Z2�?D؊魆㹬EAV亘㠼2^[#2얔術2ᗑ빛#M-2+J",
+                                          new java.util.Date(1547041493774L), 29, null,
+                                          "94697892-9c8e-4226-804b-cd8c0abff47e", 2, null,
+                                          "829509b1-a33e-44c7-a28e-c3ccbb279c1f",
                                           com.arm.mbed.cloud.sdk.accounts.model.ApiKeyStatus.getDefault(),
-                                          new java.util.Date(1546622511677L));
+                                          new java.util.Date(1547041489594L));
         assertFalse(apikeyInvalid.isValid());
     }
 
@@ -92,24 +90,24 @@ public class TestApiKey {
     @Test
     public void testEquals() {
         try {
-            ApiKey apikey1 = new ApiKey("3cfab8c7eadfcd494bb14452d2db6731", new java.util.Date(1546622507692L), 71,
-                                        "1224cacc-0807-4e11-959c-d52cf3365953", "07c65d69-8dd9-4794-beb1-9994e8238b43",
-                                        101, "3509ec43-d14a-49b4-be20-81b5e0b02753",
-                                        "9c22beae-ae31-496a-9e2c-55375032f4bf",
+            ApiKey apikey1 = new ApiKey("3754c40bae2570073bdcbb53fcbe6c6e", new java.util.Date(1547041494177L), 73,
+                                        "d88a77be-f994-4cee-938a-94c01a1ff52f", "8fbc9031-c502-43ad-b44d-72433dee77d1",
+                                        123, "449e4016-f3d7-4725-b5d0-356163c2aa07",
+                                        "4e30cfcf-fce7-4744-8aba-1fa34c180c97",
                                         com.arm.mbed.cloud.sdk.accounts.model.ApiKeyStatus.getDefault(),
-                                        new java.util.Date(1546622509522L));
-            ApiKey apikey2 = new ApiKey("3cfab8c7eadfcd494bb14452d2db6731", new java.util.Date(1546622507692L), 71,
-                                        "1224cacc-0807-4e11-959c-d52cf3365953", "07c65d69-8dd9-4794-beb1-9994e8238b43",
-                                        101, "3509ec43-d14a-49b4-be20-81b5e0b02753",
-                                        "9c22beae-ae31-496a-9e2c-55375032f4bf",
+                                        new java.util.Date(1547041494353L));
+            ApiKey apikey2 = new ApiKey("3754c40bae2570073bdcbb53fcbe6c6e", new java.util.Date(1547041494177L), 73,
+                                        "d88a77be-f994-4cee-938a-94c01a1ff52f", "8fbc9031-c502-43ad-b44d-72433dee77d1",
+                                        123, "449e4016-f3d7-4725-b5d0-356163c2aa07",
+                                        "4e30cfcf-fce7-4744-8aba-1fa34c180c97",
                                         com.arm.mbed.cloud.sdk.accounts.model.ApiKeyStatus.getDefault(),
-                                        new java.util.Date(1546622509522L));
-            ApiKey apikey3 = new ApiKey("fdeac88ca5449ee614c9e1cb3b63a38a", new java.util.Date(1546622513070L), 43,
-                                        "ae82821e-5501-4a51-b1be-81af692eef9e", "7bd66971-0b14-4d16-8f8a-b23736f8158f",
-                                        98, "aa7d560f-4f21-47be-9e02-14cdcc45716a",
-                                        "27c9a6ae-2cf6-4a57-ac75-2ae96cd2d7e8",
+                                        new java.util.Date(1547041494353L));
+            ApiKey apikey3 = new ApiKey("c2e02dd5c940df163cff181ffa98b5c9", new java.util.Date(1547041496220L), -88,
+                                        "40216f3f-77ac-41bb-aa16-ac50545ae63f", "c804825e-2e02-441b-890e-0e1bf33b8a93",
+                                        -116, "c4175c4d-1323-4c76-87d3-9b8823bac937",
+                                        "f7078874-35e1-457f-873c-a01fdcc29c84",
                                         com.arm.mbed.cloud.sdk.accounts.model.ApiKeyStatus.getDefault(),
-                                        new java.util.Date(1546622507013L));
+                                        new java.util.Date(1547041494960L));
             assertNotNull(apikey1);
             assertNotNull(apikey2);
             assertNotNull(apikey3);

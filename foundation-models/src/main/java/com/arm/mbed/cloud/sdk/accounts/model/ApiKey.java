@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.Objects;
@@ -36,6 +37,7 @@ public class ApiKey implements SdkModel {
     /**
      * The ID of the API key.
      */
+    @Required
     private String id;
 
     /**
@@ -51,6 +53,7 @@ public class ApiKey implements SdkModel {
     /**
      * The display name for the API key.
      */
+    @Required
     private String name;
 
     /**
@@ -148,6 +151,19 @@ public class ApiKey implements SdkModel {
     }
 
     /**
+     * Constructor.
+     * 
+     * @param id
+     *            The ID of the API key.
+     * @param name
+     *            The display name for the API key.
+     */
+    public ApiKey(String id, String name) {
+        this((String) null, new java.util.Date(), 0L, id, (String) null, 0L, name, (String) null,
+             ApiKeyStatus.getDefault(), new java.util.Date());
+    }
+
+    /**
      * Gets the id of the account.
      * 
      * @return accountId
@@ -235,6 +251,7 @@ public class ApiKey implements SdkModel {
      *            The ID of the API key.
      */
     @Override
+    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -248,8 +265,19 @@ public class ApiKey implements SdkModel {
      *            The ID of the API key.
      */
     @Internal
+    @Required
     public void setApiKeyId(String apiKeyId) {
         setId(apiKeyId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return id != null;
     }
 
     /**
@@ -305,8 +333,19 @@ public class ApiKey implements SdkModel {
      * @param name
      *            The display name for the API key.
      */
+    @Required
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Checks whether name value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isNameValid() {
+        return name != null;
     }
 
     /**
@@ -511,7 +550,7 @@ public class ApiKey implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isAccountIdValid();
+        return isAccountIdValid() && isIdValid() && isNameValid();
     }
 
     /**

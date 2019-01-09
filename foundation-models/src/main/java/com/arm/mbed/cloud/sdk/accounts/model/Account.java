@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.List;
@@ -31,33 +32,33 @@ public class Account implements SdkModel {
     private String addressLine2;
 
     /**
-     * The email address of the account admin, not longer than 254 characters.
+     * The email address of the admin user created for this account. Present only in the response for the account
+     * creation.
      */
     private String adminEmail;
 
     /**
-     * The full name of the admin user to be created.
+     * The full name of the admin user created for this account. Present only in the response for the account creation.
      */
     private String adminFullName;
 
     /**
-     * The ID of the admin user created.
+     * The ID of the admin user created for this account.
      */
     private String adminId;
 
     /**
-     * The admin API key created for the account.
+     * The admin API key created for this account. Present only in the response for the account creation.
      */
     private String adminKey;
 
     /**
-     * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must
-     * be at least 4 but not more than 30 character long.
+     * The username of the admin user created for this account. Present only in the response for the account creation.
      */
     private String adminName;
 
     /**
-     * The password when creating a new user. It will be generated when not present in the request.
+     * The password of the admin user created for this account. Present only in the response for the account creation.
      */
     private String adminPassword;
 
@@ -119,7 +120,13 @@ public class Account implements SdkModel {
     /**
      * Account end market.
      */
+    @Required
     private String endMarket;
+
+    /**
+     * Expiration time of the account, as UTC time RFC3339.
+     */
+    private Date expiration;
 
     /**
      * Indicates how many days (1-180) before account expiration a notification email should be sent.
@@ -129,6 +136,7 @@ public class Account implements SdkModel {
     /**
      * Account ID.
      */
+    @Required
     private String id;
 
     /**
@@ -164,6 +172,7 @@ public class Account implements SdkModel {
     /**
      * value.
      */
+    @Required
     private PasswordPolicy passwordPolicy;
 
     /**
@@ -237,18 +246,21 @@ public class Account implements SdkModel {
      * @param addressLine2
      *            Postal address line 2.
      * @param adminEmail
-     *            The email address of the account admin, not longer than 254 characters.
+     *            The email address of the admin user created for this account. Present only in the response for the
+     *            account creation.
      * @param adminFullName
-     *            The full name of the admin user to be created.
+     *            The full name of the admin user created for this account. Present only in the response for the account
+     *            creation.
      * @param adminId
-     *            The ID of the admin user created.
+     *            The ID of the admin user created for this account.
      * @param adminKey
-     *            The admin API key created for the account.
+     *            The admin API key created for this account. Present only in the response for the account creation.
      * @param adminName
-     *            The username of the admin user to be created, containing alphanumerical letters and -,._@+=
-     *            characters. It must be at least 4 but not more than 30 character long.
+     *            The username of the admin user created for this account. Present only in the response for the account
+     *            creation.
      * @param adminPassword
-     *            The password when creating a new user. It will be generated when not present in the request.
+     *            The password of the admin user created for this account. Present only in the response for the account
+     *            creation.
      * @param aliases
      *            An array of aliases.
      * @param city
@@ -273,6 +285,8 @@ public class Account implements SdkModel {
      *            The company email address for this account.
      * @param endMarket
      *            Account end market.
+     * @param expiration
+     *            Expiration time of the account, as UTC time RFC3339.
      * @param expirationWarningThreshold
      *            Indicates how many days (1-180) before account expiration a notification email should be sent.
      * @param id
@@ -323,7 +337,7 @@ public class Account implements SdkModel {
                    String adminKey, String adminName, String adminPassword, List<String> aliases, String city,
                    String company, String contact, String contractNumber, String country, Date createdAt,
                    Map<String, String> customFields, String customerNumber, String displayName, String email,
-                   String endMarket, String expirationWarningThreshold, String id, String idleTimeout,
+                   String endMarket, Date expiration, String expirationWarningThreshold, String id, String idleTimeout,
                    Map<String, String> limits, AccountMfaStatus mfaStatus, List<String> notificationEmails,
                    ParentAccount parentAccount, String parentId, PasswordPolicy passwordPolicy, String phoneNumber,
                    List<Policy> policies, String postalCode, String reason, String referenceNote, String salesContact,
@@ -350,6 +364,7 @@ public class Account implements SdkModel {
         setDisplayName(displayName);
         setEmail(email);
         setEndMarket(endMarket);
+        setExpiration(expiration);
         setExpirationWarningThreshold(expirationWarningThreshold);
         setId(id);
         setIdleTimeout(idleTimeout);
@@ -397,6 +412,7 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.customerNumber,
              account == null ? (String) null : account.displayName, account == null ? (String) null : account.email,
              account == null ? (String) null : account.endMarket,
+             account == null ? new java.util.Date() : account.expiration,
              account == null ? (String) null : account.expirationWarningThreshold,
              account == null ? (String) null : account.id, account == null ? (String) null : account.idleTimeout,
              account == null ? null : account.limits,
@@ -421,11 +437,11 @@ public class Account implements SdkModel {
     public Account() {
         this((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
              (String) null, null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             new java.util.Date(), null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, (String) null, null, AccountMfaStatus.getDefault(), null, (ParentAccount) null,
-             (String) null, (PasswordPolicy) null, (String) null, null, (String) null, (String) null, (String) null,
-             (String) null, (String) null, AccountStatus.getDefault(), (String) null, (String) null,
-             new java.util.Date(), new java.util.Date());
+             new java.util.Date(), null, (String) null, (String) null, (String) null, (String) null,
+             new java.util.Date(), (String) null, (String) null, (String) null, null, AccountMfaStatus.getDefault(),
+             null, (ParentAccount) null, (String) null, (PasswordPolicy) null, (String) null, null, (String) null,
+             (String) null, (String) null, (String) null, (String) null, AccountStatus.getDefault(), (String) null,
+             (String) null, new java.util.Date(), new java.util.Date());
     }
 
     /**
@@ -437,6 +453,26 @@ public class Account implements SdkModel {
     public Account(String id) {
         this();
         setId(id);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param endMarket
+     *            Account end market.
+     * @param id
+     *            Account ID.
+     * @param passwordPolicy
+     *            value.
+     */
+    public Account(String endMarket, String id, PasswordPolicy passwordPolicy) {
+        this((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, null, (String) null, (String) null, (String) null, (String) null, (String) null,
+             new java.util.Date(), null, (String) null, (String) null, (String) null, endMarket, new java.util.Date(),
+             (String) null, id, (String) null, null, AccountMfaStatus.getDefault(), null, (ParentAccount) null,
+             (String) null, passwordPolicy, (String) null, null, (String) null, (String) null, (String) null,
+             (String) null, (String) null, AccountStatus.getDefault(), (String) null, (String) null,
+             new java.util.Date(), new java.util.Date());
     }
 
     /**
@@ -478,7 +514,8 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the email address of the account admin, not longer than 254 characters.
+     * Gets the email address of the admin user created for this account. present only in the response for the account
+     * creation.
      * 
      * @return adminEmail
      */
@@ -487,17 +524,20 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the email address of the account admin, not longer than 254 characters.
+     * Sets the email address of the admin user created for this account. present only in the response for the account
+     * creation.
      * 
      * @param adminEmail
-     *            The email address of the account admin, not longer than 254 characters.
+     *            The email address of the admin user created for this account. Present only in the response for the
+     *            account creation.
      */
     public void setAdminEmail(String adminEmail) {
         this.adminEmail = adminEmail;
     }
 
     /**
-     * Gets the full name of the admin user to be created.
+     * Gets the full name of the admin user created for this account. present only in the response for the account
+     * creation.
      * 
      * @return adminFullName
      */
@@ -506,17 +546,19 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the full name of the admin user to be created.
+     * Sets the full name of the admin user created for this account. present only in the response for the account
+     * creation.
      * 
      * @param adminFullName
-     *            The full name of the admin user to be created.
+     *            The full name of the admin user created for this account. Present only in the response for the account
+     *            creation.
      */
     public void setAdminFullName(String adminFullName) {
         this.adminFullName = adminFullName;
     }
 
     /**
-     * Gets the id of the admin user created.
+     * Gets the id of the admin user created for this account.
      * 
      * @return adminId
      */
@@ -525,17 +567,17 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the id of the admin user created.
+     * Sets the id of the admin user created for this account.
      * 
      * @param adminId
-     *            The ID of the admin user created.
+     *            The ID of the admin user created for this account.
      */
     public void setAdminId(String adminId) {
         this.adminId = adminId;
     }
 
     /**
-     * Gets the admin api key created for the account.
+     * Gets the admin api key created for this account. present only in the response for the account creation.
      * 
      * @return adminKey
      */
@@ -544,18 +586,18 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the admin api key created for the account.
+     * Sets the admin api key created for this account. present only in the response for the account creation.
      * 
      * @param adminKey
-     *            The admin API key created for the account.
+     *            The admin API key created for this account. Present only in the response for the account creation.
      */
     public void setAdminKey(String adminKey) {
         this.adminKey = adminKey;
     }
 
     /**
-     * Gets the username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. it
-     * must be at least 4 but not more than 30 character long.
+     * Gets the username of the admin user created for this account. present only in the response for the account
+     * creation.
      * 
      * @return adminName
      */
@@ -564,19 +606,20 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. it
-     * must be at least 4 but not more than 30 character long.
+     * Sets the username of the admin user created for this account. present only in the response for the account
+     * creation.
      * 
      * @param adminName
-     *            The username of the admin user to be created, containing alphanumerical letters and -,._@+=
-     *            characters. It must be at least 4 but not more than 30 character long.
+     *            The username of the admin user created for this account. Present only in the response for the account
+     *            creation.
      */
     public void setAdminName(String adminName) {
         this.adminName = adminName;
     }
 
     /**
-     * Gets the password when creating a new user. it will be generated when not present in the request.
+     * Gets the password of the admin user created for this account. present only in the response for the account
+     * creation.
      * 
      * @return adminPassword
      */
@@ -585,10 +628,12 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the password when creating a new user. it will be generated when not present in the request.
+     * Sets the password of the admin user created for this account. present only in the response for the account
+     * creation.
      * 
      * @param adminPassword
-     *            The password when creating a new user. It will be generated when not present in the request.
+     *            The password of the admin user created for this account. Present only in the response for the account
+     *            creation.
      */
     public void setAdminPassword(String adminPassword) {
         this.adminPassword = adminPassword;
@@ -818,8 +863,38 @@ public class Account implements SdkModel {
      * @param endMarket
      *            Account end market.
      */
+    @Required
     public void setEndMarket(String endMarket) {
         this.endMarket = endMarket;
+    }
+
+    /**
+     * Checks whether endMarket value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isEndMarketValid() {
+        return endMarket != null;
+    }
+
+    /**
+     * Gets expiration time of the account, as utc time rfc3339.
+     * 
+     * @return expiration
+     */
+    public Date getExpiration() {
+        return expiration;
+    }
+
+    /**
+     * Sets expiration time of the account, as utc time rfc3339.
+     * 
+     * @param expiration
+     *            Expiration time of the account, as UTC time RFC3339.
+     */
+    public void setExpiration(Date expiration) {
+        this.expiration = expiration;
     }
 
     /**
@@ -858,6 +933,7 @@ public class Account implements SdkModel {
      *            Account ID.
      */
     @Override
+    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -871,8 +947,19 @@ public class Account implements SdkModel {
      *            Account ID.
      */
     @Internal
+    @Required
     public void setAccountId(String accountId) {
         setId(accountId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return id != null;
     }
 
     /**
@@ -1004,8 +1091,19 @@ public class Account implements SdkModel {
      * @param passwordPolicy
      *            value.
      */
+    @Required
     public void setPasswordPolicy(PasswordPolicy passwordPolicy) {
         this.passwordPolicy = passwordPolicy;
+    }
+
+    /**
+     * Checks whether passwordPolicy value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isPasswordPolicyValid() {
+        return passwordPolicy != null;
     }
 
     /**
@@ -1270,6 +1368,7 @@ public class Account implements SdkModel {
         result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((endMarket == null) ? 0 : endMarket.hashCode());
+        result = prime * result + ((expiration == null) ? 0 : expiration.hashCode());
         result = prime * result + ((expirationWarningThreshold == null) ? 0 : expirationWarningThreshold.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((idleTimeout == null) ? 0 : idleTimeout.hashCode());
@@ -1472,6 +1571,13 @@ public class Account implements SdkModel {
         } else if (!endMarket.equals(other.endMarket)) {
             return false;
         }
+        if (expiration == null) {
+            if (other.expiration != null) {
+                return false;
+            }
+        } else if (!expiration.equals(other.expiration)) {
+            return false;
+        }
         if (expirationWarningThreshold == null) {
             if (other.expirationWarningThreshold != null) {
                 return false;
@@ -1629,11 +1735,11 @@ public class Account implements SdkModel {
                + ", company=" + company + ", contact=" + contact + ", contractNumber=" + contractNumber + ", country="
                + country + ", createdAt=" + createdAt + ", customFields=" + customFields + ", customerNumber="
                + customerNumber + ", displayName=" + displayName + ", email=" + email + ", endMarket=" + endMarket
-               + ", expirationWarningThreshold=" + expirationWarningThreshold + ", id=" + id + ", idleTimeout="
-               + idleTimeout + ", limits=" + limits + ", mfaStatus=" + mfaStatus + ", notificationEmails="
-               + notificationEmails + ", parentAccount=" + parentAccount + ", parentId=" + parentId
-               + ", passwordPolicy=" + passwordPolicy + ", phoneNumber=" + phoneNumber + ", policies=" + policies
-               + ", postalCode=" + postalCode + ", reason=" + reason + ", referenceNote=" + referenceNote
+               + ", expiration=" + expiration + ", expirationWarningThreshold=" + expirationWarningThreshold + ", id="
+               + id + ", idleTimeout=" + idleTimeout + ", limits=" + limits + ", mfaStatus=" + mfaStatus
+               + ", notificationEmails=" + notificationEmails + ", parentAccount=" + parentAccount + ", parentId="
+               + parentId + ", passwordPolicy=" + passwordPolicy + ", phoneNumber=" + phoneNumber + ", policies="
+               + policies + ", postalCode=" + postalCode + ", reason=" + reason + ", referenceNote=" + referenceNote
                + ", salesContact=" + salesContact + ", state=" + state + ", status=" + status + ", templateId="
                + templateId + ", tier=" + tier + ", updatedAt=" + updatedAt + ", upgradedAt=" + upgradedAt + "]";
     }
@@ -1647,7 +1753,7 @@ public class Account implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isEndMarketValid() && isIdValid() && isPasswordPolicyValid();
     }
 
     /**

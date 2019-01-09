@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.security.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 
@@ -20,11 +21,13 @@ public class CertificateIssuerConfig implements SdkModel {
     /**
      * The ID of the certificate issuer. Null if Device Management internal HSM is used.
      */
+    @Required
     private String certificateIssuerId;
 
     /**
      * The certificate name to which the certificate issuer configuration applies.
      */
+    @Required
     private String certificateReference;
 
     /**
@@ -35,6 +38,7 @@ public class CertificateIssuerConfig implements SdkModel {
     /**
      * The ID of the certificate issuer configuration.
      */
+    @Required
     private String id;
 
     /**
@@ -108,6 +112,22 @@ public class CertificateIssuerConfig implements SdkModel {
     }
 
     /**
+     * Constructor.
+     * 
+     * @param certificateIssuerId
+     *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
+     * 
+     * @param certificateReference
+     *            The certificate name to which the certificate issuer configuration applies.
+     * @param id
+     *            The ID of the certificate issuer configuration.
+     * 
+     */
+    public CertificateIssuerConfig(String certificateIssuerId, String certificateReference, String id) {
+        this(certificateIssuerId, certificateReference, new java.util.Date(), id, new java.util.Date());
+    }
+
+    /**
      * Gets the id of the certificate issuer. null if device management internal hsm is used.
      * 
      * @return certificateIssuerId
@@ -123,8 +143,19 @@ public class CertificateIssuerConfig implements SdkModel {
      *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
      * 
      */
+    @Required
     public void setCertificateIssuerId(String certificateIssuerId) {
         this.certificateIssuerId = certificateIssuerId;
+    }
+
+    /**
+     * Checks whether certificateIssuerId value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isCertificateIssuerIdValid() {
+        return certificateIssuerId != null;
     }
 
     /**
@@ -142,8 +173,19 @@ public class CertificateIssuerConfig implements SdkModel {
      * @param certificateReference
      *            The certificate name to which the certificate issuer configuration applies.
      */
+    @Required
     public void setCertificateReference(String certificateReference) {
         this.certificateReference = certificateReference;
+    }
+
+    /**
+     * Checks whether certificateReference value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isCertificateReferenceValid() {
+        return certificateReference != null;
     }
 
     /**
@@ -183,6 +225,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      */
     @Override
+    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -197,8 +240,19 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      */
     @Internal
+    @Required
     public void setCertificateIssuerConfigId(String certificateIssuerConfigId) {
         setId(certificateIssuerConfigId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return id != null;
     }
 
     /**
@@ -336,7 +390,7 @@ public class CertificateIssuerConfig implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isCertificateIssuerIdValid() && isCertificateReferenceValid() && isIdValid();
     }
 
     /**

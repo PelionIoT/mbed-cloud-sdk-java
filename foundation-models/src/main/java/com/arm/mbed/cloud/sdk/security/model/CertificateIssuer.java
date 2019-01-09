@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.security.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.Map;
@@ -31,6 +32,7 @@ public class CertificateIssuer implements SdkModel {
     /**
      * The ID of the certificate issuer.
      */
+    @Required
     private String id;
 
     /**
@@ -44,11 +46,13 @@ public class CertificateIssuer implements SdkModel {
      * provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by CFSSL authenticated
      * signing service. The users must provide their own CFSSL host_url and credentials.
      */
-    private CertificateIssuerIssuerType issuerType;
+    @Required
+    private CertificateIssuerType issuerType;
 
     /**
      * Certificate issuer name, unique per account.
      */
+    @Required
     private String name;
 
     /**
@@ -76,7 +80,7 @@ public class CertificateIssuer implements SdkModel {
      */
     @Internal
     public CertificateIssuer(Date createdAt, String description, String id, Map<String, String> issuerAttributes,
-                             CertificateIssuerIssuerType issuerType, String name) {
+                             CertificateIssuerType issuerType, String name) {
         super();
         setCreatedAt(createdAt);
         setDescription(description);
@@ -100,7 +104,7 @@ public class CertificateIssuer implements SdkModel {
              certificateIssuer == null ? (String) null : certificateIssuer.description,
              certificateIssuer == null ? (String) null : certificateIssuer.id,
              certificateIssuer == null ? null : certificateIssuer.issuerAttributes,
-             certificateIssuer == null ? CertificateIssuerIssuerType.getDefault() : certificateIssuer.issuerType,
+             certificateIssuer == null ? CertificateIssuerType.getDefault() : certificateIssuer.issuerType,
              certificateIssuer == null ? (String) null : certificateIssuer.name);
     }
 
@@ -108,7 +112,7 @@ public class CertificateIssuer implements SdkModel {
      * Constructor.
      */
     public CertificateIssuer() {
-        this(new java.util.Date(), (String) null, (String) null, null, CertificateIssuerIssuerType.getDefault(),
+        this(new java.util.Date(), (String) null, (String) null, null, CertificateIssuerType.getDefault(),
              (String) null);
     }
 
@@ -121,6 +125,23 @@ public class CertificateIssuer implements SdkModel {
     public CertificateIssuer(String id) {
         this();
         setId(id);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param id
+     *            The ID of the certificate issuer.
+     * @param issuerType
+     *            The type of the certificate issuer. - GLOBAL_SIGN: Certificates are issued by GlobalSign service. The
+     *            users must provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by
+     *            CFSSL authenticated signing service. The users must provide their own CFSSL host_url and credentials.
+     * 
+     * @param name
+     *            Certificate issuer name, unique per account.
+     */
+    public CertificateIssuer(String id, CertificateIssuerType issuerType, String name) {
+        this(new java.util.Date(), (String) null, id, null, issuerType, name);
     }
 
     /**
@@ -178,6 +199,7 @@ public class CertificateIssuer implements SdkModel {
      *            The ID of the certificate issuer.
      */
     @Override
+    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -191,8 +213,19 @@ public class CertificateIssuer implements SdkModel {
      *            The ID of the certificate issuer.
      */
     @Internal
+    @Required
     public void setCertificateIssuerId(String certificateIssuerId) {
         setId(certificateIssuerId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return id != null;
     }
 
     /**
@@ -225,7 +258,7 @@ public class CertificateIssuer implements SdkModel {
      * 
      * @return issuerType
      */
-    public CertificateIssuerIssuerType getIssuerType() {
+    public CertificateIssuerType getIssuerType() {
         return issuerType;
     }
 
@@ -240,8 +273,19 @@ public class CertificateIssuer implements SdkModel {
      *            CFSSL authenticated signing service. The users must provide their own CFSSL host_url and credentials.
      * 
      */
-    public void setIssuerType(CertificateIssuerIssuerType issuerType) {
+    @Required
+    public void setIssuerType(CertificateIssuerType issuerType) {
         this.issuerType = issuerType;
+    }
+
+    /**
+     * Checks whether issuerType value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIssuerTypeValid() {
+        return issuerType != null;
     }
 
     /**
@@ -259,8 +303,19 @@ public class CertificateIssuer implements SdkModel {
      * @param name
      *            Certificate issuer name, unique per account.
      */
+    @Required
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Checks whether name value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isNameValid() {
+        return name != null;
     }
 
     /**
@@ -383,7 +438,7 @@ public class CertificateIssuer implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isIdValid() && isIssuerTypeValid() && isNameValid();
     }
 
     /**

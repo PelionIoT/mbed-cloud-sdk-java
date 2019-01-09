@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +22,7 @@ public class SubtenantUserInvitation implements SdkModel {
     /**
      * The ID of the account the user is invited to.
      */
+    @Required
     private String accountId;
 
     /**
@@ -31,6 +33,7 @@ public class SubtenantUserInvitation implements SdkModel {
     /**
      * Email address of the invited user.
      */
+    @Required
     private String email;
 
     /**
@@ -41,12 +44,13 @@ public class SubtenantUserInvitation implements SdkModel {
     /**
      * The ID of the invitation.
      */
+    @Required
     private String id;
 
     /**
      * A list of login profiles for the user. Specified as the identity providers the user is associated with.
      */
-    private List loginProfiles;
+    private List<LoginProfile> loginProfiles;
 
     /**
      * Last update UTC time RFC3339.
@@ -83,7 +87,7 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     @Internal
     public SubtenantUserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
-                                   List loginProfiles, Date updatedAt, String userId) {
+                                   List<LoginProfile> loginProfiles, Date updatedAt, String userId) {
         super();
         setAccountId(accountId);
         setCreatedAt(createdAt);
@@ -135,6 +139,21 @@ public class SubtenantUserInvitation implements SdkModel {
     }
 
     /**
+     * Constructor.
+     * 
+     * @param accountId
+     *            The ID of the account the user is invited to.
+     * @param email
+     *            Email address of the invited user.
+     * @param id
+     *            The ID of the invitation.
+     */
+    public SubtenantUserInvitation(String accountId, String email, String id) {
+        this(accountId, new java.util.Date(), email, new java.util.Date(), id, null, new java.util.Date(),
+             (String) null);
+    }
+
+    /**
      * Gets the id of the account the user is invited to.
      * 
      * @return accountId
@@ -149,8 +168,19 @@ public class SubtenantUserInvitation implements SdkModel {
      * @param accountId
      *            The ID of the account the user is invited to.
      */
+    @Required
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    /**
+     * Checks whether accountId value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isAccountIdValid() {
+        return accountId != null;
     }
 
     /**
@@ -187,8 +217,19 @@ public class SubtenantUserInvitation implements SdkModel {
      * @param email
      *            Email address of the invited user.
      */
+    @Required
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * Checks whether email value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isEmailValid() {
+        return email != null;
     }
 
     /**
@@ -227,6 +268,7 @@ public class SubtenantUserInvitation implements SdkModel {
      *            The ID of the invitation.
      */
     @Override
+    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -240,8 +282,19 @@ public class SubtenantUserInvitation implements SdkModel {
      *            The ID of the invitation.
      */
     @Internal
+    @Required
     public void setSubtenantUserInvitationId(String subtenantUserInvitationId) {
         setId(subtenantUserInvitationId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return id != null;
     }
 
     /**
@@ -249,7 +302,7 @@ public class SubtenantUserInvitation implements SdkModel {
      * 
      * @return loginProfiles
      */
-    public List getLoginProfiles() {
+    public List<LoginProfile> getLoginProfiles() {
         return loginProfiles;
     }
 
@@ -260,7 +313,7 @@ public class SubtenantUserInvitation implements SdkModel {
      *            A list of login profiles for the user. Specified as the identity providers the user is associated
      *            with.
      */
-    public void setLoginProfiles(List loginProfiles) {
+    public void setLoginProfiles(List<LoginProfile> loginProfiles) {
         this.loginProfiles = loginProfiles;
     }
 
@@ -443,7 +496,7 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isAccountIdValid() && isEmailValid() && isIdValid();
     }
 
     /**

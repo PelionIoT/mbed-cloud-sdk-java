@@ -14,21 +14,25 @@ public class TestCertificateIssuerType {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
-        CertificateIssuerType certificateissuertype = CertificateIssuerType.getValue(null);
-        assertNotNull(certificateissuertype);
-        assertTrue(certificateissuertype.isDefault());
-        certificateissuertype = CertificateIssuerType.getValue(CertificateIssuerType.getDefault().getString());
-        assertNotNull(certificateissuertype);
-        assertTrue(certificateissuertype.isDefault());
-        certificateissuertype = CertificateIssuerType.getValue("CFSSL_AUTH");
-        assertNotNull(certificateissuertype);
-        assertTrue(certificateissuertype.isDefault());
-        certificateissuertype = CertificateIssuerType.getValue("GLOBAL_SIGN");
-        assertNotNull(certificateissuertype);
-        assertFalse(certificateissuertype.isDefault());
-        certificateissuertype = CertificateIssuerType.getValue("f6403aaa-b1dd-4af5-b148-fab014107b4d");
-        assertNotNull(certificateissuertype);
-        assertTrue(certificateissuertype.isDefault());
+    public void testGetValue() {
+        try {
+            CertificateIssuerType certificateissuertype = CertificateIssuerType.getValue(null);
+            assertNotNull(certificateissuertype);
+            assertTrue(certificateissuertype.isDefault());
+            certificateissuertype = CertificateIssuerType.getValue(CertificateIssuerType.getDefault().getString());
+            assertNotNull(certificateissuertype);
+            assertTrue(certificateissuertype.isDefault());
+            certificateissuertype = CertificateIssuerType.getValue("CFSSL_AUTH");
+            assertNotNull(certificateissuertype);
+            assertTrue(certificateissuertype.isDefault());
+            certificateissuertype = CertificateIssuerType.getValue("GLOBAL_SIGN");
+            assertNotNull(certificateissuertype);
+            assertFalse(certificateissuertype.isDefault());
+            certificateissuertype = CertificateIssuerType.getValue("3ed798bb-2fc6-44e4-a0ca-597619864e3a");
+            assertNotNull(certificateissuertype);
+            assertTrue(certificateissuertype.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

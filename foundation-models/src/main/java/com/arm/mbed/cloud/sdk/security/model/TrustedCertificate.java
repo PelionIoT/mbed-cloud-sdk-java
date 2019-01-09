@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.security.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.Objects;
@@ -27,6 +28,7 @@ public class TrustedCertificate implements SdkModel {
     /**
      * X509.v3 trusted certificate in PEM format.
      */
+    @Required
     private String certificate;
 
     /**
@@ -57,6 +59,7 @@ public class TrustedCertificate implements SdkModel {
     /**
      * Entity ID.
      */
+    @Required
     private String id;
 
     /**
@@ -72,6 +75,7 @@ public class TrustedCertificate implements SdkModel {
     /**
      * Certificate name.
      */
+    @Required
     private String name;
 
     /**
@@ -82,6 +86,7 @@ public class TrustedCertificate implements SdkModel {
     /**
      * Service name where the certificate is to be used.
      */
+    @Required
     private TrustedCertificateService service;
 
     /**
@@ -221,6 +226,24 @@ public class TrustedCertificate implements SdkModel {
     }
 
     /**
+     * Constructor.
+     * 
+     * @param certificate
+     *            X509.v3 trusted certificate in PEM format.
+     * @param id
+     *            Entity ID.
+     * @param name
+     *            Certificate name.
+     * @param service
+     *            Service name where the certificate is to be used.
+     */
+    public TrustedCertificate(String certificate, String id, String name, TrustedCertificateService service) {
+        this((String) null, certificate, (String) null, new java.util.Date(), (String) null, 0, false, id, false,
+             (String) null, name, (String) null, service, TrustedCertificateStatus.getDefault(), (String) null,
+             new java.util.Date(), new java.util.Date());
+    }
+
+    /**
      * Gets the id of the account.
      * 
      * @return accountId
@@ -254,8 +277,19 @@ public class TrustedCertificate implements SdkModel {
      * @param certificate
      *            X509.v3 trusted certificate in PEM format.
      */
+    @Required
     public void setCertificate(String certificate) {
         this.certificate = certificate;
+    }
+
+    /**
+     * Checks whether certificate value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isCertificateValid() {
+        return certificate != null;
     }
 
     /**
@@ -370,6 +404,7 @@ public class TrustedCertificate implements SdkModel {
      *            Entity ID.
      */
     @Override
+    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -383,8 +418,19 @@ public class TrustedCertificate implements SdkModel {
      *            Entity ID.
      */
     @Internal
+    @Required
     public void setTrustedCertificateId(String trustedCertificateId) {
         setId(trustedCertificateId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return id != null;
     }
 
     /**
@@ -440,8 +486,19 @@ public class TrustedCertificate implements SdkModel {
      * @param name
      *            Certificate name.
      */
+    @Required
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Checks whether name value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isNameValid() {
+        return name != null;
     }
 
     /**
@@ -478,8 +535,19 @@ public class TrustedCertificate implements SdkModel {
      * @param service
      *            Service name where the certificate is to be used.
      */
+    @Required
     public void setService(TrustedCertificateService service) {
         this.service = service;
+    }
+
+    /**
+     * Checks whether service value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isServiceValid() {
+        return service != null;
     }
 
     /**
@@ -755,7 +823,7 @@ public class TrustedCertificate implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isCertificateValid() && isIdValid() && isNameValid() && isServiceValid();
     }
 
     /**

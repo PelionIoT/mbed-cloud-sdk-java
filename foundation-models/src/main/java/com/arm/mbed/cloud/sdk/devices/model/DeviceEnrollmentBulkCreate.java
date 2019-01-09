@@ -5,6 +5,7 @@ package com.arm.mbed.cloud.sdk.devices.model;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.Objects;
@@ -53,6 +54,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     /**
      * Bulk ID.
      */
+    @Required
     private String id;
 
     /**
@@ -307,6 +309,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      *            Bulk ID.
      */
     @Override
+    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -322,6 +325,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      *            Bulk ID.
      */
     @Internal
+    @Required
     public void setDeviceEnrollmentBulkCreateId(String deviceEnrollmentBulkCreateId) {
         setId(deviceEnrollmentBulkCreateId);
     }
@@ -333,7 +337,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isIdValid() {
-        return (id == null || id.matches("^[A-Za-z0-9]{32}"));
+        return id != null && (id == null || id.matches("^[A-Za-z0-9]{32}"));
     }
 
     /**

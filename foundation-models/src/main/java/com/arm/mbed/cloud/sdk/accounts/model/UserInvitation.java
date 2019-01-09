@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,7 @@ public class UserInvitation implements SdkModel {
     /**
      * Email address of the invited user.
      */
+    @Required
     private String email;
 
     /**
@@ -41,12 +43,13 @@ public class UserInvitation implements SdkModel {
     /**
      * The ID of the invitation.
      */
+    @Required
     private String id;
 
     /**
      * A list of login profiles for the user. Specified as the identity providers the user is associated with.
      */
-    private List loginProfiles;
+    private List<LoginProfile> loginProfiles;
 
     /**
      * Last update UTC time RFC3339.
@@ -83,7 +86,7 @@ public class UserInvitation implements SdkModel {
      */
     @Internal
     public UserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
-                          List loginProfiles, Date updatedAt, String userId) {
+                          List<LoginProfile> loginProfiles, Date updatedAt, String userId) {
         super();
         setAccountId(accountId);
         setCreatedAt(createdAt);
@@ -132,6 +135,19 @@ public class UserInvitation implements SdkModel {
     public UserInvitation(String id) {
         this();
         setId(id);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param email
+     *            Email address of the invited user.
+     * @param id
+     *            The ID of the invitation.
+     */
+    public UserInvitation(String email, String id) {
+        this((String) null, new java.util.Date(), email, new java.util.Date(), id, null, new java.util.Date(),
+             (String) null);
     }
 
     /**
@@ -187,8 +203,19 @@ public class UserInvitation implements SdkModel {
      * @param email
      *            Email address of the invited user.
      */
+    @Required
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * Checks whether email value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isEmailValid() {
+        return email != null;
     }
 
     /**
@@ -227,6 +254,7 @@ public class UserInvitation implements SdkModel {
      *            The ID of the invitation.
      */
     @Override
+    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -240,8 +268,19 @@ public class UserInvitation implements SdkModel {
      *            The ID of the invitation.
      */
     @Internal
+    @Required
     public void setUserInvitationId(String userInvitationId) {
         setId(userInvitationId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return id != null;
     }
 
     /**
@@ -249,7 +288,7 @@ public class UserInvitation implements SdkModel {
      * 
      * @return loginProfiles
      */
-    public List getLoginProfiles() {
+    public List<LoginProfile> getLoginProfiles() {
         return loginProfiles;
     }
 
@@ -260,7 +299,7 @@ public class UserInvitation implements SdkModel {
      *            A list of login profiles for the user. Specified as the identity providers the user is associated
      *            with.
      */
-    public void setLoginProfiles(List loginProfiles) {
+    public void setLoginProfiles(List<LoginProfile> loginProfiles) {
         this.loginProfiles = loginProfiles;
     }
 
@@ -443,7 +482,7 @@ public class UserInvitation implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isEmailValid() && isIdValid();
     }
 
     /**

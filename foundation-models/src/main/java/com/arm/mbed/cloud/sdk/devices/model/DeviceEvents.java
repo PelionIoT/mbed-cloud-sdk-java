@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.devices.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.Map;
@@ -68,6 +69,7 @@ public class DeviceEvents implements SdkModel {
     /**
      * value.
      */
+    @Required
     private String id;
 
     /**
@@ -351,6 +353,7 @@ public class DeviceEvents implements SdkModel {
      *            value.
      */
     @Override
+    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -364,8 +367,19 @@ public class DeviceEvents implements SdkModel {
      *            value.
      */
     @Internal
+    @Required
     public void setDeviceEventsId(String deviceEventsId) {
         setId(deviceEventsId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return id != null;
     }
 
     /**
@@ -550,7 +564,7 @@ public class DeviceEvents implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isIdValid();
     }
 
     /**
