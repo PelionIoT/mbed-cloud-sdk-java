@@ -7,7 +7,7 @@ public interface InputSchema {
     final String INTERNAL_TAG = "internal";
 
     final String PRIMARY_KEY_TAG = "primary_key_field";
-    final String READ_ONLY_TAG = "readOnly";
+    final String READ_ONLY_TAG = "read_only";
     final String API_FIELDNAME_TAG = "api_fieldname";
     final String ENTITY_FIELDNAME_TAG = "entity_fieldname";
     final String PARAMETER_FIELDNAME_TAG = "parameter_fieldname";

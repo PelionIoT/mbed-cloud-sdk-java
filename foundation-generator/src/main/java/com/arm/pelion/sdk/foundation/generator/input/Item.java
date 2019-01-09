@@ -17,6 +17,14 @@ public class Item {
         foreignKey = null;
     }
 
+    public boolean hasType() {
+        return Utils.has(type);
+    }
+
+    public boolean hasFormat() {
+        return Utils.has(format);
+    }
+
     public String getType() {
         return type;
     }

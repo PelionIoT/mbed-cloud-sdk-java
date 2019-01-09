@@ -9,15 +9,12 @@ public class MethodSimpleListMapper extends MethodMapper {
     private final Model adapterModel;
 
     public MethodSimpleListMapper(String name, String getMapperMethodName, boolean isAccessible, Model from, Model to,
-                                  TypeParameter toType, Model adapterModel) {
-        super(name, MethodAction.LIST, isAccessible, to, from, false, null, null);
+                                  boolean isFromModel, TypeParameter fromType, TypeParameter toType,
+                                  Model adapterModel) {
+        super(name, MethodAction.LIST, isAccessible, isFromModel ? from : to, isFromModel ? to : from, isFromModel,
+              null, null);
         this.adapterModel = adapterModel;
         this.getMapperMethodName = getMapperMethodName;
-        setReturnInfo(toType);
-    }
-
-    private void setReturnInfo(TypeParameter toType) {
-        setReturnType(toType);
         setReturnDescription("mapped simple list");
     }
 

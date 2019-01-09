@@ -153,8 +153,8 @@ public class MethodMapper extends Method {
                                                                                                       fType.isBoolean(),
                                                                                                       isFromLowLevel)));
                         } else if (TypeUtils.checkIfCollectionOfModel(fType)) {
-                            final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCompose) fType,
-                                                                                              (TypeCompose) fromFieldType,
+                            final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCompose) fromFieldType,
+                                                                                              (TypeCompose) fType,
                                                                                               action)
                                                                           .toType();
                             modelAdapterType.translate();
@@ -171,7 +171,7 @@ public class MethodMapper extends Method {
                             }
 
                         } else if (TypeUtils.checkIfModel(fType)) {
-                            final TypeParameter modelAdapterType = fetcher.fetch(fType, fromFieldType, action).toType();
+                            final TypeParameter modelAdapterType = fetcher.fetch(fromFieldType, fType, action).toType();
                             modelAdapterType.translate();
                             statementString.append("$T.$L($L.$L())");
                             values.addAll(Arrays.asList(modelAdapterType.hasClass() ? modelAdapterType.getClazz()
@@ -248,22 +248,35 @@ public class MethodMapper extends Method {
                                   MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean(),
                                                                                 isFromLowLevel));
             } else if (TypeUtils.checkIfCollectionOfModel(fType)) {
-                final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCompose) fType,
-                                                                                  (TypeCompose) fromFieldType, action)
+                final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCompose) fromFieldType,
+                                                                                  (TypeCompose) fType, action)
                                                               .toType();
                 modelAdapterType.translate();
                 // TODO do what is needed for hashtable
                 if (fType.isList()) {
+                    String mapListMethodName = null;
+                    switch (action) {
+                        case CREATE:
+                            mapListMethodName = ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST_ADD;
+                            break;
+                        case UPDATE:
+                            mapListMethodName = ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST_UPDATE;
+                            break;
+                        default:
+                            mapListMethodName = ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST;
+                            break;
+
+                    }
                     code.addStatement("$L.$L($T.$L($L.$L()))", variableName,
                                       MethodSetter.getCorrespondingSetterMethodName(toFieldName),
                                       modelAdapterType.hasClass() ? modelAdapterType.getClazz()
                                                                   : modelAdapterType.getTypeName(),
-                                      ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST, fromVariableName,
+                                      mapListMethodName, fromVariableName,
                                       MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean(),
                                                                                     isFromLowLevel));
                 }
             } else if (TypeUtils.checkIfModel(fType)) {
-                final TypeParameter modelAdapterType = fetcher.fetch(fType, fromFieldType, action).toType();
+                final TypeParameter modelAdapterType = fetcher.fetch(fromFieldType, fType, action).toType();
                 modelAdapterType.translate();
                 code.addStatement("$L.$L($T.$L($L.$L()))", variableName,
                                   MethodSetter.getCorrespondingSetterMethodName(toFieldName),
@@ -285,7 +298,6 @@ public class MethodMapper extends Method {
 
     private static void recordThatFieldWasNotFound(CodeBlock.Builder code, final TypeParameter fromType,
                                                    final TypeParameter toType, final String toFieldName) {
-        System.out.println(toFieldName + " " + toType);
         code.add("//No field equivalent to $L in $T was found in $T" + System.lineSeparator(), toFieldName,
                  toType.hasClass() ? toType.getClazz() : toType.getTypeName(),
                  fromType.hasClass() ? fromType.getClazz() : fromType.getTypeName());

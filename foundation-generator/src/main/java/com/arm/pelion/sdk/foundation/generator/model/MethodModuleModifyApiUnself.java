@@ -9,12 +9,11 @@ public class MethodModuleModifyApiUnself extends MethodModuleCloudApiUnself {
     protected final boolean isForCreation;
 
     public MethodModuleModifyApiUnself(boolean isForCreation, Model currentModel, Model returnModel,
-                                             ModelAdapterFetcher adapterFetcher, String name, String description,
-                                             String longDescription, boolean needsCustomCode, ModelEndpoints endpoints,
-                                             String endpointVariableName, Class<?> lowLevelModule,
-                                             List<Parameter> methodParameters, List<Parameter> allParameters,
-                                             Renames parameterRenames, Method lowLevelMethod,
-                                             boolean enforceModelValidity) {
+                                       ModelAdapterFetcher adapterFetcher, String name, String description,
+                                       String longDescription, boolean needsCustomCode, ModelEndpoints endpoints,
+                                       String endpointVariableName, Class<?> lowLevelModule,
+                                       List<Parameter> methodParameters, List<Parameter> allParameters,
+                                       Renames parameterRenames, Method lowLevelMethod, boolean enforceModelValidity) {
         super(currentModel, returnModel, adapterFetcher, name, description, longDescription, needsCustomCode, endpoints,
               endpointVariableName, lowLevelModule, methodParameters, allParameters, parameterRenames, lowLevelMethod,
               enforceModelValidity);

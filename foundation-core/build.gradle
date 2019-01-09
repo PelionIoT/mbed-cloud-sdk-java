@@ -16,8 +16,8 @@ plugins {
     id 'java-library'
     id 'eclipse'
     id 'jacoco' //Code coverage
-    id 'checkstyle'
-    id 'pmd'
+    //id 'checkstyle'
+    //id 'pmd'
     //id "com.diffplug.gradle.spotless"
 }
 

@@ -10,15 +10,18 @@ import com.arm.pelion.sdk.foundation.generator.util.Utils;
 public class ModelAdapter extends Model {
     public static final String FUNCTION_NAME_GET_MAPPER = "getMapper";
     public static final String FUNCTION_NAME_GET_LIST_MAPPER = "getListMapper";
+    public static final String FUNCTION_NAME_GET_MAPPER_ADD = "getAddMapper";
+    public static final String FUNCTION_NAME_GET_MAPPER_UPDATE = "getUpdateMapper";
     public static final String FUNCTION_NAME_GET_SIMPLE_LIST_MAPPER = "getSimpleListMapper";
     public static final String FUNCTION_NAME_MAP_LIST = "mapList";
     public static final String FUNCTION_NAME_MAP_SIMPLE_LIST = "mapSimpleList";
+    public static final String FUNCTION_NAME_MAP_SIMPLE_LIST_ADD = "reverseMapAddSimpleList";
+    public static final String FUNCTION_NAME_MAP_SIMPLE_LIST_UPDATE = "reverseMapUpdateSimpleList";
     public static final String FUNCTION_NAME_MAP = "map";
     public static final String FUNCTION_NAME_MAP_ADD = "reverseMapAddRequest";
     public static final String FUNCTION_NAME_MAP_UPDATE = "reverseMapUpdateRequest";
     private final ModelAdapterFetcher fetcher;
     private Renames defaultRenames;
-
     private final Map<String, Conversion> conversions;
 
     public ModelAdapter(Model model, String packageName, String description, ModelAdapterFetcher fetcher,
@@ -214,7 +217,7 @@ public class ModelAdapter extends Model {
         }
 
         public String getIdentifier() {
-            return to.getIdentifier() + "#+" + from.getIdentifier();
+            return action + ":" + to.getIdentifier() + "#" + from.getIdentifier();
         }
 
         public Model getFrom() {
@@ -302,19 +305,8 @@ public class ModelAdapter extends Model {
             } else if (fromType.isList() && toType.isList()) {
                 final TypeParameter fromSubType = ((TypeCompose) fromType).getContentType();
                 final TypeParameter toSubType = ((TypeCompose) toType).getContentType();
-                final MethodSimpleListMapper listMapping = new MethodSimpleListMapper(FUNCTION_NAME_MAP_SIMPLE_LIST,
-                                                                                      FUNCTION_NAME_GET_MAPPER, true,
-                                                                                      fromToConsider, toToConsider,
-                                                                                      toType, adapter);
-                adapter.addMethod(listMapping);
-                final MethodGetMapper getMapper = new MethodGetMapper(FUNCTION_NAME_GET_SIMPLE_LIST_MAPPER, true,
-                                                                      adapter,
-                                                                      determineListType(toToConsider.toType(),
-                                                                                        toContentToConsider),
-                                                                      determineListType(fromType,
-                                                                                        fromContentToConsider),
-                                                                      false, listMapping.getName());
-                adapter.addMethod(getMapper);
+                addSimpleListMethods(adapter, fromToConsider, toToConsider, fromContentToConsider, toContentToConsider,
+                                     fromType, toType, fromSubType.isModel());
                 if (adapter.fetcher != null) {
                     addBasicMappingMethods(adapter,
                                            TypeUtils.checkIfCollectionOfModel(fromSubType) ? adapter.fetcher.fetchModel(fromSubType)
@@ -323,24 +315,64 @@ public class ModelAdapter extends Model {
                                            TypeUtils.checkIfCollectionOfModel(toSubType) ? adapter.fetcher.fetchModel(toSubType)
                                                                                          : new Model(toSubType.getClazz(),
                                                                                                      toSubType),
-                                           renames, fromType);
+                                           renames, fromSubType,
+                                           action == MethodAction.CREATE || action == MethodAction.UPDATE);
                 }
             } else {// TODO mapping for Hashtable
-                addBasicMappingMethods(adapter, fromToConsider, toToConsider, renames, fromType);
+                addBasicMappingMethods(adapter, fromToConsider, toToConsider, renames, fromType, false);
             }
 
         }
 
+        private void addSimpleListMethods(ModelAdapter adapter, final Model fromToConsider, final Model toToConsider,
+                                          final Model fromContentToConsider, final Model toContentToConsider,
+                                          final TypeParameter fromType, final TypeParameter toType,
+                                          boolean isFromModel) {
+            String functionName = null;
+            String getMapperName = null;
+            String getListMapperName = null;
+            if (isFromModel) {
+                switch (action) {
+                    case CREATE:
+                        functionName = FUNCTION_NAME_MAP_SIMPLE_LIST_ADD;
+                        getMapperName = FUNCTION_NAME_GET_MAPPER_ADD;
+                        getListMapperName = null;
+                        break;
+                    case UPDATE:
+                        functionName = FUNCTION_NAME_MAP_SIMPLE_LIST_UPDATE;
+                        getMapperName = FUNCTION_NAME_GET_MAPPER_UPDATE;
+                        getListMapperName = null;
+                        break;
+                    default:
+                        throw new IllegalArgumentException("There cannot be a reverse mapper other than for Create/Update");
+                }
+            } else {
+                functionName = FUNCTION_NAME_MAP_SIMPLE_LIST;
+                getMapperName = FUNCTION_NAME_GET_MAPPER;
+                getListMapperName = FUNCTION_NAME_GET_SIMPLE_LIST_MAPPER;
+            }
+            final MethodSimpleListMapper listMapping = new MethodSimpleListMapper(functionName, getMapperName, true,
+                                                                                  fromToConsider, toToConsider,
+                                                                                  isFromModel, fromType, toType,
+                                                                                  adapter);
+            adapter.addMethod(listMapping);
+            if (getListMapperName != null) {
+                final MethodGetMapper getMapper = new MethodGetMapper(getListMapperName, true, adapter,
+                                                                      isFromModel ? fromType : toType,
+                                                                      isFromModel ? toType : fromType, isFromModel,
+                                                                      listMapping.getName());
+                adapter.addMethod(getMapper);
+            }
+        }
+
         @SuppressWarnings("incomplete-switch")
-        public void addBasicMappingMethods(ModelAdapter adapter, Model from, Model to, Renames renames,
-                                           final TypeParameter fromType) {
-            boolean isFromModel = fromType.isModel();
+        private void addBasicMappingMethods(ModelAdapter adapter, Model from, Model to, Renames renames,
+                                            final TypeParameter fromType, boolean addReverseGetMapper) {
+            final boolean isFromModel = fromType.isModel();
             String functionName = null;
             switch (action) {
                 case CREATE:
                     functionName = isFromModel ? FUNCTION_NAME_MAP_ADD : FUNCTION_NAME_MAP;
-                    break;
-                case DELETE:
                     break;
                 case READ:
                     functionName = FUNCTION_NAME_MAP;
@@ -354,10 +386,23 @@ public class ModelAdapter extends Model {
                                                           this.renames == null ? renames : this.renames,
                                                           adapter.fetcher);
             adapter.addMethod(mapping);
-            if (!isFromModel) {
-                final MethodGetMapper getMapper = new MethodGetMapper(FUNCTION_NAME_GET_MAPPER, true, adapter,
-                                                                      isFromModel ? from : to, isFromModel ? to : from,
-                                                                      isFromModel, mapping.getName());
+            if (!isFromModel || addReverseGetMapper) {
+                String getMapperName = null;
+                switch (action) {
+                    case CREATE:
+                        getMapperName = isFromModel ? FUNCTION_NAME_GET_MAPPER_ADD : FUNCTION_NAME_GET_MAPPER;
+                        break;
+                    case UPDATE:
+                        getMapperName = isFromModel ? FUNCTION_NAME_GET_MAPPER_UPDATE : FUNCTION_NAME_GET_MAPPER;
+                        break;
+                    default:
+                        getMapperName = FUNCTION_NAME_GET_MAPPER;
+                        break;
+                }
+                final MethodGetMapper getMapper = new MethodGetMapper(getMapperName, true, adapter,
+                                                                      isFromModel || addReverseGetMapper ? from : to,
+                                                                      isFromModel || addReverseGetMapper ? to : from,
+                                                                      isFromModel || addReverseGetMapper, functionName);
                 adapter.addMethod(getMapper);
             }
         }
