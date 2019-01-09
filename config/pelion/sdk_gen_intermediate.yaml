@@ -406,6 +406,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -1471,6 +1472,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -2391,6 +2393,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -3250,6 +3253,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -4115,6 +4119,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -4557,6 +4562,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -5697,6 +5703,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -6106,6 +6113,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -6741,6 +6749,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -7068,6 +7077,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -7256,6 +7266,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -7555,6 +7566,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -7883,6 +7895,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -8132,6 +8145,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -8592,6 +8606,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -8894,6 +8909,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -9227,9 +9243,7 @@ entities:
   tags:
   - Certificate Enrollments
 - _key: certificate_issuer
-  field_renames:
-  - _key: type
-    api_fieldname: issuer_type
+  field_renames: []
   fields:
   - _key: created_at
     api_fieldname: created_at
@@ -9269,15 +9283,7 @@ entities:
     readOnly: false
     required: false
     type: object
-  - _key: name
-    api_fieldname: name
-    description: Certificate issuer name, unique per account.
-    example: GS Issuer
-    maxLength: 50
-    readOnly: false
-    required: true
-    type: string
-  - _key: type
+  - _key: issuer_type
     api_fieldname: issuer_type
     description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
       \ are issued by GlobalSign service. The users must provide their own GlobalSign\
@@ -9288,6 +9294,14 @@ entities:
     - CFSSL_AUTH
     enum_reference: certificate_issuer_type_enum
     example: GLOBAL_SIGN
+    readOnly: false
+    required: true
+    type: string
+  - _key: name
+    api_fieldname: name
+    description: Certificate issuer name, unique per account.
+    example: GS Issuer
+    maxLength: 50
     readOnly: false
     required: true
     type: string
@@ -9324,15 +9338,14 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
     - sub_accounts
     - created_at
     - id
-    field_renames:
-    - _key: type
-      api_fieldname: issuer_type
+    field_renames: []
     fields:
     - _key: description
       api_fieldname: description
@@ -9381,6 +9394,23 @@ entities:
       required: false
       schema_param: true
       type: object
+    - _key: issuer_type
+      api_fieldname: issuer_type
+      description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
+        \ are issued by GlobalSign service. The users must provide their own GlobalSign\
+        \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
+        \ authenticated signing service.\n  The users must provide their own CFSSL\
+        \ host_url and credentials.\n"
+      entity_fieldname: issuer_type
+      enum:
+      - GLOBAL_SIGN
+      - CFSSL_AUTH
+      enum_reference: certificate_issuer_type_enum
+      example: GLOBAL_SIGN
+      in: body
+      parameter_fieldname: issuer_type
+      required: true
+      type: string
     - _key: name
       api_fieldname: name
       description: Certificate issuer name, unique per account.
@@ -9390,23 +9420,6 @@ entities:
       maxLength: 50
       parameter_fieldname: name
       required: false
-      type: string
-    - _key: type
-      api_fieldname: issuer_type
-      description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-        \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-        \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
-        \ authenticated signing service.\n  The users must provide their own CFSSL\
-        \ host_url and credentials.\n"
-      entity_fieldname: type
-      enum:
-      - GLOBAL_SIGN
-      - CFSSL_AUTH
-      enum_reference: certificate_issuer_type_enum
-      example: GLOBAL_SIGN
-      in: body
-      parameter_fieldname: issuer_type
-      required: true
       type: string
     group_id: Security
     method: post
@@ -9471,7 +9484,7 @@ entities:
             \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
             \ authenticated signing service.\n  The users must provide their own CFSSL\
             \ host_url and credentials.\n"
-          entity_fieldname: type
+          entity_fieldname: issuer_type
           enum:
           - GLOBAL_SIGN
           - CFSSL_AUTH
@@ -9728,13 +9741,12 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
     - sub_accounts
-    field_renames:
-    - _key: type
-      api_fieldname: issuer_type
+    field_renames: []
     fields:
     - _key: id
       api_fieldname: certificate-issuer-id
@@ -9934,18 +9946,17 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
     - sub_accounts
     - created_at
+    - issuer_type
     - name
     - description
     - issuer_attributes
-    - type
-    field_renames:
-    - _key: type
-      api_fieldname: issuer_type
+    field_renames: []
     fields:
     - _key: id
       api_fieldname: id
@@ -10019,7 +10030,7 @@ entities:
             \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
             \ authenticated signing service.\n  The users must provide their own CFSSL\
             \ host_url and credentials.\n"
-          entity_fieldname: type
+          entity_fieldname: issuer_type
           enum:
           - GLOBAL_SIGN
           - CFSSL_AUTH
@@ -10218,6 +10229,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -10225,9 +10237,7 @@ entities:
     - has_more
     - total_count
     - data
-    field_renames:
-    - _key: type
-      api_fieldname: issuer_type
+    field_renames: []
     fields:
     - _key: after
       api_fieldname: after
@@ -10514,15 +10524,14 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
     - sub_accounts
     - created_at
-    - type
-    field_renames:
-    - _key: type
-      api_fieldname: issuer_type
+    - issuer_type
+    field_renames: []
     fields:
     - _key: description
       api_fieldname: description
@@ -10653,7 +10662,7 @@ entities:
             \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
             \ authenticated signing service.\n  The users must provide their own CFSSL\
             \ host_url and credentials.\n"
-          entity_fieldname: type
+          entity_fieldname: issuer_type
           enum:
           - GLOBAL_SIGN
           - CFSSL_AUTH
@@ -10964,15 +10973,14 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
     - sub_accounts
     - successful
     - message
-    field_renames:
-    - _key: type
-      api_fieldname: issuer_type
+    field_renames: []
     fields:
     - _key: id
       api_fieldname: certificate-issuer-id
@@ -11301,6 +11309,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -11586,6 +11595,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -11790,6 +11800,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -12062,6 +12073,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -12314,6 +12326,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -12625,6 +12638,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -12983,6 +12997,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -13532,6 +13547,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -13729,6 +13745,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -14196,6 +14213,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -14895,6 +14913,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -15514,6 +15533,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -15555,6 +15575,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -15949,6 +15970,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -16337,6 +16359,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -16719,6 +16742,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -17299,6 +17323,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -17583,6 +17608,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -17730,6 +17756,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -17971,6 +17998,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -18416,6 +18444,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -18684,6 +18713,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -18713,6 +18743,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -18788,6 +18819,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -19241,6 +19273,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -19512,6 +19545,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -19541,6 +19575,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -19616,6 +19651,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -20016,6 +20052,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -20154,6 +20191,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -20398,18 +20436,6 @@ entities:
     readOnly: true
     required: false
     type: string
-  - _key: type
-    api_fieldname: type
-    description: Identity provider type.
-    enum:
-    - NATIVE
-    - MBED
-    - SAML2
-    - OIDC
-    enum_reference: login_profile_type_enum
-    readOnly: true
-    required: false
-    type: string
   group_id: Accounts
   methods: []
   primary_key_field: id
@@ -20559,6 +20585,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -20753,6 +20780,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -21100,6 +21128,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -21585,6 +21614,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -21798,6 +21828,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -22191,6 +22222,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -22675,6 +22707,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -23451,6 +23484,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -24169,6 +24203,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -24421,6 +24456,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -24926,6 +24962,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -25629,6 +25666,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -25952,6 +25990,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -26345,6 +26384,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -26544,6 +26584,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -27023,6 +27064,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -27476,6 +27518,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -27679,6 +27722,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -28041,6 +28085,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -28524,6 +28569,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -28901,6 +28947,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -29669,6 +29716,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -30292,6 +30340,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -30534,6 +30583,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -30991,6 +31041,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -31454,6 +31505,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -32222,6 +32274,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -32595,6 +32648,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -32784,6 +32838,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -33096,6 +33151,7 @@ entities:
     drop_fields:
     - object
     - etag
+    - type
     - filter
     - is_custom
     - private_key
@@ -33533,7 +33589,7 @@ enums:
 - _key: certificate_issuer_type_enum
   entity_name: certificate_issuer
   enum_name: certificate_issuer_type_enum
-  field_name: type
+  field_name: issuer_type
   group_id: Security
   values:
   - CFSSL_AUTH
@@ -33599,16 +33655,6 @@ enums:
   - deregistered
   - registered
   - unenrolled
-- _key: login_profile_type_enum
-  entity_name: login_profile
-  enum_name: login_profile_type_enum
-  field_name: type
-  group_id: Accounts
-  values:
-  - MBED
-  - NATIVE
-  - OIDC
-  - SAML2
 - _key: subtenant_trusted_certificate_service_enum
   entity_name: subtenant_trusted_certificate
   enum_name: subtenant_trusted_certificate_service_enum
@@ -33702,7 +33748,6 @@ groups:
   - api_key
   - account
   enums:
-  - login_profile_type_enum
   - user_status_enum
   - user_order_enum
   - subtenant_user_status_enum
