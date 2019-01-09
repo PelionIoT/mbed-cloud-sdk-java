@@ -58,6 +58,7 @@
         "developer_certificate"
       ],
       "enums": [
+        "certificate_issuer_type_test_enum",
         "certificate_enrollment_enroll_status_enum",
         "certificate_enrollment_enroll_result_enum",
         "certificate_enrollment_order_enum",
@@ -173,6 +174,17 @@
       ],
       "group_id": "Security",
       "_key": "certificate_enrollment_order_enum"
+    },
+    {
+      "entity_name": "certificate_issuer",
+      "field_name": "type_test",
+      "enum_name": "certificate_issuer_type_test_enum",
+      "values": [
+        "CFSSL_AUTH",
+        "GLOBAL_SIGN"
+      ],
+      "group_id": "Security",
+      "_key": "certificate_issuer_type_test_enum"
     },
     {
       "entity_name": "device",
@@ -11747,6 +11759,12 @@
                     "example": "customer.dlms",
                     "api_fieldname": "certificate_name",
                     "entity_fieldname": "certificate_name",
+                    "in": "path",
+                    "name": "certificate-name",
+                    "required": true,
+                    "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+                    "external_param": true,
+                    "parameter_fieldname": "certificate-name",
                     "_key": "certificate_name"
                   },
                   {
@@ -11802,6 +11820,9 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "device-id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -12212,6 +12233,14 @@
                           "maxLength": 50,
                           "description": "The certificate name.",
                           "example": "customer.dlms",
+                          "api_fieldname": "certificate-name",
+                          "entity_fieldname": "certificate_name",
+                          "in": "path",
+                          "name": "certificate-name",
+                          "required": true,
+                          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+                          "external_param": true,
+                          "parameter_fieldname": "certificate-name",
                           "_key": "certificate_name"
                         },
                         {
@@ -12219,12 +12248,16 @@
                           "format": "date-time",
                           "description": "Creation UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "description": "The device ID.",
                           "example": "01625daa23230a580a0100bd00000000",
+                          "api_fieldname": "device_id",
+                          "entity_fieldname": "device_id",
                           "_key": "device_id"
                         },
                         {
@@ -12235,6 +12268,8 @@
                             "forbidden",
                             "failure"
                           ],
+                          "api_fieldname": "enroll_result",
+                          "entity_fieldname": "enroll_result",
                           "_key": "enroll_result"
                         },
                         {
@@ -12243,18 +12278,27 @@
                             "new",
                             "completed"
                           ],
+                          "api_fieldname": "enroll_status",
+                          "entity_fieldname": "enroll_status",
                           "_key": "enroll_status"
                         },
                         {
                           "type": "string",
                           "description": "Entity instance signature.",
                           "example": "1",
+                          "api_fieldname": "etag",
+                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "description": "The ID of the certificate enrollment.",
                           "example": "01612df56f3b0a580a010fc700000000",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
+                          "parameter_fieldname": "device-id",
+                          "in": "path",
+                          "required": true,
                           "_key": "id"
                         },
                         {
@@ -12262,6 +12306,8 @@
                           "enum": [
                             "certificate-enrollment"
                           ],
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
@@ -12269,6 +12315,8 @@
                           "format": "date-time",
                           "description": "Update UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
+                          "api_fieldname": "updated_at",
+                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         }
                       ],
@@ -12583,8 +12631,13 @@
           "description": "The certificate name.",
           "example": "customer.dlms",
           "api_fieldname": "certificate_name",
-          "readOnly": true,
+          "in": "path",
+          "name": "certificate-name",
           "required": false,
+          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+          "external_param": true,
+          "parameter_fieldname": "certificate-name",
+          "readOnly": true,
           "_key": "certificate_name"
         },
         {
@@ -12637,8 +12690,10 @@
           "description": "The ID of the certificate enrollment.",
           "example": "01612df56f3b0a580a010fc700000000",
           "api_fieldname": "id",
-          "readOnly": false,
+          "parameter_fieldname": "device-id",
+          "in": "path",
           "required": true,
+          "readOnly": false,
           "_key": "id"
         },
         {
@@ -12674,7 +12729,7 @@
           "field_renames": [
             {
               "api_fieldname": "issuer_type",
-              "_key": "type"
+              "_key": "type_test"
             }
           ],
           "fields": [
@@ -12732,6 +12787,22 @@
               "in": "body",
               "required": false,
               "_key": "name"
+            },
+            {
+              "type": "string",
+              "enum": [
+                "GLOBAL_SIGN",
+                "CFSSL_AUTH"
+              ],
+              "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
+              "example": "GLOBAL_SIGN",
+              "api_fieldname": "issuer_type",
+              "entity_fieldname": "type_test",
+              "parameter_fieldname": "issuer_type",
+              "in": "body",
+              "required": true,
+              "enum_reference": "certificate_issuer_type_test_enum",
+              "_key": "type_test"
             }
           ],
           "method": "post",
@@ -12796,7 +12867,7 @@
                     "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
                     "example": "GLOBAL_SIGN",
                     "api_fieldname": "issuer_type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "type_test",
                     "_key": "issuer_type"
                   },
                   {
@@ -13176,7 +13247,7 @@
           "field_renames": [
             {
               "api_fieldname": "issuer_type",
-              "_key": "type"
+              "_key": "type_test"
             }
           ],
           "fields": [
@@ -13483,7 +13554,7 @@
           "field_renames": [
             {
               "api_fieldname": "issuer_type",
-              "_key": "type"
+              "_key": "type_test"
             }
           ],
           "fields": [
@@ -13561,7 +13632,7 @@
                     "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
                     "example": "GLOBAL_SIGN",
                     "api_fieldname": "issuer_type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "type_test",
                     "_key": "issuer_type"
                   },
                   {
@@ -13865,7 +13936,8 @@
             "created_at",
             "name",
             "description",
-            "issuer_attributes"
+            "issuer_attributes",
+            "type_test"
           ],
           "group_id": "Security",
           "parameter_map": {
@@ -13880,7 +13952,7 @@
           "field_renames": [
             {
               "api_fieldname": "issuer_type",
-              "_key": "type"
+              "_key": "type_test"
             }
           ],
           "fields": [
@@ -14263,7 +14335,7 @@
           "field_renames": [
             {
               "api_fieldname": "issuer_type",
-              "_key": "type"
+              "_key": "type_test"
             }
           ],
           "fields": [
@@ -14396,7 +14468,7 @@
                     "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
                     "example": "GLOBAL_SIGN",
                     "api_fieldname": "issuer_type",
-                    "entity_fieldname": "type",
+                    "entity_fieldname": "type_test",
                     "_key": "issuer_type"
                   },
                   {
@@ -14823,7 +14895,8 @@
             "is_custom",
             "private_key",
             "sub_accounts",
-            "created_at"
+            "created_at",
+            "type_test"
           ],
           "group_id": "Security",
           "parameter_map": {
@@ -14838,7 +14911,7 @@
           "field_renames": [
             {
               "api_fieldname": "issuer_type",
-              "_key": "type"
+              "_key": "type_test"
             }
           ],
           "fields": [
@@ -15287,12 +15360,26 @@
           "readOnly": false,
           "required": true,
           "_key": "name"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "GLOBAL_SIGN",
+            "CFSSL_AUTH"
+          ],
+          "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
+          "example": "GLOBAL_SIGN",
+          "api_fieldname": "issuer_type",
+          "readOnly": false,
+          "required": true,
+          "enum_reference": "certificate_issuer_type_test_enum",
+          "_key": "type_test"
         }
       ],
       "field_renames": [
         {
           "api_fieldname": "issuer_type",
-          "_key": "type"
+          "_key": "type_test"
         }
       ],
       "tags": [
@@ -21139,9 +21226,6 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
-                    "parameter_fieldname": "certificate-enrollment-id",
-                    "in": "path",
-                    "required": true,
                     "_key": "id"
                   },
                   {
