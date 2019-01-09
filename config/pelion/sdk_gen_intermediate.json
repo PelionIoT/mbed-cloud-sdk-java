@@ -1744,6 +1744,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -2948,6 +2949,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -4133,6 +4135,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -5241,6 +5244,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -5393,11 +5397,6 @@
                     "description": "The entity ID to fetch after the given one.",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
-                    "name": "after",
-                    "in": "query",
-                    "required": false,
-                    "external_param": true,
-                    "parameter_fieldname": "after",
                     "_key": "after"
                   },
                   {
@@ -5546,7 +5545,7 @@
                       "description": "This object represents a trusted certificate in responses.",
                       "foreign_key": {
                         "group": "Security",
-                        "entity": "trusted_certificate"
+                        "entity": "developer_certificate"
                       }
                     },
                     "api_fieldname": "data",
@@ -5565,15 +5564,9 @@
                     "type": "integer",
                     "format": "int32",
                     "example": 50,
-                    "description": "The number of results to return (2-1000), default is 50.",
+                    "description": "The number of results to return, (range: 2-1000), or equals to `total_count`",
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
-                    "name": "limit",
-                    "in": "query",
-                    "required": false,
-                    "default": 50,
-                    "external_param": true,
-                    "parameter_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
@@ -5588,20 +5581,13 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records based on creation time, ASC or DESC; by default ASC",
+                    "description": "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.",
                     "enum": [
                       "ASC",
                       "DESC"
                     ],
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
-                    "name": "order",
-                    "in": "query",
-                    "required": false,
-                    "default": "ASC",
-                    "external_param": true,
-                    "parameter_fieldname": "order",
-                    "enum_reference": "trusted_certificate_order_enum",
                     "_key": "order"
                   },
                   {
@@ -5854,6 +5840,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -7367,6 +7354,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -7936,6 +7924,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -8629,6 +8618,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -9169,19 +9159,6 @@
           "field_renames": [],
           "fields": [
             {
-              "type": "array",
-              "description": "A list of group IDs this API key belongs to.",
-              "items": {
-                "type": "string"
-              },
-              "api_fieldname": "groups",
-              "entity_fieldname": "groups",
-              "parameter_fieldname": "groups",
-              "in": "body",
-              "required": false,
-              "_key": "groups"
-            },
-            {
               "type": "string",
               "example": "API key gorgon",
               "description": "The display name for the API key.",
@@ -9593,6 +9570,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -9869,6 +9847,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -10271,6 +10250,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -10279,7 +10259,6 @@
             "updated_at",
             "key",
             "name",
-            "groups",
             "owner",
             "status",
             "creation_time",
@@ -10710,6 +10689,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -11037,6 +11017,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -11046,7 +11027,6 @@
             "updated_at",
             "key",
             "name",
-            "groups",
             "owner",
             "status",
             "creation_time",
@@ -11066,19 +11046,6 @@
           "description": "An endpoint for updating API key details.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
           "field_renames": [],
           "fields": [
-            {
-              "type": "array",
-              "description": "A list of group IDs this API key belongs to.",
-              "items": {
-                "type": "string"
-              },
-              "api_fieldname": "groups",
-              "entity_fieldname": "groups",
-              "parameter_fieldname": "groups",
-              "in": "body",
-              "required": false,
-              "_key": "groups"
-            },
             {
               "type": "string",
               "example": "01619571f7020242ac12000600000000",
@@ -11575,6 +11542,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -11631,17 +11599,6 @@
           "readOnly": true,
           "required": false,
           "_key": "creation_time"
-        },
-        {
-          "type": "array",
-          "description": "A list of group IDs this API key belongs to.",
-          "items": {
-            "type": "string"
-          },
-          "api_fieldname": "groups",
-          "readOnly": false,
-          "required": false,
-          "_key": "groups"
         },
         {
           "type": "string",
@@ -12114,6 +12071,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -12556,6 +12514,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -13179,6 +13138,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -13483,6 +13443,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -13871,6 +13832,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -14246,6 +14208,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -14823,6 +14786,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -15215,6 +15179,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -15698,6 +15663,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -16008,6 +15974,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -16389,6 +16356,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -16699,6 +16667,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -17115,6 +17084,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -17516,6 +17486,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -18104,6 +18075,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -18387,6 +18359,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -18779,6 +18752,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -19255,6 +19229,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -19553,20 +19528,6 @@
               "in": "body",
               "required": false,
               "_key": "firmware_checksum"
-            },
-            {
-              "description": "An array containing an ID of each group this device belongs to.",
-              "type": "array",
-              "items": {
-                "type": "string",
-                "example": "00000000000000000000000000000000"
-              },
-              "api_fieldname": "groups",
-              "entity_fieldname": "groups",
-              "parameter_fieldname": "groups",
-              "in": "body",
-              "required": false,
-              "_key": "groups"
             },
             {
               "type": "string",
@@ -20070,6 +20031,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -20144,6 +20106,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -20555,11 +20518,11 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
             "sub_accounts",
-            "groups",
             "issuer_fingerprint",
             "operator_suspended",
             "last_operator_suspended_category",
@@ -21028,6 +20991,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -21577,6 +21541,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -21693,20 +21658,6 @@
               "in": "body",
               "required": false,
               "_key": "endpoint_type"
-            },
-            {
-              "description": "An array containing an ID of each group this device belongs to.",
-              "type": "array",
-              "items": {
-                "type": "string",
-                "example": "00000000000000000000000000000000"
-              },
-              "api_fieldname": "groups",
-              "entity_fieldname": "groups",
-              "parameter_fieldname": "groups",
-              "in": "body",
-              "required": false,
-              "_key": "groups"
             },
             {
               "type": "string",
@@ -22128,6 +22079,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -22354,18 +22306,6 @@
           "readOnly": false,
           "required": false,
           "_key": "firmware_checksum"
-        },
-        {
-          "description": "An array containing an ID of each group this device belongs to.",
-          "type": "array",
-          "items": {
-            "type": "string",
-            "example": "00000000000000000000000000000000"
-          },
-          "api_fieldname": "groups",
-          "readOnly": false,
-          "required": false,
-          "_key": "groups"
         },
         {
           "type": "string",
@@ -22949,6 +22889,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -23148,6 +23089,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -23438,6 +23380,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -23846,6 +23789,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -24257,6 +24201,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -24296,6 +24241,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -24329,6 +24275,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -24726,6 +24673,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -25172,6 +25120,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -25211,6 +25160,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -25244,6 +25194,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -25644,6 +25595,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -25945,6 +25897,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -26209,6 +26162,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -26785,6 +26739,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -27048,6 +27003,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -27750,6 +27706,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -28057,6 +28014,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -28563,6 +28521,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -28977,6 +28936,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -29643,6 +29603,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -29945,19 +29906,6 @@
             },
             {
               "type": "array",
-              "description": "A list of IDs of the groups this user belongs to.",
-              "items": {
-                "type": "string"
-              },
-              "api_fieldname": "groups",
-              "entity_fieldname": "groups",
-              "parameter_fieldname": "groups",
-              "in": "body",
-              "required": false,
-              "_key": "groups"
-            },
-            {
-              "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
               "items": {
                 "type": "object",
@@ -30157,14 +30105,17 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of IDs of the groups this user belongs to.",
+                    "description": "A list of group IDs this user belongs to.",
                     "items": {
                       "type": "string"
                     },
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups",
-                    "parameter_fieldname": "groups",
+                    "name": "groups",
                     "in": "body",
+                    "schema_param": true,
+                    "external_param": true,
+                    "parameter_fieldname": "groups",
                     "required": false,
                     "_key": "groups"
                   },
@@ -30795,6 +30746,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -31172,6 +31124,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -31318,14 +31271,17 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of IDs of the groups this user belongs to.",
+                    "description": "A list of group IDs this user belongs to.",
                     "items": {
                       "type": "string"
                     },
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups",
-                    "parameter_fieldname": "groups",
+                    "name": "groups",
                     "in": "body",
+                    "schema_param": true,
+                    "external_param": true,
+                    "parameter_fieldname": "groups",
                     "required": false,
                     "_key": "groups"
                   },
@@ -31810,6 +31766,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -31823,7 +31780,6 @@
             "email",
             "address",
             "phone_number",
-            "groups",
             "email_verified",
             "creation_time",
             "last_login_time",
@@ -31891,19 +31847,6 @@
               "in": "body",
               "required": false,
               "_key": "full_name"
-            },
-            {
-              "type": "array",
-              "description": "A list of IDs of the groups this user belongs to.",
-              "items": {
-                "type": "string"
-              },
-              "api_fieldname": "groups",
-              "entity_fieldname": "groups",
-              "parameter_fieldname": "groups",
-              "in": "body",
-              "required": false,
-              "_key": "groups"
             },
             {
               "type": "string",
@@ -32117,14 +32060,17 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of IDs of the groups this user belongs to.",
+                    "description": "A list of group IDs this user belongs to.",
                     "items": {
                       "type": "string"
                     },
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups",
-                    "parameter_fieldname": "groups",
+                    "name": "groups",
                     "in": "body",
+                    "schema_param": true,
+                    "external_param": true,
+                    "parameter_fieldname": "groups",
                     "required": false,
                     "_key": "groups"
                   },
@@ -32755,6 +32701,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -33060,6 +33007,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -33145,19 +33093,6 @@
           "required": false,
           "readOnly": false,
           "_key": "full_name"
-        },
-        {
-          "type": "array",
-          "description": "A list of IDs of the groups this user belongs to.",
-          "items": {
-            "type": "string"
-          },
-          "api_fieldname": "groups",
-          "parameter_fieldname": "groups",
-          "in": "body",
-          "required": false,
-          "readOnly": false,
-          "_key": "groups"
         },
         {
           "type": "string",
@@ -33450,19 +33385,6 @@
             },
             {
               "type": "array",
-              "description": "A list of IDs of the groups the user is invited to.",
-              "items": {
-                "type": "string"
-              },
-              "api_fieldname": "groups",
-              "entity_fieldname": "groups",
-              "parameter_fieldname": "groups",
-              "in": "body",
-              "required": false,
-              "_key": "groups"
-            },
-            {
-              "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
               "items": {
                 "type": "object",
@@ -33591,14 +33513,17 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of IDs of the groups the user is invited to.",
+                    "description": "A list of IDs of the groups this user has been invited to.",
                     "items": {
                       "type": "string"
                     },
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups",
-                    "parameter_fieldname": "groups",
+                    "name": "groups",
                     "in": "body",
+                    "schema_param": true,
+                    "external_param": true,
+                    "parameter_fieldname": "groups",
                     "required": false,
                     "_key": "groups"
                   },
@@ -33933,6 +33858,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -34219,6 +34145,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -34322,14 +34249,17 @@
                   },
                   {
                     "type": "array",
-                    "description": "A list of IDs of the groups the user is invited to.",
+                    "description": "A list of IDs of the groups this user has been invited to.",
                     "items": {
                       "type": "string"
                     },
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups",
-                    "parameter_fieldname": "groups",
+                    "name": "groups",
                     "in": "body",
+                    "schema_param": true,
+                    "external_param": true,
+                    "parameter_fieldname": "groups",
                     "required": false,
                     "_key": "groups"
                   },
@@ -34664,6 +34594,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -34672,7 +34603,6 @@
             "updated_at",
             "email",
             "user_id",
-            "groups",
             "expiration",
             "login_profiles"
           ],
@@ -34725,19 +34655,6 @@
           "readOnly": true,
           "required": false,
           "_key": "expiration"
-        },
-        {
-          "type": "array",
-          "description": "A list of IDs of the groups the user is invited to.",
-          "items": {
-            "type": "string"
-          },
-          "api_fieldname": "groups",
-          "parameter_fieldname": "groups",
-          "in": "body",
-          "required": false,
-          "readOnly": false,
-          "_key": "groups"
         },
         {
           "type": "string",
@@ -35435,6 +35352,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -35731,6 +35649,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -36203,6 +36122,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -36618,6 +36538,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -36746,6 +36667,11 @@
                     "description": "The entity ID to fetch after the given one.",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
+                    "name": "after",
+                    "in": "query",
+                    "required": false,
+                    "external_param": true,
+                    "parameter_fieldname": "after",
                     "_key": "after"
                   },
                   {
@@ -36894,7 +36820,7 @@
                       "description": "This object represents a trusted certificate in responses.",
                       "foreign_key": {
                         "group": "Security",
-                        "entity": "trusted_certificate"
+                        "entity": "developer_certificate"
                       }
                     },
                     "api_fieldname": "data",
@@ -36913,9 +36839,15 @@
                     "type": "integer",
                     "format": "int32",
                     "example": 50,
-                    "description": "The number of results to return, (range: 2-1000), or equals to `total_count`",
+                    "description": "The number of results to return (2-1000), default is 50.",
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
+                    "name": "limit",
+                    "in": "query",
+                    "required": false,
+                    "default": 50,
+                    "external_param": true,
+                    "parameter_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
@@ -36930,13 +36862,20 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.",
+                    "description": "The order of the records based on creation time, ASC or DESC; by default ASC",
                     "enum": [
                       "ASC",
                       "DESC"
                     ],
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
+                    "name": "order",
+                    "in": "query",
+                    "required": false,
+                    "default": "ASC",
+                    "external_param": true,
+                    "parameter_fieldname": "order",
+                    "enum_reference": "account_order_enum",
                     "_key": "order"
                   },
                   {
@@ -37106,16 +37045,17 @@
           ],
           "path": "/v3/trusted-certificates",
           "summary": "Get all trusted certificates.",
-          "return_type": "paginated_response(trusted_certificate)",
+          "return_type": "paginated_response(developer_certificate)",
           "return_info": {
-            "self": true,
+            "self": false,
             "custom": false,
-            "type": "trusted_certificate"
+            "type": "developer_certificate"
           },
           "drop_fields": [
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -37140,7 +37080,7 @@
           "pagination": true,
           "foreign_key": {
             "group": "Security",
-            "entity": "trusted_certificate"
+            "entity": "developer_certificate"
           },
           "_key": "list"
         },
@@ -37824,6 +37764,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -38101,19 +38042,6 @@
               "in": "body",
               "required": false,
               "_key": "full_name"
-            },
-            {
-              "type": "array",
-              "description": "A list of IDs of the groups this user belongs to.",
-              "items": {
-                "type": "string"
-              },
-              "api_fieldname": "groups",
-              "entity_fieldname": "groups",
-              "parameter_fieldname": "groups",
-              "in": "body",
-              "required": false,
-              "_key": "groups"
             },
             {
               "type": "array",
@@ -38842,6 +38770,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -39208,6 +39137,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -39796,6 +39726,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -39809,7 +39740,6 @@
             "email",
             "address",
             "phone_number",
-            "groups",
             "email_verified",
             "creation_time",
             "last_login_time",
@@ -40411,6 +40341,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -40475,19 +40406,6 @@
               "in": "body",
               "required": false,
               "_key": "full_name"
-            },
-            {
-              "type": "array",
-              "description": "A list of IDs of the groups this user belongs to.",
-              "items": {
-                "type": "string"
-              },
-              "api_fieldname": "groups",
-              "entity_fieldname": "groups",
-              "parameter_fieldname": "groups",
-              "in": "body",
-              "required": false,
-              "_key": "groups"
             },
             {
               "type": "string",
@@ -41300,6 +41218,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -41391,17 +41310,6 @@
           "readOnly": false,
           "required": false,
           "_key": "full_name"
-        },
-        {
-          "type": "array",
-          "description": "A list of IDs of the groups this user belongs to.",
-          "items": {
-            "type": "string"
-          },
-          "api_fieldname": "groups",
-          "readOnly": false,
-          "required": false,
-          "_key": "groups"
         },
         {
           "type": "string",
@@ -41663,19 +41571,6 @@
               "in": "body",
               "required": true,
               "_key": "email"
-            },
-            {
-              "type": "array",
-              "description": "A list of IDs of the groups the user is invited to.",
-              "items": {
-                "type": "string"
-              },
-              "api_fieldname": "groups",
-              "entity_fieldname": "groups",
-              "parameter_fieldname": "groups",
-              "in": "body",
-              "required": false,
-              "_key": "groups"
             },
             {
               "type": "array",
@@ -42137,6 +42032,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -42412,6 +42308,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -42834,6 +42731,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -42843,7 +42741,6 @@
             "email",
             "user_id",
             "account_id",
-            "groups",
             "expiration",
             "login_profiles"
           ],
@@ -43283,6 +43180,7 @@
             "object",
             "etag",
             "type",
+            "groups",
             "filter",
             "is_custom",
             "private_key",
@@ -43344,17 +43242,6 @@
           "readOnly": true,
           "required": false,
           "_key": "expiration"
-        },
-        {
-          "type": "array",
-          "description": "A list of IDs of the groups the user is invited to.",
-          "items": {
-            "type": "string"
-          },
-          "api_fieldname": "groups",
-          "readOnly": false,
-          "required": false,
-          "_key": "groups"
         },
         {
           "type": "string",
