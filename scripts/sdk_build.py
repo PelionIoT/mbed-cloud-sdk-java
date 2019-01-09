@@ -17,8 +17,8 @@ class SDKBuilder(sdk_common.BuildStepUsingGradle):
         try:
             self.log_info("Building sdk")
             self.execute_gradle_task('spotlessApply')
-            self.execute_gradle_task('walkmodApply')
-            self.execute_gradle_task('spotlessApply')
+            # self.execute_gradle_task('walkmodApply', [ '-x', 'test'])
+            # self.execute_gradle_task('spotlessApply')
             self.execute_gradle_task('build', ['-x', 'check', '-x', 'test'])
             self.log_info("Building the fat jar")
             self.execute_gradle_task('shadowJar')
