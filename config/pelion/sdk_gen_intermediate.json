@@ -5381,6 +5381,11 @@
                     "description": "The entity ID to fetch after the given one.",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
+                    "name": "after",
+                    "in": "query",
+                    "required": false,
+                    "external_param": true,
+                    "parameter_fieldname": "after",
                     "_key": "after"
                   },
                   {
@@ -5529,7 +5534,7 @@
                       "description": "This object represents a trusted certificate in responses.",
                       "foreign_key": {
                         "group": "Security",
-                        "entity": "developer_certificate"
+                        "entity": "trusted_certificate"
                       }
                     },
                     "api_fieldname": "data",
@@ -5548,9 +5553,15 @@
                     "type": "integer",
                     "format": "int32",
                     "example": 50,
-                    "description": "The number of results to return, (range: 2-1000), or equals to `total_count`",
+                    "description": "The number of results to return (2-1000), default is 50.",
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
+                    "name": "limit",
+                    "in": "query",
+                    "required": false,
+                    "default": 50,
+                    "external_param": true,
+                    "parameter_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
@@ -5565,13 +5576,20 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.",
+                    "description": "The order of the records based on creation time, ASC or DESC; by default ASC",
                     "enum": [
                       "ASC",
                       "DESC"
                     ],
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
+                    "name": "order",
+                    "in": "query",
+                    "required": false,
+                    "default": "ASC",
+                    "external_param": true,
+                    "parameter_fieldname": "order",
+                    "enum_reference": "trusted_certificate_order_enum",
                     "_key": "order"
                   },
                   {
@@ -27738,9 +27756,6 @@
             "certificate_fingerprint"
           ],
           "group_id": "Security",
-          "parameter_map": {
-            "cert_id": "id"
-          },
           "operation_id": "addAccountCertificate",
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
           "pagination": false,
@@ -28039,10 +28054,10 @@
             "sub_accounts"
           ],
           "group_id": "Security",
+          "operation_id": "deleteAccountCertificate",
           "parameter_map": {
             "cert_id": "id"
           },
-          "operation_id": "deleteAccountCertificate",
           "pagination": false,
           "_key": "delete"
         },
@@ -28558,10 +28573,10 @@
             "certificate_fingerprint"
           ],
           "group_id": "Security",
+          "operation_id": "getAccountCertificate",
           "parameter_map": {
             "cert_id": "id"
           },
-          "operation_id": "getAccountCertificate",
           "pagination": false,
           "_key": "get"
         },
@@ -28966,12 +28981,11 @@
             "security_file_content"
           ],
           "group_id": "Security",
-          "parameter_map": {
-            "cert_id": "id",
-            "developerCertificateId": "id"
-          },
           "operation_id": "getDeveloperCertificate",
           "unaggregated": true,
+          "parameter_map": {
+            "developerCertificateId": "id"
+          },
           "foreign_key": {
             "entity": "developer_certificate",
             "group": "Security"
@@ -29634,10 +29648,10 @@
             "certificate_fingerprint"
           ],
           "group_id": "Security",
+          "operation_id": "updateAccountCertificate",
           "parameter_map": {
             "cert_id": "id"
           },
-          "operation_id": "updateAccountCertificate",
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
           "pagination": false,
           "_key": "update"
@@ -35428,9 +35442,6 @@
             "certificate_fingerprint"
           ],
           "group_id": "Security",
-          "parameter_map": {
-            "cert_id": "id"
-          },
           "operation_id": "addCertificate",
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
           "pagination": false,
@@ -35717,10 +35728,10 @@
             "sub_accounts"
           ],
           "group_id": "Security",
+          "operation_id": "deleteCertificate",
           "parameter_map": {
             "cert_id": "id"
           },
-          "operation_id": "deleteCertificate",
           "pagination": false,
           "_key": "delete"
         },
@@ -36203,10 +36214,10 @@
             "certificate_fingerprint"
           ],
           "group_id": "Security",
+          "operation_id": "getCertificate",
           "parameter_map": {
             "cert_id": "id"
           },
-          "operation_id": "getCertificate",
           "pagination": false,
           "_key": "get"
         },
@@ -36611,12 +36622,11 @@
             "security_file_content"
           ],
           "group_id": "Security",
-          "parameter_map": {
-            "cert_id": "id",
-            "developerCertificateId": "id"
-          },
           "operation_id": "getDeveloperCertificate",
           "unaggregated": true,
+          "parameter_map": {
+            "developerCertificateId": "id"
+          },
           "foreign_key": {
             "entity": "developer_certificate",
             "group": "Security"
@@ -36727,11 +36737,6 @@
                     "description": "The entity ID to fetch after the given one.",
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
-                    "name": "after",
-                    "in": "query",
-                    "required": false,
-                    "external_param": true,
-                    "parameter_fieldname": "after",
                     "_key": "after"
                   },
                   {
@@ -36880,7 +36885,7 @@
                       "description": "This object represents a trusted certificate in responses.",
                       "foreign_key": {
                         "group": "Security",
-                        "entity": "developer_certificate"
+                        "entity": "trusted_certificate"
                       }
                     },
                     "api_fieldname": "data",
@@ -36899,15 +36904,9 @@
                     "type": "integer",
                     "format": "int32",
                     "example": 50,
-                    "description": "The number of results to return (2-1000), default is 50.",
+                    "description": "The number of results to return, (range: 2-1000), or equals to `total_count`",
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
-                    "name": "limit",
-                    "in": "query",
-                    "required": false,
-                    "default": 50,
-                    "external_param": true,
-                    "parameter_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
@@ -36922,20 +36921,13 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records based on creation time, ASC or DESC; by default ASC",
+                    "description": "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.",
                     "enum": [
                       "ASC",
                       "DESC"
                     ],
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
-                    "name": "order",
-                    "in": "query",
-                    "required": false,
-                    "default": "ASC",
-                    "external_param": true,
-                    "parameter_fieldname": "order",
-                    "enum_reference": "account_order_enum",
                     "_key": "order"
                   },
                   {
@@ -37105,11 +37097,11 @@
           ],
           "path": "/v3/trusted-certificates",
           "summary": "Get all trusted certificates.",
-          "return_type": "paginated_response(developer_certificate)",
+          "return_type": "paginated_response(trusted_certificate)",
           "return_info": {
-            "self": false,
+            "self": true,
             "custom": false,
-            "type": "developer_certificate"
+            "type": "trusted_certificate"
           },
           "drop_fields": [
             "object",
@@ -37135,14 +37127,11 @@
           ],
           "foreign_key_priority": "self",
           "group_id": "Security",
-          "parameter_map": {
-            "cert_id": "id"
-          },
           "operation_id": "getAllCertificates",
           "pagination": true,
           "foreign_key": {
             "group": "Security",
-            "entity": "developer_certificate"
+            "entity": "trusted_certificate"
           },
           "_key": "list"
         },
@@ -37841,10 +37830,10 @@
             "certificate_fingerprint"
           ],
           "group_id": "Security",
+          "operation_id": "updateCertificate",
           "parameter_map": {
             "cert_id": "id"
           },
-          "operation_id": "updateCertificate",
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
           "pagination": false,
           "_key": "update"
