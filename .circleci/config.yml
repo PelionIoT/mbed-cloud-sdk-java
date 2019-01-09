@@ -95,6 +95,9 @@ persist_build: &persist_build
       - build/
       - backends/
       - pelion-sdk-core/
+      - foundation-core/
+      - foundation-models/
+      - support-annotations/
       - lwm2m/
       - .gradle/
       - gradle.properties
