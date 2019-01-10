@@ -20,7 +20,6 @@ import com.arm.mbed.cloud.sdk.annotations.Required;
 
 @Preamble(description = "SDK Utilities")
 public final class SdkUtils {
-    public static final String METHOD_GET_MODEL_REQUIRED_FIELDS_MESSAGE = "describeRequiredFields";
     private static final Pattern JSON_ARRAY_PATTERN = Pattern.compile("\\[([\'\"][\\w-\\s\\S]*[\'\"],?)*\\]");
 
     private SdkUtils() {
@@ -153,7 +152,7 @@ public final class SdkUtils {
         return errorBuilder.toString();
     }
 
-    public String describeRequiredFields(SdkModel model) {
+    public static String describeRequiredFields(SdkModel model) {
         return generateModelInstanceRequiredFieldsMessage(model, listRequiredFields(model), "model",
                                                           (model == null ? SdkModel.class
                                                                          : model.getClass()).getSimpleName()).toString();
@@ -248,6 +247,7 @@ public final class SdkUtils {
             errorBuilder.append(argType).append(" [");
             errorBuilder.append(argName);
             errorBuilder.append("] has no required fields.");
+            return errorBuilder;
         }
         final List<String> setters = new LinkedList<>();
         final Method[] modelMethods = model.getClass().getMethods();
@@ -266,18 +266,21 @@ public final class SdkUtils {
             }
         }
         final StringBuilder errorBuilder = new StringBuilder(200);
+        boolean plural = requiredFields.size() > 1;
         boolean start = true;
-        errorBuilder.append("Fields [");
-        for (final Field missingField : requiredFields) {
+        errorBuilder.append("Field").append(plural ? "s" : "").append(" [");
+        for (final Field field : requiredFields) {
             if (!start) {
                 errorBuilder.append(", ");
             }
-            errorBuilder.append(missingField.getName());
+            errorBuilder.append(field.getName());
             start = false;
         }
         errorBuilder.append("] of ").append(argType).append(" [");
         errorBuilder.append(argName);
-        errorBuilder.append("] are required. Please ensure they get set using the following setters: ");
+        errorBuilder.append("] ").append(plural ? "are" : "is").append(" required. Please ensure ")
+                    .append(plural ? "they" : "it").append(" get").append(plural ? "" : "s")
+                    .append(" set using the following setter").append(plural ? "s" : "").append(": ");
         start = true;
         for (final String setter : setters) {
             if (!start) {

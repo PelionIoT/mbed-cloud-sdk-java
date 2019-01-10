@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkUtils.CaseConversion;
 
 public class TestSdkUtils {
@@ -104,6 +105,96 @@ public class TestSdkUtils {
         assertNotNull(tempText);
         assertNotEquals(testClassString, tempText);
         assertEquals(testClassString, SdkUtils.getCaseConverter(CaseConversion.SNAKE_TO_CAMEL).convert(tempText, true));
+    }
+
+    @Test
+    public final void testRequiredFieldMessage() {
+        ModelTestClass model = new ModelTestClass();
+        String message = SdkUtils.describeRequiredFields(model);
+        assertNotNull(message);
+        assertTrue(message.contains("fieldRequired"));
+        assertTrue(message.contains("setFieldRequired"));
+        assertFalse(message.contains("fieldNotRequired"));
+        assertFalse(message.contains("setFieldNotRequired"));
+    }
+
+    @Test
+    public final void testCheckModelValidity() {
+        ModelTestClass model = new ModelTestClass();
+        String message = SdkUtils.checkModelValidity(model, "some model");
+        assertNotNull(message);
+        assertTrue(message.contains("fieldRequired"));
+        assertTrue(message.contains("setFieldRequired"));
+        assertFalse(message.contains("fieldNotRequired"));
+        assertFalse(message.contains("setFieldNotRequired"));
+        model = new ModelTestClass(null, "some message");
+        message = SdkUtils.checkModelValidity(model, "some model");
+        assertNotNull(message);
+        assertTrue(message.contains("fieldRequired"));
+        assertTrue(message.contains("setFieldRequired"));
+        assertFalse(message.contains("fieldNotRequired"));
+        assertFalse(message.contains("setFieldNotRequired"));
+        model = new ModelTestClass("some required message", null);
+        message = SdkUtils.checkModelValidity(model, "some model");
+        assertNull(message);
+    }
+
+    private static class ModelTestClass implements SdkModel {
+
+        private static final long serialVersionUID = 3002377627702433692L;
+
+        @Required
+        private String fieldRequired;
+
+        private String fieldNotRequired;
+
+        public ModelTestClass() {
+            this(null, null);
+        }
+
+        public ModelTestClass(String fieldRequired, String fieldNotRequired) {
+            super();
+            this.fieldRequired = fieldRequired;
+            this.fieldNotRequired = fieldNotRequired;
+        }
+
+        public String getFieldRequired() {
+            return fieldRequired;
+        }
+
+        @Required
+        public void setFieldRequired(String fieldRequired) {
+            this.fieldRequired = fieldRequired;
+        }
+
+        public String getFieldNotRequired() {
+            return fieldNotRequired;
+        }
+
+        public void setFieldNotRequired(String fieldNotRequired) {
+            this.fieldNotRequired = fieldNotRequired;
+        }
+
+        @Override
+        public boolean isValid() {
+            return fieldRequired != null;
+        }
+
+        @Override
+        public String getId() {
+            return getFieldRequired();
+        }
+
+        @Override
+        public void setId(String id) {
+            setFieldRequired(id);
+        }
+
+        @Override
+        public ModelTestClass clone() {
+            return new ModelTestClass(fieldRequired, fieldNotRequired);
+        }
+
     }
 
 }
