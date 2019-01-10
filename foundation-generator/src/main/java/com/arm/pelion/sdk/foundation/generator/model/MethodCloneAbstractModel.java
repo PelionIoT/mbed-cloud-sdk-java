@@ -5,11 +5,10 @@ public class MethodCloneAbstractModel extends Method {
     public static final String IDENTIFIER = "clone_abstract_model";
 
     public MethodCloneAbstractModel() {
-        super(false, MethodClone.IDENTIFIER, "Clones this instance", "@see java.lang.Object#clone()", false, true,
-              false, false, false, false, false, true);
+        super(false, MethodClone.IDENTIFIER, "Clones this instance", "@see java.lang.Object#clone()", false, true, true,
+              false, false, false, false, true);
         setReturnDescription("a cloned instance");
         setReturnType(TypeFactory.getCorrespondingType(Object.class));// new TypeGenericParameter(SdkModel.class));
-        setStatement("return null");
 
     }
 

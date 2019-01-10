@@ -7,12 +7,12 @@ import java.util.Objects;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 /**
  * Model for a subtenant trusted certificate.
  */
 @Preamble(description = "Model for a subtenant trusted certificate.")
+@SuppressWarnings("PMD.CyclomaticComplexity")
 public class SubtenantTrustedCertificate extends AbstractSubtenantTrustedCertificate {
     /**
      * Serialisation Id.
@@ -334,18 +334,6 @@ public class SubtenantTrustedCertificate extends AbstractSubtenantTrustedCertifi
                + deviceExecutionMode + ", enrollmentMode=" + enrollmentMode + ", id=" + id + ", issuer=" + issuer
                + ", name=" + name + ", ownerId=" + ownerId + ", service=" + service + ", status=" + status
                + ", subject=" + subject + ", updatedAt=" + updatedAt + ", validity=" + validity + "]";
-    }
-
-    /**
-     * Checks whether the model is valid or not.
-     * <p>
-     * 
-     * @see SdkModel#isValid()
-     * @return true if the model is valid; false otherwise.
-     */
-    @Override
-    public boolean isValid() {
-        return super.isValid();
     }
 
     /**
