@@ -31,7 +31,7 @@ public class Configuration {
         modulePackage = null;// "module";
         factoryPackage = null;// "factory"
         lowLevelApiModuleNameRegex = ".*Api";
-        forceRegenerateUnitTests = true;
+        forceRegenerateUnitTests = false;
     }
 
     /**
