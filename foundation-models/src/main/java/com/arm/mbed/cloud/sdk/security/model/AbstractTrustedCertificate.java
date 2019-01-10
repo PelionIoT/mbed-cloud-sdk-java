@@ -3,12 +3,13 @@
 // Code customisation should happen in the child class [TrustedCertificate]
 package com.arm.mbed.cloud.sdk.security.model;
 
+import java.util.Date;
+import java.util.Objects;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
-import java.util.Date;
-import java.util.Objects;
 
 /**
  * Model for a trusted certificate.
@@ -622,9 +623,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
      * @return a cloned instance
      */
     @Override
-    public Object clone() {
-        return null;
-    }
+    public abstract Object clone();
 
     /**
      * Calculates the hash code of this instance based on field values.

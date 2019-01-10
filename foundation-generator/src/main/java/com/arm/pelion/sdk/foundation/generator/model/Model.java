@@ -28,6 +28,7 @@ public class Model extends AbstractSdkArtifact {
     private static final int MAX_LONG_LENGTH = 18 - 2;
     private static final String ABSTRACT_CLASS_PREFIX = "Abstract";
     protected String packageName;
+    private boolean hasCyclomaticComplexity;
     private String abstractParent;
     protected String group;
     protected final TypeParameter concreteType;
@@ -85,6 +86,7 @@ public class Model extends AbstractSdkArtifact {
         setGroup(group);
         setSuperClassType(null);
         this.concreteType = concreteType;
+        hasCyclomaticComplexity = false;
     }
 
     public Model() {
@@ -512,8 +514,7 @@ public class Model extends AbstractSdkArtifact {
         if (isInternal) {
             specificationBuilder.addAnnotation(AnnotationSpec.builder(Internal.class).build());
         }
-        if (fields != null && fields.values().stream().filter(f -> !f.isStatic() || !f.isReadOnly())
-                                    .count() > StaticAnalysisUtils.FIELD_LIMIT_FOR_IGNORING_WARNINGS) {
+        if (hasCyclomaticComplexity()) {
             specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreCyclomaticComplexity());
         }
         if (hasFieldsWithDefaultValues()) {
@@ -538,6 +539,16 @@ public class Model extends AbstractSdkArtifact {
 
     public boolean needsFieldCustomisation() {
         return getFieldList().stream().filter(f -> f.needsCustomCode()).count() > 0;
+    }
+
+    public boolean hasCyclomaticComplexity() {
+        return hasCyclomaticComplexity
+               || fields != null && fields.values().stream().filter(f -> !f.isStatic() || !f.isReadOnly())
+                                          .count() > StaticAnalysisUtils.FIELD_LIMIT_FOR_IGNORING_WARNINGS;
+    }
+
+    public void setHasCyclomaticComplexity(boolean hasCyclomaticComplexity) {
+        this.hasCyclomaticComplexity = hasCyclomaticComplexity;
     }
 
     public Map<String, Field> getSuperClassFields() {
@@ -852,9 +863,11 @@ public class Model extends AbstractSdkArtifact {
                 final Model parentModel = generateParentModel();
                 abstractModel.generateMethodsDependingOnParents(parentModel);
             }
+            abstractModel.setHasCyclomaticComplexity(hasCyclomaticComplexity());
             models.add(abstractModel);
             final Model childModel = generateChildModel();
             childModel.generateMethodsDependingOnParents(abstractModel);
+            childModel.setHasCyclomaticComplexity(hasCyclomaticComplexity());
             models.add(childModel);
         } else {
             if (hasSuperClass()) {

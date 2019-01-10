@@ -152,10 +152,17 @@ public final class SdkUtils {
         return errorBuilder.toString();
     }
 
+    /**
+     * Generates a message describing all model required fields.
+     * 
+     * @param model
+     *            model of interest
+     * @return corresponding message
+     */
     public static String describeRequiredFields(SdkModel model) {
         return generateModelInstanceRequiredFieldsMessage(model, listRequiredFields(model), "model",
-                                                          (model == null ? SdkModel.class
-                                                                         : model.getClass()).getSimpleName()).toString();
+                                                          model == null ? SdkModel.class.getSimpleName()
+                                                                        : model.getClass().getSimpleName()).toString();
     }
 
     /**
@@ -173,7 +180,7 @@ public final class SdkUtils {
         }
         for (Class<?> clazz = model.getClass(); clazz != Object.class; clazz = clazz.getSuperclass()) {
             final Field[] fields = clazz.getDeclaredFields();
-            for (Field field : fields) {
+            for (final Field field : fields) {
                 if (field.isAnnotationPresent(Required.class)) {
                     requiredFields.add(field);
                 }
@@ -240,10 +247,11 @@ public final class SdkUtils {
      *            model instance name
      * @return message regarding required fields.
      */
+    @SuppressWarnings("PMD.NPathComplexity")
     public static StringBuilder generateModelInstanceRequiredFieldsMessage(SdkModel model, List<Field> requiredFields,
                                                                            String argType, String argName) {
         if (requiredFields == null || requiredFields.isEmpty()) {
-            final StringBuilder errorBuilder = new StringBuilder();
+            final StringBuilder errorBuilder = new StringBuilder(30);
             errorBuilder.append(argType).append(" [");
             errorBuilder.append(argName);
             errorBuilder.append("] has no required fields.");
@@ -266,7 +274,7 @@ public final class SdkUtils {
             }
         }
         final StringBuilder errorBuilder = new StringBuilder(200);
-        boolean plural = requiredFields.size() > 1;
+        final boolean plural = requiredFields.size() > 1;
         boolean start = true;
         errorBuilder.append("Field").append(plural ? "s" : "").append(" [");
         for (final Field field : requiredFields) {

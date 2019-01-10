@@ -8,12 +8,12 @@ import java.util.Objects;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.NotImplementedException;
-import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 /**
  * Model for a trusted certificate.
  */
 @Preamble(description = "Model for a trusted certificate.")
+@SuppressWarnings("PMD.CyclomaticComplexity")
 public class TrustedCertificate extends AbstractTrustedCertificate {
     /**
      * Serialisation Id.
@@ -328,18 +328,6 @@ public class TrustedCertificate extends AbstractTrustedCertificate {
                + ", enrollmentMode=" + enrollmentMode + ", id=" + id + ", issuer=" + issuer + ", name=" + name
                + ", ownerId=" + ownerId + ", service=" + service + ", status=" + status + ", subject=" + subject
                + ", updatedAt=" + updatedAt + ", validity=" + validity + "]";
-    }
-
-    /**
-     * Checks whether the model is valid or not.
-     * <p>
-     * 
-     * @see SdkModel#isValid()
-     * @return true if the model is valid; false otherwise.
-     */
-    @Override
-    public boolean isValid() {
-        return super.isValid();
     }
 
     /**
