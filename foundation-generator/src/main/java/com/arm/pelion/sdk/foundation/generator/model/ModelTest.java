@@ -2,6 +2,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -94,19 +95,25 @@ public class ModelTest extends AbstractSdkArtifact {
                                                method.containsCustomCode() || modelUnderTest.needsFieldCustomisation());
 
         final String variable = modelUnderTest.getName().toLowerCase().replace(" ", "").trim();
-        final String fieldValues = String.join("," + System.lineSeparator(),
-                                               ValueGenerator.generateModelFieldValues(modelUnderTest));
+        final List<String> formats = new LinkedList<>();
+        final List<Object> values = new LinkedList<>();
+        values.add(modelUnderTest.getName());
+        values.add(variable);
+        values.add(modelUnderTest.getName());
+        ValueGenerator.generateModelFieldValues(modelUnderTest, formats, values);
+        final String fieldValues = String.join("," + System.lineSeparator(), formats);
         addExceptionHandlingStart(test);
+
         test.getCode()
-            .addStatement("$L " + variable + "1 = new $L("
+            .addStatement("$L $L1 = new $L("
                           + (ValueGenerator.DEFAULT_VALUE.equals(fieldValues) ? "(" + modelUnderTest.getName() + ")"
                                                                               : "")
-                          + fieldValues + ")", modelUnderTest.getName(), modelUnderTest.getName());
-        test.getCode().addStatement("$L " + variable + "2 = " + variable + "1.clone()", modelUnderTest.getName());
-        test.getCode().addStatement("assertNotNull(" + variable + "1)");
-        test.getCode().addStatement("assertNotNull(" + variable + "2)");
-        test.getCode().addStatement("assertNotSame(" + variable + "2, " + variable + "1)");
-        test.getCode().addStatement("assertEquals(" + variable + "2, " + variable + "1)");
+                          + fieldValues + ")", values.toArray());
+        test.getCode().addStatement("$L $L2 = $L1.clone()", modelUnderTest.getName(), variable, variable);
+        test.getCode().addStatement("assertNotNull($L1)", variable);
+        test.getCode().addStatement("assertNotNull($L2)", variable);
+        test.getCode().addStatement("assertNotSame($L2, $L1)", variable, variable);
+        test.getCode().addStatement("assertEquals($L2, $L1)", variable, variable);
         addExceptionHandlingEnd(test);
         addTest(test);
     }
@@ -160,37 +167,44 @@ public class ModelTest extends AbstractSdkArtifact {
         }
         final MethodTest test = new MethodTest(MethodEquals.IDENTIFIER,
                                                method.containsCustomCode() || modelUnderTest.needsFieldCustomisation());
-
-        final List<String> values1 = ValueGenerator.generateModelFieldValues(modelUnderTest);
-        final List<String> values2 = ValueGenerator.generateModelFieldValues(modelUnderTest);
         final String variable = modelUnderTest.getName().toLowerCase().replace(" ", "").trim();
-        final String fieldValues1 = String.join("," + System.lineSeparator(), values1);
-        final String fieldValues2 = String.join("," + System.lineSeparator(), values2);
+        final List<String> formats = new LinkedList<>();
+        final List<Object> values1 = new LinkedList<>();
+        final List<Object> values2 = new LinkedList<>();
+        values1.add(modelUnderTest.getName());
+        values1.add(variable);
+        values1.add(modelUnderTest.getName());
+        values2.add(modelUnderTest.getName());
+        values2.add(variable);
+        values2.add(modelUnderTest.getName());
+        ValueGenerator.generateModelFieldValues(modelUnderTest, formats, values1);
+        formats.clear();
+        ValueGenerator.generateModelFieldValues(modelUnderTest, formats, values2);
+        final String fieldValues = String.join("," + System.lineSeparator(), formats);
         addExceptionHandlingStart(test);
-        test.getCode().addStatement("$L " + variable + "1 = new $L(" + fieldValues1 + ")", modelUnderTest.getName(),
-                                    modelUnderTest.getName());
-        test.getCode().addStatement("$L " + variable + "2 = new $L(" + fieldValues1 + ")", modelUnderTest.getName(),
-                                    modelUnderTest.getName());
-        if (!values2.isEmpty()) {
-            test.getCode().addStatement("$L " + variable + "3 = new $L(" + fieldValues2 + ")", modelUnderTest.getName(),
-                                        modelUnderTest.getName());
+
+        test.getCode().addStatement("$L $L1 = new $L(" + fieldValues + ")", values1.toArray());
+        test.getCode().addStatement("$L $L2 = new $L(" + fieldValues + ")", values2.toArray());
+        if (!formats.isEmpty()) {
+            test.getCode().addStatement("$L $L3 = new $L(" + fieldValues + ")", values2.toArray());
         }
-        test.getCode().addStatement("assertNotNull(" + variable + "1)");
-        test.getCode().addStatement("assertNotNull(" + variable + "2)");
-        if (!values2.isEmpty()) {
-            test.getCode().addStatement("assertNotNull(" + variable + "3)");
+
+        test.getCode().addStatement("assertNotNull($L1)", variable);
+        test.getCode().addStatement("assertNotNull($L2)", variable);
+        if (!formats.isEmpty()) {
+            test.getCode().addStatement("assertNotNull($L3)", variable);
         }
-        test.getCode().addStatement("assertNotSame(" + variable + "2, " + variable + "1)");
-        if (!values2.isEmpty()) {
-            test.getCode().addStatement("assertNotSame(" + variable + "3, " + variable + "1)");
+        test.getCode().addStatement("assertNotSame($L2, $L1)", variable, variable);
+        if (!formats.isEmpty()) {
+            test.getCode().addStatement("assertNotSame($L3, $L1)", variable, variable);
         }
-        test.getCode().addStatement("assertEquals(" + variable + "2, " + variable + "1)");
-        test.getCode().addStatement("assertEquals(" + variable + "2, " + variable + "1)");
-        test.getCode().addStatement("assertEquals(" + variable + "1, " + variable + "2)");
-        test.getCode().addStatement("assertEquals(" + variable + "1, " + variable + "1)");
-        test.getCode().addStatement("assertFalse(" + variable + "1.equals(null))");
+        test.getCode().addStatement("assertEquals($L2, $L1)", variable, variable);
+        test.getCode().addStatement("assertEquals($L2, $L1)", variable, variable);
+        test.getCode().addStatement("assertEquals($L1, $L2)", variable, variable);
+        test.getCode().addStatement("assertEquals($L1, $L1)", variable, variable);
+        test.getCode().addStatement("assertFalse($L1.equals(null))", variable);
         if (!values2.isEmpty()) {
-            test.getCode().addStatement("assertNotEquals(" + variable + "3, " + variable + "1)");
+            test.getCode().addStatement("assertNotEquals($L3, $L1)", variable, variable);
         }
         addExceptionHandlingEnd(test);
         addTest(test);
@@ -212,20 +226,23 @@ public class ModelTest extends AbstractSdkArtifact {
         final MethodTest test = new MethodTest(MethodHashCode.IDENTIFIER, methodUnderTestContainsCustomCode()
                                                                           || modelUnderTest.needsFieldCustomisation());
 
-        final List<String> values = ValueGenerator.generateModelFieldValues(modelUnderTest);
         final String variable = modelUnderTest.getName().toLowerCase().replace(" ", "").trim();
-        final String fieldValues = String.join("," + System.lineSeparator(), values);
+        final List<String> formats = new LinkedList<>();
+        final List<Object> values = new LinkedList<>();
+        values.add(modelUnderTest.getName());
+        values.add(variable);
+        values.add(modelUnderTest.getName());
+        ValueGenerator.generateModelFieldValues(modelUnderTest, formats, values);
+        final String fieldValues = String.join("," + System.lineSeparator(), formats);
         addExceptionHandlingStart(test);
-        test.getCode().addStatement("$L " + variable + "1 = new $L(" + fieldValues + ")", modelUnderTest.getName(),
-                                    modelUnderTest.getName());
-        test.getCode().addStatement("$L " + variable + "2 = new $L(" + fieldValues + ")", modelUnderTest.getName(),
-                                    modelUnderTest.getName());
-        test.getCode().addStatement("assertNotNull(" + variable + "1)");
-        test.getCode().addStatement("assertNotNull(" + variable + "2)");
-        test.getCode().addStatement("assertNotSame(" + variable + "2, " + variable + "1)");
-        test.getCode().addStatement("assertEquals(" + variable + "2, " + variable + "1)");
-        test.getCode().addStatement("assertEquals(" + variable + "2.hashCode(), " + variable + "1.hashCode())");
-        test.getCode().addStatement("int hashCode = " + variable + "1.hashCode()");
+        test.getCode().addStatement("$L $L1 = new $L(" + fieldValues + ")", values.toArray());
+        test.getCode().addStatement("$L $L2 = new $L(" + fieldValues + ")", values.toArray());
+        test.getCode().addStatement("assertNotNull($L1)", variable);
+        test.getCode().addStatement("assertNotNull($L2)", variable);
+        test.getCode().addStatement("assertNotSame($L2, $L1)", variable, variable);
+        test.getCode().addStatement("assertEquals($L2, $L1)", variable, variable);
+        test.getCode().addStatement("assertEquals($L2.hashCode(), $L1.hashCode())", variable, variable);
+        test.getCode().addStatement("int hashCode =  $L1.hashCode()", variable);
         test.getCode().beginControlFlow("for (int i = 0; i < $L ; i++)", Integer.valueOf(5));
         test.getCode().addStatement("assertEquals(hashCode, " + variable + "1.hashCode())");
         test.getCode().endControlFlow();
@@ -243,23 +260,32 @@ public class ModelTest extends AbstractSdkArtifact {
         if (method == null) {
             return;
         }
+
         final MethodTest test = new MethodTest(MethodIsValid.IDENTIFIER,
                                                method.containsCustomCode() || modelUnderTest.needsFieldCustomisation());
 
         final String variable = modelUnderTest.getName().toLowerCase().replace(" ", "").trim();
-        final String fieldValues = String.join("," + System.lineSeparator(),
-                                               ValueGenerator.generateModelFieldValues(modelUnderTest));
-        test.getCode().addStatement("$L " + variable + " = new $L(" + fieldValues + ")", modelUnderTest.getName(),
-                                    modelUnderTest.getName());
-        test.getCode().addStatement("assertTrue(" + variable + "." + MethodIsValid.IDENTIFIER + "())");
-        final List<String> incorrectValues = ValueGenerator.generateModelFieldWithInvalidValues(modelUnderTest);
-        if (incorrectValues != null) {
-
-            test.getCode()
-                .addStatement("$L " + variable + "Invalid = new $L("
-                              + String.join("," + System.lineSeparator(), incorrectValues) + ")",
-                              modelUnderTest.getName(), modelUnderTest.getName());
-            test.getCode().addStatement("assertFalse(" + variable + "Invalid." + MethodIsValid.IDENTIFIER + "())");
+        final List<String> formats = new LinkedList<>();
+        final List<Object> values = new LinkedList<>();
+        formats.clear();
+        values.clear();
+        values.add(modelUnderTest.getName());
+        values.add(variable);
+        values.add(modelUnderTest.getName());
+        ValueGenerator.generateModelFieldValues(modelUnderTest, formats, values);
+        String fieldValues = String.join("," + System.lineSeparator(), formats);
+        test.getCode().addStatement("$L $L = new $L(" + fieldValues + ")", values.toArray());
+        test.getCode().addStatement("assertTrue($L.$L())", variable, MethodIsValid.IDENTIFIER);
+        formats.clear();
+        values.clear();
+        values.add(modelUnderTest.getName());
+        values.add(variable + "Invalid");
+        values.add(modelUnderTest.getName());
+        ValueGenerator.generateModelFieldWithInvalidValues(modelUnderTest, formats, values);
+        if (!formats.isEmpty()) {
+            fieldValues = String.join("," + System.lineSeparator(), formats);
+            test.getCode().addStatement("$L $L = new $L(" + fieldValues + ")", values.toArray());
+            test.getCode().addStatement("assertFalse($L.$L())", variable + "Invalid", MethodIsValid.IDENTIFIER);
         }
         addTest(test);
     }

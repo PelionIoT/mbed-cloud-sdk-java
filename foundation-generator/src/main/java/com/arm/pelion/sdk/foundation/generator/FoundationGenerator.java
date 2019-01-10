@@ -21,14 +21,12 @@ public class FoundationGenerator {
 
     private IntermediateApiDefinition definition;
     private LowLevelAPIs lowLevelAPIs;
-    private boolean forceRegenerateUnitTests;
     private final Logger logger;
 
     public FoundationGenerator() {
         definition = null;
         lowLevelAPIs = null;
         logger = Logger.getLogger();
-        forceRegenerateUnitTests = true;
     }
 
     public void load(GeneratorCli cli, Configuration config) throws FoundationGeneratorException {
@@ -52,7 +50,7 @@ public class FoundationGenerator {
                                                               cli.getFoundationModelTestOuputDirectory(),
                                                               ArtifactsTranslator.translate(logger, config, definition,
                                                                                             lowLevelAPIs),
-                                                              forceRegenerateUnitTests);
+                                                              cli.forceRegenerateUnitTests() || config.isForceRegenerateUnitTests());
         try {
             generator.clean();
             generator.generate();

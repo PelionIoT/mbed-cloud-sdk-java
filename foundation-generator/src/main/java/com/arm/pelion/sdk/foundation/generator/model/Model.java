@@ -607,11 +607,16 @@ public class Model extends AbstractSdkArtifact {
             f.setAccessible(true);
             abstractModel.addField(f);
         });
-        getMethodList().stream().filter(m -> !m.needsCustomCode()).forEach(m -> abstractModel.addMethod(m));
-        // abstractModel.addMethod(new MethodCloneDefault());
+        getMethodList().stream().filter(m -> !m.needsCustomCode() && !m.needsToBeAtBottomLevel())
+                       .forEach(m -> abstractModel.addMethod(m));
+        addSpecificAbstractMethods(abstractModel);
         abstractModel.generateMethodsNecessaryAtEachLevel();
         abstractModel.ensureSdkModelMethodsHaveOverrideAnnotation();
         return abstractModel;
+    }
+
+    protected void addSpecificAbstractMethods(final Model abstractModel) {
+        // Nothing to do
     }
 
     private Model generateChildModel() {
@@ -621,7 +626,7 @@ public class Model extends AbstractSdkArtifact {
             f.setContainsCustomCode(true);
             child.addField(f);
         });
-        getMethodList().stream().filter(m -> m.needsCustomCode()).forEach(m -> {
+        getMethodList().stream().filter(m -> m.needsCustomCode() || m.needsToBeAtBottomLevel()).forEach(m -> {
             modifyChildMethod(m);
             child.addMethod(m);
         });

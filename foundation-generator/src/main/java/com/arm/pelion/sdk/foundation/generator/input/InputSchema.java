@@ -4,6 +4,8 @@ public interface InputSchema {
 
     // Java use case
     final String CUSTOM_CODE_TAG = "custom_code";
+    final String CUSTOM_SETTER_CODE_TAG = "setter_custom_method";
+    final String CUSTOM_GETTER_CODE_TAG = "getter_custom_method";
     final String INTERNAL_TAG = "internal";
 
     final String PRIMARY_KEY_TAG = "primary_key_field";

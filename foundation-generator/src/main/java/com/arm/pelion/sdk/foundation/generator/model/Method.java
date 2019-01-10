@@ -33,6 +33,7 @@ public class Method extends AbstractSdkArtifact {
     protected boolean shouldTest;
     protected boolean doesNotPerformAnything;
     protected boolean isUnchecked;
+    protected boolean needsToBeAtBottomLevel;
     protected final List<Class<?>> exceptions;
 
     public Method(boolean isReadOnly, String name, String description, String longDescription, boolean isStatic,
@@ -51,6 +52,7 @@ public class Method extends AbstractSdkArtifact {
         shouldTest(false);
         setDoesNotPerformAnything(false);
         setUnchecked(false);
+        setNeedsToBeAtBottomLevel(false);
     }
 
     public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride,
@@ -156,6 +158,14 @@ public class Method extends AbstractSdkArtifact {
      */
     public void shouldTest(boolean shouldTest) {
         this.shouldTest = shouldTest;
+    }
+
+    public boolean needsToBeAtBottomLevel() {
+        return needsToBeAtBottomLevel;
+    }
+
+    public void setNeedsToBeAtBottomLevel(boolean needsToBeAtBottomLevel) {
+        this.needsToBeAtBottomLevel = needsToBeAtBottomLevel;
     }
 
     /**

@@ -40,9 +40,16 @@ public class ModelPojo extends Model {
     }
 
     @Override
+    protected void addSpecificAbstractMethods(final Model abstractModel) {
+        abstractModel.addMethod(new MethodCloneAbstractModel());
+    }
+
+    @Override
     protected void modifyChildMethod(Method m) {
         super.modifyChildMethod(m);
-        m.setAsOverride(true);
+        if (!(m instanceof MethodGetter || m instanceof MethodSetter)) {
+            m.setAsOverride(true);
+        }
     }
 
 }
