@@ -187,6 +187,7 @@ public class ValueGenerator {
                 if (!potentialInvalidString.matches(field.getPattern())) {
                     formats.add("$S");
                     values.add(potentialInvalidString);
+                    return;
                 }
                 trial--;
             }

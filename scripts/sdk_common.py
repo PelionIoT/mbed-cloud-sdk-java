@@ -343,7 +343,7 @@ class BuildStepUsingGradle(BuildStep):
 
     def execute_gradle_task_with_retries(self, retries, task, params=None):
         remaining_retries = retries
-        while (remaining_retries > 0):
+        while (remaining_retries >= 0):
             try:
                 self.execute_gradle_task(task, params)
                 break

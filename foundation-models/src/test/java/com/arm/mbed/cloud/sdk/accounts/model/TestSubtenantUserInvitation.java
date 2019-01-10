@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import org.junit.Test;
 
 /**
@@ -16,14 +17,14 @@ public class TestSubtenantUserInvitation {
     @Test
     public void testClone() {
         try {
-            SubtenantUserInvitation subtenantuserinvitation1 = new SubtenantUserInvitation("4f20a1ad-8bc2-46f7-9fbd-95c5fc26fac1",
-                                                                                           new java.util.Date(1547041493118L),
-                                                                                           "7fc3bc74-2118-4369-8dc4-1f3c2c4f3dbe",
-                                                                                           new java.util.Date(1547041498406L),
-                                                                                           "f5c98ef8-6b39-49f2-af31-7f0f883aa68d",
+            SubtenantUserInvitation subtenantuserinvitation1 = new SubtenantUserInvitation("6cf360df-c943-4a05-8b46-0dccfef91fef",
+                                                                                           new Date(1547159621806L),
+                                                                                           "b5f6d36c-3fde-4cfd-be96-968084554b47",
+                                                                                           new Date(1547159627347L),
+                                                                                           "ec1ef851-6b87-4364-af39-da7a54596a01",
                                                                                            null,
-                                                                                           new java.util.Date(1547041494309L),
-                                                                                           "30469d1b-e3a0-40c4-bc47-18528b17171e");
+                                                                                           new Date(1547159623454L),
+                                                                                           "6d7f3f3b-2d08-47cd-af48-d4f56e5ec9d3");
             SubtenantUserInvitation subtenantuserinvitation2 = subtenantuserinvitation1.clone();
             assertNotNull(subtenantuserinvitation1);
             assertNotNull(subtenantuserinvitation2);
@@ -40,22 +41,22 @@ public class TestSubtenantUserInvitation {
     @Test
     public void testHashCode() {
         try {
-            SubtenantUserInvitation subtenantuserinvitation1 = new SubtenantUserInvitation("9749a6d0-8b52-4943-8352-2553082d68df",
-                                                                                           new java.util.Date(1547041494535L),
-                                                                                           "454518dd-52c8-4416-8a35-199dcac96fca",
-                                                                                           new java.util.Date(1547041492154L),
-                                                                                           "9ac8b7d9-a20f-4c3e-ae97-a69fa3882b0e",
+            SubtenantUserInvitation subtenantuserinvitation1 = new SubtenantUserInvitation("630990ff-895f-4f9d-b87f-64d058223977",
+                                                                                           new Date(1547159625479L),
+                                                                                           "33de1771-bd0e-4eb1-a1a4-fea85594d45c",
+                                                                                           new Date(1547159630209L),
+                                                                                           "905cdab4-5f74-44c0-959b-971a83f1b8b9",
                                                                                            null,
-                                                                                           new java.util.Date(1547041496473L),
-                                                                                           "34bc9630-d09a-42a8-87f4-478f3c757170");
-            SubtenantUserInvitation subtenantuserinvitation2 = new SubtenantUserInvitation("9749a6d0-8b52-4943-8352-2553082d68df",
-                                                                                           new java.util.Date(1547041494535L),
-                                                                                           "454518dd-52c8-4416-8a35-199dcac96fca",
-                                                                                           new java.util.Date(1547041492154L),
-                                                                                           "9ac8b7d9-a20f-4c3e-ae97-a69fa3882b0e",
+                                                                                           new Date(1547159623834L),
+                                                                                           "7387b7fa-f451-40ed-83c0-3575984ad3fe");
+            SubtenantUserInvitation subtenantuserinvitation2 = new SubtenantUserInvitation("630990ff-895f-4f9d-b87f-64d058223977",
+                                                                                           new Date(1547159625479L),
+                                                                                           "33de1771-bd0e-4eb1-a1a4-fea85594d45c",
+                                                                                           new Date(1547159630209L),
+                                                                                           "905cdab4-5f74-44c0-959b-971a83f1b8b9",
                                                                                            null,
-                                                                                           new java.util.Date(1547041496473L),
-                                                                                           "34bc9630-d09a-42a8-87f4-478f3c757170");
+                                                                                           new Date(1547159623834L),
+                                                                                           "7387b7fa-f451-40ed-83c0-3575984ad3fe");
             assertNotNull(subtenantuserinvitation1);
             assertNotNull(subtenantuserinvitation2);
             assertNotSame(subtenantuserinvitation2, subtenantuserinvitation1);
@@ -75,22 +76,21 @@ public class TestSubtenantUserInvitation {
      */
     @Test
     public void testIsValid() {
-        SubtenantUserInvitation subtenantuserinvitation = new SubtenantUserInvitation("e9501d1e-58de-4bdd-94fb-ddf16f6ae561",
-                                                                                      new java.util.Date(1547041491838L),
-                                                                                      "8cbe5ea2-c72c-4203-a9b3-08a789ec5208",
-                                                                                      new java.util.Date(1547041493634L),
-                                                                                      "a278eb9f-cd16-45d4-863f-b6b170795fd4",
-                                                                                      null,
-                                                                                      new java.util.Date(1547041499163L),
-                                                                                      "36265db9-6c4e-4180-93d9-6fd25b43f1fa");
+        SubtenantUserInvitation subtenantuserinvitation = new SubtenantUserInvitation("2fb3bd7a-ea43-4752-a2fa-0d16bae2bab5",
+                                                                                      new Date(1547159623181L),
+                                                                                      "833f64b3-b228-412e-8cf8-e81dce0c518d",
+                                                                                      new Date(1547159620968L),
+                                                                                      "d4d403a0-d191-4918-8d86-91934c220fd3",
+                                                                                      null, new Date(1547159625878L),
+                                                                                      "4c633f0b-6c55-48c6-8ea7-ca5a2fbb2579");
         assertTrue(subtenantuserinvitation.isValid());
         SubtenantUserInvitation subtenantuserinvitationInvalid = new SubtenantUserInvitation(null,
-                                                                                             new java.util.Date(1547041493342L),
+                                                                                             new Date(1547159627097L),
                                                                                              null,
-                                                                                             new java.util.Date(1547041499971L),
+                                                                                             new Date(1547159623444L),
                                                                                              null, null,
-                                                                                             new java.util.Date(1547041495521L),
-                                                                                             "fa7ce783-a672-405c-a5da-bfb218b60439");
+                                                                                             new Date(1547159620746L),
+                                                                                             "43a71b11-b797-4bb2-b4b9-62d50dcbaaa7");
         assertFalse(subtenantuserinvitationInvalid.isValid());
     }
 
@@ -100,30 +100,30 @@ public class TestSubtenantUserInvitation {
     @Test
     public void testEquals() {
         try {
-            SubtenantUserInvitation subtenantuserinvitation1 = new SubtenantUserInvitation("53724e92-14e6-46d1-b165-fd1164a9aae4",
-                                                                                           new java.util.Date(1547041490672L),
-                                                                                           "ab217884-7b64-4aef-8b56-ce28811ab168",
-                                                                                           new java.util.Date(1547041492353L),
-                                                                                           "1a0b5295-ae64-4600-b8a2-f373c2248447",
+            SubtenantUserInvitation subtenantuserinvitation1 = new SubtenantUserInvitation("c8ed86c5-603d-4db5-88cd-4ce97fb70f44",
+                                                                                           new Date(1547159626024L),
+                                                                                           "e3a06587-3f8e-44ad-9b5e-71f175f5620c",
+                                                                                           new Date(1547159628336L),
+                                                                                           "35c6b8c9-b82f-4574-b968-da5644efcde6",
                                                                                            null,
-                                                                                           new java.util.Date(1547041497370L),
-                                                                                           "b498d878-8f84-4d32-87c4-621c570d27dd");
-            SubtenantUserInvitation subtenantuserinvitation2 = new SubtenantUserInvitation("53724e92-14e6-46d1-b165-fd1164a9aae4",
-                                                                                           new java.util.Date(1547041490672L),
-                                                                                           "ab217884-7b64-4aef-8b56-ce28811ab168",
-                                                                                           new java.util.Date(1547041492353L),
-                                                                                           "1a0b5295-ae64-4600-b8a2-f373c2248447",
+                                                                                           new Date(1547159624797L),
+                                                                                           "818d4785-7f3a-43a6-bcae-58685aa947e0");
+            SubtenantUserInvitation subtenantuserinvitation2 = new SubtenantUserInvitation("c8ed86c5-603d-4db5-88cd-4ce97fb70f44",
+                                                                                           new Date(1547159626024L),
+                                                                                           "e3a06587-3f8e-44ad-9b5e-71f175f5620c",
+                                                                                           new Date(1547159628336L),
+                                                                                           "35c6b8c9-b82f-4574-b968-da5644efcde6",
                                                                                            null,
-                                                                                           new java.util.Date(1547041497370L),
-                                                                                           "b498d878-8f84-4d32-87c4-621c570d27dd");
-            SubtenantUserInvitation subtenantuserinvitation3 = new SubtenantUserInvitation("b398d548-fd87-4156-a28c-86b00db7ef6a",
-                                                                                           new java.util.Date(1547041499792L),
-                                                                                           "11534e98-9b38-4196-ad43-aa8f62bbf5f9",
-                                                                                           new java.util.Date(1547041495502L),
-                                                                                           "6e44074f-323a-48d5-a7f0-37cd0292104d",
+                                                                                           new Date(1547159624797L),
+                                                                                           "818d4785-7f3a-43a6-bcae-58685aa947e0");
+            SubtenantUserInvitation subtenantuserinvitation3 = new SubtenantUserInvitation("cc78a647-c6ba-4cd5-80c8-b73ce4d7acb4",
+                                                                                           new Date(1547159621230L),
+                                                                                           "1ca34212-6d22-4d12-bcb4-7d1cb7872edf",
+                                                                                           new Date(1547159624051L),
+                                                                                           "f0e558e6-6bd1-4076-a0a7-d1da6a80cd86",
                                                                                            null,
-                                                                                           new java.util.Date(1547041492586L),
-                                                                                           "6e0c44b9-3774-4ae6-8cb2-a81ab0ac6004");
+                                                                                           new Date(1547159625250L),
+                                                                                           "3e7d4662-3a40-497e-9efa-059fdfb56b43");
             assertNotNull(subtenantuserinvitation1);
             assertNotNull(subtenantuserinvitation2);
             assertNotNull(subtenantuserinvitation3);

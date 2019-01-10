@@ -184,7 +184,7 @@ public class ModelTest extends AbstractSdkArtifact {
         addExceptionHandlingStart(test);
 
         test.getCode().addStatement("$L $L1 = new $L(" + fieldValues + ")", values1.toArray());
-        test.getCode().addStatement("$L $L2 = new $L(" + fieldValues + ")", values2.toArray());
+        test.getCode().addStatement("$L $L2 = new $L(" + fieldValues + ")", values1.toArray());
         if (!formats.isEmpty()) {
             test.getCode().addStatement("$L $L3 = new $L(" + fieldValues + ")", values2.toArray());
         }
