@@ -1,5 +1,8 @@
 package com.arm.pelion.sdk.foundation.generator.input;
 
+import java.util.Locale;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Field {
@@ -13,7 +16,7 @@ public class Field {
     private Object example;
     @JsonProperty(InputSchema.ITEMS_TAG)
     private Item items;
-    @JsonProperty(InputSchema.CUSTOM_CODE_TAG)
+    @JsonAlias({ InputSchema.CUSTOM_CODE_TAG, InputSchema.CUSTOM_GETTER_CODE_TAG, InputSchema.CUSTOM_SETTER_CODE_TAG })
     private boolean customCode;
     @JsonProperty(InputSchema.DEFAULT_VALUE_TAG)
     private String defaultValue;
@@ -201,8 +204,20 @@ public class Field {
      * @param customCode
      *            the customCode to set
      */
-    public void setCustomCode(boolean customCode) {
-        this.customCode = customCode;
+    public void setCustomCode(Object customCode) {
+        if (customCode == null) {
+            return;
+        }
+
+        if (customCode instanceof Boolean) {
+            this.customCode = ((Boolean) customCode).booleanValue();
+            return;
+        }
+        if (Boolean.parseBoolean(String.valueOf(customCode))) {
+            this.customCode = true;
+            return;
+        }
+        this.customCode = !String.valueOf(customCode).toLowerCase(Locale.UK).equals("false");
     }
 
     /**

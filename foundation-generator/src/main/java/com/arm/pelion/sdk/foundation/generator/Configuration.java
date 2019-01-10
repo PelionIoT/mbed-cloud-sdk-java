@@ -22,6 +22,8 @@ public class Configuration {
 
     private String lowLevelApiModuleNameRegex;
 
+    private boolean forceRegenerateUnitTests;
+
     public Configuration() {
         rootPackageName = "com.arm.mbed.cloud.sdk";
         modelPackage = "model";
@@ -29,6 +31,7 @@ public class Configuration {
         modulePackage = null;// "module";
         factoryPackage = null;// "factory"
         lowLevelApiModuleNameRegex = ".*Api";
+        forceRegenerateUnitTests = true;
     }
 
     /**
@@ -100,11 +103,20 @@ public class Configuration {
         this.factoryPackage = factoryPackage;
     }
 
+    public boolean isForceRegenerateUnitTests() {
+        return forceRegenerateUnitTests;
+    }
+
+    public void setForceRegenerateUnitTests(boolean forceRegenerateUnitTests) {
+        this.forceRegenerateUnitTests = forceRegenerateUnitTests;
+    }
+
     @Override
     public String toString() {
         return "Configuration [rootPackageName=" + rootPackageName + ", modelPackage=" + modelPackage
                + ", adapterPackage=" + adapterPackage + ", modulePackage=" + modulePackage + ", factoryPackage="
-               + factoryPackage + ", lowLevelApiModuleNameRegex=" + lowLevelApiModuleNameRegex + "]";
+               + factoryPackage + ", lowLevelApiModuleNameRegex=" + lowLevelApiModuleNameRegex
+               + ", forceRegenerateUnitTests=" + forceRegenerateUnitTests + "]";
     }
 
     public static Configuration load(Logger logger, File configFile) {

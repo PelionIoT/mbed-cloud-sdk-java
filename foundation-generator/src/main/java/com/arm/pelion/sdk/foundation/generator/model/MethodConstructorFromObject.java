@@ -31,10 +31,15 @@ public class MethodConstructorFromObject extends AbstractMethodConstructor {
         final String parameterName = parameter == null ? "unknown" : parameter.getName();
         final List<Field> fields = getAllFields();
         code.addStatement("this(" + String.join("," + System.lineSeparator(), fields.stream().map(f -> {
+            String get = f.needsCustomCode() ? MethodGetter.getCorrespondingGetterMethodName(f.getName(),
+                                                                                             f.getType().isBoolean(),
+                                                                                             false)
+                                               + "()"
+                                             : f.getName();
             if (f.getType().isBoolean() && f.getJavaDefaultBooleanValue() == false) {
-                return parameterName + " != null && " + parameterName + "." + f.getName();
+                return parameterName + " != null && " + parameterName + "." + get;
             }
-            return parameterName + " == null ? " + f.getJavaDefaultValue() + " : " + parameterName + "." + f.getName();
+            return parameterName + " == null ? " + f.getJavaDefaultValue() + " : " + parameterName + "." + get;
         }).collect(Collectors.toList())) + ")");
     }
 

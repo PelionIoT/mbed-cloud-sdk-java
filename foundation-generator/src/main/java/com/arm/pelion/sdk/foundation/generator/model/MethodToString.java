@@ -71,7 +71,14 @@ public class MethodToString extends AbstractMethodBasedOnModel {
 
     protected String generateFlattenedListOfElements(List<Field> fields) {
         return fields == null ? "" : String.join(System.lineSeparator() + "+ \", ", fields.stream().map(f -> {
-            return f.getName() + "=\" + " + f.getName();
+            return f.getName()
+                   + "=\" + " + (f.needsCustomCode()
+                                                     ? MethodGetter.getCorrespondingGetterMethodName(f.getName(),
+                                                                                                     f.getType()
+                                                                                                      .isBoolean(),
+                                                                                                     false)
+                                                       + "()"
+                                                     : f.getName());
         }).collect(Collectors.toList()));
     }
 }

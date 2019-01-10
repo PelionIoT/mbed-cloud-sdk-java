@@ -4,5 +4,6 @@
 	"adapterPackage": "adapters",
 	"modulePackage": null,
 	"factoryPackage": null,
+	"forceUniTestRegeneration": false,
 	"lowLevelApiModuleNameRegex": ".*Api"
 }

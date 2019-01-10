@@ -32,6 +32,9 @@ public class GeneratorCli implements Runnable {
     @Option(names = { "-h", "--help" }, usageHelp = true, description = "displays this help message")
     private boolean helpRequested = false;
 
+    @Option(names = { "-f", "--forceUniTestGeneration" }, description = "forces unit test regeneration")
+    private boolean forceUniTestRegeneration = false;
+
     @Option(names = { "-v", "--version" }, versionHelp = true, description = "displays tool version information")
     boolean versionInfoRequested;
 
@@ -95,6 +98,18 @@ public class GeneratorCli implements Runnable {
 
     public void setVersionInfoRequested(boolean versionInfoRequested) {
         this.versionInfoRequested = versionInfoRequested;
+    }
+
+    public boolean isForceUniTestRegeneration() {
+        return forceUniTestRegeneration;
+    }
+
+    public void setForceUniTestRegeneration(boolean forceUniTestRegeneration) {
+        this.forceUniTestRegeneration = forceUniTestRegeneration;
+    }
+
+    public boolean forceRegenerateUnitTests() {
+        return isForceUniTestRegeneration();
     }
 
     public String getOutput() {

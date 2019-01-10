@@ -4,6 +4,7 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import org.junit.Test;
 
 /**
@@ -16,13 +17,12 @@ public class TestUser {
     @Test
     public void testClone() {
         try {
-            User user1 = new User("6b8d4446-ca54-44b0-82d2-f94a3b972343", "c89a7889-729b-4a07-a024-d22efb191e72",
-                                  new java.util.Date(1547041499955L), -125, "1452b089-b143-4a7e-a32c-865b5f2f72ba",
-                                  false, "2ccbdf3a-17f5-495f-abc0-3bbda0ce06dd", "a6ff2cfd-db81-482a-8da4-729666a526fa",
-                                  -117, null, null, true, "c6774543-9450-45e1-8481-943d91cae815", -91,
-                                  "0c821b55-2ca6-4cde-a522-18b0a29ac8c0",
-                                  com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), true, false,
-                                  new java.util.Date(1547041496931L), "aaeab222-26fc-4587-8a59-3db78589a9b9");
+            User user1 = new User("d195cd6f-d121-4e06-9847-a63833a68f17", "5a1721a0-aa51-4fc2-bb39-35700e144306",
+                                  new Date(1547159629630L), 106, "06866510-ea31-4d0e-9c70-eab77181c904", false,
+                                  "436e240a-b0ce-43fa-8760-53750ae2d807", "88a6efa4-990c-427b-a89b-ca5a466e62cb", 1,
+                                  null, null, false, "9ea580b7-33e0-4799-b363-e2f3a8cc77f2", -114,
+                                  "9d620381-77e7-4602-822f-c80b41966995", UserStatus.getDefault(), false, true,
+                                  new Date(1547159624905L), "3f445c74-54fa-4259-b425-3d71c96a7446");
             User user2 = user1.clone();
             assertNotNull(user1);
             assertNotNull(user2);
@@ -39,20 +39,18 @@ public class TestUser {
     @Test
     public void testHashCode() {
         try {
-            User user1 = new User("044d0f93-a81f-4439-9198-d0af1d68ff23", "984e8570-b11a-43b4-865b-85f184144698",
-                                  new java.util.Date(1547041492491L), -101, "8dbf010c-925f-4038-b5fc-6e48798bd634",
-                                  false, "1e360956-002f-4399-8eb7-f9525d1d9327", "28098990-1542-4100-ab53-b4668918fc6a",
-                                  -13, null, null, false, "abe6c1f6-3851-45bb-8549-0298b0873c2b", -125,
-                                  "2bf8f5c0-5e74-4993-b6cf-5202f945d754",
-                                  com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), true, true,
-                                  new java.util.Date(1547041496758L), "1da355e9-f26a-4196-8360-3ebeec63056f");
-            User user2 = new User("044d0f93-a81f-4439-9198-d0af1d68ff23", "984e8570-b11a-43b4-865b-85f184144698",
-                                  new java.util.Date(1547041492491L), -101, "8dbf010c-925f-4038-b5fc-6e48798bd634",
-                                  false, "1e360956-002f-4399-8eb7-f9525d1d9327", "28098990-1542-4100-ab53-b4668918fc6a",
-                                  -13, null, null, false, "abe6c1f6-3851-45bb-8549-0298b0873c2b", -125,
-                                  "2bf8f5c0-5e74-4993-b6cf-5202f945d754",
-                                  com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), true, true,
-                                  new java.util.Date(1547041496758L), "1da355e9-f26a-4196-8360-3ebeec63056f");
+            User user1 = new User("0e7dc6c2-c4e3-4c83-b45a-b22bef555ae1", "4994142f-7766-48a0-a66d-29609dfa04d9",
+                                  new Date(1547159628477L), -64, "3b839384-34c8-4ae0-b432-56001756df2f", false,
+                                  "314c4c9f-1488-48cd-a1e4-9a2927e1c6ae", "06db39fd-3787-4dc5-b64c-1d5203987d23", -59,
+                                  null, null, false, "2c580594-1768-4951-9b72-52f7a0a79045", 25,
+                                  "a4d3488e-9d15-41f1-90c2-4e3c2e415d9c", UserStatus.getDefault(), false, false,
+                                  new Date(1547159623088L), "5045a02f-109a-486c-ba77-88ddfe408e14");
+            User user2 = new User("0e7dc6c2-c4e3-4c83-b45a-b22bef555ae1", "4994142f-7766-48a0-a66d-29609dfa04d9",
+                                  new Date(1547159628477L), -64, "3b839384-34c8-4ae0-b432-56001756df2f", false,
+                                  "314c4c9f-1488-48cd-a1e4-9a2927e1c6ae", "06db39fd-3787-4dc5-b64c-1d5203987d23", -59,
+                                  null, null, false, "2c580594-1768-4951-9b72-52f7a0a79045", 25,
+                                  "a4d3488e-9d15-41f1-90c2-4e3c2e415d9c", UserStatus.getDefault(), false, false,
+                                  new Date(1547159623088L), "5045a02f-109a-486c-ba77-88ddfe408e14");
             assertNotNull(user1);
             assertNotNull(user2);
             assertNotSame(user2, user1);
@@ -72,21 +70,18 @@ public class TestUser {
      */
     @Test
     public void testIsValid() {
-        User user = new User("4e51a6b2-e285-488e-8f94-6e63a66c454b", "a54ee433-562f-47fc-9be1-95939d39a729",
-                             new java.util.Date(1547041493371L), -62, "5fdb6dc6-ca9f-4c10-9056-893c6c3674a3", false,
-                             "90ee2ffe-57a3-4581-affa-63f5599a1a34", "c9f5fddf-31a1-4407-829e-b962cf1464e8", 60, null,
-                             null, true, "88feb36d-dcff-44a1-b372-dc070d97f79c", 50,
-                             "7e7605f0-6422-48cc-8bf9-e2f16fee3429",
-                             com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), false, false,
-                             new java.util.Date(1547041496912L), "03dab116-246e-4c3a-8dfe-ab7e48181aff");
+        User user = new User("dd090261-b4d1-4223-bc89-158e06d6f978", "a1529742-4d62-4d46-bb7c-9e4ae9ab1d21",
+                             new Date(1547159627665L), -89, "c00a3329-5f0e-4b20-868f-4bb0bcf813d9", false,
+                             "e2a3d1f2-af1f-4515-b914-d1bbad75f845", "43a9d44b-4f84-47e6-b9e4-cfc410433d35", 65, null,
+                             null, false, "d7188b6a-5df5-47bb-b299-741b73dc7011", 32,
+                             "87850663-d996-4e2b-bad2-54a466f469c0", UserStatus.getDefault(), true, true,
+                             new Date(1547159620721L), "6c5169c4-4450-47e8-ab7b-49f10e21945f");
         assertTrue(user.isValid());
-        User userInvalid = new User("71e2446e-01c8-49f6-8358-727e68c1eecb", "0de6060f-aa43-4932-a803-ab459cdb11a1",
-                                    new java.util.Date(1547041495471L), -109, null, false,
-                                    "8b58bc2b-5358-437e-a293-185bbcd26d3e", null, -86, null, null, false,
-                                    "7bbfc7ec-ed7b-40b4-96bb-32bdbf8b5395", -111,
-                                    "a0c58644-bb0f-4e52-8c65-beb2a1e4e5fe",
-                                    com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), true, true,
-                                    new java.util.Date(1547041498238L), "7935fc2d-2200-4d18-a51b-579b235815d4");
+        User userInvalid = new User("91f6dec2-dfba-4a64-a675-599b4b7f8df3", "7f509222-99da-4b79-8b20-5ca9136e833d",
+                                    new Date(1547159626741L), 55, null, true, "33e7e43d-0be9-4e0d-bf6b-34c893f5cb0c",
+                                    null, 75, null, null, true, "409484a2-7b1d-40a3-ab7d-5aea0113f4ff", -74,
+                                    "3942f03a-28e0-4cbc-92c6-a5cb7d7ab41d", UserStatus.getDefault(), false, false,
+                                    new Date(1547159629784L), "9507ae98-e2c6-4f73-a484-55e92f0bcd51");
         assertFalse(userInvalid.isValid());
     }
 
@@ -96,27 +91,24 @@ public class TestUser {
     @Test
     public void testEquals() {
         try {
-            User user1 = new User("8b0a3333-2333-41a1-9b3b-1b3cb54c80b7", "1abf7a9d-c329-4781-8f41-2b6a2629c998",
-                                  new java.util.Date(1547041496618L), 84, "7794b581-eb6b-4afc-8aeb-a364178c4786", true,
-                                  "0ebae246-a51d-4b14-b221-bb940fd99e4a", "8e5bc824-afbc-4f02-a6b6-7e40cfa70ecf", 108,
-                                  null, null, true, "df5ca100-26cb-43dc-aa56-89b0e7b59a02", -42,
-                                  "fbbb4f9c-92ed-4b4e-85be-c8fd5ac06e49",
-                                  com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), true, false,
-                                  new java.util.Date(1547041493187L), "85e7911c-7fdf-46d1-b9f7-f7dccb500f3a");
-            User user2 = new User("8b0a3333-2333-41a1-9b3b-1b3cb54c80b7", "1abf7a9d-c329-4781-8f41-2b6a2629c998",
-                                  new java.util.Date(1547041496618L), 84, "7794b581-eb6b-4afc-8aeb-a364178c4786", true,
-                                  "0ebae246-a51d-4b14-b221-bb940fd99e4a", "8e5bc824-afbc-4f02-a6b6-7e40cfa70ecf", 108,
-                                  null, null, true, "df5ca100-26cb-43dc-aa56-89b0e7b59a02", -42,
-                                  "fbbb4f9c-92ed-4b4e-85be-c8fd5ac06e49",
-                                  com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), true, false,
-                                  new java.util.Date(1547041493187L), "85e7911c-7fdf-46d1-b9f7-f7dccb500f3a");
-            User user3 = new User("11e343a0-5ea0-4701-8c36-f09db4477a85", "903af793-3ed3-4203-bbaa-5905c31701c2",
-                                  new java.util.Date(1547041499991L), -120, "5c7d8403-cf8d-433d-ba0b-ea10155220cd",
-                                  false, "570a43fb-cce4-4c84-8ebc-83981ab14491", "447d2eb3-07ee-4b91-8d4c-5f1c4f1d4327",
-                                  -16, null, null, false, "32c7addc-7720-4ed3-8ea6-cf8a98fa0981", 39,
-                                  "bc83ca76-ae5f-4790-b055-feaf003c6a78",
-                                  com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), true, false,
-                                  new java.util.Date(1547041491300L), "fbae55f4-ce90-4528-8c1b-d63ff5eb22c2");
+            User user1 = new User("490c37d8-7970-4231-9f2a-534f955d839d", "f03316f5-7190-405f-bb49-70a4f4702106",
+                                  new Date(1547159623027L), -81, "67db147c-de41-4320-9bf9-5ca1221908f7", true,
+                                  "6b15e4e5-c60a-42a5-af5f-9af80ccf5a61", "e16c8d14-5ad6-4b6a-8df6-fc5a01a6e57d", -60,
+                                  null, null, true, "eced4928-6af7-45f7-b859-c6249fe55d76", -125,
+                                  "1dc6da9c-7c43-4a22-8a81-ab12e6e92e87", UserStatus.getDefault(), false, false,
+                                  new Date(1547159626578L), "7853cb63-d243-445b-a287-dd3665c0eedf");
+            User user2 = new User("490c37d8-7970-4231-9f2a-534f955d839d", "f03316f5-7190-405f-bb49-70a4f4702106",
+                                  new Date(1547159623027L), -81, "67db147c-de41-4320-9bf9-5ca1221908f7", true,
+                                  "6b15e4e5-c60a-42a5-af5f-9af80ccf5a61", "e16c8d14-5ad6-4b6a-8df6-fc5a01a6e57d", -60,
+                                  null, null, true, "eced4928-6af7-45f7-b859-c6249fe55d76", -125,
+                                  "1dc6da9c-7c43-4a22-8a81-ab12e6e92e87", UserStatus.getDefault(), false, false,
+                                  new Date(1547159626578L), "7853cb63-d243-445b-a287-dd3665c0eedf");
+            User user3 = new User("b9c209c8-6206-4bc2-b3e2-ba30ecc691f0", "d31dde7e-610b-4663-b02f-04a2aabb13cb",
+                                  new Date(1547159627068L), -58, "9c8b8a73-2a9b-439e-8e6b-8658915b3741", true,
+                                  "b3420560-670a-40bf-9e8f-11e11408d973", "21042fe8-2be0-4597-aab3-374cac2bb752", -68,
+                                  null, null, true, "4c4249d1-87fb-4a2f-ae30-056de985fae0", 69,
+                                  "28363d37-c4c1-4308-836f-319d3a94e441", UserStatus.getDefault(), false, false,
+                                  new Date(1547159627023L), "08ffe222-b3c1-47a7-bb75-b9a1902ee56d");
             assertNotNull(user1);
             assertNotNull(user2);
             assertNotNull(user3);
