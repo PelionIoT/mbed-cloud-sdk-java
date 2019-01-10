@@ -3,13 +3,12 @@
 // Code customisation should happen in the child class [SubtenantTrustedCertificate]
 package com.arm.mbed.cloud.sdk.security.model;
 
-import java.util.Date;
-import java.util.Objects;
-
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  * Model for a subtenant trusted certificate.

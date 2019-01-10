@@ -17,11 +17,11 @@ public class TestCertificateIssuer {
     @Test
     public void testClone() {
         try {
-            CertificateIssuer certificateissuer1 = new CertificateIssuer(new Date(1547159625189L),
-                                                                         "9484783c-bf44-45fa-9fdd-3b8b5bd86ae8",
-                                                                         "b77b8584-869f-4811-afc9-3c59f85284c1", null,
+            CertificateIssuer certificateissuer1 = new CertificateIssuer(new Date(1547164358856L),
+                                                                         "73079351-641b-4ae0-b5dd-253d8c52b4fe",
+                                                                         "ff029208-e33a-4b19-a4d6-904a65a97386", null,
                                                                          CertificateIssuerType.getDefault(),
-                                                                         "ab55996d-6e7d-4487-8053-548708cb58aa");
+                                                                         "9a71bdbb-fa76-4887-a380-eee1bb2b96a7");
             CertificateIssuer certificateissuer2 = certificateissuer1.clone();
             assertNotNull(certificateissuer1);
             assertNotNull(certificateissuer2);
@@ -38,16 +38,16 @@ public class TestCertificateIssuer {
     @Test
     public void testHashCode() {
         try {
-            CertificateIssuer certificateissuer1 = new CertificateIssuer(new Date(1547159627066L),
-                                                                         "e4d21d74-56d4-450b-99fd-b405b6ddd0d3",
-                                                                         "42999883-0d95-414e-a33d-470e207f1561", null,
+            CertificateIssuer certificateissuer1 = new CertificateIssuer(new Date(1547164364685L),
+                                                                         "daf02101-91f9-4d7c-8a6f-fdf63116fdca",
+                                                                         "c4c69f80-477e-4aee-8aff-c4b6b38d1e0a", null,
                                                                          CertificateIssuerType.getDefault(),
-                                                                         "c66836e9-6df1-4435-896f-188ae59229b8");
-            CertificateIssuer certificateissuer2 = new CertificateIssuer(new Date(1547159627066L),
-                                                                         "e4d21d74-56d4-450b-99fd-b405b6ddd0d3",
-                                                                         "42999883-0d95-414e-a33d-470e207f1561", null,
+                                                                         "20a8a78b-1d4a-474b-82ea-0035bb783a22");
+            CertificateIssuer certificateissuer2 = new CertificateIssuer(new Date(1547164364685L),
+                                                                         "daf02101-91f9-4d7c-8a6f-fdf63116fdca",
+                                                                         "c4c69f80-477e-4aee-8aff-c4b6b38d1e0a", null,
                                                                          CertificateIssuerType.getDefault(),
-                                                                         "c66836e9-6df1-4435-896f-188ae59229b8");
+                                                                         "20a8a78b-1d4a-474b-82ea-0035bb783a22");
             assertNotNull(certificateissuer1);
             assertNotNull(certificateissuer2);
             assertNotSame(certificateissuer2, certificateissuer1);
@@ -67,14 +67,14 @@ public class TestCertificateIssuer {
      */
     @Test
     public void testIsValid() {
-        CertificateIssuer certificateissuer = new CertificateIssuer(new Date(1547159621172L),
-                                                                    "83ff3c6c-dafb-4f29-9b66-522dd0839c77",
-                                                                    "5ee2df5e-61f6-4608-8b30-97c2572709b7", null,
+        CertificateIssuer certificateissuer = new CertificateIssuer(new Date(1547164359404L),
+                                                                    "0f970234-1307-4217-afd5-25e65a9dd968",
+                                                                    "7827e057-ed9f-46b4-acef-be5b692f59c7", null,
                                                                     CertificateIssuerType.getDefault(),
-                                                                    "f7ebbd80-0438-4b5f-bad0-9192fee51110");
+                                                                    "8536d410-ad83-426e-b881-528c73730ce9");
         assertTrue(certificateissuer.isValid());
-        CertificateIssuer certificateissuerInvalid = new CertificateIssuer(new Date(1547159627735L),
-                                                                           "9187439c-f0e8-42e4-8484-a0e5626fc9cc", null,
+        CertificateIssuer certificateissuerInvalid = new CertificateIssuer(new Date(1547164367234L),
+                                                                           "ebe44fa7-5abd-41fb-9205-5bc8edafc799", null,
                                                                            null, CertificateIssuerType.getDefault(),
                                                                            null);
         assertFalse(certificateissuerInvalid.isValid());
@@ -86,21 +86,21 @@ public class TestCertificateIssuer {
     @Test
     public void testEquals() {
         try {
-            CertificateIssuer certificateissuer1 = new CertificateIssuer(new Date(1547159627528L),
-                                                                         "1121b464-187a-48fe-b618-37924c4a8dec",
-                                                                         "4b214a0c-9d10-40f1-87a2-8d21ed124362", null,
+            CertificateIssuer certificateissuer1 = new CertificateIssuer(new Date(1547164365169L),
+                                                                         "0e1930dc-fe98-43c5-94e2-5e8d1bc5d546",
+                                                                         "56e5d4f2-994f-4a8b-9b63-73b45c4d5764", null,
                                                                          CertificateIssuerType.getDefault(),
-                                                                         "b4cc4349-fbe0-4332-9744-ad1c88b3c4f4");
-            CertificateIssuer certificateissuer2 = new CertificateIssuer(new Date(1547159627528L),
-                                                                         "1121b464-187a-48fe-b618-37924c4a8dec",
-                                                                         "4b214a0c-9d10-40f1-87a2-8d21ed124362", null,
+                                                                         "62457910-a328-466e-8a2e-2827692b160c");
+            CertificateIssuer certificateissuer2 = new CertificateIssuer(new Date(1547164365169L),
+                                                                         "0e1930dc-fe98-43c5-94e2-5e8d1bc5d546",
+                                                                         "56e5d4f2-994f-4a8b-9b63-73b45c4d5764", null,
                                                                          CertificateIssuerType.getDefault(),
-                                                                         "b4cc4349-fbe0-4332-9744-ad1c88b3c4f4");
-            CertificateIssuer certificateissuer3 = new CertificateIssuer(new Date(1547159629463L),
-                                                                         "4fe711ab-d5b8-44a4-8617-c5283044e77b",
-                                                                         "0e962b96-5d74-4317-a6a7-84aebfa53dd2", null,
+                                                                         "62457910-a328-466e-8a2e-2827692b160c");
+            CertificateIssuer certificateissuer3 = new CertificateIssuer(new Date(1547164365616L),
+                                                                         "2496edef-8240-4d2e-a22b-4cb6ac53e598",
+                                                                         "9c11fad6-6027-480d-a4e2-e78442a69c19", null,
                                                                          CertificateIssuerType.getDefault(),
-                                                                         "3957e354-6af0-4b8b-a21e-c54b169acfd6");
+                                                                         "63ae5b64-8765-4636-bbb5-cb1a02b05660");
             assertNotNull(certificateissuer1);
             assertNotNull(certificateissuer2);
             assertNotNull(certificateissuer3);
