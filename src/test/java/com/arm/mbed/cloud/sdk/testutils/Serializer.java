@@ -388,7 +388,7 @@ public class Serializer {
     private static <T> T convertObject(Class<T> objectClass, JsonObject transformedObject) throws APICallException {
         try {
             if (Map.class.isAssignableFrom(objectClass)) {
-                return performWorkaroundFoMapDeserialisation(objectClass, transformedObject);
+                return performWorkaroundForMapDeserialisation(objectClass, transformedObject);
             }
             return transformedObject.mapTo(objectClass);
         } catch (IllegalArgumentException | ClassCastException e) {
@@ -426,12 +426,12 @@ public class Serializer {
         return result;
     }
 
-    private static <T> T performWorkaroundFoMapDeserialisation(Class<T> objectClass,
-                                                               JsonObject transformedObject) throws APICallException {
+    private static <T> T performWorkaroundForMapDeserialisation(Class<T> objectClass,
+                                                                JsonObject transformedObject) throws APICallException {
         // This is a temporary fix to solve the problem raised against Vertx JsonObject
         // https://github.com/eclipse/vert.x/issues/2286
-        // The following goes through all key/value pairs and verify that the object does not have field that
-        // corresponds (i.e key equals field name). If so, it tries to set the field with the value.
+        // The following goes through all key/value pairs and verifies that the object does not have fields that
+        // correspond (i.e key equals field name). If so, it tries to set the field with the value.
         // The following is a bit of a hack and has not been thoroughly tested
         try {
             Constructor<T> constructor = objectClass.getConstructor();

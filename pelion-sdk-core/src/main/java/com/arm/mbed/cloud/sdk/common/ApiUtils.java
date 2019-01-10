@@ -1,13 +1,9 @@
 package com.arm.mbed.cloud.sdk.common;
 
-import java.lang.reflect.Field;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.annotations.Required;
 
 @Preamble(description = "Utilities for APIs")
 @Internal
@@ -48,39 +44,11 @@ public final class ApiUtils {
      *             if the model instance is invalid.
      */
     public static void checkModelValidity(SdkLogger logger, SdkModel model, String argName) throws MbedCloudException {
-        if (model == null) {
+        final String errorMessage = SdkUtils.checkModelValidity(model, argName);
+        if (errorMessage == null) {
             return;
         }
-        if (model.isValid()) {
-            return;
-        }
-
-        final Field[] modelFields = model.getClass().getDeclaredFields();
-
-        final List<String> missingFields = new LinkedList<>();
-
-        for (final Field modelField : modelFields) {
-            if (modelField.isAnnotationPresent(Required.class)) {
-                Object value = null;
-                try {
-                    modelField.setAccessible(true);
-                    value = modelField.get(model);
-                } catch (IllegalArgumentException | IllegalAccessException exception) {
-                    // Nothing to do
-                }
-                if (value == null) {
-                    missingFields.add(modelField.getName());
-                }
-            }
-
-        }
-        final StringBuilder errorBuilder = missingFields.isEmpty() ? SdkUtils.generateInvalidModelInstanceErrorMessage(model,
-                                                                                                                       argName)
-                                                                   : SdkUtils.generateModelInstanceWithMissingFieldsErrorMessage(model,
-                                                                                                                                 missingFields,
-                                                                                                                                 argName);
-        logger.throwSdkException(new IllegalArgumentException(errorBuilder.toString()));
-
+        logger.throwSdkException(new IllegalArgumentException(errorMessage));
     }
 
     /**

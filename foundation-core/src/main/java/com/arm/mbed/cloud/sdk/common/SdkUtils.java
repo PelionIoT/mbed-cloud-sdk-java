@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,12 +13,14 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.codec.binary.Hex;
 
+import com.arm.mbed.cloud.sdk.annotations.NonNull;
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 
 @Preamble(description = "SDK Utilities")
 public final class SdkUtils {
-
+    public static final String METHOD_GET_MODEL_REQUIRED_FIELDS_MESSAGE = "describeRequiredFields";
     private static final Pattern JSON_ARRAY_PATTERN = Pattern.compile("\\[([\'\"][\\w-\\s\\S]*[\'\"],?)*\\]");
 
     private SdkUtils() {
@@ -125,6 +128,87 @@ public final class SdkUtils {
     }
 
     /**
+     * Checks model validity
+     * 
+     * @param model
+     *            corresponding model
+     * @param argName
+     *            model instance name.
+     * @return null if model is valid, the error message otherwise.
+     */
+    public static String checkModelValidity(SdkModel model, String argName) {
+        if (model == null) {
+            return null;
+        }
+        if (model.isValid()) {
+            return null;
+        }
+
+        final List<Field> missingFields = determineMissingFields(model);
+        final StringBuilder errorBuilder = missingFields.isEmpty() ? SdkUtils.generateInvalidModelInstanceErrorMessage(model,
+                                                                                                                       argName)
+                                                                   : SdkUtils.generateModelInstanceRequiredFieldsMessage(model,
+                                                                                                                         missingFields,
+                                                                                                                         argName);
+        return errorBuilder.toString();
+    }
+
+    public String describeRequiredFields(SdkModel model) {
+        return generateModelInstanceRequiredFieldsMessage(model, listRequiredFields(model), "model",
+                                                          (model == null ? SdkModel.class
+                                                                         : model.getClass()).getSimpleName()).toString();
+    }
+
+    /**
+     * Lists all model required fields.
+     * 
+     * @param model
+     *            corresponding model.
+     * @return list of required fields.
+     * 
+     */
+    public static @NonNull List<Field> listRequiredFields(@Nullable SdkModel model) {
+        final List<Field> requiredFields = new LinkedList<>();
+        if (model == null) {
+            return requiredFields;
+        }
+        for (Class<?> clazz = model.getClass(); clazz != Object.class; clazz = clazz.getSuperclass()) {
+            final Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                if (field.isAnnotationPresent(Required.class)) {
+                    requiredFields.add(field);
+                }
+            }
+        }
+        return requiredFields;
+    }
+
+    /**
+     * Determines a list of unset required fields.
+     * 
+     * @param model
+     *            corresponding model
+     * @return list of unset fields
+     */
+    public static @NonNull List<Field> determineMissingFields(@Nullable SdkModel model) {
+        final List<Field> missingFields = new LinkedList<>();
+        final List<Field> modelFields = listRequiredFields(model);
+        for (final Field modelField : modelFields) {
+            Object value = null;
+            try {
+                modelField.setAccessible(true);
+                value = modelField.get(model);
+            } catch (IllegalArgumentException | IllegalAccessException exception) {
+                // Nothing to do
+            }
+            if (value == null) {
+                missingFields.add(modelField);
+            }
+        }
+        return missingFields;
+    }
+
+    /**
      * Generates an error message for invalid models.
      * 
      * @param model
@@ -143,47 +227,55 @@ public final class SdkUtils {
     }
 
     /**
-     * Generates an error message for invalid models.
+     * Generates a message for listing model required fields.
      * <p>
-     * Determines which fields are problematic and describe some mitigation actions.
+     * Determines which fields are required and describes how to set them.
      * 
      * @param model
      *            corresponding model.
-     * @param missingFields
-     *            missing fields
+     * @param requiredFields
+     *            model required fields
+     * @param argType
+     *            type of the parameter e.g. model, parameter, etc.
      * @param argName
      *            model instance name
-     * @return error message
+     * @return message regarding required fields.
      */
-    public static StringBuilder generateModelInstanceWithMissingFieldsErrorMessage(SdkModel model,
-                                                                                   List<String> missingFields,
-                                                                                   String argName) {
+    public static StringBuilder generateModelInstanceRequiredFieldsMessage(SdkModel model, List<Field> requiredFields,
+                                                                           String argType, String argName) {
+        if (requiredFields == null || requiredFields.isEmpty()) {
+            final StringBuilder errorBuilder = new StringBuilder();
+            errorBuilder.append(argType).append(" [");
+            errorBuilder.append(argName);
+            errorBuilder.append("] has no required fields.");
+        }
         final List<String> setters = new LinkedList<>();
-        final Method[] modelMethods = model.getClass().getDeclaredMethods();
+        final Method[] modelMethods = model.getClass().getMethods();
         for (final Method modelMethod : modelMethods) {
             if (modelMethod.isAnnotationPresent(Required.class)) {
-                for (final String missingField : missingFields) {
-                    if (modelMethod.getName().toLowerCase(Locale.UK).contains(missingField.toLowerCase(Locale.UK))) {
+                for (final Field missingField : requiredFields) {
+                    if (modelMethod.getName().toLowerCase(Locale.UK)
+                                   .contains(missingField.getName().toLowerCase(Locale.UK))) {
                         setters.add(modelMethod.getName());
                         break;
                     }
                 }
             }
-            if (setters.size() == missingFields.size()) {
+            if (setters.size() == requiredFields.size()) {
                 break;
             }
         }
         final StringBuilder errorBuilder = new StringBuilder(200);
         boolean start = true;
         errorBuilder.append("Fields [");
-        for (final String missingField : missingFields) {
+        for (final Field missingField : requiredFields) {
             if (!start) {
                 errorBuilder.append(", ");
             }
-            errorBuilder.append(missingField);
+            errorBuilder.append(missingField.getName());
             start = false;
         }
-        errorBuilder.append("] of parameter [");
+        errorBuilder.append("] of ").append(argType).append(" [");
         errorBuilder.append(argName);
         errorBuilder.append("] are required. Please ensure they get set using the following setters: ");
         start = true;
@@ -196,6 +288,24 @@ public final class SdkUtils {
         }
         errorBuilder.append('.');
         return errorBuilder;
+    }
+
+    /**
+     * Generates a message for listing model required fields.
+     * <p>
+     * Determines which fields are required and describes how to set them.
+     * 
+     * @param model
+     *            corresponding model.
+     * @param requiredFields
+     *            model required fields
+     * @param argName
+     *            model instance name
+     * @return error message
+     */
+    public static StringBuilder generateModelInstanceRequiredFieldsMessage(SdkModel model, List<Field> requiredFields,
+                                                                           String argName) {
+        return generateModelInstanceRequiredFieldsMessage(model, requiredFields, "parameter", argName);
     }
 
     /**
