@@ -18,6 +18,7 @@ import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
 import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate;
 import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions;
 
@@ -156,6 +157,93 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     }
 
     /**
+     * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#allTrustedCertificates(String,String,String,Integer,Integer,Integer,String,Boolean,String,String,String,SubtenantTrustedCertificateListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param nameEq
+     *            null
+     * @param serviceEq
+     *            null
+     * @param expireEq
+     *            null
+     * @param deviceExecutionModeEq
+     *            null
+     * @param deviceExecutionModeNeq
+     *            null
+     * @param ownerEq
+     *            null
+     * @param enrollmentModeEq
+     *            null
+     * @param statusEq
+     *            null
+     * @param issuerLike
+     *            null
+     * @param subjectLike
+     *            null
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant trusted certificates
+     */
+    public Paginator<SubtenantTrustedCertificate>
+           allTrustedCertificates(@NonNull String id, @Nullable String nameEq, @Nullable String serviceEq,
+                                  @Nullable Integer expireEq, @Nullable Integer deviceExecutionModeEq,
+                                  @Nullable Integer deviceExecutionModeNeq, @Nullable String ownerEq,
+                                  @Nullable Boolean enrollmentModeEq, @Nullable String statusEq,
+                                  @Nullable String issuerLike, @Nullable String subjectLike,
+                                  @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
+        checkDaoConfiguration();
+        return ((Accounts) module).allTrustedCertificates(id, nameEq, serviceEq, expireEq, deviceExecutionModeEq,
+                                                          deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq,
+                                                          issuerLike, subjectLike, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#allTrustedCertificates(String,String,Integer,Integer,Integer,String,Boolean,String,String,String,SubtenantTrustedCertificateListOptions,Account)}
+     * 
+     * @param nameEq
+     *            null
+     * @param serviceEq
+     *            null
+     * @param expireEq
+     *            null
+     * @param deviceExecutionModeEq
+     *            null
+     * @param deviceExecutionModeNeq
+     *            null
+     * @param ownerEq
+     *            null
+     * @param enrollmentModeEq
+     *            null
+     * @param statusEq
+     *            null
+     * @param issuerLike
+     *            null
+     * @param subjectLike
+     *            null
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant trusted certificates
+     */
+    public Paginator<SubtenantTrustedCertificate>
+           allTrustedCertificates(@Nullable String nameEq, @Nullable String serviceEq, @Nullable Integer expireEq,
+                                  @Nullable Integer deviceExecutionModeEq, @Nullable Integer deviceExecutionModeNeq,
+                                  @Nullable String ownerEq, @Nullable Boolean enrollmentModeEq,
+                                  @Nullable String statusEq, @Nullable String issuerLike, @Nullable String subjectLike,
+                                  @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
+        checkDaoConfiguration();
+        return ((Accounts) module).allTrustedCertificates(nameEq, serviceEq, expireEq, deviceExecutionModeEq,
+                                                          deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq,
+                                                          issuerLike, subjectLike, options, getModel());
+    }
+
+    /**
      * Get all trusted certificates.
      * 
      * <p>
@@ -260,6 +348,46 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     }
 
     /**
+     * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#allUserInvitations(String,String,SubtenantUserInvitationListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param loginProfileEq
+     *            null
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant user invitations
+     */
+    public Paginator<SubtenantUserInvitation>
+           allUserInvitations(@NonNull String id, @Nullable String loginProfileEq,
+                              @Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
+        checkDaoConfiguration();
+        return ((Accounts) module).allUserInvitations(id, loginProfileEq, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#allUserInvitations(String,SubtenantUserInvitationListOptions,Account)}
+     * 
+     * @param loginProfileEq
+     *            null
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant user invitations
+     */
+    public Paginator<SubtenantUserInvitation>
+           allUserInvitations(@Nullable String loginProfileEq,
+                              @Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
+        checkDaoConfiguration();
+        return ((Accounts) module).allUserInvitations(loginProfileEq, options, getModel());
+    }
+
+    /**
      * Get the details of all the user invitations.
      * 
      * <p>
@@ -308,6 +436,65 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
                                              @Nullable SubtenantUserListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
         return ((Accounts) module).users(id, emailEq, statusEq, statusIn, statusNin, loginProfileEq, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#allUsers(String,String,String,String,String,String,SubtenantUserListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param emailEq
+     *            null
+     * @param statusEq
+     *            null
+     * @param statusIn
+     *            null
+     * @param statusNin
+     *            null
+     * @param loginProfileEq
+     *            null
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant users
+     */
+    public Paginator<SubtenantUser> allUsers(@NonNull String id, @Nullable String emailEq, @Nullable String statusEq,
+                                             @Nullable String statusIn, @Nullable String statusNin,
+                                             @Nullable String loginProfileEq,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        checkDaoConfiguration();
+        return ((Accounts) module).allUsers(id, emailEq, statusEq, statusIn, statusNin, loginProfileEq, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#allUsers(String,String,String,String,String,SubtenantUserListOptions,Account)}
+     * 
+     * @param emailEq
+     *            null
+     * @param statusEq
+     *            null
+     * @param statusIn
+     *            null
+     * @param statusNin
+     *            null
+     * @param loginProfileEq
+     *            null
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant users
+     */
+    public Paginator<SubtenantUser> allUsers(@Nullable String emailEq, @Nullable String statusEq,
+                                             @Nullable String statusIn, @Nullable String statusNin,
+                                             @Nullable String loginProfileEq,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        checkDaoConfiguration();
+        return ((Accounts) module).allUsers(emailEq, statusEq, statusIn, statusNin, loginProfileEq, options,
+                                            getModel());
     }
 
     /**

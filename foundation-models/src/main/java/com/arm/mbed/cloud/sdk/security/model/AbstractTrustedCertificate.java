@@ -60,7 +60,6 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
     /**
      * Entity ID.
      */
-    @Required
     protected String id;
 
     /**
@@ -224,15 +223,13 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
      * 
      * @param certificate
      *            X509.v3 trusted certificate in PEM format.
-     * @param id
-     *            Entity ID.
      * @param name
      *            Certificate name.
      * @param service
      *            Service name where the certificate is to be used.
      */
-    public AbstractTrustedCertificate(String certificate, String id, String name, TrustedCertificateService service) {
-        this((String) null, certificate, (String) null, new java.util.Date(), (String) null, 0, false, id,
+    public AbstractTrustedCertificate(String certificate, String name, TrustedCertificateService service) {
+        this((String) null, certificate, (String) null, new java.util.Date(), (String) null, 0, false, (String) null,
              (String) null, name, (String) null, service, TrustedCertificateStatus.getDefault(), (String) null,
              new java.util.Date(), new java.util.Date());
     }
@@ -398,7 +395,6 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
      *            Entity ID.
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -412,19 +408,8 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
      *            Entity ID.
      */
     @Internal
-    @Required
     public void setTrustedCertificateId(String trustedCertificateId) {
         setId(trustedCertificateId);
-    }
-
-    /**
-     * Checks whether id value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIdValid() {
-        return id != null;
     }
 
     /**
@@ -804,6 +789,6 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isCertificateValid() && isIdValid() && isNameValid() && isServiceValid();
+        return isCertificateValid() && isNameValid() && isServiceValid();
     }
 }

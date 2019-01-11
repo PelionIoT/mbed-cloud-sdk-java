@@ -116,6 +116,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     private void ensureIdentifiersAreCorrectlySet() {
         if (isIdentifier()) {
             super.setReadOnly(false);
+            setRequired(false);
         }
     }
 
@@ -181,6 +182,9 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
 
     public void setAsIdentifier(boolean isIdentifier) {
         this.isIdentifier = isIdentifier;
+        if (isIdentifier) {
+            setRequired(false);
+        }
     }
 
     /**
@@ -290,7 +294,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
      *            the isRequired to set
      */
     public void setRequired(boolean isRequired) {
-        this.isRequired = isRequired;
+        this.isRequired = isIdentifier() ? false : isRequired;
     }
 
     protected void initialiseBuilder() throws TranslationException {

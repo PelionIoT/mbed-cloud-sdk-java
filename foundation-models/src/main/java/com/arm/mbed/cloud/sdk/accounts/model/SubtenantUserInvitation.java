@@ -44,7 +44,6 @@ public class SubtenantUserInvitation implements SdkModel {
     /**
      * The ID of the invitation.
      */
-    @Required
     private String id;
 
     /**
@@ -145,11 +144,9 @@ public class SubtenantUserInvitation implements SdkModel {
      *            The ID of the account the user is invited to.
      * @param email
      *            Email address of the invited user.
-     * @param id
-     *            The ID of the invitation.
      */
-    public SubtenantUserInvitation(String accountId, String email, String id) {
-        this(accountId, new java.util.Date(), email, new java.util.Date(), id, null, new java.util.Date(),
+    public SubtenantUserInvitation(String accountId, String email) {
+        this(accountId, new java.util.Date(), email, new java.util.Date(), (String) null, null, new java.util.Date(),
              (String) null);
     }
 
@@ -268,7 +265,6 @@ public class SubtenantUserInvitation implements SdkModel {
      *            The ID of the invitation.
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -282,19 +278,8 @@ public class SubtenantUserInvitation implements SdkModel {
      *            The ID of the invitation.
      */
     @Internal
-    @Required
     public void setSubtenantUserInvitationId(String subtenantUserInvitationId) {
         setId(subtenantUserInvitationId);
-    }
-
-    /**
-     * Checks whether id value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIdValid() {
-        return id != null;
     }
 
     /**
@@ -496,7 +481,7 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isAccountIdValid() && isEmailValid() && isIdValid();
+        return isAccountIdValid() && isEmailValid();
     }
 
     /**

@@ -41,7 +41,6 @@ public class DeveloperCertificate implements SdkModel {
     /**
      * mUUID that uniquely identifies the developer certificate.
      */
-    @Required
     private String id;
 
     /**
@@ -125,18 +124,6 @@ public class DeveloperCertificate implements SdkModel {
     public DeveloperCertificate(String id) {
         this();
         setId(id);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param id
-     *            mUUID that uniquely identifies the developer certificate.
-     * @param name
-     *            Name of the developer certificate.
-     */
-    public DeveloperCertificate(String id, String name) {
-        this((String) null, (String) null, new java.util.Date(), (String) null, id, name, (String) null);
     }
 
     /**
@@ -232,7 +219,6 @@ public class DeveloperCertificate implements SdkModel {
      *            mUUID that uniquely identifies the developer certificate.
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -246,19 +232,8 @@ public class DeveloperCertificate implements SdkModel {
      *            mUUID that uniquely identifies the developer certificate.
      */
     @Internal
-    @Required
     public void setDeveloperCertificateId(String developerCertificateId) {
         setId(developerCertificateId);
-    }
-
-    /**
-     * Checks whether id value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIdValid() {
-        return id != null;
     }
 
     /**
@@ -444,7 +419,7 @@ public class DeveloperCertificate implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isIdValid() && isNameValid();
+        return isNameValid();
     }
 
     /**

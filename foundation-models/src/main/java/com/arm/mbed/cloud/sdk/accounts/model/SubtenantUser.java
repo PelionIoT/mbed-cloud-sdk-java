@@ -61,7 +61,6 @@ public class SubtenantUser implements SdkModel {
     /**
      * The ID of the user.
      */
-    @Required
     private String id;
 
     /**
@@ -267,13 +266,11 @@ public class SubtenantUser implements SdkModel {
      *            The ID of the account.
      * @param email
      *            The email address.
-     * @param id
-     *            The ID of the user.
      */
-    public SubtenantUser(String accountId, String email, String id) {
-        this(accountId, (String) null, new java.util.Date(), 0L, email, false, (String) null, id, 0L, null, null, false,
-             (String) null, 0L, (String) null, SubtenantUserStatus.getDefault(), false, false, new java.util.Date(),
-             (String) null);
+    public SubtenantUser(String accountId, String email) {
+        this(accountId, (String) null, new java.util.Date(), 0L, email, false, (String) null, (String) null, 0L, null,
+             null, false, (String) null, 0L, (String) null, SubtenantUserStatus.getDefault(), false, false,
+             new java.util.Date(), (String) null);
     }
 
     /**
@@ -448,7 +445,6 @@ public class SubtenantUser implements SdkModel {
      *            The ID of the user.
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -462,19 +458,8 @@ public class SubtenantUser implements SdkModel {
      *            The ID of the user.
      */
     @Internal
-    @Required
     public void setSubtenantUserId(String subtenantUserId) {
         setId(subtenantUserId);
-    }
-
-    /**
-     * Checks whether id value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIdValid() {
-        return id != null;
     }
 
     /**
@@ -926,7 +911,7 @@ public class SubtenantUser implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isAccountIdValid() && isEmailValid() && isIdValid();
+        return isAccountIdValid() && isEmailValid();
     }
 
     /**

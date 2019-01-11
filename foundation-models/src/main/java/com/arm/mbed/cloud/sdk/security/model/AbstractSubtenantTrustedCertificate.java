@@ -61,7 +61,6 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     /**
      * Entity ID.
      */
-    @Required
     protected String id;
 
     /**
@@ -235,17 +234,15 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      *            The ID of the account.
      * @param certificate
      *            X509.v3 trusted certificate in PEM format.
-     * @param id
-     *            Entity ID.
      * @param name
      *            Certificate name.
      * @param service
      *            Service name where the certificate is to be used.
      */
-    public AbstractSubtenantTrustedCertificate(String accountId, String certificate, String id, String name,
+    public AbstractSubtenantTrustedCertificate(String accountId, String certificate, String name,
                                                SubtenantTrustedCertificateService service) {
-        this(accountId, certificate, (String) null, new java.util.Date(), (String) null, 0, false, id, (String) null,
-             name, (String) null, service, SubtenantTrustedCertificateStatus.getDefault(), (String) null,
+        this(accountId, certificate, (String) null, new java.util.Date(), (String) null, 0, false, (String) null,
+             (String) null, name, (String) null, service, SubtenantTrustedCertificateStatus.getDefault(), (String) null,
              new java.util.Date(), new java.util.Date());
     }
 
@@ -421,7 +418,6 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      *            Entity ID.
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -435,19 +431,8 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      *            Entity ID.
      */
     @Internal
-    @Required
     public void setSubtenantTrustedCertificateId(String subtenantTrustedCertificateId) {
         setId(subtenantTrustedCertificateId);
-    }
-
-    /**
-     * Checks whether id value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIdValid() {
-        return id != null;
     }
 
     /**
@@ -827,6 +812,6 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isAccountIdValid() && isCertificateValid() && isIdValid() && isNameValid() && isServiceValid();
+        return isAccountIdValid() && isCertificateValid() && isNameValid() && isServiceValid();
     }
 }

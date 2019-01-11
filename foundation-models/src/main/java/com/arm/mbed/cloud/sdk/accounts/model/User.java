@@ -60,7 +60,6 @@ public class User implements SdkModel {
     /**
      * The ID of the user.
      */
-    @Required
     private String id;
 
     /**
@@ -250,20 +249,6 @@ public class User implements SdkModel {
     }
 
     /**
-     * Constructor.
-     * 
-     * @param email
-     *            The email address.
-     * @param id
-     *            The ID of the user.
-     */
-    public User(String email, String id) {
-        this((String) null, (String) null, new java.util.Date(), 0L, email, false, (String) null, id, 0L, null, null,
-             false, (String) null, 0L, (String) null, UserStatus.getDefault(), false, false, new java.util.Date(),
-             (String) null);
-    }
-
-    /**
      * Gets the id of the account.
      * 
      * @return accountId
@@ -424,7 +409,6 @@ public class User implements SdkModel {
      *            The ID of the user.
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -438,19 +422,8 @@ public class User implements SdkModel {
      *            The ID of the user.
      */
     @Internal
-    @Required
     public void setUserId(String userId) {
         setId(userId);
-    }
-
-    /**
-     * Checks whether id value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIdValid() {
-        return id != null;
     }
 
     /**
@@ -902,7 +875,7 @@ public class User implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isEmailValid() && isIdValid();
+        return isEmailValid();
     }
 
     /**

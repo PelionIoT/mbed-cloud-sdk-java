@@ -98,6 +98,46 @@ public final class DeviceEventsAdapter {
             }
 
             /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder();
+            }
+
+            /**
+             * Executes getTotalCount.
+             * 
+             * @return something
+             */
+            @Override
+            public Integer getTotalCount() {
+                return (finalList == null) ? null : finalList.getTotalCount();
+            }
+
+            /**
+             * Executes getAfter.
+             * 
+             * @return something
+             */
+            @Override
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
+            }
+
+            /**
+             * Executes getLimit.
+             * 
+             * @return something
+             */
+            @Override
+            public Integer getLimit() {
+                return (finalList == null) ? null : finalList.getLimit();
+            }
+
+            /**
              * Executes getContinuationMarker.
              * 
              * @return something
@@ -115,46 +155,6 @@ public final class DeviceEventsAdapter {
             @Override
             public Boolean getHasMore() {
                 return (finalList == null) ? null : finalList.isHasMore();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getTotalCount.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
-            }
-
-            /**
-             * Executes getOrder.
-             * 
-             * @return something
-             */
-            @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder();
-            }
-
-            /**
-             * Executes getLimit.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getLimit() {
-                return (finalList == null) ? null : finalList.getLimit();
             }
         };
         return GenericAdapter.mapList(respList, DeviceEventsAdapter.getMapper());

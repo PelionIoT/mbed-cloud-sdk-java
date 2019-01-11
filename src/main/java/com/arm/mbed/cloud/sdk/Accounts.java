@@ -201,7 +201,8 @@ public class Accounts extends AbstractModule {
         final String finalStatusEq = statusEq;
         final String finalIssuerLike = issuerLike;
         final String finalSubjectLike = subjectLike;
-        final SubtenantTrustedCertificateListOptions finalOptions = options;
+        final SubtenantTrustedCertificateListOptions finalOptions = (options == null) ? new SubtenantTrustedCertificateListOptions()
+                                                                                      : options;
         final Account finalAccount = account;
         return new Paginator<SubtenantTrustedCertificate>(finalOptions,
                                                           new PageRequester<SubtenantTrustedCertificate>() {
@@ -370,7 +371,8 @@ public class Accounts extends AbstractModule {
                                                                  @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
         final String finalLoginProfileEq = loginProfileEq;
-        final SubtenantUserInvitationListOptions finalOptions = options;
+        final SubtenantUserInvitationListOptions finalOptions = (options == null) ? new SubtenantUserInvitationListOptions()
+                                                                                  : options;
         final Account finalAccount = account;
         return new Paginator<SubtenantUserInvitation>(finalOptions, new PageRequester<SubtenantUserInvitation>() {
             /**
@@ -471,7 +473,7 @@ public class Accounts extends AbstractModule {
         final String finalStatusIn = statusIn;
         final String finalStatusNin = statusNin;
         final String finalLoginProfileEq = loginProfileEq;
-        final SubtenantUserListOptions finalOptions = options;
+        final SubtenantUserListOptions finalOptions = (options == null) ? new SubtenantUserListOptions() : options;
         final Account finalAccount = account;
         return new Paginator<SubtenantUser>(finalOptions, new PageRequester<SubtenantUser>() {
             /**

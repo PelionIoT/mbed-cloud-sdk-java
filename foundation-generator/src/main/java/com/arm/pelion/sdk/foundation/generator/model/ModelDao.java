@@ -196,13 +196,29 @@ public class ModelDao extends Model {
         }
         final List<Method> moduleMethods = correspondingModule.getAllMethods(correspondingModel, action, methodName);
         for (Method moduleMethod : moduleMethods) {
-            final MethodOverloaded method = generateMethod(daoMethodName == null
-                                                           || daoMethodName.isEmpty() ? methodName : daoMethodName,
-                                                           needsCustomCode, isPublic, null, moduleMethod,
-                                                           correspondingModule.toType());
-            addMethod(method);
+            addOtherMethod(methodName, daoMethodName, needsCustomCode, isPublic, moduleMethod);
+            if (moduleMethod instanceof MethodModuleListApiUnself) {
+                final List<Method> modulePaginatorMethods = correspondingModule.getAllMethods(correspondingModel,
+                                                                                              MethodAction.PAGINATION_OTHER,
+                                                                                              MethodModulePaginationApi.generatePaginatorName((MethodModuleCloudApi) moduleMethod));
+                for (Method modulePaginatorMethod : modulePaginatorMethods) {
+                    addOtherMethod(MethodModulePaginationApi.generatePaginatorName(methodName),
+                                   MethodModulePaginationApi.generatePaginatorName(daoMethodName), needsCustomCode,
+                                   isPublic, modulePaginatorMethod);
+                }
+
+            }
         }
 
+    }
+
+    private void addOtherMethod(String methodName, String daoMethodName, boolean needsCustomCode, boolean isPublic,
+                                Method moduleMethod) {
+        final MethodOverloaded method = generateMethod(daoMethodName == null || daoMethodName.isEmpty() ? methodName
+                                                                                                        : daoMethodName,
+                                                       needsCustomCode, isPublic, null, moduleMethod,
+                                                       correspondingModule.toType());
+        addMethod(method);
     }
 
     private MethodOverloaded generateMethod(String methodName, boolean needsCustomCode, boolean isPublic, String suffix,

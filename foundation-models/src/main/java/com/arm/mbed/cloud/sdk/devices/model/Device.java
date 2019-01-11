@@ -4,7 +4,6 @@ package com.arm.mbed.cloud.sdk.devices.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.Map;
@@ -122,7 +121,6 @@ public class Device implements SdkModel {
     /**
      * The ID of the device. The device ID is used across all Device Management APIs.
      */
-    @Required
     private String id;
 
     /**
@@ -816,7 +814,6 @@ public class Device implements SdkModel {
      *            The ID of the device. The device ID is used across all Device Management APIs.
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -830,19 +827,8 @@ public class Device implements SdkModel {
      *            The ID of the device. The device ID is used across all Device Management APIs.
      */
     @Internal
-    @Required
     public void setDeviceId(String deviceId) {
         setId(deviceId);
-    }
-
-    /**
-     * Checks whether id value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIdValid() {
-        return id != null;
     }
 
     /**
@@ -1625,7 +1611,7 @@ public class Device implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isIdValid() && isIssuerFingerprintValid() && isLastOperatorSuspendedCategoryValid()
+        return isIssuerFingerprintValid() && isLastOperatorSuspendedCategoryValid()
                && isLastSystemSuspendedCategoryValid();
     }
 

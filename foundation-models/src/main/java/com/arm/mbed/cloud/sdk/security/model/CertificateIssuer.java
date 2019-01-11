@@ -32,7 +32,6 @@ public class CertificateIssuer implements SdkModel {
     /**
      * The ID of the certificate issuer.
      */
-    @Required
     private String id;
 
     /**
@@ -130,8 +129,6 @@ public class CertificateIssuer implements SdkModel {
     /**
      * Constructor.
      * 
-     * @param id
-     *            The ID of the certificate issuer.
      * @param issuerType
      *            The type of the certificate issuer. - GLOBAL_SIGN: Certificates are issued by GlobalSign service. The
      *            users must provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by
@@ -140,8 +137,8 @@ public class CertificateIssuer implements SdkModel {
      * @param name
      *            Certificate issuer name, unique per account.
      */
-    public CertificateIssuer(String id, CertificateIssuerType issuerType, String name) {
-        this(new java.util.Date(), (String) null, id, null, issuerType, name);
+    public CertificateIssuer(CertificateIssuerType issuerType, String name) {
+        this(new java.util.Date(), (String) null, (String) null, null, issuerType, name);
     }
 
     /**
@@ -199,7 +196,6 @@ public class CertificateIssuer implements SdkModel {
      *            The ID of the certificate issuer.
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -213,19 +209,8 @@ public class CertificateIssuer implements SdkModel {
      *            The ID of the certificate issuer.
      */
     @Internal
-    @Required
     public void setCertificateIssuerId(String certificateIssuerId) {
         setId(certificateIssuerId);
-    }
-
-    /**
-     * Checks whether id value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIdValid() {
-        return id != null;
     }
 
     /**
@@ -438,7 +423,7 @@ public class CertificateIssuer implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isIdValid() && isIssuerTypeValid() && isNameValid();
+        return isIssuerTypeValid() && isNameValid();
     }
 
     /**

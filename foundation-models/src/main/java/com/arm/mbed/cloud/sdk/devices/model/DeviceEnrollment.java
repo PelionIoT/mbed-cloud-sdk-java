@@ -53,7 +53,6 @@ public class DeviceEnrollment implements SdkModel {
     /**
      * Enrollment identity.
      */
-    @Required
     private String id;
 
     /**
@@ -126,19 +125,6 @@ public class DeviceEnrollment implements SdkModel {
     public DeviceEnrollment(String id) {
         this();
         setId(id);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param enrollmentIdentity
-     *            Enrollment identity.
-     * @param id
-     *            Enrollment identity.
-     */
-    public DeviceEnrollment(String enrollmentIdentity, String id) {
-        this((String) null, new java.util.Date(), new java.util.Date(), (String) null, enrollmentIdentity,
-             new java.util.Date(), id);
     }
 
     /**
@@ -309,7 +295,6 @@ public class DeviceEnrollment implements SdkModel {
      *            Enrollment identity.
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -325,7 +310,6 @@ public class DeviceEnrollment implements SdkModel {
      *            Enrollment identity.
      */
     @Internal
-    @Required
     public void setDeviceEnrollmentId(String deviceEnrollmentId) {
         setId(deviceEnrollmentId);
     }
@@ -337,7 +321,7 @@ public class DeviceEnrollment implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isIdValid() {
-        return id != null && (id == null || id.matches("^[A-Za-z0-9]{32}"));
+        return (id == null || id.matches("^[A-Za-z0-9]{32}"));
     }
 
     /**

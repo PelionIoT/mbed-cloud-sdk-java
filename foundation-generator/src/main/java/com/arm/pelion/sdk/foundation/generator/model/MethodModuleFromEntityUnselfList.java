@@ -53,6 +53,11 @@ public class MethodModuleFromEntityUnselfList extends MethodModuleCloudApiUnself
     }
 
     @Override
+    protected void generateVariableInitialisation(List<Parameter> methodParameters) throws TranslationException {
+        MethodModuleListApi.generateVariableInitialisation(this, returnModel, fetcher, methodParameters);
+    }
+
+    @Override
     protected void determineReturnType(Model returnModel, Method lowLevelMethod) {
         MethodModuleListApi.setReturnType(this, returnModel);
     }
