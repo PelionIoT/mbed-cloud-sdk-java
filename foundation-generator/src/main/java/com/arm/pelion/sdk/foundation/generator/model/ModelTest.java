@@ -188,17 +188,17 @@ public class ModelTest extends AbstractSdkArtifact {
         addExceptionHandlingStart(test);
         initialiseVariable(test, 1, values1, fieldValues);
         initialiseVariable(test, 2, values1, fieldValues);
-        if (!formats.isEmpty()) {
+        if (shouldCompareToDifferentInstance(formats, values1, values2)) {
             initialiseVariable(test, 3, values2, fieldValues);
         }
 
         test.getCode().addStatement("assertNotNull($L1)", variable);
         test.getCode().addStatement("assertNotNull($L2)", variable);
-        if (!formats.isEmpty()) {
+        if (shouldCompareToDifferentInstance(formats, values1, values2)) {
             test.getCode().addStatement("assertNotNull($L3)", variable);
         }
         test.getCode().addStatement("assertNotSame($L2, $L1)", variable, variable);
-        if (!formats.isEmpty()) {
+        if (shouldCompareToDifferentInstance(formats, values1, values2)) {
             test.getCode().addStatement("assertNotSame($L3, $L1)", variable, variable);
         }
         test.getCode().addStatement("assertEquals($L2, $L1)", variable, variable);
@@ -206,11 +206,21 @@ public class ModelTest extends AbstractSdkArtifact {
         test.getCode().addStatement("assertEquals($L1, $L2)", variable, variable);
         test.getCode().addStatement("assertEquals($L1, $L1)", variable, variable);
         test.getCode().addStatement("assertFalse($L1.equals(null))", variable);
-        if (!formats.isEmpty()) {
+        if (shouldCompareToDifferentInstance(formats, values1, values2)) {
             test.getCode().addStatement("assertNotEquals($L3, $L1)", variable, variable);
         }
         addExceptionHandlingEnd(test);
         addTest(test);
+    }
+
+    private boolean shouldCompareToDifferentInstance(List<String> formats, List<Object> values1, List<Object> values2) {
+        if (formats.isEmpty()) {
+            return false;
+        }
+        if (values1 == null) {
+            return values2 != null;
+        }
+        return !values1.equals(values2);
     }
 
     /**

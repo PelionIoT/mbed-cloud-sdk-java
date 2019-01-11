@@ -17,10 +17,10 @@ public class TestSubtenantUserListOptions {
     @Test
     public void testClone() {
         try {
-            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(87),
-                                                                                              Long.valueOf(-10),
+            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(-24),
+                                                                                              Long.valueOf(-61),
                                                                                               Order.getDefault(),
-                                                                                              "4d547c59-102d-4a9c-bc48-ebddb6443683",
+                                                                                              "033220a1-7113-452b-9f35-d4051b774df5",
                                                                                               null, null);
             SubtenantUserListOptions subtenantuserlistoptions2 = subtenantuserlistoptions1.clone();
             assertNotNull(subtenantuserlistoptions1);
@@ -38,15 +38,15 @@ public class TestSubtenantUserListOptions {
     @Test
     public void testHashCode() {
         try {
-            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(-94),
-                                                                                              Long.valueOf(20),
+            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(-121),
+                                                                                              Long.valueOf(69),
                                                                                               Order.getDefault(),
-                                                                                              "535ed84c-5072-4b04-97f2-abf3b00d946b",
+                                                                                              "f54209da-010c-49f2-af12-176f880219de",
                                                                                               null, null);
-            SubtenantUserListOptions subtenantuserlistoptions2 = new SubtenantUserListOptions(Integer.valueOf(-94),
-                                                                                              Long.valueOf(20),
+            SubtenantUserListOptions subtenantuserlistoptions2 = new SubtenantUserListOptions(Integer.valueOf(-121),
+                                                                                              Long.valueOf(69),
                                                                                               Order.getDefault(),
-                                                                                              "535ed84c-5072-4b04-97f2-abf3b00d946b",
+                                                                                              "f54209da-010c-49f2-af12-176f880219de",
                                                                                               null, null);
             assertNotNull(subtenantuserlistoptions1);
             assertNotNull(subtenantuserlistoptions2);
@@ -68,20 +68,20 @@ public class TestSubtenantUserListOptions {
     @Test
     public void testEquals() {
         try {
-            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(5),
-                                                                                              Long.valueOf(29),
+            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(9),
+                                                                                              Long.valueOf(-120),
                                                                                               Order.getDefault(),
-                                                                                              "54a6ef02-c7c5-41ec-bcd8-b5963232182d",
+                                                                                              "8e776e3e-7dad-4a46-b4e5-2950e23697d7",
                                                                                               null, null);
-            SubtenantUserListOptions subtenantuserlistoptions2 = new SubtenantUserListOptions(Integer.valueOf(5),
-                                                                                              Long.valueOf(29),
+            SubtenantUserListOptions subtenantuserlistoptions2 = new SubtenantUserListOptions(Integer.valueOf(9),
+                                                                                              Long.valueOf(-120),
                                                                                               Order.getDefault(),
-                                                                                              "54a6ef02-c7c5-41ec-bcd8-b5963232182d",
+                                                                                              "8e776e3e-7dad-4a46-b4e5-2950e23697d7",
                                                                                               null, null);
-            SubtenantUserListOptions subtenantuserlistoptions3 = new SubtenantUserListOptions(Integer.valueOf(80),
-                                                                                              Long.valueOf(-27),
+            SubtenantUserListOptions subtenantuserlistoptions3 = new SubtenantUserListOptions(Integer.valueOf(39),
+                                                                                              Long.valueOf(18),
                                                                                               Order.getDefault(),
-                                                                                              "37d380b1-7b08-4887-be7d-2e6bae40f8ee",
+                                                                                              "4dde3465-f906-454a-9ca7-396c5575c653",
                                                                                               null, null);
             assertNotNull(subtenantuserlistoptions1);
             assertNotNull(subtenantuserlistoptions2);

@@ -173,13 +173,23 @@ public final class DeviceAdapter {
             }
 
             /**
-             * Executes getHasMore.
+             * Executes getContinuationMarker.
              * 
              * @return something
              */
             @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
+            public String getContinuationMarker() {
+                return null;
+            }
+
+            /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder();
             }
 
             /**
@@ -203,16 +213,6 @@ public final class DeviceAdapter {
             }
 
             /**
-             * Executes getOrder.
-             * 
-             * @return something
-             */
-            @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder();
-            }
-
-            /**
              * Executes getAfter.
              * 
              * @return something
@@ -223,13 +223,13 @@ public final class DeviceAdapter {
             }
 
             /**
-             * Executes getContinuationMarker.
+             * Executes getHasMore.
              * 
              * @return something
              */
             @Override
-            public String getContinuationMarker() {
-                return null;
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
         };
         return GenericAdapter.mapList(respList, DeviceAdapter.getMapper());

@@ -57,18 +57,14 @@ public class TestDaoFactory {
         try {
             DaoFactory daofactory1 = new DaoFactory((DaoFactory) null);
             DaoFactory daofactory2 = new DaoFactory((DaoFactory) null);
-            DaoFactory daofactory3 = new DaoFactory((DaoFactory) null);
             assertNotNull(daofactory1);
             assertNotNull(daofactory2);
-            assertNotNull(daofactory3);
             assertNotSame(daofactory2, daofactory1);
-            assertNotSame(daofactory3, daofactory1);
             assertEquals(daofactory2, daofactory1);
             assertEquals(daofactory2, daofactory1);
             assertEquals(daofactory1, daofactory2);
             assertEquals(daofactory1, daofactory1);
             assertFalse(daofactory1.equals(null));
-            assertNotEquals(daofactory3, daofactory1);
         } catch (Exception exception) {
             fail(exception.getMessage());
         }
