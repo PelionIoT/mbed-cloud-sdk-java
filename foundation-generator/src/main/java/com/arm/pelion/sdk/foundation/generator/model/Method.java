@@ -57,7 +57,8 @@ public class Method extends AbstractSdkArtifact {
 
     public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride,
                   boolean autodefineParameters) {
-        this(java.lang.reflect.Modifier.isFinal(method.getModifiers()), method.getName(), description, longDescription,
+        this(java.lang.reflect.Modifier.isFinal(method.getModifiers()), method.getName(),
+             description == null ? "Executes " + method.getName() : description, longDescription,
              java.lang.reflect.Modifier.isStatic(method.getModifiers()),
              java.lang.reflect.Modifier.isPublic(method.getModifiers()),
              java.lang.reflect.Modifier.isAbstract(method.getModifiers()), false, false,
@@ -389,9 +390,9 @@ public class Method extends AbstractSdkArtifact {
                 translateCode();
                 specificationBuilder.addComment("The following code is auto-generated and can be used if carrying out what $L() intends/is meant to do.",
                                                 getName());
-                specificationBuilder.addCode("/*");
+                specificationBuilder.addCode(System.lineSeparator() + "/*");
                 specificationBuilder.addCode(code.build());
-                specificationBuilder.addCode("*/");
+                specificationBuilder.addCode("*/" + System.lineSeparator());
             }
             // TODO put back if needed
             // if (!hasCode() && hasReturn()) {

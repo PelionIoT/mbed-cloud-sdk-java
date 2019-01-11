@@ -203,7 +203,7 @@ public class ModelTest extends AbstractSdkArtifact {
         test.getCode().addStatement("assertEquals($L1, $L2)", variable, variable);
         test.getCode().addStatement("assertEquals($L1, $L1)", variable, variable);
         test.getCode().addStatement("assertFalse($L1.equals(null))", variable);
-        if (!values2.isEmpty()) {
+        if (!formats.isEmpty()) {
             test.getCode().addStatement("assertNotEquals($L3, $L1)", variable, variable);
         }
         addExceptionHandlingEnd(test);
