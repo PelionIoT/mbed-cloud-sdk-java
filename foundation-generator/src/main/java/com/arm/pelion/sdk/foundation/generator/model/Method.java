@@ -35,6 +35,8 @@ public class Method extends AbstractSdkArtifact {
     protected boolean isUnchecked;
     protected boolean needsToBeAtBottomLevel;
     protected final List<Class<?>> exceptions;
+    private boolean ignoreShortName;
+    private boolean forcePrivate;
 
     public Method(boolean isReadOnly, String name, String description, String longDescription, boolean isStatic,
                   boolean isAccessible, boolean isAbstract, boolean containsCustomCode, boolean needsCustomCode,
@@ -53,6 +55,8 @@ public class Method extends AbstractSdkArtifact {
         setDoesNotPerformAnything(false);
         setUnchecked(false);
         setNeedsToBeAtBottomLevel(false);
+        setIgnoreShortName(false);
+        setForcePrivate(false);
     }
 
     public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride,
@@ -98,6 +102,28 @@ public class Method extends AbstractSdkArtifact {
 
     public void setDoesNotPerformAnything(boolean doesNotPerformAnything) {
         this.doesNotPerformAnything = doesNotPerformAnything;
+    }
+
+    public boolean ignoreShortName() {
+        return ignoreShortName;
+    }
+
+    public void setIgnoreShortName(boolean ignoreShortName) {
+        this.ignoreShortName = ignoreShortName;
+    }
+
+    public boolean isForcePrivate() {
+        return forcePrivate;
+    }
+
+    public void setForcePrivate(boolean forcePrivate) {
+        this.forcePrivate = forcePrivate;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T extends Method> T forcePrivate() {
+        setForcePrivate(true);
+        return (T) this;
     }
 
     /**
@@ -299,7 +325,8 @@ public class Method extends AbstractSdkArtifact {
 
     protected void addModifiers() {
         if (needsModifier) {
-            specificationBuilder.addModifiers(isAccessible ? Modifier.PUBLIC : Modifier.PROTECTED);
+            specificationBuilder.addModifiers(isAccessible ? Modifier.PUBLIC
+                                                           : forcePrivate ? Modifier.PRIVATE : Modifier.PROTECTED);
         }
         if (isStatic) {
             specificationBuilder.addModifiers(Modifier.STATIC);
@@ -326,6 +353,11 @@ public class Method extends AbstractSdkArtifact {
         }
         if (doesNotPerformAnything) {
             specificationBuilder.addAnnotation(PerformsNoOperation.class);
+        }
+        if (ignoreShortName) {
+            if (getName() != null && getName().length() < 3) {
+                specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreShortMethodName());
+            }
         }
         if (isUnchecked) {
             specificationBuilder.addAnnotation(StaticAnalysisUtils.setAsUnchecked());

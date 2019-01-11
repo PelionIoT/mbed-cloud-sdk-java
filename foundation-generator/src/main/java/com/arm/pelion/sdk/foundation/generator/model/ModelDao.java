@@ -212,6 +212,7 @@ public class ModelDao extends Model {
                                                                                                    moduleMethod),
                                                              false, isPublic, false, false, false, false, false, false,
                                                              suffix);
+        method.setIgnoreShortName(true);
         method.addException(MbedCloudException.class);
         method.setNeedsCustomCode(needsCustomCode);
         method.initialiseCodeBuilder();

@@ -28,7 +28,16 @@ public class StaticAnalysisUtils {
                              .build();
     }
 
+    public static AnnotationSpec ignoreShortMethodName() {
+        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"PMD.ShortMethodName\"").build();
+    }
+
+    public static AnnotationSpec ignoreLongLines() {
+        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"checkstyle:LineLength\"").build();
+    }
+
     public static AnnotationSpec setAsUnchecked() {
         return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"unchecked\"").build();
     }
+
 }

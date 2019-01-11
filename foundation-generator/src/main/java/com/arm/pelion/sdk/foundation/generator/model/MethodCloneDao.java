@@ -1,6 +1,5 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractCloudDao;
 
@@ -22,7 +21,6 @@ public class MethodCloneDao extends MethodClone {
     @Override
     protected void addAnnotations() {
         super.addAnnotations();
-        specificationBuilder.addAnnotation(Nullable.class);
     }
 
     @Override

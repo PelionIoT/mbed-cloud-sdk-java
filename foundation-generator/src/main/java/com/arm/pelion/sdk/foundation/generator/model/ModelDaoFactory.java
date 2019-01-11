@@ -12,7 +12,7 @@ public class ModelDaoFactory extends Model {
 
     public ModelDaoFactory() {
         super();
-        // TODO Auto-generated constructor stub
+        setShouldBeSorted(true);
     }
 
     public ModelDaoFactory(String packageName) {
@@ -41,18 +41,13 @@ public class ModelDaoFactory extends Model {
     }
 
     @Override
-    protected boolean hasSuperInterface() {
-        return false;
+    protected Class<?> getSuperInterface() {
+        return Cloneable.class;
     }
 
     @Override
     protected boolean isSerialisable() {
         return false;
-    }
-
-    @Override
-    protected void generateHashCodeAndEquals() {
-        // Do not generate anything
     }
 
     @Override
