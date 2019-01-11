@@ -17,13 +17,13 @@ public class TestCertificateEnrollment {
     @Test
     public void testClone() {
         try {
-            CertificateEnrollment certificateenrollment1 = new CertificateEnrollment("63c9cb91-f3ac-4c72-bd7d-d37dea4de34f",
-                                                                                     new Date(1547164361815L),
-                                                                                     "76264be6-e4fa-4bc9-9f08-681e643f4d28",
+            CertificateEnrollment certificateenrollment1 = new CertificateEnrollment("55ad34b2-d124-4188-99c5-93f107d8695f",
+                                                                                     new Date(1547225118278L),
+                                                                                     "4d015335-3ce6-456d-8bdb-6558ed2b3f8d",
                                                                                      CertificateEnrollmentEnrollResult.getDefault(),
                                                                                      CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                     "f5aa4487-0c3a-4274-97d2-bf78d85dc49d",
-                                                                                     new Date(1547164365251L));
+                                                                                     "73179f36-57e4-4185-af46-66ec124fc128",
+                                                                                     new Date(1547225115288L));
             CertificateEnrollment certificateenrollment2 = certificateenrollment1.clone();
             assertNotNull(certificateenrollment1);
             assertNotNull(certificateenrollment2);
@@ -40,20 +40,20 @@ public class TestCertificateEnrollment {
     @Test
     public void testHashCode() {
         try {
-            CertificateEnrollment certificateenrollment1 = new CertificateEnrollment("b8316846-cb39-46ab-a0f2-0983907e6161",
-                                                                                     new Date(1547164362562L),
-                                                                                     "c8a86a37-ddb0-43f4-a03f-03e2f50a3fc4",
+            CertificateEnrollment certificateenrollment1 = new CertificateEnrollment("f6a938e4-f7ba-4b1e-afa8-2ba440ed208a",
+                                                                                     new Date(1547225117495L),
+                                                                                     "5fb52dfd-b2e8-40b3-aa43-6a1e4fa75014",
                                                                                      CertificateEnrollmentEnrollResult.getDefault(),
                                                                                      CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                     "d8ffcbfa-0779-4d59-aed9-5c28582142d7",
-                                                                                     new Date(1547164359154L));
-            CertificateEnrollment certificateenrollment2 = new CertificateEnrollment("b8316846-cb39-46ab-a0f2-0983907e6161",
-                                                                                     new Date(1547164362562L),
-                                                                                     "c8a86a37-ddb0-43f4-a03f-03e2f50a3fc4",
+                                                                                     "332d40fb-e3fb-4c5e-8da4-482fbcc54e89",
+                                                                                     new Date(1547225114891L));
+            CertificateEnrollment certificateenrollment2 = new CertificateEnrollment("f6a938e4-f7ba-4b1e-afa8-2ba440ed208a",
+                                                                                     new Date(1547225117495L),
+                                                                                     "5fb52dfd-b2e8-40b3-aa43-6a1e4fa75014",
                                                                                      CertificateEnrollmentEnrollResult.getDefault(),
                                                                                      CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                     "d8ffcbfa-0779-4d59-aed9-5c28582142d7",
-                                                                                     new Date(1547164359154L));
+                                                                                     "332d40fb-e3fb-4c5e-8da4-482fbcc54e89",
+                                                                                     new Date(1547225114891L));
             assertNotNull(certificateenrollment1);
             assertNotNull(certificateenrollment2);
             assertNotSame(certificateenrollment2, certificateenrollment1);
@@ -73,21 +73,14 @@ public class TestCertificateEnrollment {
      */
     @Test
     public void testIsValid() {
-        CertificateEnrollment certificateenrollment = new CertificateEnrollment("86651df7-5802-4b41-90ac-c1114d8a86ff",
-                                                                                new Date(1547164366972L),
-                                                                                "5d836c22-96c5-4166-9c6a-0d77b6339f28",
+        CertificateEnrollment certificateenrollment = new CertificateEnrollment("9b5149eb-511e-42a7-b056-0ac77e7212cb",
+                                                                                new Date(1547225117384L),
+                                                                                "7c631390-610a-4b7f-a315-e90ae121cfc8",
                                                                                 CertificateEnrollmentEnrollResult.getDefault(),
                                                                                 CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                "5a24abcc-7e8f-4ef4-856c-ff9f11fb29d7",
-                                                                                new Date(1547164359404L));
+                                                                                "9eedaab2-a953-4c98-9cc6-4ecbd8782114",
+                                                                                new Date(1547225121985L));
         assertTrue(certificateenrollment.isValid());
-        CertificateEnrollment certificateenrollmentInvalid = new CertificateEnrollment("7878e05d-8cd6-4100-a583-59c2aab9eb78",
-                                                                                       new Date(1547164363089L),
-                                                                                       "55ffc4b3-e389-49dd-91ab-2f26798e4759",
-                                                                                       CertificateEnrollmentEnrollResult.getDefault(),
-                                                                                       CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                       null, new Date(1547164364068L));
-        assertFalse(certificateenrollmentInvalid.isValid());
     }
 
     /**
@@ -96,27 +89,27 @@ public class TestCertificateEnrollment {
     @Test
     public void testEquals() {
         try {
-            CertificateEnrollment certificateenrollment1 = new CertificateEnrollment("4bc051c7-e416-4027-a399-0740315fccf8",
-                                                                                     new Date(1547164363937L),
-                                                                                     "808b0ffe-702e-4fef-9e47-105956dd8bbf",
+            CertificateEnrollment certificateenrollment1 = new CertificateEnrollment("6cdace19-91bc-486d-845f-32898e699c6a",
+                                                                                     new Date(1547225115223L),
+                                                                                     "af46617b-f420-4a3a-ba67-8a279968b874",
                                                                                      CertificateEnrollmentEnrollResult.getDefault(),
                                                                                      CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                     "b7cb3534-37db-4862-bcd9-676170ef69f8",
-                                                                                     new Date(1547164359574L));
-            CertificateEnrollment certificateenrollment2 = new CertificateEnrollment("4bc051c7-e416-4027-a399-0740315fccf8",
-                                                                                     new Date(1547164363937L),
-                                                                                     "808b0ffe-702e-4fef-9e47-105956dd8bbf",
+                                                                                     "49297186-6dd9-48c6-950e-e5d8052230ce",
+                                                                                     new Date(1547225116996L));
+            CertificateEnrollment certificateenrollment2 = new CertificateEnrollment("6cdace19-91bc-486d-845f-32898e699c6a",
+                                                                                     new Date(1547225115223L),
+                                                                                     "af46617b-f420-4a3a-ba67-8a279968b874",
                                                                                      CertificateEnrollmentEnrollResult.getDefault(),
                                                                                      CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                     "b7cb3534-37db-4862-bcd9-676170ef69f8",
-                                                                                     new Date(1547164359574L));
-            CertificateEnrollment certificateenrollment3 = new CertificateEnrollment("41df5077-705d-4a3b-ba79-29849e48eaef",
-                                                                                     new Date(1547164359901L),
-                                                                                     "a5dd0e32-4037-411b-8621-b39026f701ac",
+                                                                                     "49297186-6dd9-48c6-950e-e5d8052230ce",
+                                                                                     new Date(1547225116996L));
+            CertificateEnrollment certificateenrollment3 = new CertificateEnrollment("00c61bef-2b5e-4288-9903-6a1e78cb12f3",
+                                                                                     new Date(1547225119135L),
+                                                                                     "3c2a699b-084a-49e6-ab99-36b158aa3de8",
                                                                                      CertificateEnrollmentEnrollResult.getDefault(),
                                                                                      CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                     "8dcd3958-6803-4ffd-8a5e-d9ef612ea1b0",
-                                                                                     new Date(1547164363921L));
+                                                                                     "afb22dfd-da25-4aeb-a326-aaaf740bd1d3",
+                                                                                     new Date(1547225122699L));
             assertNotNull(certificateenrollment1);
             assertNotNull(certificateenrollment2);
             assertNotNull(certificateenrollment3);

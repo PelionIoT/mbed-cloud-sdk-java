@@ -31,6 +31,41 @@ public abstract class AbstractApiKeyListDao extends AbstractModelListDao<ApiKey,
     }
 
     /**
+     * an api key dao.
+     * 
+     * @return an api key dao
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public ApiKeyDao getCorrespondingModelDao() throws MbedCloudException {
+        return new ApiKeyDao().configureAndGet(module);
+    }
+
+    /**
+     * an api key dao class.
+     * 
+     * @return an api key dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<ApiKeyDao> getCorrespondingModelDaoDefinition() {
+        return ApiKeyDao.class;
+    }
+
+    /**
+     * an api key list options.
+     * 
+     * @return an api key list options
+     */
+    @Override
+    @Internal
+    protected ApiKeyListOptions instantiateListOptions() {
+        return new ApiKeyListOptions();
+    }
+
+    /**
      * Instantiates modules.
      * 
      * @param context
@@ -41,19 +76,6 @@ public abstract class AbstractApiKeyListDao extends AbstractModelListDao<ApiKey,
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Accounts(client);
     }
 
     /**
@@ -70,37 +92,15 @@ public abstract class AbstractApiKeyListDao extends AbstractModelListDao<ApiKey,
     }
 
     /**
-     * an api key list options.
+     * Instantiates modules.
      * 
-     * @return an api key list options
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected ApiKeyListOptions instantiateListOptions() {
-        return new ApiKeyListOptions();
-    }
-
-    /**
-     * an api key dao class.
-     * 
-     * @return an api key dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<ApiKeyDao> getCorrespondingModelDaoDefinition() {
-        return ApiKeyDao.class;
-    }
-
-    /**
-     * an api key dao.
-     * 
-     * @return an api key dao
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public ApiKeyDao getCorrespondingModelDao() throws MbedCloudException {
-        return new ApiKeyDao().configureAndGet(module);
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Accounts(client);
     }
 }

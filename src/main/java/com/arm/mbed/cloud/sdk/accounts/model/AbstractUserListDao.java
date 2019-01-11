@@ -31,6 +31,41 @@ public abstract class AbstractUserListDao extends AbstractModelListDao<User, Use
     }
 
     /**
+     * a user dao.
+     * 
+     * @return a user dao
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public UserDao getCorrespondingModelDao() throws MbedCloudException {
+        return new UserDao().configureAndGet(module);
+    }
+
+    /**
+     * a user dao class.
+     * 
+     * @return a user dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<UserDao> getCorrespondingModelDaoDefinition() {
+        return UserDao.class;
+    }
+
+    /**
+     * a user list options.
+     * 
+     * @return a user list options
+     */
+    @Override
+    @Internal
+    protected UserListOptions instantiateListOptions() {
+        return new UserListOptions();
+    }
+
+    /**
      * Instantiates modules.
      * 
      * @param context
@@ -41,19 +76,6 @@ public abstract class AbstractUserListDao extends AbstractModelListDao<User, Use
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Accounts(client);
     }
 
     /**
@@ -70,37 +92,15 @@ public abstract class AbstractUserListDao extends AbstractModelListDao<User, Use
     }
 
     /**
-     * a user list options.
+     * Instantiates modules.
      * 
-     * @return a user list options
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected UserListOptions instantiateListOptions() {
-        return new UserListOptions();
-    }
-
-    /**
-     * a user dao class.
-     * 
-     * @return a user dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<UserDao> getCorrespondingModelDaoDefinition() {
-        return UserDao.class;
-    }
-
-    /**
-     * a user dao.
-     * 
-     * @return a user dao
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public UserDao getCorrespondingModelDao() throws MbedCloudException {
-        return new UserDao().configureAndGet(module);
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Accounts(client);
     }
 }

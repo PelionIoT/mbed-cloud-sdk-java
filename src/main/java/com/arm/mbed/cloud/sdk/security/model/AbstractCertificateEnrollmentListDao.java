@@ -34,6 +34,41 @@ public abstract class AbstractCertificateEnrollmentListDao extends
     }
 
     /**
+     * a certificate enrollment dao.
+     * 
+     * @return a certificate enrollment dao
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public CertificateEnrollmentDao getCorrespondingModelDao() throws MbedCloudException {
+        return new CertificateEnrollmentDao().configureAndGet(module);
+    }
+
+    /**
+     * a certificate enrollment dao class.
+     * 
+     * @return a certificate enrollment dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<CertificateEnrollmentDao> getCorrespondingModelDaoDefinition() {
+        return CertificateEnrollmentDao.class;
+    }
+
+    /**
+     * a certificate enrollment list options.
+     * 
+     * @return a certificate enrollment list options
+     */
+    @Override
+    @Internal
+    protected CertificateEnrollmentListOptions instantiateListOptions() {
+        return new CertificateEnrollmentListOptions();
+    }
+
+    /**
      * Instantiates modules.
      * 
      * @param context
@@ -44,19 +79,6 @@ public abstract class AbstractCertificateEnrollmentListDao extends
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
     }
 
     /**
@@ -73,37 +95,15 @@ public abstract class AbstractCertificateEnrollmentListDao extends
     }
 
     /**
-     * a certificate enrollment list options.
+     * Instantiates modules.
      * 
-     * @return a certificate enrollment list options
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected CertificateEnrollmentListOptions instantiateListOptions() {
-        return new CertificateEnrollmentListOptions();
-    }
-
-    /**
-     * a certificate enrollment dao class.
-     * 
-     * @return a certificate enrollment dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<CertificateEnrollmentDao> getCorrespondingModelDaoDefinition() {
-        return CertificateEnrollmentDao.class;
-    }
-
-    /**
-     * a certificate enrollment dao.
-     * 
-     * @return a certificate enrollment dao
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public CertificateEnrollmentDao getCorrespondingModelDao() throws MbedCloudException {
-        return new CertificateEnrollmentDao().configureAndGet(module);
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
     }
 }

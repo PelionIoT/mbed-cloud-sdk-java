@@ -35,6 +35,7 @@ public class ModelDao extends Model {
         correspondingModule = module;
         superinterfaces = new HashMap<>(4);
         setSuperClass(currentModel);
+        setShouldBeSorted(true);
     }
 
     protected void setSuperClass(Model currentModel) {

@@ -34,6 +34,41 @@ public abstract class AbstractTrustedCertificateListDao extends
     }
 
     /**
+     * a trusted certificate dao.
+     * 
+     * @return a trusted certificate dao
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public TrustedCertificateDao getCorrespondingModelDao() throws MbedCloudException {
+        return new TrustedCertificateDao().configureAndGet(module);
+    }
+
+    /**
+     * a trusted certificate dao class.
+     * 
+     * @return a trusted certificate dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<TrustedCertificateDao> getCorrespondingModelDaoDefinition() {
+        return TrustedCertificateDao.class;
+    }
+
+    /**
+     * a trusted certificate list options.
+     * 
+     * @return a trusted certificate list options
+     */
+    @Override
+    @Internal
+    protected TrustedCertificateListOptions instantiateListOptions() {
+        return new TrustedCertificateListOptions();
+    }
+
+    /**
      * Instantiates modules.
      * 
      * @param context
@@ -44,19 +79,6 @@ public abstract class AbstractTrustedCertificateListDao extends
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
     }
 
     /**
@@ -73,37 +95,15 @@ public abstract class AbstractTrustedCertificateListDao extends
     }
 
     /**
-     * a trusted certificate list options.
+     * Instantiates modules.
      * 
-     * @return a trusted certificate list options
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected TrustedCertificateListOptions instantiateListOptions() {
-        return new TrustedCertificateListOptions();
-    }
-
-    /**
-     * a trusted certificate dao class.
-     * 
-     * @return a trusted certificate dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<TrustedCertificateDao> getCorrespondingModelDaoDefinition() {
-        return TrustedCertificateDao.class;
-    }
-
-    /**
-     * a trusted certificate dao.
-     * 
-     * @return a trusted certificate dao
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public TrustedCertificateDao getCorrespondingModelDao() throws MbedCloudException {
-        return new TrustedCertificateDao().configureAndGet(module);
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
     }
 }

@@ -17,10 +17,10 @@ public class TestServerCredentials {
     @Test
     public void testClone() {
         try {
-            ServerCredentials servercredentials1 = new ServerCredentials(new Date(1547164358270L),
-                                                                         "ea815d57-8a1b-4291-957f-8e7b3a18ab0d",
-                                                                         "c0ebc816-d2fe-4eb7-a539-b00bb60c86c4",
-                                                                         "128ca4ca-3ca9-4558-a80c-1fd7ca239725");
+            ServerCredentials servercredentials1 = new ServerCredentials(new Date(1547225122157L),
+                                                                         "900e0c77-8f25-4949-8881-b7465dcfa65d",
+                                                                         "ca739d69-26c1-4dab-9b0b-9bd7d5cda97e",
+                                                                         "c447150e-972c-48c7-a3c3-e960baf7d2b1");
             ServerCredentials servercredentials2 = servercredentials1.clone();
             assertNotNull(servercredentials1);
             assertNotNull(servercredentials2);
@@ -37,14 +37,14 @@ public class TestServerCredentials {
     @Test
     public void testHashCode() {
         try {
-            ServerCredentials servercredentials1 = new ServerCredentials(new Date(1547164363391L),
-                                                                         "7f67d46f-1e12-4eec-91e2-4abddba3ac6a",
-                                                                         "abd774eb-bb77-4ab6-8e97-5eb293f0fa6d",
-                                                                         "06e8be79-c0e7-4afd-ab02-d81332b7e6c4");
-            ServerCredentials servercredentials2 = new ServerCredentials(new Date(1547164363391L),
-                                                                         "7f67d46f-1e12-4eec-91e2-4abddba3ac6a",
-                                                                         "abd774eb-bb77-4ab6-8e97-5eb293f0fa6d",
-                                                                         "06e8be79-c0e7-4afd-ab02-d81332b7e6c4");
+            ServerCredentials servercredentials1 = new ServerCredentials(new Date(1547225114851L),
+                                                                         "8f1fdb32-1d66-4331-9989-c538f9220bdb",
+                                                                         "e005c068-5fad-43b5-8881-9f7ada45787c",
+                                                                         "b527f71f-1bf4-46af-9555-77e9528f8a26");
+            ServerCredentials servercredentials2 = new ServerCredentials(new Date(1547225114851L),
+                                                                         "8f1fdb32-1d66-4331-9989-c538f9220bdb",
+                                                                         "e005c068-5fad-43b5-8881-9f7ada45787c",
+                                                                         "b527f71f-1bf4-46af-9555-77e9528f8a26");
             assertNotNull(servercredentials1);
             assertNotNull(servercredentials2);
             assertNotSame(servercredentials2, servercredentials1);
@@ -64,10 +64,10 @@ public class TestServerCredentials {
      */
     @Test
     public void testIsValid() {
-        ServerCredentials servercredentials = new ServerCredentials(new Date(1547164365954L),
-                                                                    "dab40b68-2374-4a98-9bd5-9430694ee9b3",
-                                                                    "d45156a8-4bb0-4cb2-af44-fd2a19ff8fee",
-                                                                    "50a56c07-325f-4be9-bab7-781a5b93220c");
+        ServerCredentials servercredentials = new ServerCredentials(new Date(1547225123228L),
+                                                                    "b52ef3be-41ea-4404-9cdc-1e8ebf6e4554",
+                                                                    "b86bdd21-d200-4785-b707-e62c979d3bcf",
+                                                                    "10e2c758-1762-4f7b-8666-d434b4c4ebd5");
         assertTrue(servercredentials.isValid());
     }
 
@@ -77,18 +77,18 @@ public class TestServerCredentials {
     @Test
     public void testEquals() {
         try {
-            ServerCredentials servercredentials1 = new ServerCredentials(new Date(1547164359525L),
-                                                                         "b2d47d79-15cf-4a90-a8c6-051ad4b6bff2",
-                                                                         "0091e94d-1178-41df-b497-b2ff2c40160b",
-                                                                         "dc280c47-e311-497a-970a-6547baae061f");
-            ServerCredentials servercredentials2 = new ServerCredentials(new Date(1547164359525L),
-                                                                         "b2d47d79-15cf-4a90-a8c6-051ad4b6bff2",
-                                                                         "0091e94d-1178-41df-b497-b2ff2c40160b",
-                                                                         "dc280c47-e311-497a-970a-6547baae061f");
-            ServerCredentials servercredentials3 = new ServerCredentials(new Date(1547164359893L),
-                                                                         "3782a927-f261-4b1c-bb44-31e5d97c1399",
-                                                                         "8b7666ab-e002-4e0d-aa6b-efd2fb13606f",
-                                                                         "90185f4c-e69b-4ce1-beb1-311ef7ff89dd");
+            ServerCredentials servercredentials1 = new ServerCredentials(new Date(1547225123032L),
+                                                                         "cf6bc30e-52ba-4036-a58d-d20d6d192838",
+                                                                         "5887e4e6-9759-4f66-bc88-719a9e681aa6",
+                                                                         "3dd90e21-5892-4819-95f3-8cf0bc37f73b");
+            ServerCredentials servercredentials2 = new ServerCredentials(new Date(1547225123032L),
+                                                                         "cf6bc30e-52ba-4036-a58d-d20d6d192838",
+                                                                         "5887e4e6-9759-4f66-bc88-719a9e681aa6",
+                                                                         "3dd90e21-5892-4819-95f3-8cf0bc37f73b");
+            ServerCredentials servercredentials3 = new ServerCredentials(new Date(1547225124681L),
+                                                                         "015867a7-4489-47e7-b98c-69e04df12ca2",
+                                                                         "464546ab-cc8e-4300-9b7a-59e4a53884b4",
+                                                                         "61cf5f5d-0a65-46a3-bb9a-7124bda7426e");
             assertNotNull(servercredentials1);
             assertNotNull(servercredentials2);
             assertNotNull(servercredentials3);

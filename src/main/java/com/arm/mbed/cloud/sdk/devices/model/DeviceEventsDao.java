@@ -30,28 +30,30 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     }
 
     /**
-     * Gets a device events.
+     * Clones this instance.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(String)}
      * 
-     * @param id
-     *            null
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
      */
     @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEvents(id));
+    public DeviceEventsDao clone() {
+        try {
+            return new DeviceEventsDao().configureAndGet(module == null ? null : module.clone());
+        } catch (MbedCloudException exception) {
+            return null;
+        }
     }
 
     /**
-     * Gets a device events.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(DeviceEvents)}
+     * Instantiates model.
+     * 
+     * @return instantiated model
      */
     @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEvents(getModel()));
+    @Internal
+    protected DeviceEvents instantiateModel() {
+        return new DeviceEvents();
     }
 
     /**
@@ -70,19 +72,6 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     /**
      * Instantiates modules.
      * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Devices(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -94,29 +83,40 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     }
 
     /**
-     * Instantiates model.
+     * Instantiates modules.
      * 
-     * @return instantiated model
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected DeviceEvents instantiateModel() {
-        return new DeviceEvents();
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Devices(client);
     }
 
     /**
-     * Clones this instance.
+     * Gets a device events.
      * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
+     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(DeviceEvents)}
      */
     @Override
-    public DeviceEventsDao clone() {
-        try {
-            return new DeviceEventsDao().configureAndGet(module == null ? null : module.clone());
-        } catch (MbedCloudException exception) {
-            return null;
-        }
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Devices) module).getDeviceEvents(getModel()));
+    }
+
+    /**
+     * Gets a device events.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(String)}
+     * 
+     * @param id
+     *            null
+     */
+    @Override
+    public void read(@NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Devices) module).getDeviceEvents(id));
     }
 }

@@ -31,6 +31,22 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     }
 
     /**
+     * Clones this instance.
+     * <p>
+     * 
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
+     */
+    @Override
+    public CertificateIssuerConfigDao clone() {
+        try {
+            return new CertificateIssuerConfigDao().configureAndGet(module == null ? null : module.clone());
+        } catch (MbedCloudException exception) {
+            return null;
+        }
+    }
+
+    /**
      * Adds a certificate issuer config.
      * <p>
      * Similar to
@@ -62,22 +78,6 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * Deletes a certificate issuer config.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig#deleteCertificateIssuerConfig(String)}
-     * 
-     * @param id
-     *            The ID of the certificate issuer configuration.
-     * 
-     */
-    @Override
-    public void delete(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Security) module).deleteCertificateIssuerConfig(id);
-    }
-
-    /**
-     * Deletes a certificate issuer config.
-     * <p>
-     * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig#deleteCertificateIssuerConfig(CertificateIssuerConfig)}
      */
     @Override
@@ -103,19 +103,80 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     }
 
     /**
-     * Gets a certificate issuer config.
+     * Deletes a certificate issuer config.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig#getCertificateIssuerConfig(String)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig#deleteCertificateIssuerConfig(String)}
      * 
      * @param id
      *            The ID of the certificate issuer configuration.
      * 
      */
     @Override
-    public void read(@NonNull String id) throws MbedCloudException {
+    public void delete(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getCertificateIssuerConfig(id));
+        ((Security) module).deleteCertificateIssuerConfig(id);
+    }
+
+    /**
+     * Get certificate issuer configuration.
+     * 
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig#getDefault()}
+     */
+    public void getDefault() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Security) module).getDefault());
+    }
+
+    /**
+     * Instantiates model.
+     * 
+     * @return instantiated model
+     */
+    @Override
+    @Internal
+    protected CertificateIssuerConfig instantiateModel() {
+        return new CertificateIssuerConfig();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
     }
 
     /**
@@ -131,29 +192,19 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     }
 
     /**
-     * Get certificate issuer configuration.
-     * 
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig#getDefault()}
-     */
-    public void getDefault() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).getDefault());
-    }
-
-    /**
-     * Modifies a certificate issuer config.
+     * Gets a certificate issuer config.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig#updateCertificateIssuerConfig(CertificateIssuerConfig,String)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig#getCertificateIssuerConfig(String)}
      * 
      * @param id
      *            The ID of the certificate issuer configuration.
      * 
      */
-    public void update(@NonNull String id) throws MbedCloudException {
+    @Override
+    public void read(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).updateCertificateIssuerConfig(getModel(), id));
+        setModel(((Security) module).getCertificateIssuerConfig(id));
     }
 
     /**
@@ -185,68 +236,17 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     }
 
     /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
-    }
-
-    /**
-     * Instantiates model.
-     * 
-     * @return instantiated model
-     */
-    @Override
-    @Internal
-    protected CertificateIssuerConfig instantiateModel() {
-        return new CertificateIssuerConfig();
-    }
-
-    /**
-     * Clones this instance.
+     * Modifies a certificate issuer config.
      * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig#updateCertificateIssuerConfig(CertificateIssuerConfig,String)}
      * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
+     * @param id
+     *            The ID of the certificate issuer configuration.
+     * 
      */
-    @Override
-    public CertificateIssuerConfigDao clone() {
-        try {
-            return new CertificateIssuerConfigDao().configureAndGet(module == null ? null : module.clone());
-        } catch (MbedCloudException exception) {
-            return null;
-        }
+    public void update(@NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Security) module).updateCertificateIssuerConfig(getModel(), id));
     }
 }

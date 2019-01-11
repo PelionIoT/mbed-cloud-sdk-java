@@ -112,33 +112,13 @@ public final class DeviceEnrollmentAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getHasMore.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
-            }
-
-            /**
-             * Executes getTotalCount.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -152,6 +132,36 @@ public final class DeviceEnrollmentAdapter {
             }
 
             /**
+             * Executes getTotalCount.
+             * 
+             * @return something
+             */
+            @Override
+            public Integer getTotalCount() {
+                return (finalList == null) ? null : finalList.getTotalCount();
+            }
+
+            /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
+            }
+
+            /**
+             * Executes getAfter.
+             * 
+             * @return something
+             */
+            @Override
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
+            }
+
+            /**
              * Executes getContinuationMarker.
              * 
              * @return something
@@ -159,16 +169,6 @@ public final class DeviceEnrollmentAdapter {
             @Override
             public String getContinuationMarker() {
                 return null;
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
             }
         };
         return GenericAdapter.mapList(respList, DeviceEnrollmentAdapter.getMapper());

@@ -32,6 +32,41 @@ public abstract class AbstractUserInvitationListDao extends
     }
 
     /**
+     * a user invitation dao.
+     * 
+     * @return a user invitation dao
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public UserInvitationDao getCorrespondingModelDao() throws MbedCloudException {
+        return new UserInvitationDao().configureAndGet(module);
+    }
+
+    /**
+     * a user invitation dao class.
+     * 
+     * @return a user invitation dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<UserInvitationDao> getCorrespondingModelDaoDefinition() {
+        return UserInvitationDao.class;
+    }
+
+    /**
+     * a user invitation list options.
+     * 
+     * @return a user invitation list options
+     */
+    @Override
+    @Internal
+    protected UserInvitationListOptions instantiateListOptions() {
+        return new UserInvitationListOptions();
+    }
+
+    /**
      * Instantiates modules.
      * 
      * @param context
@@ -42,19 +77,6 @@ public abstract class AbstractUserInvitationListDao extends
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Accounts(client);
     }
 
     /**
@@ -71,37 +93,15 @@ public abstract class AbstractUserInvitationListDao extends
     }
 
     /**
-     * a user invitation list options.
+     * Instantiates modules.
      * 
-     * @return a user invitation list options
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected UserInvitationListOptions instantiateListOptions() {
-        return new UserInvitationListOptions();
-    }
-
-    /**
-     * a user invitation dao class.
-     * 
-     * @return a user invitation dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<UserInvitationDao> getCorrespondingModelDaoDefinition() {
-        return UserInvitationDao.class;
-    }
-
-    /**
-     * a user invitation dao.
-     * 
-     * @return a user invitation dao
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public UserInvitationDao getCorrespondingModelDao() throws MbedCloudException {
-        return new UserInvitationDao().configureAndGet(module);
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Accounts(client);
     }
 }

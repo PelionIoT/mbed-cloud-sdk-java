@@ -29,7 +29,7 @@ public class TestSubtenantTrustedCertificateStatus {
             subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue("INACTIVE");
             assertNotNull(subtenanttrustedcertificatestatus);
             assertFalse(subtenanttrustedcertificatestatus.isDefault());
-            subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue("cba11633-1ad1-4ea3-803c-96a6cd0c241e");
+            subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue("6c163831-dca7-49e6-9799-5b7e859156ff");
             assertNotNull(subtenanttrustedcertificatestatus);
             assertTrue(subtenanttrustedcertificatestatus.isDefault());
         } catch (Exception exception) {

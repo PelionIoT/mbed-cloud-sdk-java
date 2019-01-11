@@ -49,30 +49,14 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
     }
 
     /**
-     * Gets a device enrollment bulk create.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate#getDeviceEnrollmentBulkCreate(String)}
+     * Instantiates model.
      * 
-     * @param id
-     *            Bulk ID.
+     * @return instantiated model
      */
     @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollmentBulkCreate(id));
-    }
-
-    /**
-     * Gets a device enrollment bulk create.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate#getDeviceEnrollmentBulkCreate(DeviceEnrollmentBulkCreate)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollmentBulkCreate(getModel()));
+    @Internal
+    protected DeviceEnrollmentBulkCreate instantiateModel() {
+        return new DeviceEnrollmentBulkCreate();
     }
 
     /**
@@ -91,19 +75,6 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
     /**
      * Instantiates modules.
      * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Devices(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -115,13 +86,42 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
     }
 
     /**
-     * Instantiates model.
+     * Instantiates modules.
      * 
-     * @return instantiated model
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected DeviceEnrollmentBulkCreate instantiateModel() {
-        return new DeviceEnrollmentBulkCreate();
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Devices(client);
+    }
+
+    /**
+     * Gets a device enrollment bulk create.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate#getDeviceEnrollmentBulkCreate(DeviceEnrollmentBulkCreate)}
+     */
+    @Override
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Devices) module).getDeviceEnrollmentBulkCreate(getModel()));
+    }
+
+    /**
+     * Gets a device enrollment bulk create.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate#getDeviceEnrollmentBulkCreate(String)}
+     * 
+     * @param id
+     *            Bulk ID.
+     */
+    @Override
+    public void read(@NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Devices) module).getDeviceEnrollmentBulkCreate(id));
     }
 }

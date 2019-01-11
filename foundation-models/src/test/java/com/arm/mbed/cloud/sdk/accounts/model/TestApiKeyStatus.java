@@ -28,7 +28,7 @@ public class TestApiKeyStatus {
             apikeystatus = ApiKeyStatus.getValue("INACTIVE");
             assertNotNull(apikeystatus);
             assertFalse(apikeystatus.isDefault());
-            apikeystatus = ApiKeyStatus.getValue("b75a11c2-a556-45eb-97ba-7e50d695533e");
+            apikeystatus = ApiKeyStatus.getValue("32e0580b-c21c-4fab-b682-7d93a025bc76");
             assertNotNull(apikeystatus);
             assertTrue(apikeystatus.isDefault());
         } catch (Exception exception) {

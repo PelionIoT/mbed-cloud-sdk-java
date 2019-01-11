@@ -35,6 +35,41 @@ public abstract class AbstractCertificateIssuerConfigListDao extends
     }
 
     /**
+     * a certificate issuer config dao.
+     * 
+     * @return a certificate issuer config dao
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public CertificateIssuerConfigDao getCorrespondingModelDao() throws MbedCloudException {
+        return new CertificateIssuerConfigDao().configureAndGet(module);
+    }
+
+    /**
+     * a certificate issuer config dao class.
+     * 
+     * @return a certificate issuer config dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<CertificateIssuerConfigDao> getCorrespondingModelDaoDefinition() {
+        return CertificateIssuerConfigDao.class;
+    }
+
+    /**
+     * a certificate issuer config list options.
+     * 
+     * @return a certificate issuer config list options
+     */
+    @Override
+    @Internal
+    protected CertificateIssuerConfigListOptions instantiateListOptions() {
+        return new CertificateIssuerConfigListOptions();
+    }
+
+    /**
      * Instantiates modules.
      * 
      * @param context
@@ -45,19 +80,6 @@ public abstract class AbstractCertificateIssuerConfigListDao extends
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
     }
 
     /**
@@ -74,37 +96,15 @@ public abstract class AbstractCertificateIssuerConfigListDao extends
     }
 
     /**
-     * a certificate issuer config list options.
+     * Instantiates modules.
      * 
-     * @return a certificate issuer config list options
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected CertificateIssuerConfigListOptions instantiateListOptions() {
-        return new CertificateIssuerConfigListOptions();
-    }
-
-    /**
-     * a certificate issuer config dao class.
-     * 
-     * @return a certificate issuer config dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<CertificateIssuerConfigDao> getCorrespondingModelDaoDefinition() {
-        return CertificateIssuerConfigDao.class;
-    }
-
-    /**
-     * a certificate issuer config dao.
-     * 
-     * @return a certificate issuer config dao
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public CertificateIssuerConfigDao getCorrespondingModelDao() throws MbedCloudException {
-        return new CertificateIssuerConfigDao().configureAndGet(module);
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
     }
 }

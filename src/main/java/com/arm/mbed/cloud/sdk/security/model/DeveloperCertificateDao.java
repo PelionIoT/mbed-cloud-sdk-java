@@ -34,6 +34,22 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     }
 
     /**
+     * Clones this instance.
+     * <p>
+     * 
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
+     */
+    @Override
+    public DeveloperCertificateDao clone() {
+        try {
+            return new DeveloperCertificateDao().configureAndGet(module == null ? null : module.clone());
+        } catch (MbedCloudException exception) {
+            return null;
+        }
+    }
+
+    /**
      * Adds a developer certificate.
      * <p>
      * Similar to
@@ -59,20 +75,6 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
         checkDaoConfiguration();
         setModel(developerCertificate);
         create();
-    }
-
-    /**
-     * Deletes a developer certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#deleteDeveloperCertificate(String)}
-     * 
-     * @param id
-     *            The ID of the trusted certificate to be deleted.
-     */
-    @Override
-    public void delete(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Security) module).deleteDeveloperCertificate(id);
     }
 
     /**
@@ -104,29 +106,31 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     }
 
     /**
-     * Gets a developer certificate.
+     * Deletes a developer certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#getDeveloperCertificate(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#deleteDeveloperCertificate(String)}
      * 
      * @param id
-     *            mUUID that uniquely identifies the developer certificate.
+     *            The ID of the trusted certificate to be deleted.
      */
     @Override
-    public void read(@NonNull String id) throws MbedCloudException {
+    public void delete(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getDeveloperCertificate(id));
+        ((Security) module).deleteDeveloperCertificate(id);
     }
 
     /**
-     * Gets a developer certificate.
+     * Get trusted certificate by ID.
+     * 
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#getDeveloperCertificate(DeveloperCertificate)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#getTrustedCertificateInfo(DeveloperCertificate)}
+     * 
+     * @return something
      */
-    @Override
-    public void read() throws MbedCloudException {
+    public TrustedCertificate getTrustedCertificateInfo() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getDeveloperCertificate(getModel()));
+        return ((Security) module).getTrustedCertificateInfo(getModel());
     }
 
     /**
@@ -145,17 +149,14 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     }
 
     /**
-     * Get trusted certificate by ID.
+     * Instantiates model.
      * 
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#getTrustedCertificateInfo(DeveloperCertificate)}
-     * 
-     * @return something
+     * @return instantiated model
      */
-    public TrustedCertificate getTrustedCertificateInfo() throws MbedCloudException {
-        checkDaoConfiguration();
-        return ((Security) module).getTrustedCertificateInfo(getModel());
+    @Override
+    @Internal
+    protected DeveloperCertificate instantiateModel() {
+        return new DeveloperCertificate();
     }
 
     /**
@@ -174,19 +175,6 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     /**
      * Instantiates modules.
      * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -198,29 +186,41 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     }
 
     /**
-     * Instantiates model.
+     * Instantiates modules.
      * 
-     * @return instantiated model
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected DeveloperCertificate instantiateModel() {
-        return new DeveloperCertificate();
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
     }
 
     /**
-     * Clones this instance.
+     * Gets a developer certificate.
      * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#getDeveloperCertificate(DeveloperCertificate)}
      */
     @Override
-    public DeveloperCertificateDao clone() {
-        try {
-            return new DeveloperCertificateDao().configureAndGet(module == null ? null : module.clone());
-        } catch (MbedCloudException exception) {
-            return null;
-        }
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Security) module).getDeveloperCertificate(getModel()));
+    }
+
+    /**
+     * Gets a developer certificate.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#getDeveloperCertificate(String)}
+     * 
+     * @param id
+     *            mUUID that uniquely identifies the developer certificate.
+     */
+    @Override
+    public void read(@NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Security) module).getDeveloperCertificate(id));
     }
 }

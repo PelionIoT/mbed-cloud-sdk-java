@@ -31,18 +31,54 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
     }
 
     /**
-     * Lists device events matching filter options.
+     * Clones this instance.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#listDeviceEventss(DeviceEventsListOptions)}
      * 
-     * @param options
-     *            list options.
-     * @return one page of device events
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
      */
     @Override
-    protected ListResponse<DeviceEvents> requestOnePage(DeviceEventsListOptions options) throws MbedCloudException {
-        checkDaoConfiguration();
-        return ((Devices) module).listDeviceEventss(options);
+    public DeviceEventsListDao clone() {
+        try {
+            return new DeviceEventsListDao().configureAndGet(module == null ? null : module.clone());
+        } catch (MbedCloudException exception) {
+            return null;
+        }
+    }
+
+    /**
+     * a device events dao.
+     * 
+     * @return a device events dao
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public DeviceEventsDao getCorrespondingModelDao() throws MbedCloudException {
+        return new DeviceEventsDao().configureAndGet(module);
+    }
+
+    /**
+     * a device events dao class.
+     * 
+     * @return a device events dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<DeviceEventsDao> getCorrespondingModelDaoDefinition() {
+        return DeviceEventsDao.class;
+    }
+
+    /**
+     * a device events list options.
+     * 
+     * @return a device events list options
+     */
+    @Override
+    @Internal
+    protected DeviceEventsListOptions instantiateListOptions() {
+        return new DeviceEventsListOptions();
     }
 
     /**
@@ -61,19 +97,6 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
     /**
      * Instantiates modules.
      * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Devices(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -85,53 +108,30 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
     }
 
     /**
-     * a device events list options.
+     * Instantiates modules.
      * 
-     * @return a device events list options
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected DeviceEventsListOptions instantiateListOptions() {
-        return new DeviceEventsListOptions();
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Devices(client);
     }
 
     /**
-     * a device events dao class.
-     * 
-     * @return a device events dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<DeviceEventsDao> getCorrespondingModelDaoDefinition() {
-        return DeviceEventsDao.class;
-    }
-
-    /**
-     * a device events dao.
-     * 
-     * @return a device events dao
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public DeviceEventsDao getCorrespondingModelDao() throws MbedCloudException {
-        return new DeviceEventsDao().configureAndGet(module);
-    }
-
-    /**
-     * Clones this instance.
+     * Lists device events matching filter options.
      * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#listDeviceEventss(DeviceEventsListOptions)}
      * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
+     * @param options
+     *            list options.
+     * @return one page of device events
      */
     @Override
-    public DeviceEventsListDao clone() {
-        try {
-            return new DeviceEventsListDao().configureAndGet(module == null ? null : module.clone());
-        } catch (MbedCloudException exception) {
-            return null;
-        }
+    protected ListResponse<DeviceEvents> requestOnePage(DeviceEventsListOptions options) throws MbedCloudException {
+        checkDaoConfiguration();
+        return ((Devices) module).listDeviceEventss(options);
     }
 }

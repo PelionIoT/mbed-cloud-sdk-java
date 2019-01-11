@@ -48,20 +48,6 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     /**
      * Deletes a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#deleteUser(String)}
-     * 
-     * @param id
-     *            The ID of the user to be deleted.
-     */
-    @Override
-    public void delete(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Accounts) module).deleteUser(id);
-    }
-
-    /**
-     * Deletes a user.
-     * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#deleteUser(User)}
      */
     @Override
@@ -86,17 +72,67 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     }
 
     /**
-     * Gets a user.
+     * Deletes a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#getUser(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#deleteUser(String)}
      * 
      * @param id
-     *            The ID of the user.
+     *            The ID of the user to be deleted.
      */
     @Override
-    public void read(@NonNull String id) throws MbedCloudException {
+    public void delete(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).getUser(id));
+        ((Accounts) module).deleteUser(id);
+    }
+
+    /**
+     * Instantiates model.
+     * 
+     * @return instantiated model
+     */
+    @Override
+    @Internal
+    protected User instantiateModel() {
+        return new User();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Accounts(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Accounts(client);
     }
 
     /**
@@ -111,16 +147,17 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     }
 
     /**
-     * Modifies a user.
+     * Gets a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#updateUser(String,User)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#getUser(String)}
      * 
      * @param id
      *            The ID of the user.
      */
-    public void update(@NonNull String id) throws MbedCloudException {
+    @Override
+    public void read(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).updateUser(id, getModel()));
+        setModel(((Accounts) module).getUser(id));
     }
 
     /**
@@ -150,52 +187,15 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     }
 
     /**
-     * Instantiates modules.
+     * Modifies a user.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#updateUser(String,User)}
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
+     * @param id
+     *            The ID of the user.
      */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Accounts(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Accounts(options);
-    }
-
-    /**
-     * Instantiates model.
-     * 
-     * @return instantiated model
-     */
-    @Override
-    @Internal
-    protected User instantiateModel() {
-        return new User();
+    public void update(@NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Accounts) module).updateUser(id, getModel()));
     }
 }

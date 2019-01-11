@@ -35,20 +35,6 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * Adds a subtenant trusted certificate.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#createSubtenantTrustedCertificate(String,SubtenantTrustedCertificate)}
-     * 
-     * @param accountId
-     *            The ID of the account.
-     */
-    public void create(@NonNull String accountId) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).createSubtenantTrustedCertificate(accountId, getModel()));
-    }
-
-    /**
-     * Adds a subtenant trusted certificate.
-     * <p>
-     * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#createSubtenantTrustedCertificate(SubtenantTrustedCertificate)}
      */
     @Override
@@ -74,19 +60,17 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     }
 
     /**
-     * Deletes a subtenant trusted certificate.
+     * Adds a subtenant trusted certificate.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#deleteSubtenantTrustedCertificate(String,String)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#createSubtenantTrustedCertificate(String,SubtenantTrustedCertificate)}
      * 
      * @param accountId
-     *            Account ID.
-     * @param id
-     *            The ID of the trusted certificate to be deleted.
+     *            The ID of the account.
      */
-    public void delete(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+    public void create(@NonNull String accountId) throws MbedCloudException {
         checkDaoConfiguration();
-        ((Security) module).deleteSubtenantTrustedCertificate(accountId, id);
+        setModel(((Security) module).createSubtenantTrustedCertificate(accountId, getModel()));
     }
 
     /**
@@ -118,31 +102,33 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     }
 
     /**
-     * Gets a subtenant trusted certificate.
+     * Deletes a subtenant trusted certificate.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#getSubtenantTrustedCertificate(String,String)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#deleteSubtenantTrustedCertificate(String,String)}
      * 
      * @param accountId
-     *            The ID of the account.
+     *            Account ID.
      * @param id
-     *            Entity ID.
+     *            The ID of the trusted certificate to be deleted.
      */
-    public void read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+    public void delete(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getSubtenantTrustedCertificate(accountId, id));
+        ((Security) module).deleteSubtenantTrustedCertificate(accountId, id);
     }
 
     /**
-     * Gets a subtenant trusted certificate.
+     * Fetch an existing developer certificate to connect to the bootstrap server.
+     * 
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#getSubtenantTrustedCertificate(SubtenantTrustedCertificate)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#getDeveloperCertificateInfo(SubtenantTrustedCertificate)}
+     * 
+     * @return something
      */
-    @Override
-    public void read() throws MbedCloudException {
+    public DeveloperCertificate getDeveloperCertificateInfo() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getSubtenantTrustedCertificate(getModel()));
+        return ((Security) module).getDeveloperCertificateInfo(getModel());
     }
 
     /**
@@ -162,33 +148,81 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     }
 
     /**
-     * Fetch an existing developer certificate to connect to the bootstrap server.
+     * Instantiates model.
      * 
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#getDeveloperCertificateInfo(SubtenantTrustedCertificate)}
-     * 
-     * @return something
+     * @return instantiated model
      */
-    public DeveloperCertificate getDeveloperCertificateInfo() throws MbedCloudException {
-        checkDaoConfiguration();
-        return ((Security) module).getDeveloperCertificateInfo(getModel());
+    @Override
+    @Internal
+    protected SubtenantTrustedCertificate instantiateModel() {
+        return new SubtenantTrustedCertificate();
     }
 
     /**
-     * Modifies a subtenant trusted certificate.
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
+    }
+
+    /**
+     * Gets a subtenant trusted certificate.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#updateSubtenantTrustedCertificate(String,String,SubtenantTrustedCertificate)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#getSubtenantTrustedCertificate(SubtenantTrustedCertificate)}
+     */
+    @Override
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Security) module).getSubtenantTrustedCertificate(getModel()));
+    }
+
+    /**
+     * Gets a subtenant trusted certificate.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#getSubtenantTrustedCertificate(String,String)}
      * 
      * @param accountId
      *            The ID of the account.
      * @param id
      *            Entity ID.
      */
-    public void update(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+    public void read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).updateSubtenantTrustedCertificate(accountId, id, getModel()));
+        setModel(((Security) module).getSubtenantTrustedCertificate(accountId, id));
     }
 
     /**
@@ -220,52 +254,18 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     }
 
     /**
-     * Instantiates modules.
+     * Modifies a subtenant trusted certificate.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#updateSubtenantTrustedCertificate(String,String,SubtenantTrustedCertificate)}
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
+     * @param accountId
+     *            The ID of the account.
+     * @param id
+     *            Entity ID.
      */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
-    }
-
-    /**
-     * Instantiates model.
-     * 
-     * @return instantiated model
-     */
-    @Override
-    @Internal
-    protected SubtenantTrustedCertificate instantiateModel() {
-        return new SubtenantTrustedCertificate();
+    public void update(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Security) module).updateSubtenantTrustedCertificate(accountId, id, getModel()));
     }
 }

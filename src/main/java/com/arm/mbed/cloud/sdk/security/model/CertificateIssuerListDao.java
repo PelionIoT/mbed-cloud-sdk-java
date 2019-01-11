@@ -31,20 +31,54 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     }
 
     /**
-     * Lists certificate issuers matching filter options.
+     * Clones this instance.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#listCertificateIssuers(CertificateIssuerListOptions)}
      * 
-     * @param options
-     *            list options.
-     * @return one page of certificate issuers
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
      */
     @Override
-    protected ListResponse<CertificateIssuer>
-              requestOnePage(CertificateIssuerListOptions options) throws MbedCloudException {
-        checkDaoConfiguration();
-        return ((Security) module).listCertificateIssuers(options);
+    public CertificateIssuerListDao clone() {
+        try {
+            return new CertificateIssuerListDao().configureAndGet(module == null ? null : module.clone());
+        } catch (MbedCloudException exception) {
+            return null;
+        }
+    }
+
+    /**
+     * a certificate issuer dao.
+     * 
+     * @return a certificate issuer dao
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public CertificateIssuerDao getCorrespondingModelDao() throws MbedCloudException {
+        return new CertificateIssuerDao().configureAndGet(module);
+    }
+
+    /**
+     * a certificate issuer dao class.
+     * 
+     * @return a certificate issuer dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<CertificateIssuerDao> getCorrespondingModelDaoDefinition() {
+        return CertificateIssuerDao.class;
+    }
+
+    /**
+     * a certificate issuer list options.
+     * 
+     * @return a certificate issuer list options
+     */
+    @Override
+    @Internal
+    protected CertificateIssuerListOptions instantiateListOptions() {
+        return new CertificateIssuerListOptions();
     }
 
     /**
@@ -63,19 +97,6 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     /**
      * Instantiates modules.
      * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -87,53 +108,32 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     }
 
     /**
-     * a certificate issuer list options.
+     * Instantiates modules.
      * 
-     * @return a certificate issuer list options
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected CertificateIssuerListOptions instantiateListOptions() {
-        return new CertificateIssuerListOptions();
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
     }
 
     /**
-     * a certificate issuer dao class.
-     * 
-     * @return a certificate issuer dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<CertificateIssuerDao> getCorrespondingModelDaoDefinition() {
-        return CertificateIssuerDao.class;
-    }
-
-    /**
-     * a certificate issuer dao.
-     * 
-     * @return a certificate issuer dao
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public CertificateIssuerDao getCorrespondingModelDao() throws MbedCloudException {
-        return new CertificateIssuerDao().configureAndGet(module);
-    }
-
-    /**
-     * Clones this instance.
+     * Lists certificate issuers matching filter options.
      * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#listCertificateIssuers(CertificateIssuerListOptions)}
      * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
+     * @param options
+     *            list options.
+     * @return one page of certificate issuers
      */
     @Override
-    public CertificateIssuerListDao clone() {
-        try {
-            return new CertificateIssuerListDao().configureAndGet(module == null ? null : module.clone());
-        } catch (MbedCloudException exception) {
-            return null;
-        }
+    protected ListResponse<CertificateIssuer>
+              requestOnePage(CertificateIssuerListOptions options) throws MbedCloudException {
+        checkDaoConfiguration();
+        return ((Security) module).listCertificateIssuers(options);
     }
 }

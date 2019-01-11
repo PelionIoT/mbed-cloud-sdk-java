@@ -28,6 +28,22 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     }
 
     /**
+     * Clones this instance.
+     * <p>
+     * 
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
+     */
+    @Override
+    public ServerCredentialsDao clone() {
+        try {
+            return new ServerCredentialsDao().configureAndGet(module == null ? null : module.clone());
+        } catch (MbedCloudException exception) {
+            return null;
+        }
+    }
+
+    /**
      * Fetch bootstrap server credentials.
      * 
      * <p>
@@ -50,6 +66,17 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     }
 
     /**
+     * Instantiates model.
+     * 
+     * @return instantiated model
+     */
+    @Override
+    @Internal
+    protected ServerCredentials instantiateModel() {
+        return new ServerCredentials();
+    }
+
+    /**
      * Instantiates modules.
      * 
      * @param context
@@ -60,19 +87,6 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
     }
 
     /**
@@ -89,29 +103,15 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     }
 
     /**
-     * Instantiates model.
+     * Instantiates modules.
      * 
-     * @return instantiated model
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected ServerCredentials instantiateModel() {
-        return new ServerCredentials();
-    }
-
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public ServerCredentialsDao clone() {
-        try {
-            return new ServerCredentialsDao().configureAndGet(module == null ? null : module.clone());
-        } catch (MbedCloudException exception) {
-            return null;
-        }
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
     }
 }

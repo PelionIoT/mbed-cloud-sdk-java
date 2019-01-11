@@ -53,22 +53,6 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     /**
      * Deletes a certificate issuer.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#deleteCertificateIssuer(String)}
-     * 
-     * @param id
-     *            Certificate issuer ID. <br>
-     *            The ID of the certificate issuer. An active certificate issuer may not be deleted.
-     * 
-     */
-    @Override
-    public void delete(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Security) module).deleteCertificateIssuer(id);
-    }
-
-    /**
-     * Deletes a certificate issuer.
-     * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#deleteCertificateIssuer(CertificateIssuer)}
      */
@@ -95,6 +79,84 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     }
 
     /**
+     * Deletes a certificate issuer.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#deleteCertificateIssuer(String)}
+     * 
+     * @param id
+     *            Certificate issuer ID. <br>
+     *            The ID of the certificate issuer. An active certificate issuer may not be deleted.
+     * 
+     */
+    @Override
+    public void delete(@NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        ((Security) module).deleteCertificateIssuer(id);
+    }
+
+    /**
+     * Instantiates model.
+     * 
+     * @return instantiated model
+     */
+    @Override
+    @Internal
+    protected CertificateIssuer instantiateModel() {
+        return new CertificateIssuer();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
+    }
+
+    /**
+     * Gets a certificate issuer.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#getCertificateIssuer(CertificateIssuer)}
+     */
+    @Override
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Security) module).getCertificateIssuer(getModel()));
+    }
+
+    /**
      * Gets a certificate issuer.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#getCertificateIssuer(String)}
@@ -109,15 +171,20 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     }
 
     /**
-     * Gets a certificate issuer.
+     * Modifies a certificate issuer.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#getCertificateIssuer(CertificateIssuer)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#updateCertificateIssuer(Map,CertificateIssuer)}
+     * 
+     * @param issuerCredentials
+     *            The credentials required for connecting to the certificate issuer. When the issuer_type is
+     *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
+     *            definition of CfsslAuthCredentials.
+     * 
      */
-    @Override
-    public void read() throws MbedCloudException {
+    public void update(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getCertificateIssuer(getModel()));
+        setModel(((Security) module).updateCertificateIssuer(issuerCredentials, getModel()));
     }
 
     /**
@@ -140,20 +207,16 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     }
 
     /**
-     * Modifies a certificate issuer.
+     * Verify certificate issuer.
+     * 
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#updateCertificateIssuer(Map,CertificateIssuer)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#verify(CertificateIssuer)}
      * 
-     * @param issuerCredentials
-     *            The credentials required for connecting to the certificate issuer. When the issuer_type is
-     *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
-     *            definition of CfsslAuthCredentials.
-     * 
+     * @return something
      */
-    public void update(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
+    public VerificationResponse verify() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).updateCertificateIssuer(issuerCredentials, getModel()));
+        return ((Security) module).verify(getModel());
     }
 
     /**
@@ -171,68 +234,5 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     public VerificationResponse verify(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
         return ((Security) module).verify(id);
-    }
-
-    /**
-     * Verify certificate issuer.
-     * 
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#verify(CertificateIssuer)}
-     * 
-     * @return something
-     */
-    public VerificationResponse verify() throws MbedCloudException {
-        checkDaoConfiguration();
-        return ((Security) module).verify(getModel());
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
-    }
-
-    /**
-     * Instantiates model.
-     * 
-     * @return instantiated model
-     */
-    @Override
-    @Internal
-    protected CertificateIssuer instantiateModel() {
-        return new CertificateIssuer();
     }
 }

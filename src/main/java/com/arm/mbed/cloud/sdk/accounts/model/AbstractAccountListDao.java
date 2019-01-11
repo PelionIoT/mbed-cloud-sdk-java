@@ -31,6 +31,41 @@ public abstract class AbstractAccountListDao extends AbstractModelListDao<Accoun
     }
 
     /**
+     * an account dao.
+     * 
+     * @return an account dao
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public AccountDao getCorrespondingModelDao() throws MbedCloudException {
+        return new AccountDao().configureAndGet(module);
+    }
+
+    /**
+     * an account dao class.
+     * 
+     * @return an account dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<AccountDao> getCorrespondingModelDaoDefinition() {
+        return AccountDao.class;
+    }
+
+    /**
+     * an account list options.
+     * 
+     * @return an account list options
+     */
+    @Override
+    @Internal
+    protected AccountListOptions instantiateListOptions() {
+        return new AccountListOptions();
+    }
+
+    /**
      * Instantiates modules.
      * 
      * @param context
@@ -41,19 +76,6 @@ public abstract class AbstractAccountListDao extends AbstractModelListDao<Accoun
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Accounts(client);
     }
 
     /**
@@ -70,37 +92,15 @@ public abstract class AbstractAccountListDao extends AbstractModelListDao<Accoun
     }
 
     /**
-     * an account list options.
+     * Instantiates modules.
      * 
-     * @return an account list options
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
      */
     @Override
     @Internal
-    protected AccountListOptions instantiateListOptions() {
-        return new AccountListOptions();
-    }
-
-    /**
-     * an account dao class.
-     * 
-     * @return an account dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<AccountDao> getCorrespondingModelDaoDefinition() {
-        return AccountDao.class;
-    }
-
-    /**
-     * an account dao.
-     * 
-     * @return an account dao
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public AccountDao getCorrespondingModelDao() throws MbedCloudException {
-        return new AccountDao().configureAndGet(module);
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Accounts(client);
     }
 }

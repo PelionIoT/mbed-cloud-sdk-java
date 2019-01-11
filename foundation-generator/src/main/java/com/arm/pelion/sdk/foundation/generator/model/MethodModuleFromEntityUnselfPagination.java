@@ -38,7 +38,6 @@ public class MethodModuleFromEntityUnselfPagination extends MethodModuleFromEnti
 
     @Override
     protected void generateMethodCode() throws TranslationException {
-        System.out.println("generating " + getName());
         MethodModulePaginationApi.generateMethodCode(returnModel, this, methodBasedOn, true);
     }
 

@@ -26,4 +26,51 @@ public class TestDaoFactory {
             fail(exception.getMessage());
         }
     }
+
+    /**
+     * Tests the hashCode method.
+     */
+    @Test
+    public void testHashCode() {
+        try {
+            DaoFactory daofactory1 = new DaoFactory((DaoFactory) null);
+            DaoFactory daofactory2 = new DaoFactory((DaoFactory) null);
+            assertNotNull(daofactory1);
+            assertNotNull(daofactory2);
+            assertNotSame(daofactory2, daofactory1);
+            assertEquals(daofactory2, daofactory1);
+            assertEquals(daofactory2.hashCode(), daofactory1.hashCode());
+            int hashCode = daofactory1.hashCode();
+            for (int i = 0; i < 5; i++) {
+                assertEquals(hashCode, daofactory1.hashCode());
+            }
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
+    }
+
+    /**
+     * Tests the equals method.
+     */
+    @Test
+    public void testEquals() {
+        try {
+            DaoFactory daofactory1 = new DaoFactory((DaoFactory) null);
+            DaoFactory daofactory2 = new DaoFactory((DaoFactory) null);
+            DaoFactory daofactory3 = new DaoFactory((DaoFactory) null);
+            assertNotNull(daofactory1);
+            assertNotNull(daofactory2);
+            assertNotNull(daofactory3);
+            assertNotSame(daofactory2, daofactory1);
+            assertNotSame(daofactory3, daofactory1);
+            assertEquals(daofactory2, daofactory1);
+            assertEquals(daofactory2, daofactory1);
+            assertEquals(daofactory1, daofactory2);
+            assertEquals(daofactory1, daofactory1);
+            assertFalse(daofactory1.equals(null));
+            assertNotEquals(daofactory3, daofactory1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
+    }
 }
