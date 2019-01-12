@@ -11,6 +11,9 @@ import com.arm.mbed.cloud.sdk.accounts.model.AccountDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserDao;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceDao;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceState;
+import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig;
 
 import utils.AbstractExample;
 import utils.Configuration;
@@ -81,6 +84,47 @@ public class FoundationsExamples extends AbstractExample {
                              exception.printStackTrace();
                          }
                      });
+    }
+
+    /**
+     * Renews a device certificate
+     */
+    @Example
+    public void renewCertificate() {
+        // example: certificate renew
+        try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
+            // Find the certificate issuers configuration in use. In this case, it is known that the reference is
+            // "LWM2M".
+            CertificateIssuerConfig myConfig = StreamSupport.stream(sdk.daos().getCertificateIssuerConfigListDao()
+                                                                       .getPaginator().spliterator(),
+                                                                    false)
+                                                            .filter(c -> c.getCertificateReference().equals("LWM2M"))
+                                                            .findFirst().get();
+            // Get a device DAO
+            final DeviceDao deviceDao = sdk.daos().getDeviceDao();
+            // Renew the certificate of all connected devices
+            StreamSupport.stream(sdk.daos().getDeviceListDao().paginator().spliterator(), false)
+                         .filter(d -> d.getState() == DeviceState.REGISTERED).forEach(d -> {
+                             // Configure the DAO with the model of interest
+                             try {
+                                 deviceDao.setModel(d);
+                                 deviceDao.renewCertificate(myConfig.getCertificateReference());
+                                 System.out.println(myConfig + " could not be renewed on " + d);
+                             } catch (MbedCloudException exception) {
+                                 // TODO do something with the exception
+                                 System.out.println(myConfig + " could not be renewed on " + d);
+                             }
+
+                         });
+
+        } catch (MbedCloudException exception) {
+            // TODO do something with the exception
+            exception.printStackTrace();
+            // cloak
+            fail(exception.getMessage());
+            // uncloak
+        }
+
     }
 
 }
