@@ -84,7 +84,6 @@ public class FoundationsExamples extends AbstractExample {
     @Example
     public void useMultipleApiKeys() {
         // an example: using multiple api keys
-        // Configure the SDK to use a specific host.
         try {
             ApiKeyListDao dao1 = new ApiKeyListDao();
             dao1.configure(ConnectionOptions.newConfiguration("API Key 1 xxxxxx"));
