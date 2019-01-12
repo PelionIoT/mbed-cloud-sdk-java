@@ -136,7 +136,6 @@ public class Account implements SdkModel {
     /**
      * Account ID.
      */
-    @Required
     private String id;
 
     /**
@@ -172,7 +171,6 @@ public class Account implements SdkModel {
     /**
      * value.
      */
-    @Required
     private PasswordPolicy passwordPolicy;
 
     /**
@@ -453,26 +451,6 @@ public class Account implements SdkModel {
     public Account(String id) {
         this();
         setId(id);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param endMarket
-     *            Account end market.
-     * @param id
-     *            Account ID.
-     * @param passwordPolicy
-     *            value.
-     */
-    public Account(String endMarket, String id, PasswordPolicy passwordPolicy) {
-        this((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             new java.util.Date(), null, (String) null, (String) null, (String) null, endMarket, new java.util.Date(),
-             (String) null, id, (String) null, null, AccountMfaStatus.getDefault(), null, (ParentAccount) null,
-             (String) null, passwordPolicy, (String) null, null, (String) null, (String) null, (String) null,
-             (String) null, (String) null, AccountStatus.getDefault(), (String) null, (String) null,
-             new java.util.Date(), new java.util.Date());
     }
 
     /**
@@ -933,7 +911,6 @@ public class Account implements SdkModel {
      *            Account ID.
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -947,19 +924,8 @@ public class Account implements SdkModel {
      *            Account ID.
      */
     @Internal
-    @Required
     public void setAccountId(String accountId) {
         setId(accountId);
-    }
-
-    /**
-     * Checks whether id value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIdValid() {
-        return id != null;
     }
 
     /**
@@ -1091,19 +1057,8 @@ public class Account implements SdkModel {
      * @param passwordPolicy
      *            value.
      */
-    @Required
     public void setPasswordPolicy(PasswordPolicy passwordPolicy) {
         this.passwordPolicy = passwordPolicy;
-    }
-
-    /**
-     * Checks whether passwordPolicy value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isPasswordPolicyValid() {
-        return passwordPolicy != null;
     }
 
     /**
@@ -1753,7 +1708,7 @@ public class Account implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isEndMarketValid() && isIdValid() && isPasswordPolicyValid();
+        return isEndMarketValid();
     }
 
     /**

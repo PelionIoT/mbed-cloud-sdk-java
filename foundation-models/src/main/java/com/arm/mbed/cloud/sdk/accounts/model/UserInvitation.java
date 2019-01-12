@@ -43,7 +43,6 @@ public class UserInvitation implements SdkModel {
     /**
      * The ID of the invitation.
      */
-    @Required
     private String id;
 
     /**
@@ -135,19 +134,6 @@ public class UserInvitation implements SdkModel {
     public UserInvitation(String id) {
         this();
         setId(id);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param email
-     *            Email address of the invited user.
-     * @param id
-     *            The ID of the invitation.
-     */
-    public UserInvitation(String email, String id) {
-        this((String) null, new java.util.Date(), email, new java.util.Date(), id, null, new java.util.Date(),
-             (String) null);
     }
 
     /**
@@ -254,7 +240,6 @@ public class UserInvitation implements SdkModel {
      *            The ID of the invitation.
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -268,19 +253,8 @@ public class UserInvitation implements SdkModel {
      *            The ID of the invitation.
      */
     @Internal
-    @Required
     public void setUserInvitationId(String userInvitationId) {
         setId(userInvitationId);
-    }
-
-    /**
-     * Checks whether id value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIdValid() {
-        return id != null;
     }
 
     /**
@@ -482,7 +456,7 @@ public class UserInvitation implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isEmailValid() && isIdValid();
+        return isEmailValid();
     }
 
     /**

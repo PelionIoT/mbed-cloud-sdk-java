@@ -38,7 +38,6 @@ public class CertificateIssuerConfig implements SdkModel {
     /**
      * The ID of the certificate issuer configuration.
      */
-    @Required
     private String id;
 
     /**
@@ -119,12 +118,9 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      * @param certificateReference
      *            The certificate name to which the certificate issuer configuration applies.
-     * @param id
-     *            The ID of the certificate issuer configuration.
-     * 
      */
-    public CertificateIssuerConfig(String certificateIssuerId, String certificateReference, String id) {
-        this(certificateIssuerId, certificateReference, new java.util.Date(), id, new java.util.Date());
+    public CertificateIssuerConfig(String certificateIssuerId, String certificateReference) {
+        this(certificateIssuerId, certificateReference, new java.util.Date(), (String) null, new java.util.Date());
     }
 
     /**
@@ -225,7 +221,6 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -240,19 +235,8 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      */
     @Internal
-    @Required
     public void setCertificateIssuerConfigId(String certificateIssuerConfigId) {
         setId(certificateIssuerConfigId);
-    }
-
-    /**
-     * Checks whether id value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIdValid() {
-        return id != null;
     }
 
     /**
@@ -390,7 +374,7 @@ public class CertificateIssuerConfig implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isCertificateIssuerIdValid() && isCertificateReferenceValid() && isIdValid();
+        return isCertificateIssuerIdValid() && isCertificateReferenceValid();
     }
 
     /**

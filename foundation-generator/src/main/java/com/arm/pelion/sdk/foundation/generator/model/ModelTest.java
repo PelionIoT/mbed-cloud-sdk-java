@@ -74,6 +74,15 @@ public class ModelTest extends AbstractSdkArtifact {
         }
     }
 
+    private void initialiseVariable(final MethodTest test, final int variableNumber, final List<Object> values,
+                                    final String fieldValues) {
+        test.getCode()
+            .addStatement("$L $L" + variableNumber + " = new $L("
+                          + (ValueGenerator.DEFAULT_VALUE.equals(fieldValues) ? "(" + modelUnderTest.getName() + ")"
+                                                                              : "")
+                          + fieldValues + ")", values.toArray());
+    }
+
     private void addExceptionHandlingStart(final MethodTest test) {
         test.getCode().beginControlFlow("try");
     }
@@ -103,12 +112,7 @@ public class ModelTest extends AbstractSdkArtifact {
         ValueGenerator.generateModelFieldValues(modelUnderTest, formats, values);
         final String fieldValues = String.join("," + System.lineSeparator(), formats);
         addExceptionHandlingStart(test);
-
-        test.getCode()
-            .addStatement("$L $L1 = new $L("
-                          + (ValueGenerator.DEFAULT_VALUE.equals(fieldValues) ? "(" + modelUnderTest.getName() + ")"
-                                                                              : "")
-                          + fieldValues + ")", values.toArray());
+        initialiseVariable(test, 1, values, fieldValues);
         test.getCode().addStatement("$L $L2 = $L1.clone()", modelUnderTest.getName(), variable, variable);
         test.getCode().addStatement("assertNotNull($L1)", variable);
         test.getCode().addStatement("assertNotNull($L2)", variable);
@@ -182,20 +186,19 @@ public class ModelTest extends AbstractSdkArtifact {
         ValueGenerator.generateModelFieldValues(modelUnderTest, formats, values2);
         final String fieldValues = String.join("," + System.lineSeparator(), formats);
         addExceptionHandlingStart(test);
-
-        test.getCode().addStatement("$L $L1 = new $L(" + fieldValues + ")", values1.toArray());
-        test.getCode().addStatement("$L $L2 = new $L(" + fieldValues + ")", values1.toArray());
-        if (!formats.isEmpty()) {
-            test.getCode().addStatement("$L $L3 = new $L(" + fieldValues + ")", values2.toArray());
+        initialiseVariable(test, 1, values1, fieldValues);
+        initialiseVariable(test, 2, values1, fieldValues);
+        if (shouldCompareToDifferentInstance(formats, values1, values2)) {
+            initialiseVariable(test, 3, values2, fieldValues);
         }
 
         test.getCode().addStatement("assertNotNull($L1)", variable);
         test.getCode().addStatement("assertNotNull($L2)", variable);
-        if (!formats.isEmpty()) {
+        if (shouldCompareToDifferentInstance(formats, values1, values2)) {
             test.getCode().addStatement("assertNotNull($L3)", variable);
         }
         test.getCode().addStatement("assertNotSame($L2, $L1)", variable, variable);
-        if (!formats.isEmpty()) {
+        if (shouldCompareToDifferentInstance(formats, values1, values2)) {
             test.getCode().addStatement("assertNotSame($L3, $L1)", variable, variable);
         }
         test.getCode().addStatement("assertEquals($L2, $L1)", variable, variable);
@@ -203,11 +206,21 @@ public class ModelTest extends AbstractSdkArtifact {
         test.getCode().addStatement("assertEquals($L1, $L2)", variable, variable);
         test.getCode().addStatement("assertEquals($L1, $L1)", variable, variable);
         test.getCode().addStatement("assertFalse($L1.equals(null))", variable);
-        if (!values2.isEmpty()) {
+        if (shouldCompareToDifferentInstance(formats, values1, values2)) {
             test.getCode().addStatement("assertNotEquals($L3, $L1)", variable, variable);
         }
         addExceptionHandlingEnd(test);
         addTest(test);
+    }
+
+    private boolean shouldCompareToDifferentInstance(List<String> formats, List<Object> values1, List<Object> values2) {
+        if (formats.isEmpty()) {
+            return false;
+        }
+        if (values1 == null) {
+            return values2 != null;
+        }
+        return !values1.equals(values2);
     }
 
     /**
@@ -235,8 +248,8 @@ public class ModelTest extends AbstractSdkArtifact {
         ValueGenerator.generateModelFieldValues(modelUnderTest, formats, values);
         final String fieldValues = String.join("," + System.lineSeparator(), formats);
         addExceptionHandlingStart(test);
-        test.getCode().addStatement("$L $L1 = new $L(" + fieldValues + ")", values.toArray());
-        test.getCode().addStatement("$L $L2 = new $L(" + fieldValues + ")", values.toArray());
+        initialiseVariable(test, 1, values, fieldValues);
+        initialiseVariable(test, 2, values, fieldValues);
         test.getCode().addStatement("assertNotNull($L1)", variable);
         test.getCode().addStatement("assertNotNull($L2)", variable);
         test.getCode().addStatement("assertNotSame($L2, $L1)", variable, variable);

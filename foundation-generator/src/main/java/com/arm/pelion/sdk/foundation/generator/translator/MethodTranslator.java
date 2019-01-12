@@ -69,9 +69,29 @@ public class MethodTranslator {
 
     }
 
+    private static String processSwaggerDescription(String description) {
+        // Removes any incorrect characters or long lines.
+        if (description == null) {
+            return description;
+        }
+        description = description.replace("<", "[").replace(">", "]");
+        final int maxLength = 200;
+        String lines[] = description.split("\\r?\\n");
+        final StringBuilder builder = new StringBuilder();
+        for (final String line : lines) {
+            String subLine = line.trim();
+            while (subLine.length() > maxLength) {
+                builder.append(subLine.substring(0, maxLength)).append(System.lineSeparator());
+                subLine = subLine.substring(maxLength);
+            }
+            builder.append(subLine).append(System.lineSeparator());
+        }
+        return builder.toString();
+    }
+
     private static String generateMethodLongDescription(String description) {
         // TODO do some processing if needed
-        return description;
+        return processSwaggerDescription(description);
     }
 
     @SuppressWarnings("incomplete-switch")
@@ -79,7 +99,7 @@ public class MethodTranslator {
                                                     String methodName, boolean hasFilters) {
         if (action == MethodAction.OTHER || action == MethodAction.LIST_OTHER) {
             if (summary != null) {
-                return summary;
+                return processSwaggerDescription(summary);
             }
             String description = Utils.generateModelNameAsText(methodName);
             if (description != null && !description.isEmpty()) {

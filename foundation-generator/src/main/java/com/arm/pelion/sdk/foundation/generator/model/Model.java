@@ -3,6 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
@@ -39,6 +40,9 @@ public class Model extends AbstractSdkArtifact {
     protected Map<String, Method> superClassMethods;
     protected TypeParameter superClassType;
     protected TypeSpec.Builder specificationBuilder;
+    private boolean shouldBeSorted;
+    private boolean mayHaveLongLines;
+    private boolean isFinal;
     private static final Map<String, Integer> LOOKUP_TABLE = new HashMap<>(26);
     static {
         LOOKUP_TABLE.put("a", Integer.valueOf(1));
@@ -86,7 +90,10 @@ public class Model extends AbstractSdkArtifact {
         setGroup(group);
         setSuperClassType(null);
         this.concreteType = concreteType;
-        hasCyclomaticComplexity = false;
+        setHasCyclomaticComplexity(false);
+        setShouldBeSorted(false);
+        setMayHaveLongLines(false);
+        setFinal(false);
     }
 
     public Model() {
@@ -159,6 +166,22 @@ public class Model extends AbstractSdkArtifact {
         return packageName;
     }
 
+    public boolean mayHaveLongLines() {
+        return mayHaveLongLines;
+    }
+
+    public void setMayHaveLongLines(boolean mayHaveLongLines) {
+        this.mayHaveLongLines = mayHaveLongLines;
+    }
+
+    public boolean isFinal() {
+        return isFinal;
+    }
+
+    public void setFinal(boolean isFinal) {
+        this.isFinal = isFinal;
+    }
+
     public boolean hasPackageName() {
         return has(packageName);
     }
@@ -169,6 +192,14 @@ public class Model extends AbstractSdkArtifact {
 
     public TypeParameter getSuperClassType() {
         return superClassType;
+    }
+
+    public boolean shouldBeSorted() {
+        return shouldBeSorted;
+    }
+
+    public void setShouldBeSorted(boolean shouldBeSorted) {
+        this.shouldBeSorted = shouldBeSorted;
     }
 
     public void setSuperClassType(TypeParameter superClassType) {
@@ -237,7 +268,15 @@ public class Model extends AbstractSdkArtifact {
      * @return the methods
      */
     public List<Method> getMethodList() {
-        return new ArrayList<>(methods.values());
+        return getMethodList(false);
+    }
+
+    private List<Method> getMethodList(boolean shouldBeSorted) {
+        final List<Method> list = new ArrayList<>(methods.values());
+        if (shouldBeSorted) {
+            return list.stream().sorted(Comparator.comparing(Method::getIdentifier)).collect(Collectors.toList());
+        }
+        return list;
     }
 
     public boolean hasMethod(Method method) {
@@ -486,6 +525,9 @@ public class Model extends AbstractSdkArtifact {
             if (isAbstract) {
                 specificationBuilder.addModifiers(Modifier.ABSTRACT);
             }
+            if (isFinal) {
+                specificationBuilder.addModifiers(Modifier.FINAL);
+            }
             generateDocumentation();
             generateAnnotations();
             if (hasSuperInterface() && !hasAbstractParent()) {
@@ -519,6 +561,9 @@ public class Model extends AbstractSdkArtifact {
         }
         if (hasFieldsWithDefaultValues()) {
             specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreAvoidDuplicateLiterals());
+        }
+        if (mayHaveLongLines()) {
+            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreLongLines());
         }
     }
 
@@ -940,7 +985,7 @@ public class Model extends AbstractSdkArtifact {
     }
 
     protected void translateMethods() throws TranslationException {
-        for (final Method m : getMethodList()) {
+        for (final Method m : getMethodList(shouldBeSorted)) {
             m.translate();
             specificationBuilder.addMethod(m.getSpecificationBuilder().build());
         }

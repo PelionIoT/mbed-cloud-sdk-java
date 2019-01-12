@@ -32,6 +32,8 @@ public class ModelAdapter extends Model {
         this.fetcher = fetcher;
         conversions = new LinkedHashMap<>();// Fill
         this.defaultRenames = renames;
+        setMayHaveLongLines(true);
+        setFinal(true);
     }
 
     private static String generateDescription(String name, String description) {
@@ -71,8 +73,7 @@ public class ModelAdapter extends Model {
 
     @Override
     protected void generateMethodsDependingOnParents(Model theParent) {
-        addConstructor(new MethodConstructorEmpty(this, theParent).useParent(true).accessible(false));
-
+        addConstructor(new MethodConstructorEmpty(this, theParent).useParent(true).forcePrivate().accessible(false));
     }
 
     public void addDefaultConversion(Model from, Model to, MethodAction action) {

@@ -102,7 +102,7 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
             return;
         }
         for (Parameter p : methodParameters) {
-            if (PARAMETER_NAME_OPTIONS.equals(p.getIdentifier())) {
+            if (checkIfParameterListOptions(p)) {
                 method.code.addStatement("final $T $L = ($L == null)? new $T() : $L",
                                          determineListOptionType(listOptionCorrespondingModel, fetcher),
                                          getOptionLocalVariable(method), p.getName(),
@@ -111,6 +111,10 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
                 method.generateParameterInitialisation(p);
             }
         }
+    }
+
+    public static boolean checkIfParameterListOptions(Parameter p) {
+        return p == null ? false : PARAMETER_NAME_OPTIONS.equals(p.getName()) || p.getType().isListOptions();
     }
 
     protected static String getOptionLocalVariable(MethodModuleCloudApi method) {

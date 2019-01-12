@@ -37,6 +37,7 @@ public class ModelModule extends ModelMergeable {
         cloudCalls = new LinkedHashMap<>();
         addEndpointField();
         registry = new MethodRegistry();
+        setShouldBeSorted(true);
     }
 
     private void addEndpointField() {

@@ -15,6 +15,7 @@ import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.GenericClient;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
@@ -39,6 +40,8 @@ public class Sdk extends AbstractModule {
 
     private static final String BUFFER = "BUFFER";
     private final Connect connectApi;
+    private final DaoFactory daoFactory;
+    private final GenericClient genericClient;
 
     /**
      * Mbed Cloud SDK constructor.
@@ -49,6 +52,8 @@ public class Sdk extends AbstractModule {
     public Sdk(ConnectionOptions options) {
         super(options, extendUserAgent());
         connectApi = new Connect(options);
+        daoFactory = new DaoFactory(this);
+        genericClient = new GenericClient(this);
     }
 
     /**
@@ -76,6 +81,31 @@ public class Sdk extends AbstractModule {
         final Map<String, String> extension = new HashMap<>(1);
         extension.put("HLA", "1.0.0-experimental");
         return extension;
+    }
+
+    /**
+     * Gets a factory for all the DAOs available in the system.
+     * <p>
+     * 
+     * @see {@link CloudDao}
+     * 
+     * @return a DAO factory.
+     */
+    @API
+    public DaoFactory daos() {
+        return daoFactory;
+    }
+
+    /**
+     * Gets a generic client in case it is needed to call REST APIs directly.
+     * <p>
+     * 
+     * @see GenericClient
+     * @return underlying generic client;
+     */
+    @API
+    public GenericClient genericClient() {
+        return genericClient;
     }
 
     /**

@@ -42,8 +42,14 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
 
     public static String generatePaginatorName(MethodModuleCloudApi listMethod) {
         final String oldName = listMethod.getName();
-        final String newName = listMethod.getName().replace(PREFIX_LIST_METHOD,
-                                                            PREFIX_LIST_METHOD + PAGINATOR_METHOD_IDENTIFIER);
+        return generatePaginatorName(oldName);
+    }
+
+    public static String generatePaginatorName(final String oldName) {
+        if (oldName == null || oldName.trim().isEmpty()) {
+            return oldName;
+        }
+        final String newName = oldName.replace(PREFIX_LIST_METHOD, PREFIX_LIST_METHOD + PAGINATOR_METHOD_IDENTIFIER);
         return oldName.equals(newName) ? Utils.combineNames(false, PAGINATOR_METHOD_IDENTIFIER, newName) : newName;
     }
 
@@ -124,13 +130,8 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
                 } else {
                     builder.append(", ");
                 }
-                if (PARAMETER_NAME_OPTIONS.equals(p.getName())) {
-                    builder.append("($T) $L");
-                    final Parameter parameter = method.getParameters().stream().findFirst().get();
-                    final TypeParameter pType = p.getType();
-                    pType.translate();
-                    callElements.add(pType.hasClass() ? pType.getClazz() : pType.getTypeName());
-                    callElements.add(parameter == null ? "null" : parameter.getName());
+                if (checkIfParameterListOptions(p)) {
+                    initialiseListOptionsParameters(method, callElements, builder, p);
                 } else {
                     builder.append("$L");
                     callElements.add((useThisFinalVariableMethod ? thisMethod
@@ -146,6 +147,17 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
 
         return pageRequest.build();
 
+    }
+
+    public static void initialiseListOptionsParameters(final Method method, final List<Object> callElements,
+                                                       final StringBuilder builder,
+                                                       Parameter p) throws TranslationException {
+        builder.append("($T) $L");
+        final Parameter parameter = method.getParameters().stream().findFirst().get();
+        final TypeParameter pType = p.getType();
+        pType.translate();
+        callElements.add(pType.hasClass() ? pType.getClazz() : pType.getTypeName());
+        callElements.add(parameter == null ? "null" : parameter.getName());
     }
 
     @Override

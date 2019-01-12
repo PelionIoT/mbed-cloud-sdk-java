@@ -4,7 +4,6 @@ package com.arm.mbed.cloud.sdk.security.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 
@@ -46,7 +45,6 @@ public class CertificateEnrollment implements SdkModel {
     /**
      * The ID of the certificate enrollment.
      */
-    @Required
     private String id;
 
     /**
@@ -240,7 +238,6 @@ public class CertificateEnrollment implements SdkModel {
      *            The ID of the certificate enrollment.
      */
     @Override
-    @Required
     public void setId(String id) {
         this.id = id;
     }
@@ -254,19 +251,8 @@ public class CertificateEnrollment implements SdkModel {
      *            The ID of the certificate enrollment.
      */
     @Internal
-    @Required
     public void setCertificateEnrollmentId(String certificateEnrollmentId) {
         setId(certificateEnrollmentId);
-    }
-
-    /**
-     * Checks whether id value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIdValid() {
-        return id != null;
     }
 
     /**
@@ -413,7 +399,7 @@ public class CertificateEnrollment implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isIdValid();
+        return true;
     }
 
     /**
