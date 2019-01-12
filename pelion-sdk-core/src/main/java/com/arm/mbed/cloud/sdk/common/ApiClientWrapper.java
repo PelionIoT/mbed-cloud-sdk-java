@@ -95,6 +95,7 @@ public class ApiClientWrapper implements Cloneable {
 
         }
         interceptor.setLevel(logLevel);
+        this.connectionOptions.setClientLogLevel(level);
         this.client.getOkBuilder().addInterceptor(interceptor);
     }
 
@@ -108,6 +109,7 @@ public class ApiClientWrapper implements Cloneable {
         if (timeout == null) {
             return;
         }
+        this.connectionOptions.setRequestTimeout(timeout);
         this.client.getOkBuilder().readTimeout(timeout.getDuration(), timeout.getUnit());
     }
 

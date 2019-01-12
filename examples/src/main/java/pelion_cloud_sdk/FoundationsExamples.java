@@ -1,16 +1,24 @@
 package pelion_cloud_sdk;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.stream.StreamSupport;
 
 import com.arm.mbed.cloud.sdk.Sdk;
 import com.arm.mbed.cloud.sdk.accounts.model.AccountDao;
+import com.arm.mbed.cloud.sdk.accounts.model.AccountStatus;
+import com.arm.mbed.cloud.sdk.accounts.model.ApiKey;
+import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserDao;
+import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceState;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig;
@@ -20,6 +28,110 @@ import utils.Configuration;
 import utils.Example;
 
 public class FoundationsExamples extends AbstractExample {
+    /**
+     * Checks my account status.
+     */
+    @Example
+    public void checkAccountStatus() {
+        // example: checking account status
+        try {
+            // Fetch my account
+            AccountDao myAccountDao = new AccountDao().configureAndGet(Configuration.get());
+            myAccountDao.me(null, null);
+            // Print my account detail
+            System.out.println(myAccountDao.getModel());
+            boolean isActive = myAccountDao.getModel().getStatus() == AccountStatus.ACTIVE;
+            // cloack
+            assertTrue(isActive);
+            // uncloack
+        } catch (MbedCloudException exception) {
+            // TODO do something with the exception
+            exception.printStackTrace();
+            // cloak
+            fail(exception.getMessage());
+            // uncloak
+        }
+        // end of example
+    }
+
+    /**
+     * Lists API keys.
+     */
+    @Example
+    public void listApiKeys() {
+        // example: listing api keys
+        try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
+            // Iterate over all API keys and print their value
+            // In case you do not know the name/class of the DAO to use, you can use the DAO provider which will fetch
+            // the corresponding DAO using reflection.
+            sdk.daos().getDaoProvider().getCorrespondingListDao(ApiKey.class, null).paginator()
+               .forEach(System.out::println);
+        } catch (MbedCloudException exception) {
+            // TODO do something with the exception
+            exception.printStackTrace();
+            // cloak
+            fail(exception.getMessage());
+            // uncloak
+        }
+        // end of example
+    }
+
+    /**
+     * Uses multiple API keys.
+     */
+    @Example
+    public void useMultipleApiKeys() {
+        // example: using multiple api keys
+        // Configure the SDK to use a specific host.
+        try {
+            ApiKeyListDao dao1 = new ApiKeyListDao();
+            dao1.configure(ConnectionOptions.newConfiguration("API Key 1 xxxxxx"));
+            ApiKeyListDao dao2 = dao1.clone();
+            // cloak
+            assertEquals(dao1, dao2);
+            assertNotSame(dao1, dao2);
+            assertEquals(dao1.getContext().getConnectionOption(), dao2.getContext().getConnectionOption());
+            // uncloak
+            dao2.configure(ConnectionOptions.newConfiguration("API Key 2 xxxxxx"));
+            // cloak
+            assertNotEquals(dao1, dao2);
+            assertNotEquals(dao1.getContext().getConnectionOption(), dao2.getContext().getConnectionOption());
+            // uncloak
+            dao1.paginator().forEach(System.out::println);
+            dao2.paginator().forEach(System.out::println);
+            // cloak
+            fail("The host is fake");
+            // uncloak
+        } catch (MbedCloudException exception) {
+            // TODO do something with the exception
+            exception.printStackTrace();
+        }
+        // end of example
+    }
+
+    /**
+     * Uses a custom host.
+     */
+    @Example
+    public void useCustomHost() {
+        // example: using custom hosts
+        // Configure the SDK to use a specific host.
+        try (Sdk sdk = Sdk.createSdk(ConnectionOptions.newConfiguration("an API key xxxxxx", "https://example.host"))) {
+            // cloack
+            sdk.getClient().setRequestTimeout(new TimePeriod(1));
+            // uncloack
+            // TODO some action
+            sdk.daos().getDaoProvider().getCorrespondingListDao(ApiKey.class, null).paginator()
+               .forEach(System.out::println);
+            // cloak
+            fail("The host is fake");
+            // uncloak
+        } catch (MbedCloudException exception) {
+            // TODO do something with the exception
+            exception.printStackTrace();
+        }
+        // end of example
+    }
 
     /**
      * Creates and manages a sub-tenant account.
@@ -124,7 +236,7 @@ public class FoundationsExamples extends AbstractExample {
             fail(exception.getMessage());
             // uncloak
         }
-
+        // end of example
     }
 
 }

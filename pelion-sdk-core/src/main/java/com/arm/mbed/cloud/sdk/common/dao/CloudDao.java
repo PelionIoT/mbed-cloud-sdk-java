@@ -60,6 +60,36 @@ public interface CloudDao extends Cloneable {
     void configure(@NonNull SdkContext context) throws MbedCloudException;
 
     /**
+     * Configures the Cloud connection by providing the connection options.
+     * <p>
+     * Similar to {@link #configure(ConnectionOptions)}
+     * 
+     * @param options
+     *            connection options to use.
+     * @param <T>
+     *            type of the Cloud DAO.
+     * @return the configured DAO
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    <T extends CloudDao> T configureAndGet(@Nullable ConnectionOptions options) throws MbedCloudException;
+
+    /**
+     * Configures the Cloud connection by providing directly the client to use.
+     * <p>
+     * Similar to {@link #configure(ApiClientWrapper)}
+     * 
+     * @param client
+     *            an instance of the client to use.
+     * @param <T>
+     *            type of the Cloud DAO.
+     * @return the configured DAO
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    <T extends CloudDao> T configureAndGet(@NonNull ApiClientWrapper client) throws MbedCloudException;
+
+    /**
      * Configures the Cloud connection by actually providing directly the context to use.
      * <p>
      * Similar to {@link #configure(SdkContext)}

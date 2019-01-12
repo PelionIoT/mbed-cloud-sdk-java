@@ -4,6 +4,7 @@ import java.security.InvalidParameterException;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
@@ -47,7 +48,7 @@ public abstract class AbstractCloudDao implements CloudDao {
     }
 
     @Override
-    public void configure(ConnectionOptions options) throws MbedCloudException {
+    public void configure(@Nullable ConnectionOptions options) throws MbedCloudException {
         configure(options, true);
     }
 
@@ -61,15 +62,29 @@ public abstract class AbstractCloudDao implements CloudDao {
     }
 
     @Override
-    public void configure(ApiClientWrapper client) throws MbedCloudException {
+    public void configure(@NonNull ApiClientWrapper client) throws MbedCloudException {
         ApiUtils.checkNotNull(SdkLogger.getLogger(), client, PARAMETER_CLIENT);
         module = instantiateModule(client);
     }
 
     @Override
-    public void configure(SdkContext sdkContext) throws MbedCloudException {
+    public void configure(@NonNull SdkContext sdkContext) throws MbedCloudException {
         ApiUtils.checkNotNull(SdkLogger.getLogger(), sdkContext, PARAMETER_CONTEXT);
         this.module = instantiateModule(sdkContext);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends CloudDao> T configureAndGet(@Nullable ConnectionOptions options) throws MbedCloudException {
+        configure(options);
+        return (T) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends CloudDao> T configureAndGet(@NonNull ApiClientWrapper client) throws MbedCloudException {
+        configure(client);
+        return (T) this;
     }
 
     @SuppressWarnings("unchecked")
