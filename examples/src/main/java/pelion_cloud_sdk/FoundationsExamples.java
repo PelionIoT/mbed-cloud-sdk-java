@@ -33,7 +33,7 @@ public class FoundationsExamples extends AbstractExample {
      */
     @Example
     public void checkAccountStatus() {
-        // example: checking account status
+        // an example: checking account status
         try {
             // Fetch my account
             AccountDao myAccountDao = new AccountDao().configureAndGet(Configuration.get());
@@ -41,13 +41,15 @@ public class FoundationsExamples extends AbstractExample {
             // Print my account detail
             System.out.println(myAccountDao.getModel());
             boolean isActive = myAccountDao.getModel().getStatus() == AccountStatus.ACTIVE;
-            // cloack
+            // cloak
+            // Checks that the status is active
             assertTrue(isActive);
-            // uncloack
+            // uncloak
         } catch (MbedCloudException exception) {
             // TODO do something with the exception
             exception.printStackTrace();
             // cloak
+            // Fails if an exception happened
             fail(exception.getMessage());
             // uncloak
         }
@@ -59,7 +61,7 @@ public class FoundationsExamples extends AbstractExample {
      */
     @Example
     public void listApiKeys() {
-        // example: listing api keys
+        // an example: listing api keys
         try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
             // Iterate over all API keys and print their value
             // In case you do not know the name/class of the DAO to use, you can use the DAO provider which will fetch
@@ -81,8 +83,7 @@ public class FoundationsExamples extends AbstractExample {
      */
     @Example
     public void useMultipleApiKeys() {
-        // example: using multiple api keys
-        // Configure the SDK to use a specific host.
+        // an example: using multiple api keys
         try {
             ApiKeyListDao dao1 = new ApiKeyListDao();
             dao1.configure(ConnectionOptions.newConfiguration("API Key 1 xxxxxx"));
@@ -114,12 +115,12 @@ public class FoundationsExamples extends AbstractExample {
      */
     @Example
     public void useCustomHost() {
-        // example: using custom hosts
+        // an example: using custom hosts
         // Configure the SDK to use a specific host.
         try (Sdk sdk = Sdk.createSdk(ConnectionOptions.newConfiguration("an API key xxxxxx", "https://example.host"))) {
-            // cloack
+            // cloak
             sdk.getClient().setRequestTimeout(new TimePeriod(1));
-            // uncloack
+            // uncloak
             // TODO some action
             sdk.daos().getDaoProvider().getCorrespondingListDao(ApiKey.class, null).paginator()
                .forEach(System.out::println);
@@ -203,7 +204,7 @@ public class FoundationsExamples extends AbstractExample {
      */
     @Example
     public void renewCertificate() {
-        // example: certificate renew
+        // an example: certificate renew
         try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
             // Find the certificate issuers configuration in use. In this case, it is known that the reference is
             // "LWM2M".
@@ -221,7 +222,7 @@ public class FoundationsExamples extends AbstractExample {
                              try {
                                  deviceDao.setModel(d);
                                  deviceDao.renewCertificate(myConfig.getCertificateReference());
-                                 System.out.println(myConfig + " could not be renewed on " + d);
+                                 System.out.println(myConfig + " was renewed on " + d);
                              } catch (MbedCloudException exception) {
                                  // TODO do something with the exception
                                  System.out.println(myConfig + " could not be renewed on " + d);
