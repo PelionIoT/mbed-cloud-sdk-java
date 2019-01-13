@@ -428,6 +428,10 @@ public class Model extends AbstractSdkArtifact {
         return getFieldList().stream().filter(f -> !f.isReadOnly()).collect(Collectors.toList());
     }
 
+    public boolean hasReadOnlyFields() {
+        return getFieldList().stream().filter(f -> f.isReadOnly() && !f.isStatic()).count() > 0;
+    }
+
     /**
      * @return the methods
      */

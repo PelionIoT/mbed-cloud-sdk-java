@@ -15,7 +15,12 @@ public class MethodConstructorRequired extends AbstractMethodConstructorWithFiel
      */
     @Override
     protected void setFields() {
-        setFields(this.getFieldList(false, true, false, false, false));
+        setFields(getFieldList());
+    }
+
+    @Override
+    public List<Field> getFieldList() {
+        return this.getFieldList(false, true, false, false, false);
     }
 
     @Override

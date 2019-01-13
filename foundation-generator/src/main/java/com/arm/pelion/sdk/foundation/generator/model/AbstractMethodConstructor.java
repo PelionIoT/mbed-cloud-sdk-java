@@ -50,6 +50,12 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
         return this.getFieldList(false, false, true, false, false);
     }
 
+    public List<Field> getSettableFieldList() {
+        return this.getFieldList(false, false, false, false, true);
+    }
+
+    public abstract List<Field> getFieldList();
+
     public List<Field> getFieldList(boolean readOnly, boolean required, boolean all, boolean justIdentifiers,
                                     boolean onlySettable) {
         final List<Field> fieldsList = new LinkedList<>();
