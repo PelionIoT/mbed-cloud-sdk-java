@@ -5460,6 +5460,7 @@
                           "example": 1,
                           "description": "Device execution mode where 1 means a developer certificate.",
                           "private_field": true,
+                          "readOnly": false,
                           "_override": true,
                           "_key": "device_execution_mode"
                         },
@@ -11734,6 +11735,12 @@
                     "example": "customer.dlms",
                     "api_fieldname": "certificate_name",
                     "entity_fieldname": "certificate_name",
+                    "in": "path",
+                    "name": "certificate-name",
+                    "required": true,
+                    "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+                    "external_param": true,
+                    "parameter_fieldname": "certificate-name",
                     "_key": "certificate_name"
                   },
                   {
@@ -11789,6 +11796,9 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "device-id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -12200,6 +12210,14 @@
                           "maxLength": 50,
                           "description": "The certificate name.",
                           "example": "customer.dlms",
+                          "api_fieldname": "certificate-name",
+                          "entity_fieldname": "certificate_name",
+                          "in": "path",
+                          "name": "certificate-name",
+                          "required": true,
+                          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+                          "external_param": true,
+                          "parameter_fieldname": "certificate-name",
                           "_key": "certificate_name"
                         },
                         {
@@ -12207,12 +12225,16 @@
                           "format": "date-time",
                           "description": "Creation UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "description": "The device ID.",
                           "example": "01625daa23230a580a0100bd00000000",
+                          "api_fieldname": "device_id",
+                          "entity_fieldname": "device_id",
                           "_key": "device_id"
                         },
                         {
@@ -12223,6 +12245,8 @@
                             "forbidden",
                             "failure"
                           ],
+                          "api_fieldname": "enroll_result",
+                          "entity_fieldname": "enroll_result",
                           "_key": "enroll_result"
                         },
                         {
@@ -12231,18 +12255,27 @@
                             "new",
                             "completed"
                           ],
+                          "api_fieldname": "enroll_status",
+                          "entity_fieldname": "enroll_status",
                           "_key": "enroll_status"
                         },
                         {
                           "type": "string",
                           "description": "Entity instance signature.",
                           "example": "1",
+                          "api_fieldname": "etag",
+                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "description": "The ID of the certificate enrollment.",
                           "example": "01612df56f3b0a580a010fc700000000",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
+                          "parameter_fieldname": "device-id",
+                          "in": "path",
+                          "required": true,
                           "_key": "id"
                         },
                         {
@@ -12250,6 +12283,8 @@
                           "enum": [
                             "certificate-enrollment"
                           ],
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
@@ -12257,6 +12292,8 @@
                           "format": "date-time",
                           "description": "Update UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
+                          "api_fieldname": "updated_at",
+                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         }
                       ],
@@ -12572,8 +12609,13 @@
           "description": "The certificate name.",
           "example": "customer.dlms",
           "api_fieldname": "certificate_name",
-          "readOnly": true,
+          "in": "path",
+          "name": "certificate-name",
           "required": false,
+          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+          "external_param": true,
+          "parameter_fieldname": "certificate-name",
+          "readOnly": true,
           "_key": "certificate_name"
         },
         {
@@ -12626,8 +12668,10 @@
           "description": "The ID of the certificate enrollment.",
           "example": "01612df56f3b0a580a010fc700000000",
           "api_fieldname": "id",
-          "readOnly": false,
+          "parameter_fieldname": "device-id",
+          "in": "path",
           "required": true,
+          "readOnly": false,
           "_key": "id"
         },
         {
@@ -18809,6 +18853,7 @@
               "example": 1,
               "description": "Device execution mode where 1 means a developer certificate.",
               "private_field": true,
+              "readOnly": false,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
@@ -18894,6 +18939,7 @@
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
                     "private_field": true,
+                    "readOnly": false,
                     "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
@@ -21130,9 +21176,6 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
-                    "parameter_fieldname": "certificate-enrollment-id",
-                    "in": "path",
-                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -27137,6 +27180,7 @@
               "example": 1,
               "description": "Device execution mode where 1 means a developer certificate.",
               "private_field": true,
+              "readOnly": false,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
@@ -27281,6 +27325,7 @@
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
                     "private_field": true,
+                    "readOnly": false,
                     "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
@@ -27764,6 +27809,7 @@
             {
               "type": "integer",
               "private_field": true,
+              "readOnly": false,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
@@ -28067,6 +28113,7 @@
               "example": 1,
               "description": "Device execution mode where 1 means a developer certificate.",
               "private_field": true,
+              "readOnly": false,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
@@ -28169,6 +28216,7 @@
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
                     "private_field": true,
+                    "readOnly": false,
                     "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
@@ -28573,6 +28621,7 @@
             {
               "type": "integer",
               "private_field": true,
+              "readOnly": false,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
@@ -29023,6 +29072,7 @@
               "example": 1,
               "description": "Device execution mode where 1 means a developer certificate.",
               "private_field": true,
+              "readOnly": false,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
@@ -29178,6 +29228,7 @@
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
                     "private_field": true,
+                    "readOnly": false,
                     "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
@@ -29702,9 +29753,9 @@
           "example": 1,
           "description": "Device execution mode where 1 means a developer certificate.",
           "private_field": true,
+          "readOnly": false,
           "_override": true,
           "api_fieldname": "device_execution_mode",
-          "readOnly": true,
           "required": false,
           "_key": "device_execution_mode"
         },
@@ -34806,6 +34857,7 @@
               "example": 1,
               "description": "Device execution mode where 1 means a developer certificate.",
               "private_field": true,
+              "readOnly": false,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
@@ -34944,6 +34996,7 @@
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
                     "private_field": true,
+                    "readOnly": false,
                     "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
@@ -35399,6 +35452,7 @@
             {
               "type": "integer",
               "private_field": true,
+              "readOnly": false,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
@@ -35691,6 +35745,7 @@
               "example": 1,
               "description": "Device execution mode where 1 means a developer certificate.",
               "private_field": true,
+              "readOnly": false,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
@@ -35787,6 +35842,7 @@
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
                     "private_field": true,
+                    "readOnly": false,
                     "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
@@ -36175,6 +36231,7 @@
             {
               "type": "integer",
               "private_field": true,
+              "readOnly": false,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
@@ -36602,6 +36659,7 @@
             {
               "type": "integer",
               "private_field": true,
+              "readOnly": false,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
@@ -36743,6 +36801,7 @@
                           "example": 1,
                           "description": "Device execution mode where 1 means a developer certificate.",
                           "private_field": true,
+                          "readOnly": false,
                           "_override": true,
                           "_key": "device_execution_mode"
                         },
@@ -37116,6 +37175,7 @@
               "example": 1,
               "description": "Device execution mode where 1 means a developer certificate.",
               "private_field": true,
+              "readOnly": false,
               "_override": true,
               "api_fieldname": "device_execution_mode",
               "entity_fieldname": "device_execution_mode",
@@ -37265,6 +37325,7 @@
                     "example": 1,
                     "description": "Device execution mode where 1 means a developer certificate.",
                     "private_field": true,
+                    "readOnly": false,
                     "_override": true,
                     "api_fieldname": "device_execution_mode",
                     "entity_fieldname": "device_execution_mode",
@@ -37842,9 +37903,9 @@
           "example": 1,
           "description": "Device execution mode where 1 means a developer certificate.",
           "private_field": true,
+          "readOnly": false,
           "_override": true,
           "api_fieldname": "device_execution_mode",
-          "readOnly": true,
           "required": false,
           "_key": "device_execution_mode"
         },
