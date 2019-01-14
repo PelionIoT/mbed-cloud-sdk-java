@@ -42,26 +42,25 @@ public final class SubtenantUserAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final SubtenantUser subtenantUser = new SubtenantUser();
+        final SubtenantUser subtenantUser = new SubtenantUser(TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                              TranslationUtils.toLong(toBeMapped.getCreationTime()),
+                                                              TranslationUtils.toBool(toBeMapped.isEmailVerified()),
+                                                              TranslationUtils.toLong(toBeMapped.getLastLoginTime()),
+                                                              LoginHistoryAdapter.mapSimpleList(toBeMapped.getLoginHistory()),
+                                                              TranslationUtils.toLong(toBeMapped.getPasswordChangedTime()),
+                                                              TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         subtenantUser.setAccountId(toBeMapped.getAccountId());
         subtenantUser.setAddress(toBeMapped.getAddress());
-        subtenantUser.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
-        subtenantUser.setCreationTime(TranslationUtils.toLong(toBeMapped.getCreationTime()));
         subtenantUser.setEmail(toBeMapped.getEmail());
-        subtenantUser.setEmailVerified(TranslationUtils.toBool(toBeMapped.isEmailVerified()));
         subtenantUser.setFullName(toBeMapped.getFullName());
         subtenantUser.setId(toBeMapped.getId());
-        subtenantUser.setLastLoginTime(TranslationUtils.toLong(toBeMapped.getLastLoginTime()));
-        subtenantUser.setLoginHistory(LoginHistoryAdapter.mapSimpleList(toBeMapped.getLoginHistory()));
         subtenantUser.setLoginProfiles(LoginProfileAdapter.mapSimpleList(toBeMapped.getLoginProfiles()));
         subtenantUser.setMarketingAccepted(TranslationUtils.toBool(toBeMapped.isIsMarketingAccepted()));
         subtenantUser.setPassword(toBeMapped.getPassword());
-        subtenantUser.setPasswordChangedTime(TranslationUtils.toLong(toBeMapped.getPasswordChangedTime()));
         subtenantUser.setPhoneNumber(toBeMapped.getPhoneNumber());
         subtenantUser.setStatus(translateToSubtenantUserStatus(toBeMapped.getStatus()));
         subtenantUser.setTermsAccepted(TranslationUtils.toBool(toBeMapped.isIsGtcAccepted()));
         subtenantUser.setTwoFactorAuthentication(TranslationUtils.toBool(toBeMapped.isIsTotpEnabled()));
-        subtenantUser.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         subtenantUser.setUsername(toBeMapped.getUsername());
         return subtenantUser;
     }
@@ -201,13 +200,13 @@ public final class SubtenantUserAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getHasMore.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -221,13 +220,13 @@ public final class SubtenantUserAdapter {
             }
 
             /**
-             * Executes getTotalCount.
+             * Executes getOrder.
              * 
              * @return something
              */
             @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
             }
 
             /**
@@ -241,13 +240,13 @@ public final class SubtenantUserAdapter {
             }
 
             /**
-             * Executes getHasMore.
+             * Executes getTotalCount.
              * 
              * @return something
              */
             @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
+            public Integer getTotalCount() {
+                return (finalList == null) ? null : finalList.getTotalCount();
             }
         };
         return GenericAdapter.mapList(respList, SubtenantUserAdapter.getMapper());

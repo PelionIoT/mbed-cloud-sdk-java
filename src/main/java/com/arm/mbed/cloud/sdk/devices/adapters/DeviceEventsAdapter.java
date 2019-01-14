@@ -39,18 +39,15 @@ public final class DeviceEventsAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final DeviceEvents deviceEvents = new DeviceEvents();
-        deviceEvents.setChanges(toBeMapped.getChanges());
-        deviceEvents.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
-        deviceEvents.setData(toBeMapped.getData());
-        deviceEvents.setDateTime(TranslationUtils.toDate(toBeMapped.getDateTime()));
-        deviceEvents.setDescription(toBeMapped.getDescription());
-        deviceEvents.setDeviceId(toBeMapped.getDeviceId());
-        deviceEvents.setEventType(toBeMapped.getEventType());
-        deviceEvents.setEventTypeCategory(toBeMapped.getEventTypeCategory());
-        deviceEvents.setEventTypeDescription(toBeMapped.getEventTypeDescription());
+        final DeviceEvents deviceEvents = new DeviceEvents(toBeMapped.getChanges(),
+                                                           TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                           toBeMapped.getData(),
+                                                           TranslationUtils.toDate(toBeMapped.getDateTime()),
+                                                           toBeMapped.getDescription(), toBeMapped.getDeviceId(),
+                                                           toBeMapped.getEventType(), toBeMapped.getEventTypeCategory(),
+                                                           toBeMapped.getEventTypeDescription(),
+                                                           TranslationUtils.toBool(toBeMapped.isStateChange()));
         deviceEvents.setId(toBeMapped.getId());
-        deviceEvents.setStateChange(TranslationUtils.toBool(toBeMapped.isStateChange()));
         return deviceEvents;
     }
 
@@ -108,13 +105,13 @@ public final class DeviceEventsAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getHasMore.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder();
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -128,13 +125,13 @@ public final class DeviceEventsAdapter {
             }
 
             /**
-             * Executes getTotalCount.
+             * Executes getOrder.
              * 
              * @return something
              */
             @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder();
             }
 
             /**
@@ -148,13 +145,13 @@ public final class DeviceEventsAdapter {
             }
 
             /**
-             * Executes getHasMore.
+             * Executes getTotalCount.
              * 
              * @return something
              */
             @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
+            public Integer getTotalCount() {
+                return (finalList == null) ? null : finalList.getTotalCount();
             }
         };
         return GenericAdapter.mapList(respList, DeviceEventsAdapter.getMapper());

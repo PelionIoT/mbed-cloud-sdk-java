@@ -37,14 +37,13 @@ public final class DeveloperCertificateAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final DeveloperCertificate developerCertificate = new DeveloperCertificate();
-        developerCertificate.setAccountId(toBeMapped.getAccountId());
-        developerCertificate.setCertificate(toBeMapped.getDeveloperCertificate());
-        developerCertificate.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
+        final DeveloperCertificate developerCertificate = new DeveloperCertificate(toBeMapped.getAccountId(),
+                                                                                   toBeMapped.getDeveloperCertificate(),
+                                                                                   TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                                   toBeMapped.getSecurityFileContent());
         developerCertificate.setDescription(toBeMapped.getDescription());
         developerCertificate.setId(toBeMapped.getId());
         developerCertificate.setName(toBeMapped.getName());
-        developerCertificate.setSecurityFileContent(toBeMapped.getSecurityFileContent());
         return developerCertificate;
     }
 

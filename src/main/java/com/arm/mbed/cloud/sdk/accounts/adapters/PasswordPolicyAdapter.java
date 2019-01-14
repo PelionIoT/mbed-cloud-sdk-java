@@ -35,8 +35,7 @@ public final class PasswordPolicyAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final PasswordPolicy passwordPolicy = new PasswordPolicy();
-        passwordPolicy.setMinimumLength(toBeMapped.getMinimumLength());
+        final PasswordPolicy passwordPolicy = new PasswordPolicy(toBeMapped.getMinimumLength());
         return passwordPolicy;
     }
 

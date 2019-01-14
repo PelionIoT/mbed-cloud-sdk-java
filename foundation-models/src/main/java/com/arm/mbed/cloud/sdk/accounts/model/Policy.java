@@ -21,27 +21,27 @@ public class Policy implements SdkModel {
     /**
      * Comma separated list of actions, empty string represents all actions.
      */
-    private String action;
+    private final String action;
 
     /**
      * True or false controlling whether an action is allowed or not.
      */
-    private boolean allow;
+    private final boolean allow;
 
     /**
      * Feature name corresponding to this policy.
      */
-    private String feature;
+    private final String feature;
 
     /**
      * Flag indicating whether this feature is inherited or overwritten specifically.
      */
-    private boolean inherited;
+    private final boolean inherited;
 
     /**
      * Resource that is protected by this policy.
      */
-    private String resource;
+    private final String resource;
 
     /**
      * Internal constructor.
@@ -62,11 +62,11 @@ public class Policy implements SdkModel {
     @Internal
     public Policy(String action, boolean allow, String feature, boolean inherited, String resource) {
         super();
-        setAction(action);
-        setAllow(allow);
-        setFeature(feature);
-        setInherited(inherited);
-        setResource(resource);
+        this.action = action;
+        this.allow = allow;
+        this.feature = feature;
+        this.inherited = inherited;
+        this.resource = resource;
     }
 
     /**
@@ -127,32 +127,12 @@ public class Policy implements SdkModel {
     }
 
     /**
-     * Sets comma separated list of actions, empty string represents all actions.
-     * 
-     * @param action
-     *            Comma separated list of actions, empty string represents all actions.
-     */
-    public void setAction(String action) {
-        this.action = action;
-    }
-
-    /**
      * Gets true or false controlling whether an action is allowed or not.
      * 
      * @return allow
      */
     public boolean isAllow() {
         return allow;
-    }
-
-    /**
-     * Sets true or false controlling whether an action is allowed or not.
-     * 
-     * @param allow
-     *            True or false controlling whether an action is allowed or not.
-     */
-    public void setAllow(boolean allow) {
-        this.allow = allow;
     }
 
     /**
@@ -165,16 +145,6 @@ public class Policy implements SdkModel {
     }
 
     /**
-     * Sets feature name corresponding to this policy.
-     * 
-     * @param feature
-     *            Feature name corresponding to this policy.
-     */
-    public void setFeature(String feature) {
-        this.feature = feature;
-    }
-
-    /**
      * Gets flag indicating whether this feature is inherited or overwritten specifically.
      * 
      * @return inherited
@@ -184,32 +154,12 @@ public class Policy implements SdkModel {
     }
 
     /**
-     * Sets flag indicating whether this feature is inherited or overwritten specifically.
-     * 
-     * @param inherited
-     *            Flag indicating whether this feature is inherited or overwritten specifically.
-     */
-    public void setInherited(boolean inherited) {
-        this.inherited = inherited;
-    }
-
-    /**
      * Gets resource that is protected by this policy.
      * 
      * @return resource
      */
     public String getResource() {
         return resource;
-    }
-
-    /**
-     * Sets resource that is protected by this policy.
-     * 
-     * @param resource
-     *            Resource that is protected by this policy.
-     */
-    public void setResource(String resource) {
-        this.resource = resource;
     }
 
     /**

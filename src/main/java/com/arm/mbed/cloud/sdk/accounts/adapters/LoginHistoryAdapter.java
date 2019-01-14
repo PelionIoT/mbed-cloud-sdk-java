@@ -37,11 +37,10 @@ public final class LoginHistoryAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final LoginHistory loginHistory = new LoginHistory();
-        loginHistory.setDate(TranslationUtils.toDate(toBeMapped.getDate()));
-        loginHistory.setIpAddress(toBeMapped.getIpAddress());
-        loginHistory.setSuccess(TranslationUtils.toBool(toBeMapped.isSuccess()));
-        loginHistory.setUserAgent(toBeMapped.getUserAgent());
+        final LoginHistory loginHistory = new LoginHistory(TranslationUtils.toDate(toBeMapped.getDate()),
+                                                           toBeMapped.getIpAddress(),
+                                                           TranslationUtils.toBool(toBeMapped.isSuccess()),
+                                                           toBeMapped.getUserAgent());
         return loginHistory;
     }
 

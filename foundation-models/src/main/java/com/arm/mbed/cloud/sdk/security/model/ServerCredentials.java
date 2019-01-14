@@ -20,7 +20,7 @@ public class ServerCredentials implements SdkModel {
     /**
      * Creation UTC time RFC3339.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * mUUID that uniquely identifies the entity.
@@ -31,12 +31,12 @@ public class ServerCredentials implements SdkModel {
      * PEM format X.509 server certificate that will be used to validate the server certificate that will be received
      * during the TLS/DTLS handshake.
      */
-    private String serverCertificate;
+    private final String serverCertificate;
 
     /**
      * Server URI to which the client needs to connect to.
      */
-    private String serverUri;
+    private final String serverUri;
 
     /**
      * Internal constructor.
@@ -56,10 +56,10 @@ public class ServerCredentials implements SdkModel {
     @Internal
     public ServerCredentials(Date createdAt, String id, String serverCertificate, String serverUri) {
         super();
-        setCreatedAt(createdAt);
+        this.createdAt = createdAt;
+        this.serverCertificate = serverCertificate;
+        this.serverUri = serverUri;
         setId(id);
-        setServerCertificate(serverCertificate);
-        setServerUri(serverUri);
     }
 
     /**
@@ -97,22 +97,30 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #ServerCredentials()} instead.
+     * 
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     * @param serverCertificate
+     *            PEM format X.509 server certificate that will be used to validate the server certificate that will be
+     *            received during the TLS/DTLS handshake.
+     * @param serverUri
+     *            Server URI to which the client needs to connect to.
+     */
+    @Internal
+    public ServerCredentials(Date createdAt, String serverCertificate, String serverUri) {
+        this(createdAt, (String) null, serverCertificate, serverUri);
+    }
+
+    /**
      * Gets creation utc time rfc3339.
      * 
      * @return createdAt
      */
     public Date getCreatedAt() {
         return createdAt;
-    }
-
-    /**
-     * Sets creation utc time rfc3339.
-     * 
-     * @param createdAt
-     *            Creation UTC time RFC3339.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     /**
@@ -160,34 +168,12 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
-     * Sets pem format x.509 server certificate that will be used to validate the server certificate that will be
-     * received during the tls/dtls handshake.
-     * 
-     * @param serverCertificate
-     *            PEM format X.509 server certificate that will be used to validate the server certificate that will be
-     *            received during the TLS/DTLS handshake.
-     */
-    public void setServerCertificate(String serverCertificate) {
-        this.serverCertificate = serverCertificate;
-    }
-
-    /**
      * Gets server uri to which the client needs to connect to.
      * 
      * @return serverUri
      */
     public String getServerUri() {
         return serverUri;
-    }
-
-    /**
-     * Sets server uri to which the client needs to connect to.
-     * 
-     * @param serverUri
-     *            Server URI to which the client needs to connect to.
-     */
-    public void setServerUri(String serverUri) {
-        this.serverUri = serverUri;
     }
 
     /**

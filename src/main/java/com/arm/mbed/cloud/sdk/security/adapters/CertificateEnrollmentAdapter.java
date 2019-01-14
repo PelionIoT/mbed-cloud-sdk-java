@@ -41,14 +41,13 @@ public final class CertificateEnrollmentAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final CertificateEnrollment certificateEnrollment = new CertificateEnrollment();
-        certificateEnrollment.setCertificateName(toBeMapped.getCertificateName());
-        certificateEnrollment.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
-        certificateEnrollment.setDeviceId(toBeMapped.getDeviceId());
-        certificateEnrollment.setEnrollResult(translateToCertificateEnrollmentEnrollResult(toBeMapped.getEnrollResult()));
-        certificateEnrollment.setEnrollStatus(translateToCertificateEnrollmentEnrollStatus(toBeMapped.getEnrollStatus()));
+        final CertificateEnrollment certificateEnrollment = new CertificateEnrollment(toBeMapped.getCertificateName(),
+                                                                                      TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                                      toBeMapped.getDeviceId(),
+                                                                                      translateToCertificateEnrollmentEnrollResult(toBeMapped.getEnrollResult()),
+                                                                                      translateToCertificateEnrollmentEnrollStatus(toBeMapped.getEnrollStatus()),
+                                                                                      TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         certificateEnrollment.setId(toBeMapped.getId());
-        certificateEnrollment.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         return certificateEnrollment;
     }
 
@@ -112,13 +111,13 @@ public final class CertificateEnrollmentAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getHasMore.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -132,13 +131,13 @@ public final class CertificateEnrollmentAdapter {
             }
 
             /**
-             * Executes getTotalCount.
+             * Executes getOrder.
              * 
              * @return something
              */
             @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
             }
 
             /**
@@ -152,13 +151,13 @@ public final class CertificateEnrollmentAdapter {
             }
 
             /**
-             * Executes getHasMore.
+             * Executes getTotalCount.
              * 
              * @return something
              */
             @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
+            public Integer getTotalCount() {
+                return (finalList == null) ? null : finalList.getTotalCount();
             }
         };
         return GenericAdapter.mapList(respList, CertificateEnrollmentAdapter.getMapper());

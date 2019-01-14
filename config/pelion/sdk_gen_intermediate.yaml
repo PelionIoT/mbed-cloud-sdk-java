@@ -256,7 +256,7 @@ entities:
       example: '8'
       type: string
     readOnly: false
-    required: true
+    required: false
     type: object
   - _key: phone_number
     api_fieldname: phone_number

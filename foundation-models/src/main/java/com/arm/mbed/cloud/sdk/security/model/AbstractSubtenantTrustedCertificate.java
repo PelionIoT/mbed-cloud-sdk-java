@@ -36,12 +36,12 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     /**
      * A SHA-256 fingerprint of the certificate.
      */
-    protected String certificateFingerprint;
+    protected final String certificateFingerprint;
 
     /**
      * Creation UTC time RFC3339.
      */
-    protected Date createdAt;
+    protected final Date createdAt;
 
     /**
      * Human readable description of this certificate.
@@ -66,7 +66,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     /**
      * Issuer of the certificate.
      */
-    protected String issuer;
+    protected final String issuer;
 
     /**
      * Certificate name.
@@ -77,7 +77,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     /**
      * The ID of the owner.
      */
-    protected String ownerId;
+    protected final String ownerId;
 
     /**
      * Service name where the certificate is to be used.
@@ -93,17 +93,17 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     /**
      * Subject of the certificate.
      */
-    protected String subject;
+    protected final String subject;
 
     /**
      * Last update UTC time RFC3339.
      */
-    protected Date updatedAt;
+    protected final Date updatedAt;
 
     /**
      * Expiration time in UTC formatted as RFC3339.
      */
-    protected Date validity;
+    protected final Date validity;
 
     /**
      * Internal constructor.
@@ -152,22 +152,22 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
                                                SubtenantTrustedCertificateStatus status, String subject, Date updatedAt,
                                                Date validity) {
         super();
+        this.certificateFingerprint = certificateFingerprint;
+        this.createdAt = createdAt;
+        this.issuer = issuer;
+        this.ownerId = ownerId;
+        this.subject = subject;
+        this.updatedAt = updatedAt;
+        this.validity = validity;
         setAccountId(accountId);
         setCertificate(certificate);
-        setCertificateFingerprint(certificateFingerprint);
-        setCreatedAt(createdAt);
         setDescription(description);
         setDeviceExecutionMode(deviceExecutionMode);
         setEnrollmentMode(enrollmentMode);
         setId(id);
-        setIssuer(issuer);
         setName(name);
-        setOwnerId(ownerId);
         setService(service);
         setStatus(status);
-        setSubject(subject);
-        setUpdatedAt(updatedAt);
-        setValidity(validity);
     }
 
     /**
@@ -225,6 +225,34 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     public AbstractSubtenantTrustedCertificate(String id) {
         this();
         setId(id);
+    }
+
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #AbstractSubtenantTrustedCertificate()} instead.
+     * 
+     * @param certificateFingerprint
+     *            A SHA-256 fingerprint of the certificate.
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     * @param issuer
+     *            Issuer of the certificate.
+     * @param ownerId
+     *            The ID of the owner.
+     * @param subject
+     *            Subject of the certificate.
+     * @param updatedAt
+     *            Last update UTC time RFC3339.
+     * @param validity
+     *            Expiration time in UTC formatted as RFC3339.
+     */
+    @Internal
+    public AbstractSubtenantTrustedCertificate(String certificateFingerprint, Date createdAt, String issuer,
+                                               String ownerId, String subject, Date updatedAt, Date validity) {
+        this((String) null, (String) null, certificateFingerprint, createdAt, (String) null, 0, false, (String) null,
+             issuer, (String) null, ownerId, SubtenantTrustedCertificateService.getDefault(),
+             SubtenantTrustedCertificateStatus.getDefault(), subject, updatedAt, validity);
     }
 
     /**
@@ -316,32 +344,12 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     }
 
     /**
-     * Sets a sha-256 fingerprint of the certificate.
-     * 
-     * @param certificateFingerprint
-     *            A SHA-256 fingerprint of the certificate.
-     */
-    public void setCertificateFingerprint(String certificateFingerprint) {
-        this.certificateFingerprint = certificateFingerprint;
-    }
-
-    /**
      * Gets creation utc time rfc3339.
      * 
      * @return createdAt
      */
     public Date getCreatedAt() {
         return createdAt;
-    }
-
-    /**
-     * Sets creation utc time rfc3339.
-     * 
-     * @param createdAt
-     *            Creation UTC time RFC3339.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     /**
@@ -445,16 +453,6 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     }
 
     /**
-     * Sets issuer of the certificate.
-     * 
-     * @param issuer
-     *            Issuer of the certificate.
-     */
-    public void setIssuer(String issuer) {
-        this.issuer = issuer;
-    }
-
-    /**
      * Gets certificate name.
      * 
      * @return name
@@ -491,16 +489,6 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      */
     public String getOwnerId() {
         return ownerId;
-    }
-
-    /**
-     * Sets the id of the owner.
-     * 
-     * @param ownerId
-     *            The ID of the owner.
-     */
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
     }
 
     /**
@@ -562,32 +550,12 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     }
 
     /**
-     * Sets subject of the certificate.
-     * 
-     * @param subject
-     *            Subject of the certificate.
-     */
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    /**
      * Gets last update utc time rfc3339.
      * 
      * @return updatedAt
      */
     public Date getUpdatedAt() {
         return updatedAt;
-    }
-
-    /**
-     * Sets last update utc time rfc3339.
-     * 
-     * @param updatedAt
-     *            Last update UTC time RFC3339.
-     */
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     /**
@@ -600,16 +568,6 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     }
 
     /**
-     * Sets expiration time in utc formatted as rfc3339.
-     * 
-     * @param validity
-     *            Expiration time in UTC formatted as RFC3339.
-     */
-    public void setValidity(Date validity) {
-        this.validity = validity;
-    }
-
-    /**
      * Method to ensure {@link #equals(Object)} is correct.
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
@@ -619,7 +577,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
      */
     protected boolean canEqual(Object other) {
-        return other instanceof SubtenantTrustedCertificate;
+        return other instanceof AbstractSubtenantTrustedCertificate;
     }
 
     /**

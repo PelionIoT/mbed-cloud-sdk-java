@@ -23,7 +23,7 @@ public class Device implements SdkModel {
     /**
      * The ID of the associated account.
      */
-    private String accountId;
+    private final String accountId;
 
     /**
      * DEPRECATED: Mark this device for automatic firmware update.
@@ -53,7 +53,7 @@ public class Device implements SdkModel {
     /**
      * The timestamp of when the device was created in the device directory.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are
@@ -64,7 +64,7 @@ public class Device implements SdkModel {
     /**
      * DEPRECATED: The state of the device's deployment.
      */
-    private DeviceDeployedState deployedState;
+    private final DeviceDeployedState deployedState;
 
     /**
      * DEPRECATED: The last deployment used on the device.
@@ -96,7 +96,7 @@ public class Device implements SdkModel {
     /**
      * The endpoint name given to the device.
      */
-    private String endpointName;
+    private final String endpointName;
 
     /**
      * The endpoint type of the device. For example, the device is a gateway.
@@ -106,7 +106,7 @@ public class Device implements SdkModel {
     /**
      * The claim date/time.
      */
-    private Date enrolmentListTimestamp;
+    private final Date enrolmentListTimestamp;
 
     /**
      * The SHA256 checksum of the current firmware image.
@@ -131,37 +131,37 @@ public class Device implements SdkModel {
     /**
      * The reference of the block category.
      */
-    private String lastOperatorSuspendedCategory;
+    private final String lastOperatorSuspendedCategory;
 
     /**
      * The most recent description why the device was suspended or returned to service.
      */
-    private String lastOperatorSuspendedDescription;
+    private final String lastOperatorSuspendedDescription;
 
     /**
      * The timestamp of the most recent suspension activity.
      */
-    private Date lastOperatorSuspendedUpdatedAt;
+    private final Date lastOperatorSuspendedUpdatedAt;
 
     /**
      * The reference of the block category.
      */
-    private String lastSystemSuspendedCategory;
+    private final String lastSystemSuspendedCategory;
 
     /**
      * The most recent description of why the device was blocked or unblocked by the system.
      */
-    private String lastSystemSuspendedDescription;
+    private final String lastSystemSuspendedDescription;
 
     /**
      * The timestamp of the most recent system block activity.
      */
-    private Date lastSystemSuspendedUpdatedAt;
+    private final Date lastSystemSuspendedUpdatedAt;
 
     /**
      * The lifecycle status of the device.
      */
-    private DeviceLifecycleStatus lifecycleStatus;
+    private final DeviceLifecycleStatus lifecycleStatus;
 
     /**
      * DEPRECATED: The URL for the current device manifest.
@@ -171,7 +171,7 @@ public class Device implements SdkModel {
     /**
      * The timestamp of the current manifest version.
      */
-    private Date manifestTimestamp;
+    private final Date manifestTimestamp;
 
     /**
      * The ID of the channel used to communicate with the device.
@@ -191,7 +191,7 @@ public class Device implements SdkModel {
     /**
      * Is the device suspended by the operator?.
      */
-    private boolean operatorSuspended;
+    private final boolean operatorSuspended;
 
     /**
      * The serial number of the device.
@@ -206,12 +206,12 @@ public class Device implements SdkModel {
     /**
      * Is the device suspended by the system?.
      */
-    private boolean systemSuspended;
+    private final boolean systemSuspended;
 
     /**
      * The time the object was updated.
      */
-    private Date updatedAt;
+    private final Date updatedAt;
 
     /**
      * The device vendor ID.
@@ -320,44 +320,44 @@ public class Device implements SdkModel {
                   boolean operatorSuspended, String serialNumber, DeviceState state, boolean systemSuspended,
                   Date updatedAt, String vendorId) {
         super();
-        setAccountId(accountId);
+        this.accountId = accountId;
+        this.createdAt = createdAt;
+        this.deployedState = deployedState;
+        this.endpointName = endpointName;
+        this.enrolmentListTimestamp = enrolmentListTimestamp;
+        this.lastOperatorSuspendedCategory = lastOperatorSuspendedCategory;
+        this.lastOperatorSuspendedDescription = lastOperatorSuspendedDescription;
+        this.lastOperatorSuspendedUpdatedAt = lastOperatorSuspendedUpdatedAt;
+        this.lastSystemSuspendedCategory = lastSystemSuspendedCategory;
+        this.lastSystemSuspendedDescription = lastSystemSuspendedDescription;
+        this.lastSystemSuspendedUpdatedAt = lastSystemSuspendedUpdatedAt;
+        this.lifecycleStatus = lifecycleStatus;
+        this.manifestTimestamp = manifestTimestamp;
+        this.operatorSuspended = operatorSuspended;
+        this.systemSuspended = systemSuspended;
+        this.updatedAt = updatedAt;
         setAutoUpdate(autoUpdate);
         setBootstrapExpirationDate(bootstrapExpirationDate);
         setBootstrappedTimestamp(bootstrappedTimestamp);
         setCaId(caId);
         setConnectorExpirationDate(connectorExpirationDate);
-        setCreatedAt(createdAt);
         setCustomAttributes(customAttributes);
-        setDeployedState(deployedState);
         setDeployment(deployment);
         setDescription(description);
         setDeviceClass(deviceClass);
         setDeviceExecutionMode(deviceExecutionMode);
         setDeviceKey(deviceKey);
-        setEndpointName(endpointName);
         setEndpointType(endpointType);
-        setEnrolmentListTimestamp(enrolmentListTimestamp);
         setFirmwareChecksum(firmwareChecksum);
         setHostGateway(hostGateway);
         setId(id);
         setIssuerFingerprint(issuerFingerprint);
-        setLastOperatorSuspendedCategory(lastOperatorSuspendedCategory);
-        setLastOperatorSuspendedDescription(lastOperatorSuspendedDescription);
-        setLastOperatorSuspendedUpdatedAt(lastOperatorSuspendedUpdatedAt);
-        setLastSystemSuspendedCategory(lastSystemSuspendedCategory);
-        setLastSystemSuspendedDescription(lastSystemSuspendedDescription);
-        setLastSystemSuspendedUpdatedAt(lastSystemSuspendedUpdatedAt);
-        setLifecycleStatus(lifecycleStatus);
         setManifest(manifest);
-        setManifestTimestamp(manifestTimestamp);
         setMechanism(mechanism);
         setMechanismUrl(mechanismUrl);
         setName(name);
-        setOperatorSuspended(operatorSuspended);
         setSerialNumber(serialNumber);
         setState(state);
-        setSystemSuspended(systemSuspended);
-        setUpdatedAt(updatedAt);
         setVendorId(vendorId);
     }
 
@@ -428,22 +428,68 @@ public class Device implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Device()} instead.
+     * 
+     * @param accountId
+     *            The ID of the associated account.
+     * @param createdAt
+     *            The timestamp of when the device was created in the device directory.
+     * @param deployedState
+     *            DEPRECATED: The state of the device's deployment.
+     * @param endpointName
+     *            The endpoint name given to the device.
+     * @param enrolmentListTimestamp
+     *            The claim date/time.
+     * @param lastOperatorSuspendedCategory
+     *            The reference of the block category.
+     * @param lastOperatorSuspendedDescription
+     *            The most recent description why the device was suspended or returned to service.
+     * @param lastOperatorSuspendedUpdatedAt
+     *            The timestamp of the most recent suspension activity.
+     * @param lastSystemSuspendedCategory
+     *            The reference of the block category.
+     * @param lastSystemSuspendedDescription
+     *            The most recent description of why the device was blocked or unblocked by the system.
+     * @param lastSystemSuspendedUpdatedAt
+     *            The timestamp of the most recent system block activity.
+     * @param lifecycleStatus
+     *            The lifecycle status of the device.
+     * @param manifestTimestamp
+     *            The timestamp of the current manifest version.
+     * @param operatorSuspended
+     *            Is the device suspended by the operator?.
+     * @param systemSuspended
+     *            Is the device suspended by the system?.
+     * @param updatedAt
+     *            The time the object was updated.
+     */
+    @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
+    public Device(String accountId, Date createdAt, DeviceDeployedState deployedState, String endpointName,
+                  Date enrolmentListTimestamp, String lastOperatorSuspendedCategory,
+                  String lastOperatorSuspendedDescription, Date lastOperatorSuspendedUpdatedAt,
+                  String lastSystemSuspendedCategory, String lastSystemSuspendedDescription,
+                  Date lastSystemSuspendedUpdatedAt, DeviceLifecycleStatus lifecycleStatus, Date manifestTimestamp,
+                  boolean operatorSuspended, boolean systemSuspended, Date updatedAt) {
+        this(accountId, false, new java.util.Date(), new java.util.Date(), (String) null, new java.util.Date(),
+             createdAt, null, deployedState, (String) null, (String) null, (String) null, 0, (String) null,
+             endpointName, (String) null, enrolmentListTimestamp, (String) null, (String) null, (String) null,
+             (String) null, lastOperatorSuspendedCategory, lastOperatorSuspendedDescription,
+             lastOperatorSuspendedUpdatedAt, lastSystemSuspendedCategory, lastSystemSuspendedDescription,
+             lastSystemSuspendedUpdatedAt, lifecycleStatus, (String) null, manifestTimestamp,
+             DeviceMechanism.getDefault(), (String) null, (String) null, operatorSuspended, (String) null,
+             DeviceState.getDefault(), systemSuspended, updatedAt, (String) null);
+    }
+
+    /**
      * Gets the id of the associated account.
      * 
      * @return accountId
      */
     public String getAccountId() {
         return accountId;
-    }
-
-    /**
-     * Sets the id of the associated account.
-     * 
-     * @param accountId
-     *            The ID of the associated account.
-     */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
     }
 
     /**
@@ -551,16 +597,6 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the timestamp of when the device was created in the device directory.
-     * 
-     * @param createdAt
-     *            The timestamp of when the device was created in the device directory.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
      * Gets up to five custom key-value attributes. note that keys cannot begin with a number. both keys and values are
      * limited to 128 characters. updating this field replaces existing contents.
      * 
@@ -589,16 +625,6 @@ public class Device implements SdkModel {
      */
     public DeviceDeployedState getDeployedState() {
         return deployedState;
-    }
-
-    /**
-     * Sets deprecated: the state of the device's deployment.
-     * 
-     * @param deployedState
-     *            DEPRECATED: The state of the device's deployment.
-     */
-    public void setDeployedState(DeviceDeployedState deployedState) {
-        this.deployedState = deployedState;
     }
 
     /**
@@ -712,16 +738,6 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the endpoint name given to the device.
-     * 
-     * @param endpointName
-     *            The endpoint name given to the device.
-     */
-    public void setEndpointName(String endpointName) {
-        this.endpointName = endpointName;
-    }
-
-    /**
      * Gets the endpoint type of the device. for example, the device is a gateway.
      * 
      * @return endpointType
@@ -747,16 +763,6 @@ public class Device implements SdkModel {
      */
     public Date getEnrolmentListTimestamp() {
         return enrolmentListTimestamp;
-    }
-
-    /**
-     * Sets the claim date/time.
-     * 
-     * @param enrolmentListTimestamp
-     *            The claim date/time.
-     */
-    public void setEnrolmentListTimestamp(Date enrolmentListTimestamp) {
-        this.enrolmentListTimestamp = enrolmentListTimestamp;
     }
 
     /**
@@ -874,46 +880,12 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the reference of the block category.
-     * <p>
-     * null
-     * <p>
-     * Note: the value has to match {@code /[a-f0-9_]{32}/} to be valid
-     * 
-     * @param lastOperatorSuspendedCategory
-     *            The reference of the block category.
-     */
-    public void setLastOperatorSuspendedCategory(String lastOperatorSuspendedCategory) {
-        this.lastOperatorSuspendedCategory = lastOperatorSuspendedCategory;
-    }
-
-    /**
-     * Checks whether lastOperatorSuspendedCategory value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isLastOperatorSuspendedCategoryValid() {
-        return (lastOperatorSuspendedCategory == null || lastOperatorSuspendedCategory.matches("[a-f0-9_]{32}"));
-    }
-
-    /**
      * Gets the most recent description why the device was suspended or returned to service.
      * 
      * @return lastOperatorSuspendedDescription
      */
     public String getLastOperatorSuspendedDescription() {
         return lastOperatorSuspendedDescription;
-    }
-
-    /**
-     * Sets the most recent description why the device was suspended or returned to service.
-     * 
-     * @param lastOperatorSuspendedDescription
-     *            The most recent description why the device was suspended or returned to service.
-     */
-    public void setLastOperatorSuspendedDescription(String lastOperatorSuspendedDescription) {
-        this.lastOperatorSuspendedDescription = lastOperatorSuspendedDescription;
     }
 
     /**
@@ -926,46 +898,12 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the timestamp of the most recent suspension activity.
-     * 
-     * @param lastOperatorSuspendedUpdatedAt
-     *            The timestamp of the most recent suspension activity.
-     */
-    public void setLastOperatorSuspendedUpdatedAt(Date lastOperatorSuspendedUpdatedAt) {
-        this.lastOperatorSuspendedUpdatedAt = lastOperatorSuspendedUpdatedAt;
-    }
-
-    /**
      * Gets the reference of the block category.
      * 
      * @return lastSystemSuspendedCategory
      */
     public String getLastSystemSuspendedCategory() {
         return lastSystemSuspendedCategory;
-    }
-
-    /**
-     * Sets the reference of the block category.
-     * <p>
-     * null
-     * <p>
-     * Note: the value has to match {@code /[a-f0-9_]{32}/} to be valid
-     * 
-     * @param lastSystemSuspendedCategory
-     *            The reference of the block category.
-     */
-    public void setLastSystemSuspendedCategory(String lastSystemSuspendedCategory) {
-        this.lastSystemSuspendedCategory = lastSystemSuspendedCategory;
-    }
-
-    /**
-     * Checks whether lastSystemSuspendedCategory value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isLastSystemSuspendedCategoryValid() {
-        return (lastSystemSuspendedCategory == null || lastSystemSuspendedCategory.matches("[a-f0-9_]{32}"));
     }
 
     /**
@@ -978,16 +916,6 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the most recent description of why the device was blocked or unblocked by the system.
-     * 
-     * @param lastSystemSuspendedDescription
-     *            The most recent description of why the device was blocked or unblocked by the system.
-     */
-    public void setLastSystemSuspendedDescription(String lastSystemSuspendedDescription) {
-        this.lastSystemSuspendedDescription = lastSystemSuspendedDescription;
-    }
-
-    /**
      * Gets the timestamp of the most recent system block activity.
      * 
      * @return lastSystemSuspendedUpdatedAt
@@ -997,32 +925,12 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the timestamp of the most recent system block activity.
-     * 
-     * @param lastSystemSuspendedUpdatedAt
-     *            The timestamp of the most recent system block activity.
-     */
-    public void setLastSystemSuspendedUpdatedAt(Date lastSystemSuspendedUpdatedAt) {
-        this.lastSystemSuspendedUpdatedAt = lastSystemSuspendedUpdatedAt;
-    }
-
-    /**
      * Gets the lifecycle status of the device.
      * 
      * @return lifecycleStatus
      */
     public DeviceLifecycleStatus getLifecycleStatus() {
         return lifecycleStatus;
-    }
-
-    /**
-     * Sets the lifecycle status of the device.
-     * 
-     * @param lifecycleStatus
-     *            The lifecycle status of the device.
-     */
-    public void setLifecycleStatus(DeviceLifecycleStatus lifecycleStatus) {
-        this.lifecycleStatus = lifecycleStatus;
     }
 
     /**
@@ -1051,16 +959,6 @@ public class Device implements SdkModel {
      */
     public Date getManifestTimestamp() {
         return manifestTimestamp;
-    }
-
-    /**
-     * Sets the timestamp of the current manifest version.
-     * 
-     * @param manifestTimestamp
-     *            The timestamp of the current manifest version.
-     */
-    public void setManifestTimestamp(Date manifestTimestamp) {
-        this.manifestTimestamp = manifestTimestamp;
     }
 
     /**
@@ -1130,16 +1028,6 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets is the device suspended by the operator?.
-     * 
-     * @param operatorSuspended
-     *            Is the device suspended by the operator?.
-     */
-    public void setOperatorSuspended(boolean operatorSuspended) {
-        this.operatorSuspended = operatorSuspended;
-    }
-
-    /**
      * Gets the serial number of the device.
      * 
      * @return serialNumber
@@ -1187,32 +1075,12 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets is the device suspended by the system?.
-     * 
-     * @param systemSuspended
-     *            Is the device suspended by the system?.
-     */
-    public void setSystemSuspended(boolean systemSuspended) {
-        this.systemSuspended = systemSuspended;
-    }
-
-    /**
      * Gets the time the object was updated.
      * 
      * @return updatedAt
      */
     public Date getUpdatedAt() {
         return updatedAt;
-    }
-
-    /**
-     * Sets the time the object was updated.
-     * 
-     * @param updatedAt
-     *            The time the object was updated.
-     */
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     /**
@@ -1611,8 +1479,7 @@ public class Device implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isIssuerFingerprintValid() && isLastOperatorSuspendedCategoryValid()
-               && isLastSystemSuspendedCategoryValid();
+        return isIssuerFingerprintValid();
     }
 
     /**

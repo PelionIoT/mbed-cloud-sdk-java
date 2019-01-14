@@ -37,17 +37,16 @@ public final class DeviceEnrollmentBulkDeleteAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final DeviceEnrollmentBulkDelete deviceEnrollmentBulkDelete = new DeviceEnrollmentBulkDelete();
-        deviceEnrollmentBulkDelete.setAccountId(toBeMapped.getAccountId());
-        deviceEnrollmentBulkDelete.setCompletedAt(TranslationUtils.toDate(toBeMapped.getCompletedAt()));
-        deviceEnrollmentBulkDelete.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
-        deviceEnrollmentBulkDelete.setErrorsCount(TranslationUtils.toInt(toBeMapped.getErrorsCount()));
-        deviceEnrollmentBulkDelete.setErrorsReportFile(toBeMapped.getErrorsReportFile());
-        deviceEnrollmentBulkDelete.setFullReportFile(toBeMapped.getFullReportFile());
+        final DeviceEnrollmentBulkDelete deviceEnrollmentBulkDelete = new DeviceEnrollmentBulkDelete(toBeMapped.getAccountId(),
+                                                                                                     TranslationUtils.toDate(toBeMapped.getCompletedAt()),
+                                                                                                     TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                                                     TranslationUtils.toInt(toBeMapped.getErrorsCount()),
+                                                                                                     toBeMapped.getErrorsReportFile(),
+                                                                                                     toBeMapped.getFullReportFile(),
+                                                                                                     TranslationUtils.toInt(toBeMapped.getProcessedCount()),
+                                                                                                     translateToDeviceEnrollmentBulkDeleteStatus(toBeMapped.getStatus()),
+                                                                                                     TranslationUtils.toInt(toBeMapped.getTotalCount()));
         deviceEnrollmentBulkDelete.setId(toBeMapped.getId());
-        deviceEnrollmentBulkDelete.setProcessedCount(TranslationUtils.toInt(toBeMapped.getProcessedCount()));
-        deviceEnrollmentBulkDelete.setStatus(translateToDeviceEnrollmentBulkDeleteStatus(toBeMapped.getStatus()));
-        deviceEnrollmentBulkDelete.setTotalCount(TranslationUtils.toInt(toBeMapped.getTotalCount()));
         return deviceEnrollmentBulkDelete;
     }
 

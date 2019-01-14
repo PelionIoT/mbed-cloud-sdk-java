@@ -40,15 +40,14 @@ public final class SubtenantUserInvitationAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final SubtenantUserInvitation subtenantUserInvitation = new SubtenantUserInvitation();
+        final SubtenantUserInvitation subtenantUserInvitation = new SubtenantUserInvitation(TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                                            TranslationUtils.toDate(toBeMapped.getExpiration()),
+                                                                                            TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
+                                                                                            toBeMapped.getUserId());
         subtenantUserInvitation.setAccountId(toBeMapped.getAccountId());
-        subtenantUserInvitation.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
         subtenantUserInvitation.setEmail(toBeMapped.getEmail());
-        subtenantUserInvitation.setExpiration(TranslationUtils.toDate(toBeMapped.getExpiration()));
         subtenantUserInvitation.setId(toBeMapped.getId());
         subtenantUserInvitation.setLoginProfiles(LoginProfileAdapter.mapSimpleList(toBeMapped.getLoginProfiles()));
-        subtenantUserInvitation.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        subtenantUserInvitation.setUserId(toBeMapped.getUserId());
         return subtenantUserInvitation;
     }
 
@@ -126,13 +125,13 @@ public final class SubtenantUserInvitationAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getHasMore.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -146,13 +145,13 @@ public final class SubtenantUserInvitationAdapter {
             }
 
             /**
-             * Executes getTotalCount.
+             * Executes getOrder.
              * 
              * @return something
              */
             @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
             }
 
             /**
@@ -166,13 +165,13 @@ public final class SubtenantUserInvitationAdapter {
             }
 
             /**
-             * Executes getHasMore.
+             * Executes getTotalCount.
              * 
              * @return something
              */
             @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
+            public Integer getTotalCount() {
+                return (finalList == null) ? null : finalList.getTotalCount();
             }
         };
         return GenericAdapter.mapList(respList, SubtenantUserInvitationAdapter.getMapper());

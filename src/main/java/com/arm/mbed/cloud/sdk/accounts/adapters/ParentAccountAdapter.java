@@ -35,9 +35,7 @@ public final class ParentAccountAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final ParentAccount parentAccount = new ParentAccount();
-        parentAccount.setAdminEmail(toBeMapped.getAdminEmail());
-        parentAccount.setAdminName(toBeMapped.getAdminName());
+        final ParentAccount parentAccount = new ParentAccount(toBeMapped.getAdminEmail(), toBeMapped.getAdminName());
         parentAccount.setId(toBeMapped.getId());
         return parentAccount;
     }

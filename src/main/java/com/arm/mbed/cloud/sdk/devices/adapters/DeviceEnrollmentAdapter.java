@@ -40,13 +40,12 @@ public final class DeviceEnrollmentAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final DeviceEnrollment deviceEnrollment = new DeviceEnrollment();
-        deviceEnrollment.setAccountId(toBeMapped.getAccountId());
-        deviceEnrollment.setClaimedAt(TranslationUtils.toDate(toBeMapped.getClaimedAt()));
-        deviceEnrollment.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
-        deviceEnrollment.setEnrolledDeviceId(toBeMapped.getEnrolledDeviceId());
+        final DeviceEnrollment deviceEnrollment = new DeviceEnrollment(toBeMapped.getAccountId(),
+                                                                       TranslationUtils.toDate(toBeMapped.getClaimedAt()),
+                                                                       TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                       toBeMapped.getEnrolledDeviceId(),
+                                                                       TranslationUtils.toDate(toBeMapped.getExpiresAt()));
         deviceEnrollment.setEnrollmentIdentity(toBeMapped.getEnrollmentIdentity());
-        deviceEnrollment.setExpiresAt(TranslationUtils.toDate(toBeMapped.getExpiresAt()));
         deviceEnrollment.setId(toBeMapped.getId());
         return deviceEnrollment;
     }
@@ -122,13 +121,13 @@ public final class DeviceEnrollmentAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getHasMore.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -142,13 +141,13 @@ public final class DeviceEnrollmentAdapter {
             }
 
             /**
-             * Executes getTotalCount.
+             * Executes getOrder.
              * 
              * @return something
              */
             @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
             }
 
             /**
@@ -162,13 +161,13 @@ public final class DeviceEnrollmentAdapter {
             }
 
             /**
-             * Executes getHasMore.
+             * Executes getTotalCount.
              * 
              * @return something
              */
             @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
+            public Integer getTotalCount() {
+                return (finalList == null) ? null : finalList.getTotalCount();
             }
         };
         return GenericAdapter.mapList(respList, DeviceEnrollmentAdapter.getMapper());

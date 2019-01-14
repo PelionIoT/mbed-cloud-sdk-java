@@ -862,7 +862,7 @@ public class Model extends AbstractSdkArtifact {
         if (hasFields()) {
             addMethod(new MethodHashCode(this, null));
         }
-        addMethod(new MethodCanEqual(this, null));
+        overrideMethodIfExist(new MethodCanEqual(this, null));
         addMethod(new MethodEquals(this, null));
     }
 

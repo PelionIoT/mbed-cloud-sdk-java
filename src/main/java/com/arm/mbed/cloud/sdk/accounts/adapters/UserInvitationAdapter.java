@@ -40,15 +40,14 @@ public final class UserInvitationAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final UserInvitation userInvitation = new UserInvitation();
-        userInvitation.setAccountId(toBeMapped.getAccountId());
-        userInvitation.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
+        final UserInvitation userInvitation = new UserInvitation(toBeMapped.getAccountId(),
+                                                                 TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                 TranslationUtils.toDate(toBeMapped.getExpiration()),
+                                                                 TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
+                                                                 toBeMapped.getUserId());
         userInvitation.setEmail(toBeMapped.getEmail());
-        userInvitation.setExpiration(TranslationUtils.toDate(toBeMapped.getExpiration()));
         userInvitation.setId(toBeMapped.getId());
         userInvitation.setLoginProfiles(LoginProfileAdapter.mapSimpleList(toBeMapped.getLoginProfiles()));
-        userInvitation.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        userInvitation.setUserId(toBeMapped.getUserId());
         return userInvitation;
     }
 
@@ -126,13 +125,13 @@ public final class UserInvitationAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getHasMore.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -146,13 +145,13 @@ public final class UserInvitationAdapter {
             }
 
             /**
-             * Executes getTotalCount.
+             * Executes getOrder.
              * 
              * @return something
              */
             @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
             }
 
             /**
@@ -166,13 +165,13 @@ public final class UserInvitationAdapter {
             }
 
             /**
-             * Executes getHasMore.
+             * Executes getTotalCount.
              * 
              * @return something
              */
             @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
+            public Integer getTotalCount() {
+                return (finalList == null) ? null : finalList.getTotalCount();
             }
         };
         return GenericAdapter.mapList(respList, UserInvitationAdapter.getMapper());

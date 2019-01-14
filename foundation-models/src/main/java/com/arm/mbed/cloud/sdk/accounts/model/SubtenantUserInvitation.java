@@ -28,7 +28,7 @@ public class SubtenantUserInvitation implements SdkModel {
     /**
      * Creation UTC time RFC3339.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * Email address of the invited user.
@@ -39,7 +39,7 @@ public class SubtenantUserInvitation implements SdkModel {
     /**
      * Invitation expiration as UTC time RFC3339.
      */
-    private Date expiration;
+    private final Date expiration;
 
     /**
      * The ID of the invitation.
@@ -54,12 +54,12 @@ public class SubtenantUserInvitation implements SdkModel {
     /**
      * Last update UTC time RFC3339.
      */
-    private Date updatedAt;
+    private final Date updatedAt;
 
     /**
      * The ID of the invited user.
      */
-    private String userId;
+    private final String userId;
 
     /**
      * Internal constructor.
@@ -88,14 +88,14 @@ public class SubtenantUserInvitation implements SdkModel {
     public SubtenantUserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
                                    List<LoginProfile> loginProfiles, Date updatedAt, String userId) {
         super();
+        this.createdAt = createdAt;
+        this.expiration = expiration;
+        this.updatedAt = updatedAt;
+        this.userId = userId;
         setAccountId(accountId);
-        setCreatedAt(createdAt);
         setEmail(email);
-        setExpiration(expiration);
         setId(id);
         setLoginProfiles(loginProfiles);
-        setUpdatedAt(updatedAt);
-        setUserId(userId);
     }
 
     /**
@@ -135,6 +135,25 @@ public class SubtenantUserInvitation implements SdkModel {
     public SubtenantUserInvitation(String id) {
         this();
         setId(id);
+    }
+
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #SubtenantUserInvitation()} instead.
+     * 
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     * @param expiration
+     *            Invitation expiration as UTC time RFC3339.
+     * @param updatedAt
+     *            Last update UTC time RFC3339.
+     * @param userId
+     *            The ID of the invited user.
+     */
+    @Internal
+    public SubtenantUserInvitation(Date createdAt, Date expiration, Date updatedAt, String userId) {
+        this((String) null, createdAt, (String) null, expiration, (String) null, null, updatedAt, userId);
     }
 
     /**
@@ -190,16 +209,6 @@ public class SubtenantUserInvitation implements SdkModel {
     }
 
     /**
-     * Sets creation utc time rfc3339.
-     * 
-     * @param createdAt
-     *            Creation UTC time RFC3339.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
      * Gets email address of the invited user.
      * 
      * @return email
@@ -236,16 +245,6 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     public Date getExpiration() {
         return expiration;
-    }
-
-    /**
-     * Sets invitation expiration as utc time rfc3339.
-     * 
-     * @param expiration
-     *            Invitation expiration as UTC time RFC3339.
-     */
-    public void setExpiration(Date expiration) {
-        this.expiration = expiration;
     }
 
     /**
@@ -312,32 +311,12 @@ public class SubtenantUserInvitation implements SdkModel {
     }
 
     /**
-     * Sets last update utc time rfc3339.
-     * 
-     * @param updatedAt
-     *            Last update UTC time RFC3339.
-     */
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    /**
      * Gets the id of the invited user.
      * 
      * @return userId
      */
     public String getUserId() {
         return userId;
-    }
-
-    /**
-     * Sets the id of the invited user.
-     * 
-     * @param userId
-     *            The ID of the invited user.
-     */
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     /**

@@ -29,7 +29,7 @@ public class TestTrustedCertificateStatus {
             trustedcertificatestatus = TrustedCertificateStatus.getValue("INACTIVE");
             assertNotNull(trustedcertificatestatus);
             assertFalse(trustedcertificatestatus.isDefault());
-            trustedcertificatestatus = TrustedCertificateStatus.getValue("1ad2e567-07ff-449a-9150-51d4193565ca");
+            trustedcertificatestatus = TrustedCertificateStatus.getValue("42695ebb-6d0d-4152-992f-333abc58e445");
             assertNotNull(trustedcertificatestatus);
             assertTrue(trustedcertificatestatus.isDefault());
         } catch (Exception exception) {

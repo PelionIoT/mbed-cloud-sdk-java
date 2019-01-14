@@ -36,9 +36,8 @@ public final class VerificationResponseAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final VerificationResponse verificationResponse = new VerificationResponse();
-        verificationResponse.setMessage(toBeMapped.getMessage());
-        verificationResponse.setSuccessful(TranslationUtils.toBool(toBeMapped.isSuccessful()));
+        final VerificationResponse verificationResponse = new VerificationResponse(toBeMapped.getMessage(),
+                                                                                   TranslationUtils.toBool(toBeMapped.isSuccessful()));
         return verificationResponse;
     }
 

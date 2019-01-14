@@ -19,12 +19,12 @@ public class ParentAccount implements SdkModel {
     /**
      * The email address of the admin user who is the contact person of the parent account.
      */
-    private String adminEmail;
+    private final String adminEmail;
 
     /**
      * The name of the admin user who is the contact person of the parent account.
      */
-    private String adminName;
+    private final String adminName;
 
     /**
      * The ID of the parent account.
@@ -46,8 +46,8 @@ public class ParentAccount implements SdkModel {
     @Internal
     public ParentAccount(String adminEmail, String adminName, String id) {
         super();
-        setAdminEmail(adminEmail);
-        setAdminName(adminName);
+        this.adminEmail = adminEmail;
+        this.adminName = adminName;
         setId(id);
     }
 
@@ -85,6 +85,21 @@ public class ParentAccount implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #ParentAccount()} instead.
+     * 
+     * @param adminEmail
+     *            The email address of the admin user who is the contact person of the parent account.
+     * @param adminName
+     *            The name of the admin user who is the contact person of the parent account.
+     */
+    @Internal
+    public ParentAccount(String adminEmail, String adminName) {
+        this(adminEmail, adminName, (String) null);
+    }
+
+    /**
      * Gets the email address of the admin user who is the contact person of the parent account.
      * 
      * @return adminEmail
@@ -94,32 +109,12 @@ public class ParentAccount implements SdkModel {
     }
 
     /**
-     * Sets the email address of the admin user who is the contact person of the parent account.
-     * 
-     * @param adminEmail
-     *            The email address of the admin user who is the contact person of the parent account.
-     */
-    public void setAdminEmail(String adminEmail) {
-        this.adminEmail = adminEmail;
-    }
-
-    /**
      * Gets the name of the admin user who is the contact person of the parent account.
      * 
      * @return adminName
      */
     public String getAdminName() {
         return adminName;
-    }
-
-    /**
-     * Sets the name of the admin user who is the contact person of the parent account.
-     * 
-     * @param adminName
-     *            The name of the admin user who is the contact person of the parent account.
-     */
-    public void setAdminName(String adminName) {
-        this.adminName = adminName;
     }
 
     /**

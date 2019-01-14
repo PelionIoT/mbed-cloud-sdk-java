@@ -37,17 +37,16 @@ public final class DeviceEnrollmentBulkCreateAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final DeviceEnrollmentBulkCreate deviceEnrollmentBulkCreate = new DeviceEnrollmentBulkCreate();
-        deviceEnrollmentBulkCreate.setAccountId(toBeMapped.getAccountId());
-        deviceEnrollmentBulkCreate.setCompletedAt(TranslationUtils.toDate(toBeMapped.getCompletedAt()));
-        deviceEnrollmentBulkCreate.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
-        deviceEnrollmentBulkCreate.setErrorsCount(TranslationUtils.toInt(toBeMapped.getErrorsCount()));
-        deviceEnrollmentBulkCreate.setErrorsReportFile(toBeMapped.getErrorsReportFile());
-        deviceEnrollmentBulkCreate.setFullReportFile(toBeMapped.getFullReportFile());
+        final DeviceEnrollmentBulkCreate deviceEnrollmentBulkCreate = new DeviceEnrollmentBulkCreate(toBeMapped.getAccountId(),
+                                                                                                     TranslationUtils.toDate(toBeMapped.getCompletedAt()),
+                                                                                                     TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                                                     TranslationUtils.toInt(toBeMapped.getErrorsCount()),
+                                                                                                     toBeMapped.getErrorsReportFile(),
+                                                                                                     toBeMapped.getFullReportFile(),
+                                                                                                     TranslationUtils.toInt(toBeMapped.getProcessedCount()),
+                                                                                                     translateToDeviceEnrollmentBulkCreateStatus(toBeMapped.getStatus()),
+                                                                                                     TranslationUtils.toInt(toBeMapped.getTotalCount()));
         deviceEnrollmentBulkCreate.setId(toBeMapped.getId());
-        deviceEnrollmentBulkCreate.setProcessedCount(TranslationUtils.toInt(toBeMapped.getProcessedCount()));
-        deviceEnrollmentBulkCreate.setStatus(translateToDeviceEnrollmentBulkCreateStatus(toBeMapped.getStatus()));
-        deviceEnrollmentBulkCreate.setTotalCount(TranslationUtils.toInt(toBeMapped.getTotalCount()));
         return deviceEnrollmentBulkCreate;
     }
 

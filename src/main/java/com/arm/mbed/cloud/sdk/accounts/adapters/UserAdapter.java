@@ -42,26 +42,24 @@ public final class UserAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final User user = new User();
-        user.setAccountId(toBeMapped.getAccountId());
+        final User user = new User(toBeMapped.getAccountId(), TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                   TranslationUtils.toLong(toBeMapped.getCreationTime()),
+                                   TranslationUtils.toBool(toBeMapped.isEmailVerified()),
+                                   TranslationUtils.toLong(toBeMapped.getLastLoginTime()),
+                                   LoginHistoryAdapter.mapSimpleList(toBeMapped.getLoginHistory()),
+                                   TranslationUtils.toLong(toBeMapped.getPasswordChangedTime()),
+                                   TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         user.setAddress(toBeMapped.getAddress());
-        user.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
-        user.setCreationTime(TranslationUtils.toLong(toBeMapped.getCreationTime()));
         user.setEmail(toBeMapped.getEmail());
-        user.setEmailVerified(TranslationUtils.toBool(toBeMapped.isEmailVerified()));
         user.setFullName(toBeMapped.getFullName());
         user.setId(toBeMapped.getId());
-        user.setLastLoginTime(TranslationUtils.toLong(toBeMapped.getLastLoginTime()));
-        user.setLoginHistory(LoginHistoryAdapter.mapSimpleList(toBeMapped.getLoginHistory()));
         user.setLoginProfiles(LoginProfileAdapter.mapSimpleList(toBeMapped.getLoginProfiles()));
         user.setMarketingAccepted(TranslationUtils.toBool(toBeMapped.isIsMarketingAccepted()));
         user.setPassword(toBeMapped.getPassword());
-        user.setPasswordChangedTime(TranslationUtils.toLong(toBeMapped.getPasswordChangedTime()));
         user.setPhoneNumber(toBeMapped.getPhoneNumber());
         user.setStatus(translateToUserStatus(toBeMapped.getStatus()));
         user.setTermsAccepted(TranslationUtils.toBool(toBeMapped.isIsGtcAccepted()));
         user.setTwoFactorAuthentication(TranslationUtils.toBool(toBeMapped.isIsTotpEnabled()));
-        user.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         user.setUsername(toBeMapped.getUsername());
         return user;
     }
@@ -146,13 +144,13 @@ public final class UserAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getHasMore.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -166,13 +164,13 @@ public final class UserAdapter {
             }
 
             /**
-             * Executes getTotalCount.
+             * Executes getOrder.
              * 
              * @return something
              */
             @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
             }
 
             /**
@@ -186,13 +184,13 @@ public final class UserAdapter {
             }
 
             /**
-             * Executes getHasMore.
+             * Executes getTotalCount.
              * 
              * @return something
              */
             @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
+            public Integer getTotalCount() {
+                return (finalList == null) ? null : finalList.getTotalCount();
             }
         };
         return GenericAdapter.mapList(respList, UserAdapter.getMapper());
