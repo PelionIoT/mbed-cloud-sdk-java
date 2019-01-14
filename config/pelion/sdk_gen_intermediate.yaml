@@ -4780,8 +4780,7 @@ entities:
         entity_fieldname: minimum_length
         example: '8'
         type: string
-      required:
-      - minimum_length
+      required: false
       type: object
     - _key: phone_number
       api_fieldname: phone_number

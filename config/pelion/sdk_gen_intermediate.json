@@ -6104,9 +6104,7 @@
             },
             {
               "type": "object",
-              "required": [
-                "minimum_length"
-              ],
+              "required": false,
               "properties": [
                 {
                   "type": "string",
@@ -8970,7 +8968,7 @@
         },
         {
           "type": "object",
-          "required": true,
+          "required": false,
           "properties": [
             {
               "type": "string",
