@@ -7,6 +7,10 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.stream.StreamSupport;
 
 import com.arm.mbed.cloud.sdk.Sdk;
@@ -16,10 +20,15 @@ import com.arm.mbed.cloud.sdk.accounts.model.ApiKey;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserDao;
+import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.FileDownload;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
+import com.arm.mbed.cloud.sdk.common.model.DataFile;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceDao;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateDao;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceState;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig;
 
@@ -222,10 +231,10 @@ public class FoundationsExamples extends AbstractExample {
                              try {
                                  deviceDao.setModel(d);
                                  deviceDao.renewCertificate(myConfig.getCertificateReference());
-                                 System.out.println(myConfig + " was renewed on " + d);
+                                 log(myConfig + " was renewed on " + d);
                              } catch (MbedCloudException exception) {
                                  // TODO do something with the exception
-                                 System.out.println(myConfig + " could not be renewed on " + d);
+                                 log(myConfig + " could not be renewed on " + d);
                              }
 
                          });
@@ -238,6 +247,57 @@ public class FoundationsExamples extends AbstractExample {
             // uncloak
         }
         // end of example
+    }
+
+    /**
+     * Enrols devices in bulk.
+     */
+    @Example
+    public void enrolDevicesInBulk() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = null;
+        try {
+            file = File.createTempFile("test", ".csv");
+            file.deleteOnExit();
+            Files.copy(classLoader.getResource("test.csv").openStream(), file.toPath(),
+                       StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException exception1) {
+            // TODO Auto-generated catch block
+            exception1.printStackTrace();
+        }
+        assertNotNull(file);
+        assertTrue(file.exists());
+        System.out.println(file);
+        // an example: device enrollment bulk
+        try (Sdk sdk = Sdk.createSdk(Configuration.get().logLevel(CallLogLevel.BODY))) {
+            DeviceEnrollmentBulkCreateDao enrolmentDao = sdk.daos().getDeviceEnrollmentBulkCreateDao();
+            // file is a csv file containing all the devices which need to be enroled. See test.csv in the /resources
+            // folder for an example.
+            enrolmentDao.create(new DataFile(file));
+            // cloak
+            assertEquals(DeviceEnrollmentBulkCreateStatus.NEW, enrolmentDao.getModel().getStatus());
+            // uncloak
+            // read current state of bulk enrollment
+            enrolmentDao.read();
+            // cloak
+            assertTrue(enrolmentDao.getModel().getStatus() == DeviceEnrollmentBulkCreateStatus.PROCESSING
+                       || enrolmentDao.getModel().getStatus() == DeviceEnrollmentBulkCreateStatus.COMPLETED);
+            // uncloak
+            // Download the enrolment report files
+            FileDownload report = enrolmentDao.downloadFullReportFile((String) null);
+            log("report", report);
+            FileDownload errorReport = enrolmentDao.downloadErrorsReportFile((String) null);
+            log("errorReport", report);
+
+        } catch (MbedCloudException exception) {
+            // TODO do something with the exception
+            exception.printStackTrace();
+            // cloak
+            fail(exception.getMessage());
+            // uncloak
+        }
+        // end of example
+
     }
 
 }
