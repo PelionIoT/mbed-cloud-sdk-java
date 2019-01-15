@@ -105,13 +105,13 @@ public final class SubtenantUserInvitationAdapter {
         final UserInvitationRespList finalList = toBeMapped;
         final GenericAdapter.RespList<UserInvitationResp> respList = new GenericAdapter.RespList<UserInvitationResp>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<UserInvitationResp> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -122,6 +122,16 @@ public final class SubtenantUserInvitationAdapter {
             @Override
             public String getContinuationMarker() {
                 return null;
+            }
+
+            /**
+             * Executes getData.
+             * 
+             * @return something
+             */
+            @Override
+            public List<UserInvitationResp> getData() {
+                return (finalList == null) ? null : finalList.getData();
             }
 
             /**
@@ -152,16 +162,6 @@ public final class SubtenantUserInvitationAdapter {
             @Override
             public String getOrder() {
                 return (finalList == null) ? null : finalList.getOrder().toString();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**

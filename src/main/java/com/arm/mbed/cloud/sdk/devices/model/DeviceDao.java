@@ -126,14 +126,14 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
+     * @param options
+     *            a connection options.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Devices(options);
     }
 
     /**
@@ -152,14 +152,14 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Instantiates modules.
      * 
-     * @param options
-     *            a connection options.
+     * @param context
+     *            an sdk context.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
     }
 
     /**

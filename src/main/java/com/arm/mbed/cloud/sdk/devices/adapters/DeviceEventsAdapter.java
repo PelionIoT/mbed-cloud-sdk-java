@@ -85,13 +85,13 @@ public final class DeviceEventsAdapter {
         final DeviceEventPage finalList = toBeMapped;
         final GenericAdapter.RespList<DeviceEventData> respList = new GenericAdapter.RespList<DeviceEventData>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<DeviceEventData> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -102,6 +102,16 @@ public final class DeviceEventsAdapter {
             @Override
             public String getContinuationMarker() {
                 return null;
+            }
+
+            /**
+             * Executes getData.
+             * 
+             * @return something
+             */
+            @Override
+            public List<DeviceEventData> getData() {
+                return (finalList == null) ? null : finalList.getData();
             }
 
             /**
@@ -132,16 +142,6 @@ public final class DeviceEventsAdapter {
             @Override
             public String getOrder() {
                 return (finalList == null) ? null : finalList.getOrder();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**

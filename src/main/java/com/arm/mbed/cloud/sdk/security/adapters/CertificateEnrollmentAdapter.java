@@ -90,14 +90,13 @@ public final class CertificateEnrollmentAdapter {
         final CertificateEnrollmentListResponse finalList = toBeMapped;
         final GenericAdapter.RespList<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment> respList = new GenericAdapter.RespList<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>
-                   getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -108,6 +107,17 @@ public final class CertificateEnrollmentAdapter {
             @Override
             public String getContinuationMarker() {
                 return null;
+            }
+
+            /**
+             * Executes getData.
+             * 
+             * @return something
+             */
+            @Override
+            public List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>
+                   getData() {
+                return (finalList == null) ? null : finalList.getData();
             }
 
             /**
@@ -138,16 +148,6 @@ public final class CertificateEnrollmentAdapter {
             @Override
             public String getOrder() {
                 return (finalList == null) ? null : finalList.getOrder().toString();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**

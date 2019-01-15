@@ -1,6 +1,8 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
@@ -46,7 +48,7 @@ public class MethodListMapper extends MethodMapper {
         } else {
             respListDef.addSuperinterface(tempType.getTypeName());
         }
-        for (java.lang.reflect.Method m : Arrays.asList(RespList.class.getDeclaredMethods())) {
+        for (java.lang.reflect.Method m : getRespMethodList()) {
             // Use for loop for exception reason
             final Method method = generateMethod(m, fromType.getClazz(), fromToContent.toType(), localVariable2);
             if (method != null) {
@@ -58,6 +60,12 @@ public class MethodListMapper extends MethodMapper {
                           localVariable1, respListDef.build());
         code.addStatement("return $T.$L($L,$T.$L())", GenericAdapter.class, GenericAdapter.MAP_LIST_FUNCTION_NAME,
                           localVariable1, adapterType.getTypeName(), getMapperMethodName);
+    }
+
+    private List<java.lang.reflect.Method> getRespMethodList() {
+        return Arrays.asList(RespList.class.getDeclaredMethods()).stream()
+                     .sorted(Comparator.comparing(java.lang.reflect.Method::getName))
+                     .collect(java.util.stream.Collectors.toList());
     }
 
     private static Method generateMethod(java.lang.reflect.Method methodOfInterest, Class<?> sourceClass,

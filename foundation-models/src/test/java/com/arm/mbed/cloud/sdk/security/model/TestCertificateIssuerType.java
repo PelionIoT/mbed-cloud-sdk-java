@@ -28,7 +28,7 @@ public class TestCertificateIssuerType {
             certificateissuertype = CertificateIssuerType.getValue("GLOBAL_SIGN");
             assertNotNull(certificateissuertype);
             assertFalse(certificateissuertype.isDefault());
-            certificateissuertype = CertificateIssuerType.getValue("bc05bbe6-2240-4698-aad1-48cc04cb9fcd");
+            certificateissuertype = CertificateIssuerType.getValue("9f22fb3c-b0be-4e43-9ad4-ac99f6ace84a");
             assertNotNull(certificateissuertype);
             assertTrue(certificateissuertype.isDefault());
         } catch (Exception exception) {

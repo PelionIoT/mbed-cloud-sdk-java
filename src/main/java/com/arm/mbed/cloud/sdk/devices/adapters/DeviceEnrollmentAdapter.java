@@ -101,13 +101,13 @@ public final class DeviceEnrollmentAdapter {
         final EnrollmentIdentities finalList = toBeMapped;
         final GenericAdapter.RespList<EnrollmentIdentity> respList = new GenericAdapter.RespList<EnrollmentIdentity>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<EnrollmentIdentity> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -118,6 +118,16 @@ public final class DeviceEnrollmentAdapter {
             @Override
             public String getContinuationMarker() {
                 return null;
+            }
+
+            /**
+             * Executes getData.
+             * 
+             * @return something
+             */
+            @Override
+            public List<EnrollmentIdentity> getData() {
+                return (finalList == null) ? null : finalList.getData();
             }
 
             /**
@@ -148,16 +158,6 @@ public final class DeviceEnrollmentAdapter {
             @Override
             public String getOrder() {
                 return (finalList == null) ? null : finalList.getOrder().toString();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**

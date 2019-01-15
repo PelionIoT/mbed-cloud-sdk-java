@@ -120,13 +120,13 @@ public final class TrustedCertificateAdapter {
         final TrustedCertificateRespList finalList = toBeMapped;
         final GenericAdapter.RespList<TrustedCertificateResp> respList = new GenericAdapter.RespList<TrustedCertificateResp>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<TrustedCertificateResp> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -137,6 +137,16 @@ public final class TrustedCertificateAdapter {
             @Override
             public String getContinuationMarker() {
                 return null;
+            }
+
+            /**
+             * Executes getData.
+             * 
+             * @return something
+             */
+            @Override
+            public List<TrustedCertificateResp> getData() {
+                return (finalList == null) ? null : finalList.getData();
             }
 
             /**
@@ -167,16 +177,6 @@ public final class TrustedCertificateAdapter {
             @Override
             public String getOrder() {
                 return (finalList == null) ? null : finalList.getOrder().toString();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**

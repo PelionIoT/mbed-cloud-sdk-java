@@ -106,13 +106,13 @@ public final class CertificateIssuerAdapter {
         final CertificateIssuerInfoListResponse finalList = toBeMapped;
         final GenericAdapter.RespList<CertificateIssuerInfo> respList = new GenericAdapter.RespList<CertificateIssuerInfo>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<CertificateIssuerInfo> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -123,6 +123,16 @@ public final class CertificateIssuerAdapter {
             @Override
             public String getContinuationMarker() {
                 return null;
+            }
+
+            /**
+             * Executes getData.
+             * 
+             * @return something
+             */
+            @Override
+            public List<CertificateIssuerInfo> getData() {
+                return (finalList == null) ? null : finalList.getData();
             }
 
             /**
@@ -153,16 +163,6 @@ public final class CertificateIssuerAdapter {
             @Override
             public String getOrder() {
                 return (finalList == null) ? null : finalList.getOrder();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**

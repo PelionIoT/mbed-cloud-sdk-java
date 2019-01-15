@@ -107,13 +107,13 @@ public final class ApiKeyAdapter {
         final ApiKeyInfoRespList finalList = toBeMapped;
         final GenericAdapter.RespList<ApiKeyInfoResp> respList = new GenericAdapter.RespList<ApiKeyInfoResp>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<ApiKeyInfoResp> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -124,6 +124,16 @@ public final class ApiKeyAdapter {
             @Override
             public String getContinuationMarker() {
                 return null;
+            }
+
+            /**
+             * Executes getData.
+             * 
+             * @return something
+             */
+            @Override
+            public List<ApiKeyInfoResp> getData() {
+                return (finalList == null) ? null : finalList.getData();
             }
 
             /**
@@ -154,16 +164,6 @@ public final class ApiKeyAdapter {
             @Override
             public String getOrder() {
                 return (finalList == null) ? null : finalList.getOrder().toString();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**

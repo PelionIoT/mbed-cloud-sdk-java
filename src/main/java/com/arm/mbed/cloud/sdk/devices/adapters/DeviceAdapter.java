@@ -161,13 +161,13 @@ public final class DeviceAdapter {
         final DevicePage finalList = toBeMapped;
         final GenericAdapter.RespList<DeviceData> respList = new GenericAdapter.RespList<DeviceData>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<DeviceData> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -178,6 +178,16 @@ public final class DeviceAdapter {
             @Override
             public String getContinuationMarker() {
                 return null;
+            }
+
+            /**
+             * Executes getData.
+             * 
+             * @return something
+             */
+            @Override
+            public List<DeviceData> getData() {
+                return (finalList == null) ? null : finalList.getData();
             }
 
             /**
@@ -208,16 +218,6 @@ public final class DeviceAdapter {
             @Override
             public String getOrder() {
                 return (finalList == null) ? null : finalList.getOrder();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**

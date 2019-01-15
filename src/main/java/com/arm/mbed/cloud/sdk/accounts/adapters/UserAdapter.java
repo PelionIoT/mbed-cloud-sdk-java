@@ -124,13 +124,13 @@ public final class UserAdapter {
         final UserInfoRespList finalList = toBeMapped;
         final GenericAdapter.RespList<UserInfoResp> respList = new GenericAdapter.RespList<UserInfoResp>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<UserInfoResp> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -141,6 +141,16 @@ public final class UserAdapter {
             @Override
             public String getContinuationMarker() {
                 return null;
+            }
+
+            /**
+             * Executes getData.
+             * 
+             * @return something
+             */
+            @Override
+            public List<UserInfoResp> getData() {
+                return (finalList == null) ? null : finalList.getData();
             }
 
             /**
@@ -171,16 +181,6 @@ public final class UserAdapter {
             @Override
             public String getOrder() {
                 return (finalList == null) ? null : finalList.getOrder().toString();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
