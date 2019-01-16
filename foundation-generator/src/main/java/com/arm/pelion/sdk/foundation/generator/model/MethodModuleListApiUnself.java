@@ -54,8 +54,8 @@ public class MethodModuleListApiUnself extends MethodModuleCloudApiUnself {
     }
 
     @Override
-    protected void translateParameter(String parameterName, TypeParameter type, StringBuilder builder,
-                                      List<Object> callElements, boolean isExternalParameter,
+    protected void translateParameter(String parameterName, String initialParameterName, TypeParameter type,
+                                      StringBuilder builder, List<Object> callElements, boolean isExternalParameter,
                                       List<Parameter> unusedParameters) throws TranslationException {
         if (isPaginatedList) {
             // FIXME refactor the following when filters are supported.
@@ -64,12 +64,13 @@ public class MethodModuleListApiUnself extends MethodModuleCloudApiUnself {
             if (correspondingListOptions.hasFieldInHierachy(parameterName)) {
                 MethodModuleListApi.translateListOptionParameter(this, parameterName, type, builder, callElements);
             } else {
-                super.translateParameter(parameterName, type, builder, callElements, isExternalParameter,
-                                         unusedParameters);
+                super.translateParameter(parameterName, initialParameterName, type, builder, callElements,
+                                         isExternalParameter, unusedParameters);
             }
 
         } else {
-            super.translateParameter(parameterName, type, builder, callElements, isExternalParameter, unusedParameters);
+            super.translateParameter(parameterName, initialParameterName, type, builder, callElements,
+                                     isExternalParameter, unusedParameters);
         }
     }
 

@@ -23,6 +23,9 @@ public class ApiClientWrapper implements Cloneable {
     protected final ApiClient client;
     private final ConnectionOptions connectionOptions;
 
+    public static final String USER_AGENT_HEADER = "User-Agent";
+    public static final String AUTHORISATION_HEADER = "Authorization";
+
     /**
      * Cloud client constructor.
      *
@@ -148,6 +151,19 @@ public class ApiClientWrapper implements Cloneable {
         return connectionOptions;
     }
 
+    /**
+     * Gets the Authorisation Token in use.
+     * 
+     * @return the token in use.
+     */
+    public String getAuthorisationToken() {
+        return getAuthorisationToken(connectionOptions);
+    }
+
+    private static String getAuthorisationToken(ConnectionOptions options) {
+        return formatApiKey(options == null ? null : options.getApiKey());
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -220,7 +236,7 @@ public class ApiClientWrapper implements Cloneable {
     private static ApiClient createClient(ConnectionOptions options) {
         final ApiClient apiClient = options.isApiKeyEmpty() ? new ApiClient()
                                                             : new ApiClient(DEFAULT_AUTH_NAME,
-                                                                            formatApiKey(options.getApiKey()));
+                                                                            getAuthorisationToken(options));
         if (!options.isHostEmpty()) {
             apiClient.setAdapterBuilder(apiClient.getAdapterBuilder().baseUrl(options.getHost()));
         }
@@ -357,7 +373,6 @@ public class ApiClientWrapper implements Cloneable {
 
     private static class UserAgentInterceptor implements Interceptor {
 
-        private static final String USER_AGENT_HEADER = "User-Agent";
         private final UserAgent userAgent;
 
         public UserAgentInterceptor(UserAgent userAgent) {

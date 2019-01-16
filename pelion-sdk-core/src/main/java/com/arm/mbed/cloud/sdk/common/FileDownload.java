@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,11 +17,10 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "File on the disk resulting from a download or where some content will be downloaded")
 public class FileDownload {
-    private static final String EMPTY_STRING = "";
-    private static final String EXTENSION_SEPARATOR = ".";
     private static final String UNDEFINED_DESTINATION_FILENAME = "unknown.txt";
     private final URL source;
     private final File destination;
+    private transient ApiClientWrapper client;
     private transient volatile boolean downloaded;
     private transient SdkLogger logger;
 
@@ -48,6 +48,7 @@ public class FileDownload {
         this.destination = destination;
         this.downloaded = false;
         this.logger = null;
+        this.client = null;
     }
 
     /**
@@ -96,9 +97,12 @@ public class FileDownload {
      *            destination file path on the disk.
      * @throws MalformedURLException
      *             if a problem occurred during the process
+     * @throws MbedCloudException
+     *             if a problem occurred during the process
      */
-    public FileDownload(String sourceUrl, String destinationPath) throws MalformedURLException {
-        this(new URL(sourceUrl), new File(destinationPath));
+    public FileDownload(String sourceUrl, String destinationPath) throws MalformedURLException, MbedCloudException {
+        this(new URL(sourceUrl), destinationPath == null ? generateFileDestination(null, UNDEFINED_DESTINATION_FILENAME)
+                                                         : new File(destinationPath));
     }
 
     /**
@@ -133,7 +137,7 @@ public class FileDownload {
      */
     public FileDownload(Extension extension) throws MbedCloudException {
         this(generateTempFile((String) null,
-                              extension == Extension.DEFAULT ? null : EXTENSION_SEPARATOR
+                              extension == Extension.DEFAULT ? null : SdkUtils.EXTENSION_SEPARATOR
                                                                       + extension.toString().toLowerCase()));
     }
 
@@ -199,6 +203,25 @@ public class FileDownload {
     }
 
     /**
+     * Gets client to use.
+     * 
+     * @return client in use.
+     */
+    public ApiClientWrapper getClient() {
+        return client;
+    }
+
+    /**
+     * Sets the client to use.
+     * 
+     * @param client
+     *            client to use
+     */
+    public void setClient(ApiClientWrapper client) {
+        this.client = client;
+    }
+
+    /**
      * Downloading data to a file on the disk.
      *
      * @param content
@@ -236,7 +259,8 @@ public class FileDownload {
         if (logger != null) {
             logger.logInfo("Downloading File [" + source.toString() + "] to [" + destination.getName() + "]");
         }
-        try (InputStream in = source.openStream()) {
+        final URLConnection connection = ApiUtils.openConnection(source, client, logger);
+        try (InputStream in = connection.getInputStream()) {
             Files.copy(in, destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException exception) {
             throw new MbedCloudException("The file could not be downloaded", exception);
@@ -275,7 +299,7 @@ public class FileDownload {
             // In this case, the file path is complete.
             return directory;
         }
-        return hasExtension(destinationDirectory) ? directory : destination;
+        return SdkUtils.hasExtension(destinationDirectory) ? directory : destination;
     }
 
     private static File generateTempFile(URL source, String extension) throws MbedCloudException {
@@ -290,42 +314,13 @@ public class FileDownload {
     private static File generateTempFile(String fileName, String extension) throws MbedCloudException {
         final String finalFileName = fileName == null ? UNDEFINED_DESTINATION_FILENAME : fileName;
         try {
-            return File.createTempFile(getFileNameWithoutExtension(finalFileName),
-                                       extension == null ? EXTENSION_SEPARATOR + getFileExtension(finalFileName)
+            return File.createTempFile(SdkUtils.getFileNameWithoutExtension(finalFileName),
+                                       extension == null ? SdkUtils.EXTENSION_SEPARATOR
+                                                           + SdkUtils.getFileExtension(finalFileName)
                                                          : extension);
         } catch (IOException exception) {
             throw new MbedCloudException(exception);
         }
-    }
-
-    protected static boolean hasExtension(String fileName) {
-        return !getFileExtension(fileName).isEmpty();
-    }
-
-    protected static String getFileExtension(String fileName) {
-        if (fileName == null || fileName.trim().endsWith(EXTENSION_SEPARATOR)) {
-            return EMPTY_STRING;
-        }
-        final int i = fileName.lastIndexOf('.');
-        if (i < 0) {
-            return EMPTY_STRING;
-        }
-        final StringBuilder builder = new StringBuilder();
-        final String shorterFilename = fileName.substring(0, i);
-        final int j = shorterFilename.lastIndexOf('.');
-        // This is an arbitrary constraint on the length of the extension.
-        if (j > 0 && shorterFilename.length() - j < 5) {
-            builder.append(shorterFilename.substring(j + 1)).append('.');
-        }
-        builder.append(fileName.substring(i + 1));
-        return builder.toString().trim();
-    }
-
-    protected static String getFileNameWithoutExtension(String fileName) {
-        if (fileName == null) {
-            return EMPTY_STRING;
-        }
-        return fileName.trim().replace(EXTENSION_SEPARATOR + getFileExtension(fileName), EMPTY_STRING);
     }
 
     /*

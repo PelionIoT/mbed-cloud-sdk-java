@@ -294,7 +294,8 @@ public class Devices extends AbstractModule {
                                     @Override
                                     public Call<BulkResponse> call() {
                                         return endpoints.getPublicApiApi()
-                                                        .createBulkDeviceEnrollment(DataFileAdapter.reverseMap(finalEnrollmentIdentities));
+                                                        .createBulkDeviceEnrollment(DataFileAdapter.reverseMap("enrollment_identities",
+                                                                                                               finalEnrollmentIdentities));
                                     }
                                 });
     }
@@ -452,7 +453,8 @@ public class Devices extends AbstractModule {
                                     @Override
                                     public Call<BulkResponse> call() {
                                         return endpoints.getPublicApiApi()
-                                                        .deleteBulkDeviceEnrollment(DataFileAdapter.reverseMap(finalEnrollmentIdentities));
+                                                        .deleteBulkDeviceEnrollment(DataFileAdapter.reverseMap("enrollment_identities",
+                                                                                                               finalEnrollmentIdentities));
                                     }
                                 });
     }

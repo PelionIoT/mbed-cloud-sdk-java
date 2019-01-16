@@ -21,6 +21,8 @@ import com.arm.mbed.cloud.sdk.annotations.Required;
 @Preamble(description = "SDK Utilities")
 public final class SdkUtils {
     private static final Pattern JSON_ARRAY_PATTERN = Pattern.compile("\\[([\'\"][\\w-\\s\\S]*[\'\"],?)*\\]");
+    private static final String EMPTY_STRING = "";
+    public static final String EXTENSION_SEPARATOR = ".";
 
     private SdkUtils() {
         super();
@@ -417,6 +419,57 @@ public final class SdkUtils {
 
         }
         return converter;
+    }
+
+    /**
+     * Checks whether a file name contains an extension.
+     * 
+     * @param fileName
+     *            file name of interest
+     * @return true if there is an extension. false otherwise.
+     */
+    public static boolean hasExtension(String fileName) {
+        return !getFileExtension(fileName).isEmpty();
+    }
+
+    /**
+     * Retrieves the extension part of a file name.
+     * 
+     * @param fileName
+     *            file name of interest
+     * @return the extension part or an empty string if no extension was found
+     */
+    public static String getFileExtension(String fileName) {
+        if (fileName == null || fileName.trim().endsWith(EXTENSION_SEPARATOR)) {
+            return EMPTY_STRING;
+        }
+        final int i = fileName.lastIndexOf('.');
+        if (i < 0) {
+            return EMPTY_STRING;
+        }
+        final StringBuilder builder = new StringBuilder();
+        final String shorterFilename = fileName.substring(0, i);
+        final int j = shorterFilename.lastIndexOf('.');
+        // This is an arbitrary constraint on the length of the extension.
+        if (j > 0 && shorterFilename.length() - j < 5) {
+            builder.append(shorterFilename.substring(j + 1)).append('.');
+        }
+        builder.append(fileName.substring(i + 1));
+        return builder.toString().trim();
+    }
+
+    /**
+     * Retrieves the file name without the extension part.
+     * 
+     * @param fileName
+     *            file name of interest
+     * @return the file name without the extension part.
+     */
+    public static String getFileNameWithoutExtension(String fileName) {
+        if (fileName == null) {
+            return EMPTY_STRING;
+        }
+        return fileName.trim().replace(EXTENSION_SEPARATOR + getFileExtension(fileName), EMPTY_STRING);
     }
 
 }

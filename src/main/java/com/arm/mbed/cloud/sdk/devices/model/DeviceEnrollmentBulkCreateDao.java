@@ -41,8 +41,9 @@ public class DeviceEnrollmentBulkCreateDao extends AbstractDeviceEnrollmentBulkC
      */
     @NonNull
     public FileDownload downloadErrorsReportFile(@Nullable File destination) throws MbedCloudException {
+        checkDaoConfiguration();
         final URL source = TranslationUtils.toUrl(getModel().getErrorsReportFile());
-        return Utils.downloadFile(destination, source);
+        return Utils.downloadFile(destination, source, module.getClient());
     }
 
     /**
@@ -57,8 +58,9 @@ public class DeviceEnrollmentBulkCreateDao extends AbstractDeviceEnrollmentBulkC
      */
     @NonNull
     public FileDownload downloadErrorsReportFile(@Nullable String filePath) throws MbedCloudException {
+        checkDaoConfiguration();
         final URL source = TranslationUtils.toUrl(getModel().getErrorsReportFile());
-        return Utils.downloadFile(new File(filePath), source);
+        return Utils.downloadFile(filePath == null ? null : new File(filePath), source, module.getClient());
     }
 
     /**
@@ -72,8 +74,9 @@ public class DeviceEnrollmentBulkCreateDao extends AbstractDeviceEnrollmentBulkC
      *             if an error happens during the process
      */
     public FileDownload downloadFullReportFile(File destination) throws MbedCloudException {
+        checkDaoConfiguration();
         final URL source = TranslationUtils.toUrl(getModel().getFullReportFile());
-        return Utils.downloadFile(destination, source);
+        return Utils.downloadFile(destination, source, module.getClient());
     }
 
     /**
@@ -87,8 +90,9 @@ public class DeviceEnrollmentBulkCreateDao extends AbstractDeviceEnrollmentBulkC
      *             if an error happens during the process
      */
     public FileDownload downloadFullReportFile(String filePath) throws MbedCloudException {
+        checkDaoConfiguration();
         final URL source = TranslationUtils.toUrl(getModel().getFullReportFile());
-        return Utils.downloadFile(new File(filePath), source);
+        return Utils.downloadFile(filePath == null ? null : new File(filePath), source, module.getClient());
     }
 
     /**

@@ -10,6 +10,10 @@ public abstract class AbstractExample {
         ExampleLogger.log(((message == null) ? "" : message + ": ") + objectStr);
     }
 
+    public void log(Object obj) {
+        ExampleLogger.log(obj);
+    }
+
     public void log(String message) {
         ExampleLogger.log(message == null ? "" : message);
     }

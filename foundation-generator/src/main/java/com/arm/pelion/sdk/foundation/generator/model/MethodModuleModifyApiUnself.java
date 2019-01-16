@@ -28,14 +28,15 @@ public class MethodModuleModifyApiUnself extends MethodModuleCloudApiUnself {
     }
 
     @Override
-    protected void translateParameter(String parameterName, TypeParameter type, StringBuilder builder,
-                                      List<Object> callElements, boolean isExternalParameter,
+    protected void translateParameter(String parameterName, String initialParameterName, TypeParameter type,
+                                      StringBuilder builder, List<Object> callElements, boolean isExternalParameter,
                                       List<Parameter> unusedParameters) throws TranslationException {
         if (type.isLowLevelModel()) {
             MethodModuleModifyApi.dealWithModifiedModel(this, isForCreation, parameterName, builder, callElements,
                                                         unusedParameters);
         } else {
-            super.translateParameter(parameterName, type, builder, callElements, isExternalParameter, unusedParameters);
+            super.translateParameter(parameterName, initialParameterName, type, builder, callElements,
+                                     isExternalParameter, unusedParameters);
         }
     }
 }

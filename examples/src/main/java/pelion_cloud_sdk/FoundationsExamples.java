@@ -20,7 +20,6 @@ import com.arm.mbed.cloud.sdk.accounts.model.ApiKey;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserDao;
-import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.FileDownload;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -35,6 +34,7 @@ import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig;
 import utils.AbstractExample;
 import utils.Configuration;
 import utils.Example;
+import utils.ExampleLogger;
 
 public class FoundationsExamples extends AbstractExample {
     /**
@@ -48,7 +48,7 @@ public class FoundationsExamples extends AbstractExample {
             AccountDao myAccountDao = new AccountDao().configureAndGet(Configuration.get());
             myAccountDao.me(null, null);
             // Print my account detail
-            System.out.println(myAccountDao.getModel());
+            log(myAccountDao.getModel());
             boolean isActive = myAccountDao.getModel().getStatus() == AccountStatus.ACTIVE;
             // cloak
             // Checks that the status is active
@@ -76,7 +76,7 @@ public class FoundationsExamples extends AbstractExample {
             // In case you do not know the name/class of the DAO to use, you can use the DAO provider which will fetch
             // the corresponding DAO using reflection.
             sdk.daos().getDaoProvider().getCorrespondingListDao(ApiKey.class, null).paginator()
-               .forEach(System.out::println);
+               .forEach(ExampleLogger::log);
         } catch (MbedCloudException exception) {
             // TODO do something with the exception
             exception.printStackTrace();
@@ -107,8 +107,8 @@ public class FoundationsExamples extends AbstractExample {
             assertNotEquals(dao1, dao2);
             assertNotEquals(dao1.getContext().getConnectionOption(), dao2.getContext().getConnectionOption());
             // uncloak
-            dao1.paginator().forEach(System.out::println);
-            dao2.paginator().forEach(System.out::println);
+            dao1.paginator().forEach(ExampleLogger::log);
+            dao2.paginator().forEach(ExampleLogger::log);
             // cloak
             fail("The host is fake");
             // uncloak
@@ -132,7 +132,7 @@ public class FoundationsExamples extends AbstractExample {
             // uncloak
             // TODO some action
             sdk.daos().getDaoProvider().getCorrespondingListDao(ApiKey.class, null).paginator()
-               .forEach(System.out::println);
+               .forEach(ExampleLogger::log);
             // cloak
             fail("The host is fake");
             // uncloak
@@ -267,11 +267,10 @@ public class FoundationsExamples extends AbstractExample {
         }
         assertNotNull(file);
         assertTrue(file.exists());
-        System.out.println(file);
         // an example: device enrollment bulk
-        try (Sdk sdk = Sdk.createSdk(Configuration.get().logLevel(CallLogLevel.BODY))) {
+        try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
             DeviceEnrollmentBulkCreateDao enrolmentDao = sdk.daos().getDeviceEnrollmentBulkCreateDao();
-            // file is a csv file containing all the devices which need to be enroled. See test.csv in the /resources
+            // file is a csv file containing all the devices which need to be enrolled. See test.csv in the /resources
             // folder for an example.
             enrolmentDao.create(new DataFile(file));
             // cloak
@@ -283,13 +282,20 @@ public class FoundationsExamples extends AbstractExample {
             assertTrue(enrolmentDao.getModel().getStatus() == DeviceEnrollmentBulkCreateStatus.PROCESSING
                        || enrolmentDao.getModel().getStatus() == DeviceEnrollmentBulkCreateStatus.COMPLETED);
             // uncloak
+            // Wait until the report is ready
+            // FIXME this is just a cruddy example of waiting for the bulk operation to complete. Better handling should
+            // be performed in production application.
+            while (enrolmentDao.getModel().getStatus() != DeviceEnrollmentBulkCreateStatus.COMPLETED) {
+                Thread.sleep(1000);
+                enrolmentDao.read();
+            }
             // Download the enrolment report files
             FileDownload report = enrolmentDao.downloadFullReportFile((String) null);
             log("report", report);
             FileDownload errorReport = enrolmentDao.downloadErrorsReportFile((String) null);
-            log("errorReport", report);
+            log("errorReport", errorReport);
 
-        } catch (MbedCloudException exception) {
+        } catch (MbedCloudException | InterruptedException exception) {
             // TODO do something with the exception
             exception.printStackTrace();
             // cloak

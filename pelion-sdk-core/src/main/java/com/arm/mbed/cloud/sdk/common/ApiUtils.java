@@ -1,8 +1,13 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.NonNull;
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Utilities for APIs")
@@ -26,7 +31,7 @@ public final class ApiUtils {
      *             if the field is null
      */
     public static void checkNotNull(SdkLogger logger, Object arg, String argName) throws MbedCloudException {
-        if (arg == null) {
+        if (arg == null && logger != null) {
             logger.throwSdkException(new IllegalArgumentException("Argument [" + argName + "] cannot be Null"));
         }
     }
@@ -146,5 +151,35 @@ public final class ApiUtils {
      */
     public static String convertSnakeToCamel(String stringToConvert, boolean capitalAtStart) {
         return SdkUtils.convertSnakeToCamel(stringToConvert, capitalAtStart);
+    }
+
+    /**
+     * Opens a URL connection using client properties.
+     * 
+     * @param url
+     *            url to connect to.
+     * @param client
+     *            client to get the properties from.
+     * @param logger
+     *            logger.
+     * @return the opened connection.
+     * @throws MbedCloudException
+     *             if an exception is raised in the process.
+     */
+    public static URLConnection openConnection(@NonNull URL url, @Nullable ApiClientWrapper client,
+                                               @NonNull SdkLogger logger) throws MbedCloudException {
+        checkNotNull(logger, url, "url");
+        try {
+            final URLConnection connection = url.openConnection();
+            if (client != null) {
+                connection.setRequestProperty(ApiClientWrapper.USER_AGENT_HEADER,
+                                              client.getUserAgent().getUserAgentString());
+                connection.setRequestProperty(ApiClientWrapper.AUTHORISATION_HEADER, client.getAuthorisationToken());
+            }
+            return connection;
+        } catch (IOException exception) {
+            throw new MbedCloudException(exception);
+        }
+
     }
 }
