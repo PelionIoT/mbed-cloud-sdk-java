@@ -45,6 +45,7 @@ class SDKFoundationGeneration(sdk_common.BuildStepUsingGradle):
     def check_whether_api_config_has_changed(self):
         api_config = self.retrieve_folder_location('SDK_API_DEFINITION_DIR')
         if not api_config or not os.path.exists(api_config):
+            self.log_warning("The folder where API specifications are store does not exist [%s]" % api_config)
             return False
         api_config = os.path.realpath(api_config)
         current_hash = self.git_commit_hash()
@@ -53,6 +54,8 @@ class SDKFoundationGeneration(sdk_common.BuildStepUsingGradle):
                                         api_config)
         changes.extend(self.git_changes_list('a', previous_hash, current_hash,
                                              api_config))
+        self.log_info("%s changes were made in the API specifications [%s] since last commit [%s]" % (
+            len(changes), api_config, previous_hash))
         return changes and len(changes) > 0
 
     def get_list_folders_to_commit(self):
@@ -68,6 +71,8 @@ class SDKFoundationGeneration(sdk_common.BuildStepUsingGradle):
         commit_hash = self.git_commit_hash()
         folders = self.get_list_folders_to_commit()
         if not folders or len(folders) == 0:
+            self.log_warning(
+                "The folders which contain code which may need to be committed back could not be determined")
             return
         for folder in folders:
             self.git_add_folder(folder)
