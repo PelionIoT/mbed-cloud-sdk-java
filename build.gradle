@@ -522,7 +522,7 @@ def updateArtifactList(propertyName, value) {
         props.setProperty(propertyName.toString(), value.toString())
         props.sort()
         def fileWriter = propFile.newWriter()
-        props.store(fileWriter, "Arm Mbed Cloud JAVA SDK artifacts");
+        props.store(fileWriter, "Arm Pelion Cloud JAVA SDK artifacts");
         fileWriter.close()
     }
 }

@@ -152,10 +152,43 @@ swaggerSources {
   }
 }
 
+task info {
+	def source_files = ''
+	def project_list = []
+    project.subprojects.each { sproject ->
+            project_list.add(sproject)
+    }
+    project_list.each { projectObject -> source_files += projectObject.projectDir.toString() + File.pathSeparator }
+    // project_list.each { projectObject -> source_files += projectObject.sourceSets.main.allJava.srcDirs[0].toString() + File.pathSeparator }
+    // project_list.each { projectObject -> source_files += projectObject.sourceSets.test.allJava.srcDirs[0].toString() + File.pathSeparator }
+    updateArtifactList("SDK_GENERATED_SOURCE_DIRS", source_files)
+    updateArtifactList("SDK_API_DEFINITION_DIR", new File("$rootProject.projectDir/$openApiCodegenConfigDir").canonicalPath)
+    doLast { task ->
+        println "Project: $task.project.name project..."
+    }
+}
+
+
 project.afterEvaluate{
+  info.execute()
   generateSwaggerCode.outputs.upToDateWhen { false }
   spotlessApply.outputs.upToDateWhen { false }
   compileJava.outputs.upToDateWhen { false }
   spotlessApply.dependsOn("generateSwaggerCode")
   compileJava.dependsOn("spotlessApply")
+}
+
+def updateArtifactList(propertyName, value) {
+    if (UpdateArtifactList) {
+        def props = new Properties()
+        def propFile = new File("$rootProject.projectDir/$artifactsFile");
+        if (propFile.exists()) {
+            propFile.withReader { props.load(it) }
+        }
+        props.setProperty(propertyName.toString(), value.toString())
+        props.sort()
+        def fileWriter = propFile.newWriter()
+        props.store(fileWriter, "Arm Pelion Cloud JAVA SDK artifacts");
+        fileWriter.close()
+    }
 }
