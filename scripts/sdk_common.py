@@ -295,7 +295,7 @@ class GitAction(Action):
         return self.check_shell_command_output(diff_command)
 
     def git_changes_list(self, change_type, commit1, commit2, dir=None):
-        file_diff = self.get_changes(commit1, commit2, dir)
+        file_diff = self.git_changes(commit1, commit2, dir)
         return [(line.strip()[len(change_type):]).strip() for line in file_diff.splitlines() if
                 line.lower().strip().startswith(change_type)]
 
