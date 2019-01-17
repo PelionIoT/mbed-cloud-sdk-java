@@ -76,7 +76,7 @@ class SDKFoundationGeneration(sdk_common.BuildStepUsingGradle):
                 "The folders which contain code which may need to be committed back could not be determined")
             return
         for folder in folders:
-            self.git_add_folder(folder)
+            self.git_add_folder(os.path.relpath(folder, os.path.commonprefix([folder, self.top_directory])))
         current_changes = self.git_current_changes_list('a')
         current_changes.extend(self.git_current_changes_list('m'))
         current_changes.extend(self.git_current_changes_list('d'))
