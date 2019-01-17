@@ -162,7 +162,7 @@ task info {
     // project_list.each { projectObject -> source_files += projectObject.sourceSets.main.allJava.srcDirs[0].toString() + File.pathSeparator }
     // project_list.each { projectObject -> source_files += projectObject.sourceSets.test.allJava.srcDirs[0].toString() + File.pathSeparator }
     updateArtifactList("SDK_GENERATED_SOURCE_DIRS", source_files)
-    updateArtifactList("SDK_API_DEFINITION_DIR", new File("$rootProject.projectDir/$openApiCodegenConfigDir").canonicalPath)
+    updateArtifactList("SDK_API_DEFINITION_DIR", new File("$rootProject.projectDir/$pelionBackendSourceDir").canonicalPath)
     doLast { task ->
         println "Project: $task.project.name project..."
     }

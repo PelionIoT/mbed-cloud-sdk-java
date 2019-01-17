@@ -48,6 +48,7 @@ class SDKFoundationGeneration(sdk_common.BuildStepUsingGradle):
             self.log_warning("The folder where API specifications are store does not exist [%s]" % api_config)
             return False
         api_config = os.path.realpath(api_config)
+        api_config = os.path.relpath(api_config, os.path.commonprefix([api_config, self.top_directory]))
         current_hash = self.git_commit_hash()
         previous_hash = self.git_previous_commit_hash(current_hash)
         changes = self.git_changes_list('m', previous_hash, current_hash,
