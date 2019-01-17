@@ -10,7 +10,11 @@ public class TestFileDownload {
     @Test
     public void equalsContract() {
         EqualsVerifier.forClass(FileDownload.class).suppress(Warning.STRICT_INHERITANCE)
-                      .suppress(Warning.TRANSIENT_FIELDS).verify();
+                      .suppress(Warning.TRANSIENT_FIELDS)
+                      .withPrefabValues(ApiClientWrapper.class,
+                                        new ApiClientWrapper(ConnectionOptions.newConfiguration("1")),
+                                        new ApiClientWrapper(ConnectionOptions.newConfiguration("2")))
+                      .verify();
     }
 
 }
