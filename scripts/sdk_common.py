@@ -280,7 +280,7 @@ class GitAction(Action):
 
     def git_previous_commit_hash(self, current_hash):
         return self.__clean_git_command_result(self.check_shell_command_output(
-            "git rev-list --parents -n 1 %s" % str(current_hash))).split(" ")[0]
+            "git rev-list --parents -n 1 %s" % str(current_hash))).split(" ")[1]
 
     def git_branch_point(self, commit1, commit2):
         return self.__clean_git_command_result(self.check_shell_command_output(
