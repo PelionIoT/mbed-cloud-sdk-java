@@ -125,19 +125,6 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Instantiates modules.
      * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Accounts(options);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -159,6 +146,19 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Accounts(context);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Accounts(options);
     }
 
     /**

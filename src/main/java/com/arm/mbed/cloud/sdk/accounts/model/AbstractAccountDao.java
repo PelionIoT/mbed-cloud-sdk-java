@@ -261,19 +261,6 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     /**
      * Instantiates modules.
      * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Accounts(options);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -295,6 +282,19 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Accounts(context);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Accounts(options);
     }
 
     /**
@@ -348,7 +348,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all trusted certificates.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#trustedCertificates(String,String,Integer,Integer,Integer,String,Boolean,String,String,String,SubtenantTrustedCertificateListOptions,Account)}
@@ -391,7 +391,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all trusted certificates.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#trustedCertificates(String,String,String,Integer,Integer,Integer,String,Boolean,String,String,String,SubtenantTrustedCertificateListOptions)}
@@ -476,7 +476,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
 
     /**
      * Get the details of all the user invitations.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#userInvitations(String,String,SubtenantUserInvitationListOptions)}
@@ -498,7 +498,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
 
     /**
      * Get the details of all the user invitations.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#userInvitations(String,SubtenantUserInvitationListOptions,Account)}
@@ -518,7 +518,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all user details.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#users(String,String,String,String,String,String,SubtenantUserListOptions)}
@@ -549,7 +549,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all user details.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#users(String,String,String,String,String,SubtenantUserListOptions,Account)}
