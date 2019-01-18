@@ -79,9 +79,11 @@ class SDKFoundationGeneration(sdk_common.BuildStepUsingGradle):
                 "The folders which contain code which may need to be committed back could not be determined")
             return
         for folder in folders:
+            folder_path = os.path.relpath(folder, os.path.commonprefix([folder, self.top_directory]))
             try:
-                self.git_add_folder(os.path.relpath(folder, os.path.commonprefix([folder, self.top_directory])))
+                self.git_add_folder(folder_path)
             except:
+                self.log_warning("Folder [%s] could not be added because no changes were found." % folder_path)
                 pass
         current_changes = self.git_current_changes_list('a')
         current_changes.extend(self.git_current_changes_list('m'))
@@ -89,15 +91,22 @@ class SDKFoundationGeneration(sdk_common.BuildStepUsingGradle):
         if len(current_changes) == 0:
             self.log_info("Nothing to commit")
             return
-        self.git_commit("New foundation SDK for API change [%s]" % commit_hash)
-        if not self.url_with_token:
-            if not self.github_token:
-                raise Exception("The GitHub token has not been set properly")
-            else:
-                raise Exception("The remote URL could not be resolved")
-        self.git_set_remote_url(self.url_with_token)
-        self.git_set_upstream_branch(self.branch_name)
-        self.git_push_and_follow_tags()
+        try:
+            self.log_info("%s changes were found in the repository due to code generation:" % len(current_changes))
+            for change in current_changes:
+                self.log_info("- %s" % change)
+            self.git_commit("New foundation SDK for API change [%s]" % commit_hash)
+            if not self.url_with_token:
+                if not self.github_token:
+                    raise Exception("The GitHub token has not been set properly")
+                else:
+                    raise Exception("The remote URL could not be resolved")
+            self.git_set_remote_url(self.url_with_token)
+            self.git_set_upstream_branch(self.branch_name)
+            self.git_push_and_follow_tags()
+        except:
+            self.log_warning("The changes could not be committed back to the repository")
+            pass
 
     def generate_code(self):
         self.execute_gradle_task('build', ['--rerun-tasks'])

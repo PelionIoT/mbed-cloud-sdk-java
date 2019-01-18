@@ -128,21 +128,27 @@ allprojects {
     }
 
     task info {
-    	if(project == rootProject){
-	    	def source_dirs = ''
-			def project_list = []
-		    project.subprojects.each { sproject ->
-		            project_list.add(sproject)
-		    }
-		    project_list.add(project)
-		    project_list.each { projectObject -> source_dirs += projectObject.sourceSets.main.allJava.srcDirs[0].toString() + File.pathSeparator }
-     	 	project_list.each { projectObject -> source_dirs += projectObject.sourceSets.test.allJava.srcDirs[0].toString() + File.pathSeparator }
-			updateArtifactList("SDK_ALL_SOURCE_DIRS", source_dirs)
-		}
         doLast { task ->
             println "Building $task.project.name project..."
             println "Version: $task.project.version"
             println "Group: $task.project.group"
+            
+            if(project == rootProject){
+		    	def source_dirs = ''
+				def project_list = []
+			    project.subprojects.each { sproject ->
+			    		println sproject
+			            project_list.add(sproject)
+			    }
+			    println project_list
+			    project_list.add(project)
+			    project_list.each { 
+				    projectObject -> 
+				    projectObject.sourceSets.main.allSource.srcDirs.each{ path -> source_dirs += path.toString() + File.pathSeparator} 
+				    projectObject.sourceSets.test.allSource.srcDirs.each{ path -> source_dirs += path.toString() + File.pathSeparator} 
+				}
+			updateArtifactList("SDK_ALL_SOURCE_DIRS", source_dirs)
+			}
         }
     }
     compileJava.dependsOn info
