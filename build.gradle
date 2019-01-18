@@ -128,6 +128,16 @@ allprojects {
     }
 
     task info {
+    	if(project == rootProject){
+	    	def source_dirs = ''
+			def project_list = []
+		    project.subprojects.each { sproject ->
+		            project_list.add(sproject)
+		    }
+		    project_list.add(project)
+		    project_list.each { projectObject -> source_dirs += projectObject.projectDir.toString() + File.pathSeparator }
+			updateArtifactList("SDK_ALL_SOURCE_DIRS", source_dirs)
+		}
         doLast { task ->
             println "Building $task.project.name project..."
             println "Version: $task.project.version"

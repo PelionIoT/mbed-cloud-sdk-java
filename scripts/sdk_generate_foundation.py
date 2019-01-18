@@ -64,6 +64,9 @@ class SDKFoundationGeneration(sdk_common.BuildStepUsingGradle):
         if not folders:
             return []
         folders_list = folders.split(os.pathsep)
+        folders = self.retrieve_folder_location('SDK_ALL_SOURCE_DIRS')
+        if folders:
+            folders_list.extend(folders.split(os.pathsep))
         return [os.path.realpath(folder) for folder in folders_list if os.path.exists(folder) and os.path.isdir(folder)]
 
     def commit_generated_code(self):
