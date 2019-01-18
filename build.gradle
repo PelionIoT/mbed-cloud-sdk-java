@@ -135,7 +135,8 @@ allprojects {
 		            project_list.add(sproject)
 		    }
 		    project_list.add(project)
-		    project_list.each { projectObject -> source_dirs += projectObject.projectDir.toString() + File.pathSeparator }
+		    project_list.each { projectObject -> source_dirs += projectObject.sourceSets.main.allJava.srcDirs[0].toString() + File.pathSeparator }
+     	 	project_list.each { projectObject -> source_dirs += projectObject.sourceSets.test.allJava.srcDirs[0].toString() + File.pathSeparator }
 			updateArtifactList("SDK_ALL_SOURCE_DIRS", source_dirs)
 		}
         doLast { task ->
