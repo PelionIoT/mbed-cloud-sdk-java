@@ -81,32 +81,32 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      *            ID.
      * @param completedAt
      *            The time of completing the bulk creation task. Null when creating bulk upload or delete.
-     * 
+     *
      * @param createdAt
      *            The time of receiving the bulk creation task.
-     * 
+     *
      * @param errorsCount
      *            The number of enrollment identities with failed processing.
-     * 
+     *
      * @param errorsReportFile
      *            Link to error report file. Null when creating bulk upload or delete.
-     * 
+     *
      * @param fullReportFile
      *            Link to full report file. Null when creating bulk upload or delete.
-     * 
+     *
      * @param id
      *            Bulk ID.
      * @param processedCount
      *            The number of enrollment identities processed until now.
-     * 
+     *
      * @param status
      *            The state of the process is 'new' at the time of creation. If the creation is still in progress, the
      *            state is shown as 'processing'. When the request has been fully processed, the state changes to
      *            'completed'.
-     * 
+     *
      * @param totalCount
      *            Total number of enrollment identities found in the input CSV.
-     * 
+     *
      */
     @Internal
     public DeviceEnrollmentBulkCreate(String accountId, Date completedAt, Date createdAt, int errorsCount,
@@ -176,30 +176,30 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      *            ID.
      * @param completedAt
      *            The time of completing the bulk creation task. Null when creating bulk upload or delete.
-     * 
+     *
      * @param createdAt
      *            The time of receiving the bulk creation task.
-     * 
+     *
      * @param errorsCount
      *            The number of enrollment identities with failed processing.
-     * 
+     *
      * @param errorsReportFile
      *            Link to error report file. Null when creating bulk upload or delete.
-     * 
+     *
      * @param fullReportFile
      *            Link to full report file. Null when creating bulk upload or delete.
-     * 
+     *
      * @param processedCount
      *            The number of enrollment identities processed until now.
-     * 
+     *
      * @param status
      *            The state of the process is 'new' at the time of creation. If the creation is still in progress, the
      *            state is shown as 'processing'. When the request has been fully processed, the state changes to
      *            'completed'.
-     * 
+     *
      * @param totalCount
      *            Total number of enrollment identities found in the input CSV.
-     * 
+     *
      */
     @Internal
     public DeviceEnrollmentBulkCreate(String accountId, Date completedAt, Date createdAt, int errorsCount,
