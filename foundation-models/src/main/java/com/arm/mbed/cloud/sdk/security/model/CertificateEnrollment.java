@@ -20,27 +20,27 @@ public class CertificateEnrollment implements SdkModel {
     /**
      * The certificate name.
      */
-    private String certificateName;
+    private final String certificateName;
 
     /**
      * Creation UTC time RFC3339.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * The device ID.
      */
-    private String deviceId;
+    private final String deviceId;
 
     /**
      * enumerator value.
      */
-    private CertificateEnrollmentEnrollResult enrollResult;
+    private final CertificateEnrollmentEnrollResult enrollResult;
 
     /**
      * enumerator value.
      */
-    private CertificateEnrollmentEnrollStatus enrollStatus;
+    private final CertificateEnrollmentEnrollStatus enrollStatus;
 
     /**
      * The ID of the certificate enrollment.
@@ -50,7 +50,7 @@ public class CertificateEnrollment implements SdkModel {
     /**
      * Update UTC time RFC3339.
      */
-    private Date updatedAt;
+    private final Date updatedAt;
 
     /**
      * Internal constructor.
@@ -77,13 +77,13 @@ public class CertificateEnrollment implements SdkModel {
                                  CertificateEnrollmentEnrollResult enrollResult,
                                  CertificateEnrollmentEnrollStatus enrollStatus, String id, Date updatedAt) {
         super();
-        setCertificateName(certificateName);
-        setCreatedAt(createdAt);
-        setDeviceId(deviceId);
-        setEnrollResult(enrollResult);
-        setEnrollStatus(enrollStatus);
+        this.certificateName = certificateName;
+        this.createdAt = createdAt;
+        this.deviceId = deviceId;
+        this.enrollResult = enrollResult;
+        this.enrollStatus = enrollStatus;
+        this.updatedAt = updatedAt;
         setId(id);
-        setUpdatedAt(updatedAt);
     }
 
     /**
@@ -127,22 +127,37 @@ public class CertificateEnrollment implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #CertificateEnrollment()} instead.
+     * 
+     * @param certificateName
+     *            The certificate name.
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     * @param deviceId
+     *            The device ID.
+     * @param enrollResult
+     *            enumerator value.
+     * @param enrollStatus
+     *            enumerator value.
+     * @param updatedAt
+     *            Update UTC time RFC3339.
+     */
+    @Internal
+    public CertificateEnrollment(String certificateName, Date createdAt, String deviceId,
+                                 CertificateEnrollmentEnrollResult enrollResult,
+                                 CertificateEnrollmentEnrollStatus enrollStatus, Date updatedAt) {
+        this(certificateName, createdAt, deviceId, enrollResult, enrollStatus, (String) null, updatedAt);
+    }
+
+    /**
      * Gets the certificate name.
      * 
      * @return certificateName
      */
     public String getCertificateName() {
         return certificateName;
-    }
-
-    /**
-     * Sets the certificate name.
-     * 
-     * @param certificateName
-     *            The certificate name.
-     */
-    public void setCertificateName(String certificateName) {
-        this.certificateName = certificateName;
     }
 
     /**
@@ -155,32 +170,12 @@ public class CertificateEnrollment implements SdkModel {
     }
 
     /**
-     * Sets creation utc time rfc3339.
-     * 
-     * @param createdAt
-     *            Creation UTC time RFC3339.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
      * Gets the device id.
      * 
      * @return deviceId
      */
     public String getDeviceId() {
         return deviceId;
-    }
-
-    /**
-     * Sets the device id.
-     * 
-     * @param deviceId
-     *            The device ID.
-     */
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
     }
 
     /**
@@ -193,32 +188,12 @@ public class CertificateEnrollment implements SdkModel {
     }
 
     /**
-     * Sets enumerator value.
-     * 
-     * @param enrollResult
-     *            enumerator value.
-     */
-    public void setEnrollResult(CertificateEnrollmentEnrollResult enrollResult) {
-        this.enrollResult = enrollResult;
-    }
-
-    /**
      * Gets enumerator value.
      * 
      * @return enrollStatus
      */
     public CertificateEnrollmentEnrollStatus getEnrollStatus() {
         return enrollStatus;
-    }
-
-    /**
-     * Sets enumerator value.
-     * 
-     * @param enrollStatus
-     *            enumerator value.
-     */
-    public void setEnrollStatus(CertificateEnrollmentEnrollStatus enrollStatus) {
-        this.enrollStatus = enrollStatus;
     }
 
     /**
@@ -262,16 +237,6 @@ public class CertificateEnrollment implements SdkModel {
      */
     public Date getUpdatedAt() {
         return updatedAt;
-    }
-
-    /**
-     * Sets update utc time rfc3339.
-     * 
-     * @param updatedAt
-     *            Update UTC time RFC3339.
-     */
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     /**

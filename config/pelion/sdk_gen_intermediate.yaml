@@ -4273,6 +4273,7 @@ entities:
               example: 1
               format: int32
               private_field: true
+              readOnly: false
               type: integer
             - _key: enrollment_mode
               description: If true, signature is not required. Default value false.
@@ -4779,8 +4780,7 @@ entities:
         entity_fieldname: minimum_length
         example: '8'
         type: string
-      required:
-      - minimum_length
+      required: false
       type: object
     - _key: phone_number
       api_fieldname: phone_number
@@ -8515,7 +8515,12 @@ entities:
     api_fieldname: certificate_name
     description: The certificate name.
     example: customer.dlms
+    external_param: true
+    in: path
     maxLength: 50
+    name: certificate-name
+    parameter_fieldname: certificate-name
+    pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
     readOnly: true
     required: false
     type: string
@@ -8558,6 +8563,8 @@ entities:
     api_fieldname: id
     description: The ID of the certificate enrollment.
     example: 01612df56f3b0a580a010fc700000000
+    in: path
+    parameter_fieldname: device-id
     readOnly: false
     required: true
     type: string
@@ -8634,7 +8641,13 @@ entities:
           description: The certificate name.
           entity_fieldname: certificate_name
           example: customer.dlms
+          external_param: true
+          in: path
           maxLength: 50
+          name: certificate-name
+          parameter_fieldname: certificate-name
+          pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
+          required: true
           type: string
         - _key: created_at
           api_fieldname: created_at
@@ -8676,6 +8689,9 @@ entities:
           description: The ID of the certificate enrollment.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
+          in: path
+          parameter_fieldname: device-id
+          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -9010,20 +9026,34 @@ entities:
               group: Security
             properties:
             - _key: certificate_name
+              api_fieldname: certificate-name
               description: The certificate name.
+              entity_fieldname: certificate_name
               example: customer.dlms
+              external_param: true
+              in: path
               maxLength: 50
+              name: certificate-name
+              parameter_fieldname: certificate-name
+              pattern: '[\w-]{1,10}\.[\w-.]{1,10}'
+              required: true
               type: string
             - _key: created_at
+              api_fieldname: created_at
               description: Creation UTC time RFC3339.
+              entity_fieldname: created_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
             - _key: device_id
+              api_fieldname: device_id
               description: The device ID.
+              entity_fieldname: device_id
               example: 01625daa23230a580a0100bd00000000
               type: string
             - _key: enroll_result
+              api_fieldname: enroll_result
+              entity_fieldname: enroll_result
               enum:
               - success
               - not_found
@@ -9031,24 +9061,37 @@ entities:
               - failure
               type: string
             - _key: enroll_status
+              api_fieldname: enroll_status
+              entity_fieldname: enroll_status
               enum:
               - new
               - completed
               type: string
             - _key: etag
+              api_fieldname: etag
               description: Entity instance signature.
+              entity_fieldname: etag
               example: '1'
               type: string
             - _key: id
+              api_fieldname: id
               description: The ID of the certificate enrollment.
+              entity_fieldname: id
               example: 01612df56f3b0a580a010fc700000000
+              in: path
+              parameter_fieldname: device-id
+              required: true
               type: string
             - _key: object
+              api_fieldname: object
+              entity_fieldname: object
               enum:
               - certificate-enrollment
               type: string
             - _key: updated_at
+              api_fieldname: updated_at
               description: Update UTC time RFC3339.
+              entity_fieldname: updated_at
               example: '2017-01-01T00:00:00Z'
               format: date-time
               type: string
@@ -14248,6 +14291,7 @@ entities:
       example: 1
       format: int32
       private_field: true
+      readOnly: false
       type: integer
     - _key: id
       api_fieldname: id
@@ -14318,6 +14362,7 @@ entities:
           example: 1
           format: int32
           private_field: true
+          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -16446,9 +16491,6 @@ entities:
           description: The ID of the certificate enrollment.
           entity_fieldname: id
           example: 01612df56f3b0a580a010fc700000000
-          in: path
-          parameter_fieldname: certificate-enrollment-id
-          required: true
           type: string
         - _key: object
           api_fieldname: object
@@ -21003,7 +21045,7 @@ entities:
     example: 1
     format: int32
     private_field: true
-    readOnly: true
+    readOnly: false
     required: false
     type: integer
   - _key: enrollment_mode
@@ -21030,7 +21072,7 @@ entities:
     description: Whether or not this certificate is a developer certificate.
     example: true
     getter_custom_method: is_developer_certificate_getter
-    readOnly: true
+    readOnly: false
     required: false
     setter_custom_method: is_developer_certificate_setter
     type: boolean
@@ -21172,6 +21214,7 @@ entities:
       example: 1
       format: int32
       private_field: true
+      readOnly: false
       type: integer
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
@@ -21286,6 +21329,7 @@ entities:
           example: 1
           format: int32
           private_field: true
+          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -21630,6 +21674,7 @@ entities:
       api_fieldname: device_execution_mode
       entity_fieldname: device_execution_mode
       private_field: true
+      readOnly: false
       type: integer
     - _key: id
       api_fieldname: cert_id
@@ -21860,6 +21905,7 @@ entities:
       example: 1
       format: int32
       private_field: true
+      readOnly: false
       type: integer
     - _key: id
       api_fieldname: id
@@ -21941,6 +21987,7 @@ entities:
           example: 1
           format: int32
           private_field: true
+          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -22237,6 +22284,7 @@ entities:
       api_fieldname: device_execution_mode
       entity_fieldname: device_execution_mode
       private_field: true
+      readOnly: false
       type: integer
     - _key: id
       api_fieldname: id
@@ -22754,6 +22802,7 @@ entities:
       example: 1
       format: int32
       private_field: true
+      readOnly: false
       type: integer
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
@@ -22875,6 +22924,7 @@ entities:
           example: 1
           format: int32
           private_field: true
+          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -26925,7 +26975,7 @@ entities:
     example: 1
     format: int32
     private_field: true
-    readOnly: true
+    readOnly: false
     required: false
     type: integer
   - _key: enrollment_mode
@@ -26948,7 +26998,7 @@ entities:
     description: Whether or not this certificate is a developer certificate.
     example: true
     getter_custom_method: is_developer_certificate_getter
-    readOnly: true
+    readOnly: false
     required: false
     setter_custom_method: is_developer_certificate_setter
     type: boolean
@@ -27076,6 +27126,7 @@ entities:
       example: 1
       format: int32
       private_field: true
+      readOnly: false
       type: integer
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
@@ -27184,6 +27235,7 @@ entities:
           example: 1
           format: int32
           private_field: true
+          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -27500,6 +27552,7 @@ entities:
       api_fieldname: device_execution_mode
       entity_fieldname: device_execution_mode
       private_field: true
+      readOnly: false
       type: integer
     - _key: id
       api_fieldname: cert_id
@@ -27722,6 +27775,7 @@ entities:
       example: 1
       format: int32
       private_field: true
+      readOnly: false
       type: integer
     - _key: id
       api_fieldname: id
@@ -27797,6 +27851,7 @@ entities:
           example: 1
           format: int32
           private_field: true
+          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -28076,6 +28131,7 @@ entities:
       api_fieldname: device_execution_mode
       entity_fieldname: device_execution_mode
       private_field: true
+      readOnly: false
       type: integer
     - _key: id
       api_fieldname: id
@@ -28578,6 +28634,7 @@ entities:
       api_fieldname: device_execution_mode
       entity_fieldname: device_execution_mode
       private_field: true
+      readOnly: false
       type: integer
     - _key: include
       api_fieldname: include
@@ -28690,6 +28747,7 @@ entities:
               example: 1
               format: int32
               private_field: true
+              readOnly: false
               type: integer
             - _key: enrollment_mode
               description: If true, signature is not required. Default value false.
@@ -28963,6 +29021,7 @@ entities:
       example: 1
       format: int32
       private_field: true
+      readOnly: false
       type: integer
     - _key: enrollment_mode
       api_fieldname: enrollment_mode
@@ -29078,6 +29137,7 @@ entities:
           example: 1
           format: int32
           private_field: true
+          readOnly: false
           type: integer
         - _key: enrollment_mode
           api_fieldname: enrollment_mode
@@ -33728,3 +33788,4 @@ groups:
   - trusted_certificate_order_enum
   - subtenant_trusted_certificate_service_enum
   - subtenant_trusted_certificate_status_enum
+ 

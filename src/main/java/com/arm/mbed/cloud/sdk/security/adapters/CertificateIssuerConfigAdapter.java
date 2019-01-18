@@ -41,12 +41,11 @@ public final class CertificateIssuerConfigAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final CertificateIssuerConfig certificateIssuerConfig = new CertificateIssuerConfig();
+        final CertificateIssuerConfig certificateIssuerConfig = new CertificateIssuerConfig(TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                                            TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         certificateIssuerConfig.setCertificateIssuerId(toBeMapped.getCertificateIssuerId());
         certificateIssuerConfig.setCertificateReference(toBeMapped.getReference());
-        certificateIssuerConfig.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
         certificateIssuerConfig.setId(toBeMapped.getId());
-        certificateIssuerConfig.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         return certificateIssuerConfig;
     }
 
@@ -102,13 +101,13 @@ public final class CertificateIssuerConfigAdapter {
         final CertificateIssuerConfigListResponse finalList = toBeMapped;
         final GenericAdapter.RespList<CertificateIssuerConfigResponse> respList = new GenericAdapter.RespList<CertificateIssuerConfigResponse>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<CertificateIssuerConfigResponse> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -122,13 +121,23 @@ public final class CertificateIssuerConfigAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getData.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder();
+            public List<CertificateIssuerConfigResponse> getData() {
+                return (finalList == null) ? null : finalList.getData();
+            }
+
+            /**
+             * Executes getHasMore.
+             * 
+             * @return something
+             */
+            @Override
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -142,6 +151,16 @@ public final class CertificateIssuerConfigAdapter {
             }
 
             /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder();
+            }
+
+            /**
              * Executes getTotalCount.
              * 
              * @return something
@@ -149,26 +168,6 @@ public final class CertificateIssuerConfigAdapter {
             @Override
             public Integer getTotalCount() {
                 return (finalList == null) ? null : finalList.getTotalCount();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
             }
         };
         return GenericAdapter.mapList(respList, CertificateIssuerConfigAdapter.getMapper());

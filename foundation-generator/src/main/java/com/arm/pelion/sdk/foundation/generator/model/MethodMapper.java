@@ -90,10 +90,12 @@ public class MethodMapper extends Method {
                                                                                     : toType.getTypeName()));
         List<Field> settableFields = null;
         boolean toIsLowLevelModel = toType.isLowLevelModel();
-        if (!toIsLowLevelModel && to.hasConstructor(MethodConstructorReadOnly.IDENTIFIER)) {
-            final MethodConstructorReadOnly constructor = (MethodConstructorReadOnly) to.fetchMethod((MethodConstructorReadOnly.IDENTIFIER));
+        if (!toIsLowLevelModel && to.hasReadOnlyFields()) {
+            final AbstractMethodConstructor constructor = (AbstractMethodConstructor) (to.hasConstructor(MethodConstructorReadOnly.IDENTIFIER) ? to.fetchMethod((MethodConstructorReadOnly.IDENTIFIER))
+                                                                                                                                               : to.fetchMethod((MethodConstructorAllFields.IDENTIFIER)));
             if (constructor != null) {
-                settableFields = constructor.getSettableFieldList();
+                settableFields = to.hasConstructor(MethodConstructorReadOnly.IDENTIFIER) ? constructor.getSettableFieldList()
+                                                                                         : new ArrayList<>();
                 final List<Field> constructorFields = constructor.getFieldList();
                 boolean start = true;
                 for (Field f : constructorFields) {
@@ -106,7 +108,7 @@ public class MethodMapper extends Method {
                     final String toFieldName = f.getName();
                     final String fromFieldName = renames.containsMappingFor(toFieldName) ? renames.getRenamedField(toFieldName)
                                                                                          : toFieldName;
-                    final Field fromField = to.fetchField(fromFieldName);
+                    final Field fromField = from.fetchField(fromFieldName);
                     if (fromField == null) {
                         recordThatFieldWasNotFound(code, toType, fromType, fromFieldName);
                     } else {
@@ -129,16 +131,18 @@ public class MethodMapper extends Method {
                                                                                                           isFromLowLevel)));
                             } else if (f.hasDefaultValue()) {
                                 statementString.append("$T.$L($L.$L(),$L)");
-                                values.addAll(Arrays.asList(fromVariableName, TranslationUtils.class,
+                                values.addAll(Arrays.asList(TranslationUtils.class,
                                                             getTranslationMethod(fType, fromFieldType),
+                                                            fromVariableName,
                                                             MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
                                                                                                           fType.isBoolean(),
                                                                                                           isFromLowLevel),
                                                             f.getDefaultValue()));
                             } else {
                                 statementString.append("$T.$L($L.$L())");
-                                values.addAll(Arrays.asList(fromVariableName, TranslationUtils.class,
+                                values.addAll(Arrays.asList(TranslationUtils.class,
                                                             getTranslationMethod(fType, fromFieldType),
+                                                            fromVariableName,
                                                             MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
                                                                                                           fType.isBoolean(),
                                                                                                           isFromLowLevel)));
@@ -160,11 +164,23 @@ public class MethodMapper extends Method {
                             modelAdapterType.translate();
                             // TODO do what is needed for hashtable
                             if (fType.isList()) {
+                                String mapListMethodName = null;
+                                switch (action) {
+                                    case CREATE:
+                                        mapListMethodName = ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST_ADD;
+                                        break;
+                                    case UPDATE:
+                                        mapListMethodName = ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST_UPDATE;
+                                        break;
+                                    default:
+                                        mapListMethodName = ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST;
+                                        break;
+
+                                }
                                 statementString.append("$T.$L($L.$L())");
                                 values.addAll(Arrays.asList(modelAdapterType.hasClass() ? modelAdapterType.getClazz()
                                                                                         : modelAdapterType.getTypeName(),
-                                                            ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST,
-                                                            fromVariableName,
+                                                            mapListMethodName, fromVariableName,
                                                             MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
                                                                                                           fType.isBoolean(),
                                                                                                           isFromLowLevel)));

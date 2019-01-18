@@ -40,15 +40,14 @@ public final class SubtenantUserInvitationAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final SubtenantUserInvitation subtenantUserInvitation = new SubtenantUserInvitation();
+        final SubtenantUserInvitation subtenantUserInvitation = new SubtenantUserInvitation(TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                                            TranslationUtils.toDate(toBeMapped.getExpiration()),
+                                                                                            TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
+                                                                                            toBeMapped.getUserId());
         subtenantUserInvitation.setAccountId(toBeMapped.getAccountId());
-        subtenantUserInvitation.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
         subtenantUserInvitation.setEmail(toBeMapped.getEmail());
-        subtenantUserInvitation.setExpiration(TranslationUtils.toDate(toBeMapped.getExpiration()));
         subtenantUserInvitation.setId(toBeMapped.getId());
         subtenantUserInvitation.setLoginProfiles(LoginProfileAdapter.mapSimpleList(toBeMapped.getLoginProfiles()));
-        subtenantUserInvitation.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        subtenantUserInvitation.setUserId(toBeMapped.getUserId());
         return subtenantUserInvitation;
     }
 
@@ -106,13 +105,13 @@ public final class SubtenantUserInvitationAdapter {
         final UserInvitationRespList finalList = toBeMapped;
         final GenericAdapter.RespList<UserInvitationResp> respList = new GenericAdapter.RespList<UserInvitationResp>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<UserInvitationResp> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -126,13 +125,23 @@ public final class SubtenantUserInvitationAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getData.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public List<UserInvitationResp> getData() {
+                return (finalList == null) ? null : finalList.getData();
+            }
+
+            /**
+             * Executes getHasMore.
+             * 
+             * @return something
+             */
+            @Override
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -146,6 +155,16 @@ public final class SubtenantUserInvitationAdapter {
             }
 
             /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
+            }
+
+            /**
              * Executes getTotalCount.
              * 
              * @return something
@@ -153,26 +172,6 @@ public final class SubtenantUserInvitationAdapter {
             @Override
             public Integer getTotalCount() {
                 return (finalList == null) ? null : finalList.getTotalCount();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
             }
         };
         return GenericAdapter.mapList(respList, SubtenantUserInvitationAdapter.getMapper());

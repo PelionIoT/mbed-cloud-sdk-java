@@ -59,6 +59,7 @@
 		<exclude name="AvoidSynchronizedAtMethodLevel" />
 		<exclude name="GodClass" />
 		<exclude name="ReturnEmptyArrayRatherThanNull" />
+		<exclude name="UnnecessaryLocalBeforeReturn" />
 		<exclude name="ConstructorCallsOverridableMethod" />
 	</rule>
 	<rule ref="rulesets/java/migrating.xml">

@@ -33,7 +33,7 @@ public class CertificateIssuerConfig implements SdkModel {
     /**
      * Created UTC time RFC3339.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * The ID of the certificate issuer configuration.
@@ -43,7 +43,7 @@ public class CertificateIssuerConfig implements SdkModel {
     /**
      * Updated UTC time RFC3339.
      */
-    private Date updatedAt;
+    private final Date updatedAt;
 
     /**
      * Internal constructor.
@@ -67,11 +67,11 @@ public class CertificateIssuerConfig implements SdkModel {
     public CertificateIssuerConfig(String certificateIssuerId, String certificateReference, Date createdAt, String id,
                                    Date updatedAt) {
         super();
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         setCertificateIssuerId(certificateIssuerId);
         setCertificateReference(certificateReference);
-        setCreatedAt(createdAt);
         setId(id);
-        setUpdatedAt(updatedAt);
     }
 
     /**
@@ -108,6 +108,21 @@ public class CertificateIssuerConfig implements SdkModel {
     public CertificateIssuerConfig(String id) {
         this();
         setId(id);
+    }
+
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #CertificateIssuerConfig()} instead.
+     * 
+     * @param createdAt
+     *            Created UTC time RFC3339.
+     * @param updatedAt
+     *            Updated UTC time RFC3339.
+     */
+    @Internal
+    public CertificateIssuerConfig(Date createdAt, Date updatedAt) {
+        this((String) null, (String) null, createdAt, (String) null, updatedAt);
     }
 
     /**
@@ -194,16 +209,6 @@ public class CertificateIssuerConfig implements SdkModel {
     }
 
     /**
-     * Sets created utc time rfc3339.
-     * 
-     * @param createdAt
-     *            Created UTC time RFC3339.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
      * Gets the id of the certificate issuer configuration.
      * 
      * @return id
@@ -246,16 +251,6 @@ public class CertificateIssuerConfig implements SdkModel {
      */
     public Date getUpdatedAt() {
         return updatedAt;
-    }
-
-    /**
-     * Sets updated utc time rfc3339.
-     * 
-     * @param updatedAt
-     *            Updated UTC time RFC3339.
-     */
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     /**

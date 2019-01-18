@@ -22,22 +22,22 @@ public class LoginHistory implements SdkModel {
     /**
      * UTC time RFC3339 for this login attempt.
      */
-    private Date date;
+    private final Date date;
 
     /**
      * IP address of the client.
      */
-    private String ipAddress;
+    private final String ipAddress;
 
     /**
      * Flag indicating whether login attempt was successful or not.
      */
-    private boolean success;
+    private final boolean success;
 
     /**
      * User Agent header from the login request.
      */
-    private String userAgent;
+    private final String userAgent;
 
     /**
      * Internal constructor.
@@ -56,10 +56,10 @@ public class LoginHistory implements SdkModel {
     @Internal
     public LoginHistory(Date date, String ipAddress, boolean success, String userAgent) {
         super();
-        setDate(date);
-        setIpAddress(ipAddress);
-        setSuccess(success);
-        setUserAgent(userAgent);
+        this.date = date;
+        this.ipAddress = ipAddress;
+        this.success = success;
+        this.userAgent = userAgent;
     }
 
     /**
@@ -121,32 +121,12 @@ public class LoginHistory implements SdkModel {
     }
 
     /**
-     * Sets utc time rfc3339 for this login attempt.
-     * 
-     * @param date
-     *            UTC time RFC3339 for this login attempt.
-     */
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    /**
      * Gets ip address of the client.
      * 
      * @return ipAddress
      */
     public String getIpAddress() {
         return ipAddress;
-    }
-
-    /**
-     * Sets ip address of the client.
-     * 
-     * @param ipAddress
-     *            IP address of the client.
-     */
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
     }
 
     /**
@@ -159,32 +139,12 @@ public class LoginHistory implements SdkModel {
     }
 
     /**
-     * Sets flag indicating whether login attempt was successful or not.
-     * 
-     * @param success
-     *            Flag indicating whether login attempt was successful or not.
-     */
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    /**
      * Gets user agent header from the login request.
      * 
      * @return userAgent
      */
     public String getUserAgent() {
         return userAgent;
-    }
-
-    /**
-     * Sets user agent header from the login request.
-     * 
-     * @param userAgent
-     *            User Agent header from the login request.
-     */
-    public void setUserAgent(String userAgent) {
-        this.userAgent = userAgent;
     }
 
     /**

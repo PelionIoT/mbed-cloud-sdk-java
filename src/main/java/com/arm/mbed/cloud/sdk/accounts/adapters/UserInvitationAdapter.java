@@ -40,15 +40,14 @@ public final class UserInvitationAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final UserInvitation userInvitation = new UserInvitation();
-        userInvitation.setAccountId(toBeMapped.getAccountId());
-        userInvitation.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
+        final UserInvitation userInvitation = new UserInvitation(toBeMapped.getAccountId(),
+                                                                 TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                 TranslationUtils.toDate(toBeMapped.getExpiration()),
+                                                                 TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
+                                                                 toBeMapped.getUserId());
         userInvitation.setEmail(toBeMapped.getEmail());
-        userInvitation.setExpiration(TranslationUtils.toDate(toBeMapped.getExpiration()));
         userInvitation.setId(toBeMapped.getId());
         userInvitation.setLoginProfiles(LoginProfileAdapter.mapSimpleList(toBeMapped.getLoginProfiles()));
-        userInvitation.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        userInvitation.setUserId(toBeMapped.getUserId());
         return userInvitation;
     }
 
@@ -106,13 +105,13 @@ public final class UserInvitationAdapter {
         final UserInvitationRespList finalList = toBeMapped;
         final GenericAdapter.RespList<UserInvitationResp> respList = new GenericAdapter.RespList<UserInvitationResp>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<UserInvitationResp> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -126,13 +125,23 @@ public final class UserInvitationAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getData.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public List<UserInvitationResp> getData() {
+                return (finalList == null) ? null : finalList.getData();
+            }
+
+            /**
+             * Executes getHasMore.
+             * 
+             * @return something
+             */
+            @Override
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -146,6 +155,16 @@ public final class UserInvitationAdapter {
             }
 
             /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
+            }
+
+            /**
              * Executes getTotalCount.
              * 
              * @return something
@@ -153,26 +172,6 @@ public final class UserInvitationAdapter {
             @Override
             public Integer getTotalCount() {
                 return (finalList == null) ? null : finalList.getTotalCount();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
             }
         };
         return GenericAdapter.mapList(respList, UserInvitationAdapter.getMapper());

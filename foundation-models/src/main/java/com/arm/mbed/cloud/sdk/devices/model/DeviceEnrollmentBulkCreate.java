@@ -23,32 +23,32 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     /**
      * ID.
      */
-    private String accountId;
+    private final String accountId;
 
     /**
      * The time of completing the bulk creation task. Null when creating bulk upload or delete.
      */
-    private Date completedAt;
+    private final Date completedAt;
 
     /**
      * The time of receiving the bulk creation task.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * The number of enrollment identities with failed processing.
      */
-    private int errorsCount;
+    private final int errorsCount;
 
     /**
      * Link to error report file. Null when creating bulk upload or delete.
      */
-    private String errorsReportFile;
+    private final String errorsReportFile;
 
     /**
      * Link to full report file. Null when creating bulk upload or delete.
      */
-    private String fullReportFile;
+    private final String fullReportFile;
 
     /**
      * Bulk ID.
@@ -58,19 +58,19 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     /**
      * The number of enrollment identities processed until now.
      */
-    private int processedCount;
+    private final int processedCount;
 
     /**
      * The state of the process is 'new' at the time of creation. If the creation is still in progress, the state is
      * shown as 'processing'. When the request has been fully processed, the state changes to 'completed'.
      */
     @DefaultValue("new")
-    private DeviceEnrollmentBulkCreateStatus status;
+    private final DeviceEnrollmentBulkCreateStatus status;
 
     /**
      * Total number of enrollment identities found in the input CSV.
      */
-    private int totalCount;
+    private final int totalCount;
 
     /**
      * Internal constructor.
@@ -113,16 +113,16 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
                                       String errorsReportFile, String fullReportFile, String id, int processedCount,
                                       @DefaultValue("new") DeviceEnrollmentBulkCreateStatus status, int totalCount) {
         super();
-        setAccountId(accountId);
-        setCompletedAt(completedAt);
-        setCreatedAt(createdAt);
-        setErrorsCount(errorsCount);
-        setErrorsReportFile(errorsReportFile);
-        setFullReportFile(fullReportFile);
+        this.accountId = accountId;
+        this.completedAt = completedAt;
+        this.createdAt = createdAt;
+        this.errorsCount = errorsCount;
+        this.errorsReportFile = errorsReportFile;
+        this.fullReportFile = fullReportFile;
+        this.processedCount = processedCount;
+        this.status = status;
+        this.totalCount = totalCount;
         setId(id);
-        setProcessedCount(processedCount);
-        setStatus(status);
-        setTotalCount(totalCount);
     }
 
     /**
@@ -168,22 +168,54 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #DeviceEnrollmentBulkCreate()} instead.
+     * 
+     * @param accountId
+     *            ID.
+     * @param completedAt
+     *            The time of completing the bulk creation task. Null when creating bulk upload or delete.
+     * 
+     * @param createdAt
+     *            The time of receiving the bulk creation task.
+     * 
+     * @param errorsCount
+     *            The number of enrollment identities with failed processing.
+     * 
+     * @param errorsReportFile
+     *            Link to error report file. Null when creating bulk upload or delete.
+     * 
+     * @param fullReportFile
+     *            Link to full report file. Null when creating bulk upload or delete.
+     * 
+     * @param processedCount
+     *            The number of enrollment identities processed until now.
+     * 
+     * @param status
+     *            The state of the process is 'new' at the time of creation. If the creation is still in progress, the
+     *            state is shown as 'processing'. When the request has been fully processed, the state changes to
+     *            'completed'.
+     * 
+     * @param totalCount
+     *            Total number of enrollment identities found in the input CSV.
+     * 
+     */
+    @Internal
+    public DeviceEnrollmentBulkCreate(String accountId, Date completedAt, Date createdAt, int errorsCount,
+                                      String errorsReportFile, String fullReportFile, int processedCount,
+                                      @DefaultValue("new") DeviceEnrollmentBulkCreateStatus status, int totalCount) {
+        this(accountId, completedAt, createdAt, errorsCount, errorsReportFile, fullReportFile, (String) null,
+             processedCount, status, totalCount);
+    }
+
+    /**
      * Gets id.
      * 
      * @return accountId
      */
     public String getAccountId() {
         return accountId;
-    }
-
-    /**
-     * Sets id.
-     * 
-     * @param accountId
-     *            ID.
-     */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
     }
 
     /**
@@ -196,34 +228,12 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
-     * Sets the time of completing the bulk creation task. null when creating bulk upload or delete.
-     * 
-     * @param completedAt
-     *            The time of completing the bulk creation task. Null when creating bulk upload or delete.
-     * 
-     */
-    public void setCompletedAt(Date completedAt) {
-        this.completedAt = completedAt;
-    }
-
-    /**
      * Gets the time of receiving the bulk creation task.
      * 
      * @return createdAt
      */
     public Date getCreatedAt() {
         return createdAt;
-    }
-
-    /**
-     * Sets the time of receiving the bulk creation task.
-     * 
-     * @param createdAt
-     *            The time of receiving the bulk creation task.
-     * 
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     /**
@@ -236,17 +246,6 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
-     * Sets the number of enrollment identities with failed processing.
-     * 
-     * @param errorsCount
-     *            The number of enrollment identities with failed processing.
-     * 
-     */
-    public void setErrorsCount(int errorsCount) {
-        this.errorsCount = errorsCount;
-    }
-
-    /**
      * Gets link to error report file. null when creating bulk upload or delete.
      * 
      * @return errorsReportFile
@@ -256,34 +255,12 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
-     * Sets link to error report file. null when creating bulk upload or delete.
-     * 
-     * @param errorsReportFile
-     *            Link to error report file. Null when creating bulk upload or delete.
-     * 
-     */
-    public void setErrorsReportFile(String errorsReportFile) {
-        this.errorsReportFile = errorsReportFile;
-    }
-
-    /**
      * Gets link to full report file. null when creating bulk upload or delete.
      * 
      * @return fullReportFile
      */
     public String getFullReportFile() {
         return fullReportFile;
-    }
-
-    /**
-     * Sets link to full report file. null when creating bulk upload or delete.
-     * 
-     * @param fullReportFile
-     *            Link to full report file. Null when creating bulk upload or delete.
-     * 
-     */
-    public void setFullReportFile(String fullReportFile) {
-        this.fullReportFile = fullReportFile;
     }
 
     /**
@@ -346,17 +323,6 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
-     * Sets the number of enrollment identities processed until now.
-     * 
-     * @param processedCount
-     *            The number of enrollment identities processed until now.
-     * 
-     */
-    public void setProcessedCount(int processedCount) {
-        this.processedCount = processedCount;
-    }
-
-    /**
      * Gets the state of the process is 'new' at the time of creation. if the creation is still in progress, the state
      * is shown as 'processing'. when the request has been fully processed, the state changes to 'completed'.
      * 
@@ -367,37 +333,12 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
-     * Sets the state of the process is 'new' at the time of creation. if the creation is still in progress, the state
-     * is shown as 'processing'. when the request has been fully processed, the state changes to 'completed'.
-     * 
-     * @param status
-     *            The state of the process is 'new' at the time of creation. If the creation is still in progress, the
-     *            state is shown as 'processing'. When the request has been fully processed, the state changes to
-     *            'completed'.
-     * 
-     */
-    public void setStatus(@DefaultValue("new") DeviceEnrollmentBulkCreateStatus status) {
-        this.status = status;
-    }
-
-    /**
      * Gets total number of enrollment identities found in the input csv.
      * 
      * @return totalCount
      */
     public int getTotalCount() {
         return totalCount;
-    }
-
-    /**
-     * Sets total number of enrollment identities found in the input csv.
-     * 
-     * @param totalCount
-     *            Total number of enrollment identities found in the input CSV.
-     * 
-     */
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
     }
 
     /**

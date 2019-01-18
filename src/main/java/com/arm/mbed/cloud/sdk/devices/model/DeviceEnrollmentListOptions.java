@@ -85,6 +85,19 @@ public class DeviceEnrollmentListOptions extends ListOptions {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    protected boolean canEqual(Object other) {
+        return other instanceof DeviceEnrollmentListOptions;
+    }
+
+    /**
      * Returns a string representation of the object.
      * <p>
      * 

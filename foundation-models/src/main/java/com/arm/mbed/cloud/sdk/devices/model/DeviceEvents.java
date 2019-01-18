@@ -23,47 +23,47 @@ public class DeviceEvents implements SdkModel {
     /**
      * value.
      */
-    private Map<String, String> changes;
+    private final Map<String, String> changes;
 
     /**
      * value.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * Additional data relevant to the event.
      */
-    private Map<String, String> data;
+    private final Map<String, String> data;
 
     /**
      * value.
      */
-    private Date dateTime;
+    private final Date dateTime;
 
     /**
      * value.
      */
-    private String description;
+    private final String description;
 
     /**
      * value.
      */
-    private String deviceId;
+    private final String deviceId;
 
     /**
      * Event code.
      */
-    private String eventType;
+    private final String eventType;
 
     /**
      * Category code which groups the event type by a summary category.
      */
-    private String eventTypeCategory;
+    private final String eventTypeCategory;
 
     /**
      * Generic description of the event.
      */
-    private String eventTypeDescription;
+    private final String eventTypeDescription;
 
     /**
      * value.
@@ -73,7 +73,7 @@ public class DeviceEvents implements SdkModel {
     /**
      * value.
      */
-    private boolean stateChange;
+    private final boolean stateChange;
 
     /**
      * Internal constructor.
@@ -109,17 +109,17 @@ public class DeviceEvents implements SdkModel {
                         String description, String deviceId, String eventType, String eventTypeCategory,
                         String eventTypeDescription, String id, boolean stateChange) {
         super();
-        setChanges(changes);
-        setCreatedAt(createdAt);
-        setData(data);
-        setDateTime(dateTime);
-        setDescription(description);
-        setDeviceId(deviceId);
-        setEventType(eventType);
-        setEventTypeCategory(eventTypeCategory);
-        setEventTypeDescription(eventTypeDescription);
+        this.changes = changes;
+        this.createdAt = createdAt;
+        this.data = data;
+        this.dateTime = dateTime;
+        this.description = description;
+        this.deviceId = deviceId;
+        this.eventType = eventType;
+        this.eventTypeCategory = eventTypeCategory;
+        this.eventTypeDescription = eventTypeDescription;
+        this.stateChange = stateChange;
         setId(id);
-        setStateChange(stateChange);
     }
 
     /**
@@ -164,22 +164,46 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #DeviceEvents()} instead.
+     * 
+     * @param changes
+     *            value.
+     * @param createdAt
+     *            value.
+     * @param data
+     *            Additional data relevant to the event.
+     * @param dateTime
+     *            value.
+     * @param description
+     *            value.
+     * @param deviceId
+     *            value.
+     * @param eventType
+     *            Event code.
+     * @param eventTypeCategory
+     *            Category code which groups the event type by a summary category.
+     * @param eventTypeDescription
+     *            Generic description of the event.
+     * @param stateChange
+     *            value.
+     */
+    @Internal
+    public DeviceEvents(Map<String, String> changes, Date createdAt, Map<String, String> data, Date dateTime,
+                        String description, String deviceId, String eventType, String eventTypeCategory,
+                        String eventTypeDescription, boolean stateChange) {
+        this(changes, createdAt, data, dateTime, description, deviceId, eventType, eventTypeCategory,
+             eventTypeDescription, (String) null, stateChange);
+    }
+
+    /**
      * Gets value.
      * 
      * @return changes
      */
     public Map<String, String> getChanges() {
         return changes;
-    }
-
-    /**
-     * Sets value.
-     * 
-     * @param changes
-     *            value.
-     */
-    public void setChanges(Map<String, String> changes) {
-        this.changes = changes;
     }
 
     /**
@@ -192,32 +216,12 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
-     * Sets value.
-     * 
-     * @param createdAt
-     *            value.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
      * Gets additional data relevant to the event.
      * 
      * @return data
      */
     public Map<String, String> getData() {
         return data;
-    }
-
-    /**
-     * Sets additional data relevant to the event.
-     * 
-     * @param data
-     *            Additional data relevant to the event.
-     */
-    public void setData(Map<String, String> data) {
-        this.data = data;
     }
 
     /**
@@ -230,32 +234,12 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
-     * Sets value.
-     * 
-     * @param dateTime
-     *            value.
-     */
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    /**
      * Gets value.
      * 
      * @return description
      */
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * Sets value.
-     * 
-     * @param description
-     *            value.
-     */
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     /**
@@ -268,32 +252,12 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
-     * Sets value.
-     * 
-     * @param deviceId
-     *            value.
-     */
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
-
-    /**
      * Gets event code.
      * 
      * @return eventType
      */
     public String getEventType() {
         return eventType;
-    }
-
-    /**
-     * Sets event code.
-     * 
-     * @param eventType
-     *            Event code.
-     */
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
     }
 
     /**
@@ -306,32 +270,12 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
-     * Sets category code which groups the event type by a summary category.
-     * 
-     * @param eventTypeCategory
-     *            Category code which groups the event type by a summary category.
-     */
-    public void setEventTypeCategory(String eventTypeCategory) {
-        this.eventTypeCategory = eventTypeCategory;
-    }
-
-    /**
      * Gets generic description of the event.
      * 
      * @return eventTypeDescription
      */
     public String getEventTypeDescription() {
         return eventTypeDescription;
-    }
-
-    /**
-     * Sets generic description of the event.
-     * 
-     * @param eventTypeDescription
-     *            Generic description of the event.
-     */
-    public void setEventTypeDescription(String eventTypeDescription) {
-        this.eventTypeDescription = eventTypeDescription;
     }
 
     /**
@@ -375,16 +319,6 @@ public class DeviceEvents implements SdkModel {
      */
     public boolean isStateChange() {
         return stateChange;
-    }
-
-    /**
-     * Sets value.
-     * 
-     * @param stateChange
-     *            value.
-     */
-    public void setStateChange(boolean stateChange) {
-        this.stateChange = stateChange;
     }
 
     /**

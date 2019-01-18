@@ -37,12 +37,9 @@ public final class PolicyAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final Policy policy = new Policy();
-        policy.setAction(toBeMapped.getAction());
-        policy.setAllow(TranslationUtils.toBool(toBeMapped.isAllow()));
-        policy.setFeature(toBeMapped.getFeature());
-        policy.setInherited(TranslationUtils.toBool(toBeMapped.isInherited()));
-        policy.setResource(toBeMapped.getResource());
+        final Policy policy = new Policy(toBeMapped.getAction(), TranslationUtils.toBool(toBeMapped.isAllow()),
+                                         toBeMapped.getFeature(), TranslationUtils.toBool(toBeMapped.isInherited()),
+                                         toBeMapped.getResource());
         return policy;
     }
 

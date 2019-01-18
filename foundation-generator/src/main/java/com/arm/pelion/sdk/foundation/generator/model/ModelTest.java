@@ -295,7 +295,7 @@ public class ModelTest extends AbstractSdkArtifact {
         values.add(variable + "Invalid");
         values.add(modelUnderTest.getName());
         ValueGenerator.generateModelFieldWithInvalidValues(modelUnderTest, formats, values);
-        if (!formats.isEmpty()) {
+        if (!formats.isEmpty() && modelUnderTest.hasFieldsNeedingValidation()) {
             fieldValues = String.join("," + System.lineSeparator(), formats);
             test.getCode().addStatement("$L $L = new $L(" + fieldValues + ")", values.toArray());
             test.getCode().addStatement("assertFalse($L.$L())", variable + "Invalid", MethodIsValid.IDENTIFIER);

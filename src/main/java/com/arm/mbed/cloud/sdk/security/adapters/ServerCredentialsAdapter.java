@@ -36,11 +36,10 @@ public final class ServerCredentialsAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final ServerCredentials serverCredentials = new ServerCredentials();
-        serverCredentials.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
+        final ServerCredentials serverCredentials = new ServerCredentials(TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                          toBeMapped.getServerCertificate(),
+                                                                          toBeMapped.getServerUri());
         serverCredentials.setId(toBeMapped.getId());
-        serverCredentials.setServerCertificate(toBeMapped.getServerCertificate());
-        serverCredentials.setServerUri(toBeMapped.getServerUri());
         return serverCredentials;
     }
 

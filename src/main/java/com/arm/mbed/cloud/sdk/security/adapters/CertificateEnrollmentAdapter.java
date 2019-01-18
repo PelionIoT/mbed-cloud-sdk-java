@@ -41,14 +41,13 @@ public final class CertificateEnrollmentAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final CertificateEnrollment certificateEnrollment = new CertificateEnrollment();
-        certificateEnrollment.setCertificateName(toBeMapped.getCertificateName());
-        certificateEnrollment.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
-        certificateEnrollment.setDeviceId(toBeMapped.getDeviceId());
-        certificateEnrollment.setEnrollResult(translateToCertificateEnrollmentEnrollResult(toBeMapped.getEnrollResult()));
-        certificateEnrollment.setEnrollStatus(translateToCertificateEnrollmentEnrollStatus(toBeMapped.getEnrollStatus()));
+        final CertificateEnrollment certificateEnrollment = new CertificateEnrollment(toBeMapped.getCertificateName(),
+                                                                                      TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                                      toBeMapped.getDeviceId(),
+                                                                                      translateToCertificateEnrollmentEnrollResult(toBeMapped.getEnrollResult()),
+                                                                                      translateToCertificateEnrollmentEnrollStatus(toBeMapped.getEnrollStatus()),
+                                                                                      TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         certificateEnrollment.setId(toBeMapped.getId());
-        certificateEnrollment.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         return certificateEnrollment;
     }
 
@@ -91,14 +90,13 @@ public final class CertificateEnrollmentAdapter {
         final CertificateEnrollmentListResponse finalList = toBeMapped;
         final GenericAdapter.RespList<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment> respList = new GenericAdapter.RespList<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>
-                   getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -112,13 +110,24 @@ public final class CertificateEnrollmentAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getData.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>
+                   getData() {
+                return (finalList == null) ? null : finalList.getData();
+            }
+
+            /**
+             * Executes getHasMore.
+             * 
+             * @return something
+             */
+            @Override
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -132,6 +141,16 @@ public final class CertificateEnrollmentAdapter {
             }
 
             /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
+            }
+
+            /**
              * Executes getTotalCount.
              * 
              * @return something
@@ -139,26 +158,6 @@ public final class CertificateEnrollmentAdapter {
             @Override
             public Integer getTotalCount() {
                 return (finalList == null) ? null : finalList.getTotalCount();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
             }
         };
         return GenericAdapter.mapList(respList, CertificateEnrollmentAdapter.getMapper());

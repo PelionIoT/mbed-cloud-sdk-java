@@ -110,7 +110,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * 
      * @param id
      *            The ID of the certificate issuer configuration.
-     * 
+     *
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
@@ -120,7 +120,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Get certificate issuer configuration.
-     * 
+     *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig#getDefault()}
      */
@@ -138,6 +138,19 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     @Internal
     protected CertificateIssuerConfig instantiateModel() {
         return new CertificateIssuerConfig();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
     }
 
     /**
@@ -167,19 +180,6 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     }
 
     /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
-    }
-
-    /**
      * Gets a certificate issuer config.
      * <p>
      * Similar to
@@ -199,7 +199,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * 
      * @param id
      *            The ID of the certificate issuer configuration.
-     * 
+     *
      */
     @Override
     public void read(@NonNull String id) throws MbedCloudException {
@@ -243,7 +243,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * 
      * @param id
      *            The ID of the certificate issuer configuration.
-     * 
+     *
      */
     public void update(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();

@@ -1,6 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -141,8 +142,7 @@ public class ModelDaoList extends ModelDao {
 
     private void addInstantiationMethods(String methodName, TypeParameter returnType, String format,
                                          List<Object> values, String description, boolean setAsUnchecked) {
-        final List<java.lang.reflect.Method> classMethods = new LinkedList<>(Arrays.asList(AbstractModelListDao.class.getDeclaredMethods()));
-        classMethods.addAll(Arrays.asList(ModelListDao.class.getDeclaredMethods()));
+        final List<java.lang.reflect.Method> classMethods = getListDaoMethods();
         final List<Method> methods = classMethods.stream().filter(m -> methodName.equals(m.getName())).map(m -> {
             MethodOverloaded method = new MethodOverloaded(m, description, null, true, true, null);
             method.setAbstract(false);
@@ -160,6 +160,13 @@ public class ModelDaoList extends ModelDao {
             m.getCode().addStatement(format, values.toArray());
             addMethod(m);
         }
+    }
+
+    private List<java.lang.reflect.Method> getListDaoMethods() {
+        final List<java.lang.reflect.Method> classMethods = new LinkedList<>(Arrays.asList(AbstractModelListDao.class.getDeclaredMethods()));
+        classMethods.addAll(Arrays.asList(ModelListDao.class.getDeclaredMethods()));
+        return classMethods.stream().sorted(Comparator.comparing(java.lang.reflect.Method::toGenericString))
+                           .collect(java.util.stream.Collectors.toList());
     }
 
     @Override

@@ -21,12 +21,12 @@ public class VerificationResponse implements SdkModel {
     /**
      * Provides details in case of failure.
      */
-    private String message;
+    private final String message;
 
     /**
      * Indicates whether the certificate issuer was verified successfully.
      */
-    private boolean successful;
+    private final boolean successful;
 
     /**
      * Internal constructor.
@@ -43,8 +43,8 @@ public class VerificationResponse implements SdkModel {
     @Internal
     public VerificationResponse(String message, boolean successful) {
         super();
-        setMessage(message);
-        setSuccessful(successful);
+        this.message = message;
+        this.successful = successful;
     }
 
     /**
@@ -104,34 +104,12 @@ public class VerificationResponse implements SdkModel {
     }
 
     /**
-     * Sets provides details in case of failure.
-     * 
-     * @param message
-     *            Provides details in case of failure.
-     * 
-     */
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    /**
      * Gets indicates whether the certificate issuer was verified successfully.
      * 
      * @return successful
      */
     public boolean isSuccessful() {
         return successful;
-    }
-
-    /**
-     * Sets indicates whether the certificate issuer was verified successfully.
-     * 
-     * @param successful
-     *            Indicates whether the certificate issuer was verified successfully.
-     * 
-     */
-    public void setSuccessful(boolean successful) {
-        this.successful = successful;
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,7 +9,6 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
 
 public class MethodModuleConstructorFromSdkContext extends AbstractMethodConstructor {
     private static final String PARAMETER_SDK_CONTEXT = "context";
-    protected List<Field> fields;
 
     public MethodModuleConstructorFromSdkContext(Model currentModel, Model parentModel) {
         super(currentModel, parentModel, null, null, false);
@@ -39,5 +39,10 @@ public class MethodModuleConstructorFromSdkContext extends AbstractMethodConstru
 
     public Class<?> getParameterClass() {
         return SdkContext.class;
+    }
+
+    @Override
+    public List<Field> getFieldList() {
+        return new ArrayList<>();
     }
 }

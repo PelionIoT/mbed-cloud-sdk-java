@@ -40,13 +40,12 @@ public final class DeviceEnrollmentAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final DeviceEnrollment deviceEnrollment = new DeviceEnrollment();
-        deviceEnrollment.setAccountId(toBeMapped.getAccountId());
-        deviceEnrollment.setClaimedAt(TranslationUtils.toDate(toBeMapped.getClaimedAt()));
-        deviceEnrollment.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
-        deviceEnrollment.setEnrolledDeviceId(toBeMapped.getEnrolledDeviceId());
+        final DeviceEnrollment deviceEnrollment = new DeviceEnrollment(toBeMapped.getAccountId(),
+                                                                       TranslationUtils.toDate(toBeMapped.getClaimedAt()),
+                                                                       TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                       toBeMapped.getEnrolledDeviceId(),
+                                                                       TranslationUtils.toDate(toBeMapped.getExpiresAt()));
         deviceEnrollment.setEnrollmentIdentity(toBeMapped.getEnrollmentIdentity());
-        deviceEnrollment.setExpiresAt(TranslationUtils.toDate(toBeMapped.getExpiresAt()));
         deviceEnrollment.setId(toBeMapped.getId());
         return deviceEnrollment;
     }
@@ -102,13 +101,13 @@ public final class DeviceEnrollmentAdapter {
         final EnrollmentIdentities finalList = toBeMapped;
         final GenericAdapter.RespList<EnrollmentIdentity> respList = new GenericAdapter.RespList<EnrollmentIdentity>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<EnrollmentIdentity> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -122,13 +121,23 @@ public final class DeviceEnrollmentAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getData.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public List<EnrollmentIdentity> getData() {
+                return (finalList == null) ? null : finalList.getData();
+            }
+
+            /**
+             * Executes getHasMore.
+             * 
+             * @return something
+             */
+            @Override
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -142,6 +151,16 @@ public final class DeviceEnrollmentAdapter {
             }
 
             /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
+            }
+
+            /**
              * Executes getTotalCount.
              * 
              * @return something
@@ -149,26 +168,6 @@ public final class DeviceEnrollmentAdapter {
             @Override
             public Integer getTotalCount() {
                 return (finalList == null) ? null : finalList.getTotalCount();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
             }
         };
         return GenericAdapter.mapList(respList, DeviceEnrollmentAdapter.getMapper());

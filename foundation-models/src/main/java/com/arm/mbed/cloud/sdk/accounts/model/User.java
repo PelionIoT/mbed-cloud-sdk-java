@@ -24,7 +24,7 @@ public class User implements SdkModel {
     /**
      * The ID of the account.
      */
-    private String accountId;
+    private final String accountId;
 
     /**
      * Address.
@@ -34,12 +34,12 @@ public class User implements SdkModel {
     /**
      * Creation UTC time RFC3339.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * A timestamp of the user creation in the storage, in milliseconds.
      */
-    private long creationTime;
+    private final long creationTime;
 
     /**
      * The email address.
@@ -50,7 +50,7 @@ public class User implements SdkModel {
     /**
      * A flag indicating whether the user's email address has been verified or not.
      */
-    private boolean emailVerified;
+    private final boolean emailVerified;
 
     /**
      * The full name of the user.
@@ -65,13 +65,13 @@ public class User implements SdkModel {
     /**
      * A timestamp of the latest login of the user, in milliseconds.
      */
-    private long lastLoginTime;
+    private final long lastLoginTime;
 
     /**
      * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with
      * timestamps in RFC3339 format.
      */
-    private List<LoginHistory> loginHistory;
+    private final List<LoginHistory> loginHistory;
 
     /**
      * A list of login profiles for the user. Specified as the identity providers the user is associated with.
@@ -91,7 +91,7 @@ public class User implements SdkModel {
     /**
      * A timestamp of the latest change of the user password, in milliseconds.
      */
-    private long passwordChangedTime;
+    private final long passwordChangedTime;
 
     /**
      * Phone number.
@@ -118,7 +118,7 @@ public class User implements SdkModel {
     /**
      * Last update UTC time RFC3339.
      */
-    private Date updatedAt;
+    private final Date updatedAt;
 
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
@@ -184,25 +184,25 @@ public class User implements SdkModel {
                 String phoneNumber, UserStatus status, boolean termsAccepted, boolean twoFactorAuthentication,
                 Date updatedAt, String username) {
         super();
-        setAccountId(accountId);
+        this.accountId = accountId;
+        this.createdAt = createdAt;
+        this.creationTime = creationTime;
+        this.emailVerified = emailVerified;
+        this.lastLoginTime = lastLoginTime;
+        this.loginHistory = loginHistory;
+        this.passwordChangedTime = passwordChangedTime;
+        this.updatedAt = updatedAt;
         setAddress(address);
-        setCreatedAt(createdAt);
-        setCreationTime(creationTime);
         setEmail(email);
-        setEmailVerified(emailVerified);
         setFullName(fullName);
         setId(id);
-        setLastLoginTime(lastLoginTime);
-        setLoginHistory(loginHistory);
         setLoginProfiles(loginProfiles);
         setMarketingAccepted(marketingAccepted);
         setPassword(password);
-        setPasswordChangedTime(passwordChangedTime);
         setPhoneNumber(phoneNumber);
         setStatus(status);
         setTermsAccepted(termsAccepted);
         setTwoFactorAuthentication(twoFactorAuthentication);
-        setUpdatedAt(updatedAt);
         setUsername(username);
     }
 
@@ -249,22 +249,43 @@ public class User implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #User()} instead.
+     * 
+     * @param accountId
+     *            The ID of the account.
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     * @param creationTime
+     *            A timestamp of the user creation in the storage, in milliseconds.
+     * @param emailVerified
+     *            A flag indicating whether the user's email address has been verified or not.
+     * @param lastLoginTime
+     *            A timestamp of the latest login of the user, in milliseconds.
+     * @param loginHistory
+     *            Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user,
+     *            with timestamps in RFC3339 format.
+     * @param passwordChangedTime
+     *            A timestamp of the latest change of the user password, in milliseconds.
+     * @param updatedAt
+     *            Last update UTC time RFC3339.
+     */
+    @Internal
+    public User(String accountId, Date createdAt, long creationTime, boolean emailVerified, long lastLoginTime,
+                List<LoginHistory> loginHistory, long passwordChangedTime, Date updatedAt) {
+        this(accountId, (String) null, createdAt, creationTime, (String) null, emailVerified, (String) null,
+             (String) null, lastLoginTime, loginHistory, null, false, (String) null, passwordChangedTime, (String) null,
+             UserStatus.getDefault(), false, false, updatedAt, (String) null);
+    }
+
+    /**
      * Gets the id of the account.
      * 
      * @return accountId
      */
     public String getAccountId() {
         return accountId;
-    }
-
-    /**
-     * Sets the id of the account.
-     * 
-     * @param accountId
-     *            The ID of the account.
-     */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
     }
 
     /**
@@ -296,32 +317,12 @@ public class User implements SdkModel {
     }
 
     /**
-     * Sets creation utc time rfc3339.
-     * 
-     * @param createdAt
-     *            Creation UTC time RFC3339.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
      * Gets a timestamp of the user creation in the storage, in milliseconds.
      * 
      * @return creationTime
      */
     public long getCreationTime() {
         return creationTime;
-    }
-
-    /**
-     * Sets a timestamp of the user creation in the storage, in milliseconds.
-     * 
-     * @param creationTime
-     *            A timestamp of the user creation in the storage, in milliseconds.
-     */
-    public void setCreationTime(long creationTime) {
-        this.creationTime = creationTime;
     }
 
     /**
@@ -361,16 +362,6 @@ public class User implements SdkModel {
      */
     public boolean isEmailVerified() {
         return emailVerified;
-    }
-
-    /**
-     * Sets a flag indicating whether the user's email address has been verified or not.
-     * 
-     * @param emailVerified
-     *            A flag indicating whether the user's email address has been verified or not.
-     */
-    public void setEmailVerified(boolean emailVerified) {
-        this.emailVerified = emailVerified;
     }
 
     /**
@@ -436,16 +427,6 @@ public class User implements SdkModel {
     }
 
     /**
-     * Sets a timestamp of the latest login of the user, in milliseconds.
-     * 
-     * @param lastLoginTime
-     *            A timestamp of the latest login of the user, in milliseconds.
-     */
-    public void setLastLoginTime(long lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-    /**
      * Gets timestamps, succeedings, ip addresses and user agent information of the last five logins of the user, with
      * timestamps in rfc3339 format.
      * 
@@ -453,18 +434,6 @@ public class User implements SdkModel {
      */
     public List<LoginHistory> getLoginHistory() {
         return loginHistory;
-    }
-
-    /**
-     * Sets timestamps, succeedings, ip addresses and user agent information of the last five logins of the user, with
-     * timestamps in rfc3339 format.
-     * 
-     * @param loginHistory
-     *            Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user,
-     *            with timestamps in RFC3339 format.
-     */
-    public void setLoginHistory(List<LoginHistory> loginHistory) {
-        this.loginHistory = loginHistory;
     }
 
     /**
@@ -532,16 +501,6 @@ public class User implements SdkModel {
      */
     public long getPasswordChangedTime() {
         return passwordChangedTime;
-    }
-
-    /**
-     * Sets a timestamp of the latest change of the user password, in milliseconds.
-     * 
-     * @param passwordChangedTime
-     *            A timestamp of the latest change of the user password, in milliseconds.
-     */
-    public void setPasswordChangedTime(long passwordChangedTime) {
-        this.passwordChangedTime = passwordChangedTime;
     }
 
     /**
@@ -634,16 +593,6 @@ public class User implements SdkModel {
      */
     public Date getUpdatedAt() {
         return updatedAt;
-    }
-
-    /**
-     * Sets last update utc time rfc3339.
-     * 
-     * @param updatedAt
-     *            Last update UTC time RFC3339.
-     */
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     /**

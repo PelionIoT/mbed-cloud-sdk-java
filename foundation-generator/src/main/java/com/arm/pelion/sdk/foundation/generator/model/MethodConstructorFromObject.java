@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,5 +49,10 @@ public class MethodConstructorFromObject extends AbstractMethodConstructor {
         final List<String> list = new LinkedList<>();
         list.add(parameter.getType().getShortName());
         return list;
+    }
+
+    @Override
+    public List<Field> getFieldList() {
+        return new ArrayList<>();
     }
 }

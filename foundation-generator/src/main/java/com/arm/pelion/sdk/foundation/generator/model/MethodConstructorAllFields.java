@@ -49,8 +49,13 @@ public class MethodConstructorAllFields extends AbstractMethodConstructorWithFie
 
     @Override
     protected void setFields() {
-        setFields(getAllFields());
+        setFields(getFieldList());
 
+    }
+
+    @Override
+    public List<Field> getFieldList() {
+        return getAllFields();
     }
 
     /**

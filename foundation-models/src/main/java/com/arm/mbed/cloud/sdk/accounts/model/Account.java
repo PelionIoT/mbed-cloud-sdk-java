@@ -45,12 +45,12 @@ public class Account implements SdkModel {
     /**
      * The ID of the admin user created for this account.
      */
-    private String adminId;
+    private final String adminId;
 
     /**
      * The admin API key created for this account. Present only in the response for the account creation.
      */
-    private String adminKey;
+    private final String adminKey;
 
     /**
      * The username of the admin user created for this account. Present only in the response for the account creation.
@@ -95,7 +95,7 @@ public class Account implements SdkModel {
     /**
      * Creation UTC time RFC3339.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * Account's custom properties as key-value pairs.
@@ -126,7 +126,7 @@ public class Account implements SdkModel {
     /**
      * Expiration time of the account, as UTC time RFC3339.
      */
-    private Date expiration;
+    private final Date expiration;
 
     /**
      * Indicates how many days (1-180) before account expiration a notification email should be sent.
@@ -146,7 +146,7 @@ public class Account implements SdkModel {
     /**
      * List of limits as key-value pairs if requested.
      */
-    private Map<String, String> limits;
+    private final Map<String, String> limits;
 
     /**
      * The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
@@ -161,12 +161,12 @@ public class Account implements SdkModel {
     /**
      * This object represents parent account contact details in responses.
      */
-    private ParentAccount parentAccount;
+    private final ParentAccount parentAccount;
 
     /**
      * The ID of the parent account, if it has any.
      */
-    private String parentId;
+    private final String parentId;
 
     /**
      * value.
@@ -181,7 +181,7 @@ public class Account implements SdkModel {
     /**
      * List of policies if requested.
      */
-    private List<Policy> policies;
+    private final List<Policy> policies;
 
     /**
      * The postal code part of the postal address.
@@ -191,12 +191,12 @@ public class Account implements SdkModel {
     /**
      * A reason note for updating the status of the account.
      */
-    private String reason;
+    private final String reason;
 
     /**
      * A reference note for updating the status of the account.
      */
-    private String referenceNote;
+    private final String referenceNote;
 
     /**
      * Email address of the sales contact.
@@ -211,28 +211,28 @@ public class Account implements SdkModel {
     /**
      * The status of the account.
      */
-    private AccountStatus status;
+    private final AccountStatus status;
 
     /**
      * Account template ID.
      */
-    private String templateId;
+    private final String templateId;
 
     /**
      * The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are
      * reserved for the future.
      */
-    private String tier;
+    private final String tier;
 
     /**
      * Last update UTC time RFC3339.
      */
-    private Date updatedAt;
+    private final Date updatedAt;
 
     /**
      * Time when upgraded to commercial account in UTC format RFC3339.
      */
-    private Date upgradedAt;
+    private final Date upgradedAt;
 
     /**
      * Internal constructor.
@@ -342,12 +342,25 @@ public class Account implements SdkModel {
                    String state, AccountStatus status, String templateId, String tier, Date updatedAt,
                    Date upgradedAt) {
         super();
+        this.adminId = adminId;
+        this.adminKey = adminKey;
+        this.createdAt = createdAt;
+        this.expiration = expiration;
+        this.limits = limits;
+        this.parentAccount = parentAccount;
+        this.parentId = parentId;
+        this.policies = policies;
+        this.reason = reason;
+        this.referenceNote = referenceNote;
+        this.status = status;
+        this.templateId = templateId;
+        this.tier = tier;
+        this.updatedAt = updatedAt;
+        this.upgradedAt = upgradedAt;
         setAddressLine1(addressLine1);
         setAddressLine2(addressLine2);
         setAdminEmail(adminEmail);
         setAdminFullName(adminFullName);
-        setAdminId(adminId);
-        setAdminKey(adminKey);
         setAdminName(adminName);
         setAdminPassword(adminPassword);
         setAliases(aliases);
@@ -356,34 +369,21 @@ public class Account implements SdkModel {
         setContact(contact);
         setContractNumber(contractNumber);
         setCountry(country);
-        setCreatedAt(createdAt);
         setCustomFields(customFields);
         setCustomerNumber(customerNumber);
         setDisplayName(displayName);
         setEmail(email);
         setEndMarket(endMarket);
-        setExpiration(expiration);
         setExpirationWarningThreshold(expirationWarningThreshold);
         setId(id);
         setIdleTimeout(idleTimeout);
-        setLimits(limits);
         setMfaStatus(mfaStatus);
         setNotificationEmails(notificationEmails);
-        setParentAccount(parentAccount);
-        setParentId(parentId);
         setPasswordPolicy(passwordPolicy);
         setPhoneNumber(phoneNumber);
-        setPolicies(policies);
         setPostalCode(postalCode);
-        setReason(reason);
-        setReferenceNote(referenceNote);
         setSalesContact(salesContact);
         setState(state);
-        setStatus(status);
-        setTemplateId(templateId);
-        setTier(tier);
-        setUpdatedAt(updatedAt);
-        setUpgradedAt(upgradedAt);
     }
 
     /**
@@ -451,6 +451,57 @@ public class Account implements SdkModel {
     public Account(String id) {
         this();
         setId(id);
+    }
+
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Account()} instead.
+     * 
+     * @param adminId
+     *            The ID of the admin user created for this account.
+     * @param adminKey
+     *            The admin API key created for this account. Present only in the response for the account creation.
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     * @param expiration
+     *            Expiration time of the account, as UTC time RFC3339.
+     * @param limits
+     *            List of limits as key-value pairs if requested.
+     * @param parentAccount
+     *            This object represents parent account contact details in responses.
+     * @param parentId
+     *            The ID of the parent account, if it has any.
+     * @param policies
+     *            List of policies if requested.
+     * @param reason
+     *            A reason note for updating the status of the account.
+     * @param referenceNote
+     *            A reference note for updating the status of the account.
+     * @param status
+     *            The status of the account.
+     * @param templateId
+     *            Account template ID.
+     * @param tier
+     *            The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other
+     *            values are reserved for the future.
+     * @param updatedAt
+     *            Last update UTC time RFC3339.
+     * @param upgradedAt
+     *            Time when upgraded to commercial account in UTC format RFC3339.
+     */
+    @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
+    public Account(String adminId, String adminKey, Date createdAt, Date expiration, Map<String, String> limits,
+                   ParentAccount parentAccount, String parentId, List<Policy> policies, String reason,
+                   String referenceNote, AccountStatus status, String templateId, String tier, Date updatedAt,
+                   Date upgradedAt) {
+        this((String) null, (String) null, (String) null, (String) null, adminId, adminKey, (String) null,
+             (String) null, null, (String) null, (String) null, (String) null, (String) null, (String) null, createdAt,
+             null, (String) null, (String) null, (String) null, (String) null, expiration, (String) null, (String) null,
+             (String) null, limits, AccountMfaStatus.getDefault(), null, parentAccount, parentId, (PasswordPolicy) null,
+             (String) null, policies, (String) null, reason, referenceNote, (String) null, (String) null, status,
+             templateId, tier, updatedAt, upgradedAt);
     }
 
     /**
@@ -545,32 +596,12 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the id of the admin user created for this account.
-     * 
-     * @param adminId
-     *            The ID of the admin user created for this account.
-     */
-    public void setAdminId(String adminId) {
-        this.adminId = adminId;
-    }
-
-    /**
      * Gets the admin api key created for this account. present only in the response for the account creation.
      * 
      * @return adminKey
      */
     public String getAdminKey() {
         return adminKey;
-    }
-
-    /**
-     * Sets the admin api key created for this account. present only in the response for the account creation.
-     * 
-     * @param adminKey
-     *            The admin API key created for this account. Present only in the response for the account creation.
-     */
-    public void setAdminKey(String adminKey) {
-        this.adminKey = adminKey;
     }
 
     /**
@@ -741,16 +772,6 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets creation utc time rfc3339.
-     * 
-     * @param createdAt
-     *            Creation UTC time RFC3339.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
      * Gets account's custom properties as key-value pairs.
      * 
      * @return customFields
@@ -866,16 +887,6 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets expiration time of the account, as utc time rfc3339.
-     * 
-     * @param expiration
-     *            Expiration time of the account, as UTC time RFC3339.
-     */
-    public void setExpiration(Date expiration) {
-        this.expiration = expiration;
-    }
-
-    /**
      * Gets indicates how many days (1-180) before account expiration a notification email should be sent.
      * 
      * @return expirationWarningThreshold
@@ -957,16 +968,6 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets list of limits as key-value pairs if requested.
-     * 
-     * @param limits
-     *            List of limits as key-value pairs if requested.
-     */
-    public void setLimits(Map<String, String> limits) {
-        this.limits = limits;
-    }
-
-    /**
      * Gets the enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
      * 
      * @return mfaStatus
@@ -1014,32 +1015,12 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets this object represents parent account contact details in responses.
-     * 
-     * @param parentAccount
-     *            This object represents parent account contact details in responses.
-     */
-    public void setParentAccount(ParentAccount parentAccount) {
-        this.parentAccount = parentAccount;
-    }
-
-    /**
      * Gets the id of the parent account, if it has any.
      * 
      * @return parentId
      */
     public String getParentId() {
         return parentId;
-    }
-
-    /**
-     * Sets the id of the parent account, if it has any.
-     * 
-     * @param parentId
-     *            The ID of the parent account, if it has any.
-     */
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
     }
 
     /**
@@ -1090,16 +1071,6 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets list of policies if requested.
-     * 
-     * @param policies
-     *            List of policies if requested.
-     */
-    public void setPolicies(List<Policy> policies) {
-        this.policies = policies;
-    }
-
-    /**
      * Gets the postal code part of the postal address.
      * 
      * @return postalCode
@@ -1128,32 +1099,12 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets a reason note for updating the status of the account.
-     * 
-     * @param reason
-     *            A reason note for updating the status of the account.
-     */
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    /**
      * Gets a reference note for updating the status of the account.
      * 
      * @return referenceNote
      */
     public String getReferenceNote() {
         return referenceNote;
-    }
-
-    /**
-     * Sets a reference note for updating the status of the account.
-     * 
-     * @param referenceNote
-     *            A reference note for updating the status of the account.
-     */
-    public void setReferenceNote(String referenceNote) {
-        this.referenceNote = referenceNote;
     }
 
     /**
@@ -1204,32 +1155,12 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the status of the account.
-     * 
-     * @param status
-     *            The status of the account.
-     */
-    public void setStatus(AccountStatus status) {
-        this.status = status;
-    }
-
-    /**
      * Gets account template id.
      * 
      * @return templateId
      */
     public String getTemplateId() {
         return templateId;
-    }
-
-    /**
-     * Sets account template id.
-     * 
-     * @param templateId
-     *            Account template ID.
-     */
-    public void setTemplateId(String templateId) {
-        this.templateId = templateId;
     }
 
     /**
@@ -1243,18 +1174,6 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. other values are
-     * reserved for the future.
-     * 
-     * @param tier
-     *            The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other
-     *            values are reserved for the future.
-     */
-    public void setTier(String tier) {
-        this.tier = tier;
-    }
-
-    /**
      * Gets last update utc time rfc3339.
      * 
      * @return updatedAt
@@ -1264,32 +1183,12 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets last update utc time rfc3339.
-     * 
-     * @param updatedAt
-     *            Last update UTC time RFC3339.
-     */
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    /**
      * Gets time when upgraded to commercial account in utc format rfc3339.
      * 
      * @return upgradedAt
      */
     public Date getUpgradedAt() {
         return upgradedAt;
-    }
-
-    /**
-     * Sets time when upgraded to commercial account in utc format rfc3339.
-     * 
-     * @param upgradedAt
-     *            Time when upgraded to commercial account in UTC format RFC3339.
-     */
-    public void setUpgradedAt(Date upgradedAt) {
-        this.upgradedAt = upgradedAt;
     }
 
     /**

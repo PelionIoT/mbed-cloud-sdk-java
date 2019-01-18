@@ -69,6 +69,19 @@ public abstract class AbstractUserInvitationListDao extends
     /**
      * Instantiates modules.
      * 
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Accounts(client);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param context
      *            an sdk context.
      * @return instantiated module
@@ -90,18 +103,5 @@ public abstract class AbstractUserInvitationListDao extends
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Accounts(options);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Accounts(client);
     }
 }

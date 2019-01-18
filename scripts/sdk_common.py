@@ -234,9 +234,120 @@ class Action(object):
         return None
 
 
+class GitAction(Action):
+    def __init__(self, name, logger=None):
+        super(GitAction, self).__init__(name, logger)
+
+    def __clean_git_command_result(self, result):
+        return result.strip().strip(os.linesep) if result else None
+
+    def git_fetch_a_commit_attached_tag(self, hash):
+        if not hash:
+            return None
+        try:
+            if not self.fetched_all_tags:
+                try:
+                    self.fetched_all_tags = True
+                    self.check_shell_command_output(
+                        "git fetch --tags --force")
+                except:
+                    pass
+            return self.__clean_git_command_result(self.check_shell_command_output(
+                "git describe --tags --exact-match %s" % hash))
+        except:
+            return None
+
+    def git_origin_url(self):
+        return self.check_shell_command_output("git remote get-url origin")
+
+    def git_email(self):
+        return self.check_shell_command_output("git config --get user.email")
+
+    def git_username(self):
+        return self.check_shell_command_output("git config --get user.name")
+
+    def git_branch_name(self):
+        return self.__clean_git_command_result(self.check_shell_command_output("git rev-parse --abbrev-ref HEAD"))
+
+    def git_commit_hash(self):
+        return self.__clean_git_command_result(self.check_shell_command_output("git rev-parse HEAD"))
+
+    def git_commit_count(self):
+        return self.__clean_git_command_result(self.check_shell_command_output("git rev-list --count HEAD"))
+
+    def git_merge(self, branch):
+        self.execute_command_output(['git', 'merge', branch])
+
+    def git_previous_commit_hash(self, current_hash):
+        return self.__clean_git_command_result(self.check_shell_command_output(
+            "git rev-list --parents -n 1 %s" % str(current_hash))).split(" ")[1]
+
+    def git_branch_point(self, commit1, commit2):
+        return self.__clean_git_command_result(self.check_shell_command_output(
+            "git merge-base %s %s" % (str(commit1), str(commit2))))
+
+    # the output of the git command looks like:
+    # 'A       docs/news/789.feature'
+    def git_changes(self, commit1, commit2, dir=None):
+        diff_command = "git diff %s...%s --name-status" % (commit1, commit2)
+        if dir:
+            diff_command = "%s %s" % (diff_command, dir)
+        return self.check_shell_command_output(diff_command)
+
+    def git_changes_list(self, change_type, commit1, commit2, dir=None):
+        file_diff = self.git_changes(commit1, commit2, dir)
+        return [(line.strip()[len(change_type):]).strip() for line in file_diff.splitlines() if
+                line.lower().strip().startswith(change_type)]
+
+    def git_current_changes(self):
+        return self.check_shell_command_output("git status --porcelain")
+
+    def git_current_changes_list(self, change_type):
+        changes = self.git_current_changes()
+        return [(line.strip()[len(change_type):]).strip() for line in changes.splitlines() if
+                line.lower().strip().startswith(change_type)]
+
+    def git_setup_env(self):
+        self.check_shell_command_output("git config --global user.name monty-bot")
+        self.check_shell_command_output("git config --global user.email monty-bot@arm.com")
+
+    def git_set_remote_url(self, url):
+        self.check_shell_command_output("git remote set-url origin %s" % url)
+
+    def git_set_upstream_branch(self, branch_name):
+        self.check_shell_command_output("git branch --set-upstream-to origin/%s" % branch_name)
+
+    def git_add_file(self, file):
+        if file:
+            self.check_shell_command_output("git add %s" % file.strip())
+
+    def git_add_folder(self, folder):
+        if folder:
+            folder = folder.strip()
+            if not folder.endswith("/"):
+                folder += "/"
+            folder += "*"
+            self.git_add_file(folder)
+
+    def git_commit(self, message):
+        self.check_shell_command_output("git commit -m '%s'" % message)
+
+    def git_tag(self, tag, message):
+        self.check_shell_command_output("git tag -a %s -m '%s'" % (tag, message))
+
+    def git_soft_tag(self, tag):
+        self.check_shell_command_output("git tag -f %s" % tag)
+
+    def git_push_and_follow_tags(self):
+        self.check_shell_command_output("git push --follow-tags")
+
+    def git_force_push_tags(self):
+        self.check_shell_command_output("git push -f --tags")
+
+
 # Note: Each build action to perform during Sdk distribution build or deployment is defined as a separate object (e.g. release configuration, distribution build, deployment, etc)
 # Generic class defining a build step block part of SDK build
-class BuildStep(Action):
+class BuildStep(GitAction):
     def __init__(self, name, logger):
         super(BuildStep, self).__init__(name, logger)
         self.common_config = CommonConfig()
@@ -319,6 +430,9 @@ class BuildStepUsingGradle(BuildStep):
     def __init__(self, name, logger, dir=None):
         super(BuildStepUsingGradle, self).__init__(name, logger)
         self.gradle_directory = os.path.normpath(os.path.realpath(self.top_directory)) if not dir else dir
+        self.reset()
+
+    def reset(self):
         self.graddle_command = self.get_gradle_script_to_use()
 
     def get_gradle_script_to_use(self):
@@ -637,7 +751,7 @@ class CommonConfig:
 
 
 # SDK distribution configuration
-class Config(Action):
+class Config(GitAction):
     def __init__(self):
         super(Config, self).__init__("Release Configuration")
 
@@ -662,6 +776,7 @@ class Config(Action):
         self.lab_api_key = None
         self.prod_api_key = None
         self.sdk_example_dir = None
+        self.sdk_foundation_generator_dir = None
         self.bintray_user = None
         self.bintray_password = None
         self.maven_central_user = None
@@ -679,6 +794,8 @@ class Config(Action):
         self.fetched_all_tags = False
         self.slack_token = None
         self.slack_channel = None
+        self.generated_code_dirs = None
+        self.api_configuration_dir = None
         self.properties = OrderedDict()
 
     def get_sdk_top_directory(self):
@@ -691,6 +808,16 @@ class Config(Action):
                 script_loc = os.path.dirname(script_loc)
                 self.sdk_top_dir = os.path.realpath(os.path.join(script_loc, '..'))
         return self.sdk_top_dir
+
+    def get_sdk_foundation_generation_directory(self):
+        if not self.sdk_foundation_generator_dir:
+            self.log_debug("Determining SDK foundation generator directory")
+            top_dir = self.get_sdk_top_directory()
+            if top_dir:
+                generator_dir = os.path.normpath(os.path.realpath(os.path.join(top_dir, 'foundation-generator')))
+            if os.path.exists(generator_dir) and os.path.isdir(generator_dir):
+                self.sdk_foundation_generator_dir = generator_dir
+        return self.sdk_foundation_generator_dir
 
     def get_sdk_example_directory(self):
         if not self.sdk_example_dir:
@@ -755,8 +882,7 @@ class Config(Action):
         if not self.branch_name:
             self.log_debug("Determining branch name")
             try:
-                self.branch_name = \
-                    self.__clean_git_command_result(self.check_shell_command_output("git rev-parse --abbrev-ref HEAD"))
+                self.branch_name = self.git_branch_name()
             except:
                 self.branch_name = None
         return self.branch_name
@@ -765,8 +891,7 @@ class Config(Action):
         if not self.commit_hash:
             self.log_debug("Determining commit hash")
             try:
-                self.commit_hash = self.__clean_git_command_result(
-                    self.check_shell_command_output("git rev-parse HEAD"))
+                self.commit_hash = self.git_commit_hash()
             except:
                 self.commit_hash = None
         return self.commit_hash
@@ -777,8 +902,7 @@ class Config(Action):
             current_hash = self.get_commit_hash()
             if current_hash:
                 try:
-                    self.previous_commit_hash = self.__clean_git_command_result(self.check_shell_command_output(
-                        "git rev-list --parents -n 1 %s" % str(current_hash))).split(" ")[0]
+                    self.previous_commit_hash = self.git_previous_commit_hash(current_hash)
                 except:
                     self.previous_commit_hash = None
         return self.previous_commit_hash
@@ -788,27 +912,8 @@ class Config(Action):
             self.log_debug("Determining commit tag")
             hash = self.get_commit_hash()
             if hash:
-                self.commit_tag = self.__fetch_a_commit_attached_tag(hash)
+                self.commit_tag = self.git_fetch_a_commit_attached_tag(hash)
         return self.commit_tag
-
-    def __clean_git_command_result(self, result):
-        return result.strip().strip(os.linesep) if result else None
-
-    def __fetch_a_commit_attached_tag(self, hash):
-        if not hash:
-            return None
-        try:
-            if not self.fetched_all_tags:
-                try:
-                    self.fetched_all_tags = True
-                    self.check_shell_command_output(
-                        "git fetch --tags --force")
-                except:
-                    pass
-            return self.__clean_git_command_result(self.check_shell_command_output(
-                "git describe --tags --exact-match %s" % hash))
-        except:
-            return None
 
     def is_commit_tagged(self):
         return self.get_commit_tag() is not None
@@ -817,7 +922,7 @@ class Config(Action):
         if not self.user_name:
             self.log_debug("Determining user name")
             try:
-                self.user_name = self.check_shell_command_output("git config --get user.name")
+                self.user_name = self.git_username()
             except:
                 self.user_name = None
         return self.user_name
@@ -826,7 +931,7 @@ class Config(Action):
         if not self.user_email:
             self.log_debug("Determining user email")
             try:
-                self.user_email = self.check_shell_command_output("git config --get user.email")
+                self.user_email = self.git_email()
             except:
                 self.user_email = None
         return self.user_email
@@ -835,7 +940,7 @@ class Config(Action):
         if not self.origin_url:
             self.log_debug("Determining remote repository URL")
             try:
-                self.origin_url = self.check_shell_command_output("git remote get-url origin")
+                self.origin_url = self.git_origin_url()
                 if self.origin_url and "private" in self.origin_url.strip().lower():
                     self.from_private = True
             except:

@@ -1,0 +1,1 @@
+It is now possible to carry out bulk (batch) device enrollment

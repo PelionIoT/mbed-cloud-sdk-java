@@ -264,6 +264,10 @@ public class Model extends AbstractSdkArtifact {
         return hasFields() && fields.values().stream().anyMatch(f -> f.hasDefaultValue());
     }
 
+    public boolean hasFieldsNeedingValidation() {
+        return hasFields() && fields.values().stream().anyMatch(f -> f.needsValidation() && !f.isReadOnly());
+    }
+
     /**
      * @return the methods
      */
@@ -426,6 +430,14 @@ public class Model extends AbstractSdkArtifact {
 
     public List<Field> getSettableFields() {
         return getFieldList().stream().filter(f -> !f.isReadOnly()).collect(Collectors.toList());
+    }
+
+    public List<Field> getFieldsNeedingValidation() {
+        return getFieldList().stream().filter(f -> f.needsValidation() && !f.isReadOnly()).collect(Collectors.toList());
+    }
+
+    public boolean hasReadOnlyFields() {
+        return getFieldList().stream().filter(f -> f.isReadOnly() && !f.isStatic()).count() > 0;
     }
 
     /**
@@ -858,7 +870,7 @@ public class Model extends AbstractSdkArtifact {
         if (hasFields()) {
             addMethod(new MethodHashCode(this, null));
         }
-        addMethod(new MethodCanEqual(this, null));
+        overrideMethodIfExist(new MethodCanEqual(this, null));
         addMethod(new MethodEquals(this, null));
     }
 

@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,7 +9,6 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 
 public class MethodModuleConstructorFromConnectionOptions extends AbstractMethodConstructor {
     private static final String PARAMETER_CONNECTION_OPTIONS = "options";
-    protected List<Field> fields;
 
     public MethodModuleConstructorFromConnectionOptions(Model currentModel, Model parentModel) {
         super(currentModel, parentModel, null, null, false);
@@ -39,5 +39,10 @@ public class MethodModuleConstructorFromConnectionOptions extends AbstractMethod
 
     public Class<?> getParameterClass() {
         return ConnectionOptions.class;
+    }
+
+    @Override
+    public List<Field> getFieldList() {
+        return new ArrayList<>();
     }
 }

@@ -285,6 +285,8 @@ jobs:
     - <<: *install_python
     - <<: *install_sdk_tools
     # - run: ${SCRIPT_COMMAND} dependencies
+    - run: ${SCRIPT_COMMAND} fetch_generator_info
+    - run: ${SCRIPT_COMMAND} generate_foundation
     - run: ${SCRIPT_COMMAND} configure
     - run: ${SCRIPT_COMMAND} license
     - run: ${SCRIPT_COMMAND} build

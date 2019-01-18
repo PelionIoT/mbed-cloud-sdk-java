@@ -21,22 +21,22 @@ public class DeviceEnrollment implements SdkModel {
     /**
      * ID.
      */
-    private String accountId;
+    private final String accountId;
 
     /**
      * The time of claiming the device to be assigned to the account.
      */
-    private Date claimedAt;
+    private final Date claimedAt;
 
     /**
      * The time of the enrollment identity creation.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * The ID of the device in the Device Directory once it has been registered.
      */
-    private String enrolledDeviceId;
+    private final String enrolledDeviceId;
 
     /**
      * Enrollment identity.
@@ -48,7 +48,7 @@ public class DeviceEnrollment implements SdkModel {
      * The enrollment claim expiration time. If the device does not connect to Device Management before the expiration,
      * the claim is removed without a separate notice.
      */
-    private Date expiresAt;
+    private final Date expiresAt;
 
     /**
      * Enrollment identity.
@@ -80,12 +80,12 @@ public class DeviceEnrollment implements SdkModel {
     public DeviceEnrollment(String accountId, Date claimedAt, Date createdAt, String enrolledDeviceId,
                             String enrollmentIdentity, Date expiresAt, String id) {
         super();
-        setAccountId(accountId);
-        setClaimedAt(claimedAt);
-        setCreatedAt(createdAt);
-        setEnrolledDeviceId(enrolledDeviceId);
+        this.accountId = accountId;
+        this.claimedAt = claimedAt;
+        this.createdAt = createdAt;
+        this.enrolledDeviceId = enrolledDeviceId;
+        this.expiresAt = expiresAt;
         setEnrollmentIdentity(enrollmentIdentity);
-        setExpiresAt(expiresAt);
         setId(id);
     }
 
@@ -128,22 +128,34 @@ public class DeviceEnrollment implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #DeviceEnrollment()} instead.
+     * 
+     * @param accountId
+     *            ID.
+     * @param claimedAt
+     *            The time of claiming the device to be assigned to the account.
+     * @param createdAt
+     *            The time of the enrollment identity creation.
+     * @param enrolledDeviceId
+     *            The ID of the device in the Device Directory once it has been registered.
+     * @param expiresAt
+     *            The enrollment claim expiration time. If the device does not connect to Device Management before the
+     *            expiration, the claim is removed without a separate notice.
+     */
+    @Internal
+    public DeviceEnrollment(String accountId, Date claimedAt, Date createdAt, String enrolledDeviceId, Date expiresAt) {
+        this(accountId, claimedAt, createdAt, enrolledDeviceId, (String) null, expiresAt, (String) null);
+    }
+
+    /**
      * Gets id.
      * 
      * @return accountId
      */
     public String getAccountId() {
         return accountId;
-    }
-
-    /**
-     * Sets id.
-     * 
-     * @param accountId
-     *            ID.
-     */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
     }
 
     /**
@@ -156,16 +168,6 @@ public class DeviceEnrollment implements SdkModel {
     }
 
     /**
-     * Sets the time of claiming the device to be assigned to the account.
-     * 
-     * @param claimedAt
-     *            The time of claiming the device to be assigned to the account.
-     */
-    public void setClaimedAt(Date claimedAt) {
-        this.claimedAt = claimedAt;
-    }
-
-    /**
      * Gets the time of the enrollment identity creation.
      * 
      * @return createdAt
@@ -175,46 +177,12 @@ public class DeviceEnrollment implements SdkModel {
     }
 
     /**
-     * Sets the time of the enrollment identity creation.
-     * 
-     * @param createdAt
-     *            The time of the enrollment identity creation.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
      * Gets the id of the device in the device directory once it has been registered.
      * 
      * @return enrolledDeviceId
      */
     public String getEnrolledDeviceId() {
         return enrolledDeviceId;
-    }
-
-    /**
-     * Sets the id of the device in the device directory once it has been registered.
-     * <p>
-     * null
-     * <p>
-     * Note: the value has to match {@code /^[A-Za-z0-9]{32}/} to be valid
-     * 
-     * @param enrolledDeviceId
-     *            The ID of the device in the Device Directory once it has been registered.
-     */
-    public void setEnrolledDeviceId(String enrolledDeviceId) {
-        this.enrolledDeviceId = enrolledDeviceId;
-    }
-
-    /**
-     * Checks whether enrolledDeviceId value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isEnrolledDeviceIdValid() {
-        return (enrolledDeviceId == null || enrolledDeviceId.matches("^[A-Za-z0-9]{32}"));
     }
 
     /**
@@ -260,18 +228,6 @@ public class DeviceEnrollment implements SdkModel {
      */
     public Date getExpiresAt() {
         return expiresAt;
-    }
-
-    /**
-     * Sets the enrollment claim expiration time. if the device does not connect to device management before the
-     * expiration, the claim is removed without a separate notice.
-     * 
-     * @param expiresAt
-     *            The enrollment claim expiration time. If the device does not connect to Device Management before the
-     *            expiration, the claim is removed without a separate notice.
-     */
-    public void setExpiresAt(Date expiresAt) {
-        this.expiresAt = expiresAt;
     }
 
     /**
@@ -457,7 +413,7 @@ public class DeviceEnrollment implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isEnrolledDeviceIdValid() && isEnrollmentIdentityValid() && isIdValid();
+        return isEnrollmentIdentityValid() && isIdValid();
     }
 
     /**

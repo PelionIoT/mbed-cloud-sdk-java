@@ -39,18 +39,15 @@ public final class DeviceEventsAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final DeviceEvents deviceEvents = new DeviceEvents();
-        deviceEvents.setChanges(toBeMapped.getChanges());
-        deviceEvents.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
-        deviceEvents.setData(toBeMapped.getData());
-        deviceEvents.setDateTime(TranslationUtils.toDate(toBeMapped.getDateTime()));
-        deviceEvents.setDescription(toBeMapped.getDescription());
-        deviceEvents.setDeviceId(toBeMapped.getDeviceId());
-        deviceEvents.setEventType(toBeMapped.getEventType());
-        deviceEvents.setEventTypeCategory(toBeMapped.getEventTypeCategory());
-        deviceEvents.setEventTypeDescription(toBeMapped.getEventTypeDescription());
+        final DeviceEvents deviceEvents = new DeviceEvents(toBeMapped.getChanges(),
+                                                           TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                           toBeMapped.getData(),
+                                                           TranslationUtils.toDate(toBeMapped.getDateTime()),
+                                                           toBeMapped.getDescription(), toBeMapped.getDeviceId(),
+                                                           toBeMapped.getEventType(), toBeMapped.getEventTypeCategory(),
+                                                           toBeMapped.getEventTypeDescription(),
+                                                           TranslationUtils.toBool(toBeMapped.isStateChange()));
         deviceEvents.setId(toBeMapped.getId());
-        deviceEvents.setStateChange(TranslationUtils.toBool(toBeMapped.isStateChange()));
         return deviceEvents;
     }
 
@@ -88,13 +85,13 @@ public final class DeviceEventsAdapter {
         final DeviceEventPage finalList = toBeMapped;
         final GenericAdapter.RespList<DeviceEventData> respList = new GenericAdapter.RespList<DeviceEventData>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<DeviceEventData> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -108,13 +105,23 @@ public final class DeviceEventsAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getData.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder();
+            public List<DeviceEventData> getData() {
+                return (finalList == null) ? null : finalList.getData();
+            }
+
+            /**
+             * Executes getHasMore.
+             * 
+             * @return something
+             */
+            @Override
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -128,6 +135,16 @@ public final class DeviceEventsAdapter {
             }
 
             /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder();
+            }
+
+            /**
              * Executes getTotalCount.
              * 
              * @return something
@@ -135,26 +152,6 @@ public final class DeviceEventsAdapter {
             @Override
             public Integer getTotalCount() {
                 return (finalList == null) ? null : finalList.getTotalCount();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
             }
         };
         return GenericAdapter.mapList(respList, DeviceEventsAdapter.getMapper());

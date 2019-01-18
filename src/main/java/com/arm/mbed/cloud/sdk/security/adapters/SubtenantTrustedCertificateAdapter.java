@@ -43,25 +43,24 @@ public final class SubtenantTrustedCertificateAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final SubtenantTrustedCertificate subtenantTrustedCertificate = new SubtenantTrustedCertificate();
+        final SubtenantTrustedCertificate subtenantTrustedCertificate = new SubtenantTrustedCertificate(toBeMapped.getCertificateFingerprint(),
+                                                                                                        TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                                                        toBeMapped.getIssuer(),
+                                                                                                        toBeMapped.getOwnerId(),
+                                                                                                        toBeMapped.getSubject(),
+                                                                                                        TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
+                                                                                                        TranslationUtils.toDate(toBeMapped.getValidity()));
         subtenantTrustedCertificate.setAccountId(toBeMapped.getAccountId());
         subtenantTrustedCertificate.setCertificate(toBeMapped.getCertificate());
-        subtenantTrustedCertificate.setCertificateFingerprint(toBeMapped.getCertificateFingerprint());
-        subtenantTrustedCertificate.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
         subtenantTrustedCertificate.setDescription(toBeMapped.getDescription());
         subtenantTrustedCertificate.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
         subtenantTrustedCertificate.setEnrollmentMode(TranslationUtils.toBool(toBeMapped.isEnrollmentMode()));
         subtenantTrustedCertificate.setId(toBeMapped.getId());
         // No field equivalent to isDeveloperCertificate in SubtenantTrustedCertificate was found in
         // TrustedCertificateResp
-        subtenantTrustedCertificate.setIssuer(toBeMapped.getIssuer());
         subtenantTrustedCertificate.setName(toBeMapped.getName());
-        subtenantTrustedCertificate.setOwnerId(toBeMapped.getOwnerId());
         subtenantTrustedCertificate.setService(translateToSubtenantTrustedCertificateService(toBeMapped.getService()));
         subtenantTrustedCertificate.setStatus(translateToSubtenantTrustedCertificateStatus(toBeMapped.getStatus()));
-        subtenantTrustedCertificate.setSubject(toBeMapped.getSubject());
-        subtenantTrustedCertificate.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        subtenantTrustedCertificate.setValidity(TranslationUtils.toDate(toBeMapped.getValidity()));
         return subtenantTrustedCertificate;
     }
 
@@ -191,13 +190,13 @@ public final class SubtenantTrustedCertificateAdapter {
         final TrustedCertificateRespList finalList = toBeMapped;
         final GenericAdapter.RespList<TrustedCertificateResp> respList = new GenericAdapter.RespList<TrustedCertificateResp>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<TrustedCertificateResp> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -211,13 +210,23 @@ public final class SubtenantTrustedCertificateAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getData.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public List<TrustedCertificateResp> getData() {
+                return (finalList == null) ? null : finalList.getData();
+            }
+
+            /**
+             * Executes getHasMore.
+             * 
+             * @return something
+             */
+            @Override
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -231,6 +240,16 @@ public final class SubtenantTrustedCertificateAdapter {
             }
 
             /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
+            }
+
+            /**
              * Executes getTotalCount.
              * 
              * @return something
@@ -238,26 +257,6 @@ public final class SubtenantTrustedCertificateAdapter {
             @Override
             public Integer getTotalCount() {
                 return (finalList == null) ? null : finalList.getTotalCount();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
             }
         };
         return GenericAdapter.mapList(respList, SubtenantTrustedCertificateAdapter.getMapper());

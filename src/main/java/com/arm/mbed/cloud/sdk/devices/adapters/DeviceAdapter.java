@@ -45,45 +45,43 @@ public final class DeviceAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final Device device = new Device();
-        device.setAccountId(toBeMapped.getAccountId());
+        final Device device = new Device(toBeMapped.getAccountId(), TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                         translateToDeviceDeployedState(toBeMapped.getDeployedState()),
+                                         toBeMapped.getEndpointName(),
+                                         TranslationUtils.toDate(toBeMapped.getEnrolmentListTimestamp()),
+                                         toBeMapped.getLastOperatorSuspendedCategory(),
+                                         toBeMapped.getLastOperatorSuspendedDescription(),
+                                         TranslationUtils.toDate(toBeMapped.getLastOperatorSuspendedUpdatedAt()),
+                                         toBeMapped.getLastSystemSuspendedCategory(),
+                                         toBeMapped.getLastSystemSuspendedDescription(),
+                                         TranslationUtils.toDate(toBeMapped.getLastSystemSuspendedUpdatedAt()),
+                                         translateToDeviceLifecycleStatus(toBeMapped.getLifecycleStatus()),
+                                         TranslationUtils.toDate(toBeMapped.getManifestTimestamp()),
+                                         TranslationUtils.toBool(toBeMapped.isOperatorSuspended()),
+                                         TranslationUtils.toBool(toBeMapped.isSystemSuspended()),
+                                         TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         device.setAutoUpdate(TranslationUtils.toBool(toBeMapped.isAutoUpdate()));
         device.setBootstrapExpirationDate(TranslationUtils.toDate(toBeMapped.getBootstrapExpirationDate()));
         device.setBootstrappedTimestamp(TranslationUtils.toDate(toBeMapped.getBootstrappedTimestamp()));
         device.setCaId(toBeMapped.getCaId());
         device.setConnectorExpirationDate(TranslationUtils.toDate(toBeMapped.getConnectorExpirationDate()));
-        device.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
         device.setCustomAttributes(toBeMapped.getCustomAttributes());
-        device.setDeployedState(translateToDeviceDeployedState(toBeMapped.getDeployedState()));
         device.setDeployment(toBeMapped.getDeployment());
         device.setDescription(toBeMapped.getDescription());
         device.setDeviceClass(toBeMapped.getDeviceClass());
         device.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
         device.setDeviceKey(toBeMapped.getDeviceKey());
-        device.setEndpointName(toBeMapped.getEndpointName());
         device.setEndpointType(toBeMapped.getEndpointType());
-        device.setEnrolmentListTimestamp(TranslationUtils.toDate(toBeMapped.getEnrolmentListTimestamp()));
         device.setFirmwareChecksum(toBeMapped.getFirmwareChecksum());
         device.setHostGateway(toBeMapped.getHostGateway());
         device.setId(toBeMapped.getId());
         device.setIssuerFingerprint(toBeMapped.getIssuerFingerprint());
-        device.setLastOperatorSuspendedCategory(toBeMapped.getLastOperatorSuspendedCategory());
-        device.setLastOperatorSuspendedDescription(toBeMapped.getLastOperatorSuspendedDescription());
-        device.setLastOperatorSuspendedUpdatedAt(TranslationUtils.toDate(toBeMapped.getLastOperatorSuspendedUpdatedAt()));
-        device.setLastSystemSuspendedCategory(toBeMapped.getLastSystemSuspendedCategory());
-        device.setLastSystemSuspendedDescription(toBeMapped.getLastSystemSuspendedDescription());
-        device.setLastSystemSuspendedUpdatedAt(TranslationUtils.toDate(toBeMapped.getLastSystemSuspendedUpdatedAt()));
-        device.setLifecycleStatus(translateToDeviceLifecycleStatus(toBeMapped.getLifecycleStatus()));
         device.setManifest(toBeMapped.getManifest());
-        device.setManifestTimestamp(TranslationUtils.toDate(toBeMapped.getManifestTimestamp()));
         device.setMechanism(translateToDeviceMechanism(toBeMapped.getMechanism()));
         device.setMechanismUrl(toBeMapped.getMechanismUrl());
         device.setName(toBeMapped.getName());
-        device.setOperatorSuspended(TranslationUtils.toBool(toBeMapped.isOperatorSuspended()));
         device.setSerialNumber(toBeMapped.getSerialNumber());
         device.setState(translateToDeviceState(toBeMapped.getState()));
-        device.setSystemSuspended(TranslationUtils.toBool(toBeMapped.isSystemSuspended()));
-        device.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         device.setVendorId(toBeMapped.getVendorId());
         return device;
     }
@@ -163,13 +161,13 @@ public final class DeviceAdapter {
         final DevicePage finalList = toBeMapped;
         final GenericAdapter.RespList<DeviceData> respList = new GenericAdapter.RespList<DeviceData>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<DeviceData> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -183,13 +181,23 @@ public final class DeviceAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getData.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder();
+            public List<DeviceData> getData() {
+                return (finalList == null) ? null : finalList.getData();
+            }
+
+            /**
+             * Executes getHasMore.
+             * 
+             * @return something
+             */
+            @Override
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -203,6 +211,16 @@ public final class DeviceAdapter {
             }
 
             /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder();
+            }
+
+            /**
              * Executes getTotalCount.
              * 
              * @return something
@@ -210,26 +228,6 @@ public final class DeviceAdapter {
             @Override
             public Integer getTotalCount() {
                 return (finalList == null) ? null : finalList.getTotalCount();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
             }
         };
         return GenericAdapter.mapList(respList, DeviceAdapter.getMapper());

@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
+import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -319,7 +320,7 @@ public class MethodModuleCloudApi extends MethodOverloaded {
                     variableName = generateFinalVariable(parameterName);
                     isExternalParameter = true;
                 }
-                translateParameter(variableName, p.getType(), builder, callElements, isExternalParameter,
+                translateParameter(variableName, parameterName, p.getType(), builder, callElements, isExternalParameter,
                                    unusedParameters);
             }
         }
@@ -327,17 +328,20 @@ public class MethodModuleCloudApi extends MethodOverloaded {
         callMethod.getCode().addStatement(builder.toString(), callElements.toArray());
     }
 
-    protected void translateParameter(String parameterName, TypeParameter type, StringBuilder builder,
-                                      List<Object> callElements, boolean isExternalParameter,
+    protected void translateParameter(String parameterName, String initialParameterName, TypeParameter type,
+                                      StringBuilder builder, List<Object> callElements, boolean isExternalParameter,
                                       List<Parameter> unusedParameters) throws TranslationException {
 
         if (isExternalParameter) {
             if (MethodMapper.isLowLevelType(type)) {
-                builder.append("$T.$L($L)");
+                builder.append("$T.$L(");
                 // TODO extend the list below if necessary
                 if (type.isFormPart()) {
+                    builder.append("$S, ");
                     callElements.add(DataFileAdapter.class);
                     callElements.add(DataFileAdapter.METHOD_REVERSE_MAP);
+                    // Forcing the form part to be named as the parameter name in snake case.
+                    callElements.add(ApiUtils.convertCamelToSnake(initialParameterName));
                 }
                 if (type.isJodaDate()) {
                     callElements.add(TranslationUtils.class);
@@ -347,6 +351,7 @@ public class MethodModuleCloudApi extends MethodOverloaded {
                     callElements.add(TranslationUtils.class);
                     callElements.add(TranslationUtils.METHOD_CONVERT_DATE_TO_DATETIME);
                 }
+                builder.append("$L)");
             } else {
                 builder.append("$L");
             }

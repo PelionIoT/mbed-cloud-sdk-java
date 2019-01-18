@@ -24,7 +24,7 @@ public class LoginProfile implements SdkModel {
     /**
      * Name of the identity provider.
      */
-    private String name;
+    private final String name;
 
     /**
      * Internal constructor.
@@ -39,8 +39,8 @@ public class LoginProfile implements SdkModel {
     @Internal
     public LoginProfile(String id, String name) {
         super();
+        this.name = name;
         setId(id);
-        setName(name);
     }
 
     /**
@@ -116,16 +116,6 @@ public class LoginProfile implements SdkModel {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Sets name of the identity provider.
-     * 
-     * @param name
-     *            Name of the identity provider.
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**

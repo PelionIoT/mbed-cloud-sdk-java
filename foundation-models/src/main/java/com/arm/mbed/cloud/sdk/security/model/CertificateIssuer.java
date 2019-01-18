@@ -22,7 +22,7 @@ public class CertificateIssuer implements SdkModel {
     /**
      * Creation UTC time RFC3339.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * General description for the certificate issuer.
@@ -81,7 +81,7 @@ public class CertificateIssuer implements SdkModel {
     public CertificateIssuer(Date createdAt, String description, String id, Map<String, String> issuerAttributes,
                              CertificateIssuerType issuerType, String name) {
         super();
-        setCreatedAt(createdAt);
+        this.createdAt = createdAt;
         setDescription(description);
         setId(id);
         setIssuerAttributes(issuerAttributes);
@@ -127,6 +127,19 @@ public class CertificateIssuer implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #CertificateIssuer()} instead.
+     * 
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     */
+    @Internal
+    public CertificateIssuer(Date createdAt) {
+        this(createdAt, (String) null, (String) null, null, CertificateIssuerType.getDefault(), (String) null);
+    }
+
+    /**
      * Constructor.
      * 
      * @param issuerType
@@ -148,16 +161,6 @@ public class CertificateIssuer implements SdkModel {
      */
     public Date getCreatedAt() {
         return createdAt;
-    }
-
-    /**
-     * Sets creation utc time rfc3339.
-     * 
-     * @param createdAt
-     *            Creation UTC time RFC3339.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     /**

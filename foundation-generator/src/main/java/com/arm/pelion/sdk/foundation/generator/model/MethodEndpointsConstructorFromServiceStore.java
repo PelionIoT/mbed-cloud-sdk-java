@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,5 +35,10 @@ public class MethodEndpointsConstructorFromServiceStore extends AbstractMethodCo
     protected void addConstructorParameters() {
         addParameter(new Parameter(PARAM_SERVICE_STORE, "created services {@link ServiceRegistry}.", null,
                                    TypeFactory.getCorrespondingType(ServiceRegistry.class), null));
+    }
+
+    @Override
+    public List<Field> getFieldList() {
+        return new ArrayList<>();
     }
 }

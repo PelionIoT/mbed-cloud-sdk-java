@@ -36,9 +36,7 @@ public final class LoginProfileAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final LoginProfile loginProfile = new LoginProfile();
-        loginProfile.setId(toBeMapped.getId());
-        loginProfile.setName(toBeMapped.getName());
+        final LoginProfile loginProfile = new LoginProfile(toBeMapped.getId(), toBeMapped.getName());
         return loginProfile;
     }
 

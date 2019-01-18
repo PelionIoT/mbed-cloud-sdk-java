@@ -42,17 +42,14 @@ public final class ApiKeyAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final ApiKey apiKey = new ApiKey();
-        apiKey.setAccountId(toBeMapped.getAccountId());
-        apiKey.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
-        apiKey.setCreationTime(TranslationUtils.toLong(toBeMapped.getCreationTime()));
+        final ApiKey apiKey = new ApiKey(toBeMapped.getAccountId(), TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                         TranslationUtils.toLong(toBeMapped.getCreationTime()), toBeMapped.getKey(),
+                                         TranslationUtils.toLong(toBeMapped.getLastLoginTime()),
+                                         TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         apiKey.setId(toBeMapped.getId());
-        apiKey.setKey(toBeMapped.getKey());
-        apiKey.setLastLoginTime(TranslationUtils.toLong(toBeMapped.getLastLoginTime()));
         apiKey.setName(toBeMapped.getName());
         apiKey.setOwner(toBeMapped.getOwner());
         apiKey.setStatus(translateToApiKeyStatus(toBeMapped.getStatus()));
-        apiKey.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         return apiKey;
     }
 
@@ -110,13 +107,13 @@ public final class ApiKeyAdapter {
         final ApiKeyInfoRespList finalList = toBeMapped;
         final GenericAdapter.RespList<ApiKeyInfoResp> respList = new GenericAdapter.RespList<ApiKeyInfoResp>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<ApiKeyInfoResp> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -130,13 +127,23 @@ public final class ApiKeyAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getData.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public List<ApiKeyInfoResp> getData() {
+                return (finalList == null) ? null : finalList.getData();
+            }
+
+            /**
+             * Executes getHasMore.
+             * 
+             * @return something
+             */
+            @Override
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -150,6 +157,16 @@ public final class ApiKeyAdapter {
             }
 
             /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
+            }
+
+            /**
              * Executes getTotalCount.
              * 
              * @return something
@@ -157,26 +174,6 @@ public final class ApiKeyAdapter {
             @Override
             public Integer getTotalCount() {
                 return (finalList == null) ? null : finalList.getTotalCount();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
             }
         };
         return GenericAdapter.mapList(respList, ApiKeyAdapter.getMapper());

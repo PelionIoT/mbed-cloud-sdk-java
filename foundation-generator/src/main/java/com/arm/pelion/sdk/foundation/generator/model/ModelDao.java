@@ -2,6 +2,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -384,16 +385,13 @@ public class ModelDao extends Model {
             // Nothing to do
             exception.printStackTrace();
         }
-        final List<Method> methods = Arrays.asList(AbstractModelDao.class.getDeclaredMethods()).stream()
-                                           .filter(m -> AbstractModelDao.METHOD_INSTANTIATE_MODEL.equals(m.getName()))
-                                           .map(m -> {
-                                               MethodOverloaded method = new MethodOverloaded(m, "Instantiates model",
-                                                                                              null, true, true, null);
-                                               method.setAbstract(false);
-                                               method.setInternal(true);
-                                               method.generateSuffix();
-                                               return method;
-                                           }).collect(Collectors.toList());
+        final List<Method> methods = getModelInstantiationMethods().stream().map(m -> {
+            MethodOverloaded method = new MethodOverloaded(m, "Instantiates model", null, true, true, null);
+            method.setAbstract(false);
+            method.setInternal(true);
+            method.generateSuffix();
+            return method;
+        }).collect(Collectors.toList());
         for (Method m : methods) {
             if (m.hasReturn() && m.getReturnType().isModel()) {
                 m.setReturnType(modelType);
@@ -405,6 +403,13 @@ public class ModelDao extends Model {
             addMethod(m);
         }
 
+    }
+
+    private List<java.lang.reflect.Method> getModelInstantiationMethods() {
+        return Arrays.asList(AbstractModelDao.class.getDeclaredMethods()).stream()
+                     .filter(m -> AbstractModelDao.METHOD_INSTANTIATE_MODEL.equals(m.getName()))
+                     .sorted(Comparator.comparing(java.lang.reflect.Method::toGenericString))
+                     .collect(java.util.stream.Collectors.toList());
     }
 
     @Override

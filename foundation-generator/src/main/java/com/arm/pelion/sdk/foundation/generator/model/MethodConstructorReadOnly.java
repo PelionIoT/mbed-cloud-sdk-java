@@ -28,11 +28,9 @@ public class MethodConstructorReadOnly extends AbstractMethodConstructorWithFiel
 
     }
 
+    @Override
     public List<Field> getFieldList() {
         return this.getFieldList(true, false, false, false, false);
     }
 
-    public List<Field> getSettableFieldList() {
-        return this.getFieldList(false, false, false, false, true);
-    }
 }

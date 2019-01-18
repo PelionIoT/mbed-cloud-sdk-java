@@ -20,7 +20,7 @@ public class PasswordPolicy implements SdkModel {
     /**
      * Minimum length for the password. A number between 8 and 512.
      */
-    private String minimumLength;
+    private final String minimumLength;
 
     /**
      * Internal constructor.
@@ -33,7 +33,7 @@ public class PasswordPolicy implements SdkModel {
     @Internal
     public PasswordPolicy(String minimumLength) {
         super();
-        setMinimumLength(minimumLength);
+        this.minimumLength = minimumLength;
     }
 
     /**
@@ -89,16 +89,6 @@ public class PasswordPolicy implements SdkModel {
      */
     public String getMinimumLength() {
         return minimumLength;
-    }
-
-    /**
-     * Sets minimum length for the password. a number between 8 and 512.
-     * 
-     * @param minimumLength
-     *            Minimum length for the password. A number between 8 and 512.
-     */
-    public void setMinimumLength(String minimumLength) {
-        this.minimumLength = minimumLength;
     }
 
     /**

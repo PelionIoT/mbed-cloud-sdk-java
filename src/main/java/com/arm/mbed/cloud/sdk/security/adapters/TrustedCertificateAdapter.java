@@ -43,24 +43,23 @@ public final class TrustedCertificateAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final TrustedCertificate trustedCertificate = new TrustedCertificate();
-        trustedCertificate.setAccountId(toBeMapped.getAccountId());
+        final TrustedCertificate trustedCertificate = new TrustedCertificate(toBeMapped.getAccountId(),
+                                                                             toBeMapped.getCertificateFingerprint(),
+                                                                             TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                             toBeMapped.getIssuer(),
+                                                                             toBeMapped.getOwnerId(),
+                                                                             toBeMapped.getSubject(),
+                                                                             TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
+                                                                             TranslationUtils.toDate(toBeMapped.getValidity()));
         trustedCertificate.setCertificate(toBeMapped.getCertificate());
-        trustedCertificate.setCertificateFingerprint(toBeMapped.getCertificateFingerprint());
-        trustedCertificate.setCreatedAt(TranslationUtils.toDate(toBeMapped.getCreatedAt()));
         trustedCertificate.setDescription(toBeMapped.getDescription());
         trustedCertificate.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
         trustedCertificate.setEnrollmentMode(TranslationUtils.toBool(toBeMapped.isEnrollmentMode()));
         trustedCertificate.setId(toBeMapped.getId());
         // No field equivalent to isDeveloperCertificate in TrustedCertificate was found in TrustedCertificateResp
-        trustedCertificate.setIssuer(toBeMapped.getIssuer());
         trustedCertificate.setName(toBeMapped.getName());
-        trustedCertificate.setOwnerId(toBeMapped.getOwnerId());
         trustedCertificate.setService(translateToTrustedCertificateService(toBeMapped.getService()));
         trustedCertificate.setStatus(translateToTrustedCertificateStatus(toBeMapped.getStatus()));
-        trustedCertificate.setSubject(toBeMapped.getSubject());
-        trustedCertificate.setUpdatedAt(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        trustedCertificate.setValidity(TranslationUtils.toDate(toBeMapped.getValidity()));
         return trustedCertificate;
     }
 
@@ -121,13 +120,13 @@ public final class TrustedCertificateAdapter {
         final TrustedCertificateRespList finalList = toBeMapped;
         final GenericAdapter.RespList<TrustedCertificateResp> respList = new GenericAdapter.RespList<TrustedCertificateResp>() {
             /**
-             * Executes getData.
+             * Executes getAfter.
              * 
              * @return something
              */
             @Override
-            public List<TrustedCertificateResp> getData() {
-                return (finalList == null) ? null : finalList.getData();
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
             }
 
             /**
@@ -141,13 +140,23 @@ public final class TrustedCertificateAdapter {
             }
 
             /**
-             * Executes getOrder.
+             * Executes getData.
              * 
              * @return something
              */
             @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
+            public List<TrustedCertificateResp> getData() {
+                return (finalList == null) ? null : finalList.getData();
+            }
+
+            /**
+             * Executes getHasMore.
+             * 
+             * @return something
+             */
+            @Override
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
             }
 
             /**
@@ -161,6 +170,16 @@ public final class TrustedCertificateAdapter {
             }
 
             /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
+            }
+
+            /**
              * Executes getTotalCount.
              * 
              * @return something
@@ -168,26 +187,6 @@ public final class TrustedCertificateAdapter {
             @Override
             public Integer getTotalCount() {
                 return (finalList == null) ? null : finalList.getTotalCount();
-            }
-
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
             }
         };
         return GenericAdapter.mapList(respList, TrustedCertificateAdapter.getMapper());

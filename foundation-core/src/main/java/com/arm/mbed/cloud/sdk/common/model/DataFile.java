@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -14,14 +15,17 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.common.SdkUtils;
 
 @Preamble(description = "Data file")
 public class DataFile implements SdkModel {
+    private static final String CSV_EXTENSION = "csv";
     /**
      * Serialisation Id.
      */
     private static final long serialVersionUID = 2092096356697353992L;
-    private static final String BINARY_FILE_MEDIA_TYPE = "application/octet-stream";
+    protected static final String BINARY_FILE_MEDIA_TYPE = "application/octet-stream";
+    protected static final String CSV_FILE_MEDIA_TYPE = "application/vnd.ms-excel";
     @Required
     private String contentType;
     @Required
@@ -58,7 +62,7 @@ public class DataFile implements SdkModel {
      *            binary file to consider
      */
     public DataFile(File file) {
-        this(BINARY_FILE_MEDIA_TYPE, file);
+        this(determineContentType(file), file);
     }
 
     /**
@@ -319,6 +323,16 @@ public class DataFile implements SdkModel {
      */
     protected boolean canEqual(Object other) {
         return other instanceof DataFile;
+    }
+
+    private static String determineContentType(File file) {
+        if (file == null) {
+            return BINARY_FILE_MEDIA_TYPE;
+        }
+        final String fileName = file.getName();
+        return SdkUtils.getFileExtension(fileName).toLowerCase(Locale.UK)
+                       .equals(CSV_EXTENSION) ? CSV_FILE_MEDIA_TYPE : BINARY_FILE_MEDIA_TYPE;
+
     }
 
 }

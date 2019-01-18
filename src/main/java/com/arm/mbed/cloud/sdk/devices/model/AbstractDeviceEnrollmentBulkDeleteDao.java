@@ -62,6 +62,19 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     /**
      * Instantiates modules.
      * 
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Devices(client);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param context
      *            an sdk context.
      * @return instantiated module
@@ -83,19 +96,6 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Devices(options);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Devices(client);
     }
 
     /**

@@ -22,12 +22,12 @@ public class UserInvitation implements SdkModel {
     /**
      * The ID of the account the user is invited to.
      */
-    private String accountId;
+    private final String accountId;
 
     /**
      * Creation UTC time RFC3339.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * Email address of the invited user.
@@ -38,7 +38,7 @@ public class UserInvitation implements SdkModel {
     /**
      * Invitation expiration as UTC time RFC3339.
      */
-    private Date expiration;
+    private final Date expiration;
 
     /**
      * The ID of the invitation.
@@ -53,12 +53,12 @@ public class UserInvitation implements SdkModel {
     /**
      * Last update UTC time RFC3339.
      */
-    private Date updatedAt;
+    private final Date updatedAt;
 
     /**
      * The ID of the invited user.
      */
-    private String userId;
+    private final String userId;
 
     /**
      * Internal constructor.
@@ -87,14 +87,14 @@ public class UserInvitation implements SdkModel {
     public UserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
                           List<LoginProfile> loginProfiles, Date updatedAt, String userId) {
         super();
-        setAccountId(accountId);
-        setCreatedAt(createdAt);
+        this.accountId = accountId;
+        this.createdAt = createdAt;
+        this.expiration = expiration;
+        this.updatedAt = updatedAt;
+        this.userId = userId;
         setEmail(email);
-        setExpiration(expiration);
         setId(id);
         setLoginProfiles(loginProfiles);
-        setUpdatedAt(updatedAt);
-        setUserId(userId);
     }
 
     /**
@@ -137,6 +137,27 @@ public class UserInvitation implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #UserInvitation()} instead.
+     * 
+     * @param accountId
+     *            The ID of the account the user is invited to.
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     * @param expiration
+     *            Invitation expiration as UTC time RFC3339.
+     * @param updatedAt
+     *            Last update UTC time RFC3339.
+     * @param userId
+     *            The ID of the invited user.
+     */
+    @Internal
+    public UserInvitation(String accountId, Date createdAt, Date expiration, Date updatedAt, String userId) {
+        this(accountId, createdAt, (String) null, expiration, (String) null, null, updatedAt, userId);
+    }
+
+    /**
      * Gets the id of the account the user is invited to.
      * 
      * @return accountId
@@ -146,32 +167,12 @@ public class UserInvitation implements SdkModel {
     }
 
     /**
-     * Sets the id of the account the user is invited to.
-     * 
-     * @param accountId
-     *            The ID of the account the user is invited to.
-     */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
-
-    /**
      * Gets creation utc time rfc3339.
      * 
      * @return createdAt
      */
     public Date getCreatedAt() {
         return createdAt;
-    }
-
-    /**
-     * Sets creation utc time rfc3339.
-     * 
-     * @param createdAt
-     *            Creation UTC time RFC3339.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     /**
@@ -211,16 +212,6 @@ public class UserInvitation implements SdkModel {
      */
     public Date getExpiration() {
         return expiration;
-    }
-
-    /**
-     * Sets invitation expiration as utc time rfc3339.
-     * 
-     * @param expiration
-     *            Invitation expiration as UTC time RFC3339.
-     */
-    public void setExpiration(Date expiration) {
-        this.expiration = expiration;
     }
 
     /**
@@ -287,32 +278,12 @@ public class UserInvitation implements SdkModel {
     }
 
     /**
-     * Sets last update utc time rfc3339.
-     * 
-     * @param updatedAt
-     *            Last update UTC time RFC3339.
-     */
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    /**
      * Gets the id of the invited user.
      * 
      * @return userId
      */
     public String getUserId() {
         return userId;
-    }
-
-    /**
-     * Sets the id of the invited user.
-     * 
-     * @param userId
-     *            The ID of the invited user.
-     */
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     /**

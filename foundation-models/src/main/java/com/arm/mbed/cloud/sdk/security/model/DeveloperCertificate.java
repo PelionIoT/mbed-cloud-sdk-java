@@ -21,17 +21,17 @@ public class DeveloperCertificate implements SdkModel {
     /**
      * account to which the developer certificate belongs.
      */
-    private String accountId;
+    private final String accountId;
 
     /**
      * PEM format X.509 developer certificate.
      */
-    private String certificate;
+    private final String certificate;
 
     /**
      * Creation UTC time RFC3339.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * Description for the developer certificate.
@@ -52,7 +52,7 @@ public class DeveloperCertificate implements SdkModel {
     /**
      * Content of the security.c file that will be flashed into the device to provide the security credentials.
      */
-    private String securityFileContent;
+    private final String securityFileContent;
 
     /**
      * Internal constructor.
@@ -79,13 +79,13 @@ public class DeveloperCertificate implements SdkModel {
     public DeveloperCertificate(String accountId, String certificate, Date createdAt, String description, String id,
                                 String name, String securityFileContent) {
         super();
-        setAccountId(accountId);
-        setCertificate(certificate);
-        setCreatedAt(createdAt);
+        this.accountId = accountId;
+        this.certificate = certificate;
+        this.createdAt = createdAt;
+        this.securityFileContent = securityFileContent;
         setDescription(description);
         setId(id);
         setName(name);
-        setSecurityFileContent(securityFileContent);
     }
 
     /**
@@ -127,22 +127,32 @@ public class DeveloperCertificate implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #DeveloperCertificate()} instead.
+     * 
+     * @param accountId
+     *            account to which the developer certificate belongs.
+     * @param certificate
+     *            PEM format X.509 developer certificate.
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     * @param securityFileContent
+     *            Content of the security.c file that will be flashed into the device to provide the security
+     *            credentials.
+     */
+    @Internal
+    public DeveloperCertificate(String accountId, String certificate, Date createdAt, String securityFileContent) {
+        this(accountId, certificate, createdAt, (String) null, (String) null, (String) null, securityFileContent);
+    }
+
+    /**
      * Gets account to which the developer certificate belongs.
      * 
      * @return accountId
      */
     public String getAccountId() {
         return accountId;
-    }
-
-    /**
-     * Sets account to which the developer certificate belongs.
-     * 
-     * @param accountId
-     *            account to which the developer certificate belongs.
-     */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
     }
 
     /**
@@ -155,32 +165,12 @@ public class DeveloperCertificate implements SdkModel {
     }
 
     /**
-     * Sets pem format x.509 developer certificate.
-     * 
-     * @param certificate
-     *            PEM format X.509 developer certificate.
-     */
-    public void setCertificate(String certificate) {
-        this.certificate = certificate;
-    }
-
-    /**
      * Gets creation utc time rfc3339.
      * 
      * @return createdAt
      */
     public Date getCreatedAt() {
         return createdAt;
-    }
-
-    /**
-     * Sets creation utc time rfc3339.
-     * 
-     * @param createdAt
-     *            Creation UTC time RFC3339.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     /**
@@ -273,17 +263,6 @@ public class DeveloperCertificate implements SdkModel {
      */
     public String getSecurityFileContent() {
         return securityFileContent;
-    }
-
-    /**
-     * Sets content of the security.c file that will be flashed into the device to provide the security credentials.
-     * 
-     * @param securityFileContent
-     *            Content of the security.c file that will be flashed into the device to provide the security
-     *            credentials.
-     */
-    public void setSecurityFileContent(String securityFileContent) {
-        this.securityFileContent = securityFileContent;
     }
 
     /**

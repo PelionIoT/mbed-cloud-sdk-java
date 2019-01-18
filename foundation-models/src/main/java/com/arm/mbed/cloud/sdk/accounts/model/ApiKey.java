@@ -22,17 +22,17 @@ public class ApiKey implements SdkModel {
     /**
      * The ID of the account.
      */
-    private String accountId;
+    private final String accountId;
 
     /**
      * Creation UTC time RFC3339.
      */
-    private Date createdAt;
+    private final Date createdAt;
 
     /**
      * The timestamp of the API key creation in the storage, in milliseconds.
      */
-    private long creationTime;
+    private final long creationTime;
 
     /**
      * The ID of the API key.
@@ -42,12 +42,12 @@ public class ApiKey implements SdkModel {
     /**
      * The API key.
      */
-    private String key;
+    private final String key;
 
     /**
      * The timestamp of the latest API key usage, in milliseconds.
      */
-    private long lastLoginTime;
+    private final long lastLoginTime;
 
     /**
      * The display name for the API key.
@@ -68,7 +68,7 @@ public class ApiKey implements SdkModel {
     /**
      * Last update UTC time RFC3339.
      */
-    private Date updatedAt;
+    private final Date updatedAt;
 
     /**
      * Internal constructor.
@@ -100,16 +100,16 @@ public class ApiKey implements SdkModel {
     public ApiKey(String accountId, Date createdAt, long creationTime, String id, String key, long lastLoginTime,
                   String name, String owner, ApiKeyStatus status, Date updatedAt) {
         super();
-        setAccountId(accountId);
-        setCreatedAt(createdAt);
-        setCreationTime(creationTime);
+        this.accountId = accountId;
+        this.createdAt = createdAt;
+        this.creationTime = creationTime;
+        this.key = key;
+        this.lastLoginTime = lastLoginTime;
+        this.updatedAt = updatedAt;
         setId(id);
-        setKey(key);
-        setLastLoginTime(lastLoginTime);
         setName(name);
         setOwner(owner);
         setStatus(status);
-        setUpdatedAt(updatedAt);
     }
 
     /**
@@ -150,36 +150,36 @@ public class ApiKey implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #ApiKey()} instead.
+     * 
+     * @param accountId
+     *            The ID of the account.
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     * @param creationTime
+     *            The timestamp of the API key creation in the storage, in milliseconds.
+     * @param key
+     *            The API key.
+     * @param lastLoginTime
+     *            The timestamp of the latest API key usage, in milliseconds.
+     * @param updatedAt
+     *            Last update UTC time RFC3339.
+     */
+    @Internal
+    public ApiKey(String accountId, Date createdAt, long creationTime, String key, long lastLoginTime, Date updatedAt) {
+        this(accountId, createdAt, creationTime, (String) null, key, lastLoginTime, (String) null, (String) null,
+             ApiKeyStatus.getDefault(), updatedAt);
+    }
+
+    /**
      * Gets the id of the account.
      * 
      * @return accountId
      */
     public String getAccountId() {
         return accountId;
-    }
-
-    /**
-     * Sets the id of the account.
-     * <p>
-     * null
-     * <p>
-     * Note: the value has to match {@code /[a-f0-9]{32}/} to be valid
-     * 
-     * @param accountId
-     *            The ID of the account.
-     */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
-
-    /**
-     * Checks whether accountId value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isAccountIdValid() {
-        return (accountId == null || accountId.matches("[a-f0-9]{32}"));
     }
 
     /**
@@ -192,32 +192,12 @@ public class ApiKey implements SdkModel {
     }
 
     /**
-     * Sets creation utc time rfc3339.
-     * 
-     * @param createdAt
-     *            Creation UTC time RFC3339.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
      * Gets the timestamp of the api key creation in the storage, in milliseconds.
      * 
      * @return creationTime
      */
     public long getCreationTime() {
         return creationTime;
-    }
-
-    /**
-     * Sets the timestamp of the api key creation in the storage, in milliseconds.
-     * 
-     * @param creationTime
-     *            The timestamp of the API key creation in the storage, in milliseconds.
-     */
-    public void setCreationTime(long creationTime) {
-        this.creationTime = creationTime;
     }
 
     /**
@@ -264,32 +244,12 @@ public class ApiKey implements SdkModel {
     }
 
     /**
-     * Sets the api key.
-     * 
-     * @param key
-     *            The API key.
-     */
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    /**
      * Gets the timestamp of the latest api key usage, in milliseconds.
      * 
      * @return lastLoginTime
      */
     public long getLastLoginTime() {
         return lastLoginTime;
-    }
-
-    /**
-     * Sets the timestamp of the latest api key usage, in milliseconds.
-     * 
-     * @param lastLoginTime
-     *            The timestamp of the latest API key usage, in milliseconds.
-     */
-    public void setLastLoginTime(long lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
     }
 
     /**
@@ -367,16 +327,6 @@ public class ApiKey implements SdkModel {
      */
     public Date getUpdatedAt() {
         return updatedAt;
-    }
-
-    /**
-     * Sets last update utc time rfc3339.
-     * 
-     * @param updatedAt
-     *            Last update UTC time RFC3339.
-     */
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     /**
@@ -524,7 +474,7 @@ public class ApiKey implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isAccountIdValid() && isNameValid();
+        return isNameValid();
     }
 
     /**

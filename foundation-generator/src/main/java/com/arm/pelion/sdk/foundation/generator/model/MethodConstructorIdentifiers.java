@@ -1,5 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.List;
+
 public class MethodConstructorIdentifiers extends AbstractMethodConstructorWithFieldParameters {
 
     public MethodConstructorIdentifiers(Model currentModel, Model parentModel) {
@@ -14,6 +16,11 @@ public class MethodConstructorIdentifiers extends AbstractMethodConstructorWithF
 
     @Override
     protected void setFields() {
-        setFields(this.getFieldList(false, false, false, true, false));
+        setFields(getFieldList());
+    }
+
+    @Override
+    public List<Field> getFieldList() {
+        return this.getFieldList(false, false, false, true, false);
     }
 }
