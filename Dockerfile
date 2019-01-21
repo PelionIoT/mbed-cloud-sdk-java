@@ -1,4 +1,4 @@
-FROM docker-library/openjdk:8-jdk-stretch
+FROM openjdk:8-jdk-stretch
 
 WORKDIR /testserver
 
