@@ -947,6 +947,13 @@ definitions:
         example: 00005a4e027f0a580a01081c00000000
         pattern: '[a-f0-9]{32}'
         type: string
+    required:
+    - id
+    - account_id
+    - endpoint_name
+    - trusted_certificate_id
+    - created_at
+    - object
   BrandingColor:
     properties:
       color:
@@ -1873,6 +1880,9 @@ definitions:
         example: 1
         format: integer
         type: integer
+    required:
+    - object
+    - data
     type: object
   DeveloperCertificateRequestData:
     properties:
@@ -13525,7 +13535,7 @@ paths:
           (for example, 2018-01-30T10:03:50.106Z).
 
           '
-        format: data-time
+        format: date-time
         in: query
         name: created_at__lte
         required: false
@@ -13535,7 +13545,7 @@ paths:
           (for example, 2018-01-30T10:03:50.106Z).
 
           '
-        format: data-time
+        format: date-time
         in: query
         name: created_at__gte
         required: false
@@ -13545,7 +13555,7 @@ paths:
           example, 2018-01-30T10:03:50.106Z).
 
           '
-        format: data-time
+        format: date-time
         in: query
         name: updated_at__lte
         required: false
@@ -13555,7 +13565,7 @@ paths:
           (for example, 2018-01-30T10:03:50.106Z).
 
           '
-        format: data-time
+        format: date-time
         in: query
         name: updated_at__gte
         required: false
@@ -14970,7 +14980,8 @@ paths:
       description: 'This produces a list of failed attempts to bootstrap using a particular
         certificate which is blacklisted (trusted_certificate).
 
-        Returned list can be filtered by endpoint name or trusted certificate.
+        Returned list can be filtered by endpoint name. Trusted certificate ID filter
+        is required.
 
 
         **Example usage:**
@@ -14979,7 +14990,7 @@ paths:
 
         curl -X GET -H ''Authorization: Bearer <valid access token>'' \
 
-        https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate__eq={cert-id}&endpoint_name__eq={endpoint_name}
+        https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate_id__eq={cert-id}&endpoint_name__eq={endpoint_name}
 
         ```
 
@@ -14989,15 +15000,15 @@ paths:
       - description: filtering based on trusted certificate id
         in: query
         name: trusted_certificate_id__eq
+        required: true
         type: string
       - description: filtering based on endpoint name
         in: query
         name: endpoint_name__eq
         type: string
-      - description: Optional parameter for pagination.
+      - description: Optional parameter for pagination. Denied device ID.
         in: query
         name: after
-        required: false
         type: string
       - description: Optional parameter for pagination.
         enum:
@@ -15005,12 +15016,10 @@ paths:
         - DESC
         in: query
         name: order
-        required: false
         type: string
       - description: Optional parameter for pagination.
         in: query
         name: limit
-        required: false
         type: integer
       produces:
       - application/json
@@ -15024,7 +15033,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         404:
-          description: Id not found.
+          description: ID set in pagination parameter `after` not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Return list of devices which were denied to bootstrap due to being
@@ -15059,7 +15068,7 @@ paths:
       - application/json
       responses:
         200:
-          description: Query Success. Responding with List of Devices.
+          description: Query Success. Responding with blacklisted device.
           schema:
             $ref: '#/definitions/BlackListedDeviceData'
         401:
@@ -15067,7 +15076,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
         404:
-          description: Id not found.
+          description: ID not found.
           schema:
             $ref: '#/definitions/ErrorResponse'
       summary: Query for a single device by ID
