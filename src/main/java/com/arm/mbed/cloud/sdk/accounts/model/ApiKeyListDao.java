@@ -35,7 +35,7 @@ public class ApiKeyListDao extends AbstractApiKeyListDao {
     @Override
     protected ListResponse<ApiKey> requestOnePage(ApiKeyListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).listApiKeys(null, null, options);
+        return ((Accounts) getModule()).listApiKeys(null, null, options);
     }
 
     /**
@@ -48,7 +48,7 @@ public class ApiKeyListDao extends AbstractApiKeyListDao {
     @Override
     public ApiKeyListDao clone() {
         try {
-            return new ApiKeyListDao().configureAndGet(module == null ? null : module.clone());
+            return new ApiKeyListDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

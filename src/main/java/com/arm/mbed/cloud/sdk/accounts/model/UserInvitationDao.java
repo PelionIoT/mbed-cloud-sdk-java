@@ -53,7 +53,7 @@ public class UserInvitationDao extends AbstractUserInvitationDao {
     @Override
     public UserInvitationDao clone() {
         try {
-            return new UserInvitationDao().configureAndGet(module == null ? null : module.clone());
+            return new UserInvitationDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

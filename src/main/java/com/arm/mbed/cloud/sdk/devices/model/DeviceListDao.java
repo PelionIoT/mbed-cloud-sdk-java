@@ -40,7 +40,7 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     @Override
     public DeviceListDao clone() {
         try {
-            return new DeviceListDao().configureAndGet(module == null ? null : module.clone());
+            return new DeviceListDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -55,7 +55,7 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     @Internal
     @SuppressWarnings("unchecked")
     public DeviceDao getCorrespondingModelDao() throws MbedCloudException {
-        return new DeviceDao().configureAndGet(module);
+        return new DeviceDao().configureAndGet(getModule());
     }
 
     /**
@@ -97,19 +97,6 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -118,6 +105,19 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Devices(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
     }
 
     /**
@@ -132,6 +132,6 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     @Override
     protected ListResponse<Device> requestOnePage(DeviceListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Devices) module).listDevices(options);
+        return ((Devices) getModule()).listDevices(options);
     }
 }

@@ -45,7 +45,7 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
      */
     public void delete(@NonNull DataFile enrollmentIdentities) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Devices) module).deleteDeviceEnrollmentBulkDelete(enrollmentIdentities));
+        setModel(((Devices) getModule()).deleteDeviceEnrollmentBulkDelete(enrollmentIdentities));
     }
 
     /**
@@ -75,19 +75,6 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -99,6 +86,19 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     }
 
     /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
+    }
+
+    /**
      * Gets a device enrollment bulk delete.
      * <p>
      * Similar to
@@ -107,7 +107,7 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     @Override
     public void read() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollmentBulkDelete(getModel()));
+        setModel(((Devices) getModule()).getDeviceEnrollmentBulkDelete(getModel()));
     }
 
     /**
@@ -122,6 +122,6 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     @Override
     public void read(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollmentBulkDelete(id));
+        setModel(((Devices) getModule()).getDeviceEnrollmentBulkDelete(id));
     }
 }

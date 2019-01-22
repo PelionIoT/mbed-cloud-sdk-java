@@ -57,7 +57,7 @@ public class AccountListDao extends AbstractAccountListDao {
     @Override
     public AccountListDao clone() {
         try {
-            return new AccountListDao().configureAndGet(module == null ? null : module.clone());
+            return new AccountListDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

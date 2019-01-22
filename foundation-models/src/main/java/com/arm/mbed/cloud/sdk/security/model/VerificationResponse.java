@@ -35,10 +35,10 @@ public class VerificationResponse implements SdkModel {
      * 
      * @param message
      *            Provides details in case of failure.
-     *
+     * 
      * @param successful
      *            Indicates whether the certificate issuer was verified successfully.
-     *
+     * 
      */
     @Internal
     public VerificationResponse(String message, boolean successful) {

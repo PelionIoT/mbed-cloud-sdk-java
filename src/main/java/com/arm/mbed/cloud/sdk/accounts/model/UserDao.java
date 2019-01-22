@@ -53,7 +53,7 @@ public class UserDao extends AbstractUserDao {
     @Override
     public UserDao clone() {
         try {
-            return new UserDao().configureAndGet(module == null ? null : module.clone());
+            return new UserDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

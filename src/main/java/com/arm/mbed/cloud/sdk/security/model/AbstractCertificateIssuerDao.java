@@ -43,11 +43,11 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
-     *
+     * 
      */
     public void create(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).createCertificateIssuer(issuerCredentials, getModel()));
+        setModel(((Security) getModule()).createCertificateIssuer(issuerCredentials, getModel()));
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     @Override
     public void delete() throws MbedCloudException {
         checkDaoConfiguration();
-        ((Security) module).deleteCertificateIssuer(getModel());
+        ((Security) getModule()).deleteCertificateIssuer(getModel());
     }
 
     /**
@@ -86,12 +86,12 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      * @param id
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer. An active certificate issuer may not be deleted.
-     *
+     * 
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        ((Security) module).deleteCertificateIssuer(id);
+        ((Security) getModule()).deleteCertificateIssuer(id);
     }
 
     /**
@@ -121,19 +121,6 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -145,6 +132,19 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     }
 
     /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
+    }
+
+    /**
      * Gets a certificate issuer.
      * <p>
      * Similar to
@@ -153,7 +153,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     @Override
     public void read() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getCertificateIssuer(getModel()));
+        setModel(((Security) getModule()).getCertificateIssuer(getModel()));
     }
 
     /**
@@ -167,7 +167,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     @Override
     public void read(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getCertificateIssuer(id));
+        setModel(((Security) getModule()).getCertificateIssuer(id));
     }
 
     /**
@@ -180,11 +180,11 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
-     *
+     * 
      */
     public void update(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).updateCertificateIssuer(issuerCredentials, getModel()));
+        setModel(((Security) getModule()).updateCertificateIssuer(issuerCredentials, getModel()));
     }
 
     /**
@@ -197,18 +197,18 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
-     *
+     * 
      * @param id
      *            The ID of the certificate issuer.
      */
     public void update(@Nullable Map<String, String> issuerCredentials, @NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).updateCertificateIssuer(issuerCredentials, id, getModel()));
+        setModel(((Security) getModule()).updateCertificateIssuer(issuerCredentials, id, getModel()));
     }
 
     /**
      * Verify certificate issuer.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#verify(CertificateIssuer)}
      * 
@@ -216,23 +216,23 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      */
     public VerificationResponse verify() throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Security) module).verify(getModel());
+        return ((Security) getModule()).verify(getModel());
     }
 
     /**
      * Verify certificate issuer.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#verify(String)}
      * 
      * @param id
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer.
-     *
+     * 
      * @return something
      */
     public VerificationResponse verify(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Security) module).verify(id);
+        return ((Security) getModule()).verify(id);
     }
 }

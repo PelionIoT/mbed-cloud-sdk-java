@@ -56,7 +56,7 @@ public class UserInvitationListDao extends AbstractUserInvitationListDao {
     @Override
     public UserInvitationListDao clone() {
         try {
-            return new UserInvitationListDao().configureAndGet(module == null ? null : module.clone());
+            return new UserInvitationListDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

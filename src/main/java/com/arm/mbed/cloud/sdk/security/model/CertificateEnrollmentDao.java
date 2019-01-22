@@ -40,7 +40,7 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
     @Override
     public CertificateEnrollmentDao clone() {
         try {
-            return new CertificateEnrollmentDao().configureAndGet(module == null ? null : module.clone());
+            return new CertificateEnrollmentDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -73,19 +73,6 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -97,6 +84,19 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
     }
 
     /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
+    }
+
+    /**
      * Gets a certificate enrollment.
      * <p>
      * Similar to
@@ -105,7 +105,7 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
     @Override
     public void read() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getCertificateEnrollment(getModel()));
+        setModel(((Security) getModule()).getCertificateEnrollment(getModel()));
     }
 
     /**
@@ -119,6 +119,6 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
     @Override
     public void read(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getCertificateEnrollment(id));
+        setModel(((Security) getModule()).getCertificateEnrollment(id));
     }
 }

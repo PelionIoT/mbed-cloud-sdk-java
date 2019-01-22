@@ -6,15 +6,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import io.vertx.core.json.JsonObject;
+
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.testserver.cache.InstanceCache;
+import com.arm.mbed.cloud.sdk.testserver.cache.TestedItemCache;
 import com.arm.mbed.cloud.sdk.testserver.cache.InvalidInstanceException;
 import com.arm.mbed.cloud.sdk.testserver.cache.MissingInstanceException;
 import com.arm.mbed.cloud.sdk.testserver.cache.ServerCacheException;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.AbstractInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.UnknownAPIException;
@@ -22,14 +25,12 @@ import com.arm.mbed.cloud.sdk.testutils.APICallException;
 import com.arm.mbed.cloud.sdk.testutils.APICaller;
 import com.arm.mbed.cloud.sdk.testutils.APIMappingGenerator;
 
-import io.vertx.core.json.JsonObject;
-
 public class Engine {
 
     private final Logger logger;
-    private final InstanceCache cache;
+    private final TestedItemCache cache;
 
-    public Engine(Logger logger, InstanceCache cache) {
+    public Engine(Logger logger, TestedItemCache cache) {
         this.logger = logger;
         this.cache = cache;
     }
@@ -43,7 +44,7 @@ public class Engine {
 
     public String hello() {
         logger.logInfo("Hello !");
-        return "Hello. I am Java Mbed Cloud SDK Test server. How can I help?";
+        return "Hello. I am Java Pelion SDK Test server. How can I help?";
     }
 
     public String ping() {
@@ -160,7 +161,7 @@ public class Engine {
         return instance;
     }
 
-    private void checkInstanceValidity(ModuleInstance instance) throws InvalidInstanceException {
+    private void checkInstanceValidity(AbstractInstance instance) throws InvalidInstanceException {
         if (!instance.isValid()) {
             throw new InvalidInstanceException("Current module instance is invalid (" + instance + ")");
         }

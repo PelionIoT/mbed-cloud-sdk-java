@@ -40,7 +40,7 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     @Override
     public CertificateIssuerListDao clone() {
         try {
-            return new CertificateIssuerListDao().configureAndGet(module == null ? null : module.clone());
+            return new CertificateIssuerListDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -55,7 +55,7 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     @Internal
     @SuppressWarnings("unchecked")
     public CertificateIssuerDao getCorrespondingModelDao() throws MbedCloudException {
-        return new CertificateIssuerDao().configureAndGet(module);
+        return new CertificateIssuerDao().configureAndGet(getModule());
     }
 
     /**
@@ -97,19 +97,6 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -118,6 +105,19 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Security(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
     }
 
     /**
@@ -134,6 +134,6 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     protected ListResponse<CertificateIssuer>
               requestOnePage(CertificateIssuerListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Security) module).listCertificateIssuers(options);
+        return ((Security) getModule()).listCertificateIssuers(options);
     }
 }

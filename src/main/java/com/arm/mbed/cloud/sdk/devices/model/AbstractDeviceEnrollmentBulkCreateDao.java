@@ -45,7 +45,7 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
      */
     public void create(@NonNull DataFile enrollmentIdentities) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Devices) module).createDeviceEnrollmentBulkCreate(enrollmentIdentities));
+        setModel(((Devices) getModule()).createDeviceEnrollmentBulkCreate(enrollmentIdentities));
     }
 
     /**
@@ -75,19 +75,6 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -99,6 +86,19 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
     }
 
     /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
+    }
+
+    /**
      * Gets a device enrollment bulk create.
      * <p>
      * Similar to
@@ -107,7 +107,7 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
     @Override
     public void read() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollmentBulkCreate(getModel()));
+        setModel(((Devices) getModule()).getDeviceEnrollmentBulkCreate(getModel()));
     }
 
     /**
@@ -122,6 +122,6 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
     @Override
     public void read(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollmentBulkCreate(id));
+        setModel(((Devices) getModule()).getDeviceEnrollmentBulkCreate(id));
     }
 }

@@ -4,6 +4,7 @@ import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
+import com.arm.mbed.cloud.sdk.common.ApiMetadata;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
@@ -103,6 +104,16 @@ public interface CloudDao extends Cloneable {
      *             if an error occurs during the process.
      */
     <T extends CloudDao> T configureAndGet(@NonNull SdkContext context) throws MbedCloudException;
+
+    /**
+     * Gets meta data for the last Arm Mbed Cloud API call.
+     *
+     * @see ApiMetadata
+     * @return metadata
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    ApiMetadata getLastApiMetadata() throws MbedCloudException;
 
     /**
      * Gets the Sdk context {@link SdkContext} in use.

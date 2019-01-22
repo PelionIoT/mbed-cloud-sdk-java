@@ -43,7 +43,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      */
     public void create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).createSubtenantUser(action, getModel()));
+        setModel(((Accounts) getModule()).createSubtenantUser(action, getModel()));
     }
 
     /**
@@ -60,7 +60,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     public void create(@Nullable @DefaultValue("create") String action,
                        @NonNull String accountId) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).createSubtenantUser(action, accountId, getModel()));
+        setModel(((Accounts) getModule()).createSubtenantUser(action, accountId, getModel()));
     }
 
     /**
@@ -71,7 +71,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     @Override
     public void delete() throws MbedCloudException {
         checkDaoConfiguration();
-        ((Accounts) module).deleteSubtenantUser(getModel());
+        ((Accounts) getModule()).deleteSubtenantUser(getModel());
     }
 
     /**
@@ -101,7 +101,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      */
     public void delete(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        ((Accounts) module).deleteSubtenantUser(accountId, id);
+        ((Accounts) getModule()).deleteSubtenantUser(accountId, id);
     }
 
     /**
@@ -131,19 +131,6 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -155,6 +142,19 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     }
 
     /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
+    }
+
+    /**
      * Gets a subtenant user.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#getSubtenantUser(SubtenantUser)}
@@ -162,7 +162,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     @Override
     public void read() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).getSubtenantUser(getModel()));
+        setModel(((Accounts) getModule()).getSubtenantUser(getModel()));
     }
 
     /**
@@ -177,7 +177,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      */
     public void read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).getSubtenantUser(accountId, id));
+        setModel(((Accounts) getModule()).getSubtenantUser(accountId, id));
     }
 
     /**
@@ -188,7 +188,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     @Override
     public void update() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).updateSubtenantUser(getModel()));
+        setModel(((Accounts) getModule()).updateSubtenantUser(getModel()));
     }
 
     /**
@@ -219,23 +219,23 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      */
     public void update(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).updateSubtenantUser(accountId, id, getModel()));
+        setModel(((Accounts) getModule()).updateSubtenantUser(accountId, id, getModel()));
     }
 
     /**
      * Validate the user email.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#validateEmail(SubtenantUser)}
      */
     public void validateEmail() throws MbedCloudException {
         checkDaoConfiguration();
-        ((Accounts) module).validateEmail(getModel());
+        ((Accounts) getModule()).validateEmail(getModel());
     }
 
     /**
      * Validate the user email.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#validateEmail(String,String)}
      * 
@@ -246,6 +246,6 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      */
     public void validateEmail(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        ((Accounts) module).validateEmail(accountId, id);
+        ((Accounts) getModule()).validateEmail(accountId, id);
     }
 }

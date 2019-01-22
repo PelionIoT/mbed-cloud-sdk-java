@@ -35,7 +35,7 @@ public interface SdkContext extends Closeable, Cloneable {
     ConnectionOptions getConnectionOption();
 
     /**
-     * Gets meta data for the last Arm Mbed Cloud API call.
+     * Gets meta data for the last Pelion Cloud API call.
      *
      * @see ApiMetadata
      * @return metadata

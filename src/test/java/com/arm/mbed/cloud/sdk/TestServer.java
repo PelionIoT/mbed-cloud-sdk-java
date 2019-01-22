@@ -31,14 +31,13 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.testserver.Engine;
 import com.arm.mbed.cloud.sdk.testserver.Logger;
-import com.arm.mbed.cloud.sdk.testserver.cache.InstanceCache;
 import com.arm.mbed.cloud.sdk.testserver.cache.MissingInstanceException;
 import com.arm.mbed.cloud.sdk.testserver.cache.ServerCacheException;
+import com.arm.mbed.cloud.sdk.testserver.cache.TestedItemCache;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.UnknownAPIException;
 import com.arm.mbed.cloud.sdk.testserver.model.ErrorMessage;
-import com.arm.mbed.cloud.sdk.testserver.model.Instance;
 import com.arm.mbed.cloud.sdk.testserver.model.SdkConfiguration;
 import com.arm.mbed.cloud.sdk.testserver.model.SdkMethodParameters;
 import com.arm.mbed.cloud.sdk.testserver.model.SdkMethodResult;
@@ -80,7 +79,7 @@ public class TestServer {
             options.setMaxInitialLineLength(HttpServerOptions.DEFAULT_MAX_INITIAL_LINE_LENGTH * 2);
             server = vertx.createHttpServer(options);
             router = Router.router(vertx);
-            engine = new Engine(logger, new InstanceCache(vertx));
+            engine = new Engine(logger, new TestedItemCache(vertx));
         }
         retrieveConfig();
         // Route registration
@@ -376,7 +375,7 @@ public class TestServer {
      */
     private String fetchInstanceId(String instanceIdAsString) {
         try {
-            Instance instance = Serializer.convertStringToObject(instanceIdAsString, Instance.class);
+            ModuleInstance instance = Serializer.convertStringToObject(instanceIdAsString, ModuleInstance.class);
             instanceIdAsString = instance.getId();
         } catch (Exception e) {
             // Nothing to do

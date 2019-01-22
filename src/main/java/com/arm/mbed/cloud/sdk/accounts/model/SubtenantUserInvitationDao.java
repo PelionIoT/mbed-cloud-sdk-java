@@ -77,7 +77,7 @@ public class SubtenantUserInvitationDao extends AbstractSubtenantUserInvitationD
     @Override
     public SubtenantUserInvitationDao clone() {
         try {
-            return new SubtenantUserInvitationDao().configureAndGet(module == null ? null : module.clone());
+            return new SubtenantUserInvitationDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

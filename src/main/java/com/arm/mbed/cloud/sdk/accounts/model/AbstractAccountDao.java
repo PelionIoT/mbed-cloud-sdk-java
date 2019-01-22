@@ -76,9 +76,9 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
                                   @Nullable String statusEq, @Nullable String issuerLike, @Nullable String subjectLike,
                                   @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).allTrustedCertificates(nameEq, serviceEq, expireEq, deviceExecutionModeEq,
-                                                          deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq,
-                                                          issuerLike, subjectLike, options, getModel());
+        return ((Accounts) getModule()).allTrustedCertificates(nameEq, serviceEq, expireEq, deviceExecutionModeEq,
+                                                               deviceExecutionModeNeq, ownerEq, enrollmentModeEq,
+                                                               statusEq, issuerLike, subjectLike, options, getModel());
     }
 
     /**
@@ -121,9 +121,9 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
                                   @Nullable String issuerLike, @Nullable String subjectLike,
                                   @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).allTrustedCertificates(id, nameEq, serviceEq, expireEq, deviceExecutionModeEq,
-                                                          deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq,
-                                                          issuerLike, subjectLike, options);
+        return ((Accounts) getModule()).allTrustedCertificates(id, nameEq, serviceEq, expireEq, deviceExecutionModeEq,
+                                                               deviceExecutionModeNeq, ownerEq, enrollmentModeEq,
+                                                               statusEq, issuerLike, subjectLike, options);
     }
 
     /**
@@ -144,7 +144,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
            allUserInvitations(@NonNull String id, @Nullable String loginProfileEq,
                               @Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).allUserInvitations(id, loginProfileEq, options);
+        return ((Accounts) getModule()).allUserInvitations(id, loginProfileEq, options);
     }
 
     /**
@@ -163,7 +163,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
            allUserInvitations(@Nullable String loginProfileEq,
                               @Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).allUserInvitations(loginProfileEq, options, getModel());
+        return ((Accounts) getModule()).allUserInvitations(loginProfileEq, options, getModel());
     }
 
     /**
@@ -193,7 +193,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
                                              @Nullable String loginProfileEq,
                                              @Nullable SubtenantUserListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).allUsers(id, emailEq, statusEq, statusIn, statusNin, loginProfileEq, options);
+        return ((Accounts) getModule()).allUsers(id, emailEq, statusEq, statusIn, statusNin, loginProfileEq, options);
     }
 
     /**
@@ -221,8 +221,8 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
                                              @Nullable String loginProfileEq,
                                              @Nullable SubtenantUserListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).allUsers(emailEq, statusEq, statusIn, statusNin, loginProfileEq, options,
-                                            getModel());
+        return ((Accounts) getModule()).allUsers(emailEq, statusEq, statusIn, statusNin, loginProfileEq, options,
+                                                 getModel());
     }
 
     /**
@@ -244,7 +244,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
      */
     public void create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).createAccount(action, getModel()));
+        setModel(((Accounts) getModule()).createAccount(action, getModel()));
     }
 
     /**
@@ -274,19 +274,6 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -295,6 +282,19 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Accounts(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
     }
 
     /**
@@ -310,7 +310,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     @SuppressWarnings("PMD.ShortMethodName")
     public void me(@Nullable String include, @Nullable String properties) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).myAccount(include, properties));
+        setModel(((Accounts) getModule()).myAccount(include, properties));
     }
 
     /**
@@ -325,7 +325,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
      */
     public void read(@Nullable String include, @Nullable String properties) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).getAccount(include, properties, getModel()));
+        setModel(((Accounts) getModule()).getAccount(include, properties, getModel()));
     }
 
     /**
@@ -343,12 +343,12 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     public void read(@Nullable String include, @Nullable String properties,
                      @NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).getAccount(include, properties, id));
+        setModel(((Accounts) getModule()).getAccount(include, properties, id));
     }
 
     /**
      * Get all trusted certificates.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#trustedCertificates(String,String,Integer,Integer,Integer,String,Boolean,String,String,String,SubtenantTrustedCertificateListOptions,Account)}
@@ -384,14 +384,14 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
                                @Nullable String issuerLike, @Nullable String subjectLike,
                                @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).trustedCertificates(nameEq, serviceEq, expireEq, deviceExecutionModeEq,
-                                                       deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq,
-                                                       issuerLike, subjectLike, options, getModel());
+        return ((Accounts) getModule()).trustedCertificates(nameEq, serviceEq, expireEq, deviceExecutionModeEq,
+                                                            deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq,
+                                                            issuerLike, subjectLike, options, getModel());
     }
 
     /**
      * Get all trusted certificates.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#trustedCertificates(String,String,String,Integer,Integer,Integer,String,Boolean,String,String,String,SubtenantTrustedCertificateListOptions)}
@@ -430,9 +430,9 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
                                @Nullable String issuerLike, @Nullable String subjectLike,
                                @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).trustedCertificates(id, nameEq, serviceEq, expireEq, deviceExecutionModeEq,
-                                                       deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq,
-                                                       issuerLike, subjectLike, options);
+        return ((Accounts) getModule()).trustedCertificates(id, nameEq, serviceEq, expireEq, deviceExecutionModeEq,
+                                                            deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq,
+                                                            issuerLike, subjectLike, options);
     }
 
     /**
@@ -443,7 +443,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     @Override
     public void update() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).updateAccount(getModel()));
+        setModel(((Accounts) getModule()).updateAccount(getModel()));
     }
 
     /**
@@ -471,12 +471,12 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
      */
     public void update(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).updateAccount(id, getModel()));
+        setModel(((Accounts) getModule()).updateAccount(id, getModel()));
     }
 
     /**
      * Get the details of all the user invitations.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#userInvitations(String,String,SubtenantUserInvitationListOptions)}
@@ -493,12 +493,12 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
            userInvitations(@NonNull String id, @Nullable String loginProfileEq,
                            @Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).userInvitations(id, loginProfileEq, options);
+        return ((Accounts) getModule()).userInvitations(id, loginProfileEq, options);
     }
 
     /**
      * Get the details of all the user invitations.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#userInvitations(String,SubtenantUserInvitationListOptions,Account)}
@@ -513,12 +513,12 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
            userInvitations(@Nullable String loginProfileEq,
                            @Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).userInvitations(loginProfileEq, options, getModel());
+        return ((Accounts) getModule()).userInvitations(loginProfileEq, options, getModel());
     }
 
     /**
      * Get all user details.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#users(String,String,String,String,String,String,SubtenantUserListOptions)}
@@ -544,12 +544,12 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
                                              @Nullable String loginProfileEq,
                                              @Nullable SubtenantUserListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).users(id, emailEq, statusEq, statusIn, statusNin, loginProfileEq, options);
+        return ((Accounts) getModule()).users(id, emailEq, statusEq, statusIn, statusNin, loginProfileEq, options);
     }
 
     /**
      * Get all user details.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#users(String,String,String,String,String,SubtenantUserListOptions,Account)}
@@ -573,6 +573,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
                                              @Nullable String loginProfileEq,
                                              @Nullable SubtenantUserListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Accounts) module).users(emailEq, statusEq, statusIn, statusNin, loginProfileEq, options, getModel());
+        return ((Accounts) getModule()).users(emailEq, statusEq, statusIn, statusNin, loginProfileEq, options,
+                                              getModel());
     }
 }

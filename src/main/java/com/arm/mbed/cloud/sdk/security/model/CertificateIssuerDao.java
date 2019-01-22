@@ -74,7 +74,7 @@ public class CertificateIssuerDao extends AbstractCertificateIssuerDao {
     @Override
     public CertificateIssuerDao clone() {
         try {
-            return new CertificateIssuerDao().configureAndGet(module == null ? null : module.clone());
+            return new CertificateIssuerDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

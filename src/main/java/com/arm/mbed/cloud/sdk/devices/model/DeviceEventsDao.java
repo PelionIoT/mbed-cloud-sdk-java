@@ -39,7 +39,7 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     @Override
     public DeviceEventsDao clone() {
         try {
-            return new DeviceEventsDao().configureAndGet(module == null ? null : module.clone());
+            return new DeviceEventsDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -72,19 +72,6 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -96,6 +83,19 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     }
 
     /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
+    }
+
+    /**
      * Gets a device events.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(DeviceEvents)}
@@ -103,7 +103,7 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     @Override
     public void read() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEvents(getModel()));
+        setModel(((Devices) getModule()).getDeviceEvents(getModel()));
     }
 
     /**
@@ -117,6 +117,6 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     @Override
     public void read(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEvents(id));
+        setModel(((Devices) getModule()).getDeviceEvents(id));
     }
 }

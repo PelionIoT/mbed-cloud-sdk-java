@@ -259,7 +259,7 @@ public class ModelDao extends Model {
                 codeFormat.append("return ");
             }
         }
-        codeFormat.append("(($T)$L).$L(");
+        codeFormat.append("(($T)$L()).$L(");
         try {
             moduleType.translate();
         } catch (TranslationException exception) {
@@ -267,7 +267,7 @@ public class ModelDao extends Model {
             exception.printStackTrace();
         }
         values.add(moduleType.hasClass() ? moduleType.getClazz() : moduleType.getTypeName());
-        values.add(AbstractModelDao.FIELD_NAME_MODULE);
+        values.add(AbstractModelDao.METHOD_GETTER_MODULE);
         values.add(moduleMethod.getName());
         if (moduleMethod.hasParameters()) {
             boolean start = true;

@@ -42,7 +42,7 @@ public abstract class AbstractTrustedCertificateListDao extends
     @Internal
     @SuppressWarnings("unchecked")
     public TrustedCertificateDao getCorrespondingModelDao() throws MbedCloudException {
-        return new TrustedCertificateDao().configureAndGet(module);
+        return new TrustedCertificateDao().configureAndGet(getModule());
     }
 
     /**
@@ -84,19 +84,6 @@ public abstract class AbstractTrustedCertificateListDao extends
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -105,5 +92,18 @@ public abstract class AbstractTrustedCertificateListDao extends
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Security(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
     }
 }

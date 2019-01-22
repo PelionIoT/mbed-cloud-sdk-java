@@ -75,7 +75,7 @@ public class ModelDaoList extends ModelDao {
                                     + Utils.generateDocumentationString(correspondingModel.getName(), true));
         method.setAsOverride(true);
         codeFormat.append("return ");
-        codeFormat.append("(($T)$L).$L(");
+        codeFormat.append("(($T)$L()).$L(");
         try {
             moduleType.translate();
         } catch (TranslationException exception) {
@@ -83,7 +83,7 @@ public class ModelDaoList extends ModelDao {
             exception.printStackTrace();
         }
         values.add(moduleType.hasClass() ? moduleType.getClazz() : moduleType.getTypeName());
-        values.add(AbstractModelDao.FIELD_NAME_MODULE);
+        values.add(AbstractModelDao.METHOD_GETTER_MODULE);
         values.add(moduleMethod.getName());
         if (moduleMethod.hasParameters()) {
             boolean start = true;
@@ -132,11 +132,11 @@ public class ModelDaoList extends ModelDao {
                                                                       : daoModelType.getTypeName()),
                                 Utils.generateDocumentationString(correspondingDao.getName()) + " class", true);
         addInstantiationMethods(AbstractModelListDao.METHOD_GET_CORRESPONDING_MODEL_DAO_INSTANCE, daoModelType,
-                                "return new $T().$L($L)",
+                                "return new $T().$L($L())",
                                 Arrays.asList(daoModelType.hasClass() ? daoModelType.getClazz()
                                                                       : daoModelType.getTypeName(),
                                               AbstractModelListDao.METHOD_CONFIGURE_AND_GET,
-                                              AbstractModelListDao.FIELD_NAME_MODULE),
+                                              AbstractModelListDao.METHOD_GETTER_MODULE),
                                 Utils.generateDocumentationString(correspondingDao.getName()), true);
     }
 

@@ -40,7 +40,7 @@ public abstract class AbstractUserInvitationListDao extends
     @Internal
     @SuppressWarnings("unchecked")
     public UserInvitationDao getCorrespondingModelDao() throws MbedCloudException {
-        return new UserInvitationDao().configureAndGet(module);
+        return new UserInvitationDao().configureAndGet(getModule());
     }
 
     /**
@@ -82,19 +82,6 @@ public abstract class AbstractUserInvitationListDao extends
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -103,5 +90,18 @@ public abstract class AbstractUserInvitationListDao extends
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Accounts(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
     }
 }

@@ -40,7 +40,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     @Override
     public void create() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).createSubtenantTrustedCertificate(getModel()));
+        setModel(((Security) getModule()).createSubtenantTrustedCertificate(getModel()));
     }
 
     /**
@@ -70,7 +70,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      */
     public void create(@NonNull String accountId) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).createSubtenantTrustedCertificate(accountId, getModel()));
+        setModel(((Security) getModule()).createSubtenantTrustedCertificate(accountId, getModel()));
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     @Override
     public void delete() throws MbedCloudException {
         checkDaoConfiguration();
-        ((Security) module).deleteSubtenantTrustedCertificate(getModel());
+        ((Security) getModule()).deleteSubtenantTrustedCertificate(getModel());
     }
 
     /**
@@ -114,12 +114,12 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      */
     public void delete(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        ((Security) module).deleteSubtenantTrustedCertificate(accountId, id);
+        ((Security) getModule()).deleteSubtenantTrustedCertificate(accountId, id);
     }
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#getDeveloperCertificateInfo(SubtenantTrustedCertificate)}
@@ -128,12 +128,12 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      */
     public DeveloperCertificate getDeveloperCertificateInfo() throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Security) module).getDeveloperCertificateInfo(getModel());
+        return ((Security) getModule()).getDeveloperCertificateInfo(getModel());
     }
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate#getDeveloperCertificateInfo(String)}
@@ -144,7 +144,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      */
     public DeveloperCertificate getDeveloperCertificateInfo(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Security) module).getDeveloperCertificateInfo(id);
+        return ((Security) getModule()).getDeveloperCertificateInfo(id);
     }
 
     /**
@@ -174,19 +174,6 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -198,6 +185,19 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     }
 
     /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
+    }
+
+    /**
      * Gets a subtenant trusted certificate.
      * <p>
      * Similar to
@@ -206,7 +206,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     @Override
     public void read() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getSubtenantTrustedCertificate(getModel()));
+        setModel(((Security) getModule()).getSubtenantTrustedCertificate(getModel()));
     }
 
     /**
@@ -222,7 +222,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      */
     public void read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getSubtenantTrustedCertificate(accountId, id));
+        setModel(((Security) getModule()).getSubtenantTrustedCertificate(accountId, id));
     }
 
     /**
@@ -234,7 +234,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     @Override
     public void update() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).updateSubtenantTrustedCertificate(getModel()));
+        setModel(((Security) getModule()).updateSubtenantTrustedCertificate(getModel()));
     }
 
     /**
@@ -266,6 +266,6 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      */
     public void update(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).updateSubtenantTrustedCertificate(accountId, id, getModel()));
+        setModel(((Security) getModule()).updateSubtenantTrustedCertificate(accountId, id, getModel()));
     }
 }

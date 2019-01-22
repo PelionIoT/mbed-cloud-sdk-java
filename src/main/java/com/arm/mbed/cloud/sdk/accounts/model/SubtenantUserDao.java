@@ -34,7 +34,7 @@ public class SubtenantUserDao extends AbstractSubtenantUserDao {
     @Override
     public void create(SubtenantUser modelToCreate) throws MbedCloudException, NotImplementedException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).createSubtenantUser(DEFAULT_ACTION, modelToCreate));
+        setModel(((Accounts) getModule()).createSubtenantUser(DEFAULT_ACTION, modelToCreate));
     }
 
     /**
@@ -79,7 +79,7 @@ public class SubtenantUserDao extends AbstractSubtenantUserDao {
     @Override
     public SubtenantUserDao clone() {
         try {
-            return new SubtenantUserDao().configureAndGet(module == null ? null : module.clone());
+            return new SubtenantUserDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

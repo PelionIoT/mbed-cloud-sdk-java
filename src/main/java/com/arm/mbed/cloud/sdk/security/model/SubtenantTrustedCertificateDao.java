@@ -56,7 +56,8 @@ public class SubtenantTrustedCertificateDao extends AbstractSubtenantTrustedCert
     @Override
     public SubtenantTrustedCertificateDao clone() {
         try {
-            return new SubtenantTrustedCertificateDao().configureAndGet(module == null ? null : module.clone());
+            return new SubtenantTrustedCertificateDao().configureAndGet(getModule() == null ? null
+                                                                                            : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

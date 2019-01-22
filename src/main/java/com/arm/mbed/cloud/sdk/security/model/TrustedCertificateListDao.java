@@ -57,7 +57,7 @@ public class TrustedCertificateListDao extends AbstractTrustedCertificateListDao
     @Override
     public TrustedCertificateListDao clone() {
         try {
-            return new TrustedCertificateListDao().configureAndGet(module == null ? null : module.clone());
+            return new TrustedCertificateListDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

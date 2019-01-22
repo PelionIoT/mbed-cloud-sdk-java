@@ -43,7 +43,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Override
     public DeveloperCertificateDao clone() {
         try {
-            return new DeveloperCertificateDao().configureAndGet(module == null ? null : module.clone());
+            return new DeveloperCertificateDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -58,7 +58,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Override
     public void create() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).createDeveloperCertificate(getModel()));
+        setModel(((Security) getModule()).createDeveloperCertificate(getModel()));
     }
 
     /**
@@ -86,7 +86,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Override
     public void delete() throws MbedCloudException {
         checkDaoConfiguration();
-        ((Security) module).deleteDeveloperCertificate(getModel());
+        ((Security) getModule()).deleteDeveloperCertificate(getModel());
     }
 
     /**
@@ -116,12 +116,12 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        ((Security) module).deleteDeveloperCertificate(id);
+        ((Security) getModule()).deleteDeveloperCertificate(id);
     }
 
     /**
      * Get trusted certificate by ID.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#getTrustedCertificateInfo(DeveloperCertificate)}
@@ -130,12 +130,12 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      */
     public TrustedCertificate getTrustedCertificateInfo() throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Security) module).getTrustedCertificateInfo(getModel());
+        return ((Security) getModule()).getTrustedCertificateInfo(getModel());
     }
 
     /**
      * Get trusted certificate by ID.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#getTrustedCertificateInfo(String)}
      * 
@@ -145,7 +145,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      */
     public TrustedCertificate getTrustedCertificateInfo(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Security) module).getTrustedCertificateInfo(id);
+        return ((Security) getModule()).getTrustedCertificateInfo(id);
     }
 
     /**
@@ -175,19 +175,6 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -199,6 +186,19 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     }
 
     /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
+    }
+
+    /**
      * Gets a developer certificate.
      * <p>
      * Similar to
@@ -207,7 +207,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Override
     public void read() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getDeveloperCertificate(getModel()));
+        setModel(((Security) getModule()).getDeveloperCertificate(getModel()));
     }
 
     /**
@@ -221,6 +221,6 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Override
     public void read(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getDeveloperCertificate(id));
+        setModel(((Security) getModule()).getDeveloperCertificate(id));
     }
 }

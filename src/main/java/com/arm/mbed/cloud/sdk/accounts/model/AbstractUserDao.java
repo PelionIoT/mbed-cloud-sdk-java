@@ -42,7 +42,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
      */
     public void create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).createUser(action, getModel()));
+        setModel(((Accounts) getModule()).createUser(action, getModel()));
     }
 
     /**
@@ -53,7 +53,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     @Override
     public void delete() throws MbedCloudException {
         checkDaoConfiguration();
-        ((Accounts) module).deleteUser(getModel());
+        ((Accounts) getModule()).deleteUser(getModel());
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        ((Accounts) module).deleteUser(id);
+        ((Accounts) getModule()).deleteUser(id);
     }
 
     /**
@@ -112,19 +112,6 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -136,6 +123,19 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     }
 
     /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
+    }
+
+    /**
      * Gets a user.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#getUser(User)}
@@ -143,7 +143,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     @Override
     public void read() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).getUser(getModel()));
+        setModel(((Accounts) getModule()).getUser(getModel()));
     }
 
     /**
@@ -157,7 +157,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     @Override
     public void read(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).getUser(id));
+        setModel(((Accounts) getModule()).getUser(id));
     }
 
     /**
@@ -168,7 +168,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     @Override
     public void update() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).updateUser(getModel()));
+        setModel(((Accounts) getModule()).updateUser(getModel()));
     }
 
     /**
@@ -196,6 +196,6 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
      */
     public void update(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).updateUser(id, getModel()));
+        setModel(((Accounts) getModule()).updateUser(id, getModel()));
     }
 }

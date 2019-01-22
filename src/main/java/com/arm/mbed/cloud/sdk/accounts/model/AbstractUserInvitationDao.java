@@ -46,7 +46,7 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
      */
     public void create(@Nullable int validForDays) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).createUserInvitation(validForDays, getModel()));
+        setModel(((Accounts) getModule()).createUserInvitation(validForDays, getModel()));
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     @Override
     public void delete() throws MbedCloudException {
         checkDaoConfiguration();
-        ((Accounts) module).deleteUserInvitation(getModel());
+        ((Accounts) getModule()).deleteUserInvitation(getModel());
     }
 
     /**
@@ -86,7 +86,7 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        ((Accounts) module).deleteUserInvitation(id);
+        ((Accounts) getModule()).deleteUserInvitation(id);
     }
 
     /**
@@ -116,19 +116,6 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -140,6 +127,19 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     }
 
     /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
+    }
+
+    /**
      * Gets a user invitation.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#getUserInvitation(UserInvitation)}
@@ -147,7 +147,7 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     @Override
     public void read() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).getUserInvitation(getModel()));
+        setModel(((Accounts) getModule()).getUserInvitation(getModel()));
     }
 
     /**
@@ -161,6 +161,6 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     @Override
     public void read(@NonNull String id) throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Accounts) module).getUserInvitation(id));
+        setModel(((Accounts) getModule()).getUserInvitation(id));
     }
 }

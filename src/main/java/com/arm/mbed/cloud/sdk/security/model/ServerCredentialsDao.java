@@ -37,7 +37,7 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     @Override
     public ServerCredentialsDao clone() {
         try {
-            return new ServerCredentialsDao().configureAndGet(module == null ? null : module.clone());
+            return new ServerCredentialsDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -45,24 +45,24 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
 
     /**
      * Fetch bootstrap server credentials.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.security.model.ServerCredentials#getBootstrap()}
      */
     public void getBootstrap() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getBootstrap());
+        setModel(((Security) getModule()).getBootstrap());
     }
 
     /**
      * Fetch LwM2M server credentials.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.security.model.ServerCredentials#getLwm2m()}
      */
     public void getLwm2m() throws MbedCloudException {
         checkDaoConfiguration();
-        setModel(((Security) module).getLwm2m());
+        setModel(((Security) getModule()).getLwm2m());
     }
 
     /**
@@ -92,19 +92,6 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -113,5 +100,18 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Security(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
     }
 }

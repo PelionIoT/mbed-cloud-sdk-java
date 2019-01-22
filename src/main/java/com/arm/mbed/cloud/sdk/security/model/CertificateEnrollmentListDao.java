@@ -58,7 +58,7 @@ public class CertificateEnrollmentListDao extends AbstractCertificateEnrollmentL
     @Override
     public CertificateEnrollmentListDao clone() {
         try {
-            return new CertificateEnrollmentListDao().configureAndGet(module == null ? null : module.clone());
+            return new CertificateEnrollmentListDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

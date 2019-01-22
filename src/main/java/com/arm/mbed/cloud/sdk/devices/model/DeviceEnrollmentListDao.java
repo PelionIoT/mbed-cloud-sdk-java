@@ -40,7 +40,7 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     @Override
     public DeviceEnrollmentListDao clone() {
         try {
-            return new DeviceEnrollmentListDao().configureAndGet(module == null ? null : module.clone());
+            return new DeviceEnrollmentListDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -55,7 +55,7 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     @Internal
     @SuppressWarnings("unchecked")
     public DeviceEnrollmentDao getCorrespondingModelDao() throws MbedCloudException {
-        return new DeviceEnrollmentDao().configureAndGet(module);
+        return new DeviceEnrollmentDao().configureAndGet(getModule());
     }
 
     /**
@@ -97,19 +97,6 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -118,6 +105,19 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Devices(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
     }
 
     /**
@@ -134,6 +134,6 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     protected ListResponse<DeviceEnrollment>
               requestOnePage(DeviceEnrollmentListOptions options) throws MbedCloudException {
         checkDaoConfiguration();
-        return ((Devices) module).listDeviceEnrollments(options);
+        return ((Devices) getModule()).listDeviceEnrollments(options);
     }
 }

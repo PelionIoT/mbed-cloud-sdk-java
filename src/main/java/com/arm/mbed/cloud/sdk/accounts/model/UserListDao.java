@@ -56,7 +56,7 @@ public class UserListDao extends AbstractUserListDao {
     @Override
     public UserListDao clone() {
         try {
-            return new UserListDao().configureAndGet(module == null ? null : module.clone());
+            return new UserListDao().configureAndGet(getModule() == null ? null : getModule().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
