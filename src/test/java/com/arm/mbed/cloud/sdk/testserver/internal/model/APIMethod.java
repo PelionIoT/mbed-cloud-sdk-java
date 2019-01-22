@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 
 import com.arm.mbed.cloud.sdk.common.ApiMetadata;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.arm.mbed.cloud.sdk.testserver.model.SdkApi;
+import com.arm.mbed.cloud.sdk.testserver.model.SdkMethodInfo;
 import com.arm.mbed.cloud.sdk.testutils.APICallException;
 
 public class APIMethod {
@@ -182,8 +182,8 @@ public class APIMethod {
         return argValuesArray.toArray();
     }
 
-    public SdkApi toSdkApi() {
-        SdkApi api = new SdkApi();
+    public SdkMethodInfo toSdkApi() {
+        SdkMethodInfo api = new SdkMethodInfo();
         api.setName(ApiUtils.convertCamelToSnake(name));
         if (arguments == null) {
             return api;

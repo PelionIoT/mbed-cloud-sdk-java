@@ -37,11 +37,11 @@ import com.arm.mbed.cloud.sdk.testserver.cache.ServerCacheException;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.UnknownAPIException;
-import com.arm.mbed.cloud.sdk.testserver.model.ApiResult;
 import com.arm.mbed.cloud.sdk.testserver.model.ErrorMessage;
 import com.arm.mbed.cloud.sdk.testserver.model.Instance;
-import com.arm.mbed.cloud.sdk.testserver.model.InstanceConfiguration;
-import com.arm.mbed.cloud.sdk.testserver.model.SdkApiParameters;
+import com.arm.mbed.cloud.sdk.testserver.model.SdkConfiguration;
+import com.arm.mbed.cloud.sdk.testserver.model.SdkMethodParameters;
+import com.arm.mbed.cloud.sdk.testserver.model.SdkMethodResult;
 import com.arm.mbed.cloud.sdk.testutils.APICallException;
 import com.arm.mbed.cloud.sdk.testutils.Serializer;
 import com.github.dtmo.jfiglet.FigFont.PrintDirection;
@@ -389,7 +389,7 @@ public class TestServer {
         if (bodyAsString == null || bodyAsString.isEmpty()) {
             return new LinkedHashMap<>();
         }
-        return new JsonObject(bodyAsString).mapTo(SdkApiParameters.class);
+        return new JsonObject(bodyAsString).mapTo(SdkMethodParameters.class);
     }
 
     private ConnectionOptions retrieveConnectionOptions(String bodyAsString) {
@@ -397,9 +397,9 @@ public class TestServer {
             logger.logWarn("The test server did not receive any connection configuration. Defaulting to test server configuration.");
             return defaultConnectionConfiguration;
         }
-        InstanceConfiguration conf = null;
+        SdkConfiguration conf = null;
         try {
-            conf = Serializer.convertStringToObject(bodyAsString, InstanceConfiguration.class);
+            conf = Serializer.convertStringToObject(bodyAsString, SdkConfiguration.class);
         } catch (Exception e) {
             logger.logWarn("The test server could not interpret instance configuration properly: [" + bodyAsString
                            + "]. Defaulting to test server configuration.");
@@ -450,7 +450,7 @@ public class TestServer {
     private void result(int statusCode, RoutingContext routingContext, Object result, boolean enclosePayload) {
         Object resultObj = Serializer.convertResultToJsonObject(result, true);
         if (enclosePayload) {
-            ApiResult apiResult = new ApiResult();
+            SdkMethodResult apiResult = new SdkMethodResult();
             apiResult.setPayload(resultObj);
             resultObj = Serializer.convertResultToJsonObject(apiResult, true);
         }
