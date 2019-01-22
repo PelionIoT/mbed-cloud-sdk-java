@@ -11,9 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  **/
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ModuleInstance {
-
+    @JsonProperty("id")
     private String id = null;
+    @JsonProperty("module")
     private String module = null;
+    @JsonProperty("created_at")
     private OffsetDateTime createdAt = null;
 
     public ModuleInstance() {
@@ -26,7 +28,6 @@ public class ModuleInstance {
         this.createdAt = createdAt;
     }
 
-    @JsonProperty("id")
     public String getId() {
         return id;
     }
@@ -35,7 +36,6 @@ public class ModuleInstance {
         this.id = id;
     }
 
-    @JsonProperty("module")
     public String getModule() {
         return module;
     }
@@ -44,7 +44,6 @@ public class ModuleInstance {
         this.module = module;
     }
 
-    @JsonProperty("created_at")
     public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
@@ -68,7 +67,7 @@ public class ModuleInstance {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, module, createdAt);
+        return Objects.hash(id, module, createdAt, super.hashCode());
     }
 
     @Override

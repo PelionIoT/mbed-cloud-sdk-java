@@ -7,8 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorMessage {
-
+    @JsonProperty("message")
     private String message = null;
+    @JsonProperty("traceback")
     private String traceback = null;
 
     public ErrorMessage() {
@@ -20,7 +21,6 @@ public class ErrorMessage {
         this.traceback = traceback;
     }
 
-    @JsonProperty("message")
     public String getMessage() {
         return message;
     }
@@ -29,7 +29,6 @@ public class ErrorMessage {
         this.message = message;
     }
 
-    @JsonProperty("traceback")
     public String getTraceback() {
         return traceback;
     }
@@ -52,7 +51,7 @@ public class ErrorMessage {
 
     @Override
     public int hashCode() {
-        return Objects.hash(message, traceback);
+        return Objects.hash(message, traceback, super.hashCode());
     }
 
     @Override

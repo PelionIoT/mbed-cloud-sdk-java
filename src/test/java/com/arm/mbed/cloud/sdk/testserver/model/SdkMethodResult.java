@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  **/
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SdkMethodResult {
-
+    @JsonProperty("payload")
     private Object payload = null;
 
     public SdkMethodResult() {
@@ -21,7 +21,6 @@ public class SdkMethodResult {
         this.payload = payload;
     }
 
-    @JsonProperty("payload")
     public Object getPayload() {
         return payload;
     }
@@ -44,7 +43,7 @@ public class SdkMethodResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(payload);
+        return Objects.hash(payload, super.hashCode());
     }
 
     @Override

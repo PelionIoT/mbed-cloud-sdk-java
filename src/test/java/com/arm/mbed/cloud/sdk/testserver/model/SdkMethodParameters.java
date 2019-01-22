@@ -29,7 +29,7 @@ public class SdkMethodParameters extends HashMap<String, Object> {
 
     @Override
     public int hashCode() {
-        return Objects.hash();
+        return Objects.hash(super.hashCode());
     }
 
     @Override

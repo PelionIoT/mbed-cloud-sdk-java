@@ -11,9 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  **/
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FoundationInstance {
-
+    @JsonProperty("id")
     private String id = null;
+    @JsonProperty("entity")
     private String entity = null;
+    @JsonProperty("created_at")
     private OffsetDateTime createdAt = null;
 
     public FoundationInstance() {
@@ -26,7 +28,6 @@ public class FoundationInstance {
         this.createdAt = createdAt;
     }
 
-    @JsonProperty("id")
     public String getId() {
         return id;
     }
@@ -35,7 +36,6 @@ public class FoundationInstance {
         this.id = id;
     }
 
-    @JsonProperty("entity")
     public String getEntity() {
         return entity;
     }
@@ -44,7 +44,6 @@ public class FoundationInstance {
         this.entity = entity;
     }
 
-    @JsonProperty("created_at")
     public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
@@ -68,7 +67,7 @@ public class FoundationInstance {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, entity, createdAt);
+        return Objects.hash(id, entity, createdAt, super.hashCode());
     }
 
     @Override

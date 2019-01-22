@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  **/
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SdkMethodInfo extends HashMap<String, String> {
-
+    @JsonProperty("name")
     private String name = null;
 
     public SdkMethodInfo() {
@@ -22,7 +22,6 @@ public class SdkMethodInfo extends HashMap<String, String> {
         this.name = name;
     }
 
-    @JsonProperty("name")
     public String getName() {
         return name;
     }
@@ -45,7 +44,7 @@ public class SdkMethodInfo extends HashMap<String, String> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(name, super.hashCode());
     }
 
     @Override

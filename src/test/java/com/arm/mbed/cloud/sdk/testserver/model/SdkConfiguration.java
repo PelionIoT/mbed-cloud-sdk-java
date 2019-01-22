@@ -11,9 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  **/
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SdkConfiguration extends HashMap<String, Object> {
-
+    @JsonProperty("api_key")
     private String apiKey = null;
+    @JsonProperty("host")
     private String host = null;
+    @JsonProperty("autostart_daemon")
     private Boolean autostartDaemon = null;
 
     public SdkConfiguration() {
@@ -26,7 +28,6 @@ public class SdkConfiguration extends HashMap<String, Object> {
         this.autostartDaemon = autostartDaemon;
     }
 
-    @JsonProperty("api_key")
     public String getApiKey() {
         return apiKey;
     }
@@ -35,7 +36,6 @@ public class SdkConfiguration extends HashMap<String, Object> {
         this.apiKey = apiKey;
     }
 
-    @JsonProperty("host")
     public String getHost() {
         return host;
     }
@@ -44,7 +44,6 @@ public class SdkConfiguration extends HashMap<String, Object> {
         this.host = host;
     }
 
-    @JsonProperty("autostart_daemon")
     public Boolean isAutostartDaemon() {
         return autostartDaemon;
     }
@@ -68,7 +67,7 @@ public class SdkConfiguration extends HashMap<String, Object> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(apiKey, host, autostartDaemon);
+        return Objects.hash(apiKey, host, autostartDaemon, super.hashCode());
     }
 
     @Override
