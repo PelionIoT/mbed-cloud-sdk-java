@@ -33,7 +33,7 @@ import com.arm.mbed.cloud.sdk.testserver.Engine;
 import com.arm.mbed.cloud.sdk.testserver.Logger;
 import com.arm.mbed.cloud.sdk.testserver.cache.MissingInstanceException;
 import com.arm.mbed.cloud.sdk.testserver.cache.ServerCacheException;
-import com.arm.mbed.cloud.sdk.testserver.cache.TestedItemCache;
+import com.arm.mbed.cloud.sdk.testserver.cache.TestedItemRegistry;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.UnknownAPIException;
@@ -79,7 +79,7 @@ public class TestServer {
             options.setMaxInitialLineLength(HttpServerOptions.DEFAULT_MAX_INITIAL_LINE_LENGTH * 2);
             server = vertx.createHttpServer(options);
             router = Router.router(vertx);
-            engine = new Engine(logger, new TestedItemCache(vertx));
+            engine = new Engine(logger, new TestedItemRegistry(vertx));
         }
         retrieveConfig();
         // Route registration
@@ -202,7 +202,7 @@ public class TestServer {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.listModuleInstances(moduleId).stream().map(m -> m.toInstance())
+                    return engine.listModuleInstances(moduleId).stream().map(m -> ((ModuleInstance) m).toInstance())
                                  .collect(Collectors.toList());
                 }
             }, false);
@@ -221,7 +221,7 @@ public class TestServer {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.createInstance(moduleId, opts).toInstance();
+                    return engine.createModuleInstance(moduleId, opts).toInstance();
                 }
             }, false);
         });
@@ -235,7 +235,7 @@ public class TestServer {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.listAllModuleInstances().stream().map(m -> m.toInstance())
+                    return engine.listAllModuleInstances().stream().map(m -> ((ModuleInstance) m).toInstance())
                                  .collect(Collectors.toList());
                 }
             }, false);
@@ -250,7 +250,7 @@ public class TestServer {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.fetchInstance(instanceId).toInstance();
+                    return engine.fetchModuleInstance(instanceId).toInstance();
                 }
             }, false);
         });
@@ -262,10 +262,9 @@ public class TestServer {
             String instanceId = fetchInstanceId(routingContext.request().getParam(PARAM_INSTANCE));
             execute(200, routingContext, new ServerAction() {
 
-                @SuppressWarnings("boxing")
                 @Override
                 public Object execute() throws Exception {
-                    return engine.deleteInstance(instanceId);
+                    return engine.deleteModuleInstance(instanceId);
                 }
             }, false);
         });
@@ -280,7 +279,7 @@ public class TestServer {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.listInstanceMethods(instanceId).stream().map(m -> m.toSdkApi())
+                    return engine.listModuleInstanceMethods(instanceId).stream().map(m -> m.toSdkApi())
                                  .collect(Collectors.toList());
                 }
             }, false);
@@ -301,7 +300,7 @@ public class TestServer {
                 public Object execute() throws Exception {
                     logger.logInfo("TEST http://localhost:" + String.valueOf(port) + request.uri() + " AT "
                                    + new Date().toString());
-                    APIMethodResult result = engine.callAPIOnInstance(instanceId, methodId, methodArgs);
+                    APIMethodResult result = engine.callAPIOnModuleInstance(instanceId, methodId, methodArgs);
                     if (!result.wasExceptionRaised()) {
                         return result.getResult();
                     }
@@ -328,15 +327,15 @@ public class TestServer {
                            + new Date().toString());
             ModuleInstance instance = null;
             try {
-                instance = engine.createInstance(module, defaultConnectionConfiguration);
-                APIMethodResult result = engine.callAPIOnInstance(instance.getId(), method, params);
+                instance = engine.createModuleInstance(module, defaultConnectionConfiguration);
+                APIMethodResult result = engine.callAPIOnModuleInstance(instance.getId(), method, params);
                 if (!result.wasExceptionRaised()) {
                     String resultJson = Serializer.convertLegacyResultToJson(result.getResult());
                     logger.logDebug("RESULT: " + String.valueOf(resultJson));
-                    engine.deleteInstance(instance.getId());
+                    engine.deleteModuleInstance(instance.getId());
                     respond(200, routingContext, resultJson);
                 } else {
-                    engine.deleteInstance(instance.getId());
+                    engine.deleteModuleInstance(instance.getId());
                     logger.logDebug("RESULT error happened: " + result.getMetadata());
                     if (result.getMetadata() == null) {
                         sendError(setResponse(500, routingContext), null,
@@ -353,7 +352,7 @@ public class TestServer {
             } catch (UnknownAPIException | APICallException | ServerCacheException e) {
                 if (instance != null) {
                     try {
-                        engine.deleteInstance(instance.getId());
+                        engine.deleteModuleInstance(instance.getId());
                     } catch (ServerCacheException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
@@ -533,7 +532,6 @@ public class TestServer {
     }
 
     private void sendError(HttpServerResponse res, Integer errorCode, String errorMessage) {
-        @SuppressWarnings("boxing")
         int statusCode = (errorCode == null) ? 500 : errorCode;
         JsonObject responseMessage = new JsonObject();
         responseMessage.put("message", errorMessage);

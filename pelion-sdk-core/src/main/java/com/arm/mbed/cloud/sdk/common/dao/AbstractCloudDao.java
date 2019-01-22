@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common.dao;
 
+import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -191,6 +192,14 @@ public abstract class AbstractCloudDao implements CloudDao {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void close() throws IOException {
+        final SdkContext context = getModule();
+        if (context != null) {
+            context.close();
+        }
     }
 
     protected SdkContext getModule() {

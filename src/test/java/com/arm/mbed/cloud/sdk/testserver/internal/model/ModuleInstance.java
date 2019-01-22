@@ -8,47 +8,18 @@ import java.time.ZoneOffset;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 
-public class ModuleInstance extends AbstractInstance {
+public class ModuleInstance extends AbstractTestedItemInstance<APIModule> {
 
     private static final long serialVersionUID = -6035590462107194421L;
-    final APIModule moduleDescription;
 
-    public ModuleInstance(String moduleName, APIModule moduleDescription, ConnectionOptions options) {
-        super(moduleName, options);
-        this.moduleDescription = moduleDescription;
-
-    }
-
-    /**
-     * @return the module description
-     */
-    public APIModule getModuleDescription() {
-        return moduleDescription;
-    }
-
-    /**
-     * @return the module instance
-     */
-    public Object getInstance() {
-        return moduleDescription.build(options);
-    }
-
-    /**
-     * @return the module
-     */
-    public String getModule() {
-        return getReference();
-    }
-
-    @Override
-    public boolean isValid() {
-        return super.isValid() && moduleDescription != null;
+    public ModuleInstance(String moduleName, ConnectionOptions options, APIModule moduleDescription) {
+        super(moduleName, options, moduleDescription);
     }
 
     public com.arm.mbed.cloud.sdk.testserver.model.ModuleInstance toInstance() {
         com.arm.mbed.cloud.sdk.testserver.model.ModuleInstance value = new com.arm.mbed.cloud.sdk.testserver.model.ModuleInstance();
         value.setId(id);
-        value.setModule(ApiUtils.convertCamelToSnake(getModule()));
+        value.setModule(ApiUtils.convertCamelToSnake(getReference()));
         value.setCreatedAt(createdAt.toInstant().atOffset(ZoneOffset.UTC));
         return value;
     }

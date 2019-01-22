@@ -7,36 +7,19 @@ import java.util.Set;
 import com.arm.mbed.cloud.sdk.testutils.ReflectionUtils;
 
 public class SDK {
-    private Map<String, APIModule> modules;
+    private final TestedItemDefinitions<APIModule> moduleDefinitions;
+    private final TestedItemDefinitions<Entity> entityDefinitions;
     private String packageName;
 
-    public SDK(String packageName, Map<String, APIModule> modules) {
+    public SDK(String packageName) {
         super();
-        setModules(modules);
+        moduleDefinitions = new TestedItemDefinitions<>(TestedItemType.MODULE);
+        entityDefinitions = new TestedItemDefinitions<>(TestedItemType.ENTITY);
         setPackageName(packageName);
     }
 
-    public SDK(String packageName) {
-        this(packageName, null);
-    }
-
     public SDK() {
-        this(null, null);
-    }
-
-    /**
-     * @return the modules
-     */
-    public Map<String, APIModule> getModules() {
-        return modules;
-    }
-
-    /**
-     * @param modules
-     *            the modules to set
-     */
-    public void setModules(Map<String, APIModule> modules) {
-        this.modules = modules;
+        this(null);
     }
 
     /**
@@ -55,29 +38,106 @@ public class SDK {
         ReflectionUtils.init(packageName);
     }
 
-    public APIModule getModule(String moduleSimpleName) {
-        if (moduleSimpleName == null || modules == null) {
+    public Set<String> fetchItemSet(TestedItemType type) {
+        if (type == null) {
             return null;
         }
-        return modules.get(moduleSimpleName);
-
+        switch (type) {
+            case ENTITY:
+                return entityDefinitions.fetchItemSet();
+            case MODULE:
+                return moduleDefinitions.fetchItemSet();
+            case SDK:
+                // TODO
+            default:
+                return null;
+        }
     }
 
-    public Set<String> fetchModuleSet() {
-        if (modules == null) {
+    public TestedItem getItem(TestedItemType type, String itemName) {
+        if (type == null) {
             return null;
         }
-        return modules.keySet();
+        switch (type) {
+            case ENTITY:
+                return entityDefinitions.getItem(itemName);
+            case MODULE:
+                return moduleDefinitions.getItem(itemName);
+            case SDK:
+                // TODO
+            default:
+                return null;
+        }
     }
 
-    public void addModule(APIModule module) {
-        if (module == null) {
+    public void addItem(TestedItem item) {
+        if (item == null) {
             return;
         }
-        if (modules == null) {
-            modules = new LinkedHashMap<>();
+        switch (item.getType()) {
+            case ENTITY:
+                if (item.getType() == entityDefinitions.getType()) {
+                    entityDefinitions.addItem((Entity) item);
+                }
+                break;
+            case MODULE:
+                if (item.getType() == moduleDefinitions.getType()) {
+                    moduleDefinitions.addItem((APIModule) item);
+                }
+                break;
+            case SDK:
+                // TODO
+            default:
+                return;
         }
-        modules.put(module.getSimpleName(), module);
     }
 
+    private static class TestedItemDefinitions<T extends TestedItem> {
+        private TestedItemType type;
+        private Map<String, T> items;
+
+        public TestedItemDefinitions(TestedItemType type, Map<String, T> items) {
+            super();
+            setType(type);
+            this.items = items;
+        }
+
+        public TestedItemDefinitions(TestedItemType type) {
+            this(type, null);
+        }
+
+        public void addItem(T item) {
+            if (item == null) {
+                return;
+            }
+            if (items == null) {
+                items = new LinkedHashMap<>();
+            }
+            items.put(item.getSimpleName(), item);
+        }
+
+        public T getItem(String simpleName) {
+            if (simpleName == null || items == null) {
+                return null;
+            }
+            return items.get(simpleName);
+
+        }
+
+        public Set<String> fetchItemSet() {
+            if (items == null) {
+                return null;
+            }
+            return items.keySet();
+        }
+
+        public TestedItemType getType() {
+            return type;
+        }
+
+        public void setType(TestedItemType type) {
+            this.type = type;
+        }
+
+    }
 }

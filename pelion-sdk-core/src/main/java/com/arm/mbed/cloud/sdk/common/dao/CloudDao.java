@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.common.dao;
 
+import java.io.Closeable;
+
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
@@ -16,7 +18,7 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
  *
  */
 @Preamble(description = "Generic DAO definition")
-public interface CloudDao extends Cloneable {
+public interface CloudDao extends Cloneable, Closeable {
     /**
      * Initialises the Cloud connection using default/environment values as described in {@link ConnectionOptions}.
      *

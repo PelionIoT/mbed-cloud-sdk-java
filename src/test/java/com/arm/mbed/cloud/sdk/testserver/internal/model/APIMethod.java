@@ -36,6 +36,14 @@ public class APIMethod {
         this(null);
     }
 
+    public static APIMethod getApiMetadata() {
+        return new APIMethod("getLastApiMetadata");
+    }
+
+    public static APIMethod getClose() {
+        return new APIMethod("close");
+    }
+
     /**
      * @return the daemonControl
      */
@@ -111,48 +119,47 @@ public class APIMethod {
     }
 
     public APIMethodResult
-           invokeAPI(Object moduleInstance,
+           invokeAPI(Object instance,
                      Map<String, Map<String, Object>> argsDescription) throws NoSuchMethodException, SecurityException,
                                                                        ClassNotFoundException, IllegalAccessException,
                                                                        IllegalArgumentException, APICallException,
                                                                        InvocationTargetException {
         APIMethodResult result = new APIMethodResult();
         try {
-            result.setResult(invokeMethod(moduleInstance, argsDescription));
+            result.setResult(invokeMethod(instance, argsDescription));
         } catch (InvocationTargetException e) {
             result.setException(e);
         }
-        APIMethod lastMetadataMethod = new APIMethod("getLastApiMetadata");
-        result.setMetadata((ApiMetadata) lastMetadataMethod.invokeMethod(moduleInstance, null));
+        APIMethod lastMetadataMethod = getApiMetadata();
+        result.setMetadata((ApiMetadata) lastMetadataMethod.invokeMethod(instance, null));
         return result;
     }
 
     private Object
-            invokeMethod(Object moduleInstance,
+            invokeMethod(Object instance,
                          Map<String, Map<String, Object>> argsDescription) throws NoSuchMethodException,
                                                                            SecurityException, ClassNotFoundException,
                                                                            IllegalAccessException,
                                                                            IllegalArgumentException,
                                                                            InvocationTargetException, APICallException {
-        if (moduleInstance == null) {
+        if (instance == null) {
             throw new NoSuchElementException();
         }
-        Method m = fetchMethod(moduleInstance.getClass());
+        Method m = fetchMethod(instance.getClass());
         if (m == null) {
             throw new NoSuchMethodException();
         }
         Object[] args = fetchArgsValues(argsDescription);
-        return (args == null) ? m.invoke(moduleInstance) : m.invoke(moduleInstance, args);
+        return (args == null) ? m.invoke(instance) : m.invoke(instance, args);
 
     }
 
-    private Method fetchMethod(Class<?> moduleClass) throws NoSuchMethodException, SecurityException,
-                                                     ClassNotFoundException {
-        if (moduleClass == null || name == null || name.isEmpty()) {
+    private Method fetchMethod(Class<?> clazz) throws NoSuchMethodException, SecurityException, ClassNotFoundException {
+        if (clazz == null || name == null || name.isEmpty()) {
             return null;
         }
         Class<?>[] argTypes = fetchArgsType();
-        return (argTypes == null) ? moduleClass.getMethod(name) : moduleClass.getMethod(name, argTypes);
+        return (argTypes == null) ? clazz.getMethod(name) : clazz.getMethod(name, argTypes);
 
     }
 
