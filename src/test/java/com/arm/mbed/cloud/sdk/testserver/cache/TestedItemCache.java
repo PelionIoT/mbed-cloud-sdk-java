@@ -3,20 +3,22 @@ package com.arm.mbed.cloud.sdk.testserver.cache;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
-import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
-import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
-
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.shareddata.LocalMap;
 import io.vertx.core.shareddata.SharedData;
 
+import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
+
 public class TestedItemCache {
 
     private static final String MODULES_MAP = "modules";
-    private static final String SDK_CACHE = "sdk";
-    private static final String INSTANCES_REGISTRY = "instances";
+    private static final String ENTITIES_MAP = "entities";
+    private static final String SDK_DEFINITION_CACHE = "sdk";
+    private static final String MODULE_INSTANCES_REGISTRY = "module_instances";
+    private static final String ENTITY_INSTANCES_REGISTRY = "entity_instances";
     /**
      * 
      */
@@ -27,7 +29,7 @@ public class TestedItemCache {
     }
 
     public SDK fetchSDK() {
-        JsonObject sdkJson = fetchSdkCache().get(SDK_CACHE);
+        JsonObject sdkJson = fetchSdkDefinitionCache().get(SDK_DEFINITION_CACHE);
         if (sdkJson == null) {
             return null;
         }
@@ -38,23 +40,23 @@ public class TestedItemCache {
         if (sdk == null) {
             throw new ServerCacheException("SDK mapping has failed");
         }
-        fetchSdkCache().put(SDK_CACHE, JsonObject.mapFrom(sdk));
+        fetchSdkDefinitionCache().put(SDK_DEFINITION_CACHE, JsonObject.mapFrom(sdk));
     }
 
-    public ModuleInstance fetchInstance(String moduleId, String id) throws ServerCacheException {
+    public ModuleInstance fetchModuleInstance(String moduleId, String id) throws ServerCacheException {
         return fetchModuleCache(moduleId).fetchInstance(id);
     }
 
-    public ModuleInstance fetchInstance(String id) throws ServerCacheException {
-        String moduleId = fetchInstancesRegistry().get(id);
+    public ModuleInstance fetchModuleInstance(String id) throws ServerCacheException {
+        String moduleId = fetchModuleInstancesRegistry().get(id);
         if (moduleId == null) {
             throw new MissingInstanceException("No such instance [" + id + "] in cache");
         }
-        return fetchInstance(moduleId, id);
+        return fetchModuleInstance(moduleId, id);
     }
 
     public APIModule fetchModuleFromInstance(String instanceId) throws ServerCacheException, MissingInstanceException {
-        String moduleId = fetchInstancesRegistry().get(instanceId);
+        String moduleId = fetchModuleInstancesRegistry().get(instanceId);
         SDK sdk = fetchSDK();
         if (sdk == null) {
             throw new ServerCacheException("SDK mapping has failed");
@@ -65,23 +67,23 @@ public class TestedItemCache {
         return sdk.getModule(moduleId);
     }
 
-    public void storeInstance(ModuleInstance instance) throws ServerCacheException {
+    public void storeModuleInstance(ModuleInstance instance) throws ServerCacheException {
         if (instance == null || !instance.isValid()) {
             throw new ServerCacheException("Instance [" + instance + "] cannot be stored, as invalid");
         }
         fetchModuleCache(instance.getModule()).storeModuleInstance(instance);
         fetchModulesCache().put(instance.getModule(), "");
-        fetchInstancesRegistry().put(instance.getId(), instance.getModule());
+        fetchModuleInstancesRegistry().put(instance.getId(), instance.getModule());
     }
 
-    public void deleteInstance(String id) throws ServerCacheException {
-        String moduleId = fetchInstancesRegistry().get(id);
-        deleteInstance(moduleId, id);
+    public void deleteModuleInstance(String id) throws ServerCacheException {
+        String moduleId = fetchModuleInstancesRegistry().get(id);
+        deleteModuleInstance(moduleId, id);
     }
 
-    public void deleteInstance(String moduleId, String id) throws ServerCacheException {
+    public void deleteModuleInstance(String moduleId, String id) throws ServerCacheException {
         fetchModuleCache(moduleId).deleteInstance(id);
-        fetchInstancesRegistry().remove(id);
+        fetchModuleInstancesRegistry().remove(id);
     }
 
     public void clearModuleCache(String moduleId) throws ServerCacheException {
@@ -94,7 +96,7 @@ public class TestedItemCache {
             clearModuleCache(moduleId.toString());
         }
         fetchModulesCache().clear();
-        fetchInstancesRegistry().clear();
+        fetchModuleInstancesRegistry().clear();
     }
 
     public List<ModuleInstance> listModuleInstances(String moduleId) throws ServerCacheException {
@@ -123,12 +125,12 @@ public class TestedItemCache {
         return cache.getLocalMap(MODULES_MAP);
     }
 
-    private LocalMap<String, String> fetchInstancesRegistry() {
-        return cache.getLocalMap(INSTANCES_REGISTRY);
+    private LocalMap<String, String> fetchModuleInstancesRegistry() {
+        return cache.getLocalMap(MODULE_INSTANCES_REGISTRY);
     }
 
-    private LocalMap<Object, JsonObject> fetchSdkCache() {
-        return cache.getLocalMap(SDK_CACHE);
+    private LocalMap<Object, JsonObject> fetchSdkDefinitionCache() {
+        return cache.getLocalMap(SDK_DEFINITION_CACHE);
     }
 
 }

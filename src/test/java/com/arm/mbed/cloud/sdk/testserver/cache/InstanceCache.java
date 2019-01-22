@@ -3,45 +3,44 @@ package com.arm.mbed.cloud.sdk.testserver.cache;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.arm.mbed.cloud.sdk.testserver.internal.model.AbstractInstance;
-import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
-
 import io.vertx.core.shareddata.LocalMap;
 import io.vertx.core.shareddata.SharedData;
 
-public class InstanceCache {
+import com.arm.mbed.cloud.sdk.testserver.internal.model.AbstractInstance;
 
-    private final LocalMap<String, ModuleInstance> map;
-    private final String moduleId;
+public class InstanceCache<T extends AbstractInstance> {
 
-    public InstanceCache(String module, SharedData cache) throws ServerCacheException {
+    private final LocalMap<String, T> map;
+    private final String reference;
+
+    public InstanceCache(String reference, SharedData cache) throws ServerCacheException {
         if (cache == null) {
             throw new ServerCacheException("Instance cache is empty");
         }
-        if (module == null) {
-            throw new ServerCacheException("Module cannot be Null");
+        if (reference == null) {
+            throw new ServerCacheException("Instance reference cannot be NULL");
         }
-        map = cache.getLocalMap(module);
-        moduleId = module;
+        map = cache.getLocalMap(reference);
+        this.reference = reference;
     }
 
-    AbstractInstance fetchInstance(String id) throws MissingInstanceException {
+    public T fetchInstance(String id) throws MissingInstanceException {
         if (id == null) {
             throw new MissingInstanceException("An instance id cannot be NULL");
         }
-        AbstractInstance instance = map.get(id);
+        T instance = map.get(id);
         if (instance == null) {
-            throw new MissingInstanceException("No instance [" + id + "] was found in the cache for module [" + moduleId
-                                               + "]");
+            throw new MissingInstanceException("No instance [" + id
+                                               + "] was found in the cache for instance reference [" + reference + "]");
         }
         return instance;
     }
 
-    List<ModuleInstance> fetchAllInstances() {
+    List<T> fetchAllInstances() {
         return new ArrayList<>(map.values());
     }
 
-    void storeModuleInstance(ModuleInstance instance) throws ServerCacheException {
+    void storeModuleInstance(T instance) throws ServerCacheException {
         if (instance == null || !instance.isValid()) {
             throw new ServerCacheException("Instance [" + instance + "] cannot be stored as invalid");
         }
@@ -55,11 +54,8 @@ public class InstanceCache {
         map.remove(id);
     }
 
-    /**
-     * @return the moduleId
-     */
-    public String getModuleId() {
-        return moduleId;
+    public String getReference() {
+        return reference;
     }
 
     void clear() {

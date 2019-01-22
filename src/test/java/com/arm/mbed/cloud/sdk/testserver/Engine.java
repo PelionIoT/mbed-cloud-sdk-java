@@ -10,10 +10,10 @@ import io.vertx.core.json.JsonObject;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.testserver.cache.TestedItemCache;
 import com.arm.mbed.cloud.sdk.testserver.cache.InvalidInstanceException;
 import com.arm.mbed.cloud.sdk.testserver.cache.MissingInstanceException;
 import com.arm.mbed.cloud.sdk.testserver.cache.ServerCacheException;
+import com.arm.mbed.cloud.sdk.testserver.cache.TestedItemCache;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
@@ -97,7 +97,7 @@ public class Engine {
                                                      config);
         logger.logInfo("Host in use: " + instance.getHostInUse());
         checkInstanceValidity(instance);
-        cache.storeInstance(instance);
+        cache.storeModuleInstance(instance);
         logger.logInfo("Module [" + moduleId + "] instance [" + instance.getId() + "] was created.");
         return instance;
     }
@@ -110,7 +110,7 @@ public class Engine {
     public boolean deleteInstance(String instanceId) throws ServerCacheException {
         logger.logInfo("Deleting SDK module instance [" + instanceId + "]");
         stopInstanceDaemons(instanceId);
-        cache.deleteInstance(instanceId);
+        cache.deleteModuleInstance(instanceId);
         return true;
     }
 
@@ -156,7 +156,7 @@ public class Engine {
     }
 
     private ModuleInstance retrieveInstance(String instanceId) throws ServerCacheException, InvalidInstanceException {
-        ModuleInstance instance = cache.fetchInstance(instanceId);
+        ModuleInstance instance = cache.fetchModuleInstance(instanceId);
         checkInstanceValidity(instance);
         return instance;
     }
