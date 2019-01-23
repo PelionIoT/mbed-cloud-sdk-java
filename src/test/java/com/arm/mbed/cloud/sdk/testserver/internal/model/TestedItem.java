@@ -55,6 +55,8 @@ public interface TestedItem {
 
     TestedItemType getType();
 
+    void setType(TestedItemType type);
+
     List<APIMethod> fetchAllMethod();
 
     List<APIMethod> getMethod(String methodName);

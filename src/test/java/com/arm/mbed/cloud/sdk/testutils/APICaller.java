@@ -45,7 +45,6 @@ public class APICaller {
         this.sdk = sdk;
     }
 
-    @SuppressWarnings("null")
     public APIMethodResult callAPIOnInstance(TestedItemInstance<?> instance, String method,
                                              Map<String, Object> parameters) throws UnknownAPIException,
                                                                              APICallException {

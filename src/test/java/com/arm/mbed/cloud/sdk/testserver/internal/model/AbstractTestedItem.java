@@ -183,6 +183,12 @@ public abstract class AbstractTestedItem implements TestedItem {
         return getInstance();
     }
 
+    @Override
+    public void setType(TestedItemType type) {
+        // Nothing to do
+
+    }
+
     protected abstract Object createInstance(ConnectionOptions connectionOptions);
 
 }

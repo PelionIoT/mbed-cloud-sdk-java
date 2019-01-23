@@ -13,7 +13,6 @@ public abstract class AbstractModule implements SdkContext {
     public static final String FIELD_NAME_SERVICE_REGISTRY = "serviceRegistry";
     public static final String METHOD_CHECK_NOT_NULL = "checkNotNull";
     public static final String METHOD_CHECK_MODEL_VALIDITY = "checkModelValidity";
-    public static final String METHOD_GET_MODULE_NAME = "getModuleName";
     protected final ApiClientWrapper client;
     protected final ServiceRegistry serviceRegistry;
 
@@ -127,6 +126,7 @@ public abstract class AbstractModule implements SdkContext {
     }
 
     @Override
+    @API
     public void close() {
         logger.logInfo("Closing " + getModuleName());
         serviceRegistry.clear();

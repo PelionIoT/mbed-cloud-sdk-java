@@ -19,6 +19,7 @@ import com.arm.mbed.cloud.sdk.common.GenericClient;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
+import com.arm.mbed.cloud.sdk.common.dao.CloudDao;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceValueType;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
@@ -358,6 +359,7 @@ public class Sdk extends AbstractModule {
      * Similar to {@link #quit()}.
      */
     @Override
+    @API
     public void close() {
         super.close();
         quit();

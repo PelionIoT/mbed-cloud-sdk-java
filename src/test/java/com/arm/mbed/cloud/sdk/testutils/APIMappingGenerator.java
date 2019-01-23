@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.testutils;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
 import java.net.URL;
@@ -19,10 +20,14 @@ import com.arm.mbed.cloud.sdk.annotations.Daemon;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.common.dao.DaoProvider;
+import com.arm.mbed.cloud.sdk.common.dao.ModelDao;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodArgument;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.DaemonControl;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.Entity;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
 
 @Preamble(description = "Generator of an SDK API mapping. i.e. list of all APIs present in the SDK")
@@ -45,6 +50,7 @@ public class APIMappingGenerator {
         List<Class<?>> classes = getClassesContainedInPackage(JAVA_SDK_PACKAGE);
         for (Class<?> clazz : classes) {
             sdk.addItem(recordAPIModule(clazz));
+            sdk.addItem(recordEntity(clazz));
         }
         return sdk;
     }
@@ -60,13 +66,43 @@ public class APIMappingGenerator {
         }
         APIModule module = new APIModule(clazz.getName(), clazz.getSimpleName());
         for (Method method : clazz.getMethods()) {
-            module.addMethod(recordAPIMethod(method));
+            module.addMethod(recordAPIMethod(method, true));
         }
         return module;
     }
 
-    private APIMethod recordAPIMethod(Method method) {
-        if (method == null || !method.isAnnotationPresent(API.class)) {
+    private Entity recordEntity(Class<?> clazz) {
+        if (clazz == null || !ModelDao.class.isAssignableFrom(clazz) || Modifier.isAbstract(clazz.getModifiers())) {
+            return null;
+        }
+        Class<?> daoClass = clazz;
+        while (!daoClass.equals(Object.class)
+               && !ParameterizedType.class.isAssignableFrom(daoClass.getGenericSuperclass().getClass())) {
+            daoClass = daoClass.getSuperclass();
+        }
+        Class<?> modelType = (Class<?>) ((ParameterizedType) daoClass.getGenericSuperclass()).getActualTypeArguments()[0];
+        @SuppressWarnings("unchecked")
+        Class<?> listEntity = DaoProvider.getCorrespondingListDao((Class<SdkModel>) modelType);
+        Entity entity = new Entity(listEntity == null ? clazz.getName() : listEntity.getName(),
+                                   modelType.getSimpleName());
+        for (Method method : clazz.getMethods()) {
+            APIMethod apiMethod = recordAPIMethod(method, false);
+            if (apiMethod != null) {
+                apiMethod.setSubMethod(APIMethod.getCorrespondingDao());
+                entity.addMethod(apiMethod);
+            }
+        }
+        if (listEntity != null) {
+            for (Method method : clazz.getMethods()) {
+                entity.addMethod(recordAPIMethod(method, false));
+            }
+        }
+        // TODO add list
+        return entity;
+    }
+
+    private APIMethod recordAPIMethod(Method method, boolean onlyAnnotatedMethod) {
+        if (method == null || (onlyAnnotatedMethod && !method.isAnnotationPresent(API.class))) {
             return null;
         }
         APIMethod m = new APIMethod(method.getName());

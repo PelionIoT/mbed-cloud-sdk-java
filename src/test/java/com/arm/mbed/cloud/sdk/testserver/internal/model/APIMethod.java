@@ -10,6 +10,8 @@ import java.util.NoSuchElementException;
 
 import com.arm.mbed.cloud.sdk.common.ApiMetadata;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
+import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
 import com.arm.mbed.cloud.sdk.testserver.model.SdkMethodInfo;
 import com.arm.mbed.cloud.sdk.testutils.APICallException;
 
@@ -18,6 +20,7 @@ public class APIMethod {
     private APIMethodArgument returnArgument;
     private List<APIMethodArgument> arguments;
     private DaemonControl daemonControl;
+    private APIMethod subMethod;
 
     public APIMethod(String name, APIMethodArgument returnArgument, List<APIMethodArgument> arguments,
                      DaemonControl daemonControl) {
@@ -26,6 +29,7 @@ public class APIMethod {
         setReturnArgument(returnArgument);
         setArguments(arguments);
         setDaemonControl(daemonControl);
+        setSubMethod(null);
     }
 
     public APIMethod(String name) {
@@ -37,11 +41,15 @@ public class APIMethod {
     }
 
     public static APIMethod getApiMetadata() {
-        return new APIMethod("getLastApiMetadata");
+        return new APIMethod(SdkContext.METHOD_GET_API_METADATA);
     }
 
     public static APIMethod getClose() {
         return new APIMethod("close");
+    }
+
+    public static APIMethod getCorrespondingDao() {
+        return new APIMethod(ModelListDao.METHOD_GET_CORRESPONDING_MODEL_DAO_INSTANCE);
     }
 
     /**
@@ -72,6 +80,14 @@ public class APIMethod {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    public APIMethod getSubMethod() {
+        return subMethod;
+    }
+
+    public void setSubMethod(APIMethod subMethod) {
+        this.subMethod = subMethod;
     }
 
     /**
@@ -124,14 +140,22 @@ public class APIMethod {
                                                                        ClassNotFoundException, IllegalAccessException,
                                                                        IllegalArgumentException, APICallException,
                                                                        InvocationTargetException {
+
         APIMethodResult result = new APIMethodResult();
+        Object instanceToCallTheAPIOn = null;
         try {
-            result.setResult(invokeMethod(instance, argsDescription));
+            instanceToCallTheAPIOn = subMethod == null ? instance : subMethod.invokeMethod(instance, null);
+        } catch (InvocationTargetException e) {
+            result.setException(e);
+            return result;
+        }
+        try {
+            result.setResult(invokeMethod(instanceToCallTheAPIOn, argsDescription));
         } catch (InvocationTargetException e) {
             result.setException(e);
         }
         APIMethod lastMetadataMethod = getApiMetadata();
-        result.setMetadata((ApiMetadata) lastMetadataMethod.invokeMethod(instance, null));
+        result.setMetadata((ApiMetadata) lastMetadataMethod.invokeMethod(instanceToCallTheAPIOn, null));
         return result;
     }
 
@@ -198,5 +222,4 @@ public class APIMethod {
         arguments.forEach(arg -> api.put("arg" + api.size(), arg.toString()));
         return api;
     }
-
 }

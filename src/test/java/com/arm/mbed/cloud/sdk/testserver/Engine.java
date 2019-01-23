@@ -156,14 +156,14 @@ public class Engine {
 
     public boolean deleteModuleInstance(String instanceId) throws ServerCacheException {
         logger.logInfo("Deleting SDK module instance [" + instanceId + "]");
-        stopInstanceDaemons(TestedItemType.MODULE, instanceId);
+        stopInstance(TestedItemType.MODULE, instanceId);
         cache.deleteInstance(TestedItemType.MODULE, instanceId);
         return true;
     }
 
     public boolean deleteEntityInstance(String instanceId) throws ServerCacheException {
         logger.logInfo("Deleting SDK entity instance [" + instanceId + "]");
-        stopInstanceDaemons(TestedItemType.ENTITY, instanceId);
+        stopInstance(TestedItemType.ENTITY, instanceId);
         cache.deleteInstance(TestedItemType.ENTITY, instanceId);
         return true;
     }
@@ -189,7 +189,7 @@ public class Engine {
                                                      ApiUtils.convertSnakeToCamel(methodId, false), params);
     }
 
-    private void stopInstanceDaemons(TestedItemType type, String instanceId) throws ServerCacheException,
+    private void stopInstance(TestedItemType type, String instanceId) throws ServerCacheException,
                                                                              MissingInstanceException {
 
         TestedItemInstance<?> instance = retrieveInstance(type, instanceId);

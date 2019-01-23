@@ -1,12 +1,17 @@
 package com.arm.mbed.cloud.sdk.testserver.internal.model;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
 import com.arm.mbed.cloud.sdk.testutils.ReflectionUtils;
 
-public class SDK {
+public class SDK implements Serializable {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -3326059859355061080L;
     private final TestedItemDefinitions<APIModule> moduleDefinitions;
     private final TestedItemDefinitions<Entity> entityDefinitions;
     private String packageName;
@@ -27,6 +32,14 @@ public class SDK {
      */
     public String getPackageName() {
         return packageName;
+    }
+
+    public TestedItemDefinitions<APIModule> getModuleDefinitions() {
+        return moduleDefinitions;
+    }
+
+    public TestedItemDefinitions<Entity> getEntityDefinitions() {
+        return entityDefinitions;
     }
 
     /**
@@ -76,14 +89,10 @@ public class SDK {
         }
         switch (item.getType()) {
             case ENTITY:
-                if (item.getType() == entityDefinitions.getType()) {
-                    entityDefinitions.addItem((Entity) item);
-                }
+                entityDefinitions.addItem((Entity) item);
                 break;
             case MODULE:
-                if (item.getType() == moduleDefinitions.getType()) {
-                    moduleDefinitions.addItem((APIModule) item);
-                }
+                moduleDefinitions.addItem((APIModule) item);
                 break;
             case SDK:
                 // TODO
@@ -92,9 +101,14 @@ public class SDK {
         }
     }
 
-    private static class TestedItemDefinitions<T extends TestedItem> {
+    public static class TestedItemDefinitions<T extends TestedItem> implements Serializable {
+        private static final long serialVersionUID = -8492061800848088265L;
         private TestedItemType type;
         private Map<String, T> items;
+
+        public TestedItemDefinitions() {
+            this(null, null);
+        }
 
         public TestedItemDefinitions(TestedItemType type, Map<String, T> items) {
             super();
@@ -137,6 +151,14 @@ public class SDK {
 
         public void setType(TestedItemType type) {
             this.type = type;
+        }
+
+        public Map<String, T> getItems() {
+            return items;
+        }
+
+        public void setItems(Map<String, T> items) {
+            this.items = items;
         }
 
     }
