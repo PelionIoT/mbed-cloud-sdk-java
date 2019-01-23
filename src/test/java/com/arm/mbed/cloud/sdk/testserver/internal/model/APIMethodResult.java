@@ -8,13 +8,15 @@ public class APIMethodResult {
 
     private Object result;
     private ApiMetadata metadata;
-    private InvocationTargetException exception;
+    private boolean allowed;
+    private Exception exception;
 
     public APIMethodResult() {
         super();
         result = null;
         metadata = null;
         exception = null;
+        allowed = true;
     }
 
     /**
@@ -51,7 +53,7 @@ public class APIMethodResult {
     /**
      * @return the exception
      */
-    public InvocationTargetException getException() {
+    public Exception getException() {
         return exception;
     }
 
@@ -65,5 +67,13 @@ public class APIMethodResult {
 
     public boolean wasExceptionRaised() {
         return exception != null;
+    }
+
+    public void setAllowed(boolean allowed) {
+        this.allowed = allowed;
+    }
+
+    public boolean wasAllowed() {
+        return allowed;
     }
 }

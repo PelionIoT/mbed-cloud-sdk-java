@@ -36,8 +36,7 @@ public class CertificateIssuerConfigListDao extends AbstractCertificateIssuerCon
     @Override
     protected ListResponse<CertificateIssuerConfig>
               requestOnePage(CertificateIssuerConfigListOptions options) throws MbedCloudException {
-        checkDaoConfiguration();
-        return ((Security) getModule()).listCertificateIssuerConfigs(null, options);
+        return ((Security) getModuleOrThrow()).listCertificateIssuerConfigs(null, options);
     }
 
     /**
@@ -50,8 +49,8 @@ public class CertificateIssuerConfigListDao extends AbstractCertificateIssuerCon
     @Override
     public CertificateIssuerConfigListDao clone() {
         try {
-            return new CertificateIssuerConfigListDao().configureAndGet(getModule() == null ? null
-                                                                                            : getModule().clone());
+            return new CertificateIssuerConfigListDao().configureAndGet(getModuleOrThrow() == null ? null
+                                                                                                   : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

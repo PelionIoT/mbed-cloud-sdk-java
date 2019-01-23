@@ -8,7 +8,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.core.shareddata.LocalMap;
 import io.vertx.core.shareddata.SharedData;
 
-import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.SdkDefinition;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItem;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItemInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItemType;
@@ -16,10 +16,10 @@ import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItemType;
 public class TestedItemRegistry {
 
     private static final String MODULES_MAP = "modules";
-    private static final String ENTITIES_MAP = "entities";
+    private static final String FOUNDATION_MAP = "foundation";
     private static final String SDK_DEFINITION_REGISTRY = "sdk";
     private static final String MODULE_INSTANCES_REGISTRY = "module_instances";
-    private static final String ENTITY_INSTANCES_REGISTRY = "entity_instances";
+    private static final String FOUNDATION_INSTANCES_REGISTRY = "foundation_instances";
     /**
      * 
      */
@@ -29,15 +29,15 @@ public class TestedItemRegistry {
         cache = vertx.sharedData();
     }
 
-    public SDK fetchSDKDefinition() {
+    public SdkDefinition fetchSDKDefinition() {
         JsonObject sdkJson = fetchSdkDefinitionCache().get(SDK_DEFINITION_REGISTRY);
         if (sdkJson == null) {
             return null;
         }
-        return sdkJson.mapTo(SDK.class);
+        return sdkJson.mapTo(SdkDefinition.class);
     }
 
-    public void storeSDKDefinition(SDK sdk) throws ServerCacheException {
+    public void storeSDKDefinition(SdkDefinition sdk) throws ServerCacheException {
         if (sdk == null) {
             throw new ServerCacheException("SDK mapping has failed");
         }
@@ -60,7 +60,7 @@ public class TestedItemRegistry {
     public TestedItem fetchFromInstance(TestedItemType type, String instanceId) throws ServerCacheException,
                                                                                 MissingInstanceException {
         String reference = fetchInstancesRegistry(type).get(instanceId);
-        SDK sdk = fetchSDKDefinition();
+        SdkDefinition sdk = fetchSDKDefinition();
         if (sdk == null) {
             throw new ServerCacheException("SDK mapping has failed");
         }
@@ -74,7 +74,7 @@ public class TestedItemRegistry {
         if (type == null || instance == null || !instance.isValid()) {
             throw new ServerCacheException("Instance [" + instance + "] cannot be stored, as invalid");
         }
-        fetchCache(type, instance.getReference()).storeModuleInstance(instance);
+        fetchCache(type, instance.getReference()).storeInstance(instance);
         fetchInstancesCache(type).put(instance.getReference(), "");
         fetchInstancesRegistry(type).put(instance.getId(), instance.getReference());
     }
@@ -126,12 +126,11 @@ public class TestedItemRegistry {
             throw new MissingInstanceException("A name or a type cannot be NULL");
         }
         switch (type) {
+            case SDK:
             case ENTITY:
-                return new EntityCache(name, cache);
+                return new FoundationCache(name, cache);
             case MODULE:
                 return new ModuleCache(name, cache);
-            case SDK:
-                // TODO
             default:
                 return null;
         }
@@ -140,13 +139,12 @@ public class TestedItemRegistry {
     private LocalMap<Object, Object> fetchInstancesCache(TestedItemType type) {
         String id = null;
         switch (type) {
+            case SDK:
             case ENTITY:
-                id = ENTITIES_MAP;
+                id = FOUNDATION_MAP;
                 break;
             case MODULE:
                 id = MODULES_MAP;
-                break;
-            case SDK:
                 break;
             default:
                 break;
@@ -158,13 +156,12 @@ public class TestedItemRegistry {
     private LocalMap<String, String> fetchInstancesRegistry(TestedItemType type) {
         String id = null;
         switch (type) {
+            case SDK:
             case ENTITY:
-                id = ENTITY_INSTANCES_REGISTRY;
+                id = FOUNDATION_INSTANCES_REGISTRY;
                 break;
             case MODULE:
                 id = MODULE_INSTANCES_REGISTRY;
-                break;
-            case SDK:
                 break;
             default:
                 break;

@@ -37,7 +37,8 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     @Override
     public ServerCredentialsDao clone() {
         try {
-            return new ServerCredentialsDao().configureAndGet(getModule() == null ? null : getModule().clone());
+            return new ServerCredentialsDao().configureAndGet(getModuleOrThrow() == null ? null
+                                                                                         : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -48,10 +49,12 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
      * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.security.model.ServerCredentials#getBootstrap()}
+     * 
+     * @return something
      */
-    public void getBootstrap() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) getModule()).getBootstrap());
+    public ServerCredentials getBootstrap() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).getBootstrap());
+        return getModel();
     }
 
     /**
@@ -59,10 +62,12 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
      * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.security.model.ServerCredentials#getLwm2m()}
+     * 
+     * @return something
      */
-    public void getLwm2m() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) getModule()).getLwm2m());
+    public ServerCredentials getLwm2m() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).getLwm2m());
+        return getModel();
     }
 
     /**
@@ -74,6 +79,19 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     @Internal
     protected ServerCredentials instantiateModel() {
         return new ServerCredentials();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
     }
 
     /**
@@ -100,18 +118,5 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Security(options);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
     }
 }

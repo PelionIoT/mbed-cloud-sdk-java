@@ -15,7 +15,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodArgument;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
-import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.SdkDefinition;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItem;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItemInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItemType;
@@ -23,9 +23,9 @@ import com.arm.mbed.cloud.sdk.testserver.internal.model.UnknownAPIException;
 
 @Preamble(description = "Mechanism to call API methods by reflection")
 public class APICaller {
-    private SDK sdk;
+    private SdkDefinition sdk;
 
-    public APICaller(SDK sdk) {
+    public APICaller(SdkDefinition sdk) {
         super();
         this.sdk = sdk;
     }
@@ -33,7 +33,7 @@ public class APICaller {
     /**
      * @return the sdk
      */
-    public SDK getSdk() {
+    public SdkDefinition getSdk() {
         return sdk;
     }
 
@@ -41,7 +41,7 @@ public class APICaller {
      * @param sdk
      *            the sdk to set
      */
-    public void setSdk(SDK sdk) {
+    public void setSdk(SdkDefinition sdk) {
         this.sdk = sdk;
     }
 

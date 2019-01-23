@@ -43,10 +43,11 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
      * @param validForDays
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
      *            between 1 and 100 days.
+     * @return an added user invitation
      */
-    public void create(@Nullable int validForDays) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Accounts) getModule()).createUserInvitation(validForDays, getModel()));
+    public UserInvitation create(@Nullable int validForDays) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).createUserInvitation(validForDays, getModel()));
+        return getModel();
     }
 
     /**
@@ -56,8 +57,7 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
      */
     @Override
     public void delete() throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Accounts) getModule()).deleteUserInvitation(getModel());
+        ((Accounts) getModuleOrThrow()).deleteUserInvitation(getModel());
     }
 
     /**
@@ -70,7 +70,6 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
      */
     @Override
     public void delete(@NonNull UserInvitation userInvitation) throws MbedCloudException {
-        checkDaoConfiguration();
         setModel(userInvitation);
         delete();
     }
@@ -85,8 +84,35 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Accounts) getModule()).deleteUserInvitation(id);
+        ((Accounts) getModuleOrThrow()).deleteUserInvitation(id);
+    }
+
+    /**
+     * Gets a user invitation.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#getUserInvitation(UserInvitation)}
+     * 
+     * @return something
+     */
+    @Override
+    public UserInvitation get() throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).getUserInvitation(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a user invitation.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#getUserInvitation(String)}
+     * 
+     * @param id
+     *            The ID of the invitation.
+     * @return something
+     */
+    @Override
+    public UserInvitation get(@NonNull String id) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).getUserInvitation(id));
+        return getModel();
     }
 
     /**
@@ -98,6 +124,19 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     @Internal
     protected UserInvitation instantiateModel() {
         return new UserInvitation();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
     }
 
     /**
@@ -124,43 +163,5 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Accounts(options);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
-
-    /**
-     * Gets a user invitation.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#getUserInvitation(UserInvitation)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Accounts) getModule()).getUserInvitation(getModel()));
-    }
-
-    /**
-     * Gets a user invitation.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#getUserInvitation(String)}
-     * 
-     * @param id
-     *            The ID of the invitation.
-     */
-    @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Accounts) getModule()).getUserInvitation(id));
     }
 }

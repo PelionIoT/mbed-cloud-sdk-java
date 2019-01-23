@@ -50,7 +50,7 @@ public class AbstractInstanceCache<T extends TestedItem> implements InstanceCach
 
     @SuppressWarnings("unchecked")
     @Override
-    public void storeModuleInstance(TestedItemInstance<?> instance) throws ServerCacheException {
+    public void storeInstance(TestedItemInstance<?> instance) throws ServerCacheException {
         if (instance == null || !instance.isValid()) {
             throw new ServerCacheException("Instance [" + instance + "] cannot be stored as invalid");
         }

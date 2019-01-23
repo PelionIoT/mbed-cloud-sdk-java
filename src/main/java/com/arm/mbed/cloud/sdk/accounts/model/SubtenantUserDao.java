@@ -32,17 +32,18 @@ public class SubtenantUserDao extends AbstractSubtenantUserDao {
      *            an sdk model.
      */
     @Override
-    public void create(SubtenantUser modelToCreate) throws MbedCloudException, NotImplementedException {
-        checkDaoConfiguration();
-        setModel(((Accounts) getModule()).createSubtenantUser(DEFAULT_ACTION, modelToCreate));
+    public SubtenantUser create(SubtenantUser modelToCreate) throws MbedCloudException, NotImplementedException {
+        setModel(((Accounts) getModuleOrThrow()).createSubtenantUser(DEFAULT_ACTION, modelToCreate));
+        return getModel();
     }
 
     /**
      * Executes create.
      */
     @Override
-    public void create() throws MbedCloudException {
+    public SubtenantUser create() throws MbedCloudException {
         super.create(DEFAULT_ACTION);
+        return getModel();
     }
 
     /**
@@ -52,7 +53,8 @@ public class SubtenantUserDao extends AbstractSubtenantUserDao {
      *            a string.
      */
     @Override
-    public void read(String id) throws MbedCloudException, UnsupportedOperationException, NotImplementedException {
+    public SubtenantUser get(String id) throws MbedCloudException, UnsupportedOperationException,
+                                        NotImplementedException {
         // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
@@ -76,10 +78,12 @@ public class SubtenantUserDao extends AbstractSubtenantUserDao {
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
+    @SuppressWarnings("resource")
     @Override
     public SubtenantUserDao clone() {
         try {
-            return new SubtenantUserDao().configureAndGet(getModule() == null ? null : getModule().clone());
+            return new SubtenantUserDao().configureAndGet(getModuleOrThrow() == null ? null
+                                                                                     : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

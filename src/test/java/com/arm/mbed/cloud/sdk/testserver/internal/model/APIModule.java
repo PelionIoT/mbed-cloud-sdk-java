@@ -1,7 +1,5 @@
 package com.arm.mbed.cloud.sdk.testserver.internal.model;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -27,49 +25,19 @@ public class APIModule extends AbstractTestedItem {
 
     @Override
     protected Object createInstance(ConnectionOptions connectionOptions) {
-        if (name == null) {
+        return createAModuleInstance(connectionOptions, name);
+    }
+
+    public static Object createAModuleInstance(ConnectionOptions connectionOptions, String className) {
+        if (className == null) {
             return null;
         }
         try {
-            Class<?> moduleClass = Class.forName(name);
-            return invokeConstructor(moduleClass, connectionOptions);
+            Class<?> moduleClass = Class.forName(className);
+            return Utils.invokeConstructor(moduleClass, connectionOptions);
         } catch (ClassNotFoundException | SecurityException e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-    private static Object invokeConstructor(Class<?> moduleClass, ConnectionOptions connectionOptions) {
-        final Object constructorInstance = invokeContructorWithConnectionOptions(moduleClass, connectionOptions);
-        if (constructorInstance != null) {
-            return constructorInstance;
-        }
-        return invokeEmptyContructor(moduleClass);
-
-    }
-
-    private static Object invokeContructorWithConnectionOptions(Class<?> moduleClass,
-                                                                ConnectionOptions connectionOptions) {
-        try {
-            Constructor<?> constructor = moduleClass.getConstructor(ConnectionOptions.class);
-            return constructor.newInstance(connectionOptions);
-        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
-                 | IllegalArgumentException | InvocationTargetException e) {
-            e.printStackTrace();
-            return null;
-
-        }
-    }
-
-    private static Object invokeEmptyContructor(Class<?> moduleClass) {
-        try {
-            Constructor<?> constructor = moduleClass.getConstructor();
-            return constructor.newInstance();
-        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
-                 | IllegalArgumentException | InvocationTargetException e) {
-            e.printStackTrace();
-            return null;
-
         }
     }
 

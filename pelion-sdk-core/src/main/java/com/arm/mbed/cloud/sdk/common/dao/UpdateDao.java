@@ -20,19 +20,21 @@ public interface UpdateDao<T extends SdkModel> extends ModelDao<T> {
      *
      * @param modelToUpdate
      *            data to update on the Cloud. The underlying data model is replaced by {@code modelToUpdate}.
+     * @return updated data model
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    void update(T modelToUpdate) throws MbedCloudException;
+    T update(T modelToUpdate) throws MbedCloudException;
 
     /**
      * Updates a model on the Cloud.
      * <p>
      * Note: Similar to {@link #update(SdkModel)} but the underlying data model is used instead.
-     *
+     * 
+     * @return updated data model
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    void update() throws MbedCloudException;
+    T update() throws MbedCloudException;
 
 }

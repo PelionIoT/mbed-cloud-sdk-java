@@ -7,7 +7,7 @@ import java.util.Set;
 
 import com.arm.mbed.cloud.sdk.testutils.ReflectionUtils;
 
-public class SDK implements Serializable {
+public class SdkDefinition implements Serializable {
     /**
      * 
      */
@@ -16,14 +16,14 @@ public class SDK implements Serializable {
     private final TestedItemDefinitions<Entity> entityDefinitions;
     private String packageName;
 
-    public SDK(String packageName) {
+    public SdkDefinition(String packageName) {
         super();
         moduleDefinitions = new TestedItemDefinitions<>(TestedItemType.MODULE);
         entityDefinitions = new TestedItemDefinitions<>(TestedItemType.ENTITY);
         setPackageName(packageName);
     }
 
-    public SDK() {
+    public SdkDefinition() {
         this(null);
     }
 

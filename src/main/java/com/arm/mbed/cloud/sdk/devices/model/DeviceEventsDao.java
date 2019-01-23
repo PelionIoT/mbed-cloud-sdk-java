@@ -39,10 +39,39 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     @Override
     public DeviceEventsDao clone() {
         try {
-            return new DeviceEventsDao().configureAndGet(getModule() == null ? null : getModule().clone());
+            return new DeviceEventsDao().configureAndGet(getModuleOrThrow() == null ? null
+                                                                                    : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
+    }
+
+    /**
+     * Gets a device events.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(DeviceEvents)}
+     * 
+     * @return something
+     */
+    @Override
+    public DeviceEvents get() throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).getDeviceEvents(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a device events.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(String)}
+     * 
+     * @param id
+     *            null
+     * @return something
+     */
+    @Override
+    public DeviceEvents get(@NonNull String id) throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).getDeviceEvents(id));
+        return getModel();
     }
 
     /**
@@ -54,6 +83,19 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     @Internal
     protected DeviceEvents instantiateModel() {
         return new DeviceEvents();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
     }
 
     /**
@@ -80,43 +122,5 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Devices(options);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
-
-    /**
-     * Gets a device events.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(DeviceEvents)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) getModule()).getDeviceEvents(getModel()));
-    }
-
-    /**
-     * Gets a device events.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(String)}
-     * 
-     * @param id
-     *            null
-     */
-    @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) getModule()).getDeviceEvents(id));
     }
 }

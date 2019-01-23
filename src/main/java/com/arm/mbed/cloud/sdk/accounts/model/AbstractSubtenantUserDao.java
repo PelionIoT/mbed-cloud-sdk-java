@@ -40,10 +40,11 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * 
      * @param action
      *            Create or invite user.
+     * @return something
      */
-    public void create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Accounts) getModule()).createSubtenantUser(action, getModel()));
+    public SubtenantUser create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).createSubtenantUser(action, getModel()));
+        return getModel();
     }
 
     /**
@@ -56,11 +57,12 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      *            Create or invite user.
      * @param accountId
      *            The ID of the account.
+     * @return an added subtenant user
      */
-    public void create(@Nullable @DefaultValue("create") String action,
-                       @NonNull String accountId) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Accounts) getModule()).createSubtenantUser(action, accountId, getModel()));
+    public SubtenantUser create(@Nullable @DefaultValue("create") String action,
+                                @NonNull String accountId) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).createSubtenantUser(action, accountId, getModel()));
+        return getModel();
     }
 
     /**
@@ -70,8 +72,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      */
     @Override
     public void delete() throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Accounts) getModule()).deleteSubtenantUser(getModel());
+        ((Accounts) getModuleOrThrow()).deleteSubtenantUser(getModel());
     }
 
     /**
@@ -84,7 +85,6 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      */
     @Override
     public void delete(@NonNull SubtenantUser subtenantUser) throws MbedCloudException {
-        checkDaoConfiguration();
         setModel(subtenantUser);
         delete();
     }
@@ -100,8 +100,36 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      *            The ID of the user to be deleted.
      */
     public void delete(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Accounts) getModule()).deleteSubtenantUser(accountId, id);
+        ((Accounts) getModuleOrThrow()).deleteSubtenantUser(accountId, id);
+    }
+
+    /**
+     * Gets a subtenant user.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#getSubtenantUser(SubtenantUser)}
+     * 
+     * @return something
+     */
+    @Override
+    public SubtenantUser get() throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).getSubtenantUser(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a subtenant user.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#getSubtenantUser(String,String)}
+     * 
+     * @param accountId
+     *            The ID of the account.
+     * @param id
+     *            The ID of the user.
+     * @return something
+     */
+    public SubtenantUser get(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).getSubtenantUser(accountId, id));
+        return getModel();
     }
 
     /**
@@ -113,6 +141,19 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     @Internal
     protected SubtenantUser instantiateModel() {
         return new SubtenantUser();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
     }
 
     /**
@@ -142,53 +183,16 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     }
 
     /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
-
-    /**
-     * Gets a subtenant user.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#getSubtenantUser(SubtenantUser)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Accounts) getModule()).getSubtenantUser(getModel()));
-    }
-
-    /**
-     * Gets a subtenant user.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#getSubtenantUser(String,String)}
-     * 
-     * @param accountId
-     *            The ID of the account.
-     * @param id
-     *            The ID of the user.
-     */
-    public void read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Accounts) getModule()).getSubtenantUser(accountId, id));
-    }
-
-    /**
      * Modifies a subtenant user.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#updateSubtenantUser(SubtenantUser)}
+     * 
+     * @return something
      */
     @Override
-    public void update() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Accounts) getModule()).updateSubtenantUser(getModel()));
+    public SubtenantUser update() throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).updateSubtenantUser(getModel()));
+        return getModel();
     }
 
     /**
@@ -198,12 +202,12 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * 
      * @param subtenantUser
      *            a subtenant user.
+     * @return something
      */
     @Override
-    public void update(@NonNull SubtenantUser subtenantUser) throws MbedCloudException {
-        checkDaoConfiguration();
+    public SubtenantUser update(@NonNull SubtenantUser subtenantUser) throws MbedCloudException {
         setModel(subtenantUser);
-        update();
+        return update();
     }
 
     /**
@@ -216,10 +220,11 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      *            The ID of the account.
      * @param id
      *            The ID of the user.
+     * @return an updated subtenant user
      */
-    public void update(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Accounts) getModule()).updateSubtenantUser(accountId, id, getModel()));
+    public SubtenantUser update(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).updateSubtenantUser(accountId, id, getModel()));
+        return getModel();
     }
 
     /**
@@ -229,8 +234,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#validateEmail(SubtenantUser)}
      */
     public void validateEmail() throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Accounts) getModule()).validateEmail(getModel());
+        ((Accounts) getModuleOrThrow()).validateEmail(getModel());
     }
 
     /**
@@ -245,7 +249,6 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      *            The ID of the user whose email is validated.
      */
     public void validateEmail(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Accounts) getModule()).validateEmail(accountId, id);
+        ((Accounts) getModuleOrThrow()).validateEmail(accountId, id);
     }
 }

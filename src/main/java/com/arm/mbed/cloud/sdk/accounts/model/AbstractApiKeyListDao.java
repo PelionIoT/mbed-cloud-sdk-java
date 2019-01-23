@@ -39,7 +39,7 @@ public abstract class AbstractApiKeyListDao extends AbstractModelListDao<ApiKey,
     @Internal
     @SuppressWarnings("unchecked")
     public ApiKeyDao getCorrespondingModelDao() throws MbedCloudException {
-        return new ApiKeyDao().configureAndGet(getModule());
+        return new ApiKeyDao().configureAndGet(getModuleOrThrow());
     }
 
     /**
@@ -68,6 +68,19 @@ public abstract class AbstractApiKeyListDao extends AbstractModelListDao<ApiKey,
     /**
      * Instantiates modules.
      * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -89,18 +102,5 @@ public abstract class AbstractApiKeyListDao extends AbstractModelListDao<ApiKey,
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Accounts(options);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
     }
 }

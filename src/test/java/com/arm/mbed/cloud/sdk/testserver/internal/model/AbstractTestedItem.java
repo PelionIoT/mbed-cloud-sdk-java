@@ -22,6 +22,17 @@ public abstract class AbstractTestedItem implements TestedItem {
         setInstance(null);
     }
 
+    @Override
+    public void copy(TestedItem item) {
+        if (item == null) {
+            return;
+        }
+        setName(item.getName());
+        setSimpleName(item.getSimpleName());
+        setMethods(item.getMethods());
+        setInstance(item.getInstance());
+    }
+
     public AbstractTestedItem(String name, String simpleName) {
         this(name, simpleName, null);
     }

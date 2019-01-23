@@ -63,4 +63,6 @@ public interface TestedItem {
 
     Object build(ConnectionOptions connectionOptions);
 
+    void copy(TestedItem item);
+
 }

@@ -15,7 +15,7 @@ public interface InstanceCache<T extends TestedItem> {
 
     void deleteInstance(String id) throws MissingInstanceException;
 
-    void storeModuleInstance(TestedItemInstance<?> instance) throws ServerCacheException;
+    void storeInstance(TestedItemInstance<?> instance) throws ServerCacheException;
 
     List<TestedItemInstance<?>> fetchAllInstances();
 

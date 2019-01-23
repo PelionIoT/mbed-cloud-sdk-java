@@ -28,7 +28,7 @@ import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodArgument;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.DaemonControl;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.Entity;
-import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.SdkDefinition;
 
 @Preamble(description = "Generator of an SDK API mapping. i.e. list of all APIs present in the SDK")
 public class APIMappingGenerator {
@@ -40,13 +40,13 @@ public class APIMappingGenerator {
      * 
      * @return APIs description
      */
-    public static SDK getSDK() {
+    public static SdkDefinition getSDK() {
         APIMappingGenerator generator = new APIMappingGenerator();
         return generator.retrieveSDK();
     }
 
-    public SDK retrieveSDK() {
-        SDK sdk = new SDK(JAVA_SDK_PACKAGE);
+    public SdkDefinition retrieveSDK() {
+        SdkDefinition sdk = new SdkDefinition(JAVA_SDK_PACKAGE);
         List<Class<?>> classes = getClassesContainedInPackage(JAVA_SDK_PACKAGE);
         for (Class<?> clazz : classes) {
             sdk.addItem(recordAPIModule(clazz));

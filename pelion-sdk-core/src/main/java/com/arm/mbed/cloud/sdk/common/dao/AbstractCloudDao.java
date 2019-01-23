@@ -25,10 +25,7 @@ import com.arm.mbed.cloud.sdk.common.SdkLogger;
 @Internal
 public abstract class AbstractCloudDao implements CloudDao {
     public static final String METHOD_INSTANTIATE_MODULE = "instantiateModule";
-    public static final String METHOD_CHECK_CONFIGURATION = "checkDaoConfiguration";
-    public static final String METHOD_CONFIGURE_AND_GET = "configureAndGet";
-    public static final String METHOD_GETTER_MODULE = "getModule";
-
+    public static final String METHOD_GETTER_MODULE = "getModuleOrThrow";
     private static final String PARAMETER_CLIENT = "client";
     private static final String PARAMETER_CONTEXT = "context";
     protected final AtomicReference<SdkContext> module;
@@ -154,14 +151,7 @@ public abstract class AbstractCloudDao implements CloudDao {
 
     @Override
     public ApiMetadata getLastApiMetadata() throws MbedCloudException {
-        checkDaoConfiguration();
-        return getModule().getLastApiMetadata();
-    }
-
-    protected void checkDaoConfiguration() throws MbedCloudException {
-        if (getModule() == null) {
-            throw new MbedCloudException("The DAO is not configured properly");
-        }
+        return getModuleOrThrow().getLastApiMetadata();
     }
 
     @Override
@@ -202,8 +192,16 @@ public abstract class AbstractCloudDao implements CloudDao {
         }
     }
 
-    protected SdkContext getModule() {
+    private SdkContext getModule() {
         return module.get();
+    }
+
+    protected SdkContext getModuleOrThrow() throws MbedCloudException {
+        final SdkContext context = getModule();
+        if (context == null) {
+            throw new MbedCloudException("The DAO is not configured properly");
+        }
+        return context;
     }
 
     protected abstract SdkContext instantiateModule(ConnectionOptions options);

@@ -3,12 +3,9 @@
  */
 package com.arm.mbed.cloud.sdk.testserver.internal.model;
 
-import java.time.ZoneOffset;
-
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 
-public class EntityInstance extends AbstractTestedItemInstance<Entity> {
+public class EntityInstance extends FoundationInstance<Entity> {
 
     private static final long serialVersionUID = -7969420249932760494L;
 
@@ -16,11 +13,4 @@ public class EntityInstance extends AbstractTestedItemInstance<Entity> {
         super(entityName, options, entityDescription);
     }
 
-    public com.arm.mbed.cloud.sdk.testserver.model.FoundationInstance toInstance() {
-        com.arm.mbed.cloud.sdk.testserver.model.FoundationInstance value = new com.arm.mbed.cloud.sdk.testserver.model.FoundationInstance();
-        value.setId(id);
-        value.setEntity(ApiUtils.convertCamelToSnake(getReference()));
-        value.setCreatedAt(createdAt.toInstant().atOffset(ZoneOffset.UTC));
-        return value;
-    }
 }

@@ -40,7 +40,8 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
     @Override
     public DeviceEventsListDao clone() {
         try {
-            return new DeviceEventsListDao().configureAndGet(getModule() == null ? null : getModule().clone());
+            return new DeviceEventsListDao().configureAndGet(getModuleOrThrow() == null ? null
+                                                                                        : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -55,7 +56,7 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
     @Internal
     @SuppressWarnings("unchecked")
     public DeviceEventsDao getCorrespondingModelDao() throws MbedCloudException {
-        return new DeviceEventsDao().configureAndGet(getModule());
+        return new DeviceEventsDao().configureAndGet(getModuleOrThrow());
     }
 
     /**
@@ -79,6 +80,19 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
     @Internal
     protected DeviceEventsListOptions instantiateListOptions() {
         return new DeviceEventsListOptions();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
     }
 
     /**
@@ -108,19 +122,6 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
     }
 
     /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
-
-    /**
      * Lists device events matching filter options.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#listDeviceEventss(DeviceEventsListOptions)}
@@ -131,7 +132,6 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
      */
     @Override
     protected ListResponse<DeviceEvents> requestOnePage(DeviceEventsListOptions options) throws MbedCloudException {
-        checkDaoConfiguration();
-        return ((Devices) getModule()).listDeviceEventss(options);
+        return ((Devices) getModuleOrThrow()).listDeviceEventss(options);
     }
 }

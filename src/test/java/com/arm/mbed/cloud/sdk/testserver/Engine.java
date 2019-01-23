@@ -20,7 +20,9 @@ import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.Entity;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.EntityInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
-import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.Sdk;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.SdkDefinition;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.SdkInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItem;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItemInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItemType;
@@ -41,7 +43,7 @@ public class Engine {
 
     public void initialise() throws ServerCacheException {
         logger.logInfo("Determining a definition of the Java SDK... (" + new Date().toString() + ")");
-        SDK sdk = APIMappingGenerator.getSDK();
+        SdkDefinition sdk = APIMappingGenerator.getSDK();
         logger.logDebug(JsonObject.mapFrom(sdk).encodePrettily());
         cache.storeSDKDefinition(sdk);
     }
@@ -70,7 +72,7 @@ public class Engine {
 
     public List<String> listModules() {
         logger.logInfo("Retrieving the list of SDK modules");
-        SDK sdk = cache.fetchSDKDefinition();
+        SdkDefinition sdk = cache.fetchSDKDefinition();
         if (sdk == null) {
             return null;
         }
@@ -78,8 +80,8 @@ public class Engine {
     }
 
     public List<String> listEntities() {
-        logger.logInfo("Retrieving the list of SDK modules");
-        SDK sdk = cache.fetchSDKDefinition();
+        logger.logInfo("Retrieving the list of SDK entities");
+        SdkDefinition sdk = cache.fetchSDKDefinition();
         if (sdk == null) {
             return null;
         }
@@ -96,22 +98,27 @@ public class Engine {
         return cache.listInstances(TestedItemType.ENTITY, ApiUtils.convertSnakeToCamel(entityName, true));
     }
 
-    public List<TestedItemInstance<?>> listAllModuleInstances() throws ServerCacheException {
+    public List<TestedItemInstance<?>> listSdkInstances() throws ServerCacheException {
+        logger.logInfo("Retrieving the list of SDK instances");
+        return cache.listInstances(TestedItemType.SDK, ApiUtils.convertSnakeToCamel(SdkInstance.REFERENCE, true));
+    }
+
+    public List<TestedItemInstance<?>> listAllLowLevelInstances() throws ServerCacheException {
         logger.logInfo("Retrieving the list of all module instances");
         return cache.listAllInstances(TestedItemType.MODULE);
     }
 
-    public List<TestedItemInstance<?>> listAllEntityInstances() throws ServerCacheException {
+    public List<TestedItemInstance<?>> listAllFoundationInstances() throws ServerCacheException {
         logger.logInfo("Retrieving the list of all entity instances");
         return cache.listAllInstances(TestedItemType.ENTITY);
     }
 
-    public List<APIMethod> listModuleInstanceMethods(String instanceId) throws ServerCacheException {
+    public List<APIMethod> listLowLevelInstanceMethods(String instanceId) throws ServerCacheException {
         TestedItem module = cache.fetchFromInstance(TestedItemType.MODULE, instanceId);
         return (module == null) ? null : module.fetchAllMethod();
     }
 
-    public List<APIMethod> listEntityInstanceMethods(String instanceId) throws ServerCacheException {
+    public List<APIMethod> listFoundationInstanceMethods(String instanceId) throws ServerCacheException {
         TestedItem entity = cache.fetchFromInstance(TestedItemType.ENTITY, instanceId);
         return (entity == null) ? null : entity.fetchAllMethod();
     }
@@ -144,39 +151,52 @@ public class Engine {
         return instance;
     }
 
-    public ModuleInstance fetchModuleInstance(String instanceId) throws ServerCacheException {
+    public SdkInstance createSdkInstance(ConnectionOptions config) throws ServerCacheException, UnknownAPIException {
+        logger.logInfo("Creating an instance of an SDK");
+        SdkInstance instance = new SdkInstance(config,
+                                               Sdk.clone(createAnApiCaller().retrieveDescription(TestedItemType.MODULE,
+                                                                                                 SdkInstance.REFERENCE)));
+        logger.logInfo("Host in use: " + instance.getHostInUse());
+        checkInstanceValidity(instance);
+        cache.storeInstance(TestedItemType.SDK, instance);
+        logger.logInfo("SDK instance [" + instance.getId() + "] was created.");
+        return instance;
+    }
+
+    public ModuleInstance fetchLowLevelInstance(String instanceId) throws ServerCacheException {
         logger.logInfo("Fetching SDK module instance [" + instanceId + "]");
         return (ModuleInstance) retrieveInstance(TestedItemType.MODULE, instanceId);
     }
 
-    public EntityInstance fetchEntityInstance(String instanceId) throws ServerCacheException {
+    public EntityInstance fetchFoundationInstance(String instanceId) throws ServerCacheException {
         logger.logInfo("Fetching SDK entity instance [" + instanceId + "]");
         return (EntityInstance) retrieveInstance(TestedItemType.ENTITY, instanceId);
     }
 
-    public boolean deleteModuleInstance(String instanceId) throws ServerCacheException {
+    public boolean deleteLowLevelInstance(String instanceId) throws ServerCacheException {
         logger.logInfo("Deleting SDK module instance [" + instanceId + "]");
         stopInstance(TestedItemType.MODULE, instanceId);
         cache.deleteInstance(TestedItemType.MODULE, instanceId);
         return true;
     }
 
-    public boolean deleteEntityInstance(String instanceId) throws ServerCacheException {
+    public boolean deleteFoundationInstance(String instanceId) throws ServerCacheException {
         logger.logInfo("Deleting SDK entity instance [" + instanceId + "]");
         stopInstance(TestedItemType.ENTITY, instanceId);
         cache.deleteInstance(TestedItemType.ENTITY, instanceId);
         return true;
     }
 
-    public APIMethodResult callAPIOnModuleInstance(String instanceId, String methodId,
-                                                   Map<String, Object> params) throws ServerCacheException,
-                                                                               UnknownAPIException, APICallException {
+    public APIMethodResult callAPIOnLowLevelInstance(String instanceId, String methodId,
+                                                     Map<String, Object> params) throws ServerCacheException,
+                                                                                 UnknownAPIException, APICallException {
         return callAPIOnInstance(TestedItemType.MODULE, instanceId, methodId, params);
     }
 
-    public APIMethodResult callAPIOnEntityInstance(String instanceId, String methodId,
-                                                   Map<String, Object> params) throws ServerCacheException,
-                                                                               UnknownAPIException, APICallException {
+    public APIMethodResult callAPIOnFoundationInstance(String instanceId, String methodId,
+                                                       Map<String, Object> params) throws ServerCacheException,
+                                                                                   UnknownAPIException,
+                                                                                   APICallException {
         return callAPIOnInstance(TestedItemType.ENTITY, instanceId, methodId, params);
     }
 
@@ -190,7 +210,7 @@ public class Engine {
     }
 
     private void stopInstance(TestedItemType type, String instanceId) throws ServerCacheException,
-                                                                             MissingInstanceException {
+                                                                      MissingInstanceException {
 
         TestedItemInstance<?> instance = retrieveInstance(type, instanceId);
         APIMethod closeMethod = APIMethod.getClose();
