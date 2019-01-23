@@ -19,7 +19,7 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
  */
 @Preamble(description = "Generic DAO definition")
 public interface CloudDao extends Cloneable, Closeable {
-    public static final String METHOD_CONFIGURE_AND_GET = "configureAndGet";
+    String METHOD_CONFIGURE_AND_GET = "configureAndGet";
 
     /**
      * Initialises the Cloud connection using default/environment values as described in {@link ConnectionOptions}.
