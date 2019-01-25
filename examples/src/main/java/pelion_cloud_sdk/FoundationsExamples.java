@@ -173,7 +173,7 @@ public class FoundationsExamples extends AbstractExample {
             assertNotNull(createdId);
             // uncloak
             // Fetch latest details of the current sub-tenant user.
-            userDao.read();
+            userDao.get();
             // Fetching a user from the list of account users
             SubtenantUser correspondingUser = StreamSupport.stream(myAccountDao.allUsers(null, null, null, null, null,
                                                                                          null)
@@ -271,13 +271,13 @@ public class FoundationsExamples extends AbstractExample {
         try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
             DeviceEnrollmentBulkCreateDao enrolmentDao = sdk.entities().getDeviceEnrollmentBulkCreateDao();
             // file is a csv file containing all the devices which need to be enrolled. See test.csv in the /resources
-            // folder for an example.
+            // folder as example.
             enrolmentDao.create(new DataFile(file));
             // cloak
             assertEquals(DeviceEnrollmentBulkCreateStatus.NEW, enrolmentDao.getModel().getStatus());
             // uncloak
             // read current state of bulk enrollment
-            enrolmentDao.read();
+            enrolmentDao.get();
             // cloak
             assertTrue(enrolmentDao.getModel().getStatus() == DeviceEnrollmentBulkCreateStatus.PROCESSING
                        || enrolmentDao.getModel().getStatus() == DeviceEnrollmentBulkCreateStatus.COMPLETED);
@@ -287,7 +287,7 @@ public class FoundationsExamples extends AbstractExample {
             // be performed in production application.
             while (enrolmentDao.getModel().getStatus() != DeviceEnrollmentBulkCreateStatus.COMPLETED) {
                 Thread.sleep(1000);
-                enrolmentDao.read();
+                enrolmentDao.get();
             }
             // Download the enrolment report files
             FileDownload report = enrolmentDao.downloadFullReportFile((String) null);
