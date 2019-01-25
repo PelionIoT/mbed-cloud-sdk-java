@@ -271,7 +271,7 @@ public class FoundationsExamples extends AbstractExample {
         try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
             DeviceEnrollmentBulkCreateDao enrolmentDao = sdk.daos().getDeviceEnrollmentBulkCreateDao();
             // file is a csv file containing all the devices which need to be enrolled. See test.csv in the /resources
-            // folder for an example.
+            // folder as example.
             enrolmentDao.create(new DataFile(file));
             // cloak
             assertEquals(DeviceEnrollmentBulkCreateStatus.NEW, enrolmentDao.getModel().getStatus());
