@@ -60,6 +60,7 @@ public class TestedItemRegistry {
     public TestedItem fetchFromInstance(TestedItemType type, String instanceId) throws ServerCacheException,
                                                                                 MissingInstanceException {
         String reference = fetchInstancesRegistry(type).get(instanceId);
+
         SdkDefinition sdk = fetchSDKDefinition();
         if (sdk == null) {
             throw new ServerCacheException("SDK mapping has failed");
@@ -67,6 +68,7 @@ public class TestedItemRegistry {
         if (reference == null) {
             throw new MissingInstanceException("Instance [" + instanceId + "] is invalid");
         }
+
         return sdk.getItem(type, reference);
     }
 

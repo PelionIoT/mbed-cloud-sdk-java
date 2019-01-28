@@ -19,6 +19,7 @@ import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.Entity;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.EntityInstance;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.FoundationInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.Sdk;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.SdkDefinition;
@@ -168,9 +169,9 @@ public class Engine {
         return (ModuleInstance) retrieveInstance(TestedItemType.MODULE, instanceId);
     }
 
-    public EntityInstance fetchFoundationInstance(String instanceId) throws ServerCacheException {
-        logger.logInfo("Fetching SDK entity instance [" + instanceId + "]");
-        return (EntityInstance) retrieveInstance(TestedItemType.ENTITY, instanceId);
+    public FoundationInstance<?> fetchFoundationInstance(String instanceId) throws ServerCacheException {
+        logger.logInfo("Fetching SDK foundation instance [" + instanceId + "]");
+        return (FoundationInstance<?>) retrieveInstance(TestedItemType.ENTITY, instanceId);
     }
 
     public boolean deleteLowLevelInstance(String instanceId) throws ServerCacheException {
@@ -203,7 +204,7 @@ public class Engine {
     private APIMethodResult callAPIOnInstance(TestedItemType type, String instanceId, String methodId,
                                               Map<String, Object> params) throws ServerCacheException,
                                                                           UnknownAPIException, APICallException {
-        logger.logInfo("CALLING " + String.valueOf(methodId) + " ON " + String.valueOf(type) + " ["
+        logger.logInfo("CALLING " + String.valueOf(methodId) + "() ON " + String.valueOf(type) + " ["
                        + String.valueOf(instanceId) + "] USING " + String.valueOf(toString(params)));
         return createAnApiCaller().callAPIOnInstance(retrieveInstance(type, instanceId),
                                                      ApiUtils.convertSnakeToCamel(methodId, false), params);

@@ -15,6 +15,7 @@ import java.util.jar.JarFile;
 
 import io.vertx.core.json.JsonObject;
 
+import com.arm.mbed.cloud.sdk.Sdk;
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
@@ -51,6 +52,7 @@ public class APIMappingGenerator {
         for (Class<?> clazz : classes) {
             sdk.addItem(recordAPIModule(clazz));
             sdk.addItem(recordEntity(clazz));
+            sdk.addItem(recordSdk(clazz));
         }
         return sdk;
     }
@@ -69,6 +71,18 @@ public class APIMappingGenerator {
             module.addMethod(recordAPIMethod(method, true));
         }
         return module;
+    }
+
+    private com.arm.mbed.cloud.sdk.testserver.internal.model.Sdk recordSdk(Class<?> clazz) {
+        if (clazz == null || !clazz.isAnnotationPresent(Module.class) || !clazz.isAssignableFrom(Sdk.class)) {
+            return null;
+        }
+        com.arm.mbed.cloud.sdk.testserver.internal.model.Sdk sdk = new com.arm.mbed.cloud.sdk.testserver.internal.model.Sdk(clazz.getName(),
+                                                                                                                            clazz.getSimpleName());
+        for (Method method : clazz.getMethods()) {
+            sdk.addMethod(recordAPIMethod(method, true));
+        }
+        return sdk;
     }
 
     private Entity recordEntity(Class<?> clazz) {
@@ -93,7 +107,7 @@ public class APIMappingGenerator {
             }
         }
         if (listEntity != null) {
-            for (Method method : clazz.getMethods()) {
+            for (Method method : listEntity.getMethods()) {
                 entity.addMethod(recordAPIMethod(method, false));
             }
         }

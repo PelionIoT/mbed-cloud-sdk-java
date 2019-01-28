@@ -226,6 +226,32 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
     Paginator<T> paginator() throws MbedCloudException;
 
     /**
+     * Gets a paginator over the whole collection of data models present in the Cloud.
+     * <p>
+     * Note: Similar to {@link #getPaginator(ListOptions)}
+     *
+     * @param options
+     *            list options.
+     * @return a paginator over the whole collection of data models.
+     * @throws MbedCloudException
+     *             if an error occurs during the process
+     */
+    @NonNull
+    Paginator<T> list(@Nullable U options) throws MbedCloudException;
+
+    /**
+     * Gets a paginator over the whole collection of data models present in the Cloud.
+     * <p>
+     * Note: Similar to {@link #getPaginator()}
+     *
+     * @return a paginator over the whole collection of data models.
+     * @throws MbedCloudException
+     *             if an error occurs during the process
+     */
+    @NonNull
+    Paginator<T> list() throws MbedCloudException;
+
+    /**
      * Gets a paginator over the whole collection of data model IDs present in the Cloud.
      *
      * @param options

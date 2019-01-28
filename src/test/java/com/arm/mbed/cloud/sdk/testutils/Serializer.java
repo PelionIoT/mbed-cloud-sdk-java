@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -85,6 +86,28 @@ public class Serializer {
         }
     }
 
+    private static class OffsetDateSerializer extends StdSerializer<OffsetDateTime> {
+
+        private static final long serialVersionUID = -478370903130456240L;
+
+        public OffsetDateSerializer() {
+            this(null, false);
+        }
+
+        protected OffsetDateSerializer(Class<?> t, boolean dummy) {
+            super(t, dummy);
+        }
+
+        @Override
+        public void serialize(OffsetDateTime value, JsonGenerator jgen,
+                              SerializerProvider provider) throws IOException {
+            long epochMilli = value.toInstant().toEpochMilli();
+            Date date = new Date(epochMilli);
+            jgen.writeString((value == null) ? null : ApiUtils.toUtcTimestamp(date));
+
+        }
+    }
+
     private static class SDKDateDeserializer extends StdDeserializer<Date> {
 
         /**
@@ -139,6 +162,7 @@ public class Serializer {
         SimpleModule module = new SimpleModule();
         module.addSerializer(SdkEnum.class, new SDKEnumSerializer());
         module.addSerializer(Date.class, new DateSerializer());
+        module.addSerializer(OffsetDateTime.class, new OffsetDateSerializer());
         // module.addSerializer(DateTime.class, new DateTimeSerializer());
         module.addDeserializer(Filters.class, new SDKFiltersDeserializer());
         module.addDeserializer(Date.class, new SDKDateDeserializer());

@@ -10,8 +10,10 @@ import java.util.NoSuchElementException;
 
 import com.arm.mbed.cloud.sdk.common.ApiMetadata;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.testserver.model.SdkMethodInfo;
 import com.arm.mbed.cloud.sdk.testutils.APICallException;
 
@@ -150,8 +152,19 @@ public class APIMethod {
             return result;
         }
         try {
-            result.setResult(invokeMethod(instanceToCallTheAPIOn, argsDescription));
+            Object resultObject = invokeMethod(instanceToCallTheAPIOn, argsDescription);
+            if (resultObject instanceof Paginator<?>) {
+                try {
+                    resultObject = ((Paginator<?>) resultObject).all();
+                } catch (MbedCloudException exception) {
+                    exception.printStackTrace();
+                    result.setException(new InvocationTargetException(exception,
+                                                                      "Failed calling method all() on a paginator"));
+                }
+            }
+            result.setResult(resultObject);
         } catch (InvocationTargetException e) {
+            e.printStackTrace();
             result.setException(e);
         }
         APIMethod lastMetadataMethod = getApiMetadata();
@@ -222,4 +235,11 @@ public class APIMethod {
         arguments.forEach(arg -> api.put("arg" + api.size(), arg.toString()));
         return api;
     }
+
+    @Override
+    public String toString() {
+        return "APIMethod [name=" + name + ", returnArgument=" + returnArgument + ", arguments=" + arguments
+               + ", daemonControl=" + daemonControl + ", subMethod=" + subMethod + "]";
+    }
+
 }

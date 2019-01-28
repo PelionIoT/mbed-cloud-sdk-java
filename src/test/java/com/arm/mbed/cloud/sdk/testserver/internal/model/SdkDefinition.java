@@ -14,12 +14,14 @@ public class SdkDefinition implements Serializable {
     private static final long serialVersionUID = -3326059859355061080L;
     private final TestedItemDefinitions<APIModule> moduleDefinitions;
     private final TestedItemDefinitions<Entity> entityDefinitions;
+    private final TestedItemDefinitions<com.arm.mbed.cloud.sdk.testserver.internal.model.Sdk> sdkDefinitions;
     private String packageName;
 
     public SdkDefinition(String packageName) {
         super();
         moduleDefinitions = new TestedItemDefinitions<>(TestedItemType.MODULE);
         entityDefinitions = new TestedItemDefinitions<>(TestedItemType.ENTITY);
+        sdkDefinitions = new TestedItemDefinitions<>(TestedItemType.SDK);
         setPackageName(packageName);
     }
 
@@ -42,6 +44,10 @@ public class SdkDefinition implements Serializable {
         return entityDefinitions;
     }
 
+    public TestedItemDefinitions<com.arm.mbed.cloud.sdk.testserver.internal.model.Sdk> getSdkDefinitions() {
+        return sdkDefinitions;
+    }
+
     /**
      * @param packageName
      *            the packageName to set
@@ -61,13 +67,16 @@ public class SdkDefinition implements Serializable {
             case MODULE:
                 return moduleDefinitions.fetchItemSet();
             case SDK:
-                // TODO
+                return sdkDefinitions.fetchItemSet();
             default:
                 return null;
         }
     }
 
     public TestedItem getItem(TestedItemType type, String itemName) {
+        if (type == TestedItemType.ENTITY && SdkInstance.REFERENCE.equals(itemName)) {
+            type = TestedItemType.SDK;
+        }
         if (type == null) {
             return null;
         }
@@ -77,7 +86,8 @@ public class SdkDefinition implements Serializable {
             case MODULE:
                 return moduleDefinitions.getItem(itemName);
             case SDK:
-                // TODO
+                return sdkDefinitions.getItem(itemName);
+
             default:
                 return null;
         }
@@ -95,7 +105,8 @@ public class SdkDefinition implements Serializable {
                 moduleDefinitions.addItem((APIModule) item);
                 break;
             case SDK:
-                // TODO
+                sdkDefinitions.addItem((Sdk) item);
+                break;
             default:
                 return;
         }

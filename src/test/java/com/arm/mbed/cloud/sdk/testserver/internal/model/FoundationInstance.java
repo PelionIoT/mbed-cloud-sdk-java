@@ -5,7 +5,6 @@ package com.arm.mbed.cloud.sdk.testserver.internal.model;
 
 import java.time.ZoneOffset;
 
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 
 public class FoundationInstance<T extends Foundation> extends AbstractTestedItemInstance<T> {
@@ -19,7 +18,7 @@ public class FoundationInstance<T extends Foundation> extends AbstractTestedItem
     public com.arm.mbed.cloud.sdk.testserver.model.FoundationInstance toInstance() {
         com.arm.mbed.cloud.sdk.testserver.model.FoundationInstance value = new com.arm.mbed.cloud.sdk.testserver.model.FoundationInstance();
         value.setId(id);
-        value.setEntity(ApiUtils.convertCamelToSnake(getReference()));
+        value.setEntity(getReference());
         value.setCreatedAt(createdAt.toInstant().atOffset(ZoneOffset.UTC));
         return value;
     }
