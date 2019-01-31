@@ -3,10 +3,12 @@ package com.arm.mbed.cloud.sdk.testserver.internal.model;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.ApiMetadata;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
@@ -199,8 +201,37 @@ public class APIMethod {
             return null;
         }
         Class<?>[] argTypes = fetchArgsType();
-        return (argTypes == null) ? clazz.getMethod(name) : clazz.getMethod(name, argTypes);
+        return findMethod(clazz, argTypes);
+    }
 
+    private Method findMethod(Class<?> clazz, Class<?>[] argTypes) throws NoSuchMethodException {
+        try {
+            return argTypes == null ? clazz.getMethod(name) : clazz.getMethod(name, argTypes);
+        } catch (NoSuchMethodException exception) {
+            // Checks if there is actually a method which could do.
+            // FIXME use ReflectionUtils for this maybe
+            final List<Method> candidates = Arrays.asList(clazz.getMethods()).stream()
+                                                  .filter(m -> m.getName().contains(name)
+                                                               && m.getParameterCount() == (argTypes == null ? 0
+                                                                                                             : argTypes.length))
+                                                  .collect(Collectors.toList());
+            if (candidates.isEmpty()) {
+                throw exception;
+            }
+            if (argTypes == null || argTypes.length == 0) {
+                return candidates.stream().findFirst().get();
+            }
+            final List<Class<?>> definitions = Arrays.asList(argTypes);
+            for (Method m : candidates) {
+                final List<Class<?>> parameterTypes = Arrays.asList(m.getParameterTypes());
+                if (parameterTypes.stream().filter(p -> !definitions.stream().anyMatch(d -> p.isAssignableFrom(d)))
+                                  .count() == 0) {
+                    return m;
+                }
+            }
+            throw exception;
+
+        }
     }
 
     private Class<?>[] fetchArgsType() throws ClassNotFoundException {

@@ -7,6 +7,7 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.LinkedList;
@@ -32,6 +33,10 @@ import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.DaemonControl;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.Entity;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.SdkDefinition;
+
+import ru.vyarus.java.generics.resolver.GenericsResolver;
+import ru.vyarus.java.generics.resolver.context.GenericsContext;
+import ru.vyarus.java.generics.resolver.context.MethodGenericsContext;
 
 @Preamble(description = "Generator of an SDK API mapping. i.e. list of all APIs present in the SDK")
 public class APIMappingGenerator {
@@ -69,8 +74,9 @@ public class APIMappingGenerator {
             return null;
         }
         APIModule module = new APIModule(clazz.getName(), clazz.getSimpleName());
+        final GenericsContext context = GenericsResolver.resolve(clazz);
         for (Method method : determinePublicMethods(clazz)) {
-            module.addMethod(recordAPIMethod(method, true));
+            module.addMethod(recordAPIMethod(method, context, true));
         }
         return module;
     }
@@ -81,8 +87,9 @@ public class APIMappingGenerator {
         }
         com.arm.mbed.cloud.sdk.testserver.internal.model.Sdk sdk = new com.arm.mbed.cloud.sdk.testserver.internal.model.Sdk(clazz.getName(),
                                                                                                                             clazz.getSimpleName());
+        final GenericsContext context = GenericsResolver.resolve(clazz);
         for (Method method : determinePublicMethods(clazz)) {
-            sdk.addMethod(recordAPIMethod(method, true));
+            sdk.addMethod(recordAPIMethod(method, context, true));
         }
         return sdk;
     }
@@ -101,16 +108,18 @@ public class APIMappingGenerator {
         Class<?> listEntity = DaoProvider.getCorrespondingListDao((Class<SdkModel>) modelType);
         Entity entity = new Entity(listEntity == null ? clazz.getName() : listEntity.getName(),
                                    modelType.getSimpleName());
+        final GenericsContext context = GenericsResolver.resolve(clazz);
         for (Method method : determinePublicMethods(clazz)) {
-            APIMethod apiMethod = recordAPIMethod(method, false);
+            APIMethod apiMethod = recordAPIMethod(method, context, false);
             if (apiMethod != null) {
                 apiMethod.setSubMethod(APIMethod.getCorrespondingDao());
                 entity.addMethod(apiMethod);
             }
         }
         if (listEntity != null) {
+            final GenericsContext listContext = GenericsResolver.resolve(listEntity);
             for (Method method : listEntity.getMethods()) {
-                entity.addMethod(recordAPIMethod(method, false));
+                entity.addMethod(recordAPIMethod(method, listContext, false));
             }
         }
         // TODO add list
@@ -120,18 +129,18 @@ public class APIMappingGenerator {
     private List<Method> determinePublicMethods(Class<?> clazz) {
         // getMethods() does not work here because we only want the concrete public methods defined in the class and not
         // the ones defined in the interfaces.
-        Class<?> currentClazz = clazz;
-        List<Method> methods = new LinkedList<>();
-        while (currentClazz != Object.class) {
-            methods.addAll(Arrays.asList(currentClazz.getDeclaredMethods()));
-            currentClazz = currentClazz.getSuperclass();
-        }
+        // Class<?> currentClazz = clazz;
+        List<Method> methods = new ArrayList<Method>(Arrays.asList(clazz.getMethods()));// new LinkedList<>();
+        // while (currentClazz != Object.class) {
+        // methods.addAll(Arrays.asList(currentClazz.getDeclaredMethods()));
+        // currentClazz = currentClazz.getSuperclass();
+        // }
         return methods.stream().filter(m -> (!(m.isSynthetic() || Modifier.isAbstract(m.getModifiers()))
                                              && Modifier.isPublic(m.getModifiers())))
                       .collect(Collectors.toList());
     }
 
-    private APIMethod recordAPIMethod(Method method, boolean onlyAnnotatedMethod) {
+    private APIMethod recordAPIMethod(Method method, GenericsContext context, boolean onlyAnnotatedMethod) {
         if (method == null || (onlyAnnotatedMethod && !method.isAnnotationPresent(API.class))) {
             return null;
         }
@@ -148,12 +157,17 @@ public class APIMappingGenerator {
                 m.setDaemonControl(DaemonControl.SHUTDOWN);
             }
         }
+        final MethodGenericsContext methodContext = Object.class.equals(method.getDeclaringClass()) ? null
+                                                                                                    : context.method(method);
         if (method.getParameterCount() > 0) {
+            final List<Class<?>> parameterTypes = methodContext == null ? null : methodContext.resolveParameters();
             Parameter[] parameters = method.getParameters();
-            for (Parameter parameter : parameters) {
+            for (int i = 0; i < parameters.length; i++) {
+                final Parameter parameter = parameters[i];
+                final Class<?> parameterType = parameterTypes == null ? parameter.getType() : parameterTypes.get(i);
                 String defaultValue = determineParameterDefaultValue(parameter);
                 determineContentType(parameter);
-                APIMethodArgument arg = new APIMethodArgument(parameter.getName(), parameter.getType(),
+                APIMethodArgument arg = new APIMethodArgument(parameter.getName(), parameterType,
                                                               determineContentType(parameter), defaultValue);
                 m.addArgument(arg);
             }

@@ -1,7 +1,6 @@
 package com.arm.mbed.cloud.sdk.testutils;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -98,11 +97,10 @@ public class APICaller {
     }
 
     private List<APIMethod> getMethodList(Map<String, Object> parameters, final List<APIMethod> methodObjs) {
-        List<APIMethod> list = methodObjs == null ? new ArrayList<>()
-                                                  : methodObjs.stream()
-                                                              .filter(m -> parameters.isEmpty() ? true
-                                                                                                : m.hasArguments())
-                                                              .collect(Collectors.toList());
+        List<APIMethod> list = methodObjs.stream()
+                                         .filter(m -> parameters == null || parameters.isEmpty() ? true
+                                                                                                 : m.hasArguments())
+                                         .collect(Collectors.toList());
         return list;
     }
 
@@ -155,7 +153,7 @@ public class APICaller {
                 return method.invokeAPI(instance, argDescription);
             } catch (NoSuchMethodException | SecurityException | ClassNotFoundException | IllegalAccessException
                      | IllegalArgumentException | InvocationTargetException e) {
-                // e.printStackTrace();
+                e.printStackTrace();
                 throwAPICallException(item, method, e);
             }
             return null;
