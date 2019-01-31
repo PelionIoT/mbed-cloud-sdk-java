@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.testutils;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -8,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
@@ -67,7 +69,7 @@ public class APICaller {
         Object rawInstance = instance.getInstance();
         // This is iterating over all methods with the same name but different signatures. If calls to all of them fail
         // then last exception is raised or the last result is returned if not null.
-        for (final APIMethod methodObj : methodObjs) {
+        for (final APIMethod methodObj : getMethodList(parameters, methodObjs)) {
             try {
                 result = null;
                 lastException = null;
@@ -75,7 +77,7 @@ public class APICaller {
                 result = api.call(rawInstance, parameters);
                 // If the call was successful then it is returned straight away and there is no need to iterate over
                 // other methods
-                if (!result.wasExceptionRaised()) {
+                if (!result.wasExceptionRaised() || result.isCloudException() || result.isNotImplementedException()) {
                     return result;
                 }
             } catch (APICallException exception) {
@@ -86,8 +88,22 @@ public class APICaller {
         if (result != null) {
             return result;
         }
+        if (lastException == null) {
+            result = new APIMethodResult();
+            result.setAllowed(false);
+            return result;
+        }
         // If the call was not successful and hence, an exception was raised, then it is thrown.
         throw lastException;
+    }
+
+    private List<APIMethod> getMethodList(Map<String, Object> parameters, final List<APIMethod> methodObjs) {
+        List<APIMethod> list = methodObjs == null ? new ArrayList<>()
+                                                  : methodObjs.stream()
+                                                              .filter(m -> parameters.isEmpty() ? true
+                                                                                                : m.hasArguments())
+                                                              .collect(Collectors.toList());
+        return list;
     }
 
     public TestedItem retrieveDescription(TestedItemType type, String itemName) throws UnknownAPIException {
@@ -227,6 +243,11 @@ public class APICaller {
                 subMap = fields;
             }
             return (Map<String, Object>) subMap;
+        }
+
+        @Override
+        public String toString() {
+            return "API [item=" + item + ", method=" + method + "]";
         }
 
     }

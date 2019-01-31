@@ -49,4 +49,10 @@ public class Entity extends Foundation {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Entity [name=" + name + ", simpleName=" + simpleName + ", instance=" + instance + ", methods=" + methods
+               + "]";
+    }
+
 }

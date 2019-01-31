@@ -136,6 +136,10 @@ public class APIMethod {
         return (arguments == null) ? 0 : arguments.size();
     }
 
+    public boolean hasArguments() {
+        return arguments != null && !arguments.isEmpty();
+    }
+
     public APIMethodResult
            invokeAPI(Object instance,
                      Map<String, Map<String, Object>> argsDescription) throws NoSuchMethodException, SecurityException,
@@ -164,7 +168,6 @@ public class APIMethod {
             }
             result.setResult(resultObject);
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
             result.setException(e);
         }
         APIMethod lastMetadataMethod = getApiMetadata();

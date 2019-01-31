@@ -7,11 +7,13 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.ParameterizedType;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.stream.Collectors;
 
 import io.vertx.core.json.JsonObject;
 
@@ -67,7 +69,7 @@ public class APIMappingGenerator {
             return null;
         }
         APIModule module = new APIModule(clazz.getName(), clazz.getSimpleName());
-        for (Method method : clazz.getMethods()) {
+        for (Method method : determinePublicMethods(clazz)) {
             module.addMethod(recordAPIMethod(method, true));
         }
         return module;
@@ -79,7 +81,7 @@ public class APIMappingGenerator {
         }
         com.arm.mbed.cloud.sdk.testserver.internal.model.Sdk sdk = new com.arm.mbed.cloud.sdk.testserver.internal.model.Sdk(clazz.getName(),
                                                                                                                             clazz.getSimpleName());
-        for (Method method : clazz.getMethods()) {
+        for (Method method : determinePublicMethods(clazz)) {
             sdk.addMethod(recordAPIMethod(method, true));
         }
         return sdk;
@@ -99,7 +101,7 @@ public class APIMappingGenerator {
         Class<?> listEntity = DaoProvider.getCorrespondingListDao((Class<SdkModel>) modelType);
         Entity entity = new Entity(listEntity == null ? clazz.getName() : listEntity.getName(),
                                    modelType.getSimpleName());
-        for (Method method : clazz.getMethods()) {
+        for (Method method : determinePublicMethods(clazz)) {
             APIMethod apiMethod = recordAPIMethod(method, false);
             if (apiMethod != null) {
                 apiMethod.setSubMethod(APIMethod.getCorrespondingDao());
@@ -113,6 +115,20 @@ public class APIMappingGenerator {
         }
         // TODO add list
         return entity;
+    }
+
+    private List<Method> determinePublicMethods(Class<?> clazz) {
+        // getMethods() does not work here because we only want the concrete public methods defined in the class and not
+        // the ones defined in the interfaces.
+        Class<?> currentClazz = clazz;
+        List<Method> methods = new LinkedList<>();
+        while (currentClazz != Object.class) {
+            methods.addAll(Arrays.asList(currentClazz.getDeclaredMethods()));
+            currentClazz = currentClazz.getSuperclass();
+        }
+        return methods.stream().filter(m -> (!(m.isSynthetic() || Modifier.isAbstract(m.getModifiers()))
+                                             && Modifier.isPublic(m.getModifiers())))
+                      .collect(Collectors.toList());
     }
 
     private APIMethod recordAPIMethod(Method method, boolean onlyAnnotatedMethod) {

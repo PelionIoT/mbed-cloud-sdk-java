@@ -49,11 +49,11 @@ public class APICallException extends Exception {
         }
         if (arg0.getMetadata() == null) {
             if (arg0.getException() instanceof InvocationTargetException && arg0.getException().getCause() != null) {
-                return arg0.getException().getCause().getMessage();
+                String message = arg0.getException().getCause().getMessage();
+                return message == null ? arg0.getException().getCause().getClass().getSimpleName() : message;
             }
-            return (arg0.getException().getMessage() == null) ? "Exception of type " + arg0.getException()
-                                                                + " was raised"
-                                                              : arg0.getException().getMessage();
+            return arg0.getException().getMessage() == null ? "Exception of type " + arg0.getException() + " was raised"
+                                                            : arg0.getException().getMessage();
         }
         return "An error occurred during call (" + arg0.getMetadata().getStatusCode() + "). Call metadata: "
                + arg0.getMetadata().toString();

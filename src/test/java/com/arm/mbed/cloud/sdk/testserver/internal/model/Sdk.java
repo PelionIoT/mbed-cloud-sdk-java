@@ -39,4 +39,10 @@ public class Sdk extends Foundation {
         return APIModule.createAModuleInstance(connectionOptions, name);
     }
 
+    @Override
+    public String toString() {
+        return "Sdk [name=" + name + ", simpleName=" + simpleName + ", instance=" + instance + ", methods=" + methods
+               + "]";
+    }
+
 }
