@@ -242,4 +242,31 @@ public class ValueGenerator {
                                                                         .orElse(null);
     }
 
+    public static String getJavaDefaultValue(TypeParameter type, String defaultValue) {
+        final boolean hasDefaultValue = defaultValue != null && !defaultValue.isEmpty();
+        if (type.isBoolean()) {
+            return hasDefaultValue ? defaultValue : "false";
+        }
+        if (type.isEnum()) {// TODO ensure the method for getting default type is always valid
+            return hasDefaultValue ? type.getShortName() + "." + SdkEnum.METHOD_GET_VALUE_FROM_STRING + "(\""
+                                     + defaultValue + "\")"
+                                   : type.getShortName() + "." + SdkEnum.METHOD_GET_DEFAULT + "()";
+        }
+        if (type.isNumber()) {
+            return hasDefaultValue ? defaultValue : type.isInteger() ? "0" : type.isDecimal() ? "0.0" : "0L";
+        }
+        if (type.isDate()) {// TODO ensure the default date value is called now
+            return hasDefaultValue ? defaultValue.contains("now") ? "new java.util.Date()" : defaultValue
+                                   : "new java.util.Date()";
+        }
+        if (type.isString()) {
+            return hasDefaultValue ? "\"" + defaultValue + "\"" : "(String) null";
+        }
+        if (type.isList() || type.isHashtable()) {
+            return hasDefaultValue ? defaultValue : "null";
+        }
+
+        return hasDefaultValue ? defaultValue : "(" + type.getShortName() + ") null";
+    }
+
 }

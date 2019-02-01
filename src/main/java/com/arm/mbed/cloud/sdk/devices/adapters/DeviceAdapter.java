@@ -16,414 +16,375 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceD
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPutRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DevicePage;
+import java.lang.Boolean;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.List;
 
 /**
- * Adapter for devices.
- */
-@Preamble(description = "Adapter for devices.")
+ * Adapter for devices. */
+@Preamble(
+    description = "Adapter for devices."
+)
 @Internal
 @SuppressWarnings("checkstyle:LineLength")
 public final class DeviceAdapter {
-    /**
-     * Constructor.
-     */
-    private DeviceAdapter() {
-        super();
-        // Nothing to do;
+  /**
+   * Constructor.
+   */
+  private DeviceAdapter() {
+    super();
+    // Nothing to do;
+  }
+
+  /**
+   * Maps a device data into a device.
+   * @param toBeMapped a device data.
+   * @return mapped a device
+   */
+  @Internal
+  public static Device map(DeviceData toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final Device device = new Device(toBeMapped.getAccountId(),TranslationUtils.toDate(toBeMapped.getCreatedAt()),translateToDeviceDeployedState(toBeMapped.getDeployedState()),toBeMapped.getEndpointName(),TranslationUtils.toDate(toBeMapped.getEnrolmentListTimestamp()),toBeMapped.getLastOperatorSuspendedCategory(),toBeMapped.getLastOperatorSuspendedDescription(),TranslationUtils.toDate(toBeMapped.getLastOperatorSuspendedUpdatedAt()),toBeMapped.getLastSystemSuspendedCategory(),toBeMapped.getLastSystemSuspendedDescription(),TranslationUtils.toDate(toBeMapped.getLastSystemSuspendedUpdatedAt()),translateToDeviceLifecycleStatus(toBeMapped.getLifecycleStatus()),TranslationUtils.toDate(toBeMapped.getManifestTimestamp()),TranslationUtils.toBool(toBeMapped.isOperatorSuspended()),TranslationUtils.toBool(toBeMapped.isSystemSuspended()),TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
+    device.setAutoUpdate(TranslationUtils.toBool(toBeMapped.isAutoUpdate()));
+    device.setBootstrapExpirationDate(TranslationUtils.toDate(toBeMapped.getBootstrapExpirationDate()));
+    device.setBootstrappedTimestamp(TranslationUtils.toDate(toBeMapped.getBootstrappedTimestamp()));
+    device.setCaId(toBeMapped.getCaId());
+    device.setConnectorExpirationDate(TranslationUtils.toDate(toBeMapped.getConnectorExpirationDate()));
+    device.setCustomAttributes(toBeMapped.getCustomAttributes());
+    device.setDeployment(toBeMapped.getDeployment());
+    device.setDescription(toBeMapped.getDescription());
+    device.setDeviceClass(toBeMapped.getDeviceClass());
+    device.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
+    device.setDeviceKey(toBeMapped.getDeviceKey());
+    device.setEndpointType(toBeMapped.getEndpointType());
+    device.setFirmwareChecksum(toBeMapped.getFirmwareChecksum());
+    device.setHostGateway(toBeMapped.getHostGateway());
+    device.setId(toBeMapped.getId());
+    device.setIssuerFingerprint(toBeMapped.getIssuerFingerprint());
+    device.setManifest(toBeMapped.getManifest());
+    device.setMechanism(translateToDeviceMechanism(toBeMapped.getMechanism()));
+    device.setMechanismUrl(toBeMapped.getMechanismUrl());
+    device.setName(toBeMapped.getName());
+    device.setSerialNumber(toBeMapped.getSerialNumber());
+    device.setState(translateToDeviceState(toBeMapped.getState()));
+    device.setVendorId(toBeMapped.getVendorId());
+    return device;
+  }
 
-    /**
-     * Maps a device data into a device.
-     * 
-     * @param toBeMapped
-     *            a device data.
-     * @return mapped a device
-     */
-    @Internal
-    public static Device map(DeviceData toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final Device device = new Device(toBeMapped.getAccountId(), TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                         translateToDeviceDeployedState(toBeMapped.getDeployedState()),
-                                         toBeMapped.getEndpointName(),
-                                         TranslationUtils.toDate(toBeMapped.getEnrolmentListTimestamp()),
-                                         toBeMapped.getLastOperatorSuspendedCategory(),
-                                         toBeMapped.getLastOperatorSuspendedDescription(),
-                                         TranslationUtils.toDate(toBeMapped.getLastOperatorSuspendedUpdatedAt()),
-                                         toBeMapped.getLastSystemSuspendedCategory(),
-                                         toBeMapped.getLastSystemSuspendedDescription(),
-                                         TranslationUtils.toDate(toBeMapped.getLastSystemSuspendedUpdatedAt()),
-                                         translateToDeviceLifecycleStatus(toBeMapped.getLifecycleStatus()),
-                                         TranslationUtils.toDate(toBeMapped.getManifestTimestamp()),
-                                         TranslationUtils.toBool(toBeMapped.isOperatorSuspended()),
-                                         TranslationUtils.toBool(toBeMapped.isSystemSuspended()),
-                                         TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        device.setAutoUpdate(TranslationUtils.toBool(toBeMapped.isAutoUpdate()));
-        device.setBootstrapExpirationDate(TranslationUtils.toDate(toBeMapped.getBootstrapExpirationDate()));
-        device.setBootstrappedTimestamp(TranslationUtils.toDate(toBeMapped.getBootstrappedTimestamp()));
-        device.setCaId(toBeMapped.getCaId());
-        device.setConnectorExpirationDate(TranslationUtils.toDate(toBeMapped.getConnectorExpirationDate()));
-        device.setCustomAttributes(toBeMapped.getCustomAttributes());
-        device.setDeployment(toBeMapped.getDeployment());
-        device.setDescription(toBeMapped.getDescription());
-        device.setDeviceClass(toBeMapped.getDeviceClass());
-        device.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
-        device.setDeviceKey(toBeMapped.getDeviceKey());
-        device.setEndpointType(toBeMapped.getEndpointType());
-        device.setFirmwareChecksum(toBeMapped.getFirmwareChecksum());
-        device.setHostGateway(toBeMapped.getHostGateway());
-        device.setId(toBeMapped.getId());
-        device.setIssuerFingerprint(toBeMapped.getIssuerFingerprint());
-        device.setManifest(toBeMapped.getManifest());
-        device.setMechanism(translateToDeviceMechanism(toBeMapped.getMechanism()));
-        device.setMechanismUrl(toBeMapped.getMechanismUrl());
-        device.setName(toBeMapped.getName());
-        device.setSerialNumber(toBeMapped.getSerialNumber());
-        device.setState(translateToDeviceState(toBeMapped.getState()));
-        device.setVendorId(toBeMapped.getVendorId());
-        return device;
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<DeviceData, Device> getMapper() {
+    return new GenericAdapter.Mapper<DeviceData, Device>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public Device map(DeviceData toBeMapped) {
+        return DeviceAdapter.map(toBeMapped);
+      }
+    };
+  }
+
+  /**
+   * Maps a device into a device data post request.
+   * @param toBeMapped a device.
+   * @return mapped a device data post request
+   */
+  @Internal
+  public static DeviceDataPostRequest reverseMapAddRequest(Device toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final DeviceDataPostRequest deviceDataPostRequest = new DeviceDataPostRequest();
+    deviceDataPostRequest.setAutoUpdate(toBeMapped.isAutoUpdate());
+    deviceDataPostRequest.setBootstrapExpirationDate(TranslationUtils.toDateTime(toBeMapped.getBootstrapExpirationDate()));
+    deviceDataPostRequest.setBootstrappedTimestamp(TranslationUtils.toDateTime(toBeMapped.getBootstrappedTimestamp()));
+    deviceDataPostRequest.setCaId(toBeMapped.getCaId());
+    deviceDataPostRequest.setConnectorExpirationDate(TranslationUtils.toDateTime(toBeMapped.getConnectorExpirationDate()));
+    deviceDataPostRequest.setCustomAttributes(toBeMapped.getCustomAttributes());
+    deviceDataPostRequest.setDeployment(toBeMapped.getDeployment());
+    deviceDataPostRequest.setDescription(toBeMapped.getDescription());
+    deviceDataPostRequest.setDeviceClass(toBeMapped.getDeviceClass());
+    deviceDataPostRequest.setDeviceExecutionMode(toBeMapped.getDeviceExecutionMode());
+    deviceDataPostRequest.setDeviceKey(toBeMapped.getDeviceKey());
+    deviceDataPostRequest.setEndpointName(toBeMapped.getEndpointName());
+    deviceDataPostRequest.setEndpointType(toBeMapped.getEndpointType());
+    deviceDataPostRequest.setFirmwareChecksum(toBeMapped.getFirmwareChecksum());
+    //No field equivalent to groups in DeviceDataPostRequest was found in Device
+    deviceDataPostRequest.setHostGateway(toBeMapped.getHostGateway());
+    deviceDataPostRequest.setIssuerFingerprint(toBeMapped.getIssuerFingerprint());
+    deviceDataPostRequest.setManifest(toBeMapped.getManifest());
+    deviceDataPostRequest.setMechanism(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestMechanismenum(toBeMapped.getMechanism()));
+    deviceDataPostRequest.setMechanismUrl(toBeMapped.getMechanismUrl());
+    deviceDataPostRequest.setName(toBeMapped.getName());
+    //No field equivalent to object in DeviceDataPostRequest was found in Device
+    deviceDataPostRequest.setSerialNumber(toBeMapped.getSerialNumber());
+    deviceDataPostRequest.setState(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestStateenum(toBeMapped.getState()));
+    deviceDataPostRequest.setVendorId(toBeMapped.getVendorId());
+    return deviceDataPostRequest;
+  }
 
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<DeviceData, Device> getMapper() {
-        return new GenericAdapter.Mapper<DeviceData, Device>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public Device map(DeviceData toBeMapped) {
-                return DeviceAdapter.map(toBeMapped);
-            }
-        };
+  /**
+   * Maps a device page into a device.
+   * @param toBeMapped a device page.
+   * @return mapped list response
+   */
+  @Internal
+  public static ListResponse<Device> mapList(DevicePage toBeMapped) {
+    final DevicePage finalList = toBeMapped;
+    final GenericAdapter.RespList<DeviceData> respList = new GenericAdapter.RespList<DeviceData>() {
+      /**
+       * Executes getAfter.
+       * @return something
+       */
+      @Override
+      public String getAfter() {
+        return (finalList == null) ? null : finalList.getAfter();
+      }
+
+      /**
+       * Executes getContinuationMarker.
+       * @return something
+       */
+      @Override
+      public String getContinuationMarker() {
+        return null;
+      }
+
+      /**
+       * Executes getData.
+       * @return something
+       */
+      @Override
+      public List<DeviceData> getData() {
+        return (finalList == null) ? null : finalList.getData();
+      }
+
+      /**
+       * Executes getHasMore.
+       * @return something
+       */
+      @Override
+      public Boolean getHasMore() {
+        return (finalList == null) ? null : finalList.isHasMore();
+      }
+
+      /**
+       * Executes getLimit.
+       * @return something
+       */
+      @Override
+      public Integer getLimit() {
+        return (finalList == null) ? null : finalList.getLimit();
+      }
+
+      /**
+       * Executes getOrder.
+       * @return something
+       */
+      @Override
+      public String getOrder() {
+        return (finalList == null) ? null : finalList.getOrder();
+      }
+
+      /**
+       * Executes getTotalCount.
+       * @return something
+       */
+      @Override
+      public Integer getTotalCount() {
+        return (finalList == null) ? null : finalList.getTotalCount();
+      }
+    };
+    return GenericAdapter.mapList(respList,DeviceAdapter.getMapper());
+  }
+
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<DevicePage, ListResponse<Device>> getListMapper() {
+    return new GenericAdapter.Mapper<DevicePage, ListResponse<Device>>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public ListResponse<Device> map(DevicePage toBeMapped) {
+        return DeviceAdapter.mapList(toBeMapped);
+      }
+    };
+  }
+
+  /**
+   * Maps a device into a device data put request.
+   * @param toBeMapped a device.
+   * @return mapped a device data put request
+   */
+  @Internal
+  public static DeviceDataPutRequest reverseMapUpdateRequest(Device toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final DeviceDataPutRequest deviceDataPutRequest = new DeviceDataPutRequest();
+    deviceDataPutRequest.setAutoUpdate(toBeMapped.isAutoUpdate());
+    deviceDataPutRequest.setCaId(toBeMapped.getCaId());
+    deviceDataPutRequest.setCustomAttributes(toBeMapped.getCustomAttributes());
+    deviceDataPutRequest.setDescription(toBeMapped.getDescription());
+    deviceDataPutRequest.setDeviceKey(toBeMapped.getDeviceKey());
+    deviceDataPutRequest.setEndpointType(toBeMapped.getEndpointType());
+    //No field equivalent to groups in DeviceDataPutRequest was found in Device
+    deviceDataPutRequest.setHostGateway(toBeMapped.getHostGateway());
+    deviceDataPutRequest.setName(toBeMapped.getName());
+    //No field equivalent to object in DeviceDataPutRequest was found in Device
+    return deviceDataPutRequest;
+  }
 
-    /**
-     * Maps a device into a device data post request.
-     * 
-     * @param toBeMapped
-     *            a device.
-     * @return mapped a device data post request
-     */
-    @Internal
-    public static DeviceDataPostRequest reverseMapAddRequest(Device toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final DeviceDataPostRequest deviceDataPostRequest = new DeviceDataPostRequest();
-        deviceDataPostRequest.setAutoUpdate(toBeMapped.isAutoUpdate());
-        deviceDataPostRequest.setBootstrapExpirationDate(TranslationUtils.toDateTime(toBeMapped.getBootstrapExpirationDate()));
-        deviceDataPostRequest.setBootstrappedTimestamp(TranslationUtils.toDateTime(toBeMapped.getBootstrappedTimestamp()));
-        deviceDataPostRequest.setCaId(toBeMapped.getCaId());
-        deviceDataPostRequest.setConnectorExpirationDate(TranslationUtils.toDateTime(toBeMapped.getConnectorExpirationDate()));
-        deviceDataPostRequest.setCustomAttributes(toBeMapped.getCustomAttributes());
-        deviceDataPostRequest.setDeployment(toBeMapped.getDeployment());
-        deviceDataPostRequest.setDescription(toBeMapped.getDescription());
-        deviceDataPostRequest.setDeviceClass(toBeMapped.getDeviceClass());
-        deviceDataPostRequest.setDeviceExecutionMode(toBeMapped.getDeviceExecutionMode());
-        deviceDataPostRequest.setDeviceKey(toBeMapped.getDeviceKey());
-        deviceDataPostRequest.setEndpointName(toBeMapped.getEndpointName());
-        deviceDataPostRequest.setEndpointType(toBeMapped.getEndpointType());
-        deviceDataPostRequest.setFirmwareChecksum(toBeMapped.getFirmwareChecksum());
-        // No field equivalent to groups in DeviceDataPostRequest was found in Device
-        deviceDataPostRequest.setHostGateway(toBeMapped.getHostGateway());
-        deviceDataPostRequest.setIssuerFingerprint(toBeMapped.getIssuerFingerprint());
-        deviceDataPostRequest.setManifest(toBeMapped.getManifest());
-        deviceDataPostRequest.setMechanism(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestMechanismenum(toBeMapped.getMechanism()));
-        deviceDataPostRequest.setMechanismUrl(toBeMapped.getMechanismUrl());
-        deviceDataPostRequest.setName(toBeMapped.getName());
-        // No field equivalent to object in DeviceDataPostRequest was found in Device
-        deviceDataPostRequest.setSerialNumber(toBeMapped.getSerialNumber());
-        deviceDataPostRequest.setState(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestStateenum(toBeMapped.getState()));
-        deviceDataPostRequest.setVendorId(toBeMapped.getVendorId());
-        return deviceDataPostRequest;
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a deployed state enum.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static DeviceDeployedState translateToDeviceDeployedState(
+      DeviceData.DeployedStateEnum toBeMapped) {
+    if(toBeMapped == null) {
+      return DeviceDeployedState.getUnknownEnum();
     }
-
-    /**
-     * Maps a device page into a device.
-     * 
-     * @param toBeMapped
-     *            a device page.
-     * @return mapped list response
-     */
-    @Internal
-    public static ListResponse<Device> mapList(DevicePage toBeMapped) {
-        final DevicePage finalList = toBeMapped;
-        final GenericAdapter.RespList<DeviceData> respList = new GenericAdapter.RespList<DeviceData>() {
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getContinuationMarker.
-             * 
-             * @return something
-             */
-            @Override
-            public String getContinuationMarker() {
-                return null;
-            }
-
-            /**
-             * Executes getData.
-             * 
-             * @return something
-             */
-            @Override
-            public List<DeviceData> getData() {
-                return (finalList == null) ? null : finalList.getData();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
-            }
-
-            /**
-             * Executes getLimit.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getLimit() {
-                return (finalList == null) ? null : finalList.getLimit();
-            }
-
-            /**
-             * Executes getOrder.
-             * 
-             * @return something
-             */
-            @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder();
-            }
-
-            /**
-             * Executes getTotalCount.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
-            }
-        };
-        return GenericAdapter.mapList(respList, DeviceAdapter.getMapper());
+    switch(toBeMapped) {
+      case DEVELOPMENT:
+      return DeviceDeployedState.DEVELOPMENT;
+      case PRODUCTION:
+      return DeviceDeployedState.PRODUCTION;
+      default:
+      return DeviceDeployedState.getUnknownEnum();
     }
+  }
 
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<DevicePage, ListResponse<Device>> getListMapper() {
-        return new GenericAdapter.Mapper<DevicePage, ListResponse<Device>>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public ListResponse<Device> map(DevicePage toBeMapped) {
-                return DeviceAdapter.mapList(toBeMapped);
-            }
-        };
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a lifecycle status enum.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static DeviceLifecycleStatus translateToDeviceLifecycleStatus(
+      DeviceData.LifecycleStatusEnum toBeMapped) {
+    if(toBeMapped == null) {
+      return DeviceLifecycleStatus.getUnknownEnum();
     }
+    switch(toBeMapped) {
+      case ENABLED:
+      return DeviceLifecycleStatus.ENABLED;
+      case BLOCKED:
+      return DeviceLifecycleStatus.BLOCKED;
+      default:
+      return DeviceLifecycleStatus.getUnknownEnum();
+    }
+  }
 
-    /**
-     * Maps a device into a device data put request.
-     * 
-     * @param toBeMapped
-     *            a device.
-     * @return mapped a device data put request
-     */
-    @Internal
-    public static DeviceDataPutRequest reverseMapUpdateRequest(Device toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final DeviceDataPutRequest deviceDataPutRequest = new DeviceDataPutRequest();
-        deviceDataPutRequest.setAutoUpdate(toBeMapped.isAutoUpdate());
-        deviceDataPutRequest.setCaId(toBeMapped.getCaId());
-        deviceDataPutRequest.setCustomAttributes(toBeMapped.getCustomAttributes());
-        deviceDataPutRequest.setDescription(toBeMapped.getDescription());
-        deviceDataPutRequest.setDeviceKey(toBeMapped.getDeviceKey());
-        deviceDataPutRequest.setEndpointType(toBeMapped.getEndpointType());
-        // No field equivalent to groups in DeviceDataPutRequest was found in Device
-        deviceDataPutRequest.setHostGateway(toBeMapped.getHostGateway());
-        deviceDataPutRequest.setName(toBeMapped.getName());
-        // No field equivalent to object in DeviceDataPutRequest was found in Device
-        return deviceDataPutRequest;
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a mechanism enum.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static DeviceMechanism translateToDeviceMechanism(DeviceData.MechanismEnum toBeMapped) {
+    if(toBeMapped == null) {
+      return DeviceMechanism.getUnknownEnum();
     }
+    switch(toBeMapped) {
+      case CONNECTOR:
+      return DeviceMechanism.CONNECTOR;
+      case DIRECT:
+      return DeviceMechanism.DIRECT;
+      default:
+      return DeviceMechanism.getUnknownEnum();
+    }
+  }
 
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a deployed state enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static DeviceDeployedState translateToDeviceDeployedState(DeviceData.DeployedStateEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return DeviceDeployedState.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case DEVELOPMENT:
-                return DeviceDeployedState.DEVELOPMENT;
-            case PRODUCTION:
-                return DeviceDeployedState.PRODUCTION;
-            default:
-                return DeviceDeployedState.getUnknownEnum();
-        }
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a state enum.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static DeviceState translateToDeviceState(DeviceData.StateEnum toBeMapped) {
+    if(toBeMapped == null) {
+      return DeviceState.getUnknownEnum();
     }
+    switch(toBeMapped) {
+      case UNENROLLED:
+      return DeviceState.UNENROLLED;
+      case CLOUD_ENROLLING:
+      return DeviceState.CLOUD_ENROLLING;
+      case BOOTSTRAPPED:
+      return DeviceState.BOOTSTRAPPED;
+      case REGISTERED:
+      return DeviceState.REGISTERED;
+      case DEREGISTERED:
+      return DeviceState.DEREGISTERED;
+      default:
+      return DeviceState.getUnknownEnum();
+    }
+  }
 
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a lifecycle status enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static DeviceLifecycleStatus translateToDeviceLifecycleStatus(DeviceData.LifecycleStatusEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return DeviceLifecycleStatus.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case ENABLED:
-                return DeviceLifecycleStatus.ENABLED;
-            case BLOCKED:
-                return DeviceLifecycleStatus.BLOCKED;
-            default:
-                return DeviceLifecycleStatus.getUnknownEnum();
-        }
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a device mechanism.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static DeviceDataPostRequest.MechanismEnum translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestMechanismenum(
+      DeviceMechanism toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    switch(toBeMapped) {
+      case CONNECTOR:
+      return DeviceDataPostRequest.MechanismEnum.CONNECTOR;
+      case DIRECT:
+      return DeviceDataPostRequest.MechanismEnum.DIRECT;
+      default:
+      return null;
+    }
+  }
 
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a mechanism enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static DeviceMechanism translateToDeviceMechanism(DeviceData.MechanismEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return DeviceMechanism.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case CONNECTOR:
-                return DeviceMechanism.CONNECTOR;
-            case DIRECT:
-                return DeviceMechanism.DIRECT;
-            default:
-                return DeviceMechanism.getUnknownEnum();
-        }
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a device state.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static DeviceDataPostRequest.StateEnum translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestStateenum(
+      DeviceState toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
-
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a state enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static DeviceState translateToDeviceState(DeviceData.StateEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return DeviceState.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case UNENROLLED:
-                return DeviceState.UNENROLLED;
-            case CLOUD_ENROLLING:
-                return DeviceState.CLOUD_ENROLLING;
-            case BOOTSTRAPPED:
-                return DeviceState.BOOTSTRAPPED;
-            case REGISTERED:
-                return DeviceState.REGISTERED;
-            case DEREGISTERED:
-                return DeviceState.DEREGISTERED;
-            default:
-                return DeviceState.getUnknownEnum();
-        }
+    switch(toBeMapped) {
+      case UNENROLLED:
+      return DeviceDataPostRequest.StateEnum.UNENROLLED;
+      case CLOUD_ENROLLING:
+      return DeviceDataPostRequest.StateEnum.CLOUD_ENROLLING;
+      case BOOTSTRAPPED:
+      return DeviceDataPostRequest.StateEnum.BOOTSTRAPPED;
+      case REGISTERED:
+      return DeviceDataPostRequest.StateEnum.REGISTERED;
+      case DEREGISTERED:
+      return DeviceDataPostRequest.StateEnum.DEREGISTERED;
+      default:
+      return null;
     }
-
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a device mechanism.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static DeviceDataPostRequest.MechanismEnum
-              translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestMechanismenum(DeviceMechanism toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        switch (toBeMapped) {
-            case CONNECTOR:
-                return DeviceDataPostRequest.MechanismEnum.CONNECTOR;
-            case DIRECT:
-                return DeviceDataPostRequest.MechanismEnum.DIRECT;
-            default:
-                return null;
-        }
-    }
-
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a device state.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static DeviceDataPostRequest.StateEnum
-              translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestStateenum(DeviceState toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        switch (toBeMapped) {
-            case UNENROLLED:
-                return DeviceDataPostRequest.StateEnum.UNENROLLED;
-            case CLOUD_ENROLLING:
-                return DeviceDataPostRequest.StateEnum.CLOUD_ENROLLING;
-            case BOOTSTRAPPED:
-                return DeviceDataPostRequest.StateEnum.BOOTSTRAPPED;
-            case REGISTERED:
-                return DeviceDataPostRequest.StateEnum.REGISTERED;
-            case DEREGISTERED:
-                return DeviceDataPostRequest.StateEnum.DEREGISTERED;
-            default:
-                return null;
-        }
-    }
+  }
 }

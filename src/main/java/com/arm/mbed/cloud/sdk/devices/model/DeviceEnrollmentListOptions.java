@@ -8,119 +8,117 @@ import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.listing.IncludeField;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
+import java.lang.Integer;
+import java.lang.Long;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
 import java.util.List;
 
 /**
- * Options to use when listing device enrollments.
- */
-@Preamble(description = "Options to use when listing device enrollments.")
+ * Options to use when listing device enrollments. */
+@Preamble(
+    description = "Options to use when listing device enrollments."
+)
 public class DeviceEnrollmentListOptions extends ListOptions {
-    /**
-     * Internal constructor.
-     * <p>
-     * Note: Should not be used. Use {@link #DeviceEnrollmentListOptions()} instead.
-     * 
-     * @param pageSize
-     *            value.
-     * @param maxResults
-     *            value.
-     * @param order
-     *            enumerator value.
-     * @param after
-     *            value.
-     * @param include
-     *            value.
-     * @param filter
-     *            value.
-     */
-    @Internal
-    public DeviceEnrollmentListOptions(Integer pageSize, Long maxResults, Order order, String after,
-                                       List<IncludeField> include, Filters filter) {
-        super();
-        this.pageSize = pageSize;
-        this.maxResults = maxResults;
-        this.order = order;
-        this.after = after;
-        this.include = include;
-        this.filter = filter;
-    }
+  /**
+   * Internal constructor.
+   * <p>
+   * Note: Should not be used. Use {@link #DeviceEnrollmentListOptions()} instead.
+   * @param pageSize value.
+   * @param maxResults value.
+   * @param order enumerator value.
+   * @param after value.
+   * @param include value.
+   * @param filter value.
+   */
+  @Internal
+  public DeviceEnrollmentListOptions(Integer pageSize, Long maxResults, Order order, String after,
+      List<IncludeField> include, Filters filter) {
+    super();
+    this.pageSize = pageSize;
+    this.maxResults = maxResults;
+    this.order = order;
+    this.after = after;
+    this.include = include;
+    this.filter = filter;
+  }
 
-    /**
-     * Internal constructor.
-     * <p>
-     * Note: Should not be used. Use {@link #DeviceEnrollmentListOptions()} instead.
-     * 
-     * @param deviceEnrollmentListOptions
-     *            a device enrollment list options.
-     */
-    @Internal
-    public DeviceEnrollmentListOptions(DeviceEnrollmentListOptions deviceEnrollmentListOptions) {
-        this();
-        setOptions(deviceEnrollmentListOptions);
-    }
+  /**
+   * Internal constructor.
+   * <p>
+   * Note: Should not be used. Use {@link #DeviceEnrollmentListOptions()} instead.
+   * @param deviceEnrollmentListOptions a device enrollment list options.
+   */
+  @Internal
+  public DeviceEnrollmentListOptions(DeviceEnrollmentListOptions deviceEnrollmentListOptions) {
+    this();
+    setOptions(deviceEnrollmentListOptions);
+  }
 
-    /**
-     * Constructor.
-     */
-    public DeviceEnrollmentListOptions() {
-        super();
-        setDefault();
-    }
+  /**
+   * Constructor.
+   */
+  public DeviceEnrollmentListOptions() {
+    super();
+    setDefault();
+  }
 
-    /**
-     * Internal constructor.
-     * <p>
-     * Note: Should not be used. Use {@link #DeviceEnrollmentListOptions()} instead.
-     * 
-     * @param after
-     *            value.
-     * @param include
-     *            value.
-     * @param filter
-     *            value.
-     */
-    @Internal
-    public DeviceEnrollmentListOptions(String after, List<IncludeField> include, Filters filter) {
-        this(0, 0L, Order.getDefault(), after, include, filter);
-    }
+  /**
+   * Internal constructor.
+   * <p>
+   * Note: Should not be used. Use {@link #DeviceEnrollmentListOptions()} instead.
+   * @param after value.
+   * @param include value.
+   * @param filter value.
+   */
+  @Internal
+  public DeviceEnrollmentListOptions(String after, List<IncludeField> include, Filters filter) {
+    this(0,
+        0L,
+        Order.getDefault(),
+        after,
+        include,
+        filter);
+  }
 
-    /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof DeviceEnrollmentListOptions;
-    }
+  /**
+   *  Method to ensure {@link #equals(Object)} is correct.
+   * <p>
+   *  Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+   * @param other another object.
+   * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+   */
+  protected boolean canEqual(Object other) {
+    return other instanceof DeviceEnrollmentListOptions;
+  }
 
-    /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "DeviceEnrollmentListOptions [pageSize=" + pageSize + ", maxResults=" + maxResults + ", order=" + order
-               + ", after=" + after + ", include=" + encodeInclude() + ", filter=" + retrieveFilterAsJson() + "]";
-    }
+  /**
+   * Returns a string representation of the object.
+   * <p>
+   * @see java.lang.Object#toString()
+   * @return the string representation
+   */
+  @Override
+  public String toString() {
+    return "DeviceEnrollmentListOptions [pageSize=" + pageSize
+        + ", maxResults=" + maxResults
+        + ", order=" + order
+        + ", after=" + after
+        + ", include=" + encodeInclude() 
+        + ", filter=" + retrieveFilterAsJson()  + "]";
+  }
 
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public DeviceEnrollmentListOptions clone() {
-        final DeviceEnrollmentListOptions opt = new DeviceEnrollmentListOptions();
-        opt.setOptions(this);
-        return opt;
-    }
+  /**
+   * Clones this instance.
+   * <p>
+   * @see java.lang.Object#clone()
+   * @return a cloned instance
+   */
+  @Override
+  public DeviceEnrollmentListOptions clone() {
+    final DeviceEnrollmentListOptions opt = new DeviceEnrollmentListOptions();
+    opt.setOptions(this);
+    return opt;
+  }
 }

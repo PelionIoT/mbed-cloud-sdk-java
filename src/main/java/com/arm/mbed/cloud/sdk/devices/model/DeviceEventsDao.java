@@ -12,115 +12,107 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 
 /**
  * Data Access Object (DAO) for device events.
  * <p>
- * 
- * @see <a href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access
- *      Object</a>
- */
-@Preamble(description = "Data Access Object (DAO) for device events.")
+ * @see <a  href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access Object</a> */
+@Preamble(
+    description = "Data Access Object (DAO) for device events."
+)
 public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements ReadDao<DeviceEvents> {
-    /**
-     * Constructor.
-     */
-    public DeviceEventsDao() throws MbedCloudException {
-        super();
-    }
+  /**
+   * Constructor.
+   */
+  public DeviceEventsDao() throws MbedCloudException {
+    super();
+  }
 
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public DeviceEventsDao clone() {
-        try {
-            return new DeviceEventsDao().configureAndGet(getModuleOrThrow() == null ? null
-                                                                                    : getModuleOrThrow().clone());
-        } catch (MbedCloudException exception) {
-            return null;
-        }
+  /**
+   * Clones this instance.
+   * <p>
+   * @see java.lang.Object#clone()
+   * @return a cloned instance
+   */
+  @Override
+  @SuppressWarnings("resource")
+  public DeviceEventsDao clone() {
+    try {
+      return new DeviceEventsDao().configureAndGet(getModuleOrThrow() == null? null: getModuleOrThrow().clone());
     }
+    catch(MbedCloudException exception) {
+      return null;
+    }
+  }
 
-    /**
-     * Gets a device events.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(DeviceEvents)}
-     * 
-     * @return something
-     */
-    @Override
-    public DeviceEvents get() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDeviceEvents(getModel()));
-        return getModel();
-    }
+  /**
+   * Gets a device events.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(DeviceEvents)}
+   * @return something
+   */
+  @Override
+  public DeviceEvents get() throws MbedCloudException {
+    setModel(((Devices)getModuleOrThrow()).getDeviceEvents(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Gets a device events.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(String)}
-     * 
-     * @param id
-     *            null
-     * @return something
-     */
-    @Override
-    public DeviceEvents get(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDeviceEvents(id));
-        return getModel();
-    }
+  /**
+   * Gets a device events.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(String)}
+   * @param id null
+   * @return something
+   */
+  @Override
+  public DeviceEvents get(@NonNull String id) throws MbedCloudException {
+    setModel(((Devices)getModuleOrThrow()).getDeviceEvents(id));
+    return getModel();
+  }
 
-    /**
-     * Instantiates model.
-     * 
-     * @return instantiated model
-     */
-    @Override
-    @Internal
-    protected DeviceEvents instantiateModel() {
-        return new DeviceEvents();
-    }
+  /**
+   * Instantiates model.
+   * @return instantiated model
+   */
+  @Override
+  @Internal
+  protected DeviceEvents instantiateModel() {
+    return new DeviceEvents();
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
+  /**
+   * Instantiates modules.
+   * @param options a connection options.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ConnectionOptions options) {
+    return new Devices(options);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Devices(client);
-    }
+  /**
+   * Instantiates modules.
+   * @param client an api client wrapper.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ApiClientWrapper client) {
+    return new Devices(client);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
-    }
+  /**
+   * Instantiates modules.
+   * @param context an sdk context.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(SdkContext context) {
+    return new Devices(context);
+  }
 }

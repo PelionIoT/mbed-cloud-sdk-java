@@ -37,412 +37,378 @@ import com.arm.mbed.cloud.sdk.security.model.ServerCredentialsDao;
 import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateDao;
 import com.arm.mbed.cloud.sdk.security.model.TrustedCertificateDao;
 import com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListDao;
+import java.lang.Cloneable;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
 
 /**
  * Factory for SDK DAOs.
  * <p>
- * Utility for fetching DAOs similar to DaoProvider but without using reflection
- */
-@Preamble(description = "Factory for SDK DAOs.")
+ * Utility for fetching DAOs similar to DaoProvider but without using reflection */
+@Preamble(
+    description = "Factory for SDK DAOs."
+)
 @Internal
 public class DaoFactory implements Cloneable {
-    /**
-     * Context.
-     */
-    @Internal
-    @Required
-    private final SdkContext context;
+  /**
+   * Context. */
+  @Internal
+  @Required
+  private final SdkContext context;
 
-    /**
-     * Constructor.
-     * 
-     * @param context
-     *            Context.
-     */
-    public DaoFactory(SdkContext context) {
-        super();
-        this.context = context;
-    }
+  /**
+   * Constructor.
+   * @param context Context.
+   */
+  public DaoFactory(SdkContext context) {
+    super();
+    this.context = context;
+  }
 
-    /**
-     * Constructor.
-     * 
-     * @param daoFactory
-     *            a dao factory.
-     */
-    public DaoFactory(DaoFactory daoFactory) {
-        this(daoFactory == null ? (SdkContext) null : daoFactory.context);
-    }
+  /**
+   * Constructor.
+   * @param daoFactory a dao factory.
+   */
+  public DaoFactory(DaoFactory daoFactory) {
+    this(daoFactory == null ? (SdkContext) null : daoFactory.context);
+  }
 
-    /**
-     * Constructor.
-     */
-    public DaoFactory() {
-        this((SdkContext) null);
-    }
+  /**
+   * Constructor.
+   */
+  public DaoFactory() {
+    this((SdkContext) null);
+  }
 
-    /**
-     * Gets an account dao.
-     * 
-     * @return an account dao
-     */
-    public AccountDao getAccountDao() throws MbedCloudException {
-        return new AccountDao().configureAndGet(context);
-    }
+  /**
+   * Gets an account dao.
+   * @return an account dao
+   */
+  public AccountDao getAccountDao() throws MbedCloudException {
+    return new AccountDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets an account list dao.
-     * 
-     * @return an account list dao
-     */
-    public AccountListDao getAccountListDao() throws MbedCloudException {
-        return new AccountListDao().configureAndGet(context);
-    }
+  /**
+   * Gets an account list dao.
+   * @return an account list dao
+   */
+  public AccountListDao getAccountListDao() throws MbedCloudException {
+    return new AccountListDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets an api key dao.
-     * 
-     * @return an api key dao
-     */
-    public ApiKeyDao getApiKeyDao() throws MbedCloudException {
-        return new ApiKeyDao().configureAndGet(context);
-    }
+  /**
+   * Gets an api key dao.
+   * @return an api key dao
+   */
+  public ApiKeyDao getApiKeyDao() throws MbedCloudException {
+    return new ApiKeyDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets an api key list dao.
-     * 
-     * @return an api key list dao
-     */
-    public ApiKeyListDao getApiKeyListDao() throws MbedCloudException {
-        return new ApiKeyListDao().configureAndGet(context);
-    }
+  /**
+   * Gets an api key list dao.
+   * @return an api key list dao
+   */
+  public ApiKeyListDao getApiKeyListDao() throws MbedCloudException {
+    return new ApiKeyListDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a certificate enrollment dao.
-     * 
-     * @return a certificate enrollment dao
-     */
-    public CertificateEnrollmentDao getCertificateEnrollmentDao() throws MbedCloudException {
-        return new CertificateEnrollmentDao().configureAndGet(context);
-    }
+  /**
+   * Gets a certificate enrollment dao.
+   * @return a certificate enrollment dao
+   */
+  public CertificateEnrollmentDao getCertificateEnrollmentDao() throws MbedCloudException {
+    return new CertificateEnrollmentDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a certificate enrollment list dao.
-     * 
-     * @return a certificate enrollment list dao
-     */
-    public CertificateEnrollmentListDao getCertificateEnrollmentListDao() throws MbedCloudException {
-        return new CertificateEnrollmentListDao().configureAndGet(context);
-    }
+  /**
+   * Gets a certificate enrollment list dao.
+   * @return a certificate enrollment list dao
+   */
+  public CertificateEnrollmentListDao getCertificateEnrollmentListDao() throws MbedCloudException {
+    return new CertificateEnrollmentListDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a certificate issuer dao.
-     * 
-     * @return a certificate issuer dao
-     */
-    public CertificateIssuerDao getCertificateIssuerDao() throws MbedCloudException {
-        return new CertificateIssuerDao().configureAndGet(context);
-    }
+  /**
+   * Gets a certificate issuer dao.
+   * @return a certificate issuer dao
+   */
+  public CertificateIssuerDao getCertificateIssuerDao() throws MbedCloudException {
+    return new CertificateIssuerDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a certificate issuer list dao.
-     * 
-     * @return a certificate issuer list dao
-     */
-    public CertificateIssuerListDao getCertificateIssuerListDao() throws MbedCloudException {
-        return new CertificateIssuerListDao().configureAndGet(context);
-    }
+  /**
+   * Gets a certificate issuer list dao.
+   * @return a certificate issuer list dao
+   */
+  public CertificateIssuerListDao getCertificateIssuerListDao() throws MbedCloudException {
+    return new CertificateIssuerListDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a certificate issuer config dao.
-     * 
-     * @return a certificate issuer config dao
-     */
-    public CertificateIssuerConfigDao getCertificateIssuerConfigDao() throws MbedCloudException {
-        return new CertificateIssuerConfigDao().configureAndGet(context);
-    }
+  /**
+   * Gets a certificate issuer config dao.
+   * @return a certificate issuer config dao
+   */
+  public CertificateIssuerConfigDao getCertificateIssuerConfigDao() throws MbedCloudException {
+    return new CertificateIssuerConfigDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a certificate issuer config list dao.
-     * 
-     * @return a certificate issuer config list dao
-     */
-    public CertificateIssuerConfigListDao getCertificateIssuerConfigListDao() throws MbedCloudException {
-        return new CertificateIssuerConfigListDao().configureAndGet(context);
-    }
+  /**
+   * Gets a certificate issuer config list dao.
+   * @return a certificate issuer config list dao
+   */
+  public CertificateIssuerConfigListDao getCertificateIssuerConfigListDao() throws
+      MbedCloudException {
+    return new CertificateIssuerConfigListDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a developer certificate dao.
-     * 
-     * @return a developer certificate dao
-     */
-    public DeveloperCertificateDao getDeveloperCertificateDao() throws MbedCloudException {
-        return new DeveloperCertificateDao().configureAndGet(context);
-    }
+  /**
+   * Gets a developer certificate dao.
+   * @return a developer certificate dao
+   */
+  public DeveloperCertificateDao getDeveloperCertificateDao() throws MbedCloudException {
+    return new DeveloperCertificateDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a device dao.
-     * 
-     * @return a device dao
-     */
-    public DeviceDao getDeviceDao() throws MbedCloudException {
-        return new DeviceDao().configureAndGet(context);
-    }
+  /**
+   * Gets a device dao.
+   * @return a device dao
+   */
+  public DeviceDao getDeviceDao() throws MbedCloudException {
+    return new DeviceDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a device list dao.
-     * 
-     * @return a device list dao
-     */
-    public DeviceListDao getDeviceListDao() throws MbedCloudException {
-        return new DeviceListDao().configureAndGet(context);
-    }
+  /**
+   * Gets a device list dao.
+   * @return a device list dao
+   */
+  public DeviceListDao getDeviceListDao() throws MbedCloudException {
+    return new DeviceListDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a device enrollment dao.
-     * 
-     * @return a device enrollment dao
-     */
-    public DeviceEnrollmentDao getDeviceEnrollmentDao() throws MbedCloudException {
-        return new DeviceEnrollmentDao().configureAndGet(context);
-    }
+  /**
+   * Gets a device enrollment dao.
+   * @return a device enrollment dao
+   */
+  public DeviceEnrollmentDao getDeviceEnrollmentDao() throws MbedCloudException {
+    return new DeviceEnrollmentDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a device enrollment list dao.
-     * 
-     * @return a device enrollment list dao
-     */
-    public DeviceEnrollmentListDao getDeviceEnrollmentListDao() throws MbedCloudException {
-        return new DeviceEnrollmentListDao().configureAndGet(context);
-    }
+  /**
+   * Gets a device enrollment list dao.
+   * @return a device enrollment list dao
+   */
+  public DeviceEnrollmentListDao getDeviceEnrollmentListDao() throws MbedCloudException {
+    return new DeviceEnrollmentListDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a device enrollment bulk create dao.
-     * 
-     * @return a device enrollment bulk create dao
-     */
-    public DeviceEnrollmentBulkCreateDao getDeviceEnrollmentBulkCreateDao() throws MbedCloudException {
-        return new DeviceEnrollmentBulkCreateDao().configureAndGet(context);
-    }
+  /**
+   * Gets a device enrollment bulk create dao.
+   * @return a device enrollment bulk create dao
+   */
+  public DeviceEnrollmentBulkCreateDao getDeviceEnrollmentBulkCreateDao() throws
+      MbedCloudException {
+    return new DeviceEnrollmentBulkCreateDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a device enrollment bulk delete dao.
-     * 
-     * @return a device enrollment bulk delete dao
-     */
-    public DeviceEnrollmentBulkDeleteDao getDeviceEnrollmentBulkDeleteDao() throws MbedCloudException {
-        return new DeviceEnrollmentBulkDeleteDao().configureAndGet(context);
-    }
+  /**
+   * Gets a device enrollment bulk delete dao.
+   * @return a device enrollment bulk delete dao
+   */
+  public DeviceEnrollmentBulkDeleteDao getDeviceEnrollmentBulkDeleteDao() throws
+      MbedCloudException {
+    return new DeviceEnrollmentBulkDeleteDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a device events dao.
-     * 
-     * @return a device events dao
-     */
-    public DeviceEventsDao getDeviceEventsDao() throws MbedCloudException {
-        return new DeviceEventsDao().configureAndGet(context);
-    }
+  /**
+   * Gets a device events dao.
+   * @return a device events dao
+   */
+  public DeviceEventsDao getDeviceEventsDao() throws MbedCloudException {
+    return new DeviceEventsDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a device events list dao.
-     * 
-     * @return a device events list dao
-     */
-    public DeviceEventsListDao getDeviceEventsListDao() throws MbedCloudException {
-        return new DeviceEventsListDao().configureAndGet(context);
-    }
+  /**
+   * Gets a device events list dao.
+   * @return a device events list dao
+   */
+  public DeviceEventsListDao getDeviceEventsListDao() throws MbedCloudException {
+    return new DeviceEventsListDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a server credentials dao.
-     * 
-     * @return a server credentials dao
-     */
-    public ServerCredentialsDao getServerCredentialsDao() throws MbedCloudException {
-        return new ServerCredentialsDao().configureAndGet(context);
-    }
+  /**
+   * Gets a server credentials dao.
+   * @return a server credentials dao
+   */
+  public ServerCredentialsDao getServerCredentialsDao() throws MbedCloudException {
+    return new ServerCredentialsDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a subtenant trusted certificate dao.
-     * 
-     * @return a subtenant trusted certificate dao
-     */
-    public SubtenantTrustedCertificateDao getSubtenantTrustedCertificateDao() throws MbedCloudException {
-        return new SubtenantTrustedCertificateDao().configureAndGet(context);
-    }
+  /**
+   * Gets a subtenant trusted certificate dao.
+   * @return a subtenant trusted certificate dao
+   */
+  public SubtenantTrustedCertificateDao getSubtenantTrustedCertificateDao() throws
+      MbedCloudException {
+    return new SubtenantTrustedCertificateDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a subtenant user dao.
-     * 
-     * @return a subtenant user dao
-     */
-    public SubtenantUserDao getSubtenantUserDao() throws MbedCloudException {
-        return new SubtenantUserDao().configureAndGet(context);
-    }
+  /**
+   * Gets a subtenant user dao.
+   * @return a subtenant user dao
+   */
+  public SubtenantUserDao getSubtenantUserDao() throws MbedCloudException {
+    return new SubtenantUserDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a subtenant user invitation dao.
-     * 
-     * @return a subtenant user invitation dao
-     */
-    public SubtenantUserInvitationDao getSubtenantUserInvitationDao() throws MbedCloudException {
-        return new SubtenantUserInvitationDao().configureAndGet(context);
-    }
+  /**
+   * Gets a subtenant user invitation dao.
+   * @return a subtenant user invitation dao
+   */
+  public SubtenantUserInvitationDao getSubtenantUserInvitationDao() throws MbedCloudException {
+    return new SubtenantUserInvitationDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a trusted certificate dao.
-     * 
-     * @return a trusted certificate dao
-     */
-    public TrustedCertificateDao getTrustedCertificateDao() throws MbedCloudException {
-        return new TrustedCertificateDao().configureAndGet(context);
-    }
+  /**
+   * Gets a trusted certificate dao.
+   * @return a trusted certificate dao
+   */
+  public TrustedCertificateDao getTrustedCertificateDao() throws MbedCloudException {
+    return new TrustedCertificateDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a trusted certificate list dao.
-     * 
-     * @return a trusted certificate list dao
-     */
-    public TrustedCertificateListDao getTrustedCertificateListDao() throws MbedCloudException {
-        return new TrustedCertificateListDao().configureAndGet(context);
-    }
+  /**
+   * Gets a trusted certificate list dao.
+   * @return a trusted certificate list dao
+   */
+  public TrustedCertificateListDao getTrustedCertificateListDao() throws MbedCloudException {
+    return new TrustedCertificateListDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a user dao.
-     * 
-     * @return a user dao
-     */
-    public UserDao getUserDao() throws MbedCloudException {
-        return new UserDao().configureAndGet(context);
-    }
+  /**
+   * Gets a user dao.
+   * @return a user dao
+   */
+  public UserDao getUserDao() throws MbedCloudException {
+    return new UserDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a user list dao.
-     * 
-     * @return a user list dao
-     */
-    public UserListDao getUserListDao() throws MbedCloudException {
-        return new UserListDao().configureAndGet(context);
-    }
+  /**
+   * Gets a user list dao.
+   * @return a user list dao
+   */
+  public UserListDao getUserListDao() throws MbedCloudException {
+    return new UserListDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a user invitation dao.
-     * 
-     * @return a user invitation dao
-     */
-    public UserInvitationDao getUserInvitationDao() throws MbedCloudException {
-        return new UserInvitationDao().configureAndGet(context);
-    }
+  /**
+   * Gets a user invitation dao.
+   * @return a user invitation dao
+   */
+  public UserInvitationDao getUserInvitationDao() throws MbedCloudException {
+    return new UserInvitationDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets a user invitation list dao.
-     * 
-     * @return a user invitation list dao
-     */
-    public UserInvitationListDao getUserInvitationListDao() throws MbedCloudException {
-        return new UserInvitationListDao().configureAndGet(context);
-    }
+  /**
+   * Gets a user invitation list dao.
+   * @return a user invitation list dao
+   */
+  public UserInvitationListDao getUserInvitationListDao() throws MbedCloudException {
+    return new UserInvitationListDao().configureAndGet(context);
+  }
 
-    /**
-     * Gets context.
-     * 
-     * @return context
-     */
-    public SdkContext getContext() {
-        return context;
-    }
+  /**
+   * Gets context.
+   * @return context
+   */
+  public SdkContext getContext() {
+    return context;
+  }
 
-    /**
-     * Gets a dao provider.
-     * 
-     * @return a dao provider
-     */
-    public DaoProvider getDaoProvider() {
-        return new DaoProvider(context);
-    }
+  /**
+   * Gets a dao provider.
+   * @return a dao provider
+   */
+  public DaoProvider getDaoProvider() {
+    return new DaoProvider(context);
+  }
 
-    /**
-     * Calculates the hash code of this instance based on field values.
-     * <p>
-     * 
-     * @see java.lang.Object#hashCode()
-     * @return hash code
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((context == null) ? 0 : context.hashCode());
-        return result;
-    }
+  /**
+   * Calculates the hash code of this instance based on field values.
+   * <p>
+   * @see java.lang.Object#hashCode()
+   * @return hash code
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((context == null) ? 0 : context.hashCode());
+    return result;
+  }
 
-    /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof DaoFactory;
-    }
+  /**
+   *  Method to ensure {@link #equals(Object)} is correct.
+   * <p>
+   *  Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+   * @param other another object.
+   * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+   */
+  protected boolean canEqual(Object other) {
+    return other instanceof DaoFactory;
+  }
 
-    /**
-     * Indicates whether some other object is "equal to" this one.
-     * <p>
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     * @param obj
-     *            an object to compare with this instance.
-     * @return true if this object is the same as the obj argument; false otherwise.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof DaoFactory)) {
-            return false;
-        }
-        final DaoFactory other = (DaoFactory) obj;
-        if (!other.canEqual(this)) {
-            return false;
-        }
-        if (context == null) {
-            if (other.context != null) {
-                return false;
-            }
-        } else if (!context.equals(other.context)) {
-            return false;
-        }
-        return true;
+  /**
+   * Indicates whether some other object is "equal to" this one.
+   * <p>
+   * @see java.lang.Object#equals(java.lang.Object)
+   * @param obj an object to compare with this instance.
+   * @return true if this object is the same as the obj argument; false otherwise.
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
     }
+    if (obj == null) {
+      return false;
+    }
+    if( !(obj instanceof DaoFactory)) {
+      return false;
+    }
+    final DaoFactory other = (DaoFactory) obj;
+    if( !other.canEqual(this)) {
+      return false;
+    }
+    if (context == null) {
+      if (other.context != null) {
+        return false;
+      }
+    } else if (!context.equals(other.context)) {
+      return false;
+    }
+    return true;
+  }
 
-    /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "DaoFactory [context=" + context + "]";
-    }
+  /**
+   * Returns a string representation of the object.
+   * <p>
+   * @see java.lang.Object#toString()
+   * @return the string representation
+   */
+  @Override
+  public String toString() {
+    return "DaoFactory [context=" + context + "]";
+  }
 
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public DaoFactory clone() {
-        return new DaoFactory(this);
-    }
+  /**
+   * Clones this instance.
+   * <p>
+   * @see java.lang.Object#clone()
+   * @return a cloned instance
+   */
+  @Override
+  public DaoFactory clone() {
+    return new DaoFactory(this);
+  }
 }

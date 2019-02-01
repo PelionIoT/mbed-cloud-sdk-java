@@ -16,152 +16,134 @@ import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
 import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
 import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
+import java.lang.Override;
+import java.lang.String;
 
 /**
  * Data Access Object (DAO) for user invitations.
  * <p>
- * 
- * @see <a href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access
- *      Object</a>
- */
-@Preamble(description = "Data Access Object (DAO) for user invitations.")
-public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInvitation>
-                                                implements CreateDao<UserInvitation>, DeleteDao<UserInvitation>,
-                                                ReadDao<UserInvitation> {
-    /**
-     * Constructor.
-     */
-    public AbstractUserInvitationDao() throws MbedCloudException {
-        super();
-    }
+ * @see <a  href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access Object</a> */
+@Preamble(
+    description = "Data Access Object (DAO) for user invitations."
+)
+public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInvitation> implements CreateDao<UserInvitation>, DeleteDao<UserInvitation>, ReadDao<UserInvitation> {
+  /**
+   * Constructor.
+   */
+  public AbstractUserInvitationDao() throws MbedCloudException {
+    super();
+  }
 
-    /**
-     * Adds a user invitation.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#createUserInvitation(int,UserInvitation)}
-     * 
-     * @param validForDays
-     *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
-     *            between 1 and 100 days.
-     * @return an added user invitation
-     */
-    public UserInvitation create(@Nullable int validForDays) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createUserInvitation(validForDays, getModel()));
-        return getModel();
-    }
+  /**
+   * Adds a user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#createUserInvitation(int,UserInvitation)}
+   * @param validForDays Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.
+   * @return an added user invitation
+   */
+  public UserInvitation create(@Nullable int validForDays) throws MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).createUserInvitation(validForDays, getModel()));
+    return getModel();
+  }
 
-    /**
-     * Deletes a user invitation.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#deleteUserInvitation(UserInvitation)}
-     */
-    @Override
-    public void delete() throws MbedCloudException {
-        ((Accounts) getModuleOrThrow()).deleteUserInvitation(getModel());
-    }
+  /**
+   * Deletes a user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#deleteUserInvitation(UserInvitation)}
+   */
+  @Override
+  public void delete() throws MbedCloudException {
+    ((Accounts)getModuleOrThrow()).deleteUserInvitation(getModel());
+  }
 
-    /**
-     * Deletes a user invitation.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#deleteUserInvitation(UserInvitation)}
-     * 
-     * @param userInvitation
-     *            a user invitation.
-     */
-    @Override
-    public void delete(@NonNull UserInvitation userInvitation) throws MbedCloudException {
-        setModel(userInvitation);
-        delete();
-    }
+  /**
+   * Deletes a user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#deleteUserInvitation(UserInvitation)}
+   * @param userInvitation a user invitation.
+   */
+  @Override
+  public void delete(@NonNull UserInvitation userInvitation) throws MbedCloudException {
+    setModel(userInvitation);
+    delete();
+  }
 
-    /**
-     * Deletes a user invitation.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#deleteUserInvitation(String)}
-     * 
-     * @param id
-     *            The ID of the invitation to be deleted.
-     */
-    @Override
-    public void delete(@NonNull String id) throws MbedCloudException {
-        ((Accounts) getModuleOrThrow()).deleteUserInvitation(id);
-    }
+  /**
+   * Deletes a user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#deleteUserInvitation(String)}
+   * @param id The ID of the invitation to be deleted.
+   */
+  @Override
+  public void delete(@NonNull String id) throws MbedCloudException {
+    ((Accounts)getModuleOrThrow()).deleteUserInvitation(id);
+  }
 
-    /**
-     * Gets a user invitation.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#getUserInvitation(UserInvitation)}
-     * 
-     * @return something
-     */
-    @Override
-    public UserInvitation get() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getUserInvitation(getModel()));
-        return getModel();
-    }
+  /**
+   * Gets a user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#getUserInvitation(UserInvitation)}
+   * @return something
+   */
+  @Override
+  public UserInvitation get() throws MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).getUserInvitation(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Gets a user invitation.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#getUserInvitation(String)}
-     * 
-     * @param id
-     *            The ID of the invitation.
-     * @return something
-     */
-    @Override
-    public UserInvitation get(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getUserInvitation(id));
-        return getModel();
-    }
+  /**
+   * Gets a user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#getUserInvitation(String)}
+   * @param id The ID of the invitation.
+   * @return something
+   */
+  @Override
+  public UserInvitation get(@NonNull String id) throws MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).getUserInvitation(id));
+    return getModel();
+  }
 
-    /**
-     * Instantiates model.
-     * 
-     * @return instantiated model
-     */
-    @Override
-    @Internal
-    protected UserInvitation instantiateModel() {
-        return new UserInvitation();
-    }
+  /**
+   * Instantiates model.
+   * @return instantiated model
+   */
+  @Override
+  @Internal
+  protected UserInvitation instantiateModel() {
+    return new UserInvitation();
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
+  /**
+   * Instantiates modules.
+   * @param options a connection options.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ConnectionOptions options) {
+    return new Accounts(options);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Accounts(client);
-    }
+  /**
+   * Instantiates modules.
+   * @param client an api client wrapper.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ApiClientWrapper client) {
+    return new Accounts(client);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Accounts(options);
-    }
+  /**
+   * Instantiates modules.
+   * @param context an sdk context.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(SdkContext context) {
+    return new Accounts(context);
+  }
 }

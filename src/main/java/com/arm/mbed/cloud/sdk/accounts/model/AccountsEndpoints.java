@@ -9,80 +9,73 @@ import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountAdminApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AggregatorAccountAdminApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeveloperApi;
+import java.lang.Override;
 
 /**
- * Endpoints for Accounts APIs module.
- */
-@Preamble(description = "Endpoints for Accounts APIs module.")
+ * Endpoints for Accounts APIs module. */
+@Preamble(
+    description = "Endpoints for Accounts APIs module."
+)
 @Internal
 public class AccountsEndpoints extends AbstractEndpoints {
-    /**
-     * Low level endpoints for aggregator account admin apis.
-     */
-    @Internal
-    private final AggregatorAccountAdminApi aggregatorAccountAdminApi;
+  /**
+   * Low level endpoints for aggregator account admin apis. */
+  @Internal
+  private final AggregatorAccountAdminApi aggregatorAccountAdminApi;
 
-    /**
-     * Low level endpoints for developer apis.
-     */
-    @Internal
-    private final DeveloperApi developerApi;
+  /**
+   * Low level endpoints for developer apis. */
+  @Internal
+  private final DeveloperApi developerApi;
 
-    /**
-     * Low level endpoints for account admin apis.
-     */
-    @Internal
-    private final AccountAdminApi accountAdminApi;
+  /**
+   * Low level endpoints for account admin apis. */
+  @Internal
+  private final AccountAdminApi accountAdminApi;
 
-    /**
-     * Constructor.
-     * 
-     * @param services
-     *            created services {@link ServiceRegistry}.
-     */
-    public AccountsEndpoints(ServiceRegistry services) {
-        super(services);
-        this.aggregatorAccountAdminApi = initialiseService(AggregatorAccountAdminApi.class);
-        this.developerApi = initialiseService(DeveloperApi.class);
-        this.accountAdminApi = initialiseService(AccountAdminApi.class);
-    }
+  /**
+   * Constructor.
+   * @param services created services {@link ServiceRegistry}.
+   */
+  public AccountsEndpoints(ServiceRegistry services) {
+    super(services);
+    this.aggregatorAccountAdminApi = initialiseService(AggregatorAccountAdminApi.class);
+    this.developerApi = initialiseService(DeveloperApi.class);
+    this.accountAdminApi = initialiseService(AccountAdminApi.class);
+  }
 
-    /**
-     * Gets low level endpoints for aggregator account admin apis.
-     * 
-     * @return aggregatorAccountAdminApi
-     */
-    public AggregatorAccountAdminApi getAggregatorAccountAdminApi() {
-        return aggregatorAccountAdminApi;
-    }
+  /**
+   * Gets low level endpoints for aggregator account admin apis.
+   * @return aggregatorAccountAdminApi
+   */
+  public AggregatorAccountAdminApi getAggregatorAccountAdminApi() {
+    return aggregatorAccountAdminApi;
+  }
 
-    /**
-     * Gets low level endpoints for developer apis.
-     * 
-     * @return developerApi
-     */
-    public DeveloperApi getDeveloperApi() {
-        return developerApi;
-    }
+  /**
+   * Gets low level endpoints for developer apis.
+   * @return developerApi
+   */
+  public DeveloperApi getDeveloperApi() {
+    return developerApi;
+  }
 
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public AccountsEndpoints clone() {
-        return new AccountsEndpoints(getRegistryClone());
-    }
+  /**
+   * Clones this instance.
+   * <p>
+   * @see java.lang.Object#clone()
+   * @return a cloned instance
+   */
+  @Override
+  public AccountsEndpoints clone() {
+    return new AccountsEndpoints(getRegistryClone());
+  }
 
-    /**
-     * Gets low level endpoints for account admin apis.
-     * 
-     * @return accountAdminApi
-     */
-    public AccountAdminApi getAccountAdminApi() {
-        return accountAdminApi;
-    }
+  /**
+   * Gets low level endpoints for account admin apis.
+   * @return accountAdminApi
+   */
+  public AccountAdminApi getAccountAdminApi() {
+    return accountAdminApi;
+  }
 }

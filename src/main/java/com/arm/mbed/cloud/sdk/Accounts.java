@@ -51,6 +51,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInv
 import com.arm.mbed.cloud.sdk.security.adapters.SubtenantTrustedCertificateAdapter;
 import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate;
 import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions;
+
 import retrofit2.Call;
 
 /**
@@ -2102,7 +2103,7 @@ public class Accounts extends AbstractModule {
     public User updateUser(@NonNull String id, @NonNull User user) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
         checkNotNull(user, TAG_USER);
-        checkModelValidity(user, TAG_USER);
+        // checkModelValidity(user, TAG_USER);
         final String finalId = id;
         final User finalUser = user;
         return CloudCaller.call(this, "updateUser()", UserAdapter.getMapper(),
@@ -2134,7 +2135,7 @@ public class Accounts extends AbstractModule {
     @Nullable
     public User updateUser(@NonNull User user) throws MbedCloudException {
         checkNotNull(user, TAG_USER);
-        checkModelValidity(user, TAG_USER);
+        // checkModelValidity(user,TAG_USER);
         return updateUser(user.getId(), user);
     }
 

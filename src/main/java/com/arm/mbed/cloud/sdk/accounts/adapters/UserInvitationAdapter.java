@@ -11,191 +11,175 @@ import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInvitationReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInvitationResp;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInvitationRespList;
+import java.lang.Boolean;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.List;
 
 /**
- * Adapter for user invitations.
- */
-@Preamble(description = "Adapter for user invitations.")
+ * Adapter for user invitations. */
+@Preamble(
+    description = "Adapter for user invitations."
+)
 @Internal
 @SuppressWarnings("checkstyle:LineLength")
 public final class UserInvitationAdapter {
-    /**
-     * Constructor.
-     */
-    private UserInvitationAdapter() {
-        super();
-        // Nothing to do;
+  /**
+   * Constructor.
+   */
+  private UserInvitationAdapter() {
+    super();
+    // Nothing to do;
+  }
+
+  /**
+   * Maps a user invitation resp into a user invitation.
+   * @param toBeMapped a user invitation resp.
+   * @return mapped a user invitation
+   */
+  @Internal
+  public static UserInvitation map(UserInvitationResp toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final UserInvitation userInvitation = new UserInvitation(toBeMapped.getAccountId(),TranslationUtils.toDate(toBeMapped.getCreatedAt()),TranslationUtils.toDate(toBeMapped.getExpiration()),TranslationUtils.toDate(toBeMapped.getUpdatedAt()),toBeMapped.getUserId());
+    userInvitation.setEmail(toBeMapped.getEmail());
+    userInvitation.setId(toBeMapped.getId());
+    userInvitation.setLoginProfiles(LoginProfileAdapter.mapSimpleList(toBeMapped.getLoginProfiles()));
+    return userInvitation;
+  }
 
-    /**
-     * Maps a user invitation resp into a user invitation.
-     * 
-     * @param toBeMapped
-     *            a user invitation resp.
-     * @return mapped a user invitation
-     */
-    @Internal
-    public static UserInvitation map(UserInvitationResp toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final UserInvitation userInvitation = new UserInvitation(toBeMapped.getAccountId(),
-                                                                 TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                                                 TranslationUtils.toDate(toBeMapped.getExpiration()),
-                                                                 TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
-                                                                 toBeMapped.getUserId());
-        userInvitation.setEmail(toBeMapped.getEmail());
-        userInvitation.setId(toBeMapped.getId());
-        userInvitation.setLoginProfiles(LoginProfileAdapter.mapSimpleList(toBeMapped.getLoginProfiles()));
-        return userInvitation;
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<UserInvitationResp, UserInvitation> getMapper() {
+    return new GenericAdapter.Mapper<UserInvitationResp, UserInvitation>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public UserInvitation map(UserInvitationResp toBeMapped) {
+        return UserInvitationAdapter.map(toBeMapped);
+      }
+    };
+  }
+
+  /**
+   * Maps a user invitation into a user invitation req.
+   * @param toBeMapped a user invitation.
+   * @return mapped a user invitation req
+   */
+  @Internal
+  public static UserInvitationReq reverseMapAddRequest(UserInvitation toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final UserInvitationReq userInvitationReq = new UserInvitationReq();
+    userInvitationReq.setEmail(toBeMapped.getEmail());
+    //No field equivalent to groups in UserInvitationReq was found in UserInvitation
+    userInvitationReq.setLoginProfiles(LoginProfileAdapter.reverseMapAddSimpleList(toBeMapped.getLoginProfiles()));
+    //No field equivalent to validForDays in UserInvitationReq was found in UserInvitation
+    return userInvitationReq;
+  }
 
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<UserInvitationResp, UserInvitation> getMapper() {
-        return new GenericAdapter.Mapper<UserInvitationResp, UserInvitation>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public UserInvitation map(UserInvitationResp toBeMapped) {
-                return UserInvitationAdapter.map(toBeMapped);
-            }
-        };
-    }
+  /**
+   * Maps a user invitation resp list into a user invitation.
+   * @param toBeMapped a user invitation resp list.
+   * @return mapped list response
+   */
+  @Internal
+  public static ListResponse<UserInvitation> mapList(UserInvitationRespList toBeMapped) {
+    final UserInvitationRespList finalList = toBeMapped;
+    final GenericAdapter.RespList<UserInvitationResp> respList = new GenericAdapter.RespList<UserInvitationResp>() {
+      /**
+       * Executes getAfter.
+       * @return something
+       */
+      @Override
+      public String getAfter() {
+        return (finalList == null) ? null : finalList.getAfter();
+      }
 
-    /**
-     * Maps a user invitation into a user invitation req.
-     * 
-     * @param toBeMapped
-     *            a user invitation.
-     * @return mapped a user invitation req
-     */
-    @Internal
-    public static UserInvitationReq reverseMapAddRequest(UserInvitation toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final UserInvitationReq userInvitationReq = new UserInvitationReq();
-        userInvitationReq.setEmail(toBeMapped.getEmail());
-        // No field equivalent to groups in UserInvitationReq was found in UserInvitation
-        userInvitationReq.setLoginProfiles(LoginProfileAdapter.reverseMapAddSimpleList(toBeMapped.getLoginProfiles()));
-        // No field equivalent to validForDays in UserInvitationReq was found in UserInvitation
-        return userInvitationReq;
-    }
+      /**
+       * Executes getContinuationMarker.
+       * @return something
+       */
+      @Override
+      public String getContinuationMarker() {
+        return null;
+      }
 
-    /**
-     * Maps a user invitation resp list into a user invitation.
-     * 
-     * @param toBeMapped
-     *            a user invitation resp list.
-     * @return mapped list response
-     */
-    @Internal
-    public static ListResponse<UserInvitation> mapList(UserInvitationRespList toBeMapped) {
-        final UserInvitationRespList finalList = toBeMapped;
-        final GenericAdapter.RespList<UserInvitationResp> respList = new GenericAdapter.RespList<UserInvitationResp>() {
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
+      /**
+       * Executes getData.
+       * @return something
+       */
+      @Override
+      public List<UserInvitationResp> getData() {
+        return (finalList == null) ? null : finalList.getData();
+      }
 
-            /**
-             * Executes getContinuationMarker.
-             * 
-             * @return something
-             */
-            @Override
-            public String getContinuationMarker() {
-                return null;
-            }
+      /**
+       * Executes getHasMore.
+       * @return something
+       */
+      @Override
+      public Boolean getHasMore() {
+        return (finalList == null) ? null : finalList.isHasMore();
+      }
 
-            /**
-             * Executes getData.
-             * 
-             * @return something
-             */
-            @Override
-            public List<UserInvitationResp> getData() {
-                return (finalList == null) ? null : finalList.getData();
-            }
+      /**
+       * Executes getLimit.
+       * @return something
+       */
+      @Override
+      public Integer getLimit() {
+        return (finalList == null) ? null : finalList.getLimit();
+      }
 
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
-            }
+      /**
+       * Executes getOrder.
+       * @return something
+       */
+      @Override
+      public String getOrder() {
+        return (finalList == null) ? null : finalList.getOrder().toString();
+      }
 
-            /**
-             * Executes getLimit.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getLimit() {
-                return (finalList == null) ? null : finalList.getLimit();
-            }
+      /**
+       * Executes getTotalCount.
+       * @return something
+       */
+      @Override
+      public Integer getTotalCount() {
+        return (finalList == null) ? null : finalList.getTotalCount();
+      }
+    };
+    return GenericAdapter.mapList(respList,UserInvitationAdapter.getMapper());
+  }
 
-            /**
-             * Executes getOrder.
-             * 
-             * @return something
-             */
-            @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
-            }
-
-            /**
-             * Executes getTotalCount.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
-            }
-        };
-        return GenericAdapter.mapList(respList, UserInvitationAdapter.getMapper());
-    }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<UserInvitationRespList, ListResponse<UserInvitation>> getListMapper() {
-        return new GenericAdapter.Mapper<UserInvitationRespList, ListResponse<UserInvitation>>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public ListResponse<UserInvitation> map(UserInvitationRespList toBeMapped) {
-                return UserInvitationAdapter.mapList(toBeMapped);
-            }
-        };
-    }
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<UserInvitationRespList, ListResponse<UserInvitation>> getListMapper(
+      ) {
+    return new GenericAdapter.Mapper<UserInvitationRespList, ListResponse<UserInvitation>>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public ListResponse<UserInvitation> map(UserInvitationRespList toBeMapped) {
+        return UserInvitationAdapter.mapList(toBeMapped);
+      }
+    };
+  }
 }

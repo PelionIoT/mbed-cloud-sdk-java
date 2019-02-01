@@ -36,6 +36,10 @@ public class StaticAnalysisUtils {
         return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"checkstyle:LineLength\"").build();
     }
 
+    public static AnnotationSpec ignoreResourceClosure() {
+        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"resource\"").build();
+    }
+
     public static AnnotationSpec setAsUnchecked() {
         return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"unchecked\"").build();
     }

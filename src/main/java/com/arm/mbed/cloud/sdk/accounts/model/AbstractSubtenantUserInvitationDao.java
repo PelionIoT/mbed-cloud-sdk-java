@@ -16,180 +16,150 @@ import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
 import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
 import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
+import java.lang.Override;
+import java.lang.String;
 
 /**
  * Data Access Object (DAO) for subtenant user invitations.
  * <p>
- * 
- * @see <a href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access
- *      Object</a>
- */
-@Preamble(description = "Data Access Object (DAO) for subtenant user invitations.")
-public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDao<SubtenantUserInvitation>
-                                                         implements CreateDao<SubtenantUserInvitation>,
-                                                         DeleteDao<SubtenantUserInvitation>,
-                                                         ReadDao<SubtenantUserInvitation> {
-    /**
-     * Constructor.
-     */
-    public AbstractSubtenantUserInvitationDao() throws MbedCloudException {
-        super();
-    }
+ * @see <a  href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access Object</a> */
+@Preamble(
+    description = "Data Access Object (DAO) for subtenant user invitations."
+)
+public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDao<SubtenantUserInvitation> implements CreateDao<SubtenantUserInvitation>, DeleteDao<SubtenantUserInvitation>, ReadDao<SubtenantUserInvitation> {
+  /**
+   * Constructor.
+   */
+  public AbstractSubtenantUserInvitationDao() throws MbedCloudException {
+    super();
+  }
 
-    /**
-     * Adds a subtenant user invitation.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#createSubtenantUserInvitation(int,SubtenantUserInvitation)}
-     * 
-     * @param validForDays
-     *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
-     *            between 1 and 100 days.
-     * @return something
-     */
-    public SubtenantUserInvitation create(@Nullable int validForDays) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(validForDays, getModel()));
-        return getModel();
-    }
+  /**
+   * Adds a subtenant user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#createSubtenantUserInvitation(int,SubtenantUserInvitation)}
+   * @param validForDays Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.
+   * @return something
+   */
+  public SubtenantUserInvitation create(@Nullable int validForDays) throws MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).createSubtenantUserInvitation(validForDays, getModel()));
+    return getModel();
+  }
 
-    /**
-     * Adds a subtenant user invitation.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#createSubtenantUserInvitation(int,String,SubtenantUserInvitation)}
-     * 
-     * @param validForDays
-     *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
-     *            between 1 and 100 days.
-     * @param accountId
-     *            The ID of the account the user is invited to.
-     * @return an added subtenant user invitation
-     */
-    public SubtenantUserInvitation create(@Nullable int validForDays,
-                                          @NonNull String accountId) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(validForDays, accountId, getModel()));
-        return getModel();
-    }
+  /**
+   * Adds a subtenant user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#createSubtenantUserInvitation(int,String,SubtenantUserInvitation)}
+   * @param validForDays Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.
+   * @param accountId The ID of the account the user is invited to.
+   * @return an added subtenant user invitation
+   */
+  public SubtenantUserInvitation create(@Nullable int validForDays, @NonNull String accountId)
+      throws MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).createSubtenantUserInvitation(validForDays, accountId, getModel()));
+    return getModel();
+  }
 
-    /**
-     * Deletes a subtenant user invitation.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#deleteSubtenantUserInvitation(SubtenantUserInvitation)}
-     */
-    @Override
-    public void delete() throws MbedCloudException {
-        ((Accounts) getModuleOrThrow()).deleteSubtenantUserInvitation(getModel());
-    }
+  /**
+   * Deletes a subtenant user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#deleteSubtenantUserInvitation(SubtenantUserInvitation)}
+   */
+  @Override
+  public void delete() throws MbedCloudException {
+    ((Accounts)getModuleOrThrow()).deleteSubtenantUserInvitation(getModel());
+  }
 
-    /**
-     * Deletes a subtenant user invitation.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#deleteSubtenantUserInvitation(SubtenantUserInvitation)}
-     * 
-     * @param subtenantUserInvitation
-     *            a subtenant user invitation.
-     */
-    @Override
-    public void delete(@NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
-        setModel(subtenantUserInvitation);
-        delete();
-    }
+  /**
+   * Deletes a subtenant user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#deleteSubtenantUserInvitation(SubtenantUserInvitation)}
+   * @param subtenantUserInvitation a subtenant user invitation.
+   */
+  @Override
+  public void delete(@NonNull SubtenantUserInvitation subtenantUserInvitation) throws
+      MbedCloudException {
+    setModel(subtenantUserInvitation);
+    delete();
+  }
 
-    /**
-     * Deletes a subtenant user invitation.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#deleteSubtenantUserInvitation(String,String)}
-     * 
-     * @param accountId
-     *            Account ID.
-     * @param id
-     *            The ID of the invitation to be deleted.
-     */
-    public void delete(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        ((Accounts) getModuleOrThrow()).deleteSubtenantUserInvitation(accountId, id);
-    }
+  /**
+   * Deletes a subtenant user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#deleteSubtenantUserInvitation(String,String)}
+   * @param accountId Account ID.
+   * @param id The ID of the invitation to be deleted.
+   */
+  public void delete(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+    ((Accounts)getModuleOrThrow()).deleteSubtenantUserInvitation(accountId, id);
+  }
 
-    /**
-     * Gets a subtenant user invitation.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#getSubtenantUserInvitation(SubtenantUserInvitation)}
-     * 
-     * @return something
-     */
-    @Override
-    public SubtenantUserInvitation get() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getSubtenantUserInvitation(getModel()));
-        return getModel();
-    }
+  /**
+   * Gets a subtenant user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#getSubtenantUserInvitation(SubtenantUserInvitation)}
+   * @return something
+   */
+  @Override
+  public SubtenantUserInvitation get() throws MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).getSubtenantUserInvitation(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Gets a subtenant user invitation.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#getSubtenantUserInvitation(String,String)}
-     * 
-     * @param accountId
-     *            The ID of the account the user is invited to.
-     * @param id
-     *            The ID of the invitation.
-     * @return something
-     */
-    public SubtenantUserInvitation get(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getSubtenantUserInvitation(accountId, id));
-        return getModel();
-    }
+  /**
+   * Gets a subtenant user invitation.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#getSubtenantUserInvitation(String,String)}
+   * @param accountId The ID of the account the user is invited to.
+   * @param id The ID of the invitation.
+   * @return something
+   */
+  public SubtenantUserInvitation get(@NonNull String accountId, @NonNull String id) throws
+      MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).getSubtenantUserInvitation(accountId, id));
+    return getModel();
+  }
 
-    /**
-     * Instantiates model.
-     * 
-     * @return instantiated model
-     */
-    @Override
-    @Internal
-    protected SubtenantUserInvitation instantiateModel() {
-        return new SubtenantUserInvitation();
-    }
+  /**
+   * Instantiates model.
+   * @return instantiated model
+   */
+  @Override
+  @Internal
+  protected SubtenantUserInvitation instantiateModel() {
+    return new SubtenantUserInvitation();
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
+  /**
+   * Instantiates modules.
+   * @param options a connection options.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ConnectionOptions options) {
+    return new Accounts(options);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Accounts(client);
-    }
+  /**
+   * Instantiates modules.
+   * @param client an api client wrapper.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ApiClientWrapper client) {
+    return new Accounts(client);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Accounts(options);
-    }
+  /**
+   * Instantiates modules.
+   * @param context an sdk context.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(SdkContext context) {
+    return new Accounts(context);
+  }
 }

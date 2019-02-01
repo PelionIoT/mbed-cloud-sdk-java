@@ -12,234 +12,214 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 
 /**
  * Data Access Object (DAO) for api keys.
  * <p>
- * 
- * @see <a href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access
- *      Object</a>
- */
-@Preamble(description = "Data Access Object (DAO) for api keys.")
+ * @see <a  href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access Object</a> */
+@Preamble(
+    description = "Data Access Object (DAO) for api keys."
+)
 public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKey> {
-    /**
-     * Constructor.
-     */
-    public ApiKeyDao() throws MbedCloudException {
-        super();
-    }
+  /**
+   * Constructor.
+   */
+  public ApiKeyDao() throws MbedCloudException {
+    super();
+  }
 
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public ApiKeyDao clone() {
-        try {
-            return new ApiKeyDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());
-        } catch (MbedCloudException exception) {
-            return null;
-        }
+  /**
+   * Clones this instance.
+   * <p>
+   * @see java.lang.Object#clone()
+   * @return a cloned instance
+   */
+  @Override
+  @SuppressWarnings("resource")
+  public ApiKeyDao clone() {
+    try {
+      return new ApiKeyDao().configureAndGet(getModuleOrThrow() == null? null: getModuleOrThrow().clone());
     }
+    catch(MbedCloudException exception) {
+      return null;
+    }
+  }
 
-    /**
-     * Adds an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#createApiKey(ApiKey)}
-     * 
-     * @return an added api key
-     */
-    @Override
-    public ApiKey create() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createApiKey(getModel()));
-        return getModel();
-    }
+  /**
+   * Adds an api key.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#createApiKey(ApiKey)}
+   * @return an added api key
+   */
+  @Override
+  public ApiKey create() throws MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).createApiKey(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Adds an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#createApiKey(ApiKey)}
-     * 
-     * @param apiKey
-     *            an api key.
-     * @return an added api key
-     */
-    @Override
-    public ApiKey create(@NonNull ApiKey apiKey) throws MbedCloudException {
-        setModel(apiKey);
-        return create();
-    }
+  /**
+   * Adds an api key.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#createApiKey(ApiKey)}
+   * @param apiKey an api key.
+   * @return an added api key
+   */
+  @Override
+  public ApiKey create(@NonNull ApiKey apiKey) throws MbedCloudException {
+    setModel(apiKey);
+    return create();
+  }
 
-    /**
-     * Deletes an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#deleteApiKey(ApiKey)}
-     */
-    @Override
-    public void delete() throws MbedCloudException {
-        ((Accounts) getModuleOrThrow()).deleteApiKey(getModel());
-    }
+  /**
+   * Deletes an api key.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#deleteApiKey(ApiKey)}
+   */
+  @Override
+  public void delete() throws MbedCloudException {
+    ((Accounts)getModuleOrThrow()).deleteApiKey(getModel());
+  }
 
-    /**
-     * Deletes an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#deleteApiKey(ApiKey)}
-     * 
-     * @param apiKey
-     *            an api key.
-     */
-    @Override
-    public void delete(@NonNull ApiKey apiKey) throws MbedCloudException {
-        setModel(apiKey);
-        delete();
-    }
+  /**
+   * Deletes an api key.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#deleteApiKey(ApiKey)}
+   * @param apiKey an api key.
+   */
+  @Override
+  public void delete(@NonNull ApiKey apiKey) throws MbedCloudException {
+    setModel(apiKey);
+    delete();
+  }
 
-    /**
-     * Deletes an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#deleteApiKey(String)}
-     * 
-     * @param id
-     *            The ID of the API key to be deleted.
-     */
-    @Override
-    public void delete(@NonNull String id) throws MbedCloudException {
-        ((Accounts) getModuleOrThrow()).deleteApiKey(id);
-    }
+  /**
+   * Deletes an api key.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#deleteApiKey(String)}
+   * @param id The ID of the API key to be deleted.
+   */
+  @Override
+  public void delete(@NonNull String id) throws MbedCloudException {
+    ((Accounts)getModuleOrThrow()).deleteApiKey(id);
+  }
 
-    /**
-     * Gets an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#getApiKey(ApiKey)}
-     * 
-     * @return something
-     */
-    @Override
-    public ApiKey get() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getApiKey(getModel()));
-        return getModel();
-    }
+  /**
+   * Gets an api key.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#getApiKey(ApiKey)}
+   * @return something
+   */
+  @Override
+  public ApiKey get() throws MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).getApiKey(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Gets an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#getApiKey(String)}
-     * 
-     * @param id
-     *            The ID of the API key.
-     * @return something
-     */
-    @Override
-    public ApiKey get(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getApiKey(id));
-        return getModel();
-    }
+  /**
+   * Gets an api key.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#getApiKey(String)}
+   * @param id The ID of the API key.
+   * @return something
+   */
+  @Override
+  public ApiKey get(@NonNull String id) throws MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).getApiKey(id));
+    return getModel();
+  }
 
-    /**
-     * Instantiates model.
-     * 
-     * @return instantiated model
-     */
-    @Override
-    @Internal
-    protected ApiKey instantiateModel() {
-        return new ApiKey();
-    }
+  /**
+   * Instantiates model.
+   * @return instantiated model
+   */
+  @Override
+  @Internal
+  protected ApiKey instantiateModel() {
+    return new ApiKey();
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
+  /**
+   * Instantiates modules.
+   * @param options a connection options.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ConnectionOptions options) {
+    return new Accounts(options);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Accounts(client);
-    }
+  /**
+   * Instantiates modules.
+   * @param client an api client wrapper.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ApiClientWrapper client) {
+    return new Accounts(client);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Accounts(options);
-    }
+  /**
+   * Instantiates modules.
+   * @param context an sdk context.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(SdkContext context) {
+    return new Accounts(context);
+  }
 
-    /**
-     * Gets my api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#myApiKey()}
-     * 
-     * @return something
-     */
-    @SuppressWarnings("PMD.ShortMethodName")
-    public ApiKey me() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).myApiKey());
-        return getModel();
-    }
+  /**
+   * Gets my api key.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#myApiKey()}
+   * @return something
+   */
+  @SuppressWarnings("PMD.ShortMethodName")
+  public ApiKey me() throws MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).myApiKey());
+    return getModel();
+  }
 
-    /**
-     * Modifies an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#updateApiKey(ApiKey)}
-     * 
-     * @return something
-     */
-    @Override
-    public ApiKey update() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).updateApiKey(getModel()));
-        return getModel();
-    }
+  /**
+   * Modifies an api key.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#updateApiKey(ApiKey)}
+   * @return something
+   */
+  @Override
+  public ApiKey update() throws MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).updateApiKey(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Modifies an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#updateApiKey(ApiKey)}
-     * 
-     * @param apiKey
-     *            an api key.
-     * @return something
-     */
-    @Override
-    public ApiKey update(@NonNull ApiKey apiKey) throws MbedCloudException {
-        setModel(apiKey);
-        return update();
-    }
+  /**
+   * Modifies an api key.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#updateApiKey(ApiKey)}
+   * @param apiKey an api key.
+   * @return something
+   */
+  @Override
+  public ApiKey update(@NonNull ApiKey apiKey) throws MbedCloudException {
+    setModel(apiKey);
+    return update();
+  }
 
-    /**
-     * Modifies an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#updateApiKey(String,ApiKey)}
-     * 
-     * @param id
-     *            The ID of the API key.
-     * @return an updated api key
-     */
-    public ApiKey update(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).updateApiKey(id, getModel()));
-        return getModel();
-    }
+  /**
+   * Modifies an api key.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#updateApiKey(String,ApiKey)}
+   * @param id The ID of the API key.
+   * @return an updated api key
+   */
+  public ApiKey update(@NonNull String id) throws MbedCloudException {
+    setModel(((Accounts)getModuleOrThrow()).updateApiKey(id, getModel()));
+    return getModel();
+  }
 }

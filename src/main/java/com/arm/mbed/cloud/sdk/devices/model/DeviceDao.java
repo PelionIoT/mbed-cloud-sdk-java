@@ -13,252 +13,229 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
 import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 
 /**
  * Data Access Object (DAO) for devices.
  * <p>
- * 
- * @see <a href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access
- *      Object</a>
- */
-@Preamble(description = "Data Access Object (DAO) for devices.")
+ * @see <a  href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access Object</a> */
+@Preamble(
+    description = "Data Access Object (DAO) for devices."
+)
 public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Device> {
-    /**
-     * Constructor.
-     */
-    public DeviceDao() throws MbedCloudException {
-        super();
-    }
+  /**
+   * Constructor.
+   */
+  public DeviceDao() throws MbedCloudException {
+    super();
+  }
 
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public DeviceDao clone() {
-        try {
-            return new DeviceDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());
-        } catch (MbedCloudException exception) {
-            return null;
-        }
+  /**
+   * Clones this instance.
+   * <p>
+   * @see java.lang.Object#clone()
+   * @return a cloned instance
+   */
+  @Override
+  @SuppressWarnings("resource")
+  public DeviceDao clone() {
+    try {
+      return new DeviceDao().configureAndGet(getModuleOrThrow() == null? null: getModuleOrThrow().clone());
     }
+    catch(MbedCloudException exception) {
+      return null;
+    }
+  }
 
-    /**
-     * Adds a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#createDevice(Device)}
-     * 
-     * @return an added device
-     */
-    @Override
-    public Device create() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).createDevice(getModel()));
-        return getModel();
-    }
+  /**
+   * Adds a device.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#createDevice(Device)}
+   * @return an added device
+   */
+  @Override
+  public Device create() throws MbedCloudException {
+    setModel(((Devices)getModuleOrThrow()).createDevice(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Adds a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#createDevice(Device)}
-     * 
-     * @param device
-     *            a device.
-     * @return an added device
-     */
-    @Override
-    public Device create(@NonNull Device device) throws MbedCloudException {
-        setModel(device);
-        return create();
-    }
+  /**
+   * Adds a device.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#createDevice(Device)}
+   * @param device a device.
+   * @return an added device
+   */
+  @Override
+  public Device create(@NonNull Device device) throws MbedCloudException {
+    setModel(device);
+    return create();
+  }
 
-    /**
-     * Deletes a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#deleteDevice(Device)}
-     */
-    @Override
-    public void delete() throws MbedCloudException {
-        ((Devices) getModuleOrThrow()).deleteDevice(getModel());
-    }
+  /**
+   * Deletes a device.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#deleteDevice(Device)}
+   */
+  @Override
+  public void delete() throws MbedCloudException {
+    ((Devices)getModuleOrThrow()).deleteDevice(getModel());
+  }
 
-    /**
-     * Deletes a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#deleteDevice(Device)}
-     * 
-     * @param device
-     *            a device.
-     */
-    @Override
-    public void delete(@NonNull Device device) throws MbedCloudException {
-        setModel(device);
-        delete();
-    }
+  /**
+   * Deletes a device.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#deleteDevice(Device)}
+   * @param device a device.
+   */
+  @Override
+  public void delete(@NonNull Device device) throws MbedCloudException {
+    setModel(device);
+    delete();
+  }
 
-    /**
-     * Deletes a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#deleteDevice(String)}
-     * 
-     * @param id
-     *            null
-     */
-    @Override
-    public void delete(@NonNull String id) throws MbedCloudException {
-        ((Devices) getModuleOrThrow()).deleteDevice(id);
-    }
+  /**
+   * Deletes a device.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#deleteDevice(String)}
+   * @param id null
+   */
+  @Override
+  public void delete(@NonNull String id) throws MbedCloudException {
+    ((Devices)getModuleOrThrow()).deleteDevice(id);
+  }
 
-    /**
-     * Gets a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#getDevice(Device)}
-     * 
-     * @return something
-     */
-    @Override
-    public Device get() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDevice(getModel()));
-        return getModel();
-    }
+  /**
+   * Gets a device.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#getDevice(Device)}
+   * @return something
+   */
+  @Override
+  public Device get() throws MbedCloudException {
+    setModel(((Devices)getModuleOrThrow()).getDevice(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Gets a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#getDevice(String)}
-     * 
-     * @param id
-     *            The ID of the device. The device ID is used across all Device Management APIs.
-     * @return something
-     */
-    @Override
-    public Device get(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDevice(id));
-        return getModel();
-    }
+  /**
+   * Gets a device.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#getDevice(String)}
+   * @param id The ID of the device. The device ID is used across all Device Management APIs.
+   * @return something
+   */
+  @Override
+  public Device get(@NonNull String id) throws MbedCloudException {
+    setModel(((Devices)getModuleOrThrow()).getDevice(id));
+    return getModel();
+  }
 
-    /**
-     * Instantiates model.
-     * 
-     * @return instantiated model
-     */
-    @Override
-    @Internal
-    protected Device instantiateModel() {
-        return new Device();
-    }
+  /**
+   * Instantiates model.
+   * @return instantiated model
+   */
+  @Override
+  @Internal
+  protected Device instantiateModel() {
+    return new Device();
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
+  /**
+   * Instantiates modules.
+   * @param options a connection options.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ConnectionOptions options) {
+    return new Devices(options);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Devices(client);
-    }
+  /**
+   * Instantiates modules.
+   * @param client an api client wrapper.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ApiClientWrapper client) {
+    return new Devices(client);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
-    }
+  /**
+   * Instantiates modules.
+   * @param context an sdk context.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(SdkContext context) {
+    return new Devices(context);
+  }
 
-    /**
-     * Request certificate renewal.
-     * 
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#renewCertificate(String,Device)}
-     * 
-     * @param certificateName
-     *            The certificate name.
-     * @return something
-     */
-    public CertificateEnrollment renewCertificate(@NonNull String certificateName) throws MbedCloudException {
-        return ((Devices) getModuleOrThrow()).renewCertificate(certificateName, getModel());
-    }
+  /**
+   * Request certificate renewal.
+   * 
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#renewCertificate(String,Device)}
+   * @param certificateName The certificate name.
+   * @return something
+   */
+  public CertificateEnrollment renewCertificate(@NonNull String certificateName) throws
+      MbedCloudException {
+    return ((Devices)getModuleOrThrow()).renewCertificate(certificateName, getModel());
+  }
 
-    /**
-     * Request certificate renewal.
-     * 
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#renewCertificate(String,String)}
-     * 
-     * @param certificateName
-     *            The certificate name.
-     * @param id
-     *            The ID of the certificate enrollment.
-     * @return something
-     */
-    public CertificateEnrollment renewCertificate(@NonNull String certificateName,
-                                                  @NonNull String id) throws MbedCloudException {
-        return ((Devices) getModuleOrThrow()).renewCertificate(certificateName, id);
-    }
+  /**
+   * Request certificate renewal.
+   * 
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#renewCertificate(String,String)}
+   * @param certificateName The certificate name.
+   * @param id The ID of the certificate enrollment.
+   * @return something
+   */
+  public CertificateEnrollment renewCertificate(@NonNull String certificateName, @NonNull String id)
+      throws MbedCloudException {
+    return ((Devices)getModuleOrThrow()).renewCertificate(certificateName, id);
+  }
 
-    /**
-     * Modifies a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#updateDevice(Device)}
-     * 
-     * @return something
-     */
-    @Override
-    public Device update() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).updateDevice(getModel()));
-        return getModel();
-    }
+  /**
+   * Modifies a device.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#updateDevice(Device)}
+   * @return something
+   */
+  @Override
+  public Device update() throws MbedCloudException {
+    setModel(((Devices)getModuleOrThrow()).updateDevice(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Modifies a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#updateDevice(Device)}
-     * 
-     * @param device
-     *            a device.
-     * @return something
-     */
-    @Override
-    public Device update(@NonNull Device device) throws MbedCloudException {
-        setModel(device);
-        return update();
-    }
+  /**
+   * Modifies a device.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#updateDevice(Device)}
+   * @param device a device.
+   * @return something
+   */
+  @Override
+  public Device update(@NonNull Device device) throws MbedCloudException {
+    setModel(device);
+    return update();
+  }
 
-    /**
-     * Modifies a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#updateDevice(String,Device)}
-     * 
-     * @param id
-     *            The ID of the device. The device ID is used across all Device Management APIs.
-     * @return an updated device
-     */
-    public Device update(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).updateDevice(id, getModel()));
-        return getModel();
-    }
+  /**
+   * Modifies a device.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#updateDevice(String,Device)}
+   * @param id The ID of the device. The device ID is used across all Device Management APIs.
+   * @return an updated device
+   */
+  public Device update(@NonNull String id) throws MbedCloudException {
+    setModel(((Devices)getModuleOrThrow()).updateDevice(id, getModel()));
+    return getModel();
+  }
 }

@@ -5,222 +5,204 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
 
 /**
- * Model for a login profile.
- */
-@Preamble(description = "Model for a login profile.")
+ * Model for a login profile. */
+@Preamble(
+    description = "Model for a login profile."
+)
 public class LoginProfile implements SdkModel {
-    /**
-     * Serialisation Id.
-     */
-    private static final long serialVersionUID = -244427560121579L;
+  /**
+   * Serialisation Id. */
+  private static final long serialVersionUID = -244427560121579L;
 
-    /**
-     * ID of the identity provider.
-     */
-    private String id;
+  /**
+   * ID of the identity provider. */
+  private String id;
 
-    /**
-     * Name of the identity provider.
-     */
-    private final String name;
+  /**
+   * Name of the identity provider. */
+  private final String name;
 
-    /**
-     * Internal constructor.
-     * <p>
-     * Note: Should not be used. Use {@link #LoginProfile()} instead.
-     * 
-     * @param id
-     *            ID of the identity provider.
-     * @param name
-     *            Name of the identity provider.
-     */
-    @Internal
-    public LoginProfile(String id, String name) {
-        super();
-        this.name = name;
-        setId(id);
+  /**
+   * Internal constructor.
+   * <p>
+   * Note: Should not be used. Use {@link #LoginProfile()} instead.
+   * @param id ID of the identity provider.
+   * @param name Name of the identity provider.
+   */
+  @Internal
+  public LoginProfile(String id, String name) {
+    super();
+    this.name = name;
+    setId(id);
+  }
+
+  /**
+   * Internal constructor.
+   * <p>
+   * Note: Should not be used. Use {@link #LoginProfile()} instead.
+   * @param loginProfile a login profile.
+   */
+  @Internal
+  public LoginProfile(LoginProfile loginProfile) {
+    this(loginProfile == null ? (String) null : loginProfile.id,
+        loginProfile == null ? (String) null : loginProfile.name);
+  }
+
+  /**
+   * Constructor.
+   */
+  public LoginProfile() {
+    this((String) null,
+        (String) null);
+  }
+
+  /**
+   * Constructor.
+   * @param id ID of the identity provider.
+   */
+  public LoginProfile(String id) {
+    this();
+    setId(id);
+  }
+
+  /**
+   * Gets id of the identity provider.
+   * @return id
+   */
+  @Override
+  public String getId() {
+    return id;
+  }
+
+  /**
+   * Sets id of the identity provider.
+   * @param id ID of the identity provider.
+   */
+  @Override
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  /**
+   * Sets id of the identity provider.
+   * <p>
+   * Similar to {@link #setId(String)}
+   * @param loginProfileId ID of the identity provider.
+   */
+  @Internal
+  public void setLoginProfileId(String loginProfileId) {
+    setId(loginProfileId);
+  }
+
+  /**
+   * Gets name of the identity provider.
+   * @return name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Calculates the hash code of this instance based on field values.
+   * <p>
+   * @see java.lang.Object#hashCode()
+   * @return hash code
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    return result;
+  }
+
+  /**
+   *  Method to ensure {@link #equals(Object)} is correct.
+   * <p>
+   *  Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+   * @param other another object.
+   * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+   */
+  protected boolean canEqual(Object other) {
+    return other instanceof LoginProfile;
+  }
+
+  /**
+   * Indicates whether some other object is "equal to" this one.
+   * <p>
+   * @see java.lang.Object#equals(java.lang.Object)
+   * @param obj an object to compare with this instance.
+   * @return true if this object is the same as the obj argument; false otherwise.
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
     }
-
-    /**
-     * Internal constructor.
-     * <p>
-     * Note: Should not be used. Use {@link #LoginProfile()} instead.
-     * 
-     * @param loginProfile
-     *            a login profile.
-     */
-    @Internal
-    public LoginProfile(LoginProfile loginProfile) {
-        this(loginProfile == null ? (String) null : loginProfile.id,
-             loginProfile == null ? (String) null : loginProfile.name);
+    if (obj == null) {
+      return false;
     }
-
-    /**
-     * Constructor.
-     */
-    public LoginProfile() {
-        this((String) null, (String) null);
+    if( !(obj instanceof LoginProfile)) {
+      return false;
     }
-
-    /**
-     * Constructor.
-     * 
-     * @param id
-     *            ID of the identity provider.
-     */
-    public LoginProfile(String id) {
-        this();
-        setId(id);
+    final LoginProfile other = (LoginProfile) obj;
+    if( !other.canEqual(this)) {
+      return false;
     }
-
-    /**
-     * Gets id of the identity provider.
-     * 
-     * @return id
-     */
-    @Override
-    public String getId() {
-        return id;
+    if (id == null) {
+      if (other.id != null) {
+        return false;
+      }
+    } else if (!id.equals(other.id)) {
+      return false;
     }
-
-    /**
-     * Sets id of the identity provider.
-     * 
-     * @param id
-     *            ID of the identity provider.
-     */
-    @Override
-    public void setId(String id) {
-        this.id = id;
+    if (name == null) {
+      if (other.name != null) {
+        return false;
+      }
+    } else if (!name.equals(other.name)) {
+      return false;
     }
+    return true;
+  }
 
-    /**
-     * Sets id of the identity provider.
-     * <p>
-     * Similar to {@link #setId(String)}
-     * 
-     * @param loginProfileId
-     *            ID of the identity provider.
-     */
-    @Internal
-    public void setLoginProfileId(String loginProfileId) {
-        setId(loginProfileId);
-    }
+  /**
+   * Returns a string representation of the object.
+   * <p>
+   * @see java.lang.Object#toString()
+   * @return the string representation
+   */
+  @Override
+  public String toString() {
+    return "LoginProfile [id=" + id
+        + ", name=" + name + "]";
+  }
 
-    /**
-     * Gets name of the identity provider.
-     * 
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
+  /**
+   * Checks whether the model is valid or not.
+   * <p>
+   * @see SdkModel#isValid()
+   * @return true if the model is valid; false otherwise.
+   */
+  @Override
+  public boolean isValid() {
+    return true;
+  }
 
-    /**
-     * Calculates the hash code of this instance based on field values.
-     * <p>
-     * 
-     * @see java.lang.Object#hashCode()
-     * @return hash code
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
-    }
-
-    /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof LoginProfile;
-    }
-
-    /**
-     * Indicates whether some other object is "equal to" this one.
-     * <p>
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     * @param obj
-     *            an object to compare with this instance.
-     * @return true if this object is the same as the obj argument; false otherwise.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof LoginProfile)) {
-            return false;
-        }
-        final LoginProfile other = (LoginProfile) obj;
-        if (!other.canEqual(this)) {
-            return false;
-        }
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "LoginProfile [id=" + id + ", name=" + name + "]";
-    }
-
-    /**
-     * Checks whether the model is valid or not.
-     * <p>
-     * 
-     * @see SdkModel#isValid()
-     * @return true if the model is valid; false otherwise.
-     */
-    @Override
-    public boolean isValid() {
-        return true;
-    }
-
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public LoginProfile clone() {
-        return new LoginProfile(this);
-    }
+  /**
+   * Clones this instance.
+   * <p>
+   * @see java.lang.Object#clone()
+   * @return a cloned instance
+   */
+  @Override
+  public LoginProfile clone() {
+    return new LoginProfile(this);
+  }
 }

@@ -12,257 +12,228 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 
 /**
  * Data Access Object (DAO) for trusted certificates.
  * <p>
- * 
- * @see <a href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access
- *      Object</a>
- */
-@Preamble(description = "Data Access Object (DAO) for trusted certificates.")
+ * @see <a  href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access Object</a> */
+@Preamble(
+    description = "Data Access Object (DAO) for trusted certificates."
+)
 public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> implements CrudDao<TrustedCertificate> {
-    /**
-     * Constructor.
-     */
-    public TrustedCertificateDao() throws MbedCloudException {
-        super();
-    }
+  /**
+   * Constructor.
+   */
+  public TrustedCertificateDao() throws MbedCloudException {
+    super();
+  }
 
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public TrustedCertificateDao clone() {
-        try {
-            return new TrustedCertificateDao().configureAndGet(getModuleOrThrow() == null ? null
-                                                                                          : getModuleOrThrow().clone());
-        } catch (MbedCloudException exception) {
-            return null;
-        }
+  /**
+   * Clones this instance.
+   * <p>
+   * @see java.lang.Object#clone()
+   * @return a cloned instance
+   */
+  @Override
+  @SuppressWarnings("resource")
+  public TrustedCertificateDao clone() {
+    try {
+      return new TrustedCertificateDao().configureAndGet(getModuleOrThrow() == null? null: getModuleOrThrow().clone());
     }
+    catch(MbedCloudException exception) {
+      return null;
+    }
+  }
 
-    /**
-     * Adds a trusted certificate.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#createTrustedCertificate(TrustedCertificate)}
-     * 
-     * @return an added trusted certificate
-     */
-    @Override
-    public TrustedCertificate create() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).createTrustedCertificate(getModel()));
-        return getModel();
-    }
+  /**
+   * Adds a trusted certificate.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#createTrustedCertificate(TrustedCertificate)}
+   * @return an added trusted certificate
+   */
+  @Override
+  public TrustedCertificate create() throws MbedCloudException {
+    setModel(((Security)getModuleOrThrow()).createTrustedCertificate(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Adds a trusted certificate.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#createTrustedCertificate(TrustedCertificate)}
-     * 
-     * @param trustedCertificate
-     *            a trusted certificate.
-     * @return an added trusted certificate
-     */
-    @Override
-    public TrustedCertificate create(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
-        setModel(trustedCertificate);
-        return create();
-    }
+  /**
+   * Adds a trusted certificate.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#createTrustedCertificate(TrustedCertificate)}
+   * @param trustedCertificate a trusted certificate.
+   * @return an added trusted certificate
+   */
+  @Override
+  public TrustedCertificate create(@NonNull TrustedCertificate trustedCertificate) throws
+      MbedCloudException {
+    setModel(trustedCertificate);
+    return create();
+  }
 
-    /**
-     * Deletes a trusted certificate.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#deleteTrustedCertificate(TrustedCertificate)}
-     */
-    @Override
-    public void delete() throws MbedCloudException {
-        ((Security) getModuleOrThrow()).deleteTrustedCertificate(getModel());
-    }
+  /**
+   * Deletes a trusted certificate.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#deleteTrustedCertificate(TrustedCertificate)}
+   */
+  @Override
+  public void delete() throws MbedCloudException {
+    ((Security)getModuleOrThrow()).deleteTrustedCertificate(getModel());
+  }
 
-    /**
-     * Deletes a trusted certificate.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#deleteTrustedCertificate(TrustedCertificate)}
-     * 
-     * @param trustedCertificate
-     *            a trusted certificate.
-     */
-    @Override
-    public void delete(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
-        setModel(trustedCertificate);
-        delete();
-    }
+  /**
+   * Deletes a trusted certificate.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#deleteTrustedCertificate(TrustedCertificate)}
+   * @param trustedCertificate a trusted certificate.
+   */
+  @Override
+  public void delete(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
+    setModel(trustedCertificate);
+    delete();
+  }
 
-    /**
-     * Deletes a trusted certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#deleteTrustedCertificate(String)}
-     * 
-     * @param id
-     *            The ID of the trusted certificate to be deleted.
-     */
-    @Override
-    public void delete(@NonNull String id) throws MbedCloudException {
-        ((Security) getModuleOrThrow()).deleteTrustedCertificate(id);
-    }
+  /**
+   * Deletes a trusted certificate.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#deleteTrustedCertificate(String)}
+   * @param id The ID of the trusted certificate to be deleted.
+   */
+  @Override
+  public void delete(@NonNull String id) throws MbedCloudException {
+    ((Security)getModuleOrThrow()).deleteTrustedCertificate(id);
+  }
 
-    /**
-     * Gets a trusted certificate.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#getTrustedCertificate(TrustedCertificate)}
-     * 
-     * @return something
-     */
-    @Override
-    public TrustedCertificate get() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getTrustedCertificate(getModel()));
-        return getModel();
-    }
+  /**
+   * Gets a trusted certificate.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#getTrustedCertificate(TrustedCertificate)}
+   * @return something
+   */
+  @Override
+  public TrustedCertificate get() throws MbedCloudException {
+    setModel(((Security)getModuleOrThrow()).getTrustedCertificate(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Gets a trusted certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#getTrustedCertificate(String)}
-     * 
-     * @param id
-     *            Entity ID.
-     * @return something
-     */
-    @Override
-    public TrustedCertificate get(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getTrustedCertificate(id));
-        return getModel();
-    }
+  /**
+   * Gets a trusted certificate.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#getTrustedCertificate(String)}
+   * @param id Entity ID.
+   * @return something
+   */
+  @Override
+  public TrustedCertificate get(@NonNull String id) throws MbedCloudException {
+    setModel(((Security)getModuleOrThrow()).getTrustedCertificate(id));
+    return getModel();
+  }
 
-    /**
-     * Fetch an existing developer certificate to connect to the bootstrap server.
-     * 
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#getDeveloperCertificateInfo(TrustedCertificate)}
-     * 
-     * @return something
-     */
-    public DeveloperCertificate getDeveloperCertificateInfo() throws MbedCloudException {
-        return ((Security) getModuleOrThrow()).getDeveloperCertificateInfo(getModel());
-    }
+  /**
+   * Fetch an existing developer certificate to connect to the bootstrap server.
+   * 
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#getDeveloperCertificateInfo(TrustedCertificate)}
+   * @return something
+   */
+  public DeveloperCertificate getDeveloperCertificateInfo() throws MbedCloudException {
+    return ((Security)getModuleOrThrow()).getDeveloperCertificateInfo(getModel());
+  }
 
-    /**
-     * Fetch an existing developer certificate to connect to the bootstrap server.
-     * 
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#getDeveloperCertificateInfo(String)}
-     * 
-     * @param id
-     *            mUUID that uniquely identifies the developer certificate.
-     * @return something
-     */
-    public DeveloperCertificate getDeveloperCertificateInfo(@NonNull String id) throws MbedCloudException {
-        return ((Security) getModuleOrThrow()).getDeveloperCertificateInfo(id);
-    }
+  /**
+   * Fetch an existing developer certificate to connect to the bootstrap server.
+   * 
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#getDeveloperCertificateInfo(String)}
+   * @param id mUUID that uniquely identifies the developer certificate.
+   * @return something
+   */
+  public DeveloperCertificate getDeveloperCertificateInfo(@NonNull String id) throws
+      MbedCloudException {
+    return ((Security)getModuleOrThrow()).getDeveloperCertificateInfo(id);
+  }
 
-    /**
-     * Instantiates model.
-     * 
-     * @return instantiated model
-     */
-    @Override
-    @Internal
-    protected TrustedCertificate instantiateModel() {
-        return new TrustedCertificate();
-    }
+  /**
+   * Instantiates model.
+   * @return instantiated model
+   */
+  @Override
+  @Internal
+  protected TrustedCertificate instantiateModel() {
+    return new TrustedCertificate();
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
+  /**
+   * Instantiates modules.
+   * @param options a connection options.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ConnectionOptions options) {
+    return new Security(options);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
-    }
+  /**
+   * Instantiates modules.
+   * @param client an api client wrapper.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ApiClientWrapper client) {
+    return new Security(client);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
-    }
+  /**
+   * Instantiates modules.
+   * @param context an sdk context.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(SdkContext context) {
+    return new Security(context);
+  }
 
-    /**
-     * Modifies a trusted certificate.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#updateTrustedCertificate(TrustedCertificate)}
-     * 
-     * @return something
-     */
-    @Override
-    public TrustedCertificate update() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).updateTrustedCertificate(getModel()));
-        return getModel();
-    }
+  /**
+   * Modifies a trusted certificate.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#updateTrustedCertificate(TrustedCertificate)}
+   * @return something
+   */
+  @Override
+  public TrustedCertificate update() throws MbedCloudException {
+    setModel(((Security)getModuleOrThrow()).updateTrustedCertificate(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Modifies a trusted certificate.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#updateTrustedCertificate(TrustedCertificate)}
-     * 
-     * @param trustedCertificate
-     *            a trusted certificate.
-     * @return something
-     */
-    @Override
-    public TrustedCertificate update(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
-        setModel(trustedCertificate);
-        return update();
-    }
+  /**
+   * Modifies a trusted certificate.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#updateTrustedCertificate(TrustedCertificate)}
+   * @param trustedCertificate a trusted certificate.
+   * @return something
+   */
+  @Override
+  public TrustedCertificate update(@NonNull TrustedCertificate trustedCertificate) throws
+      MbedCloudException {
+    setModel(trustedCertificate);
+    return update();
+  }
 
-    /**
-     * Modifies a trusted certificate.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#updateTrustedCertificate(String,TrustedCertificate)}
-     * 
-     * @param id
-     *            Entity ID.
-     * @return an updated trusted certificate
-     */
-    public TrustedCertificate update(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).updateTrustedCertificate(id, getModel()));
-        return getModel();
-    }
+  /**
+   * Modifies a trusted certificate.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#updateTrustedCertificate(String,TrustedCertificate)}
+   * @param id Entity ID.
+   * @return an updated trusted certificate
+   */
+  public TrustedCertificate update(@NonNull String id) throws MbedCloudException {
+    setModel(((Security)getModuleOrThrow()).updateTrustedCertificate(id, getModel()));
+    return getModel();
+  }
 }

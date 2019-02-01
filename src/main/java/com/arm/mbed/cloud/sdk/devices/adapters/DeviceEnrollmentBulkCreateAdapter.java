@@ -9,91 +9,79 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BulkResponse;
+import java.lang.Override;
+import java.lang.SuppressWarnings;
 
 /**
- * Adapter for device enrollment bulk creates.
- */
-@Preamble(description = "Adapter for device enrollment bulk creates.")
+ * Adapter for device enrollment bulk creates. */
+@Preamble(
+    description = "Adapter for device enrollment bulk creates."
+)
 @Internal
 @SuppressWarnings("checkstyle:LineLength")
 public final class DeviceEnrollmentBulkCreateAdapter {
-    /**
-     * Constructor.
-     */
-    private DeviceEnrollmentBulkCreateAdapter() {
-        super();
-        // Nothing to do;
-    }
+  /**
+   * Constructor.
+   */
+  private DeviceEnrollmentBulkCreateAdapter() {
+    super();
+    // Nothing to do;
+  }
 
-    /**
-     * Maps a bulk response into a device enrollment bulk create.
-     * 
-     * @param toBeMapped
-     *            a bulk response.
-     * @return mapped a device enrollment bulk create
-     */
-    @Internal
-    public static DeviceEnrollmentBulkCreate map(BulkResponse toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final DeviceEnrollmentBulkCreate deviceEnrollmentBulkCreate = new DeviceEnrollmentBulkCreate(toBeMapped.getAccountId(),
-                                                                                                     TranslationUtils.toDate(toBeMapped.getCompletedAt()),
-                                                                                                     TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                                                                                     TranslationUtils.toInt(toBeMapped.getErrorsCount()),
-                                                                                                     toBeMapped.getErrorsReportFile(),
-                                                                                                     toBeMapped.getFullReportFile(),
-                                                                                                     TranslationUtils.toInt(toBeMapped.getProcessedCount()),
-                                                                                                     translateToDeviceEnrollmentBulkCreateStatus(toBeMapped.getStatus()),
-                                                                                                     TranslationUtils.toInt(toBeMapped.getTotalCount()));
-        deviceEnrollmentBulkCreate.setId(toBeMapped.getId());
-        return deviceEnrollmentBulkCreate;
+  /**
+   * Maps a bulk response into a device enrollment bulk create.
+   * @param toBeMapped a bulk response.
+   * @return mapped a device enrollment bulk create
+   */
+  @Internal
+  public static DeviceEnrollmentBulkCreate map(BulkResponse toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final DeviceEnrollmentBulkCreate deviceEnrollmentBulkCreate = new DeviceEnrollmentBulkCreate(toBeMapped.getAccountId(),TranslationUtils.toDate(toBeMapped.getCompletedAt()),TranslationUtils.toDate(toBeMapped.getCreatedAt()),TranslationUtils.toInt(toBeMapped.getErrorsCount()),toBeMapped.getErrorsReportFile(),toBeMapped.getFullReportFile(),TranslationUtils.toInt(toBeMapped.getProcessedCount()),translateToDeviceEnrollmentBulkCreateStatus(toBeMapped.getStatus()),TranslationUtils.toInt(toBeMapped.getTotalCount()));
+    deviceEnrollmentBulkCreate.setId(toBeMapped.getId());
+    return deviceEnrollmentBulkCreate;
+  }
 
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<BulkResponse, DeviceEnrollmentBulkCreate> getMapper() {
-        return new GenericAdapter.Mapper<BulkResponse, DeviceEnrollmentBulkCreate>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public DeviceEnrollmentBulkCreate map(BulkResponse toBeMapped) {
-                return DeviceEnrollmentBulkCreateAdapter.map(toBeMapped);
-            }
-        };
-    }
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<BulkResponse, DeviceEnrollmentBulkCreate> getMapper() {
+    return new GenericAdapter.Mapper<BulkResponse, DeviceEnrollmentBulkCreate>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public DeviceEnrollmentBulkCreate map(BulkResponse toBeMapped) {
+        return DeviceEnrollmentBulkCreateAdapter.map(toBeMapped);
+      }
+    };
+  }
 
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a status enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static DeviceEnrollmentBulkCreateStatus
-              translateToDeviceEnrollmentBulkCreateStatus(BulkResponse.StatusEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return DeviceEnrollmentBulkCreateStatus.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case NEW:
-                return DeviceEnrollmentBulkCreateStatus.NEW;
-            case PROCESSING:
-                return DeviceEnrollmentBulkCreateStatus.PROCESSING;
-            case COMPLETED:
-                return DeviceEnrollmentBulkCreateStatus.COMPLETED;
-            default:
-                return DeviceEnrollmentBulkCreateStatus.getUnknownEnum();
-        }
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a status enum.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static DeviceEnrollmentBulkCreateStatus translateToDeviceEnrollmentBulkCreateStatus(
+      BulkResponse.StatusEnum toBeMapped) {
+    if(toBeMapped == null) {
+      return DeviceEnrollmentBulkCreateStatus.getUnknownEnum();
     }
+    switch(toBeMapped) {
+      case NEW:
+      return DeviceEnrollmentBulkCreateStatus.NEW;
+      case PROCESSING:
+      return DeviceEnrollmentBulkCreateStatus.PROCESSING;
+      case COMPLETED:
+      return DeviceEnrollmentBulkCreateStatus.COMPLETED;
+      default:
+      return DeviceEnrollmentBulkCreateStatus.getUnknownEnum();
+    }
+  }
 }

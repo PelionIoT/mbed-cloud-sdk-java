@@ -10,172 +10,154 @@ import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEvents;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventPage;
+import java.lang.Boolean;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.List;
 
 /**
- * Adapter for device events.
- */
-@Preamble(description = "Adapter for device events.")
+ * Adapter for device events. */
+@Preamble(
+    description = "Adapter for device events."
+)
 @Internal
 @SuppressWarnings("checkstyle:LineLength")
 public final class DeviceEventsAdapter {
-    /**
-     * Constructor.
-     */
-    private DeviceEventsAdapter() {
-        super();
-        // Nothing to do;
+  /**
+   * Constructor.
+   */
+  private DeviceEventsAdapter() {
+    super();
+    // Nothing to do;
+  }
+
+  /**
+   * Maps a device event data into a device events.
+   * @param toBeMapped a device event data.
+   * @return mapped a device events
+   */
+  @Internal
+  public static DeviceEvents map(DeviceEventData toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final DeviceEvents deviceEvents = new DeviceEvents(toBeMapped.getChanges(),TranslationUtils.toDate(toBeMapped.getCreatedAt()),toBeMapped.getData(),TranslationUtils.toDate(toBeMapped.getDateTime()),toBeMapped.getDescription(),toBeMapped.getDeviceId(),toBeMapped.getEventType(),toBeMapped.getEventTypeCategory(),toBeMapped.getEventTypeDescription(),TranslationUtils.toBool(toBeMapped.isStateChange()));
+    deviceEvents.setId(toBeMapped.getId());
+    return deviceEvents;
+  }
 
-    /**
-     * Maps a device event data into a device events.
-     * 
-     * @param toBeMapped
-     *            a device event data.
-     * @return mapped a device events
-     */
-    @Internal
-    public static DeviceEvents map(DeviceEventData toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final DeviceEvents deviceEvents = new DeviceEvents(toBeMapped.getChanges(),
-                                                           TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                                           toBeMapped.getData(),
-                                                           TranslationUtils.toDate(toBeMapped.getDateTime()),
-                                                           toBeMapped.getDescription(), toBeMapped.getDeviceId(),
-                                                           toBeMapped.getEventType(), toBeMapped.getEventTypeCategory(),
-                                                           toBeMapped.getEventTypeDescription(),
-                                                           TranslationUtils.toBool(toBeMapped.isStateChange()));
-        deviceEvents.setId(toBeMapped.getId());
-        return deviceEvents;
-    }
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<DeviceEventData, DeviceEvents> getMapper() {
+    return new GenericAdapter.Mapper<DeviceEventData, DeviceEvents>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public DeviceEvents map(DeviceEventData toBeMapped) {
+        return DeviceEventsAdapter.map(toBeMapped);
+      }
+    };
+  }
 
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<DeviceEventData, DeviceEvents> getMapper() {
-        return new GenericAdapter.Mapper<DeviceEventData, DeviceEvents>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public DeviceEvents map(DeviceEventData toBeMapped) {
-                return DeviceEventsAdapter.map(toBeMapped);
-            }
-        };
-    }
+  /**
+   * Maps a device event page into a device events.
+   * @param toBeMapped a device event page.
+   * @return mapped list response
+   */
+  @Internal
+  public static ListResponse<DeviceEvents> mapList(DeviceEventPage toBeMapped) {
+    final DeviceEventPage finalList = toBeMapped;
+    final GenericAdapter.RespList<DeviceEventData> respList = new GenericAdapter.RespList<DeviceEventData>() {
+      /**
+       * Executes getAfter.
+       * @return something
+       */
+      @Override
+      public String getAfter() {
+        return (finalList == null) ? null : finalList.getAfter();
+      }
 
-    /**
-     * Maps a device event page into a device events.
-     * 
-     * @param toBeMapped
-     *            a device event page.
-     * @return mapped list response
-     */
-    @Internal
-    public static ListResponse<DeviceEvents> mapList(DeviceEventPage toBeMapped) {
-        final DeviceEventPage finalList = toBeMapped;
-        final GenericAdapter.RespList<DeviceEventData> respList = new GenericAdapter.RespList<DeviceEventData>() {
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
+      /**
+       * Executes getContinuationMarker.
+       * @return something
+       */
+      @Override
+      public String getContinuationMarker() {
+        return null;
+      }
 
-            /**
-             * Executes getContinuationMarker.
-             * 
-             * @return something
-             */
-            @Override
-            public String getContinuationMarker() {
-                return null;
-            }
+      /**
+       * Executes getData.
+       * @return something
+       */
+      @Override
+      public List<DeviceEventData> getData() {
+        return (finalList == null) ? null : finalList.getData();
+      }
 
-            /**
-             * Executes getData.
-             * 
-             * @return something
-             */
-            @Override
-            public List<DeviceEventData> getData() {
-                return (finalList == null) ? null : finalList.getData();
-            }
+      /**
+       * Executes getHasMore.
+       * @return something
+       */
+      @Override
+      public Boolean getHasMore() {
+        return (finalList == null) ? null : finalList.isHasMore();
+      }
 
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
-            }
+      /**
+       * Executes getLimit.
+       * @return something
+       */
+      @Override
+      public Integer getLimit() {
+        return (finalList == null) ? null : finalList.getLimit();
+      }
 
-            /**
-             * Executes getLimit.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getLimit() {
-                return (finalList == null) ? null : finalList.getLimit();
-            }
+      /**
+       * Executes getOrder.
+       * @return something
+       */
+      @Override
+      public String getOrder() {
+        return (finalList == null) ? null : finalList.getOrder();
+      }
 
-            /**
-             * Executes getOrder.
-             * 
-             * @return something
-             */
-            @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder();
-            }
+      /**
+       * Executes getTotalCount.
+       * @return something
+       */
+      @Override
+      public Integer getTotalCount() {
+        return (finalList == null) ? null : finalList.getTotalCount();
+      }
+    };
+    return GenericAdapter.mapList(respList,DeviceEventsAdapter.getMapper());
+  }
 
-            /**
-             * Executes getTotalCount.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
-            }
-        };
-        return GenericAdapter.mapList(respList, DeviceEventsAdapter.getMapper());
-    }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<DeviceEventPage, ListResponse<DeviceEvents>> getListMapper() {
-        return new GenericAdapter.Mapper<DeviceEventPage, ListResponse<DeviceEvents>>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public ListResponse<DeviceEvents> map(DeviceEventPage toBeMapped) {
-                return DeviceEventsAdapter.mapList(toBeMapped);
-            }
-        };
-    }
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<DeviceEventPage, ListResponse<DeviceEvents>> getListMapper() {
+    return new GenericAdapter.Mapper<DeviceEventPage, ListResponse<DeviceEvents>>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public ListResponse<DeviceEvents> map(DeviceEventPage toBeMapped) {
+        return DeviceEventsAdapter.mapList(toBeMapped);
+      }
+    };
+  }
 }

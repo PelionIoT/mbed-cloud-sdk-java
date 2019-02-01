@@ -14,366 +14,335 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Trusted
 import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate;
 import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateService;
 import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateStatus;
+import java.lang.Boolean;
+import java.lang.Integer;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.List;
 
 /**
- * Adapter for subtenant trusted certificates.
- */
-@Preamble(description = "Adapter for subtenant trusted certificates.")
+ * Adapter for subtenant trusted certificates. */
+@Preamble(
+    description = "Adapter for subtenant trusted certificates."
+)
 @Internal
 @SuppressWarnings("checkstyle:LineLength")
 public final class SubtenantTrustedCertificateAdapter {
-    /**
-     * Constructor.
-     */
-    private SubtenantTrustedCertificateAdapter() {
-        super();
-        // Nothing to do;
+  /**
+   * Constructor.
+   */
+  private SubtenantTrustedCertificateAdapter() {
+    super();
+    // Nothing to do;
+  }
+
+  /**
+   * Maps a trusted certificate resp into a subtenant trusted certificate.
+   * @param toBeMapped a trusted certificate resp.
+   * @return mapped a subtenant trusted certificate
+   */
+  @Internal
+  public static SubtenantTrustedCertificate map(TrustedCertificateResp toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final SubtenantTrustedCertificate subtenantTrustedCertificate = new SubtenantTrustedCertificate(toBeMapped.getCertificateFingerprint(),TranslationUtils.toDate(toBeMapped.getCreatedAt()),toBeMapped.getIssuer(),toBeMapped.getOwnerId(),toBeMapped.getSubject(),TranslationUtils.toDate(toBeMapped.getUpdatedAt()),TranslationUtils.toDate(toBeMapped.getValidity()));
+    subtenantTrustedCertificate.setAccountId(toBeMapped.getAccountId());
+    subtenantTrustedCertificate.setCertificate(toBeMapped.getCertificate());
+    subtenantTrustedCertificate.setDescription(toBeMapped.getDescription());
+    subtenantTrustedCertificate.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
+    subtenantTrustedCertificate.setEnrollmentMode(TranslationUtils.toBool(toBeMapped.isEnrollmentMode()));
+    subtenantTrustedCertificate.setId(toBeMapped.getId());
+    //No field equivalent to isDeveloperCertificate in SubtenantTrustedCertificate was found in TrustedCertificateResp
+    subtenantTrustedCertificate.setName(toBeMapped.getName());
+    subtenantTrustedCertificate.setService(translateToSubtenantTrustedCertificateService(toBeMapped.getService()));
+    subtenantTrustedCertificate.setStatus(translateToSubtenantTrustedCertificateStatus(toBeMapped.getStatus()));
+    return subtenantTrustedCertificate;
+  }
 
-    /**
-     * Maps a trusted certificate resp into a subtenant trusted certificate.
-     * 
-     * @param toBeMapped
-     *            a trusted certificate resp.
-     * @return mapped a subtenant trusted certificate
-     */
-    @Internal
-    public static SubtenantTrustedCertificate map(TrustedCertificateResp toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final SubtenantTrustedCertificate subtenantTrustedCertificate = new SubtenantTrustedCertificate(toBeMapped.getCertificateFingerprint(),
-                                                                                                        TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                                                                                        toBeMapped.getIssuer(),
-                                                                                                        toBeMapped.getOwnerId(),
-                                                                                                        toBeMapped.getSubject(),
-                                                                                                        TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
-                                                                                                        TranslationUtils.toDate(toBeMapped.getValidity()));
-        subtenantTrustedCertificate.setAccountId(toBeMapped.getAccountId());
-        subtenantTrustedCertificate.setCertificate(toBeMapped.getCertificate());
-        subtenantTrustedCertificate.setDescription(toBeMapped.getDescription());
-        subtenantTrustedCertificate.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
-        subtenantTrustedCertificate.setEnrollmentMode(TranslationUtils.toBool(toBeMapped.isEnrollmentMode()));
-        subtenantTrustedCertificate.setId(toBeMapped.getId());
-        // No field equivalent to isDeveloperCertificate in SubtenantTrustedCertificate was found in
-        // TrustedCertificateResp
-        subtenantTrustedCertificate.setName(toBeMapped.getName());
-        subtenantTrustedCertificate.setService(translateToSubtenantTrustedCertificateService(toBeMapped.getService()));
-        subtenantTrustedCertificate.setStatus(translateToSubtenantTrustedCertificateStatus(toBeMapped.getStatus()));
-        return subtenantTrustedCertificate;
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<TrustedCertificateResp, SubtenantTrustedCertificate> getMapper(
+      ) {
+    return new GenericAdapter.Mapper<TrustedCertificateResp, SubtenantTrustedCertificate>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public SubtenantTrustedCertificate map(TrustedCertificateResp toBeMapped) {
+        return SubtenantTrustedCertificateAdapter.map(toBeMapped);
+      }
+    };
+  }
+
+  /**
+   * Maps a subtenant trusted certificate into a trusted certificate req.
+   * @param toBeMapped a subtenant trusted certificate.
+   * @return mapped a trusted certificate req
+   */
+  @Internal
+  public static TrustedCertificateReq reverseMapAddRequest(SubtenantTrustedCertificate toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final TrustedCertificateReq trustedCertificateReq = new TrustedCertificateReq();
+    trustedCertificateReq.setCertificate(toBeMapped.getCertificate());
+    trustedCertificateReq.setDescription(toBeMapped.getDescription());
+    trustedCertificateReq.setEnrollmentMode(toBeMapped.isEnrollmentMode());
+    trustedCertificateReq.setName(toBeMapped.getName());
+    trustedCertificateReq.setService(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqServiceenum(toBeMapped.getService()));
+    //No field equivalent to signature in TrustedCertificateReq was found in SubtenantTrustedCertificate
+    trustedCertificateReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqStatusenum(toBeMapped.getStatus()));
+    return trustedCertificateReq;
+  }
 
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<TrustedCertificateResp, SubtenantTrustedCertificate> getMapper() {
-        return new GenericAdapter.Mapper<TrustedCertificateResp, SubtenantTrustedCertificate>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public SubtenantTrustedCertificate map(TrustedCertificateResp toBeMapped) {
-                return SubtenantTrustedCertificateAdapter.map(toBeMapped);
-            }
-        };
+  /**
+   * Maps a subtenant trusted certificate into a trusted certificate update req.
+   * @param toBeMapped a subtenant trusted certificate.
+   * @return mapped a trusted certificate update req
+   */
+  @Internal
+  public static TrustedCertificateUpdateReq reverseMapUpdateRequest(
+      SubtenantTrustedCertificate toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final TrustedCertificateUpdateReq trustedCertificateUpdateReq = new TrustedCertificateUpdateReq();
+    trustedCertificateUpdateReq.setCertificate(toBeMapped.getCertificate());
+    trustedCertificateUpdateReq.setDescription(toBeMapped.getDescription());
+    trustedCertificateUpdateReq.setEnrollmentMode(toBeMapped.isEnrollmentMode());
+    trustedCertificateUpdateReq.setName(toBeMapped.getName());
+    trustedCertificateUpdateReq.setService(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificateupdatereqServiceenum(toBeMapped.getService()));
+    //No field equivalent to signature in TrustedCertificateUpdateReq was found in SubtenantTrustedCertificate
+    trustedCertificateUpdateReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificateupdatereqStatusenum(toBeMapped.getStatus()));
+    return trustedCertificateUpdateReq;
+  }
 
-    /**
-     * Maps a subtenant trusted certificate into a trusted certificate req.
-     * 
-     * @param toBeMapped
-     *            a subtenant trusted certificate.
-     * @return mapped a trusted certificate req
-     */
-    @Internal
-    public static TrustedCertificateReq reverseMapAddRequest(SubtenantTrustedCertificate toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final TrustedCertificateReq trustedCertificateReq = new TrustedCertificateReq();
-        trustedCertificateReq.setCertificate(toBeMapped.getCertificate());
-        trustedCertificateReq.setDescription(toBeMapped.getDescription());
-        trustedCertificateReq.setEnrollmentMode(toBeMapped.isEnrollmentMode());
-        trustedCertificateReq.setName(toBeMapped.getName());
-        trustedCertificateReq.setService(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqServiceenum(toBeMapped.getService()));
-        // No field equivalent to signature in TrustedCertificateReq was found in SubtenantTrustedCertificate
-        trustedCertificateReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqStatusenum(toBeMapped.getStatus()));
-        return trustedCertificateReq;
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a service enum.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static SubtenantTrustedCertificateService translateToSubtenantTrustedCertificateService(
+      TrustedCertificateResp.ServiceEnum toBeMapped) {
+    if(toBeMapped == null) {
+      return SubtenantTrustedCertificateService.getUnknownEnum();
     }
-
-    /**
-     * Maps a subtenant trusted certificate into a trusted certificate update req.
-     * 
-     * @param toBeMapped
-     *            a subtenant trusted certificate.
-     * @return mapped a trusted certificate update req
-     */
-    @Internal
-    public static TrustedCertificateUpdateReq reverseMapUpdateRequest(SubtenantTrustedCertificate toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final TrustedCertificateUpdateReq trustedCertificateUpdateReq = new TrustedCertificateUpdateReq();
-        trustedCertificateUpdateReq.setCertificate(toBeMapped.getCertificate());
-        trustedCertificateUpdateReq.setDescription(toBeMapped.getDescription());
-        trustedCertificateUpdateReq.setEnrollmentMode(toBeMapped.isEnrollmentMode());
-        trustedCertificateUpdateReq.setName(toBeMapped.getName());
-        trustedCertificateUpdateReq.setService(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificateupdatereqServiceenum(toBeMapped.getService()));
-        // No field equivalent to signature in TrustedCertificateUpdateReq was found in SubtenantTrustedCertificate
-        trustedCertificateUpdateReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificateupdatereqStatusenum(toBeMapped.getStatus()));
-        return trustedCertificateUpdateReq;
+    switch(toBeMapped) {
+      case LWM2M:
+      return SubtenantTrustedCertificateService.LWM2M;
+      case BOOTSTRAP:
+      return SubtenantTrustedCertificateService.BOOTSTRAP;
+      default:
+      return SubtenantTrustedCertificateService.getUnknownEnum();
     }
+  }
 
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a service enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static SubtenantTrustedCertificateService
-              translateToSubtenantTrustedCertificateService(TrustedCertificateResp.ServiceEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return SubtenantTrustedCertificateService.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case LWM2M:
-                return SubtenantTrustedCertificateService.LWM2M;
-            case BOOTSTRAP:
-                return SubtenantTrustedCertificateService.BOOTSTRAP;
-            default:
-                return SubtenantTrustedCertificateService.getUnknownEnum();
-        }
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a status enum.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static SubtenantTrustedCertificateStatus translateToSubtenantTrustedCertificateStatus(
+      TrustedCertificateResp.StatusEnum toBeMapped) {
+    if(toBeMapped == null) {
+      return SubtenantTrustedCertificateStatus.getUnknownEnum();
     }
-
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a status enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static SubtenantTrustedCertificateStatus
-              translateToSubtenantTrustedCertificateStatus(TrustedCertificateResp.StatusEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return SubtenantTrustedCertificateStatus.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case ACTIVE:
-                return SubtenantTrustedCertificateStatus.ACTIVE;
-            case INACTIVE:
-                return SubtenantTrustedCertificateStatus.INACTIVE;
-            default:
-                return SubtenantTrustedCertificateStatus.getUnknownEnum();
-        }
+    switch(toBeMapped) {
+      case ACTIVE:
+      return SubtenantTrustedCertificateStatus.ACTIVE;
+      case INACTIVE:
+      return SubtenantTrustedCertificateStatus.INACTIVE;
+      default:
+      return SubtenantTrustedCertificateStatus.getUnknownEnum();
     }
+  }
 
-    /**
-     * Maps a trusted certificate resp list into a subtenant trusted certificate.
-     * 
-     * @param toBeMapped
-     *            a trusted certificate resp list.
-     * @return mapped list response
-     */
-    @Internal
-    public static ListResponse<SubtenantTrustedCertificate> mapList(TrustedCertificateRespList toBeMapped) {
-        final TrustedCertificateRespList finalList = toBeMapped;
-        final GenericAdapter.RespList<TrustedCertificateResp> respList = new GenericAdapter.RespList<TrustedCertificateResp>() {
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
+  /**
+   * Maps a trusted certificate resp list into a subtenant trusted certificate.
+   * @param toBeMapped a trusted certificate resp list.
+   * @return mapped list response
+   */
+  @Internal
+  public static ListResponse<SubtenantTrustedCertificate> mapList(
+      TrustedCertificateRespList toBeMapped) {
+    final TrustedCertificateRespList finalList = toBeMapped;
+    final GenericAdapter.RespList<TrustedCertificateResp> respList = new GenericAdapter.RespList<TrustedCertificateResp>() {
+      /**
+       * Executes getAfter.
+       * @return something
+       */
+      @Override
+      public String getAfter() {
+        return (finalList == null) ? null : finalList.getAfter();
+      }
 
-            /**
-             * Executes getContinuationMarker.
-             * 
-             * @return something
-             */
-            @Override
-            public String getContinuationMarker() {
-                return null;
-            }
+      /**
+       * Executes getContinuationMarker.
+       * @return something
+       */
+      @Override
+      public String getContinuationMarker() {
+        return null;
+      }
 
-            /**
-             * Executes getData.
-             * 
-             * @return something
-             */
-            @Override
-            public List<TrustedCertificateResp> getData() {
-                return (finalList == null) ? null : finalList.getData();
-            }
+      /**
+       * Executes getData.
+       * @return something
+       */
+      @Override
+      public List<TrustedCertificateResp> getData() {
+        return (finalList == null) ? null : finalList.getData();
+      }
 
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
-            }
+      /**
+       * Executes getHasMore.
+       * @return something
+       */
+      @Override
+      public Boolean getHasMore() {
+        return (finalList == null) ? null : finalList.isHasMore();
+      }
 
-            /**
-             * Executes getLimit.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getLimit() {
-                return (finalList == null) ? null : finalList.getLimit();
-            }
+      /**
+       * Executes getLimit.
+       * @return something
+       */
+      @Override
+      public Integer getLimit() {
+        return (finalList == null) ? null : finalList.getLimit();
+      }
 
-            /**
-             * Executes getOrder.
-             * 
-             * @return something
-             */
-            @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
-            }
+      /**
+       * Executes getOrder.
+       * @return something
+       */
+      @Override
+      public String getOrder() {
+        return (finalList == null) ? null : finalList.getOrder().toString();
+      }
 
-            /**
-             * Executes getTotalCount.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
-            }
-        };
-        return GenericAdapter.mapList(respList, SubtenantTrustedCertificateAdapter.getMapper());
+      /**
+       * Executes getTotalCount.
+       * @return something
+       */
+      @Override
+      public Integer getTotalCount() {
+        return (finalList == null) ? null : finalList.getTotalCount();
+      }
+    };
+    return GenericAdapter.mapList(respList,SubtenantTrustedCertificateAdapter.getMapper());
+  }
+
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<TrustedCertificateRespList, ListResponse<SubtenantTrustedCertificate>> getListMapper(
+      ) {
+    return new GenericAdapter.Mapper<TrustedCertificateRespList, ListResponse<SubtenantTrustedCertificate>>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public ListResponse<SubtenantTrustedCertificate> map(TrustedCertificateRespList toBeMapped) {
+        return SubtenantTrustedCertificateAdapter.mapList(toBeMapped);
+      }
+    };
+  }
+
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a subtenant trusted certificate service.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static TrustedCertificateReq.ServiceEnum translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqServiceenum(
+      SubtenantTrustedCertificateService toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<TrustedCertificateRespList, ListResponse<SubtenantTrustedCertificate>>
-           getListMapper() {
-        return new GenericAdapter.Mapper<TrustedCertificateRespList, ListResponse<SubtenantTrustedCertificate>>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public ListResponse<SubtenantTrustedCertificate> map(TrustedCertificateRespList toBeMapped) {
-                return SubtenantTrustedCertificateAdapter.mapList(toBeMapped);
-            }
-        };
+    switch(toBeMapped) {
+      case LWM2M:
+      return TrustedCertificateReq.ServiceEnum.LWM2M;
+      case BOOTSTRAP:
+      return TrustedCertificateReq.ServiceEnum.BOOTSTRAP;
+      default:
+      return null;
     }
+  }
 
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a subtenant trusted certificate service.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static TrustedCertificateReq.ServiceEnum
-              translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqServiceenum(SubtenantTrustedCertificateService toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        switch (toBeMapped) {
-            case LWM2M:
-                return TrustedCertificateReq.ServiceEnum.LWM2M;
-            case BOOTSTRAP:
-                return TrustedCertificateReq.ServiceEnum.BOOTSTRAP;
-            default:
-                return null;
-        }
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a subtenant trusted certificate status.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static TrustedCertificateReq.StatusEnum translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqStatusenum(
+      SubtenantTrustedCertificateStatus toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    switch(toBeMapped) {
+      case ACTIVE:
+      return TrustedCertificateReq.StatusEnum.ACTIVE;
+      case INACTIVE:
+      return TrustedCertificateReq.StatusEnum.INACTIVE;
+      default:
+      return null;
+    }
+  }
 
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a subtenant trusted certificate status.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static TrustedCertificateReq.StatusEnum
-              translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqStatusenum(SubtenantTrustedCertificateStatus toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        switch (toBeMapped) {
-            case ACTIVE:
-                return TrustedCertificateReq.StatusEnum.ACTIVE;
-            case INACTIVE:
-                return TrustedCertificateReq.StatusEnum.INACTIVE;
-            default:
-                return null;
-        }
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a subtenant trusted certificate service.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static TrustedCertificateUpdateReq.ServiceEnum translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificateupdatereqServiceenum(
+      SubtenantTrustedCertificateService toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    switch(toBeMapped) {
+      case LWM2M:
+      return TrustedCertificateUpdateReq.ServiceEnum.LWM2M;
+      case BOOTSTRAP:
+      return TrustedCertificateUpdateReq.ServiceEnum.BOOTSTRAP;
+      default:
+      return null;
+    }
+  }
 
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a subtenant trusted certificate service.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static TrustedCertificateUpdateReq.ServiceEnum
-              translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificateupdatereqServiceenum(SubtenantTrustedCertificateService toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        switch (toBeMapped) {
-            case LWM2M:
-                return TrustedCertificateUpdateReq.ServiceEnum.LWM2M;
-            case BOOTSTRAP:
-                return TrustedCertificateUpdateReq.ServiceEnum.BOOTSTRAP;
-            default:
-                return null;
-        }
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a subtenant trusted certificate status.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static TrustedCertificateUpdateReq.StatusEnum translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificateupdatereqStatusenum(
+      SubtenantTrustedCertificateStatus toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
-
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a subtenant trusted certificate status.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static TrustedCertificateUpdateReq.StatusEnum
-              translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificateupdatereqStatusenum(SubtenantTrustedCertificateStatus toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        switch (toBeMapped) {
-            case ACTIVE:
-                return TrustedCertificateUpdateReq.StatusEnum.ACTIVE;
-            case INACTIVE:
-                return TrustedCertificateUpdateReq.StatusEnum.INACTIVE;
-            default:
-                return null;
-        }
+    switch(toBeMapped) {
+      case ACTIVE:
+      return TrustedCertificateUpdateReq.StatusEnum.ACTIVE;
+      case INACTIVE:
+      return TrustedCertificateUpdateReq.StatusEnum.INACTIVE;
+      default:
+      return null;
     }
+  }
 }

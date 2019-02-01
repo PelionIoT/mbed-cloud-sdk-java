@@ -6,81 +6,74 @@ import com.arm.mbed.cloud.sdk.accounts.model.PasswordPolicy;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
+import java.lang.Override;
+import java.lang.SuppressWarnings;
 
 /**
- * Adapter for password policies.
- */
-@Preamble(description = "Adapter for password policies.")
+ * Adapter for password policies. */
+@Preamble(
+    description = "Adapter for password policies."
+)
 @Internal
 @SuppressWarnings("checkstyle:LineLength")
 public final class PasswordPolicyAdapter {
-    /**
-     * Constructor.
-     */
-    private PasswordPolicyAdapter() {
-        super();
-        // Nothing to do;
-    }
+  /**
+   * Constructor.
+   */
+  private PasswordPolicyAdapter() {
+    super();
+    // Nothing to do;
+  }
 
-    /**
-     * Maps a password policy into a password policy.
-     * 
-     * @param toBeMapped
-     *            a password policy.
-     * @return mapped a password policy
-     */
-    @Internal
-    public static PasswordPolicy
-           map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final PasswordPolicy passwordPolicy = new PasswordPolicy(toBeMapped.getMinimumLength());
-        return passwordPolicy;
+  /**
+   * Maps a password policy into a password policy.
+   * @param toBeMapped a password policy.
+   * @return mapped a password policy
+   */
+  @Internal
+  public static PasswordPolicy map(
+      com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final PasswordPolicy passwordPolicy = new PasswordPolicy(toBeMapped.getMinimumLength());
+    return passwordPolicy;
+  }
 
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static
-           GenericAdapter.Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy,
-                                 PasswordPolicy>
-           getMapper() {
-        return new GenericAdapter.Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy,
-                                         PasswordPolicy>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public PasswordPolicy
-                   map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy toBeMapped) {
-                return PasswordPolicyAdapter.map(toBeMapped);
-            }
-        };
-    }
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy, PasswordPolicy> getMapper(
+      ) {
+    return new GenericAdapter.Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy, PasswordPolicy>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public PasswordPolicy map(
+          com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy toBeMapped) {
+        return PasswordPolicyAdapter.map(toBeMapped);
+      }
+    };
+  }
 
-    /**
-     * Maps a password policy into a password policy.
-     * 
-     * @param toBeMapped
-     *            a password policy.
-     * @return mapped a password policy
-     */
-    @Internal
-    public static com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy
-           reverseMapUpdateRequest(PasswordPolicy toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy passwordPolicy = new com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy();
-        passwordPolicy.setMinimumLength(toBeMapped.getMinimumLength());
-        return passwordPolicy;
+  /**
+   * Maps a password policy into a password policy.
+   * @param toBeMapped a password policy.
+   * @return mapped a password policy
+   */
+  @Internal
+  public static com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy reverseMapUpdateRequest(
+      PasswordPolicy toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy passwordPolicy = new com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy();
+    passwordPolicy.setMinimumLength(toBeMapped.getMinimumLength());
+    return passwordPolicy;
+  }
 }

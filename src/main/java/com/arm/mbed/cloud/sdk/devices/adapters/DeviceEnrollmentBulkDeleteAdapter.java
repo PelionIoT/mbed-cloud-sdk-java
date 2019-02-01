@@ -9,91 +9,79 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDelete;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDeleteStatus;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BulkResponse;
+import java.lang.Override;
+import java.lang.SuppressWarnings;
 
 /**
- * Adapter for device enrollment bulk deletes.
- */
-@Preamble(description = "Adapter for device enrollment bulk deletes.")
+ * Adapter for device enrollment bulk deletes. */
+@Preamble(
+    description = "Adapter for device enrollment bulk deletes."
+)
 @Internal
 @SuppressWarnings("checkstyle:LineLength")
 public final class DeviceEnrollmentBulkDeleteAdapter {
-    /**
-     * Constructor.
-     */
-    private DeviceEnrollmentBulkDeleteAdapter() {
-        super();
-        // Nothing to do;
-    }
+  /**
+   * Constructor.
+   */
+  private DeviceEnrollmentBulkDeleteAdapter() {
+    super();
+    // Nothing to do;
+  }
 
-    /**
-     * Maps a bulk response into a device enrollment bulk delete.
-     * 
-     * @param toBeMapped
-     *            a bulk response.
-     * @return mapped a device enrollment bulk delete
-     */
-    @Internal
-    public static DeviceEnrollmentBulkDelete map(BulkResponse toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final DeviceEnrollmentBulkDelete deviceEnrollmentBulkDelete = new DeviceEnrollmentBulkDelete(toBeMapped.getAccountId(),
-                                                                                                     TranslationUtils.toDate(toBeMapped.getCompletedAt()),
-                                                                                                     TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                                                                                     TranslationUtils.toInt(toBeMapped.getErrorsCount()),
-                                                                                                     toBeMapped.getErrorsReportFile(),
-                                                                                                     toBeMapped.getFullReportFile(),
-                                                                                                     TranslationUtils.toInt(toBeMapped.getProcessedCount()),
-                                                                                                     translateToDeviceEnrollmentBulkDeleteStatus(toBeMapped.getStatus()),
-                                                                                                     TranslationUtils.toInt(toBeMapped.getTotalCount()));
-        deviceEnrollmentBulkDelete.setId(toBeMapped.getId());
-        return deviceEnrollmentBulkDelete;
+  /**
+   * Maps a bulk response into a device enrollment bulk delete.
+   * @param toBeMapped a bulk response.
+   * @return mapped a device enrollment bulk delete
+   */
+  @Internal
+  public static DeviceEnrollmentBulkDelete map(BulkResponse toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final DeviceEnrollmentBulkDelete deviceEnrollmentBulkDelete = new DeviceEnrollmentBulkDelete(toBeMapped.getAccountId(),TranslationUtils.toDate(toBeMapped.getCompletedAt()),TranslationUtils.toDate(toBeMapped.getCreatedAt()),TranslationUtils.toInt(toBeMapped.getErrorsCount()),toBeMapped.getErrorsReportFile(),toBeMapped.getFullReportFile(),TranslationUtils.toInt(toBeMapped.getProcessedCount()),translateToDeviceEnrollmentBulkDeleteStatus(toBeMapped.getStatus()),TranslationUtils.toInt(toBeMapped.getTotalCount()));
+    deviceEnrollmentBulkDelete.setId(toBeMapped.getId());
+    return deviceEnrollmentBulkDelete;
+  }
 
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<BulkResponse, DeviceEnrollmentBulkDelete> getMapper() {
-        return new GenericAdapter.Mapper<BulkResponse, DeviceEnrollmentBulkDelete>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public DeviceEnrollmentBulkDelete map(BulkResponse toBeMapped) {
-                return DeviceEnrollmentBulkDeleteAdapter.map(toBeMapped);
-            }
-        };
-    }
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<BulkResponse, DeviceEnrollmentBulkDelete> getMapper() {
+    return new GenericAdapter.Mapper<BulkResponse, DeviceEnrollmentBulkDelete>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public DeviceEnrollmentBulkDelete map(BulkResponse toBeMapped) {
+        return DeviceEnrollmentBulkDeleteAdapter.map(toBeMapped);
+      }
+    };
+  }
 
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a status enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static DeviceEnrollmentBulkDeleteStatus
-              translateToDeviceEnrollmentBulkDeleteStatus(BulkResponse.StatusEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return DeviceEnrollmentBulkDeleteStatus.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case NEW:
-                return DeviceEnrollmentBulkDeleteStatus.NEW;
-            case PROCESSING:
-                return DeviceEnrollmentBulkDeleteStatus.PROCESSING;
-            case COMPLETED:
-                return DeviceEnrollmentBulkDeleteStatus.COMPLETED;
-            default:
-                return DeviceEnrollmentBulkDeleteStatus.getUnknownEnum();
-        }
+  /**
+   * Maps the enum value.
+   * @param toBeMapped a status enum.
+   * @return mapped enum value
+   */
+  @Internal
+  protected static DeviceEnrollmentBulkDeleteStatus translateToDeviceEnrollmentBulkDeleteStatus(
+      BulkResponse.StatusEnum toBeMapped) {
+    if(toBeMapped == null) {
+      return DeviceEnrollmentBulkDeleteStatus.getUnknownEnum();
     }
+    switch(toBeMapped) {
+      case NEW:
+      return DeviceEnrollmentBulkDeleteStatus.NEW;
+      case PROCESSING:
+      return DeviceEnrollmentBulkDeleteStatus.PROCESSING;
+      case COMPLETED:
+      return DeviceEnrollmentBulkDeleteStatus.COMPLETED;
+      default:
+      return DeviceEnrollmentBulkDeleteStatus.getUnknownEnum();
+    }
+  }
 }

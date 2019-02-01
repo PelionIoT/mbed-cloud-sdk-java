@@ -9,80 +9,73 @@ import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateRenewalApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DefaultApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.PublicApiApi;
+import java.lang.Override;
 
 /**
- * Endpoints for Devices APIs module.
- */
-@Preamble(description = "Endpoints for Devices APIs module.")
+ * Endpoints for Devices APIs module. */
+@Preamble(
+    description = "Endpoints for Devices APIs module."
+)
 @Internal
 public class DevicesEndpoints extends AbstractEndpoints {
-    /**
-     * Low level endpoints for default apis.
-     */
-    @Internal
-    private final DefaultApi defaultApi;
+  /**
+   * Low level endpoints for default apis. */
+  @Internal
+  private final DefaultApi defaultApi;
 
-    /**
-     * Low level endpoints for certificate renewal apis.
-     */
-    @Internal
-    private final CertificateRenewalApi certificateRenewalApi;
+  /**
+   * Low level endpoints for certificate renewal apis. */
+  @Internal
+  private final CertificateRenewalApi certificateRenewalApi;
 
-    /**
-     * Low level endpoints for public api apis.
-     */
-    @Internal
-    private final PublicApiApi publicApiApi;
+  /**
+   * Low level endpoints for public api apis. */
+  @Internal
+  private final PublicApiApi publicApiApi;
 
-    /**
-     * Constructor.
-     * 
-     * @param services
-     *            created services {@link ServiceRegistry}.
-     */
-    public DevicesEndpoints(ServiceRegistry services) {
-        super(services);
-        this.defaultApi = initialiseService(DefaultApi.class);
-        this.certificateRenewalApi = initialiseService(CertificateRenewalApi.class);
-        this.publicApiApi = initialiseService(PublicApiApi.class);
-    }
+  /**
+   * Constructor.
+   * @param services created services {@link ServiceRegistry}.
+   */
+  public DevicesEndpoints(ServiceRegistry services) {
+    super(services);
+    this.defaultApi = initialiseService(DefaultApi.class);
+    this.certificateRenewalApi = initialiseService(CertificateRenewalApi.class);
+    this.publicApiApi = initialiseService(PublicApiApi.class);
+  }
 
-    /**
-     * Gets low level endpoints for default apis.
-     * 
-     * @return defaultApi
-     */
-    public DefaultApi getDefaultApi() {
-        return defaultApi;
-    }
+  /**
+   * Gets low level endpoints for default apis.
+   * @return defaultApi
+   */
+  public DefaultApi getDefaultApi() {
+    return defaultApi;
+  }
 
-    /**
-     * Gets low level endpoints for certificate renewal apis.
-     * 
-     * @return certificateRenewalApi
-     */
-    public CertificateRenewalApi getCertificateRenewalApi() {
-        return certificateRenewalApi;
-    }
+  /**
+   * Gets low level endpoints for certificate renewal apis.
+   * @return certificateRenewalApi
+   */
+  public CertificateRenewalApi getCertificateRenewalApi() {
+    return certificateRenewalApi;
+  }
 
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public DevicesEndpoints clone() {
-        return new DevicesEndpoints(getRegistryClone());
-    }
+  /**
+   * Clones this instance.
+   * <p>
+   * @see java.lang.Object#clone()
+   * @return a cloned instance
+   */
+  @Override
+  public DevicesEndpoints clone() {
+    return new DevicesEndpoints(getRegistryClone());
+  }
 
-    /**
-     * Gets low level endpoints for public api apis.
-     * 
-     * @return publicApiApi
-     */
-    public PublicApiApi getPublicApiApi() {
-        return publicApiApi;
-    }
+  /**
+   * Gets low level endpoints for public api apis.
+   * @return publicApiApi
+   */
+  public PublicApiApi getPublicApiApi() {
+    return publicApiApi;
+  }
 }

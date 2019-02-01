@@ -8,58 +8,56 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerVerifyResponse;
 import com.arm.mbed.cloud.sdk.security.model.VerificationResponse;
+import java.lang.Override;
+import java.lang.SuppressWarnings;
 
 /**
- * Adapter for verification responses.
- */
-@Preamble(description = "Adapter for verification responses.")
+ * Adapter for verification responses. */
+@Preamble(
+    description = "Adapter for verification responses."
+)
 @Internal
 @SuppressWarnings("checkstyle:LineLength")
 public final class VerificationResponseAdapter {
-    /**
-     * Constructor.
-     */
-    private VerificationResponseAdapter() {
-        super();
-        // Nothing to do;
-    }
+  /**
+   * Constructor.
+   */
+  private VerificationResponseAdapter() {
+    super();
+    // Nothing to do;
+  }
 
-    /**
-     * Maps a certificate issuer verify response into a verification response.
-     * 
-     * @param toBeMapped
-     *            a certificate issuer verify response.
-     * @return mapped a verification response
-     */
-    @Internal
-    public static VerificationResponse map(CertificateIssuerVerifyResponse toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final VerificationResponse verificationResponse = new VerificationResponse(toBeMapped.getMessage(),
-                                                                                   TranslationUtils.toBool(toBeMapped.isSuccessful()));
-        return verificationResponse;
+  /**
+   * Maps a certificate issuer verify response into a verification response.
+   * @param toBeMapped a certificate issuer verify response.
+   * @return mapped a verification response
+   */
+  @Internal
+  public static VerificationResponse map(CertificateIssuerVerifyResponse toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final VerificationResponse verificationResponse = new VerificationResponse(toBeMapped.getMessage(),TranslationUtils.toBool(toBeMapped.isSuccessful()));
+    return verificationResponse;
+  }
 
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<CertificateIssuerVerifyResponse, VerificationResponse> getMapper() {
-        return new GenericAdapter.Mapper<CertificateIssuerVerifyResponse, VerificationResponse>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public VerificationResponse map(CertificateIssuerVerifyResponse toBeMapped) {
-                return VerificationResponseAdapter.map(toBeMapped);
-            }
-        };
-    }
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<CertificateIssuerVerifyResponse, VerificationResponse> getMapper(
+      ) {
+    return new GenericAdapter.Mapper<CertificateIssuerVerifyResponse, VerificationResponse>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public VerificationResponse map(CertificateIssuerVerifyResponse toBeMapped) {
+        return VerificationResponseAdapter.map(toBeMapped);
+      }
+    };
+  }
 }

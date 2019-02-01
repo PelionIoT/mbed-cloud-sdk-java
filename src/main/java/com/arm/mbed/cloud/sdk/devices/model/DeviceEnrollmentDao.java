@@ -14,181 +14,166 @@ import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
 import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
 import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 
 /**
  * Data Access Object (DAO) for device enrollments.
  * <p>
- * 
- * @see <a href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access
- *      Object</a>
- */
-@Preamble(description = "Data Access Object (DAO) for device enrollments.")
-public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> implements CreateDao<DeviceEnrollment>,
-                                 DeleteDao<DeviceEnrollment>, ReadDao<DeviceEnrollment> {
-    /**
-     * Constructor.
-     */
-    public DeviceEnrollmentDao() throws MbedCloudException {
-        super();
-    }
+ * @see <a  href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access Object</a> */
+@Preamble(
+    description = "Data Access Object (DAO) for device enrollments."
+)
+public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> implements CreateDao<DeviceEnrollment>, DeleteDao<DeviceEnrollment>, ReadDao<DeviceEnrollment> {
+  /**
+   * Constructor.
+   */
+  public DeviceEnrollmentDao() throws MbedCloudException {
+    super();
+  }
 
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public DeviceEnrollmentDao clone() {
-        try {
-            return new DeviceEnrollmentDao().configureAndGet(getModuleOrThrow() == null ? null
-                                                                                        : getModuleOrThrow().clone());
-        } catch (MbedCloudException exception) {
-            return null;
-        }
+  /**
+   * Clones this instance.
+   * <p>
+   * @see java.lang.Object#clone()
+   * @return a cloned instance
+   */
+  @Override
+  @SuppressWarnings("resource")
+  public DeviceEnrollmentDao clone() {
+    try {
+      return new DeviceEnrollmentDao().configureAndGet(getModuleOrThrow() == null? null: getModuleOrThrow().clone());
     }
+    catch(MbedCloudException exception) {
+      return null;
+    }
+  }
 
-    /**
-     * Adds a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#createDeviceEnrollment(DeviceEnrollment)}
-     * 
-     * @return an added device enrollment
-     */
-    @Override
-    public DeviceEnrollment create() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).createDeviceEnrollment(getModel()));
-        return getModel();
-    }
+  /**
+   * Adds a device enrollment.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#createDeviceEnrollment(DeviceEnrollment)}
+   * @return an added device enrollment
+   */
+  @Override
+  public DeviceEnrollment create() throws MbedCloudException {
+    setModel(((Devices)getModuleOrThrow()).createDeviceEnrollment(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Adds a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#createDeviceEnrollment(DeviceEnrollment)}
-     * 
-     * @param enrollmentIdentity
-     *            a device enrollment.
-     * @return an added device enrollment
-     */
-    @Override
-    public DeviceEnrollment create(@NonNull DeviceEnrollment enrollmentIdentity) throws MbedCloudException {
-        setModel(enrollmentIdentity);
-        return create();
-    }
+  /**
+   * Adds a device enrollment.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#createDeviceEnrollment(DeviceEnrollment)}
+   * @param enrollmentIdentity a device enrollment.
+   * @return an added device enrollment
+   */
+  @Override
+  public DeviceEnrollment create(@NonNull DeviceEnrollment enrollmentIdentity) throws
+      MbedCloudException {
+    setModel(enrollmentIdentity);
+    return create();
+  }
 
-    /**
-     * Deletes a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#deleteDeviceEnrollment(DeviceEnrollment)}
-     */
-    @Override
-    public void delete() throws MbedCloudException {
-        ((Devices) getModuleOrThrow()).deleteDeviceEnrollment(getModel());
-    }
+  /**
+   * Deletes a device enrollment.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#deleteDeviceEnrollment(DeviceEnrollment)}
+   */
+  @Override
+  public void delete() throws MbedCloudException {
+    ((Devices)getModuleOrThrow()).deleteDeviceEnrollment(getModel());
+  }
 
-    /**
-     * Deletes a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#deleteDeviceEnrollment(DeviceEnrollment)}
-     * 
-     * @param deviceEnrollment
-     *            a device enrollment.
-     */
-    @Override
-    public void delete(@NonNull DeviceEnrollment deviceEnrollment) throws MbedCloudException {
-        setModel(deviceEnrollment);
-        delete();
-    }
+  /**
+   * Deletes a device enrollment.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#deleteDeviceEnrollment(DeviceEnrollment)}
+   * @param deviceEnrollment a device enrollment.
+   */
+  @Override
+  public void delete(@NonNull DeviceEnrollment deviceEnrollment) throws MbedCloudException {
+    setModel(deviceEnrollment);
+    delete();
+  }
 
-    /**
-     * Deletes a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#deleteDeviceEnrollment(String)}
-     * 
-     * @param id
-     *            Enrollment identity.
-     */
-    @Override
-    public void delete(@NonNull String id) throws MbedCloudException {
-        ((Devices) getModuleOrThrow()).deleteDeviceEnrollment(id);
-    }
+  /**
+   * Deletes a device enrollment.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#deleteDeviceEnrollment(String)}
+   * @param id Enrollment identity.
+   */
+  @Override
+  public void delete(@NonNull String id) throws MbedCloudException {
+    ((Devices)getModuleOrThrow()).deleteDeviceEnrollment(id);
+  }
 
-    /**
-     * Gets a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#getDeviceEnrollment(DeviceEnrollment)}
-     * 
-     * @return something
-     */
-    @Override
-    public DeviceEnrollment get() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDeviceEnrollment(getModel()));
-        return getModel();
-    }
+  /**
+   * Gets a device enrollment.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#getDeviceEnrollment(DeviceEnrollment)}
+   * @return something
+   */
+  @Override
+  public DeviceEnrollment get() throws MbedCloudException {
+    setModel(((Devices)getModuleOrThrow()).getDeviceEnrollment(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Gets a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#getDeviceEnrollment(String)}
-     * 
-     * @param id
-     *            Enrollment identity.
-     * @return something
-     */
-    @Override
-    public DeviceEnrollment get(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDeviceEnrollment(id));
-        return getModel();
-    }
+  /**
+   * Gets a device enrollment.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#getDeviceEnrollment(String)}
+   * @param id Enrollment identity.
+   * @return something
+   */
+  @Override
+  public DeviceEnrollment get(@NonNull String id) throws MbedCloudException {
+    setModel(((Devices)getModuleOrThrow()).getDeviceEnrollment(id));
+    return getModel();
+  }
 
-    /**
-     * Instantiates model.
-     * 
-     * @return instantiated model
-     */
-    @Override
-    @Internal
-    protected DeviceEnrollment instantiateModel() {
-        return new DeviceEnrollment();
-    }
+  /**
+   * Instantiates model.
+   * @return instantiated model
+   */
+  @Override
+  @Internal
+  protected DeviceEnrollment instantiateModel() {
+    return new DeviceEnrollment();
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
+  /**
+   * Instantiates modules.
+   * @param options a connection options.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ConnectionOptions options) {
+    return new Devices(options);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Devices(client);
-    }
+  /**
+   * Instantiates modules.
+   * @param client an api client wrapper.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ApiClientWrapper client) {
+    return new Devices(client);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
-    }
+  /**
+   * Instantiates modules.
+   * @param context an sdk context.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(SdkContext context) {
+    return new Devices(context);
+  }
 }

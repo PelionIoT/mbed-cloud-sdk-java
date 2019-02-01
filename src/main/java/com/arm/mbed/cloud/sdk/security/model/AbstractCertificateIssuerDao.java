@@ -14,227 +14,198 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
+import java.lang.Override;
+import java.lang.String;
 import java.util.Map;
 
 /**
  * Data Access Object (DAO) for certificate issuers.
  * <p>
- * 
- * @see <a href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access
- *      Object</a>
- */
-@Preamble(description = "Data Access Object (DAO) for certificate issuers.")
-public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<CertificateIssuer>
-                                                   implements CrudDao<CertificateIssuer> {
-    /**
-     * Constructor.
-     */
-    public AbstractCertificateIssuerDao() throws MbedCloudException {
-        super();
-    }
+ * @see <a  href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access Object</a> */
+@Preamble(
+    description = "Data Access Object (DAO) for certificate issuers."
+)
+public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<CertificateIssuer> implements CrudDao<CertificateIssuer> {
+  /**
+   * Constructor.
+   */
+  public AbstractCertificateIssuerDao() throws MbedCloudException {
+    super();
+  }
 
-    /**
-     * Adds a certificate issuer.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#createCertificateIssuer(Map,CertificateIssuer)}
-     * 
-     * @param issuerCredentials
-     *            The credentials required for connecting to the certificate issuer. When the issuer_type is
-     *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
-     *            definition of CfsslAuthCredentials.
-     * 
-     * @return an added certificate issuer
-     */
-    public CertificateIssuer create(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).createCertificateIssuer(issuerCredentials, getModel()));
-        return getModel();
-    }
+  /**
+   * Adds a certificate issuer.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#createCertificateIssuer(Map,CertificateIssuer)}
+   * @param issuerCredentials The credentials required for connecting to the certificate issuer.
+   * When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.
+   * When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
+   * 
+   * @return an added certificate issuer
+   */
+  public CertificateIssuer create(@Nullable Map<String, String> issuerCredentials) throws
+      MbedCloudException {
+    setModel(((Security)getModuleOrThrow()).createCertificateIssuer(issuerCredentials, getModel()));
+    return getModel();
+  }
 
-    /**
-     * Deletes a certificate issuer.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#deleteCertificateIssuer(CertificateIssuer)}
-     */
-    @Override
-    public void delete() throws MbedCloudException {
-        ((Security) getModuleOrThrow()).deleteCertificateIssuer(getModel());
-    }
+  /**
+   * Deletes a certificate issuer.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#deleteCertificateIssuer(CertificateIssuer)}
+   */
+  @Override
+  public void delete() throws MbedCloudException {
+    ((Security)getModuleOrThrow()).deleteCertificateIssuer(getModel());
+  }
 
-    /**
-     * Deletes a certificate issuer.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#deleteCertificateIssuer(CertificateIssuer)}
-     * 
-     * @param certificateIssuer
-     *            a certificate issuer.
-     */
-    @Override
-    public void delete(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
-        setModel(certificateIssuer);
-        delete();
-    }
+  /**
+   * Deletes a certificate issuer.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#deleteCertificateIssuer(CertificateIssuer)}
+   * @param certificateIssuer a certificate issuer.
+   */
+  @Override
+  public void delete(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
+    setModel(certificateIssuer);
+    delete();
+  }
 
-    /**
-     * Deletes a certificate issuer.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#deleteCertificateIssuer(String)}
-     * 
-     * @param id
-     *            Certificate issuer ID. <br>
-     *            The ID of the certificate issuer. An active certificate issuer may not be deleted.
-     * 
-     */
-    @Override
-    public void delete(@NonNull String id) throws MbedCloudException {
-        ((Security) getModuleOrThrow()).deleteCertificateIssuer(id);
-    }
+  /**
+   * Deletes a certificate issuer.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#deleteCertificateIssuer(String)}
+   * @param id Certificate issuer ID. <br> The ID of the certificate issuer.
+   * An active certificate issuer may not be deleted.
+   * 
+   */
+  @Override
+  public void delete(@NonNull String id) throws MbedCloudException {
+    ((Security)getModuleOrThrow()).deleteCertificateIssuer(id);
+  }
 
-    /**
-     * Gets a certificate issuer.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#getCertificateIssuer(CertificateIssuer)}
-     * 
-     * @return something
-     */
-    @Override
-    public CertificateIssuer get() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getCertificateIssuer(getModel()));
-        return getModel();
-    }
+  /**
+   * Gets a certificate issuer.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#getCertificateIssuer(CertificateIssuer)}
+   * @return something
+   */
+  @Override
+  public CertificateIssuer get() throws MbedCloudException {
+    setModel(((Security)getModuleOrThrow()).getCertificateIssuer(getModel()));
+    return getModel();
+  }
 
-    /**
-     * Gets a certificate issuer.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#getCertificateIssuer(String)}
-     * 
-     * @param id
-     *            The ID of the certificate issuer.
-     * @return something
-     */
-    @Override
-    public CertificateIssuer get(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getCertificateIssuer(id));
-        return getModel();
-    }
+  /**
+   * Gets a certificate issuer.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#getCertificateIssuer(String)}
+   * @param id The ID of the certificate issuer.
+   * @return something
+   */
+  @Override
+  public CertificateIssuer get(@NonNull String id) throws MbedCloudException {
+    setModel(((Security)getModuleOrThrow()).getCertificateIssuer(id));
+    return getModel();
+  }
 
-    /**
-     * Instantiates model.
-     * 
-     * @return instantiated model
-     */
-    @Override
-    @Internal
-    protected CertificateIssuer instantiateModel() {
-        return new CertificateIssuer();
-    }
+  /**
+   * Instantiates model.
+   * @return instantiated model
+   */
+  @Override
+  @Internal
+  protected CertificateIssuer instantiateModel() {
+    return new CertificateIssuer();
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
+  /**
+   * Instantiates modules.
+   * @param options a connection options.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ConnectionOptions options) {
+    return new Security(options);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
-    }
+  /**
+   * Instantiates modules.
+   * @param client an api client wrapper.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(ApiClientWrapper client) {
+    return new Security(client);
+  }
 
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
-    }
+  /**
+   * Instantiates modules.
+   * @param context an sdk context.
+   * @return instantiated module
+   */
+  @Override
+  @Internal
+  protected SdkContext instantiateModule(SdkContext context) {
+    return new Security(context);
+  }
 
-    /**
-     * Modifies a certificate issuer.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#updateCertificateIssuer(Map,CertificateIssuer)}
-     * 
-     * @param issuerCredentials
-     *            The credentials required for connecting to the certificate issuer. When the issuer_type is
-     *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
-     *            definition of CfsslAuthCredentials.
-     * 
-     * @return something
-     */
-    public CertificateIssuer update(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).updateCertificateIssuer(issuerCredentials, getModel()));
-        return getModel();
-    }
+  /**
+   * Modifies a certificate issuer.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#updateCertificateIssuer(Map,CertificateIssuer)}
+   * @param issuerCredentials The credentials required for connecting to the certificate issuer.
+   * When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.
+   * When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
+   * 
+   * @return something
+   */
+  public CertificateIssuer update(@Nullable Map<String, String> issuerCredentials) throws
+      MbedCloudException {
+    setModel(((Security)getModuleOrThrow()).updateCertificateIssuer(issuerCredentials, getModel()));
+    return getModel();
+  }
 
-    /**
-     * Modifies a certificate issuer.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#updateCertificateIssuer(Map,String,CertificateIssuer)}
-     * 
-     * @param issuerCredentials
-     *            The credentials required for connecting to the certificate issuer. When the issuer_type is
-     *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
-     *            definition of CfsslAuthCredentials.
-     * 
-     * @param id
-     *            The ID of the certificate issuer.
-     * @return an updated certificate issuer
-     */
-    public CertificateIssuer update(@Nullable Map<String, String> issuerCredentials,
-                                    @NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).updateCertificateIssuer(issuerCredentials, id, getModel()));
-        return getModel();
-    }
+  /**
+   * Modifies a certificate issuer.
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#updateCertificateIssuer(Map,String,CertificateIssuer)}
+   * @param issuerCredentials The credentials required for connecting to the certificate issuer.
+   * When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.
+   * When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.
+   * 
+   * @param id The ID of the certificate issuer.
+   * @return an updated certificate issuer
+   */
+  public CertificateIssuer update(@Nullable Map<String, String> issuerCredentials,
+      @NonNull String id) throws MbedCloudException {
+    setModel(((Security)getModuleOrThrow()).updateCertificateIssuer(issuerCredentials, id, getModel()));
+    return getModel();
+  }
 
-    /**
-     * Verify certificate issuer.
-     * 
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#verify(CertificateIssuer)}
-     * 
-     * @return something
-     */
-    public VerificationResponse verify() throws MbedCloudException {
-        return ((Security) getModuleOrThrow()).verify(getModel());
-    }
+  /**
+   * Verify certificate issuer.
+   * 
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#verify(CertificateIssuer)}
+   * @return something
+   */
+  public VerificationResponse verify() throws MbedCloudException {
+    return ((Security)getModuleOrThrow()).verify(getModel());
+  }
 
-    /**
-     * Verify certificate issuer.
-     * 
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#verify(String)}
-     * 
-     * @param id
-     *            Certificate issuer ID. <br>
-     *            The ID of the certificate issuer.
-     * 
-     * @return something
-     */
-    public VerificationResponse verify(@NonNull String id) throws MbedCloudException {
-        return ((Security) getModuleOrThrow()).verify(id);
-    }
+  /**
+   * Verify certificate issuer.
+   * 
+   * <p>
+   * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#verify(String)}
+   * @param id Certificate issuer ID. <br> The ID of the certificate issuer.
+   * 
+   * @return something
+   */
+  public VerificationResponse verify(@NonNull String id) throws MbedCloudException {
+    return ((Security)getModuleOrThrow()).verify(id);
+  }
 }

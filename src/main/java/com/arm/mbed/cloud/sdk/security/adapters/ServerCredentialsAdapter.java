@@ -8,60 +8,57 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServerCredentialsResponseData;
 import com.arm.mbed.cloud.sdk.security.model.ServerCredentials;
+import java.lang.Override;
+import java.lang.SuppressWarnings;
 
 /**
- * Adapter for server credentials.
- */
-@Preamble(description = "Adapter for server credentials.")
+ * Adapter for server credentials. */
+@Preamble(
+    description = "Adapter for server credentials."
+)
 @Internal
 @SuppressWarnings("checkstyle:LineLength")
 public final class ServerCredentialsAdapter {
-    /**
-     * Constructor.
-     */
-    private ServerCredentialsAdapter() {
-        super();
-        // Nothing to do;
-    }
+  /**
+   * Constructor.
+   */
+  private ServerCredentialsAdapter() {
+    super();
+    // Nothing to do;
+  }
 
-    /**
-     * Maps a server credentials response data into a server credentials.
-     * 
-     * @param toBeMapped
-     *            a server credentials response data.
-     * @return mapped a server credentials
-     */
-    @Internal
-    public static ServerCredentials map(ServerCredentialsResponseData toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final ServerCredentials serverCredentials = new ServerCredentials(TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                                                          toBeMapped.getServerCertificate(),
-                                                                          toBeMapped.getServerUri());
-        serverCredentials.setId(toBeMapped.getId());
-        return serverCredentials;
+  /**
+   * Maps a server credentials response data into a server credentials.
+   * @param toBeMapped a server credentials response data.
+   * @return mapped a server credentials
+   */
+  @Internal
+  public static ServerCredentials map(ServerCredentialsResponseData toBeMapped) {
+    if(toBeMapped == null) {
+      return null;
     }
+    final ServerCredentials serverCredentials = new ServerCredentials(TranslationUtils.toDate(toBeMapped.getCreatedAt()),toBeMapped.getServerCertificate(),toBeMapped.getServerUri());
+    serverCredentials.setId(toBeMapped.getId());
+    return serverCredentials;
+  }
 
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<ServerCredentialsResponseData, ServerCredentials> getMapper() {
-        return new GenericAdapter.Mapper<ServerCredentialsResponseData, ServerCredentials>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public ServerCredentials map(ServerCredentialsResponseData toBeMapped) {
-                return ServerCredentialsAdapter.map(toBeMapped);
-            }
-        };
-    }
+  /**
+   * Gets a mapper.
+   * @return a mapper
+   */
+  @Internal
+  public static GenericAdapter.Mapper<ServerCredentialsResponseData, ServerCredentials> getMapper(
+      ) {
+    return new GenericAdapter.Mapper<ServerCredentialsResponseData, ServerCredentials>() {
+      /**
+       * Maps.
+       * @param toBeMapped model to be mapped.
+       * @return a mapped object
+       */
+      @Override
+      public ServerCredentials map(ServerCredentialsResponseData toBeMapped) {
+        return ServerCredentialsAdapter.map(toBeMapped);
+      }
+    };
+  }
 }
