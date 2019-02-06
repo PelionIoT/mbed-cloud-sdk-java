@@ -99,9 +99,9 @@ public class NotificationHandlersStore implements Closeable {
     }
 
     /**
-     * Starts notification pull.
+     * Starts notification listener.
      */
-    public void startNotificationPull() {
+    public void startNotificationListener() {
         if (isPullingActive()) {
             logInfo("Notification pull is already working.");
             return;
@@ -134,9 +134,9 @@ public class NotificationHandlersStore implements Closeable {
     }
 
     /**
-     * Stops notification pull.
+     * Stops notification listener.
      */
-    public void stopNotificationPull() {
+    public void stopNotificationListener() {
         if (pullHandle != null && !(pullHandle.isDone() || pullHandle.isCancelled())) {
             pullHandle.cancel(true);
         }

@@ -30,6 +30,7 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.NotificationMode;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod.AsynchronousMethod;
@@ -158,6 +159,7 @@ public class Connect extends AbstractModule {
         super(options);
         endpoint = new EndPoints(this.serviceRegistry);
         deviceDirectory = new DeviceDirectory(options);
+        deviceDirectory.shareNetworkLayer(this);
         this.handlersStore = new NotificationHandlersStore(this,
                                                            (notificationPullingThreadPool == null) ? createDefaultDaemonThreadPool()
                                                                                                    : notificationPullingThreadPool,
@@ -201,17 +203,17 @@ public class Connect extends AbstractModule {
      *             if a problem occurred during the process.
      */
     @API
-    @Daemon(task = "Notification pull", start = true)
+    @Daemon(task = "Listen to notification", start = true)
     public void startNotifications() throws MbedCloudException {
         logger.logInfo(getModuleName() + ": startNotifications()");
-        Webhook webhook = null;
-        try {
-            if (isForceClear()) {
-                deleteWebhook();
-            }
-        } catch (MbedCloudException exception) {
-            // Nothing to do
+        if (getNotificationMode() == NotificationMode.SERVER_INITIATED) {
+            logger.logWarn("The SDK has been set up to use a server initiated notification mode. No daemon thread listening to notifications will hence be started.");
+            return;
         }
+        if (isForceClear()) {
+            clearAllNotificationChannels();
+        }
+        Webhook webhook = null;
         try {
             webhook = getWebhook();
         } catch (MbedCloudException exception) {
@@ -219,12 +221,15 @@ public class Connect extends AbstractModule {
         }
         if (webhook != null) {
             logger.throwSdkException("A webhook is currently set up [" + webhook
-                                     + "]. Notification pull cannot be used at the same time. Please remove the webhook if you want to use this mechanism instead.");
+                                     + "]. Client initiated Notification mode cannot be used at the same time. Please remove the webhook if you want to use this mechanism instead.");
         }
-        handlersStore.startNotificationPull();
+        handlersStore.startNotificationListener();
     }
 
     private void autostartDaemonIfNeeded() throws MbedCloudException {
+        if (getNotificationMode() == NotificationMode.SERVER_INITIATED) {
+            return;
+        }
         if (!handlersStore.isPullingActive() && endpoint.isAutostartDaemon()) {
             startNotifications();
         }
@@ -248,7 +253,11 @@ public class Connect extends AbstractModule {
     @Daemon(task = "Notification pull", stop = true)
     public void stopNotifications() throws MbedCloudException {
         logger.logInfo(getModuleName() + ": stopNotifications()");
-        handlersStore.stopNotificationPull();
+        handlersStore.stopNotificationListener();
+        deleteLongPollingChannel();
+    }
+
+    private void deleteLongPollingChannel() throws MbedCloudException {
         CloudCaller.call(this, "stopNotification()", null, new CloudCall<Void>() {
 
             @Override
@@ -2711,19 +2720,6 @@ public class Connect extends AbstractModule {
 
     /**
      * Gets the current callback URL if it exists.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     Webhook webhook = connectApi.getWebhook();
-     *     System.out.println("Webhook URL: " + webhook.getUrl());
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
      *
      * @return the webhook.
      * @throws MbedCloudException
@@ -2744,22 +2740,7 @@ public class Connect extends AbstractModule {
 
     /**
      * Registers new webhook for incoming subscriptions.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     Webhook webhook = new Webhook();
-     *     webhook.setUrl("https://goo.gl/testwh");
-     *     webhook.addHeader("Auth","token");
-     *     connectApi.updateWebhook(webhook);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
+     * 
      * @param webhook
      *            Webhook to set.
      * @throws MbedCloudException
@@ -2788,19 +2769,7 @@ public class Connect extends AbstractModule {
      * If no webhook is registered, an exception (404) will be raised.
      * <p>
      * Note that every registered subscription will be deleted as part of deregistering a webhook.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     connectApi.deleteWebhook();
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
+     * 
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
@@ -2816,6 +2785,26 @@ public class Connect extends AbstractModule {
     }
 
     /**
+     * Deletes any notification channel currently in use.
+     * 
+     */
+    @API
+    public void clearAllNotificationChannels() {
+        try {
+            deleteWebhook();
+        } catch (MbedCloudException exception1) {
+            // Nothing to do
+        }
+        try {
+            deleteLongPollingChannel();
+        } catch (MbedCloudException exception2) {
+            // Nothing to do
+        }
+        // TODO delete websocket channel
+
+    }
+
+    /**
      * States whether any existing notification channel should be cleared before a new one is created.
      *
      * @return True if the channel will be cleared. False otherwise.
@@ -2825,13 +2814,14 @@ public class Connect extends AbstractModule {
     }
 
     /**
-     * Sets whether any existing notification channel should be cleared before a new one is created.
-     *
-     * @param forceClear
-     *            True if the channel will be cleared. False otherwise.
+     * Gets the notification mode in use.
+     * <p>
+     * See {@link NotificationMode}
+     * 
+     * @return the notification mode in use
      */
-    public void setForceClear(boolean forceClear) {
-        endpoint.setForceClear(forceClear);
+    public NotificationMode getNotificationMode() {
+        return endpoint.getNotificationMode();
     }
 
     /**

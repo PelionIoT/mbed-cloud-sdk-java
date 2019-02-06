@@ -34,8 +34,11 @@ public class ConnectionOptions implements Cloneable, Serializable {
     private String host;
     private CallLogLevel clientLogLevel;
     private TimePeriod requestTimeout;
+    private NotificationMode notificationMode;
     @DefaultValue(value = "TRUE")
     private boolean autostartDaemon;
+    @DefaultValue(value = "FALSE")
+    private boolean forceClear;
     private final transient Dotenv dotenv;
 
     /**
@@ -74,7 +77,9 @@ public class ConnectionOptions implements Cloneable, Serializable {
         dotenv = Dotenv.configure().ignoreIfMissing().load();
         setApiKey(apiKey);
         setHost(host);
+        setNotificationMode(NotificationMode.getDefault());
         setAutostartDaemon(true);
+        setForceClear(false);
         setClientLogLevel((String) null);
     }
 
@@ -314,7 +319,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
      * @param autostartDaemon
      *            autostart mode for the daemon.
      */
-    public void setAutostartDaemon(boolean autostartDaemon) {
+    public void setAutostartDaemon(@DefaultValue(value = "TRUE") boolean autostartDaemon) {
         this.autostartDaemon = autostartDaemon;
     }
 
@@ -327,8 +332,94 @@ public class ConnectionOptions implements Cloneable, Serializable {
      *            mode to apply.
      * @return these connection options.
      */
-    public ConnectionOptions autostartDaemon(boolean autostartDaemonMode) {
+    public ConnectionOptions autostartDaemon(@DefaultValue(value = "TRUE") boolean autostartDaemonMode) {
         setAutostartDaemon(autostartDaemonMode);
+        return this;
+    }
+
+    /**
+     * Sets autostart daemon mode to true.
+     * <p>
+     * Note: Similar to {@link #autostartDaemon(boolean)}
+     *
+     * @return these connection options.
+     */
+    public ConnectionOptions autostartDaemon() {
+        return autostartDaemon(true);
+    }
+
+    /**
+     * States whether any existing notification channel should be cleared before a new one is created.
+     *
+     * @return True if the channel will be cleared. False otherwise.
+     */
+    public boolean isForceClear() {
+        return forceClear;
+    }
+
+    /**
+     * Sets whether any existing notification channel should be cleared before a new one is created.
+     * <p>
+     * Note: This flag should only be set to True with caution and in automated environments such as server-side
+     * applications. It will indeed remove any existing notification channel.
+     * 
+     * @param forceClear
+     *            True if the channel should be cleared. False otherwise.
+     */
+    public void setForceClear(@DefaultValue(value = "FALSE") boolean forceClear) {
+        this.forceClear = forceClear;
+    }
+
+    /**
+     * Ensures that any notification channel is cleared before one is created.
+     * <p>
+     * Note: this should only be used with caution in automated environments such as server-side applications.
+     * 
+     * @return these connection options.
+     */
+    public ConnectionOptions forceClear() {
+        return forceClear(true);
+    }
+
+    /**
+     * Sets whether any existing notification channel should be cleared before a new one is created.
+     * <p>
+     * Note: Similar to {@link ConnectionOptions#setForceClear(boolean)}
+     * 
+     * @param forceClear
+     *            True if the channel should be cleared. False otherwise.
+     * @return these connection options.
+     */
+    public ConnectionOptions forceClear(@DefaultValue(value = "FALSE") boolean forceClear) {
+        setForceClear(forceClear);
+        return this;
+    }
+
+    /**
+     * Gets the notification mode chosen.
+     * 
+     * @return the notification mode in use.
+     */
+    public NotificationMode getNotificationMode() {
+        return notificationMode;
+    }
+
+    /**
+     * Sets the notification mode to use.
+     */
+    public void setNotificationMode(NotificationMode notificationMode) {
+        this.notificationMode = notificationMode;
+    }
+
+    /**
+     * Sets the notification mode to use.
+     * <p>
+     * Note: Similar to {@link #setNotificationMode(NotificationMode)}
+     * 
+     * @return these connection options.
+     */
+    public ConnectionOptions notificationMode(NotificationMode notificationMode) {
+        setNotificationMode(notificationMode);
         return this;
     }
 
@@ -342,6 +433,8 @@ public class ConnectionOptions implements Cloneable, Serializable {
         final ConnectionOptions options = new ConnectionOptions(apiKey, host);
         options.setClientLogLevel(clientLogLevel);
         options.setAutostartDaemon(autostartDaemon);
+        options.setForceClear(forceClear);
+        options.setNotificationMode(notificationMode);
         if (hasCustomRequestTimeout()) {
             options.setRequestTimeout(requestTimeout.clone());
         }
@@ -356,11 +449,6 @@ public class ConnectionOptions implements Cloneable, Serializable {
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -368,27 +456,21 @@ public class ConnectionOptions implements Cloneable, Serializable {
         result = prime * result + ((apiKey == null) ? 0 : apiKey.hashCode());
         result = prime * result + (autostartDaemon ? 1231 : 1237);
         result = prime * result + ((clientLogLevel == null) ? 0 : clientLogLevel.hashCode());
+        result = prime * result + (forceClear ? 1231 : 1237);
         result = prime * result + ((host == null) ? 0 : host.hashCode());
+        result = prime * result + ((notificationMode == null) ? 0 : notificationMode.hashCode());
         result = prime * result + ((requestTimeout == null) ? 0 : requestTimeout.hashCode());
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (!(obj instanceof ConnectionOptions)) {
+        if (getClass() != obj.getClass())
             return false;
-        }
         final ConnectionOptions other = (ConnectionOptions) obj;
         if (apiKey == null) {
             if (other.apiKey != null) {
@@ -403,11 +485,17 @@ public class ConnectionOptions implements Cloneable, Serializable {
         if (clientLogLevel != other.clientLogLevel) {
             return false;
         }
+        if (forceClear != other.forceClear) {
+            return false;
+        }
         if (host == null) {
             if (other.host != null) {
                 return false;
             }
         } else if (!host.equals(other.host)) {
+            return false;
+        }
+        if (notificationMode != other.notificationMode) {
             return false;
         }
         if (requestTimeout == null) {
@@ -420,15 +508,11 @@ public class ConnectionOptions implements Cloneable, Serializable {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return "ConnectionOptions [host=" + host + ", clientLogLevel=" + clientLogLevel + ", requestTimeout="
-               + requestTimeout + ", autostartDaemon=" + autostartDaemon + "]";
+               + requestTimeout + ", notificationMode=" + notificationMode + ", autostartDaemon=" + autostartDaemon
+               + ", forceClear=" + forceClear + "]";
     }
 
 }

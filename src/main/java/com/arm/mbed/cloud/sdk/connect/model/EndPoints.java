@@ -4,6 +4,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.NotificationMode;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceRequestsApi;
@@ -23,7 +24,6 @@ public class EndPoints extends AbstractEndpoints {
     private final ResourcesApi resources;
     private final SubscriptionsApi subscriptions;
     private final StatisticsApi statistic;
-    private boolean forceClear;
 
     /**
      * Constructor.
@@ -40,7 +40,6 @@ public class EndPoints extends AbstractEndpoints {
         this.resources = initialiseService(ResourcesApi.class);
         this.subscriptions = initialiseService(SubscriptionsApi.class);
         this.statistic = initialiseService(StatisticsApi.class);
-        forceClear = false;
     }
 
     public DeviceRequestsApi getAsync() {
@@ -83,17 +82,20 @@ public class EndPoints extends AbstractEndpoints {
      * @return True if the channel will be cleared. False otherwise.
      */
     public boolean isForceClear() {
-        return forceClear;
+        final ConnectionOptions config = getConfiguration();
+        return config == null ? false : config.isForceClear();
     }
 
     /**
-     * Sets whether any existing notification channel should be cleared before a new one is created.
+     * Gets the notification mode in use.
+     * <p>
+     * See {@link NotificationMode}
      * 
-     * @param forceClear
-     *            True if the channel will be cleared. False otherwise.
+     * @return the notification mode in use
      */
-    public void setForceClear(boolean forceClear) {
-        this.forceClear = forceClear;
+    public NotificationMode getNotificationMode() {
+        final ConnectionOptions config = getConfiguration();
+        return config == null ? NotificationMode.getDefault() : config.getNotificationMode();
     }
 
     /**

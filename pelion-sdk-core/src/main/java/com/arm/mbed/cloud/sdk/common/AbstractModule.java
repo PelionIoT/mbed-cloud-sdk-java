@@ -84,6 +84,21 @@ public abstract class AbstractModule implements SdkContext {
         return logger;
     }
 
+    /**
+     * Shares module's Http client network layer.
+     * <p>
+     * See {@link ApiClientWrapper#shareNetworkLayer(ApiClientWrapper)}
+     * 
+     * @param anotherModule
+     *            another module instance.
+     */
+    public void shareNetworkLayer(AbstractModule anotherModule) {
+        if (client == null || anotherModule == null) {
+            return;
+        }
+        client.shareNetworkLayer(anotherModule.getClient());
+    }
+
     /*
      * (non-Javadoc)
      *
