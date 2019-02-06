@@ -15,6 +15,7 @@ import com.arm.mbed.cloud.sdk.common.CloudRequest;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
@@ -50,6 +51,7 @@ import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate;
 import com.arm.mbed.cloud.sdk.security.model.TrustedCertificate;
 import com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions;
 import com.arm.mbed.cloud.sdk.security.model.VerificationResponse;
+import java.util.Date;
 import java.util.Map;
 import retrofit2.Call;
 
@@ -1199,8 +1201,8 @@ public class Security extends AbstractModule {
            listAllCertificateEnrollments(@Nullable String deviceIdEq, @Nullable String certificateNameEq,
                                          @Nullable String enrollStatusNeq, @Nullable String enrollStatusEq,
                                          @Nullable String enrollResultNeq, @Nullable String enrollResultEq,
-                                         @Nullable String createdAtLte, @Nullable String createdAtGte,
-                                         @Nullable String updatedAtLte, @Nullable String updatedAtGte,
+                                         @Nullable Date createdAtLte, @Nullable Date createdAtGte,
+                                         @Nullable Date updatedAtLte, @Nullable Date updatedAtGte,
                                          @Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
         final String finalDeviceIdEq = deviceIdEq;
         final String finalCertificateNameEq = certificateNameEq;
@@ -1208,10 +1210,10 @@ public class Security extends AbstractModule {
         final String finalEnrollStatusEq = enrollStatusEq;
         final String finalEnrollResultNeq = enrollResultNeq;
         final String finalEnrollResultEq = enrollResultEq;
-        final String finalCreatedAtLte = createdAtLte;
-        final String finalCreatedAtGte = createdAtGte;
-        final String finalUpdatedAtLte = updatedAtLte;
-        final String finalUpdatedAtGte = updatedAtGte;
+        final Date finalCreatedAtLte = createdAtLte;
+        final Date finalCreatedAtGte = createdAtGte;
+        final Date finalUpdatedAtLte = updatedAtLte;
+        final Date finalUpdatedAtGte = updatedAtGte;
         final CertificateEnrollmentListOptions finalOptions = (options == null) ? new CertificateEnrollmentListOptions()
                                                                                 : options;
         return new Paginator<CertificateEnrollment>(finalOptions, new PageRequester<CertificateEnrollment>() {
@@ -1407,8 +1409,8 @@ public class Security extends AbstractModule {
            listCertificateEnrollments(@Nullable String deviceIdEq, @Nullable String certificateNameEq,
                                       @Nullable String enrollStatusNeq, @Nullable String enrollStatusEq,
                                       @Nullable String enrollResultNeq, @Nullable String enrollResultEq,
-                                      @Nullable String createdAtLte, @Nullable String createdAtGte,
-                                      @Nullable String updatedAtLte, @Nullable String updatedAtGte,
+                                      @Nullable Date createdAtLte, @Nullable Date createdAtGte,
+                                      @Nullable Date updatedAtLte, @Nullable Date updatedAtGte,
                                       @Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
         final String finalDeviceIdEq = deviceIdEq;
         final String finalCertificateNameEq = certificateNameEq;
@@ -1416,10 +1418,10 @@ public class Security extends AbstractModule {
         final String finalEnrollStatusEq = enrollStatusEq;
         final String finalEnrollResultNeq = enrollResultNeq;
         final String finalEnrollResultEq = enrollResultEq;
-        final String finalCreatedAtLte = createdAtLte;
-        final String finalCreatedAtGte = createdAtGte;
-        final String finalUpdatedAtLte = updatedAtLte;
-        final String finalUpdatedAtGte = updatedAtGte;
+        final Date finalCreatedAtLte = createdAtLte;
+        final Date finalCreatedAtGte = createdAtGte;
+        final Date finalUpdatedAtLte = updatedAtLte;
+        final Date finalUpdatedAtGte = updatedAtGte;
         final CertificateEnrollmentListOptions finalOptions = (options == null) ? new CertificateEnrollmentListOptions()
                                                                                 : options;
         return CloudCaller.call(this, "listCertificateEnrollments()", CertificateEnrollmentAdapter.getListMapper(),
@@ -1442,9 +1444,10 @@ public class Security extends AbstractModule {
                                                                                    finalEnrollStatusEq,
                                                                                    finalEnrollResultNeq,
                                                                                    finalEnrollResultEq,
-                                                                                   finalCreatedAtLte, finalCreatedAtGte,
-                                                                                   finalUpdatedAtLte,
-                                                                                   finalUpdatedAtGte);
+                                                                                   TranslationUtils.toDateTime(finalCreatedAtLte),
+                                                                                   TranslationUtils.toDateTime(finalCreatedAtGte),
+                                                                                   TranslationUtils.toDateTime(finalUpdatedAtLte),
+                                                                                   TranslationUtils.toDateTime(finalUpdatedAtGte));
                                     }
                                 });
     }

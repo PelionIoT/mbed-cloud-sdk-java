@@ -35,9 +35,10 @@ public class EnrollmentDenialsApiTest {
      * Return list of devices which were denied to bootstrap due to being subjected to blacklisting.
      *
      * This produces a list of failed attempts to bootstrap using a particular certificate which is blacklisted
-     * (trusted_certificate). Returned list can be filtered by endpoint name or trusted certificate. **Example usage:**
-     * &#x60;&#x60;&#x60; curl -X GET -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\
-     * https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate__eq&#x3D;{cert-id}&amp;endpoint_name__eq&#x3D;{endpoint_name}
+     * (trusted_certificate). Returned list can be filtered by endpoint name. Trusted certificate ID filter is required.
+     * **Example usage:** &#x60;&#x60;&#x60; curl -X GET -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39;
+     * \\
+     * https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate_id__eq&#x3D;{cert-id}&amp;endpoint_name__eq&#x3D;{endpoint_name}
      * &#x60;&#x60;&#x60;
      */
     @Test

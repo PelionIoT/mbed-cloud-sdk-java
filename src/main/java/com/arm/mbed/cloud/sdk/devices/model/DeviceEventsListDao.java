@@ -123,7 +123,7 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
     /**
      * Lists device events matching filter options.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#listDeviceEventss(DeviceEventsListOptions)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#listDeviceEventss(DeviceEventsListOptions)}
      * 
      * @param options
      *            list options.

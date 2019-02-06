@@ -47,7 +47,7 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
      * Fetch bootstrap server credentials.
      *
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.ServerCredentials#getBootstrap()}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getBootstrap()}
      */
     public void getBootstrap() throws MbedCloudException {
         checkDaoConfiguration();
@@ -58,7 +58,7 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
      * Fetch LwM2M server credentials.
      *
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.ServerCredentials#getLwm2m()}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getLwm2m()}
      */
     public void getLwm2m() throws MbedCloudException {
         checkDaoConfiguration();

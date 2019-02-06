@@ -123,7 +123,7 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     /**
      * Lists devices matching filter options.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#listDevices(DeviceListOptions)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#listDevices(DeviceListOptions)}
      * 
      * @param options
      *            list options.

@@ -35,7 +35,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     /**
      * Adds a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#createUser(String,User)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createUser(String,User)}
      * 
      * @param action
      *            Action, either 'create' or 'invite'.
@@ -48,7 +48,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     /**
      * Deletes a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#deleteUser(User)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUser(User)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -59,7 +59,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     /**
      * Deletes a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#deleteUser(User)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUser(User)}
      * 
      * @param user
      *            a user.
@@ -74,7 +74,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     /**
      * Deletes a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#deleteUser(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUser(String)}
      * 
      * @param id
      *            The ID of the user to be deleted.
@@ -138,7 +138,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     /**
      * Gets a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#getUser(User)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getUser(User)}
      */
     @Override
     public void read() throws MbedCloudException {
@@ -149,7 +149,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     /**
      * Gets a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#getUser(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getUser(String)}
      * 
      * @param id
      *            The ID of the user.
@@ -163,7 +163,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     /**
      * Modifies a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#updateUser(User)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateUser(User)}
      */
     @Override
     public void update() throws MbedCloudException {
@@ -174,7 +174,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     /**
      * Modifies a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#updateUser(User)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateUser(User)}
      * 
      * @param user
      *            a user.
@@ -189,7 +189,7 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     /**
      * Modifies a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.User#updateUser(String,User)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateUser(String,User)}
      * 
      * @param id
      *            The ID of the user.
