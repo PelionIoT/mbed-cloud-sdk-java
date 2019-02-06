@@ -60,6 +60,10 @@ public class TypeFactory {
         return new TypeParameter(type);
     }
 
+    public static TypeParameter dateType() {
+        return new TypeParameter(TypePrimitive.SDK_DATE_CLASS);
+    }
+
     public static TypeParameter getCorrespondingType(Class<?> type, TypeParameter contentType) {
         final TypeParameter topType = getCorrespondingType(type);
         if (topType instanceof TypeCompose) {

@@ -6,6 +6,8 @@ import com.arm.mbed.cloud.sdk.common.model.DataFile;
 
 public class TypePrimitive {
 
+    public static final Class<?> SDK_DATE_CLASS = Date.class;
+
     @SuppressWarnings("incomplete-switch")
     public static Class<?> getDataType(String type, String format) {
         if (type == null) {
@@ -64,7 +66,7 @@ public class TypePrimitive {
                 return String.class;
             case "date":
             case "date-time":
-                return Date.class;
+                return SDK_DATE_CLASS;
         }
         return String.class;
     }

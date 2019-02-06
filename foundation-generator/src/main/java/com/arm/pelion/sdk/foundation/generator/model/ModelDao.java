@@ -168,7 +168,7 @@ public class ModelDao extends Model {
             return;
         }
         final MethodOverloaded method = new MethodOverloaded(false, daoMethodName, moduleMethod.getDescription(),
-                                                             Utils.generateDocumentationMethodLink(correspondingModel,
+                                                             Utils.generateDocumentationMethodLink(correspondingModule,
                                                                                                    moduleMethod),
                                                              false, true, false, false, false, false, false, false,
                                                              interfaceMethodSuffix);
@@ -226,7 +226,7 @@ public class ModelDao extends Model {
     private MethodOverloaded generateMethod(String methodName, boolean needsCustomCode, boolean isPublic, String suffix,
                                             Method moduleMethod, TypeParameter moduleType) {
         final MethodOverloaded method = new MethodOverloaded(false, methodName, moduleMethod.getDescription(),
-                                                             Utils.generateDocumentationMethodLink(correspondingModel,
+                                                             Utils.generateDocumentationMethodLink(correspondingModule,
                                                                                                    moduleMethod),
                                                              false, isPublic, false, false, false, false, false, false,
                                                              suffix);

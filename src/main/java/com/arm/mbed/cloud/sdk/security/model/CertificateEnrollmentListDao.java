@@ -27,7 +27,7 @@ public class CertificateEnrollmentListDao extends AbstractCertificateEnrollmentL
      * Lists certificate enrollments matching filter options.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment#listCertificateEnrollments(String,String,String,String,String,String,String,String,String,String,CertificateEnrollmentListOptions)}
+     * {@link com.arm.mbed.cloud.sdk.Security#listCertificateEnrollments(String,String,String,String,String,String,Date,Date,Date,Date,CertificateEnrollmentListOptions)}
      * 
      * @param options
      *            list options.

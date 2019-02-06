@@ -27,7 +27,7 @@ public class TrustedCertificateListDao extends AbstractTrustedCertificateListDao
      * Lists trusted certificates matching filter options.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#listTrustedCertificates(String,String,Integer,Integer,Integer,String,Boolean,String,String,String,TrustedCertificateListOptions)}
+     * {@link com.arm.mbed.cloud.sdk.Security#listTrustedCertificates(String,String,Integer,Integer,Integer,String,Boolean,String,String,String,TrustedCertificateListOptions)}
      * 
      * @param options
      *            list options.
