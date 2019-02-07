@@ -26,7 +26,7 @@ public class ApiKeyListDao extends AbstractApiKeyListDao {
     /**
      * Lists api keys matching filter options.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#listApiKeys(String,String,ApiKeyListOptions)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#listApiKeys(String,String,ApiKeyListOptions)}
      * 
      * @param options
      *            list options.

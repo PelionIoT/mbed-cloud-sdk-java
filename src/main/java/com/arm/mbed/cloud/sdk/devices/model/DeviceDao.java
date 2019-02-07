@@ -49,7 +49,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Adds a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#createDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#createDevice(Device)}
      */
     @Override
     public void create() throws MbedCloudException {
@@ -60,7 +60,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Adds a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#createDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#createDevice(Device)}
      * 
      * @param device
      *            a device.
@@ -75,7 +75,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Deletes a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#deleteDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDevice(Device)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -86,7 +86,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Deletes a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#deleteDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDevice(Device)}
      * 
      * @param device
      *            a device.
@@ -101,7 +101,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Deletes a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#deleteDevice(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDevice(String)}
      * 
      * @param id
      *            null
@@ -165,7 +165,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Gets a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#getDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDevice(Device)}
      */
     @Override
     public void read() throws MbedCloudException {
@@ -176,7 +176,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Gets a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#getDevice(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDevice(String)}
      * 
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
@@ -191,7 +191,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * Request certificate renewal.
      *
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#renewCertificate(String,Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#renewCertificate(String,Device)}
      * 
      * @param certificateName
      *            The certificate name.
@@ -206,7 +206,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * Request certificate renewal.
      *
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#renewCertificate(String,String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#renewCertificate(String,String)}
      * 
      * @param certificateName
      *            The certificate name.
@@ -223,7 +223,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Modifies a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#updateDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#updateDevice(Device)}
      */
     @Override
     public void update() throws MbedCloudException {
@@ -234,7 +234,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Modifies a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#updateDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#updateDevice(Device)}
      * 
      * @param device
      *            a device.
@@ -249,7 +249,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Modifies a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.Device#updateDevice(String,Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#updateDevice(String,Device)}
      * 
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.

@@ -35,7 +35,7 @@ public class DenialAttemptsResponse implements Serializable {
     private String after = null;
 
     @SerializedName("data")
-    private List<BlackListedDeviceData> data = null;
+    private List<BlackListedDeviceData> data = new ArrayList<BlackListedDeviceData>();
 
     @SerializedName("has_more")
     private Boolean hasMore = null;
@@ -124,9 +124,6 @@ public class DenialAttemptsResponse implements Serializable {
     }
 
     public DenialAttemptsResponse addDataItem(BlackListedDeviceData dataItem) {
-        if (this.data == null) {
-            this.data = new ArrayList<BlackListedDeviceData>();
-        }
         this.data.add(dataItem);
         return this;
     }
@@ -136,7 +133,7 @@ public class DenialAttemptsResponse implements Serializable {
      * 
      * @return data
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(required = true, value = "")
     public List<BlackListedDeviceData> getData() {
         return data;
     }
@@ -195,7 +192,7 @@ public class DenialAttemptsResponse implements Serializable {
      * 
      * @return object
      **/
-    @ApiModelProperty(example = "list", value = "The type of this API object is a \"list\".")
+    @ApiModelProperty(example = "list", required = true, value = "The type of this API object is a \"list\".")
     public String getObject() {
         return object;
     }

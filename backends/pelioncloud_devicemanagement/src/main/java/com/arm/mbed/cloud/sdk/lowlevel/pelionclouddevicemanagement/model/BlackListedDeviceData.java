@@ -103,7 +103,7 @@ public class BlackListedDeviceData implements Serializable {
      * 
      * @return accountId
      **/
-    @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", value = "account id")
+    @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "account id")
     public String getAccountId() {
         return accountId;
     }
@@ -122,7 +122,7 @@ public class BlackListedDeviceData implements Serializable {
      * 
      * @return createdAt
      **/
-    @ApiModelProperty(example = "2000-01-23T04:56:07.000+00:00",
+    @ApiModelProperty(example = "2000-01-23T04:56:07.000+00:00", required = true,
                       value = "date on which the failed bootstrap was attempted on")
     public DateTime getCreatedAt() {
         return createdAt;
@@ -142,7 +142,7 @@ public class BlackListedDeviceData implements Serializable {
      * 
      * @return endpointName
      **/
-    @ApiModelProperty(example = "Endpoint_1234", value = "endpoint name")
+    @ApiModelProperty(example = "Endpoint_1234", required = true, value = "endpoint name")
     public String getEndpointName() {
         return endpointName;
     }
@@ -161,7 +161,7 @@ public class BlackListedDeviceData implements Serializable {
      * 
      * @return id
      **/
-    @ApiModelProperty(example = "00005a4e027f0a580a04567c00000000",
+    @ApiModelProperty(example = "00005a4e027f0a580a04567c00000000", required = true,
                       value = "id of the recorded failed bootstrap attempt")
     public String getId() {
         return id;
@@ -181,7 +181,7 @@ public class BlackListedDeviceData implements Serializable {
      * 
      * @return object
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(required = true, value = "")
     public ObjectEnum getObject() {
         return object;
     }
@@ -200,7 +200,7 @@ public class BlackListedDeviceData implements Serializable {
      * 
      * @return trustedCertificateId
      **/
-    @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", value = "Trusted certificate id")
+    @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "Trusted certificate id")
     public String getTrustedCertificateId() {
         return trustedCertificateId;
     }

@@ -36,8 +36,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     /**
      * Adds a certificate issuer.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#createCertificateIssuer(Map,CertificateIssuer)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuer(Map,CertificateIssuer)}
      * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
@@ -53,8 +52,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     /**
      * Deletes a certificate issuer.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#deleteCertificateIssuer(CertificateIssuer)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteCertificateIssuer(CertificateIssuer)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -65,8 +63,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     /**
      * Deletes a certificate issuer.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#deleteCertificateIssuer(CertificateIssuer)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteCertificateIssuer(CertificateIssuer)}
      * 
      * @param certificateIssuer
      *            a certificate issuer.
@@ -81,7 +78,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     /**
      * Deletes a certificate issuer.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#deleteCertificateIssuer(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteCertificateIssuer(String)}
      * 
      * @param id
      *            Certificate issuer ID. <br>
@@ -147,8 +144,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     /**
      * Gets a certificate issuer.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#getCertificateIssuer(CertificateIssuer)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateIssuer(CertificateIssuer)}
      */
     @Override
     public void read() throws MbedCloudException {
@@ -159,7 +155,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     /**
      * Gets a certificate issuer.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#getCertificateIssuer(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateIssuer(String)}
      * 
      * @param id
      *            The ID of the certificate issuer.
@@ -173,8 +169,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     /**
      * Modifies a certificate issuer.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#updateCertificateIssuer(Map,CertificateIssuer)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(Map,CertificateIssuer)}
      * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
@@ -190,8 +185,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     /**
      * Modifies a certificate issuer.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#updateCertificateIssuer(Map,String,CertificateIssuer)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(Map,String,CertificateIssuer)}
      * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
@@ -210,7 +204,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      * Verify certificate issuer.
      *
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#verify(CertificateIssuer)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#verify(CertificateIssuer)}
      * 
      * @return something
      */
@@ -223,7 +217,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      * Verify certificate issuer.
      *
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#verify(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#verify(String)}
      * 
      * @param id
      *            Certificate issuer ID. <br>

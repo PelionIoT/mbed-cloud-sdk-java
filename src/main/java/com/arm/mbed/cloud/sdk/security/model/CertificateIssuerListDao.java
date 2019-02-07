@@ -123,8 +123,7 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     /**
      * Lists certificate issuers matching filter options.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuer#listCertificateIssuers(CertificateIssuerListOptions)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#listCertificateIssuers(CertificateIssuerListOptions)}
      * 
      * @param options
      *            list options.

@@ -98,7 +98,7 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     /**
      * Gets a device events.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(DeviceEvents)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEvents(DeviceEvents)}
      */
     @Override
     public void read() throws MbedCloudException {
@@ -109,7 +109,7 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     /**
      * Gets a device events.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEvents(String)}
      * 
      * @param id
      *            null
