@@ -11,7 +11,7 @@ The Mbed Cloud SDK provides a simplified interface to the [Mbed Cloud APIs](http
 * The SDK uses **[SLF4j](https://www.slf4j.org/)** and hence, any supported logging framework  (e.g. java.util.logging, logback, log4j) can be used by your application.
 
 ## Distribution
-In order to best meet your requirements, Java SDK is packaged in 3 different ways:
+In order to best meet your requirements, Java SDK is packaged in three different ways:
 * Individual Jars
 * Distribution ZIP. See related [gradle plugin](https://docs.gradle.org/current/userguide/javaLibraryDistribution_plugin.html) for more details.
 * A [fat jar](https://github.com/johnrengelman/shadow) comprising the SDK and all its dependencies.
@@ -19,15 +19,14 @@ In order to best meet your requirements, Java SDK is packaged in 3 different way
 ## Getting started
 [ ![Download](https://api.bintray.com/packages/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/images/download.svg) ](https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/_latestVersion)
 
-Artefacts listed above are published on [JCenter](https://bintray.com/armmbed/mbed-cloud-sdk
-) and [Maven Central](https://mvnrepository.com/artifact/com.arm.mbed.cloud.sdk/mbed-cloud-sdk).
+Artefacts listed above are published on [JCenter](https://bintray.com/armmbed/mbed-cloud-sdk) and [Maven Central](https://mvnrepository.com/artifact/com.arm.mbed.cloud.sdk/mbed-cloud-sdk).
 They can therefore be retrieved and included into your project using the package manager of your choice. To do so, please follow the instructions present on one of these artefact repositories ([Bintray page of the project](https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/)).
 
 For example, if using Gradle, add the following compile dependency to build.gradle:
 ```java
 compile 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y'
 ```
-Current artefacts are not fully tailored for Android but can be used as is on this mobile platform. However, oltu dependency will have to be excluded to remove any compilation issue (e.g. Error converting bytecode to dex:\nCause: com.android.dex.DexException: Multiple dex files define Lorg/apache/oltu/oauth2/common/domain/credentials/Credentials).
+Current artefacts are not fully tailored for Android but can be used as is on this mobile platform. However, the ``oltu`` dependency will have to be excluded to remove any compilation issue (e.g. ``Error converting bytecode to dex:\nCause: com.android.dex.DexException: Multiple dex files define Lorg/apache/oltu/oauth2/common/domain/credentials/Credentials``.
 To do so, import the SDK in the gradle file, as follows:
 ```java
 implementation( 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y' ){
