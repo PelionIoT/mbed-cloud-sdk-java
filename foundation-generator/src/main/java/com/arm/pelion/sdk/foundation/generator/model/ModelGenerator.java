@@ -31,8 +31,8 @@ public class ModelGenerator extends AbstractGenerator {
         if (model == null) {
             return;
         }
-        logger.logInfo("Generating " + model.getClass().getSimpleName().toLowerCase(Locale.UK) + " ["
-                       + model.getFullName() + "]");
+        logger.logDebug("Generating " + model.getClass().getSimpleName().toLowerCase(Locale.UK) + " ["
+                        + model.getFullName() + "]");
         model.translate();
         TypeSpec modelClass = model.getSpecificationBuilder().build();
         JavaFile file = JavaFile.builder(model.getPackageName(), modelClass).addFileComment(generateFileComment(model))
@@ -40,18 +40,18 @@ public class ModelGenerator extends AbstractGenerator {
         try {
             File destinationFile = new File(sourceDestinationDirectory, file.toJavaFileObject().getName());
             if (sourceDestinationDirectory == null) {
-                logger.logWarn("The destination directory for the generated code was not specified. It will hence only be output in Standard out.");
+                logger.logWarn("The destination directory for the generated code was not specified. It will hence only be output to Standard out.");
                 file.writeTo(System.out);
             } else {
-                logger.logInfo("Generating model file [" + destinationFile.getName() + "]");
+                logger.logDebug("Generating model file [" + destinationFile.getName() + "]");
                 if (model.containsCustomCode() && destinationFile.exists()) {
-                    logger.logInfo("The model file is already present and contains some custom code. Therefore, it won't be regenerated.");
+                    logger.logInfo("The model file " + destinationFile.getName()
+                                   + " is already present and contains some custom code. Therefore, it won't be regenerated.");
                     return;
                 }
 
                 file.writeTo(sourceDestinationDirectory);
-                logger.logInfo("Model [" + model.getFullName() + "] was generated and can be find there: "
-                               + destinationFile.toString());
+                logger.logDebug("Model [" + model.getFullName() + "] was generated as " + destinationFile.toString());
             }
         } catch (Exception exception) {
             throw new TranslationException(exception);

@@ -47,7 +47,7 @@ public class LowLevelAPIMethod {
 
     protected static LowLevelAPIMethodArgument determineReturnType(Method m) throws UnknownAPIException {
 
-        final Class<?> returnTypeClass = m == null ? null : m.getReturnType();
+        final Class<?> returnTypeClass = (m == null) ? null : m.getReturnType();
         if (m != null && !Call.class.isAssignableFrom(returnTypeClass)) {
             throw new UnknownAPIException("The return type of the low level API is not " + Call.class.getName());
         }
@@ -59,7 +59,7 @@ public class LowLevelAPIMethod {
                                                              null);
         } catch (Exception exception) {
             throw new UnknownAPIException("Could not determine the actual return type of the low level API "
-                                          + returnType);
+                                          + returnType + "; caused by " + exception.toString());
         }
     }
 
