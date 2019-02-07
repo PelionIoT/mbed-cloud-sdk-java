@@ -11,7 +11,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'ru.vyarus:gradle-animalsniffer-plugin:1.4.0'
+        classpath 'ru.vyarus:gradle-animalsniffer-plugin:1.4.6'
         classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
         classpath 'com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2'
         classpath 'de.aaschmid:gradle-cpd-plugin:1.0'
