@@ -26,11 +26,11 @@ import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.DeliveryMethod;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.NotificationMode;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod.AsynchronousMethod;
@@ -68,6 +68,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceR
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.SuccessfulResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.WebsocketChannel;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
@@ -117,8 +118,10 @@ public class Connect extends AbstractModule {
      *
      * @param options
      *            connection options @see {@link ConnectionOptions}.
+     * @throws MbedCloudException
+     *             if an error happened during configuration
      */
-    public Connect(@NonNull ConnectionOptions options) {
+    public Connect(@NonNull ConnectionOptions options) throws MbedCloudException {
         this(options, null, null);
     }
 
@@ -127,14 +130,21 @@ public class Connect extends AbstractModule {
      * 
      * @param context
      *            SDK context
+     * @throws MbedCloudException
+     *             if an error happened during configuration
      */
-    public Connect(SdkContext context) {
+    public Connect(SdkContext context) throws MbedCloudException {
         this(context == null ? null : context.getConnectionOption());
     }
 
     @Override
     public Connect clone() {
-        return new Connect(this);
+        try {
+            return new Connect(this);
+        } catch (MbedCloudException exception) {
+            logger.logError("The module could not be cloned", exception);
+            return null;
+        }
     }
 
     /**
@@ -153,10 +163,13 @@ public class Connect extends AbstractModule {
      *            Threads in charge of listening to notifications. The pool can either be a scheduled thread pool or a
      *            fixed thread pool depending on what best suits your system. If null, an internal timer will be created
      *            internally.
+     * @throws MbedCloudException
+     *             if an error happened during configuration
      */
     public Connect(@NonNull ConnectionOptions options, @Nullable ExecutorService notificationHandlingThreadPool,
-                   @Nullable ExecutorService notificationPullingThreadPool) {
+                   @Nullable ExecutorService notificationPullingThreadPool) throws MbedCloudException {
         super(options);
+        checkConfiguration(options);
         endpoint = new EndPoints(this.serviceRegistry);
         deviceDirectory = new DeviceDirectory(options);
         deviceDirectory.shareNetworkLayer(this);
@@ -206,13 +219,17 @@ public class Connect extends AbstractModule {
     @Daemon(task = "Listen to notification", start = true)
     public void startNotifications() throws MbedCloudException {
         logger.logInfo(getModuleName() + ": startNotifications()");
-        if (getNotificationMode() == NotificationMode.SERVER_INITIATED) {
-            logger.logWarn("The SDK has been set up to use a server initiated notification mode. No daemon thread listening to notifications will hence be started.");
-            return;
+        if (handlersStore.isPullingActive()) {
+            logger.logInfo("Notification listening daemon thread is already started");
+        }
+        if (getDeliveryMethod() == DeliveryMethod.SERVER_INITIATED) {
+            logger.throwSdkException("The SDK has been set up to use a server initiated delivery method. No daemon thread listening to notifications can be started in this mode.");
         }
         if (isForceClear()) {
+            logger.logWarn("Clearing any existing notification channel");
             clearAllNotificationChannels();
         }
+        // TODO use delivery method check instead when available
         Webhook webhook = null;
         try {
             webhook = getWebhook();
@@ -221,16 +238,17 @@ public class Connect extends AbstractModule {
         }
         if (webhook != null) {
             logger.throwSdkException("A webhook is currently set up [" + webhook
-                                     + "]. Client initiated Notification mode cannot be used at the same time. Please remove the webhook if you want to use this mechanism instead.");
+                                     + "]. Client-initiated delivery method cannot be used at the same time. Please remove the webhook if you want to use this mechanism instead.");
         }
         handlersStore.startNotificationListener();
     }
 
     private void autostartDaemonIfNeeded() throws MbedCloudException {
-        if (getNotificationMode() == NotificationMode.SERVER_INITIATED) {
+        checkConfiguration(endpoint.getConnectionConfiguration());
+        if (getDeliveryMethod() != DeliveryMethod.CLIENT_INITIATED) {
             return;
         }
-        if (!handlersStore.isPullingActive() && endpoint.isAutostartDaemon()) {
+        if (!handlersStore.isPullingActive() && isAutostartDaemon()) {
             startNotifications();
         }
     }
@@ -253,16 +271,31 @@ public class Connect extends AbstractModule {
     @Daemon(task = "Notification pull", stop = true)
     public void stopNotifications() throws MbedCloudException {
         logger.logInfo(getModuleName() + ": stopNotifications()");
+        if (getDeliveryMethod() != DeliveryMethod.CLIENT_INITIATED) {
+            logger.logWarn("Delivery method was set to [" + getDeliveryMethod()
+                           + "]. This method will not do anything.");
+            return;
+        }
         handlersStore.stopNotificationListener();
-        deleteLongPollingChannel();
+        clearAllNotificationChannels();
     }
 
     private void deleteLongPollingChannel() throws MbedCloudException {
-        CloudCaller.call(this, "stopNotification()", null, new CloudCall<Void>() {
+        CloudCaller.call(this, "clearLongPollingNotificationChannel()", null, new CloudCall<Void>() {
 
             @Override
             public Call<Void> call() {
                 return endpoint.getNotifications().deleteLongPollChannel();
+            }
+        });
+    }
+
+    private void deleteWebsocketChannel() throws MbedCloudException {
+        CloudCaller.call(this, "clearWebsocketNotificationChannel()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getWebsocket().deleteWebsocket();
             }
         });
     }
@@ -2748,10 +2781,18 @@ public class Connect extends AbstractModule {
      */
     @API
     public void updateWebhook(@NonNull Webhook webhook) throws MbedCloudException {
+        if (getDeliveryMethod() == DeliveryMethod.UNDEFINED) {
+            getConnectionOption().setDeliveryMethod(DeliveryMethod.SERVER_INITIATED);
+        }
+        checkConfiguration(getConnectionOption());
+        if (getDeliveryMethod() == DeliveryMethod.CLIENT_INITIATED) {
+            logger.throwSdkException("This SDK instance has been set up to use the client-initiated notification mode. The server-initiated notification mode that this method requires cannot be used at the same time.");
+        }
         checkNotNull(webhook, TAG_WEBHOOK);
         checkModelValidity(webhook, TAG_WEBHOOK);
         if (isForceClear()) {
-            stopNotifications();
+            logger.logWarn("Clearing any existing notification channel");
+            clearAllNotificationChannels();
         }
         final Webhook finalWebhook = webhook;
         CloudCaller.call(this, "updateWebhook()", null, new CloudCall<Void>() {
@@ -2784,6 +2825,39 @@ public class Connect extends AbstractModule {
         });
     }
 
+    @API
+    public void registerWebsocket() throws MbedCloudException {
+        CloudCaller.call(this, "registerWebsocket()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<WebsocketChannel> call() {
+                return endpoint.getWebsocket().registerWebsocket();
+            }
+        });
+    }
+
+    @API
+    public void registerWebsocket() throws MbedCloudException {
+        CloudCaller.call(this, "registerWebsocket()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<WebsocketChannel> call() {
+                return endpoint.getWebsocket().registerWebsocket();
+            }
+        });
+    }
+
+    @API
+    public void deleteWebsocket() throws MbedCloudException {
+        CloudCaller.call(this, "deleteWebsocket()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getWebsocket().deleteWebsocket();
+            }
+        });
+    }
+
     /**
      * Deletes any notification channel currently in use.
      * 
@@ -2792,16 +2866,19 @@ public class Connect extends AbstractModule {
     public void clearAllNotificationChannels() {
         try {
             deleteWebhook();
-        } catch (MbedCloudException exception1) {
-            // Nothing to do
+        } catch (MbedCloudException exception) {
+            logger.logWarn("Clearing webhook", exception);
         }
         try {
             deleteLongPollingChannel();
-        } catch (MbedCloudException exception2) {
-            // Nothing to do
+        } catch (MbedCloudException exception) {
+            logger.logWarn("Clearing long polling channel", exception);
         }
-        // TODO delete websocket channel
-
+        try {
+            deleteWebsocketChannel();
+        } catch (MbedCloudException exception) {
+            logger.logWarn("Clearing websocket channel", exception);
+        }
     }
 
     /**
@@ -2810,18 +2887,20 @@ public class Connect extends AbstractModule {
      * @return True if the channel will be cleared. False otherwise.
      */
     public boolean isForceClear() {
-        return endpoint.isForceClear();
+        final ConnectionOptions config = getConnectionOption();
+        return config == null ? false : config.isForceClear();
     }
 
     /**
-     * Gets the notification mode in use.
+     * Gets the delivery method in use.
      * <p>
-     * See {@link NotificationMode}
+     * See {@link DeliveryMethod}
      * 
-     * @return the notification mode in use
+     * @return the delivery method in use
      */
-    public NotificationMode getNotificationMode() {
-        return endpoint.getNotificationMode();
+    public DeliveryMethod getDeliveryMethod() {
+        final ConnectionOptions config = getConnectionOption();
+        return config == null ? DeliveryMethod.getDefault() : config.getDeliveryMethod();
     }
 
     /**
@@ -2833,7 +2912,39 @@ public class Connect extends AbstractModule {
      * @return true if daemon will be started automatically. False otherwise.
      */
     public boolean isAutostartDaemon() {
-        return endpoint.isAutostartDaemon();
+        final ConnectionOptions config = getConnectionOption();
+        return config == null ? true : config.isAutostartDaemon();
+    }
+
+    private void checkConfiguration(ConnectionOptions options) throws MbedCloudException {
+        if (options == null) {
+            return;
+        }
+        if (options.isAutostartDaemon()) {
+            switch (options.getDeliveryMethod()) {
+                case CLIENT_INITIATED:
+                    // Nothing to do
+                    break;
+                case SERVER_INITIATED:
+                    logger.throwSdkException("The delivery method has been set to " + options.getDeliveryMethod()
+                                             + ", which is not compatible with the autostartDaemon mode. This mode is only available for "
+                                             + DeliveryMethod.CLIENT_INITIATED + " delivery method.");
+                    break;
+                case UNDEFINED:
+                case UNKNOWN_ENUM:
+                default:
+                    options.setDeliveryMethod(DeliveryMethod.CLIENT_INITIATED);
+                    break;
+            }
+        }
+        switch (options.getDeliveryMethod()) {
+            case UNDEFINED:
+            case UNKNOWN_ENUM:
+            default:
+                options.setDeliveryMethod(DeliveryMethod.CLIENT_INITIATED);
+                options.setAutostartDaemon(true);
+                break;
+        }
     }
 
     /**

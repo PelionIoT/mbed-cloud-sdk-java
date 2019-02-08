@@ -49,8 +49,10 @@ public class Sdk extends AbstractModule {
      *
      * @param options
      *            connection options @see {@link ConnectionOptions}.
+     * @throws MbedCloudException
+     *             if an error happened during configuration
      */
-    public Sdk(ConnectionOptions options) {
+    public Sdk(ConnectionOptions options) throws MbedCloudException {
         super(options, extendUserAgent());
         connectApi = new Connect(options);
         daoFactory = new DaoFactory(this);
@@ -62,8 +64,10 @@ public class Sdk extends AbstractModule {
      * 
      * @param context
      *            SDK context
+     * @throws MbedCloudException
+     *             if an error happened during configuration
      */
-    public Sdk(SdkContext context) {
+    public Sdk(SdkContext context) throws MbedCloudException {
         this(context == null ? null : context.getConnectionOption());
     }
 
@@ -73,8 +77,10 @@ public class Sdk extends AbstractModule {
      * @param options
      *            connection options @see {@link ConnectionOptions}.
      * @return an instance of the SDK.
+     * @throws MbedCloudException
+     *             if an error happened during configuration
      */
-    public static Sdk createSdk(ConnectionOptions options) {
+    public static Sdk createSdk(ConnectionOptions options) throws MbedCloudException {
         return new Sdk(options);
     }
 
@@ -366,7 +372,12 @@ public class Sdk extends AbstractModule {
 
     @Override
     public Sdk clone() {
-        return new Sdk(this);
+        try {
+            return new Sdk(this);
+        } catch (MbedCloudException exception) {
+            logger.logError("SDK could not be cloned", exception);
+            return null;
+        }
     }
 
     @Override

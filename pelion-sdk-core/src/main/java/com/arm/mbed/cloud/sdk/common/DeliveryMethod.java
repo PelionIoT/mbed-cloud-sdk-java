@@ -6,10 +6,10 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 
 /**
- * Notification mode.
+ * Delivery method for notifications.
  */
-@Preamble(description = "Notification mode")
-public enum NotificationMode implements SdkEnum {
+@Preamble(description = "Delivery method for notifications")
+public enum DeliveryMethod implements SdkEnum {
     /**
      * The server forward any new notification to a given URL (i.e. webhook).
      */
@@ -18,6 +18,10 @@ public enum NotificationMode implements SdkEnum {
      * The client opens a communication channel with the server and asks for notifications
      */
     CLIENT_INITIATED("CLIENT_INITIATED"),
+    /**
+     * Undefined method.
+     */
+    UNDEFINED("UNDEFINED"),
     UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     /**
@@ -29,7 +33,7 @@ public enum NotificationMode implements SdkEnum {
      */
     @Internal
     @Required
-    @DefaultValue("CLIENT_INITIATED")
+    @DefaultValue("UNDEFINED")
     private final String string;
 
     /**
@@ -39,7 +43,7 @@ public enum NotificationMode implements SdkEnum {
      *            string representation.
      */
     @Internal
-    NotificationMode(@DefaultValue("CLIENT_INITIATED") String string) {
+    DeliveryMethod(@DefaultValue("UNDEFINED") String string) {
         this.string = string;
     }
 
@@ -90,36 +94,36 @@ public enum NotificationMode implements SdkEnum {
     }
 
     /**
-     * Gets default notification mode.
+     * Gets default delivery method.
      * 
-     * @return default notification mode.
+     * @return default delivery method.
      */
-    public static NotificationMode getDefault() {
-        return CLIENT_INITIATED;
+    public static DeliveryMethod getDefault() {
+        return UNDEFINED;
     }
 
     /**
-     * Gets unknown notification mode value.
+     * Gets unknown delivery method value.
      * 
-     * @return unknown notification mode.
+     * @return unknown delivery method.
      */
-    public static NotificationMode getUnknownEnum() {
+    public static DeliveryMethod getUnknownEnum() {
         return UNKNOWN_ENUM;
     }
 
     /**
-     * Gets notification mode from its string representation.
+     * Gets delivery method from its string representation.
      * 
      * @param value
      *            string.
-     * @return corresponding notification mode or default mode if not recognised.
+     * @return corresponding delivery method or default mode if not recognised.
      */
-    public static NotificationMode getValue(String value) {
+    public static DeliveryMethod getValue(String value) {
         if (value == null) {
             return getDefault();
         }
         final String trimmedValue = value.trim();
-        for (final NotificationMode option : values()) {
+        for (final DeliveryMethod option : values()) {
             if (option.getString().equalsIgnoreCase(trimmedValue)) {
                 return option;
             }
@@ -133,9 +137,9 @@ public enum NotificationMode implements SdkEnum {
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
      * @param obj1
-     *            a notification mode.
+     *            a delivery method.
      * @param obj2
-     *            a notification mode.
+     *            a delivery method.
      * @return the merged enumerator
      */
     @Override

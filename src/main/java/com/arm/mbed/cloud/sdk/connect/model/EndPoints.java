@@ -4,7 +4,6 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.common.NotificationMode;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceRequestsApi;
@@ -13,6 +12,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.Notificat
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.ResourcesApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.StatisticsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.SubscriptionsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.WebsocketApi;
 
 @Preamble(description = "Endpoint for Connect API")
 @Internal
@@ -24,6 +24,7 @@ public class EndPoints extends AbstractEndpoints {
     private final ResourcesApi resources;
     private final SubscriptionsApi subscriptions;
     private final StatisticsApi statistic;
+    private final WebsocketApi websocket;
 
     /**
      * Constructor.
@@ -40,6 +41,7 @@ public class EndPoints extends AbstractEndpoints {
         this.resources = initialiseService(ResourcesApi.class);
         this.subscriptions = initialiseService(SubscriptionsApi.class);
         this.statistic = initialiseService(StatisticsApi.class);
+        this.websocket = initialiseService(WebsocketApi.class);
     }
 
     public DeviceRequestsApi getAsync() {
@@ -66,36 +68,12 @@ public class EndPoints extends AbstractEndpoints {
         return statistic;
     }
 
-    /**
-     * States whether notification daemon will start automatically when needed.
-     * 
-     * @return true if daemon will be started automatically. False otherwise.
-     */
-    public boolean isAutostartDaemon() {
-        final ConnectionOptions config = getConfiguration();
-        return config == null ? false : config.isAutostartDaemon();
+    public WebsocketApi getWebsocket() {
+        return websocket;
     }
 
-    /**
-     * States whether any existing notification channel should be cleared before a new one is created.
-     * 
-     * @return True if the channel will be cleared. False otherwise.
-     */
-    public boolean isForceClear() {
-        final ConnectionOptions config = getConfiguration();
-        return config == null ? false : config.isForceClear();
-    }
-
-    /**
-     * Gets the notification mode in use.
-     * <p>
-     * See {@link NotificationMode}
-     * 
-     * @return the notification mode in use
-     */
-    public NotificationMode getNotificationMode() {
-        final ConnectionOptions config = getConfiguration();
-        return config == null ? NotificationMode.getDefault() : config.getNotificationMode();
+    public ConnectionOptions getConnectionConfiguration() {
+        return getConfiguration();
     }
 
     /**

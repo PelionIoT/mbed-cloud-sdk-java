@@ -34,7 +34,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
     private String host;
     private CallLogLevel clientLogLevel;
     private TimePeriod requestTimeout;
-    private NotificationMode notificationMode;
+    private DeliveryMethod deliveryMethod;
     @DefaultValue(value = "TRUE")
     private boolean autostartDaemon;
     @DefaultValue(value = "FALSE")
@@ -77,7 +77,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
         dotenv = Dotenv.configure().ignoreIfMissing().load();
         setApiKey(apiKey);
         setHost(host);
-        setNotificationMode(NotificationMode.getDefault());
+        setDeliveryMethod(DeliveryMethod.getDefault());
         setAutostartDaemon(true);
         setForceClear(false);
         setClientLogLevel((String) null);
@@ -361,7 +361,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
      * Sets whether any existing notification channel should be cleared before a new one is created.
      * <p>
      * Note: This flag should only be set to True with caution and in automated environments such as server-side
-     * applications. It will indeed remove any existing notification channel.
+     * applications where service restart is automated. It will indeed remove any existing notification channel.
      * 
      * @param forceClear
      *            True if the channel should be cleared. False otherwise.
@@ -373,7 +373,8 @@ public class ConnectionOptions implements Cloneable, Serializable {
     /**
      * Ensures that any notification channel is cleared before one is created.
      * <p>
-     * Note: this should only be used with caution in automated environments such as server-side applications.
+     * Note: this should only be used with caution in automated/production environments such as server-side applications
+     * where service restart is automated.
      * 
      * @return these connection options.
      */
@@ -396,30 +397,30 @@ public class ConnectionOptions implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the notification mode chosen.
+     * Gets the delivery method chosen.
      * 
      * @return the notification mode in use.
      */
-    public NotificationMode getNotificationMode() {
-        return notificationMode;
+    public DeliveryMethod getDeliveryMethod() {
+        return deliveryMethod;
     }
 
     /**
-     * Sets the notification mode to use.
+     * Sets the delivery method to use.
      */
-    public void setNotificationMode(NotificationMode notificationMode) {
-        this.notificationMode = notificationMode;
+    public void setDeliveryMethod(DeliveryMethod deliveryMethod) {
+        this.deliveryMethod = deliveryMethod;
     }
 
     /**
-     * Sets the notification mode to use.
+     * Sets the delivery method to use.
      * <p>
-     * Note: Similar to {@link #setNotificationMode(NotificationMode)}
+     * Note: Similar to {@link #setDeliveryMethod(DeliveryMethod)}
      * 
      * @return these connection options.
      */
-    public ConnectionOptions notificationMode(NotificationMode notificationMode) {
-        setNotificationMode(notificationMode);
+    public ConnectionOptions deliveryMethod(DeliveryMethod notificationMode) {
+        setDeliveryMethod(notificationMode);
         return this;
     }
 
@@ -434,7 +435,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
         options.setClientLogLevel(clientLogLevel);
         options.setAutostartDaemon(autostartDaemon);
         options.setForceClear(forceClear);
-        options.setNotificationMode(notificationMode);
+        options.setDeliveryMethod(deliveryMethod);
         if (hasCustomRequestTimeout()) {
             options.setRequestTimeout(requestTimeout.clone());
         }
@@ -458,7 +459,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
         result = prime * result + ((clientLogLevel == null) ? 0 : clientLogLevel.hashCode());
         result = prime * result + (forceClear ? 1231 : 1237);
         result = prime * result + ((host == null) ? 0 : host.hashCode());
-        result = prime * result + ((notificationMode == null) ? 0 : notificationMode.hashCode());
+        result = prime * result + ((deliveryMethod == null) ? 0 : deliveryMethod.hashCode());
         result = prime * result + ((requestTimeout == null) ? 0 : requestTimeout.hashCode());
         return result;
     }
@@ -495,7 +496,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
         } else if (!host.equals(other.host)) {
             return false;
         }
-        if (notificationMode != other.notificationMode) {
+        if (deliveryMethod != other.deliveryMethod) {
             return false;
         }
         if (requestTimeout == null) {
@@ -511,7 +512,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
     @Override
     public String toString() {
         return "ConnectionOptions [host=" + host + ", clientLogLevel=" + clientLogLevel + ", requestTimeout="
-               + requestTimeout + ", notificationMode=" + notificationMode + ", autostartDaemon=" + autostartDaemon
+               + requestTimeout + ", notificationMode=" + deliveryMethod + ", autostartDaemon=" + autostartDaemon
                + ", forceClear=" + forceClear + "]";
     }
 
