@@ -53,23 +53,23 @@ public class CertificatesExamples extends AbstractExample {
     /**
      * Lists the first 5 certificates.
      */
-    @SuppressWarnings("boxing")
     @Example
     public void listCertificates() {
         ConnectionOptions config = Configuration.get();
-        Certificates api = new Certificates(config);
-        try {
-            // Defining query options.
-            CertificateListOptions options = new CertificateListOptions();
-            options.setPageSize(5);
-            // Listing certificates.
-            Paginator<Certificate> certificates = api.listAllCertificates(options);
-            for (Certificate certificate : certificates) {
-                log("Certificate", certificate);
+        try (Certificates api = new Certificates(config)) {
+            try {
+                // Defining query options.
+                CertificateListOptions options = new CertificateListOptions();
+                options.setPageSize(Integer.valueOf(5));
+                // Listing certificates.
+                Paginator<Certificate> certificates = api.listAllCertificates(options);
+                for (Certificate certificate : certificates) {
+                    log("Certificate", certificate);
+                }
+            } catch (Exception e) {
+                logError("last API Metadata", api.getLastApiMetadata());
+                fail(e.getMessage());
             }
-        } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
-            fail(e.getMessage());
         }
     }
 

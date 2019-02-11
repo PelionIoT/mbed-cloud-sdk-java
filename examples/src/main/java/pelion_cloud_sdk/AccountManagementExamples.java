@@ -26,31 +26,30 @@ public class AccountManagementExamples extends AbstractExample {
     @Example
     public void getAccount() {
         ConnectionOptions config = Configuration.get();
-        AccountManagement api = new AccountManagement(config);
-        try {
-            Account thisAccount;
-            thisAccount = api.getAccount();
-            log("This account", thisAccount);
-        } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
-            fail(e.getMessage());
-        } finally {
-            api.close();
+        try (AccountManagement api = new AccountManagement(config)) {
+            try {
+                Account thisAccount;
+                thisAccount = api.getAccount();
+                log("This account", thisAccount);
+            } catch (Exception e) {
+                logError("last API Metadata", api.getLastApiMetadata());
+                fail(e.getMessage());
+            } finally {
+                api.close();
+            }
         }
-
     }
 
     /**
      * Lists the first 5 API Keys.
      */
-    @SuppressWarnings("boxing")
     @Example
     public void listApiKeys() {
         ConnectionOptions config = Configuration.get();
         try (AccountManagement api = new AccountManagement(config)) {
             // Defining query options
             ApiKeyListOptions options = new ApiKeyListOptions();
-            options.setPageSize(5);
+            options.setPageSize(Integer.valueOf(5));
             // Listing API keys.
             Paginator<ApiKey> apikeys = api.listAllApiKeys(options);
             for (ApiKey apiKey : apikeys) {
@@ -70,7 +69,7 @@ public class AccountManagementExamples extends AbstractExample {
         try (AccountManagement api = new AccountManagement(config)) {
             // Defining query options
             GroupListOptions options = new GroupListOptions();
-            options.setPageSize(5);
+            options.setPageSize(Integer.valueOf(5));
             options.setOrder(Order.DESC);
             // Listing groups.
             ListResponse<Group> groups = api.listGroups(options);
@@ -99,14 +98,13 @@ public class AccountManagementExamples extends AbstractExample {
         try (AccountManagement api = new AccountManagement(config)) {
             // Defining query options
             UserListOptions options = new UserListOptions();
-            options.setPageSize(5);
+            options.setPageSize(Integer.valueOf(5));
             // Listing users.
             Paginator<User> users = api.listAllUsers(options);
             for (User user : users) {
                 log("User", user);
             }
         } catch (Exception e) {
-
             fail(e.getMessage());
         }
     }
