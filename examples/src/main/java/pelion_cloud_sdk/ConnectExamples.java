@@ -46,11 +46,13 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void listConnectedDevice() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
-        try {
+
+        try (Connect api = new Connect(config)) {
             DeviceListOptions options = new DeviceListOptions();
+
+            // Note: month is zero-based
             options.addCreatedAtFilter(new GregorianCalendar(2017, 10, 1).getTime(), FilterOperator.GREATER_THAN);
-            options.addCreatedAtFilter(new GregorianCalendar(2017, 10, 30).getTime(), FilterOperator.LESS_THAN);
+            options.addCreatedAtFilter(new GregorianCalendar(2017, 11, 1).getTime(), FilterOperator.LESS_THAN);
             Paginator<Device> devices = api.listAllConnectedDevices(options);
             for (Device device : devices) {
                 log("Connected device created in November 2017", device);
