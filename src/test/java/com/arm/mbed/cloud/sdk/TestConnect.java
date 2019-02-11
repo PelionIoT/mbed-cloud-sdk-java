@@ -37,24 +37,27 @@ public class TestConnect {
             server.enqueue(new MockResponse().setBody(gson.toJson(array)));
             server.start();
             HttpUrl baseUrl = server.url("");
-            ConnectionOptions opt = new ConnectionOptions("apikey");
-            opt.setHost(baseUrl.toString());
-            // opt.setClientLogLevel(CallLogLevel.BODY);
-            Connect connect = new Connect(opt);
-            GenericAdapter.MappedObjectRegistry<Presubscription> registry = connect.getCurrentPresubscriptionRegistry("method name");
-            RecordedRequest request = server.takeRequest();
-            assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
-            assertNotNull(registry);
-            assertFalse(registry.isEmpty());
-            assertEquals(numberOfElements, registry.size());
-            Presubscription aPresubscription = PresubscriptionAdapter.map(array.get(0));
-            assertTrue(registry.contains(aPresubscription));
-            registry.removeEntry(aPresubscription);
-            assertFalse(registry.contains(aPresubscription));
-            assertEquals(numberOfElements - 1, registry.size());
+            ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).skipCleanup();
 
-            server.shutdown();
-        } catch (IOException | InterruptedException | MbedCloudException e) {
+            opt.setClientLogLevel(CallLogLevel.BODY);
+            try (Connect connect = new Connect(opt)) {
+                GenericAdapter.MappedObjectRegistry<Presubscription> registry = connect.getCurrentPresubscriptionRegistry("method name");
+                RecordedRequest request = server.takeRequest();
+                assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+                assertNotNull(registry);
+                assertFalse(registry.isEmpty());
+                assertEquals(numberOfElements, registry.size());
+                Presubscription aPresubscription = PresubscriptionAdapter.map(array.get(0));
+                assertTrue(registry.contains(aPresubscription));
+                registry.removeEntry(aPresubscription);
+                assertFalse(registry.contains(aPresubscription));
+                assertEquals(numberOfElements - 1, registry.size());
+            } catch (MbedCloudException | InterruptedException exception) {
+                fail(exception.getMessage());
+            } finally {
+                server.shutdown();
+            }
+        } catch (IOException e) {
             fail(e.getMessage());
         }
     }
@@ -69,23 +72,27 @@ public class TestConnect {
             server.enqueue(new MockResponse().setBody(gson.toJson(array)));
             server.start();
             HttpUrl baseUrl = server.url("");
-            ConnectionOptions opt = new ConnectionOptions("apikey");
-            opt.setHost(baseUrl.toString());
-            // opt.setClientLogLevel(CallLogLevel.BODY);
-            Connect connect = new Connect(opt);
-            List<Presubscription> receivedList = connect.listPresubscriptions();
-            List<Presubscription> sentList = PresubscriptionAdapter.mapList(array);
+            ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).skipCleanup();
 
-            RecordedRequest request = server.takeRequest();
-            assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
-            assertNotNull(receivedList);
-            assertFalse(receivedList.isEmpty());
-            assertEquals(numberOfElements, receivedList.size());
-            for (Presubscription aPresubscription : sentList) {
-                assertTrue(receivedList.contains(aPresubscription));
+            // opt.setClientLogLevel(CallLogLevel.BODY);
+            try (Connect connect = new Connect(opt)) {
+                List<Presubscription> receivedList = connect.listPresubscriptions();
+                List<Presubscription> sentList = PresubscriptionAdapter.mapList(array);
+
+                RecordedRequest request = server.takeRequest();
+                assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+                assertNotNull(receivedList);
+                assertFalse(receivedList.isEmpty());
+                assertEquals(numberOfElements, receivedList.size());
+                for (Presubscription aPresubscription : sentList) {
+                    assertTrue(receivedList.contains(aPresubscription));
+                }
+            } catch (Exception exception) {
+                fail(exception.getMessage());
+            } finally {
+                server.shutdown();
             }
-            server.shutdown();
-        } catch (IOException | InterruptedException | MbedCloudException e) {
+        } catch (IOException e) {
             fail(e.getMessage());
         }
     }
@@ -100,19 +107,22 @@ public class TestConnect {
             server.enqueue(new MockResponse().setBody(gson.toJson(array)));
             server.start();
             HttpUrl baseUrl = server.url("");
-            ConnectionOptions opt = new ConnectionOptions("apikey");
-            opt.setHost(baseUrl.toString());
+            ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).skipCleanup();
             // opt.setClientLogLevel(CallLogLevel.BODY);
-            Connect connect = new Connect(opt);
-            Presubscription aPresubscription = PresubscriptionAdapter.map(array.get(0));
-            Presubscription receivedPresubscription = connect.getPresubscription(aPresubscription.getId());
+            try (Connect connect = new Connect(opt)) {
+                Presubscription aPresubscription = PresubscriptionAdapter.map(array.get(0));
+                Presubscription receivedPresubscription = connect.getPresubscription(aPresubscription.getId());
 
-            RecordedRequest request = server.takeRequest();
-            assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
-            assertNotNull(receivedPresubscription);
-            assertEquals(aPresubscription, receivedPresubscription);
-            server.shutdown();
-        } catch (IOException | InterruptedException | MbedCloudException e) {
+                RecordedRequest request = server.takeRequest();
+                assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+                assertNotNull(receivedPresubscription);
+                assertEquals(aPresubscription, receivedPresubscription);
+            } catch (Exception exception) {
+                fail(exception.getMessage());
+            } finally {
+                server.shutdown();
+            }
+        } catch (IOException e) {
             fail(e.getMessage());
         }
     }
@@ -127,21 +137,24 @@ public class TestConnect {
             server.enqueue(new MockResponse().setBody(gson.toJson(array)));
             server.start();
             HttpUrl baseUrl = server.url("");
-            ConnectionOptions opt = new ConnectionOptions("apikey");
-            opt.setHost(baseUrl.toString());
+            ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).skipCleanup();
             // opt.setClientLogLevel(CallLogLevel.BODY);
-            Connect connect = new Connect(opt);
-            Presubscription aPresubscription = PresubscriptionAdapter.map(array.get(0));
-            aPresubscription.setDeviceId("A new ID that cannot be in the list of presubscription");
-            connect.deletePresubscription(aPresubscription);
-            // Only one call should have been done to the server. No need to update the presubscriptions as the deleted
-            // subscription was not initially present.
-            assertEquals(1, server.getRequestCount());
-            RecordedRequest request = server.takeRequest();
-            assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
-
-            server.shutdown();
-        } catch (IOException | InterruptedException | MbedCloudException e) {
+            try (Connect connect = new Connect(opt)) {
+                Presubscription aPresubscription = PresubscriptionAdapter.map(array.get(0));
+                aPresubscription.setDeviceId("A new ID that cannot be in the list of presubscription");
+                connect.deletePresubscription(aPresubscription);
+                // Only one call should have been done to the server. No need to update the presubscriptions as the
+                // deleted
+                // subscription was not initially present.
+                assertEquals(1, server.getRequestCount());
+                RecordedRequest request = server.takeRequest();
+                assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+            } catch (Exception exception) {
+                fail(exception.getMessage());
+            } finally {
+                server.shutdown();
+            }
+        } catch (IOException e) {
             fail(e.getMessage());
         }
     }
@@ -157,18 +170,20 @@ public class TestConnect {
             server.enqueue(new MockResponse());
             server.start();
             HttpUrl baseUrl = server.url("");
-            ConnectionOptions opt = new ConnectionOptions("apikey");
-            opt.setHost(baseUrl.toString());
+            ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).skipCleanup();
             // opt.setClientLogLevel(CallLogLevel.BODY);
-            Connect connect = new Connect(opt);
-            Presubscription aPresubscription = PresubscriptionAdapter.map(array.get(0));
-            connect.deletePresubscription(aPresubscription);
-            assertEquals(2, server.getRequestCount());
-            RecordedRequest request = server.takeRequest();
-            assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
-
-            server.shutdown();
-        } catch (IOException | InterruptedException | MbedCloudException e) {
+            try (Connect connect = new Connect(opt)) {
+                Presubscription aPresubscription = PresubscriptionAdapter.map(array.get(0));
+                connect.deletePresubscription(aPresubscription);
+                assertEquals(2, server.getRequestCount());
+                RecordedRequest request = server.takeRequest();
+                assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+            } catch (Exception exception) {
+                fail(exception.getMessage());
+            } finally {
+                server.shutdown();
+            }
+        } catch (IOException e) {
             fail(e.getMessage());
         }
     }
@@ -183,20 +198,24 @@ public class TestConnect {
             server.enqueue(new MockResponse().setBody(gson.toJson(array)));
             server.start();
             HttpUrl baseUrl = server.url("");
-            ConnectionOptions opt = new ConnectionOptions("apikey");
-            opt.setHost(baseUrl.toString());
+            ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).skipCleanup();
             // opt.setClientLogLevel(CallLogLevel.BODY);
-            Connect connect = new Connect(opt);
-            Presubscription aPresubscription = PresubscriptionAdapter.map(array.get(0));
-            connect.addPresubscription(aPresubscription);
-            // Only one call should have been done to the server. No need to update the presubscriptions as the added
-            // subscription was initially present in the set.
-            assertEquals(1, server.getRequestCount());
-            RecordedRequest request = server.takeRequest();
-            assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+            try (Connect connect = new Connect(opt)) {
+                Presubscription aPresubscription = PresubscriptionAdapter.map(array.get(0));
+                connect.addPresubscription(aPresubscription);
+                // Only one call should have been done to the server. No need to update the presubscriptions as the
+                // added
+                // subscription was initially present in the set.
+                assertEquals(1, server.getRequestCount());
+                RecordedRequest request = server.takeRequest();
+                assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
 
-            server.shutdown();
-        } catch (IOException | InterruptedException | MbedCloudException e) {
+            } catch (Exception exception) {
+                fail(exception.getMessage());
+            } finally {
+                server.shutdown();
+            }
+        } catch (IOException e) {
             fail(e.getMessage());
         }
     }
@@ -212,19 +231,22 @@ public class TestConnect {
             server.enqueue(new MockResponse());
             server.start();
             HttpUrl baseUrl = server.url("");
-            ConnectionOptions opt = new ConnectionOptions("apikey");
-            opt.setHost(baseUrl.toString());
+            ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).skipCleanup();
             // opt.setClientLogLevel(CallLogLevel.BODY);
-            Connect connect = new Connect(opt);
-            Presubscription aPresubscription = PresubscriptionAdapter.map(array.get(0));
-            aPresubscription.setDeviceId("" + System.currentTimeMillis());
-            connect.addPresubscription(aPresubscription);
-            assertEquals(2, server.getRequestCount());
-            RecordedRequest request = server.takeRequest();
-            assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+            try (Connect connect = new Connect(opt)) {
+                Presubscription aPresubscription = PresubscriptionAdapter.map(array.get(0));
+                aPresubscription.setDeviceId("" + System.currentTimeMillis());
+                connect.addPresubscription(aPresubscription);
+                assertEquals(2, server.getRequestCount());
+                RecordedRequest request = server.takeRequest();
+                assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
 
-            server.shutdown();
-        } catch (IOException | InterruptedException | MbedCloudException e) {
+            } catch (Exception exception) {
+                fail(exception.getMessage());
+            } finally {
+                server.shutdown();
+            }
+        } catch (IOException e) {
             fail(e.getMessage());
         }
     }
@@ -239,20 +261,23 @@ public class TestConnect {
             server.enqueue(new MockResponse().setBody(gson.toJson(array)));
             server.start();
             HttpUrl baseUrl = server.url("");
-            ConnectionOptions opt = new ConnectionOptions("apikey");
-            opt.setHost(baseUrl.toString());
+            ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).skipCleanup();
             // opt.setClientLogLevel(CallLogLevel.BODY);
-            Connect connect = new Connect(opt);
-            List<Presubscription> somePresubscriptions = PresubscriptionAdapter.mapList(array);
-            connect.addSomePresubscriptions(somePresubscriptions);
-            // Only one call should have been done to the server. No need to update the presubscriptions as the added
-            // subscriptions were initially present in the set.
-            assertEquals(1, server.getRequestCount());
-            RecordedRequest request = server.takeRequest();
-            assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
-
-            server.shutdown();
-        } catch (IOException | InterruptedException | MbedCloudException e) {
+            try (Connect connect = new Connect(opt)) {
+                List<Presubscription> somePresubscriptions = PresubscriptionAdapter.mapList(array);
+                connect.addSomePresubscriptions(somePresubscriptions);
+                // Only one call should have been done to the server. No need to update the presubscriptions as the
+                // added
+                // subscriptions were initially present in the set.
+                assertEquals(1, server.getRequestCount());
+                RecordedRequest request = server.takeRequest();
+                assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+            } catch (Exception exception) {
+                fail(exception.getMessage());
+            } finally {
+                server.shutdown();
+            }
+        } catch (IOException e) {
             fail(e.getMessage());
         }
     }
@@ -268,24 +293,27 @@ public class TestConnect {
             server.enqueue(new MockResponse());
             server.start();
             HttpUrl baseUrl = server.url("");
-            ConnectionOptions opt = new ConnectionOptions("apikey");
-            opt.setHost(baseUrl.toString());
-            opt.setClientLogLevel(CallLogLevel.BODY);
-            Connect connect = new Connect(opt);
-            List<Presubscription> somePresubscriptions = PresubscriptionAdapter.mapList(array);
-            // Change the device ids
-            for (Presubscription pre : somePresubscriptions) {
-                pre.setDeviceId("" + (Math.random() * System.nanoTime()));
-            }
-            connect.addSomePresubscriptions(somePresubscriptions);
-            // Two calls should have been done to the server. One to get the presubscriptions and one to update the
-            // list.
-            assertEquals(2, server.getRequestCount());
-            RecordedRequest request = server.takeRequest();
-            assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+            ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).skipCleanup();
 
-            server.shutdown();
-        } catch (IOException | InterruptedException | MbedCloudException e) {
+            opt.setClientLogLevel(CallLogLevel.BODY);
+            try (Connect connect = new Connect(opt)) {
+                List<Presubscription> somePresubscriptions = PresubscriptionAdapter.mapList(array);
+                // Change the device ids
+                for (Presubscription pre : somePresubscriptions) {
+                    pre.setDeviceId("" + (Math.random() * System.nanoTime()));
+                }
+                connect.addSomePresubscriptions(somePresubscriptions);
+                // Two calls should have been done to the server. One to get the presubscriptions and one to update the
+                // list.
+                assertEquals(2, server.getRequestCount());
+                RecordedRequest request = server.takeRequest();
+                assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+            } catch (Exception exception) {
+                fail(exception.getMessage());
+            } finally {
+                server.shutdown();
+            }
+        } catch (IOException e) {
             fail(e.getMessage());
         }
     }
@@ -301,20 +329,22 @@ public class TestConnect {
             server.enqueue(new MockResponse());
             server.start();
             HttpUrl baseUrl = server.url("");
-            ConnectionOptions opt = new ConnectionOptions("apikey");
-            opt.setHost(baseUrl.toString());
+            ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).skipCleanup();
             // opt.setClientLogLevel(CallLogLevel.BODY);
-            Connect connect = new Connect(opt);
-            List<Presubscription> somePresubscriptions = PresubscriptionAdapter.mapList(array);
-            connect.deleteSomePresubscriptions(somePresubscriptions);
-            // Two calls should have been done to the server. One to get the presubscriptions and one to update the
-            // list with removed presubscriptions.
-            assertEquals(2, server.getRequestCount());
-            RecordedRequest request = server.takeRequest();
-            assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
-
-            server.shutdown();
-        } catch (IOException | InterruptedException | MbedCloudException e) {
+            try (Connect connect = new Connect(opt)) {
+                List<Presubscription> somePresubscriptions = PresubscriptionAdapter.mapList(array);
+                connect.deleteSomePresubscriptions(somePresubscriptions);
+                // Two calls should have been done to the server. One to get the presubscriptions and one to update the
+                // list with removed presubscriptions.
+                assertEquals(2, server.getRequestCount());
+                RecordedRequest request = server.takeRequest();
+                assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+            } catch (Exception exception) {
+                fail(exception.getMessage());
+            } finally {
+                server.shutdown();
+            }
+        } catch (IOException e) {
             fail(e.getMessage());
         }
     }
@@ -329,24 +359,28 @@ public class TestConnect {
             server.enqueue(new MockResponse().setBody(gson.toJson(array)));
             server.start();
             HttpUrl baseUrl = server.url("");
-            ConnectionOptions opt = new ConnectionOptions("apikey");
-            opt.setHost(baseUrl.toString());
-            opt.setClientLogLevel(CallLogLevel.BODY);
-            Connect connect = new Connect(opt);
-            List<Presubscription> somePresubscriptions = PresubscriptionAdapter.mapList(array);
-            // Change the device ids
-            for (Presubscription pre : somePresubscriptions) {
-                pre.setDeviceId("" + (Math.random() * System.nanoTime()));
-            }
-            connect.deleteSomePresubscriptions(somePresubscriptions);
-            // Only one call should have been done to the server. No need to update the presubscriptions as the deleted
-            // subscriptions were not present in the set.
-            assertEquals(1, server.getRequestCount());
-            RecordedRequest request = server.takeRequest();
-            assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+            ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).skipCleanup();
 
-            server.shutdown();
-        } catch (IOException | InterruptedException | MbedCloudException e) {
+            opt.setClientLogLevel(CallLogLevel.BODY);
+            try (Connect connect = new Connect(opt)) {
+                List<Presubscription> somePresubscriptions = PresubscriptionAdapter.mapList(array);
+                // Change the device ids
+                for (Presubscription pre : somePresubscriptions) {
+                    pre.setDeviceId("" + (Math.random() * System.nanoTime()));
+                }
+                connect.deleteSomePresubscriptions(somePresubscriptions);
+                // Only one call should have been done to the server. No need to update the presubscriptions as the
+                // deleted
+                // subscriptions were not present in the set.
+                assertEquals(1, server.getRequestCount());
+                RecordedRequest request = server.takeRequest();
+                assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+            } catch (MbedCloudException e1) {
+                fail(e1.getMessage());
+            } finally {
+                server.shutdown();
+            }
+        } catch (IOException | InterruptedException e) {
             fail(e.getMessage());
         }
     }

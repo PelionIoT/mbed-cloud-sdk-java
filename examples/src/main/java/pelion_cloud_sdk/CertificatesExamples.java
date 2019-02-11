@@ -57,8 +57,7 @@ public class CertificatesExamples extends AbstractExample {
     @Example
     public void listCertificates() {
         ConnectionOptions config = Configuration.get();
-        Certificates api = new Certificates(config);
-        try {
+        try (Certificates api = new Certificates(config)) {
             // Defining query options.
             CertificateListOptions options = new CertificateListOptions();
             options.setPageSize(5);
@@ -68,7 +67,6 @@ public class CertificatesExamples extends AbstractExample {
                 log("Certificate", certificate);
             }
         } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
             fail(e.getMessage());
         }
     }

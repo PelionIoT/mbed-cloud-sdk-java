@@ -78,11 +78,15 @@ public class NotificationHandlersStore implements Closeable {
         this.module = module;
         pullHandle = null;
         customSubscriptionHandlingExecutor = subscriptionHandlingExecutor;
+        final boolean unsubscribeOnExit = module.getConnectionOption() == null ? true : !module.getConnectionOption()
+                                                                                               .isSkipCleanup();
         observerStore = new SubscriptionObserversStore((customSubscriptionHandlingExecutor == null) ? Schedulers.computation()
                                                                                                     : Schedulers.from(customSubscriptionHandlingExecutor),
                                                        new ResourceSubscriber(module, FirstValue.getDefault()),
                                                        new ResourceUnsubscriber(module, FirstValue.getDefault()),
-                                                       new ResourceUnsubscriberAll(module, FirstValue.getDefault()));
+                                                       unsubscribeOnExit ? new ResourceUnsubscriberAll(module,
+                                                                                                       FirstValue.getDefault())
+                                                                         : null);
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
