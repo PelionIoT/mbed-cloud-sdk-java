@@ -37,9 +37,7 @@ public class JsonDecoder {
      * @throws DecodingException
      *             if an error occurred during parsing
      */
-    @SuppressWarnings("unchecked")
     public static <T> List<T> decodeJson(ByteBuffer buffer, Class<T> clazz) throws DecodingException {
         return null; // TODO
     }
-
 }

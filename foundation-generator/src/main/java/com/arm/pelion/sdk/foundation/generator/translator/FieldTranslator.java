@@ -74,7 +74,7 @@ public class FieldTranslator {
         return mapDef.hasForeignKey() ? new TypeHashtable(CommonTranslator.FetchNestedEntityType(packageName,
                                                                                                  mapDef.getForeignKey()),
                                                           false)
-                                      : new TypeHashtable((String) mapDef.getType(), (String) mapDef.getFormat());
+                                      : new TypeHashtable(mapDef.getType(), mapDef.getFormat());
     }
 
     private static TypeParameter determineObjectType(com.arm.pelion.sdk.foundation.generator.input.Field field,
@@ -95,7 +95,7 @@ public class FieldTranslator {
         }
         return itemTypes.hasForeignKey() ? new TypeList(CommonTranslator.FetchNestedEntityType(packageName,
                                                                                                itemTypes.getForeignKey()))
-                                         : new TypeList((String) itemTypes.getType(), (String) itemTypes.getFormat());
+                                         : new TypeList(itemTypes.getType(), itemTypes.getFormat());
     }
 
 }
