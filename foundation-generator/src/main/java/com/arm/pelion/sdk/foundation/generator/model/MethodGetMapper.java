@@ -32,6 +32,7 @@ public class MethodGetMapper extends Method {
         initialiseCodeBuilder();
     }
 
+    @Override
     protected void translateCode() throws TranslationException {
         type.translate();
         final TypeParameter adapterType = adapter.toType();

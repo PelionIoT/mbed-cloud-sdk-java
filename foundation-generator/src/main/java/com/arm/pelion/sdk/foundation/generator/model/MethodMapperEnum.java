@@ -52,6 +52,7 @@ public class MethodMapperEnum extends Method {
         addParameter(isFromModel ? enumModel.toParameter(PARAMETER_NAME) : new Parameter(PARAMETER_NAME, fromTo));
     }
 
+    @Override
     protected void translateCode() throws TranslationException {
         code.beginControlFlow("if($L == null)", PARAMETER_NAME);
         final TypeParameter enumType = enumModel.toType();

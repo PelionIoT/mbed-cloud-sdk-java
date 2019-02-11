@@ -131,7 +131,7 @@ public class ModelAdapter extends Model {
             if (fromField == null) {
                 continue;
             }
-            final TypeParameter fromFieldType = fromField == null ? null : fromField.getType();
+            final TypeParameter fromFieldType = fromField.getType();
             if (fromFieldType.isEnum() || fromFieldType.isModelEnum() || fType.isEnum() || fType.isModelEnum()) {
                 addConversion(new Conversion(fromFieldType.isModelEnum() ? fetcher.fetchModel(fromFieldType)
                                                                          : new Model(fromField.getType().getClazz(),
@@ -337,12 +337,10 @@ public class ModelAdapter extends Model {
                     case CREATE:
                         functionName = FUNCTION_NAME_MAP_SIMPLE_LIST_ADD;
                         getMapperName = FUNCTION_NAME_GET_MAPPER_ADD;
-                        getListMapperName = null;
                         break;
                     case UPDATE:
                         functionName = FUNCTION_NAME_MAP_SIMPLE_LIST_UPDATE;
                         getMapperName = FUNCTION_NAME_GET_MAPPER_UPDATE;
-                        getListMapperName = null;
                         break;
                     default:
                         throw new IllegalArgumentException("There cannot be a reverse mapper other than for Create/Update");

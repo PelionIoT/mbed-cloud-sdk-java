@@ -64,6 +64,7 @@ public class MethodMapper extends Method {
         return currentModel == null ? UNKNOWN : Utils.generateDocumentationString(currentModel.getName());
     }
 
+    @Override
     protected void translateCode() throws TranslationException {
         code.beginControlFlow("if($L == null)", PARAMETER_NAME);
         code.addStatement("return null");

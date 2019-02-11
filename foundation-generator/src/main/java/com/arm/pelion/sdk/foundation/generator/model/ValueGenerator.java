@@ -94,7 +94,7 @@ public class ValueGenerator {
         if (field.getType().isDate()) {
             formats.add("new $T($LL)");
             values.add(Date.class);
-            values.add(new Date().getTime() + (long) (Math.random() * 10000));
+            values.add(Long.valueOf(new Date().getTime() + (long) (Math.random() * 10000)));
             return;
         }
         if (field.getType().isNumber()) {
@@ -106,7 +106,7 @@ public class ValueGenerator {
                     formats.add("$T.valueOf($L)");
                     values.add(Double.class);
                 }
-                values.add(value);
+                values.add(Double.valueOf(value));
                 return;
             }
             final int value = (int) (Math.random() * 255) - 128;// A random number which can be a byte, int, or a
@@ -117,7 +117,7 @@ public class ValueGenerator {
                 formats.add("$T.valueOf($L)");
                 values.add(field.getType().isInteger() ? Integer.class : Long.class);
             }
-            values.add(value);
+            values.add(Integer.valueOf(value));
             return;
         }
         formats.add(DEFAULT_VALUE);
