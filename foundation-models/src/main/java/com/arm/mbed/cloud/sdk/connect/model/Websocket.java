@@ -12,17 +12,17 @@ public class Websocket implements SdkModel {
     private static final long serialVersionUID = -2958403512624867762L;
 
     /**
-     * Channel Id
+     * Channel Id.
      */
     private String id;
 
     /**
-     * Queue size
+     * Queue size.
      */
     private final int queueSize;
 
     /**
-     * Websocket status
+     * Websocket status.
      */
     private final WebsocketStatus status;
 
@@ -53,14 +53,14 @@ public class Websocket implements SdkModel {
     }
 
     /**
-     * Gets the unique identifier of the channel
+     * Gets the unique identifier of the channel.
      */
     public String getId() {
         return id;
     }
 
     /**
-     * Sets the unique identifier of the channel
+     * Sets the unique identifier of the channel.
      */
     public void setId(String id) {
         this.id = id;

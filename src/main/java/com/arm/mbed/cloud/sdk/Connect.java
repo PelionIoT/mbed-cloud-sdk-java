@@ -108,10 +108,11 @@ public class Connect extends AbstractModule {
     private static final String TAG_DEVICE = "Device";
     private final EndPoints endpoint;
     private final DeviceDirectory deviceDirectory;
-    private final NotificationHandlersStore handlersStore;
-    private final AtomicReference<DeliveryMethod> deliveryMethod;
+    protected final NotificationHandlersStore handlersStore;
+    protected final AtomicReference<DeliveryMethod> deliveryMethod;
     private final Object presubscriptionLock = new Object();
     private final Object deliveryMethodLock = new Object();
+    private final Object webhookLock = new Object();
 
     /**
      * Connect module constructor.
@@ -242,7 +243,7 @@ public class Connect extends AbstractModule {
         handlersStore.startNotificationListener();
     }
 
-    private void autostartDaemonIfNeeded() throws MbedCloudException {
+    protected void autostartDaemonIfNeeded() throws MbedCloudException {
         setDeliveryMethod(true);
         checkConfiguration(getConnectionOption());
         if (deliveryMethod.get() != DeliveryMethod.CLIENT_INITIATED) {
@@ -2791,27 +2792,29 @@ public class Connect extends AbstractModule {
         }
         checkNotNull(webhook, TAG_WEBHOOK);
         checkModelValidity(webhook, TAG_WEBHOOK);
-        try {
-            final Webhook alreadySetupWebhook = getWebhook();
-            if (webhook.equals(alreadySetupWebhook)) {
-                logger.logInfo("The webhook is alread set up: " + alreadySetupWebhook);
-                return;
+        synchronized (webhookLock) {
+            try {
+                final Webhook alreadySetupWebhook = getWebhook();
+                if (webhook.equals(alreadySetupWebhook)) {
+                    logger.logInfo("The webhook is alread set up: " + alreadySetupWebhook);
+                    return;
+                }
+            } catch (MbedCloudException exception) {
+                // Nothing to do
             }
-        } catch (MbedCloudException exception) {
-            // Nothing to do
-        }
-        if (isForceClear()) {
-            logger.logWarn("Clearing any existing notification channel");
-            clearAllNotificationChannels();
-        }
-        final Webhook finalWebhook = webhook;
-        CloudCaller.call(this, "updateWebhook()", null, new CloudCall<Void>() {
+            if (isForceClear()) {
+                logger.logWarn("Clearing any existing notification channel");
+                clearAllNotificationChannels();
+            }
+            final Webhook finalWebhook = webhook;
+            CloudCaller.call(this, "updateWebhook()", null, new CloudCall<Void>() {
 
-            @Override
-            public Call<Void> call() {
-                return endpoint.getNotifications().registerWebhook(WebhookAdapter.reverseMap(finalWebhook));
-            }
-        });
+                @Override
+                public Call<Void> call() {
+                    return endpoint.getNotifications().registerWebhook(WebhookAdapter.reverseMap(finalWebhook));
+                }
+            });
+        }
     }
 
     /**
@@ -2864,14 +2867,15 @@ public class Connect extends AbstractModule {
      */
     @API
     @Internal
-    public void getWebsocket() throws MbedCloudException {
-        CloudCaller.call(this, "getWebsocket()", WebsocketAdapter.getMapper(), new CloudCall<WebsocketChannel>() {
+    public Websocket getWebsocket() throws MbedCloudException {
+        return CloudCaller.call(this, "getWebsocket()", WebsocketAdapter.getMapper(),
+                                new CloudCall<WebsocketChannel>() {
 
-            @Override
-            public Call<WebsocketChannel> call() {
-                return endpoint.getWebsocket().getWebsocket();
-            }
-        });
+                                    @Override
+                                    public Call<WebsocketChannel> call() {
+                                        return endpoint.getWebsocket().getWebsocket();
+                                    }
+                                });
     }
 
     /**
@@ -2979,11 +2983,6 @@ public class Connect extends AbstractModule {
         return "Connect";
     }
 
-    private Connect setDeliveryMethod(DeliveryMethod deliveryMethod2) {
-        deliveryMethod.set(deliveryMethod2);
-        return this;
-    }
-
     private void checkConfiguration(ConnectionOptions options) throws MbedCloudException {
         if (options == null) {
             return;
@@ -2993,6 +2992,11 @@ public class Connect extends AbstractModule {
                                      + ", which is not compatible with the autostartDaemon mode. This mode is only available for "
                                      + DeliveryMethod.CLIENT_INITIATED + " delivery method.");
         }
+    }
+
+    private Connect setDeliveryMethod(DeliveryMethod deliveryMethod2) {
+        deliveryMethod.set(deliveryMethod2);
+        return this;
     }
 
     private void setDeliveryMethod(boolean isClient) {

@@ -1,12 +1,19 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
 
+/**
+ * Websocket notification listener.
+ */
+@Preamble(description = "Websocket notification listener")
+@Internal
 public class NotificationListener extends WebSocketListener {
     private final SdkLogger logger;
 
@@ -17,6 +24,20 @@ public class NotificationListener extends WebSocketListener {
 
     private static final int NORMAL_CLOSURE_STATUS = 1000;
 
+    /**
+     * Constructor.
+     * 
+     * @param logger
+     *            logger
+     * @param onNotificationCallBack
+     *            callback to call on notification
+     * @param onOpenCallBack
+     *            callback to call on client start
+     * @param onClosingCallBack
+     *            callback to call on client shutdown
+     * @param onErrorCallback
+     *            callback to call on error.
+     */
     public NotificationListener(SdkLogger logger, Callback<String> onNotificationCallBack,
                                 Callback<Integer> onOpenCallBack, Callback<Integer> onClosingCallBack,
                                 Callback<Throwable> onErrorCallback) {
@@ -64,7 +85,7 @@ public class NotificationListener extends WebSocketListener {
     }
 
     private void defaultMessage(Object value) {
-        logInfo("Nothing to do. Message: " + String.valueOf(value));
+        logInfo("Nothing to do. Message: " + value);
     }
 
     @Override
@@ -72,11 +93,6 @@ public class NotificationListener extends WebSocketListener {
         logInfo("Opening [" + webSocket.toString() + "]: " + response.toString());
         onOpenCallBack.execute(response.code());
     }
-    // webSocket.send("Hello, it's SSaurel !");
-    // webSocket.send("What's up ?");
-    // webSocket.send(ByteString.decodeHex("deadbeef"));
-    // // webSocket.close(NORMAL_CLOSURE_STATUS, "Goodbye !");
-    // }
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
@@ -86,7 +102,7 @@ public class NotificationListener extends WebSocketListener {
 
     @Override
     public void onMessage(WebSocket webSocket, ByteString bytes) {
-        String text = bytes.utf8();
+        final String text = bytes == null ? null : bytes.utf8();
         logInfo("Receiving bytes [" + webSocket.toString() + "]: " + text);
         onNotificationCallBack.execute(text);
     }
@@ -99,16 +115,16 @@ public class NotificationListener extends WebSocketListener {
     }
 
     @Override
-    public void onFailure(WebSocket webSocket, Throwable t, Response response) {
-        logError("Error [" + webSocket.toString() + "]: " + t.getMessage());
-        onErrorCallback.execute(t);
+    public void onFailure(WebSocket webSocket, Throwable cause, Response response) {
+        logError("Error [" + webSocket.toString() + "]: " + cause.getMessage());
+        onErrorCallback.execute(cause);
     }
 
     private void logInfo(String string) {
         if (logger == null) {
             return;
         }
-        logger.logInfo(string);
+        logger.logInfo(generateLoggingMessageMetadata(string));
     }
 
     private void logError(String string) {
@@ -116,6 +132,13 @@ public class NotificationListener extends WebSocketListener {
             return;
         }
         logger.logError(string);
+    }
+
+    private String generateLoggingMessageMetadata(String string) {
+        final StringBuilder builder = new StringBuilder(30);
+        builder.append("Notification [thread: ").append(Thread.currentThread().getId()).append(" - ")
+               .append(Thread.currentThread().getName()).append("] ").append(string);
+        return builder.toString();
     }
 
 }

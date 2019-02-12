@@ -39,6 +39,12 @@ public class ConnectionOptions implements Cloneable, Serializable {
      * development, but useful for production deployments to reduce the overhead or restart the service.
      */
     public static final String ENVIRONMENT_VARIABLE_NOTIFICATION_CHANNEL_SKIP_CLEANUP = "NOTIFICATION_CHANNEL_SKIP_CLEANUP";
+    /**
+     * Environment variable for starting automatically notification listening daemon threads.
+     * <p>
+     * Note: for systems using server initiated notification mode, this should be disabled.
+     */
+    public static final String ENVIRONMENT_VARIABLE_NOTIFICATION_CHANNEL_AUTOSTART = "NOTIFICATION_CHANNEL_AUTOSTART";
 
     /**
      * Serialisation Id.
@@ -336,7 +342,16 @@ public class ConnectionOptions implements Cloneable, Serializable {
      *            autostart mode for the daemon.
      */
     public void setAutostartDaemon(@DefaultValue(value = "TRUE") boolean autostartDaemon) {
-        this.autostartDaemon = autostartDaemon;
+        if (!autostartDaemon) {
+            this.autostartDaemon = autostartDaemon;
+            return;
+        }
+        final String autoStartEnv = dotenv.get(ENVIRONMENT_VARIABLE_NOTIFICATION_CHANNEL_AUTOSTART);
+        if (autoStartEnv == null) {
+            this.autostartDaemon = autostartDaemon;
+            return;
+        }
+        this.autostartDaemon = Boolean.parseBoolean(autoStartEnv.trim());
     }
 
     /**
@@ -519,29 +534,39 @@ public class ConnectionOptions implements Cloneable, Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        ConnectionOptions other = (ConnectionOptions) obj;
+        }
+        final ConnectionOptions other = (ConnectionOptions) obj;
         if (apiKey == null) {
-            if (other.apiKey != null)
+            if (other.apiKey != null) {
                 return false;
-        } else if (!apiKey.equals(other.apiKey))
+            }
+        } else if (!apiKey.equals(other.apiKey)) {
             return false;
-        if (autostartDaemon != other.autostartDaemon)
+        }
+        if (autostartDaemon != other.autostartDaemon) {
             return false;
-        if (forceClear != other.forceClear)
+        }
+        if (forceClear != other.forceClear) {
             return false;
+        }
         if (host == null) {
-            if (other.host != null)
+            if (other.host != null) {
                 return false;
-        } else if (!host.equals(other.host))
+            }
+        } else if (!host.equals(other.host)) {
             return false;
-        if (skipCleanup != other.skipCleanup)
+        }
+        if (skipCleanup != other.skipCleanup) {
             return false;
+        }
         return true;
     }
 

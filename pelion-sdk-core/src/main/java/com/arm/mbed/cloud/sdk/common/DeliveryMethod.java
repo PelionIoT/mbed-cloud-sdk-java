@@ -15,7 +15,7 @@ public enum DeliveryMethod implements SdkEnum {
      */
     SERVER_INITIATED("SERVER_INITIATED"),
     /**
-     * The client opens a communication channel with the server and asks for notifications
+     * The client opens a communication channel with the server and asks for notifications.
      */
     CLIENT_INITIATED("CLIENT_INITIATED"),
     /**

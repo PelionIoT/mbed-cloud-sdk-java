@@ -38,9 +38,9 @@ public final class WebsocketAdapter {
                 return WebsocketStatus.CONNECTED;
             case DISCONNECTED:
                 return WebsocketStatus.DISCONNECTED;
-
+            default:
+                return WebsocketStatus.getUnknownEnum();
         }
-        return WebsocketStatus.getUnknownEnum();
     }
 
     /**

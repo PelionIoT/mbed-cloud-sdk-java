@@ -14,7 +14,6 @@ import com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.ApiClient;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.WebSocket;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Converter;
 
@@ -169,28 +168,6 @@ public class ApiClientWrapper implements Cloneable {
         for (Converter.Factory factory : converters) {
             client.getAdapterBuilder().addConverterFactory(factory);
         }
-    }
-
-    public WebSocket temp() {
-        WebSocket socket = client.getOkBuilder().build()
-                                 .newWebSocket(new Request.Builder().url("wss://api-ns-websocket.mbedcloudintegration.net/v2/notification/websocket-connect")
-                                                                    .addHeader("Sec-WebSocket-Protocol",
-                                                                               "pelion_" + connectionOptions.getApiKey()
-                                                                                                         + ", wss")
-                                                                    .build(),
-                                               new NotificationListener());
-        return socket;
-    }
-
-    public WebSocket temp1() {
-        WebSocket socket = client.getOkBuilder().build()
-                                 .newWebSocket(new Request.Builder().url("ws://echo.websocket.org")
-                                                                    .addHeader("Sec-WebSocket-Protocol",
-                                                                               "pelion_" + connectionOptions.getApiKey()
-                                                                                                         + ", wss")
-                                                                    .build(),
-                                               new NotificationListener());
-        return socket;
     }
 
     /**
