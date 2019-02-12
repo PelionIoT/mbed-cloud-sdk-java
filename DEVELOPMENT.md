@@ -38,7 +38,7 @@
 The build uses checkstyle to ensure that the source code has a consistent format. You can automatically apply formatting to the code by running ``./gradlew spotlessApply`` in the project root at any time.
 
 ## Javadoc
-It is possible to customise the javadoc output by specifying file paths of header, footer, style cheat, etc. in gradle.properties.
+It is possible to customise the javadoc output by specifying file paths of header, footer, style sheet, etc. in gradle.properties.
 e.g. on Windows:
 
 ```shell
