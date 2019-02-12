@@ -540,7 +540,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof ConnectionOptions)) {
             return false;
         }
         final ConnectionOptions other = (ConnectionOptions) obj;

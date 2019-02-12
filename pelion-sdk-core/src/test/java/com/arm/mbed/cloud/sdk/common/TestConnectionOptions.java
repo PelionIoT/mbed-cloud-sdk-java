@@ -44,6 +44,7 @@ public class TestConnectionOptions {
     @Test
     public void equalsContract() {
         EqualsVerifier.forClass(ConnectionOptions.class).suppress(Warning.NONFINAL_FIELDS)
-                      .suppress(Warning.STRICT_INHERITANCE).verify();
+                      .withIgnoredFields("clientLogLevel", "requestTimeout").suppress(Warning.STRICT_INHERITANCE)
+                      .verify();
     }
 }
