@@ -78,11 +78,17 @@ public class NotificationHandlersStore implements Closeable {
         this.module = module;
         pullHandle = null;
         customSubscriptionHandlingExecutor = subscriptionHandlingExecutor;
+        final boolean unsubscribeOnExit = module == null ? false
+                                                         : module.getConnectionOption() == null ? true
+                                                                                                : !module.getConnectionOption()
+                                                                                                         .isSkipCleanup();
         observerStore = new SubscriptionObserversStore((customSubscriptionHandlingExecutor == null) ? Schedulers.computation()
                                                                                                     : Schedulers.from(customSubscriptionHandlingExecutor),
                                                        new ResourceSubscriber(module, FirstValue.getDefault()),
                                                        new ResourceUnsubscriber(module, FirstValue.getDefault()),
-                                                       new ResourceUnsubscriberAll(module, FirstValue.getDefault()));
+                                                       unsubscribeOnExit ? new ResourceUnsubscriberAll(module,
+                                                                                                       FirstValue.getDefault())
+                                                                         : null);
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
@@ -99,9 +105,9 @@ public class NotificationHandlersStore implements Closeable {
     }
 
     /**
-     * Starts notification pull.
+     * Starts notification listener.
      */
-    public void startNotificationPull() {
+    public void startNotificationListener() {
         if (isPullingActive()) {
             logInfo("Notification pull is already working.");
             return;
@@ -134,9 +140,9 @@ public class NotificationHandlersStore implements Closeable {
     }
 
     /**
-     * Stops notification pull.
+     * Stops notification listener.
      */
-    public void stopNotificationPull() {
+    public void stopNotificationListener() {
         if (pullHandle != null && !(pullHandle.isDone() || pullHandle.isCancelled())) {
             pullHandle.cancel(true);
         }

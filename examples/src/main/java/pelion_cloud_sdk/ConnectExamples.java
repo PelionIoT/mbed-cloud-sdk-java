@@ -46,8 +46,7 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void listConnectedDevice() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
-        try {
+        try (Connect api = new Connect(config)) {
             DeviceListOptions options = new DeviceListOptions();
             options.addCreatedAtFilter(new GregorianCalendar(2017, 10, 1).getTime(), FilterOperator.GREATER_THAN);
             options.addCreatedAtFilter(new GregorianCalendar(2017, 10, 30).getTime(), FilterOperator.LESS_THAN);
@@ -66,8 +65,7 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void listDeviceResources() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
-        try {
+        try (Connect api = new Connect(config)) {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
             options.setPageSize(Integer.valueOf(1));
@@ -83,7 +81,6 @@ public class ConnectExamples extends AbstractExample {
                 log("Resource present on device", resource);
             }
         } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
             fail(e.getMessage());
         }
     }
@@ -95,10 +92,9 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void getResourceValue() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
         // resource path to get value from
         String resourcePath = "/3/0/13";
-        try {
+        try (Connect api = new Connect(config)) {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
             options.setMaxResults(1l);
@@ -121,14 +117,6 @@ public class ConnectExamples extends AbstractExample {
             api.stopNotifications();
             api.shutdownConnectService();
         } catch (Exception e) {
-            e.printStackTrace();
-            logError("last API Metadata", api.getLastApiMetadata());
-            try {
-                api.stopNotifications();
-            } catch (MbedCloudException e1) {
-                e1.printStackTrace();
-            }
-            api.shutdownConnectService();
             fail(e.getMessage());
         }
     }
@@ -140,10 +128,9 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void setResourceValue() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
         // writable resource path to set a value to
         String resourcePath = "/5001/0/1";
-        try {
+        try (Connect api = new Connect(config)) {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
             options.setPageSize(1);
@@ -171,13 +158,6 @@ public class ConnectExamples extends AbstractExample {
             api.shutdownConnectService();
         } catch (Exception e) {
             e.printStackTrace();
-            logError("last API Metadata", api.getLastApiMetadata());
-            try {
-                api.stopNotifications();
-            } catch (MbedCloudException e1) {
-                e1.printStackTrace();
-            }
-            api.shutdownConnectService();
             fail(e.getMessage());
         }
     }
@@ -237,8 +217,7 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void listLast30DaysMetric() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
-        try {
+        try (Connect api = new Connect(config)) {
             // Defining query options.
             MetricsPeriodListOptions options = new MetricsPeriodListOptions();
             options.setPeriod("30d");
@@ -249,7 +228,6 @@ public class ConnectExamples extends AbstractExample {
                 log("Metric", metric);
             }
         } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
             fail(e.getMessage());
         }
     }
@@ -260,8 +238,7 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void listLast2DaysMetric() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
-        try {
+        try (Connect api = new Connect(config)) {
             // Defining query options.
             MetricsPeriodListOptions options = new MetricsPeriodListOptions();
             options.setPeriod("2d");
@@ -272,7 +249,6 @@ public class ConnectExamples extends AbstractExample {
                 log("Metric", metric);
             }
         } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
             fail(e.getMessage());
         }
     }
@@ -283,8 +259,7 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void listMarch2018Metric() {
         ConnectionOptions config = Configuration.get().logLevel(CallLogLevel.BODY);
-        Connect api = new Connect(config);
-        try {
+        try (Connect api = new Connect(config)) {
             // Defining query options.
             MetricsStartEndListOptions options = new MetricsStartEndListOptions();
             options.setStart(new GregorianCalendar(2018, 2, 1).getTime());
@@ -295,7 +270,6 @@ public class ConnectExamples extends AbstractExample {
                 log("Metric", metric);
             }
         } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
             fail(e.getMessage());
         }
     }
@@ -311,8 +285,7 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void subscribeToResourcesWithCallbacks() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
-        try {
+        try (Connect api = new Connect(config)) {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
             options.setPageSize(1);
@@ -360,14 +333,6 @@ public class ConnectExamples extends AbstractExample {
 
         } catch (Exception e) {
             e.printStackTrace();
-            logError("last API Metadata", api.getLastApiMetadata());
-            try {
-                api.stopNotifications();
-                Thread.sleep(100);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-            api.shutdownConnectService();
             fail(e.getMessage());
         }
     }
@@ -380,13 +345,12 @@ public class ConnectExamples extends AbstractExample {
      *
      * @see #subscribeToResourceValueChanges()
      */
-    @SuppressWarnings({ "boxing", "null" })
+    @SuppressWarnings({ "null" })
     @Deprecated
     @Example
     public void subscribeToResourcesWithObservableStreams() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
-        try {
+        try (Connect api = new Connect(config)) {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
             options.setPageSize(1);
@@ -418,14 +382,6 @@ public class ConnectExamples extends AbstractExample {
 
         } catch (Exception e) {
             e.printStackTrace();
-            logError("last API Metadata", api.getLastApiMetadata());
-            try {
-                api.stopNotifications();
-                Thread.sleep(100);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-            api.shutdownConnectService();
             fail(e.getMessage());
         }
     }
@@ -439,8 +395,9 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void subscribeToDeviceStateChanges() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
+        Connect api = null;
         try {
+            api = new Connect(config);
             // Creating an Observer listening to device state changes for devices whose ids start with 016 and for
             // devices which are newly registered or expired.
             // For more information about backpressure strategies, please have a look at related documentation:
@@ -484,8 +441,7 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void subscribeToResourceValueChanges() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
-        try {
+        try (Connect api = new Connect(config)) {
             // Creating an Observer listening to resource value changes for devices whose ids start with 016 and
             // resource paths starting with /3/0/.
             // For more information about backpressure strategies, please have a look at related documentation:
@@ -506,17 +462,8 @@ public class ConnectExamples extends AbstractExample {
             api.stopNotifications();
             Thread.sleep(100);
             api.shutdownConnectService();
-
         } catch (Exception e) {
             e.printStackTrace();
-            logError("last API Metadata", api.getLastApiMetadata());
-            try {
-                api.stopNotifications();
-                Thread.sleep(100);
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
-            api.shutdownConnectService();
             fail(e.getMessage());
         }
     }
@@ -538,8 +485,7 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void injectNotifications() {
         ConnectionOptions config = Configuration.get();
-        Connect api = new Connect(config);
-        try {
+        try (Connect api = new Connect(config)) {
             // Creating notifications.
             String[] payloads = { "Q2hhbmdlIG1lIQ==", "VGhpcyBpcyB2YWx1ZSAy", "VGhpcyBpcyBhbm90aGVyIHZhbHVl",
                                   "VGhpcyB3aWxsIGJlIG15IGxhc3Qgbm90aWZpY2F0aW9uIGJlY2F1c2UgSSBhbSB3aWxsaW5nIHRvIGdvIGJhY2sgdG8gc2xlZXA=" };
@@ -584,6 +530,7 @@ public class ConnectExamples extends AbstractExample {
         ConnectionOptions config = Configuration.get().autostartDaemon(false);
         // an example: using a webhook for handling notifications from Mbed Cloud
         Connect api = new Connect(config);
+
         // cloak
         // Telling the API to stop notification channel if already in use
         api.setForceClear(true);
