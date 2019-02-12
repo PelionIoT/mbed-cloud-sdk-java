@@ -11,6 +11,7 @@ public interface Artifact {
      *
      * @see java.lang.Object#toString()
      */
+    @Override
     String toString();
 
 }

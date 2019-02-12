@@ -81,9 +81,8 @@ public class GenericClientExamples extends AbstractExample {
         // cloak
         try {
             // uncloak
-            @SuppressWarnings("boxing")
             // Make the call with the following set of parameters. here, limit = 2.
-            UserListResponse response = client.callApi(requestDefinition, 2);
+            UserListResponse response = client.callApi(requestDefinition, Integer.valueOf(2));
             for (User user : response.getData()) {
                 // Do something with users
                 System.out.println(user);

@@ -30,7 +30,6 @@ public class UpdateExamples extends AbstractExample {
     /**
      * Lists the first 5 update campaigns.
      */
-    @SuppressWarnings("boxing")
     @Example
     public void manageCampaigns() {
         ConnectionOptions config = Configuration.get();
@@ -40,7 +39,7 @@ public class UpdateExamples extends AbstractExample {
             try {
                 // Getting a manifest file.
                 FirmwareManifestListOptions options = new FirmwareManifestListOptions();
-                options.setPageSize(1);
+                options.setPageSize(Integer.valueOf(1));
                 FirmwareManifest manifest = null;
                 Paginator<FirmwareManifest> manifests = api.listAllFirmwareManifests(options);
                 if (!manifests.hasNext()) {
@@ -50,7 +49,7 @@ public class UpdateExamples extends AbstractExample {
                 log("Campaign manifest", manifest);
                 // Getting a query.
                 QueryListOptions options2 = new QueryListOptions();
-                options.setPageSize(1);
+                options.setPageSize(Integer.valueOf(1));
                 options.setOrder(Order.DESC);
                 Query query = null;
                 Paginator<Query> queries = api2.listAllQueries(options2);
@@ -80,9 +79,9 @@ public class UpdateExamples extends AbstractExample {
                 campaignId = myCampaign.getId();
                 // Printing device states
                 CampaignDevicesStatesListOptions deviceStateOptions = new CampaignDevicesStatesListOptions();
-                deviceStateOptions.setPageSize(20);
+                deviceStateOptions.setPageSize(Integer.valueOf(20));
                 for (int countdown = 10; countdown >= 0; countdown--) {
-                    log("Device states at countdown", countdown);
+                    log("Device states at countdown", Integer.valueOf(countdown));
                     Paginator<CampaignDeviceState> states = api.listAllCampaignDeviceStates(campaignId,
                                                                                             deviceStateOptions);
                     while (states.hasNext()) {
@@ -115,16 +114,15 @@ public class UpdateExamples extends AbstractExample {
     }
 
     /**
-     * Lists the first 5 update campaigns.
+     * Lists the first five update campaigns.
      */
-    @SuppressWarnings("boxing")
     @Example
     public void listCampaigns() {
         ConnectionOptions config = Configuration.get();
         try (Update api = new Update(config)) {
             // Defining query options.
             CampaignListOptions options = new CampaignListOptions();
-            options.setPageSize(5);
+            options.setPageSize(Integer.valueOf(5));
             // Listing campaigns.
             Paginator<Campaign> campaigns = api.listAllCampaigns(options);
             for (Campaign campaign : campaigns) {
@@ -136,7 +134,7 @@ public class UpdateExamples extends AbstractExample {
     }
 
     /**
-     * Lists the first 5 firmware manifests.
+     * Lists the first five firmware manifests.
      */
     @Example
     public void listFirmwareManifests() {
@@ -144,7 +142,7 @@ public class UpdateExamples extends AbstractExample {
         try (Update api = new Update(config)) {
             // Defining query options.
             FirmwareManifestListOptions options = new FirmwareManifestListOptions();
-            options.setPageSize(5);
+            options.setPageSize(Integer.valueOf(5));
             // Listing firmware manifests.
             Paginator<FirmwareManifest> manifests = api.listAllFirmwareManifests(options);
             for (FirmwareManifest manifest : manifests) {
@@ -156,7 +154,7 @@ public class UpdateExamples extends AbstractExample {
     }
 
     /**
-     * Lists the first 5 firmware images.
+     * Lists the first five firmware images.
      */
     @Example
     public void listFirmwareImages() {
@@ -164,7 +162,7 @@ public class UpdateExamples extends AbstractExample {
         try (Update api = new Update(config)) {
             // Defining query options.
             FirmwareImageListOptions options = new FirmwareImageListOptions();
-            options.setPageSize(5);
+            options.setPageSize(Integer.valueOf(5));
             // Listing firmware images.
             Paginator<FirmwareImage> images = api.listAllFirmwareImages(options);
             String imageId = null;

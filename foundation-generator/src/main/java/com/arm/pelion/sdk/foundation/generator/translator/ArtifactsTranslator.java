@@ -193,17 +193,16 @@ public class ArtifactsTranslator {
                     // TODO shout, not handled
                     throw new FoundationGeneratorException("The generator does not handle list method with model parameter such as "
                                                            + m);
-                } else {
-                    for (LowLevelAPIMethodArgument arg : method.getFromModels()) {
-                        try {
-                            adapter.addMethodAdapter(m.isCreateMethod() ? MethodAction.CREATE
-                                                                        : m.isUpdateMethod() ? MethodAction.UPDATE
-                                                                                             : MethodAction.READ,
-                                                     model, new Model(arg.determineClass()), false, false,
-                                                     methodRenames, null, null);
-                        } catch (ClassNotFoundException exception) {
-                            throw new FoundationGeneratorException("Failed generating adapter for " + model, exception);
-                        }
+                }
+                for (LowLevelAPIMethodArgument arg : method.getFromModels()) {
+                    try {
+                        adapter.addMethodAdapter(m.isCreateMethod() ? MethodAction.CREATE
+                                                                    : m.isUpdateMethod() ? MethodAction.UPDATE
+                                                                                         : MethodAction.READ,
+                                                 model, new Model(arg.determineClass()), false, false, methodRenames,
+                                                 null, null);
+                    } catch (ClassNotFoundException exception) {
+                        throw new FoundationGeneratorException("Failed generating adapter for " + model, exception);
                     }
                 }
 

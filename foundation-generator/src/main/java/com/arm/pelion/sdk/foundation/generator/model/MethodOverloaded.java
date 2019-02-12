@@ -70,7 +70,7 @@ public class MethodOverloaded extends Method {
     }
 
     public static boolean isOverloadedMethod(Method method) {
-        return method == null ? null : method instanceof MethodOverloaded || isOverloadedMethod(method.getIdentifier());
+        return (method != null) && (method instanceof MethodOverloaded || isOverloadedMethod(method.getIdentifier()));
     }
 
     public static boolean isOverloadedMethod(String methodIdentifier) {

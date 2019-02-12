@@ -53,7 +53,6 @@ public class CertificatesExamples extends AbstractExample {
     /**
      * Lists the first 5 certificates.
      */
-    @SuppressWarnings("boxing")
     @Example
     public void listCertificates() {
         ConnectionOptions config = Configuration.get();

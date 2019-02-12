@@ -42,11 +42,13 @@ public class DeviceDirectoryExamples extends AbstractExample {
             log("Certificate Fingerprint", certificateFingerprint);
             Device myDevice = new Device(certificateIssuerId, certificateFingerprint);
             myDevice.setName("my-test-device-" + UUID.randomUUID().toString());
-            myDevice.setDeviceExecutionMode(1);
+            myDevice.setDeviceExecutionMode(Integer.valueOf(1));
+
             // Adding the device.
             myDevice = api.addDevice(myDevice);
             log("Created device", myDevice);
             deviceId = myDevice.getId();
+
             // Updating the device.
             certificateIssuerId = UUID.randomUUID().toString();
             log("Updated Certificate Issuer Id", certificateIssuerId);
@@ -54,6 +56,7 @@ public class DeviceDirectoryExamples extends AbstractExample {
             myDevice = api.updateDevice(myDevice);
             log("Updated device", myDevice);
             deviceId = myDevice.getId();
+
             // Deleting the device.
             deleteCreatedDevice(deviceId, api);
         } catch (Exception e) {
@@ -76,7 +79,6 @@ public class DeviceDirectoryExamples extends AbstractExample {
     /**
      * Creates, updates and deletes a query.
      */
-    @SuppressWarnings("boxing")
     @Example
     public void manageQueries() {
         ConnectionOptions config = Configuration.get();
@@ -88,10 +90,12 @@ public class DeviceDirectoryExamples extends AbstractExample {
             log("Query name", queryName);
             Query myQuery = new Query(queryName, null);
             myQuery.addCreatedAtFilter(new Date(), FilterOperator.LESS_THAN);
+
             // Adding the query.
             myQuery = api.addQuery(myQuery);
             log("Created query", myQuery);
             queryId = myQuery.getId();
+
             // Updating the query.
             queryName = "test-" + UUID.randomUUID().toString();
             log("Updated Query name", queryName);
@@ -99,23 +103,26 @@ public class DeviceDirectoryExamples extends AbstractExample {
             myQuery = api.updateQuery(myQuery);
             log("Updated query", myQuery);
             queryId = myQuery.getId();
+
             // Fetching the query.
             myQuery = api.getQuery(queryId);
             log("Retrieved query", myQuery);
+
             // Finding the first 5 devices corresponding to the query.
             DeviceListOptions options = new DeviceListOptions();
             options.setFilters(myQuery.fetchFilters());
-            options.setPageSize(5);
+            options.setPageSize(Integer.valueOf(5));
             ListResponse<Device> matchingDevices = api.listDevices(options);
             for (Device device : matchingDevices.getData()) {
                 log("Matching device", device);
             }
-            // Deleting the query.
-            deleteCreatedQuery(queryId, api);
+
         } catch (Exception e) {
             logError("last API Metadata", api.getLastApiMetadata());
-            deleteCreatedQuery(queryId, api);
             fail(e.getMessage());
+        } finally {
+            // Deleting the query.
+            deleteCreatedQuery(queryId, api);
         }
     }
 
@@ -191,7 +198,6 @@ public class DeviceDirectoryExamples extends AbstractExample {
     /**
      * Lists the first 5 current queries.
      */
-    @SuppressWarnings("boxing")
     @Example
     public void listQueries() {
         ConnectionOptions config = Configuration.get();
@@ -212,14 +218,13 @@ public class DeviceDirectoryExamples extends AbstractExample {
     /**
      * Lists the first 5 device events.
      */
-    @SuppressWarnings("boxing")
     @Example
     public void listDeviceEvents() {
         ConnectionOptions config = Configuration.get();
         try (DeviceDirectory api = new DeviceDirectory(config)) {
             // Defining query options.
             DeviceEventListOptions options = new DeviceEventListOptions();
-            options.setPageSize(5);
+            options.setPageSize(Integer.valueOf(5));
             // Listing device events in a page.
             ListResponse<DeviceEvent> events = api.listDeviceEvents(options);
             for (DeviceEvent event : events.getData()) {

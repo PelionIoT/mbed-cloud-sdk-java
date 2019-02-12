@@ -17,8 +17,15 @@ public class ModelTestGenerator extends AbstractGenerator {
     private boolean forceGeneration;
 
     /**
+     * Constructor.
+     * 
      * @param destinationDirectory
-     * @param model
+     *            The output location. If this is null then output will go to stdout instead.
+     * @param test
+     *            The model describing the test class to generate
+     * @param forceGeneration
+     *            if true the output file will be generated irrespective of whether custom code exists. If false,
+     *            generation will be skipped if custom code exists.
      */
     public ModelTestGenerator(File destinationDirectory, ModelTest test, boolean forceGeneration) {
         super(null, destinationDirectory);
@@ -33,24 +40,25 @@ public class ModelTestGenerator extends AbstractGenerator {
         }
 
         test.translate();
-        logger.logInfo("Generating model unit test [" + test.getFullName() + "]");
+        logger.logDebug("Generating model unit test [" + test.getFullName() + "]");
         TypeSpec modelClass = test.getSpecificationBuilder().build();
         JavaFile file = JavaFile.builder(test.getPackageName(), modelClass).addFileComment(generateFileComment(test))
                                 .addStaticImport(Assert.class, "*").build();
         try {
             File destinationFile = new File(testDestinationDirectory, file.toJavaFileObject().getName());
             if (testDestinationDirectory == null) {
-                logger.logWarn("The destination directory for the generated code was not specified. It will hence only be output in Standard out.");
+                logger.logWarn("The destination directory for the generated code was not specified. It will hence only be output to Standard out.");
                 file.writeTo(System.out);
             } else {
-                logger.logInfo("Generating unit test file [" + destinationFile.getName() + "]");
+                logger.logDebug("Generating unit test file [" + destinationFile.getName() + "]");
                 if ((test.containsCustomCode() || !forceGeneration) && destinationFile.exists()) {
-                    logger.logInfo("The unit test file is already present. Therefore, it won't be regenerated.");
+                    logger.logInfo("The unit test file " + destinationFile.getName()
+                                   + " is already present. Therefore, it won't be regenerated.");
                     return;
                 }
                 file.writeTo(testDestinationDirectory);
-                logger.logInfo("Unit test [" + test.getFullName() + "] was generated and can be found there: "
-                               + destinationFile.toString());
+                logger.logDebug("Unit test [" + test.getFullName() + "] was generated as "
+                                + destinationFile.toString());
             }
         } catch (Exception exception) {
             throw new TranslationException(exception);
