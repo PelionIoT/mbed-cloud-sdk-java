@@ -62,6 +62,7 @@ public class Sdk extends AbstractModule {
      * 
      * @param context
      *            SDK context
+     * 
      */
     public Sdk(SdkContext context) {
         this(context == null ? null : context.getConnectionOption());
@@ -367,6 +368,7 @@ public class Sdk extends AbstractModule {
     @Override
     public Sdk clone() {
         return new Sdk(this);
+
     }
 
     @Override

@@ -46,7 +46,6 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void listConnectedDevice() {
         ConnectionOptions config = Configuration.get();
-
         try (Connect api = new Connect(config)) {
             DeviceListOptions options = new DeviceListOptions();
 
@@ -69,25 +68,22 @@ public class ConnectExamples extends AbstractExample {
     public void listDeviceResources() {
         ConnectionOptions config = Configuration.get();
         try (Connect api = new Connect(config)) {
-            try {
-                // Getting a connected device.
-                DeviceListOptions options = new DeviceListOptions();
-                options.setPageSize(Integer.valueOf(1));
-                Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
-                if (!deviceIterator.hasNext()) {
-                    fail("No endpoints registered. Aborting.");
-                }
-                Device device = deviceIterator.first();
-                log("Device", device);
-                // Listing all device's resource.
-                List<Resource> resources = api.listResources(device);
-                for (Resource resource : resources) {
-                    log("Resource present on device", resource);
-                }
-            } catch (Exception e) {
-                logError("last API Metadata", api.getLastApiMetadata());
-                fail(e.getMessage());
+            // Getting a connected device.
+            DeviceListOptions options = new DeviceListOptions();
+            options.setPageSize(Integer.valueOf(1));
+            Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
+            if (!deviceIterator.hasNext()) {
+                fail("No endpoints registered. Aborting.");
             }
+            Device device = deviceIterator.first();
+            log("Device", device);
+            // Listing all device's resource.
+            List<Resource> resources = api.listResources(device);
+            for (Resource resource : resources) {
+                log("Resource present on device", resource);
+            }
+        } catch (Exception e) {
+            fail(e.getMessage());
         }
     }
 
@@ -97,43 +93,32 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void getResourceValue() {
         ConnectionOptions config = Configuration.get();
-
+        // resource path to get value from
+        String resourcePath = "/3/0/13";
         try (Connect api = new Connect(config)) {
-            // resource path to get value from
-            String resourcePath = "/3/0/13";
-            try {
-                // Getting a connected device.
-                DeviceListOptions options = new DeviceListOptions();
-                options.setMaxResults(Long.valueOf(1));
+            // Getting a connected device.
+            DeviceListOptions options = new DeviceListOptions();
+            options.setMaxResults(1l);
 
-                Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
-                if (!deviceIterator.hasNext()) {
-                    fail("No endpoints registered. Aborting.");
-                }
-                Device device = deviceIterator.first();
-                log("Device", device);
-                Resource resourceToConsider = api.getResource(device, resourcePath);
-                if (resourceToConsider == null) {
-                    fail("The resource of interest does not exist on this device");
-                }
-                log("Resource of interest", resourceToConsider);
-                // Getting resource value
-                Object value = api.getResourceValue(resourceToConsider, new TimePeriod(10));
-                log("Resource value", value);
-                // Stopping potential daemons running
-                api.stopNotifications();
-                api.shutdownConnectService();
-            } catch (Exception e) {
-                e.printStackTrace();
-                logError("last API Metadata", api.getLastApiMetadata());
-                try {
-                    api.stopNotifications();
-                } catch (MbedCloudException e1) {
-                    e1.printStackTrace();
-                }
-                api.shutdownConnectService();
-                fail(e.getMessage());
+            Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
+            if (!deviceIterator.hasNext()) {
+                fail("No endpoints registered. Aborting.");
             }
+            Device device = deviceIterator.first();
+            log("Device", device);
+            Resource resourceToConsider = api.getResource(device, resourcePath);
+            if (resourceToConsider == null) {
+                fail("The resource of interest does not exist on this device");
+            }
+            log("Resource of interest", resourceToConsider);
+            // Getting resource value
+            Object value = api.getResourceValue(resourceToConsider, new TimePeriod(10));
+            log("Resource value", value);
+            // Stopping potential daemons running
+            api.stopNotifications();
+            api.shutdownConnectService();
+        } catch (Exception e) {
+            fail(e.getMessage());
         }
     }
 
@@ -143,47 +128,37 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void setResourceValue() {
         ConnectionOptions config = Configuration.get();
-
+        // writable resource path to set a value to
+        String resourcePath = "/5001/0/1";
         try (Connect api = new Connect(config)) {
-            // writable resource path to set a value to
-            String resourcePath = "/5001/0/1";
-            try {
-                // Getting a connected device.
-                DeviceListOptions options = new DeviceListOptions();
-                options.setPageSize(Integer.valueOf(1));
-                Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
-                if (!deviceIterator.hasNext()) {
-                    fail("No endpoints registered. Aborting.");
-                }
-                Device device = deviceIterator.next();
-                log("Device", device);
-                Resource resourceToConsider = api.getResource(device, resourcePath);
-                log("Resource of interest", resourceToConsider);
-                if (resourceToConsider == null) {
-                    fail("The resource of interest does not exist on this device");
-                }
-                // Getting resource value
-                Object value = api.getResourceValue(resourceToConsider, new TimePeriod(10));
-                log("Current resource value", value);
-                // Setting a new resource value
-                api.setResourceValue(resourceToConsider, "10", new TimePeriod(10));
-                // Getting the modified resource value
-                value = api.getResourceValue(resourceToConsider, new TimePeriod(10));
-                log("Newly set resource value", value);
-                // Stopping potential daemons running
-                api.stopNotifications();
-                api.shutdownConnectService();
-            } catch (Exception e) {
-                e.printStackTrace();
-                logError("last API Metadata", api.getLastApiMetadata());
-                try {
-                    api.stopNotifications();
-                } catch (MbedCloudException e1) {
-                    e1.printStackTrace();
-                }
-                api.shutdownConnectService();
-                fail(e.getMessage());
+            // Getting a connected device.
+            DeviceListOptions options = new DeviceListOptions();
+            options.setPageSize(1);
+            Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
+            if (!deviceIterator.hasNext()) {
+                fail("No endpoints registered. Aborting.");
             }
+            Device device = deviceIterator.next();
+            log("Device", device);
+            Resource resourceToConsider = api.getResource(device, resourcePath);
+            log("Resource of interest", resourceToConsider);
+            if (resourceToConsider == null) {
+                fail("The resource of interest does not exist on this device");
+            }
+            // Getting resource value
+            Object value = api.getResourceValue(resourceToConsider, new TimePeriod(10));
+            log("Current resource value", value);
+            // Setting a new resource value
+            api.setResourceValue(resourceToConsider, "10", new TimePeriod(10));
+            // Getting the modified resource value
+            value = api.getResourceValue(resourceToConsider, new TimePeriod(10));
+            log("Newly set resource value", value);
+            // Stopping potential daemons running
+            api.stopNotifications();
+            api.shutdownConnectService();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
         }
     }
 
@@ -243,20 +218,17 @@ public class ConnectExamples extends AbstractExample {
     public void listLast30DaysMetric() {
         ConnectionOptions config = Configuration.get();
         try (Connect api = new Connect(config)) {
-            try {
-                // Defining query options.
-                MetricsPeriodListOptions options = new MetricsPeriodListOptions();
-                options.setPeriod("30d");
-                options.setInterval("1d");
-                // Listing metrics data.
-                Paginator<Metric> metrics = api.listAllMetrics(options);
-                for (Metric metric : metrics) {
-                    log("Metric", metric);
-                }
-            } catch (Exception e) {
-                logError("last API Metadata", api.getLastApiMetadata());
-                fail(e.getMessage());
+            // Defining query options.
+            MetricsPeriodListOptions options = new MetricsPeriodListOptions();
+            options.setPeriod("30d");
+            options.setInterval("1d");
+            // Listing metrics data.
+            Paginator<Metric> metrics = api.listAllMetrics(options);
+            for (Metric metric : metrics) {
+                log("Metric", metric);
             }
+        } catch (Exception e) {
+            fail(e.getMessage());
         }
     }
 
@@ -267,20 +239,17 @@ public class ConnectExamples extends AbstractExample {
     public void listLast2DaysMetric() {
         ConnectionOptions config = Configuration.get();
         try (Connect api = new Connect(config)) {
-            try {
-                // Defining query options.
-                MetricsPeriodListOptions options = new MetricsPeriodListOptions();
-                options.setPeriod("2d");
-                options.setInterval("3h");
-                // Listing metrics data.
-                Paginator<Metric> metrics = api.listAllMetrics(options);
-                for (Metric metric : metrics) {
-                    log("Metric", metric);
-                }
-            } catch (Exception e) {
-                logError("last API Metadata", api.getLastApiMetadata());
-                fail(e.getMessage());
+            // Defining query options.
+            MetricsPeriodListOptions options = new MetricsPeriodListOptions();
+            options.setPeriod("2d");
+            options.setInterval("3h");
+            // Listing metrics data.
+            Paginator<Metric> metrics = api.listAllMetrics(options);
+            for (Metric metric : metrics) {
+                log("Metric", metric);
             }
+        } catch (Exception e) {
+            fail(e.getMessage());
         }
     }
 
@@ -291,20 +260,17 @@ public class ConnectExamples extends AbstractExample {
     public void listMarch2018Metric() {
         ConnectionOptions config = Configuration.get().logLevel(CallLogLevel.BODY);
         try (Connect api = new Connect(config)) {
-            try {
-                // Defining query options.
-                MetricsStartEndListOptions options = new MetricsStartEndListOptions();
-                options.setStart(new GregorianCalendar(2018, 2, 1).getTime());
-                options.setEnd(new GregorianCalendar(2018, 3, 1).getTime());
-                // Listing metrics data.
-                Paginator<Metric> metrics = api.listAllMetrics(options);
-                for (Metric metric : metrics) {
-                    log("Metric", metric);
-                }
-            } catch (Exception e) {
-                logError("last API Metadata", api.getLastApiMetadata());
-                fail(e.getMessage());
+            // Defining query options.
+            MetricsStartEndListOptions options = new MetricsStartEndListOptions();
+            options.setStart(new GregorianCalendar(2018, 2, 1).getTime());
+            options.setEnd(new GregorianCalendar(2018, 3, 1).getTime());
+            // Listing metrics data.
+            Paginator<Metric> metrics = api.listAllMetrics(options);
+            for (Metric metric : metrics) {
+                log("Metric", metric);
             }
+        } catch (Exception e) {
+            fail(e.getMessage());
         }
     }
 
@@ -320,26 +286,25 @@ public class ConnectExamples extends AbstractExample {
     public void subscribeToResourcesWithCallbacks() {
         ConnectionOptions config = Configuration.get();
         try (Connect api = new Connect(config)) {
-            try {
-                // Getting a connected device.
-                DeviceListOptions options = new DeviceListOptions();
-                options.setPageSize(Integer.valueOf(1));
-                Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
-                if (!deviceIterator.hasNext()) {
-                    fail("No endpoints registered. Aborting.");
-                }
-                Device device = deviceIterator.next();
-                log("Device", device);
-                List<Resource> observableResources = api.listObservableResources(device);
-                if (observableResources == null) {
-                    fail("There is no observable resources on this device");
-                }
-                for (final Resource resourceToSubscribeTo : observableResources) {
-                    log("Resource suscribed", resourceToSubscribeTo);
-                    // Creating a subscriber for each resource.
-                    if (resourceToSubscribeTo != null) {
-                        // Defining callbacks.
-                        Callback<Object> onNotificationCallback = new Callback<Object>() {
+            // Getting a connected device.
+            DeviceListOptions options = new DeviceListOptions();
+            options.setPageSize(1);
+            Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
+            if (!deviceIterator.hasNext()) {
+                fail("No endpoints registered. Aborting.");
+            }
+            Device device = deviceIterator.next();
+            log("Device", device);
+            List<Resource> observableResources = api.listObservableResources(device);
+            if (observableResources == null) {
+                fail("There is no observable resources on this device");
+            }
+            for (final Resource resourceToSubscribeTo : observableResources) {
+                log("Resource suscribed", resourceToSubscribeTo);
+                // Creating a subscriber for each resource.
+                if (resourceToSubscribeTo != null) {
+                    // Defining callbacks.
+                    Callback<Object> onNotificationCallback = new Callback<Object>() {
 
                             @Override
                             public void execute(Object arg) {
@@ -359,26 +324,18 @@ public class ConnectExamples extends AbstractExample {
                         api.addResourceSubscription(resourceToSubscribeTo, onNotificationCallback, onErrorCallback);
                     }
                 }
-                // Listening to notifications for 2 minutes.
-                api.startNotifications();
-                Thread.sleep(120000);
-                // Stopping notification pull channel.
-                api.stopNotifications();
-                Thread.sleep(100);
-                api.shutdownConnectService();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                logError("last API Metadata", api.getLastApiMetadata());
-                try {
-                    api.stopNotifications();
-                    Thread.sleep(100);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                api.shutdownConnectService();
-                fail(e.getMessage());
             }
+            // Listening to notifications for 2 minutes.
+            api.startNotifications();
+            Thread.sleep(120000);
+            // Stopping notification pull channel.
+            api.stopNotifications();
+            Thread.sleep(100);
+            api.shutdownConnectService();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
         }
     }
 
@@ -390,54 +347,44 @@ public class ConnectExamples extends AbstractExample {
      *
      * @see #subscribeToResourceValueChanges()
      */
-    @SuppressWarnings("null")
+    @SuppressWarnings({ "null" })
     @Deprecated
     @Example
     public void subscribeToResourcesWithObservableStreams() {
         ConnectionOptions config = Configuration.get();
         try (Connect api = new Connect(config)) {
-            try {
-                // Getting a connected device.
-                DeviceListOptions options = new DeviceListOptions();
-                options.setPageSize(Integer.valueOf(1));
-                Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
-                if (!deviceIterator.hasNext()) {
-                    fail("No endpoints registered. Aborting.");
-                }
-                Device device = deviceIterator.next();
-                log("Device", device);
-                List<Resource> observableResources = api.listObservableResources(device);
-                if (observableResources == null) {
-                    fail("There is no observable resources on this device");
-                }
-                for (Resource resourceToSubscribeTo : observableResources) {
-                    log("Resource suscribed", resourceToSubscribeTo);
-                    // Adding subscription for each resource.
-                    if (resourceToSubscribeTo != null) {
-                        api.addResourceSubscription(resourceToSubscribeTo, BackpressureStrategy.BUFFER)
-                           .subscribe(generateSubscriptionConsumer(resourceToSubscribeTo));
-                    }
-                }
-                // Listening to notifications for 2 minutes.
-                api.startNotifications();
-                Thread.sleep(120000);
-                // Stopping notification pull channel.
-                api.stopNotifications();
-                Thread.sleep(100);
-                api.shutdownConnectService();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                logError("last API Metadata", api.getLastApiMetadata());
-                try {
-                    api.stopNotifications();
-                    Thread.sleep(100);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                api.shutdownConnectService();
-                fail(e.getMessage());
+            // Getting a connected device.
+            DeviceListOptions options = new DeviceListOptions();
+            options.setPageSize(1);
+            Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
+            if (!deviceIterator.hasNext()) {
+                fail("No endpoints registered. Aborting.");
             }
+            Device device = deviceIterator.next();
+            log("Device", device);
+            List<Resource> observableResources = api.listObservableResources(device);
+            if (observableResources == null) {
+                fail("There is no observable resources on this device");
+            }
+            for (Resource resourceToSubscribeTo : observableResources) {
+                log("Resource suscribed", resourceToSubscribeTo);
+                // Adding subscription for each resource.
+                if (resourceToSubscribeTo != null) {
+                    api.addResourceSubscription(resourceToSubscribeTo, BackpressureStrategy.BUFFER)
+                       .subscribe(generateSubscriptionConsumer(resourceToSubscribeTo));
+                }
+            }
+            // Listening to notifications for 2 minutes.
+            api.startNotifications();
+            Thread.sleep(120000);
+            // Stopping notification pull channel.
+            api.stopNotifications();
+            Thread.sleep(100);
+            api.shutdownConnectService();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
         }
     }
 
@@ -450,22 +397,23 @@ public class ConnectExamples extends AbstractExample {
     @Example
     public void subscribeToDeviceStateChanges() {
         ConnectionOptions config = Configuration.get();
-        try (Connect api = new Connect(config)) {
-            try {
-                // Creating an Observer listening to device state changes for devices whose ids start with 016 and for
-                // devices which are newly registered or expired.
-                // For more information about backpressure strategies, please have a look at related documentation:
-                // https://github.com/ReactiveX/RxJava/wiki/Backpressure
-                DeviceStateObserver observer = api.subscribe()
-                                                  .deviceStateChanges(DeviceStateFilterOptions.newFilter()
-                                                                                              .likeDevice("016%")
-                                                                                              .inDeviceStates(Arrays.asList(DeviceState.REGISTRATION,
-                                                                                                                            DeviceState.EXPIRED_REGISTRATION)),
-                                                                      BackpressureStrategy.BUFFER);
-                // Printing device changes when they happen.
-                observer.flow().subscribe(System.out::println);
-                // Listening to device state changes for 2 minutes.
-                Thread.sleep(120000);
+        Connect api = null;
+        try {
+            api = new Connect(config);
+            // Creating an Observer listening to device state changes for devices whose ids start with 016 and for
+            // devices which are newly registered or expired.
+            // For more information about backpressure strategies, please have a look at related documentation:
+            // https://github.com/ReactiveX/RxJava/wiki/Backpressure
+            DeviceStateObserver observer = api.subscribe()
+                                              .deviceStateChanges(DeviceStateFilterOptions.newFilter()
+                                                                                          .likeDevice("016%")
+                                                                                          .inDeviceStates(Arrays.asList(DeviceState.REGISTRATION,
+                                                                                                                        DeviceState.EXPIRED_REGISTRATION)),
+                                                                  BackpressureStrategy.BUFFER);
+            // Printing device changes when they happen.
+            observer.flow().subscribe(System.out::println);
+            // Listening to device state changes for 2 minutes.
+            Thread.sleep(120000);
 
                 // Stopping notification pull channel.
                 api.stopNotifications();
@@ -497,41 +445,29 @@ public class ConnectExamples extends AbstractExample {
     public void subscribeToResourceValueChanges() {
         ConnectionOptions config = Configuration.get();
         try (Connect api = new Connect(config)) {
-            try {
-                // Creating an Observer listening to resource value changes for devices whose ids start with 016 and
-                // resource paths starting with /3/0/.
-                // For more information about backpressure strategies, please have a look at related documentation:
-                // https://github.com/ReactiveX/RxJava/wiki/Backpressure
-                // For more information about First Value strategies, have a look at
-                // com.arm.mbed.cloud.sdk.subscribe.model.FirstValue
-                ResourceValueObserver observer = api.subscribe()
-                                                    .resourceValues(SubscriptionFilterOptions.newFilter()
-                                                                                             .likeDevice("016%")
-                                                                                             .likeResourcePath("/3/0/%"),
-                                                                    BackpressureStrategy.BUFFER,
-                                                                    FirstValue.ON_VALUE_UPDATE);
-                // Printing resource value notification when they happen.
-                observer.flow().subscribe(System.out::println);
-                // Listening to resource value changes for 2 minutes.
-                Thread.sleep(120000);
+            // Creating an Observer listening to resource value changes for devices whose ids start with 016 and
+            // resource paths starting with /3/0/.
+            // For more information about backpressure strategies, please have a look at related documentation:
+            // https://github.com/ReactiveX/RxJava/wiki/Backpressure
+            // For more information about First Value strategies, have a look at
+            // com.arm.mbed.cloud.sdk.subscribe.model.FirstValue
+            ResourceValueObserver observer = api.subscribe()
+                                                .resourceValues(SubscriptionFilterOptions.newFilter().likeDevice("016%")
+                                                                                         .likeResourcePath("/3/0/%"),
+                                                                BackpressureStrategy.BUFFER,
+                                                                FirstValue.ON_VALUE_UPDATE);
+            // Printing resource value notification when they happen.
+            observer.flow().subscribe(System.out::println);
+            // Listening to resource value changes for 2 minutes.
+            Thread.sleep(120000);
 
-                // Stopping notification pull channel.
-                api.stopNotifications();
-                Thread.sleep(100);
-                api.shutdownConnectService();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                logError("last API Metadata", api.getLastApiMetadata());
-                try {
-                    api.stopNotifications();
-                    Thread.sleep(100);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                api.shutdownConnectService();
-                fail(e.getMessage());
-            }
+            // Stopping notification pull channel.
+            api.stopNotifications();
+            Thread.sleep(100);
+            api.shutdownConnectService();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
         }
     }
 
@@ -553,24 +489,23 @@ public class ConnectExamples extends AbstractExample {
     public void injectNotifications() {
         ConnectionOptions config = Configuration.get();
         try (Connect api = new Connect(config)) {
-            try {
-                // Creating notifications.
-                String[] payloads = { "Q2hhbmdlIG1lIQ==", "VGhpcyBpcyB2YWx1ZSAy", "VGhpcyBpcyBhbm90aGVyIHZhbHVl",
-                                      "VGhpcyB3aWxsIGJlIG15IGxhc3Qgbm90aWZpY2F0aW9uIGJlY2F1c2UgSSBhbSB3aWxsaW5nIHRvIGdvIGJhY2sgdG8gc2xlZXA=" };
-                List<String> payloadList = Arrays.asList(payloads);
-                String deviceId = "015f4ac587f500000000000100100249";
-                String resourcePath = "/3200/0/5501";
-                NotificationMessage notifications = new NotificationMessage();
-                for (String payload : payloadList) {
-                    NotificationData notification = new NotificationData();
-                    notification.setEp(deviceId);
-                    notification.setPath(resourcePath);
-                    notification.setPayload(payload);
-                    notifications.addNotificationsItem(notification);
-                }
-                // Creating the same notifications but using their JSON representation instead.
-                String otherNotifications = "{\"notifications\":[{\"path\":\"/3200/0/5501\",\"payload\":\"Q2hhbmdlIG1lIQ\u003d\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyB2YWx1ZSAy\",\"ep\":\"015f4ac587f500000000000100100249\"}"
-                                            + ",{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyBhbm90aGVyIHZhbHVl\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyB3aWxsIGJlIG15IGxhc3Qgbm90aWZpY2F0aW9uIGJlY2F1c2UgSSBhbSB3aWxsaW5nIHRvIGdvIGJhY2sgdG8gc2xlZXA\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}]}";
+            // Creating notifications.
+            String[] payloads = { "Q2hhbmdlIG1lIQ==", "VGhpcyBpcyB2YWx1ZSAy", "VGhpcyBpcyBhbm90aGVyIHZhbHVl",
+                                  "VGhpcyB3aWxsIGJlIG15IGxhc3Qgbm90aWZpY2F0aW9uIGJlY2F1c2UgSSBhbSB3aWxsaW5nIHRvIGdvIGJhY2sgdG8gc2xlZXA=" };
+            List<String> payloadList = Arrays.asList(payloads);
+            String deviceId = "015f4ac587f500000000000100100249";
+            String resourcePath = "/3200/0/5501";
+            NotificationMessage notifications = new NotificationMessage();
+            for (String payload : payloadList) {
+                NotificationData notification = new NotificationData();
+                notification.setEp(deviceId);
+                notification.setPath(resourcePath);
+                notification.setPayload(payload);
+                notifications.addNotificationsItem(notification);
+            }
+            // Creating the same notifications but using their JSON representation instead.
+            String otherNotifications = "{\"notifications\":[{\"path\":\"/3200/0/5501\",\"payload\":\"Q2hhbmdlIG1lIQ\u003d\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyB2YWx1ZSAy\",\"ep\":\"015f4ac587f500000000000100100249\"}"
+                                        + ",{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyBhbm90aGVyIHZhbHVl\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyB3aWxsIGJlIG15IGxhc3Qgbm90aWZpY2F0aW9uIGJlY2F1c2UgSSBhbSB3aWxsaW5nIHRvIGdvIGJhY2sgdG8gc2xlZXA\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}]}";
 
                 Resource resource = new Resource(deviceId, resourcePath);
                 // Creating a subscriber for this resource.
@@ -599,6 +534,7 @@ public class ConnectExamples extends AbstractExample {
         ConnectionOptions config = Configuration.get().autostartDaemon(false);
         // an example: using a webhook for handling notifications from Mbed Cloud
         Connect api = new Connect(config);
+
         // cloak
         // Telling the API to stop notification channel if already in use
         api.setForceClear(true);

@@ -171,6 +171,8 @@ public class TestCloudCaller {
                 assertEquals(requestID, metadata.getRequestId());
                 assertNotNull(metadata.getErrorMessage());
 
+            } finally {
+                api.close();
             }
             // Second call - valid response
             try {
@@ -284,7 +286,8 @@ public class TestCloudCaller {
                 assertNotNull(metadata.getObject());
                 assertEquals(requestID, metadata.getRequestId());
                 assertNotNull(metadata.getErrorMessage());
-
+            } finally {
+                api.close();
             }
             // Second call - valid response
             try {

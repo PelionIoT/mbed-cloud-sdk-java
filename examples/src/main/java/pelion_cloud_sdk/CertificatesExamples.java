@@ -57,19 +57,16 @@ public class CertificatesExamples extends AbstractExample {
     public void listCertificates() {
         ConnectionOptions config = Configuration.get();
         try (Certificates api = new Certificates(config)) {
-            try {
-                // Defining query options.
-                CertificateListOptions options = new CertificateListOptions();
-                options.setPageSize(Integer.valueOf(5));
-                // Listing certificates.
-                Paginator<Certificate> certificates = api.listAllCertificates(options);
-                for (Certificate certificate : certificates) {
-                    log("Certificate", certificate);
-                }
-            } catch (Exception e) {
-                logError("last API Metadata", api.getLastApiMetadata());
-                fail(e.getMessage());
+            // Defining query options.
+            CertificateListOptions options = new CertificateListOptions();
+            options.setPageSize(5);
+            // Listing certificates.
+            Paginator<Certificate> certificates = api.listAllCertificates(options);
+            for (Certificate certificate : certificates) {
+                log("Certificate", certificate);
             }
+        } catch (Exception e) {
+            fail(e.getMessage());
         }
     }
 

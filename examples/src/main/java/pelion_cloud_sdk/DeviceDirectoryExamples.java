@@ -145,10 +145,8 @@ public class DeviceDirectoryExamples extends AbstractExample {
     public void listDevices() {
         ConnectionOptions config = Configuration.get();
         // an example: list devices in Mbed Cloud
-
         // Creating an instance of the SDK
         try (DeviceDirectory api = new DeviceDirectory(config)) {
-
             // Getting a paginator over the first 900 devices present in the Cloud.
             // In the Java SDK, all listing APIs start with 'list'. When the method name also contains 'All',
             // the corresponding paginator is returned. Otherwise, a ListResponse (i.e. only one page) is returned.
@@ -157,9 +155,9 @@ public class DeviceDirectoryExamples extends AbstractExample {
             // For each device found, log their ID and State.
             StreamSupport.stream(paginator.spliterator(), false)
                          .map(device -> device.getId() + " [" + device.getState() + "]").forEach(d -> log("Device", d));
-            // end of example
-
-        } catch (Exception e) {
+        }
+        // end of example
+        catch (Exception e) {
             logError("Exception", e);
             fail(e.getMessage());
         }
@@ -174,10 +172,8 @@ public class DeviceDirectoryExamples extends AbstractExample {
     public void listDeregisteredDevices() {
         ConnectionOptions config = Configuration.get();
         // an example: list deregistered devices in Mbed Cloud
-
         // Creating an instance of the SDK
         try (DeviceDirectory api = new DeviceDirectory(config)) {
-
             // Setting the listing options (i.e. limit the number of results to 900 and order the results in the reverse
             // order)
             DeviceListOptions options = DeviceListOptions.newOptions().maxResults(900).order(Order.DESC);
@@ -191,9 +187,9 @@ public class DeviceDirectoryExamples extends AbstractExample {
             StreamSupport.stream(paginator.spliterator(), false)
                          .map(device -> device.getId() + " [" + device.getState() + "]")
                          .forEach(d -> log("Deregistered device", d));
-            // end of example
-
-        } catch (Exception e) {
+        }
+        // end of example
+        catch (Exception e) {
             logError("Exception", e);
             fail(e.getMessage());
         }
@@ -206,19 +202,16 @@ public class DeviceDirectoryExamples extends AbstractExample {
     public void listQueries() {
         ConnectionOptions config = Configuration.get();
         try (DeviceDirectory api = new DeviceDirectory(config)) {
-            try {
-                // Defining listing options.
-                QueryListOptions options = new QueryListOptions();
-                options.setPageSize(Integer.valueOf(5));
-                // Listing queries.
-                ListResponse<Query> queries = api.listQueries(options);
-                for (Query query : queries.getData()) {
-                    log("Query", query);
-                }
-            } catch (Exception e) {
-                logError("last API Metadata", api.getLastApiMetadata());
-                fail(e.getMessage());
+            // Defining listing options.
+            QueryListOptions options = new QueryListOptions();
+            options.setPageSize(5);
+            // Listing queries.
+            ListResponse<Query> queries = api.listQueries(options);
+            for (Query query : queries.getData()) {
+                log("Query", query);
             }
+        } catch (Exception e) {
+            fail(e.getMessage());
         }
     }
 
