@@ -63,9 +63,9 @@ public final class ApiUtils {
      *            exception to check.
      * @return True if the exception is due to a Cloud exception. False otherwise.
      */
-    public static boolean isCloudException(Exception exception) {
-        return exception == null ? false : exception instanceof MbedCloudException
-                                           || exception.getCause() instanceof MbedCloudException;
+    public static boolean isCloudException(Throwable exception) {
+        return exception == null ? false
+                                 : exception instanceof MbedCloudException || isCloudException(exception.getCause());
     }
 
     /**
@@ -75,9 +75,9 @@ public final class ApiUtils {
      *            exception to check.
      * @return True if the exception is due to a not implemented functionality. False otherwise.
      */
-    public static boolean isNotImplementedException(Exception exception) {
+    public static boolean isNotImplementedException(Throwable exception) {
         return exception == null ? false : exception instanceof NotImplementedException
-                                           || exception.getCause() instanceof NotImplementedException;
+                                           || isNotImplementedException(exception.getCause());
     }
 
     /**
@@ -87,9 +87,9 @@ public final class ApiUtils {
      *            exception to check.
      * @return True if the exception is due to a parameter error. False otherwise.
      */
-    public static boolean isParameterErrorException(Exception exception) {
+    public static boolean isParameterErrorException(Throwable exception) {
         return exception == null ? false : exception instanceof IllegalArgumentException
-                                           || exception.getCause() instanceof IllegalArgumentException;
+                                           || isParameterErrorException(exception.getCause());
     }
 
     /**

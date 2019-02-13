@@ -25,6 +25,8 @@ public class TestApiUtils {
             fail("Check has not worked");
         } catch (MbedCloudException e) {
             assertTrue(true);
+            assertTrue(ApiUtils.isCloudException(e));
+            assertTrue(ApiUtils.isParameterErrorException(e));
         }
         test = 5;
         try {
@@ -152,6 +154,8 @@ public class TestApiUtils {
             fail("Check has not worked");
         } catch (MbedCloudException e) {
             assertTrue(true);
+            assertTrue(ApiUtils.isCloudException(e));
+            assertTrue(ApiUtils.isParameterErrorException(e));
         }
         test = new ModelClass(null, "test", "Test");
         try {
@@ -167,6 +171,31 @@ public class TestApiUtils {
         } catch (MbedCloudException e) {
             assertTrue(true);
         }
+    }
+
+    @Test
+    public final void testIsExceptionType() {
+        Exception e = new Exception("level1",
+                                    new Exception("level2", new Exception("level3", new MbedCloudException("level4"))));
+        assertTrue(ApiUtils.isCloudException(e));
+        assertFalse(ApiUtils.isParameterErrorException(e));
+        assertFalse(ApiUtils.isNotImplementedException(e));
+        e = new Exception("level1",
+                          new Exception("level2",
+                                        new Exception("level3",
+                                                      new MbedCloudException("level4",
+                                                                             new IllegalArgumentException("level5")))));
+        assertTrue(ApiUtils.isCloudException(e));
+        assertTrue(ApiUtils.isParameterErrorException(e));
+        assertFalse(ApiUtils.isNotImplementedException(e));
+        e = new Exception("level1",
+                          new Exception("level2",
+                                        new Exception("level3",
+                                                      new NotImplementedException("level4",
+                                                                                  new IllegalArgumentException("level5")))));
+        assertFalse(ApiUtils.isCloudException(e));
+        assertTrue(ApiUtils.isParameterErrorException(e));
+        assertTrue(ApiUtils.isNotImplementedException(e));
     }
 
     @Test
