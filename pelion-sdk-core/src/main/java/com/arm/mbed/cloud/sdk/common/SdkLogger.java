@@ -10,6 +10,9 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Internal
 public class SdkLogger {
 
+    private static final String METADATA_TEXT3 = ")] ";
+    private static final String METADATA_TEXT2 = " (";
+    private static final String METADATA_TEXT1 = "[thread: ";
     private static final Logger LOGGER = LoggerFactory.getLogger("Arm Pelion Cloud SDK");
 
     public static SdkLogger getLogger() {
@@ -21,15 +24,15 @@ public class SdkLogger {
     }
 
     public void logInfo(String message) {
-        LOGGER.info(message);
+        LOGGER.info(generateLoggingMessageMetadata(message));
     }
 
     public void logDebug(String message) {
-        LOGGER.debug(message);
+        LOGGER.debug(generateLoggingMessageMetadata(message));
     }
 
     public void logError(String message) {
-        LOGGER.error(message);
+        LOGGER.error(generateLoggingMessageMetadata(message));
     }
 
     /**
@@ -49,11 +52,11 @@ public class SdkLogger {
                                                                                             + (exception.getCause() == null ? ""
                                                                                                                             : ". Cause: "
                                                                                                                               + exception.getCause());
-        LOGGER.error(message + ". Reason: " + exceptionString);
+        LOGGER.error(generateLoggingMessageMetadata(message) + ". Reason: " + exceptionString);
     }
 
     public void logWarn(String message) {
-        LOGGER.warn(message);
+        LOGGER.warn(generateLoggingMessageMetadata(message));
     }
 
     /**
@@ -73,7 +76,7 @@ public class SdkLogger {
                                                                                             + (exception.getCause() == null ? ""
                                                                                                                             : ". Cause: "
                                                                                                                               + exception.getCause());
-        LOGGER.warn(message + ". Reason: " + exceptionString);
+        LOGGER.warn(generateLoggingMessageMetadata(message) + ". Reason: " + exceptionString);
     }
 
     public void throwSdkException(Exception exception) throws MbedCloudException {
@@ -87,6 +90,13 @@ public class SdkLogger {
 
     public void throwSdkException(String message) throws MbedCloudException {
         throwCloudException(new MbedCloudException(message));
+    }
+
+    private static String generateLoggingMessageMetadata(String string) {
+        final StringBuilder builder = new StringBuilder(30);
+        builder.append(METADATA_TEXT1).append(Thread.currentThread().getName()).append(METADATA_TEXT2)
+               .append(Thread.currentThread().getId()).append(METADATA_TEXT3).append(string);
+        return builder.toString();
     }
 
     private void throwCloudException(MbedCloudException exception) throws MbedCloudException {

@@ -49,7 +49,7 @@ public class CloudCaller<T, U> {
     }
 
     /**
-     * Executes a call to Arm Mbed Cloud.
+     * Executes a call to Arm Pelion Cloud.
      * <p>
      * Note: call metadata are recorded
      *
@@ -76,7 +76,7 @@ public class CloudCaller<T, U> {
     }
 
     /**
-     * Executes a call to Arm Mbed Cloud.
+     * Executes a call to Arm Pelion Cloud.
      * <p>
      * Note: call metadata are recorded
      *
@@ -104,7 +104,7 @@ public class CloudCaller<T, U> {
     }
 
     /**
-     * Executes a call to Arm Mbed Cloud.
+     * Executes a call to Arm Pelion Cloud.
      *
      * @param module
      *            API module
@@ -133,7 +133,7 @@ public class CloudCaller<T, U> {
     }
 
     /**
-     * Executes a call to Arm Mbed Cloud.
+     * Executes a call to Arm Pelion Cloud.
      * <p>
      * Note: call metadata are recorded
      *
@@ -157,7 +157,7 @@ public class CloudCaller<T, U> {
     }
 
     /**
-     * Executes a call to Arm Mbed Cloud.
+     * Executes a call to Arm Pelion Cloud.
      *
      * @param module
      *            API module
@@ -187,7 +187,7 @@ public class CloudCaller<T, U> {
     }
 
     /**
-     * Executes a raw call to Arm Mbed Cloud.
+     * Executes a raw call to Arm Pelion Cloud.
      *
      * @param module
      *            API module
@@ -225,7 +225,7 @@ public class CloudCaller<T, U> {
     }
 
     /**
-     * Executes a call to Arm Mbed Cloud.
+     * Executes a call to Arm Pelion Cloud.
      *
      * @return raw result objects
      * @throws MbedCloudException
@@ -237,7 +237,7 @@ public class CloudCaller<T, U> {
     }
 
     /**
-     * Executes a call to Arm Mbed Cloud.
+     * Executes a call to Arm Pelion Cloud.
      *
      * @return result objects of type U
      * @throws MbedCloudException
@@ -249,7 +249,7 @@ public class CloudCaller<T, U> {
     }
 
     /**
-     * Executes a call to Arm Mbed Cloud.
+     * Executes a call to Arm Pelion Cloud.
      *
      * @return result objects
      * @throws MbedCloudException
@@ -259,7 +259,7 @@ public class CloudCaller<T, U> {
         Call<T> call = null;
         try {
             final boolean isRawCall = callFeedback != null && callFeedback.isAssignableFrom(RawCallFeedback.class);
-            logger.logInfo("Calling Arm Mbed Cloud API: " + apiName);
+            logger.logInfo("Calling Pelion Cloud API: " + apiName);
             clearPreviousApiMetadata();
             call = caller.call();
             final CloudResponse<T> response = executeRequest(call, isRawCall);
@@ -276,7 +276,7 @@ public class CloudCaller<T, U> {
             Exception detailedException = exception;
             if (call != null) {
                 if (call.isCanceled()) {
-                    detailedException = new Exception("the call to Mbed Cloud has been cancelled.", exception);
+                    detailedException = new Exception("the call to Pelion Cloud has been cancelled.", exception);
                 }
                 call.cancel();
             }
@@ -336,7 +336,7 @@ public class CloudCaller<T, U> {
     private <C extends AbstractCallFeedBack<T>> void checkResponse(CloudResponse<T> response,
                                                                    C comms) throws MbedCloudException {
         if (response == null) {
-            logger.throwSdkException("An error occurred when calling Arm Mbed Cloud: no response was received");
+            logger.throwSdkException("An error occurred when calling Arm Pelion Cloud: no response was received");
         }
         if (response != null && !response.isSuccessful()) {
 
@@ -351,7 +351,7 @@ public class CloudCaller<T, U> {
                 return;
             }
 
-            logger.throwSdkException("An error occurred when calling Arm Mbed Cloud: [" + response.code() + "] "
+            logger.throwSdkException("An error occurred when calling Arm Pelion Cloud: [" + response.code() + "] "
                                      + response.message(), new MbedCloudException(error.toPrettyString()));
         }
     }
@@ -361,7 +361,7 @@ public class CloudCaller<T, U> {
         try {
             errorMessage = response.getRawBody() == null ? response.getResponse().errorBody().string()
                                                          : response.getRawBody();
-        } catch (Exception exception) {
+        } catch (@SuppressWarnings("unused") Exception exception) {
             // Nothing to do
         }
         return errorMessage;
@@ -371,7 +371,7 @@ public class CloudCaller<T, U> {
         Error error = null;
         try {
             error = ErrorJsonConverter.INSTANCE.convert(errorMessageFromBody);
-        } catch (Exception exception) {
+        } catch (@SuppressWarnings("unused") Exception exception) {
             // Nothing to do
         }
         if (error == null) {
@@ -386,7 +386,7 @@ public class CloudCaller<T, U> {
         if (errorMessageFromBody != null && !errorMessageFromBody.isEmpty()) {
             errorMessageBuilder.append(": ").append(errorMessageFromBody);
         }
-        return new Error(response.code(), "Mbed Cloud call", errorMessageBuilder.toString(),
+        return new Error(response.code(), "Pelion Cloud call", errorMessageBuilder.toString(),
                          retrieveRequestId(response));
     }
 
@@ -614,7 +614,7 @@ public class CloudCaller<T, U> {
             } catch (SecurityException | IllegalAccessException | IllegalArgumentException
                      | InvocationTargetException exception) {
                 logger.logError("Error occurred when trying to fetch etag from API metadata", exception);
-            } catch (NoSuchMethodException exception) {
+            } catch (@SuppressWarnings("unused") NoSuchMethodException exception) {
                 return null;
             }
             return null;
@@ -632,7 +632,7 @@ public class CloudCaller<T, U> {
 
     /**
      *
-     * Defines a call (Metadata + raw response) of a call to Arm Mbed Cloud.
+     * Defines a call (Metadata + raw response) of a call to Arm Pelion Cloud.
      *
      * @param <T>
      *            type of the response object
@@ -685,7 +685,7 @@ public class CloudCaller<T, U> {
 
     /**
      *
-     * Defines a call (Metadata + response) of a call to Arm Mbed Cloud.
+     * Defines a call (Metadata + response) of a call to Arm Pelion Cloud.
      *
      * @param <U>
      *            type of the result object
