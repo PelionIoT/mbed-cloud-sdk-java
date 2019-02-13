@@ -41,9 +41,8 @@ public class DeviceEnrollmentBulkCreateDao extends AbstractDeviceEnrollmentBulkC
      */
     @NonNull
     public FileDownload downloadErrorsReportFile(@Nullable File destination) throws MbedCloudException {
-        checkDaoConfiguration();
         final URL source = TranslationUtils.toUrl(getModel().getErrorsReportFile());
-        return Utils.downloadFile(destination, source, module.getClient());
+        return Utils.downloadFile(destination, source, getModuleOrThrow().getClient());
     }
 
     /**
@@ -58,9 +57,8 @@ public class DeviceEnrollmentBulkCreateDao extends AbstractDeviceEnrollmentBulkC
      */
     @NonNull
     public FileDownload downloadErrorsReportFile(@Nullable String filePath) throws MbedCloudException {
-        checkDaoConfiguration();
         final URL source = TranslationUtils.toUrl(getModel().getErrorsReportFile());
-        return Utils.downloadFile(filePath == null ? null : new File(filePath), source, module.getClient());
+        return Utils.downloadFile(filePath == null ? null : new File(filePath), source, getModuleOrThrow().getClient());
     }
 
     /**
@@ -74,9 +72,8 @@ public class DeviceEnrollmentBulkCreateDao extends AbstractDeviceEnrollmentBulkC
      *             if an error happens during the process
      */
     public FileDownload downloadFullReportFile(File destination) throws MbedCloudException {
-        checkDaoConfiguration();
         final URL source = TranslationUtils.toUrl(getModel().getFullReportFile());
-        return Utils.downloadFile(destination, source, module.getClient());
+        return Utils.downloadFile(destination, source, getModuleOrThrow().getClient());
     }
 
     /**
@@ -90,9 +87,8 @@ public class DeviceEnrollmentBulkCreateDao extends AbstractDeviceEnrollmentBulkC
      *             if an error happens during the process
      */
     public FileDownload downloadFullReportFile(String filePath) throws MbedCloudException {
-        checkDaoConfiguration();
         final URL source = TranslationUtils.toUrl(getModel().getFullReportFile());
-        return Utils.downloadFile(filePath == null ? null : new File(filePath), source, module.getClient());
+        return Utils.downloadFile(filePath == null ? null : new File(filePath), source, getModuleOrThrow().getClient());
     }
 
     /**
@@ -102,7 +98,8 @@ public class DeviceEnrollmentBulkCreateDao extends AbstractDeviceEnrollmentBulkC
      *            an sdk model.
      */
     @Override
-    public void create(DeviceEnrollmentBulkCreate modelToCreate) throws MbedCloudException, NotImplementedException {
+    public DeviceEnrollmentBulkCreate create(DeviceEnrollmentBulkCreate modelToCreate) throws MbedCloudException,
+                                                                                       NotImplementedException {
         // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
@@ -111,7 +108,7 @@ public class DeviceEnrollmentBulkCreateDao extends AbstractDeviceEnrollmentBulkC
      * Executes create.
      */
     @Override
-    public void create() throws MbedCloudException, NotImplementedException {
+    public DeviceEnrollmentBulkCreate create() throws MbedCloudException, NotImplementedException {
         // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
@@ -126,7 +123,8 @@ public class DeviceEnrollmentBulkCreateDao extends AbstractDeviceEnrollmentBulkC
     @Override
     public DeviceEnrollmentBulkCreateDao clone() {
         try {
-            return new DeviceEnrollmentBulkCreateDao().configureAndGet(module == null ? null : module.clone());
+            return new DeviceEnrollmentBulkCreateDao().configureAndGet(getModuleOrThrow() == null ? null
+                                                                                                  : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }

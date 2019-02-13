@@ -41,10 +41,39 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
      * 
      * @param enrollmentIdentities
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
+     * @return something
      */
-    public void delete(@NonNull DataFile enrollmentIdentities) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).deleteDeviceEnrollmentBulkDelete(enrollmentIdentities));
+    public DeviceEnrollmentBulkDelete delete(@NonNull DataFile enrollmentIdentities) throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).deleteDeviceEnrollmentBulkDelete(enrollmentIdentities));
+        return getModel();
+    }
+
+    /**
+     * Gets a device enrollment bulk delete.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollmentBulkDelete(DeviceEnrollmentBulkDelete)}
+     * 
+     * @return something
+     */
+    @Override
+    public DeviceEnrollmentBulkDelete get() throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).getDeviceEnrollmentBulkDelete(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a device enrollment bulk delete.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollmentBulkDelete(String)}
+     * 
+     * @param id
+     *            Bulk ID.
+     * @return something
+     */
+    @Override
+    public DeviceEnrollmentBulkDelete get(@NonNull String id) throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).getDeviceEnrollmentBulkDelete(id));
+        return getModel();
     }
 
     /**
@@ -56,6 +85,19 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     @Internal
     protected DeviceEnrollmentBulkDelete instantiateModel() {
         return new DeviceEnrollmentBulkDelete();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Devices(options);
     }
 
     /**
@@ -82,43 +124,5 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Devices(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
-    }
-
-    /**
-     * Gets a device enrollment bulk delete.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollmentBulkDelete(DeviceEnrollmentBulkDelete)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollmentBulkDelete(getModel()));
-    }
-
-    /**
-     * Gets a device enrollment bulk delete.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollmentBulkDelete(String)}
-     * 
-     * @param id
-     *            Bulk ID.
-     */
-    @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollmentBulkDelete(id));
     }
 }

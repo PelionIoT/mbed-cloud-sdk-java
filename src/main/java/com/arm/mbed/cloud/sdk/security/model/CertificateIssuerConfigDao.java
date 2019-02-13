@@ -40,7 +40,8 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     @Override
     public CertificateIssuerConfigDao clone() {
         try {
-            return new CertificateIssuerConfigDao().configureAndGet(module == null ? null : module.clone());
+            return new CertificateIssuerConfigDao().configureAndGet(getModuleOrThrow() == null ? null
+                                                                                               : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -50,11 +51,13 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * Adds a certificate issuer config.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuerConfig(CertificateIssuerConfig)}
+     * 
+     * @return an added certificate issuer config
      */
     @Override
-    public void create() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).createCertificateIssuerConfig(getModel()));
+    public CertificateIssuerConfig create() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).createCertificateIssuerConfig(getModel()));
+        return getModel();
     }
 
     /**
@@ -64,12 +67,13 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * 
      * @param createCertificateIssuerConfig
      *            a certificate issuer config.
+     * @return an added certificate issuer config
      */
     @Override
-    public void create(@NonNull CertificateIssuerConfig createCertificateIssuerConfig) throws MbedCloudException {
-        checkDaoConfiguration();
+    public CertificateIssuerConfig
+           create(@NonNull CertificateIssuerConfig createCertificateIssuerConfig) throws MbedCloudException {
         setModel(createCertificateIssuerConfig);
-        create();
+        return create();
     }
 
     /**
@@ -79,8 +83,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      */
     @Override
     public void delete() throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Security) module).deleteCertificateIssuerConfig(getModel());
+        ((Security) getModuleOrThrow()).deleteCertificateIssuerConfig(getModel());
     }
 
     /**
@@ -93,7 +96,6 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      */
     @Override
     public void delete(@NonNull CertificateIssuerConfig certificateIssuerConfig) throws MbedCloudException {
-        checkDaoConfiguration();
         setModel(certificateIssuerConfig);
         delete();
     }
@@ -109,8 +111,36 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Security) module).deleteCertificateIssuerConfig(id);
+        ((Security) getModuleOrThrow()).deleteCertificateIssuerConfig(id);
+    }
+
+    /**
+     * Gets a certificate issuer config.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateIssuerConfig(CertificateIssuerConfig)}
+     * 
+     * @return something
+     */
+    @Override
+    public CertificateIssuerConfig get() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).getCertificateIssuerConfig(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a certificate issuer config.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateIssuerConfig(String)}
+     * 
+     * @param id
+     *            The ID of the certificate issuer configuration.
+     *
+     * @return something
+     */
+    @Override
+    public CertificateIssuerConfig get(@NonNull String id) throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).getCertificateIssuerConfig(id));
+        return getModel();
     }
 
     /**
@@ -118,10 +148,12 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDefault()}
+     * 
+     * @return something
      */
-    public void getDefault() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).getDefault());
+    public CertificateIssuerConfig getDefault() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).getDefault());
+        return getModel();
     }
 
     /**
@@ -133,6 +165,19 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     @Internal
     protected CertificateIssuerConfig instantiateModel() {
         return new CertificateIssuerConfig();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
     }
 
     /**
@@ -162,53 +207,16 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     }
 
     /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
-    }
-
-    /**
-     * Gets a certificate issuer config.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateIssuerConfig(CertificateIssuerConfig)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).getCertificateIssuerConfig(getModel()));
-    }
-
-    /**
-     * Gets a certificate issuer config.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateIssuerConfig(String)}
-     * 
-     * @param id
-     *            The ID of the certificate issuer configuration.
-     *
-     */
-    @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).getCertificateIssuerConfig(id));
-    }
-
-    /**
      * Modifies a certificate issuer config.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuerConfig(CertificateIssuerConfig)}
+     * 
+     * @return something
      */
     @Override
-    public void update() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).updateCertificateIssuerConfig(getModel()));
+    public CertificateIssuerConfig update() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).updateCertificateIssuerConfig(getModel()));
+        return getModel();
     }
 
     /**
@@ -218,12 +226,13 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * 
      * @param certificateIssuerConfig
      *            a certificate issuer config.
+     * @return something
      */
     @Override
-    public void update(@NonNull CertificateIssuerConfig certificateIssuerConfig) throws MbedCloudException {
-        checkDaoConfiguration();
+    public CertificateIssuerConfig
+           update(@NonNull CertificateIssuerConfig certificateIssuerConfig) throws MbedCloudException {
         setModel(certificateIssuerConfig);
-        update();
+        return update();
     }
 
     /**
@@ -234,9 +243,10 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * @param id
      *            The ID of the certificate issuer configuration.
      *
+     * @return an updated certificate issuer config
      */
-    public void update(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).updateCertificateIssuerConfig(getModel(), id));
+    public CertificateIssuerConfig update(@NonNull String id) throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).updateCertificateIssuerConfig(getModel(), id));
+        return getModel();
     }
 }

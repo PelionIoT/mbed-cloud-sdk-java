@@ -31,18 +31,20 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.testserver.Engine;
 import com.arm.mbed.cloud.sdk.testserver.Logger;
-import com.arm.mbed.cloud.sdk.testserver.cache.InstanceCache;
 import com.arm.mbed.cloud.sdk.testserver.cache.MissingInstanceException;
 import com.arm.mbed.cloud.sdk.testserver.cache.ServerCacheException;
+import com.arm.mbed.cloud.sdk.testserver.cache.TestedItemRegistry;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.EntityInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.SdkInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.UnknownAPIException;
-import com.arm.mbed.cloud.sdk.testserver.model.ApiResult;
 import com.arm.mbed.cloud.sdk.testserver.model.ErrorMessage;
-import com.arm.mbed.cloud.sdk.testserver.model.Instance;
-import com.arm.mbed.cloud.sdk.testserver.model.InstanceConfiguration;
-import com.arm.mbed.cloud.sdk.testserver.model.SdkApiParameters;
+import com.arm.mbed.cloud.sdk.testserver.model.SdkConfiguration;
+import com.arm.mbed.cloud.sdk.testserver.model.SdkMethodParameters;
+import com.arm.mbed.cloud.sdk.testserver.model.SdkMethodResult;
 import com.arm.mbed.cloud.sdk.testutils.APICallException;
+import com.arm.mbed.cloud.sdk.testutils.NotAllowedAPICallException;
 import com.arm.mbed.cloud.sdk.testutils.Serializer;
 import com.github.dtmo.jfiglet.FigFont.PrintDirection;
 import com.github.dtmo.jfiglet.FigFontResources;
@@ -51,11 +53,18 @@ import com.github.dtmo.jfiglet.FigletRenderer;
 @Preamble(description = "Test system server part in charge of carrying out a mapping of the APIs present in the SDK and invoking them when requested by the client")
 public class TestServer {
 
+    private static final String ENDPOINT_BASE_LOWLEVEL_INSTANCES = "/instances";
+    private static final String ENDPOINT_BASE_MODULES = "/modules";
+    private static final String ENDPOINT_BASE_FOUNDATION = "/foundation";
+    private static final String ENDPOINT_BASE_ENTITIES = ENDPOINT_BASE_FOUNDATION + "/entities";
+    private static final String ENDPOINT_BASE_SDKS = ENDPOINT_BASE_FOUNDATION + "/sdk";
+    private static final String ENDPOINT_BASE_FOUNDATION_INSTANCES = ENDPOINT_BASE_FOUNDATION + "/instances";
     private static final String TEST_ARGS_KEY = "args";
     private static final String CONTENT_TYPE_HEADER = "content-type";
     private static final String APPLICATION_JSON = "application/json";
     private static final String PARAM_METHOD = "method";
     private static final String PARAM_MODULE = "module";
+    private static final String PARAM_ENTITY = "entity";
     private static final String PARAM_INSTANCE = "instance";
     private static final String TOOL_NAME = "\t\t\t\t\t\t\t\tJava \t\t\t\t\t\t\t\t\t\t\tSDK Test-Server";
 
@@ -80,7 +89,7 @@ public class TestServer {
             options.setMaxInitialLineLength(HttpServerOptions.DEFAULT_MAX_INITIAL_LINE_LENGTH * 2);
             server = vertx.createHttpServer(options);
             router = Router.router(vertx);
-            engine = new Engine(logger, new InstanceCache(vertx));
+            engine = new Engine(logger, new TestedItemRegistry(vertx));
         }
         retrieveConfig();
         // Route registration
@@ -91,13 +100,23 @@ public class TestServer {
         defineResetRoute();
         defineShutdownRoute();
         defineListModulesRoute();
+        defineListEntitiesRoute();
         defineListModuleInstancesRoute();
+        defineListEntityInstancesRoute();
+        defineListSdkInstancesRoute();
         defineCreateModuleInstanceRoute();
-        defineListInstancesRoute();
-        defineGetInstanceRoute();
-        defineDeleteInstanceRoute();
-        defineListInstanceMethodsRoute();
-        defineRunInstanceMethodRoute();
+        defineCreateEntityInstanceRoute();
+        defineCreateSdkInstanceRoute();
+        defineListLowLevelInstancesRoute();
+        defineListFoundationInstancesRoute();
+        defineGetLowLevelInstanceRoute();
+        defineGetFoundationInstanceRoute();
+        defineDeleteLowLevelInstanceRoute();
+        defineDeleteFoundationInstanceRoute();
+        defineListLowLevelInstanceMethodsRoute();
+        defineListFoundationInstanceMethodsRoute();
+        defineRunLowLevelInstanceMethodRoute();
+        defineRunFoundationInstanceMethodRoute();
         defineModuleMethodTestRoute();
         logWelcomeMessage();
         try {
@@ -180,7 +199,7 @@ public class TestServer {
     }
 
     private void defineListModulesRoute() {
-        Route route = router.route(HttpMethod.GET, "/modules").produces(APPLICATION_JSON);
+        Route route = router.route(HttpMethod.GET, ENDPOINT_BASE_MODULES).produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
             execute(200, routingContext, new ServerAction() {
 
@@ -193,8 +212,22 @@ public class TestServer {
         });
     }
 
+    private void defineListEntitiesRoute() {
+        Route route = router.route(HttpMethod.GET, ENDPOINT_BASE_ENTITIES).produces(APPLICATION_JSON);
+        route.blockingHandler(routingContext -> {
+            execute(200, routingContext, new ServerAction() {
+
+                @Override
+                public Object execute() throws Exception {
+                    return engine.listEntities().stream().map(m -> ApiUtils.convertSnakeToCamel(m, true))
+                                 .collect(Collectors.toList());
+                }
+            }, false);
+        });
+    }
+
     private void defineListModuleInstancesRoute() {
-        Route route = router.route(HttpMethod.GET, "/modules/:" + PARAM_MODULE + "/instances")
+        Route route = router.route(HttpMethod.GET, ENDPOINT_BASE_MODULES + "/:" + PARAM_MODULE + "/instances")
                             .produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
             String moduleId = routingContext.request().getParam(PARAM_MODULE);
@@ -203,7 +236,39 @@ public class TestServer {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.listModuleInstances(moduleId).stream().map(m -> m.toInstance())
+                    return engine.listModuleInstances(moduleId).stream().map(m -> ((ModuleInstance) m).toInstance())
+                                 .collect(Collectors.toList());
+                }
+            }, false);
+        });
+    }
+
+    private void defineListEntityInstancesRoute() {
+        Route route = router.route(HttpMethod.GET, ENDPOINT_BASE_ENTITIES + "/:" + PARAM_ENTITY + "/instances")
+                            .produces(APPLICATION_JSON);
+        route.blockingHandler(routingContext -> {
+            String entityId = routingContext.request().getParam(PARAM_ENTITY);
+
+            execute(200, routingContext, new ServerAction() {
+
+                @Override
+                public Object execute() throws Exception {
+                    return engine.listEntityInstances(entityId).stream().map(m -> ((EntityInstance) m).toInstance())
+                                 .collect(Collectors.toList());
+                }
+            }, false);
+        });
+    }
+
+    private void defineListSdkInstancesRoute() {
+        Route route = router.route(HttpMethod.GET, ENDPOINT_BASE_SDKS + "/instances").produces(APPLICATION_JSON);
+        route.blockingHandler(routingContext -> {
+
+            execute(200, routingContext, new ServerAction() {
+
+                @Override
+                public Object execute() throws Exception {
+                    return engine.listSdkInstances().stream().map(m -> ((SdkInstance) m).toInstance())
                                  .collect(Collectors.toList());
                 }
             }, false);
@@ -211,69 +276,89 @@ public class TestServer {
     }
 
     private void defineCreateModuleInstanceRoute() {
-        Route route = router.route(HttpMethod.POST, "/modules/:" + PARAM_MODULE + "/instances")
+        Route route = router.route(HttpMethod.POST, ENDPOINT_BASE_MODULES + "/:" + PARAM_MODULE + "/instances")
                             .produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
             String moduleId = routingContext.request().getParam(PARAM_MODULE);
 
             ConnectionOptions opts = retrieveConnectionOptions(routingContext.getBodyAsString());
 
-            execute(200, routingContext, new ServerAction() {
+            execute(201, routingContext, new ServerAction() {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.createInstance(moduleId, opts).toInstance();
+                    return engine.createModuleInstance(moduleId, opts).toInstance();
                 }
             }, false);
         });
     }
 
-    private void defineListInstancesRoute() {
-        Route route = router.route(HttpMethod.GET, "/instances").produces(APPLICATION_JSON);
+    private void defineCreateEntityInstanceRoute() {
+        Route route = router.route(HttpMethod.POST, ENDPOINT_BASE_ENTITIES + "/:" + PARAM_ENTITY + "/instances")
+                            .produces(APPLICATION_JSON);
+        route.blockingHandler(routingContext -> {
+            String entityId = routingContext.request().getParam(PARAM_ENTITY);
+
+            ConnectionOptions opts = retrieveConnectionOptions(routingContext.getBodyAsString());
+
+            execute(201, routingContext, new ServerAction() {
+
+                @Override
+                public Object execute() throws Exception {
+                    return engine.createEntityInstance(entityId, opts).toInstance();
+                }
+            }, false);
+        });
+    }
+
+    private void defineCreateSdkInstanceRoute() {
+        Route route = router.route(HttpMethod.POST, ENDPOINT_BASE_SDKS + "/instances").produces(APPLICATION_JSON);
+        route.blockingHandler(routingContext -> {
+
+            ConnectionOptions opts = retrieveConnectionOptions(routingContext.getBodyAsString());
+
+            execute(201, routingContext, new ServerAction() {
+
+                @Override
+                public Object execute() throws Exception {
+                    return engine.createSdkInstance(opts).toInstance();
+                }
+            }, false);
+        });
+    }
+
+    private void defineListLowLevelInstancesRoute() {
+        Route route = router.route(HttpMethod.GET, ENDPOINT_BASE_LOWLEVEL_INSTANCES).produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
 
             execute(200, routingContext, new ServerAction() {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.listAllModuleInstances().stream().map(m -> m.toInstance())
+                    return engine.listAllLowLevelInstances().stream().map(m -> ((ModuleInstance) m).toInstance())
                                  .collect(Collectors.toList());
                 }
             }, false);
         });
     }
 
-    private void defineGetInstanceRoute() {
-        Route route = router.route(HttpMethod.GET, "/instances/:" + PARAM_INSTANCE).produces(APPLICATION_JSON);
+    private void defineListFoundationInstancesRoute() {
+        Route route = router.route(HttpMethod.GET, ENDPOINT_BASE_FOUNDATION_INSTANCES).produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
-            String instanceId = routingContext.request().getParam(PARAM_INSTANCE);
+
             execute(200, routingContext, new ServerAction() {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.fetchInstance(instanceId).toInstance();
+                    return engine.listAllFoundationInstances().stream().map(m -> ((EntityInstance) m).toInstance())
+                                 .collect(Collectors.toList());
                 }
             }, false);
         });
     }
 
-    private void defineDeleteInstanceRoute() {
-        Route route = router.route(HttpMethod.DELETE, "/instances/:" + PARAM_INSTANCE).produces(APPLICATION_JSON);
-        route.blockingHandler(routingContext -> {
-            String instanceId = fetchInstanceId(routingContext.request().getParam(PARAM_INSTANCE));
-            execute(200, routingContext, new ServerAction() {
-
-                @SuppressWarnings("boxing")
-                @Override
-                public Object execute() throws Exception {
-                    return engine.deleteInstance(instanceId);
-                }
-            }, false);
-        });
-    }
-
-    private void defineListInstanceMethodsRoute() {
-        Route route = router.route(HttpMethod.GET, "/instances/:" + PARAM_INSTANCE + "/methods")
+    private void defineGetLowLevelInstanceRoute() {
+        Route route = router.route(HttpMethod.GET, ENDPOINT_BASE_LOWLEVEL_INSTANCES + "/:" + PARAM_INSTANCE)
                             .produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
             String instanceId = routingContext.request().getParam(PARAM_INSTANCE);
@@ -281,15 +366,94 @@ public class TestServer {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.listInstanceMethods(instanceId).stream().map(m -> m.toSdkApi())
+                    return engine.fetchLowLevelInstance(instanceId).toInstance();
+                }
+            }, false);
+        });
+    }
+
+    private void defineGetFoundationInstanceRoute() {
+        Route route = router.route(HttpMethod.GET, ENDPOINT_BASE_FOUNDATION_INSTANCES + "/:" + PARAM_INSTANCE)
+                            .produces(APPLICATION_JSON);
+        route.blockingHandler(routingContext -> {
+            String instanceId = routingContext.request().getParam(PARAM_INSTANCE);
+            execute(200, routingContext, new ServerAction() {
+
+                @Override
+                public Object execute() throws Exception {
+                    return engine.fetchFoundationInstance(instanceId).toInstance();
+                }
+            }, false);
+        });
+    }
+
+    private void defineDeleteLowLevelInstanceRoute() {
+        Route route = router.route(HttpMethod.DELETE, ENDPOINT_BASE_LOWLEVEL_INSTANCES + "/:" + PARAM_INSTANCE)
+                            .produces(APPLICATION_JSON);
+        route.blockingHandler(routingContext -> {
+            String instanceId = fetchInstanceId(routingContext.request().getParam(PARAM_INSTANCE));
+            execute(200, routingContext, new ServerAction() {
+
+                @Override
+                public Object execute() throws Exception {
+                    return engine.deleteLowLevelInstance(instanceId);
+                }
+            }, false);
+        });
+    }
+
+    private void defineDeleteFoundationInstanceRoute() {
+        Route route = router.route(HttpMethod.DELETE, ENDPOINT_BASE_FOUNDATION_INSTANCES + "/:" + PARAM_INSTANCE)
+                            .produces(APPLICATION_JSON);
+        route.blockingHandler(routingContext -> {
+            String instanceId = fetchInstanceId(routingContext.request().getParam(PARAM_INSTANCE));
+            execute(204, routingContext, new ServerAction() {
+
+                @Override
+                public Object execute() throws Exception {
+                    return engine.deleteFoundationInstance(instanceId);
+                }
+            }, false);
+        });
+    }
+
+    private void defineListLowLevelInstanceMethodsRoute() {
+        Route route = router.route(HttpMethod.GET,
+                                   ENDPOINT_BASE_LOWLEVEL_INSTANCES + "/:" + PARAM_INSTANCE + "/methods")
+                            .produces(APPLICATION_JSON);
+        route.blockingHandler(routingContext -> {
+            String instanceId = routingContext.request().getParam(PARAM_INSTANCE);
+            execute(200, routingContext, new ServerAction() {
+
+                @Override
+                public Object execute() throws Exception {
+                    return engine.listLowLevelInstanceMethods(instanceId).stream().map(m -> m.toSdkApi())
                                  .collect(Collectors.toList());
                 }
             }, false);
         });
     }
 
-    private void defineRunInstanceMethodRoute() {
-        Route route = router.route(HttpMethod.POST, "/instances/:" + PARAM_INSTANCE + "/methods/:" + PARAM_METHOD)
+    private void defineListFoundationInstanceMethodsRoute() {
+        Route route = router.route(HttpMethod.GET,
+                                   ENDPOINT_BASE_FOUNDATION_INSTANCES + "/:" + PARAM_INSTANCE + "/methods")
+                            .produces(APPLICATION_JSON);
+        route.blockingHandler(routingContext -> {
+            String instanceId = routingContext.request().getParam(PARAM_INSTANCE);
+            execute(200, routingContext, new ServerAction() {
+
+                @Override
+                public Object execute() throws Exception {
+                    return engine.listFoundationInstanceMethods(instanceId).stream().map(m -> m.toSdkApi())
+                                 .collect(Collectors.toList());
+                }
+            }, false);
+        });
+    }
+
+    private void defineRunLowLevelInstanceMethodRoute() {
+        Route route = router.route(HttpMethod.POST, ENDPOINT_BASE_LOWLEVEL_INSTANCES + "/:" + PARAM_INSTANCE
+                                                    + "/methods/:" + PARAM_METHOD)
                             .produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
             HttpServerRequest request = routingContext.request();
@@ -302,7 +466,36 @@ public class TestServer {
                 public Object execute() throws Exception {
                     logger.logInfo("TEST http://localhost:" + String.valueOf(port) + request.uri() + " AT "
                                    + new Date().toString());
-                    APIMethodResult result = engine.callAPIOnInstance(instanceId, methodId, methodArgs);
+                    APIMethodResult result = engine.callAPIOnLowLevelInstance(instanceId, methodId, methodArgs);
+                    if (!result.wasExceptionRaised()) {
+                        return result.getResult();
+                    }
+                    logger.logDebug("RESULT error happened: " + result.getMetadata());
+                    throw new APICallException(result);
+                }
+            }, true);
+        });
+    }
+
+    private void defineRunFoundationInstanceMethodRoute() {
+        Route route = router.route(HttpMethod.POST, ENDPOINT_BASE_FOUNDATION_INSTANCES + "/:" + PARAM_INSTANCE
+                                                    + "/methods/:" + PARAM_METHOD)
+                            .produces(APPLICATION_JSON);
+        route.blockingHandler(routingContext -> {
+            HttpServerRequest request = routingContext.request();
+            String instanceId = request.getParam(PARAM_INSTANCE);
+            String methodId = request.getParam(PARAM_METHOD);
+            Map<String, Object> methodArgs = fetchMethodArgs(routingContext.getBodyAsString());
+            execute(200, routingContext, new ServerAction() {
+
+                @Override
+                public Object execute() throws Exception {
+                    logger.logInfo("TEST http://localhost:" + String.valueOf(port) + request.uri() + " AT "
+                                   + new Date().toString());
+                    APIMethodResult result = engine.callAPIOnFoundationInstance(instanceId, methodId, methodArgs);
+                    if (!result.wasAllowed()) {
+                        throw new NotAllowedAPICallException();
+                    }
                     if (!result.wasExceptionRaised()) {
                         return result.getResult();
                     }
@@ -314,7 +507,6 @@ public class TestServer {
     }
 
     // TODO Remove when not needed anymore
-    @SuppressWarnings("boxing")
     private void defineModuleMethodTestRoute() {
         Route route = router.route(HttpMethod.GET, "/:" + PARAM_MODULE + "/:" + PARAM_METHOD + "*")
                             .produces(APPLICATION_JSON);
@@ -329,15 +521,15 @@ public class TestServer {
                            + new Date().toString());
             ModuleInstance instance = null;
             try {
-                instance = engine.createInstance(module, defaultConnectionConfiguration);
-                APIMethodResult result = engine.callAPIOnInstance(instance.getId(), method, params);
+                instance = engine.createModuleInstance(module, defaultConnectionConfiguration);
+                APIMethodResult result = engine.callAPIOnLowLevelInstance(instance.getId(), method, params);
                 if (!result.wasExceptionRaised()) {
                     String resultJson = Serializer.convertLegacyResultToJson(result.getResult());
                     logger.logDebug("RESULT: " + String.valueOf(resultJson));
-                    engine.deleteInstance(instance.getId());
+                    engine.deleteLowLevelInstance(instance.getId());
                     respond(200, routingContext, resultJson);
                 } else {
-                    engine.deleteInstance(instance.getId());
+                    engine.deleteLowLevelInstance(instance.getId());
                     logger.logDebug("RESULT error happened: " + result.getMetadata());
                     if (result.getMetadata() == null) {
                         sendError(setResponse(500, routingContext), null,
@@ -354,9 +546,8 @@ public class TestServer {
             } catch (UnknownAPIException | APICallException | ServerCacheException e) {
                 if (instance != null) {
                     try {
-                        engine.deleteInstance(instance.getId());
+                        engine.deleteLowLevelInstance(instance.getId());
                     } catch (ServerCacheException e1) {
-                        // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
                 }
@@ -376,7 +567,7 @@ public class TestServer {
      */
     private String fetchInstanceId(String instanceIdAsString) {
         try {
-            Instance instance = Serializer.convertStringToObject(instanceIdAsString, Instance.class);
+            ModuleInstance instance = Serializer.convertStringToObject(instanceIdAsString, ModuleInstance.class);
             instanceIdAsString = instance.getId();
         } catch (Exception e) {
             // Nothing to do
@@ -389,7 +580,7 @@ public class TestServer {
         if (bodyAsString == null || bodyAsString.isEmpty()) {
             return new LinkedHashMap<>();
         }
-        return new JsonObject(bodyAsString).mapTo(SdkApiParameters.class);
+        return new JsonObject(bodyAsString).mapTo(SdkMethodParameters.class);
     }
 
     private ConnectionOptions retrieveConnectionOptions(String bodyAsString) {
@@ -397,9 +588,9 @@ public class TestServer {
             logger.logWarn("The test server did not receive any connection configuration. Defaulting to test server configuration.");
             return defaultConnectionConfiguration;
         }
-        InstanceConfiguration conf = null;
+        SdkConfiguration conf = null;
         try {
-            conf = Serializer.convertStringToObject(bodyAsString, InstanceConfiguration.class);
+            conf = Serializer.convertStringToObject(bodyAsString, SdkConfiguration.class);
         } catch (Exception e) {
             logger.logWarn("The test server could not interpret instance configuration properly: [" + bodyAsString
                            + "]. Defaulting to test server configuration.");
@@ -425,6 +616,9 @@ public class TestServer {
         } catch (UnknownAPIException | MissingInstanceException e) {
             ErrorMessage message = generateErrorMessage(e);
             error(404, ctx, message);
+        } catch (NotAllowedAPICallException e) {
+            ErrorMessage message = generateErrorMessage(e);
+            error(405, ctx, message);
         } catch (Exception e) {
             ErrorMessage message = generateErrorMessage(e);
             error(500, ctx, message);
@@ -450,7 +644,7 @@ public class TestServer {
     private void result(int statusCode, RoutingContext routingContext, Object result, boolean enclosePayload) {
         Object resultObj = Serializer.convertResultToJsonObject(result, true);
         if (enclosePayload) {
-            ApiResult apiResult = new ApiResult();
+            SdkMethodResult apiResult = new SdkMethodResult();
             apiResult.setPayload(resultObj);
             resultObj = Serializer.convertResultToJsonObject(apiResult, true);
         }
@@ -534,7 +728,6 @@ public class TestServer {
     }
 
     private void sendError(HttpServerResponse res, Integer errorCode, String errorMessage) {
-        @SuppressWarnings("boxing")
         int statusCode = (errorCode == null) ? 500 : errorCode;
         JsonObject responseMessage = new JsonObject();
         responseMessage.put("message", errorMessage);

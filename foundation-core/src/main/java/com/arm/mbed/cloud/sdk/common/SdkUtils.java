@@ -230,7 +230,7 @@ public final class SdkUtils {
         errorBuilder.append("Parameter [");
         errorBuilder.append(argName);
         errorBuilder.append("] is an invalid instance of ").append(model.getClass().getSimpleName())
-                    .append(" model. Please ensure all its fields are valid.");
+                    .append(" model. Please ensure all its fields are valid. Instance: ").append(model);
         return errorBuilder;
     }
 
@@ -299,7 +299,8 @@ public final class SdkUtils {
             errorBuilder.append(setter);
             start = false;
         }
-        errorBuilder.append('.');
+        errorBuilder.append(". Instance: ");
+        errorBuilder.append(model);
         return errorBuilder;
     }
 

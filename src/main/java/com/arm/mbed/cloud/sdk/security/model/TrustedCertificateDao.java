@@ -39,7 +39,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     @Override
     public TrustedCertificateDao clone() {
         try {
-            return new TrustedCertificateDao().configureAndGet(module == null ? null : module.clone());
+            return new TrustedCertificateDao().configureAndGet(getModuleOrThrow() == null ? null
+                                                                                          : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -49,11 +50,13 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Adds a trusted certificate.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#createTrustedCertificate(TrustedCertificate)}
+     * 
+     * @return an added trusted certificate
      */
     @Override
-    public void create() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).createTrustedCertificate(getModel()));
+    public TrustedCertificate create() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).createTrustedCertificate(getModel()));
+        return getModel();
     }
 
     /**
@@ -63,12 +66,12 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @return an added trusted certificate
      */
     @Override
-    public void create(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
-        checkDaoConfiguration();
+    public TrustedCertificate create(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
         setModel(trustedCertificate);
-        create();
+        return create();
     }
 
     /**
@@ -78,8 +81,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      */
     @Override
     public void delete() throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Security) module).deleteTrustedCertificate(getModel());
+        ((Security) getModuleOrThrow()).deleteTrustedCertificate(getModel());
     }
 
     /**
@@ -92,7 +94,6 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      */
     @Override
     public void delete(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
-        checkDaoConfiguration();
         setModel(trustedCertificate);
         delete();
     }
@@ -107,8 +108,35 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Security) module).deleteTrustedCertificate(id);
+        ((Security) getModuleOrThrow()).deleteTrustedCertificate(id);
+    }
+
+    /**
+     * Gets a trusted certificate.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificate(TrustedCertificate)}
+     * 
+     * @return something
+     */
+    @Override
+    public TrustedCertificate get() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).getTrustedCertificate(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a trusted certificate.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificate(String)}
+     * 
+     * @param id
+     *            Entity ID.
+     * @return something
+     */
+    @Override
+    public TrustedCertificate get(@NonNull String id) throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).getTrustedCertificate(id));
+        return getModel();
     }
 
     /**
@@ -120,8 +148,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * @return something
      */
     public DeveloperCertificate getDeveloperCertificateInfo() throws MbedCloudException {
-        checkDaoConfiguration();
-        return ((Security) module).getDeveloperCertificateInfo(getModel());
+        return ((Security) getModuleOrThrow()).getDeveloperCertificateInfo(getModel());
     }
 
     /**
@@ -135,8 +162,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * @return something
      */
     public DeveloperCertificate getDeveloperCertificateInfo(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        return ((Security) module).getDeveloperCertificateInfo(id);
+        return ((Security) getModuleOrThrow()).getDeveloperCertificateInfo(id);
     }
 
     /**
@@ -148,6 +174,19 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     @Internal
     protected TrustedCertificate instantiateModel() {
         return new TrustedCertificate();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
     }
 
     /**
@@ -177,52 +216,16 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     }
 
     /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
-    }
-
-    /**
-     * Gets a trusted certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificate(TrustedCertificate)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).getTrustedCertificate(getModel()));
-    }
-
-    /**
-     * Gets a trusted certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificate(String)}
-     * 
-     * @param id
-     *            Entity ID.
-     */
-    @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).getTrustedCertificate(id));
-    }
-
-    /**
      * Modifies a trusted certificate.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateTrustedCertificate(TrustedCertificate)}
+     * 
+     * @return something
      */
     @Override
-    public void update() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).updateTrustedCertificate(getModel()));
+    public TrustedCertificate update() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).updateTrustedCertificate(getModel()));
+        return getModel();
     }
 
     /**
@@ -232,12 +235,12 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @return something
      */
     @Override
-    public void update(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
-        checkDaoConfiguration();
+    public TrustedCertificate update(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
         setModel(trustedCertificate);
-        update();
+        return update();
     }
 
     /**
@@ -247,9 +250,10 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param id
      *            Entity ID.
+     * @return an updated trusted certificate
      */
-    public void update(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).updateTrustedCertificate(id, getModel()));
+    public TrustedCertificate update(@NonNull String id) throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).updateTrustedCertificate(id, getModel()));
+        return getModel();
     }
 }

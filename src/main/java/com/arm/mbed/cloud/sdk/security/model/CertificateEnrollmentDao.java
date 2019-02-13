@@ -40,10 +40,39 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
     @Override
     public CertificateEnrollmentDao clone() {
         try {
-            return new CertificateEnrollmentDao().configureAndGet(module == null ? null : module.clone());
+            return new CertificateEnrollmentDao().configureAndGet(getModuleOrThrow() == null ? null
+                                                                                             : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
+    }
+
+    /**
+     * Gets a certificate enrollment.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateEnrollment(CertificateEnrollment)}
+     * 
+     * @return something
+     */
+    @Override
+    public CertificateEnrollment get() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).getCertificateEnrollment(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a certificate enrollment.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateEnrollment(String)}
+     * 
+     * @param id
+     *            The ID of the certificate enrollment.
+     * @return something
+     */
+    @Override
+    public CertificateEnrollment get(@NonNull String id) throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).getCertificateEnrollment(id));
+        return getModel();
     }
 
     /**
@@ -55,6 +84,19 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
     @Internal
     protected CertificateEnrollment instantiateModel() {
         return new CertificateEnrollment();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
     }
 
     /**
@@ -81,43 +123,5 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
-    }
-
-    /**
-     * Gets a certificate enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateEnrollment(CertificateEnrollment)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).getCertificateEnrollment(getModel()));
-    }
-
-    /**
-     * Gets a certificate enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateEnrollment(String)}
-     * 
-     * @param id
-     *            The ID of the certificate enrollment.
-     */
-    @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).getCertificateEnrollment(id));
     }
 }

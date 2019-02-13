@@ -42,7 +42,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     @Override
     public DeviceEnrollmentDao clone() {
         try {
-            return new DeviceEnrollmentDao().configureAndGet(module == null ? null : module.clone());
+            return new DeviceEnrollmentDao().configureAndGet(getModuleOrThrow() == null ? null
+                                                                                        : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -52,11 +53,13 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * Adds a device enrollment.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(DeviceEnrollment)}
+     * 
+     * @return an added device enrollment
      */
     @Override
-    public void create() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).createDeviceEnrollment(getModel()));
+    public DeviceEnrollment create() throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).createDeviceEnrollment(getModel()));
+        return getModel();
     }
 
     /**
@@ -66,12 +69,12 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * 
      * @param enrollmentIdentity
      *            a device enrollment.
+     * @return an added device enrollment
      */
     @Override
-    public void create(@NonNull DeviceEnrollment enrollmentIdentity) throws MbedCloudException {
-        checkDaoConfiguration();
+    public DeviceEnrollment create(@NonNull DeviceEnrollment enrollmentIdentity) throws MbedCloudException {
         setModel(enrollmentIdentity);
-        create();
+        return create();
     }
 
     /**
@@ -81,8 +84,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      */
     @Override
     public void delete() throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Devices) module).deleteDeviceEnrollment(getModel());
+        ((Devices) getModuleOrThrow()).deleteDeviceEnrollment(getModel());
     }
 
     /**
@@ -95,7 +97,6 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      */
     @Override
     public void delete(@NonNull DeviceEnrollment deviceEnrollment) throws MbedCloudException {
-        checkDaoConfiguration();
         setModel(deviceEnrollment);
         delete();
     }
@@ -110,8 +111,35 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        ((Devices) module).deleteDeviceEnrollment(id);
+        ((Devices) getModuleOrThrow()).deleteDeviceEnrollment(id);
+    }
+
+    /**
+     * Gets a device enrollment.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollment(DeviceEnrollment)}
+     * 
+     * @return something
+     */
+    @Override
+    public DeviceEnrollment get() throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).getDeviceEnrollment(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a device enrollment.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollment(String)}
+     * 
+     * @param id
+     *            Enrollment identity.
+     * @return something
+     */
+    @Override
+    public DeviceEnrollment get(@NonNull String id) throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).getDeviceEnrollment(id));
+        return getModel();
     }
 
     /**
@@ -123,6 +151,19 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     @Internal
     protected DeviceEnrollment instantiateModel() {
         return new DeviceEnrollment();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Devices(options);
     }
 
     /**
@@ -149,43 +190,5 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Devices(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
-    }
-
-    /**
-     * Gets a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollment(DeviceEnrollment)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollment(getModel()));
-    }
-
-    /**
-     * Gets a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollment(String)}
-     * 
-     * @param id
-     *            Enrollment identity.
-     */
-    @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollment(id));
     }
 }

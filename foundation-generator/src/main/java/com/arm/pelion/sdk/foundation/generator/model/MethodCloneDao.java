@@ -27,8 +27,8 @@ public class MethodCloneDao extends MethodClone {
     protected void translateCode() {
         code.beginControlFlow("try");
         code.addStatement("return new " + shortName + "()." + AbstractCloudDao.METHOD_CONFIGURE_AND_GET + "("
-                          + AbstractCloudDao.FIELD_NAME_MODULE + "==null? null: " + AbstractCloudDao.FIELD_NAME_MODULE
-                          + ".clone())");
+                          + AbstractCloudDao.METHOD_GETTER_MODULE + "() == null? null: "
+                          + AbstractCloudDao.METHOD_GETTER_MODULE + "().clone())");
         code.endControlFlow();
         code.beginControlFlow("catch($T exception)", MbedCloudException.class);
         code.addStatement("return null");

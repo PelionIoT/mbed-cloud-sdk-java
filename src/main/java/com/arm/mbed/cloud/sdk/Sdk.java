@@ -94,7 +94,7 @@ public class Sdk extends AbstractModule {
      * @return a DAO factory.
      */
     @API
-    public DaoFactory daos() {
+    public DaoFactory entities() {
         return daoFactory;
     }
 
@@ -360,6 +360,7 @@ public class Sdk extends AbstractModule {
      * Similar to {@link #quit()}.
      */
     @Override
+    @API
     public void close() {
         super.close();
         quit();

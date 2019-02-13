@@ -40,7 +40,8 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     @Override
     public DeviceEnrollmentListDao clone() {
         try {
-            return new DeviceEnrollmentListDao().configureAndGet(module == null ? null : module.clone());
+            return new DeviceEnrollmentListDao().configureAndGet(getModuleOrThrow() == null ? null
+                                                                                            : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -55,7 +56,7 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     @Internal
     @SuppressWarnings("unchecked")
     public DeviceEnrollmentDao getCorrespondingModelDao() throws MbedCloudException {
-        return new DeviceEnrollmentDao().configureAndGet(module);
+        return new DeviceEnrollmentDao().configureAndGet(getModuleOrThrow());
     }
 
     /**
@@ -79,6 +80,19 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     @Internal
     protected DeviceEnrollmentListOptions instantiateListOptions() {
         return new DeviceEnrollmentListOptions();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Devices(options);
     }
 
     /**
@@ -108,19 +122,6 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     }
 
     /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
-    }
-
-    /**
      * Lists device enrollments matching filter options.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#listDeviceEnrollments(DeviceEnrollmentListOptions)}
@@ -132,7 +133,6 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     @Override
     protected ListResponse<DeviceEnrollment>
               requestOnePage(DeviceEnrollmentListOptions options) throws MbedCloudException {
-        checkDaoConfiguration();
-        return ((Devices) module).listDeviceEnrollments(options);
+        return ((Devices) getModuleOrThrow()).listDeviceEnrollments(options);
     }
 }

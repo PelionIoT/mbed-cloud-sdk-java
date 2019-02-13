@@ -20,19 +20,21 @@ public interface CreateDao<T extends SdkModel> extends ModelDao<T> {
      *
      * @param modelToCreate
      *            data to store. The underlying data model is replaced by {@code modelToCreate}.
+     * @return created data model
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    void create(T modelToCreate) throws MbedCloudException;
+    T create(T modelToCreate) throws MbedCloudException;
 
     /**
      * Creates a model on the Cloud.
      * <p>
      * Note: Similar to {@link #create(SdkModel)} but the underlying data model is stored on the Cloud.
-     *
+     * 
+     * @return created data model
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    void create() throws MbedCloudException;
+    T create() throws MbedCloudException;
 
 }

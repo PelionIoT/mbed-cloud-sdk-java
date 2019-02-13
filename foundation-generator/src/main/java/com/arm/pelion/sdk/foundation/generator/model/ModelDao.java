@@ -174,15 +174,23 @@ public class ModelDao extends Model {
                                                              interfaceMethodSuffix);
         method.addException(MbedCloudException.class);
         method.setNeedsCustomCode(needsCustomCode);
+        if (moduleMethod.hasReturn()) {
+            method.setReturnDescription(moduleMethod.getReturnDescription());
+            method.setReturnType(moduleMethod.getReturnType());
+        }
+
         method.initialiseCodeBuilder();
-        method.getCode().addStatement("$L()", AbstractModelDao.METHOD_CHECK_CONFIGURATION);
         final Parameter methodParameter = moduleMethod.getParameters().stream().findFirst().orElse(null);
         if (methodParameter == null) {
             return;
         }
         method.addParameter(methodParameter);
         method.getCode().addStatement("$L($L)", AbstractModelDao.METHOD_SET_MODEL, methodParameter.getName());
-        method.getCode().addStatement("$L()", daoMethodName);
+        if (moduleMethod.hasReturn()) {
+            method.getCode().addStatement("return $L()", daoMethodName);
+        } else {
+            method.getCode().addStatement("$L()", daoMethodName);
+        }
         addMethod(method);
     }
 
@@ -234,7 +242,6 @@ public class ModelDao extends Model {
         method.addException(MbedCloudException.class);
         method.setNeedsCustomCode(needsCustomCode);
         method.initialiseCodeBuilder();
-        method.getCode().addStatement("$L()", AbstractModelDao.METHOD_CHECK_CONFIGURATION);
         generateMethodCodeAndReturnType(moduleMethod, method, moduleType);
         if (suffix == null) {
             method.generateSuffix();
@@ -248,18 +255,17 @@ public class ModelDao extends Model {
         List<Object> values = new LinkedList<>();
         boolean closeBracket = false;
         if (moduleMethod.hasReturn()) {
+            method.setReturnType(moduleMethod.getReturnType());
+            method.setReturnDescription(moduleMethod.getReturnDescription());
             if (moduleMethod.getReturnType().isModel(correspondingModel)) {
                 closeBracket = true;
                 codeFormat.append("$L(");
                 values.add(AbstractModelDao.METHOD_SET_MODEL);
-
             } else {
-                method.setReturnType(moduleMethod.getReturnType());
-                method.setReturnDescription(moduleMethod.getReturnDescription());
                 codeFormat.append("return ");
             }
         }
-        codeFormat.append("(($T)$L).$L(");
+        codeFormat.append("(($T)$L()).$L(");
         try {
             moduleType.translate();
         } catch (TranslationException exception) {
@@ -267,7 +273,7 @@ public class ModelDao extends Model {
             exception.printStackTrace();
         }
         values.add(moduleType.hasClass() ? moduleType.getClazz() : moduleType.getTypeName());
-        values.add(AbstractModelDao.FIELD_NAME_MODULE);
+        values.add(AbstractModelDao.METHOD_GETTER_MODULE);
         values.add(moduleMethod.getName());
         if (moduleMethod.hasParameters()) {
             boolean start = true;
@@ -292,6 +298,9 @@ public class ModelDao extends Model {
             codeFormat.append(")");
         }
         method.getCode().addStatement(codeFormat.toString(), values.toArray());
+        if (moduleMethod.hasReturn() && moduleMethod.getReturnType().isModel(correspondingModel)) {
+            method.getCode().addStatement("return $L()", AbstractModelDao.METHOD_GET_MODEL);
+        }
     }
 
     @Override
@@ -299,6 +308,9 @@ public class ModelDao extends Model {
         final MethodGeneric missingMethod = super.createMissingInterfaceMethod(m, suffix);
         missingMethod.getParameters().stream().filter(p -> p.getType().isModel())
                      .forEach(p -> p.setType(correspondingModel.toType()));
+        if (missingMethod.hasReturn() && missingMethod.getReturnType().isModel()) {
+            missingMethod.setReturnType(correspondingModel.toType());
+        }
         return missingMethod;
 
     }

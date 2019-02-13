@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
@@ -15,16 +16,17 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodArgument;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
-import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
-import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
-import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.SdkDefinition;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItem;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItemInstance;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.TestedItemType;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.UnknownAPIException;
 
 @Preamble(description = "Mechanism to call API methods by reflection")
 public class APICaller {
-    private SDK sdk;
+    private SdkDefinition sdk;
 
-    public APICaller(SDK sdk) {
+    public APICaller(SdkDefinition sdk) {
         super();
         this.sdk = sdk;
     }
@@ -32,7 +34,7 @@ public class APICaller {
     /**
      * @return the sdk
      */
-    public SDK getSdk() {
+    public SdkDefinition getSdk() {
         return sdk;
     }
 
@@ -40,42 +42,41 @@ public class APICaller {
      * @param sdk
      *            the sdk to set
      */
-    public void setSdk(SDK sdk) {
+    public void setSdk(SdkDefinition sdk) {
         this.sdk = sdk;
     }
 
-    @SuppressWarnings("null")
-    public APIMethodResult callAPIOnModuleInstance(ModuleInstance moduleInstance, String method,
-                                                   Map<String, Object> parameters) throws UnknownAPIException,
-                                                                                   APICallException {
-        if (moduleInstance == null) {
-            throwMissingModule(null);
+    public APIMethodResult callAPIOnInstance(TestedItemInstance<?> instance, String method,
+                                             Map<String, Object> parameters) throws UnknownAPIException,
+                                                                             APICallException {
+        if (instance == null) {
+            throwMissingItem(null);
         }
-        APIModule moduleDescription = moduleInstance.getModuleDescription();
-        if (moduleDescription == null) {
-            throwMissingModule(moduleDescription);
+        TestedItem description = instance.getDescription();
+        if (description == null) {
+            throwMissingItem(description);
         }
         if (method == null) {
-            throwUnknownAPI(moduleDescription.getSimpleName(), method);
+            throwUnknownAPI(description.getSimpleName(), method);
         }
-        final List<APIMethod> methodObjs = moduleDescription.getMethod(method);
+        final List<APIMethod> methodObjs = description.getMethod(method);
         if (methodObjs == null) {
-            throwUnknownAPI(moduleDescription.getSimpleName(), method);
+            throwUnknownAPI(description.getSimpleName(), method);
         }
         APICallException lastException = null;
         APIMethodResult result = null;
-        Object instance = moduleInstance.getInstance();
+        Object rawInstance = instance.getInstance();
         // This is iterating over all methods with the same name but different signatures. If calls to all of them fail
         // then last exception is raised or the last result is returned if not null.
-        for (final APIMethod methodObj : methodObjs) {
+        for (final APIMethod methodObj : getMethodList(parameters, methodObjs)) {
             try {
                 result = null;
                 lastException = null;
-                API api = new API(moduleDescription, methodObj);
-                result = api.call(instance, parameters);
+                API api = new API(description, methodObj);
+                result = api.call(rawInstance, parameters);
                 // If the call was successful then it is returned straight away and there is no need to iterate over
                 // other methods
-                if (!result.wasExceptionRaised()) {
+                if (!result.wasExceptionRaised() || result.isCloudException() || result.isNotImplementedException()) {
                     return result;
                 }
             } catch (APICallException exception) {
@@ -86,61 +87,74 @@ public class APICaller {
         if (result != null) {
             return result;
         }
+        if (lastException == null) {
+            result = new APIMethodResult();
+            result.setAllowed(false);
+            return result;
+        }
         // If the call was not successful and hence, an exception was raised, then it is thrown.
         throw lastException;
     }
 
-    public APIModule retrieveModuleDescription(String moduleName) throws UnknownAPIException {
-        if (moduleName == null || sdk == null) {
-            throwUnknownModule(moduleName);
+    private List<APIMethod> getMethodList(Map<String, Object> parameters, final List<APIMethod> methodObjs) {
+        List<APIMethod> list = methodObjs.stream()
+                                         .filter(m -> parameters == null || parameters.isEmpty() ? true
+                                                                                                 : m.hasArguments())
+                                         .collect(Collectors.toList());
+        return list;
+    }
+
+    public TestedItem retrieveDescription(TestedItemType type, String itemName) throws UnknownAPIException {
+        if (itemName == null || sdk == null || type == null) {
+            throwUnknownItem(itemName);
         }
-        APIModule moduleObj = sdk.getModule(moduleName);
-        if (moduleObj == null) {
-            throwUnknownModule(moduleName);
+        TestedItem item = sdk.getItem(type, itemName);
+        if (item == null) {
+            throwUnknownItem(itemName);
         }
-        return moduleObj;
+        return item;
     }
 
-    private static void throwUnknownAPI(String module, String method) throws UnknownAPIException {
-        throw new UnknownAPIException("no such method [" + String.valueOf(method) + "] on module ["
-                                      + String.valueOf(module) + "]");
+    private static void throwUnknownAPI(String item, String method) throws UnknownAPIException {
+        throw new UnknownAPIException("no such method [" + String.valueOf(method) + "] on item [" + String.valueOf(item)
+                                      + "]");
     }
 
-    private static void throwUnknownModule(String module) throws UnknownAPIException {
-        throw new UnknownAPIException("SDK module [" + String.valueOf(module) + "] could not be found");
+    private static void throwUnknownItem(String item) throws UnknownAPIException {
+        throw new UnknownAPIException("SDK item [" + String.valueOf(item) + "] could not be found");
     }
 
-    private static void throwMissingModule(APIModule module) throws UnknownAPIException {
-        throw new UnknownAPIException("Requested SDK module was not instantiated properly [" + String.valueOf(module)
+    private static void throwMissingItem(TestedItem item) throws UnknownAPIException {
+        throw new UnknownAPIException("Requested SDK item was not instantiated properly [" + String.valueOf(item)
                                       + "].");
     }
 
-    private static void throwAPICallException(APIModule module, APIMethod method, Exception e) throws APICallException {
+    private static void throwAPICallException(TestedItem item, APIMethod method, Exception e) throws APICallException {
         throw new APICallException("Error occurred when calling method [" + String.valueOf(method.getName())
-                                   + "] on module [" + String.valueOf(module.getSimpleName()) + "]. "
+                                   + "] on item [" + String.valueOf(item.getSimpleName()) + "]. "
                                    + String.valueOf((e == null) ? "Unknown reason"
                                                                 : (e.getMessage() == null) ? "Type: " + e.toString()
                                                                                            : e.getMessage()));
     }
 
     private static class API {
-        private APIModule module;
+        private TestedItem item;
         private APIMethod method;
 
-        public API(APIModule module, APIMethod method) {
+        public API(TestedItem item, APIMethod method) {
             super();
-            this.module = module;
+            this.item = item;
             this.method = method;
         }
 
-        public APIMethodResult call(Object moduleInstance, Map<String, Object> parameters) throws APICallException {
+        public APIMethodResult call(Object instance, Map<String, Object> parameters) throws APICallException {
             Map<String, Map<String, Object>> argDescription = determineArgumentJsonValues(parameters);
             try {
-                return method.invokeAPI(moduleInstance, argDescription);
+                return method.invokeAPI(instance, argDescription);
             } catch (NoSuchMethodException | SecurityException | ClassNotFoundException | IllegalAccessException
                      | IllegalArgumentException | InvocationTargetException e) {
-                // e.printStackTrace();
-                throwAPICallException(module, method, e);
+                e.printStackTrace();
+                throwAPICallException(item, method, e);
             }
             return null;
         }
@@ -209,7 +223,7 @@ public class APICaller {
             if (!(subMap instanceof Map)) {
                 // The parameter must be a Json primitive
                 if (subMap != null && !Utils.isPrimitiveOrWrapperType(subMap.getClass())) {
-                    throwAPICallException(module, method,
+                    throwAPICallException(item, method,
                                           new Exception("Incorrect argument type [" + String.valueOf(subMap) + "]."));
                 }
                 // In the special case of dates, we try to parse the ISO String representation
@@ -229,6 +243,11 @@ public class APICaller {
             return (Map<String, Object>) subMap;
         }
 
+        @Override
+        public String toString() {
+            return "API [item=" + item + ", method=" + method + "]";
+        }
+
     }
 
     // Class to keep track of parameters passed by tests
@@ -236,7 +255,6 @@ public class APICaller {
         private final Map<String, Object> parameters;
         private final Map<String, Boolean> unused;
 
-        @SuppressWarnings("boxing")
         public TestParameters(Map<String, Object> parameters) {
             super();
             this.parameters = (parameters == null) ? new HashMap<>() : parameters;

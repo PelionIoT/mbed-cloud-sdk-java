@@ -40,7 +40,8 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     @Override
     public CertificateIssuerListDao clone() {
         try {
-            return new CertificateIssuerListDao().configureAndGet(module == null ? null : module.clone());
+            return new CertificateIssuerListDao().configureAndGet(getModuleOrThrow() == null ? null
+                                                                                             : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
@@ -55,7 +56,7 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     @Internal
     @SuppressWarnings("unchecked")
     public CertificateIssuerDao getCorrespondingModelDao() throws MbedCloudException {
-        return new CertificateIssuerDao().configureAndGet(module);
+        return new CertificateIssuerDao().configureAndGet(getModuleOrThrow());
     }
 
     /**
@@ -79,6 +80,19 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     @Internal
     protected CertificateIssuerListOptions instantiateListOptions() {
         return new CertificateIssuerListOptions();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
     }
 
     /**
@@ -108,19 +122,6 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     }
 
     /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
-    }
-
-    /**
      * Lists certificate issuers matching filter options.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#listCertificateIssuers(CertificateIssuerListOptions)}
@@ -132,7 +133,6 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     @Override
     protected ListResponse<CertificateIssuer>
               requestOnePage(CertificateIssuerListOptions options) throws MbedCloudException {
-        checkDaoConfiguration();
-        return ((Security) module).listCertificateIssuers(options);
+        return ((Security) getModuleOrThrow()).listCertificateIssuers(options);
     }
 }

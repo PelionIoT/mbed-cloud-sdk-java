@@ -11,6 +11,8 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
  */
 @Preamble(description = "Definition of a Pelion SDK's context")
 public interface SdkContext extends Closeable, Cloneable {
+    String METHOD_GET_MODULE_NAME = "getModuleName";
+    String METHOD_GET_API_METADATA = "getLastApiMetadata";
 
     /**
      * Gets SDK logger.
@@ -35,7 +37,7 @@ public interface SdkContext extends Closeable, Cloneable {
     ConnectionOptions getConnectionOption();
 
     /**
-     * Gets meta data for the last Arm Mbed Cloud API call.
+     * Gets meta data for the last Pelion Cloud API call.
      *
      * @see ApiMetadata
      * @return metadata

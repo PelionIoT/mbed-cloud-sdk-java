@@ -136,8 +136,7 @@ public class NotificationListener extends WebSocketListener {
 
     private String generateLoggingMessageMetadata(String string) {
         final StringBuilder builder = new StringBuilder(30);
-        builder.append("Notification [thread: ").append(Thread.currentThread().getId()).append(" - ")
-               .append(Thread.currentThread().getName()).append("] ").append(string);
+        builder.append("Notification - ").append(string);
         return builder.toString();
     }
 

@@ -98,6 +98,16 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
     }
 
     @Override
+    public Paginator<T> list(U options) throws MbedCloudException {
+        return getPaginator(options);
+    }
+
+    @Override
+    public Paginator<T> list() throws MbedCloudException {
+        return getPaginator();
+    }
+
+    @Override
     public IdPaginator idsPaginator(U listOptions) throws MbedCloudException {
         setListOptions(listOptions);
         return idsPaginator();

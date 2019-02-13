@@ -42,7 +42,7 @@ public abstract class AbstractCertificateEnrollmentListDao extends
     @Internal
     @SuppressWarnings("unchecked")
     public CertificateEnrollmentDao getCorrespondingModelDao() throws MbedCloudException {
-        return new CertificateEnrollmentDao().configureAndGet(module);
+        return new CertificateEnrollmentDao().configureAndGet(getModuleOrThrow());
     }
 
     /**
@@ -71,6 +71,19 @@ public abstract class AbstractCertificateEnrollmentListDao extends
     /**
      * Instantiates modules.
      * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -92,18 +105,5 @@ public abstract class AbstractCertificateEnrollmentListDao extends
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
     }
 }

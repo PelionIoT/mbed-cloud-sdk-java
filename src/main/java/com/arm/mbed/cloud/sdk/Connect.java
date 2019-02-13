@@ -323,6 +323,7 @@ public class Connect extends AbstractModule {
     }
 
     @Override
+    @API
     public void close() {
         super.close();
         try {
