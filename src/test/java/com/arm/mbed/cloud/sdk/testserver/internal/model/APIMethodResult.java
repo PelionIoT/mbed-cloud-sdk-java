@@ -3,8 +3,7 @@ package com.arm.mbed.cloud.sdk.testserver.internal.model;
 import java.lang.reflect.InvocationTargetException;
 
 import com.arm.mbed.cloud.sdk.common.ApiMetadata;
-import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.NotImplementedException;
+import com.arm.mbed.cloud.sdk.common.ApiUtils;
 
 public class APIMethodResult {
 
@@ -80,13 +79,15 @@ public class APIMethodResult {
     }
 
     public boolean isCloudException() {
-        return wasExceptionRaised()
-               && (exception instanceof MbedCloudException || exception.getCause() instanceof MbedCloudException);
+        return wasExceptionRaised() && ApiUtils.isCloudException(exception);
+    }
+
+    public boolean isParameterException() {
+        return wasExceptionRaised() && ApiUtils.isParameterErrorException(exception);
     }
 
     public boolean isNotImplementedException() {
-        return wasExceptionRaised() && (exception instanceof NotImplementedException
-                                        || exception.getCause() instanceof NotImplementedException);
+        return wasExceptionRaised() && ApiUtils.isNotImplementedException(exception);
     }
 
 }

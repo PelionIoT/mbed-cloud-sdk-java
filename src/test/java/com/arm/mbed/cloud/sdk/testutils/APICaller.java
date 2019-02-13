@@ -76,7 +76,8 @@ public class APICaller {
                 result = api.call(rawInstance, parameters);
                 // If the call was successful then it is returned straight away and there is no need to iterate over
                 // other methods
-                if (!result.wasExceptionRaised() || result.isCloudException() || result.isNotImplementedException()) {
+                if (!result.wasExceptionRaised() || (result.isCloudException() && !result.isParameterException())
+                    || result.isNotImplementedException()) {
                     return result;
                 }
             } catch (APICallException exception) {
