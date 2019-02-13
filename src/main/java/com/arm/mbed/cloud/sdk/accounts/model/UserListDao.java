@@ -42,8 +42,7 @@ public class UserListDao extends AbstractUserListDao {
     /**
      * Lists users matching filter options.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.User#listUsers(String,String,String,String,String,UserListOptions)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#listUsers(String,String,String,String,String,UserListOptions)}
      * 
      * @param options
      *            list options.

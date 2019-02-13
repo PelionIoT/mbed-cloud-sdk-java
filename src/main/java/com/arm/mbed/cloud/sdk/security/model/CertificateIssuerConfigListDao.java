@@ -27,7 +27,7 @@ public class CertificateIssuerConfigListDao extends AbstractCertificateIssuerCon
      * Lists certificate issuer configs matching filter options.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig#listCertificateIssuerConfigs(String,CertificateIssuerConfigListOptions)}
+     * {@link com.arm.mbed.cloud.sdk.Security#listCertificateIssuerConfigs(String,CertificateIssuerConfigListOptions)}
      * 
      * @param options
      *            list options.

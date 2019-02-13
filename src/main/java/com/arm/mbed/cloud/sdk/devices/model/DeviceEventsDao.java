@@ -123,4 +123,29 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Devices(options);
     }
+
+    /**
+     * Gets a device events.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEvents(DeviceEvents)}
+     */
+    @Override
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Devices) module).getDeviceEvents(getModel()));
+    }
+
+    /**
+     * Gets a device events.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEvents(String)}
+     * 
+     * @param id
+     *            null
+     */
+    @Override
+    public void read(@NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Devices) module).getDeviceEvents(id));
+    }
 }

@@ -1,7 +1,7 @@
 /**
  * Model objects.
  * <p>
- * Note: Deprecated. Use {@Code devices} package instead.
+ * Note: Deprecated. Use {@code devices} package instead.
  */
 @Preamble(description = "Model objects for Device Directory module")
 @Deprecated

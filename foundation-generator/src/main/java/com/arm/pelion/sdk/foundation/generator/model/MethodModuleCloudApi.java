@@ -134,12 +134,19 @@ public class MethodModuleCloudApi extends MethodOverloaded {
                                                             .filter(arg -> parameterName.equals(arg.getIdentifier()))
                                                             .findFirst().orElse(p.clone());
                         newP.setAsNullable(!newP.isSetAsNonNull()).setName(parameterName);
+                        if (isLowLevelDateType(newP.getType())) {
+                            newP.setType(TypeFactory.dateType());
+                        }
                         extendedMethodParameters.add(newP);
                     }
                 }
             });
         }
         return extendedMethodParameters;
+    }
+
+    private static boolean isLowLevelDateType(TypeParameter type) {
+        return type.isJodaDate() || type.isJodaTime();
     }
 
     protected static boolean doesParameterExist(List<Parameter> extendedMethodParameters, final String parameterName) {

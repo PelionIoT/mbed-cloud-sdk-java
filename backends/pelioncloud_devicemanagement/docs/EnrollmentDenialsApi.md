@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 Return list of devices which were denied to bootstrap due to being subjected to blacklisting.
 
-This produces a list of failed attempts to bootstrap using a particular certificate which is blacklisted (trusted_certificate). Returned list can be filtered by endpoint name or trusted certificate.  **Example usage:** &#x60;&#x60;&#x60; curl -X GET -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate__eq&#x3D;{cert-id}&amp;endpoint_name__eq&#x3D;{endpoint_name} &#x60;&#x60;&#x60; 
+This produces a list of failed attempts to bootstrap using a particular certificate which is blacklisted (trusted_certificate). Returned list can be filtered by endpoint name. Trusted certificate ID filter is required.  **Example usage:** &#x60;&#x60;&#x60; curl -X GET -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate_id__eq&#x3D;{cert-id}&amp;endpoint_name__eq&#x3D;{endpoint_name} &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -91,7 +91,7 @@ Bearer.setApiKey("YOUR API KEY");
 EnrollmentDenialsApi apiInstance = new EnrollmentDenialsApi();
 String trustedCertificateIdEq = "trustedCertificateIdEq_example"; // String | filtering based on trusted certificate id
 String endpointNameEq = "endpointNameEq_example"; // String | filtering based on endpoint name
-String after = "after_example"; // String | Optional parameter for pagination.
+String after = "after_example"; // String | Optional parameter for pagination. Denied device ID.
 String order = "order_example"; // String | Optional parameter for pagination.
 Integer limit = 56; // Integer | Optional parameter for pagination.
 try {
@@ -107,9 +107,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **trustedCertificateIdEq** | **String**| filtering based on trusted certificate id | [optional]
+ **trustedCertificateIdEq** | **String**| filtering based on trusted certificate id |
  **endpointNameEq** | **String**| filtering based on endpoint name | [optional]
- **after** | **String**| Optional parameter for pagination. | [optional]
+ **after** | **String**| Optional parameter for pagination. Denied device ID. | [optional]
  **order** | **String**| Optional parameter for pagination. | [optional] [enum: ASC, DESC]
  **limit** | **Integer**| Optional parameter for pagination. | [optional]
 

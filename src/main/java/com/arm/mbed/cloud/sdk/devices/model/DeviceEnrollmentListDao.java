@@ -124,8 +124,7 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     /**
      * Lists device enrollments matching filter options.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#listDeviceEnrollments(DeviceEnrollmentListOptions)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#listDeviceEnrollments(DeviceEnrollmentListOptions)}
      * 
      * @param options
      *            list options.

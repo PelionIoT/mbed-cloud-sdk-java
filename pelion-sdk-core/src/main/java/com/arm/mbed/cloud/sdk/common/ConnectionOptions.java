@@ -26,6 +26,27 @@ public class ConnectionOptions implements Cloneable, Serializable {
      */
     public static final String ENVIRONMENT_VARIABLE_API_KEY = "MBED_CLOUD_SDK_API_KEY";
     /**
+     * Environment variable for forcing the removal of notification channels on start.
+     * <p>
+     * Warning: this can destroy existing channels so should not be used in development, but useful for production
+     * deployments where service restarts should be automated.
+     */
+    public static final String ENVIRONMENT_VARIABLE_NOTIFICATION_CHANNEL_FORCE_CLEAR = "NOTIFICATION_CHANNEL_FORCE_CLEAR";
+    /**
+     * Environment variable for skipping any clean-up regarding notifications on exit.
+     * <p>
+     * Warning: this will leave residual state for channels and subscriptions so should be used with care in
+     * development, but useful for production deployments to reduce the overhead or restart the service.
+     */
+    public static final String ENVIRONMENT_VARIABLE_NOTIFICATION_CHANNEL_SKIP_CLEANUP = "NOTIFICATION_CHANNEL_SKIP_CLEANUP";
+    /**
+     * Environment variable for starting automatically notification listening daemon threads.
+     * <p>
+     * Note: for systems using server initiated notification mode, this should be disabled.
+     */
+    public static final String ENVIRONMENT_VARIABLE_NOTIFICATION_CHANNEL_AUTOSTART = "NOTIFICATION_CHANNEL_AUTOSTART";
+
+    /**
      * Serialisation Id.
      */
     private static final long serialVersionUID = -7143679922351151624L;
@@ -36,6 +57,10 @@ public class ConnectionOptions implements Cloneable, Serializable {
     private TimePeriod requestTimeout;
     @DefaultValue(value = "TRUE")
     private boolean autostartDaemon;
+    @DefaultValue(value = "FALSE")
+    private boolean forceClear;
+    @DefaultValue(value = "FALSE")
+    private boolean skipCleanup;
     private final transient Dotenv dotenv;
 
     /**
@@ -75,6 +100,8 @@ public class ConnectionOptions implements Cloneable, Serializable {
         setApiKey(apiKey);
         setHost(host);
         setAutostartDaemon(true);
+        setForceClear(false);
+        setSkipCleanup(false);
         setClientLogLevel((String) null);
     }
 
@@ -314,8 +341,17 @@ public class ConnectionOptions implements Cloneable, Serializable {
      * @param autostartDaemon
      *            autostart mode for the daemon.
      */
-    public void setAutostartDaemon(boolean autostartDaemon) {
-        this.autostartDaemon = autostartDaemon;
+    public void setAutostartDaemon(@DefaultValue(value = "TRUE") boolean autostartDaemon) {
+        if (!autostartDaemon) {
+            this.autostartDaemon = autostartDaemon;
+            return;
+        }
+        final String autoStartEnv = dotenv.get(ENVIRONMENT_VARIABLE_NOTIFICATION_CHANNEL_AUTOSTART);
+        if (autoStartEnv == null) {
+            this.autostartDaemon = autostartDaemon;
+            return;
+        }
+        this.autostartDaemon = Boolean.parseBoolean(autoStartEnv.trim());
     }
 
     /**
@@ -327,9 +363,135 @@ public class ConnectionOptions implements Cloneable, Serializable {
      *            mode to apply.
      * @return these connection options.
      */
-    public ConnectionOptions autostartDaemon(boolean autostartDaemonMode) {
+    public ConnectionOptions autostartDaemon(@DefaultValue(value = "TRUE") boolean autostartDaemonMode) {
         setAutostartDaemon(autostartDaemonMode);
         return this;
+    }
+
+    /**
+     * Sets autostart daemon mode to true.
+     * <p>
+     * Note: Similar to {@link #autostartDaemon(boolean)}
+     *
+     * @return these connection options.
+     */
+    public ConnectionOptions autostartDaemon() {
+        return autostartDaemon(true);
+    }
+
+    /**
+     * States whether any existing notification channel should be cleared before a new one is created.
+     *
+     * @return True if the channel will be cleared. False otherwise.
+     */
+    public boolean isForceClear() {
+        return forceClear;
+    }
+
+    /**
+     * Sets whether any existing notification channel should be cleared before a new one is created.
+     * <p>
+     * Warning: This flag should only be set to True with caution and in automated environments such as server-side
+     * applications where service restart is automated. It will indeed remove any existing notification channel.
+     * 
+     * @param forceClear
+     *            True if the channel should be cleared. False otherwise.
+     */
+    public void setForceClear(@DefaultValue(value = "FALSE") boolean forceClear) {
+        if (forceClear) {
+            this.forceClear = forceClear;
+            return;
+        }
+        final String forceClearEnv = dotenv.get(ENVIRONMENT_VARIABLE_NOTIFICATION_CHANNEL_FORCE_CLEAR);
+        if (forceClearEnv == null) {
+            this.forceClear = forceClear;
+            return;
+        }
+        this.forceClear = Boolean.parseBoolean(forceClearEnv.trim());
+    }
+
+    /**
+     * Ensures that any notification channel is cleared before one is created.
+     * <p>
+     * Warning: this flag should only be used with caution in automated/production environments such as server-side
+     * applications where service restart is automated.
+     * 
+     * @return these connection options.
+     */
+    public ConnectionOptions forceClear() {
+        return forceClear(true);
+    }
+
+    /**
+     * Sets whether any existing notification channel should be cleared before a new one is created.
+     * <p>
+     * Note: Similar to {@link ConnectionOptions#setForceClear(boolean)}
+     * 
+     * @param forceClear
+     *            True if the channel should be cleared. False otherwise.
+     * @return these connection options.
+     */
+    public ConnectionOptions forceClear(@DefaultValue(value = "FALSE") boolean forceClear) {
+        setForceClear(forceClear);
+        return this;
+    }
+
+    /**
+     * States whether any existing notification channel and subscriptions will not be cleared on SDK exit.
+     * 
+     * @return True if the clean-up will be skipped. False otherwise.
+     */
+    public boolean isSkipCleanup() {
+        return skipCleanup;
+    }
+
+    /**
+     * Sets whether any existing notification channel and subscriptions should not be cleared on SDK exit.
+     * <p>
+     * Warning: This flag should only be set to True with caution and in automated environments such as server-side
+     * applications where service restart is automated. Cleanup on exit would indeed create some overhead on restart.
+     * 
+     * @param skipCleanup
+     *            True if clean-up should be skipped. False otherwise.
+     */
+    public void setSkipCleanup(@DefaultValue(value = "FALSE") boolean skipCleanup) {
+        if (skipCleanup) {
+            this.skipCleanup = skipCleanup;
+            return;
+        }
+        final String skipCleanupEnv = dotenv.get(ENVIRONMENT_VARIABLE_NOTIFICATION_CHANNEL_SKIP_CLEANUP);
+        if (skipCleanupEnv == null) {
+            this.skipCleanup = skipCleanup;
+            return;
+        }
+        this.skipCleanup = Boolean.parseBoolean(skipCleanupEnv.trim());
+    }
+
+    /**
+     * Sets whether any existing notification channel and subscriptions should not be cleared on SDK exit.
+     * 
+     * <p>
+     * Note: Similar to {@link #setSkipCleanup(boolean)}
+     * 
+     * @param skipCleanup
+     *            True if clean-up should be skipped. False otherwise.
+     * @return these connection options.
+     */
+    public ConnectionOptions skipCleanup(@DefaultValue(value = "FALSE") boolean skipCleanup) {
+        setSkipCleanup(skipCleanup);
+        return this;
+    }
+
+    /**
+     * Ensures that any clean-up is skipped on SDK exit.
+     * <p>
+     * Warning: this flag should only be used with caution in automated/production environments such as server-side
+     * applications where service restart is automated.
+     * 
+     * @return these connection options.
+     */
+    public ConnectionOptions skipCleanup() {
+        return skipCleanup(true);
     }
 
     /**
@@ -342,6 +504,8 @@ public class ConnectionOptions implements Cloneable, Serializable {
         final ConnectionOptions options = new ConnectionOptions(apiKey, host);
         options.setClientLogLevel(clientLogLevel);
         options.setAutostartDaemon(autostartDaemon);
+        options.setForceClear(forceClear);
+        options.setSkipCleanup(skipCleanup);
         if (hasCustomRequestTimeout()) {
             options.setRequestTimeout(requestTimeout.clone());
         }
@@ -356,28 +520,18 @@ public class ConnectionOptions implements Cloneable, Serializable {
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((apiKey == null) ? 0 : apiKey.hashCode());
         result = prime * result + (autostartDaemon ? 1231 : 1237);
-        result = prime * result + ((clientLogLevel == null) ? 0 : clientLogLevel.hashCode());
+        result = prime * result + (forceClear ? 1231 : 1237);
         result = prime * result + ((host == null) ? 0 : host.hashCode());
-        result = prime * result + ((requestTimeout == null) ? 0 : requestTimeout.hashCode());
+        result = prime * result + (skipCleanup ? 1231 : 1237);
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -400,7 +554,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
         if (autostartDaemon != other.autostartDaemon) {
             return false;
         }
-        if (clientLogLevel != other.clientLogLevel) {
+        if (forceClear != other.forceClear) {
             return false;
         }
         if (host == null) {
@@ -410,25 +564,17 @@ public class ConnectionOptions implements Cloneable, Serializable {
         } else if (!host.equals(other.host)) {
             return false;
         }
-        if (requestTimeout == null) {
-            if (other.requestTimeout != null) {
-                return false;
-            }
-        } else if (!requestTimeout.equals(other.requestTimeout)) {
+        if (skipCleanup != other.skipCleanup) {
             return false;
         }
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return "ConnectionOptions [host=" + host + ", clientLogLevel=" + clientLogLevel + ", requestTimeout="
-               + requestTimeout + ", autostartDaemon=" + autostartDaemon + "]";
+               + requestTimeout + ", autostartDaemon=" + autostartDaemon + ", forceClear=" + forceClear
+               + ", skipCleanup=" + skipCleanup + "]";
     }
 
 }

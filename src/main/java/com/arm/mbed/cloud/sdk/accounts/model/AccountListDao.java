@@ -43,7 +43,7 @@ public class AccountListDao extends AbstractAccountListDao {
      * Lists accounts matching filter options.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.Account#listAccounts(String,String,String,String,String,String,String,String,String,AccountListOptions)}
+     * {@link com.arm.mbed.cloud.sdk.Accounts#listAccounts(String,String,String,String,String,String,String,String,String,AccountListOptions)}
      * 
      * @param options
      *            list options.

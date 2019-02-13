@@ -39,8 +39,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
     /**
      * Adds a subtenant user invitation.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#createSubtenantUserInvitation(int,SubtenantUserInvitation)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(int,SubtenantUserInvitation)}
      * 
      * @param validForDays
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
@@ -56,7 +55,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * Adds a subtenant user invitation.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#createSubtenantUserInvitation(int,String,SubtenantUserInvitation)}
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(int,String,SubtenantUserInvitation)}
      * 
      * @param validForDays
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
@@ -74,8 +73,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
     /**
      * Deletes a subtenant user invitation.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#deleteSubtenantUserInvitation(SubtenantUserInvitation)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUserInvitation(SubtenantUserInvitation)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -85,8 +83,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
     /**
      * Deletes a subtenant user invitation.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#deleteSubtenantUserInvitation(SubtenantUserInvitation)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUserInvitation(SubtenantUserInvitation)}
      * 
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
@@ -100,8 +97,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
     /**
      * Deletes a subtenant user invitation.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation#deleteSubtenantUserInvitation(String,String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUserInvitation(String,String)}
      * 
      * @param accountId
      *            Account ID.
@@ -191,5 +187,31 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Accounts(options);
+    }
+
+    /**
+     * Gets a subtenant user invitation.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getSubtenantUserInvitation(SubtenantUserInvitation)}
+     */
+    @Override
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Accounts) module).getSubtenantUserInvitation(getModel()));
+    }
+
+    /**
+     * Gets a subtenant user invitation.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getSubtenantUserInvitation(String,String)}
+     * 
+     * @param accountId
+     *            The ID of the account the user is invited to.
+     * @param id
+     *            The ID of the invitation.
+     */
+    public void read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Accounts) module).getSubtenantUserInvitation(accountId, id));
     }
 }

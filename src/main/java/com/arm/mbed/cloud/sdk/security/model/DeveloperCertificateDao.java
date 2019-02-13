@@ -53,10 +53,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     /**
      * Adds a developer certificate.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#createDeveloperCertificate(DeveloperCertificate)}
-     * 
-     * @return an added developer certificate
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#createDeveloperCertificate(DeveloperCertificate)}
      */
     @Override
     public DeveloperCertificate create() throws MbedCloudException {
@@ -67,8 +64,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     /**
      * Adds a developer certificate.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#createDeveloperCertificate(DeveloperCertificate)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#createDeveloperCertificate(DeveloperCertificate)}
      * 
      * @param developerCertificate
      *            a developer certificate.
@@ -83,8 +79,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     /**
      * Deletes a developer certificate.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#deleteDeveloperCertificate(DeveloperCertificate)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteDeveloperCertificate(DeveloperCertificate)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -94,8 +89,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     /**
      * Deletes a developer certificate.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#deleteDeveloperCertificate(DeveloperCertificate)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteDeveloperCertificate(DeveloperCertificate)}
      * 
      * @param developerCertificate
      *            a developer certificate.
@@ -109,7 +103,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     /**
      * Deletes a developer certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#deleteDeveloperCertificate(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteDeveloperCertificate(String)}
      * 
      * @param id
      *            The ID of the trusted certificate to be deleted.
@@ -152,8 +146,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * Get trusted certificate by ID.
      * 
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#getTrustedCertificateInfo(DeveloperCertificate)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificateInfo(DeveloperCertificate)}
      * 
      * @return something
      */
@@ -165,7 +158,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * Get trusted certificate by ID.
      * 
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate#getTrustedCertificateInfo(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificateInfo(String)}
      * 
      * @param id
      *            Entity ID.
@@ -223,5 +216,30 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Security(options);
+    }
+
+    /**
+     * Gets a developer certificate.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificate(DeveloperCertificate)}
+     */
+    @Override
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Security) module).getDeveloperCertificate(getModel()));
+    }
+
+    /**
+     * Gets a developer certificate.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificate(String)}
+     * 
+     * @param id
+     *            mUUID that uniquely identifies the developer certificate.
+     */
+    @Override
+    public void read(@NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Security) module).getDeveloperCertificate(id));
     }
 }

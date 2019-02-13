@@ -159,8 +159,8 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     }
 
     public boolean getJavaDefaultBooleanValue() {
-        if (type.isBoolean()) {
-            return hasDefaultValue() ? Boolean.valueOf(defaultValue) : false;
+        if (type.isBoolean() && hasDefaultValue()) {
+            return Boolean.valueOf(defaultValue).booleanValue();
         }
         return false;
     }
@@ -238,8 +238,8 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         this.initialiser = initialiser;
     }
 
-    public Field initialiser(String initialiser) {
-        setInitialiser(initialiser);
+    public Field initialiser(String initialiserValue) {
+        setInitialiser(initialiserValue);
         return this;
     }
 

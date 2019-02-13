@@ -4,7 +4,6 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Calendar;
-import java.util.Date;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -375,7 +374,7 @@ public class TypeParameter implements Artifact {
     public boolean isDate() {
         try {
             translate();
-            return hasClazz() ? Date.class.isAssignableFrom(getClazz()) : false;
+            return hasClazz() ? TypePrimitive.SDK_DATE_CLASS.isAssignableFrom(getClazz()) : false;
         } catch (TranslationException exception) {
             return false;
         }
@@ -531,5 +530,4 @@ public class TypeParameter implements Artifact {
         return "ParameterType [importPath=" + importPath + ", clazz=" + clazz + ", typeName=" + typeName + ", type="
                + type + ", format=" + format + "]";
     }
-
 }

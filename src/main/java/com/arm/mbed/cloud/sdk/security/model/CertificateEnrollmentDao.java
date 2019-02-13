@@ -125,4 +125,29 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Security(options);
     }
+
+    /**
+     * Gets a certificate enrollment.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateEnrollment(CertificateEnrollment)}
+     */
+    @Override
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Security) module).getCertificateEnrollment(getModel()));
+    }
+
+    /**
+     * Gets a certificate enrollment.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateEnrollment(String)}
+     * 
+     * @param id
+     *            The ID of the certificate enrollment.
+     */
+    @Override
+    public void read(@NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Security) module).getCertificateEnrollment(id));
+    }
 }

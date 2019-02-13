@@ -43,8 +43,7 @@ public class UserInvitationListDao extends AbstractUserInvitationListDao {
     /**
      * Lists user invitations matching filter options.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#listUserInvitations(String,UserInvitationListOptions)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#listUserInvitations(String,UserInvitationListOptions)}
      * 
      * @param options
      *            list options.

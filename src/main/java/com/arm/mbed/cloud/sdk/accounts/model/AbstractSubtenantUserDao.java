@@ -36,7 +36,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     /**
      * Adds a subtenant user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#createSubtenantUser(String,SubtenantUser)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUser(String,SubtenantUser)}
      * 
      * @param action
      *            Create or invite user.
@@ -50,8 +50,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     /**
      * Adds a subtenant user.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#createSubtenantUser(String,String,SubtenantUser)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUser(String,String,SubtenantUser)}
      * 
      * @param action
      *            Create or invite user.
@@ -68,7 +67,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     /**
      * Deletes a subtenant user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#deleteSubtenantUser(SubtenantUser)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUser(SubtenantUser)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -78,7 +77,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     /**
      * Deletes a subtenant user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#deleteSubtenantUser(SubtenantUser)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUser(SubtenantUser)}
      * 
      * @param subtenantUser
      *            a subtenant user.
@@ -92,7 +91,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     /**
      * Deletes a subtenant user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#deleteSubtenantUser(String,String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUser(String,String)}
      * 
      * @param accountId
      *            Account ID.
@@ -183,11 +182,35 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     }
 
     /**
+     * Gets a subtenant user.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getSubtenantUser(SubtenantUser)}
+     */
+    @Override
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Accounts) module).getSubtenantUser(getModel()));
+    }
+
+    /**
+     * Gets a subtenant user.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getSubtenantUser(String,String)}
+     * 
+     * @param accountId
+     *            The ID of the account.
+     * @param id
+     *            The ID of the user.
+     */
+    public void read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Accounts) module).getSubtenantUser(accountId, id));
+    }
+
+    /**
      * Modifies a subtenant user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#updateSubtenantUser(SubtenantUser)}
-     * 
-     * @return something
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateSubtenantUser(SubtenantUser)}
      */
     @Override
     public SubtenantUser update() throws MbedCloudException {
@@ -198,7 +221,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     /**
      * Modifies a subtenant user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#updateSubtenantUser(SubtenantUser)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateSubtenantUser(SubtenantUser)}
      * 
      * @param subtenantUser
      *            a subtenant user.
@@ -213,8 +236,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     /**
      * Modifies a subtenant user.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#updateSubtenantUser(String,String,SubtenantUser)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateSubtenantUser(String,String,SubtenantUser)}
      * 
      * @param accountId
      *            The ID of the account.
@@ -231,7 +253,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * Validate the user email.
      * 
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#validateEmail(SubtenantUser)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#validateEmail(SubtenantUser)}
      */
     public void validateEmail() throws MbedCloudException {
         ((Accounts) getModuleOrThrow()).validateEmail(getModel());
@@ -241,7 +263,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * Validate the user email.
      * 
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser#validateEmail(String,String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#validateEmail(String,String)}
      * 
      * @param accountId
      *            Account ID.

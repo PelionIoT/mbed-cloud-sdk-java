@@ -37,8 +37,7 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     /**
      * Deletes a device enrollment bulk delete.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDelete#deleteDeviceEnrollmentBulkDelete(DataFile)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollmentBulkDelete(DataFile)}
      * 
      * @param enrollmentIdentities
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
@@ -127,5 +126,30 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Devices(options);
+    }
+
+    /**
+     * Gets a device enrollment bulk delete.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollmentBulkDelete(DeviceEnrollmentBulkDelete)}
+     */
+    @Override
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Devices) module).getDeviceEnrollmentBulkDelete(getModel()));
+    }
+
+    /**
+     * Gets a device enrollment bulk delete.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollmentBulkDelete(String)}
+     * 
+     * @param id
+     *            Bulk ID.
+     */
+    @Override
+    public void read(@NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Devices) module).getDeviceEnrollmentBulkDelete(id));
     }
 }

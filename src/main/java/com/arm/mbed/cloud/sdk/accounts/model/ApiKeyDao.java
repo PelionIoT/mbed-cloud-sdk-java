@@ -48,9 +48,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Adds an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#createApiKey(ApiKey)}
-     * 
-     * @return an added api key
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createApiKey(ApiKey)}
      */
     @Override
     public ApiKey create() throws MbedCloudException {
@@ -61,7 +59,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Adds an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#createApiKey(ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createApiKey(ApiKey)}
      * 
      * @param apiKey
      *            an api key.
@@ -76,7 +74,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Deletes an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#deleteApiKey(ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteApiKey(ApiKey)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -86,7 +84,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Deletes an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#deleteApiKey(ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteApiKey(ApiKey)}
      * 
      * @param apiKey
      *            an api key.
@@ -100,7 +98,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Deletes an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#deleteApiKey(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteApiKey(String)}
      * 
      * @param id
      *            The ID of the API key to be deleted.
@@ -191,9 +189,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Gets my api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#myApiKey()}
-     * 
-     * @return something
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#myApiKey()}
      */
     @SuppressWarnings("PMD.ShortMethodName")
     public ApiKey me() throws MbedCloudException {
@@ -202,11 +198,34 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     }
 
     /**
+     * Gets an api key.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getApiKey(ApiKey)}
+     */
+    @Override
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Accounts) module).getApiKey(getModel()));
+    }
+
+    /**
+     * Gets an api key.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getApiKey(String)}
+     * 
+     * @param id
+     *            The ID of the API key.
+     */
+    @Override
+    public void read(@NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Accounts) module).getApiKey(id));
+    }
+
+    /**
      * Modifies an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#updateApiKey(ApiKey)}
-     * 
-     * @return something
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateApiKey(ApiKey)}
      */
     @Override
     public ApiKey update() throws MbedCloudException {
@@ -217,7 +236,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Modifies an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#updateApiKey(ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateApiKey(ApiKey)}
      * 
      * @param apiKey
      *            an api key.
@@ -232,7 +251,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Modifies an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKey#updateApiKey(String,ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateApiKey(String,ApiKey)}
      * 
      * @param id
      *            The ID of the API key.

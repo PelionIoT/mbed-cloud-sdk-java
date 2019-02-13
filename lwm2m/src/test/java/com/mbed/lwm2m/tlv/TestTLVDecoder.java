@@ -123,6 +123,7 @@ public class TestTLVDecoder {
             resources = TLVDecoder.decodeTlv(buffer, LWM2MResource.class);
         } catch (DecodingException e) {
             fail("Failed because " + e.getMessage());
+            return;
         }
         assertEquals(1, resources.size());
         LWM2MResource resource = resources.get(0);

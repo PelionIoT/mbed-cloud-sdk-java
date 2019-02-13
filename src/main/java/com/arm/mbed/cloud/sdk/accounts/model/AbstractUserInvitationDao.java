@@ -38,7 +38,7 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Adds a user invitation.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#createUserInvitation(int,UserInvitation)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createUserInvitation(int,UserInvitation)}
      * 
      * @param validForDays
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
@@ -53,7 +53,7 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Deletes a user invitation.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#deleteUserInvitation(UserInvitation)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUserInvitation(UserInvitation)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -63,7 +63,7 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Deletes a user invitation.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#deleteUserInvitation(UserInvitation)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUserInvitation(UserInvitation)}
      * 
      * @param userInvitation
      *            a user invitation.
@@ -77,7 +77,7 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Deletes a user invitation.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#deleteUserInvitation(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUserInvitation(String)}
      * 
      * @param id
      *            The ID of the invitation to be deleted.
@@ -163,5 +163,30 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     @Internal
     protected SdkContext instantiateModule(ConnectionOptions options) {
         return new Accounts(options);
+    }
+
+    /**
+     * Gets a user invitation.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getUserInvitation(UserInvitation)}
+     */
+    @Override
+    public void read() throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Accounts) module).getUserInvitation(getModel()));
+    }
+
+    /**
+     * Gets a user invitation.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getUserInvitation(String)}
+     * 
+     * @param id
+     *            The ID of the invitation.
+     */
+    @Override
+    public void read(@NonNull String id) throws MbedCloudException {
+        checkDaoConfiguration();
+        setModel(((Accounts) module).getUserInvitation(id));
     }
 }

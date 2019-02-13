@@ -9,6 +9,7 @@ import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.common.SdkUtils;
 
 @Preamble(description = "Webhook")
 public class Webhook implements SdkModel {
@@ -161,6 +162,40 @@ public class Webhook implements SdkModel {
     @Override
     public boolean isValid() {
         return url != null;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((headers == null) ? 0 : headers.hashCode());
+        result = prime * result + ((url == null) ? 0 : SdkUtils.urlHashcode(url));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Webhook other = (Webhook) obj;
+        if (headers == null) {
+            if (other.headers != null) {
+                return false;
+            }
+        } else if (!headers.equals(other.headers)) {
+            return false;
+        }
+        if (!SdkUtils.urlEquals(url, other.url)) {
+            return false;
+        }
+        return true;
     }
 
     /*
