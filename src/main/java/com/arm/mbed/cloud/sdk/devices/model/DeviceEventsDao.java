@@ -49,7 +49,7 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     /**
      * Gets a device events.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(DeviceEvents)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEvents(DeviceEvents)}
      * 
      * @return something
      */
@@ -62,7 +62,7 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     /**
      * Gets a device events.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEvents#getDeviceEvents(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEvents(String)}
      * 
      * @param id
      *            null
@@ -88,14 +88,14 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
+     * @param options
+     *            a connection options.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Devices(options);
     }
 
     /**
@@ -114,38 +114,13 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     /**
      * Instantiates modules.
      * 
-     * @param options
-     *            a connection options.
+     * @param context
+     *            an sdk context.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
-    }
-
-    /**
-     * Gets a device events.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEvents(DeviceEvents)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEvents(getModel()));
-    }
-
-    /**
-     * Gets a device events.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEvents(String)}
-     * 
-     * @param id
-     *            null
-     */
-    @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEvents(id));
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
     }
 }

@@ -53,6 +53,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * Adds a device enrollment.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(DeviceEnrollment)}
+     * 
+     * @return an added device enrollment
      */
     @Override
     public DeviceEnrollment create() throws MbedCloudException {
@@ -115,7 +117,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     /**
      * Gets a device enrollment.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#getDeviceEnrollment(DeviceEnrollment)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollment(DeviceEnrollment)}
      * 
      * @return something
      */
@@ -128,7 +130,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     /**
      * Gets a device enrollment.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment#getDeviceEnrollment(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollment(String)}
      * 
      * @param id
      *            Enrollment identity.
@@ -154,14 +156,14 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
+     * @param options
+     *            a connection options.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Devices(options);
     }
 
     /**
@@ -180,38 +182,13 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     /**
      * Instantiates modules.
      * 
-     * @param options
-     *            a connection options.
+     * @param context
+     *            an sdk context.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
-    }
-
-    /**
-     * Gets a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollment(DeviceEnrollment)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollment(getModel()));
-    }
-
-    /**
-     * Gets a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollment(String)}
-     * 
-     * @param id
-     *            Enrollment identity.
-     */
-    @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollment(id));
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
     }
 }

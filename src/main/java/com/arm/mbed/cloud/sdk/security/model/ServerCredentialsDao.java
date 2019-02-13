@@ -46,9 +46,11 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
 
     /**
      * Fetch bootstrap server credentials.
-     * 
+     *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getBootstrap()}
+     * 
+     * @return something
      */
     public ServerCredentials getBootstrap() throws MbedCloudException {
         setModel(((Security) getModuleOrThrow()).getBootstrap());
@@ -57,9 +59,11 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
 
     /**
      * Fetch LwM2M server credentials.
-     * 
+     *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getLwm2m()}
+     * 
+     * @return something
      */
     public ServerCredentials getLwm2m() throws MbedCloudException {
         setModel(((Security) getModuleOrThrow()).getLwm2m());
@@ -80,14 +84,14 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
+     * @param options
+     *            a connection options.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
     }
 
     /**
@@ -106,13 +110,13 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     /**
      * Instantiates modules.
      * 
-     * @param options
-     *            a connection options.
+     * @param context
+     *            an sdk context.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
     }
 }

@@ -50,6 +50,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Adds a trusted certificate.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#createTrustedCertificate(TrustedCertificate)}
+     * 
+     * @return an added trusted certificate
      */
     @Override
     public TrustedCertificate create() throws MbedCloudException {
@@ -112,8 +114,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Gets a trusted certificate.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#getTrustedCertificate(TrustedCertificate)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificate(TrustedCertificate)}
      * 
      * @return something
      */
@@ -126,7 +127,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Gets a trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificate#getTrustedCertificate(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificate(String)}
      * 
      * @param id
      *            Entity ID.
@@ -140,7 +141,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     * 
+     *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(TrustedCertificate)}
      * 
@@ -152,7 +153,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     * 
+     *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(String)}
      * 
@@ -178,14 +179,14 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
+     * @param options
+     *            a connection options.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
     }
 
     /**
@@ -204,45 +205,22 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Instantiates modules.
      * 
-     * @param options
-     *            a connection options.
+     * @param context
+     *            an sdk context.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
-    }
-
-    /**
-     * Gets a trusted certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificate(TrustedCertificate)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).getTrustedCertificate(getModel()));
-    }
-
-    /**
-     * Gets a trusted certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificate(String)}
-     * 
-     * @param id
-     *            Entity ID.
-     */
-    @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Security) module).getTrustedCertificate(id));
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
     }
 
     /**
      * Modifies a trusted certificate.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateTrustedCertificate(TrustedCertificate)}
+     * 
+     * @return something
      */
     @Override
     public TrustedCertificate update() throws MbedCloudException {

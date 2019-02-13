@@ -1,32 +1,29 @@
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import org.apache.oltu.oauth2.client.request.OAuthClientRequest.AuthenticationRequestBuilder;
+import org.apache.oltu.oauth2.client.request.OAuthClientRequest.TokenRequestBuilder;
+import org.joda.time.format.DateTimeFormatter;
+import retrofit2.Converter;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.HttpBasicAuth;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.ApiKeyAuth;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.OAuth;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.OAuth.AccessTokenListener;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.apache.oltu.oauth2.client.request.OAuthClientRequest.AuthenticationRequestBuilder;
-import org.apache.oltu.oauth2.client.request.OAuthClientRequest.TokenRequestBuilder;
-import org.joda.time.format.DateTimeFormatter;
-
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.JSON;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.ApiKeyAuth;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.HttpBasicAuth;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.OAuth;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.OAuth.AccessTokenListener;
-import com.google.gson.Gson;
-import com.google.gson.JsonParseException;
-
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Converter;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ApiClient {
 

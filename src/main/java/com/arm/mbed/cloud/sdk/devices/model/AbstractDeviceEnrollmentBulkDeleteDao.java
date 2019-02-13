@@ -51,8 +51,7 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     /**
      * Gets a device enrollment bulk delete.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDelete#getDeviceEnrollmentBulkDelete(DeviceEnrollmentBulkDelete)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollmentBulkDelete(DeviceEnrollmentBulkDelete)}
      * 
      * @return something
      */
@@ -65,8 +64,7 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     /**
      * Gets a device enrollment bulk delete.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDelete#getDeviceEnrollmentBulkDelete(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollmentBulkDelete(String)}
      * 
      * @param id
      *            Bulk ID.
@@ -92,14 +90,14 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
+     * @param options
+     *            a connection options.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Devices(options);
     }
 
     /**
@@ -118,38 +116,13 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     /**
      * Instantiates modules.
      * 
-     * @param options
-     *            a connection options.
+     * @param context
+     *            an sdk context.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
-    }
-
-    /**
-     * Gets a device enrollment bulk delete.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollmentBulkDelete(DeviceEnrollmentBulkDelete)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollmentBulkDelete(getModel()));
-    }
-
-    /**
-     * Gets a device enrollment bulk delete.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollmentBulkDelete(String)}
-     * 
-     * @param id
-     *            Bulk ID.
-     */
-    @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Devices) module).getDeviceEnrollmentBulkDelete(id));
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
     }
 }

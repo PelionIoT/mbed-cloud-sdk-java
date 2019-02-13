@@ -90,7 +90,7 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Gets a user invitation.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#getUserInvitation(UserInvitation)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getUserInvitation(UserInvitation)}
      * 
      * @return something
      */
@@ -103,7 +103,7 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Gets a user invitation.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitation#getUserInvitation(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getUserInvitation(String)}
      * 
      * @param id
      *            The ID of the invitation.
@@ -129,14 +129,14 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
+     * @param options
+     *            a connection options.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Accounts(options);
     }
 
     /**
@@ -155,38 +155,13 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Instantiates modules.
      * 
-     * @param options
-     *            a connection options.
+     * @param context
+     *            an sdk context.
      * @return instantiated module
      */
     @Override
     @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Accounts(options);
-    }
-
-    /**
-     * Gets a user invitation.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getUserInvitation(UserInvitation)}
-     */
-    @Override
-    public void read() throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Accounts) module).getUserInvitation(getModel()));
-    }
-
-    /**
-     * Gets a user invitation.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getUserInvitation(String)}
-     * 
-     * @param id
-     *            The ID of the invitation.
-     */
-    @Override
-    public void read(@NonNull String id) throws MbedCloudException {
-        checkDaoConfiguration();
-        setModel(((Accounts) module).getUserInvitation(id));
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
     }
 }
