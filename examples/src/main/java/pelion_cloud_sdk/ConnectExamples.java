@@ -306,23 +306,21 @@ public class ConnectExamples extends AbstractExample {
                     // Defining callbacks.
                     Callback<Object> onNotificationCallback = new Callback<Object>() {
 
-                            @Override
-                            public void execute(Object arg) {
-                                log("Received notification value for " + resourceToSubscribeTo + " using callbacks",
-                                    arg);
+                        @Override
+                        public void execute(Object arg) {
+                            log("Received notification value for " + resourceToSubscribeTo + " using callbacks", arg);
 
-                            }
-                        };
-                        Callback<Throwable> onErrorCallback = new Callback<Throwable>() {
+                        }
+                    };
+                    Callback<Throwable> onErrorCallback = new Callback<Throwable>() {
 
-                            @Override
-                            public void execute(Throwable t) {
-                                log("Received following error for " + resourceToSubscribeTo, t);
+                        @Override
+                        public void execute(Throwable t) {
+                            log("Received following error for " + resourceToSubscribeTo, t);
 
-                            }
-                        };
-                        api.addResourceSubscription(resourceToSubscribeTo, onNotificationCallback, onErrorCallback);
-                    }
+                        }
+                    };
+                    api.addResourceSubscription(resourceToSubscribeTo, onNotificationCallback, onErrorCallback);
                 }
             }
             // Listening to notifications for 2 minutes.
@@ -332,7 +330,6 @@ public class ConnectExamples extends AbstractExample {
             api.stopNotifications();
             Thread.sleep(100);
             api.shutdownConnectService();
-
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -347,7 +344,6 @@ public class ConnectExamples extends AbstractExample {
      *
      * @see #subscribeToResourceValueChanges()
      */
-    @SuppressWarnings({ "null" })
     @Deprecated
     @Example
     public void subscribeToResourcesWithObservableStreams() {
@@ -355,7 +351,7 @@ public class ConnectExamples extends AbstractExample {
         try (Connect api = new Connect(config)) {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
-            options.setPageSize(1);
+            options.setPageSize(Integer.valueOf(1));
             Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
             if (!deviceIterator.hasNext()) {
                 fail("No endpoints registered. Aborting.");
@@ -415,23 +411,22 @@ public class ConnectExamples extends AbstractExample {
             // Listening to device state changes for 2 minutes.
             Thread.sleep(120000);
 
-                // Stopping notification pull channel.
+            // Stopping notification pull channel.
+            api.stopNotifications();
+            Thread.sleep(100);
+            api.shutdownConnectService();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            logError("last API Metadata", api.getLastApiMetadata());
+            try {
                 api.stopNotifications();
                 Thread.sleep(100);
-                api.shutdownConnectService();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                logError("last API Metadata", api.getLastApiMetadata());
-                try {
-                    api.stopNotifications();
-                    Thread.sleep(100);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                api.shutdownConnectService();
-                fail(e.getMessage());
+            } catch (Exception e1) {
+                e1.printStackTrace();
             }
+            api.shutdownConnectService();
+            fail(e.getMessage());
         }
     }
 
@@ -507,22 +502,21 @@ public class ConnectExamples extends AbstractExample {
             String otherNotifications = "{\"notifications\":[{\"path\":\"/3200/0/5501\",\"payload\":\"Q2hhbmdlIG1lIQ\u003d\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyB2YWx1ZSAy\",\"ep\":\"015f4ac587f500000000000100100249\"}"
                                         + ",{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyBhbm90aGVyIHZhbHVl\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyB3aWxsIGJlIG15IGxhc3Qgbm90aWZpY2F0aW9uIGJlY2F1c2UgSSBhbSB3aWxsaW5nIHRvIGdvIGJhY2sgdG8gc2xlZXA\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}]}";
 
-                Resource resource = new Resource(deviceId, resourcePath);
-                // Creating a subscriber for this resource.
-                api.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
-                   .subscribe(new Consumer<Object>() {
+            Resource resource = new Resource(deviceId, resourcePath);
+            // Creating a subscriber for this resource.
+            api.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
+               .subscribe(new Consumer<Object>() {
 
-                       @Override
-                       public void accept(Object t) throws Exception {
-                           log("Received notification value", t);
-                       }
-                   });
-                // Emitting notifications.
-                api.notify(notifications);
-                api.notify(otherNotifications);
-            } catch (Exception e) {
-                fail(e.getMessage());
-            }
+                   @Override
+                   public void accept(Object t) throws Exception {
+                       log("Received notification value", t);
+                   }
+               });
+            // Emitting notifications.
+            api.notify(notifications);
+            api.notify(otherNotifications);
+        } catch (Exception e) {
+            fail(e.getMessage());
         }
     }
 
