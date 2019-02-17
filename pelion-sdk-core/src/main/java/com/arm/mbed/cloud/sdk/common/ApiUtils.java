@@ -57,6 +57,42 @@ public final class ApiUtils {
     }
 
     /**
+     * Checks whether an exception is due to a Cloud exception.
+     * 
+     * @param exception
+     *            exception to check.
+     * @return True if the exception is due to a Cloud exception. False otherwise.
+     */
+    public static boolean isCloudException(Throwable exception) {
+        return exception == null ? false
+                                 : exception instanceof MbedCloudException || isCloudException(exception.getCause());
+    }
+
+    /**
+     * Checks whether an exception is due to a not implemented functionality.
+     * 
+     * @param exception
+     *            exception to check.
+     * @return True if the exception is due to a not implemented functionality. False otherwise.
+     */
+    public static boolean isNotImplementedException(Throwable exception) {
+        return exception == null ? false : exception instanceof NotImplementedException
+                                           || isNotImplementedException(exception.getCause());
+    }
+
+    /**
+     * Checks whether an exception is due to a parameter error.
+     * 
+     * @param exception
+     *            exception to check.
+     * @return True if the exception is due to a parameter error. False otherwise.
+     */
+    public static boolean isParameterErrorException(Throwable exception) {
+        return exception == null ? false : exception instanceof IllegalArgumentException
+                                           || isParameterErrorException(exception.getCause());
+    }
+
+    /**
      * Normalises URL path.
      *
      * @param path

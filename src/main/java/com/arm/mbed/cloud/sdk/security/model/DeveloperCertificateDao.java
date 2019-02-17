@@ -196,19 +196,6 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     /**
      * Instantiates modules.
      * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param context
      *            an sdk context.
      * @return instantiated module
@@ -217,5 +204,18 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Security(context);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
     }
 }
