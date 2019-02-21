@@ -8,8 +8,10 @@ The foundation interface offers several advantages to cloud application develope
 * A more stable interface that significantly reduces application maintenance effort while allowing change to the underlying REST API.
 * A more logical grouping of operations which is not dictated by the underlying service organisation.
 
-## Foundation generator configuration
-The configuration information is taken from the cloud API repo under sdk/foundation_configs. Each configuration file describes a list of foundation entities (eg account, user). For each entity there is a list of the operations that the entity offers, and a mapping to the underlying API call that provides this functionality. There is also a method of renaming API fields to give a more consistent user experience.
+## Foundation generator input
+The source information is taken from the cloud API repo under ../config/pelion. Each input file describes a list of foundation entities (eg account, user). For each entity there is a list of the operations that the entity offers, and a mapping to the underlying API call that provides this functionality. 
+
+There is also a method of renaming API fields to give a more consistent user experience. The files that configure this behaviour are in sdk/foundation_configs
 
 ## Running the generator
 The generator is a project in Java and uses gradle to orchestrate builds and running. To ensure the correct versions of gradle and other tools are in place, a wrapper script ``./gradlew`` is provided.
