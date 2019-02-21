@@ -1,4 +1,4 @@
-FROM cogniteev/oracle-java:java8
+FROM openjdk:8-jdk-stretch
 
 
 WORKDIR /testserver
