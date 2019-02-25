@@ -588,7 +588,7 @@ public class CloudCaller<T, U> {
                     }
                     callMetadata.setDateFromString(dateHeader);
                 } catch (Exception exception) {
-                    logger.logWarn("An error occurred when trying to fetch server date from API metadata", exception);
+                    logger.logDebug("Could not fetch the server date from API metadata. Reason: " + exception.getMessage());
                     callMetadata.setDate(new Date());
                 }
             }
@@ -612,7 +612,7 @@ public class CloudCaller<T, U> {
                 }
             } catch (SecurityException | IllegalAccessException | IllegalArgumentException
                      | InvocationTargetException exception) {
-                logger.logError("Error occurred when trying to fetch etag from API metadata", exception);
+                logger.logDebug("Could not fetch the etag from API metadata. Reason: " + exception.getMessage());
             } catch (NoSuchMethodException exception) {
                 return null;
             }
