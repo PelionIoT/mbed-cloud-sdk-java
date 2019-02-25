@@ -6,6 +6,18 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+2.2.1 (2019-02-25)
+==================
+
+### Bugfixes
+
+- Changed the log level of `An error occurred when trying to fetch server date from API metadata` to remove confusion. (#2233)
+
+### Misc
+
+- #1
+
+
 2.2.0 (2018-11-15)
 ==================
 
