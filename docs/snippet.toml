@@ -1,6 +1,6 @@
 [snippet]
 # config for snippet project (https://github.com/ARMmbed/snippet)
-input_glob = ['examples/src/main/java/pelion_cloud_sdk/*.java', 'examples/docs/*']
+input_glob = ['examples/src/main/java/pelion_cloud_sdk/*.java', 'examples/docs/*', 'examples/tutorials/HelloWorld/src/main/java/*.java']
 output_dir = 'docs/hla_examples'
 log_level=10
 language_name = 'java'

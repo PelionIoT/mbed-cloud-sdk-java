@@ -1,3 +1,6 @@
+
+// an example: hello world
+
 import com.arm.mbed.cloud.sdk.Sdk;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -29,3 +32,4 @@ public class App {
     }
 
 }
+// end of example
