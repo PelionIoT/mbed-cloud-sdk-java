@@ -211,7 +211,7 @@ public class Connect extends AbstractModule {
         Webhook webhook = null;
         try {
             webhook = getWebhook();
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
         if (webhook != null) {
@@ -225,6 +225,8 @@ public class Connect extends AbstractModule {
         setDeliveryMethod(true);
         checkConfiguration(getConnectionOption());
         if (deliveryMethod.get() != DeliveryMethod.CLIENT_INITIATED) {
+            logger.logDebug("The SDK will not start automatically notification threads as its delivery method is "
+                            + deliveryMethod.get());
             return;
         }
         if (!handlersStore.isNotificationListenerActive() && isAutostartDaemon()) {

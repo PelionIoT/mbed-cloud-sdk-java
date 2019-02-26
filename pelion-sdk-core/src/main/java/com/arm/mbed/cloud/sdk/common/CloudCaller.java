@@ -155,7 +155,7 @@ public class CloudCaller<T, U> {
      *            type of HTTP response object.
      * @param <U>
      *            type of API response object.
-     * @return request result
+     * @return API response
      * @throws MbedCloudException
      *             if an error occurred during the call
      */
@@ -254,16 +254,16 @@ public class CloudCaller<T, U> {
         final CloudCaller<T, U> call = new CloudCaller<>(functionName, caller, mapper, module, storeMetadata,
                                                          throwExceptionOnNotFound);
         final ExponentialBackoff backoffPolicy = new ExponentialBackoff(module.getLogger());
-        int leftRetries = retries + 1;
+        int remainingRetries = retries + 1;
         Exception latestException = null;
-        while (leftRetries > 0) {
+        while (remainingRetries > 0) {
             try {
                 return call.execute();
             } catch (Exception exception) {
                 latestException = exception;
                 backoffPolicy.backoff();
-                leftRetries--;
-                call.logger.logError("An exception occurred. Retries left: " + leftRetries, exception);
+                remainingRetries--;
+                call.logger.logError("An exception occurred. Retries left: " + remainingRetries, exception);
             }
         }
         call.logger.throwSdkException(latestException);

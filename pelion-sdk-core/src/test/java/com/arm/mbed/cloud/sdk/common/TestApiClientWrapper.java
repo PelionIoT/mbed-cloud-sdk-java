@@ -39,7 +39,7 @@ public class TestApiClientWrapper {
             ConnectionOptions opt = new ConnectionOptions("apikey");
             opt.setHost(baseUrl.toString());
             ApiClientWrapper clientWrapper = new ApiClientWrapper(opt);
-            assertTrue(clientWrapper.ping());
+            assertTrue(clientWrapper.ping(TimePeriod.newTimePeriod("10s")));
             TestApiService testService = clientWrapper.createService(TestApiService.class);
             assertTrue(testService.getEndpointValue().execute().isSuccessful());
             RecordedRequest request = server.takeRequest();
@@ -115,8 +115,8 @@ public class TestApiClientWrapper {
                                                                                                }),
                                                                       logger)) {
             assertFalse(ws.isRunning());
-            ws.stop();
-            ws.forceStop();
+            ws.requestClose(false);
+            ws.requestClose(true);
             ws.start();
             assertFalse(ws.isRunning());
             try {
@@ -150,19 +150,19 @@ public class TestApiClientWrapper {
                                                                                                }),
                                                                       logger)) {
             assertFalse(ws.isRunning());
-            ws.stop();
-            ws.forceStop();
+            ws.requestClose(false);
+            ws.requestClose(true);
             ws.start();
             assertTrue(ws.isRunning());
             ws.sendMessage("Some message");
             ws.sendMessage("Some other message");
             Thread.sleep(2000);
-            ws.stop();
+            ws.requestClose(false);
             assertFalse(ws.isRunning());
             ws.start();
             ws.start();
             assertTrue(ws.isRunning());
-            ws.forceStop();
+            ws.requestClose(true);
             assertFalse(ws.isRunning());
             try {
                 ws.sendMessage("A random message");

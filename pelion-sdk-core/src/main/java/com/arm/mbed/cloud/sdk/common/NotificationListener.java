@@ -78,10 +78,19 @@ public class NotificationListener extends WebSocketListener {
         } : onErrorCallback;
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param logger
+     *            a logger
+     */
     public NotificationListener(SdkLogger logger) {
         this(logger, null, null, null, null);
     }
 
+    /**
+     * Constructor.
+     */
     public NotificationListener() {
         this(SdkLogger.getLogger());
     }
@@ -122,16 +131,34 @@ public class NotificationListener extends WebSocketListener {
         onErrorCallback.execute(cause);
     }
 
-    public void logInfo(String string) {
-        logger.logInfo(generateLoggingMessageMetadata(string));
+    /**
+     * Logs information message.
+     * 
+     * @param message
+     *            message to log.
+     */
+    public void logInfo(String message) {
+        logger.logInfo(generateLoggingMessageMetadata(message));
     }
 
-    public void logError(String string) {
-        logger.logError(generateLoggingMessageMetadata(string));
+    /**
+     * Logs error message.
+     * 
+     * @param message
+     *            message to log.
+     */
+    public void logError(String message) {
+        logger.logError(generateLoggingMessageMetadata(message));
     }
 
-    public void logDebug(String string) {
-        logger.logDebug(generateLoggingMessageMetadata(string));
+    /**
+     * Logs debug message.
+     * 
+     * @param message
+     *            message to log.
+     */
+    public void logDebug(String message) {
+        logger.logDebug(generateLoggingMessageMetadata(message));
     }
 
     private String generateLoggingMessageMetadata(String string) {
@@ -140,22 +167,47 @@ public class NotificationListener extends WebSocketListener {
         return builder.toString();
     }
 
+    /**
+     * Gets corresponding logger.
+     * 
+     * @return the logger
+     */
     public SdkLogger getLogger() {
         return logger;
     }
 
-    public Callback<String> getOnNotificationCallBack() {
+    /**
+     * Gets the onNotification callback
+     * 
+     * @return corresponding callback.
+     */
+    public Callback<String> getOnNotificationCallback() {
         return onNotificationCallBack;
     }
 
-    public Callback<Integer> getOnOpenCallBack() {
+    /**
+     * Gets the onOpen callback
+     * 
+     * @return corresponding callback.
+     */
+    public Callback<Integer> getOnOpenCallback() {
         return onOpenCallBack;
     }
 
-    public Callback<Integer> getOnClosingCallBack() {
+    /**
+     * Gets the onClosing callback
+     * 
+     * @return corresponding callback.
+     */
+    public Callback<Integer> getOnClosingCallback() {
         return onClosingCallBack;
     }
 
+    /**
+     * Gets the onError callback
+     * 
+     * @return corresponding callback.
+     */
     public Callback<Throwable> getOnErrorCallback() {
         return onErrorCallback;
     }

@@ -65,10 +65,22 @@ public class WebsocketClient implements Closeable {
             this.code = value;
         }
 
+        /**
+         * Gets closure code.
+         * 
+         * @return code.
+         */
         public int getCode() {
             return code;
         }
 
+        /**
+         * Determines the exit status based on the code.
+         * 
+         * @param code
+         *            code to consider.
+         * @return corresponding status.
+         */
         public static StatusCode getStatus(Integer code) {
             return code == null ? StatusCode.UNKNOWN : getStatus(code.intValue());
         }
@@ -151,14 +163,13 @@ public class WebsocketClient implements Closeable {
         }
         int retries = 30;
         try {
-            final WebSocket socket = client.getOkBuilder().build()
-                                           .newWebSocket(new Request.Builder().url(getConnectionUrl(configuration.getHostUrl()))
-                                                                              .addHeader(HEADER_SECURITY,
-                                                                                         PREFIX_KEY + configuration.getApiKey()
-                                                                                                          + ", "
-                                                                                                          + WEBSOCKET_PROTOCOL)
-                                                                              .build(),
-                                                         listener);
+            final StringBuilder headerBuilder = new StringBuilder(20).append(PREFIX_KEY)
+                                                                     .append(configuration.getApiKey()).append(", ")
+                                                                     .append(WEBSOCKET_PROTOCOL);
+            final Request connectionRequest = new Request.Builder().url(getConnectionUrl(configuration.getHostUrl()))
+                                                                   .addHeader(HEADER_SECURITY, headerBuilder.toString())
+                                                                   .build();
+            final WebSocket socket = client.getOkBuilder().build().newWebSocket(connectionRequest, listener);
             wsClient.set(socket);
             while (!isRunning() && !needsToClose.get() && retries > 0) {
                 pause();
@@ -176,9 +187,9 @@ public class WebsocketClient implements Closeable {
     }
 
     /**
-     * Force stops the connection.
+     * Force closes the connection.
      */
-    public void forceStop() {
+    private void forceClose() {
         needsToClose.set(true);
         if (!isRunning()) {
             return;
@@ -193,9 +204,9 @@ public class WebsocketClient implements Closeable {
     }
 
     /**
-     * Stops gently the websocket connection.
+     * Closes gently the websocket connection.
      */
-    public void stop() {
+    private void requestClose() {
         logger.logInfo("Closing the websocket client");
         needsToClose.set(true);
         if (!isRunning()) {
@@ -211,9 +222,26 @@ public class WebsocketClient implements Closeable {
                     retries--;
                 }
             } catch (InterruptedException exception) {
-                logger.logError("Could not close the websocket client gently.", exception);
+                logger.logError("Request to close the websocket failed", exception);
             }
         }
+    }
+
+    /**
+     * /** Requests that the websocket connection gets closed.
+     * <p>
+     * Note: if forcing the process, underlying threads will be interrupted
+     * 
+     * @param force
+     *            force the closure of the connection.
+     */
+    public void requestClose(boolean force) {
+        if (force) {
+            forceClose();
+        } else {
+            requestClose();
+        }
+
     }
 
     /**
@@ -257,7 +285,7 @@ public class WebsocketClient implements Closeable {
                            ApiUtils.normaliseResourcePath(connectEndpoint)).toString();
         } catch (MalformedURLException exception) {
             logger.throwSdkException(exception);
-        } // return "wss://api-ns-websocket.mbedcloudintegration.net/v2/notification/websocket-connect";
+        }
         return null;
     }
 
@@ -266,47 +294,46 @@ public class WebsocketClient implements Closeable {
             return null;
 
         }
-        final NotificationListener listener = new NotificationListener(notificationListener.getLogger(),
-                                                                       notificationListener.getOnNotificationCallBack(),
-                                                                       new Callback<Integer>() {
+        // Modifies slightly the callbacks to perform more actions on the different events.
+        final Callback<Integer> onOpenCallBack = new Callback<Integer>() {
 
-                                                                           @Override
-                                                                           public void execute(Integer arg) {
-                                                                               notificationListener.getOnOpenCallBack()
-                                                                                                   .execute(arg);
-                                                                               isWorking.set(true);
-                                                                               resume();
-                                                                           }
-                                                                       }, new Callback<Integer>() {
+            @Override
+            public void execute(Integer arg) {
+                notificationListener.getOnOpenCallback().execute(arg);
+                isWorking.set(true);
+                resume();
+            }
+        };
+        final Callback<Integer> onClosingCallBack = new Callback<Integer>() {
 
-                                                                           @Override
-                                                                           public void execute(Integer arg) {
-                                                                               notificationListener.logInfo("Closing - Status: "
-                                                                                                            + StatusCode.getStatus(arg));
-                                                                               needsToClose.set(true);
-                                                                               isWorking.set(false);
-                                                                               wsClient.set(null);
-                                                                               notificationListener.getOnClosingCallBack()
-                                                                                                   .execute(arg);
-                                                                               resume();
-                                                                           }
-                                                                       }, new Callback<Throwable>() {
+            @Override
+            public void execute(Integer arg) {
+                notificationListener.logInfo("Closing - Status: " + StatusCode.getStatus(arg));
+                needsToClose.set(true);
+                isWorking.set(false);
+                wsClient.set(null);
+                notificationListener.getOnClosingCallback().execute(arg);
+                resume();
+            }
+        };
+        final Callback<Throwable> onErrorCallback = new Callback<Throwable>() {
 
-                                                                           @Override
-                                                                           public void execute(Throwable arg) {
-                                                                               notificationListener.getOnErrorCallback()
-                                                                                                   .execute(arg);
-                                                                               if (isRunning()) {
-                                                                                   requestClosure(StatusCode.PROTOCOL_ERROR);
-                                                                               } else {
-                                                                                   needsToClose.set(true);
-                                                                               }
-                                                                               if (arg instanceof EOFException) {
-                                                                                   resume();
-                                                                               }
-                                                                           }
-                                                                       });
-        return listener;
+            @Override
+            public void execute(Throwable arg) {
+                notificationListener.getOnErrorCallback().execute(arg);
+                if (isRunning()) {
+                    requestClosure(StatusCode.PROTOCOL_ERROR);
+                } else {
+                    needsToClose.set(true);
+                }
+                if (arg instanceof EOFException) {
+                    resume();
+                }
+            }
+        };
+        return new NotificationListener(notificationListener.getLogger(),
+                                        notificationListener.getOnNotificationCallback(), onOpenCallBack,
+                                        onClosingCallBack, onErrorCallback);
 
     }
 
@@ -327,8 +354,8 @@ public class WebsocketClient implements Closeable {
 
     @Override
     public void close() {
-        stop();
-        forceStop();
+        requestClose(false);
+        requestClose(true);
     }
 
 }

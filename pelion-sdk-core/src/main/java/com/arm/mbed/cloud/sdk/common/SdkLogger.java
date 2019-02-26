@@ -10,8 +10,6 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Internal
 public class SdkLogger {
 
-    private static final String METADATA_TEXT2 = ") ";
-    private static final String METADATA_TEXT1 = "(thread: ";
     private static final Logger LOGGER = LoggerFactory.getLogger("Arm Pelion Cloud SDK");
 
     public static SdkLogger getLogger() {
@@ -93,7 +91,7 @@ public class SdkLogger {
 
     private static String generateLoggingMessageMetadata(String string) {
         final StringBuilder builder = new StringBuilder(30);
-        builder.append(METADATA_TEXT1).append(Thread.currentThread().getId()).append(METADATA_TEXT2).append(string);
+        builder.append("(thread: ").append(Thread.currentThread().getId()).append(") ").append(string);
         return builder.toString();
     }
 

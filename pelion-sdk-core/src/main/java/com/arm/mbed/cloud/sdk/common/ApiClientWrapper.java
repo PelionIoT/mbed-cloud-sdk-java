@@ -197,18 +197,22 @@ public class ApiClientWrapper implements Cloneable {
     /**
      * Pings the host to find if it is reachable.
      * 
+     * @param timeout
+     *            ping timeout. If null, the default timeout is considered {@link TimePeriod#TimePeriod()}
      * @return true if the host is reachable. False otherwise.
      */
-    public boolean ping() {
+    public boolean ping(@Nullable TimePeriod timeout) {
+
         try {
-            InetAddress address = InetAddress.getByName(connectionOptions.getHostUrl().getHost());
-            if (!address.isReachable(10000)) {
-                return false;
+            final TimePeriod finalTimeout = timeout == null ? new TimePeriod() : timeout;
+            final InetAddress address = InetAddress.getByName(connectionOptions.getHostUrl().getHost());
+            if (address.isReachable(finalTimeout.toSeconds())) {
+                return true;
             }
         } catch (@SuppressWarnings("unused") IOException exception) {
-            return false;
+            // Nothing to do
         }
-        return true;
+        return false;
     }
 
     /**
