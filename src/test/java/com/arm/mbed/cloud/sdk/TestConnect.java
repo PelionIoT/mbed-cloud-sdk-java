@@ -449,10 +449,10 @@ public class TestConnect {
                 assertEquals("GET", request.getMethod());
                 assertEquals("/" + WEBHOOK_ENDPOINT_PATH, request.getPath());
                 assertEquals(DeliveryMethod.CLIENT_INITIATED, connect.deliveryMethod.get());
-                assertTrue(connect.handlersStore.isPullingActive());
+                assertTrue(connect.handlersStore.isNotificationListenerActive());
                 connect.stopNotifications();
                 connect.stopNotifications();
-                assertFalse(connect.handlersStore.isPullingActive());
+                assertFalse(connect.handlersStore.isNotificationListenerActive());
             } catch (MbedCloudException exception) {
                 exception.printStackTrace();
                 fail(exception.getMessage());
@@ -480,9 +480,9 @@ public class TestConnect {
                 assertEquals("GET", request.getMethod());
                 assertEquals("/" + WEBHOOK_ENDPOINT_PATH, request.getPath());
                 assertEquals(DeliveryMethod.CLIENT_INITIATED, connect.deliveryMethod.get());
-                assertTrue(connect.handlersStore.isPullingActive());
+                assertTrue(connect.handlersStore.isNotificationListenerActive());
                 connect.stopNotifications();
-                assertFalse(connect.handlersStore.isPullingActive());
+                assertFalse(connect.handlersStore.isNotificationListenerActive());
             } catch (MbedCloudException exception) {
                 exception.printStackTrace();
                 fail(exception.getMessage());
@@ -520,9 +520,9 @@ public class TestConnect {
                 assertEquals("GET", request.getMethod());
                 assertEquals("/" + WEBHOOK_ENDPOINT_PATH, request.getPath());
                 assertEquals(DeliveryMethod.CLIENT_INITIATED, connect.deliveryMethod.get());
-                assertTrue(connect.handlersStore.isPullingActive());
+                assertTrue(connect.handlersStore.isNotificationListenerActive());
                 connect.stopNotifications();
-                assertFalse(connect.handlersStore.isPullingActive());
+                assertFalse(connect.handlersStore.isNotificationListenerActive());
             } catch (MbedCloudException exception) {
                 exception.printStackTrace();
                 fail(exception.getMessage());

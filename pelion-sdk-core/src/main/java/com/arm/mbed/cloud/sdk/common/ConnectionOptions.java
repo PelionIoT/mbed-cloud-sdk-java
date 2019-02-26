@@ -199,12 +199,23 @@ public class ConnectionOptions implements Cloneable, Serializable {
     }
 
     /**
-     * Gets the Arm Mbed Cloud Host to contact.
+     * Gets Pelion Cloud Host to contact.
      *
      * @return the host
      */
     public String getHost() {
         return host;
+    }
+
+    /**
+     * Gets Pelion Cloud Host URL to use.
+     * 
+     * @return the host URL.
+     * @throws MalformedURLException
+     *             if exception arises.
+     */
+    public URL getHostUrl() throws MalformedURLException {
+        return new URL(getHost());
     }
 
     /**

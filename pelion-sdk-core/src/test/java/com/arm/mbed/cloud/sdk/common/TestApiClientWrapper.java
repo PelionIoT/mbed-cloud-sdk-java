@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.common;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
@@ -38,6 +39,7 @@ public class TestApiClientWrapper {
             ConnectionOptions opt = new ConnectionOptions("apikey");
             opt.setHost(baseUrl.toString());
             ApiClientWrapper clientWrapper = new ApiClientWrapper(opt);
+            assertTrue(clientWrapper.ping());
             TestApiService testService = clientWrapper.createService(TestApiService.class);
             assertTrue(testService.getEndpointValue().execute().isSuccessful());
             RecordedRequest request = server.takeRequest();
@@ -92,5 +94,87 @@ public class TestApiClientWrapper {
         } catch (IOException | InterruptedException e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void testFailingWebsocket() {
+        String randomAddress = "http://random.host.test";
+        ApiClientWrapper clientWrapper = new ApiClientWrapper(ConnectionOptions.newConfiguration("test",
+                                                                                                 randomAddress));
+
+        SdkLogger logger = SdkLogger.getLogger();
+        try (WebsocketClient ws = clientWrapper.getNewWebsocketClient("some_test",
+                                                                      new NotificationListener(logger, null, null, null,
+                                                                                               new Callback<Throwable>() {
+
+                                                                                                   @Override
+                                                                                                   public void
+                                                                                                          execute(Throwable exception) {
+                                                                                                       exception.printStackTrace();
+                                                                                                   }
+                                                                                               }),
+                                                                      logger)) {
+            assertFalse(ws.isRunning());
+            ws.stop();
+            ws.forceStop();
+            ws.start();
+            assertFalse(ws.isRunning());
+            try {
+                ws.sendMessage("A random message");
+                fail("An exception should have been raised");
+            } catch (@SuppressWarnings("unused") Exception e) {
+                // Nothing to do
+            }
+        } catch (MbedCloudException exception) {
+            exception.printStackTrace();
+            fail(exception.getMessage());
+        }
+
+    }
+
+    @Test
+    public void testWorkingWebsocket() {
+        String echoWsUrl = "http://echo.websocket.org";
+        ApiClientWrapper clientWrapper = new ApiClientWrapper(ConnectionOptions.newConfiguration("test", echoWsUrl));
+
+        SdkLogger logger = SdkLogger.getLogger();
+        try (WebsocketClient ws = clientWrapper.getNewWebsocketClient("",
+                                                                      new NotificationListener(logger, null, null, null,
+                                                                                               new Callback<Throwable>() {
+
+                                                                                                   @Override
+                                                                                                   public void
+                                                                                                          execute(Throwable exception) {
+                                                                                                       exception.printStackTrace();
+                                                                                                   }
+                                                                                               }),
+                                                                      logger)) {
+            assertFalse(ws.isRunning());
+            ws.stop();
+            ws.forceStop();
+            ws.start();
+            assertTrue(ws.isRunning());
+            ws.sendMessage("Some message");
+            ws.sendMessage("Some other message");
+            Thread.sleep(2000);
+            ws.stop();
+            assertFalse(ws.isRunning());
+            ws.start();
+            ws.start();
+            assertTrue(ws.isRunning());
+            ws.forceStop();
+            assertFalse(ws.isRunning());
+            try {
+                ws.sendMessage("A random message");
+                fail("An exception should have been raised");
+            } catch (@SuppressWarnings("unused") Exception e) {
+                // Nothing to do
+            }
+            ws.start();
+        } catch (MbedCloudException | InterruptedException exception) {
+            exception.printStackTrace();
+            fail(exception.getMessage());
+        }
+
     }
 }

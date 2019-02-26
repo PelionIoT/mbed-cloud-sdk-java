@@ -15,6 +15,8 @@ import okio.ByteString;
 @Preamble(description = "Websocket notification listener")
 @Internal
 public class NotificationListener extends WebSocketListener {
+    private static final String NOTIFICATION_LOG_PREFIX = "Notification - ";
+
     private final SdkLogger logger;
 
     private final Callback<String> onNotificationCallBack;
@@ -42,7 +44,7 @@ public class NotificationListener extends WebSocketListener {
                                 Callback<Integer> onOpenCallBack, Callback<Integer> onClosingCallBack,
                                 Callback<Throwable> onErrorCallback) {
         super();
-        this.logger = logger;
+        this.logger = logger == null ? SdkLogger.getLogger() : logger;
         this.onNotificationCallBack = onNotificationCallBack == null ? new Callback<String>() {
 
             @Override
@@ -81,7 +83,7 @@ public class NotificationListener extends WebSocketListener {
     }
 
     public NotificationListener() {
-        this(new SdkLogger());
+        this(SdkLogger.getLogger());
     }
 
     private void defaultMessage(Object value) {
@@ -91,53 +93,71 @@ public class NotificationListener extends WebSocketListener {
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
         logInfo("Opening [" + webSocket.toString() + "]: " + response.toString());
-        onOpenCallBack.execute(response.code());
+        onOpenCallBack.execute(Integer.valueOf(response.code()));
     }
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
-        logInfo("Receiving [" + webSocket.toString() + "]: " + text);
+        logDebug("Receiving: " + text);
         onNotificationCallBack.execute(text);
     }
 
     @Override
     public void onMessage(WebSocket webSocket, ByteString bytes) {
         final String text = bytes == null ? null : bytes.utf8();
-        logInfo("Receiving bytes [" + webSocket.toString() + "]: " + text);
+        logDebug("Receiving bytes: " + text);
         onNotificationCallBack.execute(text);
     }
 
     @Override
     public void onClosing(WebSocket webSocket, int code, @Nullable String reason) {
-        logInfo("Closing [" + webSocket.toString() + "]: " + code + ". Reason: " + reason);
+        logInfo("Closing: " + code + ". Reason: " + reason);
         webSocket.close(NORMAL_CLOSURE_STATUS, reason);
-        onClosingCallBack.execute(code);
+        onClosingCallBack.execute(Integer.valueOf(code));
     }
 
     @Override
     public void onFailure(WebSocket webSocket, Throwable cause, Response response) {
-        logError("Error [" + webSocket.toString() + "]: " + cause.getMessage());
+        logError("Error: " + cause.getMessage());
         onErrorCallback.execute(cause);
     }
 
-    private void logInfo(String string) {
-        if (logger == null) {
-            return;
-        }
+    public void logInfo(String string) {
         logger.logInfo(generateLoggingMessageMetadata(string));
     }
 
-    private void logError(String string) {
-        if (logger == null) {
-            return;
-        }
-        logger.logError(string);
+    public void logError(String string) {
+        logger.logError(generateLoggingMessageMetadata(string));
+    }
+
+    public void logDebug(String string) {
+        logger.logDebug(generateLoggingMessageMetadata(string));
     }
 
     private String generateLoggingMessageMetadata(String string) {
         final StringBuilder builder = new StringBuilder(30);
-        builder.append("Notification - ").append(string);
+        builder.append(NOTIFICATION_LOG_PREFIX).append(string);
         return builder.toString();
+    }
+
+    public SdkLogger getLogger() {
+        return logger;
+    }
+
+    public Callback<String> getOnNotificationCallBack() {
+        return onNotificationCallBack;
+    }
+
+    public Callback<Integer> getOnOpenCallBack() {
+        return onOpenCallBack;
+    }
+
+    public Callback<Integer> getOnClosingCallBack() {
+        return onClosingCallBack;
+    }
+
+    public Callback<Throwable> getOnErrorCallback() {
+        return onErrorCallback;
     }
 
 }

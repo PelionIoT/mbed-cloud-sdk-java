@@ -1,12 +1,14 @@
 package com.arm.mbed.cloud.sdk.common;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.ApiClient;
@@ -168,6 +170,45 @@ public class ApiClientWrapper implements Cloneable {
         for (Converter.Factory factory : converters) {
             client.getAdapterBuilder().addConverterFactory(factory);
         }
+    }
+
+    /**
+     * Gets a new websocket client establishing a connection via the connection endpoint.
+     * 
+     * @param connectionEndpoint
+     *            endpoint to use to establish the connection
+     * @param listener
+     *            a notification listener
+     * @param logger
+     *            a logger
+     * @return a websocket client.
+     * @throws MbedCloudException
+     *             if an error arises
+     */
+    @Internal
+    public WebsocketClient getNewWebsocketClient(@NonNull String connectionEndpoint,
+                                                 @NonNull NotificationListener listener,
+                                                 SdkLogger logger) throws MbedCloudException {
+        ApiUtils.checkNotNull(logger, connectionEndpoint, "connectionEndpoint");
+        ApiUtils.checkNotNull(logger, listener, "listener");
+        return new WebsocketClient(client, connectionOptions, connectionEndpoint, listener, logger);
+    }
+
+    /**
+     * Pings the host to find if it is reachable.
+     * 
+     * @return true if the host is reachable. False otherwise.
+     */
+    public boolean ping() {
+        try {
+            InetAddress address = InetAddress.getByName(connectionOptions.getHostUrl().getHost());
+            if (!address.isReachable(10000)) {
+                return false;
+            }
+        } catch (@SuppressWarnings("unused") IOException exception) {
+            return false;
+        }
+        return true;
     }
 
     /**

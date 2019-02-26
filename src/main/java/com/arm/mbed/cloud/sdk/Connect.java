@@ -4,10 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.BackpressureStrategy;
@@ -152,21 +149,19 @@ public class Connect extends AbstractModule {
      * @param notificationHandlingThreadPool
      *            Threads in charge of retrieving notifications for a specific resource. If null, a default thread pool
      *            will be created internally.
-     * @param notificationPullingThreadPool
+     * @param notificationListeningThreadPool
      *            Threads in charge of listening to notifications. The pool can either be a scheduled thread pool or a
      *            fixed thread pool depending on what best suits your system. If null, an internal timer will be created
      *            internally.
      */
     public Connect(@NonNull ConnectionOptions options, @Nullable ExecutorService notificationHandlingThreadPool,
-                   @Nullable ExecutorService notificationPullingThreadPool) {
+                   @Nullable ExecutorService notificationListeningThreadPool) {
         super(options);
         deliveryMethod = new AtomicReference<DeliveryMethod>(DeliveryMethod.UNDEFINED);
         endpoint = new EndPoints(this.serviceRegistry);
         deviceDirectory = new DeviceDirectory(options);
         deviceDirectory.shareNetworkLayer(this);
-        this.handlersStore = new NotificationHandlersStore(this,
-                                                           (notificationPullingThreadPool == null) ? createDefaultDaemonThreadPool()
-                                                                                                   : notificationPullingThreadPool,
+        this.handlersStore = new NotificationHandlersStore(this, notificationListeningThreadPool,
                                                            notificationHandlingThreadPool, endpoint);
 
     }
@@ -175,23 +170,6 @@ public class Connect extends AbstractModule {
     @Override
     public Connect clone() {
         return new Connect(this).setDeliveryMethod(deliveryMethod.get());
-    }
-
-    /**
-     * Creates a default thread pool in case none was specified.
-     *
-     * @return thread pool
-     */
-    private static ScheduledExecutorService createDefaultDaemonThreadPool() {
-        return Executors.newScheduledThreadPool(1, new ThreadFactory() {
-
-            @Override
-            public Thread newThread(Runnable runable) {
-                final Thread thread = new Thread(runable);
-                thread.setDaemon(true);
-                return thread;
-            }
-        });
     }
 
     /**
@@ -216,7 +194,7 @@ public class Connect extends AbstractModule {
     @Daemon(task = "Listen to notification", start = true)
     public void startNotifications() throws MbedCloudException {
         logger.logInfo(getModuleName() + ": startNotifications()");
-        if (handlersStore.isPullingActive()) {
+        if (handlersStore.isNotificationListenerActive()) {
             logger.logInfo("Notification listening daemon thread is already started");
             return;
         }
@@ -249,7 +227,7 @@ public class Connect extends AbstractModule {
         if (deliveryMethod.get() != DeliveryMethod.CLIENT_INITIATED) {
             return;
         }
-        if (!handlersStore.isPullingActive() && isAutostartDaemon()) {
+        if (!handlersStore.isNotificationListenerActive() && isAutostartDaemon()) {
             startNotifications();
         }
     }
@@ -269,7 +247,7 @@ public class Connect extends AbstractModule {
      *             if a problem occurred during the process.
      */
     @API
-    @Daemon(task = "Notification pull", stop = true)
+    @Daemon(task = "Notification listening", stop = true)
     public void stopNotifications() throws MbedCloudException {
         logger.logInfo(getModuleName() + ": stopNotifications()");
         if (deliveryMethod.get() == DeliveryMethod.CLIENT_INITIATED) {
@@ -328,7 +306,7 @@ public class Connect extends AbstractModule {
         super.close();
         try {
             stopNotifications();
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
         shutdownConnectService();
@@ -2392,20 +2370,24 @@ public class Connect extends AbstractModule {
 
     /**
      * Subscribes to a list of resources.
-     *
+     * <p>
+     * Note: in case a subscription fails, it will continue subscribing to the rest of the resources present in the
+     * list.
      *
      * @param resources
      *            resources to subscribe to.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
      */
     @API
-    public void addResourcesSubscription(@Nullable List<Resource> resources) throws MbedCloudException {
+    public void addResourcesSubscription(@Nullable List<Resource> resources) {
         if (resources == null) {
             return;
         }
         for (final Resource resource : resources) {
-            addResourceSubscription(resource);
+            try {
+                addResourceSubscription(resource);
+            } catch (MbedCloudException exception) {
+                logger.logError("Could not subscribe to resource: " + resource, exception);
+            }
         }
     }
 

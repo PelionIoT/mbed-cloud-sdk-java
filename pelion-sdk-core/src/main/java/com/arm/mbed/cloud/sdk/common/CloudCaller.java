@@ -133,6 +133,40 @@ public class CloudCaller<T, U> {
     }
 
     /**
+     * Executes a call to Arm Pelion Cloud with retries.
+     * <p>
+     * Note: exponential back-off is performed between retries {@link ExponentialBackoff}.
+     * 
+     * @param module
+     *            API module
+     * @param functionName
+     *            API function name.
+     * @param mapper
+     *            object mapper
+     * @param caller
+     *            request
+     * @param storeMetadata
+     *            states whether metadata should be recorded
+     * @param throwExceptionOnNotFound
+     *            states whether to throw an exception when 404 Not found is received from the server
+     * @param retries
+     *            number of retries to perform before failures
+     * @param <T>
+     *            type of HTTP response object.
+     * @param <U>
+     *            type of API response object.
+     * @return request result
+     * @throws MbedCloudException
+     *             if an error occurred during the call
+     */
+    public static <T, U> U call(AbstractModule module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
+                                boolean storeMetadata, boolean throwExceptionOnNotFound,
+                                int retries) throws MbedCloudException {
+        return callWithFeedback(module, functionName, mapper, caller, storeMetadata, throwExceptionOnNotFound,
+                                retries).getResult();
+    }
+
+    /**
      * Executes a call to Arm Pelion Cloud.
      * <p>
      * Note: call metadata are recorded
@@ -184,6 +218,56 @@ public class CloudCaller<T, U> {
                             boolean storeMetadata, boolean throwExceptionOnNotFound) throws MbedCloudException {
         return new CloudCaller<>(functionName, caller, mapper, module, storeMetadata,
                                  throwExceptionOnNotFound).execute();
+    }
+
+    /**
+     * Executes a call to Arm Pelion Cloud with retries.
+     * <p>
+     * Note: exponential back-off is performed between retries {@link ExponentialBackoff}.
+     *
+     * @param module
+     *            API module
+     * @param functionName
+     *            API function name.
+     * @param mapper
+     *            object mapper
+     * @param <T>
+     *            type of HTTP response object.
+     * @param <U>
+     *            type of API response object.
+     * @param caller
+     *            request
+     * @param storeMetadata
+     *            states whether metadata should be recorded
+     * @param retries
+     *            number of retries to perform before failure
+     * @param throwExceptionOnNotFound
+     *            states whether to throw an exception when 404 Not found is received from the server
+     * @return CallFeedback @see {@link CallFeedback}
+     * @throws MbedCloudException
+     *             if an error occurred during the call
+     */
+    public static <T, U> CallFeedback<T, U> callWithFeedback(AbstractModule module, String functionName,
+                                                             Mapper<T, U> mapper, CloudCall<T> caller,
+                                                             boolean storeMetadata, boolean throwExceptionOnNotFound,
+                                                             int retries) throws MbedCloudException {
+        final CloudCaller<T, U> call = new CloudCaller<>(functionName, caller, mapper, module, storeMetadata,
+                                                         throwExceptionOnNotFound);
+        final ExponentialBackoff backoffPolicy = new ExponentialBackoff(module.getLogger());
+        int leftRetries = retries + 1;
+        Exception latestException = null;
+        while (leftRetries > 0) {
+            try {
+                return call.execute();
+            } catch (Exception exception) {
+                latestException = exception;
+                backoffPolicy.backoff();
+                leftRetries--;
+                call.logger.logError("An exception occurred. Retries left: " + leftRetries, exception);
+            }
+        }
+        call.logger.throwSdkException(latestException);
+        return null;
     }
 
     /**
@@ -589,7 +673,8 @@ public class CloudCaller<T, U> {
                     }
                     callMetadata.setDateFromString(dateHeader);
                 } catch (Exception exception) {
-                    logger.logWarn("An error occurred when trying to fetch server date from API metadata", exception);
+                    logger.logDebug("Could not fetch the server date from API metadata. Reason: "
+                                    + exception.getMessage());
                     callMetadata.setDate(new Date());
                 }
             }
@@ -613,7 +698,7 @@ public class CloudCaller<T, U> {
                 }
             } catch (SecurityException | IllegalAccessException | IllegalArgumentException
                      | InvocationTargetException exception) {
-                logger.logError("Error occurred when trying to fetch etag from API metadata", exception);
+                logger.logDebug("Could not fetch the etag from API metadata. Reason: " + exception.getMessage());
             } catch (@SuppressWarnings("unused") NoSuchMethodException exception) {
                 return null;
             }
@@ -740,5 +825,55 @@ public class CloudCaller<T, U> {
                 setResult((mapper == null) ? null : mapper.map(response.getResponse().body()));
             }
         }
+    }
+
+    /**
+     * BackOff that increases the back off period for each retry attempt using a randomisation function that grows
+     * exponentially.
+     *
+     * @see https://developers.google.com/api-client-library/java/google-http-java-client/reference/1.20.0/com/google/api/client/util/ExponentialBackOff
+     *
+     */
+    private static class ExponentialBackoff {
+        private static final double RANDOMISATION_FACTOR = 0.5d;
+        private static final double MULTIPLIER = 1.5d;
+        private volatile int callIndex;
+        private volatile double currentIntervalCentre;
+        private final SdkLogger logger;
+
+        public ExponentialBackoff(SdkLogger logger) {
+            super();
+            reset();
+            this.logger = logger;
+        }
+
+        public void reset() {
+            callIndex = 0;
+            currentIntervalCentre = 500;
+        }
+
+        public void backoff() {
+            if (callIndex == 0) {
+                callIndex++;
+                return;
+            }
+            if (callIndex > 10) {
+                // Start over.
+                reset();
+            }
+            final double delta = RANDOMISATION_FACTOR * currentIntervalCentre;
+            final double minInterval = currentIntervalCentre - delta;
+            final double maxInterval = currentIntervalCentre + delta;
+            currentIntervalCentre *= MULTIPLIER;
+            final long currentIdleTime = (long) (minInterval + Math.random() * (maxInterval - minInterval + 1));
+            logger.logInfo("Backoff policy: Waiting [" + currentIdleTime + " ms] before next call");
+            try {
+                Thread.sleep(currentIdleTime);
+            } catch (InterruptedException exception) {
+                logger.logError("An error occurred during Notification listening", exception);
+            }
+            callIndex++;
+        }
+
     }
 }
