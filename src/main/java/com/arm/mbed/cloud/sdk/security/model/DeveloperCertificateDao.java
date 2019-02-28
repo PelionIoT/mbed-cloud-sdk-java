@@ -13,7 +13,6 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
 import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
-import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 
 /**
  * Data Access Object (DAO) for developer certificates.
@@ -24,8 +23,7 @@ import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
  */
 @Preamble(description = "Data Access Object (DAO) for developer certificates.")
 public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertificate>
-                                     implements CreateDao<DeveloperCertificate>, DeleteDao<DeveloperCertificate>,
-                                     ReadDao<DeveloperCertificate> {
+                                     implements CreateDao<DeveloperCertificate>, DeleteDao<DeveloperCertificate> {
     /**
      * Constructor.
      */
@@ -116,34 +114,6 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     }
 
     /**
-     * Gets a developer certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificate(DeveloperCertificate)}
-     * 
-     * @return something
-     */
-    @Override
-    public DeveloperCertificate get() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getDeveloperCertificate(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a developer certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificate(String)}
-     * 
-     * @param id
-     *            mUUID that uniquely identifies the developer certificate.
-     * @return something
-     */
-    @Override
-    public DeveloperCertificate get(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getDeveloperCertificate(id));
-        return getModel();
-    }
-
-    /**
      * Get trusted certificate by ID.
      *
      * <p>
@@ -217,5 +187,33 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Security(client);
+    }
+
+    /**
+     * Fetch an existing developer certificate to connect to the bootstrap server.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#read(DeveloperCertificate)}
+     * 
+     * @return something
+     */
+    public DeveloperCertificate read() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).read(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Fetch an existing developer certificate to connect to the bootstrap server.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#read(String)}
+     * 
+     * @param id
+     *            ID that uniquely identifies the developer certificate.
+     * @return something
+     */
+    public DeveloperCertificate read(@NonNull String id) throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).read(id));
+        return getModel();
     }
 }

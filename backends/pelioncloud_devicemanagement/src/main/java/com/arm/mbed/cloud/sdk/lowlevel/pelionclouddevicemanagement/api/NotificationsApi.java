@@ -7,8 +7,35 @@ import retrofit2.http.*;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.WebsocketChannel;
 
 public interface NotificationsApi {
+    /**
+     * Open the websocket. A websocket channel can have only one active websocket connection at a time. If a websocket
+     * connection for a channel exists and a new connection to the same channel is made the connection is accepted and
+     * the older connection will be closed.&lt;br/&gt; Once the socket has been opened, it may be closed with one of the
+     * following status codes&lt;br/&gt; **1000**: Socket closed by the client. **1001**: Going away. set when another
+     * socket was opened on the used channel, or if the channel was deleted with a REST call, or if the server is
+     * shutting down. **1006**: Abnormal loss of connection. This code is never set by the service. **1008**: Policy
+     * violation. Set when the API key is missing or invalid. **1011**: Unexpected condition. Socket will be closed with
+     * this status at an attempt to open a socket to an unexisting channel (without a prior REST PUT). This code is also
+     * used to indicate closing socket for any other unexpected condition in the server.
+     * 
+     * @param connection
+     *            (required)
+     * @param upgrade
+     *            (required)
+     * @param secWebSocketProtocol
+     *            ApiKey must be present in the &#x60;Sec-WebSocket-Protocol&#x60; header
+     *            &#x60;\&quot;Sec-WebSocket-Protocol\&quot;:\&quot;wss,pelion_ak_{api_key}\&quot;&#x60; Refer to the
+     *            notification service documentation for examples of usage. (required)
+     * @return Call&lt;Void&gt;
+     */
+    @GET("v2/notification/websocket-connect")
+    Call<Void> connectWebsocket(@retrofit2.http.Header("Connection") String connection,
+                                @retrofit2.http.Header("Upgrade") String upgrade,
+                                @retrofit2.http.Header("Sec-WebSocket-Protocol") String secWebSocketProtocol);
+
     /**
      * Delete notification Long Poll channel To delete a notification Long Poll channel. This is required to change the
      * channel from Long Poll to another type. You should not make a GET &#x60;/v2/notification/pull&#x60; call for 2
@@ -21,6 +48,16 @@ public interface NotificationsApi {
      */
     @DELETE("v2/notification/pull")
     Call<Void> deleteLongPollChannel();
+
+    /**
+     * Delete websocket channel. To delete a notification websocket channel bound to the API key. This is required to
+     * change the channel from websocket to another type. **Example usage:** curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v2/notification/websocket -H &#39;authorization: Bearer {api-key}&#39;
+     * 
+     * @return Call&lt;Void&gt;
+     */
+    @DELETE("v2/notification/websocket")
+    Call<Void> deleteWebsocket();
 
     /**
      * Delete callback URL Deletes the callback URL. **Example usage:** curl -X DELETE
@@ -39,6 +76,16 @@ public interface NotificationsApi {
      */
     @GET("v2/notification/callback")
     Call<Webhook> getWebhook();
+
+    /**
+     * Get websocket channel information. Returns 200 with websocket connection status if websocket channel exists.
+     * **Example usage:** curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket -H
+     * &#39;authorization: Bearer {api-key}&#39;
+     * 
+     * @return Call&lt;WebsocketChannel&gt;
+     */
+    @GET("v2/notification/websocket")
+    Call<WebsocketChannel> getWebsocket();
 
     /**
      * Get notifications using Long Poll In this case, notifications are delivered through HTTP long poll requests. The
@@ -101,5 +148,28 @@ public interface NotificationsApi {
     @Headers({ "Content-Type:application/json" })
     @PUT("v2/notification/callback")
     Call<Void> registerWebhook(@retrofit2.http.Body Webhook webhook);
+
+    /**
+     * Register a websocket channel Register (or update) a channel which will use websocket connection to deliver
+     * notifications. The websocket channel should be opened by client using
+     * &#x60;/v2/notification/websocket-connect&#x60; endpoint. To get notifications pushed, you also need to place the
+     * subscriptions. For more information on notification messages, see [NotificationMessage](#NotificationMessage). A
+     * websocket channel can have only one active websocket connection at a time. If a websocket connection for a
+     * channel exists and a new connection to the same channel is made the connection is accepted and the older
+     * connection will be closed. **Expiration of a websocket:** A websocket channel will be expired if the channel does
+     * not have an opened websocket connection for 24 hour period. Channel expiration means the channel will be deleted
+     * and any undelivered notifications stored in its internal queue will be removed. As long as the channel has an
+     * opened websocket connection or time between successive websocket connections is less than 24 hours, the channel
+     * is considered active, notifications are stored in its internal queue and delivered when a websocket connection is
+     * active. A channel can be also deleted explicitly by a DELETE call. More about [notification sending
+     * logic](/docs/current/integrate-web-app/event-notification.html#notification-sending-logic). **Example usage:**
+     * curl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket -H &#39;authorization: Bearer
+     * {api-key}&#39;
+     * 
+     * @return Call&lt;WebsocketChannel&gt;
+     */
+    @Headers({ "Content-Type:application/json" })
+    @PUT("v2/notification/websocket")
+    Call<WebsocketChannel> registerWebsocket();
 
 }

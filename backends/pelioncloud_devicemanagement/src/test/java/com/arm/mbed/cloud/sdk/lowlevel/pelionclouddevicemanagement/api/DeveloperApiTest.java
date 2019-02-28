@@ -123,9 +123,10 @@ public class DeveloperApiTest {
         String statusEq = null;
         String issuerLike = null;
         String subjectLike = null;
+        Boolean validEq = null;
         // TrustedCertificateRespList response = api.getAllCertificates(limit, after, order, include, nameEq, serviceEq,
         // expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq, issuerLike,
-        // subjectLike);
+        // subjectLike, validEq);
 
         // TODO: test validations
     }
@@ -364,6 +365,21 @@ public class DeveloperApiTest {
     @Test
     public void getMyApiKeyTest() {
         // ApiKeyInfoResp response = api.getMyApiKey();
+
+        // TODO: test validations
+    }
+
+    /**
+     * Details of the current user.
+     *
+     * An endpoint for retrieving the details of the logged in user.
+     */
+    @Test
+    public void getMyUserTest() {
+        String scratchCodes = null;
+        String properties = null;
+        String include = null;
+        // UserInfoResp response = api.getMyUser(scratchCodes, properties, include);
 
         // TODO: test validations
     }

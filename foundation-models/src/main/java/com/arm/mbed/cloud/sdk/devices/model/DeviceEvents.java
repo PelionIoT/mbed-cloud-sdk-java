@@ -23,7 +23,7 @@ public class DeviceEvents implements SdkModel {
     /**
      * value.
      */
-    private final Map<String, String> changes;
+    private final Map changes;
 
     /**
      * value.
@@ -105,9 +105,9 @@ public class DeviceEvents implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public DeviceEvents(Map<String, String> changes, Date createdAt, Map<String, String> data, Date dateTime,
-                        String description, String deviceId, String eventType, String eventTypeCategory,
-                        String eventTypeDescription, String id, boolean stateChange) {
+    public DeviceEvents(Map changes, Date createdAt, Map<String, String> data, Date dateTime, String description,
+                        String deviceId, String eventType, String eventTypeCategory, String eventTypeDescription,
+                        String id, boolean stateChange) {
         super();
         this.changes = changes;
         this.createdAt = createdAt;
@@ -190,9 +190,9 @@ public class DeviceEvents implements SdkModel {
      *            value.
      */
     @Internal
-    public DeviceEvents(Map<String, String> changes, Date createdAt, Map<String, String> data, Date dateTime,
-                        String description, String deviceId, String eventType, String eventTypeCategory,
-                        String eventTypeDescription, boolean stateChange) {
+    public DeviceEvents(Map changes, Date createdAt, Map<String, String> data, Date dateTime, String description,
+                        String deviceId, String eventType, String eventTypeCategory, String eventTypeDescription,
+                        boolean stateChange) {
         this(changes, createdAt, data, dateTime, description, deviceId, eventType, eventTypeCategory,
              eventTypeDescription, (String) null, stateChange);
     }
@@ -202,7 +202,7 @@ public class DeviceEvents implements SdkModel {
      * 
      * @return changes
      */
-    public Map<String, String> getChanges() {
+    public Map getChanges() {
         return changes;
     }
 

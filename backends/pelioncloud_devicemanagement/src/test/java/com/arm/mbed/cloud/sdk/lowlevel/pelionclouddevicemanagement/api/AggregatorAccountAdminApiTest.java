@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyI
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColor;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateGenerationReq;
+import java.io.File;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupUpdateInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.IdentityProviderCreationReq;
@@ -359,6 +360,20 @@ public class AggregatorAccountAdminApiTest {
     }
 
     /**
+     * Delete the service provider certificate.
+     *
+     * An endpoint for deleting the service provider certificate.
+     */
+    @Test
+    public void deleteAccountSpCertificateTest() {
+        String accountId = null;
+        String identityProviderId = null;
+        // IdentityProviderInfo response = api.deleteAccountSpCertificate(accountId, identityProviderId);
+
+        // TODO: test validations
+    }
+
+    /**
      * Delete a user.
      *
      * An endpoint for deleting a user. **Example usage:** &#x60;curl -X DELETE
@@ -656,9 +671,10 @@ public class AggregatorAccountAdminApiTest {
         String statusEq = null;
         String issuerLike = null;
         String subjectLike = null;
+        Boolean validEq = null;
         // TrustedCertificateRespList response = api.getAllAccountCertificates(accountId, limit, after, order, include,
         // nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq,
-        // statusEq, issuerLike, subjectLike);
+        // statusEq, issuerLike, subjectLike, validEq);
 
         // TODO: test validations
     }
@@ -1169,6 +1185,21 @@ public class AggregatorAccountAdminApiTest {
     }
 
     /**
+     * Upload an image in the dark theme.
+     *
+     * An endpoint for uploading a new account branding image as form data in the dark theme in PNG or JPEG format.
+     */
+    @Test
+    public void uploadAccountDarkImageMultipartTest() {
+        String accountId = null;
+        String reference = null;
+        File image = null;
+        // BrandingImage response = api.uploadAccountDarkImageMultipart(accountId, reference, image);
+
+        // TODO: test validations
+    }
+
+    /**
      * Upload an image in the light theme.
      *
      * An endpoint for uploading a new account branding image in the light theme in PNG or JPEG format. **Example
@@ -1183,6 +1214,21 @@ public class AggregatorAccountAdminApiTest {
         String reference = null;
         String body = null;
         // BrandingImage response = api.uploadAccountLightImage(accountId, reference, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Upload an image in the light theme.
+     *
+     * An endpoint for uploading a new account branding image as form data in the light theme in PNG or JPEG format.
+     */
+    @Test
+    public void uploadAccountLightImageMultipartTest() {
+        String accountId = null;
+        String reference = null;
+        File image = null;
+        // BrandingImage response = api.uploadAccountLightImageMultipart(accountId, reference, image);
 
         // TODO: test validations
     }

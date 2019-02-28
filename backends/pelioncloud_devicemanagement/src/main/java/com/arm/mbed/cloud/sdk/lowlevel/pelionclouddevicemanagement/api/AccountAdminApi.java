@@ -5,6 +5,8 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.CollectionFor
 import retrofit2.Call;
 import retrofit2.http.*;
 
+import okhttp3.MultipartBody;
+
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountUpdateReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColor;
@@ -244,6 +246,18 @@ public interface AccountAdminApi {
      */
     @DELETE("v3/user-invitations/{invitation_id}")
     Call<Void> deleteInvitation(@retrofit2.http.Path(value = "invitation_id", encoded = true) String invitationId);
+
+    /**
+     * Delete the service provider certificate. An endpoint for deleting the service provider certificate.
+     * 
+     * @param identityProviderId
+     *            The ID of the identity provider to which the certificate should be deleted. (required)
+     * @return Call&lt;IdentityProviderInfo&gt;
+     */
+    @Headers({ "Content-Type:application/json" })
+    @POST("v3/identity-providers/{identity_provider_id}/delete-sp-certificate")
+    Call<IdentityProviderInfo> deleteSpCertificate(@retrofit2.http.Path(value = "identity_provider_id",
+                                                                        encoded = true) String identityProviderId);
 
     /**
      * Delete a user. An endpoint for deleting a user. **Example usage:** &#x60;curl -X DELETE
@@ -674,6 +688,22 @@ public interface AccountAdminApi {
                                         @retrofit2.http.Body String body);
 
     /**
+     * Upload an image in the dark theme. An endpoint for uploading a new account branding image as form data in the
+     * dark theme in PNG or JPEG format.
+     * 
+     * @param reference
+     *            Name of the branding images (icon or picture). (required)
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data. (required)
+     * @return Call&lt;BrandingImage&gt;
+     */
+    @retrofit2.http.Multipart
+    @POST("v3/branding-images/dark/{reference}/upload-multipart")
+    Call<BrandingImage>
+        uploadDarkImageMultipart(@retrofit2.http.Path(value = "reference", encoded = true) String reference,
+                                 @retrofit2.http.Part() MultipartBody.Part image);
+
+    /**
      * Upload an image in the light theme. An endpoint for uploading a new account branding image in the light theme in
      * PNG or JPEG format. **Example usage:** &#x60;curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/upload -H &#39;content-type:
@@ -689,5 +719,21 @@ public interface AccountAdminApi {
     @POST("v3/branding-images/light/{reference}/upload")
     Call<BrandingImage> uploadLightImage(@retrofit2.http.Path(value = "reference", encoded = true) String reference,
                                          @retrofit2.http.Body String body);
+
+    /**
+     * Upload an image in the light theme. An endpoint for uploading a new account branding image as form data in the
+     * light theme in PNG or JPEG format.
+     * 
+     * @param reference
+     *            Name of the branding images (icon or picture). (required)
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data. (required)
+     * @return Call&lt;BrandingImage&gt;
+     */
+    @retrofit2.http.Multipart
+    @POST("v3/branding-images/light/{reference}/upload-multipart")
+    Call<BrandingImage>
+        uploadLightImageMultipart(@retrofit2.http.Path(value = "reference", encoded = true) String reference,
+                                  @retrofit2.http.Part() MultipartBody.Part image);
 
 }

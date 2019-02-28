@@ -11,7 +11,9 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
+import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
+import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
+import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
 
 /**
  * Data Access Object (DAO) for api keys.
@@ -21,7 +23,8 @@ import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
  *      Object</a>
  */
 @Preamble(description = "Data Access Object (DAO) for api keys.")
-public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKey> {
+public class ApiKeyDao extends AbstractModelDao<ApiKey>
+                       implements CreateDao<ApiKey>, UpdateDao<ApiKey>, DeleteDao<ApiKey> {
     /**
      * Constructor.
      */
@@ -111,34 +114,6 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     }
 
     /**
-     * Gets an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getApiKey(ApiKey)}
-     * 
-     * @return something
-     */
-    @Override
-    public ApiKey get() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getApiKey(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getApiKey(String)}
-     * 
-     * @param id
-     *            The ID of the API key.
-     * @return something
-     */
-    @Override
-    public ApiKey get(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getApiKey(id));
-        return getModel();
-    }
-
-    /**
      * Instantiates model.
      * 
      * @return instantiated model
@@ -198,6 +173,34 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     @SuppressWarnings("PMD.ShortMethodName")
     public ApiKey me() throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).myApiKey());
+        return getModel();
+    }
+
+    /**
+     * Get API key details.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(ApiKey)}
+     * 
+     * @return something
+     */
+    public ApiKey read() throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).read(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Get API key details.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(String)}
+     * 
+     * @param id
+     *            The ID of the API key.
+     * @return something
+     */
+    public ApiKey read(@NonNull String id) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).read(id));
         return getModel();
     }
 

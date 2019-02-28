@@ -18,6 +18,29 @@ public class NotificationsApiTest {
     }
 
     /**
+     * Open the websocket.
+     *
+     * A websocket channel can have only one active websocket connection at a time. If a websocket connection for a
+     * channel exists and a new connection to the same channel is made the connection is accepted and the older
+     * connection will be closed.&lt;br/&gt; Once the socket has been opened, it may be closed with one of the following
+     * status codes&lt;br/&gt; **1000**: Socket closed by the client. **1001**: Going away. set when another socket was
+     * opened on the used channel, or if the channel was deleted with a REST call, or if the server is shutting down.
+     * **1006**: Abnormal loss of connection. This code is never set by the service. **1008**: Policy violation. Set
+     * when the API key is missing or invalid. **1011**: Unexpected condition. Socket will be closed with this status at
+     * an attempt to open a socket to an unexisting channel (without a prior REST PUT). This code is also used to
+     * indicate closing socket for any other unexpected condition in the server.
+     */
+    @Test
+    public void connectWebsocketTest() {
+        String connection = null;
+        String upgrade = null;
+        String secWebSocketProtocol = null;
+        // Void response = api.connectWebsocket(connection, upgrade, secWebSocketProtocol);
+
+        // TODO: test validations
+    }
+
+    /**
      * Delete notification Long Poll channel
      *
      * To delete a notification Long Poll channel. This is required to change the channel from Long Poll to another
@@ -30,6 +53,20 @@ public class NotificationsApiTest {
     @Test
     public void deleteLongPollChannelTest() {
         // Void response = api.deleteLongPollChannel();
+
+        // TODO: test validations
+    }
+
+    /**
+     * Delete websocket channel.
+     *
+     * To delete a notification websocket channel bound to the API key. This is required to change the channel from
+     * websocket to another type. **Example usage:** curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v2/notification/websocket -H &#39;authorization: Bearer {api-key}&#39;
+     */
+    @Test
+    public void deleteWebsocketTest() {
+        // Void response = api.deleteWebsocket();
 
         // TODO: test validations
     }
@@ -56,6 +93,19 @@ public class NotificationsApiTest {
     @Test
     public void getWebhookTest() {
         // Webhook response = api.getWebhook();
+
+        // TODO: test validations
+    }
+
+    /**
+     * Get websocket channel information.
+     *
+     * Returns 200 with websocket connection status if websocket channel exists. **Example usage:** curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v2/notification/websocket -H &#39;authorization: Bearer {api-key}&#39;
+     */
+    @Test
+    public void getWebsocketTest() {
+        // WebsocketChannel response = api.getWebsocket();
 
         // TODO: test validations
     }
@@ -122,6 +172,32 @@ public class NotificationsApiTest {
     public void registerWebhookTest() {
         Webhook webhook = null;
         // Void response = api.registerWebhook(webhook);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Register a websocket channel
+     *
+     * Register (or update) a channel which will use websocket connection to deliver notifications. The websocket
+     * channel should be opened by client using &#x60;/v2/notification/websocket-connect&#x60; endpoint. To get
+     * notifications pushed, you also need to place the subscriptions. For more information on notification messages,
+     * see [NotificationMessage](#NotificationMessage). A websocket channel can have only one active websocket
+     * connection at a time. If a websocket connection for a channel exists and a new connection to the same channel is
+     * made the connection is accepted and the older connection will be closed. **Expiration of a websocket:** A
+     * websocket channel will be expired if the channel does not have an opened websocket connection for 24 hour period.
+     * Channel expiration means the channel will be deleted and any undelivered notifications stored in its internal
+     * queue will be removed. As long as the channel has an opened websocket connection or time between successive
+     * websocket connections is less than 24 hours, the channel is considered active, notifications are stored in its
+     * internal queue and delivered when a websocket connection is active. A channel can be also deleted explicitly by a
+     * DELETE call. More about [notification sending
+     * logic](/docs/current/integrate-web-app/event-notification.html#notification-sending-logic). **Example usage:**
+     * curl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket -H &#39;authorization: Bearer
+     * {api-key}&#39;
+     */
+    @Test
+    public void registerWebsocketTest() {
+        // WebsocketChannel response = api.registerWebsocket();
 
         // TODO: test validations
     }

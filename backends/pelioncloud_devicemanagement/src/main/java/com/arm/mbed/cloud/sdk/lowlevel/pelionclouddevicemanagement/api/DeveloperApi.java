@@ -21,6 +21,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Trusted
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRespList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateUpdateReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdatedResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp;
 
 import java.util.List;
 
@@ -137,6 +138,9 @@ public interface DeveloperApi {
      * @param subjectLike
      *            Subject filter. Finds all matches where the filter value is a case insensitive substring of the
      *            result. Example: subject__like&#x3D;cn&#x3D;su matches CN&#x3D;subject. (optional)
+     * @param validEq
+     *            Filter for finding certificates by validity. True returns certificates which are not yet expired.
+     *            False returns certificates which have expired. (optional)
      * @return Call&lt;TrustedCertificateRespList&gt;
      */
     @GET("v3/trusted-certificates")
@@ -152,7 +156,8 @@ public interface DeveloperApi {
                            @retrofit2.http.Query("enrollment_mode__eq") Boolean enrollmentModeEq,
                            @retrofit2.http.Query("status__eq") String statusEq,
                            @retrofit2.http.Query("issuer__like") String issuerLike,
-                           @retrofit2.http.Query("subject__like") String subjectLike);
+                           @retrofit2.http.Query("subject__like") String subjectLike,
+                           @retrofit2.http.Query("valid__eq") Boolean validEq);
 
     /**
      * Get metadata of all images in the dark theme. Returns the metadata of all branding images in the dark theme.
@@ -369,6 +374,23 @@ public interface DeveloperApi {
      */
     @GET("v3/api-keys/me")
     Call<ApiKeyInfoResp> getMyApiKey();
+
+    /**
+     * Details of the current user. An endpoint for retrieving the details of the logged in user.
+     * 
+     * @param scratchCodes
+     *            Request to regenerate new emergency scratch codes. (optional)
+     * @param properties
+     *            Request to return account specific user property values according to the given property name.
+     *            (optional)
+     * @param include
+     *            Comma separated additional data to return. Currently supported: active_sessions (optional)
+     * @return Call&lt;UserInfoResp&gt;
+     */
+    @GET("v3/users/me")
+    Call<UserInfoResp> getMyUser(@retrofit2.http.Query("scratch_codes") String scratchCodes,
+                                 @retrofit2.http.Query("properties") String properties,
+                                 @retrofit2.http.Query("include") String include);
 
     /**
      * Remove API keys from a group. An endpoint for removing API keys from groups. **Example usage:** &#x60;curl -X

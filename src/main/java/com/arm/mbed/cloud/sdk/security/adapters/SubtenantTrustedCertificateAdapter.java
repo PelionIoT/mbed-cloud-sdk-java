@@ -49,6 +49,7 @@ public final class SubtenantTrustedCertificateAdapter {
                                                                                                         toBeMapped.getOwnerId(),
                                                                                                         toBeMapped.getSubject(),
                                                                                                         TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
+                                                                                                        TranslationUtils.toBool(toBeMapped.isValid()),
                                                                                                         TranslationUtils.toDate(toBeMapped.getValidity()));
         subtenantTrustedCertificate.setAccountId(toBeMapped.getAccountId());
         subtenantTrustedCertificate.setCertificate(toBeMapped.getCertificate());

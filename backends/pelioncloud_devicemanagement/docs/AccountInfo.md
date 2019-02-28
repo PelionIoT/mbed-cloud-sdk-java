@@ -36,6 +36,7 @@ Name | Type | Description | Notes
 **parentAccount** | [**ParentAccountInfo**](ParentAccountInfo.md) | Contact details of the parent account. |  [optional]
 **parentId** | **String** | The ID of the parent account, if it has any. |  [optional]
 **passwordPolicy** | [**PasswordPolicy**](PasswordPolicy.md) | The password policy for this account. |  [optional]
+**passwordRecoveryExpiration** | **Integer** | Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45. |  [optional]
 **phoneNumber** | **String** | The phone number of a representative of the company. |  [optional]
 **policies** | [**List&lt;FeaturePolicy&gt;**](FeaturePolicy.md) | List of policies if requested. |  [optional]
 **postalCode** | **String** | The postal code part of the postal address. |  [optional]

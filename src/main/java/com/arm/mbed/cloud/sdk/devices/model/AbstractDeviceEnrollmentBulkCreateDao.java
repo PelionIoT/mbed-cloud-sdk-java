@@ -13,7 +13,6 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
-import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 import com.arm.mbed.cloud.sdk.common.model.DataFile;
 
 /**
@@ -25,8 +24,7 @@ import com.arm.mbed.cloud.sdk.common.model.DataFile;
  */
 @Preamble(description = "Data Access Object (DAO) for device enrollment bulk creates.")
 public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractModelDao<DeviceEnrollmentBulkCreate>
-                                                            implements CreateDao<DeviceEnrollmentBulkCreate>,
-                                                            ReadDao<DeviceEnrollmentBulkCreate> {
+                                                            implements CreateDao<DeviceEnrollmentBulkCreate> {
     /**
      * Constructor.
      */
@@ -45,34 +43,6 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
      */
     public DeviceEnrollmentBulkCreate create(@NonNull DataFile enrollmentIdentities) throws MbedCloudException {
         setModel(((Devices) getModuleOrThrow()).createDeviceEnrollmentBulkCreate(enrollmentIdentities));
-        return getModel();
-    }
-
-    /**
-     * Gets a device enrollment bulk create.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollmentBulkCreate(DeviceEnrollmentBulkCreate)}
-     * 
-     * @return something
-     */
-    @Override
-    public DeviceEnrollmentBulkCreate get() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDeviceEnrollmentBulkCreate(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a device enrollment bulk create.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollmentBulkCreate(String)}
-     * 
-     * @param id
-     *            Bulk ID.
-     * @return something
-     */
-    @Override
-    public DeviceEnrollmentBulkCreate get(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDeviceEnrollmentBulkCreate(id));
         return getModel();
     }
 
@@ -124,5 +94,31 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Devices(client);
+    }
+
+    /**
+     * Get bulk upload entity .
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#read(DeviceEnrollmentBulkCreate)}
+     * 
+     * @return something
+     */
+    public DeviceEnrollmentBulkCreate read() throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).read(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Get bulk upload entity .
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#read(String)}
+     * 
+     * @param id
+     *            Bulk ID.
+     * @return something
+     */
+    public DeviceEnrollmentBulkCreate read(@NonNull String id) throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).read(id));
+        return getModel();
     }
 }

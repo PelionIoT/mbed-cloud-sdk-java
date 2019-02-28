@@ -14,7 +14,9 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
+import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
+import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
+import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
 
 /**
  * Data Access Object (DAO) for subtenant users.
@@ -25,7 +27,8 @@ import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
  */
 @Preamble(description = "Data Access Object (DAO) for subtenant users.")
 public abstract class AbstractSubtenantUserDao extends AbstractModelDao<SubtenantUser>
-                                               implements CrudDao<SubtenantUser> {
+                                               implements CreateDao<SubtenantUser>, UpdateDao<SubtenantUser>,
+                                               DeleteDao<SubtenantUser> {
     /**
      * Constructor.
      */
@@ -103,35 +106,6 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     }
 
     /**
-     * Gets a subtenant user.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getSubtenantUser(SubtenantUser)}
-     * 
-     * @return something
-     */
-    @Override
-    public SubtenantUser get() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getSubtenantUser(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a subtenant user.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getSubtenantUser(String,String)}
-     * 
-     * @param accountId
-     *            The ID of the account.
-     * @param id
-     *            The ID of the user.
-     * @return something
-     */
-    public SubtenantUser get(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getSubtenantUser(accountId, id));
-        return getModel();
-    }
-
-    /**
      * Instantiates model.
      * 
      * @return instantiated model
@@ -179,6 +153,36 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Accounts(client);
+    }
+
+    /**
+     * Details of the user.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(SubtenantUser)}
+     * 
+     * @return something
+     */
+    public SubtenantUser read() throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).read(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Details of the user.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(String,String)}
+     * 
+     * @param accountId
+     *            The ID of the account.
+     * @param id
+     *            The ID of the user.
+     * @return something
+     */
+    public SubtenantUser read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).read(accountId, id));
+        return getModel();
     }
 
     /**

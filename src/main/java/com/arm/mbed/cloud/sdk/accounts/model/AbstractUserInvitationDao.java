@@ -15,7 +15,6 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
 import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
-import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 
 /**
  * Data Access Object (DAO) for user invitations.
@@ -26,8 +25,7 @@ import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
  */
 @Preamble(description = "Data Access Object (DAO) for user invitations.")
 public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInvitation>
-                                                implements CreateDao<UserInvitation>, DeleteDao<UserInvitation>,
-                                                ReadDao<UserInvitation> {
+                                                implements CreateDao<UserInvitation>, DeleteDao<UserInvitation> {
     /**
      * Constructor.
      */
@@ -88,34 +86,6 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     }
 
     /**
-     * Gets a user invitation.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getUserInvitation(UserInvitation)}
-     * 
-     * @return something
-     */
-    @Override
-    public UserInvitation get() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getUserInvitation(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a user invitation.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getUserInvitation(String)}
-     * 
-     * @param id
-     *            The ID of the invitation.
-     * @return something
-     */
-    @Override
-    public UserInvitation get(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getUserInvitation(id));
-        return getModel();
-    }
-
-    /**
      * Instantiates model.
      * 
      * @return instantiated model
@@ -163,5 +133,33 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Accounts(client);
+    }
+
+    /**
+     * Details of a user invitation.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(UserInvitation)}
+     * 
+     * @return something
+     */
+    public UserInvitation read() throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).read(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Details of a user invitation.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(String)}
+     * 
+     * @param id
+     *            The ID of the invitation.
+     * @return something
+     */
+    public UserInvitation read(@NonNull String id) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).read(id));
+        return getModel();
     }
 }

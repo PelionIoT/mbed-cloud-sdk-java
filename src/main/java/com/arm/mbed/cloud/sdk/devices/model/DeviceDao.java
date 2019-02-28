@@ -11,7 +11,9 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
+import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
+import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
+import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
 import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment;
 
 /**
@@ -22,7 +24,8 @@ import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment;
  *      Object</a>
  */
 @Preamble(description = "Data Access Object (DAO) for devices.")
-public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Device> {
+public class DeviceDao extends AbstractModelDao<Device>
+                       implements CreateDao<Device>, UpdateDao<Device>, DeleteDao<Device> {
     /**
      * Constructor.
      */
@@ -112,34 +115,6 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     }
 
     /**
-     * Gets a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDevice(Device)}
-     * 
-     * @return something
-     */
-    @Override
-    public Device get() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDevice(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDevice(String)}
-     * 
-     * @param id
-     *            The ID of the device. The device ID is used across all Device Management APIs.
-     * @return something
-     */
-    @Override
-    public Device get(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDevice(id));
-        return getModel();
-    }
-
-    /**
      * Instantiates model.
      * 
      * @return instantiated model
@@ -187,6 +162,32 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Devices(client);
+    }
+
+    /**
+     * Get a device .
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#read(Device)}
+     * 
+     * @return something
+     */
+    public Device read() throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).read(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Get a device .
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#read(String)}
+     * 
+     * @param id
+     *            The ID of the device. The device ID is used across all Device Management APIs.
+     * @return something
+     */
+    public Device read(@NonNull String id) throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).read(id));
+        return getModel();
     }
 
     /**

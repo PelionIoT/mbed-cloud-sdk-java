@@ -4,6 +4,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountUpdateReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColor;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateGenerationReq;
+import java.io.File;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupUpdateInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.IdentityProviderCreationReq;
@@ -261,6 +262,19 @@ public class AccountAdminApiTest {
     public void deleteInvitationTest() {
         String invitationId = null;
         // Void response = api.deleteInvitation(invitationId);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Delete the service provider certificate.
+     *
+     * An endpoint for deleting the service provider certificate.
+     */
+    @Test
+    public void deleteSpCertificateTest() {
+        String identityProviderId = null;
+        // IdentityProviderInfo response = api.deleteSpCertificate(identityProviderId);
 
         // TODO: test validations
     }
@@ -665,6 +679,20 @@ public class AccountAdminApiTest {
     }
 
     /**
+     * Upload an image in the dark theme.
+     *
+     * An endpoint for uploading a new account branding image as form data in the dark theme in PNG or JPEG format.
+     */
+    @Test
+    public void uploadDarkImageMultipartTest() {
+        String reference = null;
+        File image = null;
+        // BrandingImage response = api.uploadDarkImageMultipart(reference, image);
+
+        // TODO: test validations
+    }
+
+    /**
      * Upload an image in the light theme.
      *
      * An endpoint for uploading a new account branding image in the light theme in PNG or JPEG format. **Example
@@ -677,6 +705,20 @@ public class AccountAdminApiTest {
         String reference = null;
         String body = null;
         // BrandingImage response = api.uploadLightImage(reference, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Upload an image in the light theme.
+     *
+     * An endpoint for uploading a new account branding image as form data in the light theme in PNG or JPEG format.
+     */
+    @Test
+    public void uploadLightImageMultipartTest() {
+        String reference = null;
+        File image = null;
+        // BrandingImage response = api.uploadLightImageMultipart(reference, image);
 
         // TODO: test validations
     }
