@@ -84,8 +84,8 @@ public class SubtenantUserInvitationDao extends AbstractSubtenantUserInvitationD
      * @return something
      */
     @Override
-    public SubtenantUserInvitation get(String id) throws MbedCloudException, UnsupportedOperationException,
-                                                  NotImplementedException {
+    public SubtenantUserInvitation read(String id) throws MbedCloudException, UnsupportedOperationException,
+                                                   NotImplementedException {
         // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }

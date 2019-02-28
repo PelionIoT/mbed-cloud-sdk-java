@@ -53,8 +53,8 @@ public class SubtenantUserDao extends AbstractSubtenantUserDao {
      *            a string.
      */
     @Override
-    public SubtenantUser get(String id) throws MbedCloudException, UnsupportedOperationException,
-                                        NotImplementedException {
+    public SubtenantUser read(String id) throws MbedCloudException, UnsupportedOperationException,
+                                         NotImplementedException {
         // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
