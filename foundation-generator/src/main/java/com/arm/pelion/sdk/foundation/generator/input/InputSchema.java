@@ -56,7 +56,7 @@ public interface InputSchema {
     final String CUSTOM_METHOD_TAG = "custom_method";
     final String LIST_METHOD_TAG = "list";
     final String CREATE_METHOD_TAG = "create";
-    final String READ_METHOD_TAG = "get";
+    final String READ_METHOD_TAG = "read";
     final String UPDATE_METHOD_TAG = "update";
     final String DELETE_METHOD_TAG = "delete";
     final String ME_METHOD_TAG = "me";
