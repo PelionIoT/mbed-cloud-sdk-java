@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **mfaStatus** | [**MfaStatusEnum**](#MfaStatusEnum) | The enforcement status of setting up the multi-factor authentication. &#39;Enforced&#39; means that setting up the MFA is required after login. &#39;Optional&#39; means that the MFA is not required. |  [optional]
 **notificationEmails** | **List&lt;String&gt;** | A list of notification email addresses. |  [optional]
 **passwordPolicy** | [**PasswordPolicy**](PasswordPolicy.md) | Password policy for this account. |  [optional]
+**passwordRecoveryExpiration** | **Integer** | Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45. |  [optional]
 **phoneNumber** | **String** | The phone number of a representative of the company, not longer than 100 characters. |  [optional]
 **postalCode** | **String** | The postal code part of the postal address, not longer than 100 characters. |  [optional]
 **state** | **String** | The state part of the postal address, not longer than 100 characters. |  [optional]

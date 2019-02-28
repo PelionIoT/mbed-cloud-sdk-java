@@ -64,7 +64,7 @@ public class PublicApiApiTest {
     }
 
     /**
-     * Place an enrollment claim for one or several devices.
+     * Create a single enrollment.
      *
      * When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your
      * account. &lt;br&gt; **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid
@@ -201,7 +201,7 @@ public class PublicApiApiTest {
     }
 
     /**
-     * Get details of an enrollment by ID.
+     * Get details of an single enrollment by ID.
      *
      * To check the enrollment info in detail, for example date of claim and expiration date. **Example usage:**
      * &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\
@@ -216,7 +216,7 @@ public class PublicApiApiTest {
     }
 
     /**
-     * Get enrollment list.
+     * Get a list of enrollments per account.
      *
      * Provides a list of pending and claimed enrollments. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H
      * &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\

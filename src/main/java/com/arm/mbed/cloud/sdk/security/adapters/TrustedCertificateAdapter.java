@@ -50,6 +50,7 @@ public final class TrustedCertificateAdapter {
                                                                              toBeMapped.getOwnerId(),
                                                                              toBeMapped.getSubject(),
                                                                              TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
+                                                                             TranslationUtils.toBool(toBeMapped.isValid()),
                                                                              TranslationUtils.toDate(toBeMapped.getValidity()));
         trustedCertificate.setCertificate(toBeMapped.getCertificate());
         trustedCertificate.setDescription(toBeMapped.getDescription());

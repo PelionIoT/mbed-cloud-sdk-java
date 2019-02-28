@@ -26,6 +26,7 @@ Method | HTTP request | Description
 [**getLightImageData**](DeveloperApi.md#getLightImageData) | **GET** v3/branding-images/light/{reference} | Get metadata of an image in the light theme.
 [**getMyAccountInfo**](DeveloperApi.md#getMyAccountInfo) | **GET** v3/accounts/me | Get account info.
 [**getMyApiKey**](DeveloperApi.md#getMyApiKey) | **GET** v3/api-keys/me | Get API key details.
+[**getMyUser**](DeveloperApi.md#getMyUser) | **GET** v3/users/me | Details of the current user.
 [**removeApiKeysFromGroup**](DeveloperApi.md#removeApiKeysFromGroup) | **DELETE** v3/policy-groups/{group_id}/api-keys | Remove API keys from a group.
 [**removeMyApiKeyFromGroups**](DeveloperApi.md#removeMyApiKeyFromGroups) | **DELETE** v3/api-keys/me/groups | Remove API key from groups.
 [**updateApiKey**](DeveloperApi.md#updateApiKey) | **PUT** v3/api-keys/{apikey_id} | Update API key details.
@@ -320,7 +321,7 @@ Name | Type | Description  | Notes
 
 <a name="getAllCertificates"></a>
 # **getAllCertificates**
-> TrustedCertificateRespList getAllCertificates(limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq, issuerLike, subjectLike)
+> TrustedCertificateRespList getAllCertificates(limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq, issuerLike, subjectLike, validEq)
 
 Get all trusted certificates.
 
@@ -358,8 +359,9 @@ Boolean enrollmentModeEq = true; // Boolean | Enrollment mode filter
 String statusEq = "statusEq_example"; // String | Filter for certificate status
 String issuerLike = "issuerLike_example"; // String | Issuer filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer.
 String subjectLike = "subjectLike_example"; // String | Subject filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject.
+Boolean validEq = true; // Boolean | Filter for finding certificates by validity. True returns certificates which are not yet expired. False returns certificates which have expired.
 try {
-    TrustedCertificateRespList result = apiInstance.getAllCertificates(limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq, issuerLike, subjectLike);
+    TrustedCertificateRespList result = apiInstance.getAllCertificates(limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq, issuerLike, subjectLike, validEq);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DeveloperApi#getAllCertificates");
@@ -385,6 +387,7 @@ Name | Type | Description  | Notes
  **statusEq** | **String**| Filter for certificate status | [optional]
  **issuerLike** | **String**| Issuer filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like&#x3D;cn&#x3D;iss matches CN&#x3D;issuer. | [optional]
  **subjectLike** | **String**| Subject filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like&#x3D;cn&#x3D;su matches CN&#x3D;subject. | [optional]
+ **validEq** | **Boolean**| Filter for finding certificates by validity. True returns certificates which are not yet expired. False returns certificates which have expired. | [optional]
 
 ### Return type
 
@@ -405,7 +408,7 @@ Name | Type | Description  | Notes
 
 Get metadata of all images in the dark theme.
 
-Returns the metadata of all branding images in the dark theme.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-images/dark -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+Returns the metadata of all branding images in the dark theme.  **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-images/dark -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -519,7 +522,7 @@ Name | Type | Description  | Notes
 
 Get metadata of all images in the light theme.
 
-Returns the metadata of all branding images in the light theme.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-images/light -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+Returns the metadata of all branding images in the light theme.  **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-images/light -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -743,7 +746,7 @@ Name | Type | Description  | Notes
 
 Get branding color of the dark theme.
 
-Returns the requested branding color of the dark theme.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/{reference} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+Returns the requested branding color of the dark theme.  **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/{reference} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -798,7 +801,7 @@ Name | Type | Description  | Notes
 
 Get branding colors of the dark theme.
 
-Returns the branding colors of the dark theme.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+Returns the branding colors of the dark theme.  **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -849,7 +852,7 @@ This endpoint does not need any parameter.
 
 Get metadata of an image in the dark theme.
 
-An endpoint for getting metadata of one account branding image in the dark theme.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+An endpoint for getting metadata of one account branding image in the dark theme.  **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1020,7 +1023,7 @@ Name | Type | Description  | Notes
 
 Get branding color of the light theme.
 
-Returns the requested branding color of the light theme.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+Returns the requested branding color of the light theme.  **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1075,7 +1078,7 @@ Name | Type | Description  | Notes
 
 Get branding colors of the light theme.
 
-Returns the branding colors of the light theme.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/light -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+Returns the branding colors of the light theme.  **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-colors/light -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1126,7 +1129,7 @@ This endpoint does not need any parameter.
 
 Get metadata of an image in the light theme.
 
-An endpoint for getting metadata of one account branding image in the light theme.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+An endpoint for getting metadata of one account branding image in the light theme.  **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1273,6 +1276,65 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**ApiKeyInfoResp**](ApiKeyInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getMyUser"></a>
+# **getMyUser**
+> UserInfoResp getMyUser(scratchCodes, properties, include)
+
+Details of the current user.
+
+An endpoint for retrieving the details of the logged in user.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeveloperApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DeveloperApi apiInstance = new DeveloperApi();
+String scratchCodes = "scratchCodes_example"; // String | Request to regenerate new emergency scratch codes.
+String properties = "properties_example"; // String | Request to return account specific user property values according to the given property name.
+String include = "include_example"; // String | Comma separated additional data to return. Currently supported: active_sessions
+try {
+    UserInfoResp result = apiInstance.getMyUser(scratchCodes, properties, include);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DeveloperApi#getMyUser");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **scratchCodes** | **String**| Request to regenerate new emergency scratch codes. | [optional]
+ **properties** | **String**| Request to return account specific user property values according to the given property name. | [optional]
+ **include** | **String**| Comma separated additional data to return. Currently supported: active_sessions | [optional]
+
+### Return type
+
+[**UserInfoResp**](UserInfoResp.md)
 
 ### Authorization
 

@@ -224,6 +224,9 @@ public class AccountInfo implements Serializable {
     @SerializedName("password_policy")
     private PasswordPolicy passwordPolicy = null;
 
+    @SerializedName("password_recovery_expiration")
+    private Integer passwordRecoveryExpiration = null;
+
     @SerializedName("phone_number")
     private String phoneNumber = null;
 
@@ -954,6 +957,26 @@ public class AccountInfo implements Serializable {
         this.passwordPolicy = passwordPolicy;
     }
 
+    public AccountInfo passwordRecoveryExpiration(Integer passwordRecoveryExpiration) {
+        this.passwordRecoveryExpiration = passwordRecoveryExpiration;
+        return this;
+    }
+
+    /**
+     * Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is:
+     * 1-45. minimum: 1 maximum: 45
+     * 
+     * @return passwordRecoveryExpiration
+     **/
+    @ApiModelProperty(value = "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.")
+    public Integer getPasswordRecoveryExpiration() {
+        return passwordRecoveryExpiration;
+    }
+
+    public void setPasswordRecoveryExpiration(Integer passwordRecoveryExpiration) {
+        this.passwordRecoveryExpiration = passwordRecoveryExpiration;
+    }
+
     public AccountInfo phoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
@@ -1256,6 +1279,7 @@ public class AccountInfo implements Serializable {
                && Objects.equals(this.parentAccount, accountInfo.parentAccount)
                && Objects.equals(this.parentId, accountInfo.parentId)
                && Objects.equals(this.passwordPolicy, accountInfo.passwordPolicy)
+               && Objects.equals(this.passwordRecoveryExpiration, accountInfo.passwordRecoveryExpiration)
                && Objects.equals(this.phoneNumber, accountInfo.phoneNumber)
                && Objects.equals(this.policies, accountInfo.policies)
                && Objects.equals(this.postalCode, accountInfo.postalCode)
@@ -1275,9 +1299,9 @@ public class AccountInfo implements Serializable {
                             adminPassword, aliases, city, company, contact, contractNumber, country, createdAt,
                             customFields, customerNumber, displayName, email, endMarket, etag, expiration,
                             expirationWarningThreshold, id, idleTimeout, limits, mfaStatus, notificationEmails, object,
-                            parentAccount, parentId, passwordPolicy, phoneNumber, policies, postalCode, reason,
-                            referenceNote, salesContact, state, status, subAccounts, templateId, tier, updatedAt,
-                            upgradedAt);
+                            parentAccount, parentId, passwordPolicy, passwordRecoveryExpiration, phoneNumber, policies,
+                            postalCode, reason, referenceNote, salesContact, state, status, subAccounts, templateId,
+                            tier, updatedAt, upgradedAt);
     }
 
     @Override
@@ -1317,6 +1341,7 @@ public class AccountInfo implements Serializable {
         sb.append("    parentAccount: ").append(toIndentedString(parentAccount)).append("\n");
         sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
         sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
+        sb.append("    passwordRecoveryExpiration: ").append(toIndentedString(passwordRecoveryExpiration)).append("\n");
         sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
         sb.append("    policies: ").append(toIndentedString(policies)).append("\n");
         sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");

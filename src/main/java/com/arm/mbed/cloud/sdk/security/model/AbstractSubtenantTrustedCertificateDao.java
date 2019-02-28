@@ -12,7 +12,9 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
+import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
+import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
+import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
 
 /**
  * Data Access Object (DAO) for subtenant trusted certificates.
@@ -23,7 +25,9 @@ import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
  */
 @Preamble(description = "Data Access Object (DAO) for subtenant trusted certificates.")
 public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractModelDao<SubtenantTrustedCertificate>
-                                                             implements CrudDao<SubtenantTrustedCertificate> {
+                                                             implements CreateDao<SubtenantTrustedCertificate>,
+                                                             UpdateDao<SubtenantTrustedCertificate>,
+                                                             DeleteDao<SubtenantTrustedCertificate> {
     /**
      * Constructor.
      */
@@ -114,35 +118,6 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     }
 
     /**
-     * Gets a subtenant trusted certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getSubtenantTrustedCertificate(SubtenantTrustedCertificate)}
-     * 
-     * @return something
-     */
-    @Override
-    public SubtenantTrustedCertificate get() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getSubtenantTrustedCertificate(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a subtenant trusted certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getSubtenantTrustedCertificate(String,String)}
-     * 
-     * @param accountId
-     *            The ID of the account.
-     * @param id
-     *            Entity ID.
-     * @return something
-     */
-    public SubtenantTrustedCertificate get(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getSubtenantTrustedCertificate(accountId, id));
-        return getModel();
-    }
-
-    /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
      *
      * <p>
@@ -161,7 +136,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(String)}
      * 
      * @param id
-     *            mUUID that uniquely identifies the developer certificate.
+     *            ID that uniquely identifies the developer certificate.
      * @return something
      */
     public DeveloperCertificate getDeveloperCertificateInfo(@NonNull String id) throws MbedCloudException {
@@ -216,6 +191,36 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Security(client);
+    }
+
+    /**
+     * Get trusted certificate by ID.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#read(SubtenantTrustedCertificate)}
+     * 
+     * @return something
+     */
+    public SubtenantTrustedCertificate read() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).read(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Get trusted certificate by ID.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#read(String,String)}
+     * 
+     * @param accountId
+     *            The ID of the account.
+     * @param id
+     *            Entity ID.
+     * @return something
+     */
+    public SubtenantTrustedCertificate read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).read(accountId, id));
+        return getModel();
     }
 
     /**

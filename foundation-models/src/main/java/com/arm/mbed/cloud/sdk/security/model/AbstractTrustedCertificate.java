@@ -100,6 +100,11 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
     protected final Date updatedAt;
 
     /**
+     * This read-only flag indicates whether the certificate is valid or not.
+     */
+    protected final boolean valid;
+
+    /**
      * Expiration time in UTC formatted as RFC3339.
      */
     protected final Date validity;
@@ -139,6 +144,8 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
      *            Subject of the certificate.
      * @param updatedAt
      *            Last update UTC time RFC3339.
+     * @param valid
+     *            This read-only flag indicates whether the certificate is valid or not.
      * @param validity
      *            Expiration time in UTC formatted as RFC3339.
      */
@@ -148,7 +155,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
                                       Date createdAt, String description, int deviceExecutionMode,
                                       boolean enrollmentMode, String id, String issuer, String name, String ownerId,
                                       TrustedCertificateService service, TrustedCertificateStatus status,
-                                      String subject, Date updatedAt, Date validity) {
+                                      String subject, Date updatedAt, boolean valid, Date validity) {
         super();
         this.accountId = accountId;
         this.certificateFingerprint = certificateFingerprint;
@@ -157,6 +164,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
         this.ownerId = ownerId;
         this.subject = subject;
         this.updatedAt = updatedAt;
+        this.valid = valid;
         this.validity = validity;
         setCertificate(certificate);
         setDescription(description);
@@ -195,6 +203,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
                                                 : abstractTrustedCertificate.status,
              abstractTrustedCertificate == null ? (String) null : abstractTrustedCertificate.subject,
              abstractTrustedCertificate == null ? new java.util.Date() : abstractTrustedCertificate.updatedAt,
+             abstractTrustedCertificate != null && abstractTrustedCertificate.valid,
              abstractTrustedCertificate == null ? new java.util.Date() : abstractTrustedCertificate.validity);
     }
 
@@ -204,7 +213,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
     public AbstractTrustedCertificate() {
         this((String) null, (String) null, (String) null, new java.util.Date(), (String) null, 0, false, (String) null,
              (String) null, (String) null, (String) null, TrustedCertificateService.getDefault(),
-             TrustedCertificateStatus.getDefault(), (String) null, new java.util.Date(), new java.util.Date());
+             TrustedCertificateStatus.getDefault(), (String) null, new java.util.Date(), false, new java.util.Date());
     }
 
     /**
@@ -237,15 +246,17 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
      *            Subject of the certificate.
      * @param updatedAt
      *            Last update UTC time RFC3339.
+     * @param valid
+     *            This read-only flag indicates whether the certificate is valid or not.
      * @param validity
      *            Expiration time in UTC formatted as RFC3339.
      */
     @Internal
     public AbstractTrustedCertificate(String accountId, String certificateFingerprint, Date createdAt, String issuer,
-                                      String ownerId, String subject, Date updatedAt, Date validity) {
+                                      String ownerId, String subject, Date updatedAt, boolean valid, Date validity) {
         this(accountId, (String) null, certificateFingerprint, createdAt, (String) null, 0, false, (String) null,
              issuer, (String) null, ownerId, TrustedCertificateService.getDefault(),
-             TrustedCertificateStatus.getDefault(), subject, updatedAt, validity);
+             TrustedCertificateStatus.getDefault(), subject, updatedAt, valid, validity);
     }
 
     /**
@@ -261,7 +272,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
     public AbstractTrustedCertificate(String certificate, String name, TrustedCertificateService service) {
         this((String) null, certificate, (String) null, new java.util.Date(), (String) null, 0, false, (String) null,
              (String) null, name, (String) null, service, TrustedCertificateStatus.getDefault(), (String) null,
-             new java.util.Date(), new java.util.Date());
+             new java.util.Date(), false, new java.util.Date());
     }
 
     /**
@@ -585,6 +596,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
         result = prime * result + ((status == null) ? 0 : status.hashCode());
         result = prime * result + ((subject == null) ? 0 : subject.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+        result = prime * result + Objects.hashCode(valid);
         result = prime * result + ((validity == null) ? 0 : validity.hashCode());
         return result;
     }
@@ -703,6 +715,9 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
         } else if (!updatedAt.equals(other.updatedAt)) {
             return false;
         }
+        if (valid != other.valid) {
+            return false;
+        }
         if (validity == null) {
             if (other.validity != null) {
                 return false;
@@ -726,8 +741,8 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
                + ", certificateFingerprint=" + certificateFingerprint + ", createdAt=" + createdAt + ", description="
                + description + ", deviceExecutionMode=" + deviceExecutionMode + ", enrollmentMode=" + enrollmentMode
                + ", id=" + id + ", issuer=" + issuer + ", name=" + name + ", ownerId=" + ownerId + ", service="
-               + service + ", status=" + status + ", subject=" + subject + ", updatedAt=" + updatedAt + ", validity="
-               + validity + "]";
+               + service + ", status=" + status + ", subject=" + subject + ", updatedAt=" + updatedAt + ", valid="
+               + valid + ", validity=" + validity + "]";
     }
 
     /**

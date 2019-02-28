@@ -131,6 +131,9 @@ public class AccountUpdateReq implements Serializable {
     @SerializedName("password_policy")
     private PasswordPolicy passwordPolicy = null;
 
+    @SerializedName("password_recovery_expiration")
+    private Integer passwordRecoveryExpiration = null;
+
     @SerializedName("phone_number")
     private String phoneNumber = null;
 
@@ -478,6 +481,26 @@ public class AccountUpdateReq implements Serializable {
         this.passwordPolicy = passwordPolicy;
     }
 
+    public AccountUpdateReq passwordRecoveryExpiration(Integer passwordRecoveryExpiration) {
+        this.passwordRecoveryExpiration = passwordRecoveryExpiration;
+        return this;
+    }
+
+    /**
+     * Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is:
+     * 1-45. minimum: 1 maximum: 45
+     * 
+     * @return passwordRecoveryExpiration
+     **/
+    @ApiModelProperty(value = "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.")
+    public Integer getPasswordRecoveryExpiration() {
+        return passwordRecoveryExpiration;
+    }
+
+    public void setPasswordRecoveryExpiration(Integer passwordRecoveryExpiration) {
+        this.passwordRecoveryExpiration = passwordRecoveryExpiration;
+    }
+
     public AccountUpdateReq phoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
@@ -562,6 +585,7 @@ public class AccountUpdateReq implements Serializable {
                && Objects.equals(this.mfaStatus, accountUpdateReq.mfaStatus)
                && Objects.equals(this.notificationEmails, accountUpdateReq.notificationEmails)
                && Objects.equals(this.passwordPolicy, accountUpdateReq.passwordPolicy)
+               && Objects.equals(this.passwordRecoveryExpiration, accountUpdateReq.passwordRecoveryExpiration)
                && Objects.equals(this.phoneNumber, accountUpdateReq.phoneNumber)
                && Objects.equals(this.postalCode, accountUpdateReq.postalCode)
                && Objects.equals(this.state, accountUpdateReq.state);
@@ -571,7 +595,8 @@ public class AccountUpdateReq implements Serializable {
     public int hashCode() {
         return Objects.hash(addressLine1, addressLine2, aliases, city, company, contact, country, customFields,
                             displayName, email, endMarket, expirationWarningThreshold, idleTimeout, mfaStatus,
-                            notificationEmails, passwordPolicy, phoneNumber, postalCode, state);
+                            notificationEmails, passwordPolicy, passwordRecoveryExpiration, phoneNumber, postalCode,
+                            state);
     }
 
     @Override
@@ -595,6 +620,7 @@ public class AccountUpdateReq implements Serializable {
         sb.append("    mfaStatus: ").append(toIndentedString(mfaStatus)).append("\n");
         sb.append("    notificationEmails: ").append(toIndentedString(notificationEmails)).append("\n");
         sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
+        sb.append("    passwordRecoveryExpiration: ").append(toIndentedString(passwordRecoveryExpiration)).append("\n");
         sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
         sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
         sb.append("    state: ").append(toIndentedString(state)).append("\n");

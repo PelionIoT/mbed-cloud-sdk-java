@@ -15,7 +15,6 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
-import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -31,7 +30,7 @@ import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOpti
  */
 @Preamble(description = "Data Access Object (DAO) for accounts.")
 public abstract class AbstractAccountDao extends AbstractModelDao<Account>
-                                         implements CreateDao<Account>, UpdateDao<Account>, ReadDao<Account> {
+                                         implements CreateDao<Account>, UpdateDao<Account> {
     /**
      * Constructor.
      */
@@ -43,7 +42,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#allTrustedCertificates(String,String,Integer,Integer,Integer,String,Boolean,String,String,String,SubtenantTrustedCertificateListOptions,Account)}
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allTrustedCertificates(String,String,Integer,Integer,Integer,String,Boolean,String,String,String,Boolean,SubtenantTrustedCertificateListOptions,Account)}
      * 
      * @param nameEq
      *            null
@@ -65,6 +64,8 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
      *            null
      * @param subjectLike
      *            null
+     * @param validEq
+     *            null
      * @param options
      *            list options.
      * @return paginator over the list of subtenant trusted certificates
@@ -74,18 +75,19 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
                                   @Nullable Integer deviceExecutionModeEq, @Nullable Integer deviceExecutionModeNeq,
                                   @Nullable String ownerEq, @Nullable Boolean enrollmentModeEq,
                                   @Nullable String statusEq, @Nullable String issuerLike, @Nullable String subjectLike,
+                                  @Nullable Boolean validEq,
                                   @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).allTrustedCertificates(nameEq, serviceEq, expireEq,
                                                                       deviceExecutionModeEq, deviceExecutionModeNeq,
                                                                       ownerEq, enrollmentModeEq, statusEq, issuerLike,
-                                                                      subjectLike, options, getModel());
+                                                                      subjectLike, validEq, options, getModel());
     }
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#allTrustedCertificates(String,String,String,Integer,Integer,Integer,String,Boolean,String,String,String,SubtenantTrustedCertificateListOptions)}
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allTrustedCertificates(String,String,String,Integer,Integer,Integer,String,Boolean,String,String,String,Boolean,SubtenantTrustedCertificateListOptions)}
      * 
      * @param id
      *            Account ID.
@@ -109,6 +111,8 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
      *            null
      * @param subjectLike
      *            null
+     * @param validEq
+     *            null
      * @param options
      *            list options.
      * @return paginator over the list of subtenant trusted certificates
@@ -118,12 +122,12 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
                                   @Nullable Integer expireEq, @Nullable Integer deviceExecutionModeEq,
                                   @Nullable Integer deviceExecutionModeNeq, @Nullable String ownerEq,
                                   @Nullable Boolean enrollmentModeEq, @Nullable String statusEq,
-                                  @Nullable String issuerLike, @Nullable String subjectLike,
+                                  @Nullable String issuerLike, @Nullable String subjectLike, @Nullable Boolean validEq,
                                   @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).allTrustedCertificates(id, nameEq, serviceEq, expireEq,
                                                                       deviceExecutionModeEq, deviceExecutionModeNeq,
                                                                       ownerEq, enrollmentModeEq, statusEq, issuerLike,
-                                                                      subjectLike, options);
+                                                                      subjectLike, validEq, options);
     }
 
     /**
@@ -246,41 +250,6 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     }
 
     /**
-     * Gets an account.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getAccount(String,String,Account)}
-     * 
-     * @param include
-     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
-     * @param properties
-     *            Property name to be returned from account specific properties.
-     * @return something
-     */
-    public Account get(@Nullable String include, @Nullable String properties) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getAccount(include, properties, getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets an account.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getAccount(String,String,String)}
-     * 
-     * @param include
-     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
-     * @param properties
-     *            Property name to be returned from account specific properties.
-     * @param id
-     *            Account ID.
-     * @return something
-     */
-    public Account get(@Nullable String include, @Nullable String properties,
-                       @NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getAccount(include, properties, id));
-        return getModel();
-    }
-
-    /**
      * Instantiates model.
      * 
      * @return instantiated model
@@ -348,11 +317,48 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     }
 
     /**
+     * Get account info.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(String,String,Account)}
+     * 
+     * @param include
+     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     * @param properties
+     *            Property name to be returned from account specific properties.
+     * @return something
+     */
+    public Account read(@Nullable String include, @Nullable String properties) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).read(include, properties, getModel()));
+        return getModel();
+    }
+
+    /**
+     * Get account info.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(String,String,String)}
+     * 
+     * @param include
+     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     * @param properties
+     *            Property name to be returned from account specific properties.
+     * @param id
+     *            Account ID.
+     * @return something
+     */
+    public Account read(@Nullable String include, @Nullable String properties,
+                        @NonNull String id) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).read(include, properties, id));
+        return getModel();
+    }
+
+    /**
      * Get all trusted certificates.
      *
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#trustedCertificates(String,String,Integer,Integer,Integer,String,Boolean,String,String,String,SubtenantTrustedCertificateListOptions,Account)}
+     * {@link com.arm.mbed.cloud.sdk.Accounts#trustedCertificates(String,String,Integer,Integer,Integer,String,Boolean,String,String,String,Boolean,SubtenantTrustedCertificateListOptions,Account)}
      * 
      * @param nameEq
      *            null
@@ -374,6 +380,8 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
      *            null
      * @param subjectLike
      *            null
+     * @param validEq
+     *            null
      * @param options
      *            list options.
      * @return the list of subtenant trusted certificates corresponding to filter options (One page).
@@ -382,11 +390,11 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
            trustedCertificates(@Nullable String nameEq, @Nullable String serviceEq, @Nullable Integer expireEq,
                                @Nullable Integer deviceExecutionModeEq, @Nullable Integer deviceExecutionModeNeq,
                                @Nullable String ownerEq, @Nullable Boolean enrollmentModeEq, @Nullable String statusEq,
-                               @Nullable String issuerLike, @Nullable String subjectLike,
+                               @Nullable String issuerLike, @Nullable String subjectLike, @Nullable Boolean validEq,
                                @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).trustedCertificates(nameEq, serviceEq, expireEq, deviceExecutionModeEq,
                                                                    deviceExecutionModeNeq, ownerEq, enrollmentModeEq,
-                                                                   statusEq, issuerLike, subjectLike, options,
+                                                                   statusEq, issuerLike, subjectLike, validEq, options,
                                                                    getModel());
     }
 
@@ -395,7 +403,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
      *
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#trustedCertificates(String,String,String,Integer,Integer,Integer,String,Boolean,String,String,String,SubtenantTrustedCertificateListOptions)}
+     * {@link com.arm.mbed.cloud.sdk.Accounts#trustedCertificates(String,String,String,Integer,Integer,Integer,String,Boolean,String,String,String,Boolean,SubtenantTrustedCertificateListOptions)}
      * 
      * @param id
      *            Account ID.
@@ -419,6 +427,8 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
      *            null
      * @param subjectLike
      *            null
+     * @param validEq
+     *            null
      * @param options
      *            list options.
      * @return the list of subtenant trusted certificates corresponding to filter options (One page).
@@ -428,12 +438,12 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
                                @Nullable Integer expireEq, @Nullable Integer deviceExecutionModeEq,
                                @Nullable Integer deviceExecutionModeNeq, @Nullable String ownerEq,
                                @Nullable Boolean enrollmentModeEq, @Nullable String statusEq,
-                               @Nullable String issuerLike, @Nullable String subjectLike,
+                               @Nullable String issuerLike, @Nullable String subjectLike, @Nullable Boolean validEq,
                                @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).trustedCertificates(id, nameEq, serviceEq, expireEq,
                                                                    deviceExecutionModeEq, deviceExecutionModeNeq,
                                                                    ownerEq, enrollmentModeEq, statusEq, issuerLike,
-                                                                   subjectLike, options);
+                                                                   subjectLike, validEq, options);
     }
 
     /**
