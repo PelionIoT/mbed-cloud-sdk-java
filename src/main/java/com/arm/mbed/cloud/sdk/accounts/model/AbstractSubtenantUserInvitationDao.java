@@ -15,6 +15,7 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
 import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
+import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 
 /**
  * Data Access Object (DAO) for subtenant user invitations.
@@ -26,7 +27,8 @@ import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
 @Preamble(description = "Data Access Object (DAO) for subtenant user invitations.")
 public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDao<SubtenantUserInvitation>
                                                          implements CreateDao<SubtenantUserInvitation>,
-                                                         DeleteDao<SubtenantUserInvitation> {
+                                                         DeleteDao<SubtenantUserInvitation>,
+                                                         ReadDao<SubtenantUserInvitation> {
     /**
      * Constructor.
      */
@@ -133,19 +135,6 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -157,23 +146,35 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
     }
 
     /**
-     * Details of a user invitation.
-     *
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
+    }
+
+    /**
+     * Gets a subtenant user invitation.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(SubtenantUserInvitation)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantUserInvitation(SubtenantUserInvitation)}
      * 
      * @return something
      */
+    @Override
     public SubtenantUserInvitation read() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).read(getModel()));
+        setModel(((Accounts) getModuleOrThrow()).readSubtenantUserInvitation(getModel()));
         return getModel();
     }
 
     /**
-     * Details of a user invitation.
-     *
+     * Gets a subtenant user invitation.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(String,String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantUserInvitation(String,String)}
      * 
      * @param accountId
      *            The ID of the account the user is invited to.
@@ -182,7 +183,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * @return something
      */
     public SubtenantUserInvitation read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).read(accountId, id));
+        setModel(((Accounts) getModuleOrThrow()).readSubtenantUserInvitation(accountId, id));
         return getModel();
     }
 }

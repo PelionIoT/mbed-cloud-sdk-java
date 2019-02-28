@@ -13,6 +13,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
+import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 import com.arm.mbed.cloud.sdk.common.model.DataFile;
 
 /**
@@ -24,7 +25,8 @@ import com.arm.mbed.cloud.sdk.common.model.DataFile;
  */
 @Preamble(description = "Data Access Object (DAO) for device enrollment bulk deletes.")
 public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractModelDao<DeviceEnrollmentBulkDelete>
-                                                            implements DeleteDao<DeviceEnrollmentBulkDelete> {
+                                                            implements DeleteDao<DeviceEnrollmentBulkDelete>,
+                                                            ReadDao<DeviceEnrollmentBulkDelete> {
     /**
      * Constructor.
      */
@@ -73,19 +75,6 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -97,28 +86,43 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     }
 
     /**
-     * Get bulk delete entity .
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
+    }
+
+    /**
+     * Gets a device enrollment bulk delete.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#read(DeviceEnrollmentBulkDelete)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentBulkDelete(DeviceEnrollmentBulkDelete)}
      * 
      * @return something
      */
+    @Override
     public DeviceEnrollmentBulkDelete read() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).read(getModel()));
+        setModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentBulkDelete(getModel()));
         return getModel();
     }
 
     /**
-     * Get bulk delete entity .
+     * Gets a device enrollment bulk delete.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#read(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentBulkDelete(String)}
      * 
      * @param id
      *            Bulk ID.
      * @return something
      */
+    @Override
     public DeviceEnrollmentBulkDelete read(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).read(id));
+        setModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentBulkDelete(id));
         return getModel();
     }
 }

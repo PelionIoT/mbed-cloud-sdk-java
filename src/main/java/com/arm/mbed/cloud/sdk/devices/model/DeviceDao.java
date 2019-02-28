@@ -11,9 +11,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
-import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
-import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
+import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
 import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment;
 
 /**
@@ -24,8 +22,7 @@ import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment;
  *      Object</a>
  */
 @Preamble(description = "Data Access Object (DAO) for devices.")
-public class DeviceDao extends AbstractModelDao<Device>
-                       implements CreateDao<Device>, UpdateDao<Device>, DeleteDao<Device> {
+public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Device> {
     /**
      * Constructor.
      */
@@ -141,19 +138,6 @@ public class DeviceDao extends AbstractModelDao<Device>
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -165,28 +149,43 @@ public class DeviceDao extends AbstractModelDao<Device>
     }
 
     /**
-     * Get a device .
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
+    }
+
+    /**
+     * Gets a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#read(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDevice(Device)}
      * 
      * @return something
      */
+    @Override
     public Device read() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).read(getModel()));
+        setModel(((Devices) getModuleOrThrow()).readDevice(getModel()));
         return getModel();
     }
 
     /**
-     * Get a device .
+     * Gets a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#read(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDevice(String)}
      * 
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
      * @return something
      */
+    @Override
     public Device read(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).read(id));
+        setModel(((Devices) getModuleOrThrow()).readDevice(id));
         return getModel();
     }
 

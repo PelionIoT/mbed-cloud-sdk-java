@@ -15,6 +15,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
+import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -30,7 +31,7 @@ import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOpti
  */
 @Preamble(description = "Data Access Object (DAO) for accounts.")
 public abstract class AbstractAccountDao extends AbstractModelDao<Account>
-                                         implements CreateDao<Account>, UpdateDao<Account> {
+                                         implements CreateDao<Account>, UpdateDao<Account>, ReadDao<Account> {
     /**
      * Constructor.
      */
@@ -276,19 +277,6 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -297,6 +285,19 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Accounts(client);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
     }
 
     /**
@@ -317,10 +318,9 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
     }
 
     /**
-     * Get account info.
-     *
+     * Gets an account.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(String,String,Account)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readAccount(String,String,Account)}
      * 
      * @param include
      *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
@@ -329,15 +329,14 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
      * @return something
      */
     public Account read(@Nullable String include, @Nullable String properties) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).read(include, properties, getModel()));
+        setModel(((Accounts) getModuleOrThrow()).readAccount(include, properties, getModel()));
         return getModel();
     }
 
     /**
-     * Get account info.
-     *
+     * Gets an account.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(String,String,String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readAccount(String,String,String)}
      * 
      * @param include
      *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
@@ -349,7 +348,7 @@ public abstract class AbstractAccountDao extends AbstractModelDao<Account>
      */
     public Account read(@Nullable String include, @Nullable String properties,
                         @NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).read(include, properties, id));
+        setModel(((Accounts) getModuleOrThrow()).readAccount(include, properties, id));
         return getModel();
     }
 

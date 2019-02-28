@@ -12,9 +12,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
-import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
-import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
+import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
 
 /**
  * Data Access Object (DAO) for subtenant trusted certificates.
@@ -25,9 +23,7 @@ import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
  */
 @Preamble(description = "Data Access Object (DAO) for subtenant trusted certificates.")
 public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractModelDao<SubtenantTrustedCertificate>
-                                                             implements CreateDao<SubtenantTrustedCertificate>,
-                                                             UpdateDao<SubtenantTrustedCertificate>,
-                                                             DeleteDao<SubtenantTrustedCertificate> {
+                                                             implements CrudDao<SubtenantTrustedCertificate> {
     /**
      * Constructor.
      */
@@ -170,19 +166,6 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -194,23 +177,35 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     }
 
     /**
-     * Get trusted certificate by ID.
-     *
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
+    }
+
+    /**
+     * Gets a subtenant trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#read(SubtenantTrustedCertificate)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readSubtenantTrustedCertificate(SubtenantTrustedCertificate)}
      * 
      * @return something
      */
+    @Override
     public SubtenantTrustedCertificate read() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).read(getModel()));
+        setModel(((Security) getModuleOrThrow()).readSubtenantTrustedCertificate(getModel()));
         return getModel();
     }
 
     /**
-     * Get trusted certificate by ID.
-     *
+     * Gets a subtenant trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#read(String,String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readSubtenantTrustedCertificate(String,String)}
      * 
      * @param accountId
      *            The ID of the account.
@@ -219,7 +214,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * @return something
      */
     public SubtenantTrustedCertificate read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).read(accountId, id));
+        setModel(((Security) getModuleOrThrow()).readSubtenantTrustedCertificate(accountId, id));
         return getModel();
     }
 

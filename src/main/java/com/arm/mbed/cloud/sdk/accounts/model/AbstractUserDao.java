@@ -14,9 +14,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
-import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
-import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
+import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
 
 /**
  * Data Access Object (DAO) for users.
@@ -26,8 +24,7 @@ import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
  *      Object</a>
  */
 @Preamble(description = "Data Access Object (DAO) for users.")
-public abstract class AbstractUserDao extends AbstractModelDao<User>
-                                      implements CreateDao<User>, UpdateDao<User>, DeleteDao<User> {
+public abstract class AbstractUserDao extends AbstractModelDao<User> implements CrudDao<User> {
     /**
      * Constructor.
      */
@@ -113,19 +110,6 @@ public abstract class AbstractUserDao extends AbstractModelDao<User>
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -137,30 +121,43 @@ public abstract class AbstractUserDao extends AbstractModelDao<User>
     }
 
     /**
-     * Details of a user.
-     *
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
+    }
+
+    /**
+     * Gets a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(User)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readUser(User)}
      * 
      * @return something
      */
+    @Override
     public User read() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).read(getModel()));
+        setModel(((Accounts) getModuleOrThrow()).readUser(getModel()));
         return getModel();
     }
 
     /**
-     * Details of a user.
-     *
+     * Gets a user.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readUser(String)}
      * 
      * @param id
      *            The ID of the user.
      * @return something
      */
+    @Override
     public User read(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).read(id));
+        setModel(((Accounts) getModuleOrThrow()).readUser(id));
         return getModel();
     }
 

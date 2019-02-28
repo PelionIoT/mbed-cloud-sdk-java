@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
+import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 
 /**
  * Data Access Object (DAO) for device events.
@@ -20,7 +21,7 @@ import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
  *      Object</a>
  */
 @Preamble(description = "Data Access Object (DAO) for device events.")
-public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> {
+public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements ReadDao<DeviceEvents> {
     /**
      * Constructor.
      */
@@ -72,19 +73,6 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> {
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -96,30 +84,43 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> {
     }
 
     /**
-     * Retrieve a device event.
-     *
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
+    }
+
+    /**
+     * Gets a device events.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#read(DeviceEvents)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(DeviceEvents)}
      * 
      * @return something
      */
+    @Override
     public DeviceEvents read() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).read(getModel()));
+        setModel(((Devices) getModuleOrThrow()).readDeviceEvents(getModel()));
         return getModel();
     }
 
     /**
-     * Retrieve a device event.
-     *
+     * Gets a device events.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#read(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(String)}
      * 
      * @param id
      *            null
      * @return something
      */
+    @Override
     public DeviceEvents read(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).read(id));
+        setModel(((Devices) getModuleOrThrow()).readDeviceEvents(id));
         return getModel();
     }
 }

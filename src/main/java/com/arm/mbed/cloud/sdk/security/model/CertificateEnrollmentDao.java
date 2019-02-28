@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
+import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 
 /**
  * Data Access Object (DAO) for certificate enrollments.
@@ -20,7 +21,8 @@ import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
  *      Object</a>
  */
 @Preamble(description = "Data Access Object (DAO) for certificate enrollments.")
-public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnrollment> {
+public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnrollment>
+                                      implements ReadDao<CertificateEnrollment> {
     /**
      * Constructor.
      */
@@ -72,19 +74,6 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -96,30 +85,43 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
     }
 
     /**
-     * Get a certificate enrollment by ID.
-     *
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
+    }
+
+    /**
+     * Gets a certificate enrollment.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#read(CertificateEnrollment)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readCertificateEnrollment(CertificateEnrollment)}
      * 
      * @return something
      */
+    @Override
     public CertificateEnrollment read() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).read(getModel()));
+        setModel(((Security) getModuleOrThrow()).readCertificateEnrollment(getModel()));
         return getModel();
     }
 
     /**
-     * Get a certificate enrollment by ID.
-     *
+     * Gets a certificate enrollment.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#read(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readCertificateEnrollment(String)}
      * 
      * @param id
      *            The ID of the certificate enrollment.
      * @return something
      */
+    @Override
     public CertificateEnrollment read(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).read(id));
+        setModel(((Security) getModuleOrThrow()).readCertificateEnrollment(id));
         return getModel();
     }
 }

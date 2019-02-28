@@ -1481,99 +1481,9 @@ public class Accounts extends AbstractModule {
     }
 
     /**
-     * Get API key details.
-     *
+     * Gets an account.
      * <p>
-     * Similar to {@link #read(String)}
-     * 
-     * @param apiKey
-     *            an api key.
-     * @return something
-     */
-    @API
-    @Nullable
-    public ApiKey read(@NonNull ApiKey apiKey) throws MbedCloudException {
-        checkNotNull(apiKey, TAG_API_KEY);
-        return read(apiKey.getId());
-    }
-
-    /**
-     * Details of a user invitation.
-     *
-     * <p>
-     * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join
-     * the account.
-     *
-     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} -H
-     * 'Authorization: Bearer API_KEY'`
-     *
-     * @param id
-     *            The ID of the invitation.
-     * @return something
-     */
-    @API
-    @Nullable
-    public UserInvitation read(@NonNull String id) throws MbedCloudException {
-        checkNotNull(id, TAG_ID);
-        final String finalId = id;
-        return CloudCaller.call(this, "read()", UserInvitationAdapter.getMapper(),
-                                new CloudRequest.CloudCall<UserInvitationResp>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<UserInvitationResp> call() {
-                                        return endpoints.getAccountAdminApi().getInvitation(finalId);
-                                    }
-                                });
-    }
-
-    /**
-     * Details of a user invitation.
-     *
-     * <p>
-     * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join
-     * the account.
-     *
-     * **Example usage:** `curl
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} -H 'Authorization:
-     * Bearer API_KEY'`
-     *
-     * @param accountId
-     *            The ID of the account the user is invited to.
-     * @param id
-     *            The ID of the invitation.
-     * @return something
-     */
-    @API
-    @Nullable
-    public SubtenantUserInvitation read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        checkNotNull(id, TAG_ID);
-        final String finalAccountId = accountId;
-        final String finalId = id;
-        return CloudCaller.call(this, "read()", SubtenantUserInvitationAdapter.getMapper(),
-                                new CloudRequest.CloudCall<UserInvitationResp>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<UserInvitationResp> call() {
-                                        return endpoints.getAggregatorAccountAdminApi()
-                                                        .getAccountInvitation(finalAccountId, finalId);
-                                    }
-                                });
-    }
-
-    /**
-     * Get account info.
-     *
-     * <p>
-     * Similar to {@link #read(String,String,String)}
+     * Similar to {@link #readAccount(String,String,String)}
      * 
      * @param include
      *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
@@ -1585,15 +1495,14 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public Account read(@Nullable String include, @Nullable String properties,
-                        @NonNull Account account) throws MbedCloudException {
+    public Account readAccount(@Nullable String include, @Nullable String properties,
+                               @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
-        return read(include, properties, account.getId());
+        return readAccount(include, properties, account.getId());
     }
 
     /**
-     * Get account info.
-     *
+     * Gets an account.
      * <p>
      * Returns detailed information about the account.
      *
@@ -1610,30 +1519,114 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public Account read(@Nullable String include, @Nullable String properties,
-                        @NonNull String id) throws MbedCloudException {
+    public Account readAccount(@Nullable String include, @Nullable String properties,
+                               @NonNull String id) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
         final String finalInclude = include;
         final String finalProperties = properties;
         final String finalId = id;
-        return CloudCaller.call(this, "read()", AccountAdapter.getMapper(), new CloudRequest.CloudCall<AccountInfo>() {
-            /**
-             * Makes the low level call to the Cloud.
-             * 
-             * @return Corresponding Retrofit2 Call object
-             */
-            @Override
-            public Call<AccountInfo> call() {
-                return endpoints.getAggregatorAccountAdminApi().getAccountInfo(finalId, finalInclude, finalProperties);
-            }
-        });
+        return CloudCaller.call(this, "readAccount()", AccountAdapter.getMapper(),
+                                new CloudRequest.CloudCall<AccountInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<AccountInfo> call() {
+                                        return endpoints.getAggregatorAccountAdminApi()
+                                                        .getAccountInfo(finalId, finalInclude, finalProperties);
+                                    }
+                                });
     }
 
     /**
-     * Details of the user.
-     *
+     * Gets an api key.
      * <p>
-     * Similar to {@link #read(String,String)}
+     * Similar to {@link #readApiKey(String)}
+     * 
+     * @param apiKey
+     *            an api key.
+     * @return something
+     */
+    @API
+    @Nullable
+    public ApiKey readApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
+        checkNotNull(apiKey, TAG_API_KEY);
+        return readApiKey(apiKey.getId());
+    }
+
+    /**
+     * Gets an api key.
+     * <p>
+     * An endpoint for retrieving API key details.
+     *
+     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -H 'Authorization: Bearer
+     * API_KEY'`
+     *
+     * @param id
+     *            The ID of the API key.
+     * @return something
+     */
+    @API
+    @Nullable
+    public ApiKey readApiKey(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readApiKey()", ApiKeyAdapter.getMapper(),
+                                new CloudRequest.CloudCall<ApiKeyInfoResp>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<ApiKeyInfoResp> call() {
+                                        return endpoints.getDeveloperApi().getApiKey(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a subtenant user.
+     * <p>
+     * An endpoint for retrieving details of the user.
+     *
+     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} -H
+     * 'Authorization: Bearer API_KEY'`
+     *
+     * @param accountId
+     *            The ID of the account.
+     * @param id
+     *            The ID of the user.
+     * @return something
+     */
+    @API
+    @Nullable
+    public SubtenantUser readSubtenantUser(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        return CloudCaller.call(this, "readSubtenantUser()", SubtenantUserAdapter.getMapper(),
+                                new CloudRequest.CloudCall<UserInfoResp>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<UserInfoResp> call() {
+                                        return endpoints.getAggregatorAccountAdminApi().getAccountUser(finalAccountId,
+                                                                                                       finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a subtenant user.
+     * <p>
+     * Similar to {@link #readSubtenantUser(String,String)}
      * 
      * @param subtenantUser
      *            a subtenant user.
@@ -1641,16 +1634,54 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public SubtenantUser read(@NonNull SubtenantUser subtenantUser) throws MbedCloudException {
+    public SubtenantUser readSubtenantUser(@NonNull SubtenantUser subtenantUser) throws MbedCloudException {
         checkNotNull(subtenantUser, TAG_SUBTENANT_USER);
-        return read(subtenantUser.getAccountId(), subtenantUser.getId());
+        return readSubtenantUser(subtenantUser.getAccountId(), subtenantUser.getId());
     }
 
     /**
-     * Details of a user invitation.
-     *
+     * Gets a subtenant user invitation.
      * <p>
-     * Similar to {@link #read(String,String)}
+     * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join
+     * the account.
+     *
+     * **Example usage:** `curl
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} -H 'Authorization:
+     * Bearer API_KEY'`
+     *
+     * @param accountId
+     *            The ID of the account the user is invited to.
+     * @param id
+     *            The ID of the invitation.
+     * @return something
+     */
+    @API
+    @Nullable
+    public SubtenantUserInvitation readSubtenantUserInvitation(@NonNull String accountId,
+                                                               @NonNull String id) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        return CloudCaller.call(this, "readSubtenantUserInvitation()", SubtenantUserInvitationAdapter.getMapper(),
+                                new CloudRequest.CloudCall<UserInvitationResp>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<UserInvitationResp> call() {
+                                        return endpoints.getAggregatorAccountAdminApi()
+                                                        .getAccountInvitation(finalAccountId, finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a subtenant user invitation.
+     * <p>
+     * Similar to {@link #readSubtenantUserInvitation(String,String)}
      * 
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
@@ -1659,16 +1690,46 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public SubtenantUserInvitation
-           read(@NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
+           readSubtenantUserInvitation(@NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
         checkNotNull(subtenantUserInvitation, TAG_SUBTENANT_USER_INVITATION);
-        return read(subtenantUserInvitation.getAccountId(), subtenantUserInvitation.getId());
+        return readSubtenantUserInvitation(subtenantUserInvitation.getAccountId(), subtenantUserInvitation.getId());
     }
 
     /**
-     * Details of a user.
-     *
+     * Gets a user.
      * <p>
-     * Similar to {@link #read(String)}
+     * An endpoint for retrieving the details of a user.
+     *
+     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/{user_id} -H 'Authorization: Bearer
+     * API_KEY'`
+     *
+     * @param id
+     *            The ID of the user.
+     * @return something
+     */
+    @API
+    @Nullable
+    public User readUser(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readUser()", UserAdapter.getMapper(),
+                                new CloudRequest.CloudCall<UserInfoResp>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<UserInfoResp> call() {
+                                        return endpoints.getAccountAdminApi().getUser(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a user.
+     * <p>
+     * Similar to {@link #readUser(String)}
      * 
      * @param user
      *            a user.
@@ -1676,16 +1737,47 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public User read(@NonNull User user) throws MbedCloudException {
+    public User readUser(@NonNull User user) throws MbedCloudException {
         checkNotNull(user, TAG_USER);
-        return read(user.getId());
+        return readUser(user.getId());
     }
 
     /**
-     * Details of a user invitation.
-     *
+     * Gets a user invitation.
      * <p>
-     * Similar to {@link #read(String)}
+     * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join
+     * the account.
+     *
+     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} -H
+     * 'Authorization: Bearer API_KEY'`
+     *
+     * @param id
+     *            The ID of the invitation.
+     * @return something
+     */
+    @API
+    @Nullable
+    public UserInvitation readUserInvitation(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readUserInvitation()", UserInvitationAdapter.getMapper(),
+                                new CloudRequest.CloudCall<UserInvitationResp>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<UserInvitationResp> call() {
+                                        return endpoints.getAccountAdminApi().getInvitation(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a user invitation.
+     * <p>
+     * Similar to {@link #readUserInvitation(String)}
      * 
      * @param userInvitation
      *            a user invitation.
@@ -1693,9 +1785,9 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public UserInvitation read(@NonNull UserInvitation userInvitation) throws MbedCloudException {
+    public UserInvitation readUserInvitation(@NonNull UserInvitation userInvitation) throws MbedCloudException {
         checkNotNull(userInvitation, TAG_USER_INVITATION);
-        return read(userInvitation.getId());
+        return readUserInvitation(userInvitation.getId());
     }
 
     /**

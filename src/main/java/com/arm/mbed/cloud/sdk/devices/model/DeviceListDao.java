@@ -97,19 +97,6 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -118,6 +105,19 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Devices(client);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
     }
 
     /**

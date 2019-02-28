@@ -13,6 +13,7 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
 import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
+import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 
 /**
  * Data Access Object (DAO) for developer certificates.
@@ -23,7 +24,8 @@ import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
  */
 @Preamble(description = "Data Access Object (DAO) for developer certificates.")
 public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertificate>
-                                     implements CreateDao<DeveloperCertificate>, DeleteDao<DeveloperCertificate> {
+                                     implements CreateDao<DeveloperCertificate>, DeleteDao<DeveloperCertificate>,
+                                     ReadDao<DeveloperCertificate> {
     /**
      * Constructor.
      */
@@ -166,19 +168,6 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -190,30 +179,43 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     }
 
     /**
-     * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
+    }
+
+    /**
+     * Gets a developer certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#read(DeveloperCertificate)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readDeveloperCertificate(DeveloperCertificate)}
      * 
      * @return something
      */
+    @Override
     public DeveloperCertificate read() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).read(getModel()));
+        setModel(((Security) getModuleOrThrow()).readDeveloperCertificate(getModel()));
         return getModel();
     }
 
     /**
-     * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
+     * Gets a developer certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#read(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readDeveloperCertificate(String)}
      * 
      * @param id
      *            ID that uniquely identifies the developer certificate.
      * @return something
      */
+    @Override
     public DeveloperCertificate read(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).read(id));
+        setModel(((Security) getModuleOrThrow()).readDeveloperCertificate(id));
         return getModel();
     }
 }

@@ -13,6 +13,7 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
 import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
+import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 
 /**
  * Data Access Object (DAO) for device enrollments.
@@ -22,8 +23,8 @@ import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
  *      Object</a>
  */
 @Preamble(description = "Data Access Object (DAO) for device enrollments.")
-public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment>
-                                 implements CreateDao<DeviceEnrollment>, DeleteDao<DeviceEnrollment> {
+public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> implements CreateDao<DeviceEnrollment>,
+                                 DeleteDao<DeviceEnrollment>, ReadDao<DeviceEnrollment> {
     /**
      * Constructor.
      */
@@ -140,19 +141,6 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment>
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -164,30 +152,43 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment>
     }
 
     /**
-     * Get details of an single enrollment by ID.
-     *
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
+    }
+
+    /**
+     * Gets a device enrollment.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#read(DeviceEnrollment)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(DeviceEnrollment)}
      * 
      * @return something
      */
+    @Override
     public DeviceEnrollment read() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).read(getModel()));
+        setModel(((Devices) getModuleOrThrow()).readDeviceEnrollment(getModel()));
         return getModel();
     }
 
     /**
-     * Get details of an single enrollment by ID.
-     *
+     * Gets a device enrollment.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#read(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(String)}
      * 
      * @param id
      *            Enrollment identity.
      * @return something
      */
+    @Override
     public DeviceEnrollment read(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).read(id));
+        setModel(((Devices) getModuleOrThrow()).readDeviceEnrollment(id));
         return getModel();
     }
 }

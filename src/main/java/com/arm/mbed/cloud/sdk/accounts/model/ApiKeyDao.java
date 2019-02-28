@@ -11,9 +11,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
-import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
-import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
+import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
 
 /**
  * Data Access Object (DAO) for api keys.
@@ -23,8 +21,7 @@ import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
  *      Object</a>
  */
 @Preamble(description = "Data Access Object (DAO) for api keys.")
-public class ApiKeyDao extends AbstractModelDao<ApiKey>
-                       implements CreateDao<ApiKey>, UpdateDao<ApiKey>, DeleteDao<ApiKey> {
+public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKey> {
     /**
      * Constructor.
      */
@@ -140,19 +137,6 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey>
     /**
      * Instantiates modules.
      * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -161,6 +145,19 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey>
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Accounts(client);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
     }
 
     /**
@@ -177,30 +174,30 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey>
     }
 
     /**
-     * Get API key details.
-     *
+     * Gets an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readApiKey(ApiKey)}
      * 
      * @return something
      */
+    @Override
     public ApiKey read() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).read(getModel()));
+        setModel(((Accounts) getModuleOrThrow()).readApiKey(getModel()));
         return getModel();
     }
 
     /**
-     * Get API key details.
-     *
+     * Gets an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#read(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readApiKey(String)}
      * 
      * @param id
      *            The ID of the API key.
      * @return something
      */
+    @Override
     public ApiKey read(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).read(id));
+        setModel(((Accounts) getModuleOrThrow()).readApiKey(id));
         return getModel();
     }
 
