@@ -313,6 +313,9 @@ jobs:
     - run:
         name: Reporting coverage to CodeCov
         command: bash <(curl -s https://codecov.io/bash) -f ${BUILD_REPORTS_DIR}/jacoco-all/coverage.xml
+    - run:
+        name: Reporting foundation coverage to CodeCov
+        command: bash <(curl -s https://codecov.io/bash) -f ${BUILD_REPORTS_DIR}/jacoco-foundation/coverage.xml
     - <<: *persist_build
     - <<: *store_reports
     - <<: *store_logs
