@@ -31,8 +31,8 @@ public class ModelGenerator extends AbstractGenerator {
         if (model == null) {
             return;
         }
-        logger.logDebug("Generating " + model.getClass().getSimpleName().toLowerCase(Locale.UK) + " ["
-                        + model.getFullName() + "]");
+        logger.logInfo("Generating " + model.getClass().getSimpleName().toLowerCase(Locale.UK) + " ["
+                       + model.getFullName() + "]");
         model.translate();
         TypeSpec modelClass = model.getSpecificationBuilder().build();
         JavaFile file = JavaFile.builder(model.getPackageName(), modelClass).addFileComment(generateFileComment(model))
@@ -43,7 +43,7 @@ public class ModelGenerator extends AbstractGenerator {
                 logger.logWarn("The destination directory for the generated code was not specified. It will hence only be output to Standard out.");
                 file.writeTo(System.out);
             } else {
-                logger.logDebug("Generating model file [" + destinationFile.getName() + "]");
+                logger.logInfo("Generating model file [" + destinationFile.getName() + "]");
                 if (model.containsCustomCode() && destinationFile.exists()) {
                     logger.logInfo("The model file " + destinationFile.getName()
                                    + " is already present and contains some custom code. Therefore, it won't be regenerated.");
@@ -51,7 +51,7 @@ public class ModelGenerator extends AbstractGenerator {
                 }
 
                 file.writeTo(sourceDestinationDirectory);
-                logger.logDebug("Model [" + model.getFullName() + "] was generated as " + destinationFile.toString());
+                logger.logInfo("Model [" + model.getFullName() + "] was generated as " + destinationFile.toString());
             }
         } catch (Exception exception) {
             throw new TranslationException(exception);
