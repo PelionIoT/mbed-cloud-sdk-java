@@ -1,7 +1,7 @@
 /**
  * Adapters.
  */
-@Preamble(description = "Adapter objects for Account module")
+@Preamble(description = "Adapter objects for Account Foundation module")
 @Internal
 package com.arm.mbed.cloud.sdk.accounts.adapters;
 
