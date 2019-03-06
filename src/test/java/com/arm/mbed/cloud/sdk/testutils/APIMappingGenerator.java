@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 import io.vertx.core.json.JsonObject;
 
-import com.arm.mbed.cloud.sdk.Sdk;
+import com.arm.mbed.cloud.Sdk;
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;

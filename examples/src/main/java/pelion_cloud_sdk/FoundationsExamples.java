@@ -13,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.StreamSupport;
 
-import com.arm.mbed.cloud.sdk.Sdk;
+import com.arm.mbed.cloud.Sdk;
 import com.arm.mbed.cloud.sdk.accounts.model.AccountDao;
 import com.arm.mbed.cloud.sdk.accounts.model.AccountStatus;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKey;
@@ -75,7 +75,7 @@ public class FoundationsExamples extends AbstractExample {
             // Iterate over all API keys and print their value
             // In case you do not know the name/class of the DAO to use, you can use the DAO provider which will fetch
             // the corresponding DAO using reflection.
-            sdk.entities().getDaoProvider().getCorrespondingListDao(ApiKey.class, null).paginator()
+            sdk.foundation().getDaoProvider().getCorrespondingListDao(ApiKey.class, null).paginator()
                .forEach(ExampleLogger::log);
         } catch (MbedCloudException exception) {
             // TODO do something with the exception
@@ -131,7 +131,7 @@ public class FoundationsExamples extends AbstractExample {
             sdk.getClient().setRequestTimeout(new TimePeriod(1));
             // uncloak
             // TODO some action
-            sdk.entities().getDaoProvider().getCorrespondingListDao(ApiKey.class, null).paginator()
+            sdk.foundation().getDaoProvider().getCorrespondingListDao(ApiKey.class, null).paginator()
                .forEach(ExampleLogger::log);
             // cloak
             fail("The host is fake");
@@ -152,7 +152,7 @@ public class FoundationsExamples extends AbstractExample {
         // an example: creating and managing a subtenant account
         try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
             // Fetch my account
-            AccountDao myAccountDao = sdk.entities().getAccountDao();
+            AccountDao myAccountDao = sdk.foundation().getAccountDao();
             myAccountDao.me(null, null);
             // Create a new User
             SubtenantUser user = new SubtenantUser();
@@ -161,7 +161,7 @@ public class FoundationsExamples extends AbstractExample {
             user.setEmail("tommi_the_wombat@email.com");
             user.setUsername("tommi_wombat");
             user.setPhoneNumber("0800001066");
-            SubtenantUserDao userDao = sdk.entities().getSubtenantUserDao();
+            SubtenantUserDao userDao = sdk.foundation().getSubtenantUserDao();
             // cloak
             // Perform some account cleanup
             performAccountCleanup(myAccountDao, user, userDao);
@@ -217,15 +217,15 @@ public class FoundationsExamples extends AbstractExample {
         try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
             // Find the certificate issuers configuration in use. In this case, it is known that the reference is
             // "LWM2M".
-            CertificateIssuerConfig myConfig = StreamSupport.stream(sdk.entities().getCertificateIssuerConfigListDao()
+            CertificateIssuerConfig myConfig = StreamSupport.stream(sdk.foundation().getCertificateIssuerConfigListDao()
                                                                        .getPaginator().spliterator(),
                                                                     false)
                                                             .filter(c -> c.getCertificateReference().equals("LWM2M"))
                                                             .findFirst().get();
             // Get a device DAO
-            final DeviceDao deviceDao = sdk.entities().getDeviceDao();
+            final DeviceDao deviceDao = sdk.foundation().getDeviceDao();
             // Renew the certificate of all connected devices
-            StreamSupport.stream(sdk.entities().getDeviceListDao().paginator().spliterator(), false)
+            StreamSupport.stream(sdk.foundation().getDeviceListDao().paginator().spliterator(), false)
                          .filter(d -> d.getState() == DeviceState.REGISTERED).forEach(d -> {
                              // Configure the DAO with the model of interest
                              try {
@@ -269,7 +269,7 @@ public class FoundationsExamples extends AbstractExample {
         assertTrue(file.exists());
         // an example: device enrollment bulk
         try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
-            DeviceEnrollmentBulkCreateDao enrolmentDao = sdk.entities().getDeviceEnrollmentBulkCreateDao();
+            DeviceEnrollmentBulkCreateDao enrolmentDao = sdk.foundation().getDeviceEnrollmentBulkCreateDao();
             // file is a csv file containing all the devices which need to be enrolled. See test.csv in the /resources
             // folder as example.
             enrolmentDao.create(new DataFile(file));

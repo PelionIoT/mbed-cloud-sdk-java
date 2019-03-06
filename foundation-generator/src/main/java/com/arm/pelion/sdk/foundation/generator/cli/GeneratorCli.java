@@ -21,7 +21,7 @@ public class GeneratorCli implements Runnable {
 
     static final String COMMAND_TITLE = "foundation-generator";
 
-    private static final String OUTPUT_PROJECT = null;// "generate";// "mbed-cloud-sdk-java";
+    private static final String OUTPUT_PROJECT = null;
     @Option(names = { "-c", "--config" }, paramLabel = "<GENERATOR_CONFIG>",
             description = "generator configuration file")
     private File config;
@@ -43,7 +43,7 @@ public class GeneratorCli implements Runnable {
     private String output = OUTPUT_PROJECT;
 
     @Option(names = { "-m", "--output-models" }, paramLabel = "<PROJECT_NAME>",
-            description = "name of the project where generated models will be put (default: ${DEFAULT-VALUE})")
+            description = "name of the project where generated models will be put into (default: ${DEFAULT-VALUE})")
     private String outputModels = null;
 
     @Parameters(paramLabel = "<TOP>", description = "project top directory (default: ${DEFAULT-VALUE})", arity = "*")

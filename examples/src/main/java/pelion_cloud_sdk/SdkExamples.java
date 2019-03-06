@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.BackpressureStrategy;
 
-import com.arm.mbed.cloud.sdk.Sdk;
+import com.arm.mbed.cloud.Sdk;
 import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
