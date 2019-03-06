@@ -29,56 +29,6 @@ public final class CertificateEnrollmentAdapter {
     }
 
     /**
-     * Maps a certificate enrollment into a certificate enrollment.
-     * 
-     * @param toBeMapped
-     *            a certificate enrollment.
-     * @return mapped a certificate enrollment
-     */
-    @Internal
-    public static CertificateEnrollment
-           map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final CertificateEnrollment certificateEnrollment = new CertificateEnrollment(toBeMapped.getCertificateName(),
-                                                                                      TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                                                                      toBeMapped.getDeviceId(),
-                                                                                      translateToCertificateEnrollmentEnrollResult(toBeMapped.getEnrollResult()),
-                                                                                      translateToCertificateEnrollmentEnrollStatus(toBeMapped.getEnrollStatus()),
-                                                                                      TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        certificateEnrollment.setId(toBeMapped.getId());
-        return certificateEnrollment;
-    }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static
-           GenericAdapter.Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment,
-                                 CertificateEnrollment>
-           getMapper() {
-        return new GenericAdapter.Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment,
-                                         CertificateEnrollment>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public CertificateEnrollment
-                   map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment toBeMapped) {
-                return CertificateEnrollmentAdapter.map(toBeMapped);
-            }
-        };
-    }
-
-    /**
      * Maps a certificate enrollment list response into a certificate enrollment.
      * 
      * @param toBeMapped
@@ -187,6 +137,57 @@ public final class CertificateEnrollmentAdapter {
     }
 
     /**
+     * Maps a certificate enrollment into a certificate enrollment.
+     * 
+     * @param toBeMapped
+     *            a certificate enrollment.
+     * @return mapped a certificate enrollment
+     */
+    @Internal
+    public static CertificateEnrollment
+           map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final CertificateEnrollment certificateEnrollment = new CertificateEnrollment(toBeMapped.getCertificateName(),
+                                                                                      TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                                      toBeMapped.getDeviceId(),
+                                                                                      translateToCertificateEnrollmentEnrollResult(toBeMapped.getEnrollResult()),
+                                                                                      toBeMapped.getEnrollResultDetail(),
+                                                                                      translateToCertificateEnrollmentEnrollStatus(toBeMapped.getEnrollStatus()),
+                                                                                      TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
+        certificateEnrollment.setId(toBeMapped.getId());
+        return certificateEnrollment;
+    }
+
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper
+     */
+    @Internal
+    public static
+           GenericAdapter.Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment,
+                                 CertificateEnrollment>
+           getMapper() {
+        return new GenericAdapter.Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment,
+                                         CertificateEnrollment>() {
+            /**
+             * Maps.
+             * 
+             * @param toBeMapped
+             *            model to be mapped.
+             * @return a mapped object
+             */
+            @Override
+            public CertificateEnrollment
+                   map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment toBeMapped) {
+                return CertificateEnrollmentAdapter.map(toBeMapped);
+            }
+        };
+    }
+
+    /**
      * Maps the enum value.
      * 
      * @param toBeMapped
@@ -202,12 +203,12 @@ public final class CertificateEnrollmentAdapter {
         switch (toBeMapped) {
             case SUCCESS:
                 return CertificateEnrollmentEnrollResult.SUCCESS;
+            case FAILURE:
+                return CertificateEnrollmentEnrollResult.FAILURE;
             case NOT_FOUND:
                 return CertificateEnrollmentEnrollResult.NOT_FOUND;
             case FORBIDDEN:
                 return CertificateEnrollmentEnrollResult.FORBIDDEN;
-            case FAILURE:
-                return CertificateEnrollmentEnrollResult.FAILURE;
             default:
                 return CertificateEnrollmentEnrollResult.getUnknownEnum();
         }

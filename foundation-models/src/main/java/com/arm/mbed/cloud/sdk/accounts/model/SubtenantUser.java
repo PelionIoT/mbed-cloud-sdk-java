@@ -8,6 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -28,6 +29,11 @@ public class SubtenantUser implements SdkModel {
     private String accountId;
 
     /**
+     * List of active user sessions.
+     */
+    private final List<ActiveSession> activeSessions;
+
+    /**
      * Address.
      */
     private String address;
@@ -41,6 +47,11 @@ public class SubtenantUser implements SdkModel {
      * A timestamp of the user creation in the storage, in milliseconds.
      */
     private final long creationTime;
+
+    /**
+     * User's account specific custom properties. The value is a string.
+     */
+    private final Map<String, String> customFields;
 
     /**
      * The email address.
@@ -112,6 +123,12 @@ public class SubtenantUser implements SdkModel {
     private boolean termsAccepted;
 
     /**
+     * A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the
+     * codes regenerated.
+     */
+    private final List<String> totpScratchCodes;
+
+    /**
      * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
      */
     private boolean twoFactorAuthentication;
@@ -133,12 +150,16 @@ public class SubtenantUser implements SdkModel {
      * 
      * @param accountId
      *            The ID of the account.
+     * @param activeSessions
+     *            List of active user sessions.
      * @param address
      *            Address.
      * @param createdAt
      *            Creation UTC time RFC3339.
      * @param creationTime
      *            A timestamp of the user creation in the storage, in milliseconds.
+     * @param customFields
+     *            User's account specific custom properties. The value is a string.
      * @param email
      *            The email address.
      * @param emailVerified
@@ -170,6 +191,9 @@ public class SubtenantUser implements SdkModel {
      *            system.
      * @param termsAccepted
      *            A flag indicating that the General Terms and Conditions has been accepted.
+     * @param totpScratchCodes
+     *            A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be
+     *            enabled or the codes regenerated.
      * @param twoFactorAuthentication
      *            A flag indicating whether 2-factor authentication (TOTP) has been enabled.
      * @param updatedAt
@@ -179,18 +203,23 @@ public class SubtenantUser implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public SubtenantUser(String accountId, String address, Date createdAt, long creationTime, String email,
-                         boolean emailVerified, String fullName, String id, long lastLoginTime,
-                         List<LoginHistory> loginHistory, List<LoginProfile> loginProfiles, boolean marketingAccepted,
-                         String password, long passwordChangedTime, String phoneNumber, SubtenantUserStatus status,
-                         boolean termsAccepted, boolean twoFactorAuthentication, Date updatedAt, String username) {
+    public SubtenantUser(String accountId, List<ActiveSession> activeSessions, String address, Date createdAt,
+                         long creationTime, Map<String, String> customFields, String email, boolean emailVerified,
+                         String fullName, String id, long lastLoginTime, List<LoginHistory> loginHistory,
+                         List<LoginProfile> loginProfiles, boolean marketingAccepted, String password,
+                         long passwordChangedTime, String phoneNumber, SubtenantUserStatus status,
+                         boolean termsAccepted, List<String> totpScratchCodes, boolean twoFactorAuthentication,
+                         Date updatedAt, String username) {
         super();
+        this.activeSessions = activeSessions;
         this.createdAt = createdAt;
         this.creationTime = creationTime;
+        this.customFields = customFields;
         this.emailVerified = emailVerified;
         this.lastLoginTime = lastLoginTime;
         this.loginHistory = loginHistory;
         this.passwordChangedTime = passwordChangedTime;
+        this.totpScratchCodes = totpScratchCodes;
         this.updatedAt = updatedAt;
         setAccountId(accountId);
         setAddress(address);
@@ -218,9 +247,11 @@ public class SubtenantUser implements SdkModel {
     @Internal
     public SubtenantUser(SubtenantUser subtenantUser) {
         this(subtenantUser == null ? (String) null : subtenantUser.accountId,
+             subtenantUser == null ? null : subtenantUser.activeSessions,
              subtenantUser == null ? (String) null : subtenantUser.address,
              subtenantUser == null ? new java.util.Date() : subtenantUser.createdAt,
              subtenantUser == null ? 0L : subtenantUser.creationTime,
+             subtenantUser == null ? null : subtenantUser.customFields,
              subtenantUser == null ? (String) null : subtenantUser.email,
              subtenantUser != null && subtenantUser.emailVerified,
              subtenantUser == null ? (String) null : subtenantUser.fullName,
@@ -234,6 +265,7 @@ public class SubtenantUser implements SdkModel {
              subtenantUser == null ? (String) null : subtenantUser.phoneNumber,
              subtenantUser == null ? SubtenantUserStatus.getDefault() : subtenantUser.status,
              subtenantUser != null && subtenantUser.termsAccepted,
+             subtenantUser == null ? null : subtenantUser.totpScratchCodes,
              subtenantUser != null && subtenantUser.twoFactorAuthentication,
              subtenantUser == null ? new java.util.Date() : subtenantUser.updatedAt,
              subtenantUser == null ? (String) null : subtenantUser.username);
@@ -243,9 +275,9 @@ public class SubtenantUser implements SdkModel {
      * Constructor.
      */
     public SubtenantUser() {
-        this((String) null, (String) null, new java.util.Date(), 0L, (String) null, false, (String) null, (String) null,
-             0L, null, null, false, (String) null, 0L, (String) null, SubtenantUserStatus.getDefault(), false, false,
-             new java.util.Date(), (String) null);
+        this((String) null, null, (String) null, new java.util.Date(), 0L, null, (String) null, false, (String) null,
+             (String) null, 0L, null, null, false, (String) null, 0L, (String) null, SubtenantUserStatus.getDefault(),
+             false, null, false, new java.util.Date(), (String) null);
     }
 
     /**
@@ -264,10 +296,14 @@ public class SubtenantUser implements SdkModel {
      * <p>
      * Note: Should not be used. Use {@link #SubtenantUser()} instead.
      * 
+     * @param activeSessions
+     *            List of active user sessions.
      * @param createdAt
      *            Creation UTC time RFC3339.
      * @param creationTime
      *            A timestamp of the user creation in the storage, in milliseconds.
+     * @param customFields
+     *            User's account specific custom properties. The value is a string.
      * @param emailVerified
      *            A flag indicating whether the user's email address has been verified or not.
      * @param lastLoginTime
@@ -277,15 +313,21 @@ public class SubtenantUser implements SdkModel {
      *            with timestamps in RFC3339 format.
      * @param passwordChangedTime
      *            A timestamp of the latest change of the user password, in milliseconds.
+     * @param totpScratchCodes
+     *            A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be
+     *            enabled or the codes regenerated.
      * @param updatedAt
      *            Last update UTC time RFC3339.
      */
     @Internal
-    public SubtenantUser(Date createdAt, long creationTime, boolean emailVerified, long lastLoginTime,
-                         List<LoginHistory> loginHistory, long passwordChangedTime, Date updatedAt) {
-        this((String) null, (String) null, createdAt, creationTime, (String) null, emailVerified, (String) null,
-             (String) null, lastLoginTime, loginHistory, null, false, (String) null, passwordChangedTime, (String) null,
-             SubtenantUserStatus.getDefault(), false, false, updatedAt, (String) null);
+    public SubtenantUser(List<ActiveSession> activeSessions, Date createdAt, long creationTime,
+                         Map<String, String> customFields, boolean emailVerified, long lastLoginTime,
+                         List<LoginHistory> loginHistory, long passwordChangedTime, List<String> totpScratchCodes,
+                         Date updatedAt) {
+        this((String) null, activeSessions, (String) null, createdAt, creationTime, customFields, (String) null,
+             emailVerified, (String) null, (String) null, lastLoginTime, loginHistory, null, false, (String) null,
+             passwordChangedTime, (String) null, SubtenantUserStatus.getDefault(), false, totpScratchCodes, false,
+             updatedAt, (String) null);
     }
 
     /**
@@ -297,9 +339,9 @@ public class SubtenantUser implements SdkModel {
      *            The email address.
      */
     public SubtenantUser(String accountId, String email) {
-        this(accountId, (String) null, new java.util.Date(), 0L, email, false, (String) null, (String) null, 0L, null,
-             null, false, (String) null, 0L, (String) null, SubtenantUserStatus.getDefault(), false, false,
-             new java.util.Date(), (String) null);
+        this(accountId, null, (String) null, new java.util.Date(), 0L, null, email, false, (String) null, (String) null,
+             0L, null, null, false, (String) null, 0L, (String) null, SubtenantUserStatus.getDefault(), false, null,
+             false, new java.util.Date(), (String) null);
     }
 
     /**
@@ -330,6 +372,15 @@ public class SubtenantUser implements SdkModel {
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isAccountIdValid() {
         return accountId != null;
+    }
+
+    /**
+     * Gets list of active user sessions.
+     * 
+     * @return activeSessions
+     */
+    public List<ActiveSession> getActiveSessions() {
+        return activeSessions;
     }
 
     /**
@@ -367,6 +418,15 @@ public class SubtenantUser implements SdkModel {
      */
     public long getCreationTime() {
         return creationTime;
+    }
+
+    /**
+     * Gets user's account specific custom properties. the value is a string.
+     * 
+     * @return customFields
+     */
+    public Map<String, String> getCustomFields() {
+        return customFields;
     }
 
     /**
@@ -612,6 +672,16 @@ public class SubtenantUser implements SdkModel {
     }
 
     /**
+     * Gets a list of scratch codes for the 2-factor authentication. visible only when 2fa is requested to be enabled or
+     * the codes regenerated.
+     * 
+     * @return totpScratchCodes
+     */
+    public List<String> getTotpScratchCodes() {
+        return totpScratchCodes;
+    }
+
+    /**
      * Gets a flag indicating whether 2-factor authentication (totp) has been enabled.
      * 
      * @return twoFactorAuthentication
@@ -670,9 +740,11 @@ public class SubtenantUser implements SdkModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
+        result = prime * result + ((activeSessions == null) ? 0 : activeSessions.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + Objects.hashCode(creationTime);
+        result = prime * result + ((customFields == null) ? 0 : customFields.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + Objects.hashCode(emailVerified);
         result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
@@ -686,6 +758,7 @@ public class SubtenantUser implements SdkModel {
         result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
         result = prime * result + ((status == null) ? 0 : status.hashCode());
         result = prime * result + Objects.hashCode(termsAccepted);
+        result = prime * result + ((totpScratchCodes == null) ? 0 : totpScratchCodes.hashCode());
         result = prime * result + Objects.hashCode(twoFactorAuthentication);
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
         result = prime * result + ((username == null) ? 0 : username.hashCode());
@@ -737,6 +810,13 @@ public class SubtenantUser implements SdkModel {
         } else if (!accountId.equals(other.accountId)) {
             return false;
         }
+        if (activeSessions == null) {
+            if (other.activeSessions != null) {
+                return false;
+            }
+        } else if (!activeSessions.equals(other.activeSessions)) {
+            return false;
+        }
         if (address == null) {
             if (other.address != null) {
                 return false;
@@ -752,6 +832,13 @@ public class SubtenantUser implements SdkModel {
             return false;
         }
         if (creationTime != other.creationTime) {
+            return false;
+        }
+        if (customFields == null) {
+            if (other.customFields != null) {
+                return false;
+            }
+        } else if (!customFields.equals(other.customFields)) {
             return false;
         }
         if (email == null) {
@@ -821,6 +908,13 @@ public class SubtenantUser implements SdkModel {
         if (termsAccepted != other.termsAccepted) {
             return false;
         }
+        if (totpScratchCodes == null) {
+            if (other.totpScratchCodes != null) {
+                return false;
+            }
+        } else if (!totpScratchCodes.equals(other.totpScratchCodes)) {
+            return false;
+        }
         if (twoFactorAuthentication != other.twoFactorAuthentication) {
             return false;
         }
@@ -850,13 +944,15 @@ public class SubtenantUser implements SdkModel {
      */
     @Override
     public String toString() {
-        return "SubtenantUser [accountId=" + accountId + ", address=" + address + ", createdAt=" + createdAt
-               + ", creationTime=" + creationTime + ", email=" + email + ", emailVerified=" + emailVerified
-               + ", fullName=" + fullName + ", id=" + id + ", lastLoginTime=" + lastLoginTime + ", loginHistory="
-               + loginHistory + ", loginProfiles=" + loginProfiles + ", marketingAccepted=" + marketingAccepted
-               + ", password=" + password + ", passwordChangedTime=" + passwordChangedTime + ", phoneNumber="
-               + phoneNumber + ", status=" + status + ", termsAccepted=" + termsAccepted + ", twoFactorAuthentication="
-               + twoFactorAuthentication + ", updatedAt=" + updatedAt + ", username=" + username + "]";
+        return "SubtenantUser [accountId=" + accountId + ", activeSessions=" + activeSessions + ", address=" + address
+               + ", createdAt=" + createdAt + ", creationTime=" + creationTime + ", customFields=" + customFields
+               + ", email=" + email + ", emailVerified=" + emailVerified + ", fullName=" + fullName + ", id=" + id
+               + ", lastLoginTime=" + lastLoginTime + ", loginHistory=" + loginHistory + ", loginProfiles="
+               + loginProfiles + ", marketingAccepted=" + marketingAccepted + ", password=" + password
+               + ", passwordChangedTime=" + passwordChangedTime + ", phoneNumber=" + phoneNumber + ", status=" + status
+               + ", termsAccepted=" + termsAccepted + ", totpScratchCodes=" + totpScratchCodes
+               + ", twoFactorAuthentication=" + twoFactorAuthentication + ", updatedAt=" + updatedAt + ", username="
+               + username + "]";
     }
 
     /**

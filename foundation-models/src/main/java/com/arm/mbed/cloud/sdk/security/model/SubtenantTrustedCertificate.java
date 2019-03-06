@@ -58,6 +58,8 @@ public class SubtenantTrustedCertificate extends AbstractSubtenantTrustedCertifi
      *            Subject of the certificate.
      * @param updatedAt
      *            Last update UTC time RFC3339.
+     * @param valid
+     *            This read-only flag indicates whether the certificate is valid or not.
      * @param validity
      *            Expiration time in UTC formatted as RFC3339.
      */
@@ -68,9 +70,9 @@ public class SubtenantTrustedCertificate extends AbstractSubtenantTrustedCertifi
                                        int deviceExecutionMode, boolean enrollmentMode, String id, String issuer,
                                        String name, String ownerId, SubtenantTrustedCertificateService service,
                                        SubtenantTrustedCertificateStatus status, String subject, Date updatedAt,
-                                       Date validity) {
+                                       boolean valid, Date validity) {
         super(accountId, certificate, certificateFingerprint, createdAt, description, deviceExecutionMode,
-              enrollmentMode, id, issuer, name, ownerId, service, status, subject, updatedAt, validity);
+              enrollmentMode, id, issuer, name, ownerId, service, status, subject, updatedAt, valid, validity);
         setIsDeveloperCertificate(isDeveloperCertificate);
     }
 
@@ -102,6 +104,7 @@ public class SubtenantTrustedCertificate extends AbstractSubtenantTrustedCertifi
                                                  : subtenantTrustedCertificate.status,
              subtenantTrustedCertificate == null ? (String) null : subtenantTrustedCertificate.subject,
              subtenantTrustedCertificate == null ? new java.util.Date() : subtenantTrustedCertificate.updatedAt,
+             subtenantTrustedCertificate == null ? false : subtenantTrustedCertificate.valid,
              subtenantTrustedCertificate == null ? new java.util.Date() : subtenantTrustedCertificate.validity);
     }
 
@@ -112,7 +115,7 @@ public class SubtenantTrustedCertificate extends AbstractSubtenantTrustedCertifi
         this(false, (String) null, (String) null, (String) null, new java.util.Date(), (String) null, 0, false,
              (String) null, (String) null, (String) null, (String) null,
              SubtenantTrustedCertificateService.getDefault(), SubtenantTrustedCertificateStatus.getDefault(),
-             (String) null, new java.util.Date(), new java.util.Date());
+             (String) null, new java.util.Date(), false, new java.util.Date());
     }
 
     /**
@@ -143,15 +146,39 @@ public class SubtenantTrustedCertificate extends AbstractSubtenantTrustedCertifi
      *            Subject of the certificate.
      * @param updatedAt
      *            Last update UTC time RFC3339.
+     * @param valid
+     *            This read-only flag indicates whether the certificate is valid or not.
+     * @param validity
+     *            Expiration time in UTC formatted as RFC3339.
+     */
+
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #AbstractSubtenantTrustedCertificate()} instead.
+     * 
+     * @param certificateFingerprint
+     *            A SHA-256 fingerprint of the certificate.
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     * @param issuer
+     *            Issuer of the certificate.
+     * @param ownerId
+     *            The ID of the owner.
+     * @param subject
+     *            Subject of the certificate.
+     * @param updatedAt
+     *            Last update UTC time RFC3339.
+     * 
      * @param validity
      *            Expiration time in UTC formatted as RFC3339.
      */
     @Internal
     public SubtenantTrustedCertificate(String certificateFingerprint, Date createdAt, String issuer, String ownerId,
-                                       String subject, Date updatedAt, Date validity) {
+                                       String subject, Date updatedAt, boolean valid, Date validity) {
         this(false, (String) null, (String) null, certificateFingerprint, createdAt, (String) null, 0, false,
              (String) null, issuer, (String) null, ownerId, SubtenantTrustedCertificateService.getDefault(),
-             SubtenantTrustedCertificateStatus.getDefault(), subject, updatedAt, validity);
+             SubtenantTrustedCertificateStatus.getDefault(), subject, updatedAt, valid, validity);
     }
 
     /**
@@ -170,7 +197,7 @@ public class SubtenantTrustedCertificate extends AbstractSubtenantTrustedCertifi
                                        SubtenantTrustedCertificateService service) {
         this(false, accountId, certificate, (String) null, new java.util.Date(), (String) null, 0, false, (String) null,
              (String) null, name, (String) null, service, SubtenantTrustedCertificateStatus.getDefault(), (String) null,
-             new java.util.Date(), new java.util.Date());
+             new java.util.Date(), false, new java.util.Date());
     }
 
     /**

@@ -164,7 +164,7 @@ public class Devices extends AbstractModule {
      * Adds a device.
      * <p>
      * Create a new device.
-     *
+     * 
      * @param device
      *            a device.
      * @return an added device
@@ -198,7 +198,7 @@ public class Devices extends AbstractModule {
      * 'content-type: application/json' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments \ -d
      * '{"enrollment_identity":
      * "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5"}' ```
-     *
+     * 
      * @param enrollmentIdentity
      *            a device enrollment.
      * @return an added device enrollment
@@ -229,11 +229,11 @@ public class Devices extends AbstractModule {
      * Adds a device enrollment bulk create.
      * <p>
      * With bulk upload, you can upload a `CSV` file containing a number of enrollment IDs.
-     *
+     * 
      * **Example usage:** ``` curl -X POST \ -H 'Authorization: Bearer [valid access token]' \ -F
      * 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads
-     *
+     * 
      * ``` **The validation rules for an CSV file.** 1. The first line in the uploaded CSV file is assumed to be the
      * header and is ignored. 1. Each line can contain comma-separated values, where the first value is always assumed
      * to be the Enrollment ID. Everything after the first comma is ignored. 1. Valid enrollments begin with A followed
@@ -243,8 +243,8 @@ public class Devices extends AbstractModule {
      * U+0020) are removed from the identity before validation. 1. Empty identities are ignored. 1. Valid enrollment
      * identities may be enclosed within quotes. Whitespace inside quotes is not trimmed and will fail validation. Empty
      * quotes are also considered to be an invalid enrollment identity. 1. UTF-8 encoding is expected.
-     *
-     *
+     * 
+     * 
      * **A valid enrollment file:** ``` "Examples of valid identites, notes"
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12",
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12"
@@ -254,9 +254,9 @@ public class Devices extends AbstractModule {
      * Whitespace is trimmed before validation
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12" , Whitespace
      * around quotes is also trimmed
-     *
+     * 
      * ```
-     *
+     * 
      * **A file containing invalid identities:** ```
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12", First line
      * is ignored A_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,
@@ -265,13 +265,13 @@ public class Devices extends AbstractModule {
      * identity "", Empty quotes are an invalid identity "
      * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 ", Whitespace
      * inside quotes is not trimmed causing an error
-     *
+     * 
      * ```
-     *
+     * 
      * **An empty file:** ``` "Examples of blank lines that are ignored"
-     *
+     * 
      * ,, , This is also considered to a blank line ```
-     *
+     * 
      * @param enrollmentIdentities
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
      * @return an added device enrollment bulk create
@@ -319,7 +319,7 @@ public class Devices extends AbstractModule {
      * <p>
      * Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a
      * production certicate will return a 400 response.
-     *
+     * 
      * @param id
      *            null
      */
@@ -363,7 +363,7 @@ public class Devices extends AbstractModule {
      * First-to-Claim](/docs/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html). [br] **Example
      * usage:** ``` curl -X DELETE \ -H 'Authorization: Bearer [valid access token]' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ```
-     *
+     * 
      * @param id
      *            Enrollment identity.
      */
@@ -388,11 +388,11 @@ public class Devices extends AbstractModule {
      * Deletes a device enrollment bulk delete.
      * <p>
      * With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to be deleted.
-     *
+     * 
      * **Example usage:** ``` curl -X POST \ -H 'Authorization: Bearer [valid access token]' \ -F
      * 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes
-     *
+     * 
      * ``` **The validation rules for an CSV file.** 1. The first line in the uploaded CSV file is assumed to be the
      * header and is ignored. 1. Each line can contain comma-separated values, where the first value is always assumed
      * to be the Enrollment ID. Everything after the first comma is ignored. 1. Valid enrollments begin with A followed
@@ -402,8 +402,8 @@ public class Devices extends AbstractModule {
      * U+0020) are removed from the identity before validation. 1. Empty identities are ignored. 1. Valid enrollment
      * identities may be enclosed within quotes. Whitespace inside quotes is not trimmed and will fail validation. Empty
      * quotes are also considered to be an invalid enrollment identity. 1. UTF-8 encoding is expected.
-     *
-     *
+     * 
+     * 
      * **A valid enrollment file:** ``` "Examples of valid identites, notes"
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12",
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12"
@@ -413,9 +413,9 @@ public class Devices extends AbstractModule {
      * Whitespace is trimmed before validation
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12" , Whitespace
      * around quotes is also trimmed
-     *
+     * 
      * ```
-     *
+     * 
      * **A file containing invalid identities:** ```
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12", First line
      * is ignored A_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,
@@ -424,13 +424,13 @@ public class Devices extends AbstractModule {
      * identity "", Empty quotes are an invalid identity "
      * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 ", Whitespace
      * inside quotes is not trimmed causing an error
-     *
+     * 
      * ```
-     *
+     * 
      * **An empty file:** ``` "Examples of blank lines that are ignored"
-     *
+     * 
      * ,, , This is also considered to a blank line ```
-     *
+     * 
      * @param enrollmentIdentities
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
      * @return something
@@ -455,258 +455,6 @@ public class Devices extends AbstractModule {
                                         return endpoints.getPublicApiApi()
                                                         .deleteBulkDeviceEnrollment(DataFileAdapter.reverseMap("enrollment_identities",
                                                                                                                finalEnrollmentIdentities));
-                                    }
-                                });
-    }
-
-    /**
-     * Gets a device.
-     * <p>
-     * Similar to {@link #getDevice(String)}
-     * 
-     * @param device
-     *            a device.
-     * @return something
-     */
-    @API
-    @Nullable
-    public Device getDevice(@NonNull Device device) throws MbedCloudException {
-        checkNotNull(device, TAG_DEVICE);
-        return getDevice(device.getId());
-    }
-
-    /**
-     * Gets a device.
-     * <p>
-     * Retrieve information about a specific device.
-     *
-     * @param id
-     *            The ID of the device. The device ID is used across all Device Management APIs.
-     * @return something
-     */
-    @API
-    @Nullable
-    public Device getDevice(@NonNull String id) throws MbedCloudException {
-        checkNotNull(id, TAG_ID);
-        final String finalId = id;
-        return CloudCaller.call(this, "getDevice()", DeviceAdapter.getMapper(),
-                                new CloudRequest.CloudCall<DeviceData>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<DeviceData> call() {
-                                        return endpoints.getDefaultApi().deviceRetrieve(finalId);
-                                    }
-                                });
-    }
-
-    /**
-     * Gets a device enrollment.
-     * <p>
-     * Similar to {@link #getDeviceEnrollment(String)}
-     * 
-     * @param deviceEnrollment
-     *            a device enrollment.
-     * @return something
-     */
-    @API
-    @Nullable
-    public DeviceEnrollment getDeviceEnrollment(@NonNull DeviceEnrollment deviceEnrollment) throws MbedCloudException {
-        checkNotNull(deviceEnrollment, TAG_DEVICE_ENROLLMENT);
-        return getDeviceEnrollment(deviceEnrollment.getId());
-    }
-
-    /**
-     * Gets a device enrollment.
-     * <p>
-     * To check the enrollment info in detail, for example date of claim and expiration date. **Example usage:** ```
-     * curl -X GET \ -H 'Authorization: Bearer [valid access token]' \
-     * https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ```
-     *
-     * @param id
-     *            Enrollment identity.
-     * @return something
-     */
-    @API
-    @Nullable
-    public DeviceEnrollment getDeviceEnrollment(@NonNull String id) throws MbedCloudException {
-        checkNotNull(id, TAG_ID);
-        final String finalId = id;
-        return CloudCaller.call(this, "getDeviceEnrollment()", DeviceEnrollmentAdapter.getMapper(),
-                                new CloudRequest.CloudCall<EnrollmentIdentity>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<EnrollmentIdentity> call() {
-                                        return endpoints.getPublicApiApi().getDeviceEnrollment(finalId);
-                                    }
-                                });
-    }
-
-    /**
-     * Gets a device enrollment bulk create.
-     * <p>
-     * Similar to {@link #getDeviceEnrollmentBulkCreate(String)}
-     * 
-     * @param deviceEnrollmentBulkCreate
-     *            a device enrollment bulk create.
-     * @return something
-     */
-    @API
-    @Nullable
-    public DeviceEnrollmentBulkCreate
-           getDeviceEnrollmentBulkCreate(@NonNull DeviceEnrollmentBulkCreate deviceEnrollmentBulkCreate) throws MbedCloudException {
-        checkNotNull(deviceEnrollmentBulkCreate, TAG_DEVICE_ENROLLMENT_BULK_CREATE);
-        return getDeviceEnrollmentBulkCreate(deviceEnrollmentBulkCreate.getId());
-    }
-
-    /**
-     * Gets a device enrollment bulk create.
-     * <p>
-     * Provides information on bulk upload for the given ID. For example, the bulk status and the number of processed
-     * enrollment identities. Also links to the bulk upload reports are provided. **Report file format:** The report
-     * files have a header line and the value are separated by commas. The lines are delimited by a line break (CRLF).
-     * The report file is compliant with IETF Informal CSV common format [RFC 4180](
-     * https://tools.ietf.org/html/rfc4180). An example of a full report file: ```
-     * "entity__id","entity__created_at","error__code","error__type","error__message","error__fields"
-     * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","2018-09-07T12:10:58.428Z","","","",""
-     * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","2018-09-07T12:10:58.428Z","","","",""
-     * ``` An example of an error report file: ```
-     * "entity__id","error__code","error__type","error__message","error__fields"
-     * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","409","duplicate","Enrollment
-     * identity is already claimed in the mbed Cloud.",""
-     * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","409","duplicate","Enrollment
-     * identity is already claimed in the mbed Cloud.","" ``` **Example usage:** ``` curl -X GET \ -H 'Authorization:
-     * Bearer [valid access token]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} ```
-     *
-     * @param id
-     *            Bulk ID.
-     * @return something
-     */
-    @API
-    @Nullable
-    public DeviceEnrollmentBulkCreate getDeviceEnrollmentBulkCreate(@NonNull String id) throws MbedCloudException {
-        checkNotNull(id, TAG_ID);
-        final String finalId = id;
-        return CloudCaller.call(this, "getDeviceEnrollmentBulkCreate()", DeviceEnrollmentBulkCreateAdapter.getMapper(),
-                                new CloudRequest.CloudCall<BulkResponse>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<BulkResponse> call() {
-                                        return endpoints.getPublicApiApi().getBulkDeviceEnrollment(finalId);
-                                    }
-                                });
-    }
-
-    /**
-     * Gets a device enrollment bulk delete.
-     * <p>
-     * Similar to {@link #getDeviceEnrollmentBulkDelete(String)}
-     * 
-     * @param deviceEnrollmentBulkDelete
-     *            a device enrollment bulk delete.
-     * @return something
-     */
-    @API
-    @Nullable
-    public DeviceEnrollmentBulkDelete
-           getDeviceEnrollmentBulkDelete(@NonNull DeviceEnrollmentBulkDelete deviceEnrollmentBulkDelete) throws MbedCloudException {
-        checkNotNull(deviceEnrollmentBulkDelete, TAG_DEVICE_ENROLLMENT_BULK_DELETE);
-        return getDeviceEnrollmentBulkDelete(deviceEnrollmentBulkDelete.getId());
-    }
-
-    /**
-     * Gets a device enrollment bulk delete.
-     * <p>
-     * Provides information on bulk delete for the given ID. For example, the bulk status and the number of processed
-     * enrollment identities. Also links to the bulk delete reports are provided. **Report file format:** The report
-     * files have a header line and the value are separated by commas. The lines are delimited by a line break (CRLF).
-     * The report file is compliant with IETF Informal CSV common format [RFC 4180](
-     * https://tools.ietf.org/html/rfc4180). An example of a full report file: ```
-     * "entity__id","entity__deleted_at","error__code","error__type","error__message","error__fields"
-     * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","2018-09-07T12:10:58.428Z","","","",""
-     * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","2018-09-07T12:10:58.428Z","","","",""
-     * ``` An example of an error report file: ```
-     * "entity__id","error__code","error__type","error__message","error__fields"
-     * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","409","duplicate","Enrollment
-     * identity is already claimed in the mbed Cloud.",""
-     * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","409","duplicate","Enrollment
-     * identity is already claimed in the mbed Cloud.","" ``` **Example usage:** ``` curl -X GET \ -H 'Authorization:
-     * Bearer [valid access token]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id} ```
-     *
-     * @param id
-     *            Bulk ID.
-     * @return something
-     */
-    @API
-    @Nullable
-    public DeviceEnrollmentBulkDelete getDeviceEnrollmentBulkDelete(@NonNull String id) throws MbedCloudException {
-        checkNotNull(id, TAG_ID);
-        final String finalId = id;
-        return CloudCaller.call(this, "getDeviceEnrollmentBulkDelete()", DeviceEnrollmentBulkDeleteAdapter.getMapper(),
-                                new CloudRequest.CloudCall<BulkResponse>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<BulkResponse> call() {
-                                        return endpoints.getPublicApiApi().getBulkDeviceEnrollmentDelete(finalId);
-                                    }
-                                });
-    }
-
-    /**
-     * Gets a device events.
-     * <p>
-     * Similar to {@link #getDeviceEvents(String)}
-     * 
-     * @param deviceEvents
-     *            a device events.
-     * @return something
-     */
-    @API
-    @Nullable
-    public DeviceEvents getDeviceEvents(@NonNull DeviceEvents deviceEvents) throws MbedCloudException {
-        checkNotNull(deviceEvents, TAG_DEVICE_EVENTS);
-        return getDeviceEvents(deviceEvents.getId());
-    }
-
-    /**
-     * Gets a device events.
-     * <p>
-     * Retrieve a specific device event.
-     *
-     * @param id
-     *            null
-     * @return something
-     */
-    @API
-    @Nullable
-    public DeviceEvents getDeviceEvents(@NonNull String id) throws MbedCloudException {
-        checkNotNull(id, TAG_ID);
-        final String finalId = id;
-        return CloudCaller.call(this, "getDeviceEvents()", DeviceEventsAdapter.getMapper(),
-                                new CloudRequest.CloudCall<DeviceEventData>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<DeviceEventData> call() {
-                                        return endpoints.getDefaultApi().deviceEventRetrieve(finalId);
                                     }
                                 });
     }
@@ -825,7 +573,7 @@ public class Devices extends AbstractModule {
      * Bearer [valid access token]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments ``` With query
      * parameters: ``` curl -X GET \ -H 'Authorization: Bearer [valid access token]' \
      * 'https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10' ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of device enrollments corresponding to filter options (One page).
@@ -858,7 +606,7 @@ public class Devices extends AbstractModule {
      * Lists device events matching filter options.
      * <p>
      * List all device events for an account.
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of device events corresponding to filter options (One page).
@@ -890,7 +638,7 @@ public class Devices extends AbstractModule {
      * Lists devices matching filter options.
      * <p>
      * List all devices.
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of devices corresponding to filter options (One page).
@@ -917,8 +665,260 @@ public class Devices extends AbstractModule {
     }
 
     /**
+     * Gets a device.
+     * <p>
+     * Similar to {@link #readDevice(String)}
+     * 
+     * @param device
+     *            a device.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Device readDevice(@NonNull Device device) throws MbedCloudException {
+        checkNotNull(device, TAG_DEVICE);
+        return readDevice(device.getId());
+    }
+
+    /**
+     * Gets a device.
+     * <p>
+     * Retrieve information about a specific device.
+     * 
+     * @param id
+     *            The ID of the device. The device ID is used across all Device Management APIs.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Device readDevice(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readDevice()", DeviceAdapter.getMapper(),
+                                new CloudRequest.CloudCall<DeviceData>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<DeviceData> call() {
+                                        return endpoints.getDefaultApi().deviceRetrieve(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a device enrollment.
+     * <p>
+     * Similar to {@link #readDeviceEnrollment(String)}
+     * 
+     * @param deviceEnrollment
+     *            a device enrollment.
+     * @return something
+     */
+    @API
+    @Nullable
+    public DeviceEnrollment readDeviceEnrollment(@NonNull DeviceEnrollment deviceEnrollment) throws MbedCloudException {
+        checkNotNull(deviceEnrollment, TAG_DEVICE_ENROLLMENT);
+        return readDeviceEnrollment(deviceEnrollment.getId());
+    }
+
+    /**
+     * Gets a device enrollment.
+     * <p>
+     * To check the enrollment info in detail, for example date of claim and expiration date. **Example usage:** ```
+     * curl -X GET \ -H 'Authorization: Bearer [valid access token]' \
+     * https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ```
+     * 
+     * @param id
+     *            Enrollment identity.
+     * @return something
+     */
+    @API
+    @Nullable
+    public DeviceEnrollment readDeviceEnrollment(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readDeviceEnrollment()", DeviceEnrollmentAdapter.getMapper(),
+                                new CloudRequest.CloudCall<EnrollmentIdentity>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<EnrollmentIdentity> call() {
+                                        return endpoints.getPublicApiApi().getDeviceEnrollment(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a device enrollment bulk create.
+     * <p>
+     * Similar to {@link #readDeviceEnrollmentBulkCreate(String)}
+     * 
+     * @param deviceEnrollmentBulkCreate
+     *            a device enrollment bulk create.
+     * @return something
+     */
+    @API
+    @Nullable
+    public DeviceEnrollmentBulkCreate
+           readDeviceEnrollmentBulkCreate(@NonNull DeviceEnrollmentBulkCreate deviceEnrollmentBulkCreate) throws MbedCloudException {
+        checkNotNull(deviceEnrollmentBulkCreate, TAG_DEVICE_ENROLLMENT_BULK_CREATE);
+        return readDeviceEnrollmentBulkCreate(deviceEnrollmentBulkCreate.getId());
+    }
+
+    /**
+     * Gets a device enrollment bulk create.
+     * <p>
+     * Provides information on bulk upload for the given ID. For example, the bulk status and the number of processed
+     * enrollment identities. Also links to the bulk upload reports are provided. **Report file format:** The report
+     * files have a header line and the value are separated by commas. The lines are delimited by a line break (CRLF).
+     * The report file is compliant with IETF Informal CSV common format [RFC 4180](
+     * https://tools.ietf.org/html/rfc4180). An example of a full report file: ```
+     * "entity__id","entity__created_at","error__code","error__type","error__message","error__fields"
+     * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","2018-09-07T12:10:58.428Z","","","",""
+     * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","2018-09-07T12:10:58.428Z","","","",""
+     * ``` An example of an error report file: ```
+     * "entity__id","error__code","error__type","error__message","error__fields"
+     * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","409","duplicate","Enrollment
+     * identity is already claimed in the mbed Cloud.",""
+     * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","409","duplicate","Enrollment
+     * identity is already claimed in the mbed Cloud.","" ``` **Example usage:** ``` curl -X GET \ -H 'Authorization:
+     * Bearer [valid access token]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} ```
+     * 
+     * @param id
+     *            Bulk ID.
+     * @return something
+     */
+    @API
+    @Nullable
+    public DeviceEnrollmentBulkCreate readDeviceEnrollmentBulkCreate(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readDeviceEnrollmentBulkCreate()", DeviceEnrollmentBulkCreateAdapter.getMapper(),
+                                new CloudRequest.CloudCall<BulkResponse>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<BulkResponse> call() {
+                                        return endpoints.getPublicApiApi().getBulkDeviceEnrollment(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a device enrollment bulk delete.
+     * <p>
+     * Similar to {@link #readDeviceEnrollmentBulkDelete(String)}
+     * 
+     * @param deviceEnrollmentBulkDelete
+     *            a device enrollment bulk delete.
+     * @return something
+     */
+    @API
+    @Nullable
+    public DeviceEnrollmentBulkDelete
+           readDeviceEnrollmentBulkDelete(@NonNull DeviceEnrollmentBulkDelete deviceEnrollmentBulkDelete) throws MbedCloudException {
+        checkNotNull(deviceEnrollmentBulkDelete, TAG_DEVICE_ENROLLMENT_BULK_DELETE);
+        return readDeviceEnrollmentBulkDelete(deviceEnrollmentBulkDelete.getId());
+    }
+
+    /**
+     * Gets a device enrollment bulk delete.
+     * <p>
+     * Provides information on bulk delete for the given ID. For example, the bulk status and the number of processed
+     * enrollment identities. Also links to the bulk delete reports are provided. **Report file format:** The report
+     * files have a header line and the value are separated by commas. The lines are delimited by a line break (CRLF).
+     * The report file is compliant with IETF Informal CSV common format [RFC 4180](
+     * https://tools.ietf.org/html/rfc4180). An example of a full report file: ```
+     * "entity__id","entity__deleted_at","error__code","error__type","error__message","error__fields"
+     * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","2018-09-07T12:10:58.428Z","","","",""
+     * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","2018-09-07T12:10:58.428Z","","","",""
+     * ``` An example of an error report file: ```
+     * "entity__id","error__code","error__type","error__message","error__fields"
+     * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","409","duplicate","Enrollment
+     * identity is already claimed in the mbed Cloud.",""
+     * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","409","duplicate","Enrollment
+     * identity is already claimed in the mbed Cloud.","" ``` **Example usage:** ``` curl -X GET \ -H 'Authorization:
+     * Bearer [valid access token]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id} ```
+     * 
+     * @param id
+     *            Bulk ID.
+     * @return something
+     */
+    @API
+    @Nullable
+    public DeviceEnrollmentBulkDelete readDeviceEnrollmentBulkDelete(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readDeviceEnrollmentBulkDelete()", DeviceEnrollmentBulkDeleteAdapter.getMapper(),
+                                new CloudRequest.CloudCall<BulkResponse>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<BulkResponse> call() {
+                                        return endpoints.getPublicApiApi().getBulkDeviceEnrollmentDelete(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a device events.
+     * <p>
+     * Similar to {@link #readDeviceEvents(String)}
+     * 
+     * @param deviceEvents
+     *            a device events.
+     * @return something
+     */
+    @API
+    @Nullable
+    public DeviceEvents readDeviceEvents(@NonNull DeviceEvents deviceEvents) throws MbedCloudException {
+        checkNotNull(deviceEvents, TAG_DEVICE_EVENTS);
+        return readDeviceEvents(deviceEvents.getId());
+    }
+
+    /**
+     * Gets a device events.
+     * <p>
+     * Retrieve a specific device event.
+     * 
+     * @param id
+     *            null
+     * @return something
+     */
+    @API
+    @Nullable
+    public DeviceEvents readDeviceEvents(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readDeviceEvents()", DeviceEventsAdapter.getMapper(),
+                                new CloudRequest.CloudCall<DeviceEventData>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<DeviceEventData> call() {
+                                        return endpoints.getDefaultApi().deviceEventRetrieve(finalId);
+                                    }
+                                });
+    }
+
+    /**
      * Request certificate renewal.
-     *
+     * 
      * <p>
      * Similar to {@link #renewCertificate(String,String)}
      * 
@@ -939,16 +939,16 @@ public class Devices extends AbstractModule {
 
     /**
      * Request certificate renewal.
-     *
+     * 
      * <p>
      * Request a certificate renewal.
-     *
+     * 
      * **Example usage:**
-     *
+     * 
      * ``` curl -X POST -H 'authorization: Bearer [valid access token]' -H 'content-length: 0'
      * https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew
      * ```
-     *
+     * 
      * @param certificateName
      *            The certificate name.
      * @param id
@@ -1000,7 +1000,7 @@ public class Devices extends AbstractModule {
      * Modifies a device.
      * <p>
      * Update a specific device.
-     *
+     * 
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
      * @param device

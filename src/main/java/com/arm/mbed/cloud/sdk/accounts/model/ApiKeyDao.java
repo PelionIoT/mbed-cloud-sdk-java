@@ -111,34 +111,6 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     }
 
     /**
-     * Gets an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getApiKey(ApiKey)}
-     * 
-     * @return something
-     */
-    @Override
-    public ApiKey get() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getApiKey(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets an api key.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getApiKey(String)}
-     * 
-     * @param id
-     *            The ID of the API key.
-     * @return something
-     */
-    @Override
-    public ApiKey get(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getApiKey(id));
-        return getModel();
-    }
-
-    /**
      * Instantiates model.
      * 
      * @return instantiated model
@@ -152,19 +124,6 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Instantiates modules.
      * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Accounts(options);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param context
      *            an sdk context.
      * @return instantiated module
@@ -173,6 +132,19 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Accounts(context);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Accounts(options);
     }
 
     /**
@@ -198,6 +170,34 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     @SuppressWarnings("PMD.ShortMethodName")
     public ApiKey me() throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).myApiKey());
+        return getModel();
+    }
+
+    /**
+     * Gets an api key.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readApiKey(ApiKey)}
+     * 
+     * @return something
+     */
+    @Override
+    public ApiKey read() throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).readApiKey(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets an api key.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readApiKey(String)}
+     * 
+     * @param id
+     *            The ID of the API key.
+     * @return something
+     */
+    @Override
+    public ApiKey read(@NonNull String id) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).readApiKey(id));
         return getModel();
     }
 

@@ -23,7 +23,7 @@ public class DeviceEvents implements SdkModel {
     /**
      * value.
      */
-    private final Map<String, String> changes;
+    private final Map<String, Object> changes;
 
     /**
      * value.
@@ -105,7 +105,7 @@ public class DeviceEvents implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public DeviceEvents(Map<String, String> changes, Date createdAt, Map<String, String> data, Date dateTime,
+    public DeviceEvents(Map<String, Object> changes, Date createdAt, Map<String, String> data, Date dateTime,
                         String description, String deviceId, String eventType, String eventTypeCategory,
                         String eventTypeDescription, String id, boolean stateChange) {
         super();
@@ -190,7 +190,7 @@ public class DeviceEvents implements SdkModel {
      *            value.
      */
     @Internal
-    public DeviceEvents(Map<String, String> changes, Date createdAt, Map<String, String> data, Date dateTime,
+    public DeviceEvents(Map<String, Object> changes, Date createdAt, Map<String, String> data, Date dateTime,
                         String description, String deviceId, String eventType, String eventTypeCategory,
                         String eventTypeDescription, boolean stateChange) {
         this(changes, createdAt, data, dateTime, description, deviceId, eventType, eventTypeCategory,
@@ -202,7 +202,7 @@ public class DeviceEvents implements SdkModel {
      * 
      * @return changes
      */
-    public Map<String, String> getChanges() {
+    public Map<String, Object> getChanges() {
         return changes;
     }
 

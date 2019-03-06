@@ -112,36 +112,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     }
 
     /**
-     * Gets a trusted certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificate(TrustedCertificate)}
-     * 
-     * @return something
-     */
-    @Override
-    public TrustedCertificate get() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getTrustedCertificate(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a trusted certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificate(String)}
-     * 
-     * @param id
-     *            Entity ID.
-     * @return something
-     */
-    @Override
-    public TrustedCertificate get(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getTrustedCertificate(id));
-        return getModel();
-    }
-
-    /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(TrustedCertificate)}
      * 
@@ -153,12 +125,12 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(String)}
      * 
      * @param id
-     *            mUUID that uniquely identifies the developer certificate.
+     *            ID that uniquely identifies the developer certificate.
      * @return something
      */
     public DeveloperCertificate getDeveloperCertificateInfo(@NonNull String id) throws MbedCloudException {
@@ -179,19 +151,6 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Instantiates modules.
      * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param context
      *            an sdk context.
      * @return instantiated module
@@ -205,6 +164,19 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Instantiates modules.
      * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -213,6 +185,34 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Security(client);
+    }
+
+    /**
+     * Gets a trusted certificate.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readTrustedCertificate(TrustedCertificate)}
+     * 
+     * @return something
+     */
+    @Override
+    public TrustedCertificate read() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).readTrustedCertificate(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a trusted certificate.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readTrustedCertificate(String)}
+     * 
+     * @param id
+     *            Entity ID.
+     * @return something
+     */
+    @Override
+    public TrustedCertificate read(@NonNull String id) throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).readTrustedCertificate(id));
+        return getModel();
     }
 
     /**

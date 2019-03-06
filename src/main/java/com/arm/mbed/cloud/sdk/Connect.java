@@ -299,7 +299,7 @@ public class Connect extends AbstractModule {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getWebsocket().deleteWebsocket();
+                return endpoint.getNotifications().deleteWebsocket();
             }
         });
     }
@@ -2854,7 +2854,7 @@ public class Connect extends AbstractModule {
 
                                     @Override
                                     public Call<WebsocketChannel> call() {
-                                        return endpoint.getWebsocket().registerWebsocket();
+                                        return endpoint.getNotifications().registerWebsocket();
                                     }
                                 });
     }
@@ -2874,7 +2874,7 @@ public class Connect extends AbstractModule {
 
                                     @Override
                                     public Call<WebsocketChannel> call() {
-                                        return endpoint.getWebsocket().getWebsocket();
+                                        return endpoint.getNotifications().getWebsocket();
                                     }
                                 });
     }
@@ -2892,7 +2892,7 @@ public class Connect extends AbstractModule {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getWebsocket().deleteWebsocket();
+                return endpoint.getNotifications().deleteWebsocket();
             }
         });
     }

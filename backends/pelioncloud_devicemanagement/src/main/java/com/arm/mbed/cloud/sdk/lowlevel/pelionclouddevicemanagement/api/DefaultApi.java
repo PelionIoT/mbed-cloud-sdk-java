@@ -10,10 +10,6 @@ import okhttp3.MultipartBody;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BillingReportRawDataResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Block;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Block1;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColor;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColorList;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImage;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImageList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadata;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadataPage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignMetrics;
@@ -814,108 +810,6 @@ public interface DefaultApi {
      */
     @GET("v3/billing-report-firmware-updates")
     Call<BillingReportRawDataResponse> getBillingReportFirmwareUpdates(@retrofit2.http.Query("month") String month);
-
-    /**
-     * Get branding colors of the dark theme. Returns the branding colors of the dark theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding colors to be fetched. (required)
-     * @return Call&lt;BrandingColorList&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-colors/dark")
-    Call<BrandingColorList>
-        getLoginPageAllDarkColors(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
-
-    /**
-     * Get metadata of all images of the dark theme. Returns the metadata of all branding images of the dark theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding images to be fetched. (required)
-     * @return Call&lt;BrandingImageList&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-images/dark")
-    Call<BrandingImageList>
-        getLoginPageAllDarkImageData(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
-
-    /**
-     * Get branding colors of the light theme. Returns the branding colors of the light theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding colors to be fetched. (required)
-     * @return Call&lt;BrandingColorList&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-colors/light")
-    Call<BrandingColorList>
-        getLoginPageAllLightColors(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
-
-    /**
-     * Get metadata of all images of the light theme. Returns the metadata of all branding images of the light theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding images to be fetched. (required)
-     * @return Call&lt;BrandingImageList&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-images/light")
-    Call<BrandingImageList>
-        getLoginPageAllLightImageData(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
-
-    /**
-     * Get branding color of the dark theme. Returns the requested branding color of the dark theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding colors to be fetched. (required)
-     * @param reference
-     *            The name of the branding color. (required)
-     * @return Call&lt;BrandingColor&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-colors/dark/{reference}")
-    Call<BrandingColor>
-        getLoginPageDarkColor(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                              @retrofit2.http.Path(value = "reference", encoded = true) String reference);
-
-    /**
-     * Get metadata of an image of the dark theme. An endpoint for getting metadata of one account branding image of the
-     * dark theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding image to be fetched. (required)
-     * @param reference
-     *            Name of the picture whose metadata to be fetched. (required)
-     * @return Call&lt;BrandingImage&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-images/dark/{reference}")
-    Call<BrandingImage>
-        getLoginPageDarkImageData(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                                  @retrofit2.http.Path(value = "reference", encoded = true) String reference);
-
-    /**
-     * Get branding color of the light theme. Returns the requested branding color of the light theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding colors to be fetched. (required)
-     * @param reference
-     *            The name of the branding color. (required)
-     * @return Call&lt;BrandingColor&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-colors/light/{reference}")
-    Call<BrandingColor>
-        getLoginPageLightColor(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                               @retrofit2.http.Path(value = "reference", encoded = true) String reference);
-
-    /**
-     * Get metadata of an image of the light theme. An endpoint for getting metadata of one account branding image of
-     * the light theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding image to be fetched. (required)
-     * @param reference
-     *            Name of the picture whose metadata to be fetched. (required)
-     * @return Call&lt;BrandingImage&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-images/light/{reference}")
-    Call<BrandingImage>
-        getLoginPageLightImageData(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                                   @retrofit2.http.Path(value = "reference", encoded = true) String reference);
 
     /**
      * Service package quota. Get the available firmware update quota for the currently authenticated commercial

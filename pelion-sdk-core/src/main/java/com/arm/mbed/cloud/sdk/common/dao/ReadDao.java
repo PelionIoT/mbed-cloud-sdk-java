@@ -13,7 +13,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
  */
 @Preamble(description = "Data Access Object definition for reading")
 public interface ReadDao<T extends SdkModel> extends ModelDao<T> {
-    String METHOD_NAME_READ = "get";
+    String METHOD_NAME_READ = "read";
     String METHOD_NAME_ME = "me";
 
     /**
@@ -27,7 +27,7 @@ public interface ReadDao<T extends SdkModel> extends ModelDao<T> {
      * @throws UnsupportedOperationException
      *             if it is not possible to read a model by just setting the identifier.
      */
-    T get(String id) throws MbedCloudException, UnsupportedOperationException;
+    T read(String id) throws MbedCloudException, UnsupportedOperationException;
 
     /**
      * Fetches data from the Cloud.
@@ -39,6 +39,6 @@ public interface ReadDao<T extends SdkModel> extends ModelDao<T> {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    T get() throws MbedCloudException;
+    T read() throws MbedCloudException;
 
 }

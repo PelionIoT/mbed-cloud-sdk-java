@@ -68,7 +68,7 @@ public class AccountDao extends AbstractAccountDao {
      * @return something
      */
     @Override
-    public Account get() throws MbedCloudException, NotImplementedException {
+    public Account read() throws MbedCloudException, NotImplementedException {
         // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
@@ -81,7 +81,7 @@ public class AccountDao extends AbstractAccountDao {
      * @return something
      */
     @Override
-    public Account get(String id) throws MbedCloudException, UnsupportedOperationException, NotImplementedException {
+    public Account read(String id) throws MbedCloudException, UnsupportedOperationException, NotImplementedException {
         // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }

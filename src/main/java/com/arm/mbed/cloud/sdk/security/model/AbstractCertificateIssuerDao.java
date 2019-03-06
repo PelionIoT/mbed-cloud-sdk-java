@@ -42,7 +42,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
-     *
+     * 
      * @return an added certificate issuer
      */
     public CertificateIssuer create(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
@@ -82,39 +82,11 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      * @param id
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer. An active certificate issuer may not be deleted.
-     *
+     * 
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
         ((Security) getModuleOrThrow()).deleteCertificateIssuer(id);
-    }
-
-    /**
-     * Gets a certificate issuer.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateIssuer(CertificateIssuer)}
-     * 
-     * @return something
-     */
-    @Override
-    public CertificateIssuer get() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getCertificateIssuer(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a certificate issuer.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getCertificateIssuer(String)}
-     * 
-     * @param id
-     *            The ID of the certificate issuer.
-     * @return something
-     */
-    @Override
-    public CertificateIssuer get(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getCertificateIssuer(id));
-        return getModel();
     }
 
     /**
@@ -126,19 +98,6 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     @Internal
     protected CertificateIssuer instantiateModel() {
         return new CertificateIssuer();
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
     }
 
     /**
@@ -157,6 +116,19 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     /**
      * Instantiates modules.
      * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -168,6 +140,34 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     }
 
     /**
+     * Gets a certificate issuer.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readCertificateIssuer(CertificateIssuer)}
+     * 
+     * @return something
+     */
+    @Override
+    public CertificateIssuer read() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).readCertificateIssuer(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a certificate issuer.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readCertificateIssuer(String)}
+     * 
+     * @param id
+     *            The ID of the certificate issuer.
+     * @return something
+     */
+    @Override
+    public CertificateIssuer read(@NonNull String id) throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).readCertificateIssuer(id));
+        return getModel();
+    }
+
+    /**
      * Modifies a certificate issuer.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(Map,CertificateIssuer)}
@@ -176,7 +176,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
-     *
+     * 
      * @return something
      */
     public CertificateIssuer update(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
@@ -193,7 +193,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
-     *
+     * 
      * @param id
      *            The ID of the certificate issuer.
      * @return an updated certificate issuer
@@ -206,7 +206,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
 
     /**
      * Verify certificate issuer.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#verify(CertificateIssuer)}
      * 
@@ -218,14 +218,14 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
 
     /**
      * Verify certificate issuer.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#verify(String)}
      * 
      * @param id
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer.
-     *
+     * 
      * @return something
      */
     public VerificationResponse verify(@NonNull String id) throws MbedCloudException {

@@ -28,52 +28,6 @@ public final class DeviceEventsAdapter {
     }
 
     /**
-     * Maps a device event data into a device events.
-     * 
-     * @param toBeMapped
-     *            a device event data.
-     * @return mapped a device events
-     */
-    @Internal
-    public static DeviceEvents map(DeviceEventData toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final DeviceEvents deviceEvents = new DeviceEvents(toBeMapped.getChanges(),
-                                                           TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                                           toBeMapped.getData(),
-                                                           TranslationUtils.toDate(toBeMapped.getDateTime()),
-                                                           toBeMapped.getDescription(), toBeMapped.getDeviceId(),
-                                                           toBeMapped.getEventType(), toBeMapped.getEventTypeCategory(),
-                                                           toBeMapped.getEventTypeDescription(),
-                                                           TranslationUtils.toBool(toBeMapped.isStateChange()));
-        deviceEvents.setId(toBeMapped.getId());
-        return deviceEvents;
-    }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<DeviceEventData, DeviceEvents> getMapper() {
-        return new GenericAdapter.Mapper<DeviceEventData, DeviceEvents>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public DeviceEvents map(DeviceEventData toBeMapped) {
-                return DeviceEventsAdapter.map(toBeMapped);
-            }
-        };
-    }
-
-    /**
      * Maps a device event page into a device events.
      * 
      * @param toBeMapped
@@ -175,6 +129,52 @@ public final class DeviceEventsAdapter {
             @Override
             public ListResponse<DeviceEvents> map(DeviceEventPage toBeMapped) {
                 return DeviceEventsAdapter.mapList(toBeMapped);
+            }
+        };
+    }
+
+    /**
+     * Maps a device event data into a device events.
+     * 
+     * @param toBeMapped
+     *            a device event data.
+     * @return mapped a device events
+     */
+    @Internal
+    public static DeviceEvents map(DeviceEventData toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final DeviceEvents deviceEvents = new DeviceEvents(toBeMapped.getChanges(),
+                                                           TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                           toBeMapped.getData(),
+                                                           TranslationUtils.toDate(toBeMapped.getDateTime()),
+                                                           toBeMapped.getDescription(), toBeMapped.getDeviceId(),
+                                                           toBeMapped.getEventType(), toBeMapped.getEventTypeCategory(),
+                                                           toBeMapped.getEventTypeDescription(),
+                                                           TranslationUtils.toBool(toBeMapped.isStateChange()));
+        deviceEvents.setId(toBeMapped.getId());
+        return deviceEvents;
+    }
+
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper
+     */
+    @Internal
+    public static GenericAdapter.Mapper<DeviceEventData, DeviceEvents> getMapper() {
+        return new GenericAdapter.Mapper<DeviceEventData, DeviceEvents>() {
+            /**
+             * Maps.
+             * 
+             * @param toBeMapped
+             *            model to be mapped.
+             * @return a mapped object
+             */
+            @Override
+            public DeviceEvents map(DeviceEventData toBeMapped) {
+                return DeviceEventsAdapter.map(toBeMapped);
             }
         };
     }

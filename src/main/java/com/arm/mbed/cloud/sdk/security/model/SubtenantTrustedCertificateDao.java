@@ -59,8 +59,8 @@ public class SubtenantTrustedCertificateDao extends AbstractSubtenantTrustedCert
      * @return something
      */
     @Override
-    public SubtenantTrustedCertificate get(String id) throws MbedCloudException, UnsupportedOperationException,
-                                                      NotImplementedException {
+    public SubtenantTrustedCertificate read(String id) throws MbedCloudException, UnsupportedOperationException,
+                                                       NotImplementedException {
         // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }

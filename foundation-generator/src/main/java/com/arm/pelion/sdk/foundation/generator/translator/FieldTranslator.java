@@ -8,6 +8,7 @@ import com.arm.pelion.sdk.foundation.generator.model.TypeHashtable;
 import com.arm.pelion.sdk.foundation.generator.model.TypeList;
 import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
+import com.arm.pelion.sdk.foundation.generator.util.Logger;
 
 public class FieldTranslator {
     private static final String ARRAY_TOKEN = "array";
@@ -18,21 +19,28 @@ public class FieldTranslator {
         // TODO Auto-generated constructor stub
     }
 
-    public static Field translate(com.arm.pelion.sdk.foundation.generator.input.Field field, String packageName,
-                                  String group, String primaryKey) throws FoundationGeneratorException {
+    public static Field translate(Logger logger, com.arm.pelion.sdk.foundation.generator.input.Field field,
+                                  String packageName, String group,
+                                  String primaryKey) throws FoundationGeneratorException {
         if (field == null) {
             return null;
         }
-        final Field modelField = new Field(field.isReadOnly(), determineType(field, packageName, group), field.getKey(),
-                                           field.getDescription(), field.getLongDescription(),
-                                           com.arm.pelion.sdk.foundation.generator.util.Utils.applyPatternHack(field.getPattern()),
-                                           false, field.isCustomCode(), field.isInternal(), field.isRequired(),
-                                           field.getDefaultValue(), false);
-        if (primaryKey != null && primaryKey.equals(field.getKey())) {
-            modelField.setAsIdentifier(true);
+        try {
+            final Field modelField = new Field(field.isReadOnly(), determineType(field, packageName, group),
+                                               field.getKey(), field.getDescription(), field.getLongDescription(),
+                                               com.arm.pelion.sdk.foundation.generator.util.Utils.applyPatternHack(field.getPattern()),
+                                               false, field.isCustomCode(), field.isInternal(), field.isRequired(),
+                                               field.getDefaultValue(), false);
+            if (primaryKey != null && primaryKey.equals(field.getKey())) {
+                modelField.setAsIdentifier(true);
+            }
+            // TODO do something if needed
+            return modelField;
+        } catch (FoundationGeneratorException exception) {
+            System.out.println(field);
+            logger.logError("Could not translate field " + field + " " + packageName + " " + group, exception);
+            throw exception;
         }
-        // TODO do something if needed
-        return modelField;
     }
 
     public static Parameter translateToParameter(com.arm.pelion.sdk.foundation.generator.input.Field field,

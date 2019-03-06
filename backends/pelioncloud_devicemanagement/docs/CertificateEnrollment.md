@@ -7,8 +7,9 @@ Name | Type | Description | Notes
 **certificateName** | **String** | The certificate name. | 
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. | 
 **deviceId** | **String** | The device ID. | 
-**enrollResult** | [**EnrollResultEnum**](#EnrollResultEnum) |  |  [optional]
-**enrollStatus** | [**EnrollStatusEnum**](#EnrollStatusEnum) |  |  [optional]
+**enrollResult** | [**EnrollResultEnum**](#EnrollResultEnum) | The result of certificate enrollment request. |  [optional]
+**enrollResultDetail** | **String** | Additional information in case of failure. |  [optional]
+**enrollStatus** | [**EnrollStatusEnum**](#EnrollStatusEnum) | The status of certificate enrollment request. |  [optional]
 **etag** | **String** | Entity instance signature. | 
 **id** | **String** | The ID of the certificate enrollment. | 
 **object** | [**ObjectEnum**](#ObjectEnum) |  |  [optional]
@@ -20,9 +21,9 @@ Name | Type | Description | Notes
 Name | Value
 ---- | -----
 SUCCESS | &quot;success&quot;
+FAILURE | &quot;failure&quot;
 NOT_FOUND | &quot;not_found&quot;
 FORBIDDEN | &quot;forbidden&quot;
-FAILURE | &quot;failure&quot;
 
 
 <a name="EnrollStatusEnum"></a>

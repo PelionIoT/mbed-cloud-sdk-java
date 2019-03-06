@@ -84,34 +84,6 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     }
 
     /**
-     * Gets a user.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getUser(User)}
-     * 
-     * @return something
-     */
-    @Override
-    public User get() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getUser(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a user.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#getUser(String)}
-     * 
-     * @param id
-     *            The ID of the user.
-     * @return something
-     */
-    @Override
-    public User get(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).getUser(id));
-        return getModel();
-    }
-
-    /**
      * Instantiates model.
      * 
      * @return instantiated model
@@ -120,19 +92,6 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     @Internal
     protected User instantiateModel() {
         return new User();
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Accounts(options);
     }
 
     /**
@@ -151,6 +110,19 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     /**
      * Instantiates modules.
      * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Accounts(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -159,6 +131,34 @@ public abstract class AbstractUserDao extends AbstractModelDao<User> implements 
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Accounts(client);
+    }
+
+    /**
+     * Gets a user.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readUser(User)}
+     * 
+     * @return something
+     */
+    @Override
+    public User read() throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).readUser(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a user.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readUser(String)}
+     * 
+     * @param id
+     *            The ID of the user.
+     * @return something
+     */
+    @Override
+    public User read(@NonNull String id) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).readUser(id));
+        return getModel();
     }
 
     /**

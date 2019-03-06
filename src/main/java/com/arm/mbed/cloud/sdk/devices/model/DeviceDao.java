@@ -112,34 +112,6 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     }
 
     /**
-     * Gets a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDevice(Device)}
-     * 
-     * @return something
-     */
-    @Override
-    public Device get() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDevice(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a device.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDevice(String)}
-     * 
-     * @param id
-     *            The ID of the device. The device ID is used across all Device Management APIs.
-     * @return something
-     */
-    @Override
-    public Device get(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDevice(id));
-        return getModel();
-    }
-
-    /**
      * Instantiates model.
      * 
      * @return instantiated model
@@ -148,19 +120,6 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     @Internal
     protected Device instantiateModel() {
         return new Device();
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
     }
 
     /**
@@ -179,6 +138,19 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Instantiates modules.
      * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Devices(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -190,8 +162,36 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     }
 
     /**
+     * Gets a device.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDevice(Device)}
+     * 
+     * @return something
+     */
+    @Override
+    public Device read() throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).readDevice(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a device.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDevice(String)}
+     * 
+     * @param id
+     *            The ID of the device. The device ID is used across all Device Management APIs.
+     * @return something
+     */
+    @Override
+    public Device read(@NonNull String id) throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).readDevice(id));
+        return getModel();
+    }
+
+    /**
      * Request certificate renewal.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#renewCertificate(String,Device)}
      * 
@@ -205,7 +205,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
 
     /**
      * Request certificate renewal.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#renewCertificate(String,String)}
      * 

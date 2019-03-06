@@ -115,34 +115,6 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     }
 
     /**
-     * Gets a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollment(DeviceEnrollment)}
-     * 
-     * @return something
-     */
-    @Override
-    public DeviceEnrollment get() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDeviceEnrollment(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a device enrollment.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEnrollment(String)}
-     * 
-     * @param id
-     *            Enrollment identity.
-     * @return something
-     */
-    @Override
-    public DeviceEnrollment get(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDeviceEnrollment(id));
-        return getModel();
-    }
-
-    /**
      * Instantiates model.
      * 
      * @return instantiated model
@@ -151,19 +123,6 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     @Internal
     protected DeviceEnrollment instantiateModel() {
         return new DeviceEnrollment();
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
     }
 
     /**
@@ -182,6 +141,19 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     /**
      * Instantiates modules.
      * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Devices(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -190,5 +162,33 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Devices(client);
+    }
+
+    /**
+     * Gets a device enrollment.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(DeviceEnrollment)}
+     * 
+     * @return something
+     */
+    @Override
+    public DeviceEnrollment read() throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).readDeviceEnrollment(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a device enrollment.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(String)}
+     * 
+     * @param id
+     *            Enrollment identity.
+     * @return something
+     */
+    @Override
+    public DeviceEnrollment read(@NonNull String id) throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).readDeviceEnrollment(id));
+        return getModel();
     }
 }

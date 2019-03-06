@@ -153,7 +153,7 @@ public class Accounts extends AbstractModule {
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
      * <p>
      * Similar to
-     * {@link #trustedCertificates(String,String,Integer,Integer,Integer,String,Boolean,String,String,String,SubtenantTrustedCertificateListOptions,Account)}
+     * {@link #trustedCertificates(String,String,Integer,Integer,Integer,String,Boolean,String,String,String,Boolean,SubtenantTrustedCertificateListOptions,Account)}
      * 
      * @param nameEq
      *            null
@@ -175,6 +175,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param subjectLike
      *            null
+     * @param validEq
+     *            null
      * @param options
      *            list options.
      * @param account
@@ -188,7 +190,7 @@ public class Accounts extends AbstractModule {
                                   @Nullable Integer deviceExecutionModeEq, @Nullable Integer deviceExecutionModeNeq,
                                   @Nullable String ownerEq, @Nullable Boolean enrollmentModeEq,
                                   @Nullable String statusEq, @Nullable String issuerLike, @Nullable String subjectLike,
-                                  @Nullable SubtenantTrustedCertificateListOptions options,
+                                  @Nullable Boolean validEq, @Nullable SubtenantTrustedCertificateListOptions options,
                                   @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
         final String finalNameEq = nameEq;
@@ -201,6 +203,7 @@ public class Accounts extends AbstractModule {
         final String finalStatusEq = statusEq;
         final String finalIssuerLike = issuerLike;
         final String finalSubjectLike = subjectLike;
+        final Boolean finalValidEq = validEq;
         final SubtenantTrustedCertificateListOptions finalOptions = (options == null) ? new SubtenantTrustedCertificateListOptions()
                                                                                       : options;
         final Account finalAccount = account;
@@ -226,6 +229,7 @@ public class Accounts extends AbstractModule {
                                                                                              finalStatusEq,
                                                                                              finalIssuerLike,
                                                                                              finalSubjectLike,
+                                                                                             finalValidEq,
                                                                                              (SubtenantTrustedCertificateListOptions) options,
                                                                                              finalAccount);
                                                               }
@@ -259,6 +263,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param subjectLike
      *            null
+     * @param validEq
+     *            null
      * @param options
      *            list options.
      * @return paginator over the list of subtenant trusted certificates
@@ -270,7 +276,7 @@ public class Accounts extends AbstractModule {
                                   @Nullable Integer expireEq, @Nullable Integer deviceExecutionModeEq,
                                   @Nullable Integer deviceExecutionModeNeq, @Nullable String ownerEq,
                                   @Nullable Boolean enrollmentModeEq, @Nullable String statusEq,
-                                  @Nullable String issuerLike, @Nullable String subjectLike,
+                                  @Nullable String issuerLike, @Nullable String subjectLike, @Nullable Boolean validEq,
                                   @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
         final String finalId = id;
@@ -284,6 +290,7 @@ public class Accounts extends AbstractModule {
         final String finalStatusEq = statusEq;
         final String finalIssuerLike = issuerLike;
         final String finalSubjectLike = subjectLike;
+        final Boolean finalValidEq = validEq;
         final SubtenantTrustedCertificateListOptions finalOptions = (options == null) ? new SubtenantTrustedCertificateListOptions()
                                                                                       : options;
         return new Paginator<SubtenantTrustedCertificate>(finalOptions,
@@ -308,6 +315,7 @@ public class Accounts extends AbstractModule {
                                                                                              finalStatusEq,
                                                                                              finalIssuerLike,
                                                                                              finalSubjectLike,
+                                                                                             finalValidEq,
                                                                                              (SubtenantTrustedCertificateListOptions) options);
                                                               }
                                                           });
@@ -507,12 +515,12 @@ public class Accounts extends AbstractModule {
      * Adds an account.
      * <p>
      * An endpoint for creating a new account.
-     *
+     * 
      * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts -d '{"display_name":
      * "MyAccount1", "admin_name": "accountAdmin1", "email": "example_admin@myaccount.info", "country": "United
      * Kingdom", "e nd_market": "Smart City", "address_line1": "110 Fulbourn Rd", "city": "Cambridge", "contact": "J.
      * Doe", "company": "Arm"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param action
      *            Action, either 'create' or 'enroll'.
      *            <ul>
@@ -556,10 +564,10 @@ public class Accounts extends AbstractModule {
      * Adds an api key.
      * <p>
      * An endpoint for creating a new API key.
-     *
+     * 
      * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{"name": "MyKey1"}' -H
      * 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param apiKey
      *            an api key.
      * @return an added api key
@@ -590,10 +598,10 @@ public class Accounts extends AbstractModule {
      * <p>
      * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only,
      * other attributes are set in the 2nd step.
-     *
+     * 
      * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users -d {"email":
      * "myemail@company.com"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param action
      *            Create or invite user.
      * @param accountId
@@ -653,10 +661,10 @@ public class Accounts extends AbstractModule {
      * Adds a subtenant user invitation.
      * <p>
      * An endpoint for inviting a new or an existing user to join the account.
-     *
+     * 
      * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accouns/{account_id}/user-invitations -d
      * {"email": "myemail@company.com"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param validForDays
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
      *            between 1 and 100 days.
@@ -722,10 +730,10 @@ public class Accounts extends AbstractModule {
      * <p>
      * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only,
      * other attributes are set in the 2nd step.
-     *
+     * 
      * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/users?action=invite -d {"email":
      * "myemail@company.com"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param action
      *            Action, either 'create' or 'invite'.
      * @param user
@@ -760,10 +768,10 @@ public class Accounts extends AbstractModule {
      * Adds a user invitation.
      * <p>
      * An endpoint for inviting a new or an existing user to join the account.
-     *
+     * 
      * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations -d {"email":
      * "myemail@company.com"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param validForDays
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
      *            between 1 and 100 days.
@@ -813,10 +821,10 @@ public class Accounts extends AbstractModule {
      * Deletes an api key.
      * <p>
      * An endpoint for deleting the API key.
-     *
+     * 
      * **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -H 'Authorization:
      * Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the API key to be deleted.
      */
@@ -841,10 +849,10 @@ public class Accounts extends AbstractModule {
      * Deletes a subtenant user.
      * <p>
      * An endpoint for deleting a user.
-     *
+     * 
      * **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}
      * -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -888,11 +896,11 @@ public class Accounts extends AbstractModule {
      * <p>
      * An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the
      * account.
-     *
+     * 
      * **Example usage:** `curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} -H 'Authorization:
      * Bearer API_KEY'`
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -936,10 +944,10 @@ public class Accounts extends AbstractModule {
      * Deletes a user.
      * <p>
      * An endpoint for deleting a user.
-     *
+     * 
      * **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user_id} -H 'Authorization:
      * Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the user to be deleted.
      */
@@ -979,10 +987,10 @@ public class Accounts extends AbstractModule {
      * <p>
      * An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the
      * account.
-     *
+     * 
      * **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} -H
      * 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the invitation to be deleted.
      */
@@ -1018,113 +1026,6 @@ public class Accounts extends AbstractModule {
     }
 
     /**
-     * Gets an account.
-     * <p>
-     * Similar to {@link #getAccount(String,String,String)}
-     * 
-     * @param include
-     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
-     * @param properties
-     *            Property name to be returned from account specific properties.
-     * @param account
-     *            an account.
-     * @return something
-     */
-    @API
-    @Nullable
-    public Account getAccount(@Nullable String include, @Nullable String properties,
-                              @NonNull Account account) throws MbedCloudException {
-        checkNotNull(account, TAG_ACCOUNT);
-        return getAccount(include, properties, account.getId());
-    }
-
-    /**
-     * Gets an account.
-     * <p>
-     * Returns detailed information about the account.
-     *
-     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -H 'Authorization: Bearer
-     * API_KEY'`.
-     *
-     * @param include
-     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
-     * @param properties
-     *            Property name to be returned from account specific properties.
-     * @param id
-     *            Account ID.
-     * @return something
-     */
-    @API
-    @Nullable
-    public Account getAccount(@Nullable String include, @Nullable String properties,
-                              @NonNull String id) throws MbedCloudException {
-        checkNotNull(id, TAG_ID);
-        final String finalInclude = include;
-        final String finalProperties = properties;
-        final String finalId = id;
-        return CloudCaller.call(this, "getAccount()", AccountAdapter.getMapper(),
-                                new CloudRequest.CloudCall<AccountInfo>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<AccountInfo> call() {
-                                        return endpoints.getAggregatorAccountAdminApi()
-                                                        .getAccountInfo(finalId, finalInclude, finalProperties);
-                                    }
-                                });
-    }
-
-    /**
-     * Gets an api key.
-     * <p>
-     * Similar to {@link #getApiKey(String)}
-     * 
-     * @param apiKey
-     *            an api key.
-     * @return something
-     */
-    @API
-    @Nullable
-    public ApiKey getApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
-        checkNotNull(apiKey, TAG_API_KEY);
-        return getApiKey(apiKey.getId());
-    }
-
-    /**
-     * Gets an api key.
-     * <p>
-     * An endpoint for retrieving API key details.
-     *
-     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -H 'Authorization: Bearer
-     * API_KEY'`
-     *
-     * @param id
-     *            The ID of the API key.
-     * @return something
-     */
-    @API
-    @Nullable
-    public ApiKey getApiKey(@NonNull String id) throws MbedCloudException {
-        checkNotNull(id, TAG_ID);
-        final String finalId = id;
-        return CloudCaller.call(this, "getApiKey()", ApiKeyAdapter.getMapper(),
-                                new CloudRequest.CloudCall<ApiKeyInfoResp>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<ApiKeyInfoResp> call() {
-                                        return endpoints.getDeveloperApi().getApiKey(finalId);
-                                    }
-                                });
-    }
-
-    /**
      * Gets module endpoints.
      * 
      * @return endpoints
@@ -1145,214 +1046,12 @@ public class Accounts extends AbstractModule {
     }
 
     /**
-     * Gets a subtenant user.
-     * <p>
-     * An endpoint for retrieving details of the user.
-     *
-     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} -H
-     * 'Authorization: Bearer API_KEY'`
-     *
-     * @param accountId
-     *            The ID of the account.
-     * @param id
-     *            The ID of the user.
-     * @return something
-     */
-    @API
-    @Nullable
-    public SubtenantUser getSubtenantUser(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        checkNotNull(id, TAG_ID);
-        final String finalAccountId = accountId;
-        final String finalId = id;
-        return CloudCaller.call(this, "getSubtenantUser()", SubtenantUserAdapter.getMapper(),
-                                new CloudRequest.CloudCall<UserInfoResp>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<UserInfoResp> call() {
-                                        return endpoints.getAggregatorAccountAdminApi().getAccountUser(finalAccountId,
-                                                                                                       finalId);
-                                    }
-                                });
-    }
-
-    /**
-     * Gets a subtenant user.
-     * <p>
-     * Similar to {@link #getSubtenantUser(String,String)}
-     * 
-     * @param subtenantUser
-     *            a subtenant user.
-     * @return something
-     */
-    @API
-    @Nullable
-    public SubtenantUser getSubtenantUser(@NonNull SubtenantUser subtenantUser) throws MbedCloudException {
-        checkNotNull(subtenantUser, TAG_SUBTENANT_USER);
-        return getSubtenantUser(subtenantUser.getAccountId(), subtenantUser.getId());
-    }
-
-    /**
-     * Gets a subtenant user invitation.
-     * <p>
-     * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join
-     * the account.
-     *
-     * **Example usage:** `curl
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} -H 'Authorization:
-     * Bearer API_KEY'`
-     *
-     * @param accountId
-     *            The ID of the account the user is invited to.
-     * @param id
-     *            The ID of the invitation.
-     * @return something
-     */
-    @API
-    @Nullable
-    public SubtenantUserInvitation getSubtenantUserInvitation(@NonNull String accountId,
-                                                              @NonNull String id) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        checkNotNull(id, TAG_ID);
-        final String finalAccountId = accountId;
-        final String finalId = id;
-        return CloudCaller.call(this, "getSubtenantUserInvitation()", SubtenantUserInvitationAdapter.getMapper(),
-                                new CloudRequest.CloudCall<UserInvitationResp>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<UserInvitationResp> call() {
-                                        return endpoints.getAggregatorAccountAdminApi()
-                                                        .getAccountInvitation(finalAccountId, finalId);
-                                    }
-                                });
-    }
-
-    /**
-     * Gets a subtenant user invitation.
-     * <p>
-     * Similar to {@link #getSubtenantUserInvitation(String,String)}
-     * 
-     * @param subtenantUserInvitation
-     *            a subtenant user invitation.
-     * @return something
-     */
-    @API
-    @Nullable
-    public SubtenantUserInvitation
-           getSubtenantUserInvitation(@NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
-        checkNotNull(subtenantUserInvitation, TAG_SUBTENANT_USER_INVITATION);
-        return getSubtenantUserInvitation(subtenantUserInvitation.getAccountId(), subtenantUserInvitation.getId());
-    }
-
-    /**
-     * Gets a user.
-     * <p>
-     * An endpoint for retrieving the details of a user.
-     *
-     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/{user_id} -H 'Authorization: Bearer
-     * API_KEY'`
-     *
-     * @param id
-     *            The ID of the user.
-     * @return something
-     */
-    @API
-    @Nullable
-    public User getUser(@NonNull String id) throws MbedCloudException {
-        checkNotNull(id, TAG_ID);
-        final String finalId = id;
-        return CloudCaller.call(this, "getUser()", UserAdapter.getMapper(), new CloudRequest.CloudCall<UserInfoResp>() {
-            /**
-             * Makes the low level call to the Cloud.
-             * 
-             * @return Corresponding Retrofit2 Call object
-             */
-            @Override
-            public Call<UserInfoResp> call() {
-                return endpoints.getAccountAdminApi().getUser(finalId);
-            }
-        });
-    }
-
-    /**
-     * Gets a user.
-     * <p>
-     * Similar to {@link #getUser(String)}
-     * 
-     * @param user
-     *            a user.
-     * @return something
-     */
-    @API
-    @Nullable
-    public User getUser(@NonNull User user) throws MbedCloudException {
-        checkNotNull(user, TAG_USER);
-        return getUser(user.getId());
-    }
-
-    /**
-     * Gets a user invitation.
-     * <p>
-     * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join
-     * the account.
-     *
-     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} -H
-     * 'Authorization: Bearer API_KEY'`
-     *
-     * @param id
-     *            The ID of the invitation.
-     * @return something
-     */
-    @API
-    @Nullable
-    public UserInvitation getUserInvitation(@NonNull String id) throws MbedCloudException {
-        checkNotNull(id, TAG_ID);
-        final String finalId = id;
-        return CloudCaller.call(this, "getUserInvitation()", UserInvitationAdapter.getMapper(),
-                                new CloudRequest.CloudCall<UserInvitationResp>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<UserInvitationResp> call() {
-                                        return endpoints.getAccountAdminApi().getInvitation(finalId);
-                                    }
-                                });
-    }
-
-    /**
-     * Gets a user invitation.
-     * <p>
-     * Similar to {@link #getUserInvitation(String)}
-     * 
-     * @param userInvitation
-     *            a user invitation.
-     * @return something
-     */
-    @API
-    @Nullable
-    public UserInvitation getUserInvitation(@NonNull UserInvitation userInvitation) throws MbedCloudException {
-        checkNotNull(userInvitation, TAG_USER_INVITATION);
-        return getUserInvitation(userInvitation.getId());
-    }
-
-    /**
      * Lists accounts matching filter options.
      * <p>
      * Returns an array of account objects, optionally filtered by status and tier level.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts -H 'Authorization: Bearer API_KEY'`.
-     *
+     * 
      * @param format
      *            Format information for the response to the query, supported: format=breakdown.
      * @param properties
@@ -1592,9 +1291,9 @@ public class Accounts extends AbstractModule {
      * Lists api keys matching filter options.
      * <p>
      * An endpoint for retrieving API keys in an array, optionally filtered by the owner.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param keyEq
      *            null
      * @param ownerEq
@@ -1634,10 +1333,10 @@ public class Accounts extends AbstractModule {
      * <p>
      * An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join
      * the account.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/user-invitations -H 'Authorization: Bearer
      * API_KEY'`
-     *
+     * 
      * @param loginProfileEq
      *            null
      * @param options
@@ -1673,9 +1372,9 @@ public class Accounts extends AbstractModule {
      * Lists users matching filter options.
      * <p>
      * An endpoint for retrieving the details of all users.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param emailEq
      *            null
      * @param statusEq
@@ -1725,10 +1424,10 @@ public class Accounts extends AbstractModule {
      * Gets my account.
      * <p>
      * Returns detailed information about the account.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies -H 'Authorization:
      * Bearer API_KEY'`.
-     *
+     * 
      * @param include
      *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
      * @param properties
@@ -1759,9 +1458,9 @@ public class Accounts extends AbstractModule {
      * Gets my api key.
      * <p>
      * An endpoint for retrieving API key details.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @return something
      */
     @API
@@ -1782,11 +1481,321 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Gets an account.
+     * <p>
+     * Similar to {@link #readAccount(String,String,String)}
+     * 
+     * @param include
+     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     * @param properties
+     *            Property name to be returned from account specific properties.
+     * @param account
+     *            an account.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account readAccount(@Nullable String include, @Nullable String properties,
+                               @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return readAccount(include, properties, account.getId());
+    }
+
+    /**
+     * Gets an account.
+     * <p>
+     * Returns detailed information about the account.
+     * 
+     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -H 'Authorization: Bearer
+     * API_KEY'`.
+     * 
+     * @param include
+     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     * @param properties
+     *            Property name to be returned from account specific properties.
+     * @param id
+     *            Account ID.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account readAccount(@Nullable String include, @Nullable String properties,
+                               @NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalInclude = include;
+        final String finalProperties = properties;
+        final String finalId = id;
+        return CloudCaller.call(this, "readAccount()", AccountAdapter.getMapper(),
+                                new CloudRequest.CloudCall<AccountInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<AccountInfo> call() {
+                                        return endpoints.getAggregatorAccountAdminApi()
+                                                        .getAccountInfo(finalId, finalInclude, finalProperties);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets an api key.
+     * <p>
+     * Similar to {@link #readApiKey(String)}
+     * 
+     * @param apiKey
+     *            an api key.
+     * @return something
+     */
+    @API
+    @Nullable
+    public ApiKey readApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
+        checkNotNull(apiKey, TAG_API_KEY);
+        return readApiKey(apiKey.getId());
+    }
+
+    /**
+     * Gets an api key.
+     * <p>
+     * An endpoint for retrieving API key details.
+     * 
+     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -H 'Authorization: Bearer
+     * API_KEY'`
+     * 
+     * @param id
+     *            The ID of the API key.
+     * @return something
+     */
+    @API
+    @Nullable
+    public ApiKey readApiKey(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readApiKey()", ApiKeyAdapter.getMapper(),
+                                new CloudRequest.CloudCall<ApiKeyInfoResp>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<ApiKeyInfoResp> call() {
+                                        return endpoints.getDeveloperApi().getApiKey(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a subtenant user.
+     * <p>
+     * An endpoint for retrieving details of the user.
+     * 
+     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} -H
+     * 'Authorization: Bearer API_KEY'`
+     * 
+     * @param accountId
+     *            The ID of the account.
+     * @param id
+     *            The ID of the user.
+     * @return something
+     */
+    @API
+    @Nullable
+    public SubtenantUser readSubtenantUser(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        return CloudCaller.call(this, "readSubtenantUser()", SubtenantUserAdapter.getMapper(),
+                                new CloudRequest.CloudCall<UserInfoResp>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<UserInfoResp> call() {
+                                        return endpoints.getAggregatorAccountAdminApi().getAccountUser(finalAccountId,
+                                                                                                       finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a subtenant user.
+     * <p>
+     * Similar to {@link #readSubtenantUser(String,String)}
+     * 
+     * @param subtenantUser
+     *            a subtenant user.
+     * @return something
+     */
+    @API
+    @Nullable
+    public SubtenantUser readSubtenantUser(@NonNull SubtenantUser subtenantUser) throws MbedCloudException {
+        checkNotNull(subtenantUser, TAG_SUBTENANT_USER);
+        return readSubtenantUser(subtenantUser.getAccountId(), subtenantUser.getId());
+    }
+
+    /**
+     * Gets a subtenant user invitation.
+     * <p>
+     * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join
+     * the account.
+     * 
+     * **Example usage:** `curl
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} -H 'Authorization:
+     * Bearer API_KEY'`
+     * 
+     * @param accountId
+     *            The ID of the account the user is invited to.
+     * @param id
+     *            The ID of the invitation.
+     * @return something
+     */
+    @API
+    @Nullable
+    public SubtenantUserInvitation readSubtenantUserInvitation(@NonNull String accountId,
+                                                               @NonNull String id) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        return CloudCaller.call(this, "readSubtenantUserInvitation()", SubtenantUserInvitationAdapter.getMapper(),
+                                new CloudRequest.CloudCall<UserInvitationResp>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<UserInvitationResp> call() {
+                                        return endpoints.getAggregatorAccountAdminApi()
+                                                        .getAccountInvitation(finalAccountId, finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a subtenant user invitation.
+     * <p>
+     * Similar to {@link #readSubtenantUserInvitation(String,String)}
+     * 
+     * @param subtenantUserInvitation
+     *            a subtenant user invitation.
+     * @return something
+     */
+    @API
+    @Nullable
+    public SubtenantUserInvitation
+           readSubtenantUserInvitation(@NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
+        checkNotNull(subtenantUserInvitation, TAG_SUBTENANT_USER_INVITATION);
+        return readSubtenantUserInvitation(subtenantUserInvitation.getAccountId(), subtenantUserInvitation.getId());
+    }
+
+    /**
+     * Gets a user.
+     * <p>
+     * An endpoint for retrieving the details of a user.
+     * 
+     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/{user_id} -H 'Authorization: Bearer
+     * API_KEY'`
+     * 
+     * @param id
+     *            The ID of the user.
+     * @return something
+     */
+    @API
+    @Nullable
+    public User readUser(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readUser()", UserAdapter.getMapper(),
+                                new CloudRequest.CloudCall<UserInfoResp>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<UserInfoResp> call() {
+                                        return endpoints.getAccountAdminApi().getUser(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a user.
+     * <p>
+     * Similar to {@link #readUser(String)}
+     * 
+     * @param user
+     *            a user.
+     * @return something
+     */
+    @API
+    @Nullable
+    public User readUser(@NonNull User user) throws MbedCloudException {
+        checkNotNull(user, TAG_USER);
+        return readUser(user.getId());
+    }
+
+    /**
+     * Gets a user invitation.
+     * <p>
+     * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join
+     * the account.
+     * 
+     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} -H
+     * 'Authorization: Bearer API_KEY'`
+     * 
+     * @param id
+     *            The ID of the invitation.
+     * @return something
+     */
+    @API
+    @Nullable
+    public UserInvitation readUserInvitation(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readUserInvitation()", UserInvitationAdapter.getMapper(),
+                                new CloudRequest.CloudCall<UserInvitationResp>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<UserInvitationResp> call() {
+                                        return endpoints.getAccountAdminApi().getInvitation(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a user invitation.
+     * <p>
+     * Similar to {@link #readUserInvitation(String)}
+     * 
+     * @param userInvitation
+     *            a user invitation.
+     * @return something
+     */
+    @API
+    @Nullable
+    public UserInvitation readUserInvitation(@NonNull UserInvitation userInvitation) throws MbedCloudException {
+        checkNotNull(userInvitation, TAG_USER_INVITATION);
+        return readUserInvitation(userInvitation.getId());
+    }
+
+    /**
      * Get all trusted certificates.
-     *
+     * 
      * <p>
      * Similar to
-     * {@link #trustedCertificates(String,String,String,Integer,Integer,Integer,String,Boolean,String,String,String,SubtenantTrustedCertificateListOptions)}
+     * {@link #trustedCertificates(String,String,String,Integer,Integer,Integer,String,Boolean,String,String,String,Boolean,SubtenantTrustedCertificateListOptions)}
      * 
      * @param nameEq
      *            null
@@ -1808,6 +1817,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param subjectLike
      *            null
+     * @param validEq
+     *            null
      * @param options
      *            list options.
      * @param account
@@ -1820,25 +1831,25 @@ public class Accounts extends AbstractModule {
            trustedCertificates(@Nullable String nameEq, @Nullable String serviceEq, @Nullable Integer expireEq,
                                @Nullable Integer deviceExecutionModeEq, @Nullable Integer deviceExecutionModeNeq,
                                @Nullable String ownerEq, @Nullable Boolean enrollmentModeEq, @Nullable String statusEq,
-                               @Nullable String issuerLike, @Nullable String subjectLike,
+                               @Nullable String issuerLike, @Nullable String subjectLike, @Nullable Boolean validEq,
                                @Nullable SubtenantTrustedCertificateListOptions options,
                                @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
         checkModelValidity(account, TAG_ACCOUNT);
         return trustedCertificates(account.getId(), nameEq, serviceEq, expireEq, deviceExecutionModeEq,
                                    deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq, issuerLike, subjectLike,
-                                   options);
+                                   validEq, options);
     }
 
     /**
      * Get all trusted certificates.
-     *
+     * 
      * <p>
      * An endpoint for retrieving trusted certificates in an array.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates -H
      * 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            Account ID.
      * @param nameEq
@@ -1861,6 +1872,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param subjectLike
      *            null
+     * @param validEq
+     *            null
      * @param options
      *            list options.
      * @return the list of subtenant trusted certificates corresponding to filter options (One page).
@@ -1872,7 +1885,7 @@ public class Accounts extends AbstractModule {
                                @Nullable Integer expireEq, @Nullable Integer deviceExecutionModeEq,
                                @Nullable Integer deviceExecutionModeNeq, @Nullable String ownerEq,
                                @Nullable Boolean enrollmentModeEq, @Nullable String statusEq,
-                               @Nullable String issuerLike, @Nullable String subjectLike,
+                               @Nullable String issuerLike, @Nullable String subjectLike, @Nullable Boolean validEq,
                                @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
         final String finalId = id;
@@ -1886,6 +1899,7 @@ public class Accounts extends AbstractModule {
         final String finalStatusEq = statusEq;
         final String finalIssuerLike = issuerLike;
         final String finalSubjectLike = subjectLike;
+        final Boolean finalValidEq = validEq;
         final SubtenantTrustedCertificateListOptions finalOptions = (options == null) ? new SubtenantTrustedCertificateListOptions()
                                                                                       : options;
         return CloudCaller.call(this, "trustedCertificates()", SubtenantTrustedCertificateAdapter.getListMapper(),
@@ -1908,7 +1922,7 @@ public class Accounts extends AbstractModule {
                                                                                    finalDeviceExecutionModeNeq,
                                                                                    finalOwnerEq, finalEnrollmentModeEq,
                                                                                    finalStatusEq, finalIssuerLike,
-                                                                                   finalSubjectLike);
+                                                                                   finalSubjectLike, finalValidEq);
                                     }
                                 });
     }
@@ -1934,10 +1948,10 @@ public class Accounts extends AbstractModule {
      * Modifies an account.
      * <p>
      * An endpoint for updating an account.
-     *
+     * 
      * **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -d '{"phone_number":
      * "12345678"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            Account ID.
      * @param account
@@ -1989,10 +2003,10 @@ public class Accounts extends AbstractModule {
      * Modifies an api key.
      * <p>
      * An endpoint for updating API key details.
-     *
+     * 
      * **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -d '{"name":
      * "TestApiKey25"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the API key.
      * @param apiKey
@@ -2027,10 +2041,10 @@ public class Accounts extends AbstractModule {
      * Modifies a subtenant user.
      * <p>
      * An endpoint for updating user details.
-     *
+     * 
      * **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} -d
      * '{"username": "myusername"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param accountId
      *            The ID of the account.
      * @param id
@@ -2087,10 +2101,10 @@ public class Accounts extends AbstractModule {
      * Modifies a user.
      * <p>
      * An endpoint for updating user details.
-     *
+     * 
      * **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/{user_id} -d '{"username":
      * "myusername"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the user.
      * @param user
@@ -2140,14 +2154,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get the details of all the user invitations.
-     *
+     * 
      * <p>
      * An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join
      * the account.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations -H
      * 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            Account ID.
      * @param loginProfileEq
@@ -2186,7 +2200,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get the details of all the user invitations.
-     *
+     * 
      * <p>
      * Similar to {@link #userInvitations(String,String,SubtenantUserInvitationListOptions)}
      * 
@@ -2210,13 +2224,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all user details.
-     *
+     * 
      * <p>
      * An endpoint for retrieving details of all users.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users -H 'Authorization:
      * Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            Account ID.
      * @param emailEq
@@ -2269,7 +2283,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all user details.
-     *
+     * 
      * <p>
      * Similar to {@link #users(String,String,String,String,String,String,SubtenantUserListOptions)}
      * 
@@ -2302,14 +2316,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Validate the user email.
-     *
+     * 
      * <p>
      * An endpoint for validating the user email.
-     *
+     * 
      * **Example usage:** `curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/validate-email -H 'Authorization:
      * Bearer API_KEY'`
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -2336,7 +2350,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Validate the user email.
-     *
+     * 
      * <p>
      * Similar to {@link #validateEmail(String,String)}
      * 

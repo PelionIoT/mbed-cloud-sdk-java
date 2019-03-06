@@ -42,12 +42,15 @@ public final class UserAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final User user = new User(toBeMapped.getAccountId(), TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                   TranslationUtils.toLong(toBeMapped.getCreationTime()),
+        final User user = new User(toBeMapped.getAccountId(),
+                                   ActiveSessionAdapter.mapSimpleList(toBeMapped.getActiveSessions()),
+                                   TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                   TranslationUtils.toLong(toBeMapped.getCreationTime()), toBeMapped.getCustomFields(),
                                    TranslationUtils.toBool(toBeMapped.isEmailVerified()),
                                    TranslationUtils.toLong(toBeMapped.getLastLoginTime()),
                                    LoginHistoryAdapter.mapSimpleList(toBeMapped.getLoginHistory()),
                                    TranslationUtils.toLong(toBeMapped.getPasswordChangedTime()),
+                                   toBeMapped.getTotpScratchCodes(),
                                    TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         user.setAddress(toBeMapped.getAddress());
         user.setEmail(toBeMapped.getEmail());

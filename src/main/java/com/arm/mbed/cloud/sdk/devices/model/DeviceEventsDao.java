@@ -47,34 +47,6 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     }
 
     /**
-     * Gets a device events.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEvents(DeviceEvents)}
-     * 
-     * @return something
-     */
-    @Override
-    public DeviceEvents get() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDeviceEvents(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a device events.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#getDeviceEvents(String)}
-     * 
-     * @param id
-     *            null
-     * @return something
-     */
-    @Override
-    public DeviceEvents get(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).getDeviceEvents(id));
-        return getModel();
-    }
-
-    /**
      * Instantiates model.
      * 
      * @return instantiated model
@@ -83,19 +55,6 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     @Internal
     protected DeviceEvents instantiateModel() {
         return new DeviceEvents();
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Devices(options);
     }
 
     /**
@@ -114,6 +73,19 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     /**
      * Instantiates modules.
      * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Devices(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -122,5 +94,33 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Devices(client);
+    }
+
+    /**
+     * Gets a device events.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(DeviceEvents)}
+     * 
+     * @return something
+     */
+    @Override
+    public DeviceEvents read() throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).readDeviceEvents(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a device events.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(String)}
+     * 
+     * @param id
+     *            null
+     * @return something
+     */
+    @Override
+    public DeviceEvents read(@NonNull String id) throws MbedCloudException {
+        setModel(((Devices) getModuleOrThrow()).readDeviceEvents(id));
+        return getModel();
     }
 }

@@ -116,36 +116,8 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     }
 
     /**
-     * Gets a developer certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificate(DeveloperCertificate)}
-     * 
-     * @return something
-     */
-    @Override
-    public DeveloperCertificate get() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getDeveloperCertificate(getModel()));
-        return getModel();
-    }
-
-    /**
-     * Gets a developer certificate.
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificate(String)}
-     * 
-     * @param id
-     *            mUUID that uniquely identifies the developer certificate.
-     * @return something
-     */
-    @Override
-    public DeveloperCertificate get(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getDeveloperCertificate(id));
-        return getModel();
-    }
-
-    /**
      * Get trusted certificate by ID.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificateInfo(DeveloperCertificate)}
      * 
@@ -157,7 +129,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Get trusted certificate by ID.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificateInfo(String)}
      * 
@@ -183,19 +155,6 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     /**
      * Instantiates modules.
      * 
-     * @param options
-     *            a connection options.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ConnectionOptions options) {
-        return new Security(options);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
      * @param context
      *            an sdk context.
      * @return instantiated module
@@ -209,6 +168,19 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     /**
      * Instantiates modules.
      * 
+     * @param options
+     *            a connection options.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ConnectionOptions options) {
+        return new Security(options);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param client
      *            an api client wrapper.
      * @return instantiated module
@@ -217,5 +189,33 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Security(client);
+    }
+
+    /**
+     * Gets a developer certificate.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readDeveloperCertificate(DeveloperCertificate)}
+     * 
+     * @return something
+     */
+    @Override
+    public DeveloperCertificate read() throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).readDeveloperCertificate(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Gets a developer certificate.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readDeveloperCertificate(String)}
+     * 
+     * @param id
+     *            ID that uniquely identifies the developer certificate.
+     * @return something
+     */
+    @Override
+    public DeveloperCertificate read(@NonNull String id) throws MbedCloudException {
+        setModel(((Security) getModuleOrThrow()).readDeveloperCertificate(id));
+        return getModel();
     }
 }

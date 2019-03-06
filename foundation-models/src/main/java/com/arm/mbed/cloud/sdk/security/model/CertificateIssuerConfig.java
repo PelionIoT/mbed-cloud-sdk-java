@@ -52,14 +52,14 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      * @param certificateIssuerId
      *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
-     *
+     * 
      * @param certificateReference
      *            The certificate name to which the certificate issuer configuration applies.
      * @param createdAt
      *            Created UTC time RFC3339.
      * @param id
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      * @param updatedAt
      *            Updated UTC time RFC3339.
      */
@@ -103,7 +103,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      * @param id
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      */
     public CertificateIssuerConfig(String id) {
         this();
@@ -130,7 +130,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      * @param certificateIssuerId
      *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
-     *
+     * 
      * @param certificateReference
      *            The certificate name to which the certificate issuer configuration applies.
      */
@@ -152,7 +152,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      * @param certificateIssuerId
      *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
-     *
+     * 
      */
     @Required
     public void setCertificateIssuerId(String certificateIssuerId) {
@@ -223,7 +223,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      * @param id
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      */
     @Override
     public void setId(String id) {
@@ -237,7 +237,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      * @param certificateIssuerConfigId
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      */
     @Internal
     public void setCertificateIssuerConfigId(String certificateIssuerConfigId) {

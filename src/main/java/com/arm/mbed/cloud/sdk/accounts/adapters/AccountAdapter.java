@@ -77,6 +77,7 @@ public final class AccountAdapter {
         account.setMfaStatus(translateToAccountMfaStatus(toBeMapped.getMfaStatus()));
         account.setNotificationEmails(toBeMapped.getNotificationEmails());
         account.setPasswordPolicy(PasswordPolicyAdapter.map(toBeMapped.getPasswordPolicy()));
+        account.setPasswordRecoveryExpiration(TranslationUtils.toInt(toBeMapped.getPasswordRecoveryExpiration()));
         account.setPhoneNumber(toBeMapped.getPhoneNumber());
         account.setPostalCode(toBeMapped.getPostalCode());
         account.setSalesContact(toBeMapped.getSalesContact());
@@ -278,6 +279,7 @@ public final class AccountAdapter {
         accountUpdateRootReq.setMfaStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelAccountupdaterootreqMfastatusenum(toBeMapped.getMfaStatus()));
         accountUpdateRootReq.setNotificationEmails(toBeMapped.getNotificationEmails());
         accountUpdateRootReq.setPasswordPolicy(PasswordPolicyAdapter.reverseMapUpdateRequest(toBeMapped.getPasswordPolicy()));
+        accountUpdateRootReq.setPasswordRecoveryExpiration(toBeMapped.getPasswordRecoveryExpiration());
         accountUpdateRootReq.setPhoneNumber(toBeMapped.getPhoneNumber());
         accountUpdateRootReq.setPostalCode(toBeMapped.getPostalCode());
         accountUpdateRootReq.setSalesContact(toBeMapped.getSalesContact());

@@ -42,12 +42,15 @@ public final class SubtenantUserAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final SubtenantUser subtenantUser = new SubtenantUser(TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+        final SubtenantUser subtenantUser = new SubtenantUser(ActiveSessionAdapter.mapSimpleList(toBeMapped.getActiveSessions()),
+                                                              TranslationUtils.toDate(toBeMapped.getCreatedAt()),
                                                               TranslationUtils.toLong(toBeMapped.getCreationTime()),
+                                                              toBeMapped.getCustomFields(),
                                                               TranslationUtils.toBool(toBeMapped.isEmailVerified()),
                                                               TranslationUtils.toLong(toBeMapped.getLastLoginTime()),
                                                               LoginHistoryAdapter.mapSimpleList(toBeMapped.getLoginHistory()),
                                                               TranslationUtils.toLong(toBeMapped.getPasswordChangedTime()),
+                                                              toBeMapped.getTotpScratchCodes(),
                                                               TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         subtenantUser.setAccountId(toBeMapped.getAccountId());
         subtenantUser.setAddress(toBeMapped.getAddress());

@@ -173,7 +173,7 @@ public class FoundationsExamples extends AbstractExample {
             assertNotNull(createdId);
             // uncloak
             // Fetch latest details of the current sub-tenant user.
-            userDao.get();
+            userDao.read();
             // Fetching a user from the list of account users
             SubtenantUser correspondingUser = StreamSupport.stream(myAccountDao.allUsers(null, null, null, null, null,
                                                                                          null)
@@ -277,7 +277,7 @@ public class FoundationsExamples extends AbstractExample {
             assertEquals(DeviceEnrollmentBulkCreateStatus.NEW, enrolmentDao.getModel().getStatus());
             // uncloak
             // read current state of bulk enrollment
-            enrolmentDao.get();
+            enrolmentDao.read();
             // cloak
             assertTrue(enrolmentDao.getModel().getStatus() == DeviceEnrollmentBulkCreateStatus.PROCESSING
                        || enrolmentDao.getModel().getStatus() == DeviceEnrollmentBulkCreateStatus.COMPLETED);
@@ -287,7 +287,7 @@ public class FoundationsExamples extends AbstractExample {
             // be performed in production application.
             while (enrolmentDao.getModel().getStatus() != DeviceEnrollmentBulkCreateStatus.COMPLETED) {
                 Thread.sleep(1000);
-                enrolmentDao.get();
+                enrolmentDao.read();
             }
             // Download the enrolment report files
             FileDownload report = enrolmentDao.downloadFullReportFile((String) null);

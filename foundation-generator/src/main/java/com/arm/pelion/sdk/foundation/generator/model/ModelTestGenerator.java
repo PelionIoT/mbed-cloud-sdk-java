@@ -40,7 +40,7 @@ public class ModelTestGenerator extends AbstractGenerator {
         }
 
         test.translate();
-        logger.logDebug("Generating model unit test [" + test.getFullName() + "]");
+        logger.logInfo("Generating model unit test [" + test.getFullName() + "]");
         TypeSpec modelClass = test.getSpecificationBuilder().build();
         JavaFile file = JavaFile.builder(test.getPackageName(), modelClass).addFileComment(generateFileComment(test))
                                 .addStaticImport(Assert.class, "*").build();
@@ -50,15 +50,14 @@ public class ModelTestGenerator extends AbstractGenerator {
                 logger.logWarn("The destination directory for the generated code was not specified. It will hence only be output to Standard out.");
                 file.writeTo(System.out);
             } else {
-                logger.logDebug("Generating unit test file [" + destinationFile.getName() + "]");
+                logger.logInfo("Generating unit test file [" + destinationFile.getName() + "]");
                 if ((test.containsCustomCode() || !forceGeneration) && destinationFile.exists()) {
                     logger.logInfo("The unit test file " + destinationFile.getName()
                                    + " is already present. Therefore, it won't be regenerated.");
                     return;
                 }
                 file.writeTo(testDestinationDirectory);
-                logger.logDebug("Unit test [" + test.getFullName() + "] was generated as "
-                                + destinationFile.toString());
+                logger.logInfo("Unit test [" + test.getFullName() + "] was generated as " + destinationFile.toString());
             }
         } catch (Exception exception) {
             throw new TranslationException(exception);
