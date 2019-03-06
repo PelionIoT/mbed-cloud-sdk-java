@@ -42,7 +42,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
-     *
+     * 
      * @return an added certificate issuer
      */
     public CertificateIssuer create(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
@@ -82,7 +82,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      * @param id
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer. An active certificate issuer may not be deleted.
-     *
+     * 
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
@@ -98,6 +98,19 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     @Internal
     protected CertificateIssuer instantiateModel() {
         return new CertificateIssuer();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
     }
 
     /**
@@ -124,19 +137,6 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Security(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
     }
 
     /**
@@ -176,7 +176,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
-     *
+     * 
      * @return something
      */
     public CertificateIssuer update(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
@@ -193,7 +193,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
-     *
+     * 
      * @param id
      *            The ID of the certificate issuer.
      * @return an updated certificate issuer
@@ -206,7 +206,7 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
 
     /**
      * Verify certificate issuer.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#verify(CertificateIssuer)}
      * 
@@ -218,14 +218,14 @@ public abstract class AbstractCertificateIssuerDao extends AbstractModelDao<Cert
 
     /**
      * Verify certificate issuer.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#verify(String)}
      * 
      * @param id
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer.
-     *
+     * 
      * @return something
      */
     public VerificationResponse verify(@NonNull String id) throws MbedCloudException {

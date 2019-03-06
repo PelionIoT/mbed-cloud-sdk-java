@@ -58,6 +58,8 @@ public class TrustedCertificate extends AbstractTrustedCertificate {
      *            Subject of the certificate.
      * @param updatedAt
      *            Last update UTC time RFC3339.
+     * @param valid
+     *            This read-only flag indicates whether the certificate is valid or not.
      * @param validity
      *            Expiration time in UTC formatted as RFC3339.
      */
@@ -67,9 +69,9 @@ public class TrustedCertificate extends AbstractTrustedCertificate {
                               String certificateFingerprint, Date createdAt, String description,
                               int deviceExecutionMode, boolean enrollmentMode, String id, String issuer, String name,
                               String ownerId, TrustedCertificateService service, TrustedCertificateStatus status,
-                              String subject, Date updatedAt, Date validity) {
+                              String subject, Date updatedAt, boolean valid, Date validity) {
         super(accountId, certificate, certificateFingerprint, createdAt, description, deviceExecutionMode,
-              enrollmentMode, id, issuer, name, ownerId, service, status, subject, updatedAt, validity);
+              enrollmentMode, id, issuer, name, ownerId, service, status, subject, updatedAt, valid, validity);
         setIsDeveloperCertificate(isDeveloperCertificate);
     }
 
@@ -99,6 +101,7 @@ public class TrustedCertificate extends AbstractTrustedCertificate {
              trustedCertificate == null ? TrustedCertificateStatus.getDefault() : trustedCertificate.status,
              trustedCertificate == null ? (String) null : trustedCertificate.subject,
              trustedCertificate == null ? new java.util.Date() : trustedCertificate.updatedAt,
+             trustedCertificate == null ? false : trustedCertificate.valid,
              trustedCertificate == null ? new java.util.Date() : trustedCertificate.validity);
     }
 
@@ -108,7 +111,7 @@ public class TrustedCertificate extends AbstractTrustedCertificate {
     public TrustedCertificate() {
         this(false, (String) null, (String) null, (String) null, new java.util.Date(), (String) null, 0, false,
              (String) null, (String) null, (String) null, (String) null, TrustedCertificateService.getDefault(),
-             TrustedCertificateStatus.getDefault(), (String) null, new java.util.Date(), new java.util.Date());
+             TrustedCertificateStatus.getDefault(), (String) null, new java.util.Date(), false, new java.util.Date());
     }
 
     /**
@@ -141,15 +144,17 @@ public class TrustedCertificate extends AbstractTrustedCertificate {
      *            Subject of the certificate.
      * @param updatedAt
      *            Last update UTC time RFC3339.
+     * @param valid
+     *            This read-only flag indicates whether the certificate is valid or not.
      * @param validity
      *            Expiration time in UTC formatted as RFC3339.
      */
     @Internal
     public TrustedCertificate(String accountId, String certificateFingerprint, Date createdAt, String issuer,
-                              String ownerId, String subject, Date updatedAt, Date validity) {
+                              String ownerId, String subject, Date updatedAt, boolean valid, Date validity) {
         this(false, accountId, (String) null, certificateFingerprint, createdAt, (String) null, 0, false, (String) null,
              issuer, (String) null, ownerId, TrustedCertificateService.getDefault(),
-             TrustedCertificateStatus.getDefault(), subject, updatedAt, validity);
+             TrustedCertificateStatus.getDefault(), subject, updatedAt, valid, validity);
     }
 
     /**
@@ -165,7 +170,7 @@ public class TrustedCertificate extends AbstractTrustedCertificate {
     public TrustedCertificate(String certificate, String name, TrustedCertificateService service) {
         this(false, (String) null, certificate, (String) null, new java.util.Date(), (String) null, 0, false,
              (String) null, (String) null, name, (String) null, service, TrustedCertificateStatus.getDefault(),
-             (String) null, new java.util.Date(), new java.util.Date());
+             (String) null, new java.util.Date(), false, new java.util.Date());
     }
 
     /**

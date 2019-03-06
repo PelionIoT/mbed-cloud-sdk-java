@@ -107,7 +107,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * 
      * @param id
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
@@ -116,7 +116,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Get certificate issuer configuration.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDefault()}
      * 
@@ -136,6 +136,19 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     @Internal
     protected CertificateIssuerConfig instantiateModel() {
         return new CertificateIssuerConfig();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
     }
 
     /**
@@ -165,19 +178,6 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     }
 
     /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
-    }
-
-    /**
      * Gets a certificate issuer config.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#readCertificateIssuerConfig(CertificateIssuerConfig)}
@@ -197,7 +197,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * 
      * @param id
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      * @return something
      */
     @Override
@@ -242,7 +242,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * 
      * @param id
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      * @return an updated certificate issuer config
      */
     public CertificateIssuerConfig update(@NonNull String id) throws MbedCloudException {

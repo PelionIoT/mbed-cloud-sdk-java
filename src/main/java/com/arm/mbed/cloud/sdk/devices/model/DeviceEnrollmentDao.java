@@ -128,6 +128,19 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     /**
      * Instantiates modules.
      * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Devices(context);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -149,19 +162,6 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Devices(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Devices(context);
     }
 
     /**

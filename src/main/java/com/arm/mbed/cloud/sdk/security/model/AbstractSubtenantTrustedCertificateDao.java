@@ -115,7 +115,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(SubtenantTrustedCertificate)}
      * 
@@ -127,7 +127,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(String)}
      * 
@@ -148,6 +148,19 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     @Internal
     protected SubtenantTrustedCertificate instantiateModel() {
         return new SubtenantTrustedCertificate();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
     }
 
     /**
@@ -174,19 +187,6 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Security(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
     }
 
     /**

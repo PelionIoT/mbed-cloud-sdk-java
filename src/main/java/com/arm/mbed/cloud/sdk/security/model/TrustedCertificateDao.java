@@ -113,7 +113,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(TrustedCertificate)}
      * 
@@ -125,7 +125,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(String)}
      * 
@@ -146,6 +146,19 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     @Internal
     protected TrustedCertificate instantiateModel() {
         return new TrustedCertificate();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
     }
 
     /**
@@ -172,19 +185,6 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Security(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
     }
 
     /**

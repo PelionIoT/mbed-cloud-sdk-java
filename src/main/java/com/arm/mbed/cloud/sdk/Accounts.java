@@ -515,12 +515,12 @@ public class Accounts extends AbstractModule {
      * Adds an account.
      * <p>
      * An endpoint for creating a new account.
-     *
+     * 
      * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts -d '{"display_name":
      * "MyAccount1", "admin_name": "accountAdmin1", "email": "example_admin@myaccount.info", "country": "United
      * Kingdom", "e nd_market": "Smart City", "address_line1": "110 Fulbourn Rd", "city": "Cambridge", "contact": "J.
      * Doe", "company": "Arm"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param action
      *            Action, either 'create' or 'enroll'.
      *            <ul>
@@ -564,10 +564,10 @@ public class Accounts extends AbstractModule {
      * Adds an api key.
      * <p>
      * An endpoint for creating a new API key.
-     *
+     * 
      * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{"name": "MyKey1"}' -H
      * 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param apiKey
      *            an api key.
      * @return an added api key
@@ -598,10 +598,10 @@ public class Accounts extends AbstractModule {
      * <p>
      * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only,
      * other attributes are set in the 2nd step.
-     *
+     * 
      * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users -d {"email":
      * "myemail@company.com"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param action
      *            Create or invite user.
      * @param accountId
@@ -661,10 +661,10 @@ public class Accounts extends AbstractModule {
      * Adds a subtenant user invitation.
      * <p>
      * An endpoint for inviting a new or an existing user to join the account.
-     *
+     * 
      * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accouns/{account_id}/user-invitations -d
      * {"email": "myemail@company.com"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param validForDays
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
      *            between 1 and 100 days.
@@ -730,10 +730,10 @@ public class Accounts extends AbstractModule {
      * <p>
      * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only,
      * other attributes are set in the 2nd step.
-     *
+     * 
      * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/users?action=invite -d {"email":
      * "myemail@company.com"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param action
      *            Action, either 'create' or 'invite'.
      * @param user
@@ -768,10 +768,10 @@ public class Accounts extends AbstractModule {
      * Adds a user invitation.
      * <p>
      * An endpoint for inviting a new or an existing user to join the account.
-     *
+     * 
      * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations -d {"email":
      * "myemail@company.com"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param validForDays
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
      *            between 1 and 100 days.
@@ -821,10 +821,10 @@ public class Accounts extends AbstractModule {
      * Deletes an api key.
      * <p>
      * An endpoint for deleting the API key.
-     *
+     * 
      * **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -H 'Authorization:
      * Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the API key to be deleted.
      */
@@ -849,10 +849,10 @@ public class Accounts extends AbstractModule {
      * Deletes a subtenant user.
      * <p>
      * An endpoint for deleting a user.
-     *
+     * 
      * **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}
      * -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -896,11 +896,11 @@ public class Accounts extends AbstractModule {
      * <p>
      * An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the
      * account.
-     *
+     * 
      * **Example usage:** `curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} -H 'Authorization:
      * Bearer API_KEY'`
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -944,10 +944,10 @@ public class Accounts extends AbstractModule {
      * Deletes a user.
      * <p>
      * An endpoint for deleting a user.
-     *
+     * 
      * **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user_id} -H 'Authorization:
      * Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the user to be deleted.
      */
@@ -987,10 +987,10 @@ public class Accounts extends AbstractModule {
      * <p>
      * An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the
      * account.
-     *
+     * 
      * **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} -H
      * 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the invitation to be deleted.
      */
@@ -1049,9 +1049,9 @@ public class Accounts extends AbstractModule {
      * Lists accounts matching filter options.
      * <p>
      * Returns an array of account objects, optionally filtered by status and tier level.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts -H 'Authorization: Bearer API_KEY'`.
-     *
+     * 
      * @param format
      *            Format information for the response to the query, supported: format=breakdown.
      * @param properties
@@ -1291,9 +1291,9 @@ public class Accounts extends AbstractModule {
      * Lists api keys matching filter options.
      * <p>
      * An endpoint for retrieving API keys in an array, optionally filtered by the owner.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param keyEq
      *            null
      * @param ownerEq
@@ -1333,10 +1333,10 @@ public class Accounts extends AbstractModule {
      * <p>
      * An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join
      * the account.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/user-invitations -H 'Authorization: Bearer
      * API_KEY'`
-     *
+     * 
      * @param loginProfileEq
      *            null
      * @param options
@@ -1372,9 +1372,9 @@ public class Accounts extends AbstractModule {
      * Lists users matching filter options.
      * <p>
      * An endpoint for retrieving the details of all users.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param emailEq
      *            null
      * @param statusEq
@@ -1424,10 +1424,10 @@ public class Accounts extends AbstractModule {
      * Gets my account.
      * <p>
      * Returns detailed information about the account.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies -H 'Authorization:
      * Bearer API_KEY'`.
-     *
+     * 
      * @param include
      *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
      * @param properties
@@ -1458,9 +1458,9 @@ public class Accounts extends AbstractModule {
      * Gets my api key.
      * <p>
      * An endpoint for retrieving API key details.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @return something
      */
     @API
@@ -1505,10 +1505,10 @@ public class Accounts extends AbstractModule {
      * Gets an account.
      * <p>
      * Returns detailed information about the account.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -H 'Authorization: Bearer
      * API_KEY'`.
-     *
+     * 
      * @param include
      *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
      * @param properties
@@ -1560,10 +1560,10 @@ public class Accounts extends AbstractModule {
      * Gets an api key.
      * <p>
      * An endpoint for retrieving API key details.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -H 'Authorization: Bearer
      * API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the API key.
      * @return something
@@ -1591,10 +1591,10 @@ public class Accounts extends AbstractModule {
      * Gets a subtenant user.
      * <p>
      * An endpoint for retrieving details of the user.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} -H
      * 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param accountId
      *            The ID of the account.
      * @param id
@@ -1644,11 +1644,11 @@ public class Accounts extends AbstractModule {
      * <p>
      * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join
      * the account.
-     *
+     * 
      * **Example usage:** `curl
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} -H 'Authorization:
      * Bearer API_KEY'`
-     *
+     * 
      * @param accountId
      *            The ID of the account the user is invited to.
      * @param id
@@ -1699,10 +1699,10 @@ public class Accounts extends AbstractModule {
      * Gets a user.
      * <p>
      * An endpoint for retrieving the details of a user.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users/{user_id} -H 'Authorization: Bearer
      * API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the user.
      * @return something
@@ -1747,10 +1747,10 @@ public class Accounts extends AbstractModule {
      * <p>
      * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join
      * the account.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} -H
      * 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the invitation.
      * @return something
@@ -1792,7 +1792,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all trusted certificates.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #trustedCertificates(String,String,String,Integer,Integer,Integer,String,Boolean,String,String,String,Boolean,SubtenantTrustedCertificateListOptions)}
@@ -1843,13 +1843,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all trusted certificates.
-     *
+     * 
      * <p>
      * An endpoint for retrieving trusted certificates in an array.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates -H
      * 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            Account ID.
      * @param nameEq
@@ -1948,10 +1948,10 @@ public class Accounts extends AbstractModule {
      * Modifies an account.
      * <p>
      * An endpoint for updating an account.
-     *
+     * 
      * **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -d '{"phone_number":
      * "12345678"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            Account ID.
      * @param account
@@ -2003,10 +2003,10 @@ public class Accounts extends AbstractModule {
      * Modifies an api key.
      * <p>
      * An endpoint for updating API key details.
-     *
+     * 
      * **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -d '{"name":
      * "TestApiKey25"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the API key.
      * @param apiKey
@@ -2041,10 +2041,10 @@ public class Accounts extends AbstractModule {
      * Modifies a subtenant user.
      * <p>
      * An endpoint for updating user details.
-     *
+     * 
      * **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} -d
      * '{"username": "myusername"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param accountId
      *            The ID of the account.
      * @param id
@@ -2101,10 +2101,10 @@ public class Accounts extends AbstractModule {
      * Modifies a user.
      * <p>
      * An endpoint for updating user details.
-     *
+     * 
      * **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/{user_id} -d '{"username":
      * "myusername"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            The ID of the user.
      * @param user
@@ -2154,14 +2154,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get the details of all the user invitations.
-     *
+     * 
      * <p>
      * An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join
      * the account.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations -H
      * 'Authorization: Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            Account ID.
      * @param loginProfileEq
@@ -2200,7 +2200,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get the details of all the user invitations.
-     *
+     * 
      * <p>
      * Similar to {@link #userInvitations(String,String,SubtenantUserInvitationListOptions)}
      * 
@@ -2224,13 +2224,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all user details.
-     *
+     * 
      * <p>
      * An endpoint for retrieving details of all users.
-     *
+     * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users -H 'Authorization:
      * Bearer API_KEY'`
-     *
+     * 
      * @param id
      *            Account ID.
      * @param emailEq
@@ -2283,7 +2283,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all user details.
-     *
+     * 
      * <p>
      * Similar to {@link #users(String,String,String,String,String,String,SubtenantUserListOptions)}
      * 
@@ -2316,14 +2316,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Validate the user email.
-     *
+     * 
      * <p>
      * An endpoint for validating the user email.
-     *
+     * 
      * **Example usage:** `curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/validate-email -H 'Authorization:
      * Bearer API_KEY'`
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -2350,7 +2350,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Validate the user email.
-     *
+     * 
      * <p>
      * Similar to {@link #validateEmail(String,String)}
      * 

@@ -116,6 +116,19 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     /**
      * Instantiates modules.
      * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Accounts(context);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -137,19 +150,6 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Accounts(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Accounts(context);
     }
 
     /**
@@ -227,7 +227,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Validate the user email.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#validateEmail(SubtenantUser)}
      */
@@ -237,7 +237,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Validate the user email.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#validateEmail(String,String)}
      * 

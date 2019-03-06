@@ -46,7 +46,7 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
 
     /**
      * Fetch bootstrap server credentials.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getBootstrap()}
      * 
@@ -59,7 +59,7 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
 
     /**
      * Fetch LwM2M server credentials.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getLwm2m()}
      * 
@@ -79,6 +79,19 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     @Internal
     protected ServerCredentials instantiateModel() {
         return new ServerCredentials();
+    }
+
+    /**
+     * Instantiates modules.
+     * 
+     * @param context
+     *            an sdk context.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(SdkContext context) {
+        return new Security(context);
     }
 
     /**
@@ -105,18 +118,5 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     @Internal
     protected SdkContext instantiateModule(ApiClientWrapper client) {
         return new Security(client);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param context
-     *            an sdk context.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(SdkContext context) {
-        return new Security(context);
     }
 }

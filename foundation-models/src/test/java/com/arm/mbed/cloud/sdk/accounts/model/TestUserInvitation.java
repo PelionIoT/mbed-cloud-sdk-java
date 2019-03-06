@@ -17,13 +17,13 @@ public class TestUserInvitation {
     @Test
     public void testClone() {
         try {
-            UserInvitation userinvitation1 = new UserInvitation("101c316c-f50f-404a-8ca9-1cdd7246ed99",
-                                                                new Date(1548165439379L),
-                                                                "c98e199e-69a9-4dd1-9190-4f9021f4e5a9",
-                                                                new Date(1548165447915L),
-                                                                "b0dd3001-3a43-43cc-ba24-987f1de584b0", null,
-                                                                new Date(1548165448045L),
-                                                                "87e92f5d-624f-4e85-8372-54759fed850c");
+            UserInvitation userinvitation1 = new UserInvitation("91998e15-b78a-4e39-9ed4-f918b20c993d",
+                                                                new Date(1551867951293L),
+                                                                "7c604c9f-d5ce-49df-860c-4b1f3985a841",
+                                                                new Date(1551867951880L),
+                                                                "097a1793-b4a8-4e0b-af3a-1f2f4c0027c6", null,
+                                                                new Date(1551867952768L),
+                                                                "df80c85c-155a-4a8b-97c3-409990950888");
             UserInvitation userinvitation2 = userinvitation1.clone();
             assertNotNull(userinvitation1);
             assertNotNull(userinvitation2);
@@ -40,20 +40,20 @@ public class TestUserInvitation {
     @Test
     public void testHashCode() {
         try {
-            UserInvitation userinvitation1 = new UserInvitation("1e725f8c-870f-4dbd-8781-0f782c3f7e3f",
-                                                                new Date(1548165440012L),
-                                                                "ea101f1a-4063-4add-9fef-05bdcede274b",
-                                                                new Date(1548165439035L),
-                                                                "98a1ddda-f2ce-4491-b894-4ca8ba7fa671", null,
-                                                                new Date(1548165444993L),
-                                                                "9608e5d4-ba78-4d97-b8af-d64653b2667a");
-            UserInvitation userinvitation2 = new UserInvitation("1e725f8c-870f-4dbd-8781-0f782c3f7e3f",
-                                                                new Date(1548165440012L),
-                                                                "ea101f1a-4063-4add-9fef-05bdcede274b",
-                                                                new Date(1548165439035L),
-                                                                "98a1ddda-f2ce-4491-b894-4ca8ba7fa671", null,
-                                                                new Date(1548165444993L),
-                                                                "9608e5d4-ba78-4d97-b8af-d64653b2667a");
+            UserInvitation userinvitation1 = new UserInvitation("8328df5a-10c6-4329-b33f-bdf0e3a9aee9",
+                                                                new Date(1551867953712L),
+                                                                "d7fbaf5c-a7ce-4c81-bfc1-7c0f92d1101e",
+                                                                new Date(1551867948161L),
+                                                                "eab3c7b3-161a-409b-ac72-8a61b2978657", null,
+                                                                new Date(1551867946002L),
+                                                                "4bac91c1-bacd-4cd0-936c-dd33fde423ba");
+            UserInvitation userinvitation2 = new UserInvitation("8328df5a-10c6-4329-b33f-bdf0e3a9aee9",
+                                                                new Date(1551867953712L),
+                                                                "d7fbaf5c-a7ce-4c81-bfc1-7c0f92d1101e",
+                                                                new Date(1551867948161L),
+                                                                "eab3c7b3-161a-409b-ac72-8a61b2978657", null,
+                                                                new Date(1551867946002L),
+                                                                "4bac91c1-bacd-4cd0-936c-dd33fde423ba");
             assertNotNull(userinvitation1);
             assertNotNull(userinvitation2);
             assertNotSame(userinvitation2, userinvitation1);
@@ -73,20 +73,20 @@ public class TestUserInvitation {
      */
     @Test
     public void testIsValid() {
-        UserInvitation userinvitation = new UserInvitation("dad730e7-92b0-4b2a-812d-a033549352da",
-                                                           new Date(1548165441121L),
-                                                           "82a979f7-cf79-402d-9d0b-2feb3d2f5317",
-                                                           new Date(1548165440626L),
-                                                           "724f9946-60ae-4bc9-9aa9-c42193f37669", null,
-                                                           new Date(1548165444546L),
-                                                           "c8193717-2bc1-47d0-88a9-6b7074091b34");
+        UserInvitation userinvitation = new UserInvitation("115f40d8-d7d0-40ec-9caf-976c820e55ae",
+                                                           new Date(1551867950826L),
+                                                           "45ea20ad-7411-4d64-a286-d4f5082b43aa",
+                                                           new Date(1551867947777L),
+                                                           "323cc750-d45e-440c-a0d0-ddbeb1b41207", null,
+                                                           new Date(1551867951201L),
+                                                           "3cd9cf59-2857-4ffb-bdcb-f682424ed1d8");
         assertTrue(userinvitation.isValid());
-        UserInvitation userinvitationInvalid = new UserInvitation("3e6ee9df-461f-4c32-aa3e-51fddee7ba9c",
-                                                                  new Date(1548165442359L), null,
-                                                                  new Date(1548165446397L),
-                                                                  "733081fa-c307-4d85-8078-87decc4aca71", null,
-                                                                  new Date(1548165445783L),
-                                                                  "3bd74139-15ec-459c-bd6e-ba4834b4e786");
+        UserInvitation userinvitationInvalid = new UserInvitation("72d3a7ed-460c-43fc-9ff3-17b134a152ef",
+                                                                  new Date(1551867952313L), null,
+                                                                  new Date(1551867950692L),
+                                                                  "c550f951-e259-4167-b20d-4a0355904346", null,
+                                                                  new Date(1551867951012L),
+                                                                  "d5fcaf62-75d1-4f34-92cf-b9fb66349338");
         assertFalse(userinvitationInvalid.isValid());
     }
 
@@ -96,27 +96,27 @@ public class TestUserInvitation {
     @Test
     public void testEquals() {
         try {
-            UserInvitation userinvitation1 = new UserInvitation("d4b6e3eb-dab8-43ef-b79a-10a754fcd894",
-                                                                new Date(1548165445236L),
-                                                                "fa3302c3-4444-45a9-b75c-18db73cfaad6",
-                                                                new Date(1548165441762L),
-                                                                "e7f5ba19-0605-435d-8764-9a77545316f2", null,
-                                                                new Date(1548165441148L),
-                                                                "bbb36b61-ab43-4877-8a67-799da360947c");
-            UserInvitation userinvitation2 = new UserInvitation("d4b6e3eb-dab8-43ef-b79a-10a754fcd894",
-                                                                new Date(1548165445236L),
-                                                                "fa3302c3-4444-45a9-b75c-18db73cfaad6",
-                                                                new Date(1548165441762L),
-                                                                "e7f5ba19-0605-435d-8764-9a77545316f2", null,
-                                                                new Date(1548165441148L),
-                                                                "bbb36b61-ab43-4877-8a67-799da360947c");
-            UserInvitation userinvitation3 = new UserInvitation("06c191c9-9724-4493-bd1c-dcf2d84cd6ad",
-                                                                new Date(1548165440950L),
-                                                                "7a8c554f-b60c-4483-883b-82bcd4488835",
-                                                                new Date(1548165440968L),
-                                                                "b8afbd41-cd8c-4019-bf05-9a408906634f", null,
-                                                                new Date(1548165446091L),
-                                                                "09588178-4407-46e6-ac4f-ef809806596a");
+            UserInvitation userinvitation1 = new UserInvitation("0178a6a5-9945-46cf-a59f-e19f49372ab2",
+                                                                new Date(1551867950322L),
+                                                                "24df1972-7822-4251-b1b8-6b873f177cc7",
+                                                                new Date(1551867953534L),
+                                                                "ab6cc089-76f0-4e86-b8a1-e22cb5c6a576", null,
+                                                                new Date(1551867951735L),
+                                                                "840ba282-5a01-47b1-b162-44a6cb0a5124");
+            UserInvitation userinvitation2 = new UserInvitation("0178a6a5-9945-46cf-a59f-e19f49372ab2",
+                                                                new Date(1551867950322L),
+                                                                "24df1972-7822-4251-b1b8-6b873f177cc7",
+                                                                new Date(1551867953534L),
+                                                                "ab6cc089-76f0-4e86-b8a1-e22cb5c6a576", null,
+                                                                new Date(1551867951735L),
+                                                                "840ba282-5a01-47b1-b162-44a6cb0a5124");
+            UserInvitation userinvitation3 = new UserInvitation("7eff99c4-44cd-4fe1-bd0a-441d3bba092d",
+                                                                new Date(1551867951700L),
+                                                                "6af9033f-2909-4a0f-9633-1e0ffe34c4dc",
+                                                                new Date(1551867951695L),
+                                                                "636b445f-2054-488d-82b1-d97bc8c38c1e", null,
+                                                                new Date(1551867946559L),
+                                                                "847497fe-1348-43a5-89d2-d55bc16e44c7");
             assertNotNull(userinvitation1);
             assertNotNull(userinvitation2);
             assertNotNull(userinvitation3);
