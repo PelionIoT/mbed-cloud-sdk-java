@@ -1,10 +1,12 @@
-package com.arm.mbed.cloud.sdk;
+package com.arm.mbed.cloud;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.BackpressureStrategy;
 
+import com.arm.mbed.cloud.sdk.Connect;
+import com.arm.mbed.cloud.sdk.DaoFactory;
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
@@ -45,7 +47,7 @@ public class Sdk extends AbstractModule {
     private final GenericClient genericClient;
 
     /**
-     * Mbed Cloud SDK constructor.
+     * Pelion Cloud SDK constructor.
      *
      * @param options
      *            connection options @see {@link ConnectionOptions}.
@@ -69,7 +71,7 @@ public class Sdk extends AbstractModule {
     }
 
     /**
-     * Creates a new Mbed Cloud SDK instance.
+     * Creates a new Pelion Cloud SDK instance.
      *
      * @param options
      *            connection options @see {@link ConnectionOptions}.
@@ -94,7 +96,7 @@ public class Sdk extends AbstractModule {
      * @return a DAO factory.
      */
     @API
-    public DaoFactory entities() {
+    public DaoFactory foundation() {
         return daoFactory;
     }
 
