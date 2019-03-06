@@ -4,13 +4,14 @@
  */
 
 /*
- * Definition of Mbed Cloub SDK for Java multi-project
+ * Definition of Pelion Cloub SDK for Java multi-project
  */
 include 'support-annotations'
 include 'lwm2m'
 include 'foundation-core'
 include 'pelion-sdk-core'
 include 'foundation-models'
+include 'foundation-access'
 include 'backends:mbedcloud_common'
 include 'backends:pelioncloud_devicemanagement'
 /*

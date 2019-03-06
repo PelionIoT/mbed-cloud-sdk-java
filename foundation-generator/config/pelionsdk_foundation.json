@@ -3,7 +3,7 @@
 	"modelPackage": "model",
 	"adapterPackage": "adapters",
 	"modulePackage": null,
-	"factoryPackage": null,
+	"factoryPackage": "foundation",
 	"forceUniTestRegeneration": false,
 	"lowLevelApiModuleNameRegex": ".*Api"
 }

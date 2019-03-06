@@ -137,6 +137,9 @@ public class AccountUpdateRootReq implements Serializable {
     @SerializedName("password_policy")
     private PasswordPolicy passwordPolicy = null;
 
+    @SerializedName("password_recovery_expiration")
+    private Integer passwordRecoveryExpiration = null;
+
     @SerializedName("phone_number")
     private String phoneNumber = null;
 
@@ -525,6 +528,26 @@ public class AccountUpdateRootReq implements Serializable {
         this.passwordPolicy = passwordPolicy;
     }
 
+    public AccountUpdateRootReq passwordRecoveryExpiration(Integer passwordRecoveryExpiration) {
+        this.passwordRecoveryExpiration = passwordRecoveryExpiration;
+        return this;
+    }
+
+    /**
+     * Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is:
+     * 1-45. minimum: 1 maximum: 45
+     * 
+     * @return passwordRecoveryExpiration
+     **/
+    @ApiModelProperty(value = "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.")
+    public Integer getPasswordRecoveryExpiration() {
+        return passwordRecoveryExpiration;
+    }
+
+    public void setPasswordRecoveryExpiration(Integer passwordRecoveryExpiration) {
+        this.passwordRecoveryExpiration = passwordRecoveryExpiration;
+    }
+
     public AccountUpdateRootReq phoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return this;
@@ -630,6 +653,7 @@ public class AccountUpdateRootReq implements Serializable {
                && Objects.equals(this.mfaStatus, accountUpdateRootReq.mfaStatus)
                && Objects.equals(this.notificationEmails, accountUpdateRootReq.notificationEmails)
                && Objects.equals(this.passwordPolicy, accountUpdateRootReq.passwordPolicy)
+               && Objects.equals(this.passwordRecoveryExpiration, accountUpdateRootReq.passwordRecoveryExpiration)
                && Objects.equals(this.phoneNumber, accountUpdateRootReq.phoneNumber)
                && Objects.equals(this.postalCode, accountUpdateRootReq.postalCode)
                && Objects.equals(this.salesContact, accountUpdateRootReq.salesContact)
@@ -640,8 +664,8 @@ public class AccountUpdateRootReq implements Serializable {
     public int hashCode() {
         return Objects.hash(addressLine1, addressLine2, aliases, city, company, contact, contractNumber, country,
                             customFields, customerNumber, displayName, email, endMarket, expirationWarningThreshold,
-                            idleTimeout, mfaStatus, notificationEmails, passwordPolicy, phoneNumber, postalCode,
-                            salesContact, state);
+                            idleTimeout, mfaStatus, notificationEmails, passwordPolicy, passwordRecoveryExpiration,
+                            phoneNumber, postalCode, salesContact, state);
     }
 
     @Override
@@ -667,6 +691,7 @@ public class AccountUpdateRootReq implements Serializable {
         sb.append("    mfaStatus: ").append(toIndentedString(mfaStatus)).append("\n");
         sb.append("    notificationEmails: ").append(toIndentedString(notificationEmails)).append("\n");
         sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
+        sb.append("    passwordRecoveryExpiration: ").append(toIndentedString(passwordRecoveryExpiration)).append("\n");
         sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
         sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
         sb.append("    salesContact: ").append(toIndentedString(salesContact)).append("\n");

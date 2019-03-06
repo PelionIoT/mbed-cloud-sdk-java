@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **status** | [**StatusEnum**](#StatusEnum) | Status of the certificate. |  [optional]
 **subject** | **String** | Subject of the certificate. | 
 **updatedAt** | [**DateTime**](DateTime.md) | Last update UTC time RFC3339. |  [optional]
+**valid** | **Boolean** | This read-only flag indicates whether the certificate is valid or not. |  [optional]
 **validity** | [**DateTime**](DateTime.md) | Expiration time in UTC formatted as RFC3339. | 
 
 

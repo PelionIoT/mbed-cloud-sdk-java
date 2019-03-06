@@ -212,33 +212,39 @@ public class ArtifactsTranslator {
         return adapter;
     }
 
-    public static ModelPojo translate(Configuration config, Entity entity) throws FoundationGeneratorException {
-        if (entity == null) {
-            return null;
-        }
-        final String packageName = CommonTranslator.generateModelPackageName(config, entity.getGroupId());
-        ModelPojo model = new ModelPojo(packageName, generateEntityName(entity.getKey()),
-                                        CommonTranslator.generateGoup(entity.getGroupId()), entity.getDescription(),
-                                        entity.getLongDescription(), entity.isCustomCode(), entity.isInternal());
-        if (entity.hasAdditionalProperties()) {
-            final AdditionalProperty properties = entity.getAdditionalProperties();
-            model.setSuperClassType(properties.hasForeignKey() ? CommonTranslator.FetchNestedEntityType(packageName,
-                                                                                                        properties.getForeignKey())
-                                                               : new TypeParameter(properties.getType(),
-                                                                                   properties.getFormat()));
-        }
-        if (entity.hasFields()) {
-            for (final Field field : entity.getFields()) {
-                model.addField(FieldTranslator.translate(field, model.getPackageName(), model.getGroup(),
-                                                         entity.getPrimaryKey()));
+    public static ModelPojo translate(Logger logger, Configuration config,
+                                      Entity entity) throws FoundationGeneratorException {
+        try {
+            if (entity == null) {
+                return null;
             }
-        }
-        if (!entity.hasPrimaryKey()) {
-            model.addNoIdentifierGetterAndSetter();
-        }
+            final String packageName = CommonTranslator.generateModelPackageName(config, entity.getGroupId());
+            ModelPojo model = new ModelPojo(packageName, generateEntityName(entity.getKey()),
+                                            CommonTranslator.generateGoup(entity.getGroupId()), entity.getDescription(),
+                                            entity.getLongDescription(), entity.isCustomCode(), entity.isInternal());
+            if (entity.hasAdditionalProperties()) {
+                final AdditionalProperty properties = entity.getAdditionalProperties();
+                model.setSuperClassType(properties.hasForeignKey() ? CommonTranslator.FetchNestedEntityType(packageName,
+                                                                                                            properties.getForeignKey())
+                                                                   : new TypeParameter(properties.getType(),
+                                                                                       properties.getFormat()));
+            }
+            if (entity.hasFields()) {
+                for (final Field field : entity.getFields()) {
+                    model.addField(FieldTranslator.translate(logger, field, model.getPackageName(), model.getGroup(),
+                                                             entity.getPrimaryKey()));
+                }
+            }
+            if (!entity.hasPrimaryKey()) {
+                model.addNoIdentifierGetterAndSetter();
+            }
 
-        model.generateMethods();
-        return model;
+            model.generateMethods();
+            return model;
+        } catch (FoundationGeneratorException exception) {
+            logger.logError("Could not translate entity: " + entity, exception);
+            throw exception;
+        }
     }
 
     public static ModelListOption translateListOptions(Configuration config, Entity entity,
@@ -355,7 +361,7 @@ public class ArtifactsTranslator {
             // Note: not using streams so that exceptions are raised
             for (final Entity entity : definition.getEntities()) {
                 if (!avoid.stream().anyMatch(n -> n.equals(entity.getKey()))) {
-                    final ModelPojo model = PelionModelDefinitionStore.get().store(translate(config, entity));
+                    final ModelPojo model = PelionModelDefinitionStore.get().store(translate(logger, config, entity));
                     artifacts.addModel(model);
                     artifacts.addEndpoint(translateEndpointModel(config, lowLevelApis, entity, model));
                     artifacts.addAdapter(translateAdapterModel(logger, config, lowLevelApis, entity, model,

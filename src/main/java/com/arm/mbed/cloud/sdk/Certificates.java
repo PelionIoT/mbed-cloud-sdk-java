@@ -193,7 +193,11 @@ public class Certificates extends AbstractModule {
                                                                            finalOptions.getEnrollmentFilter(),
                                                                            finalOptions.encodeSingleEqualFilter(CertificateListOptions.STATUS_FILTER),
                                                                            finalOptions.encodeSingleLikeFilter(CertificateListOptions.ISSUER_FILTER),
-                                                                           finalOptions.encodeSingleLikeFilter(CertificateListOptions.SUBJECT_FILTER));
+                                                                           finalOptions.encodeSingleLikeFilter(CertificateListOptions.SUBJECT_FILTER),
+                                                                           // FIXME
+                                                                           null);
+                                        // FIXME do encodeSingleEqualFilter(CertificateListOptions.VALID_FILTER);
+
                                     }
                                 });
     }

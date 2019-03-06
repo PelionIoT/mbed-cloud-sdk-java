@@ -22,7 +22,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -37,6 +39,9 @@ public class UserInfoResp implements Serializable {
     @SerializedName("account_id")
     private String accountId = null;
 
+    @SerializedName("active_sessions")
+    private List<ActiveSession> activeSessions = null;
+
     @SerializedName("address")
     private String address = null;
 
@@ -45,6 +50,9 @@ public class UserInfoResp implements Serializable {
 
     @SerializedName("creation_time")
     private Long creationTime = null;
+
+    @SerializedName("custom_fields")
+    private Map<String, String> customFields = null;
 
     @SerializedName("email")
     private String email = null;
@@ -197,6 +205,9 @@ public class UserInfoResp implements Serializable {
     @SerializedName("status")
     private StatusEnum status = null;
 
+    @SerializedName("totp_scratch_codes")
+    private List<String> totpScratchCodes = null;
+
     @SerializedName("updated_at")
     private DateTime updatedAt = null;
 
@@ -220,6 +231,33 @@ public class UserInfoResp implements Serializable {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    public UserInfoResp activeSessions(List<ActiveSession> activeSessions) {
+        this.activeSessions = activeSessions;
+        return this;
+    }
+
+    public UserInfoResp addActiveSessionsItem(ActiveSession activeSessionsItem) {
+        if (this.activeSessions == null) {
+            this.activeSessions = new ArrayList<ActiveSession>();
+        }
+        this.activeSessions.add(activeSessionsItem);
+        return this;
+    }
+
+    /**
+     * List of active user sessions.
+     * 
+     * @return activeSessions
+     **/
+    @ApiModelProperty(value = "List of active user sessions.")
+    public List<ActiveSession> getActiveSessions() {
+        return activeSessions;
+    }
+
+    public void setActiveSessions(List<ActiveSession> activeSessions) {
+        this.activeSessions = activeSessions;
     }
 
     public UserInfoResp address(String address) {
@@ -278,6 +316,33 @@ public class UserInfoResp implements Serializable {
 
     public void setCreationTime(Long creationTime) {
         this.creationTime = creationTime;
+    }
+
+    public UserInfoResp customFields(Map<String, String> customFields) {
+        this.customFields = customFields;
+        return this;
+    }
+
+    public UserInfoResp putCustomFieldsItem(String key, String customFieldsItem) {
+        if (this.customFields == null) {
+            this.customFields = new HashMap<String, String>();
+        }
+        this.customFields.put(key, customFieldsItem);
+        return this;
+    }
+
+    /**
+     * User&#39;s account specific custom properties. The value is a string.
+     * 
+     * @return customFields
+     **/
+    @ApiModelProperty(value = "User's account specific custom properties. The value is a string.")
+    public Map<String, String> getCustomFields() {
+        return customFields;
+    }
+
+    public void setCustomFields(Map<String, String> customFields) {
+        this.customFields = customFields;
     }
 
     public UserInfoResp email(String email) {
@@ -638,6 +703,34 @@ public class UserInfoResp implements Serializable {
         this.status = status;
     }
 
+    public UserInfoResp totpScratchCodes(List<String> totpScratchCodes) {
+        this.totpScratchCodes = totpScratchCodes;
+        return this;
+    }
+
+    public UserInfoResp addTotpScratchCodesItem(String totpScratchCodesItem) {
+        if (this.totpScratchCodes == null) {
+            this.totpScratchCodes = new ArrayList<String>();
+        }
+        this.totpScratchCodes.add(totpScratchCodesItem);
+        return this;
+    }
+
+    /**
+     * A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the
+     * codes regenerated.
+     * 
+     * @return totpScratchCodes
+     **/
+    @ApiModelProperty(value = "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.")
+    public List<String> getTotpScratchCodes() {
+        return totpScratchCodes;
+    }
+
+    public void setTotpScratchCodes(List<String> totpScratchCodes) {
+        this.totpScratchCodes = totpScratchCodes;
+    }
+
     public UserInfoResp updatedAt(DateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
@@ -686,9 +779,11 @@ public class UserInfoResp implements Serializable {
         }
         UserInfoResp userInfoResp = (UserInfoResp) o;
         return Objects.equals(this.accountId, userInfoResp.accountId)
+               && Objects.equals(this.activeSessions, userInfoResp.activeSessions)
                && Objects.equals(this.address, userInfoResp.address)
                && Objects.equals(this.createdAt, userInfoResp.createdAt)
                && Objects.equals(this.creationTime, userInfoResp.creationTime)
+               && Objects.equals(this.customFields, userInfoResp.customFields)
                && Objects.equals(this.email, userInfoResp.email)
                && Objects.equals(this.emailVerified, userInfoResp.emailVerified)
                && Objects.equals(this.etag, userInfoResp.etag) && Objects.equals(this.fullName, userInfoResp.fullName)
@@ -704,16 +799,17 @@ public class UserInfoResp implements Serializable {
                && Objects.equals(this.passwordChangedTime, userInfoResp.passwordChangedTime)
                && Objects.equals(this.phoneNumber, userInfoResp.phoneNumber)
                && Objects.equals(this.status, userInfoResp.status)
+               && Objects.equals(this.totpScratchCodes, userInfoResp.totpScratchCodes)
                && Objects.equals(this.updatedAt, userInfoResp.updatedAt)
                && Objects.equals(this.username, userInfoResp.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, address, createdAt, creationTime, email, emailVerified, etag, fullName, groups,
-                            id, isGtcAccepted, isMarketingAccepted, isTotpEnabled, lastLoginTime, loginHistory,
-                            loginProfiles, object, password, passwordChangedTime, phoneNumber, status, updatedAt,
-                            username);
+        return Objects.hash(accountId, activeSessions, address, createdAt, creationTime, customFields, email,
+                            emailVerified, etag, fullName, groups, id, isGtcAccepted, isMarketingAccepted,
+                            isTotpEnabled, lastLoginTime, loginHistory, loginProfiles, object, password,
+                            passwordChangedTime, phoneNumber, status, totpScratchCodes, updatedAt, username);
     }
 
     @Override
@@ -722,9 +818,11 @@ public class UserInfoResp implements Serializable {
         sb.append("class UserInfoResp {\n");
 
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
+        sb.append("    activeSessions: ").append(toIndentedString(activeSessions)).append("\n");
         sb.append("    address: ").append(toIndentedString(address)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
+        sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
         sb.append("    email: ").append(toIndentedString(email)).append("\n");
         sb.append("    emailVerified: ").append(toIndentedString(emailVerified)).append("\n");
         sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
@@ -742,6 +840,7 @@ public class UserInfoResp implements Serializable {
         sb.append("    passwordChangedTime: ").append(toIndentedString(passwordChangedTime)).append("\n");
         sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("    totpScratchCodes: ").append(toIndentedString(totpScratchCodes)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    username: ").append(toIndentedString(username)).append("\n");
         sb.append("}");

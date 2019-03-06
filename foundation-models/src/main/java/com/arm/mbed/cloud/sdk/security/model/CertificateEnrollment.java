@@ -33,12 +33,17 @@ public class CertificateEnrollment implements SdkModel {
     private final String deviceId;
 
     /**
-     * enumerator value.
+     * The result of certificate enrollment request.
      */
     private final CertificateEnrollmentEnrollResult enrollResult;
 
     /**
-     * enumerator value.
+     * Additional information in case of failure.
+     */
+    private final String enrollResultDetail;
+
+    /**
+     * The status of certificate enrollment request.
      */
     private final CertificateEnrollmentEnrollStatus enrollStatus;
 
@@ -64,9 +69,11 @@ public class CertificateEnrollment implements SdkModel {
      * @param deviceId
      *            The device ID.
      * @param enrollResult
-     *            enumerator value.
+     *            The result of certificate enrollment request.
+     * @param enrollResultDetail
+     *            Additional information in case of failure.
      * @param enrollStatus
-     *            enumerator value.
+     *            The status of certificate enrollment request.
      * @param id
      *            The ID of the certificate enrollment.
      * @param updatedAt
@@ -74,13 +81,14 @@ public class CertificateEnrollment implements SdkModel {
      */
     @Internal
     public CertificateEnrollment(String certificateName, Date createdAt, String deviceId,
-                                 CertificateEnrollmentEnrollResult enrollResult,
+                                 CertificateEnrollmentEnrollResult enrollResult, String enrollResultDetail,
                                  CertificateEnrollmentEnrollStatus enrollStatus, String id, Date updatedAt) {
         super();
         this.certificateName = certificateName;
         this.createdAt = createdAt;
         this.deviceId = deviceId;
         this.enrollResult = enrollResult;
+        this.enrollResultDetail = enrollResultDetail;
         this.enrollStatus = enrollStatus;
         this.updatedAt = updatedAt;
         setId(id);
@@ -101,6 +109,7 @@ public class CertificateEnrollment implements SdkModel {
              certificateEnrollment == null ? (String) null : certificateEnrollment.deviceId,
              certificateEnrollment == null ? CertificateEnrollmentEnrollResult.getDefault()
                                            : certificateEnrollment.enrollResult,
+             certificateEnrollment == null ? (String) null : certificateEnrollment.enrollResultDetail,
              certificateEnrollment == null ? CertificateEnrollmentEnrollStatus.getDefault()
                                            : certificateEnrollment.enrollStatus,
              certificateEnrollment == null ? (String) null : certificateEnrollment.id,
@@ -112,7 +121,7 @@ public class CertificateEnrollment implements SdkModel {
      */
     public CertificateEnrollment() {
         this((String) null, new java.util.Date(), (String) null, CertificateEnrollmentEnrollResult.getDefault(),
-             CertificateEnrollmentEnrollStatus.getDefault(), (String) null, new java.util.Date());
+             (String) null, CertificateEnrollmentEnrollStatus.getDefault(), (String) null, new java.util.Date());
     }
 
     /**
@@ -138,17 +147,20 @@ public class CertificateEnrollment implements SdkModel {
      * @param deviceId
      *            The device ID.
      * @param enrollResult
-     *            enumerator value.
+     *            The result of certificate enrollment request.
+     * @param enrollResultDetail
+     *            Additional information in case of failure.
      * @param enrollStatus
-     *            enumerator value.
+     *            The status of certificate enrollment request.
      * @param updatedAt
      *            Update UTC time RFC3339.
      */
     @Internal
     public CertificateEnrollment(String certificateName, Date createdAt, String deviceId,
-                                 CertificateEnrollmentEnrollResult enrollResult,
+                                 CertificateEnrollmentEnrollResult enrollResult, String enrollResultDetail,
                                  CertificateEnrollmentEnrollStatus enrollStatus, Date updatedAt) {
-        this(certificateName, createdAt, deviceId, enrollResult, enrollStatus, (String) null, updatedAt);
+        this(certificateName, createdAt, deviceId, enrollResult, enrollResultDetail, enrollStatus, (String) null,
+             updatedAt);
     }
 
     /**
@@ -179,7 +191,7 @@ public class CertificateEnrollment implements SdkModel {
     }
 
     /**
-     * Gets enumerator value.
+     * Gets the result of certificate enrollment request.
      * 
      * @return enrollResult
      */
@@ -188,7 +200,16 @@ public class CertificateEnrollment implements SdkModel {
     }
 
     /**
-     * Gets enumerator value.
+     * Gets additional information in case of failure.
+     * 
+     * @return enrollResultDetail
+     */
+    public String getEnrollResultDetail() {
+        return enrollResultDetail;
+    }
+
+    /**
+     * Gets the status of certificate enrollment request.
      * 
      * @return enrollStatus
      */
@@ -254,6 +275,7 @@ public class CertificateEnrollment implements SdkModel {
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((deviceId == null) ? 0 : deviceId.hashCode());
         result = prime * result + ((enrollResult == null) ? 0 : enrollResult.hashCode());
+        result = prime * result + ((enrollResultDetail == null) ? 0 : enrollResultDetail.hashCode());
         result = prime * result + ((enrollStatus == null) ? 0 : enrollStatus.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
@@ -321,6 +343,13 @@ public class CertificateEnrollment implements SdkModel {
         if (enrollResult != other.enrollResult) {
             return false;
         }
+        if (enrollResultDetail == null) {
+            if (other.enrollResultDetail != null) {
+                return false;
+            }
+        } else if (!enrollResultDetail.equals(other.enrollResultDetail)) {
+            return false;
+        }
         if (enrollStatus != other.enrollStatus) {
             return false;
         }
@@ -351,8 +380,8 @@ public class CertificateEnrollment implements SdkModel {
     @Override
     public String toString() {
         return "CertificateEnrollment [certificateName=" + certificateName + ", createdAt=" + createdAt + ", deviceId="
-               + deviceId + ", enrollResult=" + enrollResult + ", enrollStatus=" + enrollStatus + ", id=" + id
-               + ", updatedAt=" + updatedAt + "]";
+               + deviceId + ", enrollResult=" + enrollResult + ", enrollResultDetail=" + enrollResultDetail
+               + ", enrollStatus=" + enrollStatus + ", id=" + id + ", updatedAt=" + updatedAt + "]";
     }
 
     /**

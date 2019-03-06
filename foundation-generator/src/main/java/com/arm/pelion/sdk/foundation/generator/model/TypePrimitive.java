@@ -24,6 +24,8 @@ public class TypePrimitive {
                 return boolean.class;
             case "file":
                 return DataFile.class;
+            case "object":
+                return Object.class;
         }
         return null;
     }

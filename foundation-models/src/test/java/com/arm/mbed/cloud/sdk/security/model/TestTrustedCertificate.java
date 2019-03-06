@@ -38,7 +38,7 @@ public class TestTrustedCertificate {
                                                                             TrustedCertificateService.getDefault(),
                                                                             TrustedCertificateStatus.getDefault(),
                                                                             "12581bb9-fb72-4e2d-b771-706e22dfd665",
-                                                                            new Date(1547147144666L),
+                                                                            new Date(1547147144666L), false,
                                                                             new Date(1547147140890L));
             TrustedCertificate trustedcertificate2 = trustedcertificate1.clone();
             assertNotNull(trustedcertificate1);
@@ -70,7 +70,7 @@ public class TestTrustedCertificate {
                                                                             TrustedCertificateService.getDefault(),
                                                                             TrustedCertificateStatus.getDefault(),
                                                                             "9334216e-4f35-4e5b-bc01-ff32c1c384ed",
-                                                                            new Date(1547147141586L),
+                                                                            new Date(1547147141586L), true,
                                                                             new Date(1547147137910L));
             TrustedCertificate trustedcertificate2 = new TrustedCertificate(false,
                                                                             "55f41201-b452-428a-8e6d-1cc3fb7fd4f1",
@@ -86,7 +86,7 @@ public class TestTrustedCertificate {
                                                                             TrustedCertificateService.getDefault(),
                                                                             TrustedCertificateStatus.getDefault(),
                                                                             "9334216e-4f35-4e5b-bc01-ff32c1c384ed",
-                                                                            new Date(1547147141586L),
+                                                                            new Date(1547147141586L), true,
                                                                             new Date(1547147137910L));
             assertNotNull(trustedcertificate1);
             assertNotNull(trustedcertificate2);
@@ -119,7 +119,7 @@ public class TestTrustedCertificate {
                                                                        TrustedCertificateService.getDefault(),
                                                                        TrustedCertificateStatus.getDefault(),
                                                                        "b7b38dac-fd83-4bd9-8238-bb1a7c4d3ed9",
-                                                                       new Date(1547147137473L),
+                                                                       new Date(1547147137473L), true,
                                                                        new Date(1547147137251L));
         assertTrue(trustedcertificate.isValid());
         TrustedCertificate trustedcertificateInvalid = new TrustedCertificate(false,
@@ -135,7 +135,7 @@ public class TestTrustedCertificate {
                                                                               TrustedCertificateService.getDefault(),
                                                                               TrustedCertificateStatus.getDefault(),
                                                                               "0df2ce6c-b2d5-47a2-b703-ae0a8c92683e",
-                                                                              new Date(1547147139448L),
+                                                                              new Date(1547147139448L), true,
                                                                               new Date(1547147140849L));
         assertFalse(trustedcertificateInvalid.isValid());
     }
@@ -160,7 +160,7 @@ public class TestTrustedCertificate {
                                                                             TrustedCertificateService.getDefault(),
                                                                             TrustedCertificateStatus.getDefault(),
                                                                             "b3c945b9-b964-4181-b444-8301efacf12f",
-                                                                            new Date(1547147138240L),
+                                                                            new Date(1547147138240L), true,
                                                                             new Date(1547147139968L));
             TrustedCertificate trustedcertificate2 = new TrustedCertificate(true,
                                                                             "335a59d5-72fb-4338-90da-b503d44ed8ea",
@@ -176,7 +176,7 @@ public class TestTrustedCertificate {
                                                                             TrustedCertificateService.getDefault(),
                                                                             TrustedCertificateStatus.getDefault(),
                                                                             "9ca45c6c-bd38-4288-880d-87950a636307",
-                                                                            new Date(1547147136237L),
+                                                                            new Date(1547147136237L), true,
                                                                             new Date(1547147142061L));
             TrustedCertificate trustedcertificate1 = new TrustedCertificate(true,
                                                                             "335a59d5-72fb-4338-90da-b503d44ed8ea",
@@ -192,7 +192,7 @@ public class TestTrustedCertificate {
                                                                             TrustedCertificateService.getDefault(),
                                                                             TrustedCertificateStatus.getDefault(),
                                                                             "9ca45c6c-bd38-4288-880d-87950a636307",
-                                                                            new Date(1547147136237L),
+                                                                            new Date(1547147136237L), true,
                                                                             new Date(1547147142061L));
             assertNotNull(trustedcertificate1);
             assertNotNull(trustedcertificate2);

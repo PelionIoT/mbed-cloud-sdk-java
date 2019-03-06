@@ -9,6 +9,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Model for an account.
@@ -174,6 +175,12 @@ public class Account implements SdkModel {
     private PasswordPolicy passwordPolicy;
 
     /**
+     * Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is:
+     * 1-45.
+     */
+    private int passwordRecoveryExpiration;
+
+    /**
      * The phone number of a representative of the company.
      */
     private String phoneNumber;
@@ -303,6 +310,9 @@ public class Account implements SdkModel {
      *            The ID of the parent account, if it has any.
      * @param passwordPolicy
      *            value.
+     * @param passwordRecoveryExpiration
+     *            Indicates how many minutes a password recovery email for users of this account is valid for. Valid
+     *            range is: 1-45.
      * @param phoneNumber
      *            The phone number of a representative of the company.
      * @param policies
@@ -337,10 +347,10 @@ public class Account implements SdkModel {
                    Map<String, String> customFields, String customerNumber, String displayName, String email,
                    String endMarket, Date expiration, String expirationWarningThreshold, String id, String idleTimeout,
                    Map<String, String> limits, AccountMfaStatus mfaStatus, List<String> notificationEmails,
-                   ParentAccount parentAccount, String parentId, PasswordPolicy passwordPolicy, String phoneNumber,
-                   List<Policy> policies, String postalCode, String reason, String referenceNote, String salesContact,
-                   String state, AccountStatus status, String templateId, String tier, Date updatedAt,
-                   Date upgradedAt) {
+                   ParentAccount parentAccount, String parentId, PasswordPolicy passwordPolicy,
+                   int passwordRecoveryExpiration, String phoneNumber, List<Policy> policies, String postalCode,
+                   String reason, String referenceNote, String salesContact, String state, AccountStatus status,
+                   String templateId, String tier, Date updatedAt, Date upgradedAt) {
         super();
         this.adminId = adminId;
         this.adminKey = adminKey;
@@ -380,6 +390,7 @@ public class Account implements SdkModel {
         setMfaStatus(mfaStatus);
         setNotificationEmails(notificationEmails);
         setPasswordPolicy(passwordPolicy);
+        setPasswordRecoveryExpiration(passwordRecoveryExpiration);
         setPhoneNumber(phoneNumber);
         setPostalCode(postalCode);
         setSalesContact(salesContact);
@@ -419,6 +430,7 @@ public class Account implements SdkModel {
              account == null ? (ParentAccount) null : account.parentAccount,
              account == null ? (String) null : account.parentId,
              account == null ? (PasswordPolicy) null : account.passwordPolicy,
+             account == null ? 0 : account.passwordRecoveryExpiration,
              account == null ? (String) null : account.phoneNumber, account == null ? null : account.policies,
              account == null ? (String) null : account.postalCode, account == null ? (String) null : account.reason,
              account == null ? (String) null : account.referenceNote,
@@ -437,7 +449,7 @@ public class Account implements SdkModel {
              (String) null, null, (String) null, (String) null, (String) null, (String) null, (String) null,
              new java.util.Date(), null, (String) null, (String) null, (String) null, (String) null,
              new java.util.Date(), (String) null, (String) null, (String) null, null, AccountMfaStatus.getDefault(),
-             null, (ParentAccount) null, (String) null, (PasswordPolicy) null, (String) null, null, (String) null,
+             null, (ParentAccount) null, (String) null, (PasswordPolicy) null, 0, (String) null, null, (String) null,
              (String) null, (String) null, (String) null, (String) null, AccountStatus.getDefault(), (String) null,
              (String) null, new java.util.Date(), new java.util.Date());
     }
@@ -500,7 +512,7 @@ public class Account implements SdkModel {
              (String) null, null, (String) null, (String) null, (String) null, (String) null, (String) null, createdAt,
              null, (String) null, (String) null, (String) null, (String) null, expiration, (String) null, (String) null,
              (String) null, limits, AccountMfaStatus.getDefault(), null, parentAccount, parentId, (PasswordPolicy) null,
-             (String) null, policies, (String) null, reason, referenceNote, (String) null, (String) null, status,
+             0, (String) null, policies, (String) null, reason, referenceNote, (String) null, (String) null, status,
              templateId, tier, updatedAt, upgradedAt);
     }
 
@@ -1043,6 +1055,28 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets indicates how many minutes a password recovery email for users of this account is valid for. valid range is:
+     * 1-45.
+     * 
+     * @return passwordRecoveryExpiration
+     */
+    public int getPasswordRecoveryExpiration() {
+        return passwordRecoveryExpiration;
+    }
+
+    /**
+     * Sets indicates how many minutes a password recovery email for users of this account is valid for. valid range is:
+     * 1-45.
+     * 
+     * @param passwordRecoveryExpiration
+     *            Indicates how many minutes a password recovery email for users of this account is valid for. Valid
+     *            range is: 1-45.
+     */
+    public void setPasswordRecoveryExpiration(int passwordRecoveryExpiration) {
+        this.passwordRecoveryExpiration = passwordRecoveryExpiration;
+    }
+
+    /**
      * Gets the phone number of a representative of the company.
      * 
      * @return phoneNumber
@@ -1232,6 +1266,7 @@ public class Account implements SdkModel {
         result = prime * result + ((parentAccount == null) ? 0 : parentAccount.hashCode());
         result = prime * result + ((parentId == null) ? 0 : parentId.hashCode());
         result = prime * result + ((passwordPolicy == null) ? 0 : passwordPolicy.hashCode());
+        result = prime * result + Objects.hashCode(passwordRecoveryExpiration);
         result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
         result = prime * result + ((policies == null) ? 0 : policies.hashCode());
         result = prime * result + ((postalCode == null) ? 0 : postalCode.hashCode());
@@ -1491,6 +1526,9 @@ public class Account implements SdkModel {
         } else if (!passwordPolicy.equals(other.passwordPolicy)) {
             return false;
         }
+        if (passwordRecoveryExpiration != other.passwordRecoveryExpiration) {
+            return false;
+        }
         if (phoneNumber == null) {
             if (other.phoneNumber != null) {
                 return false;
@@ -1592,8 +1630,9 @@ public class Account implements SdkModel {
                + ", expiration=" + expiration + ", expirationWarningThreshold=" + expirationWarningThreshold + ", id="
                + id + ", idleTimeout=" + idleTimeout + ", limits=" + limits + ", mfaStatus=" + mfaStatus
                + ", notificationEmails=" + notificationEmails + ", parentAccount=" + parentAccount + ", parentId="
-               + parentId + ", passwordPolicy=" + passwordPolicy + ", phoneNumber=" + phoneNumber + ", policies="
-               + policies + ", postalCode=" + postalCode + ", reason=" + reason + ", referenceNote=" + referenceNote
+               + parentId + ", passwordPolicy=" + passwordPolicy + ", passwordRecoveryExpiration="
+               + passwordRecoveryExpiration + ", phoneNumber=" + phoneNumber + ", policies=" + policies
+               + ", postalCode=" + postalCode + ", reason=" + reason + ", referenceNote=" + referenceNote
                + ", salesContact=" + salesContact + ", state=" + state + ", status=" + status + ", templateId="
                + templateId + ", tier=" + tier + ", updatedAt=" + updatedAt + ", upgradedAt=" + upgradedAt + "]";
     }

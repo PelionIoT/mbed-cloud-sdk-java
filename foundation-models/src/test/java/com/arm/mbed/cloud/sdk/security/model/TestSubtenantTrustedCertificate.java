@@ -41,6 +41,7 @@ public class TestSubtenantTrustedCertificate {
                                                                                                        SubtenantTrustedCertificateStatus.getDefault(),
                                                                                                        "b703accb-a23e-43d6-b179-540308f85357",
                                                                                                        new Date(1547147134537L),
+                                                                                                       true,
                                                                                                        new Date(1547147135770L));
             SubtenantTrustedCertificate subtenanttrustedcertificate2 = subtenanttrustedcertificate1.clone();
             assertNotNull(subtenanttrustedcertificate1);
@@ -73,6 +74,7 @@ public class TestSubtenantTrustedCertificate {
                                                                                                        SubtenantTrustedCertificateStatus.getDefault(),
                                                                                                        "3931bd5d-5cc1-44b0-99f0-50e61d085b20",
                                                                                                        new Date(1547147136155L),
+                                                                                                       false,
                                                                                                        new Date(1547147143857L));
             SubtenantTrustedCertificate subtenanttrustedcertificate2 = new SubtenantTrustedCertificate(true,
                                                                                                        "4c35dc2a-1559-48a8-abfd-d4e7caab4ef9",
@@ -89,6 +91,7 @@ public class TestSubtenantTrustedCertificate {
                                                                                                        SubtenantTrustedCertificateStatus.getDefault(),
                                                                                                        "3931bd5d-5cc1-44b0-99f0-50e61d085b20",
                                                                                                        new Date(1547147136155L),
+                                                                                                       false,
                                                                                                        new Date(1547147143857L));
             assertNotNull(subtenanttrustedcertificate1);
             assertNotNull(subtenanttrustedcertificate2);
@@ -124,6 +127,7 @@ public class TestSubtenantTrustedCertificate {
                                                                                                   SubtenantTrustedCertificateStatus.getDefault(),
                                                                                                   "1190ef03-9b2b-4768-8f0c-f7ae663fa920",
                                                                                                   new Date(1547147135769L),
+                                                                                                  false,
                                                                                                   new Date(1547147139159L));
         assertTrue(subtenanttrustedcertificate.isValid());
         SubtenantTrustedCertificate subtenanttrustedcertificateInvalid = new SubtenantTrustedCertificate(true, null,
@@ -140,6 +144,7 @@ public class TestSubtenantTrustedCertificate {
                                                                                                          SubtenantTrustedCertificateStatus.getDefault(),
                                                                                                          "dd47fbfb-3bd3-4f93-b804-8e126c70acda",
                                                                                                          new Date(1547147140577L),
+                                                                                                         false,
                                                                                                          new Date(1547147140351L));
         assertFalse(subtenanttrustedcertificateInvalid.isValid());
     }
@@ -165,6 +170,7 @@ public class TestSubtenantTrustedCertificate {
                                                                                                        SubtenantTrustedCertificateStatus.getDefault(),
                                                                                                        "ef95bd50-3180-4fd2-a265-684ba06f191d",
                                                                                                        new Date(1547147136978L),
+                                                                                                       true,
                                                                                                        new Date(1547147135814L));
             SubtenantTrustedCertificate subtenanttrustedcertificate2 = new SubtenantTrustedCertificate(true,
                                                                                                        "9168e10c-2ab5-4408-b431-519a8e44ae07",
@@ -181,6 +187,7 @@ public class TestSubtenantTrustedCertificate {
                                                                                                        SubtenantTrustedCertificateStatus.getDefault(),
                                                                                                        "a11a276e-d4de-42c2-95ea-3a02ea294e02",
                                                                                                        new Date(1547147136760L),
+                                                                                                       true,
                                                                                                        new Date(1547147142504L));
             SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate(true,
                                                                                                        "9168e10c-2ab5-4408-b431-519a8e44ae07",
@@ -197,6 +204,7 @@ public class TestSubtenantTrustedCertificate {
                                                                                                        SubtenantTrustedCertificateStatus.getDefault(),
                                                                                                        "a11a276e-d4de-42c2-95ea-3a02ea294e02",
                                                                                                        new Date(1547147136760L),
+                                                                                                       true,
                                                                                                        new Date(1547147142504L));
             assertNotNull(subtenanttrustedcertificate1);
             assertNotNull(subtenanttrustedcertificate2);

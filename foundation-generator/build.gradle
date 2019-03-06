@@ -119,7 +119,7 @@ mainClassName = 'com.arm.pelion.sdk.foundation.generator.FoundationGenerator'
 run {
 	classpath sourceSets.main.runtimeClasspath
 	main = mainClassName
-	args = ["-i", "$rootProject.projectDir/$foundationSourceDir/$foundationSourceFileName", "-c", "$rootProject.projectDir/$openApiCodegenConfigDir/$foundationConfigFile", "-m", "$foundationModelDestProject", "$rootProject.projectDir/../"]
+	args = ["-i", "$rootProject.projectDir/$foundationSourceDir/$foundationSourceFileName", "-c", "$rootProject.projectDir/$openApiCodegenConfigDir/$foundationConfigFile", "-m", "$foundationModelDestProject", "-o", "$foundationDestProject", "$rootProject.projectDir/../"]
 }
 
 swaggerSources {
