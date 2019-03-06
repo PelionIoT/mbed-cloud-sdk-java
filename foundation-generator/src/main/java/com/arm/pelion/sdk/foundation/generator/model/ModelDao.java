@@ -369,6 +369,7 @@ public class ModelDao extends Model {
         final AtomicInteger counter = new AtomicInteger();
         final List<Method> methods = Arrays.asList(AbstractCloudDao.class.getDeclaredMethods()).stream()
                                            .filter(m -> AbstractCloudDao.METHOD_INSTANTIATE_MODULE.equals(m.getName()))
+                                           .sorted(Comparator.comparing(java.lang.reflect.Method::toGenericString))
                                            .map(m -> {
                                                Method method = new MethodOverloaded(m, "Instantiates modules", null,
                                                                                     true, true,
