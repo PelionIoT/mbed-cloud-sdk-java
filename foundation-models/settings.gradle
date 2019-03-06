@@ -13,7 +13,8 @@ include 'backends:mbedcloud_common'
 project(':backends:mbedcloud_common').projectDir = file('../backends/mbedcloud_common')
 include 'foundation-core'
 project(':foundation-core').projectDir = file('../foundation-core')
-// When possible, remove dependency on Pelion core
+// FIXME: When possible, remove dependency on Pelion core (This will be possible when the JSON marshaller is abstracted 
+// so that filters can be moved to foundation-core)
 include 'pelion-sdk-core'
 project(':pelion-sdk-core').projectDir = file('../pelion-sdk-core')
 rootProject.name = modelLibraryName

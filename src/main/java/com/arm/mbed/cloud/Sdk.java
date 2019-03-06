@@ -6,7 +6,6 @@ import java.util.Map;
 import io.reactivex.BackpressureStrategy;
 
 import com.arm.mbed.cloud.sdk.Connect;
-import com.arm.mbed.cloud.sdk.DaoFactory;
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
@@ -24,6 +23,7 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.CloudDao;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceValueType;
+import com.arm.mbed.cloud.sdk.foundation.DaoFactory;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
