@@ -72,6 +72,19 @@ public abstract class AbstractCertificateIssuerConfigListDao extends
     /**
      * Instantiates modules.
      * 
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -93,18 +106,5 @@ public abstract class AbstractCertificateIssuerConfigListDao extends
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
     }
 }

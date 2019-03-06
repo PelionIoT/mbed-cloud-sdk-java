@@ -85,6 +85,19 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     /**
      * Instantiates modules.
      * 
+     * @param client
+     *            an api client wrapper.
+     * @return instantiated module
+     */
+    @Override
+    @Internal
+    protected SdkContext instantiateModule(ApiClientWrapper client) {
+        return new Security(client);
+    }
+
+    /**
+     * Instantiates modules.
+     * 
      * @param options
      *            a connection options.
      * @return instantiated module
@@ -106,19 +119,6 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Security(context);
-    }
-
-    /**
-     * Instantiates modules.
-     * 
-     * @param client
-     *            an api client wrapper.
-     * @return instantiated module
-     */
-    @Override
-    @Internal
-    protected SdkContext instantiateModule(ApiClientWrapper client) {
-        return new Security(client);
     }
 
     /**
