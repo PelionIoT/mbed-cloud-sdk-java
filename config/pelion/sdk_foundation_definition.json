@@ -37,7 +37,6 @@
         "device_enrollment"
       ],
       "enums": [
-        "device_lifecycle_status_enum",
         "device_deployed_state_enum",
         "device_mechanism_enum",
         "device_state_enum",
@@ -235,17 +234,6 @@
     },
     {
       "entity_name": "device",
-      "field_name": "lifecycle_status",
-      "enum_name": "device_lifecycle_status_enum",
-      "values": [
-        "blocked",
-        "enabled"
-      ],
-      "group_id": "Devices",
-      "_key": "device_lifecycle_status_enum"
-    },
-    {
-      "entity_name": "device",
       "field_name": "mechanism",
       "enum_name": "device_mechanism_enum",
       "values": [
@@ -390,7 +378,7 @@
       "methods": [
         {
           "description": "An endpoint for creating a new account.\n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts -d '{\"display_name\": \"MyAccount1\", \"admin_name\": \"accountAdmin1\", \"email\": \"example_admin@myaccount.info\", \"country\": \"United Kingdom\", \"end_market\": \"Smart City\", \"address_line1\": \"110 Fulbourn Rd\", \"city\": \"Cambridge\", \"contact\": \"J. Doe\", \"company\": \"Arm\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "name": "action",
@@ -1456,7 +1444,7 @@
                         {
                           "type": "array",
                           "description": "List of sub accounts. Not available for developer users.",
-                          "items": {},
+                          "items": [],
                           "_key": "sub_accounts"
                         },
                         {
@@ -1804,7 +1792,7 @@
         },
         {
           "description": "Returns an array of account objects, optionally filtered by status and tier level.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts -H 'Authorization: Bearer API_KEY'`.",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -2667,7 +2655,7 @@
                               {
                                 "type": "array",
                                 "description": "List of sub accounts. Not available for developer users.",
-                                "items": {},
+                                "items": [],
                                 "_key": "sub_accounts"
                               },
                               {
@@ -2995,7 +2983,7 @@
         },
         {
           "description": "Returns detailed information about the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies -H 'Authorization: Bearer API_KEY'`.",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "name": "include",
@@ -3861,7 +3849,7 @@
                         {
                           "type": "array",
                           "description": "List of sub accounts. Not available for developer users.",
-                          "items": {},
+                          "items": [],
                           "_key": "sub_accounts"
                         },
                         {
@@ -4156,7 +4144,7 @@
         },
         {
           "description": "Returns detailed information about the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -H 'Authorization: Bearer API_KEY'`.",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -5033,7 +5021,7 @@
                         {
                           "type": "array",
                           "description": "List of sub accounts. Not available for developer users.",
-                          "items": {},
+                          "items": [],
                           "_key": "sub_accounts"
                         },
                         {
@@ -5399,7 +5387,7 @@
         },
         {
           "description": "An endpoint for retrieving trusted certificates in an array.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -6029,7 +6017,7 @@
         },
         {
           "description": "An endpoint for updating an account.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} -d '{\"phone_number\": \"12345678\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -7159,7 +7147,7 @@
                         {
                           "type": "array",
                           "description": "List of sub accounts. Not available for developer users.",
-                          "items": {},
+                          "items": [],
                           "_key": "sub_accounts"
                         },
                         {
@@ -7581,7 +7569,7 @@
         },
         {
           "description": "An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -7733,7 +7721,6 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -8143,7 +8130,7 @@
         },
         {
           "description": "An endpoint for retrieving details of all users.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -8342,7 +8329,6 @@
                           "type": "string",
                           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                           "description": "Address.",
-                          "x-nullable": true,
                           "_key": "address"
                         },
                         {
@@ -8487,7 +8473,6 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -8547,7 +8532,6 @@
                           "type": "string",
                           "example": "PZf9eEUH43DAPE9ULINFeuj",
                           "description": "The password when creating a new user. It will be generated when not present in the request.",
-                          "x-nullable": true,
                           "_key": "password"
                         },
                         {
@@ -8561,7 +8545,6 @@
                           "type": "string",
                           "example": "+44 (1223) 400 400",
                           "description": "Phone number.",
-                          "x-nullable": true,
                           "_key": "phone_number"
                         },
                         {
@@ -8596,7 +8579,6 @@
                           "type": "string",
                           "example": "admin",
                           "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                          "x-nullable": true,
                           "_key": "username"
                         }
                       ],
@@ -9454,7 +9436,7 @@
           "_key": "upgraded_at"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Developer",
         "Aggregator Account Admin"
@@ -9467,7 +9449,7 @@
         "ActiveSession"
       ],
       "primary_key_field": null,
-      "methods": {},
+      "methods": [],
       "fields": [
         {
           "type": "string",
@@ -9516,7 +9498,7 @@
           "_key": "user_agent"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
       "_key": "active_session"
@@ -9532,7 +9514,7 @@
       "methods": [
         {
           "description": "An endpoint for creating a new API key.\n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{\"name\": \"MyKey1\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -9970,7 +9952,7 @@
         },
         {
           "description": "An endpoint for deleting the API key.\n\n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "name": "apikey_id",
@@ -10241,7 +10223,7 @@
         },
         {
           "description": "An endpoint for retrieving API keys in an array, optionally filtered by the owner.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -10689,8 +10671,8 @@
         },
         {
           "description": "An endpoint for retrieving API key details.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
-          "fields": {},
+          "field_renames": [],
+          "fields": [],
           "method": "get",
           "mode": "me",
           "responses": [
@@ -11019,7 +11001,7 @@
         },
         {
           "description": "An endpoint for retrieving API key details.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -11432,7 +11414,7 @@
         },
         {
           "description": "An endpoint for updating API key details.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} -d '{\"name\": \"TestApiKey25\"}' -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -12060,7 +12042,7 @@
           "_key": "updated_at"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Developer"
       ],
@@ -12076,7 +12058,7 @@
       "methods": [
         {
           "description": "\nGet certificate enrollments list, optionally filtered.\n\n**Example usage:**\n\n```\ncurl -H 'authorization: Bearer <valid access token>'\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-enrollments\n```\n```\ncurl -H 'authorization: Bearer <valid access token>'\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -12196,27 +12178,16 @@
                           "type": "string",
                           "enum": [
                             "success",
-                            "failure",
                             "not_found",
-                            "forbidden"
+                            "forbidden",
+                            "failure"
                           ],
-                          "description": "The result of certificate enrollment request.",
-                          "example": "success",
                           "api_fieldname": "enroll_result",
                           "entity_fieldname": "enroll_result",
                           "_key": "enroll_result"
                         },
                         {
                           "type": "string",
-                          "description": "Additional information in case of failure.",
-                          "example": "The device is currently processing too many certificate renewals.",
-                          "api_fieldname": "enroll_result_detail",
-                          "entity_fieldname": "enroll_result_detail",
-                          "_key": "enroll_result_detail"
-                        },
-                        {
-                          "type": "string",
-                          "description": "The status of certificate enrollment request.",
                           "enum": [
                             "new",
                             "completed"
@@ -12593,7 +12564,7 @@
         },
         {
           "description": "Get a certificate enrollment by ID.\n\n**Example usage:**\n\n```\ncurl -H 'authorization: Bearer <valid access token>'\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -12651,27 +12622,16 @@
                     "type": "string",
                     "enum": [
                       "success",
-                      "failure",
                       "not_found",
-                      "forbidden"
+                      "forbidden",
+                      "failure"
                     ],
-                    "description": "The result of certificate enrollment request.",
-                    "example": "success",
                     "api_fieldname": "enroll_result",
                     "entity_fieldname": "enroll_result",
                     "_key": "enroll_result"
                   },
                   {
                     "type": "string",
-                    "description": "Additional information in case of failure.",
-                    "example": "The device is currently processing too many certificate renewals.",
-                    "api_fieldname": "enroll_result_detail",
-                    "entity_fieldname": "enroll_result_detail",
-                    "_key": "enroll_result_detail"
-                  },
-                  {
-                    "type": "string",
-                    "description": "The status of certificate enrollment request.",
                     "enum": [
                       "new",
                       "completed"
@@ -13008,7 +12968,6 @@
             "certificate_name",
             "enroll_status",
             "enroll_result",
-            "enroll_result_detail",
             "updated_at"
           ],
           "group_id": "Security",
@@ -13059,12 +13018,10 @@
           "type": "string",
           "enum": [
             "success",
-            "failure",
             "not_found",
-            "forbidden"
+            "forbidden",
+            "failure"
           ],
-          "description": "The result of certificate enrollment request.",
-          "example": "success",
           "api_fieldname": "enroll_result",
           "readOnly": true,
           "required": false,
@@ -13073,16 +13030,6 @@
         },
         {
           "type": "string",
-          "description": "Additional information in case of failure.",
-          "example": "The device is currently processing too many certificate renewals.",
-          "api_fieldname": "enroll_result_detail",
-          "readOnly": true,
-          "required": false,
-          "_key": "enroll_result_detail"
-        },
-        {
-          "type": "string",
-          "description": "The status of certificate enrollment request.",
           "enum": [
             "new",
             "completed"
@@ -13115,7 +13062,7 @@
           "_key": "updated_at"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Certificate Enrollments"
       ],
@@ -13134,7 +13081,7 @@
       "methods": [
         {
           "description": "Create a certificate issuer.\nThe maximum number of issuers is limited to 20 per account.\nMultiple certificate issuers of the same issuer type can be created, provided they have a different name. This allows verification of the certificate issuer configuration before activating it.\n<br>\n**Example usage:**\n\n```\ncurl -X POST \\\n-H 'authorization: Bearer <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers \\\n-d '{\n  \"issuer_type\": \"GLOBAL_SIGN\",\n  \"name\": \"GS Issuer\",\n  \"description\": \"Sample GlobalSign certificate issuer\",\n  \"issuer_attributes\": null,\n  \"issuer_credentials\": {\n      \"api_key\": \"e510e289e6cd8947\",\n      \"api_secret\": \"a477a8393d17a55ecb2ba6a61f58feb84770b621\",\n      \"client_certificate\": \"-----BEGIN CERTIFICATE-----MIIC7zCCAdegAwIBAgIJANTlU4x5S74VMA0GCSqGSIb3DQEBCwUAMA4xDDAKBgNVBAoMA0FybTAeFw0xODAzMTExMzE5MTFaFw0xOTAzMTExMzE5MTFaMA4xDDAKBgNVBAoMA0FybTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJWLStsVMJULZtxdieK9qocM4ymDXMaAusmd9TZLzBgznKQe/CW2yxyA8C8K5e6MmvMYGeKDd4Lkw/ezOj2OsUj2xzNIltUxpGi/GhsNYiN/khNJa/Y1SllLoihJAPm/xbMywOBRu/dM88PiJsNZccOk0I8DYvvyAs9wCTkbKLnfHygl98DCRqXw7nBCplU6F03qpUd/4BUtMtugyqt7yboGH+4YewnUh4Yh4QNOJIvE93Ob++eKjO3pIOYEhQmUxzOLaLNuWXlv2l1WuN281hUP4XBcV8mCzRQfTBBDYTWt+5BEWoLOUkXjW0Um6EAaN3usph1IKDEH6Ia5VHP4Pj0CAwEAAaNQME4wHQYDVR0OBBYEFLsfYZxFcQTjPJKYMjHI2In316fmMB8GA1UdIwQYMBaAFLsfYZxFcQTjPJKYMjHI2In316fmMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAFl08GFsIkkUs6M7QgCWmsnwP6PtD8V87wM1GAqQQlOOeztaeRR2TEOeYiKRZQugYszJ/FVfVp4ggqzepJMn6UZ42j5nmSJs+6t79i23QAzX1zNQ354lr/t7kt3fMdhuL3AP0oZGzdy+EnXXiWeAD22UwzvVmLt38ypJIl+pmTsx9jJy4PN7yoRgtP9k+50m3X6oDxVruehC/JPSeTvEhqyLW3fLcG6IoJMX3vIwfO9uXbFJumTowQeViNJJ9duWvD2KBXn/muOOBe97TPuvAms1gOtMmmPT9/jpo9b4+NsfFiAN6bMici81aIKZzLC+lLGOUmR2fFJyM5OsVLxKsko=-----END CERTIFICATE-----\",\n        \"private_key\":\"-----BEGIN RSA PRIVATE KEY-----\\nProc-Type: 4,ENCRYPTED\\nDEK-Info: DES-EDE3-CBC,CCAC26A4133947CB\\n\\np3KJ4FI3wcz3I0MtiLkrznkjWFvprVmoNywySUGb5IqZViJZqCMEsyU9a9iDsSfP\\nZ07cg9GviV21WYIPSxZOQrpy1g1VWILzFnH+J6z8dSH4mxXh0PwdOzYgAeqkrIVM\\nJ7KRm6t222dZFjjXK3eEcLmBLGo29XwVJxKHx+l4++gU1LZmeHZR5M8fJ4jejUly\\n7sqzPlmRF0N3I4lwKVj+PfQTVz43QoCnpxOjuSEL4liBrc2agY2xH1O0PFyHimz9\\n3XM9HR/iuPHW0N2D+NPjXlWKacerupH9d4i9IYIagzB+HTgej8limdo03GmmxcZ6\\nYNa58n5yQSaqu0TPRU9DsrKeGjadHTlZQGdzfq1SWsROCnHLrXFKE2ozIG3+hxA5\\nujBF/QWpX5+inXUwDJhBxp8isHbPEnBEUUd6ZRzCTjvN0jaUti5B9yFhO2G6mbE8\\nCvhyzQK8oJqsjZXnlcpPf95LP+9XbcCDjLSIaWJstzXO9tPiv6+x1MVWmivtRHcC\\nSTzpx8jAGCiG6ejLqWB87ZXiZm7ujlCBheHSf5RHwNHhUvoP2JEYalDDRxjcDMSx\\n4uV42Np4yJlIQEDlGHcBlXoL7vEukFpuWgkYdpcZy/Ou9qz8mXrpLcu8C8MhLmSC\\nixGoR5iRhV7cxoHLyuCzj87eYEA73Xu238DQorSEEuiVFnLzQ2+PJMs4qoI14q/L\\notlBDz+Ko6DrU/EZROYmiqMkLKXR2sx9zNAJwPYRs6nSH08tZ3dwqzZbgtP3Wazi\\nhLWHt5/En7wQRA5a+/dDEHXSoLvvSQ9jvhclhWf+eCYuq2eH+g54oyJGRSY+8GV7\\nujhLxkzl/3OZdhZPWoz4U13KpbSTcNWu5Y7oGDoabw19UbvqmLf1PJkpDH/tQgzB\\nxYtsLBRUcofpYoeIiIxfAA4do5WilJc8xqrGhkE4WcHfY24HXAiOvsjbxV+BRprX\\n1jtgJpV/9nJESMap+8PxipGUFRGjB83/uwJaa6mLftEKflX8i4MZ+HnqraXERsqA\\nWRUcDHIWmFfpzIB3iNuxawVvPH8NdCSPmQ9qTb8Cozl0AuOK2E9S+ke8oiYQScWR\\nLdu+zhej7GjuQ9R+Ub+wPWqvOA5qLXejqnCexVScDUuN+z9JWM3N2FG1MwxhAzhP\\ndEfoQHoBn6uyOmrVGP6fosV3chqhPoec42KeOAm1xDvx692isaIy1jPgIyPxeqhm\\n2Tw4E+02R7dlP8Ljf7JzfLm4oKpWHWlcHeqg24x6lY/wXU1RBcWaTa0AQUwoGm2m\\nIQCPfIqOEv/QC2HpO7SVCYkl65KwR0oTd1AzYxdxEq3xHQbh69EL0FGZPVxVCPI+\\nhEAyifKy1/tm3l91Rf/kGpHY7nIQKCXH49tmFwix8gke2nZJmRgX7/zAdMOAKeKH\\nAaIl4nQtv14EbaasMgnn9qgaDYnWzaReEob2QlQ/WYlTor61+KFpGtcf9jAkgudT\\n2op+4CF7wT2+aTXdtkVWfmv++iB8GnlqZdxLvyG1cTYjjYHVFbMSWQnxzQqiE2ms\\nQgp+byjWCumpsWTMdTO+d9NkDOo80vDpaRxEgebmhJ0MbX+eFjBgVg==\\n-----END RSA PRIVATE KEY-----\",\n      \"passphrase\": \"helloworld\"\n  }\n}'\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -13154,7 +13101,7 @@
                 "type": "string"
               },
               "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-              "example": {},
+              "example": [],
               "api_fieldname": "issuer_attributes",
               "entity_fieldname": "issuer_attributes",
               "parameter_fieldname": "issuer_attributes",
@@ -13168,7 +13115,7 @@
                 "type": "string"
               },
               "description": "The credentials required for connecting to the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.\n",
-              "example": {},
+              "example": [],
               "name": "issuer_credentials",
               "in": "body",
               "schema_param": true,
@@ -13256,7 +13203,7 @@
                       "type": "string"
                     },
                     "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-                    "example": {},
+                    "example": [],
                     "api_fieldname": "issuer_attributes",
                     "entity_fieldname": "issuer_attributes",
                     "_key": "issuer_attributes"
@@ -13649,7 +13596,7 @@
         },
         {
           "description": "Delete a certificate issuer by ID.\n<br>\n**Example usage:**\n\n```\ncurl -X DELETE \\\n-H 'authorization: <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "name": "certificate-issuer-id",
@@ -13953,7 +13900,7 @@
         },
         {
           "description": "Note: This endpoint does not implement pagination and therefore, list control parameters such as `limit` or `after` will be ignored by the system.\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -14067,7 +14014,7 @@
                             "type": "string"
                           },
                           "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-                          "example": {},
+                          "example": [],
                           "_key": "issuer_attributes"
                         },
                         {
@@ -14333,7 +14280,7 @@
         },
         {
           "description": "(No description provided)",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -14395,7 +14342,7 @@
                       "type": "string"
                     },
                     "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-                    "example": {},
+                    "example": [],
                     "api_fieldname": "issuer_attributes",
                     "entity_fieldname": "issuer_attributes",
                     "_key": "issuer_attributes"
@@ -14728,7 +14675,7 @@
         },
         {
           "description": "Update a certificate issuer.\n<br>\n**Example usage:**\n\n```\ncurl -X PUT \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000 \\\n-d '{\n  \"description\": \"Sample GlobalSign certificate issuer - updated.\",\n  \"name\": \"GlobalSign Issuer\"\n}'\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -14759,7 +14706,7 @@
                 "type": "string"
               },
               "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-              "example": {},
+              "example": [],
               "api_fieldname": "issuer_attributes",
               "entity_fieldname": "issuer_attributes",
               "parameter_fieldname": "issuer_attributes",
@@ -14773,7 +14720,7 @@
                 "type": "string"
               },
               "description": "The credentials required for connecting to the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.\n",
-              "example": {},
+              "example": [],
               "name": "issuer_credentials",
               "in": "body",
               "schema_param": true,
@@ -14845,7 +14792,7 @@
                       "type": "string"
                     },
                     "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-                    "example": {},
+                    "example": [],
                     "api_fieldname": "issuer_attributes",
                     "entity_fieldname": "issuer_attributes",
                     "_key": "issuer_attributes"
@@ -15301,7 +15248,7 @@
         },
         {
           "description": "A utility API that can be used to validate the user configuration before activating a certificate issuer.\nVerifies that the certificate issuer is accessible and can be used to generate certificates by Device Management.\n<br>\n**Note:**\nThe API requests the 3rd party CA to sign a test certificate.\nFor some 3rd party CAs, this operation may make use of the account quota.\n<br>\n**Example usage:**\n\n```\ncurl -X POST \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type: application/json;charset=UTF-8' \\\nhttps://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "name": "certificate-issuer-id",
@@ -15735,7 +15682,7 @@
             "type": "string"
           },
           "description": "General attributes for connecting the certificate issuer.\nWhen the issuer_type is GLOBAL_SIGN, the value shall be empty.\nWhen the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.\n",
-          "example": {},
+          "example": [],
           "api_fieldname": "issuer_attributes",
           "readOnly": false,
           "required": false,
@@ -15766,7 +15713,7 @@
           "_key": "name"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Certificate Issuers"
       ],
@@ -16496,7 +16443,7 @@
               "_key": "certificate_reference"
             }
           ],
-          "fields": {},
+          "fields": [],
           "method": "get",
           "mode": "get_default",
           "responses": [
@@ -18174,7 +18121,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "ID that uniquely identifies the developer certificate.",
+                    "description": "mUUID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "parameter_fieldname": "developerCertificateId",
@@ -19403,7 +19350,7 @@
           "fields": [
             {
               "type": "string",
-              "description": "ID that uniquely identifies the developer certificate.",
+              "description": "mUUID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "developerCertificateId",
@@ -19465,7 +19412,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "ID that uniquely identifies the developer certificate.",
+                    "description": "mUUID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -19824,7 +19771,7 @@
         },
         {
           "type": "string",
-          "description": "ID that uniquely identifies the developer certificate.",
+          "description": "mUUID that uniquely identifies the developer certificate.",
           "api_fieldname": "id",
           "parameter_fieldname": "developerCertificateId",
           "in": "path",
@@ -19878,7 +19825,7 @@
       "methods": [
         {
           "description": "Create a new device.",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "boolean",
@@ -19938,16 +19885,11 @@
             },
             {
               "type": "object",
-              "maxProperties": 5,
+              "description": "Up to five custom key-value attributes.",
               "additionalProperties": {
-                "type": "string",
-                "maxLength": 128,
-                "pattern": "^[A-Za-z].*"
+                "type": "string"
               },
-              "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-              "example": {
-                "key": "value"
-              },
+              "example": "{ 'key': 'value' }",
               "api_fieldname": "custom_attributes",
               "entity_fieldname": "custom_attributes",
               "parameter_fieldname": "custom_attributes",
@@ -20022,7 +19964,6 @@
               "type": "string",
               "description": "The endpoint name given to the device.",
               "example": "00000000-0000-0000-0000-000000000000",
-              "readOnly": true,
               "api_fieldname": "endpoint_name",
               "entity_fieldname": "endpoint_name",
               "parameter_fieldname": "endpoint_name",
@@ -20063,18 +20004,6 @@
               "in": "body",
               "required": false,
               "_key": "host_gateway"
-            },
-            {
-              "type": "string",
-              "pattern": "[A-Fa-f0-9]{64}",
-              "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
-              "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
-              "api_fieldname": "issuer_fingerprint",
-              "entity_fieldname": "issuer_fingerprint",
-              "parameter_fieldname": "issuer_fingerprint",
-              "in": "body",
-              "required": false,
-              "_key": "issuer_fingerprint"
             },
             {
               "type": "string",
@@ -20188,85 +20117,6 @@
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups"
                   },
-                  "issuer_fingerprint": {
-                    "type": "string",
-                    "pattern": "[A-Fa-f0-9]{64}",
-                    "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
-                    "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
-                    "api_fieldname": "issuer_fingerprint",
-                    "entity_fieldname": "issuer_fingerprint"
-                  },
-                  "operator_suspended": {
-                    "type": "boolean",
-                    "description": "Is the device suspended by the operator?",
-                    "api_fieldname": "operator_suspended",
-                    "entity_fieldname": "operator_suspended"
-                  },
-                  "last_operator_suspended_category": {
-                    "type": "string",
-                    "description": "The reference of the block category.",
-                    "pattern": "[a-f0-9_]{32}",
-                    "example": "maintenance",
-                    "api_fieldname": "last_operator_suspended_category",
-                    "entity_fieldname": "last_operator_suspended_category"
-                  },
-                  "last_operator_suspended_description": {
-                    "type": "string",
-                    "maxLength": 2000,
-                    "description": "The most recent description why the device was suspended or returned to service.",
-                    "example": "Suspended for maintenance.",
-                    "api_fieldname": "last_operator_suspended_description",
-                    "entity_fieldname": "last_operator_suspended_description"
-                  },
-                  "last_operator_suspended_updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The timestamp of the most recent suspension activity.",
-                    "example": "2017-05-22T12:37:55.576563Z",
-                    "api_fieldname": "last_operator_suspended_updated_at",
-                    "entity_fieldname": "last_operator_suspended_updated_at"
-                  },
-                  "system_suspended": {
-                    "type": "boolean",
-                    "description": "Is the device suspended by the system?",
-                    "api_fieldname": "system_suspended",
-                    "entity_fieldname": "system_suspended"
-                  },
-                  "last_system_suspended_category": {
-                    "type": "string",
-                    "description": "The reference of the block category.",
-                    "pattern": "[a-f0-9_]{32}",
-                    "example": "maintenance",
-                    "api_fieldname": "last_system_suspended_category",
-                    "entity_fieldname": "last_system_suspended_category"
-                  },
-                  "last_system_suspended_description": {
-                    "type": "string",
-                    "maxLength": 2000,
-                    "description": "The most recent description of why the device was blocked or unblocked by the system.",
-                    "example": "A certificate in the device's certificate chain was blacklisted by the system.",
-                    "api_fieldname": "last_system_suspended_description",
-                    "entity_fieldname": "last_system_suspended_description"
-                  },
-                  "last_system_suspended_updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The timestamp of the most recent system block activity.",
-                    "example": "2017-05-22T12:37:55.576563Z",
-                    "api_fieldname": "last_system_suspended_updated_at",
-                    "entity_fieldname": "last_system_suspended_updated_at"
-                  },
-                  "lifecycle_status": {
-                    "type": "string",
-                    "enum": [
-                      "enabled",
-                      "blocked"
-                    ],
-                    "description": "The lifecycle status of the device.",
-                    "example": "enabled",
-                    "api_fieldname": "lifecycle_status",
-                    "entity_fieldname": "lifecycle_status"
-                  },
                   "account_id": {
                     "type": "string",
                     "description": "The ID of the associated account.",
@@ -20332,16 +20182,11 @@
                   },
                   "custom_attributes": {
                     "type": "object",
-                    "maxProperties": 5,
+                    "description": "Up to five custom key-value attributes.",
                     "additionalProperties": {
-                      "type": "string",
-                      "maxLength": 128,
-                      "pattern": "^[A-Za-z].*"
+                      "type": "string"
                     },
-                    "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-                    "example": {
-                      "key": "value"
-                    },
+                    "example": "{ 'key': 'value' }",
                     "api_fieldname": "custom_attributes",
                     "entity_fieldname": "custom_attributes"
                   },
@@ -20397,7 +20242,6 @@
                     "type": "string",
                     "description": "The endpoint name given to the device.",
                     "example": "00000000-0000-0000-0000-000000000000",
-                    "readOnly": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name"
                   },
@@ -20561,15 +20405,6 @@
             "is_custom",
             "private_key",
             "sub_accounts",
-            "operator_suspended",
-            "last_operator_suspended_category",
-            "last_operator_suspended_description",
-            "last_operator_suspended_updated_at",
-            "system_suspended",
-            "last_system_suspended_category",
-            "last_system_suspended_description",
-            "last_system_suspended_updated_at",
-            "lifecycle_status",
             "account_id",
             "created_at",
             "deployed_state",
@@ -20585,7 +20420,7 @@
         },
         {
           "description": "Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "in": "path",
@@ -20645,14 +20480,14 @@
         },
         {
           "description": "List all devices.",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
-              "description": "The ID of The item after which to retrieve the next page.",
-              "example": "01631667477600000000000100100374",
+              "example": null,
               "api_fieldname": "after",
               "entity_fieldname": "after",
+              "description": "The ID of The item after which to retrieve the next page.",
               "in": "query",
               "name": "after",
               "external_param": true,
@@ -20674,14 +20509,14 @@
             },
             {
               "type": "integer",
-              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
-              "example": 50,
-              "minimum": 2,
-              "maximum": 1000,
+              "example": 1000,
               "api_fieldname": "limit",
               "entity_fieldname": "limit",
+              "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
               "in": "query",
               "name": "limit",
+              "minimum": 2,
+              "maximum": 1000,
               "external_param": true,
               "parameter_fieldname": "limit",
               "required": false,
@@ -20689,10 +20524,10 @@
             },
             {
               "type": "string",
-              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
               "example": "DESC",
               "api_fieldname": "order",
               "entity_fieldname": "order",
+              "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
               "in": "query",
               "name": "order",
               "external_param": true,
@@ -20710,8 +20545,7 @@
                 "properties": [
                   {
                     "type": "string",
-                    "description": "An offset token for current page.",
-                    "example": "01631667477600000000000100100374",
+                    "example": null,
                     "api_fieldname": "after",
                     "entity_fieldname": "after",
                     "_key": "after"
@@ -20731,65 +20565,6 @@
                             "type": "string",
                             "example": "00000000000000000000000000000000"
                           }
-                        },
-                        "issuer_fingerprint": {
-                          "type": "string",
-                          "pattern": "[A-Fa-f0-9]{64}",
-                          "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
-                          "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322"
-                        },
-                        "operator_suspended": {
-                          "type": "boolean",
-                          "description": "Is the device suspended by the operator?"
-                        },
-                        "last_operator_suspended_category": {
-                          "type": "string",
-                          "description": "The reference of the block category.",
-                          "pattern": "[a-f0-9_]{32}",
-                          "example": "maintenance"
-                        },
-                        "last_operator_suspended_description": {
-                          "type": "string",
-                          "maxLength": 2000,
-                          "description": "The most recent description why the device was suspended or returned to service.",
-                          "example": "Suspended for maintenance."
-                        },
-                        "last_operator_suspended_updated_at": {
-                          "type": "string",
-                          "format": "date-time",
-                          "description": "The timestamp of the most recent suspension activity.",
-                          "example": "2017-05-22T12:37:55.576563Z"
-                        },
-                        "system_suspended": {
-                          "type": "boolean",
-                          "description": "Is the device suspended by the system?"
-                        },
-                        "last_system_suspended_category": {
-                          "type": "string",
-                          "description": "The reference of the block category.",
-                          "pattern": "[a-f0-9_]{32}",
-                          "example": "maintenance"
-                        },
-                        "last_system_suspended_description": {
-                          "type": "string",
-                          "maxLength": 2000,
-                          "description": "The most recent description of why the device was blocked or unblocked by the system.",
-                          "example": "A certificate in the device's certificate chain was blacklisted by the system."
-                        },
-                        "last_system_suspended_updated_at": {
-                          "type": "string",
-                          "format": "date-time",
-                          "description": "The timestamp of the most recent system block activity.",
-                          "example": "2017-05-22T12:37:55.576563Z"
-                        },
-                        "lifecycle_status": {
-                          "type": "string",
-                          "enum": [
-                            "enabled",
-                            "blocked"
-                          ],
-                          "description": "The lifecycle status of the device.",
-                          "example": "enabled"
                         },
                         "account_id": {
                           "type": "string",
@@ -20840,16 +20615,11 @@
                         },
                         "custom_attributes": {
                           "type": "object",
-                          "maxProperties": 5,
+                          "description": "Up to five custom key-value attributes.",
                           "additionalProperties": {
-                            "type": "string",
-                            "maxLength": 128,
-                            "pattern": "^[A-Za-z].*"
+                            "type": "string"
                           },
-                          "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-                          "example": {
-                            "key": "value"
-                          }
+                          "example": "{ 'key': 'value' }"
                         },
                         "deployed_state": {
                           "enum": [
@@ -20890,8 +20660,7 @@
                         "endpoint_name": {
                           "type": "string",
                           "description": "The endpoint name given to the device.",
-                          "example": "00000000-0000-0000-0000-000000000000",
-                          "readOnly": true
+                          "example": "00000000-0000-0000-0000-000000000000"
                         },
                         "endpoint_type": {
                           "type": "string",
@@ -20987,13 +20756,13 @@
                       }
                     ],
                     "type": "array",
+                    "example": "[]",
                     "api_fieldname": "data",
                     "entity_fieldname": "data",
                     "_key": "data"
                   },
                   {
                     "type": "boolean",
-                    "description": "Are there more results available.",
                     "example": false,
                     "api_fieldname": "has_more",
                     "entity_fieldname": "has_more",
@@ -21001,17 +20770,13 @@
                   },
                   {
                     "type": "integer",
-                    "description": "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.",
-                    "example": 50,
-                    "minimum": 2,
-                    "maximum": 1000,
+                    "example": 1000,
                     "api_fieldname": "limit",
                     "entity_fieldname": "limit",
                     "_key": "limit"
                   },
                   {
                     "type": "string",
-                    "description": "The type of this API object is a \"list\".",
                     "example": "list",
                     "api_fieldname": "object",
                     "entity_fieldname": "object",
@@ -21019,14 +20784,12 @@
                   },
                   {
                     "type": "string",
-                    "description": "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.",
                     "example": "DESC",
                     "api_fieldname": "order",
                     "entity_fieldname": "order",
                     "_key": "order"
                   },
                   {
-                    "format": "integer",
                     "type": "integer",
                     "example": 1,
                     "api_fieldname": "total_count",
@@ -21090,7 +20853,7 @@
         },
         {
           "description": "Retrieve information about a specific device.",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -21125,85 +20888,6 @@
                     },
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups"
-                  },
-                  "issuer_fingerprint": {
-                    "type": "string",
-                    "pattern": "[A-Fa-f0-9]{64}",
-                    "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
-                    "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
-                    "api_fieldname": "issuer_fingerprint",
-                    "entity_fieldname": "issuer_fingerprint"
-                  },
-                  "operator_suspended": {
-                    "type": "boolean",
-                    "description": "Is the device suspended by the operator?",
-                    "api_fieldname": "operator_suspended",
-                    "entity_fieldname": "operator_suspended"
-                  },
-                  "last_operator_suspended_category": {
-                    "type": "string",
-                    "description": "The reference of the block category.",
-                    "pattern": "[a-f0-9_]{32}",
-                    "example": "maintenance",
-                    "api_fieldname": "last_operator_suspended_category",
-                    "entity_fieldname": "last_operator_suspended_category"
-                  },
-                  "last_operator_suspended_description": {
-                    "type": "string",
-                    "maxLength": 2000,
-                    "description": "The most recent description why the device was suspended or returned to service.",
-                    "example": "Suspended for maintenance.",
-                    "api_fieldname": "last_operator_suspended_description",
-                    "entity_fieldname": "last_operator_suspended_description"
-                  },
-                  "last_operator_suspended_updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The timestamp of the most recent suspension activity.",
-                    "example": "2017-05-22T12:37:55.576563Z",
-                    "api_fieldname": "last_operator_suspended_updated_at",
-                    "entity_fieldname": "last_operator_suspended_updated_at"
-                  },
-                  "system_suspended": {
-                    "type": "boolean",
-                    "description": "Is the device suspended by the system?",
-                    "api_fieldname": "system_suspended",
-                    "entity_fieldname": "system_suspended"
-                  },
-                  "last_system_suspended_category": {
-                    "type": "string",
-                    "description": "The reference of the block category.",
-                    "pattern": "[a-f0-9_]{32}",
-                    "example": "maintenance",
-                    "api_fieldname": "last_system_suspended_category",
-                    "entity_fieldname": "last_system_suspended_category"
-                  },
-                  "last_system_suspended_description": {
-                    "type": "string",
-                    "maxLength": 2000,
-                    "description": "The most recent description of why the device was blocked or unblocked by the system.",
-                    "example": "A certificate in the device's certificate chain was blacklisted by the system.",
-                    "api_fieldname": "last_system_suspended_description",
-                    "entity_fieldname": "last_system_suspended_description"
-                  },
-                  "last_system_suspended_updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The timestamp of the most recent system block activity.",
-                    "example": "2017-05-22T12:37:55.576563Z",
-                    "api_fieldname": "last_system_suspended_updated_at",
-                    "entity_fieldname": "last_system_suspended_updated_at"
-                  },
-                  "lifecycle_status": {
-                    "type": "string",
-                    "enum": [
-                      "enabled",
-                      "blocked"
-                    ],
-                    "description": "The lifecycle status of the device.",
-                    "example": "enabled",
-                    "api_fieldname": "lifecycle_status",
-                    "entity_fieldname": "lifecycle_status"
                   },
                   "account_id": {
                     "type": "string",
@@ -21270,16 +20954,11 @@
                   },
                   "custom_attributes": {
                     "type": "object",
-                    "maxProperties": 5,
+                    "description": "Up to five custom key-value attributes.",
                     "additionalProperties": {
-                      "type": "string",
-                      "maxLength": 128,
-                      "pattern": "^[A-Za-z].*"
+                      "type": "string"
                     },
-                    "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-                    "example": {
-                      "key": "value"
-                    },
+                    "example": "{ 'key': 'value' }",
                     "api_fieldname": "custom_attributes",
                     "entity_fieldname": "custom_attributes"
                   },
@@ -21335,7 +21014,6 @@
                     "type": "string",
                     "description": "The endpoint name given to the device.",
                     "example": "00000000-0000-0000-0000-000000000000",
-                    "readOnly": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name"
                   },
@@ -21495,16 +21173,6 @@
             "is_custom",
             "private_key",
             "sub_accounts",
-            "issuer_fingerprint",
-            "operator_suspended",
-            "last_operator_suspended_category",
-            "last_operator_suspended_description",
-            "last_operator_suspended_updated_at",
-            "system_suspended",
-            "last_system_suspended_category",
-            "last_system_suspended_description",
-            "last_system_suspended_updated_at",
-            "lifecycle_status",
             "account_id",
             "device_execution_mode",
             "auto_update",
@@ -21541,7 +21209,7 @@
         },
         {
           "description": "Request a certificate renewal.\n\n**Example usage:**\n\n```\ncurl -X POST\n-H 'authorization: Bearer <valid access token>'\n-H 'content-length: 0'\nhttps://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -21608,27 +21276,16 @@
                     "type": "string",
                     "enum": [
                       "success",
-                      "failure",
                       "not_found",
-                      "forbidden"
+                      "forbidden",
+                      "failure"
                     ],
-                    "description": "The result of certificate enrollment request.",
-                    "example": "success",
                     "api_fieldname": "enroll_result",
                     "entity_fieldname": "enroll_result",
                     "_key": "enroll_result"
                   },
                   {
                     "type": "string",
-                    "description": "Additional information in case of failure.",
-                    "example": "The device is currently processing too many certificate renewals.",
-                    "api_fieldname": "enroll_result_detail",
-                    "entity_fieldname": "enroll_result_detail",
-                    "_key": "enroll_result_detail"
-                  },
-                  {
-                    "type": "string",
-                    "description": "The status of certificate enrollment request.",
                     "enum": [
                       "new",
                       "completed"
@@ -22087,7 +21744,6 @@
             "device_id",
             "enroll_status",
             "enroll_result",
-            "enroll_result_detail",
             "updated_at"
           ],
           "group_id": "Devices",
@@ -22106,7 +21762,7 @@
         },
         {
           "description": "Update a specific device.",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "boolean",
@@ -22132,16 +21788,11 @@
             },
             {
               "type": "object",
-              "maxProperties": 5,
+              "description": "Up to five custom key-value attributes.",
               "additionalProperties": {
-                "type": "string",
-                "maxLength": 128,
-                "pattern": "^[A-Za-z].*"
+                "type": "string"
               },
-              "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-              "example": {
-                "key": "value"
-              },
+              "example": "{ 'key': 'value' }",
               "api_fieldname": "custom_attributes",
               "entity_fieldname": "custom_attributes",
               "parameter_fieldname": "custom_attributes",
@@ -22177,7 +21828,6 @@
               "type": "string",
               "description": "The endpoint name given to the device.",
               "example": "00000000-0000-0000-0000-000000000000",
-              "readOnly": true,
               "api_fieldname": "endpoint_name",
               "entity_fieldname": "endpoint_name",
               "parameter_fieldname": "endpoint_name",
@@ -22254,85 +21904,6 @@
                     "api_fieldname": "groups",
                     "entity_fieldname": "groups"
                   },
-                  "issuer_fingerprint": {
-                    "type": "string",
-                    "pattern": "[A-Fa-f0-9]{64}",
-                    "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
-                    "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
-                    "api_fieldname": "issuer_fingerprint",
-                    "entity_fieldname": "issuer_fingerprint"
-                  },
-                  "operator_suspended": {
-                    "type": "boolean",
-                    "description": "Is the device suspended by the operator?",
-                    "api_fieldname": "operator_suspended",
-                    "entity_fieldname": "operator_suspended"
-                  },
-                  "last_operator_suspended_category": {
-                    "type": "string",
-                    "description": "The reference of the block category.",
-                    "pattern": "[a-f0-9_]{32}",
-                    "example": "maintenance",
-                    "api_fieldname": "last_operator_suspended_category",
-                    "entity_fieldname": "last_operator_suspended_category"
-                  },
-                  "last_operator_suspended_description": {
-                    "type": "string",
-                    "maxLength": 2000,
-                    "description": "The most recent description why the device was suspended or returned to service.",
-                    "example": "Suspended for maintenance.",
-                    "api_fieldname": "last_operator_suspended_description",
-                    "entity_fieldname": "last_operator_suspended_description"
-                  },
-                  "last_operator_suspended_updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The timestamp of the most recent suspension activity.",
-                    "example": "2017-05-22T12:37:55.576563Z",
-                    "api_fieldname": "last_operator_suspended_updated_at",
-                    "entity_fieldname": "last_operator_suspended_updated_at"
-                  },
-                  "system_suspended": {
-                    "type": "boolean",
-                    "description": "Is the device suspended by the system?",
-                    "api_fieldname": "system_suspended",
-                    "entity_fieldname": "system_suspended"
-                  },
-                  "last_system_suspended_category": {
-                    "type": "string",
-                    "description": "The reference of the block category.",
-                    "pattern": "[a-f0-9_]{32}",
-                    "example": "maintenance",
-                    "api_fieldname": "last_system_suspended_category",
-                    "entity_fieldname": "last_system_suspended_category"
-                  },
-                  "last_system_suspended_description": {
-                    "type": "string",
-                    "maxLength": 2000,
-                    "description": "The most recent description of why the device was blocked or unblocked by the system.",
-                    "example": "A certificate in the device's certificate chain was blacklisted by the system.",
-                    "api_fieldname": "last_system_suspended_description",
-                    "entity_fieldname": "last_system_suspended_description"
-                  },
-                  "last_system_suspended_updated_at": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "The timestamp of the most recent system block activity.",
-                    "example": "2017-05-22T12:37:55.576563Z",
-                    "api_fieldname": "last_system_suspended_updated_at",
-                    "entity_fieldname": "last_system_suspended_updated_at"
-                  },
-                  "lifecycle_status": {
-                    "type": "string",
-                    "enum": [
-                      "enabled",
-                      "blocked"
-                    ],
-                    "description": "The lifecycle status of the device.",
-                    "example": "enabled",
-                    "api_fieldname": "lifecycle_status",
-                    "entity_fieldname": "lifecycle_status"
-                  },
                   "account_id": {
                     "type": "string",
                     "description": "The ID of the associated account.",
@@ -22398,16 +21969,11 @@
                   },
                   "custom_attributes": {
                     "type": "object",
-                    "maxProperties": 5,
+                    "description": "Up to five custom key-value attributes.",
                     "additionalProperties": {
-                      "type": "string",
-                      "maxLength": 128,
-                      "pattern": "^[A-Za-z].*"
+                      "type": "string"
                     },
-                    "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-                    "example": {
-                      "key": "value"
-                    },
+                    "example": "{ 'key': 'value' }",
                     "api_fieldname": "custom_attributes",
                     "entity_fieldname": "custom_attributes"
                   },
@@ -22463,7 +22029,6 @@
                     "type": "string",
                     "description": "The endpoint name given to the device.",
                     "example": "00000000-0000-0000-0000-000000000000",
-                    "readOnly": true,
                     "api_fieldname": "endpoint_name",
                     "entity_fieldname": "endpoint_name"
                   },
@@ -22623,16 +22188,6 @@
             "is_custom",
             "private_key",
             "sub_accounts",
-            "issuer_fingerprint",
-            "operator_suspended",
-            "last_operator_suspended_category",
-            "last_operator_suspended_description",
-            "last_operator_suspended_updated_at",
-            "system_suspended",
-            "last_system_suspended_category",
-            "last_system_suspended_description",
-            "last_system_suspended_updated_at",
-            "lifecycle_status",
             "account_id",
             "device_execution_mode",
             "bootstrap_expiration_date",
@@ -22727,16 +22282,11 @@
         },
         {
           "type": "object",
-          "maxProperties": 5,
+          "description": "Up to five custom key-value attributes.",
           "additionalProperties": {
-            "type": "string",
-            "maxLength": 128,
-            "pattern": "^[A-Za-z].*"
+            "type": "string"
           },
-          "description": "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.",
-          "example": {
-            "key": "value"
-          },
+          "example": "{ 'key': 'value' }",
           "api_fieldname": "custom_attributes",
           "readOnly": false,
           "required": false,
@@ -22812,8 +22362,8 @@
           "type": "string",
           "description": "The endpoint name given to the device.",
           "example": "00000000-0000-0000-0000-000000000000",
-          "readOnly": true,
           "api_fieldname": "endpoint_name",
+          "readOnly": false,
           "required": false,
           "_key": "endpoint_name"
         },
@@ -22863,90 +22413,6 @@
           "readOnly": false,
           "required": true,
           "_key": "id"
-        },
-        {
-          "type": "string",
-          "pattern": "[A-Fa-f0-9]{64}",
-          "description": "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.",
-          "example": "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
-          "api_fieldname": "issuer_fingerprint",
-          "readOnly": false,
-          "required": false,
-          "_key": "issuer_fingerprint"
-        },
-        {
-          "type": "string",
-          "description": "The reference of the block category.",
-          "pattern": "[a-f0-9_]{32}",
-          "example": "maintenance",
-          "api_fieldname": "last_operator_suspended_category",
-          "readOnly": true,
-          "required": false,
-          "_key": "last_operator_suspended_category"
-        },
-        {
-          "type": "string",
-          "maxLength": 2000,
-          "description": "The most recent description why the device was suspended or returned to service.",
-          "example": "Suspended for maintenance.",
-          "api_fieldname": "last_operator_suspended_description",
-          "readOnly": true,
-          "required": false,
-          "_key": "last_operator_suspended_description"
-        },
-        {
-          "type": "string",
-          "format": "date-time",
-          "description": "The timestamp of the most recent suspension activity.",
-          "example": "2017-05-22T12:37:55.576563Z",
-          "api_fieldname": "last_operator_suspended_updated_at",
-          "readOnly": true,
-          "required": false,
-          "_key": "last_operator_suspended_updated_at"
-        },
-        {
-          "type": "string",
-          "description": "The reference of the block category.",
-          "pattern": "[a-f0-9_]{32}",
-          "example": "maintenance",
-          "api_fieldname": "last_system_suspended_category",
-          "readOnly": true,
-          "required": false,
-          "_key": "last_system_suspended_category"
-        },
-        {
-          "type": "string",
-          "maxLength": 2000,
-          "description": "The most recent description of why the device was blocked or unblocked by the system.",
-          "example": "A certificate in the device's certificate chain was blacklisted by the system.",
-          "api_fieldname": "last_system_suspended_description",
-          "readOnly": true,
-          "required": false,
-          "_key": "last_system_suspended_description"
-        },
-        {
-          "type": "string",
-          "format": "date-time",
-          "description": "The timestamp of the most recent system block activity.",
-          "example": "2017-05-22T12:37:55.576563Z",
-          "api_fieldname": "last_system_suspended_updated_at",
-          "readOnly": true,
-          "required": false,
-          "_key": "last_system_suspended_updated_at"
-        },
-        {
-          "type": "string",
-          "enum": [
-            "enabled",
-            "blocked"
-          ],
-          "description": "The lifecycle status of the device.",
-          "example": "enabled",
-          "api_fieldname": "lifecycle_status",
-          "readOnly": true,
-          "required": false,
-          "enum_reference": "device_lifecycle_status_enum",
-          "_key": "lifecycle_status"
         },
         {
           "type": "string",
@@ -23000,14 +22466,6 @@
           "_key": "name"
         },
         {
-          "type": "boolean",
-          "description": "Is the device suspended by the operator?",
-          "api_fieldname": "operator_suspended",
-          "readOnly": true,
-          "required": false,
-          "_key": "operator_suspended"
-        },
-        {
           "type": "string",
           "description": "The serial number of the device.",
           "example": "00000000-0000-0000-0000-000000000000",
@@ -23033,14 +22491,6 @@
           "_key": "state"
         },
         {
-          "type": "boolean",
-          "description": "Is the device suspended by the system?",
-          "api_fieldname": "system_suspended",
-          "readOnly": true,
-          "required": false,
-          "_key": "system_suspended"
-        },
-        {
           "format": "date-time",
           "example": "2017-05-22T12:37:55.576563Z",
           "type": "string",
@@ -23060,7 +22510,7 @@
           "_key": "vendor_id"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Certificate Renewal"
       ],
@@ -23077,7 +22527,7 @@
       "methods": [
         {
           "description": "When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account.\n<br>\n**Example usage:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <valid access token>' \\\n-H 'content-type: application/json' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments \\\n-d '{\"enrollment_identity\": \"A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5\"}'\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -23417,7 +22867,7 @@
             }
           ],
           "path": "/v3/device-enrollments",
-          "summary": "Create a single enrollment.",
+          "summary": "Place an enrollment claim for one or several devices.",
           "return_type": "device_enrollment",
           "return_info": {
             "self": true,
@@ -23448,7 +22898,7 @@
         },
         {
           "description": "To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information, see [Transferring the ownership using First-to-Claim](/docs/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html).\n<br>\n**Example usage:**\n```\ncurl -X DELETE \\\n-H 'Authorization: Bearer <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "in": "path",
@@ -23643,7 +23093,7 @@
         },
         {
           "description": "Provides a list of pending and claimed enrollments.\n**Example usage:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments\n```\nWith query parameters:\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <valid access token>' \\\n'https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10'\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -24022,7 +23472,7 @@
             }
           ],
           "path": "/v3/device-enrollments",
-          "summary": "Get a list of enrollments per account.",
+          "summary": "Get enrollment list.",
           "return_type": "paginated_response(device_enrollment)",
           "return_info": {
             "self": true,
@@ -24055,7 +23505,7 @@
         },
         {
           "description": "To check the enrollment info in detail, for example date of claim and expiration date.\n**Example usage:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id}\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -24322,7 +23772,7 @@
             }
           ],
           "path": "/v3/device-enrollments/{id}",
-          "summary": "Get details of an single enrollment by ID.",
+          "summary": "Get details of an enrollment by ID.",
           "return_type": "device_enrollment",
           "return_info": {
             "self": true,
@@ -24420,7 +23870,7 @@
           "_key": "id"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Public API"
       ],
@@ -24435,7 +23885,7 @@
       "methods": [
         {
           "description": "With bulk upload, you can upload a `CSV` file containing a number of enrollment IDs.\n\n**Example usage:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <valid access token>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads\n\n```\n**The validation rules for an CSV file.**\n1. The first line in the uploaded CSV file is assumed to be the header and is ignored.\n1. Each line can contain comma-separated values, where the first value is always assumed to be the Enrollment ID. Everything after the first comma is ignored.\n1. Valid enrollments begin with A followed by a - and 95 characters in the format as below.\n1. Up to one enrollment ID is expected per line. Empty lines are ignored.\n1. Trailing comma at the end of the line is optional.\n1. Lines are terminated with either a line feed \\n, a carriage return \\r, or both together \\r\\n.\n1. Leading and trailing whitespace characters (Unicode U+0000 - U+0020) are removed from the identity before validation.\n1. Empty identities are ignored.\n1. Valid enrollment identities may be enclosed within quotes. Whitespace inside quotes is not trimmed and will fail validation. Empty quotes are also considered to be an invalid enrollment identity.\n1. UTF-8 encoding is expected.\n\n\n**A valid enrollment file:**\n```\n\"Examples of valid identites, notes\"\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\",\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\"\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:24:44:71:22:15:43:23:12, This text is ignored,\n A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12       , Whitespace is trimmed before validation\n  \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12\"       , Whitespace around quotes is also trimmed\n\n```\n\n**A file containing invalid identities:**\n```\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\", First line is ignored\nA_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Invalid version identifier\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Too short identity\n\"\", Empty quotes are an invalid identity\n\" A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 \", Whitespace inside quotes is not trimmed causing an error\n\n```\n\n**An empty file:**\n```\n\"Examples of blank lines that are ignored\"\n\n,,\n, This is also considered to a blank line\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "in": "stream",
@@ -24768,11 +24218,11 @@
         },
         {
           "description": "This method will download the CSV file containing detailed information on status of the bulk enrollment.",
-          "field_renames": {},
-          "fields": {},
+          "field_renames": [],
+          "fields": [],
           "method": null,
           "mode": "download_errors_report_file",
-          "responses": {},
+          "responses": [],
           "path": null,
           "summary": "Download the error report file for the created the bulk enrollment.",
           "return_type": "file",
@@ -24803,11 +24253,11 @@
         },
         {
           "description": "This method will download the CSV file containing detailed information on status of the bulk enrollment.",
-          "field_renames": {},
-          "fields": {},
+          "field_renames": [],
+          "fields": [],
           "method": null,
           "mode": "download_full_report_file",
-          "responses": {},
+          "responses": [],
           "path": null,
           "summary": "Download the full report file for the created of the bulk enrollment.",
           "return_type": "file",
@@ -24838,7 +24288,7 @@
         },
         {
           "description": "Provides information on bulk upload for the given ID. For example, the bulk status and the number of processed enrollment identities. Also links to the bulk upload reports are provided.\n**Report file format:**\nThe report files have a header line and the value are separated by commas. The lines are delimited by a line break (CRLF). The report file is compliant with IETF Informal CSV common format [RFC 4180](https://tools.ietf.org/html/rfc4180).\nAn example of a full report file:\n```\n\"entity__id\",\"entity__created_at\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n```\nAn example of an error report file:\n```\n\"entity__id\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n```\n**Example usage:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id}\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -25340,7 +24790,7 @@
           "_key": "total_count"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Public API"
       ],
@@ -25355,7 +24805,7 @@
       "methods": [
         {
           "description": "With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to be deleted.\n\n**Example usage:**\n```\ncurl -X POST \\\n-H 'Authorization: Bearer <valid access token>' \\\n-F 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes\n\n```\n**The validation rules for an CSV file.**\n1. The first line in the uploaded CSV file is assumed to be the header and is ignored.\n1. Each line can contain comma-separated values, where the first value is always assumed to be the Enrollment ID. Everything after the first comma is ignored.\n1. Valid enrollments begin with A followed by a - and 95 characters in the format as below.\n1. Up to one enrollment ID is expected per line. Empty lines are ignored.\n1. Trailing comma at the end of the line is optional.\n1. Lines are terminated with either a line feed \\n, a carriage return \\r, or both together \\r\\n.\n1. Leading and trailing whitespace characters (Unicode U+0000 - U+0020) are removed from the identity before validation.\n1. Empty identities are ignored.\n1. Valid enrollment identities may be enclosed within quotes. Whitespace inside quotes is not trimmed and will fail validation. Empty quotes are also considered to be an invalid enrollment identity.\n1. UTF-8 encoding is expected.\n\n\n**A valid enrollment file:**\n```\n\"Examples of valid identites, notes\"\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\",\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\"\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:24:44:71:22:15:43:23:12, This text is ignored,\n A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12       , Whitespace is trimmed before validation\n  \"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12\"       , Whitespace around quotes is also trimmed\n\n```\n\n**A file containing invalid identities:**\n```\n\"A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\", First line is ignored\nA_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Invalid version identifier\nA-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Too short identity\n\"\", Empty quotes are an invalid identity\n\" A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 \", Whitespace inside quotes is not trimmed causing an error\n\n```\n\n**An empty file:**\n```\n\"Examples of blank lines that are ignored\"\n\n,,\n, This is also considered to a blank line\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "in": "stream",
@@ -25691,11 +25141,11 @@
         },
         {
           "description": "This method will download the CSV file containing detailed information on status of the bulk enrollment.",
-          "field_renames": {},
-          "fields": {},
+          "field_renames": [],
+          "fields": [],
           "method": null,
           "mode": "download_errors_report_file",
-          "responses": {},
+          "responses": [],
           "path": null,
           "summary": "Download the error report file for the bulk enrollment deletion.",
           "return_type": "file",
@@ -25726,11 +25176,11 @@
         },
         {
           "description": "This method will download the CSV file containing detailed information on status of the bulk enrollment.",
-          "field_renames": {},
-          "fields": {},
+          "field_renames": [],
+          "fields": [],
           "method": null,
           "mode": "download_full_report_file",
-          "responses": {},
+          "responses": [],
           "path": null,
           "summary": "Download the full report file for the bulk enrollment deletion.",
           "return_type": "file",
@@ -25761,7 +25211,7 @@
         },
         {
           "description": "Provides information on bulk delete for the given ID. For example, the bulk status and the number of processed enrollment identities. Also links to the bulk delete reports are provided.\n**Report file format:**\nThe report files have a header line and the value are separated by commas. The lines are delimited by a line break (CRLF). The report file is compliant with IETF Informal CSV common format [RFC 4180](https://tools.ietf.org/html/rfc4180).\nAn example of a full report file:\n```\n\"entity__id\",\"entity__deleted_at\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"2018-09-07T12:10:58.428Z\",\"\",\"\",\"\",\"\"\n```\nAn example of an error report file:\n```\n\"entity__id\",\"error__code\",\"error__type\",\"error__message\",\"error__fields\"\n\"A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n\"A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72\",\"409\",\"duplicate\",\"Enrollment identity is already claimed in the mbed Cloud.\",\"\"\n```\n**Example usage:**\n```\ncurl -X GET \\\n-H 'Authorization: Bearer <valid access token>' \\\nhttps://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id}\n```\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -26268,7 +25718,7 @@
           "_key": "total_count"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Public API"
       ],
@@ -26284,7 +25734,7 @@
       "methods": [
         {
           "description": "List all device events for an account.",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -26360,15 +25810,9 @@
                         {
                           "type": "object",
                           "additionalProperties": {
-                            "type": "object"
+                            "type": "string"
                           },
-                          "example": {},
-                          "x-deprecation": {
-                            "issued_at": "2019-01-15T14:55:20+00:00",
-                            "end_of_life_at": "2020-01-15T14:55:20+00:00",
-                            "comment": "This field is not used.",
-                            "links": []
-                          },
+                          "example": [],
                           "_key": "changes"
                         },
                         {
@@ -26551,7 +25995,7 @@
         },
         {
           "description": "Retrieve a specific device event.",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -26574,15 +26018,9 @@
                   {
                     "type": "object",
                     "additionalProperties": {
-                      "type": "object"
+                      "type": "string"
                     },
-                    "example": {},
-                    "x-deprecation": {
-                      "issued_at": "2019-01-15T14:55:20+00:00",
-                      "end_of_life_at": "2020-01-15T14:55:20+00:00",
-                      "comment": "This field is not used.",
-                      "links": []
-                    },
+                    "example": [],
                     "api_fieldname": "changes",
                     "entity_fieldname": "changes",
                     "_key": "changes"
@@ -26751,15 +26189,9 @@
         {
           "type": "object",
           "additionalProperties": {
-            "type": "object"
+            "type": "string"
           },
-          "example": {},
-          "x-deprecation": {
-            "issued_at": "2019-01-15T14:55:20+00:00",
-            "end_of_life_at": "2020-01-15T14:55:20+00:00",
-            "comment": "This field is not used.",
-            "links": []
-          },
+          "example": [],
           "api_fieldname": "changes",
           "readOnly": true,
           "required": false,
@@ -26857,7 +26289,7 @@
           "_key": "state_change"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [],
       "group_id": "Devices",
       "_key": "device_events"
@@ -26867,7 +26299,7 @@
         "LoginHistory"
       ],
       "primary_key_field": null,
-      "methods": {},
+      "methods": [],
       "fields": [
         {
           "type": "string",
@@ -26907,7 +26339,7 @@
           "_key": "user_agent"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
       "_key": "login_history"
@@ -26917,7 +26349,7 @@
         "LoginProfile"
       ],
       "primary_key_field": "id",
-      "methods": {},
+      "methods": [],
       "fields": [
         {
           "type": "string",
@@ -26938,7 +26370,7 @@
           "_key": "name"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
       "_key": "login_profile"
@@ -26948,7 +26380,7 @@
         "ParentAccountInfo"
       ],
       "primary_key_field": "id",
-      "methods": {},
+      "methods": [],
       "fields": [
         {
           "type": "string",
@@ -26978,7 +26410,7 @@
           "_key": "id"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
       "_key": "parent_account"
@@ -26988,7 +26420,7 @@
         "PasswordPolicy"
       ],
       "primary_key_field": null,
-      "methods": {},
+      "methods": [],
       "fields": [
         {
           "type": "string",
@@ -27000,7 +26432,7 @@
           "_key": "minimum_length"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
       "_key": "password_policy"
@@ -27010,7 +26442,7 @@
         "FeaturePolicy"
       ],
       "primary_key_field": null,
-      "methods": {},
+      "methods": [],
       "fields": [
         {
           "type": "string",
@@ -27058,7 +26490,7 @@
           "_key": "resource"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [],
       "group_id": "Accounts",
       "_key": "policy"
@@ -27071,8 +26503,8 @@
       "methods": [
         {
           "description": "This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to use with their clients to connect to bootstrap server.\n\n**Example usage:**\ncurl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\"\n",
-          "field_renames": {},
-          "fields": {},
+          "field_renames": [],
+          "fields": [],
           "method": "get",
           "mode": "get_bootstrap",
           "responses": [
@@ -27098,7 +26530,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "ID that uniquely identifies the entity.",
+                    "description": "mUUID that uniquely identifies the entity.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -27336,8 +26768,8 @@
         },
         {
           "description": "This REST API is intended to be used by customers to fetch LwM2M server credentials that they will need to use with their clients to connect to LwM2M server.\n\n**Example usage:**\ncurl -X GET \"http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\"\n",
-          "field_renames": {},
-          "fields": {},
+          "field_renames": [],
+          "fields": [],
           "method": "get",
           "mode": "get_lwm2m",
           "responses": [
@@ -27363,7 +26795,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "ID that uniquely identifies the entity.",
+                    "description": "mUUID that uniquely identifies the entity.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -27612,7 +27044,7 @@
         },
         {
           "type": "string",
-          "description": "ID that uniquely identifies the entity.",
+          "description": "mUUID that uniquely identifies the entity.",
           "api_fieldname": "id",
           "readOnly": true,
           "required": false,
@@ -27635,7 +27067,7 @@
           "_key": "server_uri"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Server credentials"
       ],
@@ -27653,7 +27085,7 @@
       "methods": [
         {
           "description": "An endpoint for uploading new trusted certificates.\n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates -d {\"name\": \"myCert1\", \"description\": \"very important cert\", \"certificate\": \"certificate_data\", \"service\": \"lwm2m\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -28317,7 +27749,7 @@
         },
         {
           "description": "An endpoint for deleting the trusted certificate.\n\n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "name": "account_id",
@@ -28620,7 +28052,7 @@
         },
         {
           "description": "This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).\n\n**Example usage:**\ncurl -X GET \"http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\"\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "integer",
@@ -28633,7 +28065,7 @@
             },
             {
               "type": "string",
-              "description": "ID that uniquely identifies the developer certificate.",
+              "description": "mUUID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "developerCertificateId",
@@ -28706,7 +28138,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "ID that uniquely identifies the developer certificate.",
+                    "description": "mUUID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -29036,7 +28468,7 @@
         },
         {
           "description": "An endpoint for retrieving a trusted certificate by ID.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -29569,7 +29001,7 @@
         },
         {
           "description": "An endpoint for updating existing trusted certificates.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -30441,7 +29873,7 @@
           "_key": "validity"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Aggregator Account Admin",
         "Developer certificate"
@@ -30502,7 +29934,6 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
-              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -30535,7 +29966,6 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -30603,7 +30033,6 @@
               "type": "string",
               "example": "PZf9eEUH43DAPE9ULINFeuj",
               "description": "The password when creating a new user. It will be generated when not present in the request.",
-              "x-nullable": true,
               "api_fieldname": "password",
               "entity_fieldname": "password",
               "parameter_fieldname": "password",
@@ -30615,7 +30044,6 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
-              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -30638,7 +30066,6 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
-              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -30751,7 +30178,6 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
-                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
@@ -30953,7 +30379,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -31020,7 +30445,6 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
@@ -31041,7 +30465,6 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
-                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
@@ -31090,7 +30513,6 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -32026,7 +31448,6 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
-                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
@@ -32228,7 +31649,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -32295,7 +31715,6 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
@@ -32316,7 +31735,6 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
-                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
@@ -32365,7 +31783,6 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -32682,7 +32099,6 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
-              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -32715,7 +32131,6 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -32783,7 +32198,6 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
-              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -32817,7 +32231,6 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
-              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -32930,7 +32343,6 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
-                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
@@ -33132,7 +32544,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -33199,7 +32610,6 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
@@ -33220,7 +32630,6 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
-                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
@@ -33269,7 +32678,6 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -34081,7 +33489,6 @@
           "type": "string",
           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
           "description": "Address.",
-          "x-nullable": true,
           "api_fieldname": "address",
           "parameter_fieldname": "address",
           "in": "body",
@@ -34232,7 +33639,6 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -34300,7 +33706,6 @@
           "type": "string",
           "example": "PZf9eEUH43DAPE9ULINFeuj",
           "description": "The password when creating a new user. It will be generated when not present in the request.",
-          "x-nullable": true,
           "api_fieldname": "password",
           "parameter_fieldname": "password",
           "in": "body",
@@ -34322,7 +33727,6 @@
           "type": "string",
           "example": "+44 (1223) 400 400",
           "description": "Phone number.",
-          "x-nullable": true,
           "api_fieldname": "phone_number",
           "parameter_fieldname": "phone_number",
           "in": "body",
@@ -34396,7 +33800,6 @@
           "type": "string",
           "example": "admin",
           "description": "A username containing alphanumerical letters and -,._@+= characters.",
-          "x-nullable": true,
           "api_fieldname": "username",
           "parameter_fieldname": "username",
           "in": "body",
@@ -34434,7 +33837,7 @@
       "methods": [
         {
           "description": "An endpoint for inviting a new or an existing user to join the account.\n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/accouns/{account_id}/user-invitations -d {\"email\": \"myemail@company.com\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -34461,7 +33864,6 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -34620,7 +34022,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -34963,7 +34364,7 @@
         },
         {
           "description": "An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.\n\n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "name": "account_id",
@@ -35246,7 +34647,7 @@
         },
         {
           "description": "An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -35362,7 +34763,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -35760,7 +35160,6 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -35833,7 +35232,7 @@
           "_key": "user_id"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Aggregator Account Admin"
       ],
@@ -35852,7 +35251,7 @@
       "methods": [
         {
           "description": "An endpoint for uploading new trusted certificates.\n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -d {\"name\": \"myCert1\", \"description\": \"very important cert\", \"certificate\": \"certificate_data\", \"service\": \"lwm2m\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -36483,7 +35882,7 @@
         },
         {
           "description": "An endpoint for deleting a trusted certificate.\n\n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "integer",
@@ -36774,7 +36173,7 @@
         },
         {
           "description": "This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).\n\n**Example usage:**\ncurl -X GET \"http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID\" -H \"accept: application/json\" -H \"Authorization: Bearer THE_ACCESS_TOKEN\"\n",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "integer",
@@ -36787,7 +36186,7 @@
             },
             {
               "type": "string",
-              "description": "ID that uniquely identifies the developer certificate.",
+              "description": "mUUID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "developerCertificateId",
@@ -36860,7 +36259,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "ID that uniquely identifies the developer certificate.",
+                    "description": "mUUID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -37190,7 +36589,7 @@
         },
         {
           "description": "An endpoint for retrieving trusted certificates in an array.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -37735,7 +37134,7 @@
         },
         {
           "description": "An endpoint for retrieving a trusted certificate by ID.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "integer",
@@ -38235,7 +37634,7 @@
         },
         {
           "description": "An endpoint for updating existing trusted certificates.\n\n**Example usage:**\n`curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} -d {\"description\": \"very important cert\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -39133,7 +38532,7 @@
           "_key": "validity"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Developer",
         "Account Admin",
@@ -39185,7 +38584,6 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
-              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -39218,7 +38616,6 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -39286,7 +38683,6 @@
               "type": "string",
               "example": "PZf9eEUH43DAPE9ULINFeuj",
               "description": "The password when creating a new user. It will be generated when not present in the request.",
-              "x-nullable": true,
               "api_fieldname": "password",
               "entity_fieldname": "password",
               "parameter_fieldname": "password",
@@ -39298,7 +38694,6 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
-              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -39321,7 +38716,6 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
-              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -39434,7 +38828,6 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
-                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "_key": "address"
@@ -39609,7 +39002,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -39673,7 +39065,6 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "_key": "password"
@@ -39691,7 +39082,6 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
-                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "_key": "phone_number"
@@ -39734,7 +39124,6 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -40636,7 +40025,6 @@
                           "type": "string",
                           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                           "description": "Address.",
-                          "x-nullable": true,
                           "_key": "address"
                         },
                         {
@@ -40781,7 +40169,6 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -40841,7 +40228,6 @@
                           "type": "string",
                           "example": "PZf9eEUH43DAPE9ULINFeuj",
                           "description": "The password when creating a new user. It will be generated when not present in the request.",
-                          "x-nullable": true,
                           "_key": "password"
                         },
                         {
@@ -40855,7 +40241,6 @@
                           "type": "string",
                           "example": "+44 (1223) 400 400",
                           "description": "Phone number.",
-                          "x-nullable": true,
                           "_key": "phone_number"
                         },
                         {
@@ -40890,7 +40275,6 @@
                           "type": "string",
                           "example": "admin",
                           "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                          "x-nullable": true,
                           "_key": "username"
                         }
                       ],
@@ -41292,7 +40676,6 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
-                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "_key": "address"
@@ -41467,7 +40850,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -41531,7 +40913,6 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "_key": "password"
@@ -41549,7 +40930,6 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
-                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "_key": "phone_number"
@@ -41592,7 +40972,6 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -41896,7 +41275,6 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
-              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -41929,7 +41307,6 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -41997,7 +41374,6 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
-              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -42031,7 +41407,6 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
-              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -42144,7 +41519,6 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
-                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "_key": "address"
@@ -42319,7 +41693,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -42383,7 +41756,6 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "_key": "password"
@@ -42401,7 +41773,6 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
-                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "_key": "phone_number"
@@ -42444,7 +41815,6 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -42958,7 +42328,6 @@
           "type": "string",
           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
           "description": "Address.",
-          "x-nullable": true,
           "api_fieldname": "address",
           "readOnly": false,
           "required": false,
@@ -43101,7 +42470,6 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -43165,7 +42533,6 @@
           "type": "string",
           "example": "PZf9eEUH43DAPE9ULINFeuj",
           "description": "The password when creating a new user. It will be generated when not present in the request.",
-          "x-nullable": true,
           "api_fieldname": "password",
           "readOnly": false,
           "required": false,
@@ -43185,7 +42552,6 @@
           "type": "string",
           "example": "+44 (1223) 400 400",
           "description": "Phone number.",
-          "x-nullable": true,
           "api_fieldname": "phone_number",
           "readOnly": false,
           "required": false,
@@ -43251,7 +42617,6 @@
           "type": "string",
           "example": "admin",
           "description": "A username containing alphanumerical letters and -,._@+= characters.",
-          "x-nullable": true,
           "api_fieldname": "username",
           "readOnly": false,
           "required": false,
@@ -43288,7 +42653,7 @@
       "methods": [
         {
           "description": "An endpoint for inviting a new or an existing user to join the account.\n\n**Example usage:**\n`curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations -d {\"email\": \"myemail@company.com\"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -43304,7 +42669,6 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -43451,7 +42815,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -43792,7 +43155,7 @@
         },
         {
           "description": "An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.\n\n**Example usage:**\n`curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "name": "invitation_id",
@@ -44063,7 +43426,7 @@
         },
         {
           "description": "An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/user-invitations -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -44198,7 +43561,6 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -44523,7 +43885,7 @@
         },
         {
           "description": "An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join the account.\n\n**Example usage:**\n`curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} -H 'Authorization: Bearer API_KEY'`",
-          "field_renames": {},
+          "field_renames": [],
           "fields": [
             {
               "type": "string",
@@ -44616,7 +43978,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -45008,7 +44369,6 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -45079,7 +44439,7 @@
           "_key": "user_id"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [
         "Account Admin"
       ],
@@ -45091,7 +44451,7 @@
         "CertificateIssuerVerifyResponse"
       ],
       "primary_key_field": null,
-      "methods": {},
+      "methods": [],
       "fields": [
         {
           "type": "string",
@@ -45112,7 +44472,7 @@
           "_key": "successful"
         }
       ],
-      "field_renames": {},
+      "field_renames": [],
       "tags": [],
       "group_id": "Security",
       "_key": "verification_response"
