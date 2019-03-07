@@ -52,7 +52,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     /**
      * Adds a device enrollment.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(DeviceEnrollment)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
      * @return an added device enrollment
      */
@@ -65,7 +66,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     /**
      * Adds a device enrollment.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(DeviceEnrollment)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
      * @param enrollmentIdentity
      *            a device enrollment.
@@ -80,7 +82,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     /**
      * Deletes a device enrollment.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollment(DeviceEnrollment)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -90,7 +93,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     /**
      * Deletes a device enrollment.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollment(DeviceEnrollment)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
      * @param deviceEnrollment
      *            a device enrollment.
@@ -167,7 +171,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
     /**
      * Gets a device enrollment.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(DeviceEnrollment)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
      * @return something
      */

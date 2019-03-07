@@ -153,7 +153,7 @@ public class Accounts extends AbstractModule {
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
      * <p>
      * Similar to
-     * {@link #trustedCertificates(String,String,Integer,Integer,Integer,String,Boolean,String,String,String,Boolean,SubtenantTrustedCertificateListOptions,Account)}
+     * {@link #trustedCertificates(String, String, Integer, Integer, Integer, String, Boolean, String, String, String, Boolean, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param nameEq
      *            null
@@ -362,7 +362,8 @@ public class Accounts extends AbstractModule {
     /**
      * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
      * <p>
-     * Similar to {@link #userInvitations(String,SubtenantUserInvitationListOptions,Account)}
+     * Similar to
+     * {@link #userInvitations(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param loginProfileEq
      *            null
@@ -451,7 +452,8 @@ public class Accounts extends AbstractModule {
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
      * <p>
-     * Similar to {@link #users(String,String,String,String,String,SubtenantUserListOptions,Account)}
+     * Similar to
+     * {@link #users(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param emailEq
      *            null
@@ -640,7 +642,7 @@ public class Accounts extends AbstractModule {
     /**
      * Adds a subtenant user.
      * <p>
-     * Similar to {@link #createSubtenantUser(String,String,SubtenantUser)}
+     * Similar to {@link #createSubtenantUser(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
      * 
      * @param action
      *            Create or invite user.
@@ -705,7 +707,8 @@ public class Accounts extends AbstractModule {
     /**
      * Adds a subtenant user invitation.
      * <p>
-     * Similar to {@link #createSubtenantUserInvitation(int,String,SubtenantUserInvitation)}
+     * Similar to
+     * {@link #createSubtenantUserInvitation(int, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
      * 
      * @param validForDays
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
@@ -880,7 +883,7 @@ public class Accounts extends AbstractModule {
     /**
      * Deletes a subtenant user.
      * <p>
-     * Similar to {@link #deleteSubtenantUser(String,String)}
+     * Similar to {@link #deleteSubtenantUser(String, String)}
      * 
      * @param subtenantUser
      *            a subtenant user.
@@ -928,7 +931,7 @@ public class Accounts extends AbstractModule {
     /**
      * Deletes a subtenant user invitation.
      * <p>
-     * Similar to {@link #deleteSubtenantUserInvitation(String,String)}
+     * Similar to {@link #deleteSubtenantUserInvitation(String, String)}
      * 
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
@@ -1483,7 +1486,7 @@ public class Accounts extends AbstractModule {
     /**
      * Gets an account.
      * <p>
-     * Similar to {@link #readAccount(String,String,String)}
+     * Similar to {@link #readAccount(String, String, String)}
      * 
      * @param include
      *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
@@ -1626,7 +1629,7 @@ public class Accounts extends AbstractModule {
     /**
      * Gets a subtenant user.
      * <p>
-     * Similar to {@link #readSubtenantUser(String,String)}
+     * Similar to {@link #readSubtenantUser(String, String)}
      * 
      * @param subtenantUser
      *            a subtenant user.
@@ -1681,7 +1684,7 @@ public class Accounts extends AbstractModule {
     /**
      * Gets a subtenant user invitation.
      * <p>
-     * Similar to {@link #readSubtenantUserInvitation(String,String)}
+     * Similar to {@link #readSubtenantUserInvitation(String, String)}
      * 
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
@@ -1795,7 +1798,7 @@ public class Accounts extends AbstractModule {
      * 
      * <p>
      * Similar to
-     * {@link #trustedCertificates(String,String,String,Integer,Integer,Integer,String,Boolean,String,String,String,Boolean,SubtenantTrustedCertificateListOptions)}
+     * {@link #trustedCertificates(String, String, String, Integer, Integer, Integer, String, Boolean, String, String, String, Boolean, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
      * 
      * @param nameEq
      *            null
@@ -1930,7 +1933,7 @@ public class Accounts extends AbstractModule {
     /**
      * Modifies an account.
      * <p>
-     * Similar to {@link #updateAccount(String,Account)}
+     * Similar to {@link #updateAccount(String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param account
      *            an account.
@@ -1985,7 +1988,7 @@ public class Accounts extends AbstractModule {
     /**
      * Modifies an api key.
      * <p>
-     * Similar to {@link #updateApiKey(String,ApiKey)}
+     * Similar to {@link #updateApiKey(String, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
      * @param apiKey
      *            an api key.
@@ -2083,7 +2086,7 @@ public class Accounts extends AbstractModule {
     /**
      * Modifies a subtenant user.
      * <p>
-     * Similar to {@link #updateSubtenantUser(String,String,SubtenantUser)}
+     * Similar to {@link #updateSubtenantUser(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
      * 
      * @param subtenantUser
      *            a subtenant user.
@@ -2138,7 +2141,7 @@ public class Accounts extends AbstractModule {
     /**
      * Modifies a user.
      * <p>
-     * Similar to {@link #updateUser(String,User)}
+     * Similar to {@link #updateUser(String, com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
      * @param user
      *            a user.
@@ -2202,7 +2205,8 @@ public class Accounts extends AbstractModule {
      * Get the details of all the user invitations.
      * 
      * <p>
-     * Similar to {@link #userInvitations(String,String,SubtenantUserInvitationListOptions)}
+     * Similar to
+     * {@link #userInvitations(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions)}
      * 
      * @param loginProfileEq
      *            null
@@ -2285,7 +2289,8 @@ public class Accounts extends AbstractModule {
      * Get all user details.
      * 
      * <p>
-     * Similar to {@link #users(String,String,String,String,String,String,SubtenantUserListOptions)}
+     * Similar to
+     * {@link #users(String, String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
      * 
      * @param emailEq
      *            null
@@ -2352,7 +2357,7 @@ public class Accounts extends AbstractModule {
      * Validate the user email.
      * 
      * <p>
-     * Similar to {@link #validateEmail(String,String)}
+     * Similar to {@link #validateEmail(String, String)}
      * 
      * @param subtenantUser
      *            a subtenant user.

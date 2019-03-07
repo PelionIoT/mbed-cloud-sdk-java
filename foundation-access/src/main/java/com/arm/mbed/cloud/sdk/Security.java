@@ -372,7 +372,8 @@ public class Security extends AbstractModule {
     /**
      * Adds a subtenant trusted certificate.
      * <p>
-     * Similar to {@link #createSubtenantTrustedCertificate(String,SubtenantTrustedCertificate)}
+     * Similar to
+     * {@link #createSubtenantTrustedCertificate(String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
@@ -589,7 +590,7 @@ public class Security extends AbstractModule {
     /**
      * Deletes a subtenant trusted certificate.
      * <p>
-     * Similar to {@link #deleteSubtenantTrustedCertificate(String,String)}
+     * Similar to {@link #deleteSubtenantTrustedCertificate(String, String)}
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
@@ -1551,7 +1552,7 @@ public class Security extends AbstractModule {
     /**
      * Gets a subtenant trusted certificate.
      * <p>
-     * Similar to {@link #readSubtenantTrustedCertificate(String,String)}
+     * Similar to {@link #readSubtenantTrustedCertificate(String, String)}
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
@@ -1617,7 +1618,8 @@ public class Security extends AbstractModule {
     /**
      * Modifies a certificate issuer.
      * <p>
-     * Similar to {@link #updateCertificateIssuer(Map,String,CertificateIssuer)}
+     * Similar to
+     * {@link #updateCertificateIssuer(java.util.Map, String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
@@ -1689,7 +1691,8 @@ public class Security extends AbstractModule {
     /**
      * Modifies a certificate issuer config.
      * <p>
-     * Similar to {@link #updateCertificateIssuerConfig(CertificateIssuerConfig,String)}
+     * Similar to
+     * {@link #updateCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig, String)}
      * 
      * @param certificateIssuerConfig
      *            a certificate issuer config.
@@ -1791,7 +1794,8 @@ public class Security extends AbstractModule {
     /**
      * Modifies a subtenant trusted certificate.
      * <p>
-     * Similar to {@link #updateSubtenantTrustedCertificate(String,String,SubtenantTrustedCertificate)}
+     * Similar to
+     * {@link #updateSubtenantTrustedCertificate(String, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
@@ -1850,7 +1854,7 @@ public class Security extends AbstractModule {
     /**
      * Modifies a trusted certificate.
      * <p>
-     * Similar to {@link #updateTrustedCertificate(String,TrustedCertificate)}
+     * Similar to {@link #updateTrustedCertificate(String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
      * @param trustedCertificate
      *            a trusted certificate.

@@ -49,7 +49,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Adds a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#createDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#createDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
      * @return an added device
      */
@@ -62,7 +62,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Adds a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#createDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#createDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
      * @param device
      *            a device.
@@ -77,7 +77,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Deletes a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -87,7 +87,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Deletes a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
      * @param device
      *            a device.
@@ -164,7 +164,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Gets a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
      * @return something
      */
@@ -193,7 +193,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * Request certificate renewal.
      * 
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#renewCertificate(String,Device)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#renewCertificate(String, com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
      * @param certificateName
      *            The certificate name.
@@ -207,7 +208,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * Request certificate renewal.
      * 
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#renewCertificate(String,String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#renewCertificate(String, String)}
      * 
      * @param certificateName
      *            The certificate name.
@@ -223,7 +224,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Modifies a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#updateDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#updateDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
      * @return something
      */
@@ -236,7 +237,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Modifies a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#updateDevice(Device)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#updateDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
      * @param device
      *            a device.
@@ -251,7 +252,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     /**
      * Modifies a device.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#updateDevice(String,Device)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#updateDevice(String, com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.

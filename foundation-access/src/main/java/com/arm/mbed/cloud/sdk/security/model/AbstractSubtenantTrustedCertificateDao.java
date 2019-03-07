@@ -34,7 +34,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     /**
      * Adds a subtenant trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#createSubtenantTrustedCertificate(SubtenantTrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#createSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
      * @return something
      */
@@ -47,7 +48,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     /**
      * Adds a subtenant trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#createSubtenantTrustedCertificate(SubtenantTrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#createSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
@@ -64,7 +66,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * Adds a subtenant trusted certificate.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Security#createSubtenantTrustedCertificate(String,SubtenantTrustedCertificate)}
+     * {@link com.arm.mbed.cloud.sdk.Security#createSubtenantTrustedCertificate(String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
      * @param accountId
      *            The ID of the account.
@@ -78,7 +80,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     /**
      * Deletes a subtenant trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteSubtenantTrustedCertificate(SubtenantTrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#deleteSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -88,7 +91,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     /**
      * Deletes a subtenant trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteSubtenantTrustedCertificate(SubtenantTrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#deleteSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
@@ -102,7 +106,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     /**
      * Deletes a subtenant trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteSubtenantTrustedCertificate(String,String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteSubtenantTrustedCertificate(String, String)}
      * 
      * @param accountId
      *            Account ID.
@@ -117,7 +121,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * Fetch an existing developer certificate to connect to the bootstrap server.
      * 
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(SubtenantTrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
      * @return something
      */
@@ -192,7 +197,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     /**
      * Gets a subtenant trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readSubtenantTrustedCertificate(SubtenantTrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#readSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
      * @return something
      */
@@ -205,7 +211,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     /**
      * Gets a subtenant trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readSubtenantTrustedCertificate(String,String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readSubtenantTrustedCertificate(String, String)}
      * 
      * @param accountId
      *            The ID of the account.
@@ -221,7 +227,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     /**
      * Modifies a subtenant trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateSubtenantTrustedCertificate(SubtenantTrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#updateSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
      * @return something
      */
@@ -234,7 +241,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     /**
      * Modifies a subtenant trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateSubtenantTrustedCertificate(SubtenantTrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#updateSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
@@ -251,7 +259,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * Modifies a subtenant trusted certificate.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Security#updateSubtenantTrustedCertificate(String,String,SubtenantTrustedCertificate)}
+     * {@link com.arm.mbed.cloud.sdk.Security#updateSubtenantTrustedCertificate(String, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
      * @param accountId
      *            The ID of the account.

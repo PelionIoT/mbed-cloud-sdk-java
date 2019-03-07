@@ -99,7 +99,8 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     /**
      * Gets a device events.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(DeviceEvents)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(com.arm.mbed.cloud.sdk.devices.model.DeviceEvents)}
      * 
      * @return something
      */

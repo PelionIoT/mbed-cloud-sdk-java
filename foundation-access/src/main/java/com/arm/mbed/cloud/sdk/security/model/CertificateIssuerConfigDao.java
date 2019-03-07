@@ -50,7 +50,8 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     /**
      * Adds a certificate issuer config.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuerConfig(CertificateIssuerConfig)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
      * 
      * @return an added certificate issuer config
      */
@@ -63,7 +64,8 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     /**
      * Adds a certificate issuer config.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuerConfig(CertificateIssuerConfig)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
      * 
      * @param createCertificateIssuerConfig
      *            a certificate issuer config.
@@ -79,7 +81,8 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     /**
      * Deletes a certificate issuer config.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteCertificateIssuerConfig(CertificateIssuerConfig)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#deleteCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -89,7 +92,8 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     /**
      * Deletes a certificate issuer config.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteCertificateIssuerConfig(CertificateIssuerConfig)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#deleteCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
      * 
      * @param certificateIssuerConfig
      *            a certificate issuer config.
@@ -180,7 +184,8 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     /**
      * Gets a certificate issuer config.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readCertificateIssuerConfig(CertificateIssuerConfig)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#readCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
      * 
      * @return something
      */
@@ -209,7 +214,8 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     /**
      * Modifies a certificate issuer config.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuerConfig(CertificateIssuerConfig)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
      * 
      * @return something
      */
@@ -222,7 +228,8 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     /**
      * Modifies a certificate issuer config.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuerConfig(CertificateIssuerConfig)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
      * 
      * @param certificateIssuerConfig
      *            a certificate issuer config.
@@ -238,7 +245,8 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     /**
      * Modifies a certificate issuer config.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuerConfig(CertificateIssuerConfig,String)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig, String)}
      * 
      * @param id
      *            The ID of the certificate issuer configuration.

@@ -49,7 +49,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Adds a trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#createTrustedCertificate(TrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#createTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
      * @return an added trusted certificate
      */
@@ -62,7 +63,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Adds a trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#createTrustedCertificate(TrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#createTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
      * @param trustedCertificate
      *            a trusted certificate.
@@ -77,7 +79,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Deletes a trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteTrustedCertificate(TrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#deleteTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -87,7 +90,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Deletes a trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteTrustedCertificate(TrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#deleteTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
      * @param trustedCertificate
      *            a trusted certificate.
@@ -115,7 +119,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Fetch an existing developer certificate to connect to the bootstrap server.
      * 
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(TrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
      * @return something
      */
@@ -190,7 +195,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Gets a trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readTrustedCertificate(TrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#readTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
      * @return something
      */
@@ -218,7 +224,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Modifies a trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateTrustedCertificate(TrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#updateTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
      * @return something
      */
@@ -231,7 +238,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Modifies a trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateTrustedCertificate(TrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#updateTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
      * @param trustedCertificate
      *            a trusted certificate.
@@ -246,7 +254,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     /**
      * Modifies a trusted certificate.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateTrustedCertificate(String,TrustedCertificate)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#updateTrustedCertificate(String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
      * @param id
      *            Entity ID.
