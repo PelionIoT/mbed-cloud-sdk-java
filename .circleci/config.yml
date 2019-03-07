@@ -3,7 +3,7 @@ version: 2
 sdk_environment: &sdk_environment
   PROJECT_NAME: mbed-cloud-sdk-java
   DOCS_TEMP_URL: https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html
-  TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+  TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner
   BUILD_REPORTS_DIR: ./build/reports
   BUILD_JARS_DIR: ./build/libs
   BUILD_DIST_DIR: ./build/distributions
