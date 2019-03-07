@@ -1893,8 +1893,8 @@ definitions:
 
           '
         example: customer.dlms
-        maxLength: 50
-        pattern: (?!mbed\.)[\w-_.]{1,50}
+        maxLength: 100
+        pattern: (?!mbed\.)[\w-_.]{1,100}
         type: string
     required:
     - reference
@@ -7638,6 +7638,13 @@ paths:
       summary: Delete notification Long Poll channel
       tags:
       - Notifications
+      x-deprecation:
+        comment: Long polling is deprecated and should be used for development purposes
+          only.
+        end_of_life_at: '2020-02-10T00:00:00+00:00'
+        issued_at: '2017-02-10T15:23:00+00:00'
+        links:
+        - cloud.mbed.com/docs/current/integrate-web-app/event-notification.html
     get:
       deprecated: true
       description: "In this case, notifications are delivered through HTTP long poll\
@@ -7696,6 +7703,13 @@ paths:
       summary: Get notifications using Long Poll
       tags:
       - Notifications
+      x-deprecation:
+        comment: Long polling is deprecated and should be used for development purposes
+          only.
+        end_of_life_at: '2020-02-10T00:00:00+00:00'
+        issued_at: '2017-02-10T15:23:00+00:00'
+        links:
+        - cloud.mbed.com/docs/current/integrate-web-app/event-notification.html
   /v2/notification/websocket:
     delete:
       description: "To delete a notification websocket channel bound to the API key.\n\
@@ -7777,32 +7791,23 @@ paths:
       - Notifications
   /v2/notification/websocket-connect:
     get:
-      description: '
-
-        A websocket channel can have only one active websocket connection at a time.
-        If a websocket connection for a channel exists and a new connection to the
-        same channel is made the connection is accepted and the older connection will
-        be closed.<br/>
-
-        Once the socket has been opened, it may be closed with one of the following
-        status codes<br/>
-
-        **1000**: Socket closed by the client.
-
-        **1001**: Going away. set when another socket was opened on the used channel,
-        or if the channel was deleted with a REST call, or if the server is shutting
-        down.
-
-        **1006**: Abnormal loss of connection. This code is never set by the service.
-
-        **1008**: Policy violation. Set when the API key is missing or invalid.
-
-        **1011**: Unexpected condition. Socket will be closed with this status at
-        an attempt to open a socket to an unexisting channel (without a prior REST
-        PUT). This code is also used to indicate closing socket for any other unexpected
-        condition in the server.
-
-        '
+      description: "\nA websocket channel can have only one active websocket connection\
+        \ at a time. If a websocket connection for a channel exists and a new connection\
+        \ to the same channel is made the connection is accepted and the older connection\
+        \ will be closed.<br/>\nOnce the socket has been opened, it may be closed\
+        \ with one of the following status codes<br/>\n| Code | Description |\n|---|---|\n\
+        |**1000**|Socket closed by the client.|\n|**1001**|Going away. Set when another\
+        \ socket was opened on the used channel, or if the channel was deleted with\
+        \ a REST call, or if the server is shutting down.|\n|**1006**|Abnormal loss\
+        \ of connection. This code is never set by the service.|\n|**1008**|Policy\
+        \ violation. Set when the API key is missing or invalid.|\n|**1011**|Unexpected\
+        \ condition. Socket will be closed with this status at an attempt to open\
+        \ a socket to an unexisting channel (without a prior REST PUT). This code\
+        \ is also used to indicate closing socket for any other unexpected condition\
+        \ in the server.|\n<br/>\n**Example usage:**\n\n    curl -X GET -N -I -H \"\
+        Authorization:Bearer {apikey}\" -H \"Connection:upgrade\" -H \"Upgrade:websocket\"\
+        \ -H \"Sec-WebSocket-Version: 13\" -H \"Sec-WebSocket-Key: {base64nonce}\"\
+        \  https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect\n"
       operationId: connectWebsocket
       parameters:
       - default: Upgrade
@@ -7815,24 +7820,43 @@ paths:
         name: Upgrade
         required: true
         type: string
-      - description: 'ApiKey must be present in the `Sec-WebSocket-Protocol` header
+      - description: 'ApiKey or user token must be present in the `Sec-WebSocket-Protocol`
+          header **if Authorization header cannot be provided**
 
-          `"Sec-WebSocket-Protocol":"wss,pelion_ak_{api_key}"`
+          `Sec-WebSocket-Protocol:"wss,pelion_ak_{api_key}"`
 
           Refer to the notification service documentation for examples of usage.
 
           '
         in: header
         name: Sec-WebSocket-Protocol
+        required: false
+        type: string
+      - description: Originating host of the request
+        in: header
+        name: Origin
+        required: true
+        type: string
+      - default: 13
+        description: WebSocket version. MUST be 13.
+        in: header
+        name: Sec-WebSocket-Version
+        required: true
+        type: integer
+      - description: 'The value of this header field MUST be a nonce consisting of
+          a randomly selected 16-byte value that has
+
+          been base64-encoded (see Section 4 of [RFC4648]).  The nonce MUST be selected
+          randomly for each connection.
+
+          '
+        in: header
+        name: Sec-WebSocket-Key
         required: true
         type: string
       responses:
         101:
           description: Switching protocols
-        400:
-          description: Other type of channel already exists.
-        404:
-          description: Websocket channel has not been registered.
         426:
           description: Upgrade required. Connect and/or Upgrade headers missing.
       summary: Open the websocket.
@@ -8208,6 +8232,19 @@ paths:
       summary: Get all accounts.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        country:
+        - like
+        end_market:
+        - eq
+        parent:
+        - eq
+        status:
+        - eq
+        - in
+        - nin
+        tier:
+        - eq
     post:
       consumes:
       - application/json
@@ -8565,6 +8602,11 @@ paths:
       summary: Get all API keys.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        key:
+        - eq
+        owner:
+        - eq
     post:
       consumes:
       - application/json
@@ -9575,7 +9617,7 @@ paths:
 
         `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/upload
         -H ''content-type: image/png'' -H ''Authorization: Bearer API_KEY'' --data-binary
-        ''myimage.png''`'
+        ''@myimage.png''`'
       operationId: uploadAccountDarkImage
       parameters:
       - description: Account ID.
@@ -9824,7 +9866,7 @@ paths:
 
         `curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/upload
         -H ''content-type: image/png'' -H ''Authorization: Bearer API_KEY'' --data-binary
-        ''myimage.png''`'
+        ''@myimage.png''`'
       operationId: uploadAccountLightImage
       parameters:
       - description: Account ID.
@@ -10384,6 +10426,9 @@ paths:
       summary: Get all group information.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        name:
+        - eq
     post:
       consumes:
       - application/json
@@ -10900,6 +10945,11 @@ paths:
       summary: Get users of a group.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        status:
+        - eq
+        - in
+        - nin
   /v3/accounts/{account_id}/trusted-certificates:
     get:
       description: 'An endpoint for retrieving trusted certificates in an array.
@@ -11026,6 +11076,28 @@ paths:
       summary: Get all trusted certificates.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        device_execution_mode:
+        - eq
+        - neq
+        enrollment_mode:
+        - eq
+        expire:
+        - eq
+        issuer:
+        - like
+        name:
+        - eq
+        owner:
+        - eq
+        service:
+        - eq
+        status:
+        - eq
+        subject:
+        - like
+        valid:
+        - eq
     post:
       consumes:
       - application/json
@@ -11280,6 +11352,9 @@ paths:
       summary: Get the details of all the user invitations.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        login_profile:
+        - eq
     post:
       consumes:
       - application/json
@@ -11504,6 +11579,15 @@ paths:
       summary: Get all user details.
       tags:
       - Aggregator Account Admin
+      x-filter:
+        email:
+        - eq
+        login_profile:
+        - eq
+        status:
+        - eq
+        - in
+        - nin
     post:
       consumes:
       - application/json
@@ -12005,6 +12089,11 @@ paths:
       summary: Get all API keys
       tags:
       - Developer
+      x-filter:
+        key:
+        - eq
+        owner:
+        - eq
     post:
       consumes:
       - application/json
@@ -13433,7 +13522,7 @@ paths:
 
         `curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/upload
         -H ''content-type: image/png'' -H ''Authorization: Bearer API_KEY'' --data-binary
-        ''myimage.png''`'
+        ''@myimage.png''`'
       operationId: uploadDarkImage
       parameters:
       - description: Name of the branding images (icon or picture).
@@ -13653,7 +13742,7 @@ paths:
 
         `curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/upload
         -H ''content-type: image/png'' -H ''Authorization: Bearer API_KEY'' --data-binary
-        ''myimage.png''`'
+        ''@myimage.png''`'
       operationId: uploadLightImage
       parameters:
       - description: Name of the branding images (icon or picture).
@@ -13929,6 +14018,23 @@ paths:
       summary: Get certificate enrollments list.
       tags:
       - Certificate Enrollments
+      x-filter:
+        certificate_name:
+        - eq
+        created_at:
+        - lte
+        - gte
+        device_id:
+        - eq
+        enroll_result:
+        - neq
+        - eq
+        enroll_status:
+        - neq
+        - eq
+        updated_at:
+        - lte
+        - gte
   /v3/certificate-enrollments/{certificate-enrollment-id}:
     get:
       description: 'Get a certificate enrollment by ID.
@@ -14071,6 +14177,9 @@ paths:
       summary: Get certificate issuer configurations.
       tags:
       - Certificate Issuers Activation
+      x-filter:
+        reference:
+        - eq
     post:
       description: "Configure the certificate issuer to be used when creating the\
         \ device custom certificates.\n<br>\n**Example usage:**\n\n```\ncurl -X POST\
@@ -15377,6 +15486,11 @@ paths:
         subjected to blacklisting.
       tags:
       - EnrollmentDenials
+      x-filter:
+        endpoint_name:
+        - eq
+        trusted_certificate_id:
+        - eq
   /v3/device-enrollment-denials/{device_enrollment_denial_id}:
     get:
       description: 'Query for a single attempt to bootstrap with a blacklisted certificate
@@ -18204,6 +18318,9 @@ paths:
       summary: Get all group information.
       tags:
       - Developer
+      x-filter:
+        name:
+        - eq
     post:
       consumes:
       - application/json
@@ -18671,6 +18788,11 @@ paths:
       summary: Get users of a group.
       tags:
       - Account Admin
+      x-filter:
+        status:
+        - eq
+        - in
+        - nin
   /v3/server-credentials:
     get:
       description: 'This REST API is intended to be used by customers to fetch all
@@ -19173,6 +19295,28 @@ paths:
       summary: Get all trusted certificates.
       tags:
       - Developer
+      x-filter:
+        device_execution_mode:
+        - eq
+        - neq
+        enrollment_mode:
+        - eq
+        expire:
+        - eq
+        issuer:
+        - like
+        name:
+        - eq
+        owner:
+        - eq
+        service:
+        - eq
+        status:
+        - eq
+        subject:
+        - like
+        valid:
+        - eq
     post:
       consumes:
       - application/json
@@ -19865,6 +20009,9 @@ paths:
       summary: Get the details of all the user invitations.
       tags:
       - Account Admin
+      x-filter:
+        login_profile:
+        - eq
     post:
       consumes:
       - application/json
@@ -20063,6 +20210,15 @@ paths:
       summary: Get the details of all users.
       tags:
       - Account Admin
+      x-filter:
+        email:
+        - eq
+        login_profile:
+        - eq
+        status:
+        - eq
+        - in
+        - nin
     post:
       consumes:
       - application/json

@@ -23,19 +23,27 @@ public class NotificationsApiTest {
      * A websocket channel can have only one active websocket connection at a time. If a websocket connection for a
      * channel exists and a new connection to the same channel is made the connection is accepted and the older
      * connection will be closed.&lt;br/&gt; Once the socket has been opened, it may be closed with one of the following
-     * status codes&lt;br/&gt; **1000**: Socket closed by the client. **1001**: Going away. set when another socket was
-     * opened on the used channel, or if the channel was deleted with a REST call, or if the server is shutting down.
-     * **1006**: Abnormal loss of connection. This code is never set by the service. **1008**: Policy violation. Set
-     * when the API key is missing or invalid. **1011**: Unexpected condition. Socket will be closed with this status at
-     * an attempt to open a socket to an unexisting channel (without a prior REST PUT). This code is also used to
-     * indicate closing socket for any other unexpected condition in the server.
+     * status codes&lt;br/&gt; | Code | Description | |---|---| |**1000**|Socket closed by the client.| |**1001**|Going
+     * away. Set when another socket was opened on the used channel, or if the channel was deleted with a REST call, or
+     * if the server is shutting down.| |**1006**|Abnormal loss of connection. This code is never set by the service.|
+     * |**1008**|Policy violation. Set when the API key is missing or invalid.| |**1011**|Unexpected condition. Socket
+     * will be closed with this status at an attempt to open a socket to an unexisting channel (without a prior REST
+     * PUT). This code is also used to indicate closing socket for any other unexpected condition in the server.|
+     * &lt;br/&gt; **Example usage:** curl -X GET -N -I -H \&quot;Authorization:Bearer {apikey}\&quot; -H
+     * \&quot;Connection:upgrade\&quot; -H \&quot;Upgrade:websocket\&quot; -H \&quot;Sec-WebSocket-Version: 13\&quot; -H
+     * \&quot;Sec-WebSocket-Key: {base64nonce}\&quot;
+     * https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect
      */
     @Test
     public void connectWebsocketTest() {
         String connection = null;
         String upgrade = null;
+        String origin = null;
+        Integer secWebSocketVersion = null;
+        String secWebSocketKey = null;
         String secWebSocketProtocol = null;
-        // Void response = api.connectWebsocket(connection, upgrade, secWebSocketProtocol);
+        // Void response = api.connectWebsocket(connection, upgrade, origin, secWebSocketVersion, secWebSocketKey,
+        // secWebSocketProtocol);
 
         // TODO: test validations
     }

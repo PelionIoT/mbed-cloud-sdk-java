@@ -1,6 +1,6 @@
 entities:
 - _key: account
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: address_line1
     api_fieldname: address_line1
@@ -446,7 +446,7 @@ entities:
     - admin_id
     - admin_key
     - password_recovery_expiration
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: action
       api_fieldname: action
@@ -1272,7 +1272,7 @@ entities:
               type: string
             - _key: sub_accounts
               description: List of sub accounts. Not available for developer users.
-              items: []
+              items: {}
               type: array
             - _key: template_id
               description: Account template ID.
@@ -1489,6 +1489,7 @@ entities:
       type: account
     return_type: account
     summary: Create a new account.
+    x_filter: {}
   - _key: list
     description: 'Returns an array of account objects, optionally filtered by status
       and tier level.
@@ -1517,7 +1518,7 @@ entities:
     - parent__eq
     - end_market__eq
     - country__like
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: after
       api_fieldname: after
@@ -2156,7 +2157,7 @@ entities:
                   type: string
                 - _key: sub_accounts
                   description: List of sub accounts. Not available for developer users.
-                  items: []
+                  items: {}
                   type: array
                 - _key: template_id
                   description: Account template ID.
@@ -2365,6 +2366,19 @@ entities:
       type: account
     return_type: paginated_response(account)
     summary: Get all accounts.
+    x_filter:
+      country:
+      - like
+      end_market:
+      - eq
+      parent:
+      - eq
+      status:
+      - eq
+      - in
+      - nin
+      tier:
+      - eq
   - _key: me
     description: 'Returns detailed information about the account.
 
@@ -2425,7 +2439,7 @@ entities:
     - admin_password
     - admin_full_name
     - password_recovery_expiration
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: include
       api_fieldname: include
@@ -3080,7 +3094,7 @@ entities:
               type: string
             - _key: sub_accounts
               description: List of sub accounts. Not available for developer users.
-              items: []
+              items: {}
               type: array
             - _key: template_id
               description: Account template ID.
@@ -3249,6 +3263,7 @@ entities:
       type: account
     return_type: account
     summary: Get account info.
+    x_filter: {}
   - _key: read
     description: 'Returns detailed information about the account.
 
@@ -3308,7 +3323,7 @@ entities:
     - admin_password
     - admin_full_name
     - password_recovery_expiration
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -3970,7 +3985,7 @@ entities:
               type: string
             - _key: sub_accounts
               description: List of sub accounts. Not available for developer users.
-              items: []
+              items: {}
               type: array
             - _key: template_id
               description: Account template ID.
@@ -4187,6 +4202,7 @@ entities:
       type: account
     return_type: account
     summary: Get account info.
+    x_filter: {}
   - _key: trusted_certificates
     description: 'An endpoint for retrieving trusted certificates in an array.
 
@@ -4218,7 +4234,7 @@ entities:
     - issuer__like
     - subject__like
     - valid__eq
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: after
       api_fieldname: after
@@ -4634,6 +4650,28 @@ entities:
       type: subtenant_trusted_certificate
     return_type: paginated_response(subtenant_trusted_certificate)
     summary: Get all trusted certificates.
+    x_filter:
+      device_execution_mode:
+      - eq
+      - neq
+      enrollment_mode:
+      - eq
+      expire:
+      - eq
+      issuer:
+      - like
+      name:
+      - eq
+      owner:
+      - eq
+      service:
+      - eq
+      status:
+      - eq
+      subject:
+      - like
+      valid:
+      - eq
   - _key: update
     additional_operations:
     - notes: After retrieving the resource using the `me` method, it can modified
@@ -4675,7 +4713,7 @@ entities:
     - admin_key
     - admin_password
     - admin_full_name
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: address_line1
       api_fieldname: address_line1
@@ -5542,7 +5580,7 @@ entities:
               type: string
             - _key: sub_accounts
               description: List of sub accounts. Not available for developer users.
-              items: []
+              items: {}
               type: array
             - _key: template_id
               description: Account template ID.
@@ -5807,6 +5845,7 @@ entities:
       type: account
     return_type: account
     summary: Update attributes of an existing account.
+    x_filter: {}
   - _key: user_invitations
     description: 'An endpoint for retrieving the details of all the active user invitations
       sent for new or existing users to join the account.
@@ -5829,7 +5868,7 @@ entities:
     - has_more
     - data
     - login_profile__eq
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: after
       api_fieldname: after
@@ -6223,6 +6262,9 @@ entities:
       type: subtenant_user_invitation
     return_type: paginated_response(subtenant_user_invitation)
     summary: Get the details of all the user invitations.
+    x_filter:
+      login_profile:
+      - eq
   - _key: users
     description: 'An endpoint for retrieving details of all users.
 
@@ -6248,7 +6290,7 @@ entities:
     - status__in
     - status__nin
     - login_profile__eq
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: after
       api_fieldname: after
@@ -6831,6 +6873,15 @@ entities:
       type: subtenant_user
     return_type: paginated_response(subtenant_user)
     summary: Get all user details.
+    x_filter:
+      email:
+      - eq
+      login_profile:
+      - eq
+      status:
+      - eq
+      - in
+      - nin
   primary_key_field: id
   swagger_models:
   - AccountCreationReq
@@ -6844,7 +6895,7 @@ entities:
   - Developer
   - Aggregator Account Admin
 - _key: active_session
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -6884,13 +6935,13 @@ entities:
     required: false
     type: string
   group_id: Accounts
-  methods: []
+  methods: {}
   primary_key_field: null
   swagger_models:
   - ActiveSession
   tags: []
 - _key: api_key
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -6998,7 +7049,7 @@ entities:
     - creation_time
     - last_login_time
     - account_id
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: name
       api_fieldname: name
@@ -7293,6 +7344,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Create a new API key.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting the API key.
 
@@ -7310,7 +7362,7 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: apikey_id
@@ -7483,6 +7535,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Delete API key.
+    x_filter: {}
   - _key: list
     description: 'An endpoint for retrieving API keys in an array, optionally filtered
       by the owner.
@@ -7506,7 +7559,7 @@ entities:
     - data
     - key__eq
     - owner__eq
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: after
       api_fieldname: after
@@ -7814,6 +7867,11 @@ entities:
       type: api_key
     return_type: paginated_response(api_key)
     summary: Get all API keys
+    x_filter:
+      key:
+      - eq
+      owner:
+      - eq
   - _key: me
     description: 'An endpoint for retrieving API key details.
 
@@ -7841,8 +7899,8 @@ entities:
     - creation_time
     - last_login_time
     - account_id
-    field_renames: []
-    fields: []
+    field_renames: {}
+    fields: {}
     group_id: Accounts
     method: get
     mode: me
@@ -8059,6 +8117,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Get API key details.
+    x_filter: {}
   - _key: read
     description: 'An endpoint for retrieving API key details.
 
@@ -8085,7 +8144,7 @@ entities:
     - creation_time
     - last_login_time
     - account_id
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -8358,6 +8417,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Get API key details.
+    x_filter: {}
   - _key: update
     additional_operations:
     - notes: After retrieving the resource using the `me` method, it can modified
@@ -8386,7 +8446,7 @@ entities:
     - creation_time
     - last_login_time
     - account_id
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -8736,6 +8796,7 @@ entities:
       type: api_key
     return_type: api_key
     summary: Update API key details.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - ApiKeyInfoReq
@@ -8745,7 +8806,7 @@ entities:
   tags:
   - Developer
 - _key: certificate_enrollment
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: certificate_name
     api_fieldname: certificate_name
@@ -8872,7 +8933,7 @@ entities:
     - created_at__gte
     - updated_at__lte
     - updated_at__gte
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: after
       api_fieldname: after
@@ -9217,6 +9278,23 @@ entities:
       type: certificate_enrollment
     return_type: paginated_response(certificate_enrollment)
     summary: Get certificate enrollments list.
+    x_filter:
+      certificate_name:
+      - eq
+      created_at:
+      - lte
+      - gte
+      device_id:
+      - eq
+      enroll_result:
+      - neq
+      - eq
+      enroll_status:
+      - neq
+      - eq
+      updated_at:
+      - lte
+      - gte
   - _key: read
     description: 'Get a certificate enrollment by ID.
 
@@ -9249,7 +9327,7 @@ entities:
     - enroll_result
     - enroll_result_detail
     - updated_at
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -9530,6 +9608,7 @@ entities:
       type: certificate_enrollment
     return_type: certificate_enrollment
     summary: Get a certificate enrollment by ID.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - CertificateEnrollment
@@ -9537,7 +9616,7 @@ entities:
   tags:
   - Certificate Enrollments
 - _key: certificate_issuer
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: created_at
     api_fieldname: created_at
@@ -9573,7 +9652,7 @@ entities:
       When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
 
       '
-    example: []
+    example: {}
     readOnly: false
     required: false
     type: object
@@ -9640,7 +9719,7 @@ entities:
     - sub_accounts
     - created_at
     - id
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: description
       api_fieldname: description
@@ -9664,7 +9743,7 @@ entities:
 
         '
       entity_fieldname: issuer_attributes
-      example: []
+      example: &id002 {}
       in: body
       parameter_fieldname: issuer_attributes
       required: false
@@ -9681,7 +9760,7 @@ entities:
 
         '
       entity_fieldname: issuer_credentials
-      example: []
+      example: {}
       external_param: true
       in: body
       name: issuer_credentials
@@ -9770,7 +9849,7 @@ entities:
 
             '
           entity_fieldname: issuer_attributes
-          example: []
+          example: {}
           type: object
         - _key: issuer_type
           api_fieldname: issuer_type
@@ -10014,6 +10093,7 @@ entities:
       type: certificate_issuer
     return_type: certificate_issuer
     summary: Create certificate issuer.
+    x_filter: {}
   - _key: delete
     description: 'Delete a certificate issuer by ID.
 
@@ -10042,7 +10122,7 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: certificate-issuer-id
@@ -10237,6 +10317,7 @@ entities:
       type: certificate_issuer
     return_type: certificate_issuer
     summary: Delete certificate issuer.
+    x_filter: {}
   - _key: list
     description: 'Note: This endpoint does not implement pagination and therefore,
       list control parameters such as `limit` or `after` will be ignored by the system.
@@ -10254,7 +10335,7 @@ entities:
     - has_more
     - total_count
     - data
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: after
       api_fieldname: after
@@ -10374,7 +10455,7 @@ entities:
                 When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
 
                 '
-              example: []
+              example: {}
               type: object
             - _key: issuer_type
               description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n\
@@ -10532,6 +10613,7 @@ entities:
       type: certificate_issuer
     return_type: paginated_response(certificate_issuer)
     summary: Get certificate issuers list.
+    x_filter: {}
   - _key: read
     description: (No description provided)
     drop_fields:
@@ -10548,7 +10630,7 @@ entities:
     - name
     - description
     - issuer_attributes
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -10613,7 +10695,7 @@ entities:
 
             '
           entity_fieldname: issuer_attributes
-          example: []
+          example: {}
           type: object
         - _key: issuer_type
           api_fieldname: issuer_type
@@ -10813,6 +10895,7 @@ entities:
       type: certificate_issuer
     return_type: certificate_issuer
     summary: Get certificate issuer by ID.
+    x_filter: {}
   - _key: update
     description: "Update a certificate issuer.\n<br>\n**Example usage:**\n\n```\n\
       curl -X PUT \\\n-H 'authorization: <valid access token>' \\\n-H 'content-type:\
@@ -10830,7 +10913,7 @@ entities:
     - sub_accounts
     - created_at
     - issuer_type
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: description
       api_fieldname: description
@@ -10863,7 +10946,7 @@ entities:
 
         '
       entity_fieldname: issuer_attributes
-      example: []
+      example: *id002
       in: body
       parameter_fieldname: issuer_attributes
       required: false
@@ -10880,7 +10963,7 @@ entities:
 
         '
       entity_fieldname: issuer_credentials
-      example: []
+      example: {}
       external_param: true
       in: body
       name: issuer_credentials
@@ -10952,7 +11035,7 @@ entities:
 
             '
           entity_fieldname: issuer_attributes
-          example: []
+          example: {}
           type: object
         - _key: issuer_type
           api_fieldname: issuer_type
@@ -11236,6 +11319,7 @@ entities:
       type: certificate_issuer
     return_type: certificate_issuer
     summary: Update certificate issuer.
+    x_filter: {}
   - _key: verify
     description: 'A utility API that can be used to validate the user configuration
       before activating a certificate issuer.
@@ -11280,7 +11364,7 @@ entities:
     - sub_accounts
     - successful
     - message
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: certificate-issuer-id
@@ -11539,6 +11623,7 @@ entities:
     return_type: verification_response
     summary: Verify certificate issuer.
     unaggregated: true
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - CertificateIssuerInfo
@@ -11887,6 +11972,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Create certificate issuer configuration.
+    x_filter: {}
   - _key: delete
     description: 'Delete the configured certificate issuer configuration.
 
@@ -12095,6 +12181,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Delete certificate issuer configuration.
+    x_filter: {}
   - _key: get_default
     description: 'Provides the configured certificate issuer to be used when creating
       device
@@ -12119,7 +12206,7 @@ entities:
     field_renames:
     - _key: certificate_reference
       api_fieldname: reference
-    fields: []
+    fields: {}
     group_id: Security
     method: get
     mode: get_default
@@ -12319,6 +12406,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Get certificate issuer configuration.
+    x_filter: {}
   - _key: list
     description: 'Get certificate issuer configurations, optionally filtered by reference.
 
@@ -12661,6 +12749,9 @@ entities:
       type: certificate_issuer_config
     return_type: paginated_response(certificate_issuer_config)
     summary: Get certificate issuer configurations.
+    x_filter:
+      certificate_reference:
+      - eq
   - _key: read
     description: 'Provides the configured certificate issuer.
 
@@ -12932,6 +13023,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Get certificate issuer configuration.
+    x_filter: {}
   - _key: update
     additional_operations:
     - notes: After retrieving the resource using the `lwm2m` method, it can modified
@@ -13219,6 +13311,7 @@ entities:
       type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Update certificate issuer configuration.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - CertificateIssuerConfigListResponse
@@ -13843,6 +13936,7 @@ entities:
       type: developer_certificate
     return_type: developer_certificate
     summary: Create a new developer certificate to connect to the bootstrap server.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting a trusted certificate.
 
@@ -14038,6 +14132,7 @@ entities:
       type: developer_certificate
     return_type: developer_certificate
     summary: Delete a trusted certificate by ID.
+    x_filter: {}
   - _key: get_trusted_certificate_info
     description: 'An endpoint for retrieving a trusted certificate by ID.
 
@@ -14409,6 +14504,7 @@ entities:
     return_type: trusted_certificate
     summary: Get trusted certificate by ID.
     unaggregated: true
+    x_filter: {}
   - _key: read
     description: 'This REST API is intended to be used by customers to fetch an existing
       developer certificate (a certificate that can be flashed into multiple devices
@@ -14882,6 +14978,7 @@ entities:
       type: developer_certificate
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - DeveloperCertificateRequestData
@@ -14891,7 +14988,7 @@ entities:
   - Developer certificate
   - Developer
 - _key: device
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -15247,7 +15344,7 @@ entities:
     - manifest_timestamp
     - updated_at
     - enrolment_list_timestamp
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: auto_update
       api_fieldname: auto_update
@@ -15829,6 +15926,7 @@ entities:
       type: device
     return_type: device
     summary: Create a device
+    x_filter: {}
   - _key: delete
     description: Delete device. Only available for devices with a developer certificate.
       Attempts to delete a device with a production certicate will return a 400 response.
@@ -15841,7 +15939,7 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -15873,6 +15971,7 @@ entities:
       type: device
     return_type: device
     summary: Delete a device.
+    x_filter: {}
   - _key: list
     description: List all devices.
     drop_fields:
@@ -15887,7 +15986,7 @@ entities:
     - data
     - has_more
     - total_count
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: after
       api_fieldname: after
@@ -16245,6 +16344,7 @@ entities:
       type: device
     return_type: paginated_response(device)
     summary: List all devices.
+    x_filter: {}
   - _key: read
     description: Retrieve information about a specific device.
     drop_fields:
@@ -16294,7 +16394,7 @@ entities:
     - updated_at
     - vendor_id
     - enrolment_list_timestamp
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -16640,6 +16740,7 @@ entities:
       type: device
     return_type: device
     summary: Get a device
+    x_filter: {}
   - _key: renew_certificate
     description: 'Request a certificate renewal.
 
@@ -16675,7 +16776,7 @@ entities:
     - enroll_result
     - enroll_result_detail
     - updated_at
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: certificate_name
       api_fieldname: certificate-name
@@ -17049,6 +17150,7 @@ entities:
     return_type: certificate_enrollment
     summary: Request certificate renewal.
     unaggregated: true
+    x_filter: {}
   - _key: update
     description: Update a specific device.
     drop_fields:
@@ -17089,7 +17191,7 @@ entities:
     - updated_at
     - vendor_id
     - enrolment_list_timestamp
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: auto_update
       api_fieldname: auto_update
@@ -17531,6 +17633,7 @@ entities:
       type: device
     return_type: device
     summary: Update a device
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - CertificateEnrollment
@@ -17541,7 +17644,7 @@ entities:
   tags:
   - Certificate Renewal
 - _key: device_enrollment
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -17637,7 +17740,7 @@ entities:
     - account_id
     - expires_at
     - enrolled_device_id
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: enrollment_identity
       api_fieldname: enrollment_identity
@@ -17887,6 +17990,7 @@ entities:
       type: device_enrollment
     return_type: device_enrollment
     summary: Create a single enrollment.
+    x_filter: {}
   - _key: delete
     description: 'To free a device from your account you can delete the enrollment
       claim. To bypass the device ownership, you need to delete the enrollment and
@@ -17917,7 +18021,7 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -18040,6 +18144,7 @@ entities:
       type: device_enrollment
     return_type: device_enrollment
     summary: Delete an enrollment by ID.
+    x_filter: {}
   - _key: list
     description: 'Provides a list of pending and claimed enrollments.
 
@@ -18080,7 +18185,7 @@ entities:
     - has_more
     - total_count
     - data
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: after
       api_fieldname: after
@@ -18370,6 +18475,7 @@ entities:
       type: device_enrollment
     return_type: paginated_response(device_enrollment)
     summary: Get a list of enrollments per account.
+    x_filter: {}
   - _key: read
     description: 'To check the enrollment info in detail, for example date of claim
       and expiration date.
@@ -18402,7 +18508,7 @@ entities:
     - account_id
     - expires_at
     - enrolled_device_id
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -18602,6 +18708,7 @@ entities:
       type: device_enrollment
     return_type: device_enrollment
     summary: Get details of an single enrollment by ID.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - EnrollmentId
@@ -18610,7 +18717,7 @@ entities:
   tags:
   - Public API
 - _key: device_enrollment_bulk_create
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -18766,7 +18873,7 @@ entities:
     - completed_at
     - full_report_file
     - errors_report_file
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: enrollment_identities
       api_fieldname: enrollment_identities
@@ -19013,6 +19120,7 @@ entities:
       type: device_enrollment_bulk_create
     return_type: device_enrollment_bulk_create
     summary: Bulk upload
+    x_filter: {}
   - _key: download_errors_report_file
     custom_method: download_errors_report_file
     description: This method will download the CSV file containing detailed information
@@ -19026,13 +19134,13 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
-    fields: []
+    field_renames: {}
+    fields: {}
     group_id: Devices
     method: null
     mode: download_errors_report_file
     path: null
-    responses: []
+    responses: {}
     return_info:
       custom: true
       self: false
@@ -19044,6 +19152,7 @@ entities:
       return_type: file
       summary: Download the error report file for the created the bulk enrollment.
     summary: Download the error report file for the created the bulk enrollment.
+    x_filter: {}
   - _key: download_full_report_file
     custom_method: download_full_report_file
     description: This method will download the CSV file containing detailed information
@@ -19057,13 +19166,13 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
-    fields: []
+    field_renames: {}
+    fields: {}
     group_id: Devices
     method: null
     mode: download_full_report_file
     path: null
-    responses: []
+    responses: {}
     return_info:
       custom: true
       self: false
@@ -19075,6 +19184,7 @@ entities:
       return_type: file
       summary: Download the full report file for the created of the bulk enrollment.
     summary: Download the full report file for the created of the bulk enrollment.
+    x_filter: {}
   - _key: read
     description: 'Provides information on bulk upload for the given ID. For example,
       the bulk status and the number of processed enrollment identities. Also links
@@ -19143,7 +19253,7 @@ entities:
     - completed_at
     - full_report_file
     - errors_report_file
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -19435,13 +19545,14 @@ entities:
       type: device_enrollment_bulk_create
     return_type: device_enrollment_bulk_create
     summary: Get bulk upload entity
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - BulkResponse
   tags:
   - Public API
 - _key: device_enrollment_bulk_delete
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -19599,7 +19710,7 @@ entities:
     - completed_at
     - full_report_file
     - errors_report_file
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: enrollment_identities
       api_fieldname: enrollment_identities
@@ -19849,6 +19960,7 @@ entities:
       type: device_enrollment_bulk_delete
     return_type: device_enrollment_bulk_delete
     summary: Bulk delete
+    x_filter: {}
   - _key: download_errors_report_file
     custom_method: download_errors_report_file
     description: This method will download the CSV file containing detailed information
@@ -19862,13 +19974,13 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
-    fields: []
+    field_renames: {}
+    fields: {}
     group_id: Devices
     method: null
     mode: download_errors_report_file
     path: null
-    responses: []
+    responses: {}
     return_info:
       custom: true
       self: false
@@ -19880,6 +19992,7 @@ entities:
       return_type: file
       summary: Download the error report file for the bulk enrollment deletion.
     summary: Download the error report file for the bulk enrollment deletion.
+    x_filter: {}
   - _key: download_full_report_file
     custom_method: download_full_report_file
     description: This method will download the CSV file containing detailed information
@@ -19893,13 +20006,13 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
-    fields: []
+    field_renames: {}
+    fields: {}
     group_id: Devices
     method: null
     mode: download_full_report_file
     path: null
-    responses: []
+    responses: {}
     return_info:
       custom: true
       self: false
@@ -19911,6 +20024,7 @@ entities:
       return_type: file
       summary: Download the full report file for the bulk enrollment deletion.
     summary: Download the full report file for the bulk enrollment deletion.
+    x_filter: {}
   - _key: read
     description: 'Provides information on bulk delete for the given ID. For example,
       the bulk status and the number of processed enrollment identities. Also links
@@ -19979,7 +20093,7 @@ entities:
     - completed_at
     - full_report_file
     - errors_report_file
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -20274,19 +20388,20 @@ entities:
       type: device_enrollment_bulk_delete
     return_type: device_enrollment_bulk_delete
     summary: Get bulk delete entity
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - BulkResponse
   tags:
   - Public API
 - _key: device_events
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: changes
     additionalProperties:
       type: object
     api_fieldname: changes
-    example: []
+    example: {}
     readOnly: true
     required: false
     type: object
@@ -20380,7 +20495,7 @@ entities:
     - data
     - has_more
     - total_count
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: after
       api_fieldname: after
@@ -20467,7 +20582,7 @@ entities:
             - _key: changes
               additionalProperties:
                 type: object
-              example: []
+              example: {}
               type: object
               x-deprecation:
                 comment: This field is not used.
@@ -20563,6 +20678,7 @@ entities:
       type: device_events
     return_type: paginated_response(device_events)
     summary: List all device events.
+    x_filter: {}
   - _key: read
     description: Retrieve a specific device event.
     drop_fields:
@@ -20584,7 +20700,7 @@ entities:
     - event_type_category
     - event_type_description
     - state_change
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -20615,7 +20731,7 @@ entities:
             type: object
           api_fieldname: changes
           entity_fieldname: changes
-          example: []
+          example: {}
           type: object
           x-deprecation:
             comment: This field is not used.
@@ -20708,13 +20824,14 @@ entities:
       type: device_events
     return_type: device_events
     summary: Retrieve a device event.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - DeviceEventData
   - DeviceEventPage
   tags: []
 - _key: login_history
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: date
     api_fieldname: date
@@ -20747,13 +20864,13 @@ entities:
     required: false
     type: string
   group_id: Accounts
-  methods: []
+  methods: {}
   primary_key_field: null
   swagger_models:
   - LoginHistory
   tags: []
 - _key: login_profile
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: id
     _override: true
@@ -20770,13 +20887,13 @@ entities:
     required: false
     type: string
   group_id: Accounts
-  methods: []
+  methods: {}
   primary_key_field: id
   swagger_models:
   - LoginProfile
   tags: []
 - _key: parent_account
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: admin_email
     api_fieldname: admin_email
@@ -20802,13 +20919,13 @@ entities:
     required: false
     type: string
   group_id: Accounts
-  methods: []
+  methods: {}
   primary_key_field: id
   swagger_models:
   - ParentAccountInfo
   tags: []
 - _key: password_policy
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: minimum_length
     api_fieldname: minimum_length
@@ -20818,13 +20935,13 @@ entities:
     required: false
     type: string
   group_id: Accounts
-  methods: []
+  methods: {}
   primary_key_field: null
   swagger_models:
   - PasswordPolicy
   tags: []
 - _key: policy
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: action
     api_fieldname: action
@@ -20863,13 +20980,13 @@ entities:
     required: false
     type: string
   group_id: Accounts
-  methods: []
+  methods: {}
   primary_key_field: null
   swagger_models:
   - FeaturePolicy
   tags: []
 - _key: server_credentials
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: created_at
     api_fieldname: created_at
@@ -20928,8 +21045,8 @@ entities:
     - created_at
     - server_certificate
     - server_uri
-    field_renames: []
-    fields: []
+    field_renames: {}
+    fields: {}
     group_id: Security
     method: get
     mode: get_bootstrap
@@ -21095,6 +21212,7 @@ entities:
       type: server_credentials
     return_type: server_credentials
     summary: Fetch bootstrap server credentials.
+    x_filter: {}
   - _key: get_lwm2m
     additional_operations:
     - notes: The information returned by this endpoint can be obtained by calling
@@ -21124,8 +21242,8 @@ entities:
     - created_at
     - server_certificate
     - server_uri
-    field_renames: []
-    fields: []
+    field_renames: {}
+    fields: {}
     group_id: Security
     method: get
     mode: get_lwm2m
@@ -21291,13 +21409,14 @@ entities:
       type: server_credentials
     return_type: server_credentials
     summary: Fetch LwM2M server credentials.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - ServerCredentialsResponseData
   tags:
   - Server credentials
 - _key: subtenant_trusted_certificate
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -21487,7 +21606,7 @@ entities:
     - validity
     - certificate_fingerprint
     - valid
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: account_id
       api_fieldname: account_id
@@ -21557,7 +21676,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is to be used.
       entity_fieldname: service
-      enum: &id002
+      enum: &id003
       - lwm2m
       - bootstrap
       enum_reference: subtenant_trusted_certificate_service_enum
@@ -21569,7 +21688,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id003
+      enum: &id004
       - ACTIVE
       - INACTIVE
       enum_reference: subtenant_trusted_certificate_status_enum
@@ -21958,6 +22077,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Upload new trusted certificate.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting the trusted certificate.
 
@@ -21975,7 +22095,7 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: account_id
       api_fieldname: account_id
@@ -22174,6 +22294,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Delete trusted certificate by ID.
+    x_filter: {}
   - _key: get_developer_certificate_info
     description: 'This REST API is intended to be used by customers to fetch an existing
       developer certificate (a certificate that can be flashed into multiple devices
@@ -22202,7 +22323,7 @@ entities:
     - developer_certificate
     - developer_private_key
     - security_file_content
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: device_execution_mode
       _override: true
@@ -22664,6 +22785,7 @@ entities:
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
     unaggregated: true
+    x_filter: {}
   - _key: read
     description: 'An endpoint for retrieving a trusted certificate by ID.
 
@@ -22695,7 +22817,7 @@ entities:
     - enrollment_mode
     - certificate_fingerprint
     - valid
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: account_id
       api_fieldname: account_id
@@ -23066,6 +23188,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Get trusted certificate by ID.
+    x_filter: {}
   - _key: update
     description: 'An endpoint for updating existing trusted certificates.
 
@@ -23093,7 +23216,7 @@ entities:
     - validity
     - certificate_fingerprint
     - valid
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: account_id
       api_fieldname: account_id
@@ -23172,7 +23295,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is to be used.
       entity_fieldname: service
-      enum: *id002
+      enum: *id003
       enum_reference: subtenant_trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -23182,7 +23305,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id003
+      enum: *id004
       enum_reference: subtenant_trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -23571,6 +23694,7 @@ entities:
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Update trusted certificate.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - DeveloperCertificateResponseData
@@ -24046,14 +24170,14 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: &id004
+          enum: &id005
           - NATIVE
           - MBED
           - SAML2
           - OIDC
           readOnly: true
           type: string
-        required: &id005
+        required: &id006
         - id
         type: object
       parameter_fieldname: login_profiles
@@ -24735,6 +24859,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Create a new user.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting a user.
 
@@ -24989,6 +25114,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Delete a user.
+    x_filter: {}
   - _key: read
     description: 'An endpoint for retrieving details of the user.
 
@@ -25581,6 +25707,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Details of the user.
+    x_filter: {}
   - _key: update
     description: 'An endpoint for updating user details.
 
@@ -25688,10 +25815,10 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: *id004
+          enum: *id005
           readOnly: true
           type: string
-        required: *id005
+        required: *id006
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -26371,6 +26498,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Update user details.
+    x_filter: {}
   - _key: validate_email
     description: 'An endpoint for validating the user email.
 
@@ -26577,6 +26705,7 @@ entities:
       type: subtenant_user
     return_type: subtenant_user
     summary: Validate the user email.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - UserInfoReq
@@ -26585,7 +26714,7 @@ entities:
   tags:
   - Aggregator Account Admin
 - _key: subtenant_user_invitation
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -26712,7 +26841,7 @@ entities:
     - updated_at
     - user_id
     - expiration
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: account_id
       api_fieldname: account_id
@@ -27085,6 +27214,7 @@ entities:
       type: subtenant_user_invitation
     return_type: subtenant_user_invitation
     summary: Create a user invitation.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting an active user invitation which has been
       sent for a new or an existing user to join the account.
@@ -27103,7 +27233,7 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: account_id
       api_fieldname: account_id
@@ -27286,6 +27416,7 @@ entities:
       type: subtenant_user_invitation
     return_type: subtenant_user_invitation
     summary: Delete a user invitation.
+    x_filter: {}
   - _key: read
     description: 'An endpoint for retrieving the details of an active user invitation
       sent for a new or an existing user to join the account.
@@ -27310,7 +27441,7 @@ entities:
     - user_id
     - expiration
     - login_profiles
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: account_id
       api_fieldname: account_id
@@ -27626,6 +27757,7 @@ entities:
       type: subtenant_user_invitation
     return_type: subtenant_user_invitation
     summary: Details of a user invitation.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - UserInvitationReq
@@ -27633,7 +27765,7 @@ entities:
   tags:
   - Aggregator Account Admin
 - _key: trusted_certificate
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -27810,7 +27942,7 @@ entities:
     - validity
     - certificate_fingerprint
     - valid
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: certificate
       api_fieldname: certificate
@@ -27871,7 +28003,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is to be used.
       entity_fieldname: service
-      enum: &id006
+      enum: &id007
       - lwm2m
       - bootstrap
       enum_reference: trusted_certificate_service_enum
@@ -27883,7 +28015,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: &id007
+      enum: &id008
       - ACTIVE
       - INACTIVE
       enum_reference: trusted_certificate_status_enum
@@ -28248,6 +28380,7 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Upload a new trusted certificate.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting a trusted certificate.
 
@@ -28265,7 +28398,7 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: device_execution_mode
       _override: true
@@ -28454,6 +28587,7 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Delete a trusted certificate by ID.
+    x_filter: {}
   - _key: get_developer_certificate_info
     description: 'This REST API is intended to be used by customers to fetch an existing
       developer certificate (a certificate that can be flashed into multiple devices
@@ -28482,7 +28616,7 @@ entities:
     - developer_certificate
     - developer_private_key
     - security_file_content
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: device_execution_mode
       _override: true
@@ -28944,6 +29078,7 @@ entities:
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
     unaggregated: true
+    x_filter: {}
   - _key: list
     description: 'An endpoint for retrieving trusted certificates in an array.
 
@@ -28975,7 +29110,7 @@ entities:
     - issuer__like
     - subject__like
     - valid__eq
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: after
       api_fieldname: after
@@ -29331,6 +29466,28 @@ entities:
       type: trusted_certificate
     return_type: paginated_response(trusted_certificate)
     summary: Get all trusted certificates.
+    x_filter:
+      device_execution_mode:
+      - eq
+      - neq
+      enrollment_mode:
+      - eq
+      expire:
+      - eq
+      issuer:
+      - like
+      name:
+      - eq
+      owner:
+      - eq
+      service:
+      - eq
+      status:
+      - eq
+      subject:
+      - like
+      valid:
+      - eq
   - _key: read
     description: 'An endpoint for retrieving a trusted certificate by ID.
 
@@ -29363,7 +29520,7 @@ entities:
     - enrollment_mode
     - certificate_fingerprint
     - valid
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: device_execution_mode
       _override: true
@@ -29702,6 +29859,7 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Get trusted certificate by ID.
+    x_filter: {}
   - _key: update
     description: 'An endpoint for updating existing trusted certificates.
 
@@ -29730,7 +29888,7 @@ entities:
     - validity
     - certificate_fingerprint
     - valid
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: certificate
       api_fieldname: certificate
@@ -29800,7 +29958,7 @@ entities:
       api_fieldname: service
       description: Service name where the certificate is to be used.
       entity_fieldname: service
-      enum: *id006
+      enum: *id007
       enum_reference: trusted_certificate_service_enum
       in: body
       parameter_fieldname: service
@@ -29810,7 +29968,7 @@ entities:
       api_fieldname: status
       description: Status of the certificate.
       entity_fieldname: status
-      enum: *id007
+      enum: *id008
       enum_reference: trusted_certificate_status_enum
       example: ACTIVE
       in: body
@@ -30223,6 +30381,7 @@ entities:
       type: trusted_certificate
     return_type: trusted_certificate
     summary: Update trusted certificate.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - DeveloperCertificateResponseData
@@ -30668,14 +30827,14 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: &id008
+          enum: &id009
           - NATIVE
           - MBED
           - SAML2
           - OIDC
           readOnly: true
           type: string
-        required: &id009
+        required: &id010
         - id
         type: object
       parameter_fieldname: login_profiles
@@ -31267,6 +31426,7 @@ entities:
       type: user
     return_type: user
     summary: Create a new user.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting a user.
 
@@ -31511,6 +31671,7 @@ entities:
       type: user
     return_type: user
     summary: Delete a user.
+    x_filter: {}
   - _key: list
     description: 'An endpoint for retrieving the details of all users.
 
@@ -32051,6 +32212,15 @@ entities:
       type: user
     return_type: paginated_response(user)
     summary: Get the details of all users.
+    x_filter:
+      email:
+      - eq
+      login_profile:
+      - eq
+      status:
+      - eq
+      - in
+      - nin
   - _key: read
     description: 'An endpoint for retrieving the details of a user.
 
@@ -32593,6 +32763,7 @@ entities:
       type: user
     return_type: user
     summary: Details of a user.
+    x_filter: {}
   - _key: update
     description: 'An endpoint for updating user details.
 
@@ -32692,10 +32863,10 @@ entities:
           api_fieldname: type
           description: Identity provider type.
           entity_fieldname: type
-          enum: *id008
+          enum: *id009
           readOnly: true
           type: string
-        required: *id009
+        required: *id010
         type: object
       parameter_fieldname: login_profiles
       required: false
@@ -33333,6 +33504,7 @@ entities:
       type: user
     return_type: user
     summary: Update user details.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - UserInfoReq
@@ -33342,7 +33514,7 @@ entities:
   tags:
   - Account Admin
 - _key: user_invitation
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: account_id
     api_fieldname: account_id
@@ -33464,7 +33636,7 @@ entities:
     - user_id
     - account_id
     - expiration
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: email
       api_fieldname: email
@@ -33813,6 +33985,7 @@ entities:
       type: user_invitation
     return_type: user_invitation
     summary: Create a user invitation.
+    x_filter: {}
   - _key: delete
     description: 'An endpoint for deleting an active user invitation which has been
       sent for a new or an existing user to join the account.
@@ -33831,7 +34004,7 @@ entities:
     - is_custom
     - private_key
     - sub_accounts
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: invitation_id
@@ -34004,6 +34177,7 @@ entities:
       type: user_invitation
     return_type: user_invitation
     summary: Delete a user invitation.
+    x_filter: {}
   - _key: list
     description: 'An endpoint for retrieving the details of all the active user invitations
       sent for new or existing users to join the account.
@@ -34026,7 +34200,7 @@ entities:
     - has_more
     - data
     - login_profile__eq
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: after
       api_fieldname: after
@@ -34346,6 +34520,9 @@ entities:
       type: user_invitation
     return_type: paginated_response(user_invitation)
     summary: Get the details of all the user invitations.
+    x_filter:
+      login_profile:
+      - eq
   - _key: read
     description: 'An endpoint for retrieving the details of an active user invitation
       sent for a new or an existing user to join the account.
@@ -34371,7 +34548,7 @@ entities:
     - account_id
     - expiration
     - login_profiles
-    field_renames: []
+    field_renames: {}
     fields:
     - _key: id
       api_fieldname: id
@@ -34663,6 +34840,7 @@ entities:
       type: user_invitation
     return_type: user_invitation
     summary: Details of a user invitation.
+    x_filter: {}
   primary_key_field: id
   swagger_models:
   - UserInvitationReq
@@ -34671,7 +34849,7 @@ entities:
   tags:
   - Account Admin
 - _key: verification_response
-  field_renames: []
+  field_renames: {}
   fields:
   - _key: message
     api_fieldname: message
@@ -34692,7 +34870,7 @@ entities:
     required: false
     type: boolean
   group_id: Security
-  methods: []
+  methods: {}
   primary_key_field: null
   swagger_models:
   - CertificateIssuerVerifyResponse

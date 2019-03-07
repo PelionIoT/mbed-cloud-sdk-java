@@ -17,11 +17,11 @@ Method | HTTP request | Description
 
 <a name="connectWebsocket"></a>
 # **connectWebsocket**
-> Void connectWebsocket(connection, upgrade, secWebSocketProtocol)
+> Void connectWebsocket(connection, upgrade, origin, secWebSocketVersion, secWebSocketKey, secWebSocketProtocol)
 
 Open the websocket.
 
- A websocket channel can have only one active websocket connection at a time. If a websocket connection for a channel exists and a new connection to the same channel is made the connection is accepted and the older connection will be closed.&lt;br/&gt; Once the socket has been opened, it may be closed with one of the following status codes&lt;br/&gt; **1000**: Socket closed by the client. **1001**: Going away. set when another socket was opened on the used channel, or if the channel was deleted with a REST call, or if the server is shutting down. **1006**: Abnormal loss of connection. This code is never set by the service. **1008**: Policy violation. Set when the API key is missing or invalid. **1011**: Unexpected condition. Socket will be closed with this status at an attempt to open a socket to an unexisting channel (without a prior REST PUT). This code is also used to indicate closing socket for any other unexpected condition in the server. 
+ A websocket channel can have only one active websocket connection at a time. If a websocket connection for a channel exists and a new connection to the same channel is made the connection is accepted and the older connection will be closed.&lt;br/&gt; Once the socket has been opened, it may be closed with one of the following status codes&lt;br/&gt; | Code | Description | |---|---| |**1000**|Socket closed by the client.| |**1001**|Going away. Set when another socket was opened on the used channel, or if the channel was deleted with a REST call, or if the server is shutting down.| |**1006**|Abnormal loss of connection. This code is never set by the service.| |**1008**|Policy violation. Set when the API key is missing or invalid.| |**1011**|Unexpected condition. Socket will be closed with this status at an attempt to open a socket to an unexisting channel (without a prior REST PUT). This code is also used to indicate closing socket for any other unexpected condition in the server.| &lt;br/&gt; **Example usage:**      curl -X GET -N -I -H \&quot;Authorization:Bearer {apikey}\&quot; -H \&quot;Connection:upgrade\&quot; -H \&quot;Upgrade:websocket\&quot; -H \&quot;Sec-WebSocket-Version: 13\&quot; -H \&quot;Sec-WebSocket-Key: {base64nonce}\&quot;  https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect 
 
 ### Example
 ```java
@@ -43,9 +43,12 @@ Bearer.setApiKey("YOUR API KEY");
 NotificationsApi apiInstance = new NotificationsApi();
 String connection = "Upgrade"; // String | 
 String upgrade = "websocket"; // String | 
-String secWebSocketProtocol = "secWebSocketProtocol_example"; // String | ApiKey must be present in the `Sec-WebSocket-Protocol` header `\"Sec-WebSocket-Protocol\":\"wss,pelion_ak_{api_key}\"` Refer to the notification service documentation for examples of usage. 
+String origin = "origin_example"; // String | Originating host of the request
+Integer secWebSocketVersion = 13; // Integer | WebSocket version. MUST be 13.
+String secWebSocketKey = "secWebSocketKey_example"; // String | The value of this header field MUST be a nonce consisting of a randomly selected 16-byte value that has been base64-encoded (see Section 4 of [RFC4648]).  The nonce MUST be selected randomly for each connection. 
+String secWebSocketProtocol = "secWebSocketProtocol_example"; // String | ApiKey or user token must be present in the `Sec-WebSocket-Protocol` header **if Authorization header cannot be provided** `Sec-WebSocket-Protocol:\"wss,pelion_ak_{api_key}\"` Refer to the notification service documentation for examples of usage. 
 try {
-    Void result = apiInstance.connectWebsocket(connection, upgrade, secWebSocketProtocol);
+    Void result = apiInstance.connectWebsocket(connection, upgrade, origin, secWebSocketVersion, secWebSocketKey, secWebSocketProtocol);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling NotificationsApi#connectWebsocket");
@@ -59,7 +62,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **connection** | **String**|  | [default to Upgrade]
  **upgrade** | **String**|  | [default to websocket]
- **secWebSocketProtocol** | **String**| ApiKey must be present in the &#x60;Sec-WebSocket-Protocol&#x60; header &#x60;\&quot;Sec-WebSocket-Protocol\&quot;:\&quot;wss,pelion_ak_{api_key}\&quot;&#x60; Refer to the notification service documentation for examples of usage.  |
+ **origin** | **String**| Originating host of the request |
+ **secWebSocketVersion** | **Integer**| WebSocket version. MUST be 13. | [default to 13]
+ **secWebSocketKey** | **String**| The value of this header field MUST be a nonce consisting of a randomly selected 16-byte value that has been base64-encoded (see Section 4 of [RFC4648]).  The nonce MUST be selected randomly for each connection.  |
+ **secWebSocketProtocol** | **String**| ApiKey or user token must be present in the &#x60;Sec-WebSocket-Protocol&#x60; header **if Authorization header cannot be provided** &#x60;Sec-WebSocket-Protocol:\&quot;wss,pelion_ak_{api_key}\&quot;&#x60; Refer to the notification service documentation for examples of usage.  | [optional]
 
 ### Return type
 
