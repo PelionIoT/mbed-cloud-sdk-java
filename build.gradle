@@ -680,18 +680,9 @@ task reportCoverage(dependsOn: copyCoverageAgent) {
     project_list.add(project)
     project_list.each { projectObject -> classes_files += projectObject.sourceSets.main.output.asPath + File.pathSeparator }
     project_list.each { projectObject ->
-      if(projectObject.sourceSets.main.output.asPath =~ /foundation-/)
-        foundation_class_files += projectObject.sourceSets.main.output.asPath + File.pathSeparator
-    }
-
-    /*
-     * Look at all of the model files and the adapter files as part of the foundation.
-     */
-    def sdkDir = buildDir.toString() + "/classes/java/main/com/arm/mbed/cloud/sdk"
-
-    new File("${sdkDir}").eachDir { 
-        foundation_class_files += it.toString() + '/adapters' + File.pathSeparator
-        foundation_class_files += it.toString() + '/model' + File.pathSeparator
+      if(projectObject.sourceSets.main.output.asPath ==~ /.*foundation-.*/){
+        	foundation_class_files += projectObject.sourceSets.main.output.asPath + File.pathSeparator
+        }
     }
 
     project_list.each { projectObject -> source_files += projectObject.sourceSets.main.allJava.srcDirs[0].toString() + File.pathSeparator }
