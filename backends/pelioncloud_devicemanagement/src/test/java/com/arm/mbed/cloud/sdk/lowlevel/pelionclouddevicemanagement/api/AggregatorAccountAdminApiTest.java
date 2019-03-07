@@ -1172,7 +1172,7 @@ public class AggregatorAccountAdminApiTest {
      * usage:** &#x60;curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/upload -H
      * &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary
-     * &#39;myimage.png&#39;&#x60;
+     * &#39;@myimage.png&#39;&#x60;
      */
     @Test
     public void uploadAccountDarkImageTest() {
@@ -1206,7 +1206,7 @@ public class AggregatorAccountAdminApiTest {
      * usage:** &#x60;curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/upload -H
      * &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary
-     * &#39;myimage.png&#39;&#x60;
+     * &#39;@myimage.png&#39;&#x60;
      */
     @Test
     public void uploadAccountLightImageTest() {
