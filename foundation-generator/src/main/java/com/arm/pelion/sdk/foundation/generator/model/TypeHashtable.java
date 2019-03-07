@@ -90,6 +90,11 @@ public class TypeHashtable extends TypeCompose {
     }
 
     @Override
+    public String getFullyQualifiedName() {
+        return Map.class.getName();
+    }
+
+    @Override
     public String toString() {
         return "HashtableType [contentType=" + contentType + ", concreteImplementation=" + concreteImplementation + "]";
     }

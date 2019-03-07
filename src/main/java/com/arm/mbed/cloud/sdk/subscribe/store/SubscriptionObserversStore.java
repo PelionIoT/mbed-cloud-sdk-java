@@ -49,6 +49,8 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
      *            action to perform on subscription
      * @param resourceUnsubscriber
      *            action to perform on unsubscription
+     * @param resourceUnsubscriberAll
+     *            action to perform on shutdown
      */
     public SubscriptionObserversStore(Scheduler scheduler, SubscriptionAction resourceSubscriber,
                                       SubscriptionAction resourceUnsubscriber,

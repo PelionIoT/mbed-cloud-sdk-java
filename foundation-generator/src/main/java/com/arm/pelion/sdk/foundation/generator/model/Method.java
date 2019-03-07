@@ -472,10 +472,10 @@ public class Method extends AbstractSdkArtifact {
     }
 
     public static String generateSignatureForDocumentation(String methodName, List<Parameter> parameters) {
-        return methodName + "("
-               + (parameters == null ? "" : String.join(",", parameters.stream().map(p -> p.getType().getShortName())
-                                                                       .collect(Collectors.toList())))
-               + ")";
+        return methodName + "(" + (parameters == null ? "" : String.join(", ", parameters.stream().map(p -> {
+            final TypeParameter type = p.getType();
+            return type.isPrimitiveOrWrapper() ? type.getShortName() : type.getFullyQualifiedName();
+        }).collect(Collectors.toList()))) + ")";
     }
 
     /*

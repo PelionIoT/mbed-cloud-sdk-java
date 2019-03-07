@@ -46,6 +46,11 @@ public class TypeList extends TypeCompose {
     }
 
     @Override
+    public String getFullyQualifiedName() {
+        return List.class.getName();
+    }
+
+    @Override
     public String toString() {
         return "ListType [contentType=" + contentType + ", concreteImplementation=" + concreteImplementation + "]";
     }

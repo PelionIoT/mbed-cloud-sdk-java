@@ -33,6 +33,11 @@ public class TypeClass extends TypeCompose {
     }
 
     @Override
+    public String getFullyQualifiedName() {
+        return Class.class.getName();
+    }
+
+    @Override
     public String toString() {
         return "TypeClass [contentType=" + contentType + ", concreteImplementation=" + concreteImplementation + "]";
     }
