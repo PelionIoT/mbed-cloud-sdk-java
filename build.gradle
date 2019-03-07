@@ -378,7 +378,7 @@ allprojects {
             excludeFilter = file(findBugsConfigFile)
         }
         spotbugs {
-          //toolVersion = '3.1.5'
+            toolVersion = '3.1.5'
             sourceSets = [sourceSets.main]
             ignoreFailures = false
             effort = "max"
