@@ -378,7 +378,7 @@ allprojects {
             excludeFilter = file(findBugsConfigFile)
         }
         spotbugs {
-          //toolVersion = '3.1.5'
+            toolVersion = '3.1.5'
             sourceSets = [sourceSets.main]
             ignoreFailures = false
             effort = "max"
@@ -667,7 +667,9 @@ task projectInitialisation() {
 task reportCoverage(dependsOn: copyCoverageAgent) {
 
     def report_dest = jacoco.reportsDir.toString() + '-all'
+    def report_foundation_dest = jacoco.reportsDir.toString() + '-foundation'
     def classes_files = ''
+    def foundation_class_files = ''
     def source_files = ''
     def project_list = []
     project.subprojects.each { sproject ->
@@ -677,10 +679,18 @@ task reportCoverage(dependsOn: copyCoverageAgent) {
     }
     project_list.add(project)
     project_list.each { projectObject -> classes_files += projectObject.sourceSets.main.output.asPath + File.pathSeparator }
+    project_list.each { projectObject ->
+      if(projectObject.sourceSets.main.output.asPath ==~ /.*foundation-.*/){
+        	foundation_class_files += projectObject.sourceSets.main.output.asPath + File.pathSeparator
+        }
+    }
+
     project_list.each { projectObject -> source_files += projectObject.sourceSets.main.allJava.srcDirs[0].toString() + File.pathSeparator }
     updateArtifactList("SDK_PROJECT_SOURCE_FILES", source_files)
     updateArtifactList("SDK_PROJECT_CLASS_FILES", classes_files)
+    updateArtifactList("SDK_PROJECT_FOUNDATION_CLASS_FILES", foundation_class_files)
     updateArtifactList("SDK_PROJECT_COVERAGE_REPORT_DIR", report_dest)
+    updateArtifactList("SDK_PROJECT_COVERAGE_FOUNDATION_REPORT_DIR", report_foundation_dest)
 }
 
 if (project.hasProperty('artifactory_contextUrl')){

@@ -920,7 +920,7 @@ public class Devices extends AbstractModule {
      * Request certificate renewal.
      * 
      * <p>
-     * Similar to {@link #renewCertificate(String,String)}
+     * Similar to {@link #renewCertificate(String, String)}
      * 
      * @param certificateName
      *            The certificate name.
@@ -982,7 +982,7 @@ public class Devices extends AbstractModule {
     /**
      * Modifies a device.
      * <p>
-     * Similar to {@link #updateDevice(String,Device)}
+     * Similar to {@link #updateDevice(String, com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
      * @param device
      *            a device.

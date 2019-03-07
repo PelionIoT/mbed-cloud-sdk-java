@@ -124,6 +124,11 @@ public abstract class TypeCompose extends TypeParameter {
         return getCollectionClass().getSimpleName();
     }
 
+    @Override
+    public String getFullyQualifiedName() {
+        return getCollectionClass().getName();
+    }
+
     protected void TranslateTypeNameBasedOnContentType() {
         setTypeName(contentType.hasClass() ? ParameterizedTypeName.get(getCollectionClass(), contentType.getClazz())
                                            : ParameterizedTypeName.get(ClassName.get(getCollectionClass()),

@@ -100,7 +100,8 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
     /**
      * Gets a certificate enrollment.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#readCertificateEnrollment(CertificateEnrollment)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#readCertificateEnrollment(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment)}
      * 
      * @return something
      */

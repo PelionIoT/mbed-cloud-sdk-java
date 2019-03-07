@@ -38,7 +38,8 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Adds a user invitation.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createUserInvitation(int,UserInvitation)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createUserInvitation(int, com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
      * 
      * @param validForDays
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
@@ -53,7 +54,8 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Deletes a user invitation.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUserInvitation(UserInvitation)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#deleteUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -63,7 +65,8 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Deletes a user invitation.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUserInvitation(UserInvitation)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#deleteUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
      * 
      * @param userInvitation
      *            a user invitation.
@@ -140,7 +143,8 @@ public abstract class AbstractUserInvitationDao extends AbstractModelDao<UserInv
     /**
      * Gets a user invitation.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readUserInvitation(UserInvitation)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#readUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
      * 
      * @return something
      */

@@ -151,28 +151,6 @@ public class SubtenantTrustedCertificate extends AbstractSubtenantTrustedCertifi
      * @param validity
      *            Expiration time in UTC formatted as RFC3339.
      */
-
-    /**
-     * Internal constructor.
-     * <p>
-     * Note: Should not be used. Use {@link #AbstractSubtenantTrustedCertificate()} instead.
-     * 
-     * @param certificateFingerprint
-     *            A SHA-256 fingerprint of the certificate.
-     * @param createdAt
-     *            Creation UTC time RFC3339.
-     * @param issuer
-     *            Issuer of the certificate.
-     * @param ownerId
-     *            The ID of the owner.
-     * @param subject
-     *            Subject of the certificate.
-     * @param updatedAt
-     *            Last update UTC time RFC3339.
-     * 
-     * @param validity
-     *            Expiration time in UTC formatted as RFC3339.
-     */
     @Internal
     public SubtenantTrustedCertificate(String certificateFingerprint, Date createdAt, String issuer, String ownerId,
                                        String subject, Date updatedAt, boolean valid, Date validity) {

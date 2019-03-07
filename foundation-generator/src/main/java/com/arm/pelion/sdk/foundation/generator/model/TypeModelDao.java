@@ -71,4 +71,10 @@ public class TypeModelDao extends TypeCompose {
     public String getShortName() {
         return ModelDao.class.getSimpleName();
     }
+
+    @Override
+    public String getFullyQualifiedName() {
+        return ModelDao.class.getName();
+    }
+
 }

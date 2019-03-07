@@ -48,7 +48,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Adds an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createApiKey(ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
      * @return an added api key
      */
@@ -61,7 +61,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Adds an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createApiKey(ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
      * @param apiKey
      *            an api key.
@@ -76,7 +76,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Deletes an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteApiKey(ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -86,7 +86,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Deletes an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteApiKey(ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
      * @param apiKey
      *            an api key.
@@ -176,7 +176,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Gets an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readApiKey(ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
      * @return something
      */
@@ -204,7 +204,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Modifies an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateApiKey(ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
      * @return something
      */
@@ -217,7 +217,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Modifies an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateApiKey(ApiKey)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
      * @param apiKey
      *            an api key.
@@ -232,7 +232,8 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Modifies an api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateApiKey(String,ApiKey)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#updateApiKey(String, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
      * @param id
      *            The ID of the API key.

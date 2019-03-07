@@ -169,7 +169,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? getClassSimpleName() : importPath.getName();
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return "";
         }
     }
@@ -183,7 +183,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? getClazz().getName() : importPath.getFullyQualifiedName();
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return "";
         }
     }
@@ -192,7 +192,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? getClazz().getPackage().getName() : importPath.getPackageName();
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return "";
         }
     }
@@ -219,7 +219,7 @@ public class TypeParameter implements Artifact {
                                 || getClazz() == long.class || getClazz() == float.class || getClazz() == double.class
                                 || getClazz() == byte.class || getClazz() == short.class
                               : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -236,7 +236,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? LowLevelAPIMethodArgument.isOpenApiModel(getClazz()) : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -246,7 +246,7 @@ public class TypeParameter implements Artifact {
             translate();
             return hasClazz() ? SdkModel.class.isAssignableFrom(getClazz())
                               : importPath != null && !importPath.isEnum();
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -256,7 +256,7 @@ public class TypeParameter implements Artifact {
             translate();
             return hasClazz() ? CloudDao.class.isAssignableFrom(getClazz())
                               : importPath != null && importPath.isModelDao();
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -266,7 +266,7 @@ public class TypeParameter implements Artifact {
             translate();
             return hasClazz() ? ModelListDao.class.isAssignableFrom(getClazz())
                               : importPath != null && importPath.isModelListDao();
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -276,7 +276,7 @@ public class TypeParameter implements Artifact {
             translate();
             return hasClazz() ? ListOptions.class.isAssignableFrom(getClazz())
                               : importPath != null && importPath.isListOptions();
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -285,7 +285,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? String.class.isAssignableFrom(getClazz()) : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -294,7 +294,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? Character.class.isAssignableFrom(getClazz()) || getClazz() == char.class : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -303,7 +303,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? Boolean.class.isAssignableFrom(getClazz()) || getClazz() == boolean.class : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -312,7 +312,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? File.class.isAssignableFrom(getClazz()) : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -321,7 +321,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? DataFile.class.isAssignableFrom(getClazz()) : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -330,7 +330,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? ListResponse.class.isAssignableFrom(getClazz()) : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -339,7 +339,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? MultipartBody.Part.class.isAssignableFrom(getClazz()) : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -348,7 +348,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? Void.class.isAssignableFrom(getClazz()) : importPath == null;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -357,16 +357,35 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? getClazz().isPrimitive() : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
+    }
+
+    public boolean isPrimitiveOrWrapper() {
+        if (isPrimitive()) {
+            return true;
+        }
+        try {
+            translate();
+            if (!hasClazz()) {
+                return false;
+            }
+            final Class<?> clazz = getClazz();
+            return clazz == Double.class || clazz == Float.class || clazz == Long.class || clazz == Integer.class
+                   || clazz == Short.class || clazz == Character.class || clazz == Byte.class || clazz == Boolean.class
+                   || clazz == String.class || clazz == Void.class;
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
+            return false;
+        }
+
     }
 
     public boolean isUrl() {
         try {
             translate();
             return hasClazz() ? URL.class.isAssignableFrom(getClazz()) : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -375,7 +394,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? TypePrimitive.SDK_DATE_CLASS.isAssignableFrom(getClazz()) : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -384,7 +403,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? LocalDate.class.isAssignableFrom(getClazz()) : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -393,7 +412,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? DateTime.class.isAssignableFrom(getClazz()) : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -402,7 +421,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? Calendar.class.isAssignableFrom(getClazz()) : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -412,7 +431,7 @@ public class TypeParameter implements Artifact {
             translate();
             return hasClazz() ? SdkEnum.class.isAssignableFrom(getClazz())
                               : importPath == null ? false : importPath.isEnum();
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -424,7 +443,7 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? getClazz().isEnum() || Enum.class.isAssignableFrom(getClazz()) : false;
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
     }
@@ -446,7 +465,7 @@ public class TypeParameter implements Artifact {
             translate();
             type.translate();
             return equals(type);
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
 
