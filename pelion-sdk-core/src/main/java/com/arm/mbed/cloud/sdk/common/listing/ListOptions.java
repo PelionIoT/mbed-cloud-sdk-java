@@ -10,7 +10,6 @@ import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.SdkUtils;
-import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
 @Preamble(description = "Options to use when listing objects")
@@ -22,6 +21,13 @@ public class ListOptions extends FilterOptions {
     public static final String FIELD_NAME_ORDER = "order";
     public static final String METHOD_INCLUDE_TO_STRING = "encodeInclude";
     public static final String METHOD_FILTER_TO_STRING = FilterOptions.METHOD_FILTER_TO_STRING;
+    public static final String METHOD_FILTER_ENCODE_EQUAL = "encodeSingleEqualFilter";
+    public static final String METHOD_FILTER_ENCODE_NOT_EQUAL = "encodeSingleNotEqualFilter";
+    public static final String METHOD_FILTER_ENCODE_GREATER_THAN = "encodeSingleGreaterThanFilter";
+    public static final String METHOD_FILTER_ENCODE_LESS_THAN = "encodeSingleLessThanFilter";
+    public static final String METHOD_FILTER_ENCODE_LIKE = "encodeSingleLikeFilter";
+    public static final String METHOD_FILTER_ENCODE_IN = "encodeSingleInFilter";
+    public static final String METHOD_FILTER_ENCODE_NOT_IN = "encodeSingleNotInFilter";
     /**
      * how many objects to retrieve in the page.
      * <P>
@@ -370,36 +376,6 @@ public class ListOptions extends FilterOptions {
      */
     public void includeTotalCount() {
         addInclude(IncludeField.TOTAL_COUNT);
-    }
-
-    protected Object fetchEqualFilterValue(@Nullable String fieldName) {
-        return fetchSpecificFilterValue(fieldName, FilterOperator.EQUAL);
-    }
-
-    protected Object fetchNotEqualFilterValue(@Nullable String fieldName) {
-        return fetchSpecificFilterValue(fieldName, FilterOperator.NOT_EQUAL);
-    }
-
-    protected Object fetchLikeFilterValue(@Nullable String fieldName) {
-        // If no like filter was entered but an equal filter was, equal filter is considered.
-        final Object specificLike = fetchSpecificFilterValue(fieldName, FilterOperator.LIKE);
-        return (specificLike == null) ? fetchEqualFilterValue(fieldName) : specificLike;
-    }
-
-    protected Object fetchInFilterValue(@Nullable String fieldName) {
-        return fetchSpecificFilterValue(fieldName, FilterOperator.IN);
-    }
-
-    protected Object fetchNotInFilterValue(@Nullable String fieldName) {
-        return fetchSpecificFilterValue(fieldName, FilterOperator.NOT_IN);
-    }
-
-    protected Object fetchGreaterThanFilterValue(@Nullable String fieldName) {
-        return fetchSpecificFilterValue(fieldName, FilterOperator.GREATER_THAN);
-    }
-
-    protected Object fetchLessThanFilterValue(@Nullable String fieldName) {
-        return fetchSpecificFilterValue(fieldName, FilterOperator.LESS_THAN);
     }
 
     /**

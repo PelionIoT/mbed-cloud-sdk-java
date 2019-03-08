@@ -32,6 +32,9 @@ public class Method {
     @JsonProperty(InputSchema.CUSTOM_METHOD_TAG)
     private boolean customMethod;
 
+    @JsonProperty(InputSchema.FILTER_TAG)
+    private Filters filters;
+
     public String getKey() {
         return key;
     }
@@ -161,6 +164,18 @@ public class Method {
         this.returnInformation = returnInformation;
     }
 
+    public Filters getFilters() {
+        return filters;
+    }
+
+    public void setFilters(Filters filters) {
+        this.filters = filters;
+    }
+
+    public boolean hasFilters() {
+        return filters != null && !filters.isEmpty();
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -206,7 +221,7 @@ public class Method {
         return "Method [key=" + key + ", description=" + description + ", summary=" + summary + ", groupId=" + groupId
                + ", renames=" + renames + ", parameters=" + parameters + ", id=" + id + ", hasPaginatedResponse="
                + hasPaginatedResponse + ", returnInformation=" + returnInformation + ", customCode=" + customCode
-               + ", customMethod=" + customMethod + "]";
+               + ", customMethod=" + customMethod + ", filters=" + filters + "]";
     }
 
 }

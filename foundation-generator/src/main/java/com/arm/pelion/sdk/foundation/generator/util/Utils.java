@@ -78,6 +78,16 @@ public class Utils {
                                            plural, shouldAddArticle);
     }
 
+    public static boolean isSameParameter(String parameterName1, String parameterName2) {
+        if (parameterName1 == null) {
+            return parameterName2 == null;
+        }
+        if (parameterName1.equals(parameterName2)) {
+            return true;
+        }
+        return ApiUtils.convertCamelToSnake(parameterName1).equals(ApiUtils.convertCamelToSnake(parameterName2));
+    }
+
     public static String generateDocumentationString(String modelName, boolean plural) {
         return generateDocumentationString(modelName, plural, true);
     }

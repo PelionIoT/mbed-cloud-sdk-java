@@ -52,6 +52,16 @@ public interface InputSchema {
     final String METHOD_DOES_RETURN_ITSELF_TAG = "self";
     final String METHOD_DOES_RETURN_CUSTOM_TAG = "custom";
 
+    // Filters
+    final String FILTER_TAG = "x_filter";
+    final String FILTER_EQUAL_TAG = "eq";
+    final String FILTER_NOT_EQUAL_TAG = "neq";
+    final String FILTER_LESS_THAN_TAG = "lte";
+    final String FILTER_GREATER_THAN_TAG = "gte";
+    final String FILTER_IN_TAG = "in";
+    final String FILTER_NOT_IN_THAN_TAG = "nin";
+    final String FILTER_LIKE_TAG = "like";
+
     // Method types
     final String CUSTOM_METHOD_TAG = "custom_method";
     final String LIST_METHOD_TAG = "list";

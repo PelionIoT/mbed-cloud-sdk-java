@@ -1,5 +1,8 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
@@ -8,10 +11,13 @@ public class ModelListOption extends Model {
     public static final String MODEL_NAME_SUFFIX = ListOptions.class.getSimpleName();
     private static final String FIELD_NAME_FORMER_PAGE_SIZE = "limit";
 
+    private final List<Filter> filters;
+
     public ModelListOption(Model model, String description, boolean needsCustomCode) {
         super(model.getPackageName(), generateName(model.getName()), model.getGroup(),
               generateDescription(model.getName(), description), null, needsCustomCode, false);
         setSuperClassType(TypeFactory.getCorrespondingType(ListOptions.class));
+        filters = new LinkedList<>();
     }
 
     public ModelListOption() {
@@ -35,6 +41,27 @@ public class ModelListOption extends Model {
     @Override
     protected boolean isSerialisable() {
         return false;
+    }
+
+    public void addFilter(Filter filter) {
+        if (filter != null) {
+            filters.add(filter);
+        }
+    }
+
+    @Override
+    protected void generateOtherMethods() {
+        super.generateOtherMethods();
+        filters.forEach(f -> addFilterMethods(f));
+
+    }
+
+    private void addFilterMethods(Filter filter) {
+        if (filter == null) {
+            return;
+        }
+        addField(filter.getTag());
+        final Method method
     }
 
     // FIXME remove when limit is renamed pageSize in intermediate config file.
