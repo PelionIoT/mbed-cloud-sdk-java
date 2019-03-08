@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,8 +61,30 @@ public class ModelListOption extends Model {
         if (filter == null) {
             return;
         }
-        addField(filter.getTag());
-        final Method method
+        addConstant(filter.getTag());
+        addMethod(new MethodFilterGet(filter, containsCustomCode));
+        if (filter.canHaveMultipleInputTypes()) {
+            addMultipleMethodFilters(filter, containsCustomCode);
+        } else {
+            final MethodOverloaded setMethod = new MethodFilterSet(filter, containsCustomCode);
+            setMethod.generateSuffix();
+            addMethod(setMethod);
+            final MethodOverloaded fluentMethod = new MethodFilterSetFluent(filter, this, setMethod,
+                                                                            containsCustomCode);
+            fluentMethod.generateSuffix();
+            addMethod(fluentMethod);
+        }
+
+    }
+
+    private void addMultipleMethodFilters(Filter filter, boolean containsCustomCode) {
+        Arrays.asList(TypeFactory.getCorrespondingType(String.class), new TypeList(filter.getFieldType()),
+                      new TypeArray(filter.getFieldType()))
+              .forEach(t -> {
+                  final Method setMethod = new MethodFilterSet(filter, t, containsCustomCode);
+                  addMethod(setMethod);
+                  addMethod(new MethodFilterSetFluent(filter, t, this, setMethod, containsCustomCode));
+              });
     }
 
     // FIXME remove when limit is renamed pageSize in intermediate config file.

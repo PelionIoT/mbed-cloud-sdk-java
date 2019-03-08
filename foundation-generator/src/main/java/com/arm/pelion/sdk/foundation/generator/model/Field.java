@@ -301,7 +301,8 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         if (specificationBuilder == null) {
             type.translate();
             specificationBuilder = type.hasClass() ? FieldSpec.builder(type.getClazz(), name,
-                                                                       isAccessible ? Modifier.PROTECTED
+                                                                       isAccessible ? isStatic ? Modifier.PUBLIC
+                                                                                               : Modifier.PROTECTED
                                                                                     : Modifier.PRIVATE)
                                                    : FieldSpec.builder(type.getTypeName(), name,
                                                                        isAccessible ? Modifier.PROTECTED

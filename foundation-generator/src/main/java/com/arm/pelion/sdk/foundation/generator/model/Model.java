@@ -36,6 +36,7 @@ public class Model extends AbstractSdkArtifact {
     protected final List<String> contructorsName;
     protected final Map<String, Method> methods;
     protected final Map<String, Field> fields;
+    protected final Map<String, Field> constants;
     protected Map<String, Field> superClassFields;
     protected Map<String, Method> superClassMethods;
     protected TypeParameter superClassType;
@@ -84,6 +85,7 @@ public class Model extends AbstractSdkArtifact {
               containsCustomCode, needsCustomCode, isInternal);
         methods = new LinkedHashMap<>();
         fields = new LinkedHashMap<>();
+        constants = new LinkedHashMap<>();
         contructorsName = new LinkedList<>();
         abstractParent = null;
         setPackageName(packageName);
@@ -241,6 +243,31 @@ public class Model extends AbstractSdkArtifact {
         fields.put(field.getIdentifier(), field);
     }
 
+    public Model constant(Field field) {
+        addConstant(field);
+        return this;
+    }
+
+    public void addConstants(Collection<Field> fields) {
+        if (fields == null) {
+            return;
+        }
+        fields.forEach(f -> addConstant(f));
+    }
+
+    public void addConstant(Field field) {
+        if (!hasConstant(field)) {
+            overrideConstantIfExists(field);
+        }
+    }
+
+    public void overrideConstantIfExists(Field field) {
+        if (field == null) {
+            return;
+        }
+        constants.put(field.getIdentifier(), field);
+    }
+
     public String getFullName() {
         return hasPackageName() ? getPackageName() + "." + getName() : getName();
     }
@@ -258,6 +285,10 @@ public class Model extends AbstractSdkArtifact {
 
     public boolean hasFields() {
         return !fields.isEmpty();
+    }
+
+    public boolean hasConstants() {
+        return !constants.isEmpty();
     }
 
     public boolean hasFieldsWithDefaultValues() {
@@ -393,6 +424,14 @@ public class Model extends AbstractSdkArtifact {
         return identifier == null ? false : fields.containsKey(identifier);
     }
 
+    public boolean hasConstant(Field constant) {
+        return constant == null ? false : hasConstant(constant.getIdentifier());
+    }
+
+    public boolean hasConstant(String identifier) {
+        return identifier == null ? false : constants.containsKey(identifier);
+    }
+
     public boolean hasFieldInSuperclass(String identifier) {
         return hasSuperClass() && superClassFields.containsKey(identifier);
     }
@@ -426,6 +465,10 @@ public class Model extends AbstractSdkArtifact {
         final List<Field> allfields = new ArrayList<>(fields.values());
         allfields.addAll(superClassFields.values());
         return allfields;
+    }
+
+    public List<Field> getConstantList() {
+        return new ArrayList<>(constants.values());
     }
 
     public List<Field> getSettableFields() {
@@ -975,7 +1018,7 @@ public class Model extends AbstractSdkArtifact {
                                                               : serialisationString;
     }
 
-    protected void translateSerialisation() throws TranslationException {
+    protected void addSerialisationId() {
         if (!isSerialisable()) {// isAbstract ||
             return;
         }
@@ -983,8 +1026,18 @@ public class Model extends AbstractSdkArtifact {
                                                  Utils.SERIALISATION_UUID, "Serialisation Id.", null, null, true, false,
                                                  false, false, null, false);
         serialVersionUID.setInitialiser(generateSerialisationId() + "L");
-        serialVersionUID.translate();
-        specificationBuilder.addField(serialVersionUID.getSpecificationBuilder().build());
+        addConstant(serialVersionUID);
+    }
+
+    protected void translateConstants() throws TranslationException {
+        addSerialisationId();
+        if (!hasConstants()) {
+            return;
+        }
+        for (final Field f : getConstantList()) {
+            f.translate();
+            specificationBuilder.addField(f.getSpecificationBuilder().build());
+        }
     }
 
     protected void translateFields() throws TranslationException {
@@ -1019,7 +1072,7 @@ public class Model extends AbstractSdkArtifact {
     public void translate() throws TranslationException {
         try {
             initialiseBuilder();
-            translateSerialisation();
+            translateConstants();
             translateFields();
             translateMethods();
         } catch (TranslationException exception) {

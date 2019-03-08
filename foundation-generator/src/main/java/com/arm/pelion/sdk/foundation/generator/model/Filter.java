@@ -43,9 +43,11 @@ public class Filter {
     }
 
     public Field getTag() {
-        return new Field(true, TypeFactory.getCorrespondingType(String.class),
-                         Utils.generateConstantName("tagFilterBy", fieldName), "Tag for filter by " + fieldName, null,
-                         null, true, false, true, false, null, false).initialiser("\"" + fieldName + "\"");
+        Field tag = new Field(true, TypeFactory.getCorrespondingType(String.class),
+                              Utils.generateConstantName("tagFilterBy", fieldName), "Tag for filter by " + fieldName,
+                              null, null, true, false, false, false, null, false).initialiser("\"" + fieldName + "\"");
+        tag.setAccessible(true);
+        return tag;
     }
 
     public String getEncodingMethodName() {
@@ -90,6 +92,15 @@ public class Filter {
             default:
                 return null;
         }
+    }
+
+    public boolean canHaveMultipleInputTypes() {
+        return operator == FilterOperator.IN || operator == FilterOperator.NOT_IN;
+    }
+
+    @Override
+    public String toString() {
+        return "Filter [fieldName=" + fieldName + ", fieldType=" + fieldType + ", operator=" + operator + "]";
     }
 
 }
