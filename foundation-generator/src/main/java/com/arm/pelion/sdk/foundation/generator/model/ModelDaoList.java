@@ -148,7 +148,6 @@ public class ModelDaoList extends ModelDao {
             method.setAbstract(false);
             method.setInternal(true);
             method.setReturnDescription(description);
-            method.generateSuffix();
             method.setUnchecked(setAsUnchecked);
             return method;
         }).collect(Collectors.toList());

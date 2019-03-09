@@ -67,11 +67,9 @@ public class ModelListOption extends Model {
             addMultipleMethodFilters(filter, containsCustomCode);
         } else {
             final MethodOverloaded setMethod = new MethodFilterSet(filter, containsCustomCode);
-            setMethod.generateSuffix();
             addMethod(setMethod);
             final MethodOverloaded fluentMethod = new MethodFilterSetFluent(filter, this, setMethod,
                                                                             containsCustomCode);
-            fluentMethod.generateSuffix();
             addMethod(fluentMethod);
         }
 
@@ -81,7 +79,7 @@ public class ModelListOption extends Model {
         Arrays.asList(TypeFactory.getCorrespondingType(String.class), new TypeList(filter.getFieldType()),
                       new TypeArray(filter.getFieldType()))
               .forEach(t -> {
-                  final Method setMethod = new MethodFilterSet(filter, t, containsCustomCode);
+                  final MethodOverloaded setMethod = new MethodFilterSet(filter, t, containsCustomCode);
                   addMethod(setMethod);
                   addMethod(new MethodFilterSetFluent(filter, t, this, setMethod, containsCustomCode));
               });

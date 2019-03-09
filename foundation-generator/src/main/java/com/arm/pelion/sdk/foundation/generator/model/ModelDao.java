@@ -243,9 +243,6 @@ public class ModelDao extends Model {
         method.setNeedsCustomCode(needsCustomCode);
         method.initialiseCodeBuilder();
         generateMethodCodeAndReturnType(moduleMethod, method, moduleType);
-        if (suffix == null) {
-            method.generateSuffix();
-        }
         return method;
     }
 
@@ -402,7 +399,6 @@ public class ModelDao extends Model {
             MethodOverloaded method = new MethodOverloaded(m, "Instantiates model", null, true, true, null);
             method.setAbstract(false);
             method.setInternal(true);
-            method.generateSuffix();
             return method;
         }).collect(Collectors.toList());
         for (Method m : methods) {

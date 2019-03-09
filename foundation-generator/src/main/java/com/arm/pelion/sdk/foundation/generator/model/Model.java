@@ -407,6 +407,9 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public void addMethod(Method method) {
+        if (method != null && method instanceof MethodOverloaded) {
+            ((MethodOverloaded) method).generateSuffix();
+        }
         if (!hasMethod(method) || MethodOverloaded.isOverloadedMethod(method)) {
             overrideMethodIfExist(method);
         }

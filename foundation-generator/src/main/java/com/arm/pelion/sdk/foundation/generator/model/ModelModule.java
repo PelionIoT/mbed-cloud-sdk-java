@@ -393,7 +393,6 @@ public class ModelModule extends ModelMergeable {
         }
 
         private void addMethod(ModelModule module, MethodModuleCloudApi method, MethodAction overridingAction) {
-            method.generateSuffix();
             module.addFields(method.getNecessaryConstants());
             module.addMethod(method);
             module.registerMethod(currentModel, overridingAction == null ? action : overridingAction, method);
