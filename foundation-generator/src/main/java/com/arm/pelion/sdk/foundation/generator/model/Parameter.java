@@ -179,6 +179,10 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
 
     }
 
+    public String getJavaDefaultValue() {
+        return ValueGenerator.getJavaDefaultValue(type, defaultValue);
+    }
+
     @Override
     public void translate() throws TranslationException {
         initialiseBuilder();

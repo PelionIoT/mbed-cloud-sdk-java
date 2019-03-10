@@ -32,7 +32,7 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
 
     @Override
     public void setModel(T model) throws MbedCloudException {
-        this.model.set(model == null ? instantiateModel() : model);
+        this.model.set(model);
     }
 
     @Override
@@ -64,6 +64,19 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
     @Override
     public T getModel() throws MbedCloudException {
         return model.get();
+    }
+
+    @Override
+    public T getModelOrNew() throws MbedCloudException {
+        final T currentModel = getModel();
+        if (currentModel == null) {
+            synchronized (model) {
+                setModel(instantiateModel());
+                return getModel();
+            }
+        } else {
+            return currentModel;
+        }
     }
 
     /**

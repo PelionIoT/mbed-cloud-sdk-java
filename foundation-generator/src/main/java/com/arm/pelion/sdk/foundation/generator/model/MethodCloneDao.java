@@ -21,6 +21,7 @@ public class MethodCloneDao extends MethodClone {
     @Override
     protected void addAnnotations() {
         super.addAnnotations();
+        specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreResourceClosure());
     }
 
     @Override
