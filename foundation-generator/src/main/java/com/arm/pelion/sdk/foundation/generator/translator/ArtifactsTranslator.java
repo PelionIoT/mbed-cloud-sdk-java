@@ -317,7 +317,6 @@ public class ArtifactsTranslator {
                     filter.setFieldName(field.getName());
                     filter.setFieldType(field.getType());
                     filter.setOperator(FilterOperator.getFromSuffix(fieldFilter));
-                    System.out.println(filter);
                     options.addFilter(filter);
                 }
             }

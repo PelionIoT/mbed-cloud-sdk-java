@@ -24,8 +24,11 @@ public class MethodModuleDefault extends MethodModuleCloudApi {
     }
 
     public static List<Parameter> extendParameterList(List<Parameter> methodParameters) {
-        return methodParameters == null ? null : methodParameters.stream().filter(p -> p.isSetAsNonNull())
-                                                                 .map(p -> p.clone()).collect(Collectors.toList());
+        return methodParameters == null ? null
+                                        : methodParameters.stream()
+                                                          .filter(p -> p.isSetAsNonNull()
+                                                                       || p.getType().isListOptions())
+                                                          .map(p -> p.clone()).collect(Collectors.toList());
     }
 
     @Override
@@ -38,7 +41,7 @@ public class MethodModuleDefault extends MethodModuleCloudApi {
         generateMethodCode(this);
     }
 
-    public static void generateMethodCode(MethodModuleCloudApi method) throws TranslationException {
+    public static void generateMethodCode(MethodModuleCloudApi method) {
         final List<Object> callElements = new LinkedList<>();
         final StringBuilder builder = new StringBuilder();
         builder.append(method.hasReturn() ? "return " : "").append(" $L(");

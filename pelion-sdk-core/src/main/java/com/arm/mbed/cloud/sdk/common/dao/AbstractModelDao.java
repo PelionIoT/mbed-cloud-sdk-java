@@ -71,12 +71,15 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
         final T currentModel = getModel();
         if (currentModel == null) {
             synchronized (model) {
-                setModel(instantiateModel());
-                return getModel();
+                final T modelToCheck = getModel();
+                if (modelToCheck == null) {
+                    setModel(instantiateModel());
+                    return getModel();
+                }
+                return modelToCheck;
             }
-        } else {
-            return currentModel;
         }
+        return currentModel;
     }
 
     /**
@@ -91,7 +94,7 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
             @SuppressWarnings("unchecked")
             final Class<T> modelClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
             return modelClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException exception) {
+        } catch (@SuppressWarnings("unused") InstantiationException | IllegalAccessException exception) {
             return null;
         }
     }

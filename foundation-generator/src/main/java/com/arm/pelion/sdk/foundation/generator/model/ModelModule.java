@@ -334,10 +334,7 @@ public class ModelModule extends ModelMergeable {
             defaultMethod.initialise();
             defaultMethod.generateSuffix();
             method.generateSuffix();
-            System.out.println(defaultMethod + " " + defaultMethod.getIdentifier() + " "
-                               + defaultMethod.getIdentifier());
             if (haveDifferentSignatures(defaultMethod, method)) {
-                System.out.println("CAME HERE");
                 addMethod(module, defaultMethod, null);
             }
             MethodModuleCloudApi overloadedMethod = null;

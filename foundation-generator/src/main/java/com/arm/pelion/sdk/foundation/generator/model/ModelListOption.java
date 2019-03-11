@@ -50,6 +50,10 @@ public class ModelListOption extends Model {
         }
     }
 
+    public List<Filter> getFilters() {
+        return filters;
+    }
+
     @Override
     protected void generateOtherMethods() {
         super.generateOtherMethods();
