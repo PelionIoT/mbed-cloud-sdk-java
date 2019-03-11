@@ -39,7 +39,14 @@ public class Filter {
         if (parameter == null) {
             return false;
         }
-        return Utils.isSameParameter(parameter.getName(), Utils.combineNames(false, fieldName, operator.getSuffix()));
+        return correspondsToParameter(parameter.getName());
+    }
+
+    public boolean correspondsToParameter(String parameterIdentifier) {
+        if (parameterIdentifier == null) {
+            return false;
+        }
+        return Utils.isSameParameter(parameterIdentifier, Utils.combineNames(false, fieldName, operator.getSuffix()));
     }
 
     public Field getTag() {

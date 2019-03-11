@@ -99,6 +99,28 @@ public class ModelListOption extends Model {
     }
 
     @Override
+    public boolean hasFieldInHierachy(String identifier) {
+        if (super.hasFieldInHierachy(identifier)) {
+            return true;
+        }
+        return isFilterParameter(identifier);
+    }
+
+    public boolean isFilterParameter(String identifier) {
+        if (identifier == null) {
+            return false;
+        }
+        return getFilters().stream().anyMatch(f -> f.correspondsToParameter(identifier));
+    }
+
+    public Filter getCorrespondingFilter(String identifier) {
+        if (identifier == null) {
+            return null;
+        }
+        return getFilters().stream().filter(f -> f.correspondsToParameter(identifier)).findFirst().orElseGet(null);
+    }
+
+    @Override
     protected void generateMethodsDependingOnParents(Model theParent) {
         super.generateMethodsDependingOnParents(theParent);
         generateSetDefault(theParent);

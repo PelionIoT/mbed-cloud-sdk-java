@@ -337,7 +337,7 @@ public final class SdkUtils {
         }
         final StringBuffer sb = new StringBuffer();
         boolean start = true;
-        final String[] stringElements = stringToConvert.split("_");
+        final String[] stringElements = stringToConvert.replace("__", "_").split("_");
         final int numberOfElements = stringElements.length;
         for (final String s : stringElements) {
             if (start) {

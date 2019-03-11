@@ -126,10 +126,10 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
                                       StringBuilder builder, List<Object> callElements, boolean isExternalParameter,
                                       List<Parameter> unusedParameters) throws TranslationException {
         if (isPaginatedList) {
-            // FIXME refactor the following when filters are supported.
             final ModelListOption correspondingListOptions = determineListOptionModel(currentModel, fetcher);
             if (correspondingListOptions.hasFieldInHierachy(parameterName)) {
-                translateListOptionParameter(this, parameterName, type, builder, callElements);
+                translateListOptionParameter(this, correspondingListOptions, parameterName, type, builder,
+                                             callElements);
             } else {
                 super.translateParameter(parameterName, initialParameterName, type, builder, callElements,
                                          isExternalParameter, unusedParameters);
@@ -141,9 +141,23 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
         }
     }
 
-    public static void translateListOptionParameter(MethodModuleCloudApi method, String parameterName,
-                                                    TypeParameter type, StringBuilder builder,
-                                                    List<Object> callElements) {
+    public static void translateListOptionParameter(MethodModuleCloudApi method, ModelListOption listOptions,
+                                                    String parameterName, TypeParameter type, StringBuilder builder,
+                                                    List<Object> callElements) throws TranslationException {
+        if (listOptions.isFilterParameter(parameterName)) {
+            final Filter correspondingFilter = listOptions.getCorrespondingFilter(parameterName);
+            if (correspondingFilter != null) {
+                // finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER),
+                builder.append("$L.$L($T.$L)");
+                callElements.add(method.generateFinalVariable(PARAMETER_NAME_OPTIONS));
+                callElements.add(correspondingFilter.getEncodingMethodName());
+                final TypeParameter optionsType = listOptions.toType();
+                optionsType.translate();
+                callElements.add(optionsType.hasClazz() ? optionsType.getClazz() : optionsType.getTypeName());
+                callElements.add(correspondingFilter.getTag().getIdentifier());
+                return;
+            }
+        }
         switch (parameterName) {
             case ListOptions.FIELD_NAME_INCLUDE:
                 builder.append("$L.$L()");
