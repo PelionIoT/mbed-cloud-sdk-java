@@ -42,12 +42,12 @@ public class TypeList extends TypeCompose {
      */
     @Override
     public String getShortName() {
-        return List.class.getSimpleName();
+        return List.class.getSimpleName() + "<" + contentType.getShortName() + ">";
     }
 
     @Override
     public String getFullyQualifiedName() {
-        return List.class.getName();
+        return List.class.getName() + "<" + contentType.getFullyQualifiedName() + ">";
     }
 
     @Override

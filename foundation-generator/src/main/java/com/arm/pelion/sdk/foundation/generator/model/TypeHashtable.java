@@ -86,12 +86,12 @@ public class TypeHashtable extends TypeCompose {
      */
     @Override
     public String getShortName() {
-        return Map.class.getSimpleName();
+        return Map.class.getSimpleName() + "<String, " + contentType.getShortName() + ">";
     }
 
     @Override
     public String getFullyQualifiedName() {
-        return Map.class.getName();
+        return Map.class.getName() + "<String, " + contentType.getFullyQualifiedName() + ">";
     }
 
     @Override

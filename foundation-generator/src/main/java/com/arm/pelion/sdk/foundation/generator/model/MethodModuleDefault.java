@@ -9,12 +9,15 @@ import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class MethodModuleDefault extends MethodModuleCloudApi {
 
+    private final MethodModuleCloudApi methodBasedOn;
+
     public MethodModuleDefault(MethodModuleCloudApi methodBasedOn) {
         super(methodBasedOn.currentModel, methodBasedOn.adapterFetcher, methodBasedOn.getName(),
               methodBasedOn.description, Utils.generateDocumentationMethodLink(null, methodBasedOn),
               methodBasedOn.needsCustomCode(), methodBasedOn.endpoints, methodBasedOn.endpointVariableName,
               methodBasedOn.lowLevelModule, null, methodBasedOn.methodParameters, methodBasedOn.parameterRenames,
               methodBasedOn.lowLevelMethod, false);
+        this.methodBasedOn = methodBasedOn;
     }
 
     @Override
@@ -29,6 +32,12 @@ public class MethodModuleDefault extends MethodModuleCloudApi {
                                                           .filter(p -> p.isSetAsNonNull()
                                                                        || p.getType().isListOptions())
                                                           .map(p -> p.clone()).collect(Collectors.toList());
+    }
+
+    @Override
+    protected void determineReturnType(Model returnModel, Method lowLevelMethod) {
+        setReturnDescription(methodBasedOn.getReturnDescription());
+        setReturnType(methodBasedOn.getReturnType());
     }
 
     @Override
