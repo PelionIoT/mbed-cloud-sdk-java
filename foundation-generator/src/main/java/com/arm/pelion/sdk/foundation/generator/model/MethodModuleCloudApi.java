@@ -410,6 +410,10 @@ public class MethodModuleCloudApi extends MethodOverloaded {
         if (getMethodSignature().equals(otherMethod.getMethodSignature())) {
             return true;
         }
+        if (getMethodSignature().size() != otherMethod.getMethodSignature().size()) {
+            return false;
+        }
+        // Checking if the parameters are in a different order although this is not perfect.
         for (Parameter p : getMethodSignature()) {
             if (!otherMethod.getMethodSignature().stream().anyMatch(arg -> {
                 return arg.equals(p) && arg.getType().equals(p.getType());

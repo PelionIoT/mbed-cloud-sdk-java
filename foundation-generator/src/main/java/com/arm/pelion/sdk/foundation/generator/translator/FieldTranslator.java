@@ -37,7 +37,6 @@ public class FieldTranslator {
             // TODO do something if needed
             return modelField;
         } catch (FoundationGeneratorException exception) {
-            System.out.println(field);
             logger.logError("Could not translate field " + field + " " + packageName + " " + group, exception);
             throw exception;
         }

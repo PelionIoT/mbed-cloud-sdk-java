@@ -32,7 +32,7 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
 
     @Override
     public void setModel(T model) throws MbedCloudException {
-        this.model.set(model == null ? instantiateModel() : model);
+        this.model.set(model);
     }
 
     @Override
@@ -66,6 +66,22 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
         return model.get();
     }
 
+    @Override
+    public T getModelOrNew() throws MbedCloudException {
+        final T currentModel = getModel();
+        if (currentModel == null) {
+            synchronized (model) {
+                final T modelToCheck = getModel();
+                if (modelToCheck == null) {
+                    setModel(instantiateModel());
+                    return getModel();
+                }
+                return modelToCheck;
+            }
+        }
+        return currentModel;
+    }
+
     /**
      * Placeholder for instantiating the underlying model. This method currently uses reflection. It should be
      * overridden by each DAO with direct call to the model empty constructor.
@@ -78,7 +94,7 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
             @SuppressWarnings("unchecked")
             final Class<T> modelClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
             return modelClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException exception) {
+        } catch (@SuppressWarnings("unused") InstantiationException | IllegalAccessException exception) {
             return null;
         }
     }
