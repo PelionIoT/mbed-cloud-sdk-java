@@ -37,6 +37,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings("resource")
     public ApiKeyDao clone() {
         try {
             return new ApiKeyDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());
@@ -163,13 +164,13 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     /**
      * Gets my api key.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#myApiKey()}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#myApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
      * @return something
      */
     @SuppressWarnings("PMD.ShortMethodName")
     public ApiKey me() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).myApiKey());
+        setModel(((Accounts) getModuleOrThrow()).myApiKey(getModel()));
         return getModel();
     }
 

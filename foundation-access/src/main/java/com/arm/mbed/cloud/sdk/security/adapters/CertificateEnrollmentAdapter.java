@@ -153,7 +153,6 @@ public final class CertificateEnrollmentAdapter {
                                                                                       TranslationUtils.toDate(toBeMapped.getCreatedAt()),
                                                                                       toBeMapped.getDeviceId(),
                                                                                       translateToCertificateEnrollmentEnrollResult(toBeMapped.getEnrollResult()),
-                                                                                      toBeMapped.getEnrollResultDetail(),
                                                                                       translateToCertificateEnrollmentEnrollStatus(toBeMapped.getEnrollStatus()),
                                                                                       TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         certificateEnrollment.setId(toBeMapped.getId());

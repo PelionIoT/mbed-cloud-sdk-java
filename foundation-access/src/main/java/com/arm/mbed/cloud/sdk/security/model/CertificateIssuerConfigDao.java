@@ -38,6 +38,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings("resource")
     public CertificateIssuerConfigDao clone() {
         try {
             return new CertificateIssuerConfigDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -122,12 +123,13 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * Get certificate issuer configuration.
      * 
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDefault()}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#getDefault(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
      * 
      * @return something
      */
     public CertificateIssuerConfig getDefault() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getDefault());
+        setModel(((Security) getModuleOrThrow()).getDefault(getModel()));
         return getModel();
     }
 

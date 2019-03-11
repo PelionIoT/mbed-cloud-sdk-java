@@ -301,6 +301,29 @@ public class Devices extends AbstractModule {
     }
 
     /**
+     * Adds a device enrollment bulk create.
+     * <p>
+     * Similar to {@link #createDeviceEnrollmentBulkCreate(com.arm.mbed.cloud.sdk.common.model.DataFile)}
+     * 
+     * @param enrollmentIdentities
+     *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
+     * @param deviceEnrollmentBulkCreate
+     *            a device enrollment bulk create.
+     * @return something
+     */
+    @API
+    @Nullable
+    public DeviceEnrollmentBulkCreate
+           createDeviceEnrollmentBulkCreate(@NonNull DataFile enrollmentIdentities,
+                                            @NonNull DeviceEnrollmentBulkCreate deviceEnrollmentBulkCreate) throws MbedCloudException {
+        checkNotNull(enrollmentIdentities, TAG_ENROLLMENT_IDENTITIES);
+        checkNotNull(deviceEnrollmentBulkCreate, TAG_DEVICE_ENROLLMENT_BULK_CREATE);
+        checkModelValidity(enrollmentIdentities, TAG_ENROLLMENT_IDENTITIES);
+        checkModelValidity(deviceEnrollmentBulkCreate, TAG_DEVICE_ENROLLMENT_BULK_CREATE);
+        return createDeviceEnrollmentBulkCreate(enrollmentIdentities);
+    }
+
+    /**
      * Deletes a device.
      * <p>
      * Similar to {@link #deleteDevice(String)}
@@ -457,6 +480,27 @@ public class Devices extends AbstractModule {
                                                                                                                finalEnrollmentIdentities));
                                     }
                                 });
+    }
+
+    /**
+     * Deletes a device enrollment bulk delete.
+     * <p>
+     * Similar to {@link #deleteDeviceEnrollmentBulkDelete(com.arm.mbed.cloud.sdk.common.model.DataFile)}
+     * 
+     * @param enrollmentIdentities
+     *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
+     * @param deviceEnrollmentBulkDelete
+     *            a device enrollment bulk delete.
+     * @return something
+     */
+    @API
+    @Nullable
+    public DeviceEnrollmentBulkDelete
+           deleteDeviceEnrollmentBulkDelete(@NonNull DataFile enrollmentIdentities,
+                                            @NonNull DeviceEnrollmentBulkDelete deviceEnrollmentBulkDelete) throws MbedCloudException {
+        checkNotNull(enrollmentIdentities, TAG_ENROLLMENT_IDENTITIES);
+        checkNotNull(deviceEnrollmentBulkDelete, TAG_DEVICE_ENROLLMENT_BULK_DELETE);
+        return deleteDeviceEnrollmentBulkDelete(enrollmentIdentities);
     }
 
     /**

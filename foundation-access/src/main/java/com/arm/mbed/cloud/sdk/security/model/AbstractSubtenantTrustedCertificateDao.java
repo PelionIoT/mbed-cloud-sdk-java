@@ -137,7 +137,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(String)}
      * 
      * @param id
-     *            ID that uniquely identifies the developer certificate.
+     *            mUUID that uniquely identifies the developer certificate.
      * @return something
      */
     public DeveloperCertificate getDeveloperCertificateInfo(@NonNull String id) throws MbedCloudException {

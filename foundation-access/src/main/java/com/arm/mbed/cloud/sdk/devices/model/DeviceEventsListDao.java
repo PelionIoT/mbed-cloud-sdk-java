@@ -38,6 +38,7 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings("resource")
     public DeviceEventsListDao clone() {
         try {
             return new DeviceEventsListDao().configureAndGet(getModuleOrThrow() == null ? null

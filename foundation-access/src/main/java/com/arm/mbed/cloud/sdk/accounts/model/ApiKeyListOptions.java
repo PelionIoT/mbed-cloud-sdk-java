@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.listing.IncludeField;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import java.util.List;
 
@@ -15,6 +16,16 @@ import java.util.List;
  */
 @Preamble(description = "Options to use when listing api keys.")
 public class ApiKeyListOptions extends ListOptions {
+    /**
+     * Tag for filter by owner.
+     */
+    public static final String TAG_FILTER_BY_OWNER = "owner";
+
+    /**
+     * Tag for filter by key.
+     */
+    public static final String TAG_FILTER_BY_KEY = "key";
+
     /**
      * Internal constructor.
      * <p>
@@ -82,6 +93,74 @@ public class ApiKeyListOptions extends ListOptions {
     @Internal
     public ApiKeyListOptions(String after, List<IncludeField> include, Filters filter) {
         this(0, 0L, Order.getDefault(), after, include, filter);
+    }
+
+    /**
+     * Gets all the filters defined on field {@code owner}.
+     * 
+     * @return All the filters by {@code owner}
+     */
+    public List<Filter> getOwnerFilters() {
+        return fetchFilters(TAG_FILTER_BY_OWNER);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code owner}.
+     * 
+     * @param filterByOwner
+     *            filter value.
+     */
+    public void setEqualToOwnerFilter(String filterByOwner) {
+        addEqualFilter(TAG_FILTER_BY_OWNER, filterByOwner);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code owner}.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions#setEqualToOwnerFilter(String)}
+     * 
+     * @param filterByOwner
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends ApiKeyListOptions> T equalToOwner(String filterByOwner) {
+        setEqualToOwnerFilter(filterByOwner);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code key}.
+     * 
+     * @return All the filters by {@code key}
+     */
+    public List<Filter> getKeyFilters() {
+        return fetchFilters(TAG_FILTER_BY_KEY);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code key}.
+     * 
+     * @param filterByKey
+     *            filter value.
+     */
+    public void setEqualToKeyFilter(String filterByKey) {
+        addEqualFilter(TAG_FILTER_BY_KEY, filterByKey);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code key}.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions#setEqualToKeyFilter(String)}
+     * 
+     * @param filterByKey
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends ApiKeyListOptions> T equalToKey(String filterByKey) {
+        setEqualToKeyFilter(filterByKey);
+        return (T) this;
     }
 
     /**

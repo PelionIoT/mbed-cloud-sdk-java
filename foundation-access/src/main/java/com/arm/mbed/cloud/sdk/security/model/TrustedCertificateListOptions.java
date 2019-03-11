@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.listing.IncludeField;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import java.util.List;
 
@@ -15,6 +16,16 @@ import java.util.List;
  */
 @Preamble(description = "Options to use when listing trusted certificates.")
 public class TrustedCertificateListOptions extends ListOptions {
+    /**
+     * Tag for filter by valid.
+     */
+    public static final String TAG_FILTER_BY_VALID = "valid";
+
+    /**
+     * Tag for filter by name.
+     */
+    public static final String TAG_FILTER_BY_NAME = "name";
+
     /**
      * Internal constructor.
      * <p>
@@ -82,6 +93,76 @@ public class TrustedCertificateListOptions extends ListOptions {
     @Internal
     public TrustedCertificateListOptions(String after, List<IncludeField> include, Filters filter) {
         this(0, 0L, Order.getDefault(), after, include, filter);
+    }
+
+    /**
+     * Gets all the filters defined on field {@code valid}.
+     * 
+     * @return All the filters by {@code valid}
+     */
+    public List<Filter> getValidFilters() {
+        return fetchFilters(TAG_FILTER_BY_VALID);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code valid}.
+     * 
+     * @param filterByValid
+     *            filter value.
+     */
+    public void setEqualToValidFilter(boolean filterByValid) {
+        addEqualFilter(TAG_FILTER_BY_VALID, filterByValid);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code valid}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setEqualToValidFilter(boolean)}
+     * 
+     * @param filterByValid
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T equalToValid(boolean filterByValid) {
+        setEqualToValidFilter(filterByValid);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code name}.
+     * 
+     * @return All the filters by {@code name}
+     */
+    public List<Filter> getNameFilters() {
+        return fetchFilters(TAG_FILTER_BY_NAME);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code name}.
+     * 
+     * @param filterByName
+     *            filter value.
+     */
+    public void setEqualToNameFilter(String filterByName) {
+        addEqualFilter(TAG_FILTER_BY_NAME, filterByName);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code name}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setEqualToNameFilter(String)}
+     * 
+     * @param filterByName
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T equalToName(String filterByName) {
+        setEqualToNameFilter(filterByName);
+        return (T) this;
     }
 
     /**

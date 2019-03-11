@@ -41,6 +41,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings("resource")
     public DeveloperCertificateDao clone() {
         try {
             return new DeveloperCertificateDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -216,7 +217,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#readDeveloperCertificate(String)}
      * 
      * @param id
-     *            ID that uniquely identifies the developer certificate.
+     *            mUUID that uniquely identifies the developer certificate.
      * @return something
      */
     @Override

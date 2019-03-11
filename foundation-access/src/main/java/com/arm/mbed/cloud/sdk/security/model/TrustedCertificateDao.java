@@ -37,6 +37,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings("resource")
     public TrustedCertificateDao clone() {
         try {
             return new TrustedCertificateDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -135,7 +136,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(String)}
      * 
      * @param id
-     *            ID that uniquely identifies the developer certificate.
+     *            mUUID that uniquely identifies the developer certificate.
      * @return something
      */
     public DeveloperCertificate getDeveloperCertificateInfo(@NonNull String id) throws MbedCloudException {

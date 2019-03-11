@@ -38,6 +38,7 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings("resource")
     public CertificateIssuerListDao clone() {
         try {
             return new CertificateIssuerListDao().configureAndGet(getModuleOrThrow() == null ? null

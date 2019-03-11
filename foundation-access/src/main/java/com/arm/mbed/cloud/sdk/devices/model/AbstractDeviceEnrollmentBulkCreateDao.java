@@ -38,14 +38,14 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
      * Adds a device enrollment bulk create.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollmentBulkCreate(com.arm.mbed.cloud.sdk.common.model.DataFile)}
+     * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollmentBulkCreate(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate)}
      * 
      * @param enrollmentIdentities
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
-     * @return an added device enrollment bulk create
+     * @return something
      */
     public DeviceEnrollmentBulkCreate create(@NonNull DataFile enrollmentIdentities) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).createDeviceEnrollmentBulkCreate(enrollmentIdentities));
+        setModel(((Devices) getModuleOrThrow()).createDeviceEnrollmentBulkCreate(enrollmentIdentities, getModel()));
         return getModel();
     }
 

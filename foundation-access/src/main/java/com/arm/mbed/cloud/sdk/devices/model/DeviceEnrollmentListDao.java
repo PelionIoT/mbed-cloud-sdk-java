@@ -38,6 +38,7 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings("resource")
     public DeviceEnrollmentListDao clone() {
         try {
             return new DeviceEnrollmentListDao().configureAndGet(getModuleOrThrow() == null ? null

@@ -35,6 +35,7 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings("resource")
     public ServerCredentialsDao clone() {
         try {
             return new ServerCredentialsDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -48,12 +49,13 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
      * Fetch bootstrap server credentials.
      * 
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getBootstrap()}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#getBootstrap(com.arm.mbed.cloud.sdk.security.model.ServerCredentials)}
      * 
      * @return something
      */
     public ServerCredentials getBootstrap() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getBootstrap());
+        setModel(((Security) getModuleOrThrow()).getBootstrap(getModel()));
         return getModel();
     }
 
@@ -61,12 +63,13 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
      * Fetch LwM2M server credentials.
      * 
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getLwm2m()}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#getLwm2m(com.arm.mbed.cloud.sdk.security.model.ServerCredentials)}
      * 
      * @return something
      */
     public ServerCredentials getLwm2m() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getLwm2m());
+        setModel(((Security) getModuleOrThrow()).getLwm2m(getModel()));
         return getModel();
     }
 

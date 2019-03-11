@@ -37,6 +37,36 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * Adds a subtenant user.
      * <p>
      * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUser(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
+     * 
+     * @return something
+     */
+    @Override
+    public SubtenantUser create() throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).createSubtenantUser(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Adds a subtenant user.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUser(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
+     * 
+     * @param subtenantUser
+     *            a subtenant user.
+     * @return something
+     */
+    @Override
+    public SubtenantUser create(@NonNull SubtenantUser subtenantUser) throws MbedCloudException {
+        setModel(subtenantUser);
+        return create();
+    }
+
+    /**
+     * Adds a subtenant user.
+     * <p>
+     * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUser(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
      * 
      * @param action

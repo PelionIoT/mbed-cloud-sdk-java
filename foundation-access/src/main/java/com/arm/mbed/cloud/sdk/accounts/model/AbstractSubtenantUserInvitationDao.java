@@ -40,6 +40,52 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * Adds a subtenant user invitation.
      * <p>
      * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
+     * 
+     * @return something
+     */
+    @Override
+    public SubtenantUserInvitation create() throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Adds a subtenant user invitation.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
+     * 
+     * @param subtenantUserInvitation
+     *            a subtenant user invitation.
+     * @return something
+     */
+    @Override
+    public SubtenantUserInvitation
+           create(@NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
+        setModel(subtenantUserInvitation);
+        return create();
+    }
+
+    /**
+     * Adds a subtenant user invitation.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
+     * 
+     * @param accountId
+     *            The ID of the account the user is invited to.
+     * @return something
+     */
+    public SubtenantUserInvitation create(@NonNull String accountId) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(accountId, getModel()));
+        return getModel();
+    }
+
+    /**
+     * Adds a subtenant user invitation.
+     * <p>
+     * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(int, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
      * 
      * @param validForDays

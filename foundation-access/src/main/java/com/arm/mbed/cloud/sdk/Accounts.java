@@ -322,6 +322,49 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
+     * <p>
+     * Similar to
+     * {@link #allTrustedCertificates(String, String, String, Integer, Integer, Integer, String, Boolean, String, String, String, Boolean, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account
+           allTrustedCertificates(@NonNull String id,
+                                  @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        return allTrustedCertificates(id, (String) null, (String) null, 0, 0, 0, (String) null, false, (String) null,
+                                      (String) null, (String) null, false, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
+     * <p>
+     * Similar to
+     * {@link #allTrustedCertificates(String, String, Integer, Integer, Integer, String, Boolean, String, String, String, Boolean, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account allTrustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options,
+                                          @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return allTrustedCertificates((String) null, (String) null, 0, 0, 0, (String) null, false, (String) null,
+                                      (String) null, (String) null, false, options, account);
+    }
+
+    /**
      * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
      * <p>
      * Gets an iterator over all accounts matching filter options.
@@ -363,6 +406,26 @@ public class Accounts extends AbstractModule {
      * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
      * <p>
      * Similar to
+     * {@link #allUserInvitations(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account allUserInvitations(@NonNull String id,
+                                      @Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        return allUserInvitations(id, (String) null, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
+     * <p>
+     * Similar to
      * {@link #userInvitations(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param loginProfileEq
@@ -396,6 +459,26 @@ public class Accounts extends AbstractModule {
                 return userInvitations(finalLoginProfileEq, (SubtenantUserInvitationListOptions) options, finalAccount);
             }
         });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
+     * <p>
+     * Similar to
+     * {@link #allUserInvitations(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account allUserInvitations(@Nullable SubtenantUserInvitationListOptions options,
+                                      @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return allUserInvitations((String) null, options, account);
     }
 
     /**
@@ -502,6 +585,45 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     * <p>
+     * Similar to
+     * {@link #allUsers(String, String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account allUsers(@NonNull String id, @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        return allUsers(id, (String) null, (String) null, (String) null, (String) null, (String) null, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     * <p>
+     * Similar to
+     * {@link #allUsers(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account allUsers(@Nullable SubtenantUserListOptions options,
+                            @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return allUsers((String) null, (String) null, (String) null, (String) null, (String) null, options, account);
+    }
+
+    /**
      * Clones this instance.
      * <p>
      * 
@@ -511,6 +633,22 @@ public class Accounts extends AbstractModule {
     @Override
     public Accounts clone() {
         return new Accounts(this);
+    }
+
+    /**
+     * Adds an account.
+     * <p>
+     * Similar to {@link #createAccount(String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param account
+     *            an account.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account createAccount(@NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return createAccount("create", account);
     }
 
     /**
@@ -660,6 +798,62 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Adds a subtenant user.
+     * <p>
+     * Similar to {@link #createSubtenantUser(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
+     * 
+     * @param subtenantUser
+     *            a subtenant user.
+     * @return something
+     */
+    @API
+    @Nullable
+    public SubtenantUser createSubtenantUser(@NonNull SubtenantUser subtenantUser) throws MbedCloudException {
+        checkNotNull(subtenantUser, TAG_SUBTENANT_USER);
+        return createSubtenantUser("create", subtenantUser);
+    }
+
+    /**
+     * Adds a subtenant user invitation.
+     * <p>
+     * Similar to
+     * {@link #createSubtenantUserInvitation(int, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
+     * 
+     * @param accountId
+     *            The ID of the account the user is invited to.
+     * @param subtenantUserInvitation
+     *            a subtenant user invitation.
+     * @return something
+     */
+    @API
+    @Nullable
+    public SubtenantUserInvitation
+           createSubtenantUserInvitation(@NonNull String accountId,
+                                         @NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(subtenantUserInvitation, TAG_SUBTENANT_USER_INVITATION);
+        return createSubtenantUserInvitation(0, accountId, subtenantUserInvitation);
+    }
+
+    /**
+     * Adds a subtenant user invitation.
+     * <p>
+     * Similar to
+     * {@link #createSubtenantUserInvitation(int, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
+     * 
+     * @param subtenantUserInvitation
+     *            a subtenant user invitation.
+     * @return something
+     */
+    @API
+    @Nullable
+    public SubtenantUserInvitation
+           createSubtenantUserInvitation(@NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
+        checkNotNull(subtenantUserInvitation, TAG_SUBTENANT_USER_INVITATION);
+        return createSubtenantUserInvitation(0, subtenantUserInvitation);
+    }
+
+    /**
      * Adds a subtenant user invitation.
      * <p>
      * An endpoint for inviting a new or an existing user to join the account.
@@ -765,6 +959,38 @@ public class Accounts extends AbstractModule {
                                                                     finalAction);
                                     }
                                 });
+    }
+
+    /**
+     * Adds a user.
+     * <p>
+     * Similar to {@link #createUser(String, com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * 
+     * @param user
+     *            a user.
+     * @return something
+     */
+    @API
+    @Nullable
+    public User createUser(@NonNull User user) throws MbedCloudException {
+        checkNotNull(user, TAG_USER);
+        return createUser("create", user);
+    }
+
+    /**
+     * Adds a user invitation.
+     * <p>
+     * Similar to {@link #createUserInvitation(int, com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
+     * 
+     * @param userInvitation
+     *            a user invitation.
+     * @return something
+     */
+    @API
+    @Nullable
+    public UserInvitation createUserInvitation(@NonNull UserInvitation userInvitation) throws MbedCloudException {
+        checkNotNull(userInvitation, TAG_USER_INVITATION);
+        return createUserInvitation(0, userInvitation);
     }
 
     /**
@@ -1051,6 +1277,23 @@ public class Accounts extends AbstractModule {
     /**
      * Lists accounts matching filter options.
      * <p>
+     * Similar to
+     * {@link #listAccounts(String, String, String, String, String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account listAccounts(@Nullable AccountListOptions options) throws MbedCloudException {
+        return listAccounts((String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
+                            (String) null, (String) null, (String) null, options);
+    }
+
+    /**
+     * Lists accounts matching filter options.
+     * <p>
      * Returns an array of account objects, optionally filtered by status and tier level.
      * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/accounts -H 'Authorization: Bearer API_KEY'`.
@@ -1118,6 +1361,23 @@ public class Accounts extends AbstractModule {
     /**
      * Creates a {@link Paginator} for the list of accounts matching filter options.
      * <p>
+     * Similar to
+     * {@link #listAllAccounts(String, String, String, String, String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account listAllAccounts(@Nullable AccountListOptions options) throws MbedCloudException {
+        return listAllAccounts((String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
+                               (String) null, (String) null, (String) null, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of accounts matching filter options.
+     * <p>
      * Gets an iterator over all accounts matching filter options.
      * 
      * @param format
@@ -1174,6 +1434,21 @@ public class Accounts extends AbstractModule {
                                     (AccountListOptions) options);
             }
         });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of api keys matching filter options.
+     * <p>
+     * Similar to {@link #listAllApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public ApiKey listAllApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
+        return listAllApiKeys((String) null, (String) null, options);
     }
 
     /**
@@ -1245,6 +1520,23 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Creates a {@link Paginator} for the list of user invitations matching filter options.
+     * <p>
+     * Similar to
+     * {@link #listAllUserInvitations(String, com.arm.mbed.cloud.sdk.accounts.model.UserInvitationListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public UserInvitation
+           listAllUserInvitations(@Nullable UserInvitationListOptions options) throws MbedCloudException {
+        return listAllUserInvitations((String) null, options);
+    }
+
+    /**
      * Creates a {@link Paginator} for the list of users matching filter options.
      * <p>
      * Gets an iterator over all users matching filter options.
@@ -1288,6 +1580,37 @@ public class Accounts extends AbstractModule {
                                  (UserListOptions) options);
             }
         });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of users matching filter options.
+     * <p>
+     * Similar to
+     * {@link #listAllUsers(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.UserListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public User listAllUsers(@Nullable UserListOptions options) throws MbedCloudException {
+        return listAllUsers((String) null, (String) null, (String) null, (String) null, (String) null, options);
+    }
+
+    /**
+     * Lists api keys matching filter options.
+     * <p>
+     * Similar to {@link #listApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public ApiKey listApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
+        return listApiKeys((String) null, (String) null, options);
     }
 
     /**
@@ -1372,6 +1695,21 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Lists user invitations matching filter options.
+     * <p>
+     * Similar to {@link #listUserInvitations(String, com.arm.mbed.cloud.sdk.accounts.model.UserInvitationListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public UserInvitation listUserInvitations(@Nullable UserInvitationListOptions options) throws MbedCloudException {
+        return listUserInvitations((String) null, options);
+    }
+
+    /**
      * Lists users matching filter options.
      * <p>
      * An endpoint for retrieving the details of all users.
@@ -1424,6 +1762,51 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Lists users matching filter options.
+     * <p>
+     * Similar to
+     * {@link #listUsers(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.UserListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public User listUsers(@Nullable UserListOptions options) throws MbedCloudException {
+        return listUsers((String) null, (String) null, (String) null, (String) null, (String) null, options);
+    }
+
+    /**
+     * Gets my account.
+     * <p>
+     * Similar to {@link #myAccount(String, String)}
+     * 
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account myAccount() throws MbedCloudException {
+        return myAccount((String) null, (String) null);
+    }
+
+    /**
+     * Gets my account.
+     * <p>
+     * Similar to {@link #myAccount(String, String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param account
+     *            an account.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account myAccount(@NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return myAccount((String) null, (String) null, account);
+    }
+
+    /**
      * Gets my account.
      * <p>
      * Returns detailed information about the account.
@@ -1458,6 +1841,27 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Gets my account.
+     * <p>
+     * Similar to {@link #myAccount(String, String)}
+     * 
+     * @param include
+     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     * @param properties
+     *            Property name to be returned from account specific properties.
+     * @param account
+     *            an account.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account myAccount(@Nullable String include, @Nullable String properties,
+                             @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return myAccount(include, properties);
+    }
+
+    /**
      * Gets my api key.
      * <p>
      * An endpoint for retrieving API key details.
@@ -1481,6 +1885,54 @@ public class Accounts extends AbstractModule {
                                         return endpoints.getDeveloperApi().getMyApiKey();
                                     }
                                 });
+    }
+
+    /**
+     * Gets my api key.
+     * <p>
+     * Similar to {@link #myApiKey()}
+     * 
+     * @param apiKey
+     *            an api key.
+     * @return something
+     */
+    @API
+    @Nullable
+    public ApiKey myApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
+        checkNotNull(apiKey, TAG_API_KEY);
+        return myApiKey();
+    }
+
+    /**
+     * Gets an account.
+     * <p>
+     * Similar to {@link #readAccount(String, String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param account
+     *            an account.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account readAccount(@NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return readAccount((String) null, (String) null, account);
+    }
+
+    /**
+     * Gets an account.
+     * <p>
+     * Similar to {@link #readAccount(String, String, String)}
+     * 
+     * @param id
+     *            Account ID.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account readAccount(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        return readAccount((String) null, (String) null, id);
     }
 
     /**
@@ -1931,6 +2383,51 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Get all trusted certificates.
+     * 
+     * <p>
+     * Similar to
+     * {@link #trustedCertificates(String, String, String, Integer, Integer, Integer, String, Boolean, String, String, String, Boolean, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account
+           trustedCertificates(@NonNull String id,
+                               @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        return trustedCertificates(id, (String) null, (String) null, 0, 0, 0, (String) null, false, (String) null,
+                                   (String) null, (String) null, false, options);
+    }
+
+    /**
+     * Get all trusted certificates.
+     * 
+     * <p>
+     * Similar to
+     * {@link #trustedCertificates(String, String, Integer, Integer, Integer, String, Boolean, String, String, String, Boolean, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account trustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options,
+                                       @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return trustedCertificates((String) null, (String) null, 0, 0, 0, (String) null, false, (String) null,
+                                   (String) null, (String) null, false, options, account);
+    }
+
+    /**
      * Modifies an account.
      * <p>
      * Similar to {@link #updateAccount(String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -2208,6 +2705,27 @@ public class Accounts extends AbstractModule {
      * Similar to
      * {@link #userInvitations(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions)}
      * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account userInvitations(@NonNull String id,
+                                   @Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        return userInvitations(id, (String) null, options);
+    }
+
+    /**
+     * Get the details of all the user invitations.
+     * 
+     * <p>
+     * Similar to
+     * {@link #userInvitations(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions)}
+     * 
      * @param loginProfileEq
      *            null
      * @param options
@@ -2224,6 +2742,27 @@ public class Accounts extends AbstractModule {
         checkNotNull(account, TAG_ACCOUNT);
         checkModelValidity(account, TAG_ACCOUNT);
         return userInvitations(account.getId(), loginProfileEq, options);
+    }
+
+    /**
+     * Get the details of all the user invitations.
+     * 
+     * <p>
+     * Similar to
+     * {@link #userInvitations(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account userInvitations(@Nullable SubtenantUserInvitationListOptions options,
+                                   @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return userInvitations((String) null, options, account);
     }
 
     /**
@@ -2317,6 +2856,47 @@ public class Accounts extends AbstractModule {
         checkNotNull(account, TAG_ACCOUNT);
         checkModelValidity(account, TAG_ACCOUNT);
         return users(account.getId(), emailEq, statusEq, statusIn, statusNin, loginProfileEq, options);
+    }
+
+    /**
+     * Get all user details.
+     * 
+     * <p>
+     * Similar to
+     * {@link #users(String, String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account users(@NonNull String id, @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        return users(id, (String) null, (String) null, (String) null, (String) null, (String) null, options);
+    }
+
+    /**
+     * Get all user details.
+     * 
+     * <p>
+     * Similar to
+     * {@link #users(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return something
+     */
+    @API
+    @Nullable
+    public Account users(@Nullable SubtenantUserListOptions options,
+                         @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return users((String) null, (String) null, (String) null, (String) null, (String) null, options, account);
     }
 
     /**

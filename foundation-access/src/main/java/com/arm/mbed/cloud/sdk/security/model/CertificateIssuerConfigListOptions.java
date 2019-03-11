@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.listing.IncludeField;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import java.util.List;
 
@@ -15,6 +16,11 @@ import java.util.List;
  */
 @Preamble(description = "Options to use when listing certificate issuer configs.")
 public class CertificateIssuerConfigListOptions extends ListOptions {
+    /**
+     * Tag for filter by certificateReference.
+     */
+    public static final String TAG_FILTER_BY_CERTIFICATE_REFERENCE = "certificateReference";
+
     /**
      * Internal constructor.
      * <p>
@@ -82,6 +88,42 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
     @Internal
     public CertificateIssuerConfigListOptions(String after, List<IncludeField> include, Filters filter) {
         this(0, 0L, Order.getDefault(), after, include, filter);
+    }
+
+    /**
+     * Gets all the filters defined on field {@code certificateReference}.
+     * 
+     * @return All the filters by {@code certificateReference}
+     */
+    public List<Filter> getCertificateReferenceFilters() {
+        return fetchFilters(TAG_FILTER_BY_CERTIFICATE_REFERENCE);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code certificateReference}.
+     * 
+     * @param filterByCertificateReference
+     *            filter value.
+     */
+    public void setEqualToCertificateReferenceFilter(String filterByCertificateReference) {
+        addEqualFilter(TAG_FILTER_BY_CERTIFICATE_REFERENCE, filterByCertificateReference);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code certificateReference}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions#setEqualToCertificateReferenceFilter(String)}
+     * 
+     * @param filterByCertificateReference
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends CertificateIssuerConfigListOptions> T
+           equalToCertificateReference(String filterByCertificateReference) {
+        setEqualToCertificateReferenceFilter(filterByCertificateReference);
+        return (T) this;
     }
 
     /**

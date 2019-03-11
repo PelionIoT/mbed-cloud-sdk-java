@@ -38,6 +38,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings("resource")
     public DeviceDao clone() {
         try {
             return new DeviceDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());

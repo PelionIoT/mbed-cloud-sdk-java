@@ -38,6 +38,7 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings("resource")
     public DeviceListDao clone() {
         try {
             return new DeviceListDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());
