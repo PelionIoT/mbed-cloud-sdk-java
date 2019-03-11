@@ -336,7 +336,7 @@ jobs:
     - run:
         name: Publishing temporary documentation online
         command: >
-          aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS_DIR} s3://${PROJECT_NAME}
+          aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS_DIR} s3://${PROJECT_NAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}-branch
           && echo 'SDK javadoc for this build is now available there:'
           && echo ${DOCS_TEMP_URL}
     # - <<: *persist_build
