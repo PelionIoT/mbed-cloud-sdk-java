@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelListDao;
 import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 
 /**
  * Data Access Object (DAO) for listing accounts.
@@ -131,7 +132,7 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
      * @return one page of accounts
      */
     @Override
-    protected Account requestOnePage(AccountListOptions options) throws MbedCloudException {
+    protected ListResponse<Account> requestOnePage(AccountListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).listAccounts(options);
     }
 }

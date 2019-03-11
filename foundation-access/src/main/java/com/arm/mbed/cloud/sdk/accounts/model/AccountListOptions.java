@@ -202,7 +202,8 @@ public class AccountListOptions extends ListOptions {
     /**
      * Sets "an in" filter by {@code status}.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setInStatusFilter(java.util.List)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setInStatusFilter(java.util.List<com.arm.mbed.cloud.sdk.accounts.model.AccountStatus>)}
      * 
      * @param filterByStatus
      *            filter value.
@@ -278,7 +279,8 @@ public class AccountListOptions extends ListOptions {
     /**
      * Sets "a not in" filter by {@code status}.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setNotInStatusFilter(java.util.List)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setNotInStatusFilter(java.util.List<com.arm.mbed.cloud.sdk.accounts.model.AccountStatus>)}
      * 
      * @param filterByStatus
      *            filter value.

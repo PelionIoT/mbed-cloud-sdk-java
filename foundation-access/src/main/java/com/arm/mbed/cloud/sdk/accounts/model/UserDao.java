@@ -53,7 +53,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
-     * @return something
+     * @return an added user
      */
     @Override
     public User create() throws MbedCloudException {
@@ -68,7 +68,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param user
      *            a user.
-     * @return something
+     * @return an added user
      */
     @Override
     public User create(@NonNull User user) throws MbedCloudException {

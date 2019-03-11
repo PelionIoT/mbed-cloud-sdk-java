@@ -412,26 +412,29 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.adminEmail,
              account == null ? (String) null : account.adminFullName, account == null ? (String) null : account.adminId,
              account == null ? (String) null : account.adminKey, account == null ? (String) null : account.adminName,
-             account == null ? (String) null : account.adminPassword, account == null ? null : account.aliases,
+             account == null ? (String) null : account.adminPassword,
+             account == null ? (java.util.List<?>) null : account.aliases,
              account == null ? (String) null : account.city, account == null ? (String) null : account.company,
              account == null ? (String) null : account.contact,
              account == null ? (String) null : account.contractNumber,
              account == null ? (String) null : account.country,
-             account == null ? new java.util.Date() : account.createdAt, account == null ? null : account.customFields,
+             account == null ? new java.util.Date() : account.createdAt,
+             account == null ? (java.util.Map<String, String>) null : account.customFields,
              account == null ? (String) null : account.customerNumber,
              account == null ? (String) null : account.displayName, account == null ? (String) null : account.email,
              account == null ? (String) null : account.endMarket,
              account == null ? new java.util.Date() : account.expiration,
              account == null ? (String) null : account.expirationWarningThreshold,
              account == null ? (String) null : account.id, account == null ? (String) null : account.idleTimeout,
-             account == null ? null : account.limits,
+             account == null ? (java.util.Map<String, String>) null : account.limits,
              account == null ? AccountMfaStatus.getDefault() : account.mfaStatus,
-             account == null ? null : account.notificationEmails,
+             account == null ? (java.util.List<?>) null : account.notificationEmails,
              account == null ? (ParentAccount) null : account.parentAccount,
              account == null ? (String) null : account.parentId,
              account == null ? (PasswordPolicy) null : account.passwordPolicy,
              account == null ? 0 : account.passwordRecoveryExpiration,
-             account == null ? (String) null : account.phoneNumber, account == null ? null : account.policies,
+             account == null ? (String) null : account.phoneNumber,
+             account == null ? (java.util.List<?>) null : account.policies,
              account == null ? (String) null : account.postalCode, account == null ? (String) null : account.reason,
              account == null ? (String) null : account.referenceNote,
              account == null ? (String) null : account.salesContact, account == null ? (String) null : account.state,
@@ -446,12 +449,13 @@ public class Account implements SdkModel {
      */
     public Account() {
         this((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             new java.util.Date(), null, (String) null, (String) null, (String) null, (String) null,
-             new java.util.Date(), (String) null, (String) null, (String) null, null, AccountMfaStatus.getDefault(),
-             null, (ParentAccount) null, (String) null, (PasswordPolicy) null, 0, (String) null, null, (String) null,
-             (String) null, (String) null, (String) null, (String) null, AccountStatus.getDefault(), (String) null,
-             (String) null, new java.util.Date(), new java.util.Date());
+             (String) null, (java.util.List<?>) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, new java.util.Date(), (java.util.Map<String, String>) null, (String) null, (String) null,
+             (String) null, (String) null, new java.util.Date(), (String) null, (String) null, (String) null,
+             (java.util.Map<String, String>) null, AccountMfaStatus.getDefault(), (java.util.List<?>) null,
+             (ParentAccount) null, (String) null, (PasswordPolicy) null, 0, (String) null, (java.util.List<?>) null,
+             (String) null, (String) null, (String) null, (String) null, (String) null, AccountStatus.getDefault(),
+             (String) null, (String) null, new java.util.Date(), new java.util.Date());
     }
 
     /**
@@ -509,10 +513,11 @@ public class Account implements SdkModel {
                    String referenceNote, AccountStatus status, String templateId, String tier, Date updatedAt,
                    Date upgradedAt) {
         this((String) null, (String) null, (String) null, (String) null, adminId, adminKey, (String) null,
-             (String) null, null, (String) null, (String) null, (String) null, (String) null, (String) null, createdAt,
-             null, (String) null, (String) null, (String) null, (String) null, expiration, (String) null, (String) null,
-             (String) null, limits, AccountMfaStatus.getDefault(), null, parentAccount, parentId, (PasswordPolicy) null,
-             0, (String) null, policies, (String) null, reason, referenceNote, (String) null, (String) null, status,
+             (String) null, (java.util.List<?>) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, createdAt, (java.util.Map<String, String>) null, (String) null, (String) null,
+             (String) null, (String) null, expiration, (String) null, (String) null, (String) null, limits,
+             AccountMfaStatus.getDefault(), (java.util.List<?>) null, parentAccount, parentId, (PasswordPolicy) null, 0,
+             (String) null, policies, (String) null, reason, referenceNote, (String) null, (String) null, status,
              templateId, tier, updatedAt, upgradedAt);
     }
 

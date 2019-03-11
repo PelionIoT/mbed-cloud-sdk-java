@@ -112,7 +112,7 @@ public class UserInvitation implements SdkModel {
              userInvitation == null ? (String) null : userInvitation.email,
              userInvitation == null ? new java.util.Date() : userInvitation.expiration,
              userInvitation == null ? (String) null : userInvitation.id,
-             userInvitation == null ? null : userInvitation.loginProfiles,
+             userInvitation == null ? (java.util.List<?>) null : userInvitation.loginProfiles,
              userInvitation == null ? new java.util.Date() : userInvitation.updatedAt,
              userInvitation == null ? (String) null : userInvitation.userId);
     }
@@ -121,8 +121,8 @@ public class UserInvitation implements SdkModel {
      * Constructor.
      */
     public UserInvitation() {
-        this((String) null, new java.util.Date(), (String) null, new java.util.Date(), (String) null, null,
-             new java.util.Date(), (String) null);
+        this((String) null, new java.util.Date(), (String) null, new java.util.Date(), (String) null,
+             (java.util.List<?>) null, new java.util.Date(), (String) null);
     }
 
     /**
@@ -154,7 +154,8 @@ public class UserInvitation implements SdkModel {
      */
     @Internal
     public UserInvitation(String accountId, Date createdAt, Date expiration, Date updatedAt, String userId) {
-        this(accountId, createdAt, (String) null, expiration, (String) null, null, updatedAt, userId);
+        this(accountId, createdAt, (String) null, expiration, (String) null, (java.util.List<?>) null, updatedAt,
+             userId);
     }
 
     /**

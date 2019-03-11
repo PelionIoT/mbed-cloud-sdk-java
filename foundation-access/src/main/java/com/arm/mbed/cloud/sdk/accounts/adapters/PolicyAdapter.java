@@ -66,10 +66,10 @@ public final class PolicyAdapter {
     }
 
     /**
-     * Maps a list into a list.
+     * Maps a list< feature policy> into a list< policy>.
      * 
      * @param toBeMapped
-     *            a list.
+     *            a list< feature policy>.
      * @return mapped simple list
      */
     @Internal

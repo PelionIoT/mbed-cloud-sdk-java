@@ -113,7 +113,7 @@ public class SubtenantUserInvitation implements SdkModel {
              subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.email,
              subtenantUserInvitation == null ? new java.util.Date() : subtenantUserInvitation.expiration,
              subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.id,
-             subtenantUserInvitation == null ? null : subtenantUserInvitation.loginProfiles,
+             subtenantUserInvitation == null ? (java.util.List<?>) null : subtenantUserInvitation.loginProfiles,
              subtenantUserInvitation == null ? new java.util.Date() : subtenantUserInvitation.updatedAt,
              subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.userId);
     }
@@ -122,8 +122,8 @@ public class SubtenantUserInvitation implements SdkModel {
      * Constructor.
      */
     public SubtenantUserInvitation() {
-        this((String) null, new java.util.Date(), (String) null, new java.util.Date(), (String) null, null,
-             new java.util.Date(), (String) null);
+        this((String) null, new java.util.Date(), (String) null, new java.util.Date(), (String) null,
+             (java.util.List<?>) null, new java.util.Date(), (String) null);
     }
 
     /**
@@ -153,7 +153,8 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     @Internal
     public SubtenantUserInvitation(Date createdAt, Date expiration, Date updatedAt, String userId) {
-        this((String) null, createdAt, (String) null, expiration, (String) null, null, updatedAt, userId);
+        this((String) null, createdAt, (String) null, expiration, (String) null, (java.util.List<?>) null, updatedAt,
+             userId);
     }
 
     /**
@@ -165,8 +166,8 @@ public class SubtenantUserInvitation implements SdkModel {
      *            Email address of the invited user.
      */
     public SubtenantUserInvitation(String accountId, String email) {
-        this(accountId, new java.util.Date(), email, new java.util.Date(), (String) null, null, new java.util.Date(),
-             (String) null);
+        this(accountId, new java.util.Date(), email, new java.util.Date(), (String) null, (java.util.List<?>) null,
+             new java.util.Date(), (String) null);
     }
 
     /**

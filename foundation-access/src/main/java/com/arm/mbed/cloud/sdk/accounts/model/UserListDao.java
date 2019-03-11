@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelListDao;
 import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 
 /**
  * Data Access Object (DAO) for listing users.
@@ -131,7 +132,7 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
      * @return one page of users
      */
     @Override
-    protected User requestOnePage(UserListOptions options) throws MbedCloudException {
+    protected ListResponse<User> requestOnePage(UserListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).listUsers(options);
     }
 }

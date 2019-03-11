@@ -132,9 +132,9 @@ public class DeviceEvents implements SdkModel {
      */
     @Internal
     public DeviceEvents(DeviceEvents deviceEvents) {
-        this(deviceEvents == null ? null : deviceEvents.changes,
+        this(deviceEvents == null ? (java.util.Map<String, String>) null : deviceEvents.changes,
              deviceEvents == null ? new java.util.Date() : deviceEvents.createdAt,
-             deviceEvents == null ? null : deviceEvents.data,
+             deviceEvents == null ? (java.util.Map<String, String>) null : deviceEvents.data,
              deviceEvents == null ? new java.util.Date() : deviceEvents.dateTime,
              deviceEvents == null ? (String) null : deviceEvents.description,
              deviceEvents == null ? (String) null : deviceEvents.deviceId,
@@ -148,8 +148,9 @@ public class DeviceEvents implements SdkModel {
      * Constructor.
      */
     public DeviceEvents() {
-        this(null, new java.util.Date(), null, new java.util.Date(), (String) null, (String) null, (String) null,
-             (String) null, (String) null, (String) null, false);
+        this((java.util.Map<String, String>) null, new java.util.Date(), (java.util.Map<String, String>) null,
+             new java.util.Date(), (String) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, false);
     }
 
     /**

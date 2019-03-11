@@ -75,7 +75,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * 
      * @param accountId
      *            The ID of the account the user is invited to.
-     * @return something
+     * @return an added subtenant user invitation
      */
     public SubtenantUserInvitation create(@NonNull String accountId) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(accountId, getModel()));

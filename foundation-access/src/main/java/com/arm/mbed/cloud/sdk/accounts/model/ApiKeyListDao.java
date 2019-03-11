@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelListDao;
 import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 
 /**
  * Data Access Object (DAO) for listing api keys.
@@ -131,7 +132,7 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
      * @return one page of api keys
      */
     @Override
-    protected ApiKey requestOnePage(ApiKeyListOptions options) throws MbedCloudException {
+    protected ListResponse<ApiKey> requestOnePage(ApiKeyListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).listApiKeys(options);
     }
 }

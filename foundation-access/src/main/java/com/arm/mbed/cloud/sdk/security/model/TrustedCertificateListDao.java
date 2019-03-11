@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelListDao;
 import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 
 /**
  * Data Access Object (DAO) for listing trusted certificates.
@@ -132,7 +133,8 @@ public class TrustedCertificateListDao extends AbstractModelListDao<TrustedCerti
      * @return one page of trusted certificates
      */
     @Override
-    protected TrustedCertificate requestOnePage(TrustedCertificateListOptions options) throws MbedCloudException {
+    protected ListResponse<TrustedCertificate>
+              requestOnePage(TrustedCertificateListOptions options) throws MbedCloudException {
         return ((Security) getModuleOrThrow()).listTrustedCertificates(options);
     }
 }

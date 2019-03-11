@@ -57,7 +57,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
      * 
-     * @return something
+     * @return an added user invitation
      */
     @Override
     public UserInvitation create() throws MbedCloudException {
@@ -73,7 +73,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * 
      * @param userInvitation
      *            a user invitation.
-     * @return something
+     * @return an added user invitation
      */
     @Override
     public UserInvitation create(@NonNull UserInvitation userInvitation) throws MbedCloudException {

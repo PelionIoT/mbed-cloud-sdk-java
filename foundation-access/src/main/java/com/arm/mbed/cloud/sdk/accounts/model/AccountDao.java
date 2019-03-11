@@ -140,13 +140,12 @@ public class AccountDao extends AbstractModelDao<Account>
      *            Account ID.
      * @param options
      *            list options.
-     * @return something
+     * @return paginator over the list of subtenant trusted certificates
      */
-    public Account
+    public Paginator<SubtenantTrustedCertificate>
            allTrustedCertificates(@NonNull String id,
                                   @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).allTrustedCertificates(id, options));
-        return getModel();
+        return ((Accounts) getModuleOrThrow()).allTrustedCertificates(id, options);
     }
 
     /**
@@ -157,12 +156,11 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return paginator over the list of subtenant trusted certificates
      */
-    public Account
+    public Paginator<SubtenantTrustedCertificate>
            allTrustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).allTrustedCertificates(options, getModel()));
-        return getModel();
+        return ((Accounts) getModuleOrThrow()).allTrustedCertificates(options, getModel());
     }
 
     /**
@@ -211,11 +209,11 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return paginator over the list of subtenant user invitations
      */
-    public Account allUserInvitations(@Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).allUserInvitations(options, getModel()));
-        return getModel();
+    public Paginator<SubtenantUserInvitation>
+           allUserInvitations(@Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allUserInvitations(options, getModel());
     }
 
     /**
@@ -286,11 +284,11 @@ public class AccountDao extends AbstractModelDao<Account>
      *            Account ID.
      * @param options
      *            list options.
-     * @return something
+     * @return paginator over the list of subtenant users
      */
-    public Account allUsers(@NonNull String id, @Nullable SubtenantUserListOptions options) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).allUsers(id, options));
-        return getModel();
+    public Paginator<SubtenantUser> allUsers(@NonNull String id,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allUsers(id, options);
     }
 
     /**
@@ -301,11 +299,10 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return paginator over the list of subtenant users
      */
-    public Account allUsers(@Nullable SubtenantUserListOptions options) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).allUsers(options, getModel()));
-        return getModel();
+    public Paginator<SubtenantUser> allUsers(@Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allUsers(options, getModel());
     }
 
     /**
@@ -330,7 +327,7 @@ public class AccountDao extends AbstractModelDao<Account>
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
-     * @return something
+     * @return an added account
      */
     @Override
     public Account create() throws MbedCloudException {
@@ -345,7 +342,7 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param account
      *            an account.
-     * @return something
+     * @return an added account
      */
     @Override
     public Account create(@NonNull Account account) throws MbedCloudException {
@@ -626,13 +623,12 @@ public class AccountDao extends AbstractModelDao<Account>
      *            Account ID.
      * @param options
      *            list options.
-     * @return something
+     * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      */
-    public Account
+    public ListResponse<SubtenantTrustedCertificate>
            trustedCertificates(@NonNull String id,
                                @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).trustedCertificates(id, options));
-        return getModel();
+        return ((Accounts) getModuleOrThrow()).trustedCertificates(id, options);
     }
 
     /**
@@ -644,12 +640,11 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      */
-    public Account
+    public ListResponse<SubtenantTrustedCertificate>
            trustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).trustedCertificates(options, getModel()));
-        return getModel();
+        return ((Accounts) getModuleOrThrow()).trustedCertificates(options, getModel());
     }
 
     /**
@@ -744,11 +739,11 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return the list of subtenant user invitations corresponding to filter options (One page).
      */
-    public Account userInvitations(@Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).userInvitations(options, getModel()));
-        return getModel();
+    public ListResponse<SubtenantUserInvitation>
+           userInvitations(@Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).userInvitations(options, getModel());
     }
 
     /**
@@ -822,11 +817,11 @@ public class AccountDao extends AbstractModelDao<Account>
      *            Account ID.
      * @param options
      *            list options.
-     * @return something
+     * @return the list of subtenant users corresponding to filter options (One page).
      */
-    public Account users(@NonNull String id, @Nullable SubtenantUserListOptions options) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).users(id, options));
-        return getModel();
+    public ListResponse<SubtenantUser> users(@NonNull String id,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).users(id, options);
     }
 
     /**
@@ -838,10 +833,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return the list of subtenant users corresponding to filter options (One page).
      */
-    public Account users(@Nullable SubtenantUserListOptions options) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).users(options, getModel()));
-        return getModel();
+    public ListResponse<SubtenantUser> users(@Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).users(options, getModel());
     }
 }

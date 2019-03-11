@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelListDao;
 import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 
 /**
  * Data Access Object (DAO) for listing user invitations.
@@ -132,7 +133,7 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
      * @return one page of user invitations
      */
     @Override
-    protected UserInvitation requestOnePage(UserInvitationListOptions options) throws MbedCloudException {
+    protected ListResponse<UserInvitation> requestOnePage(UserInvitationListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).listUserInvitations(options);
     }
 }

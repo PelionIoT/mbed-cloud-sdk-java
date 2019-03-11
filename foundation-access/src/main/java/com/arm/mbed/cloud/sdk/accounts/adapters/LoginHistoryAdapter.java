@@ -71,10 +71,10 @@ public final class LoginHistoryAdapter {
     }
 
     /**
-     * Maps a list into a list.
+     * Maps a list< login history> into a list< login history>.
      * 
      * @param toBeMapped
-     *            a list.
+     *            a list< login history>.
      * @return mapped simple list
      */
     @Internal

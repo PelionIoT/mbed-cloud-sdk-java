@@ -102,7 +102,7 @@ public class CertificateIssuer implements SdkModel {
         this(certificateIssuer == null ? new java.util.Date() : certificateIssuer.createdAt,
              certificateIssuer == null ? (String) null : certificateIssuer.description,
              certificateIssuer == null ? (String) null : certificateIssuer.id,
-             certificateIssuer == null ? null : certificateIssuer.issuerAttributes,
+             certificateIssuer == null ? (java.util.Map<String, String>) null : certificateIssuer.issuerAttributes,
              certificateIssuer == null ? CertificateIssuerType.getDefault() : certificateIssuer.issuerType,
              certificateIssuer == null ? (String) null : certificateIssuer.name);
     }
@@ -111,8 +111,8 @@ public class CertificateIssuer implements SdkModel {
      * Constructor.
      */
     public CertificateIssuer() {
-        this(new java.util.Date(), (String) null, (String) null, null, CertificateIssuerType.getDefault(),
-             (String) null);
+        this(new java.util.Date(), (String) null, (String) null, (java.util.Map<String, String>) null,
+             CertificateIssuerType.getDefault(), (String) null);
     }
 
     /**
@@ -136,7 +136,8 @@ public class CertificateIssuer implements SdkModel {
      */
     @Internal
     public CertificateIssuer(Date createdAt) {
-        this(createdAt, (String) null, (String) null, null, CertificateIssuerType.getDefault(), (String) null);
+        this(createdAt, (String) null, (String) null, (java.util.Map<String, String>) null,
+             CertificateIssuerType.getDefault(), (String) null);
     }
 
     /**
@@ -151,7 +152,8 @@ public class CertificateIssuer implements SdkModel {
      *            Certificate issuer name, unique per account.
      */
     public CertificateIssuer(CertificateIssuerType issuerType, String name) {
-        this(new java.util.Date(), (String) null, (String) null, null, issuerType, name);
+        this(new java.util.Date(), (String) null, (String) null, (java.util.Map<String, String>) null, issuerType,
+             name);
     }
 
     /**

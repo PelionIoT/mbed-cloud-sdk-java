@@ -55,7 +55,7 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuer(com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
-     * @return something
+     * @return an added certificate issuer
      */
     @Override
     public CertificateIssuer create() throws MbedCloudException {
@@ -66,8 +66,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
     /**
      * Adds a certificate issuer.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuer(java.util.Map, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuer(java.util.Map<String, String>,
+     * com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
@@ -89,7 +89,7 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param certificateIssuerRequest
      *            a certificate issuer.
-     * @return something
+     * @return an added certificate issuer
      */
     @Override
     public CertificateIssuer create(@NonNull CertificateIssuer certificateIssuerRequest) throws MbedCloudException {
@@ -234,8 +234,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
     /**
      * Modifies a certificate issuer.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(java.util.Map, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(java.util.Map<String, String>,
+     * com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
@@ -252,8 +252,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
     /**
      * Modifies a certificate issuer.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(java.util.Map, String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(java.util.Map<String, String>, String,
+     * com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
@@ -294,7 +294,7 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param id
      *            The ID of the certificate issuer.
-     * @return something
+     * @return an updated certificate issuer
      */
     public CertificateIssuer update(@NonNull String id) throws MbedCloudException {
         setModel(((Security) getModuleOrThrow()).updateCertificateIssuer(id, getModel()));

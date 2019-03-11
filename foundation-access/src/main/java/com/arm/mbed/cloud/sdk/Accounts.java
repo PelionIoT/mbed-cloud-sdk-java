@@ -331,11 +331,11 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param options
      *            list options.
-     * @return something
+     * @return paginator over the list of subtenant trusted certificates
      */
     @API
     @Nullable
-    public Account
+    public Paginator<SubtenantTrustedCertificate>
            allTrustedCertificates(@NonNull String id,
                                   @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
@@ -353,12 +353,13 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
-     * @return something
+     * @return paginator over the list of subtenant trusted certificates
      */
     @API
     @Nullable
-    public Account allTrustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options,
-                                          @NonNull Account account) throws MbedCloudException {
+    public Paginator<SubtenantTrustedCertificate>
+           allTrustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options,
+                                  @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
         return allTrustedCertificates((String) null, (String) null, 0, 0, 0, (String) null, false, (String) null,
                                       (String) null, (String) null, false, options, account);
@@ -412,12 +413,13 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param options
      *            list options.
-     * @return something
+     * @return paginator over the list of subtenant user invitations
      */
     @API
     @Nullable
-    public Account allUserInvitations(@NonNull String id,
-                                      @Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
+    public Paginator<SubtenantUserInvitation>
+           allUserInvitations(@NonNull String id,
+                              @Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
         return allUserInvitations(id, (String) null, options);
     }
@@ -471,12 +473,12 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
-     * @return something
+     * @return paginator over the list of subtenant user invitations
      */
     @API
     @Nullable
-    public Account allUserInvitations(@Nullable SubtenantUserInvitationListOptions options,
-                                      @NonNull Account account) throws MbedCloudException {
+    public Paginator<SubtenantUserInvitation> allUserInvitations(@Nullable SubtenantUserInvitationListOptions options,
+                                                                 @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
         return allUserInvitations((String) null, options, account);
     }
@@ -594,11 +596,12 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param options
      *            list options.
-     * @return something
+     * @return paginator over the list of subtenant users
      */
     @API
     @Nullable
-    public Account allUsers(@NonNull String id, @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+    public Paginator<SubtenantUser> allUsers(@NonNull String id,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
         return allUsers(id, (String) null, (String) null, (String) null, (String) null, (String) null, options);
     }
@@ -613,12 +616,12 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
-     * @return something
+     * @return paginator over the list of subtenant users
      */
     @API
     @Nullable
-    public Account allUsers(@Nullable SubtenantUserListOptions options,
-                            @NonNull Account account) throws MbedCloudException {
+    public Paginator<SubtenantUser> allUsers(@Nullable SubtenantUserListOptions options,
+                                             @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
         return allUsers((String) null, (String) null, (String) null, (String) null, (String) null, options, account);
     }
@@ -642,7 +645,7 @@ public class Accounts extends AbstractModule {
      * 
      * @param account
      *            an account.
-     * @return something
+     * @return an added account
      */
     @API
     @Nullable
@@ -823,7 +826,7 @@ public class Accounts extends AbstractModule {
      *            The ID of the account the user is invited to.
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
-     * @return something
+     * @return an added subtenant user invitation
      */
     @API
     @Nullable
@@ -968,7 +971,7 @@ public class Accounts extends AbstractModule {
      * 
      * @param user
      *            a user.
-     * @return something
+     * @return an added user
      */
     @API
     @Nullable
@@ -984,7 +987,7 @@ public class Accounts extends AbstractModule {
      * 
      * @param userInvitation
      *            a user invitation.
-     * @return something
+     * @return an added user invitation
      */
     @API
     @Nullable
@@ -1282,11 +1285,11 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return the list of accounts corresponding to filter options (One page).
      */
     @API
     @Nullable
-    public Account listAccounts(@Nullable AccountListOptions options) throws MbedCloudException {
+    public ListResponse<Account> listAccounts(@Nullable AccountListOptions options) throws MbedCloudException {
         return listAccounts((String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
                             (String) null, (String) null, (String) null, options);
     }
@@ -1366,11 +1369,11 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return paginator over the list of accounts
      */
     @API
     @Nullable
-    public Account listAllAccounts(@Nullable AccountListOptions options) throws MbedCloudException {
+    public Paginator<Account> listAllAccounts(@Nullable AccountListOptions options) throws MbedCloudException {
         return listAllAccounts((String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
                                (String) null, (String) null, (String) null, options);
     }
@@ -1443,11 +1446,11 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return paginator over the list of api keys
      */
     @API
     @Nullable
-    public ApiKey listAllApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
+    public Paginator<ApiKey> listAllApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
         return listAllApiKeys((String) null, (String) null, options);
     }
 
@@ -1527,11 +1530,11 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return paginator over the list of user invitations
      */
     @API
     @Nullable
-    public UserInvitation
+    public Paginator<UserInvitation>
            listAllUserInvitations(@Nullable UserInvitationListOptions options) throws MbedCloudException {
         return listAllUserInvitations((String) null, options);
     }
@@ -1590,11 +1593,11 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return paginator over the list of users
      */
     @API
     @Nullable
-    public User listAllUsers(@Nullable UserListOptions options) throws MbedCloudException {
+    public Paginator<User> listAllUsers(@Nullable UserListOptions options) throws MbedCloudException {
         return listAllUsers((String) null, (String) null, (String) null, (String) null, (String) null, options);
     }
 
@@ -1605,11 +1608,11 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return the list of api keys corresponding to filter options (One page).
      */
     @API
     @Nullable
-    public ApiKey listApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
+    public ListResponse<ApiKey> listApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
         return listApiKeys((String) null, (String) null, options);
     }
 
@@ -1701,11 +1704,12 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return the list of user invitations corresponding to filter options (One page).
      */
     @API
     @Nullable
-    public UserInvitation listUserInvitations(@Nullable UserInvitationListOptions options) throws MbedCloudException {
+    public ListResponse<UserInvitation>
+           listUserInvitations(@Nullable UserInvitationListOptions options) throws MbedCloudException {
         return listUserInvitations((String) null, options);
     }
 
@@ -1769,11 +1773,11 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
-     * @return something
+     * @return the list of users corresponding to filter options (One page).
      */
     @API
     @Nullable
-    public User listUsers(@Nullable UserListOptions options) throws MbedCloudException {
+    public ListResponse<User> listUsers(@Nullable UserListOptions options) throws MbedCloudException {
         return listUsers((String) null, (String) null, (String) null, (String) null, (String) null, options);
     }
 
@@ -2393,11 +2397,11 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param options
      *            list options.
-     * @return something
+     * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      */
     @API
     @Nullable
-    public Account
+    public ListResponse<SubtenantTrustedCertificate>
            trustedCertificates(@NonNull String id,
                                @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
@@ -2416,12 +2420,13 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
-     * @return something
+     * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      */
     @API
     @Nullable
-    public Account trustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options,
-                                       @NonNull Account account) throws MbedCloudException {
+    public ListResponse<SubtenantTrustedCertificate>
+           trustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options,
+                               @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
         return trustedCertificates((String) null, (String) null, 0, 0, 0, (String) null, false, (String) null,
                                    (String) null, (String) null, false, options, account);
@@ -2709,12 +2714,13 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param options
      *            list options.
-     * @return something
+     * @return the list of subtenant user invitations corresponding to filter options (One page).
      */
     @API
     @Nullable
-    public Account userInvitations(@NonNull String id,
-                                   @Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
+    public ListResponse<SubtenantUserInvitation>
+           userInvitations(@NonNull String id,
+                           @Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
         return userInvitations(id, (String) null, options);
     }
@@ -2755,12 +2761,12 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
-     * @return something
+     * @return the list of subtenant user invitations corresponding to filter options (One page).
      */
     @API
     @Nullable
-    public Account userInvitations(@Nullable SubtenantUserInvitationListOptions options,
-                                   @NonNull Account account) throws MbedCloudException {
+    public ListResponse<SubtenantUserInvitation> userInvitations(@Nullable SubtenantUserInvitationListOptions options,
+                                                                 @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
         return userInvitations((String) null, options, account);
     }
@@ -2869,11 +2875,12 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param options
      *            list options.
-     * @return something
+     * @return the list of subtenant users corresponding to filter options (One page).
      */
     @API
     @Nullable
-    public Account users(@NonNull String id, @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+    public ListResponse<SubtenantUser> users(@NonNull String id,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
         return users(id, (String) null, (String) null, (String) null, (String) null, (String) null, options);
     }
@@ -2889,12 +2896,12 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
-     * @return something
+     * @return the list of subtenant users corresponding to filter options (One page).
      */
     @API
     @Nullable
-    public Account users(@Nullable SubtenantUserListOptions options,
-                         @NonNull Account account) throws MbedCloudException {
+    public ListResponse<SubtenantUser> users(@Nullable SubtenantUserListOptions options,
+                                             @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
         return users((String) null, (String) null, (String) null, (String) null, (String) null, options, account);
     }

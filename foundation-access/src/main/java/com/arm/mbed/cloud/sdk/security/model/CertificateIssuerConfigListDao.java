@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelListDao;
 import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 
 /**
  * Data Access Object (DAO) for listing certificate issuer configs.
@@ -135,7 +136,7 @@ public class CertificateIssuerConfigListDao extends
      * @return one page of certificate issuer configs
      */
     @Override
-    protected CertificateIssuerConfig
+    protected ListResponse<CertificateIssuerConfig>
               requestOnePage(CertificateIssuerConfigListOptions options) throws MbedCloudException {
         return ((Security) getModuleOrThrow()).listCertificateIssuerConfigs(options);
     }

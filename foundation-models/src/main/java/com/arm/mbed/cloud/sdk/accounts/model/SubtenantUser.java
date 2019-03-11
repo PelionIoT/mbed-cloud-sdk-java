@@ -247,25 +247,25 @@ public class SubtenantUser implements SdkModel {
     @Internal
     public SubtenantUser(SubtenantUser subtenantUser) {
         this(subtenantUser == null ? (String) null : subtenantUser.accountId,
-             subtenantUser == null ? null : subtenantUser.activeSessions,
+             subtenantUser == null ? (java.util.List<?>) null : subtenantUser.activeSessions,
              subtenantUser == null ? (String) null : subtenantUser.address,
              subtenantUser == null ? new java.util.Date() : subtenantUser.createdAt,
              subtenantUser == null ? 0L : subtenantUser.creationTime,
-             subtenantUser == null ? null : subtenantUser.customFields,
+             subtenantUser == null ? (java.util.Map<String, String>) null : subtenantUser.customFields,
              subtenantUser == null ? (String) null : subtenantUser.email,
              subtenantUser != null && subtenantUser.emailVerified,
              subtenantUser == null ? (String) null : subtenantUser.fullName,
              subtenantUser == null ? (String) null : subtenantUser.id,
              subtenantUser == null ? 0L : subtenantUser.lastLoginTime,
-             subtenantUser == null ? null : subtenantUser.loginHistory,
-             subtenantUser == null ? null : subtenantUser.loginProfiles,
+             subtenantUser == null ? (java.util.List<?>) null : subtenantUser.loginHistory,
+             subtenantUser == null ? (java.util.List<?>) null : subtenantUser.loginProfiles,
              subtenantUser != null && subtenantUser.marketingAccepted,
              subtenantUser == null ? (String) null : subtenantUser.password,
              subtenantUser == null ? 0L : subtenantUser.passwordChangedTime,
              subtenantUser == null ? (String) null : subtenantUser.phoneNumber,
              subtenantUser == null ? SubtenantUserStatus.getDefault() : subtenantUser.status,
              subtenantUser != null && subtenantUser.termsAccepted,
-             subtenantUser == null ? null : subtenantUser.totpScratchCodes,
+             subtenantUser == null ? (java.util.List<?>) null : subtenantUser.totpScratchCodes,
              subtenantUser != null && subtenantUser.twoFactorAuthentication,
              subtenantUser == null ? new java.util.Date() : subtenantUser.updatedAt,
              subtenantUser == null ? (String) null : subtenantUser.username);
@@ -275,9 +275,11 @@ public class SubtenantUser implements SdkModel {
      * Constructor.
      */
     public SubtenantUser() {
-        this((String) null, null, (String) null, new java.util.Date(), 0L, null, (String) null, false, (String) null,
-             (String) null, 0L, null, null, false, (String) null, 0L, (String) null, SubtenantUserStatus.getDefault(),
-             false, null, false, new java.util.Date(), (String) null);
+        this((String) null, (java.util.List<?>) null, (String) null, new java.util.Date(), 0L,
+             (java.util.Map<String, String>) null, (String) null, false, (String) null, (String) null, 0L,
+             (java.util.List<?>) null, (java.util.List<?>) null, false, (String) null, 0L, (String) null,
+             SubtenantUserStatus.getDefault(), false, (java.util.List<?>) null, false, new java.util.Date(),
+             (String) null);
     }
 
     /**
@@ -325,9 +327,9 @@ public class SubtenantUser implements SdkModel {
                          List<LoginHistory> loginHistory, long passwordChangedTime, List<String> totpScratchCodes,
                          Date updatedAt) {
         this((String) null, activeSessions, (String) null, createdAt, creationTime, customFields, (String) null,
-             emailVerified, (String) null, (String) null, lastLoginTime, loginHistory, null, false, (String) null,
-             passwordChangedTime, (String) null, SubtenantUserStatus.getDefault(), false, totpScratchCodes, false,
-             updatedAt, (String) null);
+             emailVerified, (String) null, (String) null, lastLoginTime, loginHistory, (java.util.List<?>) null, false,
+             (String) null, passwordChangedTime, (String) null, SubtenantUserStatus.getDefault(), false,
+             totpScratchCodes, false, updatedAt, (String) null);
     }
 
     /**
@@ -339,9 +341,11 @@ public class SubtenantUser implements SdkModel {
      *            The email address.
      */
     public SubtenantUser(String accountId, String email) {
-        this(accountId, null, (String) null, new java.util.Date(), 0L, null, email, false, (String) null, (String) null,
-             0L, null, null, false, (String) null, 0L, (String) null, SubtenantUserStatus.getDefault(), false, null,
-             false, new java.util.Date(), (String) null);
+        this(accountId, (java.util.List<?>) null, (String) null, new java.util.Date(), 0L,
+             (java.util.Map<String, String>) null, email, false, (String) null, (String) null, 0L,
+             (java.util.List<?>) null, (java.util.List<?>) null, false, (String) null, 0L, (String) null,
+             SubtenantUserStatus.getDefault(), false, (java.util.List<?>) null, false, new java.util.Date(),
+             (String) null);
     }
 
     /**

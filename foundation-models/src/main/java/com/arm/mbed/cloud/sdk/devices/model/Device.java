@@ -289,7 +289,8 @@ public class Device implements SdkModel {
              device == null ? new java.util.Date() : device.bootstrappedTimestamp,
              device == null ? (String) null : device.caId,
              device == null ? new java.util.Date() : device.connectorExpirationDate,
-             device == null ? new java.util.Date() : device.createdAt, device == null ? null : device.customAttributes,
+             device == null ? new java.util.Date() : device.createdAt,
+             device == null ? (java.util.Map<String, String>) null : device.customAttributes,
              device == null ? DeviceDeployedState.getDefault() : device.deployedState,
              device == null ? (String) null : device.deployment, device == null ? (String) null : device.description,
              device == null ? (String) null : device.deviceClass, device == null ? 0 : device.deviceExecutionMode,
@@ -313,10 +314,11 @@ public class Device implements SdkModel {
      */
     public Device() {
         this((String) null, false, new java.util.Date(), new java.util.Date(), (String) null, new java.util.Date(),
-             new java.util.Date(), null, DeviceDeployedState.getDefault(), (String) null, (String) null, (String) null,
-             0, (String) null, (String) null, (String) null, new java.util.Date(), (String) null, (String) null,
-             (String) null, (String) null, new java.util.Date(), DeviceMechanism.getDefault(), (String) null,
-             (String) null, (String) null, DeviceState.getDefault(), new java.util.Date(), (String) null);
+             new java.util.Date(), (java.util.Map<String, String>) null, DeviceDeployedState.getDefault(),
+             (String) null, (String) null, (String) null, 0, (String) null, (String) null, (String) null,
+             new java.util.Date(), (String) null, (String) null, (String) null, (String) null, new java.util.Date(),
+             DeviceMechanism.getDefault(), (String) null, (String) null, (String) null, DeviceState.getDefault(),
+             new java.util.Date(), (String) null);
     }
 
     /**
@@ -352,10 +354,10 @@ public class Device implements SdkModel {
     public Device(String accountId, Date createdAt, DeviceDeployedState deployedState, Date enrolmentListTimestamp,
                   Date manifestTimestamp, Date updatedAt) {
         this(accountId, false, new java.util.Date(), new java.util.Date(), (String) null, new java.util.Date(),
-             createdAt, null, deployedState, (String) null, (String) null, (String) null, 0, (String) null,
-             (String) null, (String) null, enrolmentListTimestamp, (String) null, (String) null, (String) null,
-             (String) null, manifestTimestamp, DeviceMechanism.getDefault(), (String) null, (String) null,
-             (String) null, DeviceState.getDefault(), updatedAt, (String) null);
+             createdAt, (java.util.Map<String, String>) null, deployedState, (String) null, (String) null,
+             (String) null, 0, (String) null, (String) null, (String) null, enrolmentListTimestamp, (String) null,
+             (String) null, (String) null, (String) null, manifestTimestamp, DeviceMechanism.getDefault(),
+             (String) null, (String) null, (String) null, DeviceState.getDefault(), updatedAt, (String) null);
     }
 
     /**
