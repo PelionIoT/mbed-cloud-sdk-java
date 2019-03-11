@@ -62,7 +62,7 @@ setting_machine_environment: &setting_machine_environment
       && export AWS_DEFAULT_REGION=us-west-2
       && echo "export AWS_DEFAULT_REGION=us-west-2" >> ${BASH_ENV}
       && export SUDO_COMMAND=sudo
-      && echo "export SUDO_COMMAsudoND=" >> ${BASH_ENV}
+      && echo "export SUDO_COMMAND=" >> ${BASH_ENV}
       && export WORKING_DIR=~/mbed-java-sdk
       && echo "export WORKING_DIR=~/mbed-java-sdk" >> ${BASH_ENV}
       && export GRADLE_USER_HOME=~/mbed-java-sdk/.gradle/
