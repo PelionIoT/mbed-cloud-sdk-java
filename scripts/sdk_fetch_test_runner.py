@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import sdk_common
+import os
 
 
 # Block in charge of fetching SDK test runner (Docker container)
@@ -8,13 +9,16 @@ class SDKTestRunnerFetcher(sdk_common.BuildStep):
         super(SDKTestRunnerFetcher, self).__init__('SDK test runner fetch', logger)
 
     def do_docker(self, branch):
-        image = self.artifacts_parser.get_property('TESTRUNNER_DOCKER_IMAGE')
+        image = os.getenv("TESTRUNNER_DOCKER_IMAGE")
 
-        arguments = ["docker", "pull", image + ":" + branch]
+        full_image_name = image + ":" + branch
+        fallback_image_name = image + ":latest"
+
+        arguments = ["docker", "pull", full_image_name]
         return_code = self.call_command(arguments, None, True)
 
         if return_code == 0:
-            arguments = ["docker", "tag", image + ":" + branch, image + ":latest"]
+            arguments = ["docker", "tag", full_image_name, fallback_image_name]
             self.call_command(arguments, None, True)
 
         return return_code
@@ -32,7 +36,7 @@ class SDKTestRunnerFetcher(sdk_common.BuildStep):
                 raise Exception('Login Error', result)
             self.log_info("Fetching SDK test runner")
 
-            branch = self.artifacts_parser.get_property('CIRCLE_BRANCH')
+            branch = os.getenv("CIRCLE_BRANCH")
             return_code = self.do_docker(branch)
 
             if return_code != 0:
