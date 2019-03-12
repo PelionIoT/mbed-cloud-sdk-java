@@ -245,7 +245,15 @@ public class ValueGenerator {
     public static String getJavaDefaultValue(TypeParameter type, String defaultValue) {
         final boolean hasDefaultValue = defaultValue != null && !defaultValue.isEmpty();
         if (type.isBoolean()) {
-            return hasDefaultValue ? defaultValue : "false";
+            final StringBuilder builder = new StringBuilder();
+            if (!type.isPrimitive()) {
+                builder.append("Boolean.valueOf(");
+            }
+            builder.append(hasDefaultValue ? defaultValue : "false");
+            if (!type.isPrimitive()) {
+                builder.append(")");
+            }
+            return builder.toString();
         }
         if (type.isEnum()) {// TODO ensure the method for getting default type is always valid
             return hasDefaultValue ? type.getShortName() + "." + SdkEnum.METHOD_GET_VALUE_FROM_STRING + "(\""
@@ -253,7 +261,27 @@ public class ValueGenerator {
                                    : type.getShortName() + "." + SdkEnum.METHOD_GET_DEFAULT + "()";
         }
         if (type.isNumber()) {
-            return hasDefaultValue ? defaultValue : type.isInteger() ? "0" : type.isDecimal() ? "0.0" : "0L";
+
+            final boolean isPrimitive = type.isPrimitive();
+            if ("null".equals(defaultValue)) {
+                return isPrimitive ? type.isInteger() ? "0" : type.isDecimal() ? "0.0" : "0L" : defaultValue;
+            }
+            final StringBuilder builder = new StringBuilder();
+            if (!isPrimitive) {
+                if (type.isInteger()) {
+                    builder.append("Integer.valueOf(");
+                } else if (type.isDecimal()) {
+                    builder.append("Double.valueOf(");
+                } else {
+                    builder.append("Long.valueOf(");
+                }
+            }
+
+            builder.append(hasDefaultValue ? defaultValue : type.isInteger() ? "0" : type.isDecimal() ? "0.0" : "0L");
+            if (!isPrimitive) {
+                builder.append(")");
+            }
+            return builder.toString();
         }
         if (type.isDate()) {// TODO ensure the default date value is called now
             return hasDefaultValue ? defaultValue.contains("now") ? "new java.util.Date()" : defaultValue
