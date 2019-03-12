@@ -10,17 +10,19 @@ import org.junit.Test;
 /**
  * Unit tests for Model CertificateEnrollmentListOptions.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestCertificateEnrollmentListOptions {
     /**
      * Tests the clone method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testClone() {
         try {
-            CertificateEnrollmentListOptions certificateenrollmentlistoptions1 = new CertificateEnrollmentListOptions(Integer.valueOf(-106),
-                                                                                                                      Long.valueOf(-28),
+            CertificateEnrollmentListOptions certificateenrollmentlistoptions1 = new CertificateEnrollmentListOptions(Integer.valueOf(-92),
+                                                                                                                      Long.valueOf(54),
                                                                                                                       Order.getDefault(),
-                                                                                                                      "7f3ad264-1b7f-46ad-a10f-ad19d5de8dca",
+                                                                                                                      "8fa45241-db7b-4266-8cbc-814c09713d89",
                                                                                                                       null,
                                                                                                                       null);
             CertificateEnrollmentListOptions certificateenrollmentlistoptions2 = certificateenrollmentlistoptions1.clone();
@@ -36,19 +38,20 @@ public class TestCertificateEnrollmentListOptions {
     /**
      * Tests the hashCode method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testHashCode() {
         try {
-            CertificateEnrollmentListOptions certificateenrollmentlistoptions1 = new CertificateEnrollmentListOptions(Integer.valueOf(45),
-                                                                                                                      Long.valueOf(116),
+            CertificateEnrollmentListOptions certificateenrollmentlistoptions1 = new CertificateEnrollmentListOptions(Integer.valueOf(-74),
+                                                                                                                      Long.valueOf(19),
                                                                                                                       Order.getDefault(),
-                                                                                                                      "51d3c705-bbe6-4431-9677-41b13712d2f9",
+                                                                                                                      "1108e670-fb40-49c1-baea-3b6d95dc8ba5",
                                                                                                                       null,
                                                                                                                       null);
-            CertificateEnrollmentListOptions certificateenrollmentlistoptions2 = new CertificateEnrollmentListOptions(Integer.valueOf(45),
-                                                                                                                      Long.valueOf(116),
+            CertificateEnrollmentListOptions certificateenrollmentlistoptions2 = new CertificateEnrollmentListOptions(Integer.valueOf(-74),
+                                                                                                                      Long.valueOf(19),
                                                                                                                       Order.getDefault(),
-                                                                                                                      "51d3c705-bbe6-4431-9677-41b13712d2f9",
+                                                                                                                      "1108e670-fb40-49c1-baea-3b6d95dc8ba5",
                                                                                                                       null,
                                                                                                                       null);
             assertNotNull(certificateenrollmentlistoptions1);
@@ -68,25 +71,26 @@ public class TestCertificateEnrollmentListOptions {
     /**
      * Tests the equals method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testEquals() {
         try {
-            CertificateEnrollmentListOptions certificateenrollmentlistoptions1 = new CertificateEnrollmentListOptions(Integer.valueOf(98),
-                                                                                                                      Long.valueOf(-67),
+            CertificateEnrollmentListOptions certificateenrollmentlistoptions1 = new CertificateEnrollmentListOptions(Integer.valueOf(26),
+                                                                                                                      Long.valueOf(60),
                                                                                                                       Order.getDefault(),
-                                                                                                                      "54fce694-5e77-4754-b63f-d9935e464aae",
+                                                                                                                      "8d58b92e-d715-452c-ae04-5cfff1849e08",
                                                                                                                       null,
                                                                                                                       null);
-            CertificateEnrollmentListOptions certificateenrollmentlistoptions2 = new CertificateEnrollmentListOptions(Integer.valueOf(98),
-                                                                                                                      Long.valueOf(-67),
+            CertificateEnrollmentListOptions certificateenrollmentlistoptions2 = new CertificateEnrollmentListOptions(Integer.valueOf(26),
+                                                                                                                      Long.valueOf(60),
                                                                                                                       Order.getDefault(),
-                                                                                                                      "54fce694-5e77-4754-b63f-d9935e464aae",
+                                                                                                                      "8d58b92e-d715-452c-ae04-5cfff1849e08",
                                                                                                                       null,
                                                                                                                       null);
-            CertificateEnrollmentListOptions certificateenrollmentlistoptions3 = new CertificateEnrollmentListOptions(Integer.valueOf(91),
-                                                                                                                      Long.valueOf(-53),
+            CertificateEnrollmentListOptions certificateenrollmentlistoptions3 = new CertificateEnrollmentListOptions(Integer.valueOf(81),
+                                                                                                                      Long.valueOf(43),
                                                                                                                       Order.getDefault(),
-                                                                                                                      "09c70e62-ea4f-4b1c-ac34-c8897b389028",
+                                                                                                                      "0f807154-05c0-4ab3-a79d-1359cd3dcfff",
                                                                                                                       null,
                                                                                                                       null);
             assertNotNull(certificateenrollmentlistoptions1);

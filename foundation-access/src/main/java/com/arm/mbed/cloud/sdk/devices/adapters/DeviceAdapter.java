@@ -126,7 +126,6 @@ public final class DeviceAdapter {
         deviceDataPostRequest.setFirmwareChecksum(toBeMapped.getFirmwareChecksum());
         // No field equivalent to groups in DeviceDataPostRequest was found in Device
         deviceDataPostRequest.setHostGateway(toBeMapped.getHostGateway());
-        // No field equivalent to issuerFingerprint in DeviceDataPostRequest was found in Device
         deviceDataPostRequest.setManifest(toBeMapped.getManifest());
         deviceDataPostRequest.setMechanism(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestMechanismenum(toBeMapped.getMechanism()));
         deviceDataPostRequest.setMechanismUrl(toBeMapped.getMechanismUrl());
@@ -262,6 +261,7 @@ public final class DeviceAdapter {
         deviceDataPutRequest.setCustomAttributes(toBeMapped.getCustomAttributes());
         deviceDataPutRequest.setDescription(toBeMapped.getDescription());
         deviceDataPutRequest.setDeviceKey(toBeMapped.getDeviceKey());
+        deviceDataPutRequest.setEndpointName(toBeMapped.getEndpointName());
         deviceDataPutRequest.setEndpointType(toBeMapped.getEndpointType());
         // No field equivalent to groups in DeviceDataPutRequest was found in Device
         deviceDataPutRequest.setHostGateway(toBeMapped.getHostGateway());

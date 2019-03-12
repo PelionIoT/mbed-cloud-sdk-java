@@ -22,10 +22,10 @@ import java.util.Map;
 import java.io.Serializable;
 
 /**
- * DeviceDataPutRequest
+ * DeviceDataPatchRequest
  */
 
-public class DeviceDataPutRequest implements Serializable {
+public class DeviceDataPatchRequest implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("auto_update")
@@ -61,7 +61,7 @@ public class DeviceDataPutRequest implements Serializable {
     @SerializedName("object")
     private String object = null;
 
-    public DeviceDataPutRequest autoUpdate(Boolean autoUpdate) {
+    public DeviceDataPatchRequest autoUpdate(Boolean autoUpdate) {
         this.autoUpdate = autoUpdate;
         return this;
     }
@@ -80,7 +80,7 @@ public class DeviceDataPutRequest implements Serializable {
         this.autoUpdate = autoUpdate;
     }
 
-    public DeviceDataPutRequest caId(String caId) {
+    public DeviceDataPatchRequest caId(String caId) {
         this.caId = caId;
         return this;
     }
@@ -99,12 +99,12 @@ public class DeviceDataPutRequest implements Serializable {
         this.caId = caId;
     }
 
-    public DeviceDataPutRequest customAttributes(Map<String, String> customAttributes) {
+    public DeviceDataPatchRequest customAttributes(Map<String, String> customAttributes) {
         this.customAttributes = customAttributes;
         return this;
     }
 
-    public DeviceDataPutRequest putCustomAttributesItem(String key, String customAttributesItem) {
+    public DeviceDataPatchRequest putCustomAttributesItem(String key, String customAttributesItem) {
         if (this.customAttributes == null) {
             this.customAttributes = new HashMap<String, String>();
         }
@@ -128,7 +128,7 @@ public class DeviceDataPutRequest implements Serializable {
         this.customAttributes = customAttributes;
     }
 
-    public DeviceDataPutRequest description(String description) {
+    public DeviceDataPatchRequest description(String description) {
         this.description = description;
         return this;
     }
@@ -147,7 +147,7 @@ public class DeviceDataPutRequest implements Serializable {
         this.description = description;
     }
 
-    public DeviceDataPutRequest deviceKey(String deviceKey) {
+    public DeviceDataPatchRequest deviceKey(String deviceKey) {
         this.deviceKey = deviceKey;
         return this;
     }
@@ -167,7 +167,7 @@ public class DeviceDataPutRequest implements Serializable {
         this.deviceKey = deviceKey;
     }
 
-    public DeviceDataPutRequest endpointName(String endpointName) {
+    public DeviceDataPatchRequest endpointName(String endpointName) {
         this.endpointName = endpointName;
         return this;
     }
@@ -187,7 +187,7 @@ public class DeviceDataPutRequest implements Serializable {
         this.endpointName = endpointName;
     }
 
-    public DeviceDataPutRequest endpointType(String endpointType) {
+    public DeviceDataPatchRequest endpointType(String endpointType) {
         this.endpointType = endpointType;
         return this;
     }
@@ -206,12 +206,12 @@ public class DeviceDataPutRequest implements Serializable {
         this.endpointType = endpointType;
     }
 
-    public DeviceDataPutRequest groups(List<String> groups) {
+    public DeviceDataPatchRequest groups(List<String> groups) {
         this.groups = groups;
         return this;
     }
 
-    public DeviceDataPutRequest addGroupsItem(String groupsItem) {
+    public DeviceDataPatchRequest addGroupsItem(String groupsItem) {
         if (this.groups == null) {
             this.groups = new ArrayList<String>();
         }
@@ -233,7 +233,7 @@ public class DeviceDataPutRequest implements Serializable {
         this.groups = groups;
     }
 
-    public DeviceDataPutRequest hostGateway(String hostGateway) {
+    public DeviceDataPatchRequest hostGateway(String hostGateway) {
         this.hostGateway = hostGateway;
         return this;
     }
@@ -252,7 +252,7 @@ public class DeviceDataPutRequest implements Serializable {
         this.hostGateway = hostGateway;
     }
 
-    public DeviceDataPutRequest name(String name) {
+    public DeviceDataPatchRequest name(String name) {
         this.name = name;
         return this;
     }
@@ -271,7 +271,7 @@ public class DeviceDataPutRequest implements Serializable {
         this.name = name;
     }
 
-    public DeviceDataPutRequest object(String object) {
+    public DeviceDataPatchRequest object(String object) {
         this.object = object;
         return this;
     }
@@ -298,18 +298,18 @@ public class DeviceDataPutRequest implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        DeviceDataPutRequest deviceDataPutRequest = (DeviceDataPutRequest) o;
-        return Objects.equals(this.autoUpdate, deviceDataPutRequest.autoUpdate)
-               && Objects.equals(this.caId, deviceDataPutRequest.caId)
-               && Objects.equals(this.customAttributes, deviceDataPutRequest.customAttributes)
-               && Objects.equals(this.description, deviceDataPutRequest.description)
-               && Objects.equals(this.deviceKey, deviceDataPutRequest.deviceKey)
-               && Objects.equals(this.endpointName, deviceDataPutRequest.endpointName)
-               && Objects.equals(this.endpointType, deviceDataPutRequest.endpointType)
-               && Objects.equals(this.groups, deviceDataPutRequest.groups)
-               && Objects.equals(this.hostGateway, deviceDataPutRequest.hostGateway)
-               && Objects.equals(this.name, deviceDataPutRequest.name)
-               && Objects.equals(this.object, deviceDataPutRequest.object);
+        DeviceDataPatchRequest deviceDataPatchRequest = (DeviceDataPatchRequest) o;
+        return Objects.equals(this.autoUpdate, deviceDataPatchRequest.autoUpdate)
+               && Objects.equals(this.caId, deviceDataPatchRequest.caId)
+               && Objects.equals(this.customAttributes, deviceDataPatchRequest.customAttributes)
+               && Objects.equals(this.description, deviceDataPatchRequest.description)
+               && Objects.equals(this.deviceKey, deviceDataPatchRequest.deviceKey)
+               && Objects.equals(this.endpointName, deviceDataPatchRequest.endpointName)
+               && Objects.equals(this.endpointType, deviceDataPatchRequest.endpointType)
+               && Objects.equals(this.groups, deviceDataPatchRequest.groups)
+               && Objects.equals(this.hostGateway, deviceDataPatchRequest.hostGateway)
+               && Objects.equals(this.name, deviceDataPatchRequest.name)
+               && Objects.equals(this.object, deviceDataPatchRequest.object);
     }
 
     @Override
@@ -321,7 +321,7 @@ public class DeviceDataPutRequest implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class DeviceDataPutRequest {\n");
+        sb.append("class DeviceDataPatchRequest {\n");
 
         sb.append("    autoUpdate: ").append(toIndentedString(autoUpdate)).append("\n");
         sb.append("    caId: ").append(toIndentedString(caId)).append("\n");

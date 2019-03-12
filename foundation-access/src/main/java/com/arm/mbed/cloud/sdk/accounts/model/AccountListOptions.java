@@ -27,6 +27,16 @@ public class AccountListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_STATUS = "status";
 
     /**
+     * Tag for filter by endMarket.
+     */
+    public static final String TAG_FILTER_BY_END_MARKET = "endMarket";
+
+    /**
+     * Tag for filter by country.
+     */
+    public static final String TAG_FILTER_BY_COUNTRY = "country";
+
+    /**
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #AccountListOptions()} instead.
@@ -92,7 +102,7 @@ public class AccountListOptions extends ListOptions {
      */
     @Internal
     public AccountListOptions(String after, List<IncludeField> include, Filters filter) {
-        this(0, 0L, Order.getDefault(), after, include, filter);
+        this(Integer.valueOf(0), Long.valueOf(0L), Order.getDefault(), after, include, filter);
     }
 
     /**
@@ -166,26 +176,28 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
+     * <p>
+     * Note: List of values separated by a comma
      * 
      * @param filterByStatus
      *            filter value.
      */
-    public void setInStatusFilter(String filterByStatus) {
+    public void setInStatusesFilter(String filterByStatus) {
         addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
     /**
      * Sets "an in" filter by {@code status}.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setInStatusFilter(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setInStatusesFilter(String)}
      * 
      * @param filterByStatus
      *            filter value.
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends AccountListOptions> T inStatus(String filterByStatus) {
-        setInStatusFilter(filterByStatus);
+    public <T extends AccountListOptions> T inStatuses(String filterByStatus) {
+        setInStatusesFilter(filterByStatus);
         return (T) this;
     }
 
@@ -195,33 +207,7 @@ public class AccountListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void setInStatusFilter(List<AccountStatus> filterByStatus) {
-        addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
-    }
-
-    /**
-     * Sets "an in" filter by {@code status}.
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setInStatusFilter(java.util.List<com.arm.mbed.cloud.sdk.accounts.model.AccountStatus>)}
-     * 
-     * @param filterByStatus
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends AccountListOptions> T inStatus(List<AccountStatus> filterByStatus) {
-        setInStatusFilter(filterByStatus);
-        return (T) this;
-    }
-
-    /**
-     * Sets "an in" filter by {@code status}.
-     * 
-     * @param filterByStatus
-     *            filter value.
-     */
-    public void setInStatusFilter(AccountStatus[] filterByStatus) {
+    public void setInStatusesFilter(List<AccountStatus> filterByStatus) {
         addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -229,40 +215,68 @@ public class AccountListOptions extends ListOptions {
      * Sets "an in" filter by {@code status}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setInStatusFilter(com.arm.mbed.cloud.sdk.accounts.model.AccountStatus[])}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setInStatusesFilter(java.util.List<com.arm.mbed.cloud.sdk.accounts.model.AccountStatus>)}
      * 
      * @param filterByStatus
      *            filter value.
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends AccountListOptions> T inStatus(AccountStatus[] filterByStatus) {
-        setInStatusFilter(filterByStatus);
+    public <T extends AccountListOptions> T inStatuses(List<AccountStatus> filterByStatus) {
+        setInStatusesFilter(filterByStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code status}.
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setInStatusesFilter(AccountStatus[] filterByStatus) {
+        addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "an in" filter by {@code status}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.AccountStatus[])}
+     * 
+     * @param filterByStatus
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends AccountListOptions> T inStatuses(AccountStatus[] filterByStatus) {
+        setInStatusesFilter(filterByStatus);
         return (T) this;
     }
 
     /**
      * Sets "a not in" filter by {@code status}.
+     * <p>
+     * Note: List of values separated by a comma
      * 
      * @param filterByStatus
      *            filter value.
      */
-    public void setNotInStatusFilter(String filterByStatus) {
+    public void setNotInStatusesFilter(String filterByStatus) {
         addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
     /**
      * Sets "a not in" filter by {@code status}.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setNotInStatusFilter(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setNotInStatusesFilter(String)}
      * 
      * @param filterByStatus
      *            filter value.
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends AccountListOptions> T notInStatus(String filterByStatus) {
-        setNotInStatusFilter(filterByStatus);
+    public <T extends AccountListOptions> T notInStatuses(String filterByStatus) {
+        setNotInStatusesFilter(filterByStatus);
         return (T) this;
     }
 
@@ -272,7 +286,7 @@ public class AccountListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void setNotInStatusFilter(List<AccountStatus> filterByStatus) {
+    public void setNotInStatusesFilter(List<AccountStatus> filterByStatus) {
         addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -280,15 +294,15 @@ public class AccountListOptions extends ListOptions {
      * Sets "a not in" filter by {@code status}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setNotInStatusFilter(java.util.List<com.arm.mbed.cloud.sdk.accounts.model.AccountStatus>)}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setNotInStatusesFilter(java.util.List<com.arm.mbed.cloud.sdk.accounts.model.AccountStatus>)}
      * 
      * @param filterByStatus
      *            filter value.
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends AccountListOptions> T notInStatus(List<AccountStatus> filterByStatus) {
-        setNotInStatusFilter(filterByStatus);
+    public <T extends AccountListOptions> T notInStatuses(List<AccountStatus> filterByStatus) {
+        setNotInStatusesFilter(filterByStatus);
         return (T) this;
     }
 
@@ -298,7 +312,7 @@ public class AccountListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void setNotInStatusFilter(AccountStatus[] filterByStatus) {
+    public void setNotInStatusesFilter(AccountStatus[] filterByStatus) {
         addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -306,15 +320,83 @@ public class AccountListOptions extends ListOptions {
      * Sets "a not in" filter by {@code status}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setNotInStatusFilter(com.arm.mbed.cloud.sdk.accounts.model.AccountStatus[])}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setNotInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.AccountStatus[])}
      * 
      * @param filterByStatus
      *            filter value.
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends AccountListOptions> T notInStatus(AccountStatus[] filterByStatus) {
-        setNotInStatusFilter(filterByStatus);
+    public <T extends AccountListOptions> T notInStatuses(AccountStatus[] filterByStatus) {
+        setNotInStatusesFilter(filterByStatus);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code endMarket}.
+     * 
+     * @return All the filters by {@code endMarket}
+     */
+    public List<Filter> getEndMarketFilters() {
+        return fetchFilters(TAG_FILTER_BY_END_MARKET);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code endMarket}.
+     * 
+     * @param filterByEndMarket
+     *            filter value.
+     */
+    public void setEqualToEndMarketFilter(String filterByEndMarket) {
+        addEqualFilter(TAG_FILTER_BY_END_MARKET, filterByEndMarket);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code endMarket}.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setEqualToEndMarketFilter(String)}
+     * 
+     * @param filterByEndMarket
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends AccountListOptions> T equalToEndMarket(String filterByEndMarket) {
+        setEqualToEndMarketFilter(filterByEndMarket);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code country}.
+     * 
+     * @return All the filters by {@code country}
+     */
+    public List<Filter> getCountryFilters() {
+        return fetchFilters(TAG_FILTER_BY_COUNTRY);
+    }
+
+    /**
+     * Sets "a like" filter by {@code country}.
+     * 
+     * @param filterByCountry
+     *            filter value.
+     */
+    public void setLikeCountryFilter(String filterByCountry) {
+        addLikeFilter(TAG_FILTER_BY_COUNTRY, filterByCountry);
+    }
+
+    /**
+     * Sets "a like" filter by {@code country}.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setLikeCountryFilter(String)}
+     * 
+     * @param filterByCountry
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends AccountListOptions> T likeCountry(String filterByCountry) {
+        setLikeCountryFilter(filterByCountry);
         return (T) this;
     }
 

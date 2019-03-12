@@ -7,7 +7,6 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyI
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColor;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateGenerationReq;
-import java.io.File;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupUpdateInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.IdentityProviderCreationReq;
@@ -1172,7 +1171,7 @@ public class AggregatorAccountAdminApiTest {
      * usage:** &#x60;curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/upload -H
      * &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary
-     * &#39;@myimage.png&#39;&#x60;
+     * &#39;myimage.png&#39;&#x60;
      */
     @Test
     public void uploadAccountDarkImageTest() {
@@ -1185,28 +1184,13 @@ public class AggregatorAccountAdminApiTest {
     }
 
     /**
-     * Upload an image in the dark theme.
-     *
-     * An endpoint for uploading a new account branding image as form data in the dark theme in PNG or JPEG format.
-     */
-    @Test
-    public void uploadAccountDarkImageMultipartTest() {
-        String accountId = null;
-        String reference = null;
-        File image = null;
-        // BrandingImage response = api.uploadAccountDarkImageMultipart(accountId, reference, image);
-
-        // TODO: test validations
-    }
-
-    /**
      * Upload an image in the light theme.
      *
      * An endpoint for uploading a new account branding image in the light theme in PNG or JPEG format. **Example
      * usage:** &#x60;curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/upload -H
      * &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary
-     * &#39;@myimage.png&#39;&#x60;
+     * &#39;myimage.png&#39;&#x60;
      */
     @Test
     public void uploadAccountLightImageTest() {
@@ -1214,21 +1198,6 @@ public class AggregatorAccountAdminApiTest {
         String reference = null;
         String body = null;
         // BrandingImage response = api.uploadAccountLightImage(accountId, reference, body);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Upload an image in the light theme.
-     *
-     * An endpoint for uploading a new account branding image as form data in the light theme in PNG or JPEG format.
-     */
-    @Test
-    public void uploadAccountLightImageMultipartTest() {
-        String accountId = null;
-        String reference = null;
-        File image = null;
-        // BrandingImage response = api.uploadAccountLightImageMultipart(accountId, reference, image);
 
         // TODO: test validations
     }

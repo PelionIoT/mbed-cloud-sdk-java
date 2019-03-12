@@ -86,6 +86,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return an account dao
      */
+    @SuppressWarnings("resource")
     public AccountDao getAccountDao() throws MbedCloudException {
         return new AccountDao().configureAndGet(context);
     }
@@ -95,6 +96,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return an account list dao
      */
+    @SuppressWarnings("resource")
     public AccountListDao getAccountListDao() throws MbedCloudException {
         return new AccountListDao().configureAndGet(context);
     }
@@ -104,6 +106,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return an api key dao
      */
+    @SuppressWarnings("resource")
     public ApiKeyDao getApiKeyDao() throws MbedCloudException {
         return new ApiKeyDao().configureAndGet(context);
     }
@@ -113,6 +116,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return an api key list dao
      */
+    @SuppressWarnings("resource")
     public ApiKeyListDao getApiKeyListDao() throws MbedCloudException {
         return new ApiKeyListDao().configureAndGet(context);
     }
@@ -122,6 +126,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a certificate enrollment dao
      */
+    @SuppressWarnings("resource")
     public CertificateEnrollmentDao getCertificateEnrollmentDao() throws MbedCloudException {
         return new CertificateEnrollmentDao().configureAndGet(context);
     }
@@ -131,6 +136,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a certificate enrollment list dao
      */
+    @SuppressWarnings("resource")
     public CertificateEnrollmentListDao getCertificateEnrollmentListDao() throws MbedCloudException {
         return new CertificateEnrollmentListDao().configureAndGet(context);
     }
@@ -140,6 +146,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a certificate issuer dao
      */
+    @SuppressWarnings("resource")
     public CertificateIssuerDao getCertificateIssuerDao() throws MbedCloudException {
         return new CertificateIssuerDao().configureAndGet(context);
     }
@@ -149,6 +156,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a certificate issuer list dao
      */
+    @SuppressWarnings("resource")
     public CertificateIssuerListDao getCertificateIssuerListDao() throws MbedCloudException {
         return new CertificateIssuerListDao().configureAndGet(context);
     }
@@ -158,6 +166,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a certificate issuer config dao
      */
+    @SuppressWarnings("resource")
     public CertificateIssuerConfigDao getCertificateIssuerConfigDao() throws MbedCloudException {
         return new CertificateIssuerConfigDao().configureAndGet(context);
     }
@@ -167,6 +176,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a certificate issuer config list dao
      */
+    @SuppressWarnings("resource")
     public CertificateIssuerConfigListDao getCertificateIssuerConfigListDao() throws MbedCloudException {
         return new CertificateIssuerConfigListDao().configureAndGet(context);
     }
@@ -176,6 +186,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a developer certificate dao
      */
+    @SuppressWarnings("resource")
     public DeveloperCertificateDao getDeveloperCertificateDao() throws MbedCloudException {
         return new DeveloperCertificateDao().configureAndGet(context);
     }
@@ -185,6 +196,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a device dao
      */
+    @SuppressWarnings("resource")
     public DeviceDao getDeviceDao() throws MbedCloudException {
         return new DeviceDao().configureAndGet(context);
     }
@@ -194,6 +206,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a device list dao
      */
+    @SuppressWarnings("resource")
     public DeviceListDao getDeviceListDao() throws MbedCloudException {
         return new DeviceListDao().configureAndGet(context);
     }
@@ -203,6 +216,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a device enrollment dao
      */
+    @SuppressWarnings("resource")
     public DeviceEnrollmentDao getDeviceEnrollmentDao() throws MbedCloudException {
         return new DeviceEnrollmentDao().configureAndGet(context);
     }
@@ -212,6 +226,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a device enrollment list dao
      */
+    @SuppressWarnings("resource")
     public DeviceEnrollmentListDao getDeviceEnrollmentListDao() throws MbedCloudException {
         return new DeviceEnrollmentListDao().configureAndGet(context);
     }
@@ -221,6 +236,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a device enrollment bulk create dao
      */
+    @SuppressWarnings("resource")
     public DeviceEnrollmentBulkCreateDao getDeviceEnrollmentBulkCreateDao() throws MbedCloudException {
         return new DeviceEnrollmentBulkCreateDao().configureAndGet(context);
     }
@@ -230,6 +246,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a device enrollment bulk delete dao
      */
+    @SuppressWarnings("resource")
     public DeviceEnrollmentBulkDeleteDao getDeviceEnrollmentBulkDeleteDao() throws MbedCloudException {
         return new DeviceEnrollmentBulkDeleteDao().configureAndGet(context);
     }
@@ -239,6 +256,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a device events dao
      */
+    @SuppressWarnings("resource")
     public DeviceEventsDao getDeviceEventsDao() throws MbedCloudException {
         return new DeviceEventsDao().configureAndGet(context);
     }
@@ -248,6 +266,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a device events list dao
      */
+    @SuppressWarnings("resource")
     public DeviceEventsListDao getDeviceEventsListDao() throws MbedCloudException {
         return new DeviceEventsListDao().configureAndGet(context);
     }
@@ -257,6 +276,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a server credentials dao
      */
+    @SuppressWarnings("resource")
     public ServerCredentialsDao getServerCredentialsDao() throws MbedCloudException {
         return new ServerCredentialsDao().configureAndGet(context);
     }
@@ -266,6 +286,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a subtenant trusted certificate dao
      */
+    @SuppressWarnings("resource")
     public SubtenantTrustedCertificateDao getSubtenantTrustedCertificateDao() throws MbedCloudException {
         return new SubtenantTrustedCertificateDao().configureAndGet(context);
     }
@@ -275,6 +296,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a subtenant user dao
      */
+    @SuppressWarnings("resource")
     public SubtenantUserDao getSubtenantUserDao() throws MbedCloudException {
         return new SubtenantUserDao().configureAndGet(context);
     }
@@ -284,6 +306,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a subtenant user invitation dao
      */
+    @SuppressWarnings("resource")
     public SubtenantUserInvitationDao getSubtenantUserInvitationDao() throws MbedCloudException {
         return new SubtenantUserInvitationDao().configureAndGet(context);
     }
@@ -293,6 +316,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a trusted certificate dao
      */
+    @SuppressWarnings("resource")
     public TrustedCertificateDao getTrustedCertificateDao() throws MbedCloudException {
         return new TrustedCertificateDao().configureAndGet(context);
     }
@@ -302,6 +326,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a trusted certificate list dao
      */
+    @SuppressWarnings("resource")
     public TrustedCertificateListDao getTrustedCertificateListDao() throws MbedCloudException {
         return new TrustedCertificateListDao().configureAndGet(context);
     }
@@ -311,6 +336,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a user dao
      */
+    @SuppressWarnings("resource")
     public UserDao getUserDao() throws MbedCloudException {
         return new UserDao().configureAndGet(context);
     }
@@ -320,6 +346,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a user list dao
      */
+    @SuppressWarnings("resource")
     public UserListDao getUserListDao() throws MbedCloudException {
         return new UserListDao().configureAndGet(context);
     }
@@ -329,6 +356,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a user invitation dao
      */
+    @SuppressWarnings("resource")
     public UserInvitationDao getUserInvitationDao() throws MbedCloudException {
         return new UserInvitationDao().configureAndGet(context);
     }
@@ -338,6 +366,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return a user invitation list dao
      */
+    @SuppressWarnings("resource")
     public UserInvitationListDao getUserInvitationListDao() throws MbedCloudException {
         return new UserInvitationListDao().configureAndGet(context);
     }

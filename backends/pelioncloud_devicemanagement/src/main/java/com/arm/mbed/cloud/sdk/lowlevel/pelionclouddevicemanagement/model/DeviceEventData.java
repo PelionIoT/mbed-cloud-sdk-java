@@ -28,7 +28,7 @@ public class DeviceEventData implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("changes")
-    private Map<String, Object> changes = null;
+    private Map<String, String> changes = null;
 
     @SerializedName("created_at")
     private DateTime createdAt = null;
@@ -66,14 +66,14 @@ public class DeviceEventData implements Serializable {
     @SerializedName("state_change")
     private Boolean stateChange = null;
 
-    public DeviceEventData changes(Map<String, Object> changes) {
+    public DeviceEventData changes(Map<String, String> changes) {
         this.changes = changes;
         return this;
     }
 
-    public DeviceEventData putChangesItem(String key, Object changesItem) {
+    public DeviceEventData putChangesItem(String key, String changesItem) {
         if (this.changes == null) {
-            this.changes = new HashMap<String, Object>();
+            this.changes = new HashMap<String, String>();
         }
         this.changes.put(key, changesItem);
         return this;
@@ -85,11 +85,11 @@ public class DeviceEventData implements Serializable {
      * @return changes
      **/
     @ApiModelProperty(example = "{}", value = "")
-    public Map<String, Object> getChanges() {
+    public Map<String, String> getChanges() {
         return changes;
     }
 
-    public void setChanges(Map<String, Object> changes) {
+    public void setChanges(Map<String, String> changes) {
         this.changes = changes;
     }
 

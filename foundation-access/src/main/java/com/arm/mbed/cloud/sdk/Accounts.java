@@ -339,8 +339,9 @@ public class Accounts extends AbstractModule {
            allTrustedCertificates(@NonNull String id,
                                   @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
-        return allTrustedCertificates(id, (String) null, (String) null, 0, 0, 0, (String) null, false, (String) null,
-                                      (String) null, (String) null, false, options);
+        return allTrustedCertificates(id, (String) null, (String) null, Integer.valueOf(0), Integer.valueOf(0),
+                                      Integer.valueOf(0), (String) null, Boolean.valueOf(false), (String) null,
+                                      (String) null, (String) null, Boolean.valueOf(false), options);
     }
 
     /**
@@ -361,8 +362,9 @@ public class Accounts extends AbstractModule {
            allTrustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options,
                                   @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
-        return allTrustedCertificates((String) null, (String) null, 0, 0, 0, (String) null, false, (String) null,
-                                      (String) null, (String) null, false, options, account);
+        return allTrustedCertificates((String) null, (String) null, Integer.valueOf(0), Integer.valueOf(0),
+                                      Integer.valueOf(0), (String) null, Boolean.valueOf(false), (String) null,
+                                      (String) null, (String) null, Boolean.valueOf(false), options, account);
     }
 
     /**
@@ -1281,7 +1283,7 @@ public class Accounts extends AbstractModule {
      * Lists accounts matching filter options.
      * <p>
      * Similar to
-     * {@link #listAccounts(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
+     * {@link #listAccounts(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
      * 
      * @param options
      *            list options.
@@ -1290,7 +1292,7 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public ListResponse<Account> listAccounts(@Nullable AccountListOptions options) throws MbedCloudException {
-        return listAccounts((String) null, (String) null, (String) null, (String) null, (String) null, options);
+        return listAccounts((String) null, (String) null, (String) null, options);
     }
 
     /**
@@ -1306,10 +1308,6 @@ public class Accounts extends AbstractModule {
      *            Property name to be returned from account specific properties.
      * @param parentEq
      *            null
-     * @param endMarketEq
-     *            null
-     * @param countryLike
-     *            null
      * @param options
      *            list options.
      * @return the list of accounts corresponding to filter options (One page).
@@ -1317,14 +1315,11 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public ListResponse<Account> listAccounts(@Nullable String format, @Nullable String properties,
-                                              @Nullable String parentEq, @Nullable String endMarketEq,
-                                              @Nullable String countryLike,
+                                              @Nullable String parentEq,
                                               @Nullable AccountListOptions options) throws MbedCloudException {
         final String finalFormat = format;
         final String finalProperties = properties;
         final String finalParentEq = parentEq;
-        final String finalEndMarketEq = endMarketEq;
-        final String finalCountryLike = countryLike;
         final AccountListOptions finalOptions = (options == null) ? new AccountListOptions() : options;
         return CloudCaller.call(this, "listAccounts()", AccountAdapter.getListMapper(),
                                 new CloudRequest.CloudCall<AccountInfoList>() {
@@ -1340,8 +1335,10 @@ public class Accounts extends AbstractModule {
                                                                         finalOptions.encodeSingleInFilter(AccountListOptions.TAG_FILTER_BY_STATUS),
                                                                         finalOptions.encodeSingleNotInFilter(AccountListOptions.TAG_FILTER_BY_STATUS),
                                                                         finalOptions.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_TIER),
-                                                                        finalParentEq, finalEndMarketEq,
-                                                                        finalCountryLike, finalOptions.getPageSize(),
+                                                                        finalParentEq,
+                                                                        finalOptions.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_END_MARKET),
+                                                                        finalOptions.encodeSingleLikeFilter(AccountListOptions.TAG_FILTER_BY_COUNTRY),
+                                                                        finalOptions.getPageSize(),
                                                                         finalOptions.getAfter(),
                                                                         finalOptions.getOrder().toString(),
                                                                         finalOptions.encodeInclude(), finalFormat,
@@ -1354,7 +1351,7 @@ public class Accounts extends AbstractModule {
      * Creates a {@link Paginator} for the list of accounts matching filter options.
      * <p>
      * Similar to
-     * {@link #listAllAccounts(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
+     * {@link #listAllAccounts(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
      * 
      * @param options
      *            list options.
@@ -1363,7 +1360,7 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public Paginator<Account> listAllAccounts(@Nullable AccountListOptions options) throws MbedCloudException {
-        return listAllAccounts((String) null, (String) null, (String) null, (String) null, (String) null, options);
+        return listAllAccounts((String) null, (String) null, (String) null, options);
     }
 
     /**
@@ -1377,10 +1374,6 @@ public class Accounts extends AbstractModule {
      *            Property name to be returned from account specific properties.
      * @param parentEq
      *            null
-     * @param endMarketEq
-     *            null
-     * @param countryLike
-     *            null
      * @param options
      *            list options.
      * @return paginator over the list of accounts
@@ -1388,14 +1381,11 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public Paginator<Account> listAllAccounts(@Nullable String format, @Nullable String properties,
-                                              @Nullable String parentEq, @Nullable String endMarketEq,
-                                              @Nullable String countryLike,
+                                              @Nullable String parentEq,
                                               @Nullable AccountListOptions options) throws MbedCloudException {
         final String finalFormat = format;
         final String finalProperties = properties;
         final String finalParentEq = parentEq;
-        final String finalEndMarketEq = endMarketEq;
-        final String finalCountryLike = countryLike;
         final AccountListOptions finalOptions = (options == null) ? new AccountListOptions() : options;
         return new Paginator<Account>(finalOptions, new PageRequester<Account>() {
             /**
@@ -1407,8 +1397,7 @@ public class Accounts extends AbstractModule {
              */
             @Override
             public ListResponse<Account> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listAccounts(finalFormat, finalProperties, finalParentEq, finalEndMarketEq, finalCountryLike,
-                                    (AccountListOptions) options);
+                return listAccounts(finalFormat, finalProperties, finalParentEq, (AccountListOptions) options);
             }
         });
     }
@@ -1496,14 +1485,6 @@ public class Accounts extends AbstractModule {
      * <p>
      * Gets an iterator over all users matching filter options.
      * 
-     * @param emailEq
-     *            null
-     * @param statusEq
-     *            null
-     * @param statusIn
-     *            null
-     * @param statusNin
-     *            null
      * @param loginProfileEq
      *            null
      * @param options
@@ -1512,13 +1493,8 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public Paginator<User> listAllUsers(@Nullable String emailEq, @Nullable String statusEq, @Nullable String statusIn,
-                                        @Nullable String statusNin, @Nullable String loginProfileEq,
+    public Paginator<User> listAllUsers(@Nullable String loginProfileEq,
                                         @Nullable UserListOptions options) throws MbedCloudException {
-        final String finalEmailEq = emailEq;
-        final String finalStatusEq = statusEq;
-        final String finalStatusIn = statusIn;
-        final String finalStatusNin = statusNin;
         final String finalLoginProfileEq = loginProfileEq;
         final UserListOptions finalOptions = (options == null) ? new UserListOptions() : options;
         return new Paginator<User>(finalOptions, new PageRequester<User>() {
@@ -1531,8 +1507,7 @@ public class Accounts extends AbstractModule {
              */
             @Override
             public ListResponse<User> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listUsers(finalEmailEq, finalStatusEq, finalStatusIn, finalStatusNin, finalLoginProfileEq,
-                                 (UserListOptions) options);
+                return listUsers(finalLoginProfileEq, (UserListOptions) options);
             }
         });
     }
@@ -1540,8 +1515,7 @@ public class Accounts extends AbstractModule {
     /**
      * Creates a {@link Paginator} for the list of users matching filter options.
      * <p>
-     * Similar to
-     * {@link #listAllUsers(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.UserListOptions)}
+     * Similar to {@link #listAllUsers(String, com.arm.mbed.cloud.sdk.accounts.model.UserListOptions)}
      * 
      * @param options
      *            list options.
@@ -1550,7 +1524,7 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public Paginator<User> listAllUsers(@Nullable UserListOptions options) throws MbedCloudException {
-        return listAllUsers((String) null, (String) null, (String) null, (String) null, (String) null, options);
+        return listAllUsers((String) null, options);
     }
 
     /**
@@ -1651,14 +1625,6 @@ public class Accounts extends AbstractModule {
      * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/users -H 'Authorization: Bearer API_KEY'`
      * 
-     * @param emailEq
-     *            null
-     * @param statusEq
-     *            null
-     * @param statusIn
-     *            null
-     * @param statusNin
-     *            null
      * @param loginProfileEq
      *            null
      * @param options
@@ -1667,13 +1633,8 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public ListResponse<User> listUsers(@Nullable String emailEq, @Nullable String statusEq, @Nullable String statusIn,
-                                        @Nullable String statusNin, @Nullable String loginProfileEq,
+    public ListResponse<User> listUsers(@Nullable String loginProfileEq,
                                         @Nullable UserListOptions options) throws MbedCloudException {
-        final String finalEmailEq = emailEq;
-        final String finalStatusEq = statusEq;
-        final String finalStatusIn = statusIn;
-        final String finalStatusNin = statusNin;
         final String finalLoginProfileEq = loginProfileEq;
         final UserListOptions finalOptions = (options == null) ? new UserListOptions() : options;
         return CloudCaller.call(this, "listUsers()", UserAdapter.getListMapper(),
@@ -1689,8 +1650,11 @@ public class Accounts extends AbstractModule {
                                                         .getAllUsers(finalOptions.getPageSize(),
                                                                      finalOptions.getAfter(),
                                                                      finalOptions.getOrder().toString(),
-                                                                     finalOptions.encodeInclude(), finalEmailEq,
-                                                                     finalStatusEq, finalStatusIn, finalStatusNin,
+                                                                     finalOptions.encodeInclude(),
+                                                                     finalOptions.encodeSingleEqualFilter(UserListOptions.TAG_FILTER_BY_EMAIL),
+                                                                     finalOptions.encodeSingleEqualFilter(UserListOptions.TAG_FILTER_BY_STATUS),
+                                                                     finalOptions.encodeSingleInFilter(UserListOptions.TAG_FILTER_BY_STATUS),
+                                                                     finalOptions.encodeSingleNotInFilter(UserListOptions.TAG_FILTER_BY_STATUS),
                                                                      finalLoginProfileEq);
                                     }
                                 });
@@ -1699,8 +1663,7 @@ public class Accounts extends AbstractModule {
     /**
      * Lists users matching filter options.
      * <p>
-     * Similar to
-     * {@link #listUsers(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.UserListOptions)}
+     * Similar to {@link #listUsers(String, com.arm.mbed.cloud.sdk.accounts.model.UserListOptions)}
      * 
      * @param options
      *            list options.
@@ -1709,7 +1672,7 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public ListResponse<User> listUsers(@Nullable UserListOptions options) throws MbedCloudException {
-        return listUsers((String) null, (String) null, (String) null, (String) null, (String) null, options);
+        return listUsers((String) null, options);
     }
 
     /**
@@ -2336,8 +2299,9 @@ public class Accounts extends AbstractModule {
            trustedCertificates(@NonNull String id,
                                @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
-        return trustedCertificates(id, (String) null, (String) null, 0, 0, 0, (String) null, false, (String) null,
-                                   (String) null, (String) null, false, options);
+        return trustedCertificates(id, (String) null, (String) null, Integer.valueOf(0), Integer.valueOf(0),
+                                   Integer.valueOf(0), (String) null, Boolean.valueOf(false), (String) null,
+                                   (String) null, (String) null, Boolean.valueOf(false), options);
     }
 
     /**
@@ -2359,8 +2323,9 @@ public class Accounts extends AbstractModule {
            trustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options,
                                @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
-        return trustedCertificates((String) null, (String) null, 0, 0, 0, (String) null, false, (String) null,
-                                   (String) null, (String) null, false, options, account);
+        return trustedCertificates((String) null, (String) null, Integer.valueOf(0), Integer.valueOf(0),
+                                   Integer.valueOf(0), (String) null, Boolean.valueOf(false), (String) null,
+                                   (String) null, (String) null, Boolean.valueOf(false), options, account);
     }
 
     /**

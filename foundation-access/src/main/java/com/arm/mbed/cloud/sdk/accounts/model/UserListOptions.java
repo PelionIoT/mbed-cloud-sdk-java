@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.listing.IncludeField;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import java.util.List;
 
@@ -15,6 +16,16 @@ import java.util.List;
  */
 @Preamble(description = "Options to use when listing users.")
 public class UserListOptions extends ListOptions {
+    /**
+     * Tag for filter by status.
+     */
+    public static final String TAG_FILTER_BY_STATUS = "status";
+
+    /**
+     * Tag for filter by email.
+     */
+    public static final String TAG_FILTER_BY_EMAIL = "email";
+
     /**
      * Internal constructor.
      * <p>
@@ -81,7 +92,234 @@ public class UserListOptions extends ListOptions {
      */
     @Internal
     public UserListOptions(String after, List<IncludeField> include, Filters filter) {
-        this(0, 0L, Order.getDefault(), after, include, filter);
+        this(Integer.valueOf(0), Long.valueOf(0L), Order.getDefault(), after, include, filter);
+    }
+
+    /**
+     * Gets all the filters defined on field {@code status}.
+     * 
+     * @return All the filters by {@code status}
+     */
+    public List<Filter> getStatusFilters() {
+        return fetchFilters(TAG_FILTER_BY_STATUS);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code status}.
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setEqualToStatusFilter(UserStatus filterByStatus) {
+        addEqualFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code status}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setEqualToStatusFilter(com.arm.mbed.cloud.sdk.accounts.model.UserStatus)}
+     * 
+     * @param filterByStatus
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends UserListOptions> T equalToStatus(UserStatus filterByStatus) {
+        setEqualToStatusFilter(filterByStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code status}.
+     * <p>
+     * Note: List of values separated by a comma
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setInStatusesFilter(String filterByStatus) {
+        addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "an in" filter by {@code status}.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setInStatusesFilter(String)}
+     * 
+     * @param filterByStatus
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends UserListOptions> T inStatuses(String filterByStatus) {
+        setInStatusesFilter(filterByStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code status}.
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setInStatusesFilter(List<UserStatus> filterByStatus) {
+        addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "an in" filter by {@code status}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setInStatusesFilter(java.util.List<com.arm.mbed.cloud.sdk.accounts.model.UserStatus>)}
+     * 
+     * @param filterByStatus
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends UserListOptions> T inStatuses(List<UserStatus> filterByStatus) {
+        setInStatusesFilter(filterByStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code status}.
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setInStatusesFilter(UserStatus[] filterByStatus) {
+        addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "an in" filter by {@code status}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.UserStatus[])}
+     * 
+     * @param filterByStatus
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends UserListOptions> T inStatuses(UserStatus[] filterByStatus) {
+        setInStatusesFilter(filterByStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code status}.
+     * <p>
+     * Note: List of values separated by a comma
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setNotInStatusesFilter(String filterByStatus) {
+        addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code status}.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setNotInStatusesFilter(String)}
+     * 
+     * @param filterByStatus
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends UserListOptions> T notInStatuses(String filterByStatus) {
+        setNotInStatusesFilter(filterByStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code status}.
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setNotInStatusesFilter(List<UserStatus> filterByStatus) {
+        addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code status}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setNotInStatusesFilter(java.util.List<com.arm.mbed.cloud.sdk.accounts.model.UserStatus>)}
+     * 
+     * @param filterByStatus
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends UserListOptions> T notInStatuses(List<UserStatus> filterByStatus) {
+        setNotInStatusesFilter(filterByStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code status}.
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setNotInStatusesFilter(UserStatus[] filterByStatus) {
+        addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code status}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setNotInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.UserStatus[])}
+     * 
+     * @param filterByStatus
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends UserListOptions> T notInStatuses(UserStatus[] filterByStatus) {
+        setNotInStatusesFilter(filterByStatus);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code email}.
+     * 
+     * @return All the filters by {@code email}
+     */
+    public List<Filter> getEmailFilters() {
+        return fetchFilters(TAG_FILTER_BY_EMAIL);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code email}.
+     * 
+     * @param filterByEmail
+     *            filter value.
+     */
+    public void setEqualToEmailFilter(String filterByEmail) {
+        addEqualFilter(TAG_FILTER_BY_EMAIL, filterByEmail);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code email}.
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setEqualToEmailFilter(String)}
+     * 
+     * @param filterByEmail
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends UserListOptions> T equalToEmail(String filterByEmail) {
+        setEqualToEmailFilter(filterByEmail);
+        return (T) this;
     }
 
     /**

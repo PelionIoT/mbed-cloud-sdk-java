@@ -1,8 +1,6 @@
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Block;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Block1;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPutRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroupManipulation;
@@ -27,38 +25,6 @@ public class DefaultApiTest {
     @Before
     public void setup() {
         api = new ApiClient().createService(DefaultApi.class);
-    }
-
-    /**
-     * List all device block categories
-     *
-     * List all device block categories. A block category is a short description of why a device was suspended or
-     * returned to service.
-     */
-    @Test
-    public void blockCategoriesListTest() {
-        Integer limit = null;
-        String order = null;
-        String after = null;
-        String include = null;
-        String filter = null;
-        // DeviceBlockCategoryPage response = api.blockCategoriesList(limit, order, after, include, filter);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Get a device block category
-     *
-     * Get a device block category. A block category is a short description of why a device was suspended or returned to
-     * service.
-     */
-    @Test
-    public void blockCategoriesRetrieveTest() {
-        String blockCategoryReference = null;
-        // DeviceBlockCategory response = api.blockCategoriesRetrieve(blockCategoryReference);
-
-        // TODO: test validations
     }
 
     /**
@@ -236,20 +202,6 @@ public class DefaultApiTest {
     }
 
     /**
-     * Return a device to service.
-     *
-     * Returning a device to service restores connectivity to the device. All API functionality is restored.
-     */
-    @Test
-    public void deviceResumeTest() {
-        String id = null;
-        Block block = null;
-        // Void response = api.deviceResume(id, block);
-
-        // TODO: test validations
-    }
-
-    /**
      * Get a device
      *
      * Retrieve information about a specific device.
@@ -258,21 +210,6 @@ public class DefaultApiTest {
     public void deviceRetrieveTest() {
         String id = null;
         // DeviceData response = api.deviceRetrieve(id);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Suspend a device.
-     *
-     * Suspending a device prevents a device from connecting. If a device is currently connected, it will be
-     * disconnected. Some API operations will fail while a device is suspended.
-     */
-    @Test
-    public void deviceSuspendTest() {
-        String id = null;
-        Block1 block = null;
-        // Void response = api.deviceSuspend(id, block);
 
         // TODO: test validations
     }
@@ -463,6 +400,114 @@ public class DefaultApiTest {
     }
 
     /**
+     * Get branding colors of the dark theme.
+     *
+     * Returns the branding colors of the dark theme.
+     */
+    @Test
+    public void getLoginPageAllDarkColorsTest() {
+        String accountId = null;
+        // BrandingColorList response = api.getLoginPageAllDarkColors(accountId);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Get metadata of all images of the dark theme.
+     *
+     * Returns the metadata of all branding images of the dark theme.
+     */
+    @Test
+    public void getLoginPageAllDarkImageDataTest() {
+        String accountId = null;
+        // BrandingImageList response = api.getLoginPageAllDarkImageData(accountId);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Get branding colors of the light theme.
+     *
+     * Returns the branding colors of the light theme.
+     */
+    @Test
+    public void getLoginPageAllLightColorsTest() {
+        String accountId = null;
+        // BrandingColorList response = api.getLoginPageAllLightColors(accountId);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Get metadata of all images of the light theme.
+     *
+     * Returns the metadata of all branding images of the light theme.
+     */
+    @Test
+    public void getLoginPageAllLightImageDataTest() {
+        String accountId = null;
+        // BrandingImageList response = api.getLoginPageAllLightImageData(accountId);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Get branding color of the dark theme.
+     *
+     * Returns the requested branding color of the dark theme.
+     */
+    @Test
+    public void getLoginPageDarkColorTest() {
+        String accountId = null;
+        String reference = null;
+        // BrandingColor response = api.getLoginPageDarkColor(accountId, reference);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Get metadata of an image of the dark theme.
+     *
+     * An endpoint for getting metadata of one account branding image of the dark theme.
+     */
+    @Test
+    public void getLoginPageDarkImageDataTest() {
+        String accountId = null;
+        String reference = null;
+        // BrandingImage response = api.getLoginPageDarkImageData(accountId, reference);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Get branding color of the light theme.
+     *
+     * Returns the requested branding color of the light theme.
+     */
+    @Test
+    public void getLoginPageLightColorTest() {
+        String accountId = null;
+        String reference = null;
+        // BrandingColor response = api.getLoginPageLightColor(accountId, reference);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Get metadata of an image of the light theme.
+     *
+     * An endpoint for getting metadata of one account branding image of the light theme.
+     */
+    @Test
+    public void getLoginPageLightImageDataTest() {
+        String accountId = null;
+        String reference = null;
+        // BrandingImage response = api.getLoginPageLightImageData(accountId, reference);
+
+        // TODO: test validations
+    }
+
+    /**
      * Service package quota.
      *
      * Get the available firmware update quota for the currently authenticated commercial account. **Example usage:**
@@ -592,7 +637,7 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // DevicePage response = api.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter);
+        // Void response = api.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter);
 
         // TODO: test validations
     }

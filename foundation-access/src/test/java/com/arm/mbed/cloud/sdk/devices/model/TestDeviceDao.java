@@ -9,10 +9,12 @@ import org.junit.Test;
 /**
  * Unit tests for Model DeviceDao.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestDeviceDao {
     /**
      * Tests the clone method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testClone() {
         try {
@@ -30,6 +32,7 @@ public class TestDeviceDao {
     /**
      * Tests the hashCode method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testHashCode() {
         try {
@@ -52,6 +55,7 @@ public class TestDeviceDao {
     /**
      * Tests the equals method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testEquals() {
         try {

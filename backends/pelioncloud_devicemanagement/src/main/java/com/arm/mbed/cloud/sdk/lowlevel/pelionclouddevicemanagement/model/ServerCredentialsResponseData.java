@@ -87,11 +87,11 @@ public class ServerCredentialsResponseData implements Serializable {
     }
 
     /**
-     * ID that uniquely identifies the entity.
+     * mUUID that uniquely identifies the entity.
      * 
      * @return id
      **/
-    @ApiModelProperty(value = "ID that uniquely identifies the entity.")
+    @ApiModelProperty(value = "mUUID that uniquely identifies the entity.")
     public String getId() {
         return id;
     }

@@ -5,8 +5,6 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.CollectionFor
 import retrofit2.Call;
 import retrofit2.http.*;
 
-import okhttp3.MultipartBody;
-
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountCreationReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfoList;
@@ -1378,7 +1376,7 @@ public interface AggregatorAccountAdminApi {
      * PNG or JPEG format. **Example usage:** &#x60;curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/upload -H
      * &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary
-     * &#39;@myimage.png&#39;&#x60;
+     * &#39;myimage.png&#39;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
@@ -1396,30 +1394,11 @@ public interface AggregatorAccountAdminApi {
                                @retrofit2.http.Body String body);
 
     /**
-     * Upload an image in the dark theme. An endpoint for uploading a new account branding image as form data in the
-     * dark theme in PNG or JPEG format.
-     * 
-     * @param accountId
-     *            Account ID. (required)
-     * @param reference
-     *            Name of the branding images (icon or picture). (required)
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data. (required)
-     * @return Call&lt;BrandingImage&gt;
-     */
-    @retrofit2.http.Multipart
-    @POST("v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart")
-    Call<BrandingImage>
-        uploadAccountDarkImageMultipart(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                                        @retrofit2.http.Path(value = "reference", encoded = true) String reference,
-                                        @retrofit2.http.Part() MultipartBody.Part image);
-
-    /**
      * Upload an image in the light theme. An endpoint for uploading a new account branding image in the light theme in
      * PNG or JPEG format. **Example usage:** &#x60;curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/upload -H
      * &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary
-     * &#39;@myimage.png&#39;&#x60;
+     * &#39;myimage.png&#39;&#x60;
      * 
      * @param accountId
      *            Account ID. (required)
@@ -1435,25 +1414,6 @@ public interface AggregatorAccountAdminApi {
         uploadAccountLightImage(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
                                 @retrofit2.http.Path(value = "reference", encoded = true) String reference,
                                 @retrofit2.http.Body String body);
-
-    /**
-     * Upload an image in the light theme. An endpoint for uploading a new account branding image as form data in the
-     * light theme in PNG or JPEG format.
-     * 
-     * @param accountId
-     *            Account ID. (required)
-     * @param reference
-     *            Name of the branding images (icon or picture). (required)
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data. (required)
-     * @return Call&lt;BrandingImage&gt;
-     */
-    @retrofit2.http.Multipart
-    @POST("v3/accounts/{account_id}/branding-images/light/{reference}/upload-multipart")
-    Call<BrandingImage>
-        uploadAccountLightImageMultipart(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                                         @retrofit2.http.Path(value = "reference", encoded = true) String reference,
-                                         @retrofit2.http.Part() MultipartBody.Part image);
 
     /**
      * Validate the user email. An endpoint for validating the user email. **Example usage:** &#x60;curl -X POST

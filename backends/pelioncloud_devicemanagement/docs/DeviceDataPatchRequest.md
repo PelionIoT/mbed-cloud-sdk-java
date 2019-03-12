@@ -1,5 +1,5 @@
 
-# DeviceDataPutRequest
+# DeviceDataPatchRequest
 
 ## Properties
 Name | Type | Description | Notes

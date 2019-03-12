@@ -9,10 +9,12 @@ import org.junit.Test;
 /**
  * Unit tests for Model CertificateIssuerType.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestCertificateIssuerType {
     /**
      * Tests the getValue method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testGetValue() {
         try {
@@ -28,7 +30,7 @@ public class TestCertificateIssuerType {
             certificateissuertype = CertificateIssuerType.getValue("GLOBAL_SIGN");
             assertNotNull(certificateissuertype);
             assertFalse(certificateissuertype.isDefault());
-            certificateissuertype = CertificateIssuerType.getValue("c3b74ecb-436a-44dd-ad97-f5b6aad13863");
+            certificateissuertype = CertificateIssuerType.getValue("8714182c-0fb3-4b95-9fe3-b85008394605");
             assertNotNull(certificateissuertype);
             assertTrue(certificateissuertype.isDefault());
         } catch (Exception exception) {

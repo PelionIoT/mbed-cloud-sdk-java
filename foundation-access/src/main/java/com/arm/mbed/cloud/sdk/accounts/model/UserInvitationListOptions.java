@@ -81,7 +81,7 @@ public class UserInvitationListOptions extends ListOptions {
      */
     @Internal
     public UserInvitationListOptions(String after, List<IncludeField> include, Filters filter) {
-        this(0, 0L, Order.getDefault(), after, include, filter);
+        this(Integer.valueOf(0), Long.valueOf(0L), Order.getDefault(), after, include, filter);
     }
 
     /**

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **developerCertificate** | **String** | PEM format X.509 developer certificate. |  [optional]
 **developerPrivateKey** | **String** | PEM format developer private key associated to the certificate. |  [optional]
 **etag** | **String** | API resource entity version. |  [optional]
-**id** | **String** | ID that uniquely identifies the developer certificate. |  [optional]
+**id** | **String** | mUUID that uniquely identifies the developer certificate. |  [optional]
 **name** | **String** | Name of the developer certificate. |  [optional]
 **object** | **String** | Entity name, always &#39;trusted-cert&#39; |  [optional]
 **securityFileContent** | **String** | Content of the security.c file that will be flashed into the device to provide the security credentials |  [optional]

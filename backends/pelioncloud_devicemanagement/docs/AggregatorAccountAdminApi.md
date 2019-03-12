@@ -69,9 +69,7 @@ Method | HTTP request | Description
 [**updateAccountIdentityProvider**](AggregatorAccountAdminApi.md#updateAccountIdentityProvider) | **PUT** v3/accounts/{account_id}/identity-providers/{identity_provider_id} | Update an existing identity provider.
 [**updateAccountUser**](AggregatorAccountAdminApi.md#updateAccountUser) | **PUT** v3/accounts/{account_id}/users/{user_id} | Update user details.
 [**uploadAccountDarkImage**](AggregatorAccountAdminApi.md#uploadAccountDarkImage) | **POST** v3/accounts/{account_id}/branding-images/dark/{reference}/upload | Upload an image in the dark theme.
-[**uploadAccountDarkImageMultipart**](AggregatorAccountAdminApi.md#uploadAccountDarkImageMultipart) | **POST** v3/accounts/{account_id}/branding-images/dark/{reference}/upload-multipart | Upload an image in the dark theme.
 [**uploadAccountLightImage**](AggregatorAccountAdminApi.md#uploadAccountLightImage) | **POST** v3/accounts/{account_id}/branding-images/light/{reference}/upload | Upload an image in the light theme.
-[**uploadAccountLightImageMultipart**](AggregatorAccountAdminApi.md#uploadAccountLightImageMultipart) | **POST** v3/accounts/{account_id}/branding-images/light/{reference}/upload-multipart | Upload an image in the light theme.
 [**validateAccountUserEmail**](AggregatorAccountAdminApi.md#validateAccountUserEmail) | **POST** v3/accounts/{account_id}/users/{user_id}/validate-email | Validate the user email.
 
 
@@ -3893,7 +3891,7 @@ Name | Type | Description  | Notes
 
 Upload an image in the dark theme.
 
-An endpoint for uploading a new account branding image in the dark theme in PNG or JPEG format.  **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/upload -H &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary &#39;@myimage.png&#39;&#x60;
+An endpoint for uploading a new account branding image in the dark theme in PNG or JPEG format.  **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/upload -H &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary &#39;myimage.png&#39;&#x60;
 
 ### Example
 ```java
@@ -3946,72 +3944,13 @@ Name | Type | Description  | Notes
  - **Content-Type**: image/png, image/jpeg
  - **Accept**: application/json
 
-<a name="uploadAccountDarkImageMultipart"></a>
-# **uploadAccountDarkImageMultipart**
-> BrandingImage uploadAccountDarkImageMultipart(accountId, reference, image)
-
-Upload an image in the dark theme.
-
-An endpoint for uploading a new account branding image as form data in the dark theme in PNG or JPEG format.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
-//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
-//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
-//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
-//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountId = "accountId_example"; // String | Account ID.
-String reference = "reference_example"; // String | Name of the branding images (icon or picture).
-File image = new File("/path/to/file.txt"); // File | The image in PNG or JPEG format as multipart form data.
-try {
-    BrandingImage result = apiInstance.uploadAccountDarkImageMultipart(accountId, reference, image);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#uploadAccountDarkImageMultipart");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
- **reference** | **String**| Name of the branding images (icon or picture). | [enum: brand_logo_portrait, brand_logo_square, brand_logo_landscape, brand_logo_email, desktop_background_landscape, desktop_background_square, desktop_background_portrait, carousel_image_portrait_0, carousel_image_portrait_1, carousel_image_portrait_2, carousel_image_portrait_3, carousel_image_portrait_4, carousel_image_portrait_5, carousel_image_portrait_6, carousel_image_portrait_7, carousel_image_portrait_8, carousel_image_portrait_9, carousel_image_square_0, carousel_image_square_1, carousel_image_square_2, carousel_image_square_3, carousel_image_square_4, carousel_image_square_5, carousel_image_square_6, carousel_image_square_7, carousel_image_square_8, carousel_image_square_9, carousel_image_landscape_0, carousel_image_landscape_1, carousel_image_landscape_2, carousel_image_landscape_3, carousel_image_landscape_4, carousel_image_landscape_5, carousel_image_landscape_6, carousel_image_landscape_7, carousel_image_landscape_8, carousel_image_landscape_9]
- **image** | **File**| The image in PNG or JPEG format as multipart form data. |
-
-### Return type
-
-[**BrandingImage**](BrandingImage.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: multipart/form-data
- - **Accept**: application/json
-
 <a name="uploadAccountLightImage"></a>
 # **uploadAccountLightImage**
 > BrandingImage uploadAccountLightImage(accountId, reference, body)
 
 Upload an image in the light theme.
 
-An endpoint for uploading a new account branding image in the light theme in PNG or JPEG format.  **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/upload -H &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary &#39;@myimage.png&#39;&#x60;
+An endpoint for uploading a new account branding image in the light theme in PNG or JPEG format.  **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/upload -H &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary &#39;myimage.png&#39;&#x60;
 
 ### Example
 ```java
@@ -4062,65 +4001,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: image/png, image/jpeg
- - **Accept**: application/json
-
-<a name="uploadAccountLightImageMultipart"></a>
-# **uploadAccountLightImageMultipart**
-> BrandingImage uploadAccountLightImageMultipart(accountId, reference, image)
-
-Upload an image in the light theme.
-
-An endpoint for uploading a new account branding image as form data in the light theme in PNG or JPEG format.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
-//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
-//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
-//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
-//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountId = "accountId_example"; // String | Account ID.
-String reference = "reference_example"; // String | Name of the branding images (icon or picture).
-File image = new File("/path/to/file.txt"); // File | The image in PNG or JPEG format as multipart form data.
-try {
-    BrandingImage result = apiInstance.uploadAccountLightImageMultipart(accountId, reference, image);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#uploadAccountLightImageMultipart");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
- **reference** | **String**| Name of the branding images (icon or picture). | [enum: brand_logo_portrait, brand_logo_square, brand_logo_landscape, brand_logo_email, desktop_background_landscape, desktop_background_square, desktop_background_portrait, carousel_image_portrait_0, carousel_image_portrait_1, carousel_image_portrait_2, carousel_image_portrait_3, carousel_image_portrait_4, carousel_image_portrait_5, carousel_image_portrait_6, carousel_image_portrait_7, carousel_image_portrait_8, carousel_image_portrait_9, carousel_image_square_0, carousel_image_square_1, carousel_image_square_2, carousel_image_square_3, carousel_image_square_4, carousel_image_square_5, carousel_image_square_6, carousel_image_square_7, carousel_image_square_8, carousel_image_square_9, carousel_image_landscape_0, carousel_image_landscape_1, carousel_image_landscape_2, carousel_image_landscape_3, carousel_image_landscape_4, carousel_image_landscape_5, carousel_image_landscape_6, carousel_image_landscape_7, carousel_image_landscape_8, carousel_image_landscape_9]
- **image** | **File**| The image in PNG or JPEG format as multipart form data. |
-
-### Return type
-
-[**BrandingImage**](BrandingImage.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
 <a name="validateAccountUserEmail"></a>

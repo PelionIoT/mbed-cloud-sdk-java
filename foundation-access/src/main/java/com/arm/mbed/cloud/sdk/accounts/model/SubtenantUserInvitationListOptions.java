@@ -81,7 +81,7 @@ public class SubtenantUserInvitationListOptions extends ListOptions {
      */
     @Internal
     public SubtenantUserInvitationListOptions(String after, List<IncludeField> include, Filters filter) {
-        this(0, 0L, Order.getDefault(), after, include, filter);
+        this(Integer.valueOf(0), Long.valueOf(0L), Order.getDefault(), after, include, filter);
     }
 
     /**

@@ -27,6 +27,36 @@ public class TrustedCertificateListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_NAME = "name";
 
     /**
+     * Tag for filter by status.
+     */
+    public static final String TAG_FILTER_BY_STATUS = "status";
+
+    /**
+     * Tag for filter by deviceExecutionMode.
+     */
+    public static final String TAG_FILTER_BY_DEVICE_EXECUTION_MODE = "deviceExecutionMode";
+
+    /**
+     * Tag for filter by issuer.
+     */
+    public static final String TAG_FILTER_BY_ISSUER = "issuer";
+
+    /**
+     * Tag for filter by service.
+     */
+    public static final String TAG_FILTER_BY_SERVICE = "service";
+
+    /**
+     * Tag for filter by subject.
+     */
+    public static final String TAG_FILTER_BY_SUBJECT = "subject";
+
+    /**
+     * Tag for filter by enrollmentMode.
+     */
+    public static final String TAG_FILTER_BY_ENROLLMENT_MODE = "enrollmentMode";
+
+    /**
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #TrustedCertificateListOptions()} instead.
@@ -92,7 +122,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      */
     @Internal
     public TrustedCertificateListOptions(String after, List<IncludeField> include, Filters filter) {
-        this(0, 0L, Order.getDefault(), after, include, filter);
+        this(Integer.valueOf(0), Long.valueOf(0L), Order.getDefault(), after, include, filter);
     }
 
     /**
@@ -162,6 +192,242 @@ public class TrustedCertificateListOptions extends ListOptions {
     @SuppressWarnings("unchecked")
     public <T extends TrustedCertificateListOptions> T equalToName(String filterByName) {
         setEqualToNameFilter(filterByName);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code status}.
+     * 
+     * @return All the filters by {@code status}
+     */
+    public List<Filter> getStatusFilters() {
+        return fetchFilters(TAG_FILTER_BY_STATUS);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code status}.
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setEqualToStatusFilter(TrustedCertificateStatus filterByStatus) {
+        addEqualFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code status}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setEqualToStatusFilter(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus)}
+     * 
+     * @param filterByStatus
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T equalToStatus(TrustedCertificateStatus filterByStatus) {
+        setEqualToStatusFilter(filterByStatus);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code deviceExecutionMode}.
+     * 
+     * @return All the filters by {@code deviceExecutionMode}
+     */
+    public List<Filter> getDeviceExecutionModeFilters() {
+        return fetchFilters(TAG_FILTER_BY_DEVICE_EXECUTION_MODE);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code deviceExecutionMode}.
+     * 
+     * @param filterByDeviceExecutionMode
+     *            filter value.
+     */
+    public void setEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
+        addEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code deviceExecutionMode}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setEqualToDeviceExecutionModeFilter(int)}
+     * 
+     * @param filterByDeviceExecutionMode
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T equalToDeviceExecutionMode(int filterByDeviceExecutionMode) {
+        setEqualToDeviceExecutionModeFilter(filterByDeviceExecutionMode);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code deviceExecutionMode}.
+     * 
+     * @param filterByDeviceExecutionMode
+     *            filter value.
+     */
+    public void setNotEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
+        addNotEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code deviceExecutionMode}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setNotEqualToDeviceExecutionModeFilter(int)}
+     * 
+     * @param filterByDeviceExecutionMode
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T notEqualToDeviceExecutionMode(int filterByDeviceExecutionMode) {
+        setNotEqualToDeviceExecutionModeFilter(filterByDeviceExecutionMode);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code issuer}.
+     * 
+     * @return All the filters by {@code issuer}
+     */
+    public List<Filter> getIssuerFilters() {
+        return fetchFilters(TAG_FILTER_BY_ISSUER);
+    }
+
+    /**
+     * Sets "a like" filter by {@code issuer}.
+     * 
+     * @param filterByIssuer
+     *            filter value.
+     */
+    public void setLikeIssuerFilter(String filterByIssuer) {
+        addLikeFilter(TAG_FILTER_BY_ISSUER, filterByIssuer);
+    }
+
+    /**
+     * Sets "a like" filter by {@code issuer}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setLikeIssuerFilter(String)}
+     * 
+     * @param filterByIssuer
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T likeIssuer(String filterByIssuer) {
+        setLikeIssuerFilter(filterByIssuer);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code service}.
+     * 
+     * @return All the filters by {@code service}
+     */
+    public List<Filter> getServiceFilters() {
+        return fetchFilters(TAG_FILTER_BY_SERVICE);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code service}.
+     * 
+     * @param filterByService
+     *            filter value.
+     */
+    public void setEqualToServiceFilter(TrustedCertificateService filterByService) {
+        addEqualFilter(TAG_FILTER_BY_SERVICE, filterByService);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code service}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setEqualToServiceFilter(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService)}
+     * 
+     * @param filterByService
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T equalToService(TrustedCertificateService filterByService) {
+        setEqualToServiceFilter(filterByService);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code subject}.
+     * 
+     * @return All the filters by {@code subject}
+     */
+    public List<Filter> getSubjectFilters() {
+        return fetchFilters(TAG_FILTER_BY_SUBJECT);
+    }
+
+    /**
+     * Sets "a like" filter by {@code subject}.
+     * 
+     * @param filterBySubject
+     *            filter value.
+     */
+    public void setLikeSubjectFilter(String filterBySubject) {
+        addLikeFilter(TAG_FILTER_BY_SUBJECT, filterBySubject);
+    }
+
+    /**
+     * Sets "a like" filter by {@code subject}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setLikeSubjectFilter(String)}
+     * 
+     * @param filterBySubject
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T likeSubject(String filterBySubject) {
+        setLikeSubjectFilter(filterBySubject);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code enrollmentMode}.
+     * 
+     * @return All the filters by {@code enrollmentMode}
+     */
+    public List<Filter> getEnrollmentModeFilters() {
+        return fetchFilters(TAG_FILTER_BY_ENROLLMENT_MODE);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code enrollmentMode}.
+     * 
+     * @param filterByEnrollmentMode
+     *            filter value.
+     */
+    public void setEqualToEnrollmentModeFilter(boolean filterByEnrollmentMode) {
+        addEqualFilter(TAG_FILTER_BY_ENROLLMENT_MODE, filterByEnrollmentMode);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code enrollmentMode}.
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setEqualToEnrollmentModeFilter(boolean)}
+     * 
+     * @param filterByEnrollmentMode
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T equalToEnrollmentMode(boolean filterByEnrollmentMode) {
+        setEqualToEnrollmentModeFilter(filterByEnrollmentMode);
         return (T) this;
     }
 

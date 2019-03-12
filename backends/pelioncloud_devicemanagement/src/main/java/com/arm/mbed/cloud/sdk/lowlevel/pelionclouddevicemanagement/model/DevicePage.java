@@ -53,11 +53,11 @@ public class DevicePage implements Serializable {
     }
 
     /**
-     * An offset token for current page.
+     * Get after
      * 
      * @return after
      **/
-    @ApiModelProperty(example = "01631667477600000000000100100374", value = "An offset token for current page.")
+    @ApiModelProperty(value = "")
     public String getAfter() {
         return after;
     }
@@ -84,7 +84,7 @@ public class DevicePage implements Serializable {
      * 
      * @return data
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(example = "\"[]\"", value = "")
     public List<DeviceData> getData() {
         return data;
     }
@@ -99,11 +99,11 @@ public class DevicePage implements Serializable {
     }
 
     /**
-     * Are there more results available.
+     * Get hasMore
      * 
      * @return hasMore
      **/
-    @ApiModelProperty(example = "false", value = "Are there more results available.")
+    @ApiModelProperty(example = "false", value = "")
     public Boolean isHasMore() {
         return hasMore;
     }
@@ -118,13 +118,11 @@ public class DevicePage implements Serializable {
     }
 
     /**
-     * How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of
-     * this range are set to the closest limit. minimum: 2 maximum: 1000
+     * Get limit
      * 
      * @return limit
      **/
-    @ApiModelProperty(example = "50",
-                      value = "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.")
+    @ApiModelProperty(example = "1000", value = "")
     public Integer getLimit() {
         return limit;
     }
@@ -139,11 +137,11 @@ public class DevicePage implements Serializable {
     }
 
     /**
-     * The type of this API object is a \&quot;list\&quot;.
+     * Get object
      * 
      * @return object
      **/
-    @ApiModelProperty(example = "list", value = "The type of this API object is a \"list\".")
+    @ApiModelProperty(example = "list", value = "")
     public String getObject() {
         return object;
     }
@@ -158,12 +156,11 @@ public class DevicePage implements Serializable {
     }
 
     /**
-     * The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;.
+     * Get order
      * 
      * @return order
      **/
-    @ApiModelProperty(example = "DESC",
-                      value = "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.")
+    @ApiModelProperty(example = "DESC", value = "")
     public String getOrder() {
         return order;
     }

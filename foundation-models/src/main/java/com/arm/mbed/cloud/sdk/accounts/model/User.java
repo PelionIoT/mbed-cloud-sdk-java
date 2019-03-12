@@ -245,16 +245,22 @@ public class User implements SdkModel {
     @Internal
     public User(User user) {
         this(user == null ? (String) null : user.accountId,
-             user == null ? (java.util.List<?>) null : user.activeSessions, user == null ? (String) null : user.address,
-             user == null ? new java.util.Date() : user.createdAt, user == null ? 0L : user.creationTime,
+             user == null ? (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.ActiveSession>) null
+                          : user.activeSessions,
+             user == null ? (String) null : user.address, user == null ? new java.util.Date() : user.createdAt,
+             user == null ? 0L : user.creationTime,
              user == null ? (java.util.Map<String, String>) null : user.customFields,
              user == null ? (String) null : user.email, user != null && user.emailVerified,
              user == null ? (String) null : user.fullName, user == null ? (String) null : user.id,
-             user == null ? 0L : user.lastLoginTime, user == null ? (java.util.List<?>) null : user.loginHistory,
-             user == null ? (java.util.List<?>) null : user.loginProfiles, user != null && user.marketingAccepted,
-             user == null ? (String) null : user.password, user == null ? 0L : user.passwordChangedTime,
-             user == null ? (String) null : user.phoneNumber, user == null ? UserStatus.getDefault() : user.status,
-             user != null && user.termsAccepted, user == null ? (java.util.List<?>) null : user.totpScratchCodes,
+             user == null ? 0L : user.lastLoginTime,
+             user == null ? (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginHistory>) null
+                          : user.loginHistory,
+             user == null ? (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null
+                          : user.loginProfiles,
+             user != null && user.marketingAccepted, user == null ? (String) null : user.password,
+             user == null ? 0L : user.passwordChangedTime, user == null ? (String) null : user.phoneNumber,
+             user == null ? UserStatus.getDefault() : user.status, user != null && user.termsAccepted,
+             user == null ? (java.util.List<String>) null : user.totpScratchCodes,
              user != null && user.twoFactorAuthentication, user == null ? new java.util.Date() : user.updatedAt,
              user == null ? (String) null : user.username);
     }
@@ -263,10 +269,12 @@ public class User implements SdkModel {
      * Constructor.
      */
     public User() {
-        this((String) null, (java.util.List<?>) null, (String) null, new java.util.Date(), 0L,
-             (java.util.Map<String, String>) null, (String) null, false, (String) null, (String) null, 0L,
-             (java.util.List<?>) null, (java.util.List<?>) null, false, (String) null, 0L, (String) null,
-             UserStatus.getDefault(), false, (java.util.List<?>) null, false, new java.util.Date(), (String) null);
+        this((String) null, (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.ActiveSession>) null, (String) null,
+             new java.util.Date(), 0L, (java.util.Map<String, String>) null, (String) null, false, (String) null,
+             (String) null, 0L, (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginHistory>) null,
+             (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null, false, (String) null, 0L,
+             (String) null, UserStatus.getDefault(), false, (java.util.List<String>) null, false, new java.util.Date(),
+             (String) null);
     }
 
     /**
@@ -317,9 +325,10 @@ public class User implements SdkModel {
                 List<LoginHistory> loginHistory, long passwordChangedTime, List<String> totpScratchCodes,
                 Date updatedAt) {
         this(accountId, activeSessions, (String) null, createdAt, creationTime, customFields, (String) null,
-             emailVerified, (String) null, (String) null, lastLoginTime, loginHistory, (java.util.List<?>) null, false,
-             (String) null, passwordChangedTime, (String) null, UserStatus.getDefault(), false, totpScratchCodes, false,
-             updatedAt, (String) null);
+             emailVerified, (String) null, (String) null, lastLoginTime, loginHistory,
+             (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null, false, (String) null,
+             passwordChangedTime, (String) null, UserStatus.getDefault(), false, totpScratchCodes, false, updatedAt,
+             (String) null);
     }
 
     /**

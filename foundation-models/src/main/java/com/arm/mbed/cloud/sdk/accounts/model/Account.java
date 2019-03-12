@@ -413,7 +413,7 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.adminFullName, account == null ? (String) null : account.adminId,
              account == null ? (String) null : account.adminKey, account == null ? (String) null : account.adminName,
              account == null ? (String) null : account.adminPassword,
-             account == null ? (java.util.List<?>) null : account.aliases,
+             account == null ? (java.util.List<String>) null : account.aliases,
              account == null ? (String) null : account.city, account == null ? (String) null : account.company,
              account == null ? (String) null : account.contact,
              account == null ? (String) null : account.contractNumber,
@@ -428,13 +428,13 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.id, account == null ? (String) null : account.idleTimeout,
              account == null ? (java.util.Map<String, String>) null : account.limits,
              account == null ? AccountMfaStatus.getDefault() : account.mfaStatus,
-             account == null ? (java.util.List<?>) null : account.notificationEmails,
+             account == null ? (java.util.List<String>) null : account.notificationEmails,
              account == null ? (ParentAccount) null : account.parentAccount,
              account == null ? (String) null : account.parentId,
              account == null ? (PasswordPolicy) null : account.passwordPolicy,
              account == null ? 0 : account.passwordRecoveryExpiration,
              account == null ? (String) null : account.phoneNumber,
-             account == null ? (java.util.List<?>) null : account.policies,
+             account == null ? (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.Policy>) null : account.policies,
              account == null ? (String) null : account.postalCode, account == null ? (String) null : account.reason,
              account == null ? (String) null : account.referenceNote,
              account == null ? (String) null : account.salesContact, account == null ? (String) null : account.state,
@@ -449,13 +449,14 @@ public class Account implements SdkModel {
      */
     public Account() {
         this((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, (java.util.List<?>) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, (java.util.List<String>) null, (String) null, (String) null, (String) null, (String) null,
              (String) null, new java.util.Date(), (java.util.Map<String, String>) null, (String) null, (String) null,
              (String) null, (String) null, new java.util.Date(), (String) null, (String) null, (String) null,
-             (java.util.Map<String, String>) null, AccountMfaStatus.getDefault(), (java.util.List<?>) null,
-             (ParentAccount) null, (String) null, (PasswordPolicy) null, 0, (String) null, (java.util.List<?>) null,
-             (String) null, (String) null, (String) null, (String) null, (String) null, AccountStatus.getDefault(),
-             (String) null, (String) null, new java.util.Date(), new java.util.Date());
+             (java.util.Map<String, String>) null, AccountMfaStatus.getDefault(), (java.util.List<String>) null,
+             (ParentAccount) null, (String) null, (PasswordPolicy) null, 0, (String) null,
+             (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.Policy>) null, (String) null, (String) null,
+             (String) null, (String) null, (String) null, AccountStatus.getDefault(), (String) null, (String) null,
+             new java.util.Date(), new java.util.Date());
     }
 
     /**
@@ -513,12 +514,12 @@ public class Account implements SdkModel {
                    String referenceNote, AccountStatus status, String templateId, String tier, Date updatedAt,
                    Date upgradedAt) {
         this((String) null, (String) null, (String) null, (String) null, adminId, adminKey, (String) null,
-             (String) null, (java.util.List<?>) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, (java.util.List<String>) null, (String) null, (String) null, (String) null, (String) null,
              (String) null, createdAt, (java.util.Map<String, String>) null, (String) null, (String) null,
              (String) null, (String) null, expiration, (String) null, (String) null, (String) null, limits,
-             AccountMfaStatus.getDefault(), (java.util.List<?>) null, parentAccount, parentId, (PasswordPolicy) null, 0,
-             (String) null, policies, (String) null, reason, referenceNote, (String) null, (String) null, status,
-             templateId, tier, updatedAt, upgradedAt);
+             AccountMfaStatus.getDefault(), (java.util.List<String>) null, parentAccount, parentId,
+             (PasswordPolicy) null, 0, (String) null, policies, (String) null, reason, referenceNote, (String) null,
+             (String) null, status, templateId, tier, updatedAt, upgradedAt);
     }
 
     /**

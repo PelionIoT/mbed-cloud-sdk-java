@@ -99,10 +99,10 @@ String enrollStatusNeq = "enrollStatusNeq_example"; // String | An optional filt
 String enrollStatusEq = "enrollStatusEq_example"; // String | An optional filter for the certificate enrollment status. 
 String enrollResultNeq = "enrollResultNeq_example"; // String | An optional filter for the non-equal certificate enrollment result. 
 String enrollResultEq = "enrollResultEq_example"; // String | An optional filter for the certificate enrollment result. 
-DateTime createdAtLte = new DateTime(); // DateTime | An optional filter for the date-time, less than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). 
-DateTime createdAtGte = new DateTime(); // DateTime | An optional filter for the date-time, greater than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). 
-DateTime updatedAtLte = new DateTime(); // DateTime | An optional filter for the date-time, less than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). 
-DateTime updatedAtGte = new DateTime(); // DateTime | An optional filter for the date-time, greater than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). 
+String createdAtLte = "createdAtLte_example"; // String | An optional filter for the date-time, less than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). 
+String createdAtGte = "createdAtGte_example"; // String | An optional filter for the date-time, greater than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). 
+String updatedAtLte = "updatedAtLte_example"; // String | An optional filter for the date-time, less than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). 
+String updatedAtGte = "updatedAtGte_example"; // String | An optional filter for the date-time, greater than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). 
 try {
     CertificateEnrollmentListResponse result = apiInstance.getCertificateEnrollments(deviceIdEq, certificateNameEq, limit, after, order, include, enrollStatusNeq, enrollStatusEq, enrollResultNeq, enrollResultEq, createdAtLte, createdAtGte, updatedAtLte, updatedAtGte);
     System.out.println(result);
@@ -126,10 +126,10 @@ Name | Type | Description  | Notes
  **enrollStatusEq** | **String**| An optional filter for the certificate enrollment status.  | [optional] [enum: new, completed]
  **enrollResultNeq** | **String**| An optional filter for the non-equal certificate enrollment result.  | [optional]
  **enrollResultEq** | **String**| An optional filter for the certificate enrollment result.  | [optional]
- **createdAtLte** | **DateTime**| An optional filter for the date-time, less than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).  | [optional]
- **createdAtGte** | **DateTime**| An optional filter for the date-time, greater than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).  | [optional]
- **updatedAtLte** | **DateTime**| An optional filter for the date-time, less than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).  | [optional]
- **updatedAtGte** | **DateTime**| An optional filter for the date-time, greater than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).  | [optional]
+ **createdAtLte** | **String**| An optional filter for the date-time, less than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).  | [optional]
+ **createdAtGte** | **String**| An optional filter for the date-time, greater than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).  | [optional]
+ **updatedAtLte** | **String**| An optional filter for the date-time, less than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).  | [optional]
+ **updatedAtGte** | **String**| An optional filter for the date-time, greater than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).  | [optional]
 
 ### Return type
 

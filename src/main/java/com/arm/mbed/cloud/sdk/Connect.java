@@ -17,7 +17,6 @@ import io.reactivex.functions.Function;
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
-import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
@@ -49,7 +48,6 @@ import com.arm.mbed.cloud.sdk.connect.adapters.MetricAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.PresubscriptionAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.ResourceAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.WebhookAdapter;
-import com.arm.mbed.cloud.sdk.connect.adapters.WebsocketAdapter;
 import com.arm.mbed.cloud.sdk.connect.model.AbstractMetricsListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
 import com.arm.mbed.cloud.sdk.connect.model.Metric;
@@ -59,7 +57,6 @@ import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.connect.model.Subscription;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
-import com.arm.mbed.cloud.sdk.connect.model.Websocket;
 import com.arm.mbed.cloud.sdk.connect.subscription.NotificationHandlersStore;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceAction;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceActionParameters;
@@ -72,7 +69,6 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceR
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.SuccessfulResponse;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.WebsocketChannel;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
@@ -290,16 +286,6 @@ public class Connect extends AbstractModule {
             @Override
             public Call<Void> call() {
                 return endpoint.getNotifications().deleteLongPollChannel();
-            }
-        });
-    }
-
-    private void deleteWebsocketChannel() throws MbedCloudException {
-        CloudCaller.call(this, "clearWebsocketNotificationChannel()", null, new CloudCall<Void>() {
-
-            @Override
-            public Call<Void> call() {
-                return endpoint.getNotifications().deleteWebsocket();
             }
         });
     }
@@ -2840,64 +2826,6 @@ public class Connect extends AbstractModule {
     }
 
     /**
-     * Registers a websocket channel.
-     * 
-     * @return websocket information.
-     * @throws MbedCloudException
-     *             if an error happened during the process
-     */
-    @API
-    @Internal
-    public Websocket registerWebsocket() throws MbedCloudException {
-        return CloudCaller.call(this, "registerWebsocket()", WebsocketAdapter.getMapper(),
-                                new CloudCall<WebsocketChannel>() {
-
-                                    @Override
-                                    public Call<WebsocketChannel> call() {
-                                        return endpoint.getNotifications().registerWebsocket();
-                                    }
-                                });
-    }
-
-    /**
-     * Gets websocket channel information.
-     * 
-     * @return websocket information.
-     * @throws MbedCloudException
-     *             if an error happened during the process
-     */
-    @API
-    @Internal
-    public Websocket getWebsocket() throws MbedCloudException {
-        return CloudCaller.call(this, "getWebsocket()", WebsocketAdapter.getMapper(),
-                                new CloudCall<WebsocketChannel>() {
-
-                                    @Override
-                                    public Call<WebsocketChannel> call() {
-                                        return endpoint.getNotifications().getWebsocket();
-                                    }
-                                });
-    }
-
-    /**
-     * Deletes websocket channel in use.
-     * 
-     * @throws MbedCloudException
-     *             if an error happened during the process
-     */
-    @API
-    @Internal
-    public void deleteWebsocket() throws MbedCloudException {
-        CloudCaller.call(this, "deleteWebsocket()", null, new CloudCall<Void>() {
-
-            @Override
-            public Call<Void> call() {
-                return endpoint.getNotifications().deleteWebsocket();
-            }
-        });
-    }
-
-    /**
      * Deletes any notification channel currently in use.
      * 
      */
@@ -2912,11 +2840,6 @@ public class Connect extends AbstractModule {
             deleteLongPollingChannel();
         } catch (MbedCloudException exception) {
             logger.logWarn("Clearing long polling channel", exception);
-        }
-        try {
-            deleteWebsocketChannel();
-        } catch (MbedCloudException exception) {
-            logger.logWarn("Clearing websocket channel", exception);
         }
     }
 

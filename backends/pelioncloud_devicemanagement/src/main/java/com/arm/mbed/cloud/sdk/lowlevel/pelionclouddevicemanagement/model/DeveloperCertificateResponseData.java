@@ -175,11 +175,11 @@ public class DeveloperCertificateResponseData implements Serializable {
     }
 
     /**
-     * ID that uniquely identifies the developer certificate.
+     * mUUID that uniquely identifies the developer certificate.
      * 
      * @return id
      **/
-    @ApiModelProperty(value = "ID that uniquely identifies the developer certificate.")
+    @ApiModelProperty(value = "mUUID that uniquely identifies the developer certificate.")
     public String getId() {
         return id;
     }

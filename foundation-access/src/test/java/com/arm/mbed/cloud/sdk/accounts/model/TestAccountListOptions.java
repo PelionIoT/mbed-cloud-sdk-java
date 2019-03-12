@@ -10,16 +10,18 @@ import org.junit.Test;
 /**
  * Unit tests for Model AccountListOptions.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestAccountListOptions {
     /**
      * Tests the clone method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testClone() {
         try {
-            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(40), Long.valueOf(-84),
+            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(27), Long.valueOf(-61),
                                                                             Order.getDefault(),
-                                                                            "6327f849-1077-486a-8226-3f496f0f2bb7",
+                                                                            "8d542aa7-c0ee-4f45-822b-f4ee52b06026",
                                                                             null, null);
             AccountListOptions accountlistoptions2 = accountlistoptions1.clone();
             assertNotNull(accountlistoptions1);
@@ -34,16 +36,17 @@ public class TestAccountListOptions {
     /**
      * Tests the hashCode method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testHashCode() {
         try {
-            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(-81), Long.valueOf(108),
+            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(-117), Long.valueOf(101),
                                                                             Order.getDefault(),
-                                                                            "d0d16254-f229-40f3-9bd5-dd4340eb08f6",
+                                                                            "e435e332-d862-474c-9325-a0799c02f362",
                                                                             null, null);
-            AccountListOptions accountlistoptions2 = new AccountListOptions(Integer.valueOf(-81), Long.valueOf(108),
+            AccountListOptions accountlistoptions2 = new AccountListOptions(Integer.valueOf(-117), Long.valueOf(101),
                                                                             Order.getDefault(),
-                                                                            "d0d16254-f229-40f3-9bd5-dd4340eb08f6",
+                                                                            "e435e332-d862-474c-9325-a0799c02f362",
                                                                             null, null);
             assertNotNull(accountlistoptions1);
             assertNotNull(accountlistoptions2);
@@ -62,20 +65,21 @@ public class TestAccountListOptions {
     /**
      * Tests the equals method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testEquals() {
         try {
-            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(94), Long.valueOf(-121),
+            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(95), Long.valueOf(59),
                                                                             Order.getDefault(),
-                                                                            "4b990cea-377c-45b7-8441-31039958a230",
+                                                                            "08a68e9d-5b89-44af-9dd7-7722898d41cb",
                                                                             null, null);
-            AccountListOptions accountlistoptions2 = new AccountListOptions(Integer.valueOf(94), Long.valueOf(-121),
+            AccountListOptions accountlistoptions2 = new AccountListOptions(Integer.valueOf(95), Long.valueOf(59),
                                                                             Order.getDefault(),
-                                                                            "4b990cea-377c-45b7-8441-31039958a230",
+                                                                            "08a68e9d-5b89-44af-9dd7-7722898d41cb",
                                                                             null, null);
-            AccountListOptions accountlistoptions3 = new AccountListOptions(Integer.valueOf(-62), Long.valueOf(-127),
+            AccountListOptions accountlistoptions3 = new AccountListOptions(Integer.valueOf(-68), Long.valueOf(2),
                                                                             Order.getDefault(),
-                                                                            "67fc3d95-2b0f-4bc1-9058-9ce32189b321",
+                                                                            "dbc4aba8-32d3-4182-8b70-71d9dbf58546",
                                                                             null, null);
             assertNotNull(accountlistoptions1);
             assertNotNull(accountlistoptions2);

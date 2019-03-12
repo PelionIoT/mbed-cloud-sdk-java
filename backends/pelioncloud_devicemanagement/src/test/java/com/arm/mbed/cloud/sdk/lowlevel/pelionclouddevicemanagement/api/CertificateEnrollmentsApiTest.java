@@ -1,7 +1,6 @@
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,10 +54,10 @@ public class CertificateEnrollmentsApiTest {
         String enrollStatusEq = null;
         String enrollResultNeq = null;
         String enrollResultEq = null;
-        DateTime createdAtLte = null;
-        DateTime createdAtGte = null;
-        DateTime updatedAtLte = null;
-        DateTime updatedAtGte = null;
+        String createdAtLte = null;
+        String createdAtGte = null;
+        String updatedAtLte = null;
+        String updatedAtGte = null;
         // CertificateEnrollmentListResponse response = api.getCertificateEnrollments(deviceIdEq, certificateNameEq,
         // limit, after, order, include, enrollStatusNeq, enrollStatusEq, enrollResultNeq, enrollResultEq, createdAtLte,
         // createdAtGte, updatedAtLte, updatedAtGte);

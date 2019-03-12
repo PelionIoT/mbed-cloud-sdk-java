@@ -10,16 +10,18 @@ import org.junit.Test;
 /**
  * Unit tests for Model UserListOptions.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestUserListOptions {
     /**
      * Tests the clone method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testClone() {
         try {
-            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-10), Long.valueOf(-77),
+            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-58), Long.valueOf(-126),
                                                                    Order.getDefault(),
-                                                                   "69adf002-c196-4922-b32e-2a8ad510ce57", null, null);
+                                                                   "a1edfa9d-b23e-4d58-8e34-c47826e356f1", null, null);
             UserListOptions userlistoptions2 = userlistoptions1.clone();
             assertNotNull(userlistoptions1);
             assertNotNull(userlistoptions2);
@@ -33,15 +35,16 @@ public class TestUserListOptions {
     /**
      * Tests the hashCode method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testHashCode() {
         try {
-            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-117), Long.valueOf(96),
+            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-13), Long.valueOf(-85),
                                                                    Order.getDefault(),
-                                                                   "704ae6d9-f78d-4c48-ae05-92c8ef0090b3", null, null);
-            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-117), Long.valueOf(96),
+                                                                   "2501da96-3d2f-4c9e-90d9-3db631d16edb", null, null);
+            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-13), Long.valueOf(-85),
                                                                    Order.getDefault(),
-                                                                   "704ae6d9-f78d-4c48-ae05-92c8ef0090b3", null, null);
+                                                                   "2501da96-3d2f-4c9e-90d9-3db631d16edb", null, null);
             assertNotNull(userlistoptions1);
             assertNotNull(userlistoptions2);
             assertNotSame(userlistoptions2, userlistoptions1);
@@ -59,18 +62,19 @@ public class TestUserListOptions {
     /**
      * Tests the equals method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testEquals() {
         try {
-            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-17), Long.valueOf(78),
+            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-3), Long.valueOf(-5),
                                                                    Order.getDefault(),
-                                                                   "33103abb-fe22-48e4-97af-d7d6139ced1f", null, null);
-            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-17), Long.valueOf(78),
+                                                                   "c75aded7-4696-4988-b747-885f6a162484", null, null);
+            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-3), Long.valueOf(-5),
                                                                    Order.getDefault(),
-                                                                   "33103abb-fe22-48e4-97af-d7d6139ced1f", null, null);
-            UserListOptions userlistoptions3 = new UserListOptions(Integer.valueOf(-13), Long.valueOf(102),
+                                                                   "c75aded7-4696-4988-b747-885f6a162484", null, null);
+            UserListOptions userlistoptions3 = new UserListOptions(Integer.valueOf(-118), Long.valueOf(111),
                                                                    Order.getDefault(),
-                                                                   "b847c618-4dd7-456c-947b-2fc2eeb3aadc", null, null);
+                                                                   "a0de77b2-67af-4582-be3e-f45530c2b013", null, null);
             assertNotNull(userlistoptions1);
             assertNotNull(userlistoptions2);
             assertNotNull(userlistoptions3);

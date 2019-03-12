@@ -9,10 +9,12 @@ import org.junit.Test;
 /**
  * Unit tests for Model AccountStatus.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestAccountStatus {
     /**
      * Tests the getValue method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testGetValue() {
         try {
@@ -28,7 +30,7 @@ public class TestAccountStatus {
             accountstatus = AccountStatus.getValue("ENROLLING");
             assertNotNull(accountstatus);
             assertFalse(accountstatus.isDefault());
-            accountstatus = AccountStatus.getValue("6a5c1611-4f20-4394-9073-0a0ef87c7ef4");
+            accountstatus = AccountStatus.getValue("9f8f34b6-2c50-489a-ac16-cb7a143a23ed");
             assertNotNull(accountstatus);
             assertTrue(accountstatus.isDefault());
         } catch (Exception exception) {
