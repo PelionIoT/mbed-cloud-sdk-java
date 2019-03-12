@@ -308,7 +308,7 @@ public class ArtifactsTranslator {
                                 new IllegalArgumentException("No filter can be applied to \"" + fieldName
                                                              + "\" as there is no such field in "
                                                              + correspondingModel));
-                return;
+                continue;
             }
             List<String> fieldFilters = filters.getFilters(fieldName);
             if (fieldFilters != null) {

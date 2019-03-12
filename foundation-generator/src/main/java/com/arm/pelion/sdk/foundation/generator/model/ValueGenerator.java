@@ -262,10 +262,7 @@ public class ValueGenerator {
         if (type.isString()) {
             return hasDefaultValue ? "\"" + defaultValue + "\"" : "(String) null";
         }
-        if (type.isList()) {
-            return hasDefaultValue ? defaultValue : "(" + List.class.getName() + "<?>) null";
-        }
-        if (type.isHashtable()) {
+        if (type.isHashtable() || type.isList()) {
             return hasDefaultValue ? defaultValue : "(" + type.getFullyQualifiedName() + ") null";
         }
 
