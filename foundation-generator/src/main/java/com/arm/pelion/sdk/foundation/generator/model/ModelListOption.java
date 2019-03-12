@@ -72,8 +72,8 @@ public class ModelListOption extends Model {
         } else {
             final MethodOverloaded setMethod = new MethodFilterSet(filter, containsCustomCode);
             addMethod(setMethod);
-            final MethodOverloaded fluentMethod = new MethodFilterSetFluent(filter, this, setMethod,
-                                                                            containsCustomCode);
+            final MethodOverloaded fluentMethod = new MethodFilterSetFluent(filter, this, setMethod, containsCustomCode,
+                                                                            false);
             addMethod(fluentMethod);
         }
 
@@ -83,9 +83,12 @@ public class ModelListOption extends Model {
         Arrays.asList(TypeFactory.getCorrespondingType(String.class), new TypeList(filter.getFieldType()),
                       new TypeArray(filter.getFieldType()))
               .forEach(t -> {
-                  final MethodOverloaded setMethod = new MethodFilterSet(filter, t, containsCustomCode);
+                  final MethodOverloaded setMethod = new MethodFilterSet(filter, t, containsCustomCode, true);
+                  if (t.isString()) {
+                      setMethod.setLongDescription("Note: List of values separated by a comma");
+                  }
                   addMethod(setMethod);
-                  addMethod(new MethodFilterSetFluent(filter, t, this, setMethod, containsCustomCode));
+                  addMethod(new MethodFilterSetFluent(filter, t, this, setMethod, containsCustomCode, true));
               });
     }
 

@@ -44,6 +44,7 @@ public class Model extends AbstractSdkArtifact {
     private boolean shouldBeSorted;
     private boolean mayHaveLongLines;
     private boolean isFinal;
+    private boolean ignoreLiteralDuplicate;
     private static final Map<String, Integer> LOOKUP_TABLE = new HashMap<>(26);
     static {
         LOOKUP_TABLE.put("a", Integer.valueOf(1));
@@ -96,6 +97,7 @@ public class Model extends AbstractSdkArtifact {
         setShouldBeSorted(false);
         setMayHaveLongLines(false);
         setFinal(false);
+        setIgnoreLiteralDuplicate(false);
     }
 
     public Model() {
@@ -194,6 +196,14 @@ public class Model extends AbstractSdkArtifact {
 
     public TypeParameter getSuperClassType() {
         return superClassType;
+    }
+
+    public boolean isIgnoreLiteralDuplicate() {
+        return ignoreLiteralDuplicate;
+    }
+
+    public void setIgnoreLiteralDuplicate(boolean ignoreLiteralDuplicate) {
+        this.ignoreLiteralDuplicate = ignoreLiteralDuplicate;
     }
 
     public boolean shouldBeSorted() {
@@ -617,7 +627,7 @@ public class Model extends AbstractSdkArtifact {
         if (hasCyclomaticComplexity()) {
             specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreCyclomaticComplexity());
         }
-        if (hasFieldsWithDefaultValues()) {
+        if (hasFieldsWithDefaultValues() || isIgnoreLiteralDuplicate()) {
             specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreAvoidDuplicateLiterals());
         }
         if (mayHaveLongLines()) {

@@ -20,6 +20,7 @@ public class Utils {
     private static final List<String> VOWELS = Arrays.asList("a", "e", "i", "o", "u");
     private static final List<String> WORD_EXCEPTIONS = Arrays.asList("user");// TODO to extend
     private static final List<String> WORD_OPPOSITE_EXCEPTIONS = Arrays.asList("sdk");// TODO to extend
+    private static final List<String> WORD_PLURAL_EXCEPTIONS = Arrays.asList("status");// TODO to extend
 
     public static <T extends MergeableArtifact> T merge(T artifact1, T artifact2) {
         if (artifact1 == null) {
@@ -110,22 +111,31 @@ public class Utils {
         }
         String text = generateModelNameAsText(modelName);
         if (plural) {
-            final String processedName = modelName.trim().toLowerCase(Locale.UK);
-            if (!processedName.endsWith("s")) {
-                if (processedName.endsWith("y")) {
-                    if (VOWELS.stream().anyMatch(v -> processedName.endsWith(v + "y"))) {
-                        text += "s";
-                    } else {
-                        text = generateModelNameAsText(modelName.trim().substring(0, processedName.length() - 1)
-                                                       + "ies");
-                    }
-                } else {
-                    text += "s";
-                }
-            }
+            text = generatePlural(modelName);
         }
         build.append(text);
         return build.toString();
+    }
+
+    public static String generatePlural(String modelName) {
+        String text = generateModelNameAsText(modelName);
+        final String processedName = modelName.trim().toLowerCase(Locale.UK);
+        if (!processedName.endsWith("s")) {
+            if (processedName.endsWith("y")) {
+                if (VOWELS.stream().anyMatch(v -> processedName.endsWith(v + "y"))) {
+                    text += "s";
+                } else {
+                    text = generateModelNameAsText(modelName.trim().substring(0, processedName.length() - 1) + "ies");
+                }
+            } else {
+                text += "s";
+            }
+        } else {
+            if (WORD_PLURAL_EXCEPTIONS.stream().anyMatch(w -> w.equals(processedName))) {
+                text = processedName + "es";
+            }
+        }
+        return text;
     }
 
     public static String combineNames(boolean capitalAtStart, String name1, String... names) {

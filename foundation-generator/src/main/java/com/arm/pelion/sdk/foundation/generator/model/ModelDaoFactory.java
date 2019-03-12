@@ -13,6 +13,7 @@ public class ModelDaoFactory extends Model {
     public ModelDaoFactory() {
         super();
         setShouldBeSorted(true);
+        setIgnoreLiteralDuplicate(false);
     }
 
     public ModelDaoFactory(String packageName) {
@@ -64,6 +65,7 @@ public class ModelDaoFactory extends Model {
                                             "Gets " + Utils.generateDocumentationString(dao.getName()), null, false,
                                             true, false, false, false, false, false, false);
         daoGetter.addException(MbedCloudException.class);
+        daoGetter.setIgnoreResourceClosure(true);
         TypeParameter daoType = dao.toType();
         try {
             daoType.translate();

@@ -8,8 +8,8 @@ public class MethodFilterSetFluent extends MethodFilterSet {
     private final Method equivalentMethod;
 
     public MethodFilterSetFluent(Filter filter, TypeParameter inputType, Model listOptionModel, Method equivalentMethod,
-                                 boolean containsCustomCode) {
-        super(filter, inputType, generateFluentName(filter), generateDescription(filter), containsCustomCode);
+                                 boolean containsCustomCode, boolean plural) {
+        super(filter, inputType, generateFluentName(filter, plural), generateDescription(filter), containsCustomCode);
         this.equivalentMethod = equivalentMethod;
         setLongDescription(Utils.generateDocumentationMethodLink(listOptionModel, equivalentMethod));
         setReturnType(new TypeGenericParameter(listOptionModel.toImport()));
@@ -19,12 +19,13 @@ public class MethodFilterSetFluent extends MethodFilterSet {
     }
 
     public MethodFilterSetFluent(Filter filter, Model listOptionModel, Method equivalentMethod,
-                                 boolean containsCustomCode) {
-        this(filter, null, listOptionModel, equivalentMethod, containsCustomCode);
+                                 boolean containsCustomCode, boolean plural) {
+        this(filter, null, listOptionModel, equivalentMethod, containsCustomCode, plural);
     }
 
-    private static String generateFluentName(Filter filter) {
-        return Utils.combineNames(false, getFilterOperatorName(filter), filter.getFieldName());
+    private static String generateFluentName(Filter filter, boolean plural) {
+        return Utils.combineNames(false, getFilterOperatorName(filter),
+                                  plural ? Utils.generatePlural(filter.getFieldName()) : filter.getFieldName());
     }
 
     /*

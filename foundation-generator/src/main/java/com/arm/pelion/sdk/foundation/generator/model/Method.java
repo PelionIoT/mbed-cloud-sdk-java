@@ -37,6 +37,7 @@ public class Method extends AbstractSdkArtifact {
     protected final List<Class<?>> exceptions;
     private boolean ignoreShortName;
     private boolean forcePrivate;
+    private boolean ignoreResourceClosure;
 
     public Method(boolean isReadOnly, String name, String description, String longDescription, boolean isStatic,
                   boolean isAccessible, boolean isAbstract, boolean containsCustomCode, boolean needsCustomCode,
@@ -57,6 +58,7 @@ public class Method extends AbstractSdkArtifact {
         setNeedsToBeAtBottomLevel(false);
         setIgnoreShortName(false);
         setForcePrivate(false);
+        setIgnoreResourceClosure(false);
     }
 
     public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride,
@@ -110,6 +112,14 @@ public class Method extends AbstractSdkArtifact {
 
     public void setIgnoreShortName(boolean ignoreShortName) {
         this.ignoreShortName = ignoreShortName;
+    }
+
+    public boolean isIgnoreResourceClosure() {
+        return ignoreResourceClosure;
+    }
+
+    public void setIgnoreResourceClosure(boolean ignoreResourceClosure) {
+        this.ignoreResourceClosure = ignoreResourceClosure;
     }
 
     public boolean isForcePrivate() {
@@ -361,6 +371,9 @@ public class Method extends AbstractSdkArtifact {
         }
         if (isUnchecked) {
             specificationBuilder.addAnnotation(StaticAnalysisUtils.setAsUnchecked());
+        }
+        if (ignoreResourceClosure) {
+            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreResourceClosure());
         }
     }
 

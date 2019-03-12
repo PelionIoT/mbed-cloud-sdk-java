@@ -16,12 +16,12 @@ public class MethodFilterSet extends MethodFilter {
                                    inputType == null ? filter.getFieldType() : inputType, null));
     }
 
-    public MethodFilterSet(Filter filter, TypeParameter inputType, boolean containsCustomCode) {
-        this(filter, inputType, generateName(filter), generateDescription(filter), containsCustomCode);
+    public MethodFilterSet(Filter filter, TypeParameter inputType, boolean containsCustomCode, boolean plural) {
+        this(filter, inputType, generateName(filter, plural), generateDescription(filter), containsCustomCode);
     }
 
     public MethodFilterSet(Filter filter, boolean containsCustomCode) {
-        this(filter, null, containsCustomCode);
+        this(filter, null, containsCustomCode, false);
     }
 
     protected static String generateDescription(Filter filter2) {
@@ -29,8 +29,10 @@ public class MethodFilterSet extends MethodFilter {
                + filter2.getFieldName() + "}";
     }
 
-    protected static String generateName(Filter filter2) {
-        return Utils.combineNames(false, "set", getFilterOperatorName(filter2), filter2.getFieldName(), "filter");
+    protected static String generateName(Filter filter2, boolean plural) {
+        return Utils.combineNames(false, "set", getFilterOperatorName(filter2),
+                                  plural ? Utils.generatePlural(filter2.getFieldName()) : filter2.getFieldName(),
+                                  "filter");
     }
 
     protected static String getFilterOperatorName(Filter filter2) {

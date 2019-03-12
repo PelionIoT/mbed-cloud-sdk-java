@@ -336,6 +336,7 @@ public class ModelTest extends AbstractSdkArtifact {
     protected void generateDocumentation() {
         specificationBuilder.addJavadoc(generateClassJavadocComment(hasDescription(), description, hasLongDescription(),
                                                                     longDescription));
+        specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreAvoidDuplicateLiterals());
     }
 
     public String getPackageName() {
