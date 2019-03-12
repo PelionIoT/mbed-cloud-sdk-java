@@ -72,10 +72,23 @@ public final class SdkUtils {
             if (!start) {
                 buffer.append(separator);
             }
-            buffer.append(element.toString().trim());
+            buffer.append(toSting(element));
             start = false;
         }
         return buffer.toString();
+    }
+
+    private static String toSting(final Object element) {
+        if (element == null) {
+            return null;
+        }
+        if (element instanceof SdkEnum) {
+            return ((SdkEnum) element).getString();
+        }
+        if (element instanceof SdkModel) {
+            return ((SdkModel) element).getId();
+        }
+        return element.toString().trim();
     }
 
     /**

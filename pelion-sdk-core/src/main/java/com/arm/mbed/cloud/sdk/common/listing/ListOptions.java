@@ -1,15 +1,25 @@
 package com.arm.mbed.cloud.sdk.common.listing;
 
+import java.net.URL;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.Order;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.SdkUtils;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
 @Preamble(description = "Options to use when listing objects")
@@ -379,15 +389,46 @@ public class ListOptions extends FilterOptions {
     }
 
     /**
+     * Encodes an "equal" filter.
+     *
+     * @param fieldName
+     *            filter key
+     * @param type
+     *            type of the filter value
+     * @param <T>
+     *            type type of the filter value
+     * @return encoded filter
+     */
+    public @Nullable <T> T encodeSingleEqualFilter(@Nullable String fieldName, Class<T> type) {
+        final Object filterObj = fetchEqualFilterValue(fieldName);
+        return encodeSingleFilter(filterObj, type);
+    }
+
+    /**
      * Gets a string describing an "equal" filter.
      *
      * @param fieldName
      *            filter key
-     * @return string encoded filter
+     * @return encoded string filter
      */
     public @Nullable String encodeSingleEqualFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchEqualFilterValue(fieldName);
-        return encodeSingleFilter(filterObj);
+        return encodeSingleEqualFilter(fieldName, String.class);
+    }
+
+    /**
+     * Encodes a "not equal" filter.
+     * 
+     * @param fieldName
+     *            filter key
+     * @param type
+     *            type of the filter value
+     * @param <T>
+     *            type type of the filter value
+     * @return encoded filter
+     */
+    public @Nullable <T> T encodeSingleNotEqualFilter(@Nullable String fieldName, Class<T> type) {
+        final Object filterObj = fetchNotEqualFilterValue(fieldName);
+        return encodeSingleFilter(filterObj, type);
     }
 
     /**
@@ -398,8 +439,24 @@ public class ListOptions extends FilterOptions {
      * @return string encoded filter
      */
     public @Nullable String encodeSingleNotEqualFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchNotEqualFilterValue(fieldName);
-        return encodeSingleFilter(filterObj);
+        return encodeSingleNotEqualFilter(fieldName, String.class);
+    }
+
+    /**
+     * Encodes a "greater than" filter.
+     * 
+     * @param fieldName
+     *            filter key
+     * 
+     * @param type
+     *            type of the filter value
+     * @param <T>
+     *            type type of the filter value
+     * @return encoded filter
+     */
+    public @Nullable <T> T encodeSingleGreaterThanFilter(@Nullable String fieldName, Class<T> type) {
+        final Object filterObj = fetchGreaterThanFilterValue(fieldName);
+        return encodeSingleFilter(filterObj, type);
     }
 
     /**
@@ -410,8 +467,24 @@ public class ListOptions extends FilterOptions {
      * @return string encoded filter
      */
     public @Nullable String encodeSingleGreaterThanFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchGreaterThanFilterValue(fieldName);
-        return encodeSingleFilter(filterObj);
+        return encodeSingleGreaterThanFilter(fieldName, String.class);
+    }
+
+    /**
+     * Encodes a "less than" filter.
+     * 
+     * @param fieldName
+     *            filter key
+     * 
+     * @param type
+     *            type of the filter value
+     * @param <T>
+     *            type type of the filter value
+     * @return encoded filter
+     */
+    public @Nullable <T> T encodeSingleLessThanFilter(@Nullable String fieldName, Class<T> type) {
+        final Object filterObj = fetchLessThanFilterValue(fieldName);
+        return encodeSingleFilter(filterObj, type);
     }
 
     /**
@@ -422,8 +495,23 @@ public class ListOptions extends FilterOptions {
      * @return string encoded filter
      */
     public @Nullable String encodeSingleLessThanFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchLessThanFilterValue(fieldName);
-        return encodeSingleFilter(filterObj);
+        return encodeSingleLessThanFilter(fieldName, String.class);
+    }
+
+    /**
+     * Encodes a "like" filter.
+     *
+     * @param fieldName
+     *            filter key
+     * @param type
+     *            type of the filter value
+     * @param <T>
+     *            type type of the filter value
+     * @return encoded filter
+     */
+    public @Nullable <T> T encodeSingleLikeFilter(@Nullable String fieldName, Class<T> type) {
+        final Object filterObj = fetchLikeFilterValue(fieldName);
+        return encodeSingleFilter(filterObj, type);
     }
 
     /**
@@ -434,8 +522,26 @@ public class ListOptions extends FilterOptions {
      * @return string encoded filter
      */
     public @Nullable String encodeSingleLikeFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchLikeFilterValue(fieldName);
-        return encodeSingleFilter(filterObj);
+        return encodeSingleLikeFilter(fieldName, String.class);
+
+    }
+
+    /**
+     * Encodes an "In" filter.
+     *
+     * @param fieldName
+     *            filter key
+     * @param fieldName
+     *            filter key
+     * @param type
+     *            type of the filter value
+     * @param <T>
+     *            type type of the filter value
+     * @return encoded filter
+     */
+    public @Nullable <T> T encodeSingleInFilter(@Nullable String fieldName, Class<T> type) {
+        final Object filterObj = fetchInFilterValue(fieldName);
+        return encodeMultipleFilters(filterObj, type);
     }
 
     /**
@@ -446,8 +552,25 @@ public class ListOptions extends FilterOptions {
      * @return string encoded filter
      */
     public @Nullable String encodeSingleInFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchInFilterValue(fieldName);
-        return encodeMultipleFilters(filterObj);
+        return encodeSingleInFilter(fieldName, String.class);
+    }
+
+    /**
+     * Encodes a "Not In" filter.
+     *
+     * @param fieldName
+     *            filter key
+     * @param fieldName
+     *            filter key
+     * @param type
+     *            type of the filter value
+     * @param <T>
+     *            type type of the filter value
+     * @return encoded filter
+     */
+    public @Nullable <T> T encodeSingleNotInFilter(@Nullable String fieldName, Class<T> type) {
+        final Object filterObj = fetchNotInFilterValue(fieldName);
+        return encodeMultipleFilters(filterObj, type);
     }
 
     /**
@@ -458,40 +581,165 @@ public class ListOptions extends FilterOptions {
      * @return string encoded filter
      */
     public @Nullable String encodeSingleNotInFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchNotInFilterValue(fieldName);
-        return encodeMultipleFilters(filterObj);
+        return encodeSingleNotInFilter(fieldName, String.class);
     }
 
-    private String encodeSingleFilter(final Object filterObj) {
-        return (filterObj == null) ? null : filterObj.toString();
+    @SuppressWarnings({ "unchecked", "PMD.CyclomaticComplexity" })
+    private <T> T encodeSingleFilter(final Object filterObj, Class<T> type) {
+        if (filterObj == null || type == null) {
+            return null;
+        }
+        if (String.class.isAssignableFrom(type)) {
+            if (filterObj instanceof String) {
+                return (T) filterObj;
+            }
+            if (filterObj instanceof Boolean) {
+                return (T) ((Boolean) filterObj).toString();
+            }
+            if (filterObj instanceof SdkEnum) {
+                return (T) ((SdkEnum) filterObj).getString();
+            }
+            if (filterObj instanceof SdkModel) {
+                return (T) ((SdkModel) filterObj).getId();
+            }
+            if (filterObj instanceof Date) {
+                return (T) TranslationUtils.toUtcTimestamp((Date) filterObj);
+            }
+            if (filterObj instanceof Calendar) {
+                return (T) TranslationUtils.toUtcTimestamp(TranslationUtils.toDate((Calendar) filterObj));
+            }
+            if (filterObj instanceof URL) {
+                return (T) ((URL) filterObj).toString();
+            }
+            return (T) filterObj.toString();
+        }
+        if (DateTime.class.isAssignableFrom(type)) {
+            if (filterObj instanceof DateTime) {
+                return (T) filterObj;
+            }
+            if (filterObj instanceof LocalDate) {
+                return (T) TranslationUtils.toDateTime(TranslationUtils.toDate((LocalDate) filterObj));
+            }
+            if (filterObj instanceof String) {
+                try {
+                    return (T) TranslationUtils.toDateTime(TranslationUtils.convertStringToDate((String) filterObj));
+                } catch (@SuppressWarnings("unused") MbedCloudException exception) {
+                    // Nothing to do.
+                    return null;
+                }
+            }
+            if (filterObj instanceof Date) {
+                return (T) TranslationUtils.toDateTime((Date) filterObj);
+            }
+            if (filterObj instanceof Number) {
+                return (T) TranslationUtils.toDateTime(TranslationUtils.toDate((Number) filterObj));
+            }
+            return null;
+        }
+        if (LocalDate.class.isAssignableFrom(type)) {
+            if (filterObj instanceof LocalDate) {
+                return (T) filterObj;
+            }
+            if (filterObj instanceof DateTime) {
+                return (T) TranslationUtils.toLocalDate(TranslationUtils.toDate((DateTime) filterObj));
+            }
+            if (filterObj instanceof String) {
+                try {
+                    return (T) TranslationUtils.toLocalDate(TranslationUtils.convertStringToDate((String) filterObj));
+                } catch (@SuppressWarnings("unused") MbedCloudException exception) {
+                    // Nothing to do.
+                    return null;
+                }
+            }
+            if (filterObj instanceof Date) {
+                return (T) TranslationUtils.toLocalDate((Date) filterObj);
+            }
+            if (filterObj instanceof Number) {
+                return (T) TranslationUtils.toLocalDate(TranslationUtils.toDate((Number) filterObj));
+            }
+            return null;
+        }
+        if (Boolean.class.isAssignableFrom(type) || boolean.class.isAssignableFrom(type)) {
+            if (filterObj instanceof String) {
+                return (T) new Boolean(TranslationUtils.toBool((String) filterObj));
+            }
+            if (filterObj instanceof Boolean) {
+                return (T) filterObj;
+            }
+            return null;
+        }
+        if (Integer.class.isAssignableFrom(type) || int.class.isAssignableFrom(type)) {
+            if (filterObj instanceof String) {
+                return (T) new Integer(TranslationUtils.toInt((String) filterObj));
+            }
+            if (filterObj instanceof Number) {
+                return (T) new Integer(TranslationUtils.toInt((Number) filterObj));
+            }
+            return null;
+        }
+        if (Long.class.isAssignableFrom(type) || long.class.isAssignableFrom(type)) {
+            if (filterObj instanceof String) {
+                return (T) new Long(TranslationUtils.toLong((String) filterObj));
+            }
+            if (filterObj instanceof Number) {
+                return (T) new Long(TranslationUtils.toLong((Number) filterObj));
+            }
+            if (filterObj instanceof Date) {
+                return (T) new Long(TranslationUtils.toLong((Date) filterObj));
+            }
+            return null;
+        }
+        if (Double.class.isAssignableFrom(type) || double.class.isAssignableFrom(type)) {
+            if (filterObj instanceof String) {
+                return (T) new Double(TranslationUtils.toDouble((String) filterObj));
+            }
+            if (filterObj instanceof Number) {
+                return (T) new Double(TranslationUtils.toDouble((Number) filterObj));
+            }
+        }
+
+        return null;
     }
 
     @SuppressWarnings("rawtypes")
-    private String encodeMultipleFilters(final Object filterObj) {
+    private <T> T encodeMultipleFilters(final Object filterObj, Class<T> type) {
         if (filterObj == null) {
             return null;
         }
         if (filterObj instanceof List) {
-            return encodeList((List) filterObj);
+            return encodeList((List) filterObj, type);
         }
         if (filterObj.getClass().isArray()) {
-            return encodeArray(filterObj);
+            return encodeArray(filterObj, type);
         }
-        return encodeSingleFilter(filterObj);
+        return encodeSingleFilter(filterObj, type);
     }
 
-    private String encodeArray(Object filterObj) {
+    private <T> T encodeArray(Object filterObj, Class<T> type) {
         if (filterObj instanceof String[]) {
-            return encodeList(Arrays.asList((String[]) filterObj));
+            return encodeList(Arrays.asList((String[]) filterObj), type);
         }
         if (filterObj instanceof Object[]) {
-            return encodeList(Arrays.asList(((Object[]) filterObj)));
+            return encodeList(Arrays.asList(((Object[]) filterObj)), type);
         }
         return null;
     }
 
-    private String encodeList(List<?> filterObj) {
-        return SdkUtils.joinList(filterObj, ",");
+    @SuppressWarnings("unchecked")
+    private <T> T encodeList(List<?> filterObj, Class<T> type) {
+        if (String.class.isAssignableFrom(type)) {
+            return (T) SdkUtils.joinList(filterObj, ",");
+        }
+        if (List.class.isAssignableFrom(type)) {
+            if (filterObj.getClass().isArray()) {
+                return (T) Arrays.asList(filterObj);
+            }
+            return (T) filterObj;
+        }
+        if (type.isArray()) {
+            return (T) filterObj.toArray();
+        }
+        return null;
     }
 
     /**

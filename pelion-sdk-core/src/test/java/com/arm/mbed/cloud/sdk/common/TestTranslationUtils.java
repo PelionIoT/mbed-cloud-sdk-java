@@ -123,6 +123,30 @@ public class TestTranslationUtils {
         assertEquals(longValue, TranslationUtils.toLong(longString, 0));
         assertEquals(0, TranslationUtils.toLong("454.4554", 0));
         assertEquals(10, TranslationUtils.toLong("fsdlfsfkls", 10));
+        assertEquals(1000, TranslationUtils.toLong(new Date(1000)));
+    }
+
+    @SuppressWarnings("boxing")
+    @Test
+    public void testToBoolConversion() {
+        boolean bool = true;
+        String boolString = String.valueOf(bool);
+        assertEquals(bool, TranslationUtils.toBool(boolString, false));
+        assertEquals(false, TranslationUtils.toBool("454.4554", false));
+        assertEquals(true, TranslationUtils.toBool("fsdlfsfkls", true));
+    }
+
+    @Test
+    public void testToDoubleConversion() {
+        double doubleValue = 156433465.45464564;
+        String doubleString = String.valueOf(doubleValue);
+        assertEquals(doubleValue, TranslationUtils.toDouble(doubleString, 0), 0);
+        doubleValue = Double.MAX_VALUE;
+        doubleString = String.valueOf(doubleValue);
+        assertEquals(doubleValue, TranslationUtils.toDouble(doubleString, 0), 0);
+        assertEquals(10.0, TranslationUtils.toDouble(new Integer(10)), 0);
+        assertEquals(10, TranslationUtils.toDouble("fsdlfsfkls", 10), 0);
+        assertEquals(0.0, TranslationUtils.toDouble("fsdlfsfkls"), 0);
     }
 
     @Test
@@ -195,11 +219,10 @@ public class TestTranslationUtils {
         assertEquals("http://localhost:80/", TranslationUtils.toString(url));
     }
 
-    @SuppressWarnings("boxing")
     @Test
     public void testConvertToInteger() {
-        assertEquals(1234, (int) TranslationUtils.toInt(" 1234 ", 0));
-        assertEquals(0, (int) TranslationUtils.toInt(" 1p234 ", 0));
+        assertEquals(1234, TranslationUtils.toInt(" 1234 ", 0));
+        assertEquals(0, TranslationUtils.toInt(" 1p234 ", 0));
     }
 
     @Test
@@ -208,7 +231,7 @@ public class TestTranslationUtils {
         Date date = null;
         try {
             date = TranslationUtils.convertTimestamp(timestamp, new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z"));
-        } catch (Exception e) {
+        } catch (@SuppressWarnings("unused") Exception e) {
             fail("Could not convert date");
         }
         Calendar calendar = Calendar.getInstance();

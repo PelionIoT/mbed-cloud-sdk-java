@@ -8,7 +8,7 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 public enum FilterOperator implements SdkEnum {
 
     NOT_EQUAL("not equal to", FilterMarshaller.SUFFIX_SEPARATOR + "neq", "$neq"),
-    EQUAL("equal to", null, "$eq"),
+    EQUAL("equal to", FilterMarshaller.SUFFIX_SEPARATOR + "eq", "$eq"),
     GREATER_THAN("greater than", FilterMarshaller.SUFFIX_SEPARATOR + "gte", "$gte"),
     LESS_THAN("less than", FilterMarshaller.SUFFIX_SEPARATOR + "lte", "$lte"),
     LIKE("like", FilterMarshaller.SUFFIX_SEPARATOR + "like", "$like"),

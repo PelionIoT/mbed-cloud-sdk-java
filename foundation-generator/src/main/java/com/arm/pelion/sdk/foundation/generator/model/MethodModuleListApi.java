@@ -147,15 +147,24 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
         if (listOptions.isFilterParameter(parameterName)) {
             final Filter correspondingFilter = listOptions.getCorrespondingFilter(parameterName);
             if (correspondingFilter != null) {
-                // finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER),
-                builder.append("$L.$L($T.$L)");
+                // example finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER),
+                if (type.isString()) {
+                    builder.append("$L.$L($T.$L)");
+                } else {
+                    builder.append("$L.$L($T.$L, $T.class)");
+                }
                 callElements.add(method.generateFinalVariable(PARAMETER_NAME_OPTIONS));
                 callElements.add(correspondingFilter.getEncodingMethodName());
                 final TypeParameter optionsType = listOptions.toType();
                 optionsType.translate();
                 callElements.add(optionsType.hasClazz() ? optionsType.getClazz() : optionsType.getTypeName());
                 callElements.add(correspondingFilter.getTag().getIdentifier());
+                if (!type.isString()) {
+                    type.translate();
+                    callElements.add(type.hasClazz() ? type.getClazz() : type.getTypeName());
+                }
                 return;
+
             }
         }
         switch (parameterName) {
