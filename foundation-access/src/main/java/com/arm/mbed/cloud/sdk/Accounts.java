@@ -1281,7 +1281,7 @@ public class Accounts extends AbstractModule {
      * Lists accounts matching filter options.
      * <p>
      * Similar to
-     * {@link #listAccounts(String, String, String, String, String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
+     * {@link #listAccounts(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
      * 
      * @param options
      *            list options.
@@ -1290,8 +1290,7 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public ListResponse<Account> listAccounts(@Nullable AccountListOptions options) throws MbedCloudException {
-        return listAccounts((String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
-                            (String) null, (String) null, (String) null, options);
+        return listAccounts((String) null, (String) null, (String) null, (String) null, (String) null, options);
     }
 
     /**
@@ -1305,14 +1304,6 @@ public class Accounts extends AbstractModule {
      *            Format information for the response to the query, supported: format=breakdown.
      * @param properties
      *            Property name to be returned from account specific properties.
-     * @param statusEq
-     *            null
-     * @param statusIn
-     *            null
-     * @param statusNin
-     *            null
-     * @param tierEq
-     *            null
      * @param parentEq
      *            null
      * @param endMarketEq
@@ -1325,17 +1316,12 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public ListResponse<Account>
-           listAccounts(@Nullable String format, @Nullable String properties, @Nullable String statusEq,
-                        @Nullable String statusIn, @Nullable String statusNin, @Nullable String tierEq,
-                        @Nullable String parentEq, @Nullable String endMarketEq, @Nullable String countryLike,
-                        @Nullable AccountListOptions options) throws MbedCloudException {
+    public ListResponse<Account> listAccounts(@Nullable String format, @Nullable String properties,
+                                              @Nullable String parentEq, @Nullable String endMarketEq,
+                                              @Nullable String countryLike,
+                                              @Nullable AccountListOptions options) throws MbedCloudException {
         final String finalFormat = format;
         final String finalProperties = properties;
-        final String finalStatusEq = statusEq;
-        final String finalStatusIn = statusIn;
-        final String finalStatusNin = statusNin;
-        final String finalTierEq = tierEq;
         final String finalParentEq = parentEq;
         final String finalEndMarketEq = endMarketEq;
         final String finalCountryLike = countryLike;
@@ -1350,8 +1336,11 @@ public class Accounts extends AbstractModule {
                                     @Override
                                     public Call<AccountInfoList> call() {
                                         return endpoints.getAggregatorAccountAdminApi()
-                                                        .getAllAccounts(finalStatusEq, finalStatusIn, finalStatusNin,
-                                                                        finalTierEq, finalParentEq, finalEndMarketEq,
+                                                        .getAllAccounts(finalOptions.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_STATUS),
+                                                                        finalOptions.encodeSingleInFilter(AccountListOptions.TAG_FILTER_BY_STATUS),
+                                                                        finalOptions.encodeSingleNotInFilter(AccountListOptions.TAG_FILTER_BY_STATUS),
+                                                                        finalOptions.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_TIER),
+                                                                        finalParentEq, finalEndMarketEq,
                                                                         finalCountryLike, finalOptions.getPageSize(),
                                                                         finalOptions.getAfter(),
                                                                         finalOptions.getOrder().toString(),
@@ -1365,7 +1354,7 @@ public class Accounts extends AbstractModule {
      * Creates a {@link Paginator} for the list of accounts matching filter options.
      * <p>
      * Similar to
-     * {@link #listAllAccounts(String, String, String, String, String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
+     * {@link #listAllAccounts(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
      * 
      * @param options
      *            list options.
@@ -1374,8 +1363,7 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public Paginator<Account> listAllAccounts(@Nullable AccountListOptions options) throws MbedCloudException {
-        return listAllAccounts((String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
-                               (String) null, (String) null, (String) null, options);
+        return listAllAccounts((String) null, (String) null, (String) null, (String) null, (String) null, options);
     }
 
     /**
@@ -1387,14 +1375,6 @@ public class Accounts extends AbstractModule {
      *            Format information for the response to the query, supported: format=breakdown.
      * @param properties
      *            Property name to be returned from account specific properties.
-     * @param statusEq
-     *            null
-     * @param statusIn
-     *            null
-     * @param statusNin
-     *            null
-     * @param tierEq
-     *            null
      * @param parentEq
      *            null
      * @param endMarketEq
@@ -1407,17 +1387,12 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public Paginator<Account>
-           listAllAccounts(@Nullable String format, @Nullable String properties, @Nullable String statusEq,
-                           @Nullable String statusIn, @Nullable String statusNin, @Nullable String tierEq,
-                           @Nullable String parentEq, @Nullable String endMarketEq, @Nullable String countryLike,
-                           @Nullable AccountListOptions options) throws MbedCloudException {
+    public Paginator<Account> listAllAccounts(@Nullable String format, @Nullable String properties,
+                                              @Nullable String parentEq, @Nullable String endMarketEq,
+                                              @Nullable String countryLike,
+                                              @Nullable AccountListOptions options) throws MbedCloudException {
         final String finalFormat = format;
         final String finalProperties = properties;
-        final String finalStatusEq = statusEq;
-        final String finalStatusIn = statusIn;
-        final String finalStatusNin = statusNin;
-        final String finalTierEq = tierEq;
         final String finalParentEq = parentEq;
         final String finalEndMarketEq = endMarketEq;
         final String finalCountryLike = countryLike;
@@ -1432,8 +1407,7 @@ public class Accounts extends AbstractModule {
              */
             @Override
             public ListResponse<Account> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listAccounts(finalFormat, finalProperties, finalStatusEq, finalStatusIn, finalStatusNin,
-                                    finalTierEq, finalParentEq, finalEndMarketEq, finalCountryLike,
+                return listAccounts(finalFormat, finalProperties, finalParentEq, finalEndMarketEq, finalCountryLike,
                                     (AccountListOptions) options);
             }
         });
@@ -1442,7 +1416,7 @@ public class Accounts extends AbstractModule {
     /**
      * Creates a {@link Paginator} for the list of api keys matching filter options.
      * <p>
-     * Similar to {@link #listAllApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
+     * Gets an iterator over all api keys matching filter options.
      * 
      * @param options
      *            list options.
@@ -1451,28 +1425,6 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public Paginator<ApiKey> listAllApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
-        return listAllApiKeys((String) null, (String) null, options);
-    }
-
-    /**
-     * Creates a {@link Paginator} for the list of api keys matching filter options.
-     * <p>
-     * Gets an iterator over all api keys matching filter options.
-     * 
-     * @param keyEq
-     *            null
-     * @param ownerEq
-     *            null
-     * @param options
-     *            list options.
-     * @return paginator over the list of api keys
-     */
-    @API
-    @Nullable
-    public Paginator<ApiKey> listAllApiKeys(@Nullable String keyEq, @Nullable String ownerEq,
-                                            @Nullable ApiKeyListOptions options) throws MbedCloudException {
-        final String finalKeyEq = keyEq;
-        final String finalOwnerEq = ownerEq;
         final ApiKeyListOptions finalOptions = (options == null) ? new ApiKeyListOptions() : options;
         return new Paginator<ApiKey>(finalOptions, new PageRequester<ApiKey>() {
             /**
@@ -1484,7 +1436,7 @@ public class Accounts extends AbstractModule {
              */
             @Override
             public ListResponse<ApiKey> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listApiKeys(finalKeyEq, finalOwnerEq, (ApiKeyListOptions) options);
+                return listApiKeys((ApiKeyListOptions) options);
             }
         });
     }
@@ -1604,7 +1556,9 @@ public class Accounts extends AbstractModule {
     /**
      * Lists api keys matching filter options.
      * <p>
-     * Similar to {@link #listApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
+     * An endpoint for retrieving API keys in an array, optionally filtered by the owner.
+     * 
+     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer API_KEY'`
      * 
      * @param options
      *            list options.
@@ -1613,30 +1567,6 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public ListResponse<ApiKey> listApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
-        return listApiKeys((String) null, (String) null, options);
-    }
-
-    /**
-     * Lists api keys matching filter options.
-     * <p>
-     * An endpoint for retrieving API keys in an array, optionally filtered by the owner.
-     * 
-     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H 'Authorization: Bearer API_KEY'`
-     * 
-     * @param keyEq
-     *            null
-     * @param ownerEq
-     *            null
-     * @param options
-     *            list options.
-     * @return the list of api keys corresponding to filter options (One page).
-     */
-    @API
-    @Nullable
-    public ListResponse<ApiKey> listApiKeys(@Nullable String keyEq, @Nullable String ownerEq,
-                                            @Nullable ApiKeyListOptions options) throws MbedCloudException {
-        final String finalKeyEq = keyEq;
-        final String finalOwnerEq = ownerEq;
         final ApiKeyListOptions finalOptions = (options == null) ? new ApiKeyListOptions() : options;
         return CloudCaller.call(this, "listApiKeys()", ApiKeyAdapter.getListMapper(),
                                 new CloudRequest.CloudCall<ApiKeyInfoRespList>() {
@@ -1647,12 +1577,13 @@ public class Accounts extends AbstractModule {
                                      */
                                     @Override
                                     public Call<ApiKeyInfoRespList> call() {
-                                        return endpoints.getDeveloperApi().getAllApiKeys(finalOptions.getPageSize(),
-                                                                                         finalOptions.getAfter(),
-                                                                                         finalOptions.getOrder()
-                                                                                                     .toString(),
-                                                                                         finalOptions.encodeInclude(),
-                                                                                         finalKeyEq, finalOwnerEq);
+                                        return endpoints.getDeveloperApi()
+                                                        .getAllApiKeys(finalOptions.getPageSize(),
+                                                                       finalOptions.getAfter(),
+                                                                       finalOptions.getOrder().toString(),
+                                                                       finalOptions.encodeInclude(),
+                                                                       finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.TAG_FILTER_BY_KEY),
+                                                                       finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.TAG_FILTER_BY_OWNER));
                                     }
                                 });
     }

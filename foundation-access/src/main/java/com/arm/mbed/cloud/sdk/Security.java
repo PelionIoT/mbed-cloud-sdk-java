@@ -15,7 +15,6 @@ import com.arm.mbed.cloud.sdk.common.CloudRequest;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
-import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
@@ -51,8 +50,8 @@ import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate;
 import com.arm.mbed.cloud.sdk.security.model.TrustedCertificate;
 import com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions;
 import com.arm.mbed.cloud.sdk.security.model.VerificationResponse;
-import java.util.Date;
 import java.util.Map;
+import org.joda.time.DateTime;
 import retrofit2.Call;
 
 /**
@@ -948,8 +947,7 @@ public class Security extends AbstractModule {
     /**
      * Creates a {@link Paginator} for the list of certificate enrollments matching filter options.
      * <p>
-     * Similar to
-     * {@link #listAllCertificateEnrollments(String, String, String, String, String, String, java.util.Date, java.util.Date, java.util.Date, java.util.Date, com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions)}
+     * Gets an iterator over all certificate enrollments matching filter options.
      * 
      * @param options
      *            list options.
@@ -959,59 +957,6 @@ public class Security extends AbstractModule {
     @Nullable
     public Paginator<CertificateEnrollment>
            listAllCertificateEnrollments(@Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
-        return listAllCertificateEnrollments((String) null, (String) null, (String) null, (String) null, (String) null,
-                                             (String) null, new java.util.Date(), new java.util.Date(),
-                                             new java.util.Date(), new java.util.Date(), options);
-    }
-
-    /**
-     * Creates a {@link Paginator} for the list of certificate enrollments matching filter options.
-     * <p>
-     * Gets an iterator over all certificate enrollments matching filter options.
-     * 
-     * @param deviceIdEq
-     *            null
-     * @param certificateNameEq
-     *            null
-     * @param enrollStatusNeq
-     *            null
-     * @param enrollStatusEq
-     *            null
-     * @param enrollResultNeq
-     *            null
-     * @param enrollResultEq
-     *            null
-     * @param createdAtLte
-     *            null
-     * @param createdAtGte
-     *            null
-     * @param updatedAtLte
-     *            null
-     * @param updatedAtGte
-     *            null
-     * @param options
-     *            list options.
-     * @return paginator over the list of certificate enrollments
-     */
-    @API
-    @Nullable
-    public Paginator<CertificateEnrollment>
-           listAllCertificateEnrollments(@Nullable String deviceIdEq, @Nullable String certificateNameEq,
-                                         @Nullable String enrollStatusNeq, @Nullable String enrollStatusEq,
-                                         @Nullable String enrollResultNeq, @Nullable String enrollResultEq,
-                                         @Nullable Date createdAtLte, @Nullable Date createdAtGte,
-                                         @Nullable Date updatedAtLte, @Nullable Date updatedAtGte,
-                                         @Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
-        final String finalDeviceIdEq = deviceIdEq;
-        final String finalCertificateNameEq = certificateNameEq;
-        final String finalEnrollStatusNeq = enrollStatusNeq;
-        final String finalEnrollStatusEq = enrollStatusEq;
-        final String finalEnrollResultNeq = enrollResultNeq;
-        final String finalEnrollResultEq = enrollResultEq;
-        final Date finalCreatedAtLte = createdAtLte;
-        final Date finalCreatedAtGte = createdAtGte;
-        final Date finalUpdatedAtLte = updatedAtLte;
-        final Date finalUpdatedAtGte = updatedAtGte;
         final CertificateEnrollmentListOptions finalOptions = (options == null) ? new CertificateEnrollmentListOptions()
                                                                                 : options;
         return new Paginator<CertificateEnrollment>(finalOptions, new PageRequester<CertificateEnrollment>() {
@@ -1024,10 +969,7 @@ public class Security extends AbstractModule {
              */
             @Override
             public ListResponse<CertificateEnrollment> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listCertificateEnrollments(finalDeviceIdEq, finalCertificateNameEq, finalEnrollStatusNeq,
-                                                  finalEnrollStatusEq, finalEnrollResultNeq, finalEnrollResultEq,
-                                                  finalCreatedAtLte, finalCreatedAtGte, finalUpdatedAtLte,
-                                                  finalUpdatedAtGte, (CertificateEnrollmentListOptions) options);
+                return listCertificateEnrollments((CertificateEnrollmentListOptions) options);
             }
         });
     }
@@ -1118,8 +1060,6 @@ public class Security extends AbstractModule {
      * <p>
      * Gets an iterator over all trusted certificates matching filter options.
      * 
-     * @param nameEq
-     *            null
      * @param serviceEq
      *            null
      * @param expireEq
@@ -1138,8 +1078,6 @@ public class Security extends AbstractModule {
      *            null
      * @param subjectLike
      *            null
-     * @param validEq
-     *            null
      * @param options
      *            list options.
      * @return paginator over the list of trusted certificates
@@ -1147,13 +1085,12 @@ public class Security extends AbstractModule {
     @API
     @Nullable
     public Paginator<TrustedCertificate>
-           listAllTrustedCertificates(@Nullable String nameEq, @Nullable String serviceEq, @Nullable Integer expireEq,
+           listAllTrustedCertificates(@Nullable String serviceEq, @Nullable Integer expireEq,
                                       @Nullable Integer deviceExecutionModeEq, @Nullable Integer deviceExecutionModeNeq,
                                       @Nullable String ownerEq, @Nullable Boolean enrollmentModeEq,
                                       @Nullable String statusEq, @Nullable String issuerLike,
-                                      @Nullable String subjectLike, @Nullable Boolean validEq,
+                                      @Nullable String subjectLike,
                                       @Nullable TrustedCertificateListOptions options) throws MbedCloudException {
-        final String finalNameEq = nameEq;
         final String finalServiceEq = serviceEq;
         final Integer finalExpireEq = expireEq;
         final Integer finalDeviceExecutionModeEq = deviceExecutionModeEq;
@@ -1163,7 +1100,6 @@ public class Security extends AbstractModule {
         final String finalStatusEq = statusEq;
         final String finalIssuerLike = issuerLike;
         final String finalSubjectLike = subjectLike;
-        final Boolean finalValidEq = validEq;
         final TrustedCertificateListOptions finalOptions = (options == null) ? new TrustedCertificateListOptions()
                                                                              : options;
         return new Paginator<TrustedCertificate>(finalOptions, new PageRequester<TrustedCertificate>() {
@@ -1176,9 +1112,9 @@ public class Security extends AbstractModule {
              */
             @Override
             public ListResponse<TrustedCertificate> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listTrustedCertificates(finalNameEq, finalServiceEq, finalExpireEq, finalDeviceExecutionModeEq,
+                return listTrustedCertificates(finalServiceEq, finalExpireEq, finalDeviceExecutionModeEq,
                                                finalDeviceExecutionModeNeq, finalOwnerEq, finalEnrollmentModeEq,
-                                               finalStatusEq, finalIssuerLike, finalSubjectLike, finalValidEq,
+                                               finalStatusEq, finalIssuerLike, finalSubjectLike,
                                                (TrustedCertificateListOptions) options);
             }
         });
@@ -1188,7 +1124,7 @@ public class Security extends AbstractModule {
      * Creates a {@link Paginator} for the list of trusted certificates matching filter options.
      * <p>
      * Similar to
-     * {@link #listAllTrustedCertificates(String, String, Integer, Integer, Integer, String, Boolean, String, String, String, Boolean, com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions)}
+     * {@link #listAllTrustedCertificates(String, Integer, Integer, Integer, String, Boolean, String, String, String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions)}
      * 
      * @param options
      *            list options.
@@ -1198,27 +1134,8 @@ public class Security extends AbstractModule {
     @Nullable
     public Paginator<TrustedCertificate>
            listAllTrustedCertificates(@Nullable TrustedCertificateListOptions options) throws MbedCloudException {
-        return listAllTrustedCertificates((String) null, (String) null, 0, 0, 0, (String) null, false, (String) null,
-                                          (String) null, (String) null, false, options);
-    }
-
-    /**
-     * Lists certificate enrollments matching filter options.
-     * <p>
-     * Similar to
-     * {@link #listCertificateEnrollments(String, String, String, String, String, String, java.util.Date, java.util.Date, java.util.Date, java.util.Date, com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions)}
-     * 
-     * @param options
-     *            list options.
-     * @return the list of certificate enrollments corresponding to filter options (One page).
-     */
-    @API
-    @Nullable
-    public ListResponse<CertificateEnrollment>
-           listCertificateEnrollments(@Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
-        return listCertificateEnrollments((String) null, (String) null, (String) null, (String) null, (String) null,
-                                          (String) null, new java.util.Date(), new java.util.Date(),
-                                          new java.util.Date(), new java.util.Date(), options);
+        return listAllTrustedCertificates((String) null, 0, 0, 0, (String) null, false, (String) null, (String) null,
+                                          (String) null, options);
     }
 
     /**
@@ -1234,26 +1151,6 @@ public class Security extends AbstractModule {
      * access token]'
      * https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000 ```
      * 
-     * @param deviceIdEq
-     *            null
-     * @param certificateNameEq
-     *            null
-     * @param enrollStatusNeq
-     *            null
-     * @param enrollStatusEq
-     *            null
-     * @param enrollResultNeq
-     *            null
-     * @param enrollResultEq
-     *            null
-     * @param createdAtLte
-     *            null
-     * @param createdAtGte
-     *            null
-     * @param updatedAtLte
-     *            null
-     * @param updatedAtGte
-     *            null
      * @param options
      *            list options.
      * @return the list of certificate enrollments corresponding to filter options (One page).
@@ -1261,22 +1158,7 @@ public class Security extends AbstractModule {
     @API
     @Nullable
     public ListResponse<CertificateEnrollment>
-           listCertificateEnrollments(@Nullable String deviceIdEq, @Nullable String certificateNameEq,
-                                      @Nullable String enrollStatusNeq, @Nullable String enrollStatusEq,
-                                      @Nullable String enrollResultNeq, @Nullable String enrollResultEq,
-                                      @Nullable Date createdAtLte, @Nullable Date createdAtGte,
-                                      @Nullable Date updatedAtLte, @Nullable Date updatedAtGte,
-                                      @Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
-        final String finalDeviceIdEq = deviceIdEq;
-        final String finalCertificateNameEq = certificateNameEq;
-        final String finalEnrollStatusNeq = enrollStatusNeq;
-        final String finalEnrollStatusEq = enrollStatusEq;
-        final String finalEnrollResultNeq = enrollResultNeq;
-        final String finalEnrollResultEq = enrollResultEq;
-        final Date finalCreatedAtLte = createdAtLte;
-        final Date finalCreatedAtGte = createdAtGte;
-        final Date finalUpdatedAtLte = updatedAtLte;
-        final Date finalUpdatedAtGte = updatedAtGte;
+           listCertificateEnrollments(@Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
         final CertificateEnrollmentListOptions finalOptions = (options == null) ? new CertificateEnrollmentListOptions()
                                                                                 : options;
         return CloudCaller.call(this, "listCertificateEnrollments()", CertificateEnrollmentAdapter.getListMapper(),
@@ -1289,20 +1171,24 @@ public class Security extends AbstractModule {
                                     @Override
                                     public Call<CertificateEnrollmentListResponse> call() {
                                         return endpoints.getCertificateEnrollmentsApi()
-                                                        .getCertificateEnrollments(finalDeviceIdEq,
-                                                                                   finalCertificateNameEq,
+                                                        .getCertificateEnrollments(finalOptions.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_DEVICE_ID),
+                                                                                   finalOptions.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CERTIFICATE_NAME),
                                                                                    finalOptions.getPageSize(),
                                                                                    finalOptions.getAfter(),
                                                                                    finalOptions.getOrder().toString(),
                                                                                    finalOptions.encodeInclude(),
-                                                                                   finalEnrollStatusNeq,
-                                                                                   finalEnrollStatusEq,
-                                                                                   finalEnrollResultNeq,
-                                                                                   finalEnrollResultEq,
-                                                                                   TranslationUtils.toDateTime(finalCreatedAtLte),
-                                                                                   TranslationUtils.toDateTime(finalCreatedAtGte),
-                                                                                   TranslationUtils.toDateTime(finalUpdatedAtLte),
-                                                                                   TranslationUtils.toDateTime(finalUpdatedAtGte));
+                                                                                   finalOptions.encodeSingleNotEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_STATUS),
+                                                                                   finalOptions.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_STATUS),
+                                                                                   finalOptions.encodeSingleNotEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_RESULT),
+                                                                                   finalOptions.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_RESULT),
+                                                                                   finalOptions.encodeSingleLessThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                                           DateTime.class),
+                                                                                   finalOptions.encodeSingleGreaterThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                                              DateTime.class),
+                                                                                   finalOptions.encodeSingleLessThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                                           DateTime.class),
+                                                                                   finalOptions.encodeSingleGreaterThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                                              DateTime.class));
                                     }
                                 });
     }
@@ -1411,8 +1297,6 @@ public class Security extends AbstractModule {
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H 'Authorization: Bearer
      * API_KEY'`
      * 
-     * @param nameEq
-     *            null
      * @param serviceEq
      *            null
      * @param expireEq
@@ -1431,8 +1315,6 @@ public class Security extends AbstractModule {
      *            null
      * @param subjectLike
      *            null
-     * @param validEq
-     *            null
      * @param options
      *            list options.
      * @return the list of trusted certificates corresponding to filter options (One page).
@@ -1440,13 +1322,11 @@ public class Security extends AbstractModule {
     @API
     @Nullable
     public ListResponse<TrustedCertificate>
-           listTrustedCertificates(@Nullable String nameEq, @Nullable String serviceEq, @Nullable Integer expireEq,
+           listTrustedCertificates(@Nullable String serviceEq, @Nullable Integer expireEq,
                                    @Nullable Integer deviceExecutionModeEq, @Nullable Integer deviceExecutionModeNeq,
                                    @Nullable String ownerEq, @Nullable Boolean enrollmentModeEq,
                                    @Nullable String statusEq, @Nullable String issuerLike, @Nullable String subjectLike,
-                                   @Nullable Boolean validEq,
                                    @Nullable TrustedCertificateListOptions options) throws MbedCloudException {
-        final String finalNameEq = nameEq;
         final String finalServiceEq = serviceEq;
         final Integer finalExpireEq = expireEq;
         final Integer finalDeviceExecutionModeEq = deviceExecutionModeEq;
@@ -1456,7 +1336,6 @@ public class Security extends AbstractModule {
         final String finalStatusEq = statusEq;
         final String finalIssuerLike = issuerLike;
         final String finalSubjectLike = subjectLike;
-        final Boolean finalValidEq = validEq;
         final TrustedCertificateListOptions finalOptions = (options == null) ? new TrustedCertificateListOptions()
                                                                              : options;
         return CloudCaller.call(this, "listTrustedCertificates()", TrustedCertificateAdapter.getListMapper(),
@@ -1472,13 +1351,15 @@ public class Security extends AbstractModule {
                                                         .getAllCertificates(finalOptions.getPageSize(),
                                                                             finalOptions.getAfter(),
                                                                             finalOptions.getOrder().toString(),
-                                                                            finalOptions.encodeInclude(), finalNameEq,
+                                                                            finalOptions.encodeInclude(),
+                                                                            finalOptions.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_NAME),
                                                                             finalServiceEq, finalExpireEq,
                                                                             finalDeviceExecutionModeEq,
                                                                             finalDeviceExecutionModeNeq, finalOwnerEq,
                                                                             finalEnrollmentModeEq, finalStatusEq,
                                                                             finalIssuerLike, finalSubjectLike,
-                                                                            finalValidEq);
+                                                                            finalOptions.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_VALID,
+                                                                                                                 Boolean.class));
                                     }
                                 });
     }
@@ -1487,7 +1368,7 @@ public class Security extends AbstractModule {
      * Lists trusted certificates matching filter options.
      * <p>
      * Similar to
-     * {@link #listTrustedCertificates(String, String, Integer, Integer, Integer, String, Boolean, String, String, String, Boolean, com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions)}
+     * {@link #listTrustedCertificates(String, Integer, Integer, Integer, String, Boolean, String, String, String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions)}
      * 
      * @param options
      *            list options.
@@ -1497,8 +1378,8 @@ public class Security extends AbstractModule {
     @Nullable
     public ListResponse<TrustedCertificate>
            listTrustedCertificates(@Nullable TrustedCertificateListOptions options) throws MbedCloudException {
-        return listTrustedCertificates((String) null, (String) null, 0, 0, 0, (String) null, false, (String) null,
-                                       (String) null, (String) null, false, options);
+        return listTrustedCertificates((String) null, 0, 0, 0, (String) null, false, (String) null, (String) null,
+                                       (String) null, options);
     }
 
     /**
