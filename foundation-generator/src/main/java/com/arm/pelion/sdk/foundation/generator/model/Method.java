@@ -348,8 +348,8 @@ public class Method extends AbstractSdkArtifact {
         addAnnotations();
     }
 
-    protected void addExceptions() {
-        exceptions.forEach(e -> specificationBuilder.addException(e));
+    public boolean throwsExceptions() {
+        return !exceptions.isEmpty();
     }
 
     protected void addAnnotations() {
@@ -378,7 +378,7 @@ public class Method extends AbstractSdkArtifact {
         }
     }
 
-    protected void addParameters() throws TranslationException {
+    protected void defineMethod() throws TranslationException {
         final Map<TypeParameter, Boolean> definedTypes = new HashMap<>();
         if (hasDescription()) {
             specificationBuilder.addJavadoc(description + System.lineSeparator());
@@ -400,6 +400,14 @@ public class Method extends AbstractSdkArtifact {
                 specificationBuilder.addJavadoc("@param " + parameter.getName() + " " + parameter.getDescription()
                                                 + System.lineSeparator());
             }
+        }
+        if (throwsExceptions()) {
+            exceptions.forEach(e -> {
+                specificationBuilder.addException(e);
+                specificationBuilder.addJavadoc("@throws " + e.getSimpleName()
+                                                + " if an error occurs during the process." + System.lineSeparator());
+            });
+
         }
         if (hasReturn()) {
             returnType.translate();
@@ -475,9 +483,8 @@ public class Method extends AbstractSdkArtifact {
     @Override
     public void translate() throws TranslationException {
         initialiseBuilder();
-        addParameters();
+        defineMethod();
         addModifiers();
-        addExceptions();
         addCode();
     }
 
