@@ -372,6 +372,7 @@ public class FilterMarshaller {
             setMap(null);
         }
 
+        @SuppressWarnings("unchecked")
         public JsonObject(String string) {
             super();
             if (string == null || string.isEmpty()) {
@@ -407,7 +408,7 @@ public class FilterMarshaller {
                 try {
                     // Trying to see if it is a date
                     return ApiUtils.convertStringToDate(valueStr);
-                } catch (Exception exception) {
+                } catch (@SuppressWarnings("unused") Exception exception) {
                     return valueStr;
                 }
             }

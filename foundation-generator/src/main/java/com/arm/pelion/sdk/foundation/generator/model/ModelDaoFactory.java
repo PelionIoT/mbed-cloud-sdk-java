@@ -10,18 +10,13 @@ public class ModelDaoFactory extends Model {
 
     private static final String FIELD_NAME_CONTEXT = "context";
 
-    public ModelDaoFactory() {
-        super();
-        setShouldBeSorted(true);
-        setIgnoreLiteralDuplicate(false);
-    }
-
     public ModelDaoFactory(String packageName) {
         super(packageName, "DaoFactory", null, "Factory for SDK DAOs",
               "Utility for fetching DAOs similar to " + DaoProvider.class.getSimpleName()
                                                                        + " but without using reflection",
               false, false, false, true);
-
+        setShouldBeSorted(true);
+        setIgnoreLiteralDuplicate(true);
         addFields();
     }
 

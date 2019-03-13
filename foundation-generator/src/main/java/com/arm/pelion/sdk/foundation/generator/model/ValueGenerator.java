@@ -2,6 +2,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.mbed.cloud.sdk.common.UuidGenerator;
@@ -245,15 +246,19 @@ public class ValueGenerator {
     public static String getJavaDefaultValue(TypeParameter type, String defaultValue) {
         final boolean hasDefaultValue = defaultValue != null && !defaultValue.isEmpty();
         if (type.isBoolean()) {
-            final StringBuilder builder = new StringBuilder();
-            if (!type.isPrimitive()) {
-                builder.append("Boolean.valueOf(");
+            if (type.isPrimitive()) {
+                return hasDefaultValue ? defaultValue : "false";
             }
-            builder.append(hasDefaultValue ? defaultValue : "false");
-            if (!type.isPrimitive()) {
-                builder.append(")");
+            if (!hasDefaultValue) {
+                return "Boolean.FALSE";
             }
-            return builder.toString();
+            if (Boolean.parseBoolean(defaultValue)) {
+                return "Boolean.TRUE";
+            }
+            if ("null".equals(defaultValue.trim().toLowerCase(Locale.UK))) {
+                return "null";
+            }
+            return "Boolean.FALSE";
         }
         if (type.isEnum()) {// TODO ensure the method for getting default type is always valid
             return hasDefaultValue ? type.getShortName() + "." + SdkEnum.METHOD_GET_VALUE_FROM_STRING + "(\""

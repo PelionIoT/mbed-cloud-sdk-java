@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.model.MergeableArtifact;
 import com.arm.pelion.sdk.foundation.generator.model.Method;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
+import com.arm.pelion.sdk.foundation.generator.model.Parameter;
+import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
 
 public class Utils {
     private static final String PLUS = "+";
@@ -164,8 +167,8 @@ public class Utils {
     }
 
     public static String generateModelNameAsText(String modelName) {
-        return ApiUtils.convertCamelToSnake(modelName).replace(HYPHEN, UNDERSCORE).replace(UNDERSCORE, WHITE_SPACE)
-                       .replace(WHITE_SPACE + WHITE_SPACE, WHITE_SPACE).trim();
+        return ApiUtils.convertCamelToSnake(modelName).replaceAll("<(.*)>", " of $1").replace(HYPHEN, UNDERSCORE)
+                       .replace(UNDERSCORE, WHITE_SPACE).replace(WHITE_SPACE + WHITE_SPACE, WHITE_SPACE).trim();
     }
 
     public static String generateDocumentationString(String modelName) {
@@ -185,6 +188,14 @@ public class Utils {
         }
         builder.append("}");
         return builder.toString();
+    }
+
+    public static String generateSignatureForDocumentation(String methodName, List<Parameter> parameters) {
+        return (methodName + "(" + (parameters == null ? "" : String.join(", ", parameters.stream().map(p -> {
+            final TypeParameter type = p.getType();
+            return type.isPrimitiveOrWrapper() ? type.getShortName() : type.getFullyQualifiedName();
+        }).collect(Collectors.toList()))) + ")").replaceAll("<(.*)>", "");// See
+                                                                          // https://stackoverflow.com/questions/9482309/javadoc-bug-link-cant-handle-generics
     }
 
     public static String applyPatternHack(String pattern) {

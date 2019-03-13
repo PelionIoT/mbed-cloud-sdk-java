@@ -35,6 +35,10 @@ public class Filter {
         this.operator = operator;
     }
 
+    public boolean correspondsToOperator(FilterOperator op) {
+        return op == null ? false : op.equals(operator);
+    }
+
     public boolean correspondsToParameter(Parameter parameter) {
         if (parameter == null) {
             return false;

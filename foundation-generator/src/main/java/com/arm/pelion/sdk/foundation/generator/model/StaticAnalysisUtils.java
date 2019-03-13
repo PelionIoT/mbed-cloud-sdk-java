@@ -40,6 +40,14 @@ public class StaticAnalysisUtils {
         return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"resource\"").build();
     }
 
+    public static AnnotationSpec ignoreUnused() {
+        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"unused\"").build();
+    }
+
+    public static AnnotationSpec ignoreUnusedAndResourceClosure() {
+        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "{\"unused\", \"resource\"}").build();
+    }
+
     public static AnnotationSpec setAsUnchecked() {
         return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"unchecked\"").build();
     }

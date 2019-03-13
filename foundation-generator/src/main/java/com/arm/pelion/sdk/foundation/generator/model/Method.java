@@ -15,6 +15,7 @@ import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.NotImplementedException;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeVariableName;
@@ -481,14 +482,7 @@ public class Method extends AbstractSdkArtifact {
     }
 
     public String generateSignatureForDocumentation() {
-        return generateSignatureForDocumentation(name, parameters);
-    }
-
-    public static String generateSignatureForDocumentation(String methodName, List<Parameter> parameters) {
-        return methodName + "(" + (parameters == null ? "" : String.join(", ", parameters.stream().map(p -> {
-            final TypeParameter type = p.getType();
-            return type.isPrimitiveOrWrapper() ? type.getShortName() : type.getFullyQualifiedName();
-        }).collect(Collectors.toList()))) + ")";
+        return Utils.generateSignatureForDocumentation(name, parameters);
     }
 
     /*

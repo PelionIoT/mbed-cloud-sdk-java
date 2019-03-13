@@ -389,7 +389,7 @@ public final class TranslationUtils {
     /**
      * Converts a Number to a double.
      * 
-     * @param double
+     * @param value
      *            double
      * @return corresponding double or 0.0 if null.
      */

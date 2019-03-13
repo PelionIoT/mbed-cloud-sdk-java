@@ -531,8 +531,6 @@ public class ListOptions extends FilterOptions {
      *
      * @param fieldName
      *            filter key
-     * @param fieldName
-     *            filter key
      * @param type
      *            type of the filter value
      * @param <T>
@@ -560,8 +558,6 @@ public class ListOptions extends FilterOptions {
      *
      * @param fieldName
      *            filter key
-     * @param fieldName
-     *            filter key
      * @param type
      *            type of the filter value
      * @param <T>
@@ -584,7 +580,8 @@ public class ListOptions extends FilterOptions {
         return encodeSingleNotInFilter(fieldName, String.class);
     }
 
-    @SuppressWarnings({ "unchecked", "PMD.CyclomaticComplexity" })
+    @SuppressWarnings({ "unchecked", "PMD.CyclomaticComplexity", "PMD.NPathComplexity", "PMD.ExcessiveMethodLength" })
+
     private <T> T encodeSingleFilter(final Object filterObj, Class<T> type) {
         if (filterObj == null || type == null) {
             return null;
@@ -661,7 +658,7 @@ public class ListOptions extends FilterOptions {
         }
         if (Boolean.class.isAssignableFrom(type) || boolean.class.isAssignableFrom(type)) {
             if (filterObj instanceof String) {
-                return (T) new Boolean(TranslationUtils.toBool((String) filterObj));
+                return (T) Boolean.valueOf(TranslationUtils.toBool((String) filterObj));
             }
             if (filterObj instanceof Boolean) {
                 return (T) filterObj;
@@ -670,31 +667,31 @@ public class ListOptions extends FilterOptions {
         }
         if (Integer.class.isAssignableFrom(type) || int.class.isAssignableFrom(type)) {
             if (filterObj instanceof String) {
-                return (T) new Integer(TranslationUtils.toInt((String) filterObj));
+                return (T) Integer.valueOf(TranslationUtils.toInt((String) filterObj));
             }
             if (filterObj instanceof Number) {
-                return (T) new Integer(TranslationUtils.toInt((Number) filterObj));
+                return (T) Integer.valueOf(TranslationUtils.toInt((Number) filterObj));
             }
             return null;
         }
         if (Long.class.isAssignableFrom(type) || long.class.isAssignableFrom(type)) {
             if (filterObj instanceof String) {
-                return (T) new Long(TranslationUtils.toLong((String) filterObj));
+                return (T) Long.valueOf(TranslationUtils.toLong((String) filterObj));
             }
             if (filterObj instanceof Number) {
-                return (T) new Long(TranslationUtils.toLong((Number) filterObj));
+                return (T) Long.valueOf(TranslationUtils.toLong((Number) filterObj));
             }
             if (filterObj instanceof Date) {
-                return (T) new Long(TranslationUtils.toLong((Date) filterObj));
+                return (T) Long.valueOf(TranslationUtils.toLong((Date) filterObj));
             }
             return null;
         }
         if (Double.class.isAssignableFrom(type) || double.class.isAssignableFrom(type)) {
             if (filterObj instanceof String) {
-                return (T) new Double(TranslationUtils.toDouble((String) filterObj));
+                return (T) Double.valueOf(TranslationUtils.toDouble((String) filterObj));
             }
             if (filterObj instanceof Number) {
-                return (T) new Double(TranslationUtils.toDouble((Number) filterObj));
+                return (T) Double.valueOf(TranslationUtils.toDouble((Number) filterObj));
             }
         }
 
@@ -725,7 +722,7 @@ public class ListOptions extends FilterOptions {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "PMD.ClassCastExceptionWithToArray" })
     private <T> T encodeList(List<?> filterObj, Class<T> type) {
         if (String.class.isAssignableFrom(type)) {
             return (T) SdkUtils.joinList(filterObj, ",");
