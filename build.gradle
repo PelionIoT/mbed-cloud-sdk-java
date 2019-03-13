@@ -386,6 +386,8 @@ allprojects {
             excludeFilter = file(findBugsConfigFile)
         }
         tasks.withType(FindBugs) {
+            // Increased heap limit to prevent '137 - OOM' errors when running
+            maxHeapSize = "1000m"
             reports {
                 xml.enabled = false
                 html.enabled = true
@@ -393,6 +395,8 @@ allprojects {
         }
 
         tasks.withType(com.github.spotbugs.SpotBugsTask) {
+            // Increased heap limit to prevent '137 - OOM' errors when running
+            maxHeapSize = "1000m"
             reports {
                 xml.enabled = false
                 html.enabled = true
