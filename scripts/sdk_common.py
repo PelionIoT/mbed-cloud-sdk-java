@@ -695,7 +695,9 @@ class PropertyFileModifier(ConfigurationFileModifier):
             'Checking property [' + str(property) + '] has been correctly added to file [' + str(
                 self.file_to_modify) + ']')
         value = self.properties.get(property, None)
-        command = 'grep "' + str(property) + '" "' + str(self.file_to_modify) + '" | grep "' + str(value) + '"'
+
+        # Note the '-e', required because some of the values can otherwise look like arguments to grep
+        command = 'grep "' + str(property) + '" "' + str(self.file_to_modify) + '" | grep -e "' + str(value) + '"'
         found = False
         try:
             response = self.module.check_shell_command_output(command)
