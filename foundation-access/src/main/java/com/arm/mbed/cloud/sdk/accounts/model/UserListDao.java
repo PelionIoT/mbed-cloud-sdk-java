@@ -38,7 +38,7 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public UserListDao clone() {
         try {
             return new UserListDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());

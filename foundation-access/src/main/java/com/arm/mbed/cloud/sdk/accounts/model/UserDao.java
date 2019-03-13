@@ -39,7 +39,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public UserDao clone() {
         try {
             return new UserDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());

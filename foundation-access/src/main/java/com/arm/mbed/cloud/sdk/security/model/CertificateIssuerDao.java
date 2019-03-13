@@ -39,7 +39,7 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public CertificateIssuerDao clone() {
         try {
             return new CertificateIssuerDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -66,8 +66,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
     /**
      * Adds a certificate issuer.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuer(java.util.Map<String, String>,
-     * com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuer(java.util.Map, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
@@ -234,8 +234,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
     /**
      * Modifies a certificate issuer.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(java.util.Map<String, String>,
-     * com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(java.util.Map, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
@@ -252,8 +252,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
     /**
      * Modifies a certificate issuer.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(java.util.Map<String, String>, String,
-     * com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(java.util.Map, String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is

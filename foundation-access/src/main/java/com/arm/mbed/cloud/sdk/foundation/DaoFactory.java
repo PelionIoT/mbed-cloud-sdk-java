@@ -45,6 +45,7 @@ import com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListDao;
  */
 @Preamble(description = "Factory for SDK DAOs.")
 @Internal
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class DaoFactory implements Cloneable {
     /**
      * Context.
@@ -66,6 +67,13 @@ public class DaoFactory implements Cloneable {
 
     /**
      * Constructor.
+     */
+    public DaoFactory() {
+        this((SdkContext) null);
+    }
+
+    /**
+     * Constructor.
      * 
      * @param daoFactory
      *            a dao factory.
@@ -75,10 +83,62 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
-     * Constructor.
+     * Method to ensure {@link #equals(Object)} is correct.
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
      */
-    public DaoFactory() {
-        this((SdkContext) null);
+    protected boolean canEqual(Object other) {
+        return other instanceof DaoFactory;
+    }
+
+    /**
+     * Clones this instance.
+     * <p>
+     * 
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
+     */
+    @Override
+    public DaoFactory clone() {
+        return new DaoFactory(this);
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof DaoFactory)) {
+            return false;
+        }
+        final DaoFactory other = (DaoFactory) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        if (context == null) {
+            if (other.context != null) {
+                return false;
+            }
+        } else if (!context.equals(other.context)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -142,6 +202,26 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
+     * Gets a certificate issuer config dao.
+     * 
+     * @return a certificate issuer config dao
+     */
+    @SuppressWarnings("resource")
+    public CertificateIssuerConfigDao getCertificateIssuerConfigDao() throws MbedCloudException {
+        return new CertificateIssuerConfigDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a certificate issuer config list dao.
+     * 
+     * @return a certificate issuer config list dao
+     */
+    @SuppressWarnings("resource")
+    public CertificateIssuerConfigListDao getCertificateIssuerConfigListDao() throws MbedCloudException {
+        return new CertificateIssuerConfigListDao().configureAndGet(context);
+    }
+
+    /**
      * Gets a certificate issuer dao.
      * 
      * @return a certificate issuer dao
@@ -162,23 +242,21 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
-     * Gets a certificate issuer config dao.
+     * Gets context.
      * 
-     * @return a certificate issuer config dao
+     * @return context
      */
-    @SuppressWarnings("resource")
-    public CertificateIssuerConfigDao getCertificateIssuerConfigDao() throws MbedCloudException {
-        return new CertificateIssuerConfigDao().configureAndGet(context);
+    public SdkContext getContext() {
+        return context;
     }
 
     /**
-     * Gets a certificate issuer config list dao.
+     * Gets a dao provider.
      * 
-     * @return a certificate issuer config list dao
+     * @return a dao provider
      */
-    @SuppressWarnings("resource")
-    public CertificateIssuerConfigListDao getCertificateIssuerConfigListDao() throws MbedCloudException {
-        return new CertificateIssuerConfigListDao().configureAndGet(context);
+    public DaoProvider getDaoProvider() {
+        return new DaoProvider(context);
     }
 
     /**
@@ -202,13 +280,23 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
-     * Gets a device list dao.
+     * Gets a device enrollment bulk create dao.
      * 
-     * @return a device list dao
+     * @return a device enrollment bulk create dao
      */
     @SuppressWarnings("resource")
-    public DeviceListDao getDeviceListDao() throws MbedCloudException {
-        return new DeviceListDao().configureAndGet(context);
+    public DeviceEnrollmentBulkCreateDao getDeviceEnrollmentBulkCreateDao() throws MbedCloudException {
+        return new DeviceEnrollmentBulkCreateDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a device enrollment bulk delete dao.
+     * 
+     * @return a device enrollment bulk delete dao
+     */
+    @SuppressWarnings("resource")
+    public DeviceEnrollmentBulkDeleteDao getDeviceEnrollmentBulkDeleteDao() throws MbedCloudException {
+        return new DeviceEnrollmentBulkDeleteDao().configureAndGet(context);
     }
 
     /**
@@ -232,26 +320,6 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
-     * Gets a device enrollment bulk create dao.
-     * 
-     * @return a device enrollment bulk create dao
-     */
-    @SuppressWarnings("resource")
-    public DeviceEnrollmentBulkCreateDao getDeviceEnrollmentBulkCreateDao() throws MbedCloudException {
-        return new DeviceEnrollmentBulkCreateDao().configureAndGet(context);
-    }
-
-    /**
-     * Gets a device enrollment bulk delete dao.
-     * 
-     * @return a device enrollment bulk delete dao
-     */
-    @SuppressWarnings("resource")
-    public DeviceEnrollmentBulkDeleteDao getDeviceEnrollmentBulkDeleteDao() throws MbedCloudException {
-        return new DeviceEnrollmentBulkDeleteDao().configureAndGet(context);
-    }
-
-    /**
      * Gets a device events dao.
      * 
      * @return a device events dao
@@ -269,6 +337,16 @@ public class DaoFactory implements Cloneable {
     @SuppressWarnings("resource")
     public DeviceEventsListDao getDeviceEventsListDao() throws MbedCloudException {
         return new DeviceEventsListDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a device list dao.
+     * 
+     * @return a device list dao
+     */
+    @SuppressWarnings("resource")
+    public DeviceListDao getDeviceListDao() throws MbedCloudException {
+        return new DeviceListDao().configureAndGet(context);
     }
 
     /**
@@ -342,16 +420,6 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
-     * Gets a user list dao.
-     * 
-     * @return a user list dao
-     */
-    @SuppressWarnings("resource")
-    public UserListDao getUserListDao() throws MbedCloudException {
-        return new UserListDao().configureAndGet(context);
-    }
-
-    /**
      * Gets a user invitation dao.
      * 
      * @return a user invitation dao
@@ -372,21 +440,13 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
-     * Gets context.
+     * Gets a user list dao.
      * 
-     * @return context
+     * @return a user list dao
      */
-    public SdkContext getContext() {
-        return context;
-    }
-
-    /**
-     * Gets a dao provider.
-     * 
-     * @return a dao provider
-     */
-    public DaoProvider getDaoProvider() {
-        return new DaoProvider(context);
+    @SuppressWarnings("resource")
+    public UserListDao getUserListDao() throws MbedCloudException {
+        return new UserListDao().configureAndGet(context);
     }
 
     /**
@@ -405,53 +465,6 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof DaoFactory;
-    }
-
-    /**
-     * Indicates whether some other object is "equal to" this one.
-     * <p>
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     * @param obj
-     *            an object to compare with this instance.
-     * @return true if this object is the same as the obj argument; false otherwise.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof DaoFactory)) {
-            return false;
-        }
-        final DaoFactory other = (DaoFactory) obj;
-        if (!other.canEqual(this)) {
-            return false;
-        }
-        if (context == null) {
-            if (other.context != null) {
-                return false;
-            }
-        } else if (!context.equals(other.context)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * Returns a string representation of the object.
      * <p>
      * 
@@ -461,17 +474,5 @@ public class DaoFactory implements Cloneable {
     @Override
     public String toString() {
         return "DaoFactory [context=" + context + "]";
-    }
-
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public DaoFactory clone() {
-        return new DaoFactory(this);
     }
 }

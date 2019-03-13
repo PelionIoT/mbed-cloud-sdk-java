@@ -37,7 +37,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public ApiKeyDao clone() {
         try {
             return new ApiKeyDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());

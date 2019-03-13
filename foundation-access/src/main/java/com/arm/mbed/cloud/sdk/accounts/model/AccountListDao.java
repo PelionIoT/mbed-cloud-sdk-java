@@ -38,7 +38,7 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public AccountListDao clone() {
         try {
             return new AccountListDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());

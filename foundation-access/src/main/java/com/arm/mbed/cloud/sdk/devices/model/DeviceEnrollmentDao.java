@@ -40,7 +40,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public DeviceEnrollmentDao clone() {
         try {
             return new DeviceEnrollmentDao().configureAndGet(getModuleOrThrow() == null ? null

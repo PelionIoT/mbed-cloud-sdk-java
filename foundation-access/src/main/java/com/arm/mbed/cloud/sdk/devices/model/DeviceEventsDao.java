@@ -37,7 +37,7 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public DeviceEventsDao clone() {
         try {
             return new DeviceEventsDao().configureAndGet(getModuleOrThrow() == null ? null

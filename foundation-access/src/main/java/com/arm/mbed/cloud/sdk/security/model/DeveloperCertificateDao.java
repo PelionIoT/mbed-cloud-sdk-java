@@ -41,7 +41,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public DeveloperCertificateDao clone() {
         try {
             return new DeveloperCertificateDao().configureAndGet(getModuleOrThrow() == null ? null

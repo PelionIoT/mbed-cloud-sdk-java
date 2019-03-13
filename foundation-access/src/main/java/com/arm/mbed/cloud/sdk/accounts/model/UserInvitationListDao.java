@@ -38,7 +38,7 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public UserInvitationListDao clone() {
         try {
             return new UserInvitationListDao().configureAndGet(getModuleOrThrow() == null ? null

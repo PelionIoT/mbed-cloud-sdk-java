@@ -38,7 +38,7 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public CertificateEnrollmentDao clone() {
         try {
             return new CertificateEnrollmentDao().configureAndGet(getModuleOrThrow() == null ? null

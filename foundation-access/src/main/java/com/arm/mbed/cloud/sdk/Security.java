@@ -194,8 +194,8 @@ public class Security extends AbstractModule {
     /**
      * Adds a certificate issuer.
      * <p>
-     * Similar to {@link #createCertificateIssuer(java.util.Map<String, String>,
-     * com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * Similar to
+     * {@link #createCertificateIssuer(java.util.Map, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
      * @param certificateIssuerRequest
      *            a certificate issuer.
@@ -1631,8 +1631,8 @@ public class Security extends AbstractModule {
     /**
      * Modifies a certificate issuer.
      * <p>
-     * Similar to {@link #updateCertificateIssuer(java.util.Map<String, String>,
-     * com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * Similar to
+     * {@link #updateCertificateIssuer(java.util.Map, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
      * @param certificateIssuer
      *            a certificate issuer.
@@ -1649,8 +1649,8 @@ public class Security extends AbstractModule {
     /**
      * Modifies a certificate issuer.
      * <p>
-     * Similar to {@link #updateCertificateIssuer(java.util.Map<String, String>, String,
-     * com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * Similar to
+     * {@link #updateCertificateIssuer(java.util.Map, String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
@@ -1722,8 +1722,8 @@ public class Security extends AbstractModule {
     /**
      * Modifies a certificate issuer.
      * <p>
-     * Similar to {@link #updateCertificateIssuer(java.util.Map<String, String>, String,
-     * com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * Similar to
+     * {@link #updateCertificateIssuer(java.util.Map, String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
      * @param id
      *            The ID of the certificate issuer.

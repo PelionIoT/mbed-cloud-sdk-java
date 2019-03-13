@@ -41,7 +41,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public UserInvitationDao clone() {
         try {
             return new UserInvitationDao().configureAndGet(getModuleOrThrow() == null ? null

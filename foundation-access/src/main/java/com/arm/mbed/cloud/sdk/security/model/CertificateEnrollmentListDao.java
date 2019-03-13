@@ -40,7 +40,7 @@ public class CertificateEnrollmentListDao extends
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public CertificateEnrollmentListDao clone() {
         try {
             return new CertificateEnrollmentListDao().configureAndGet(getModuleOrThrow() == null ? null

@@ -38,7 +38,7 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public ApiKeyListDao clone() {
         try {
             return new ApiKeyListDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());

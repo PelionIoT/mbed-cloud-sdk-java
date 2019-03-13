@@ -41,7 +41,7 @@ public class CertificateIssuerConfigListDao extends
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public CertificateIssuerConfigListDao clone() {
         try {
             return new CertificateIssuerConfigListDao().configureAndGet(getModuleOrThrow() == null ? null

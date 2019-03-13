@@ -35,7 +35,7 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public ServerCredentialsDao clone() {
         try {
             return new ServerCredentialsDao().configureAndGet(getModuleOrThrow() == null ? null

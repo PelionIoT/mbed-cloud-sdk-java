@@ -313,7 +313,7 @@ public class AccountDao extends AbstractModelDao<Account>
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public AccountDao clone() {
         try {
             return new AccountDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());

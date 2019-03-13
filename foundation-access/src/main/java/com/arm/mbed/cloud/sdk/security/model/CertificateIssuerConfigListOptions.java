@@ -13,8 +13,51 @@ import java.util.List;
 
 /**
  * Options to use when listing certificate issuer configs.
+ * <p>
+ * Note:
+ * <p>
+ * <ul>
+ * <li>Filters:
+ * <p>
+ * The list can be filtered server-side on some of the fields of a certificate issuer config.
+ * <p>
+ * The following filters are currently supported:
+ * <p>
+ * <table style="border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0" summary="Available
+ * filters">
+ * <caption>Server-side filters</caption>
+ * <tr>
+ * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" rowspan="2">Field</th>
+ * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" rowspan="2">Tag</th>
+ * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" colspan="7">Filters</th>
+ * </tr>
+ * <tr>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">not equal to</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">equal to</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">greater than</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">less than</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">like</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">in</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">not in</td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">certificateReference</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_CERTIFICATE_REFERENCE</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * </table>
+ * </li>
+ * </ul>
  */
 @Preamble(description = "Options to use when listing certificate issuer configs.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class CertificateIssuerConfigListOptions extends ListOptions {
     /**
      * Tag for filter by certificateReference.

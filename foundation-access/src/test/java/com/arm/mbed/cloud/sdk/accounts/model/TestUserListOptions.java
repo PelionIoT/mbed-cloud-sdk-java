@@ -19,9 +19,9 @@ public class TestUserListOptions {
     @Test
     public void testClone() {
         try {
-            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-58), Long.valueOf(-126),
+            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(100), Long.valueOf(-42),
                                                                    Order.getDefault(),
-                                                                   "a1edfa9d-b23e-4d58-8e34-c47826e356f1", null, null);
+                                                                   "538b98e0-3b9a-4bf1-8b39-eceafe2053d5", null, null);
             UserListOptions userlistoptions2 = userlistoptions1.clone();
             assertNotNull(userlistoptions1);
             assertNotNull(userlistoptions2);
@@ -39,12 +39,12 @@ public class TestUserListOptions {
     @Test
     public void testHashCode() {
         try {
-            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-13), Long.valueOf(-85),
+            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-39), Long.valueOf(68),
                                                                    Order.getDefault(),
-                                                                   "2501da96-3d2f-4c9e-90d9-3db631d16edb", null, null);
-            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-13), Long.valueOf(-85),
+                                                                   "6bef2b2c-719e-48a8-a267-c0b19f58c255", null, null);
+            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-39), Long.valueOf(68),
                                                                    Order.getDefault(),
-                                                                   "2501da96-3d2f-4c9e-90d9-3db631d16edb", null, null);
+                                                                   "6bef2b2c-719e-48a8-a267-c0b19f58c255", null, null);
             assertNotNull(userlistoptions1);
             assertNotNull(userlistoptions2);
             assertNotSame(userlistoptions2, userlistoptions1);
@@ -66,15 +66,15 @@ public class TestUserListOptions {
     @Test
     public void testEquals() {
         try {
-            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-3), Long.valueOf(-5),
+            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-64), Long.valueOf(-20),
                                                                    Order.getDefault(),
-                                                                   "c75aded7-4696-4988-b747-885f6a162484", null, null);
-            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-3), Long.valueOf(-5),
+                                                                   "2e502051-95e7-4bb3-8516-3d6e16777f0b", null, null);
+            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-64), Long.valueOf(-20),
                                                                    Order.getDefault(),
-                                                                   "c75aded7-4696-4988-b747-885f6a162484", null, null);
-            UserListOptions userlistoptions3 = new UserListOptions(Integer.valueOf(-118), Long.valueOf(111),
+                                                                   "2e502051-95e7-4bb3-8516-3d6e16777f0b", null, null);
+            UserListOptions userlistoptions3 = new UserListOptions(Integer.valueOf(-72), Long.valueOf(-101),
                                                                    Order.getDefault(),
-                                                                   "a0de77b2-67af-4582-be3e-f45530c2b013", null, null);
+                                                                   "ff668596-53fa-4032-8041-9f0f3afceed8", null, null);
             assertNotNull(userlistoptions1);
             assertNotNull(userlistoptions2);
             assertNotNull(userlistoptions3);

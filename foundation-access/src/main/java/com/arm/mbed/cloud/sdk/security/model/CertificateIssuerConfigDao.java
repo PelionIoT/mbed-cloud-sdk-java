@@ -38,7 +38,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public CertificateIssuerConfigDao clone() {
         try {
             return new CertificateIssuerConfigDao().configureAndGet(getModuleOrThrow() == null ? null

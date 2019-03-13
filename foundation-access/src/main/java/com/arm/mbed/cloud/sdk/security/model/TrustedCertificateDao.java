@@ -37,7 +37,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings("resource")
+    @SuppressWarnings({ "unused", "resource" })
     public TrustedCertificateDao clone() {
         try {
             return new TrustedCertificateDao().configureAndGet(getModuleOrThrow() == null ? null

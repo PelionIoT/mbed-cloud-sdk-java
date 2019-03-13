@@ -13,8 +13,87 @@ import java.util.List;
 
 /**
  * Options to use when listing accounts.
+ * <p>
+ * Note:
+ * <p>
+ * <ul>
+ * <li>Filters:
+ * <p>
+ * The list can be filtered server-side on some of the fields of an account.
+ * <p>
+ * The following filters are currently supported:
+ * <p>
+ * <table style="border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0" summary="Available
+ * filters">
+ * <caption>Server-side filters</caption>
+ * <tr>
+ * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" rowspan="2">Field</th>
+ * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" rowspan="2">Tag</th>
+ * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" colspan="7">Filters</th>
+ * </tr>
+ * <tr>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">not equal to</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">equal to</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">greater than</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">less than</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">like</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">in</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">not in</td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">status</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_STATUS</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">tier</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_TIER</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">endMarket</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_END_MARKET</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">country</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_COUNTRY</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * </table>
+ * </li>
+ * </ul>
  */
 @Preamble(description = "Options to use when listing accounts.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class AccountListOptions extends ListOptions {
     /**
      * Tag for filter by tier.
@@ -177,12 +256,32 @@ public class AccountListOptions extends ListOptions {
     /**
      * Sets "an in" filter by {@code status}.
      * <p>
-     * Note: List of values separated by a comma
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
      * @param filterByStatus
      *            filter value.
      */
     public void setInStatusesFilter(String filterByStatus) {
+        addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "an in" filter by {@code status}.
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setInStatusesFilter(List<AccountStatus> filterByStatus) {
+        addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "an in" filter by {@code status}.
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setInStatusesFilter(AccountStatus[] filterByStatus) {
         addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -203,19 +302,8 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
-     * 
-     * @param filterByStatus
-     *            filter value.
-     */
-    public void setInStatusesFilter(List<AccountStatus> filterByStatus) {
-        addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
-    }
-
-    /**
-     * Sets "an in" filter by {@code status}.
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setInStatusesFilter(java.util.List<com.arm.mbed.cloud.sdk.accounts.model.AccountStatus>)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setInStatusesFilter(java.util.List)}
      * 
      * @param filterByStatus
      *            filter value.
@@ -225,16 +313,6 @@ public class AccountListOptions extends ListOptions {
     public <T extends AccountListOptions> T inStatuses(List<AccountStatus> filterByStatus) {
         setInStatusesFilter(filterByStatus);
         return (T) this;
-    }
-
-    /**
-     * Sets "an in" filter by {@code status}.
-     * 
-     * @param filterByStatus
-     *            filter value.
-     */
-    public void setInStatusesFilter(AccountStatus[] filterByStatus) {
-        addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
     /**
@@ -256,12 +334,32 @@ public class AccountListOptions extends ListOptions {
     /**
      * Sets "a not in" filter by {@code status}.
      * <p>
-     * Note: List of values separated by a comma
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
      * @param filterByStatus
      *            filter value.
      */
     public void setNotInStatusesFilter(String filterByStatus) {
+        addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code status}.
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setNotInStatusesFilter(List<AccountStatus> filterByStatus) {
+        addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code status}.
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void setNotInStatusesFilter(AccountStatus[] filterByStatus) {
         addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -282,19 +380,9 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code status}.
-     * 
-     * @param filterByStatus
-     *            filter value.
-     */
-    public void setNotInStatusesFilter(List<AccountStatus> filterByStatus) {
-        addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
-    }
-
-    /**
-     * Sets "a not in" filter by {@code status}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setNotInStatusesFilter(java.util.List<com.arm.mbed.cloud.sdk.accounts.model.AccountStatus>)}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#setNotInStatusesFilter(java.util.List)}
      * 
      * @param filterByStatus
      *            filter value.
@@ -304,16 +392,6 @@ public class AccountListOptions extends ListOptions {
     public <T extends AccountListOptions> T notInStatuses(List<AccountStatus> filterByStatus) {
         setNotInStatusesFilter(filterByStatus);
         return (T) this;
-    }
-
-    /**
-     * Sets "a not in" filter by {@code status}.
-     * 
-     * @param filterByStatus
-     *            filter value.
-     */
-    public void setNotInStatusesFilter(AccountStatus[] filterByStatus) {
-        addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
     /**

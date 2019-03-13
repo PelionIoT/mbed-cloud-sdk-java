@@ -19,10 +19,10 @@ public class TestDeviceEventsListOptions {
     @Test
     public void testClone() {
         try {
-            DeviceEventsListOptions deviceeventslistoptions1 = new DeviceEventsListOptions(Integer.valueOf(112),
-                                                                                           Long.valueOf(-53),
+            DeviceEventsListOptions deviceeventslistoptions1 = new DeviceEventsListOptions(Integer.valueOf(24),
+                                                                                           Long.valueOf(-48),
                                                                                            Order.getDefault(),
-                                                                                           "83eb1dd1-54e2-4a75-a6b8-e4481319bd55",
+                                                                                           "e80dde32-eba4-41f3-be5a-8e322a09a100",
                                                                                            null, null);
             DeviceEventsListOptions deviceeventslistoptions2 = deviceeventslistoptions1.clone();
             assertNotNull(deviceeventslistoptions1);
@@ -41,15 +41,15 @@ public class TestDeviceEventsListOptions {
     @Test
     public void testHashCode() {
         try {
-            DeviceEventsListOptions deviceeventslistoptions1 = new DeviceEventsListOptions(Integer.valueOf(-124),
-                                                                                           Long.valueOf(-54),
+            DeviceEventsListOptions deviceeventslistoptions1 = new DeviceEventsListOptions(Integer.valueOf(-47),
+                                                                                           Long.valueOf(-47),
                                                                                            Order.getDefault(),
-                                                                                           "412ce527-9773-4502-8fa9-d31331ab5201",
+                                                                                           "4a1f7b4f-f19f-4f04-88a3-12a0fdcd4067",
                                                                                            null, null);
-            DeviceEventsListOptions deviceeventslistoptions2 = new DeviceEventsListOptions(Integer.valueOf(-124),
-                                                                                           Long.valueOf(-54),
+            DeviceEventsListOptions deviceeventslistoptions2 = new DeviceEventsListOptions(Integer.valueOf(-47),
+                                                                                           Long.valueOf(-47),
                                                                                            Order.getDefault(),
-                                                                                           "412ce527-9773-4502-8fa9-d31331ab5201",
+                                                                                           "4a1f7b4f-f19f-4f04-88a3-12a0fdcd4067",
                                                                                            null, null);
             assertNotNull(deviceeventslistoptions1);
             assertNotNull(deviceeventslistoptions2);
@@ -72,20 +72,20 @@ public class TestDeviceEventsListOptions {
     @Test
     public void testEquals() {
         try {
-            DeviceEventsListOptions deviceeventslistoptions1 = new DeviceEventsListOptions(Integer.valueOf(107),
-                                                                                           Long.valueOf(-86),
+            DeviceEventsListOptions deviceeventslistoptions1 = new DeviceEventsListOptions(Integer.valueOf(-1),
+                                                                                           Long.valueOf(107),
                                                                                            Order.getDefault(),
-                                                                                           "9fe15239-191d-4268-b45b-3eb0f3988d77",
+                                                                                           "3419d797-73d4-48aa-b5dd-7c2ffa012c20",
                                                                                            null, null);
-            DeviceEventsListOptions deviceeventslistoptions2 = new DeviceEventsListOptions(Integer.valueOf(107),
-                                                                                           Long.valueOf(-86),
+            DeviceEventsListOptions deviceeventslistoptions2 = new DeviceEventsListOptions(Integer.valueOf(-1),
+                                                                                           Long.valueOf(107),
                                                                                            Order.getDefault(),
-                                                                                           "9fe15239-191d-4268-b45b-3eb0f3988d77",
+                                                                                           "3419d797-73d4-48aa-b5dd-7c2ffa012c20",
                                                                                            null, null);
-            DeviceEventsListOptions deviceeventslistoptions3 = new DeviceEventsListOptions(Integer.valueOf(1),
-                                                                                           Long.valueOf(-113),
+            DeviceEventsListOptions deviceeventslistoptions3 = new DeviceEventsListOptions(Integer.valueOf(31),
+                                                                                           Long.valueOf(-74),
                                                                                            Order.getDefault(),
-                                                                                           "2dc880b0-5b64-4486-8f36-e127405e705a",
+                                                                                           "614f6441-fd34-46fe-8763-2b14464f18d5",
                                                                                            null, null);
             assertNotNull(deviceeventslistoptions1);
             assertNotNull(deviceeventslistoptions2);
