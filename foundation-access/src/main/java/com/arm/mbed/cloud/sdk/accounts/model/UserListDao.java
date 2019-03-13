@@ -25,6 +25,9 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
                          implements ModelListDao<User, UserListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public UserListDao() throws MbedCloudException {
         super();
@@ -50,6 +53,8 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
     /**
      * a user dao.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return a user dao
      */
     @Override
@@ -129,6 +134,8 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return one page of users
      */
     @Override

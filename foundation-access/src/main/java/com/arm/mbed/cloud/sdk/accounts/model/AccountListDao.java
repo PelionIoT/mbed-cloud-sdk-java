@@ -25,6 +25,9 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
                             implements ModelListDao<Account, AccountListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public AccountListDao() throws MbedCloudException {
         super();
@@ -50,6 +53,8 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
     /**
      * an account dao.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an account dao
      */
     @Override
@@ -129,6 +134,8 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return one page of accounts
      */
     @Override

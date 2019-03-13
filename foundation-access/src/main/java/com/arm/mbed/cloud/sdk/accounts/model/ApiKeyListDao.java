@@ -25,6 +25,9 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
                            implements ModelListDao<ApiKey, ApiKeyListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public ApiKeyListDao() throws MbedCloudException {
         super();
@@ -50,6 +53,8 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
     /**
      * an api key dao.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an api key dao
      */
     @Override
@@ -129,6 +134,8 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return one page of api keys
      */
     @Override

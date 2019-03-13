@@ -26,6 +26,9 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
                                                              implements CrudDao<SubtenantTrustedCertificate> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public AbstractSubtenantTrustedCertificateDao() throws MbedCloudException {
         super();
@@ -37,6 +40,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -53,6 +58,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -70,6 +77,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * 
      * @param accountId
      *            The ID of the account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added subtenant trusted certificate
      */
     public SubtenantTrustedCertificate create(@NonNull String accountId) throws MbedCloudException {
@@ -82,6 +91,9 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#deleteSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -96,6 +108,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull SubtenantTrustedCertificate subtenantTrustedCertificate) throws MbedCloudException {
@@ -112,6 +126,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      *            Account ID.
      * @param id
      *            The ID of the trusted certificate to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public void delete(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         ((Security) getModuleOrThrow()).deleteSubtenantTrustedCertificate(accountId, id);
@@ -124,6 +140,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public DeveloperCertificate getDeveloperCertificateInfo() throws MbedCloudException {
@@ -138,6 +156,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * 
      * @param id
      *            mUUID that uniquely identifies the developer certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public DeveloperCertificate getDeveloperCertificateInfo(@NonNull String id) throws MbedCloudException {
@@ -200,6 +220,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -217,6 +239,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      *            The ID of the account.
      * @param id
      *            Entity ID.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public SubtenantTrustedCertificate read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
@@ -230,6 +254,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#updateSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -246,6 +272,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -265,6 +293,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      *            The ID of the account.
      * @param id
      *            Entity ID.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated subtenant trusted certificate
      */
     public SubtenantTrustedCertificate update(@NonNull String accountId, @NonNull String id) throws MbedCloudException {

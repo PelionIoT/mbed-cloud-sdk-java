@@ -26,6 +26,9 @@ import java.util.Map;
 public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> implements CrudDao<CertificateIssuer> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public CertificateIssuerDao() throws MbedCloudException {
         super();
@@ -55,6 +58,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuer(com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added certificate issuer
      */
     @Override
@@ -74,6 +79,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added certificate issuer
      */
     public CertificateIssuer create(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
@@ -89,6 +96,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param certificateIssuerRequest
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added certificate issuer
      */
     @Override
@@ -102,6 +111,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#deleteCertificateIssuer(com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -116,6 +128,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param certificateIssuer
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
@@ -132,6 +146,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer. An active certificate issuer may not be deleted.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
@@ -194,6 +210,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readCertificateIssuer(com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -209,6 +227,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param id
      *            The ID of the certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -223,6 +243,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -242,6 +264,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public CertificateIssuer update(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
@@ -262,6 +286,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param id
      *            The ID of the certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated certificate issuer
      */
     public CertificateIssuer update(@Nullable Map<String, String> issuerCredentials,
@@ -278,6 +304,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param certificateIssuer
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -294,6 +322,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param id
      *            The ID of the certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated certificate issuer
      */
     public CertificateIssuer update(@NonNull String id) throws MbedCloudException {
@@ -308,6 +338,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#verify(com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public VerificationResponse verify() throws MbedCloudException {
@@ -324,6 +356,8 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public VerificationResponse verify(@NonNull String id) throws MbedCloudException {

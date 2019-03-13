@@ -25,6 +25,9 @@ import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment;
 public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Device> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public DeviceDao() throws MbedCloudException {
         super();
@@ -52,6 +55,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#createDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added device
      */
     @Override
@@ -67,6 +72,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * 
      * @param device
      *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added device
      */
     @Override
@@ -79,6 +86,9 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * Deletes a device.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -92,6 +102,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * 
      * @param device
      *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull Device device) throws MbedCloudException {
@@ -106,6 +118,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * 
      * @param id
      *            null
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
@@ -167,6 +181,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -182,6 +198,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * 
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -199,6 +217,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * 
      * @param certificateName
      *            The certificate name.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public CertificateEnrollment renewCertificate(@NonNull String certificateName) throws MbedCloudException {
@@ -215,6 +235,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      *            The certificate name.
      * @param id
      *            The ID of the certificate enrollment.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public CertificateEnrollment renewCertificate(@NonNull String certificateName,
@@ -227,6 +249,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#updateDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -242,6 +266,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * 
      * @param device
      *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -258,6 +284,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * 
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated device
      */
     public Device update(@NonNull String id) throws MbedCloudException {

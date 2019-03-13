@@ -24,6 +24,9 @@ import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements ReadDao<DeviceEvents> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public DeviceEventsDao() throws MbedCloudException {
         super();
@@ -103,6 +106,8 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(com.arm.mbed.cloud.sdk.devices.model.DeviceEvents)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -118,6 +123,8 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
      * 
      * @param id
      *            null
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override

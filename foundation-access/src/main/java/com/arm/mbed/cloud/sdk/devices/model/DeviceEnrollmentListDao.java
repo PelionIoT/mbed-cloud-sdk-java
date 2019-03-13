@@ -25,6 +25,9 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
                                      implements ModelListDao<DeviceEnrollment, DeviceEnrollmentListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public DeviceEnrollmentListDao() throws MbedCloudException {
         super();
@@ -51,6 +54,8 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     /**
      * a device enrollment dao.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return a device enrollment dao
      */
     @Override
@@ -130,6 +135,8 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return one page of device enrollments
      */
     @Override

@@ -25,6 +25,9 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
                                       implements ModelListDao<CertificateIssuer, CertificateIssuerListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public CertificateIssuerListDao() throws MbedCloudException {
         super();
@@ -51,6 +54,8 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     /**
      * a certificate issuer dao.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return a certificate issuer dao
      */
     @Override
@@ -130,6 +135,8 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return one page of certificate issuers
      */
     @Override

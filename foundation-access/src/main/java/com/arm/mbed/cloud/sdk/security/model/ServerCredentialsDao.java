@@ -22,6 +22,9 @@ import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public ServerCredentialsDao() throws MbedCloudException {
         super();
@@ -52,6 +55,8 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#getBootstrap(com.arm.mbed.cloud.sdk.security.model.ServerCredentials)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public ServerCredentials getBootstrap() throws MbedCloudException {
@@ -66,6 +71,8 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#getLwm2m(com.arm.mbed.cloud.sdk.security.model.ServerCredentials)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public ServerCredentials getLwm2m() throws MbedCloudException {

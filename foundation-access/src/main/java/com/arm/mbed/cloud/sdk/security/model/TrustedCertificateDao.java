@@ -24,6 +24,9 @@ import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
 public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> implements CrudDao<TrustedCertificate> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public TrustedCertificateDao() throws MbedCloudException {
         super();
@@ -53,6 +56,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added trusted certificate
      */
     @Override
@@ -69,6 +74,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added trusted certificate
      */
     @Override
@@ -82,6 +89,9 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#deleteTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -96,6 +106,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
@@ -110,6 +122,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param id
      *            The ID of the trusted certificate to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
@@ -123,6 +137,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public DeveloperCertificate getDeveloperCertificateInfo() throws MbedCloudException {
@@ -137,6 +153,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param id
      *            mUUID that uniquely identifies the developer certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public DeveloperCertificate getDeveloperCertificateInfo(@NonNull String id) throws MbedCloudException {
@@ -199,6 +217,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -214,6 +234,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param id
      *            Entity ID.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -228,6 +250,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#updateTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -244,6 +268,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -260,6 +286,8 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param id
      *            Entity ID.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated trusted certificate
      */
     public TrustedCertificate update(@NonNull String id) throws MbedCloudException {

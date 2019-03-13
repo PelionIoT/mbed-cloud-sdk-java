@@ -28,6 +28,9 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
                                      ReadDao<DeveloperCertificate> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public DeveloperCertificateDao() throws MbedCloudException {
         super();
@@ -57,6 +60,8 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createDeveloperCertificate(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added developer certificate
      */
     @Override
@@ -73,6 +78,8 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * 
      * @param developerCertificate
      *            a developer certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added developer certificate
      */
     @Override
@@ -86,6 +93,9 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#deleteDeveloperCertificate(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -100,6 +110,8 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * 
      * @param developerCertificate
      *            a developer certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull DeveloperCertificate developerCertificate) throws MbedCloudException {
@@ -114,6 +126,8 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * 
      * @param id
      *            The ID of the trusted certificate to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
@@ -127,6 +141,8 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificateInfo(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public TrustedCertificate getTrustedCertificateInfo() throws MbedCloudException {
@@ -141,6 +157,8 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * 
      * @param id
      *            Entity ID.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public TrustedCertificate getTrustedCertificateInfo(@NonNull String id) throws MbedCloudException {
@@ -203,6 +221,8 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readDeveloperCertificate(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -218,6 +238,8 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * 
      * @param id
      *            mUUID that uniquely identifies the developer certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override

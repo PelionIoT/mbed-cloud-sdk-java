@@ -25,6 +25,9 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
                                    implements ModelListDao<UserInvitation, UserInvitationListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public UserInvitationListDao() throws MbedCloudException {
         super();
@@ -51,6 +54,8 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
     /**
      * a user invitation dao.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return a user invitation dao
      */
     @Override
@@ -130,6 +135,8 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return one page of user invitations
      */
     @Override

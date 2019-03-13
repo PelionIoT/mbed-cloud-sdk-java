@@ -27,6 +27,9 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
                                  DeleteDao<DeviceEnrollment>, ReadDao<DeviceEnrollment> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public DeviceEnrollmentDao() throws MbedCloudException {
         super();
@@ -56,6 +59,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added device enrollment
      */
     @Override
@@ -72,6 +77,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * 
      * @param enrollmentIdentity
      *            a device enrollment.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added device enrollment
      */
     @Override
@@ -85,6 +92,9 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -99,6 +109,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * 
      * @param deviceEnrollment
      *            a device enrollment.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull DeviceEnrollment deviceEnrollment) throws MbedCloudException {
@@ -113,6 +125,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * 
      * @param id
      *            Enrollment identity.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
@@ -175,6 +189,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -190,6 +206,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * 
      * @param id
      *            Enrollment identity.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override

@@ -26,6 +26,9 @@ import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
 public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public UserDao() throws MbedCloudException {
         super();
@@ -53,6 +56,8 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added user
      */
     @Override
@@ -68,6 +73,8 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param user
      *            a user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added user
      */
     @Override
@@ -83,6 +90,8 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param action
      *            Action, either 'create' or 'invite'.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added user
      */
     public User create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
@@ -94,6 +103,9 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * Deletes a user.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -107,6 +119,8 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param user
      *            a user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull User user) throws MbedCloudException {
@@ -121,6 +135,8 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param id
      *            The ID of the user to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
@@ -182,6 +198,8 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -197,6 +215,8 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param id
      *            The ID of the user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -210,6 +230,8 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -225,6 +247,8 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param user
      *            a user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -240,6 +264,8 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param id
      *            The ID of the user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated user
      */
     public User update(@NonNull String id) throws MbedCloudException {

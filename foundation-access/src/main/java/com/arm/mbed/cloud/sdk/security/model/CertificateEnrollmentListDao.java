@@ -27,6 +27,9 @@ public class CertificateEnrollmentListDao extends
                                           ModelListDao<CertificateEnrollment, CertificateEnrollmentListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public CertificateEnrollmentListDao() throws MbedCloudException {
         super();
@@ -53,6 +56,8 @@ public class CertificateEnrollmentListDao extends
     /**
      * a certificate enrollment dao.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return a certificate enrollment dao
      */
     @Override
@@ -132,6 +137,8 @@ public class CertificateEnrollmentListDao extends
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return one page of certificate enrollments
      */
     @Override

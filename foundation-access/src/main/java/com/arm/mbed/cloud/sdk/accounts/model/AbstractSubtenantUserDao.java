@@ -28,6 +28,9 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
                                                implements CrudDao<SubtenantUser> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public AbstractSubtenantUserDao() throws MbedCloudException {
         super();
@@ -39,6 +42,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUser(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -55,6 +60,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * 
      * @param subtenantUser
      *            a subtenant user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -71,6 +78,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * 
      * @param action
      *            Create or invite user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public SubtenantUser create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
@@ -88,6 +97,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      *            Create or invite user.
      * @param accountId
      *            The ID of the account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added subtenant user
      */
     public SubtenantUser create(@Nullable @DefaultValue("create") String action,
@@ -101,6 +112,9 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUser(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -115,6 +129,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * 
      * @param subtenantUser
      *            a subtenant user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull SubtenantUser subtenantUser) throws MbedCloudException {
@@ -131,6 +147,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      *            Account ID.
      * @param id
      *            The ID of the user to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public void delete(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         ((Accounts) getModuleOrThrow()).deleteSubtenantUser(accountId, id);
@@ -192,6 +210,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantUser(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -209,6 +229,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      *            The ID of the account.
      * @param id
      *            The ID of the user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     public SubtenantUser read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
@@ -222,6 +244,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#updateSubtenantUser(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -238,6 +262,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * 
      * @param subtenantUser
      *            a subtenant user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -256,6 +282,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      *            The ID of the account.
      * @param id
      *            The ID of the user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated subtenant user
      */
     public SubtenantUser update(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
@@ -269,6 +297,9 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#validateEmail(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public void validateEmail() throws MbedCloudException {
         ((Accounts) getModuleOrThrow()).validateEmail(getModel());
@@ -284,6 +315,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      *            Account ID.
      * @param id
      *            The ID of the user whose email is validated.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public void validateEmail(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         ((Accounts) getModuleOrThrow()).validateEmail(accountId, id);

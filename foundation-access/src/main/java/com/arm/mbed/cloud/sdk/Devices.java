@@ -167,6 +167,8 @@ public class Devices extends AbstractModule {
      * 
      * @param device
      *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added device
      */
     @API
@@ -201,6 +203,8 @@ public class Devices extends AbstractModule {
      * 
      * @param enrollmentIdentity
      *            a device enrollment.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added device enrollment
      */
     @API
@@ -274,6 +278,8 @@ public class Devices extends AbstractModule {
      * 
      * @param enrollmentIdentities
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added device enrollment bulk create
      */
     @API
@@ -309,6 +315,8 @@ public class Devices extends AbstractModule {
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
      * @param deviceEnrollmentBulkCreate
      *            a device enrollment bulk create.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -330,6 +338,8 @@ public class Devices extends AbstractModule {
      * 
      * @param device
      *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteDevice(@NonNull Device device) throws MbedCloudException {
@@ -345,6 +355,8 @@ public class Devices extends AbstractModule {
      * 
      * @param id
      *            null
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteDevice(@NonNull String id) throws MbedCloudException {
@@ -370,6 +382,8 @@ public class Devices extends AbstractModule {
      * 
      * @param deviceEnrollment
      *            a device enrollment.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteDeviceEnrollment(@NonNull DeviceEnrollment deviceEnrollment) throws MbedCloudException {
@@ -389,6 +403,8 @@ public class Devices extends AbstractModule {
      * 
      * @param id
      *            Enrollment identity.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteDeviceEnrollment(@NonNull String id) throws MbedCloudException {
@@ -456,6 +472,8 @@ public class Devices extends AbstractModule {
      * 
      * @param enrollmentIdentities
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -491,6 +509,8 @@ public class Devices extends AbstractModule {
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
      * @param deviceEnrollmentBulkDelete
      *            a device enrollment bulk delete.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -530,6 +550,8 @@ public class Devices extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of device enrollments
      */
     @API
@@ -544,6 +566,8 @@ public class Devices extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -560,6 +584,8 @@ public class Devices extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of device events
      */
     @API
@@ -573,6 +599,8 @@ public class Devices extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -589,6 +617,8 @@ public class Devices extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of devices
      */
     @API
@@ -601,6 +631,8 @@ public class Devices extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -620,6 +652,8 @@ public class Devices extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of device enrollments corresponding to filter options (One page).
      */
     @API
@@ -653,6 +687,8 @@ public class Devices extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of device events corresponding to filter options (One page).
      */
     @API
@@ -685,6 +721,8 @@ public class Devices extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of devices corresponding to filter options (One page).
      */
     @API
@@ -715,6 +753,8 @@ public class Devices extends AbstractModule {
      * 
      * @param device
      *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -731,6 +771,8 @@ public class Devices extends AbstractModule {
      * 
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -759,6 +801,8 @@ public class Devices extends AbstractModule {
      * 
      * @param deviceEnrollment
      *            a device enrollment.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -777,6 +821,8 @@ public class Devices extends AbstractModule {
      * 
      * @param id
      *            Enrollment identity.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -805,6 +851,8 @@ public class Devices extends AbstractModule {
      * 
      * @param deviceEnrollmentBulkCreate
      *            a device enrollment bulk create.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -836,6 +884,8 @@ public class Devices extends AbstractModule {
      * 
      * @param id
      *            Bulk ID.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -864,6 +914,8 @@ public class Devices extends AbstractModule {
      * 
      * @param deviceEnrollmentBulkDelete
      *            a device enrollment bulk delete.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -895,6 +947,8 @@ public class Devices extends AbstractModule {
      * 
      * @param id
      *            Bulk ID.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -923,6 +977,8 @@ public class Devices extends AbstractModule {
      * 
      * @param deviceEvents
      *            a device events.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -939,6 +995,8 @@ public class Devices extends AbstractModule {
      * 
      * @param id
      *            null
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -970,6 +1028,8 @@ public class Devices extends AbstractModule {
      *            The certificate name.
      * @param device
      *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -997,6 +1057,8 @@ public class Devices extends AbstractModule {
      *            The certificate name.
      * @param id
      *            The ID of the certificate enrollment.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1030,6 +1092,8 @@ public class Devices extends AbstractModule {
      * 
      * @param device
      *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1049,6 +1113,8 @@ public class Devices extends AbstractModule {
      *            The ID of the device. The device ID is used across all Device Management APIs.
      * @param device
      *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated device
      */
     @API

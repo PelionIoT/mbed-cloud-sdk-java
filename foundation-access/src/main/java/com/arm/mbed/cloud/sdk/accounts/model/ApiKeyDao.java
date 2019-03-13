@@ -24,6 +24,9 @@ import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
 public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKey> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public ApiKeyDao() throws MbedCloudException {
         super();
@@ -51,6 +54,8 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added api key
      */
     @Override
@@ -66,6 +71,8 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * 
      * @param apiKey
      *            an api key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added api key
      */
     @Override
@@ -78,6 +85,9 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * Deletes an api key.
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -91,6 +101,8 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * 
      * @param apiKey
      *            an api key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull ApiKey apiKey) throws MbedCloudException {
@@ -105,6 +117,8 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * 
      * @param id
      *            The ID of the API key to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
@@ -166,6 +180,8 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#myApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @SuppressWarnings("PMD.ShortMethodName")
@@ -179,6 +195,8 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -194,6 +212,8 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * 
      * @param id
      *            The ID of the API key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -207,6 +227,8 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateApiKey(com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -222,6 +244,8 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * 
      * @param apiKey
      *            an api key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @Override
@@ -238,6 +262,8 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      * 
      * @param id
      *            The ID of the API key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated api key
      */
     public ApiKey update(@NonNull String id) throws MbedCloudException {

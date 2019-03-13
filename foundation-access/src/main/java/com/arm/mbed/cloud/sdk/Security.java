@@ -199,6 +199,8 @@ public class Security extends AbstractModule {
      * 
      * @param certificateIssuerRequest
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added certificate issuer
      */
     @API
@@ -246,6 +248,8 @@ public class Security extends AbstractModule {
      * 
      * @param certificateIssuerRequest
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added certificate issuer
      */
     @API
@@ -284,6 +288,8 @@ public class Security extends AbstractModule {
      * 
      * @param createCertificateIssuerConfig
      *            a certificate issuer config.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added certificate issuer config
      */
     @API
@@ -324,6 +330,8 @@ public class Security extends AbstractModule {
      * 
      * @param developerCertificate
      *            a developer certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added developer certificate
      */
     @API
@@ -362,6 +370,8 @@ public class Security extends AbstractModule {
      *            The ID of the account.
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added subtenant trusted certificate
      */
     @API
@@ -399,6 +409,8 @@ public class Security extends AbstractModule {
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -422,6 +434,8 @@ public class Security extends AbstractModule {
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added trusted certificate
      */
     @API
@@ -453,6 +467,8 @@ public class Security extends AbstractModule {
      * 
      * @param certificateIssuer
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteCertificateIssuer(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
@@ -472,6 +488,8 @@ public class Security extends AbstractModule {
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer. An active certificate issuer may not be deleted.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteCertificateIssuer(@NonNull String id) throws MbedCloudException {
@@ -497,6 +515,8 @@ public class Security extends AbstractModule {
      * 
      * @param certificateIssuerConfig
      *            a certificate issuer config.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void
@@ -514,6 +534,8 @@ public class Security extends AbstractModule {
      * @param id
      *            The ID of the certificate issuer configuration.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteCertificateIssuerConfig(@NonNull String id) throws MbedCloudException {
@@ -539,6 +561,8 @@ public class Security extends AbstractModule {
      * 
      * @param developerCertificate
      *            a developer certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void
@@ -557,6 +581,8 @@ public class Security extends AbstractModule {
      * 
      * @param id
      *            The ID of the trusted certificate to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteDeveloperCertificate(@NonNull String id) throws MbedCloudException {
@@ -588,6 +614,8 @@ public class Security extends AbstractModule {
      *            Account ID.
      * @param id
      *            The ID of the trusted certificate to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteSubtenantTrustedCertificate(@NonNull String accountId,
@@ -616,6 +644,8 @@ public class Security extends AbstractModule {
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void
@@ -635,6 +665,8 @@ public class Security extends AbstractModule {
      * 
      * @param id
      *            The ID of the trusted certificate to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteTrustedCertificate(@NonNull String id) throws MbedCloudException {
@@ -660,6 +692,8 @@ public class Security extends AbstractModule {
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteTrustedCertificate(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
@@ -677,6 +711,8 @@ public class Security extends AbstractModule {
      * **Example usage:** curl -X GET "http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap" -H "accept:
      * application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -704,6 +740,8 @@ public class Security extends AbstractModule {
      * 
      * @param serverCredentials
      *            a server credentials.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -720,6 +758,8 @@ public class Security extends AbstractModule {
      * Provides the configured certificate issuer to be used when creating device certificates for LwM2M
      * communication.[br]
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -748,6 +788,8 @@ public class Security extends AbstractModule {
      * 
      * @param certificateIssuerConfig
      *            a certificate issuer config.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -770,6 +812,8 @@ public class Security extends AbstractModule {
      * 
      * @param id
      *            mUUID that uniquely identifies the developer certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -799,6 +843,8 @@ public class Security extends AbstractModule {
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -817,6 +863,8 @@ public class Security extends AbstractModule {
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -846,6 +894,8 @@ public class Security extends AbstractModule {
      * **Example usage:** curl -X GET "http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m" -H "accept:
      * application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -873,6 +923,8 @@ public class Security extends AbstractModule {
      * 
      * @param serverCredentials
      *            a server credentials.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -901,6 +953,8 @@ public class Security extends AbstractModule {
      * 
      * @param developerCertificate
      *            a developer certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -922,6 +976,8 @@ public class Security extends AbstractModule {
      * 
      * @param id
      *            Entity ID.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -950,6 +1006,8 @@ public class Security extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of certificate enrollments
      */
     @API
@@ -964,6 +1022,8 @@ public class Security extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -981,6 +1041,8 @@ public class Security extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of certificate issuer configs
      */
     @API
@@ -999,6 +1061,8 @@ public class Security extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of certificate issuer configs
      */
     @API
@@ -1015,6 +1079,8 @@ public class Security extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -1031,6 +1097,8 @@ public class Security extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of certificate issuers
      */
     @API
@@ -1045,6 +1113,8 @@ public class Security extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -1065,6 +1135,8 @@ public class Security extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of trusted certificates
      */
     @API
@@ -1082,6 +1154,8 @@ public class Security extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -1099,6 +1173,8 @@ public class Security extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of trusted certificates
      */
     @API
@@ -1123,6 +1199,8 @@ public class Security extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of certificate enrollments corresponding to filter options (One page).
      */
     @API
@@ -1167,6 +1245,8 @@ public class Security extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of certificate issuer configs corresponding to filter options (One page).
      */
     @API
@@ -1192,6 +1272,8 @@ public class Security extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of certificate issuer configs corresponding to filter options (One page).
      */
     @API
@@ -1229,6 +1311,8 @@ public class Security extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of certificate issuers corresponding to filter options (One page).
      */
     @API
@@ -1269,6 +1353,8 @@ public class Security extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of trusted certificates corresponding to filter options (One page).
      */
     @API
@@ -1321,6 +1407,8 @@ public class Security extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of trusted certificates corresponding to filter options (One page).
      */
     @API
@@ -1337,6 +1425,8 @@ public class Security extends AbstractModule {
      * 
      * @param certificateEnrollment
      *            a certificate enrollment.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1359,6 +1449,8 @@ public class Security extends AbstractModule {
      * 
      * @param id
      *            The ID of the certificate enrollment.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1389,6 +1481,8 @@ public class Security extends AbstractModule {
      * 
      * @param certificateIssuer
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1406,6 +1500,8 @@ public class Security extends AbstractModule {
      * 
      * @param id
      *            The ID of the certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1434,6 +1530,8 @@ public class Security extends AbstractModule {
      * 
      * @param certificateIssuerConfig
      *            a certificate issuer config.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1452,6 +1550,8 @@ public class Security extends AbstractModule {
      * @param id
      *            The ID of the certificate issuer configuration.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1481,6 +1581,8 @@ public class Security extends AbstractModule {
      * 
      * @param developerCertificate
      *            a developer certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1502,6 +1604,8 @@ public class Security extends AbstractModule {
      * 
      * @param id
      *            mUUID that uniquely identifies the developer certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1536,6 +1640,8 @@ public class Security extends AbstractModule {
      *            The ID of the account.
      * @param id
      *            Entity ID.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1569,6 +1675,8 @@ public class Security extends AbstractModule {
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1590,6 +1698,8 @@ public class Security extends AbstractModule {
      * 
      * @param id
      *            Entity ID.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1618,6 +1728,8 @@ public class Security extends AbstractModule {
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1636,6 +1748,8 @@ public class Security extends AbstractModule {
      * 
      * @param certificateIssuer
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1659,6 +1773,8 @@ public class Security extends AbstractModule {
      * 
      * @param certificateIssuer
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1689,6 +1805,8 @@ public class Security extends AbstractModule {
      *            The ID of the certificate issuer.
      * @param certificateIssuerUpdateRequest
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated certificate issuer
      */
     @API
@@ -1729,6 +1847,8 @@ public class Security extends AbstractModule {
      *            The ID of the certificate issuer.
      * @param certificateIssuerUpdateRequest
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated certificate issuer
      */
     @API
@@ -1749,6 +1869,8 @@ public class Security extends AbstractModule {
      * 
      * @param certificateIssuerConfig
      *            a certificate issuer config.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1770,6 +1892,8 @@ public class Security extends AbstractModule {
      * @param id
      *            The ID of the certificate issuer configuration.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated certificate issuer config
      */
     @API
@@ -1813,6 +1937,8 @@ public class Security extends AbstractModule {
      *            Entity ID.
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated subtenant trusted certificate
      */
     @API
@@ -1852,6 +1978,8 @@ public class Security extends AbstractModule {
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1876,6 +2004,8 @@ public class Security extends AbstractModule {
      *            Entity ID.
      * @param trustedCertificate
      *            a trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated trusted certificate
      */
     @API
@@ -1911,6 +2041,8 @@ public class Security extends AbstractModule {
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1930,6 +2062,8 @@ public class Security extends AbstractModule {
      * 
      * @param certificateIssuer
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1955,6 +2089,8 @@ public class Security extends AbstractModule {
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API

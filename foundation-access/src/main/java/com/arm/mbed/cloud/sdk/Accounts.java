@@ -181,6 +181,8 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of subtenant trusted certificates
      */
     @API
@@ -214,6 +216,8 @@ public class Accounts extends AbstractModule {
                                                                * 
                                                                * @param options
                                                                *            a list options.
+                                                               * @throws MbedCloudException
+                                                               *             if an error occurs during the process.
                                                                * @return Corresponding page requester
                                                                */
                                                               @Override
@@ -267,6 +271,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of subtenant trusted certificates
      */
     @API
@@ -300,6 +306,8 @@ public class Accounts extends AbstractModule {
                                                                * 
                                                                * @param options
                                                                *            a list options.
+                                                               * @throws MbedCloudException
+                                                               *             if an error occurs during the process.
                                                                * @return Corresponding page requester
                                                                */
                                                               @Override
@@ -331,6 +339,8 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of subtenant trusted certificates
      */
     @API
@@ -354,6 +364,8 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of subtenant trusted certificates
      */
     @API
@@ -378,6 +390,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of subtenant user invitations
      */
     @API
@@ -396,6 +410,8 @@ public class Accounts extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -415,6 +431,8 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of subtenant user invitations
      */
     @API
@@ -438,6 +456,8 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of subtenant user invitations
      */
     @API
@@ -456,6 +476,8 @@ public class Accounts extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -475,6 +497,8 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of subtenant user invitations
      */
     @API
@@ -504,6 +528,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of subtenant users
      */
     @API
@@ -526,6 +552,8 @@ public class Accounts extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -556,6 +584,8 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of subtenant users
      */
     @API
@@ -578,6 +608,8 @@ public class Accounts extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -598,6 +630,8 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of subtenant users
      */
     @API
@@ -618,6 +652,8 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of subtenant users
      */
     @API
@@ -647,6 +683,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added account
      */
     @API
@@ -679,6 +717,8 @@ public class Accounts extends AbstractModule {
      *            .
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added account
      */
     @API
@@ -715,6 +755,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param apiKey
      *            an api key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added api key
      */
     @API
@@ -753,6 +795,8 @@ public class Accounts extends AbstractModule {
      *            The ID of the account.
      * @param subtenantUser
      *            a subtenant user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added subtenant user
      */
     @API
@@ -791,6 +835,8 @@ public class Accounts extends AbstractModule {
      *            Create or invite user.
      * @param subtenantUser
      *            a subtenant user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -809,6 +855,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param subtenantUser
      *            a subtenant user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -828,6 +876,8 @@ public class Accounts extends AbstractModule {
      *            The ID of the account the user is invited to.
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added subtenant user invitation
      */
     @API
@@ -848,6 +898,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -873,6 +925,8 @@ public class Accounts extends AbstractModule {
      *            The ID of the account the user is invited to.
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added subtenant user invitation
      */
     @API
@@ -914,6 +968,8 @@ public class Accounts extends AbstractModule {
      *            between 1 and 100 days.
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -940,6 +996,8 @@ public class Accounts extends AbstractModule {
      *            Action, either 'create' or 'invite'.
      * @param user
      *            a user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added user
      */
     @API
@@ -973,6 +1031,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param user
      *            a user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added user
      */
     @API
@@ -989,6 +1049,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param userInvitation
      *            a user invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added user invitation
      */
     @API
@@ -1011,6 +1073,8 @@ public class Accounts extends AbstractModule {
      *            between 1 and 100 days.
      * @param userInvitation
      *            a user invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an added user invitation
      */
     @API
@@ -1044,6 +1108,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param apiKey
      *            an api key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
@@ -1061,6 +1127,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param id
      *            The ID of the API key to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteApiKey(@NonNull String id) throws MbedCloudException {
@@ -1091,6 +1159,8 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param id
      *            The ID of the user to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteSubtenantUser(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
@@ -1118,6 +1188,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param subtenantUser
      *            a subtenant user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteSubtenantUser(@NonNull SubtenantUser subtenantUser) throws MbedCloudException {
@@ -1139,6 +1211,8 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param id
      *            The ID of the invitation to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteSubtenantUserInvitation(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
@@ -1166,6 +1240,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void
@@ -1184,6 +1260,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param id
      *            The ID of the user to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteUser(@NonNull String id) throws MbedCloudException {
@@ -1209,6 +1287,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param user
      *            a user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteUser(@NonNull User user) throws MbedCloudException {
@@ -1227,6 +1307,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param id
      *            The ID of the invitation to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteUserInvitation(@NonNull String id) throws MbedCloudException {
@@ -1252,6 +1334,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param userInvitation
      *            a user invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteUserInvitation(@NonNull UserInvitation userInvitation) throws MbedCloudException {
@@ -1287,6 +1371,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of accounts corresponding to filter options (One page).
      */
     @API
@@ -1310,6 +1396,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of accounts corresponding to filter options (One page).
      */
     @API
@@ -1355,6 +1443,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of accounts
      */
     @API
@@ -1376,6 +1466,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of accounts
      */
     @API
@@ -1393,6 +1485,8 @@ public class Accounts extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -1409,6 +1503,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of api keys
      */
     @API
@@ -1421,6 +1517,8 @@ public class Accounts extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -1439,6 +1537,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of user invitations
      */
     @API
@@ -1454,6 +1554,8 @@ public class Accounts extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -1471,6 +1573,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of user invitations
      */
     @API
@@ -1489,6 +1593,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of users
      */
     @API
@@ -1503,6 +1609,8 @@ public class Accounts extends AbstractModule {
              * 
              * @param options
              *            a list options.
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              * @return Corresponding page requester
              */
             @Override
@@ -1519,6 +1627,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return paginator over the list of users
      */
     @API
@@ -1536,6 +1646,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of api keys corresponding to filter options (One page).
      */
     @API
@@ -1575,6 +1687,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of user invitations corresponding to filter options (One page).
      */
     @API
@@ -1609,6 +1723,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of user invitations corresponding to filter options (One page).
      */
     @API
@@ -1629,6 +1745,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of users corresponding to filter options (One page).
      */
     @API
@@ -1667,6 +1785,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of users corresponding to filter options (One page).
      */
     @API
@@ -1680,6 +1800,8 @@ public class Accounts extends AbstractModule {
      * <p>
      * Similar to {@link #myAccount(String, String)}
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1695,6 +1817,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1716,6 +1840,8 @@ public class Accounts extends AbstractModule {
      *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
      * @param properties
      *            Property name to be returned from account specific properties.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1749,6 +1875,8 @@ public class Accounts extends AbstractModule {
      *            Property name to be returned from account specific properties.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1766,6 +1894,8 @@ public class Accounts extends AbstractModule {
      * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H 'Authorization: Bearer API_KEY'`
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1792,6 +1922,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param apiKey
      *            an api key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1808,6 +1940,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1824,6 +1958,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param id
      *            Account ID.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1844,6 +1980,8 @@ public class Accounts extends AbstractModule {
      *            Property name to be returned from account specific properties.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1868,6 +2006,8 @@ public class Accounts extends AbstractModule {
      *            Property name to be returned from account specific properties.
      * @param id
      *            Account ID.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1900,6 +2040,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param apiKey
      *            an api key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1919,6 +2061,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param id
      *            The ID of the API key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1952,6 +2096,8 @@ public class Accounts extends AbstractModule {
      *            The ID of the account.
      * @param id
      *            The ID of the user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -1983,6 +2129,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param subtenantUser
      *            a subtenant user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -2006,6 +2154,8 @@ public class Accounts extends AbstractModule {
      *            The ID of the account the user is invited to.
      * @param id
      *            The ID of the invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -2038,6 +2188,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -2058,6 +2210,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param id
      *            The ID of the user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -2086,6 +2240,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param user
      *            a user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -2106,6 +2262,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param id
      *            The ID of the invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -2134,6 +2292,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param userInvitation
      *            a user invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -2176,6 +2336,8 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      */
     @API
@@ -2229,6 +2391,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      */
     @API
@@ -2291,6 +2455,8 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      */
     @API
@@ -2315,6 +2481,8 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      */
     @API
@@ -2335,6 +2503,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -2357,6 +2527,8 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated account
      */
     @API
@@ -2390,6 +2562,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param apiKey
      *            an api key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -2412,6 +2586,8 @@ public class Accounts extends AbstractModule {
      *            The ID of the API key.
      * @param apiKey
      *            an api key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated api key
      */
     @API
@@ -2452,6 +2628,8 @@ public class Accounts extends AbstractModule {
      *            The ID of the user.
      * @param subtenantUser
      *            a subtenant user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated subtenant user
      */
     @API
@@ -2488,6 +2666,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param subtenantUser
      *            a subtenant user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -2510,6 +2690,8 @@ public class Accounts extends AbstractModule {
      *            The ID of the user.
      * @param user
      *            a user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return an updated user
      */
     @API
@@ -2543,6 +2725,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param user
      *            a user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return something
      */
     @API
@@ -2569,6 +2753,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of subtenant user invitations corresponding to filter options (One page).
      */
     @API
@@ -2610,6 +2796,8 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of subtenant user invitations corresponding to filter options (One page).
      */
     @API
@@ -2634,6 +2822,8 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of subtenant user invitations corresponding to filter options (One page).
      */
     @API
@@ -2657,6 +2847,8 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of subtenant user invitations corresponding to filter options (One page).
      */
     @API
@@ -2690,6 +2882,8 @@ public class Accounts extends AbstractModule {
      *            null
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of subtenant users corresponding to filter options (One page).
      */
     @API
@@ -2747,6 +2941,8 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of subtenant users corresponding to filter options (One page).
      */
     @API
@@ -2771,6 +2967,8 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of subtenant users corresponding to filter options (One page).
      */
     @API
@@ -2792,6 +2990,8 @@ public class Accounts extends AbstractModule {
      *            list options.
      * @param account
      *            an account.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return the list of subtenant users corresponding to filter options (One page).
      */
     @API
@@ -2816,6 +3016,8 @@ public class Accounts extends AbstractModule {
      *            Account ID.
      * @param id
      *            The ID of the user whose email is validated.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void validateEmail(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
@@ -2844,6 +3046,8 @@ public class Accounts extends AbstractModule {
      * 
      * @param subtenantUser
      *            a subtenant user.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void validateEmail(@NonNull SubtenantUser subtenantUser) throws MbedCloudException {

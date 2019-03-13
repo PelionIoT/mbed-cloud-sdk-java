@@ -25,6 +25,9 @@ public class TrustedCertificateListDao extends AbstractModelListDao<TrustedCerti
                                        implements ModelListDao<TrustedCertificate, TrustedCertificateListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public TrustedCertificateListDao() throws MbedCloudException {
         super();
@@ -51,6 +54,8 @@ public class TrustedCertificateListDao extends AbstractModelListDao<TrustedCerti
     /**
      * a trusted certificate dao.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return a trusted certificate dao
      */
     @Override
@@ -130,6 +135,8 @@ public class TrustedCertificateListDao extends AbstractModelListDao<TrustedCerti
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return one page of trusted certificates
      */
     @Override

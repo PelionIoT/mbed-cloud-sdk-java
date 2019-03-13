@@ -28,6 +28,9 @@ public class CertificateIssuerConfigListDao extends
                                             ModelListDao<CertificateIssuerConfig, CertificateIssuerConfigListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public CertificateIssuerConfigListDao() throws MbedCloudException {
         super();
@@ -54,6 +57,8 @@ public class CertificateIssuerConfigListDao extends
     /**
      * a certificate issuer config dao.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return a certificate issuer config dao
      */
     @Override
@@ -133,6 +138,8 @@ public class CertificateIssuerConfigListDao extends
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return one page of certificate issuer configs
      */
     @Override

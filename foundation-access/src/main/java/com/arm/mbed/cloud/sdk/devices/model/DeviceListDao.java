@@ -25,6 +25,9 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
                            implements ModelListDao<Device, DeviceListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public DeviceListDao() throws MbedCloudException {
         super();
@@ -50,6 +53,8 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     /**
      * a device dao.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return a device dao
      */
     @Override
@@ -129,6 +134,8 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return one page of devices
      */
     @Override

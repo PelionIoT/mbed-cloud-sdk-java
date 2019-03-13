@@ -25,6 +25,9 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
                                  implements ModelListDao<DeviceEvents, DeviceEventsListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public DeviceEventsListDao() throws MbedCloudException {
         super();
@@ -51,6 +54,8 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
     /**
      * a device events dao.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return a device events dao
      */
     @Override
@@ -130,6 +135,8 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
      * 
      * @param options
      *            list options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      * @return one page of device events
      */
     @Override
