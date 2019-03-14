@@ -54,9 +54,9 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     /**
      * a device enrollment dao.
      * 
+     * @return a device enrollment dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a device enrollment dao
      */
     @Override
     @Internal
@@ -135,9 +135,9 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
      * 
      * @param options
      *            list options.
+     * @return one page of device enrollments
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return one page of device enrollments
      */
     @Override
     protected ListResponse<DeviceEnrollment>

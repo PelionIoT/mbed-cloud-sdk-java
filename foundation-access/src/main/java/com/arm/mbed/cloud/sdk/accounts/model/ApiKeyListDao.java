@@ -53,9 +53,9 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
     /**
      * an api key dao.
      * 
+     * @return an api key dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an api key dao
      */
     @Override
     @Internal
@@ -134,9 +134,9 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
      * 
      * @param options
      *            list options.
+     * @return one page of api keys
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return one page of api keys
      */
     @Override
     protected ListResponse<ApiKey> requestOnePage(ApiKeyListOptions options) throws MbedCloudException {

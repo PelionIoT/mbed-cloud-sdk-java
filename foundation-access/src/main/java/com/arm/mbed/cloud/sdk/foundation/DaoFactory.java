@@ -144,9 +144,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets an account dao.
      * 
+     * @return an account dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an account dao
      */
     @SuppressWarnings("resource")
     public AccountDao getAccountDao() throws MbedCloudException {
@@ -156,9 +156,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets an account list dao.
      * 
+     * @return an account list dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an account list dao
      */
     @SuppressWarnings("resource")
     public AccountListDao getAccountListDao() throws MbedCloudException {
@@ -168,9 +168,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets an api key dao.
      * 
+     * @return an api key dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an api key dao
      */
     @SuppressWarnings("resource")
     public ApiKeyDao getApiKeyDao() throws MbedCloudException {
@@ -180,9 +180,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets an api key list dao.
      * 
+     * @return an api key list dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an api key list dao
      */
     @SuppressWarnings("resource")
     public ApiKeyListDao getApiKeyListDao() throws MbedCloudException {
@@ -192,9 +192,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a certificate enrollment dao.
      * 
+     * @return a certificate enrollment dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a certificate enrollment dao
      */
     @SuppressWarnings("resource")
     public CertificateEnrollmentDao getCertificateEnrollmentDao() throws MbedCloudException {
@@ -204,9 +204,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a certificate enrollment list dao.
      * 
+     * @return a certificate enrollment list dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a certificate enrollment list dao
      */
     @SuppressWarnings("resource")
     public CertificateEnrollmentListDao getCertificateEnrollmentListDao() throws MbedCloudException {
@@ -216,9 +216,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a certificate issuer config dao.
      * 
+     * @return a certificate issuer config dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a certificate issuer config dao
      */
     @SuppressWarnings("resource")
     public CertificateIssuerConfigDao getCertificateIssuerConfigDao() throws MbedCloudException {
@@ -228,9 +228,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a certificate issuer config list dao.
      * 
+     * @return a certificate issuer config list dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a certificate issuer config list dao
      */
     @SuppressWarnings("resource")
     public CertificateIssuerConfigListDao getCertificateIssuerConfigListDao() throws MbedCloudException {
@@ -240,9 +240,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a certificate issuer dao.
      * 
+     * @return a certificate issuer dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a certificate issuer dao
      */
     @SuppressWarnings("resource")
     public CertificateIssuerDao getCertificateIssuerDao() throws MbedCloudException {
@@ -252,9 +252,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a certificate issuer list dao.
      * 
+     * @return a certificate issuer list dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a certificate issuer list dao
      */
     @SuppressWarnings("resource")
     public CertificateIssuerListDao getCertificateIssuerListDao() throws MbedCloudException {
@@ -282,9 +282,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a developer certificate dao.
      * 
+     * @return a developer certificate dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a developer certificate dao
      */
     @SuppressWarnings("resource")
     public DeveloperCertificateDao getDeveloperCertificateDao() throws MbedCloudException {
@@ -294,9 +294,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a device dao.
      * 
+     * @return a device dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a device dao
      */
     @SuppressWarnings("resource")
     public DeviceDao getDeviceDao() throws MbedCloudException {
@@ -306,9 +306,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a device enrollment bulk create dao.
      * 
+     * @return a device enrollment bulk create dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a device enrollment bulk create dao
      */
     @SuppressWarnings("resource")
     public DeviceEnrollmentBulkCreateDao getDeviceEnrollmentBulkCreateDao() throws MbedCloudException {
@@ -318,9 +318,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a device enrollment bulk delete dao.
      * 
+     * @return a device enrollment bulk delete dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a device enrollment bulk delete dao
      */
     @SuppressWarnings("resource")
     public DeviceEnrollmentBulkDeleteDao getDeviceEnrollmentBulkDeleteDao() throws MbedCloudException {
@@ -330,9 +330,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a device enrollment dao.
      * 
+     * @return a device enrollment dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a device enrollment dao
      */
     @SuppressWarnings("resource")
     public DeviceEnrollmentDao getDeviceEnrollmentDao() throws MbedCloudException {
@@ -342,9 +342,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a device enrollment list dao.
      * 
+     * @return a device enrollment list dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a device enrollment list dao
      */
     @SuppressWarnings("resource")
     public DeviceEnrollmentListDao getDeviceEnrollmentListDao() throws MbedCloudException {
@@ -354,9 +354,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a device events dao.
      * 
+     * @return a device events dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a device events dao
      */
     @SuppressWarnings("resource")
     public DeviceEventsDao getDeviceEventsDao() throws MbedCloudException {
@@ -366,9 +366,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a device events list dao.
      * 
+     * @return a device events list dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a device events list dao
      */
     @SuppressWarnings("resource")
     public DeviceEventsListDao getDeviceEventsListDao() throws MbedCloudException {
@@ -378,9 +378,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a device list dao.
      * 
+     * @return a device list dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a device list dao
      */
     @SuppressWarnings("resource")
     public DeviceListDao getDeviceListDao() throws MbedCloudException {
@@ -390,9 +390,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a server credentials dao.
      * 
+     * @return a server credentials dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a server credentials dao
      */
     @SuppressWarnings("resource")
     public ServerCredentialsDao getServerCredentialsDao() throws MbedCloudException {
@@ -402,9 +402,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a subtenant trusted certificate dao.
      * 
+     * @return a subtenant trusted certificate dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a subtenant trusted certificate dao
      */
     @SuppressWarnings("resource")
     public SubtenantTrustedCertificateDao getSubtenantTrustedCertificateDao() throws MbedCloudException {
@@ -414,9 +414,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a subtenant user dao.
      * 
+     * @return a subtenant user dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a subtenant user dao
      */
     @SuppressWarnings("resource")
     public SubtenantUserDao getSubtenantUserDao() throws MbedCloudException {
@@ -426,9 +426,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a subtenant user invitation dao.
      * 
+     * @return a subtenant user invitation dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a subtenant user invitation dao
      */
     @SuppressWarnings("resource")
     public SubtenantUserInvitationDao getSubtenantUserInvitationDao() throws MbedCloudException {
@@ -438,9 +438,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a trusted certificate dao.
      * 
+     * @return a trusted certificate dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a trusted certificate dao
      */
     @SuppressWarnings("resource")
     public TrustedCertificateDao getTrustedCertificateDao() throws MbedCloudException {
@@ -450,9 +450,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a trusted certificate list dao.
      * 
+     * @return a trusted certificate list dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a trusted certificate list dao
      */
     @SuppressWarnings("resource")
     public TrustedCertificateListDao getTrustedCertificateListDao() throws MbedCloudException {
@@ -462,9 +462,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a user dao.
      * 
+     * @return a user dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a user dao
      */
     @SuppressWarnings("resource")
     public UserDao getUserDao() throws MbedCloudException {
@@ -474,9 +474,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a user invitation dao.
      * 
+     * @return a user invitation dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a user invitation dao
      */
     @SuppressWarnings("resource")
     public UserInvitationDao getUserInvitationDao() throws MbedCloudException {
@@ -486,9 +486,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a user invitation list dao.
      * 
+     * @return a user invitation list dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a user invitation list dao
      */
     @SuppressWarnings("resource")
     public UserInvitationListDao getUserInvitationListDao() throws MbedCloudException {
@@ -498,9 +498,9 @@ public class DaoFactory implements Cloneable {
     /**
      * Gets a user list dao.
      * 
+     * @return a user list dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a user list dao
      */
     @SuppressWarnings("resource")
     public UserListDao getUserListDao() throws MbedCloudException {

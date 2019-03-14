@@ -57,9 +57,9 @@ public class CertificateIssuerConfigListDao extends
     /**
      * a certificate issuer config dao.
      * 
+     * @return a certificate issuer config dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a certificate issuer config dao
      */
     @Override
     @Internal
@@ -138,9 +138,9 @@ public class CertificateIssuerConfigListDao extends
      * 
      * @param options
      *            list options.
+     * @return one page of certificate issuer configs
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return one page of certificate issuer configs
      */
     @Override
     protected ListResponse<CertificateIssuerConfig>

@@ -53,9 +53,9 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
     /**
      * an account dao.
      * 
+     * @return an account dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an account dao
      */
     @Override
     @Internal
@@ -134,9 +134,9 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
      * 
      * @param options
      *            list options.
+     * @return one page of accounts
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return one page of accounts
      */
     @Override
     protected ListResponse<Account> requestOnePage(AccountListOptions options) throws MbedCloudException {

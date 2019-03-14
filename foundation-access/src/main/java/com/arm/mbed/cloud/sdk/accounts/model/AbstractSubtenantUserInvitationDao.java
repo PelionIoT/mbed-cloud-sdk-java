@@ -45,9 +45,9 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public SubtenantUserInvitation create() throws MbedCloudException {
@@ -63,9 +63,9 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * 
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public SubtenantUserInvitation
@@ -82,9 +82,9 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * 
      * @param accountId
      *            The ID of the account the user is invited to.
+     * @return an added subtenant user invitation
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added subtenant user invitation
      */
     public SubtenantUserInvitation create(@NonNull String accountId) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(accountId, getModel()));
@@ -100,9 +100,9 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * @param validForDays
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
      *            between 1 and 100 days.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     public SubtenantUserInvitation create(@Nullable int validForDays) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(validForDays, getModel()));
@@ -120,9 +120,9 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      *            between 1 and 100 days.
      * @param accountId
      *            The ID of the account the user is invited to.
+     * @return an added subtenant user invitation
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added subtenant user invitation
      */
     public SubtenantUserInvitation create(@Nullable int validForDays,
                                           @NonNull String accountId) throws MbedCloudException {
@@ -233,9 +233,9 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public SubtenantUserInvitation read() throws MbedCloudException {
@@ -252,9 +252,9 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      *            The ID of the account the user is invited to.
      * @param id
      *            The ID of the invitation.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     public SubtenantUserInvitation read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).readSubtenantUserInvitation(accountId, id));

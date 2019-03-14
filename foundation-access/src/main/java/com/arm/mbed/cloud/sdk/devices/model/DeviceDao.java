@@ -55,9 +55,9 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#createDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
+     * @return an added device
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added device
      */
     @Override
     public Device create() throws MbedCloudException {
@@ -72,9 +72,9 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * 
      * @param device
      *            a device.
+     * @return an added device
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added device
      */
     @Override
     public Device create(@NonNull Device device) throws MbedCloudException {
@@ -181,9 +181,9 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public Device read() throws MbedCloudException {
@@ -198,9 +198,9 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * 
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public Device read(@NonNull String id) throws MbedCloudException {
@@ -217,9 +217,9 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * 
      * @param certificateName
      *            The certificate name.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     public CertificateEnrollment renewCertificate(@NonNull String certificateName) throws MbedCloudException {
         return ((Devices) getModuleOrThrow()).renewCertificate(certificateName, getModel());
@@ -235,9 +235,9 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      *            The certificate name.
      * @param id
      *            The ID of the certificate enrollment.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     public CertificateEnrollment renewCertificate(@NonNull String certificateName,
                                                   @NonNull String id) throws MbedCloudException {
@@ -249,9 +249,9 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#updateDevice(com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public Device update() throws MbedCloudException {
@@ -266,9 +266,9 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * 
      * @param device
      *            a device.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public Device update(@NonNull Device device) throws MbedCloudException {
@@ -284,9 +284,9 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * 
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
+     * @return an updated device
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an updated device
      */
     public Device update(@NonNull String id) throws MbedCloudException {
         setModel(((Devices) getModuleOrThrow()).updateDevice(id, getModel()));

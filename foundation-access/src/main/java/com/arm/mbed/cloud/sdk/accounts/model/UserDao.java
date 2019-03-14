@@ -56,9 +56,9 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
+     * @return an added user
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added user
      */
     @Override
     public User create() throws MbedCloudException {
@@ -73,9 +73,9 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param user
      *            a user.
+     * @return an added user
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added user
      */
     @Override
     public User create(@NonNull User user) throws MbedCloudException {
@@ -90,9 +90,9 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param action
      *            Action, either 'create' or 'invite'.
+     * @return an added user
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added user
      */
     public User create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).createUser(action, getModel()));
@@ -198,9 +198,9 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public User read() throws MbedCloudException {
@@ -215,9 +215,9 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param id
      *            The ID of the user.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public User read(@NonNull String id) throws MbedCloudException {
@@ -230,9 +230,9 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public User update() throws MbedCloudException {
@@ -247,9 +247,9 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param user
      *            a user.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public User update(@NonNull User user) throws MbedCloudException {
@@ -264,9 +264,9 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param id
      *            The ID of the user.
+     * @return an updated user
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an updated user
      */
     public User update(@NonNull String id) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).updateUser(id, getModel()));

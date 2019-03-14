@@ -107,9 +107,9 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readCertificateEnrollment(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public CertificateEnrollment read() throws MbedCloudException {
@@ -124,9 +124,9 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
      * 
      * @param id
      *            The ID of the certificate enrollment.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public CertificateEnrollment read(@NonNull String id) throws MbedCloudException {

@@ -54,9 +54,9 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
     /**
      * a certificate issuer dao.
      * 
+     * @return a certificate issuer dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a certificate issuer dao
      */
     @Override
     @Internal
@@ -135,9 +135,9 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
      * 
      * @param options
      *            list options.
+     * @return one page of certificate issuers
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return one page of certificate issuers
      */
     @Override
     protected ListResponse<CertificateIssuer>

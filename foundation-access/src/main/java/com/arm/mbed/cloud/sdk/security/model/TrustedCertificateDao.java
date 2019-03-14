@@ -56,9 +56,9 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
+     * @return an added trusted certificate
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added trusted certificate
      */
     @Override
     public TrustedCertificate create() throws MbedCloudException {
@@ -74,9 +74,9 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @return an added trusted certificate
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added trusted certificate
      */
     @Override
     public TrustedCertificate create(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
@@ -137,9 +137,9 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     public DeveloperCertificate getDeveloperCertificateInfo() throws MbedCloudException {
         return ((Security) getModuleOrThrow()).getDeveloperCertificateInfo(getModel());
@@ -153,9 +153,9 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param id
      *            mUUID that uniquely identifies the developer certificate.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     public DeveloperCertificate getDeveloperCertificateInfo(@NonNull String id) throws MbedCloudException {
         return ((Security) getModuleOrThrow()).getDeveloperCertificateInfo(id);
@@ -217,9 +217,9 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public TrustedCertificate read() throws MbedCloudException {
@@ -234,9 +234,9 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param id
      *            Entity ID.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public TrustedCertificate read(@NonNull String id) throws MbedCloudException {
@@ -250,9 +250,9 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#updateTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public TrustedCertificate update() throws MbedCloudException {
@@ -268,9 +268,9 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public TrustedCertificate update(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
@@ -286,9 +286,9 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * 
      * @param id
      *            Entity ID.
+     * @return an updated trusted certificate
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an updated trusted certificate
      */
     public TrustedCertificate update(@NonNull String id) throws MbedCloudException {
         setModel(((Security) getModuleOrThrow()).updateTrustedCertificate(id, getModel()));

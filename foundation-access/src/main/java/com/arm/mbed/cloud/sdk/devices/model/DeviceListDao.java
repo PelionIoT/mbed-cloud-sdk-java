@@ -53,9 +53,9 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     /**
      * a device dao.
      * 
+     * @return a device dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a device dao
      */
     @Override
     @Internal
@@ -134,9 +134,9 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
      * 
      * @param options
      *            list options.
+     * @return one page of devices
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return one page of devices
      */
     @Override
     protected ListResponse<Device> requestOnePage(DeviceListOptions options) throws MbedCloudException {

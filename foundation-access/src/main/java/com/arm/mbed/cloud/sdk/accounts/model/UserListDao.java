@@ -53,9 +53,9 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
     /**
      * a user dao.
      * 
+     * @return a user dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a user dao
      */
     @Override
     @Internal
@@ -134,9 +134,9 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
      * 
      * @param options
      *            list options.
+     * @return one page of users
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return one page of users
      */
     @Override
     protected ListResponse<User> requestOnePage(UserListOptions options) throws MbedCloudException {

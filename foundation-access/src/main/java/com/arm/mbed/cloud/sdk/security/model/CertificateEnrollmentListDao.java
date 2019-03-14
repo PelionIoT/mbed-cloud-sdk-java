@@ -56,9 +56,9 @@ public class CertificateEnrollmentListDao extends
     /**
      * a certificate enrollment dao.
      * 
+     * @return a certificate enrollment dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a certificate enrollment dao
      */
     @Override
     @Internal
@@ -137,9 +137,9 @@ public class CertificateEnrollmentListDao extends
      * 
      * @param options
      *            list options.
+     * @return one page of certificate enrollments
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return one page of certificate enrollments
      */
     @Override
     protected ListResponse<CertificateEnrollment>

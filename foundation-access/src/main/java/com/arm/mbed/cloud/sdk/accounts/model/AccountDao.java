@@ -71,9 +71,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            null
      * @param options
      *            list options.
+     * @return paginator over the list of subtenant trusted certificates
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return paginator over the list of subtenant trusted certificates
      */
     public Paginator<SubtenantTrustedCertificate>
            allTrustedCertificates(@Nullable String nameEq, @Nullable String serviceEq, @Nullable Integer expireEq,
@@ -120,9 +120,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            null
      * @param options
      *            list options.
+     * @return paginator over the list of subtenant trusted certificates
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return paginator over the list of subtenant trusted certificates
      */
     public Paginator<SubtenantTrustedCertificate>
            allTrustedCertificates(@NonNull String id, @Nullable String nameEq, @Nullable String serviceEq,
@@ -147,9 +147,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            Account ID.
      * @param options
      *            list options.
+     * @return paginator over the list of subtenant trusted certificates
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return paginator over the list of subtenant trusted certificates
      */
     public Paginator<SubtenantTrustedCertificate>
            allTrustedCertificates(@NonNull String id,
@@ -165,9 +165,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param options
      *            list options.
+     * @return paginator over the list of subtenant trusted certificates
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return paginator over the list of subtenant trusted certificates
      */
     public Paginator<SubtenantTrustedCertificate>
            allTrustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
@@ -186,9 +186,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            null
      * @param options
      *            list options.
+     * @return paginator over the list of subtenant user invitations
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return paginator over the list of subtenant user invitations
      */
     public Paginator<SubtenantUserInvitation>
            allUserInvitations(@NonNull String id, @Nullable String loginProfileEq,
@@ -206,9 +206,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            null
      * @param options
      *            list options.
+     * @return paginator over the list of subtenant user invitations
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return paginator over the list of subtenant user invitations
      */
     public Paginator<SubtenantUserInvitation>
            allUserInvitations(@Nullable String loginProfileEq,
@@ -224,9 +224,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param options
      *            list options.
+     * @return paginator over the list of subtenant user invitations
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return paginator over the list of subtenant user invitations
      */
     public Paginator<SubtenantUserInvitation>
            allUserInvitations(@Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
@@ -253,9 +253,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            null
      * @param options
      *            list options.
+     * @return paginator over the list of subtenant users
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return paginator over the list of subtenant users
      */
     public Paginator<SubtenantUser> allUsers(@NonNull String id, @Nullable String emailEq, @Nullable String statusEq,
                                              @Nullable String statusIn, @Nullable String statusNin,
@@ -283,9 +283,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            null
      * @param options
      *            list options.
+     * @return paginator over the list of subtenant users
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return paginator over the list of subtenant users
      */
     public Paginator<SubtenantUser> allUsers(@Nullable String emailEq, @Nullable String statusEq,
                                              @Nullable String statusIn, @Nullable String statusNin,
@@ -305,9 +305,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            Account ID.
      * @param options
      *            list options.
+     * @return paginator over the list of subtenant users
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return paginator over the list of subtenant users
      */
     public Paginator<SubtenantUser> allUsers(@NonNull String id,
                                              @Nullable SubtenantUserListOptions options) throws MbedCloudException {
@@ -322,9 +322,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param options
      *            list options.
+     * @return paginator over the list of subtenant users
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return paginator over the list of subtenant users
      */
     public Paginator<SubtenantUser> allUsers(@Nullable SubtenantUserListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).allUsers(options, getModel());
@@ -352,9 +352,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
+     * @return an added account
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added account
      */
     @Override
     public Account create() throws MbedCloudException {
@@ -369,9 +369,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param account
      *            an account.
+     * @return an added account
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added account
      */
     @Override
     public Account create(@NonNull Account account) throws MbedCloudException {
@@ -396,9 +396,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            about the new account is sent to the admin_email defined in the request.</li>
      *            </ul>
      *            .
+     * @return an added account
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added account
      */
     public Account create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).createAccount(action, getModel()));
@@ -460,9 +460,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#myAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @SuppressWarnings("PMD.ShortMethodName")
     public Account me() throws MbedCloudException {
@@ -480,9 +480,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
      * @param properties
      *            Property name to be returned from account specific properties.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @SuppressWarnings("PMD.ShortMethodName")
     public Account me(@Nullable String include, @Nullable String properties) throws MbedCloudException {
@@ -495,9 +495,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public Account read() throws MbedCloudException {
@@ -512,9 +512,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param id
      *            Account ID.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public Account read(@NonNull String id) throws MbedCloudException {
@@ -532,9 +532,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
      * @param properties
      *            Property name to be returned from account specific properties.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     public Account read(@Nullable String include, @Nullable String properties) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).readAccount(include, properties, getModel()));
@@ -552,9 +552,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            Property name to be returned from account specific properties.
      * @param id
      *            Account ID.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     public Account read(@Nullable String include, @Nullable String properties,
                         @NonNull String id) throws MbedCloudException {
@@ -593,9 +593,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            null
      * @param options
      *            list options.
+     * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      */
     public ListResponse<SubtenantTrustedCertificate>
            trustedCertificates(@Nullable String nameEq, @Nullable String serviceEq, @Nullable Integer expireEq,
@@ -642,9 +642,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            null
      * @param options
      *            list options.
+     * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      */
     public ListResponse<SubtenantTrustedCertificate>
            trustedCertificates(@NonNull String id, @Nullable String nameEq, @Nullable String serviceEq,
@@ -670,9 +670,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            Account ID.
      * @param options
      *            list options.
+     * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      */
     public ListResponse<SubtenantTrustedCertificate>
            trustedCertificates(@NonNull String id,
@@ -689,9 +689,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param options
      *            list options.
+     * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return the list of subtenant trusted certificates corresponding to filter options (One page).
      */
     public ListResponse<SubtenantTrustedCertificate>
            trustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
@@ -703,9 +703,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public Account update() throws MbedCloudException {
@@ -720,9 +720,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param account
      *            an account.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public Account update(@NonNull Account account) throws MbedCloudException {
@@ -738,9 +738,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param id
      *            Account ID.
+     * @return an updated account
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an updated account
      */
     public Account update(@NonNull String id) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).updateAccount(id, getModel()));
@@ -760,9 +760,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            null
      * @param options
      *            list options.
+     * @return the list of subtenant user invitations corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return the list of subtenant user invitations corresponding to filter options (One page).
      */
     public ListResponse<SubtenantUserInvitation>
            userInvitations(@NonNull String id, @Nullable String loginProfileEq,
@@ -781,9 +781,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            null
      * @param options
      *            list options.
+     * @return the list of subtenant user invitations corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return the list of subtenant user invitations corresponding to filter options (One page).
      */
     public ListResponse<SubtenantUserInvitation>
            userInvitations(@Nullable String loginProfileEq,
@@ -800,9 +800,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param options
      *            list options.
+     * @return the list of subtenant user invitations corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return the list of subtenant user invitations corresponding to filter options (One page).
      */
     public ListResponse<SubtenantUserInvitation>
            userInvitations(@Nullable SubtenantUserInvitationListOptions options) throws MbedCloudException {
@@ -830,9 +830,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            null
      * @param options
      *            list options.
+     * @return the list of subtenant users corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return the list of subtenant users corresponding to filter options (One page).
      */
     public ListResponse<SubtenantUser> users(@NonNull String id, @Nullable String emailEq, @Nullable String statusEq,
                                              @Nullable String statusIn, @Nullable String statusNin,
@@ -861,9 +861,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            null
      * @param options
      *            list options.
+     * @return the list of subtenant users corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return the list of subtenant users corresponding to filter options (One page).
      */
     public ListResponse<SubtenantUser> users(@Nullable String emailEq, @Nullable String statusEq,
                                              @Nullable String statusIn, @Nullable String statusNin,
@@ -884,9 +884,9 @@ public class AccountDao extends AbstractModelDao<Account>
      *            Account ID.
      * @param options
      *            list options.
+     * @return the list of subtenant users corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return the list of subtenant users corresponding to filter options (One page).
      */
     public ListResponse<SubtenantUser> users(@NonNull String id,
                                              @Nullable SubtenantUserListOptions options) throws MbedCloudException {
@@ -902,9 +902,9 @@ public class AccountDao extends AbstractModelDao<Account>
      * 
      * @param options
      *            list options.
+     * @return the list of subtenant users corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return the list of subtenant users corresponding to filter options (One page).
      */
     public ListResponse<SubtenantUser> users(@Nullable SubtenantUserListOptions options) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).users(options, getModel());

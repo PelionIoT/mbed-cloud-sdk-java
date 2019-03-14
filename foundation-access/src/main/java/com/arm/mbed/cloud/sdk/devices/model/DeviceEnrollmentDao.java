@@ -59,9 +59,9 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
+     * @return an added device enrollment
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added device enrollment
      */
     @Override
     public DeviceEnrollment create() throws MbedCloudException {
@@ -77,9 +77,9 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * 
      * @param enrollmentIdentity
      *            a device enrollment.
+     * @return an added device enrollment
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added device enrollment
      */
     @Override
     public DeviceEnrollment create(@NonNull DeviceEnrollment enrollmentIdentity) throws MbedCloudException {
@@ -189,9 +189,9 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public DeviceEnrollment read() throws MbedCloudException {
@@ -206,9 +206,9 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * 
      * @param id
      *            Enrollment identity.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public DeviceEnrollment read(@NonNull String id) throws MbedCloudException {

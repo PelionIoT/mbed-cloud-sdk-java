@@ -58,9 +58,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuer(com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
+     * @return an added certificate issuer
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added certificate issuer
      */
     @Override
     public CertificateIssuer create() throws MbedCloudException {
@@ -79,9 +79,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
      * 
+     * @return an added certificate issuer
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added certificate issuer
      */
     public CertificateIssuer create(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
         setModel(((Security) getModuleOrThrow()).createCertificateIssuer(issuerCredentials, getModel()));
@@ -96,9 +96,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param certificateIssuerRequest
      *            a certificate issuer.
+     * @return an added certificate issuer
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added certificate issuer
      */
     @Override
     public CertificateIssuer create(@NonNull CertificateIssuer certificateIssuerRequest) throws MbedCloudException {
@@ -210,9 +210,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readCertificateIssuer(com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public CertificateIssuer read() throws MbedCloudException {
@@ -227,9 +227,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param id
      *            The ID of the certificate issuer.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public CertificateIssuer read(@NonNull String id) throws MbedCloudException {
@@ -243,9 +243,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuer(com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public CertificateIssuer update() throws MbedCloudException {
@@ -264,9 +264,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     public CertificateIssuer update(@Nullable Map<String, String> issuerCredentials) throws MbedCloudException {
         setModel(((Security) getModuleOrThrow()).updateCertificateIssuer(issuerCredentials, getModel()));
@@ -286,9 +286,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param id
      *            The ID of the certificate issuer.
+     * @return an updated certificate issuer
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an updated certificate issuer
      */
     public CertificateIssuer update(@Nullable Map<String, String> issuerCredentials,
                                     @NonNull String id) throws MbedCloudException {
@@ -304,9 +304,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param certificateIssuer
      *            a certificate issuer.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public CertificateIssuer update(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
@@ -322,9 +322,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * 
      * @param id
      *            The ID of the certificate issuer.
+     * @return an updated certificate issuer
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an updated certificate issuer
      */
     public CertificateIssuer update(@NonNull String id) throws MbedCloudException {
         setModel(((Security) getModuleOrThrow()).updateCertificateIssuer(id, getModel()));
@@ -338,9 +338,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#verify(com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     public VerificationResponse verify() throws MbedCloudException {
         return ((Security) getModuleOrThrow()).verify(getModel());
@@ -356,9 +356,9 @@ public class CertificateIssuerDao extends AbstractModelDao<CertificateIssuer> im
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer.
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     public VerificationResponse verify(@NonNull String id) throws MbedCloudException {
         return ((Security) getModuleOrThrow()).verify(id);

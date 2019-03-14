@@ -54,9 +54,9 @@ public class TrustedCertificateListDao extends AbstractModelListDao<TrustedCerti
     /**
      * a trusted certificate dao.
      * 
+     * @return a trusted certificate dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a trusted certificate dao
      */
     @Override
     @Internal
@@ -135,9 +135,9 @@ public class TrustedCertificateListDao extends AbstractModelListDao<TrustedCerti
      * 
      * @param options
      *            list options.
+     * @return one page of trusted certificates
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return one page of trusted certificates
      */
     @Override
     protected ListResponse<TrustedCertificate>

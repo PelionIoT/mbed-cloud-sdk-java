@@ -60,9 +60,9 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
      * 
+     * @return an added user invitation
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added user invitation
      */
     @Override
     public UserInvitation create() throws MbedCloudException {
@@ -78,9 +78,9 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * 
      * @param userInvitation
      *            a user invitation.
+     * @return an added user invitation
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added user invitation
      */
     @Override
     public UserInvitation create(@NonNull UserInvitation userInvitation) throws MbedCloudException {
@@ -97,9 +97,9 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * @param validForDays
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
      *            between 1 and 100 days.
+     * @return an added user invitation
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return an added user invitation
      */
     public UserInvitation create(@Nullable int validForDays) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).createUserInvitation(validForDays, getModel()));
@@ -208,9 +208,9 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#readUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
      * 
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public UserInvitation read() throws MbedCloudException {
@@ -225,9 +225,9 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * 
      * @param id
      *            The ID of the invitation.
+     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return something
      */
     @Override
     public UserInvitation read(@NonNull String id) throws MbedCloudException {

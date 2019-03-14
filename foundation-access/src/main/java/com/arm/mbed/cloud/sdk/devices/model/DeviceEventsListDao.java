@@ -54,9 +54,9 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
     /**
      * a device events dao.
      * 
+     * @return a device events dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a device events dao
      */
     @Override
     @Internal
@@ -135,9 +135,9 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
      * 
      * @param options
      *            list options.
+     * @return one page of device events
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return one page of device events
      */
     @Override
     protected ListResponse<DeviceEvents> requestOnePage(DeviceEventsListOptions options) throws MbedCloudException {

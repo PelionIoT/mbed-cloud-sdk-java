@@ -54,9 +54,9 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
     /**
      * a user invitation dao.
      * 
+     * @return a user invitation dao
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return a user invitation dao
      */
     @Override
     @Internal
@@ -135,9 +135,9 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
      * 
      * @param options
      *            list options.
+     * @return one page of user invitations
      * @throws MbedCloudException
      *             if an error occurs during the process.
-     * @return one page of user invitations
      */
     @Override
     protected ListResponse<UserInvitation> requestOnePage(UserInvitationListOptions options) throws MbedCloudException {
