@@ -754,6 +754,11 @@ class CommonConfig:
 
 # SDK distribution configuration
 class Config(GitAction):
+    DEFAULT_TESTRUNNER_TAG = "latest"
+    BETA_TESTRUNNER_TAG = "beta"
+    RELEASE_TESTRUNNER_TAG = "master"
+    MASTER_BRANCH = "master"
+
     def __init__(self):
         super(Config, self).__init__("Release Configuration")
 
@@ -770,6 +775,7 @@ class Config(GitAction):
         self.artifactory_url = None
         self.artifactory_host = None
         self.testrunner_image = None
+        self.testrunner_untagged_image = None
         self.origin_url = None
         self.code_coverage = None
         self.disable_artifactory = None
@@ -961,6 +967,10 @@ class Config(GitAction):
             self.git_url_with_token = new.format(GITHUB_TOKEN=token)
         return self.git_url_with_token
 
+    def is_master_branch(self):
+        branch_name = self.get_branch_name()
+        return branch_name and branch_name.lower().strip() == Config.MASTER_BRANCH
+
     def get_version(self):
         if not self.version:
             self.log_debug("Determining SDK version")
@@ -968,7 +978,7 @@ class Config(GitAction):
             tmp_version = self.properties['SDKVersion']
             branch_name = self.get_branch_name()
             self.is_release = False
-            if branch_name and branch_name.lower().strip() != "master":
+            if branch_name and not self.is_master_branch():
                 if tmp_version:
                     snapshot_version = r"(\d+\.)?(\d+\.)?(\d+)(-\w+)(_\w*)"
                     if re.match(snapshot_version, tmp_version):
@@ -1069,27 +1079,49 @@ class Config(GitAction):
     def get_testserver_docker_image(self):
         return 'sdk_test_server'
 
+    def get_testrunner_untagged_docker_image(self):
+        if not self.testrunner_untagged_image:
+            self.log_debug("Determining test runner untagged docker image")
+            self.testrunner_untagged_image = self.properties['testrunner_container']
+        return self.testrunner_untagged_image
+
+    def get_default_testrunner_docker_image(self):
+        return self._determine_testrunner_docker_image(
+            self.get_testrunner_untagged_docker_image(), Config.DEFAULT_TESTRUNNER_TAG)
+
     def get_testrunner_docker_image(self):
         if not self.testrunner_image:
             self.log_debug("Determining test runner docker image")
-            image = os.getenv("TESTRUNNER_DOCKER_IMAGE")
             # If the code correspond to a specific version (i.e. is tagged)
             # then the testrunner used for this version is retrieved.
             # Otherwise, the latest testrunner is used
-            if image and not self.is_commit_tagged():
-                self.testrunner_image = image
+            if self.is_commit_tagged():
+                self.testrunner_image = self._determine_testrunner_docker_image(
+                    self.get_testrunner_untagged_docker_image(), self.properties['SDKTestrunnerVersion'])
             else:
-                container_path = self.properties['testrunner_container']
-                testrunner_hash = self.properties['SDKTestrunnerVersion']
-                if container_path and testrunner_hash:
-                    self.testrunner_image = str(container_path) + ':' + str(testrunner_hash)
+                image = os.getenv("TESTRUNNER_DOCKER_IMAGE")
+                tagged_image_pattern = r".*:.+"
+                # Checks whether the version to use has been explicitly set in the build file
+                if image and re.match(tagged_image_pattern, image):
+                    self.testrunner_image = image
                 else:
-                    self.log_error_without_getting_cause(
-                        "Information regarding the test runner image to use is missing")
-                    self.log_info(
-                        "Test runner image name [%s] | Test runner version [%s]" % (
-                            str(container_path), str(testrunner_hash)))
+                    tag_to_use = self.get_branch_name()
+                    if self.is_master_branch():
+                        tag_to_use = Config.BETA_TESTRUNNER_TAG if self.is_from_private() else Config.RELEASE_TESTRUNNER_TAG
+                    self.testrunner_image = self._determine_testrunner_docker_image(
+                        self.get_testrunner_untagged_docker_image(), tag_to_use)
         return self.testrunner_image
+
+    def _determine_testrunner_docker_image(self, container_path, testrunner_hash):
+        if container_path and testrunner_hash:
+            return "%s:%s" % (str(container_path), str(testrunner_hash))
+        else:
+            self.log_error_without_getting_cause(
+                "Information regarding the test runner image to use is missing")
+            self.log_info(
+                "Test runner: image name [%s] | version [%s]" % (
+                    str(container_path), str(testrunner_hash)))
+            return None
 
     def get_new_artifact_log_parser(self, module):
         return PropertyFileParser(module,
