@@ -401,14 +401,7 @@ public class Method extends AbstractSdkArtifact {
                                                 + System.lineSeparator());
             }
         }
-        if (throwsExceptions()) {
-            exceptions.forEach(e -> {
-                specificationBuilder.addException(e);
-                specificationBuilder.addJavadoc("@throws " + e.getSimpleName()
-                                                + " if an error occurs during the process." + System.lineSeparator());
-            });
 
-        }
         if (hasReturn()) {
             returnType.translate();
             if (returnType.isGeneric()) {
@@ -424,6 +417,14 @@ public class Method extends AbstractSdkArtifact {
             specificationBuilder.addJavadoc("@return "
                                             + String.valueOf(hasReturnDescription() ? returnDescription : "something")
                                             + System.lineSeparator());
+        }
+        if (throwsExceptions()) {
+            exceptions.forEach(e -> {
+                specificationBuilder.addException(e);
+                specificationBuilder.addJavadoc("@throws " + e.getSimpleName()
+                                                + " if an error occurs during the process." + System.lineSeparator());
+            });
+
         }
 
     }
