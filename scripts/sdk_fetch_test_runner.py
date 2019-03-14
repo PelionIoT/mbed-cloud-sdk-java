@@ -7,18 +7,15 @@ import os
 class SDKTestRunnerFetcher(sdk_common.BuildStep):
     def __init__(self, logger=None):
         super(SDKTestRunnerFetcher, self).__init__('SDK test runner fetch', logger)
+        self.image_to_fetch = str(self.common_config.get_config().get_testrunner_docker_image())
+        self.fallback_image_to_fetch = str(self.common_config.get_config().get_default_testrunner_docker_image())
 
-    def do_docker(self, branch):
-        image = os.getenv("TESTRUNNER_DOCKER_IMAGE")
+    def pull_image(self, image, image_tag):
 
-        full_image_name = image + ":" + branch
-        fallback_image_name = image + ":latest"
-
-        arguments = ["docker", "pull", full_image_name]
+        arguments = ["docker", "pull", image]
         return_code = self.call_command(arguments, None, True)
-
         if return_code == 0:
-            arguments = ["docker", "tag", full_image_name, fallback_image_name]
+            arguments = ["docker", "tag", image, image_tag]
             self.call_command(arguments, None, True)
 
         return return_code
@@ -34,13 +31,13 @@ class SDKTestRunnerFetcher(sdk_common.BuildStep):
                 result = self.execute_command_output(command)
             if not result or not ("Login Succeeded" in result):
                 raise Exception('Login Error', result)
-            self.log_info("Fetching SDK test runner")
-
-            branch = os.getenv("CIRCLE_BRANCH")
-            return_code = self.do_docker(branch)
-
+            self.log_info("Fetching SDK test runner:")
+            self.log_info("[%s]" % self.image_to_fetch)
+            return_code = self.pull_image(self.image_to_fetch, self.image_to_fetch)
             if return_code != 0:
-                return_code = self.do_docker("master")
+                self.log_warning("Failed fetching testrunner image [%s]" % self.image_to_fetch)
+                self.log_info("Fetching default image instead [%s]" % self.fallback_image_to_fetch)
+                return_code = self.pull_image(self.fallback_image_to_fetch, self.image_to_fetch)
                 if return_code != 0:
                     raise Exception('Error code', return_code)
         except:
