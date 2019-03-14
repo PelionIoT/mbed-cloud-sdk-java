@@ -8,7 +8,7 @@ import static org.junit.Assert.fail;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Locale;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -75,11 +75,15 @@ public class TestFileDownload {
             DataFile dest2 = download.getDestinationFile();
             assertNotNull(dest1);
             assertTrue(dest1.isValid());
-            dest1.getFile().deleteOnExit();
+            // dest1.getFile().deleteOnExit();
             assertEquals(dest1, dest2);
             assertTrue(dest1.exists());
-            assertEquals("8854E10495F27A8C94EB1F8031328C16".toLowerCase(Locale.UK), dest1.getMd5Checksum());
+            // The MD5 hash is different depending whether the test is run on Windows or Linux due to the different EOL
+            // character.
+            assertTrue(Arrays.asList("8854e10495f27a8c94eb1f8031328c16", "6c23c0f164d96c320203d97615bc2e66")
+                             .contains(dest1.getMd5Checksum()));
             assertNotNull(dest1.getFileName());
+            System.out.println(dest1.getFile());
             assertTrue(dest1.getFileName().contains("txt"));
             assertEquals(DataFile.BINARY_FILE_MEDIA_TYPE, dest1.getContentType());
 
