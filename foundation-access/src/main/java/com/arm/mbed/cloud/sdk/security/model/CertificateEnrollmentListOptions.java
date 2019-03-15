@@ -234,7 +234,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * @param filterByUpdatedAt
      *            filter value.
      */
-    public void setLessThanUpdatedAtFilter(Date filterByUpdatedAt) {
+    public void addLessThanUpdatedAtFilter(Date filterByUpdatedAt) {
         addLessThanFilter(TAG_FILTER_BY_UPDATED_AT, filterByUpdatedAt);
     }
 
@@ -242,7 +242,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * Sets "a less than" filter by {@code updatedAt}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#setLessThanUpdatedAtFilter(java.util.Date)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addLessThanUpdatedAtFilter(java.util.Date)}
      * 
      * @param filterByUpdatedAt
      *            filter value.
@@ -250,7 +250,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends CertificateEnrollmentListOptions> T lessThanUpdatedAt(Date filterByUpdatedAt) {
-        setLessThanUpdatedAtFilter(filterByUpdatedAt);
+        addLessThanUpdatedAtFilter(filterByUpdatedAt);
         return (T) this;
     }
 
@@ -260,7 +260,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * @param filterByUpdatedAt
      *            filter value.
      */
-    public void setGreaterThanUpdatedAtFilter(Date filterByUpdatedAt) {
+    public void addGreaterThanUpdatedAtFilter(Date filterByUpdatedAt) {
         addGreaterThanFilter(TAG_FILTER_BY_UPDATED_AT, filterByUpdatedAt);
     }
 
@@ -268,7 +268,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * Sets "a greater than" filter by {@code updatedAt}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#setGreaterThanUpdatedAtFilter(java.util.Date)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addGreaterThanUpdatedAtFilter(java.util.Date)}
      * 
      * @param filterByUpdatedAt
      *            filter value.
@@ -276,7 +276,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends CertificateEnrollmentListOptions> T greaterThanUpdatedAt(Date filterByUpdatedAt) {
-        setGreaterThanUpdatedAtFilter(filterByUpdatedAt);
+        addGreaterThanUpdatedAtFilter(filterByUpdatedAt);
         return (T) this;
     }
 
@@ -295,7 +295,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * @param filterByCertificateName
      *            filter value.
      */
-    public void setEqualToCertificateNameFilter(String filterByCertificateName) {
+    public void addEqualToCertificateNameFilter(String filterByCertificateName) {
         addEqualFilter(TAG_FILTER_BY_CERTIFICATE_NAME, filterByCertificateName);
     }
 
@@ -303,7 +303,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * Sets "an equal to" filter by {@code certificateName}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#setEqualToCertificateNameFilter(String)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addEqualToCertificateNameFilter(String)}
      * 
      * @param filterByCertificateName
      *            filter value.
@@ -311,7 +311,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends CertificateEnrollmentListOptions> T equalToCertificateName(String filterByCertificateName) {
-        setEqualToCertificateNameFilter(filterByCertificateName);
+        addEqualToCertificateNameFilter(filterByCertificateName);
         return (T) this;
     }
 
@@ -330,7 +330,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * @param filterByDeviceId
      *            filter value.
      */
-    public void setEqualToDeviceIdFilter(String filterByDeviceId) {
+    public void addEqualToDeviceIdFilter(String filterByDeviceId) {
         addEqualFilter(TAG_FILTER_BY_DEVICE_ID, filterByDeviceId);
     }
 
@@ -338,7 +338,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * Sets "an equal to" filter by {@code deviceId}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#setEqualToDeviceIdFilter(String)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addEqualToDeviceIdFilter(String)}
      * 
      * @param filterByDeviceId
      *            filter value.
@@ -346,7 +346,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends CertificateEnrollmentListOptions> T equalToDeviceId(String filterByDeviceId) {
-        setEqualToDeviceIdFilter(filterByDeviceId);
+        addEqualToDeviceIdFilter(filterByDeviceId);
         return (T) this;
     }
 
@@ -365,7 +365,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * @param filterByEnrollResult
      *            filter value.
      */
-    public void setNotEqualToEnrollResultFilter(CertificateEnrollmentEnrollResult filterByEnrollResult) {
+    public void addNotEqualToEnrollResultFilter(CertificateEnrollmentEnrollResult filterByEnrollResult) {
         addNotEqualFilter(TAG_FILTER_BY_ENROLL_RESULT, filterByEnrollResult);
     }
 
@@ -373,7 +373,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * Sets "a not equal to" filter by {@code enrollResult}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#setNotEqualToEnrollResultFilter(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addNotEqualToEnrollResultFilter(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult)}
      * 
      * @param filterByEnrollResult
      *            filter value.
@@ -382,7 +382,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
     @SuppressWarnings("unchecked")
     public <T extends CertificateEnrollmentListOptions> T
            notEqualToEnrollResult(CertificateEnrollmentEnrollResult filterByEnrollResult) {
-        setNotEqualToEnrollResultFilter(filterByEnrollResult);
+        addNotEqualToEnrollResultFilter(filterByEnrollResult);
         return (T) this;
     }
 
@@ -392,7 +392,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * @param filterByEnrollResult
      *            filter value.
      */
-    public void setEqualToEnrollResultFilter(CertificateEnrollmentEnrollResult filterByEnrollResult) {
+    public void addEqualToEnrollResultFilter(CertificateEnrollmentEnrollResult filterByEnrollResult) {
         addEqualFilter(TAG_FILTER_BY_ENROLL_RESULT, filterByEnrollResult);
     }
 
@@ -400,7 +400,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * Sets "an equal to" filter by {@code enrollResult}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#setEqualToEnrollResultFilter(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addEqualToEnrollResultFilter(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult)}
      * 
      * @param filterByEnrollResult
      *            filter value.
@@ -409,7 +409,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
     @SuppressWarnings("unchecked")
     public <T extends CertificateEnrollmentListOptions> T
            equalToEnrollResult(CertificateEnrollmentEnrollResult filterByEnrollResult) {
-        setEqualToEnrollResultFilter(filterByEnrollResult);
+        addEqualToEnrollResultFilter(filterByEnrollResult);
         return (T) this;
     }
 
@@ -428,7 +428,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * @param filterByCreatedAt
      *            filter value.
      */
-    public void setLessThanCreatedAtFilter(Date filterByCreatedAt) {
+    public void addLessThanCreatedAtFilter(Date filterByCreatedAt) {
         addLessThanFilter(TAG_FILTER_BY_CREATED_AT, filterByCreatedAt);
     }
 
@@ -436,7 +436,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * Sets "a less than" filter by {@code createdAt}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#setLessThanCreatedAtFilter(java.util.Date)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addLessThanCreatedAtFilter(java.util.Date)}
      * 
      * @param filterByCreatedAt
      *            filter value.
@@ -444,7 +444,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends CertificateEnrollmentListOptions> T lessThanCreatedAt(Date filterByCreatedAt) {
-        setLessThanCreatedAtFilter(filterByCreatedAt);
+        addLessThanCreatedAtFilter(filterByCreatedAt);
         return (T) this;
     }
 
@@ -454,7 +454,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * @param filterByCreatedAt
      *            filter value.
      */
-    public void setGreaterThanCreatedAtFilter(Date filterByCreatedAt) {
+    public void addGreaterThanCreatedAtFilter(Date filterByCreatedAt) {
         addGreaterThanFilter(TAG_FILTER_BY_CREATED_AT, filterByCreatedAt);
     }
 
@@ -462,7 +462,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * Sets "a greater than" filter by {@code createdAt}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#setGreaterThanCreatedAtFilter(java.util.Date)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addGreaterThanCreatedAtFilter(java.util.Date)}
      * 
      * @param filterByCreatedAt
      *            filter value.
@@ -470,7 +470,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends CertificateEnrollmentListOptions> T greaterThanCreatedAt(Date filterByCreatedAt) {
-        setGreaterThanCreatedAtFilter(filterByCreatedAt);
+        addGreaterThanCreatedAtFilter(filterByCreatedAt);
         return (T) this;
     }
 
@@ -489,7 +489,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * @param filterByEnrollStatus
      *            filter value.
      */
-    public void setNotEqualToEnrollStatusFilter(CertificateEnrollmentEnrollStatus filterByEnrollStatus) {
+    public void addNotEqualToEnrollStatusFilter(CertificateEnrollmentEnrollStatus filterByEnrollStatus) {
         addNotEqualFilter(TAG_FILTER_BY_ENROLL_STATUS, filterByEnrollStatus);
     }
 
@@ -497,7 +497,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * Sets "a not equal to" filter by {@code enrollStatus}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#setNotEqualToEnrollStatusFilter(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addNotEqualToEnrollStatusFilter(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus)}
      * 
      * @param filterByEnrollStatus
      *            filter value.
@@ -506,7 +506,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
     @SuppressWarnings("unchecked")
     public <T extends CertificateEnrollmentListOptions> T
            notEqualToEnrollStatus(CertificateEnrollmentEnrollStatus filterByEnrollStatus) {
-        setNotEqualToEnrollStatusFilter(filterByEnrollStatus);
+        addNotEqualToEnrollStatusFilter(filterByEnrollStatus);
         return (T) this;
     }
 
@@ -516,7 +516,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * @param filterByEnrollStatus
      *            filter value.
      */
-    public void setEqualToEnrollStatusFilter(CertificateEnrollmentEnrollStatus filterByEnrollStatus) {
+    public void addEqualToEnrollStatusFilter(CertificateEnrollmentEnrollStatus filterByEnrollStatus) {
         addEqualFilter(TAG_FILTER_BY_ENROLL_STATUS, filterByEnrollStatus);
     }
 
@@ -524,7 +524,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * Sets "an equal to" filter by {@code enrollStatus}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#setEqualToEnrollStatusFilter(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addEqualToEnrollStatusFilter(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus)}
      * 
      * @param filterByEnrollStatus
      *            filter value.
@@ -533,7 +533,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
     @SuppressWarnings("unchecked")
     public <T extends CertificateEnrollmentListOptions> T
            equalToEnrollStatus(CertificateEnrollmentEnrollStatus filterByEnrollStatus) {
-        setEqualToEnrollStatusFilter(filterByEnrollStatus);
+        addEqualToEnrollStatusFilter(filterByEnrollStatus);
         return (T) this;
     }
 

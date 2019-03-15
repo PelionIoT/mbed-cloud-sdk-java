@@ -267,7 +267,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * @param filterByValid
      *            filter value.
      */
-    public void setEqualToValidFilter(boolean filterByValid) {
+    public void addEqualToValidFilter(boolean filterByValid) {
         addEqualFilter(TAG_FILTER_BY_VALID, filterByValid);
     }
 
@@ -275,7 +275,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * Sets "an equal to" filter by {@code valid}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setEqualToValidFilter(boolean)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToValidFilter(boolean)}
      * 
      * @param filterByValid
      *            filter value.
@@ -283,7 +283,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends TrustedCertificateListOptions> T equalToValid(boolean filterByValid) {
-        setEqualToValidFilter(filterByValid);
+        addEqualToValidFilter(filterByValid);
         return (T) this;
     }
 
@@ -302,7 +302,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * @param filterByName
      *            filter value.
      */
-    public void setEqualToNameFilter(String filterByName) {
+    public void addEqualToNameFilter(String filterByName) {
         addEqualFilter(TAG_FILTER_BY_NAME, filterByName);
     }
 
@@ -310,7 +310,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * Sets "an equal to" filter by {@code name}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setEqualToNameFilter(String)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToNameFilter(String)}
      * 
      * @param filterByName
      *            filter value.
@@ -318,7 +318,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends TrustedCertificateListOptions> T equalToName(String filterByName) {
-        setEqualToNameFilter(filterByName);
+        addEqualToNameFilter(filterByName);
         return (T) this;
     }
 
@@ -337,7 +337,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void setEqualToStatusFilter(TrustedCertificateStatus filterByStatus) {
+    public void addEqualToStatusFilter(TrustedCertificateStatus filterByStatus) {
         addEqualFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -345,7 +345,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * Sets "an equal to" filter by {@code status}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setEqualToStatusFilter(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToStatusFilter(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus)}
      * 
      * @param filterByStatus
      *            filter value.
@@ -353,7 +353,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends TrustedCertificateListOptions> T equalToStatus(TrustedCertificateStatus filterByStatus) {
-        setEqualToStatusFilter(filterByStatus);
+        addEqualToStatusFilter(filterByStatus);
         return (T) this;
     }
 
@@ -372,7 +372,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * @param filterByDeviceExecutionMode
      *            filter value.
      */
-    public void setEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
+    public void addEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
         addEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
     }
 
@@ -380,7 +380,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * Sets "an equal to" filter by {@code deviceExecutionMode}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setEqualToDeviceExecutionModeFilter(int)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToDeviceExecutionModeFilter(int)}
      * 
      * @param filterByDeviceExecutionMode
      *            filter value.
@@ -388,7 +388,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends TrustedCertificateListOptions> T equalToDeviceExecutionMode(int filterByDeviceExecutionMode) {
-        setEqualToDeviceExecutionModeFilter(filterByDeviceExecutionMode);
+        addEqualToDeviceExecutionModeFilter(filterByDeviceExecutionMode);
         return (T) this;
     }
 
@@ -398,7 +398,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * @param filterByDeviceExecutionMode
      *            filter value.
      */
-    public void setNotEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
+    public void addNotEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
         addNotEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
     }
 
@@ -406,7 +406,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * Sets "a not equal to" filter by {@code deviceExecutionMode}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setNotEqualToDeviceExecutionModeFilter(int)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addNotEqualToDeviceExecutionModeFilter(int)}
      * 
      * @param filterByDeviceExecutionMode
      *            filter value.
@@ -414,7 +414,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends TrustedCertificateListOptions> T notEqualToDeviceExecutionMode(int filterByDeviceExecutionMode) {
-        setNotEqualToDeviceExecutionModeFilter(filterByDeviceExecutionMode);
+        addNotEqualToDeviceExecutionModeFilter(filterByDeviceExecutionMode);
         return (T) this;
     }
 
@@ -433,7 +433,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * @param filterByIssuer
      *            filter value.
      */
-    public void setLikeIssuerFilter(String filterByIssuer) {
+    public void addLikeIssuerFilter(String filterByIssuer) {
         addLikeFilter(TAG_FILTER_BY_ISSUER, filterByIssuer);
     }
 
@@ -441,7 +441,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * Sets "a like" filter by {@code issuer}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setLikeIssuerFilter(String)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addLikeIssuerFilter(String)}
      * 
      * @param filterByIssuer
      *            filter value.
@@ -449,7 +449,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends TrustedCertificateListOptions> T likeIssuer(String filterByIssuer) {
-        setLikeIssuerFilter(filterByIssuer);
+        addLikeIssuerFilter(filterByIssuer);
         return (T) this;
     }
 
@@ -468,7 +468,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * @param filterByService
      *            filter value.
      */
-    public void setEqualToServiceFilter(TrustedCertificateService filterByService) {
+    public void addEqualToServiceFilter(TrustedCertificateService filterByService) {
         addEqualFilter(TAG_FILTER_BY_SERVICE, filterByService);
     }
 
@@ -476,7 +476,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * Sets "an equal to" filter by {@code service}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setEqualToServiceFilter(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToServiceFilter(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService)}
      * 
      * @param filterByService
      *            filter value.
@@ -484,7 +484,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends TrustedCertificateListOptions> T equalToService(TrustedCertificateService filterByService) {
-        setEqualToServiceFilter(filterByService);
+        addEqualToServiceFilter(filterByService);
         return (T) this;
     }
 
@@ -503,7 +503,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * @param filterBySubject
      *            filter value.
      */
-    public void setLikeSubjectFilter(String filterBySubject) {
+    public void addLikeSubjectFilter(String filterBySubject) {
         addLikeFilter(TAG_FILTER_BY_SUBJECT, filterBySubject);
     }
 
@@ -511,7 +511,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * Sets "a like" filter by {@code subject}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setLikeSubjectFilter(String)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addLikeSubjectFilter(String)}
      * 
      * @param filterBySubject
      *            filter value.
@@ -519,7 +519,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends TrustedCertificateListOptions> T likeSubject(String filterBySubject) {
-        setLikeSubjectFilter(filterBySubject);
+        addLikeSubjectFilter(filterBySubject);
         return (T) this;
     }
 
@@ -538,7 +538,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * @param filterByEnrollmentMode
      *            filter value.
      */
-    public void setEqualToEnrollmentModeFilter(boolean filterByEnrollmentMode) {
+    public void addEqualToEnrollmentModeFilter(boolean filterByEnrollmentMode) {
         addEqualFilter(TAG_FILTER_BY_ENROLLMENT_MODE, filterByEnrollmentMode);
     }
 
@@ -546,7 +546,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      * Sets "an equal to" filter by {@code enrollmentMode}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#setEqualToEnrollmentModeFilter(boolean)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToEnrollmentModeFilter(boolean)}
      * 
      * @param filterByEnrollmentMode
      *            filter value.
@@ -554,7 +554,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends TrustedCertificateListOptions> T equalToEnrollmentMode(boolean filterByEnrollmentMode) {
-        setEqualToEnrollmentModeFilter(filterByEnrollmentMode);
+        addEqualToEnrollmentModeFilter(filterByEnrollmentMode);
         return (T) this;
     }
 

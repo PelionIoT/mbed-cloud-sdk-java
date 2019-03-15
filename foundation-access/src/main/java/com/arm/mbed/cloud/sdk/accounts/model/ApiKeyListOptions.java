@@ -165,14 +165,14 @@ public class ApiKeyListOptions extends ListOptions {
      * @param filterByOwner
      *            filter value.
      */
-    public void setEqualToOwnerFilter(String filterByOwner) {
+    public void addEqualToOwnerFilter(String filterByOwner) {
         addEqualFilter(TAG_FILTER_BY_OWNER, filterByOwner);
     }
 
     /**
      * Sets "an equal to" filter by {@code owner}.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions#setEqualToOwnerFilter(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions#addEqualToOwnerFilter(String)}
      * 
      * @param filterByOwner
      *            filter value.
@@ -180,7 +180,7 @@ public class ApiKeyListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends ApiKeyListOptions> T equalToOwner(String filterByOwner) {
-        setEqualToOwnerFilter(filterByOwner);
+        addEqualToOwnerFilter(filterByOwner);
         return (T) this;
     }
 
@@ -199,14 +199,14 @@ public class ApiKeyListOptions extends ListOptions {
      * @param filterByKey
      *            filter value.
      */
-    public void setEqualToKeyFilter(String filterByKey) {
+    public void addEqualToKeyFilter(String filterByKey) {
         addEqualFilter(TAG_FILTER_BY_KEY, filterByKey);
     }
 
     /**
      * Sets "an equal to" filter by {@code key}.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions#setEqualToKeyFilter(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions#addEqualToKeyFilter(String)}
      * 
      * @param filterByKey
      *            filter value.
@@ -214,7 +214,7 @@ public class ApiKeyListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends ApiKeyListOptions> T equalToKey(String filterByKey) {
-        setEqualToKeyFilter(filterByKey);
+        addEqualToKeyFilter(filterByKey);
         return (T) this;
     }
 

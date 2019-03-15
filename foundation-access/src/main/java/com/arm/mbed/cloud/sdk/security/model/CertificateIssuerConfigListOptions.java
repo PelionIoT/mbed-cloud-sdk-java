@@ -148,7 +148,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
      * @param filterByCertificateReference
      *            filter value.
      */
-    public void setEqualToCertificateReferenceFilter(String filterByCertificateReference) {
+    public void addEqualToCertificateReferenceFilter(String filterByCertificateReference) {
         addEqualFilter(TAG_FILTER_BY_CERTIFICATE_REFERENCE, filterByCertificateReference);
     }
 
@@ -156,7 +156,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
      * Sets "an equal to" filter by {@code certificateReference}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions#setEqualToCertificateReferenceFilter(String)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions#addEqualToCertificateReferenceFilter(String)}
      * 
      * @param filterByCertificateReference
      *            filter value.
@@ -165,7 +165,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
     @SuppressWarnings("unchecked")
     public <T extends CertificateIssuerConfigListOptions> T
            equalToCertificateReference(String filterByCertificateReference) {
-        setEqualToCertificateReferenceFilter(filterByCertificateReference);
+        addEqualToCertificateReferenceFilter(filterByCertificateReference);
         return (T) this;
     }
 

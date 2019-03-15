@@ -165,7 +165,7 @@ public class UserListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void setEqualToStatusFilter(UserStatus filterByStatus) {
+    public void addEqualToStatusFilter(UserStatus filterByStatus) {
         addEqualFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -173,7 +173,7 @@ public class UserListOptions extends ListOptions {
      * Sets "an equal to" filter by {@code status}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setEqualToStatusFilter(com.arm.mbed.cloud.sdk.accounts.model.UserStatus)}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addEqualToStatusFilter(com.arm.mbed.cloud.sdk.accounts.model.UserStatus)}
      * 
      * @param filterByStatus
      *            filter value.
@@ -181,7 +181,7 @@ public class UserListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends UserListOptions> T equalToStatus(UserStatus filterByStatus) {
-        setEqualToStatusFilter(filterByStatus);
+        addEqualToStatusFilter(filterByStatus);
         return (T) this;
     }
 
@@ -193,7 +193,7 @@ public class UserListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void setInStatusesFilter(String filterByStatus) {
+    public void addInStatusesFilter(String filterByStatus) {
         addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -203,7 +203,7 @@ public class UserListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void setInStatusesFilter(List<UserStatus> filterByStatus) {
+    public void addInStatusesFilter(List<UserStatus> filterByStatus) {
         addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -213,14 +213,14 @@ public class UserListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void setInStatusesFilter(UserStatus[] filterByStatus) {
+    public void addInStatusesFilter(UserStatus[] filterByStatus) {
         addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
     /**
      * Sets "an in" filter by {@code status}.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setInStatusesFilter(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addInStatusesFilter(String)}
      * 
      * @param filterByStatus
      *            filter value.
@@ -228,14 +228,14 @@ public class UserListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends UserListOptions> T inStatuses(String filterByStatus) {
-        setInStatusesFilter(filterByStatus);
+        addInStatusesFilter(filterByStatus);
         return (T) this;
     }
 
     /**
      * Sets "an in" filter by {@code status}.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setInStatusesFilter(java.util.List)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addInStatusesFilter(java.util.List)}
      * 
      * @param filterByStatus
      *            filter value.
@@ -243,7 +243,7 @@ public class UserListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends UserListOptions> T inStatuses(List<UserStatus> filterByStatus) {
-        setInStatusesFilter(filterByStatus);
+        addInStatusesFilter(filterByStatus);
         return (T) this;
     }
 
@@ -251,7 +251,7 @@ public class UserListOptions extends ListOptions {
      * Sets "an in" filter by {@code status}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.UserStatus[])}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.UserStatus[])}
      * 
      * @param filterByStatus
      *            filter value.
@@ -259,7 +259,7 @@ public class UserListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends UserListOptions> T inStatuses(UserStatus[] filterByStatus) {
-        setInStatusesFilter(filterByStatus);
+        addInStatusesFilter(filterByStatus);
         return (T) this;
     }
 
@@ -271,7 +271,7 @@ public class UserListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void setNotInStatusesFilter(String filterByStatus) {
+    public void addNotInStatusesFilter(String filterByStatus) {
         addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -281,7 +281,7 @@ public class UserListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void setNotInStatusesFilter(List<UserStatus> filterByStatus) {
+    public void addNotInStatusesFilter(List<UserStatus> filterByStatus) {
         addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -291,14 +291,14 @@ public class UserListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void setNotInStatusesFilter(UserStatus[] filterByStatus) {
+    public void addNotInStatusesFilter(UserStatus[] filterByStatus) {
         addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
     /**
      * Sets "a not in" filter by {@code status}.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setNotInStatusesFilter(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addNotInStatusesFilter(String)}
      * 
      * @param filterByStatus
      *            filter value.
@@ -306,14 +306,14 @@ public class UserListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends UserListOptions> T notInStatuses(String filterByStatus) {
-        setNotInStatusesFilter(filterByStatus);
+        addNotInStatusesFilter(filterByStatus);
         return (T) this;
     }
 
     /**
      * Sets "a not in" filter by {@code status}.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setNotInStatusesFilter(java.util.List)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addNotInStatusesFilter(java.util.List)}
      * 
      * @param filterByStatus
      *            filter value.
@@ -321,7 +321,7 @@ public class UserListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends UserListOptions> T notInStatuses(List<UserStatus> filterByStatus) {
-        setNotInStatusesFilter(filterByStatus);
+        addNotInStatusesFilter(filterByStatus);
         return (T) this;
     }
 
@@ -329,7 +329,7 @@ public class UserListOptions extends ListOptions {
      * Sets "a not in" filter by {@code status}.
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setNotInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.UserStatus[])}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addNotInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.UserStatus[])}
      * 
      * @param filterByStatus
      *            filter value.
@@ -337,7 +337,7 @@ public class UserListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends UserListOptions> T notInStatuses(UserStatus[] filterByStatus) {
-        setNotInStatusesFilter(filterByStatus);
+        addNotInStatusesFilter(filterByStatus);
         return (T) this;
     }
 
@@ -356,14 +356,14 @@ public class UserListOptions extends ListOptions {
      * @param filterByEmail
      *            filter value.
      */
-    public void setEqualToEmailFilter(String filterByEmail) {
+    public void addEqualToEmailFilter(String filterByEmail) {
         addEqualFilter(TAG_FILTER_BY_EMAIL, filterByEmail);
     }
 
     /**
      * Sets "an equal to" filter by {@code email}.
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#setEqualToEmailFilter(String)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addEqualToEmailFilter(String)}
      * 
      * @param filterByEmail
      *            filter value.
@@ -371,7 +371,7 @@ public class UserListOptions extends ListOptions {
      */
     @SuppressWarnings("unchecked")
     public <T extends UserListOptions> T equalToEmail(String filterByEmail) {
-        setEqualToEmailFilter(filterByEmail);
+        addEqualToEmailFilter(filterByEmail);
         return (T) this;
     }
 
