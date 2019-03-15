@@ -30,7 +30,7 @@ public class MethodFilterSet extends MethodFilter {
     }
 
     protected static String generateName(Filter filter2, boolean plural) {
-        return Utils.combineNames(false, "set", getFilterOperatorName(filter2),
+        return Utils.combineNames(false, "add", getFilterOperatorName(filter2),
                                   plural ? Utils.generatePlural(filter2.getFieldName()) : filter2.getFieldName(),
                                   "filter");
     }
