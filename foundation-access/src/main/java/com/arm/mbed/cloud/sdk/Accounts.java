@@ -349,9 +349,9 @@ public class Accounts extends AbstractModule {
            allTrustedCertificates(@NonNull String id,
                                   @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
-        return allTrustedCertificates(id, (String) null, (String) null, Integer.valueOf(0), Integer.valueOf(0),
-                                      Integer.valueOf(0), (String) null, Boolean.FALSE, (String) null, (String) null,
-                                      (String) null, Boolean.FALSE, options);
+        return allTrustedCertificates(id, (String) null, (String) null, (Integer) null, (Integer) null, (Integer) null,
+                                      (String) null, Boolean.FALSE, (String) null, (String) null, (String) null,
+                                      Boolean.FALSE, options);
     }
 
     /**
@@ -374,9 +374,9 @@ public class Accounts extends AbstractModule {
            allTrustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options,
                                   @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
-        return allTrustedCertificates((String) null, (String) null, Integer.valueOf(0), Integer.valueOf(0),
-                                      Integer.valueOf(0), (String) null, Boolean.FALSE, (String) null, (String) null,
-                                      (String) null, Boolean.FALSE, options, account);
+        return allTrustedCertificates((String) null, (String) null, (Integer) null, (Integer) null, (Integer) null,
+                                      (String) null, Boolean.FALSE, (String) null, (String) null, (String) null,
+                                      Boolean.FALSE, options, account);
     }
 
     /**
@@ -2465,9 +2465,9 @@ public class Accounts extends AbstractModule {
            trustedCertificates(@NonNull String id,
                                @Nullable SubtenantTrustedCertificateListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
-        return trustedCertificates(id, (String) null, (String) null, Integer.valueOf(0), Integer.valueOf(0),
-                                   Integer.valueOf(0), (String) null, Boolean.FALSE, (String) null, (String) null,
-                                   (String) null, Boolean.FALSE, options);
+        return trustedCertificates(id, (String) null, (String) null, (Integer) null, (Integer) null, (Integer) null,
+                                   (String) null, Boolean.FALSE, (String) null, (String) null, (String) null,
+                                   Boolean.FALSE, options);
     }
 
     /**
@@ -2491,9 +2491,9 @@ public class Accounts extends AbstractModule {
            trustedCertificates(@Nullable SubtenantTrustedCertificateListOptions options,
                                @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
-        return trustedCertificates((String) null, (String) null, Integer.valueOf(0), Integer.valueOf(0),
-                                   Integer.valueOf(0), (String) null, Boolean.FALSE, (String) null, (String) null,
-                                   (String) null, Boolean.FALSE, options, account);
+        return trustedCertificates((String) null, (String) null, (Integer) null, (Integer) null, (Integer) null,
+                                   (String) null, Boolean.FALSE, (String) null, (String) null, (String) null,
+                                   Boolean.FALSE, options, account);
     }
 
     /**

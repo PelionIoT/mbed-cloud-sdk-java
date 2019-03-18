@@ -1181,7 +1181,7 @@ public class Security extends AbstractModule {
     @Nullable
     public Paginator<TrustedCertificate>
            listAllTrustedCertificates(@Nullable TrustedCertificateListOptions options) throws MbedCloudException {
-        return listAllTrustedCertificates(Integer.valueOf(0), (String) null, options);
+        return listAllTrustedCertificates((Integer) null, (String) null, options);
     }
 
     /**
@@ -1415,7 +1415,7 @@ public class Security extends AbstractModule {
     @Nullable
     public ListResponse<TrustedCertificate>
            listTrustedCertificates(@Nullable TrustedCertificateListOptions options) throws MbedCloudException {
-        return listTrustedCertificates(Integer.valueOf(0), (String) null, options);
+        return listTrustedCertificates((Integer) null, (String) null, options);
     }
 
     /**

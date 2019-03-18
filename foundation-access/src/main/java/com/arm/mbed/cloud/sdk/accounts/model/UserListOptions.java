@@ -147,7 +147,7 @@ public class UserListOptions extends ListOptions {
      */
     @Internal
     public UserListOptions(String after, List<IncludeField> include, Filters filter) {
-        this(Integer.valueOf(0), Long.valueOf(0L), Order.getDefault(), after, include, filter);
+        this((Integer) null, (Long) null, Order.getDefault(), after, include, filter);
     }
 
     /**
