@@ -16,6 +16,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -1219,20 +1220,30 @@ public class Security extends AbstractModule {
                                     @Override
                                     public Call<CertificateEnrollmentListResponse> call() {
                                         return endpoints.getCertificateEnrollmentsApi()
-                                                        .getCertificateEnrollments(finalOptions.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_DEVICE_ID),
-                                                                                   finalOptions.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CERTIFICATE_NAME),
+                                                        .getCertificateEnrollments(ListOptionsEncoder.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_DEVICE_ID,
+                                                                                                                              finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CERTIFICATE_NAME,
+                                                                                                                              finalOptions),
                                                                                    finalOptions.getPageSize(),
                                                                                    finalOptions.getAfter(),
                                                                                    finalOptions.getOrder().toString(),
-                                                                                   finalOptions.encodeInclude(),
-                                                                                   finalOptions.encodeSingleNotEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_STATUS),
-                                                                                   finalOptions.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_STATUS),
-                                                                                   finalOptions.encodeSingleNotEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_RESULT),
-                                                                                   finalOptions.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_RESULT),
-                                                                                   finalOptions.encodeSingleLessThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT),
-                                                                                   finalOptions.encodeSingleGreaterThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT),
-                                                                                   finalOptions.encodeSingleLessThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT),
-                                                                                   finalOptions.encodeSingleGreaterThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT));
+                                                                                   ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleNotEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_STATUS,
+                                                                                                                                 finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_STATUS,
+                                                                                                                              finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleNotEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_RESULT,
+                                                                                                                                 finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_RESULT,
+                                                                                                                              finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleLessThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                                                 finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleGreaterThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                                                    finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleLessThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                                                 finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleGreaterThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                                                    finalOptions));
                                     }
                                 });
     }
@@ -1297,7 +1308,7 @@ public class Security extends AbstractModule {
                                                         .getCertificateIssuerConfigs(finalOptions.getPageSize(),
                                                                                      finalOptions.getOrder().toString(),
                                                                                      finalOptions.getAfter(),
-                                                                                     finalOptions.encodeInclude(),
+                                                                                     ListOptionsEncoder.encodeInclude(finalOptions),
                                                                                      finalReferenceEq);
                                     }
                                 });
@@ -1334,7 +1345,7 @@ public class Security extends AbstractModule {
                                                         .getCertificateIssuers(finalOptions.getPageSize(),
                                                                                finalOptions.getOrder().toString(),
                                                                                finalOptions.getAfter(),
-                                                                               finalOptions.encodeInclude());
+                                                                               ListOptionsEncoder.encodeInclude(finalOptions));
                                     }
                                 });
     }
@@ -1379,22 +1390,31 @@ public class Security extends AbstractModule {
                                                         .getAllCertificates(finalOptions.getPageSize(),
                                                                             finalOptions.getAfter(),
                                                                             finalOptions.getOrder().toString(),
-                                                                            finalOptions.encodeInclude(),
-                                                                            finalOptions.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_NAME),
-                                                                            finalOptions.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_SERVICE),
+                                                                            ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_NAME,
+                                                                                                                       finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_SERVICE,
+                                                                                                                       finalOptions),
                                                                             finalExpireEq,
-                                                                            finalOptions.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
-                                                                                                                 Integer.class),
-                                                                            finalOptions.encodeSingleNotEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
-                                                                                                                    Integer.class),
+                                                                            ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
+                                                                                                                       Integer.class,
+                                                                                                                       finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleNotEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
+                                                                                                                          Integer.class,
+                                                                                                                          finalOptions),
                                                                             finalOwnerEq,
-                                                                            finalOptions.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_ENROLLMENT_MODE,
-                                                                                                                 Boolean.class),
-                                                                            finalOptions.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_STATUS),
-                                                                            finalOptions.encodeSingleLikeFilter(TrustedCertificateListOptions.TAG_FILTER_BY_ISSUER),
-                                                                            finalOptions.encodeSingleLikeFilter(TrustedCertificateListOptions.TAG_FILTER_BY_SUBJECT),
-                                                                            finalOptions.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_VALID,
-                                                                                                                 Boolean.class));
+                                                                            ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_ENROLLMENT_MODE,
+                                                                                                                       Boolean.class,
+                                                                                                                       finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                       finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleLikeFilter(TrustedCertificateListOptions.TAG_FILTER_BY_ISSUER,
+                                                                                                                      finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleLikeFilter(TrustedCertificateListOptions.TAG_FILTER_BY_SUBJECT,
+                                                                                                                      finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_VALID,
+                                                                                                                       Boolean.class,
+                                                                                                                       finalOptions));
                                     }
                                 });
     }

@@ -17,6 +17,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.adapters.DataFileAdapter;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -675,7 +676,7 @@ public class Devices extends AbstractModule {
                                                         .getDeviceEnrollments(finalOptions.getPageSize(),
                                                                               finalOptions.getAfter(),
                                                                               finalOptions.getOrder().toString(),
-                                                                              finalOptions.encodeInclude());
+                                                                              ListOptionsEncoder.encodeInclude(finalOptions));
                                     }
                                 });
     }
@@ -709,7 +710,8 @@ public class Devices extends AbstractModule {
                                                         .deviceEventList(finalOptions.getPageSize(),
                                                                          finalOptions.getOrder().toString(),
                                                                          finalOptions.getAfter(),
-                                                                         finalOptions.encodeInclude(), null);
+                                                                         ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                         null);
                                     }
                                 });
     }
@@ -738,10 +740,12 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<DevicePage> call() {
-                                        return endpoints.getDefaultApi().deviceList(finalOptions.getPageSize(),
-                                                                                    finalOptions.getOrder().toString(),
-                                                                                    finalOptions.getAfter(),
-                                                                                    finalOptions.encodeInclude(), null);
+                                        return endpoints.getDefaultApi()
+                                                        .deviceList(finalOptions.getPageSize(),
+                                                                    finalOptions.getOrder().toString(),
+                                                                    finalOptions.getAfter(),
+                                                                    ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                    null);
                                     }
                                 });
     }

@@ -36,6 +36,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -1419,18 +1420,24 @@ public class Accounts extends AbstractModule {
                                     @Override
                                     public Call<AccountInfoList> call() {
                                         return endpoints.getAggregatorAccountAdminApi()
-                                                        .getAllAccounts(finalOptions.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_STATUS),
-                                                                        finalOptions.encodeSingleInFilter(AccountListOptions.TAG_FILTER_BY_STATUS),
-                                                                        finalOptions.encodeSingleNotInFilter(AccountListOptions.TAG_FILTER_BY_STATUS),
-                                                                        finalOptions.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_TIER),
+                                                        .getAllAccounts(ListOptionsEncoder.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                   finalOptions),
+                                                                        ListOptionsEncoder.encodeSingleInFilter(AccountListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                finalOptions),
+                                                                        ListOptionsEncoder.encodeSingleNotInFilter(AccountListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                   finalOptions),
+                                                                        ListOptionsEncoder.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_TIER,
+                                                                                                                   finalOptions),
                                                                         finalParentEq,
-                                                                        finalOptions.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_END_MARKET),
-                                                                        finalOptions.encodeSingleLikeFilter(AccountListOptions.TAG_FILTER_BY_COUNTRY),
+                                                                        ListOptionsEncoder.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_END_MARKET,
+                                                                                                                   finalOptions),
+                                                                        ListOptionsEncoder.encodeSingleLikeFilter(AccountListOptions.TAG_FILTER_BY_COUNTRY,
+                                                                                                                  finalOptions),
                                                                         finalOptions.getPageSize(),
                                                                         finalOptions.getAfter(),
                                                                         finalOptions.getOrder().toString(),
-                                                                        finalOptions.encodeInclude(), finalFormat,
-                                                                        finalProperties);
+                                                                        ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                        finalFormat, finalProperties);
                                     }
                                 });
     }
@@ -1667,9 +1674,11 @@ public class Accounts extends AbstractModule {
                                                         .getAllApiKeys(finalOptions.getPageSize(),
                                                                        finalOptions.getAfter(),
                                                                        finalOptions.getOrder().toString(),
-                                                                       finalOptions.encodeInclude(),
-                                                                       finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.TAG_FILTER_BY_KEY),
-                                                                       finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.TAG_FILTER_BY_OWNER));
+                                                                       ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                       ListOptionsEncoder.encodeSingleEqualFilter(ApiKeyListOptions.TAG_FILTER_BY_KEY,
+                                                                                                                  finalOptions),
+                                                                       ListOptionsEncoder.encodeSingleEqualFilter(ApiKeyListOptions.TAG_FILTER_BY_OWNER,
+                                                                                                                  finalOptions));
                                     }
                                 });
     }
@@ -1768,11 +1777,15 @@ public class Accounts extends AbstractModule {
                                                         .getAllUsers(finalOptions.getPageSize(),
                                                                      finalOptions.getAfter(),
                                                                      finalOptions.getOrder().toString(),
-                                                                     finalOptions.encodeInclude(),
-                                                                     finalOptions.encodeSingleEqualFilter(UserListOptions.TAG_FILTER_BY_EMAIL),
-                                                                     finalOptions.encodeSingleEqualFilter(UserListOptions.TAG_FILTER_BY_STATUS),
-                                                                     finalOptions.encodeSingleInFilter(UserListOptions.TAG_FILTER_BY_STATUS),
-                                                                     finalOptions.encodeSingleNotInFilter(UserListOptions.TAG_FILTER_BY_STATUS),
+                                                                     ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                     ListOptionsEncoder.encodeSingleEqualFilter(UserListOptions.TAG_FILTER_BY_EMAIL,
+                                                                                                                finalOptions),
+                                                                     ListOptionsEncoder.encodeSingleEqualFilter(UserListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                finalOptions),
+                                                                     ListOptionsEncoder.encodeSingleInFilter(UserListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                             finalOptions),
+                                                                     ListOptionsEncoder.encodeSingleNotInFilter(UserListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                finalOptions),
                                                                      finalLoginProfileEq);
                                     }
                                 });
@@ -2432,7 +2445,7 @@ public class Accounts extends AbstractModule {
                                                         .getAllAccountCertificates(finalId, finalOptions.getPageSize(),
                                                                                    finalOptions.getAfter(),
                                                                                    finalOptions.getOrder().toString(),
-                                                                                   finalOptions.encodeInclude(),
+                                                                                   ListOptionsEncoder.encodeInclude(finalOptions),
                                                                                    finalNameEq, finalServiceEq,
                                                                                    finalExpireEq,
                                                                                    finalDeviceExecutionModeEq,
@@ -2913,8 +2926,8 @@ public class Accounts extends AbstractModule {
                                                         .getAllAccountUsers(finalId, finalOptions.getPageSize(),
                                                                             finalOptions.getAfter(),
                                                                             finalOptions.getOrder().toString(),
-                                                                            finalOptions.encodeInclude(), finalEmailEq,
-                                                                            finalStatusEq, finalStatusIn,
+                                                                            ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                            finalEmailEq, finalStatusEq, finalStatusIn,
                                                                             finalStatusNin, finalLoginProfileEq);
                                     }
                                 });
