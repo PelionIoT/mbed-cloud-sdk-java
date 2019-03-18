@@ -501,7 +501,9 @@ public class AccountListOptions extends ListOptions {
     @Override
     public String toString() {
         return "AccountListOptions [pageSize=" + pageSize + ", maxResults=" + maxResults + ", order=" + order
-               + ", after=" + after + ", include=" + encodeInclude() + ", filter=" + retrieveFilterAsJson() + "]";
+               + ", after=" + after + ", include="
+               + com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder.encodeInclude(this) + ", filter="
+               + retrieveFilterAsJson() + "]";
     }
 
     /**

@@ -138,7 +138,8 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
     @Override
     public String toString() {
         return "SubtenantTrustedCertificateListOptions [pageSize=" + pageSize + ", maxResults=" + maxResults
-               + ", order=" + order + ", after=" + after + ", include=" + encodeInclude() + ", filter="
+               + ", order=" + order + ", after=" + after + ", include="
+               + com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder.encodeInclude(this) + ", filter="
                + retrieveFilterAsJson() + "]";
     }
 

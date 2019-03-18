@@ -560,8 +560,9 @@ public class CertificateEnrollmentListOptions extends ListOptions {
     @Override
     public String toString() {
         return "CertificateEnrollmentListOptions [pageSize=" + pageSize + ", maxResults=" + maxResults + ", order="
-               + order + ", after=" + after + ", include=" + encodeInclude() + ", filter=" + retrieveFilterAsJson()
-               + "]";
+               + order + ", after=" + after + ", include="
+               + com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder.encodeInclude(this) + ", filter="
+               + retrieveFilterAsJson() + "]";
     }
 
     /**
