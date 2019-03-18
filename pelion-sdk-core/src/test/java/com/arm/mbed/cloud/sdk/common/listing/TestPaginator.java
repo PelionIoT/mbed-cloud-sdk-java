@@ -683,7 +683,10 @@ public class TestPaginator {
                 assertEquals(i, e.id);
                 assertEquals(i * 4, e.value);
             }
-
+            List<FakeElement> allAgain = paginator.all();
+            assertNotNull(allAgain);
+            assertEquals(maxResult, allAgain.size());
+            assertEquals(elements, allAgain);
         } catch (MbedCloudException e) {
             fail(e.getMessage());
         }
