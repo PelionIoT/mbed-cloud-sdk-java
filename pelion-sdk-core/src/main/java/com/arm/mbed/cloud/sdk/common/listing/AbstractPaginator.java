@@ -53,9 +53,17 @@ public abstract class AbstractPaginator<T, U extends AbstractListResponse<T>, V 
      *             if an error occurs during page request.
      */
     public AbstractPaginator(ListOptions options, V requester) throws MbedCloudException {
+        this(options, requester, null);
+    }
+
+    protected AbstractPaginator(ListOptions options, V requester, U firstPage) throws MbedCloudException {
         super();
         this.requester = requester;
         this.initialOptions = (options == null) ? new ListOptions() : options;
+        if (firstPage != null) {
+            this.currentPage = firstPage;
+            this.currentOptions = initialOptions;
+        }
         setProperties(null);
         rewind();
     }
@@ -500,13 +508,23 @@ public abstract class AbstractPaginator<T, U extends AbstractListResponse<T>, V 
      *             if an error occurred during the process.
      */
     public final void rewind() throws MbedCloudException {
+        if (isFirstPage() && currentPage != null) {
+            setCurrentPage(currentPage);
+            reset();
+            return;
+        }
+
         currentPage = null;
-        currentIterator = null;
         currentOptions = cloneListOptions();
+        currentIterator = null;
+
         currentElement = null;
         previousElement = null;
         fetchNewPage();
+        reset();
+    }
 
+    private void reset() {
         resultNumber = 0;
         previousOptions = null;
         pageIndex = 0;
@@ -541,6 +559,7 @@ public abstract class AbstractPaginator<T, U extends AbstractListResponse<T>, V 
         return all;
     }
 
+    @SuppressWarnings("unchecked")
     protected void setProperties(AbstractPaginator<T, U, V> other) {
         if (other == null) {
             lastOptions = null;
@@ -557,6 +576,11 @@ public abstract class AbstractPaginator<T, U extends AbstractListResponse<T>, V 
 
     protected ListOptions cloneListOptions() {
         return initialOptions.clone();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected U cloneCurrentPage() {
+        return isFirstPage() && currentPage != null ? (U) currentPage.clone() : null;
     }
 
     @Override

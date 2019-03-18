@@ -19,6 +19,12 @@ public class IdPaginator extends AbstractPaginator<String, IdListResponse, IdPag
         super(options, requester);
     }
 
+    public IdPaginator(ListOptions options, IdPageRequester requester,
+                       IdListResponse firstPage) throws MbedCloudException {
+        super(options, requester, firstPage);
+        // TODO Auto-generated constructor stub
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -27,10 +33,10 @@ public class IdPaginator extends AbstractPaginator<String, IdListResponse, IdPag
     @Override
     public IdPaginator clone() throws CloneNotSupportedException {
         try {
-            final IdPaginator clone = new IdPaginator(cloneListOptions(), getRequester());
+            final IdPaginator clone = new IdPaginator(cloneListOptions(), getRequester(), cloneCurrentPage());
             clone.setProperties(this);
             return clone;
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
         throw new CloneNotSupportedException();
