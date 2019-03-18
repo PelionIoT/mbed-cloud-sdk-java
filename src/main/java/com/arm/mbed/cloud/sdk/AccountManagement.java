@@ -24,6 +24,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -215,9 +216,11 @@ public class AccountManagement extends AbstractModule {
                                                        .getAllApiKeys(finalOptions.getPageSize(),
                                                                       finalOptions.getAfter(),
                                                                       finalOptions.getOrder().toString(),
-                                                                      finalOptions.encodeInclude(),
-                                                                      finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER),
-                                                                      finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.OWNER_ID_FILTER));
+                                                                      ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                      ListOptionsEncoder.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER,
+                                                                                                                 finalOptions),
+                                                                      ListOptionsEncoder.encodeSingleEqualFilter(ApiKeyListOptions.OWNER_ID_FILTER,
+                                                                                                                 finalOptions));
                                     }
                                 });
     }
@@ -495,12 +498,18 @@ public class AccountManagement extends AbstractModule {
             public Call<UserInfoRespList> call() {
                 return endpoint.getAdmin()
                                .getAllUsers(finalOptions.getPageSize(), finalOptions.getAfter(),
-                                            finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
-                                            finalOptions.encodeSingleEqualFilter(UserListOptions.EMAIL_FILTER),
-                                            finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
-                                            finalOptions.encodeSingleInFilter(UserListOptions.STATUS_FILTER),
-                                            finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER),
-                                            finalOptions.encodeSingleNotInFilter(UserListOptions.LOGIN_PROFILE_FILTER));
+                                            finalOptions.getOrder().toString(),
+                                            ListOptionsEncoder.encodeInclude(finalOptions),
+                                            ListOptionsEncoder.encodeSingleEqualFilter(UserListOptions.EMAIL_FILTER,
+                                                                                       finalOptions),
+                                            ListOptionsEncoder.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER,
+                                                                                       finalOptions),
+                                            ListOptionsEncoder.encodeSingleInFilter(UserListOptions.STATUS_FILTER,
+                                                                                    finalOptions),
+                                            ListOptionsEncoder.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER,
+                                                                                       finalOptions),
+                                            ListOptionsEncoder.encodeSingleNotInFilter(UserListOptions.LOGIN_PROFILE_FILTER,
+                                                                                       finalOptions));
             }
         });
     }
@@ -779,7 +788,8 @@ public class AccountManagement extends AbstractModule {
             public Call<GroupSummaryList> call() {
                 return endpoint.getDeveloper().getAllGroups(finalOptions.getPageSize(), finalOptions.getAfter(),
                                                             finalOptions.getOrder().toString(),
-                                                            finalOptions.encodeInclude(), finalOptions.getNameFilter());
+                                                            ListOptionsEncoder.encodeInclude(finalOptions),
+                                                            finalOptions.getNameFilter());
             }
         });
     }
@@ -908,10 +918,13 @@ public class AccountManagement extends AbstractModule {
                                                        .getUsersOfGroup(finalGroupId, finalOptions.getPageSize(),
                                                                         finalOptions.getAfter(),
                                                                         finalOptions.getOrder().toString(),
-                                                                        finalOptions.encodeInclude(),
-                                                                        finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
-                                                                        finalOptions.encodeSingleInFilter(UserListOptions.STATUS_FILTER),
-                                                                        finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER));
+                                                                        ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                        ListOptionsEncoder.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER,
+                                                                                                                   finalOptions),
+                                                                        ListOptionsEncoder.encodeSingleInFilter(UserListOptions.STATUS_FILTER,
+                                                                                                                finalOptions),
+                                                                        ListOptionsEncoder.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER,
+                                                                                                                   finalOptions));
                                     }
                                 });
     }
@@ -1085,7 +1098,7 @@ public class AccountManagement extends AbstractModule {
                                                        .getApiKeysOfGroup(finalGroupId, finalOptions.getPageSize(),
                                                                           finalOptions.getAfter(),
                                                                           finalOptions.getOrder().toString(),
-                                                                          finalOptions.encodeInclude());
+                                                                          ListOptionsEncoder.encodeInclude(finalOptions));
                                     }
                                 });
     }

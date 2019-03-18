@@ -18,7 +18,8 @@ public class MethodListOptionsToString extends MethodToString {
             final String fieldName = f.getName();
             switch (fieldName) {
                 case ListOptions.FIELD_NAME_INCLUDE:
-                    return fieldName + "=\" + " + ListOptionsEncoder.METHOD_INCLUDE_TO_STRING + "() ";
+                    return fieldName + "=\" + " + ListOptionsEncoder.class.getName() + "."
+                           + ListOptionsEncoder.METHOD_INCLUDE_TO_STRING + "(this) ";
                 case ListOptions.FIELD_NAME_FILTER:
                     return fieldName + "=\" + " + ListOptions.METHOD_FILTER_TO_STRING + "() ";
                 default:

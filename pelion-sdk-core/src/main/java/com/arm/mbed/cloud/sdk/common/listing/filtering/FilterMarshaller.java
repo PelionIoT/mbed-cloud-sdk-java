@@ -510,7 +510,7 @@ public class FilterMarshaller {
             return null;
         }
         if (filterObj instanceof List) {
-            return encodeList((List) filterObj, type);
+            return encodeFilterList((List) filterObj, type);
         }
         if (filterObj.getClass().isArray()) {
             return encodeArray(filterObj, type);
@@ -520,16 +520,16 @@ public class FilterMarshaller {
 
     private static <T> T encodeArray(Object filterObj, Class<T> type) {
         if (filterObj instanceof String[]) {
-            return encodeList(Arrays.asList((String[]) filterObj), type);
+            return encodeFilterList(Arrays.asList((String[]) filterObj), type);
         }
         if (filterObj instanceof Object[]) {
-            return encodeList(Arrays.asList(((Object[]) filterObj)), type);
+            return encodeFilterList(Arrays.asList(((Object[]) filterObj)), type);
         }
         return null;
     }
 
     @SuppressWarnings({ "unchecked", "PMD.ClassCastExceptionWithToArray" })
-    private static <T> T encodeList(List<?> filterObj, Class<T> type) {
+    private static <T> T encodeFilterList(List<?> filterObj, Class<T> type) {
         if (String.class.isAssignableFrom(type)) {
             return (T) SdkUtils.joinList(filterObj, ",");
         }

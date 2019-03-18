@@ -19,6 +19,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -173,7 +174,8 @@ public class Certificates extends AbstractModule {
            listCertificates(@Nullable CertificateListOptions options) throws MbedCloudException {
         final CertificateListOptions finalOptions = (options == null) ? new CertificateListOptions() : options;
         final String serviceEq = finalOptions.getTypeFilter() == CertificateType.DEVELOPER ? CertificateType.BOOTSTRAP.toString()
-                                                                                           : finalOptions.encodeSingleEqualFilter(CertificateListOptions.TYPE_FILTER);
+                                                                                           : ListOptionsEncoder.encodeSingleEqualFilter(CertificateListOptions.TYPE_FILTER,
+                                                                                                                                        finalOptions);
         return CloudCaller.call(this, "listCertificates()", CertificateAdapter.getListMapper(),
                                 new CloudCall<TrustedCertificateRespList>() {
                                     @Override
@@ -182,18 +184,24 @@ public class Certificates extends AbstractModule {
                                                        .getAllCertificates(finalOptions.getPageSize(),
                                                                            finalOptions.getAfter(),
                                                                            finalOptions.getOrder().toString(),
-                                                                           finalOptions.encodeInclude(),
-                                                                           finalOptions.encodeSingleEqualFilter(CertificateListOptions.NAME_FILTER),
+                                                                           ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                           ListOptionsEncoder.encodeSingleEqualFilter(CertificateListOptions.NAME_FILTER,
+                                                                                                                      finalOptions),
                                                                            serviceEq,
-                                                                           TranslationUtils.toInteger(finalOptions.encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER),
+                                                                           TranslationUtils.toInteger(ListOptionsEncoder.encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER,
+                                                                                                                                                 finalOptions),
                                                                                                       null),
                                                                            finalOptions.getExecutionModeFilter(),
                                                                            finalOptions.getExecutionModeNotEqualFilter(),
-                                                                           finalOptions.encodeSingleEqualFilter(CertificateListOptions.OWNER_ID_FILTER),
+                                                                           ListOptionsEncoder.encodeSingleEqualFilter(CertificateListOptions.OWNER_ID_FILTER,
+                                                                                                                      finalOptions),
                                                                            finalOptions.getEnrollmentFilter(),
-                                                                           finalOptions.encodeSingleEqualFilter(CertificateListOptions.STATUS_FILTER),
-                                                                           finalOptions.encodeSingleLikeFilter(CertificateListOptions.ISSUER_FILTER),
-                                                                           finalOptions.encodeSingleLikeFilter(CertificateListOptions.SUBJECT_FILTER),
+                                                                           ListOptionsEncoder.encodeSingleEqualFilter(CertificateListOptions.STATUS_FILTER,
+                                                                                                                      finalOptions),
+                                                                           ListOptionsEncoder.encodeSingleLikeFilter(CertificateListOptions.ISSUER_FILTER,
+                                                                                                                     finalOptions),
+                                                                           ListOptionsEncoder.encodeSingleLikeFilter(CertificateListOptions.SUBJECT_FILTER,
+                                                                                                                     finalOptions),
                                                                            // FIXME
                                                                            null);
                                         // FIXME do encodeSingleEqualFilter(CertificateListOptions.VALID_FILTER);

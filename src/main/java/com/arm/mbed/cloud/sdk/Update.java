@@ -14,6 +14,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.adapters.DataFileAdapter;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -129,7 +130,7 @@ public class Update extends AbstractModule {
                                                        .firmwareImageList(finalOptions.getPageSize(),
                                                                           finalOptions.getOrder().toString(),
                                                                           finalOptions.getAfter(),
-                                                                          finalOptions.encodeInclude(),
+                                                                          ListOptionsEncoder.encodeInclude(finalOptions),
                                                                           new FilterMarshaller(null).encode(finalOptions.getFilter()));
                                     }
                                 });
@@ -381,7 +382,7 @@ public class Update extends AbstractModule {
                                                        .firmwareManifestList(finalOptions.getPageSize(),
                                                                              finalOptions.getOrder().toString(),
                                                                              finalOptions.getAfter(),
-                                                                             finalOptions.encodeInclude(),
+                                                                             ListOptionsEncoder.encodeInclude(finalOptions),
                                                                              new FilterMarshaller(null).encode(finalOptions.getFilter()));
                                     }
                                 });
@@ -637,7 +638,7 @@ public class Update extends AbstractModule {
                                                        .updateCampaignList(finalOptions.getPageSize(),
                                                                            finalOptions.getOrder().toString(),
                                                                            finalOptions.getAfter(),
-                                                                           finalOptions.encodeInclude(),
+                                                                           ListOptionsEncoder.encodeInclude(finalOptions),
                                                                            CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()));
                                     }
                                 });
@@ -1018,7 +1019,7 @@ public class Update extends AbstractModule {
                                                        .updateCampaignMetadataList(finalId, finalOptions.getPageSize(),
                                                                                    finalOptions.getOrder().toString(),
                                                                                    finalOptions.getAfter(),
-                                                                                   finalOptions.encodeInclude());
+                                                                                   ListOptionsEncoder.encodeInclude(finalOptions));
                                     }
                                 });
     }
