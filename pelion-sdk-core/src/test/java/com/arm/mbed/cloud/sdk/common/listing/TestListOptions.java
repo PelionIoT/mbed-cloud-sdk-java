@@ -27,12 +27,12 @@ public class TestListOptions {
     public void testEncodeInclude() {
         ListOptions options = new ListOptions();
         options.addInclude(null);
-        assertEquals(null, options.encodeInclude());
+        assertEquals(null, ListOptionsEncoder.encodeInclude(options));
         options.addInclude(new IncludeField("fieldOne"));
         options.addInclude(new IncludeField("fieldOne"));
         options.addInclude(new IncludeField("FieldTwo"));
         options.includeTotalCount();
-        assertEquals("field_one,field_two,total_count", options.encodeInclude());
+        assertEquals("field_one,field_two,total_count", ListOptionsEncoder.encodeInclude(options));
     }
 
     @Test
@@ -124,17 +124,17 @@ public class TestListOptions {
         assertTrue(options.hasFilter("test", FilterOperator.GREATER_THAN));
         assertFalse(options.hasFilter("test2", FilterOperator.GREATER_THAN));
         assertTrue(options.hasFilter("test2", FilterOperator.IN));
-        assertEquals("value1", options.encodeSingleEqualFilter("test"));
-        assertEquals("value2", options.encodeSingleNotEqualFilter("test"));
-        assertEquals("value3", options.encodeSingleLessThanFilter("test"));
-        assertEquals("value4", options.encodeSingleGreaterThanFilter("test"));
-        assertEquals("value1,value2", options.encodeSingleInFilter("test"));
-        assertEquals("1,2,3,4,5,6,7,8,9,10", options.encodeSingleInFilter("test2"));
-        assertEquals("1,2,3,4,5,6,91", options.encodeSingleInFilter("test3"));
-        assertEquals("value3,value4", options.encodeSingleNotInFilter("test"));
-        assertEquals("1,2,3,4,5,6,7,8,9,10,11", options.encodeSingleNotInFilter("test2"));
-        assertEquals("1,2,3,4,5,6,91", options.encodeSingleNotInFilter("test3"));
-        assertEquals("some test", options.encodeSingleLikeFilter("test"));
+        assertEquals("value1", ListOptionsEncoder.encodeSingleEqualFilter("test", options));
+        assertEquals("value2", ListOptionsEncoder.encodeSingleNotEqualFilter("test", options));
+        assertEquals("value3", ListOptionsEncoder.encodeSingleLessThanFilter("test", options));
+        assertEquals("value4", ListOptionsEncoder.encodeSingleGreaterThanFilter("test", options));
+        assertEquals("value1,value2", ListOptionsEncoder.encodeSingleInFilter("test", options));
+        assertEquals("1,2,3,4,5,6,7,8,9,10", ListOptionsEncoder.encodeSingleInFilter("test2", options));
+        assertEquals("1,2,3,4,5,6,91", ListOptionsEncoder.encodeSingleInFilter("test3", options));
+        assertEquals("value3,value4", ListOptionsEncoder.encodeSingleNotInFilter("test", options));
+        assertEquals("1,2,3,4,5,6,7,8,9,10,11", ListOptionsEncoder.encodeSingleNotInFilter("test2", options));
+        assertEquals("1,2,3,4,5,6,91", ListOptionsEncoder.encodeSingleNotInFilter("test3", options));
+        assertEquals("some test", ListOptionsEncoder.encodeSingleLikeFilter("test", options));
     }
 
     @Test

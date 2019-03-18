@@ -1,7 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
-import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
@@ -64,19 +64,19 @@ public class Filter {
     public String getEncodingMethodName() {
         switch (operator) {
             case EQUAL:
-                return ListOptions.METHOD_FILTER_ENCODE_EQUAL;
+                return ListOptionsEncoder.METHOD_FILTER_ENCODE_EQUAL;
             case GREATER_THAN:
-                return ListOptions.METHOD_FILTER_ENCODE_GREATER_THAN;
+                return ListOptionsEncoder.METHOD_FILTER_ENCODE_GREATER_THAN;
             case IN:
-                return ListOptions.METHOD_FILTER_ENCODE_IN;
+                return ListOptionsEncoder.METHOD_FILTER_ENCODE_IN;
             case LESS_THAN:
-                return ListOptions.METHOD_FILTER_ENCODE_LESS_THAN;
+                return ListOptionsEncoder.METHOD_FILTER_ENCODE_LESS_THAN;
             case LIKE:
-                return ListOptions.METHOD_FILTER_ENCODE_LIKE;
+                return ListOptionsEncoder.METHOD_FILTER_ENCODE_LIKE;
             case NOT_EQUAL:
-                return ListOptions.METHOD_FILTER_ENCODE_NOT_EQUAL;
+                return ListOptionsEncoder.METHOD_FILTER_ENCODE_NOT_EQUAL;
             case NOT_IN:
-                return ListOptions.METHOD_FILTER_ENCODE_NOT_IN;
+                return ListOptionsEncoder.METHOD_FILTER_ENCODE_NOT_IN;
             case UNKNOWN_ENUM:
             default:
                 return null;

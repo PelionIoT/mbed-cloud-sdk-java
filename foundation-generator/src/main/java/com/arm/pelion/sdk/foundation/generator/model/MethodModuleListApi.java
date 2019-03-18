@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
@@ -149,11 +150,11 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
             if (correspondingFilter != null) {
                 // example finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER),
                 if (type.isString()) {
-                    builder.append("$L.$L($T.$L)");
+                    builder.append("$T.$L($T.$L,$L)");
                 } else {
-                    builder.append("$L.$L($T.$L, $T.class)");
+                    builder.append("$T.$L($T.$L, $T.class,$L)");
                 }
-                callElements.add(method.generateFinalVariable(PARAMETER_NAME_OPTIONS));
+                callElements.add(ListOptionsEncoder.class);
                 callElements.add(correspondingFilter.getEncodingMethodName());
                 final TypeParameter optionsType = listOptions.toType();
                 optionsType.translate();
@@ -163,15 +164,17 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
                     type.translate();
                     callElements.add(type.hasClazz() ? type.getClazz() : type.getTypeName());
                 }
+                callElements.add(method.generateFinalVariable(PARAMETER_NAME_OPTIONS));
                 return;
 
             }
         }
         switch (parameterName) {
             case ListOptions.FIELD_NAME_INCLUDE:
-                builder.append("$L.$L()");
+                builder.append("$T.$L($L)");
+                callElements.add(ListOptionsEncoder.class);
+                callElements.add(ListOptionsEncoder.METHOD_INCLUDE_TO_STRING);
                 callElements.add(method.generateFinalVariable(PARAMETER_NAME_OPTIONS));
-                callElements.add(ListOptions.METHOD_INCLUDE_TO_STRING);
                 break;
             case ListOptions.FIELD_NAME_FILTER:
                 // FIXME encode filters when filters are supported.
