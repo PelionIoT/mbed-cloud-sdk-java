@@ -268,25 +268,25 @@ public class ValueGenerator {
         if (type.isNumber()) {
 
             final boolean isPrimitive = type.isPrimitive();
-            if ("null".equals(defaultValue)) {
-                return isPrimitive ? type.isInteger() ? "0" : type.isDecimal() ? "0.0" : "0L" : defaultValue;
-            }
-            final StringBuilder builder = new StringBuilder();
-            if (!isPrimitive) {
+            if (!hasDefaultValue || "null".equals(defaultValue.trim().toLowerCase(Locale.UK))) {
                 if (type.isInteger()) {
-                    builder.append("Integer.valueOf(");
+                    return isPrimitive ? "0" : "(Integer) null";
                 } else if (type.isDecimal()) {
-                    builder.append("Double.valueOf(");
+                    return isPrimitive ? "0.0" : "(Double) null";
                 } else {
-                    builder.append("Long.valueOf(");
+                    return isPrimitive ? "0L" : "(Long) null";
                 }
             }
-
-            builder.append(hasDefaultValue ? defaultValue : type.isInteger() ? "0" : type.isDecimal() ? "0.0" : "0L");
-            if (!isPrimitive) {
-                builder.append(")");
+            if (type.isInteger()) {
+                return isPrimitive ? defaultValue : "Integer.valueOf(" + defaultValue + ")";
+            } else if (type.isDecimal()) {
+                return isPrimitive ? defaultValue.contains(".") ? defaultValue : defaultValue.trim() + ".0"
+                                   : "Double.valueOf(" + defaultValue + ")";
+            } else {
+                return isPrimitive ? defaultValue.contains("L") ? defaultValue : defaultValue.trim() + "L"
+                                   : "Long.valueOf(" + defaultValue + ")";
             }
-            return builder.toString();
+
         }
         if (type.isDate()) {// TODO ensure the default date value is called now
             return hasDefaultValue ? defaultValue.contains("now") ? "new java.util.Date()" : defaultValue
