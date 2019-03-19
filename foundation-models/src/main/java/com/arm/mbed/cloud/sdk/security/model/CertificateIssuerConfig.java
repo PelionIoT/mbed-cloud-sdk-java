@@ -20,6 +20,7 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * The ID of the certificate issuer. Null if Device Management internal HSM is used.
+     * 
      */
     @Required
     private String certificateIssuerId;
@@ -37,6 +38,7 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * The ID of the certificate issuer configuration.
+     * 
      */
     private String id;
 

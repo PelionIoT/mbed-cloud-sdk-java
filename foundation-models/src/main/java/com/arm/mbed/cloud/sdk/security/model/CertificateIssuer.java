@@ -37,6 +37,7 @@ public class CertificateIssuer implements SdkModel {
     /**
      * General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be
      * empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
+     * 
      */
     private Map<String, String> issuerAttributes;
 
@@ -44,6 +45,7 @@ public class CertificateIssuer implements SdkModel {
      * The type of the certificate issuer. - GLOBAL_SIGN: Certificates are issued by GlobalSign service. The users must
      * provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by CFSSL authenticated
      * signing service. The users must provide their own CFSSL host_url and credentials.
+     * 
      */
     @Required
     private CertificateIssuerType issuerType;

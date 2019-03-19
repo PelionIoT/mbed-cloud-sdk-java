@@ -27,26 +27,31 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * The time of completing the bulk creation task. Null when creating bulk upload or delete.
+     * 
      */
     private final Date completedAt;
 
     /**
      * The time of receiving the bulk creation task.
+     * 
      */
     private final Date createdAt;
 
     /**
      * The number of enrollment identities with failed processing.
+     * 
      */
     private final int errorsCount;
 
     /**
      * Link to error report file. Null when creating bulk upload or delete.
+     * 
      */
     private final String errorsReportFile;
 
     /**
      * Link to full report file. Null when creating bulk upload or delete.
+     * 
      */
     private final String fullReportFile;
 
@@ -57,18 +62,21 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * The number of enrollment identities processed until now.
+     * 
      */
     private final int processedCount;
 
     /**
      * The state of the process is 'new' at the time of creation. If the creation is still in progress, the state is
      * shown as 'processing'. When the request has been fully processed, the state changes to 'completed'.
+     * 
      */
     @DefaultValue("new")
     private final DeviceEnrollmentBulkDeleteStatus status;
 
     /**
      * Total number of enrollment identities found in the input CSV.
+     * 
      */
     private final int totalCount;
 
