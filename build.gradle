@@ -283,7 +283,7 @@ dependencies {
     compile 'joda-time:joda-time:2.9.9'
     compile 'com.jcabi:jcabi-manifests:1.1'
     compile 'io.github.cdimascio:java-dotenv:3.1.1'
-    testCompile 'io.vertx:vertx-web:3.5.0'
+    testCompile 'io.vertx:vertx-web:3.6.3'
     testCompile 'org.reflections:reflections:0.9.10'
     testCompile 'org.slf4j:slf4j-simple:1.7.7'
     testCompile 'com.squareup.okhttp:mockwebserver:2.7.5'
