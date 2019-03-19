@@ -365,6 +365,28 @@ public class TypeParameter implements Artifact {
         }
     }
 
+    public void transformIntoWrapper() {
+        if (!isPrimitive()) {
+            return;
+        }
+        if (isBoolean()) {
+            setClazz(Boolean.class);
+            return;
+        }
+        if (!isNumber()) {
+            return;
+        }
+        if (isDecimal()) {
+            setClazz(Double.class);
+            return;
+        }
+        if (isInteger()) {
+            setClazz(Integer.class);
+            return;
+        }
+        setClazz(Long.class);
+    }
+
     public boolean isPrimitiveOrWrapper() {
         if (isPrimitive()) {
             return true;

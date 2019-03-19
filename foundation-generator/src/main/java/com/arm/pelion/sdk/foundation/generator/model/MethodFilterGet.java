@@ -21,7 +21,7 @@ public class MethodFilterGet extends MethodFilter {
 
     }
 
-    private static String generateName(Filter filter2) {
+    public static String generateName(Filter filter2) {
         return Utils.combineNames(false, "get", filter2.getFieldName(), "filters");
     }
 

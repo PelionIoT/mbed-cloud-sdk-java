@@ -1,6 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -59,69 +60,82 @@ public class ValueGenerator {
     // return DEFAULT_VALUE;
     // }
 
-    public static void addGenerateFieldValue(Field field, List<String> formats, List<Object> values) {
-        if (formats == null || values == null || field == null) {
+    public static void addGenerateFieldValue(Field field, Values values) {
+        if (field == null) {
             return;
         }
-        if (field.getType().isEnum()) {
-            formats.add("$T.$L()");
-            values.add(field.getType().hasClass() ? field.getType().getClazz() : field.getType().getTypeName());
-            values.add(SdkEnum.METHOD_GET_DEFAULT);
+        addGenerateFieldValue(field.getType(), field.hasPattern(), field.getPattern(), values);
+    }
+
+    public static void addGenerateFieldValue(TypeParameter fieldType, boolean hasPattern, String fieldPattern,
+                                             Values values) {
+
+        if (fieldType == null || values == null) {
+            return;
+        }
+        if (fieldType.isEnum()) {
+            values.addToFormat("$T.$L()");
+            values.addValue(fieldType.hasClass() ? fieldType.getClazz() : fieldType.getTypeName());
+            values.addValue(SdkEnum.METHOD_GET_DEFAULT);
             return;
 
         }
-        if (!field.getType().hasClass()) {
-            if (field.getType().isModel()) {
-                formats.add("new $T()");
-                values.add(field.getType().hasClass() ? field.getType().getClazz() : field.getType().getTypeName());
+        if (!fieldType.hasClass()) {
+            if (fieldType.isModel()) {
+                values.addToFormat("new $T()");
+                values.addValue(fieldType.hasClass() ? fieldType.getClazz() : fieldType.getTypeName());
                 return;
             }
-            formats.add(DEFAULT_VALUE);
+            values.addToFormat(DEFAULT_VALUE);
             return;
         }
-        if (field.getType().isString()) {
-            formats.add("$S");
-            if (field.hasPattern()) {
-                values.add(generateStringBasedOnRegex(field.getPattern()));
+        if (fieldType.isString()) {
+            values.addToFormat("$S");
+            if (hasPattern) {
+                values.addValue(generateStringBasedOnRegex(fieldPattern));
                 return;
             }
-            values.add(generateRandomString());
+            values.addValue(generateRandomString());
             return;
         }
-        if (field.getType().isBoolean()) {
-            formats.add(String.valueOf(Math.random() > 0.5));
+        if (fieldType.isBoolean()) {
+            if (fieldType.isPrimitive()) {
+                values.addToFormat(String.valueOf(Math.random() > 0.5));
+            } else {
+                values.addToFormat(Math.random() > 0.5 ? "Boolean.TRUE" : "Boolean.FALSE");
+            }
             return;
         }
-        if (field.getType().isDate()) {
-            formats.add("new $T($LL)");
-            values.add(Date.class);
-            values.add(Long.valueOf(new Date().getTime() + (long) (Math.random() * 10000)));
+        if (fieldType.isDate()) {
+            values.addToFormat("new $T($LL)");
+            values.addValue(Date.class);
+            values.addValue(Long.valueOf(new Date().getTime() + (long) (Math.random() * 10000)));
             return;
         }
-        if (field.getType().isNumber()) {
-            if (field.getType().isDecimal()) {
+        if (fieldType.isNumber()) {
+            if (fieldType.isDecimal()) {
                 final double value = Math.random() * 100000.0;
-                if (field.getType().isPrimitive()) {
-                    formats.add("$L");
+                if (fieldType.isPrimitive()) {
+                    values.addToFormat("$L");
                 } else {
-                    formats.add("$T.valueOf($L)");
-                    values.add(Double.class);
+                    values.addToFormat("$T.valueOf($L)");
+                    values.addValue(Double.class);
                 }
-                values.add(Double.valueOf(value));
+                values.addValue(Double.valueOf(value));
                 return;
             }
             final int value = (int) (Math.random() * 255) - 128;// A random number which can be a byte, int, or a
             // long;
-            if (field.getType().isPrimitive()) {
-                formats.add("$L");
+            if (fieldType.isPrimitive()) {
+                values.addToFormat("$L");
             } else {
-                formats.add("$T.valueOf($L)");
-                values.add(field.getType().isInteger() ? Integer.class : Long.class);
+                values.addToFormat("$T.valueOf($L)");
+                values.addValue(fieldType.isInteger() ? Integer.class : Long.class);
             }
-            values.add(Integer.valueOf(value));
+            values.addValue(Integer.valueOf(value));
             return;
         }
-        formats.add(DEFAULT_VALUE);
+        values.addToFormat(DEFAULT_VALUE);
     }
 
     public static String generateRandomString() {
@@ -167,13 +181,13 @@ public class ValueGenerator {
     // return generateFieldValue(field);
     // }
 
-    public static void addGenerateFieldInvalidValue(Field field, List<String> formats, List<Object> values) {
-        if (formats == null || values == null || field == null) {
+    public static void addGenerateFieldInvalidValue(Field field, Values values) {
+        if (values == null || field == null) {
             return;
         }
 
         if (field.getType().isString() && field.isRequired()) {
-            formats.add(DEFAULT_VALUE);
+            values.addToFormat(DEFAULT_VALUE);
             return;
         }
         if (field.getType().isString() && field.hasPattern()) {
@@ -186,16 +200,16 @@ public class ValueGenerator {
             while (trial > 0) {
                 potentialInvalidString += generateStringBasedOnRegex(potentialInvalidRegex);
                 if (!potentialInvalidString.matches(field.getPattern())) {
-                    formats.add("$S");
-                    values.add(potentialInvalidString);
+                    values.addToFormat("$S");
+                    values.addValue(potentialInvalidString);
                     return;
                 }
                 trial--;
             }
-            formats.add(DEFAULT_VALUE);
+            values.addToFormat(DEFAULT_VALUE);
             return;
         }
-        addGenerateFieldValue(field, formats, values);
+        addGenerateFieldValue(field, values);
     }
 
     // public static List<String> generateModelFieldWithInvalidValues(Model model) {
@@ -219,23 +233,23 @@ public class ValueGenerator {
     // model.fetchMethod(fetchConstructor(model))).getAllFields();
     // return fields.stream().map(f -> String.valueOf(generateFieldValue(f))).collect(Collectors.toList());
     // }
-    public static void generateModelFieldWithInvalidValues(Model model, List<String> formats, List<Object> values) {
-        if (formats == null || values == null) {
+    public static void generateModelFieldWithInvalidValues(Model model, Values values) {
+        if (values == null) {
             return;
         }
         final List<Field> fields = ((AbstractMethodConstructor) model.fetchMethod(fetchConstructor(model))).getAllFields();
         if (fields.stream().filter(f -> f.needsValidation()).count() == 0) {
             return;
         }
-        fields.forEach(f -> addGenerateFieldInvalidValue(f, formats, values));
+        fields.forEach(f -> addGenerateFieldInvalidValue(f, values));
     }
 
-    public static void generateModelFieldValues(Model model, List<String> formats, List<Object> values) {
-        if (formats == null || values == null) {
+    public static void generateModelFieldValues(Model model, Values values) {
+        if (values == null) {
             return;
         }
         final List<Field> fields = ((AbstractMethodConstructor) model.fetchMethod(fetchConstructor(model))).getAllFields();
-        fields.forEach(f -> addGenerateFieldValue(f, formats, values));
+        fields.forEach(f -> addGenerateFieldValue(f, values));
     }
 
     private static String fetchConstructor(Model model) {
@@ -302,4 +316,87 @@ public class ValueGenerator {
         return hasDefaultValue ? defaultValue : "(" + type.getShortName() + ") null";
     }
 
+    public static class Values {
+        final List<String> formats = new LinkedList<>();
+        final List<Object> values = new LinkedList<>();
+
+        public List<String> getFormats() {
+            return formats;
+        }
+
+        public List<Object> getValues() {
+            return values;
+        }
+
+        public void clear() {
+            formats.clear();
+            values.clear();
+        }
+
+        public boolean hasFormat() {
+            return !formats.isEmpty();
+        }
+
+        public void setFormat(String format) {
+            formats.clear();
+            addToFormat(format);
+        }
+
+        public void setFormat(List<String> formats) {
+            formats.clear();
+            addToFormat(formats);
+        }
+
+        public void addToFormat(String format) {
+            if (format == null) {
+                return;
+            }
+            formats.add(format);
+        }
+
+        public void addToFormat(List<String> formats) {
+            if (formats == null) {
+                return;
+            }
+            this.formats.addAll(formats);
+        }
+
+        public void addValue(Object value) {
+            if (value == null) {
+                return;
+            }
+            values.add(value);
+        }
+
+        public void addValue(List<Object> values) {
+            if (values == null) {
+                return;
+            }
+            this.values.addAll(values);
+        }
+
+        public void setValues(Object value) {
+            values.clear();
+            addValue(value);
+        }
+
+        public void setValues(List<Object> values) {
+            this.values.clear();
+            addValue(values);
+        }
+
+        public void add(Values value) {
+            if (value == null) {
+                return;
+            }
+            addValue(value.getValues());
+            addToFormat(value.getFormats());
+        }
+
+        @Override
+        public String toString() {
+            return "Values [formats=" + formats + ", values=" + values + "]";
+        }
+
+    }
 }

@@ -23,7 +23,7 @@ public class MethodFilterSetFluent extends MethodFilterSet {
         this(filter, null, listOptionModel, equivalentMethod, containsCustomCode, plural);
     }
 
-    private static String generateFluentName(Filter filter, boolean plural) {
+    public static String generateFluentName(Filter filter, boolean plural) {
         return Utils.combineNames(false, getFilterOperatorName(filter),
                                   plural ? Utils.generatePlural(filter.getFieldName()) : filter.getFieldName());
     }

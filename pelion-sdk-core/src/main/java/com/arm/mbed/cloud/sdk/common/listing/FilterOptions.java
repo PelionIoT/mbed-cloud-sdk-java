@@ -26,6 +26,8 @@ public class FilterOptions implements Cloneable {
     public static final String METHOD_FILTER_ADD_NOT_IN = "addNotInFilter";
     public static final String METHOD_FILTER_ADD_LIKE = "addLikeFilter";
     public static final String METHOD_FILTER_FETCH = "fetchFilters";
+    public static final String METHOD_HAS_FILTERS = "hasFilters";
+    public static final String METHOD_HAS_FILTER = "hasFilter";
     /**
      * Optional filters.
      */

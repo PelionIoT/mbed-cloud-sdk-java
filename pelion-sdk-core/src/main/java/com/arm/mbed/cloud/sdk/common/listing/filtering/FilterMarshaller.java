@@ -453,6 +453,29 @@ public class FilterMarshaller {
             }
             return null;
         }
+        if (Date.class.isAssignableFrom(type)) {
+            if (filterObj instanceof LocalDate) {
+                return (T) TranslationUtils.toDate((LocalDate) filterObj);
+            }
+            if (filterObj instanceof DateTime) {
+                return (T) TranslationUtils.toDate((DateTime) filterObj);
+            }
+            if (filterObj instanceof String) {
+                try {
+                    return (T) TranslationUtils.convertStringToDate((String) filterObj);
+                } catch (@SuppressWarnings("unused") MbedCloudException exception) {
+                    // Nothing to do.
+                    return null;
+                }
+            }
+            if (filterObj instanceof Date) {
+                return (T) filterObj;
+            }
+            if (filterObj instanceof Number) {
+                return (T) TranslationUtils.toDate((Number) filterObj);
+            }
+            return null;
+        }
         if (Boolean.class.isAssignableFrom(type) || boolean.class.isAssignableFrom(type)) {
             if (filterObj instanceof String) {
                 return (T) Boolean.valueOf(TranslationUtils.toBool((String) filterObj));
@@ -490,6 +513,9 @@ public class FilterMarshaller {
             if (filterObj instanceof Number) {
                 return (T) Double.valueOf(TranslationUtils.toDouble((Number) filterObj));
             }
+        }
+        if (SdkEnum.class.isAssignableFrom(type) || type.isEnum()) {
+            return (T) filterObj;
         }
 
         return null;

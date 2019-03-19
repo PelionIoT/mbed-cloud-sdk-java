@@ -22,8 +22,8 @@ import com.arm.mbed.cloud.sdk.common.listing.Paginator;
  */
 @Preamble(description = "Data Access Object definition for listing data models")
 public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends CloudDao {
-    String METHOD_GET_CORRESPONDING_MODEL_DAO_DEFINITION = "getCorrespondingModelDaoDefinition";
-    String METHOD_GET_CORRESPONDING_MODEL_DAO_INSTANCE = "getCorrespondingModelDao";
+    String METHOD_GET_CORRESPONDING_MODEL_DAO_DEFINITION = "getModelDaoClass";
+    String METHOD_GET_CORRESPONDING_MODEL_DAO_INSTANCE = "getNewModelDao";
 
     /**
      * Sets the {@link ListOptions} this DAO should use for listing models.
@@ -73,10 +73,10 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      * @return the definition of the corresponding model DAO.
      */
     @Nullable
-    <V extends ModelDao<T>> Class<V> getCorrespondingModelDaoDefinition();
+    <V extends ModelDao<T>> Class<V> getModelDaoClass();
 
     /**
-     * Gets an instance of the corresponding model DAO, pre-configured with the context of this DAO.
+     * Gets an new instance of the corresponding model DAO, pre-configured with the context of this DAO.
      * <p>
      * Note: See {@link ModelDao}
      * 
@@ -87,7 +87,7 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      *             if an error occurs during DAO configuration
      */
     @Nullable
-    <V extends ModelDao<T>> V getCorrespondingModelDao() throws MbedCloudException;
+    <V extends ModelDao<T>> V getNewModelDao() throws MbedCloudException;
 
     /**
      * Gets one page of models.

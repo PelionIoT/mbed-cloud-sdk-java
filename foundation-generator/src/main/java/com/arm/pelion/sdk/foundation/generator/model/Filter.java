@@ -109,6 +109,10 @@ public class Filter {
         return operator == FilterOperator.IN || operator == FilterOperator.NOT_IN;
     }
 
+    public String getIdentifier() {
+        return fieldName + operator.getSuffix();
+    }
+
     @Override
     public String toString() {
         return "Filter [fieldName=" + fieldName + ", fieldType=" + fieldType + ", operator=" + operator + "]";
