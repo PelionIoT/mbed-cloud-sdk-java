@@ -198,6 +198,7 @@ public class ModelModule extends ModelMergeable {
         private final Method lowLevelMethod;
         private final Renames parameterRenames;
         private final Class<?> lowLevelModule;
+        private Deprecation deprecation;
         private ModelEndpoints endpoints;
 
         public CloudCall(MethodAction action, String methodName, String description, String longDescription,
@@ -218,6 +219,7 @@ public class ModelModule extends ModelMergeable {
             this.methodParameters = externalParameters;
             this.allParameters = allParameters;
             this.lowLevelModule = lowLevelModule;
+            deprecation = null;
         }
 
         public CloudCall(MethodAction action, String methodName, String description, String longDescription,
@@ -238,6 +240,19 @@ public class ModelModule extends ModelMergeable {
 
         public String getIdentifier() {
             return methodName;
+        }
+
+        public Deprecation getDeprecation() {
+            return deprecation;
+        }
+
+        public void setDeprecation(Deprecation deprecation) {
+            this.deprecation = deprecation;
+        }
+
+        public boolean hasDeprecation() {
+            return deprecation != null;
+
         }
 
         public void addMethod(ModelModule module) {
@@ -419,6 +434,7 @@ public class ModelModule extends ModelMergeable {
         }
 
         private void addMethod(ModelModule module, MethodModuleCloudApi method, MethodAction overridingAction) {
+            method.setDeprecation(deprecation);
             module.addFields(method.getNecessaryConstants());
             module.addMethod(method);
             module.registerMethod(currentModel, overridingAction == null ? action : overridingAction, method);

@@ -71,4 +71,12 @@ public interface InputSchema {
     final String DELETE_METHOD_TAG = "delete";
     final String ME_METHOD_TAG = "me";
 
+    // deprecation
+    final String FIELD_DEPRECATION_TAG = "x-deprecation";
+    final String METHOD_DEPRECATION_TAG = "x_deprecation";
+    final String SINCE_DEPRECATION_TAG = "issued_at";
+    final String WHEN_DEPRECATION_TAG = "end_of_life_at";
+    final String DESCRIPTION_DEPRECATION_TAG = "comment";
+    final String LINKS_DEPRECATION_TAG = "links";
+
 }

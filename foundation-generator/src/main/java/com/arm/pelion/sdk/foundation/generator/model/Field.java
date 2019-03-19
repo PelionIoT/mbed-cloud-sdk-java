@@ -287,19 +287,26 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         }
     }
 
+    protected void addDocumentation() {
+        if (hasDescription()) {
+            specificationBuilder.addJavadoc(description + System.lineSeparator());
+            if (hasLongDescription()) {
+                specificationBuilder.addJavadoc("<p>" + System.lineSeparator() + longDescription
+                                                + System.lineSeparator());
+            }
+        }
+        if (hasDeprecation()) {
+            specificationBuilder.addJavadoc((hasDescription() ? "<p>" + System.lineSeparator() : "")
+                                            + getDeprecation().getNotice());
+        }
+    }
+
     protected void addModifiers() {
         if (isStatic) {
             specificationBuilder.addModifiers(Modifier.STATIC);
         }
         if (isReadOnly) {
             specificationBuilder.addModifiers(Modifier.FINAL);
-        }
-        if (hasDescription()) {
-            specificationBuilder.addJavadoc(description);
-            if (hasLongDescription()) {
-                specificationBuilder.addJavadoc(System.lineSeparator() + "<p>" + System.lineSeparator()
-                                                + longDescription);
-            }
         }
         if (isInternal) {
             specificationBuilder.addAnnotation(Internal.class);
@@ -310,6 +317,9 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         if (hasDefaultValue()) {
             specificationBuilder.addAnnotation(AnnotationSpec.builder(DefaultValue.class)
                                                              .addMember("value", "\"" + defaultValue + "\"").build());
+        }
+        if (hasDeprecation()) {
+            specificationBuilder.addAnnotation(Deprecated.class);
         }
 
     }
@@ -327,6 +337,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         }
         try {
             initialiseBuilder();
+            addDocumentation();
             addModifiers();
             addValue();
         } catch (TranslationException exception) {
@@ -340,8 +351,10 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
 
     @Override
     public Field clone() {
-        return new Field(isReadOnly, type, name, description, longDescription, pattern, isStatic, needsCustomCode,
-                         isInternal, isRequired, defaultValue, alreadyDefined);
+        Field field = new Field(isReadOnly, type, name, description, longDescription, pattern, isStatic,
+                                needsCustomCode, isInternal, isRequired, defaultValue, alreadyDefined);
+        field.setDeprecation(deprecation);
+        return field;
     }
 
     @Override

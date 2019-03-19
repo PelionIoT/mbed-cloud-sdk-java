@@ -822,9 +822,11 @@ public class Model extends AbstractSdkArtifact {
     protected void generateSettersAndGetters() {
         getFieldList().stream().filter(f -> !f.isAlreadyDefined()).forEach(f -> {
             final MethodGetter getter = new MethodGetter(f, null, false);
+            getter.setDeprecation(f.getDeprecation());
             addMethod(getter);
             if (!f.isReadOnly()) {
                 final MethodSetter setter = new MethodSetter(f, null, false);
+                setter.setDeprecation(f.getDeprecation());
                 addMethod(setter);
                 if (f.isIdentifier()) {
                     final Field equivalentF = f.clone();
@@ -838,12 +840,14 @@ public class Model extends AbstractSdkArtifact {
                                                                          Utils.generateDocumentationMethodLink(null,
                                                                                                                getter),
                                                                          true).statement(getter.getCallStatement() + System.lineSeparator());
+                        equivalentGetter.setDeprecation(f.getDeprecation());
                         addMethod(equivalentGetter);
 
                     }
                     Method equivalentSetter = new MethodSetter(equivalentF,
                                                                Utils.generateDocumentationMethodLink(null, setter),
                                                                true).statement(setter.getCallStatement(equivalentF.toParameter()) + System.lineSeparator());
+                    equivalentSetter.setDeprecation(f.getDeprecation());
                     addMethod(equivalentSetter);
                 }
                 if (f.needsValidation()) {

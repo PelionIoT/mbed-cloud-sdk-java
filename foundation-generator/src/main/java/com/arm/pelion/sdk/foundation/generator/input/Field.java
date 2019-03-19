@@ -45,6 +45,9 @@ public class Field {
     @JsonProperty(InputSchema.LONG_DESCRIPTION_TAG)
     private String longDescription;
 
+    @JsonProperty(InputSchema.FIELD_DEPRECATION_TAG)
+    private DeprecationNotice deprecationNotice;
+
     public Field() {
         key = null;
         description = null;
@@ -64,6 +67,7 @@ public class Field {
         enumRef = null;
         foreignKey = null;
         isExternal = false;
+        deprecationNotice = null;
     }
 
     /**
@@ -335,6 +339,18 @@ public class Field {
 
     public String getProcessedTo() {
         return Utils.getKey(key, true);
+    }
+
+    public DeprecationNotice getDeprecationNotice() {
+        return deprecationNotice;
+    }
+
+    public void setDeprecationNotice(DeprecationNotice deprecationNotice) {
+        this.deprecationNotice = deprecationNotice;
+    }
+
+    public boolean hasDeprecation() {
+        return deprecationNotice != null;
     }
 
     /*

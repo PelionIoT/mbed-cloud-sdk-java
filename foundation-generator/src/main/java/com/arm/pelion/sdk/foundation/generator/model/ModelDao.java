@@ -241,6 +241,7 @@ public class ModelDao extends Model {
         method.setIgnoreShortName(true);
         method.addException(MbedCloudException.class);
         method.setNeedsCustomCode(needsCustomCode);
+        method.setDeprecation(moduleMethod.getDeprecation());
         method.initialiseCodeBuilder();
         generateMethodCodeAndReturnType(moduleMethod, method, moduleType);
         return method;

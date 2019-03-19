@@ -198,14 +198,20 @@ public class MethodTranslator {
         final MethodAction action = determineMethodAction(m);
         final Renames parameterRenames = new Renames();
         m.getParameters().forEach(f -> parameterRenames.addEntry(f.getProcessedFrom(), f.getProcessedTo()));
-        return new CloudCall(action, generateMethodName(action, currentModel, m.getKey()),
-                             generateMethodDescription(action, currentModel, m.getSummary(), m.getKey(),
-                                                       m.hasPaginatedResponse()),
-                             generateMethodLongDescription(m.getDescription()), currentModel, returnModel,
-                             m.isCustomCode(), m.hasPaginatedResponse(),
-                             translateParameters(m, currentModel.getPackageName(), currentModel.getGroup(), true),
-                             translateParameters(m, currentModel.getPackageName(), currentModel.getGroup(), false),
-                             parameterRenames, translateMethod(method), method.getModuleClazz());
+        CloudCall call = new CloudCall(action, generateMethodName(action, currentModel, m.getKey()),
+                                       generateMethodDescription(action, currentModel, m.getSummary(), m.getKey(),
+                                                                 m.hasPaginatedResponse()),
+                                       generateMethodLongDescription(m.getDescription()), currentModel, returnModel,
+                                       m.isCustomCode(), m.hasPaginatedResponse(),
+                                       translateParameters(m, currentModel.getPackageName(), currentModel.getGroup(),
+                                                           true),
+                                       translateParameters(m, currentModel.getPackageName(), currentModel.getGroup(),
+                                                           false),
+                                       parameterRenames, translateMethod(method), method.getModuleClazz());
+        if (m.hasDeprecation()) {
+            call.setDeprecation(CommonTranslator.translateDeprecationNotice(m.getDeprecationNotice(), false));
+        }
+        return call;
     }
 
 }

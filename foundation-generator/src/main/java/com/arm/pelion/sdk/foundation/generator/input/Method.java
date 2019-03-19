@@ -35,6 +35,9 @@ public class Method {
     @JsonProperty(InputSchema.FILTER_TAG)
     private Filters filters;
 
+    @JsonProperty(InputSchema.METHOD_DEPRECATION_TAG)
+    private DeprecationNotice deprecationNotice;
+
     public String getKey() {
         return key;
     }
@@ -174,6 +177,18 @@ public class Method {
 
     public boolean hasFilters() {
         return filters != null && !filters.isEmpty();
+    }
+
+    public DeprecationNotice getDeprecationNotice() {
+        return deprecationNotice;
+    }
+
+    public void setDeprecationNotice(DeprecationNotice deprecationNotice) {
+        this.deprecationNotice = deprecationNotice;
+    }
+
+    public boolean hasDeprecation() {
+        return deprecationNotice != null;
     }
 
     /*

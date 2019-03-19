@@ -377,6 +377,9 @@ public class Method extends AbstractSdkArtifact {
         if (ignoreResourceClosure) {
             specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreResourceClosure());
         }
+        if (hasDeprecation()) {
+            specificationBuilder.addAnnotation(Deprecated.class);
+        }
     }
 
     protected void defineMethod() throws TranslationException {
@@ -387,6 +390,10 @@ public class Method extends AbstractSdkArtifact {
                 specificationBuilder.addJavadoc("<p>" + System.lineSeparator() + longDescription
                                                 + System.lineSeparator());
             }
+        }
+        if (hasDeprecation()) {
+            specificationBuilder.addJavadoc((hasDescription() ? "<p>" + System.lineSeparator() : "")
+                                            + getDeprecation().getNotice() + System.lineSeparator());
         }
         if (hasParameters()) {
             for (final Parameter parameter : parameters) {

@@ -34,6 +34,10 @@ public class FieldTranslator {
             if (primaryKey != null && primaryKey.equals(field.getKey())) {
                 modelField.setAsIdentifier(true);
             }
+            if (field.hasDeprecation()) {
+                modelField.setDeprecation(CommonTranslator.translateDeprecationNotice(field.getDeprecationNotice(),
+                                                                                      true));
+            }
             // TODO do something if needed
             return modelField;
         } catch (FoundationGeneratorException exception) {
