@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.lang.model.element.Modifier;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.NotImplemented;
 import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
@@ -438,6 +439,7 @@ public class Method extends AbstractSdkArtifact {
             return;
         }
         if (containsCustomCode) {
+            specificationBuilder.addAnnotation(NotImplemented.class);
             specificationBuilder.addStatement("// TODO Auto-generated method stub.");
             specificationBuilder.addStatement("throw new $T()", NotImplementedException.class);
             specificationBuilder.addException(NotImplementedException.class);
