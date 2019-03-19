@@ -52,6 +52,18 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
     }
 
     /**
+     * a device events dao class.
+     * 
+     * @return a device events dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<DeviceEventsDao> getModelDaoClass() {
+        return DeviceEventsDao.class;
+    }
+
+    /**
      * a device events dao.
      * 
      * @return a device events dao
@@ -61,20 +73,8 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
     @Override
     @Internal
     @SuppressWarnings("unchecked")
-    public DeviceEventsDao getCorrespondingModelDao() throws MbedCloudException {
+    public DeviceEventsDao getNewModelDao() throws MbedCloudException {
         return new DeviceEventsDao().configureAndGet(getModuleOrThrow());
-    }
-
-    /**
-     * a device events dao class.
-     * 
-     * @return a device events dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<DeviceEventsDao> getCorrespondingModelDaoDefinition() {
-        return DeviceEventsDao.class;
     }
 
     /**

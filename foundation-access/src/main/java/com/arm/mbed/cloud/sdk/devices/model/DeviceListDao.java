@@ -51,6 +51,18 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     }
 
     /**
+     * a device dao class.
+     * 
+     * @return a device dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<DeviceDao> getModelDaoClass() {
+        return DeviceDao.class;
+    }
+
+    /**
      * a device dao.
      * 
      * @return a device dao
@@ -60,20 +72,8 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     @Override
     @Internal
     @SuppressWarnings("unchecked")
-    public DeviceDao getCorrespondingModelDao() throws MbedCloudException {
+    public DeviceDao getNewModelDao() throws MbedCloudException {
         return new DeviceDao().configureAndGet(getModuleOrThrow());
-    }
-
-    /**
-     * a device dao class.
-     * 
-     * @return a device dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<DeviceDao> getCorrespondingModelDaoDefinition() {
-        return DeviceDao.class;
     }
 
     /**

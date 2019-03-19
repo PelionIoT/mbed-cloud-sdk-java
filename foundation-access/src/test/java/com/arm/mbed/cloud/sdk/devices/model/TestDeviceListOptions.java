@@ -19,9 +19,9 @@ public class TestDeviceListOptions {
     @Test
     public void testClone() {
         try {
-            DeviceListOptions devicelistoptions1 = new DeviceListOptions(Integer.valueOf(22), Long.valueOf(-41),
+            DeviceListOptions devicelistoptions1 = new DeviceListOptions(Integer.valueOf(-68), Long.valueOf(17),
                                                                          Order.getDefault(),
-                                                                         "3ed6cca4-f8ba-4e82-97d1-7a40f7b71d53", null,
+                                                                         "7d2da4f3-c4a2-4ce9-bece-abc266bbe44a", null,
                                                                          null);
             DeviceListOptions devicelistoptions2 = devicelistoptions1.clone();
             assertNotNull(devicelistoptions1);
@@ -40,13 +40,13 @@ public class TestDeviceListOptions {
     @Test
     public void testHashCode() {
         try {
-            DeviceListOptions devicelistoptions1 = new DeviceListOptions(Integer.valueOf(-49), Long.valueOf(33),
+            DeviceListOptions devicelistoptions1 = new DeviceListOptions(Integer.valueOf(120), Long.valueOf(-77),
                                                                          Order.getDefault(),
-                                                                         "527e474b-9938-410b-a209-749540aa6c96", null,
+                                                                         "5525c596-cdc5-42ee-bab2-f658bcde091c", null,
                                                                          null);
-            DeviceListOptions devicelistoptions2 = new DeviceListOptions(Integer.valueOf(-49), Long.valueOf(33),
+            DeviceListOptions devicelistoptions2 = new DeviceListOptions(Integer.valueOf(120), Long.valueOf(-77),
                                                                          Order.getDefault(),
-                                                                         "527e474b-9938-410b-a209-749540aa6c96", null,
+                                                                         "5525c596-cdc5-42ee-bab2-f658bcde091c", null,
                                                                          null);
             assertNotNull(devicelistoptions1);
             assertNotNull(devicelistoptions2);
@@ -69,17 +69,17 @@ public class TestDeviceListOptions {
     @Test
     public void testEquals() {
         try {
-            DeviceListOptions devicelistoptions1 = new DeviceListOptions(Integer.valueOf(-113), Long.valueOf(-11),
+            DeviceListOptions devicelistoptions1 = new DeviceListOptions(Integer.valueOf(-82), Long.valueOf(22),
                                                                          Order.getDefault(),
-                                                                         "1da39940-15fd-41a3-a68a-6f1795c16468", null,
+                                                                         "dbaf5a7a-8e73-444c-84fe-ac1ff5ad62d6", null,
                                                                          null);
-            DeviceListOptions devicelistoptions2 = new DeviceListOptions(Integer.valueOf(-113), Long.valueOf(-11),
+            DeviceListOptions devicelistoptions2 = new DeviceListOptions(Integer.valueOf(-82), Long.valueOf(22),
                                                                          Order.getDefault(),
-                                                                         "1da39940-15fd-41a3-a68a-6f1795c16468", null,
+                                                                         "dbaf5a7a-8e73-444c-84fe-ac1ff5ad62d6", null,
                                                                          null);
-            DeviceListOptions devicelistoptions3 = new DeviceListOptions(Integer.valueOf(-117), Long.valueOf(67),
+            DeviceListOptions devicelistoptions3 = new DeviceListOptions(Integer.valueOf(-94), Long.valueOf(37),
                                                                          Order.getDefault(),
-                                                                         "0c1eb286-62bf-43ae-80d4-ef043131a17c", null,
+                                                                         "f8338ceb-5cbb-4a7a-80d0-1f132f487b09", null,
                                                                          null);
             assertNotNull(devicelistoptions1);
             assertNotNull(devicelistoptions2);

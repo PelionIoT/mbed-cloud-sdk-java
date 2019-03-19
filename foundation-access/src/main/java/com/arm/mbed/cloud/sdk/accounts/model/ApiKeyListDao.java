@@ -51,6 +51,18 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
     }
 
     /**
+     * an api key dao class.
+     * 
+     * @return an api key dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<ApiKeyDao> getModelDaoClass() {
+        return ApiKeyDao.class;
+    }
+
+    /**
      * an api key dao.
      * 
      * @return an api key dao
@@ -60,20 +72,8 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
     @Override
     @Internal
     @SuppressWarnings("unchecked")
-    public ApiKeyDao getCorrespondingModelDao() throws MbedCloudException {
+    public ApiKeyDao getNewModelDao() throws MbedCloudException {
         return new ApiKeyDao().configureAndGet(getModuleOrThrow());
-    }
-
-    /**
-     * an api key dao class.
-     * 
-     * @return an api key dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<ApiKeyDao> getCorrespondingModelDaoDefinition() {
-        return ApiKeyDao.class;
     }
 
     /**

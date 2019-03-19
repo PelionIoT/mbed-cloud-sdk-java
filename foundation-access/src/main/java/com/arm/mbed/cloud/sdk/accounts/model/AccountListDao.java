@@ -51,6 +51,18 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
     }
 
     /**
+     * an account dao class.
+     * 
+     * @return an account dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<AccountDao> getModelDaoClass() {
+        return AccountDao.class;
+    }
+
+    /**
      * an account dao.
      * 
      * @return an account dao
@@ -60,20 +72,8 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
     @Override
     @Internal
     @SuppressWarnings("unchecked")
-    public AccountDao getCorrespondingModelDao() throws MbedCloudException {
+    public AccountDao getNewModelDao() throws MbedCloudException {
         return new AccountDao().configureAndGet(getModuleOrThrow());
-    }
-
-    /**
-     * an account dao class.
-     * 
-     * @return an account dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<AccountDao> getCorrespondingModelDaoDefinition() {
-        return AccountDao.class;
     }
 
     /**

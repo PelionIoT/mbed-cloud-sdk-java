@@ -55,6 +55,18 @@ public class CertificateIssuerConfigListDao extends
     }
 
     /**
+     * a certificate issuer config dao class.
+     * 
+     * @return a certificate issuer config dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<CertificateIssuerConfigDao> getModelDaoClass() {
+        return CertificateIssuerConfigDao.class;
+    }
+
+    /**
      * a certificate issuer config dao.
      * 
      * @return a certificate issuer config dao
@@ -64,20 +76,8 @@ public class CertificateIssuerConfigListDao extends
     @Override
     @Internal
     @SuppressWarnings("unchecked")
-    public CertificateIssuerConfigDao getCorrespondingModelDao() throws MbedCloudException {
+    public CertificateIssuerConfigDao getNewModelDao() throws MbedCloudException {
         return new CertificateIssuerConfigDao().configureAndGet(getModuleOrThrow());
-    }
-
-    /**
-     * a certificate issuer config dao class.
-     * 
-     * @return a certificate issuer config dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<CertificateIssuerConfigDao> getCorrespondingModelDaoDefinition() {
-        return CertificateIssuerConfigDao.class;
     }
 
     /**

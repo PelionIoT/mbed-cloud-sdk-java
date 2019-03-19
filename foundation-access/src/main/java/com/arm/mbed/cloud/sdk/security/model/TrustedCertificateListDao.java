@@ -52,6 +52,18 @@ public class TrustedCertificateListDao extends AbstractModelListDao<TrustedCerti
     }
 
     /**
+     * a trusted certificate dao class.
+     * 
+     * @return a trusted certificate dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<TrustedCertificateDao> getModelDaoClass() {
+        return TrustedCertificateDao.class;
+    }
+
+    /**
      * a trusted certificate dao.
      * 
      * @return a trusted certificate dao
@@ -61,20 +73,8 @@ public class TrustedCertificateListDao extends AbstractModelListDao<TrustedCerti
     @Override
     @Internal
     @SuppressWarnings("unchecked")
-    public TrustedCertificateDao getCorrespondingModelDao() throws MbedCloudException {
+    public TrustedCertificateDao getNewModelDao() throws MbedCloudException {
         return new TrustedCertificateDao().configureAndGet(getModuleOrThrow());
-    }
-
-    /**
-     * a trusted certificate dao class.
-     * 
-     * @return a trusted certificate dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<TrustedCertificateDao> getCorrespondingModelDaoDefinition() {
-        return TrustedCertificateDao.class;
     }
 
     /**

@@ -52,6 +52,18 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
     }
 
     /**
+     * a user invitation dao class.
+     * 
+     * @return a user invitation dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<UserInvitationDao> getModelDaoClass() {
+        return UserInvitationDao.class;
+    }
+
+    /**
      * a user invitation dao.
      * 
      * @return a user invitation dao
@@ -61,20 +73,8 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
     @Override
     @Internal
     @SuppressWarnings("unchecked")
-    public UserInvitationDao getCorrespondingModelDao() throws MbedCloudException {
+    public UserInvitationDao getNewModelDao() throws MbedCloudException {
         return new UserInvitationDao().configureAndGet(getModuleOrThrow());
-    }
-
-    /**
-     * a user invitation dao class.
-     * 
-     * @return a user invitation dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<UserInvitationDao> getCorrespondingModelDaoDefinition() {
-        return UserInvitationDao.class;
     }
 
     /**

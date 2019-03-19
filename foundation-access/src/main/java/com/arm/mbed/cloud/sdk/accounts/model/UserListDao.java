@@ -51,6 +51,18 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
     }
 
     /**
+     * a user dao class.
+     * 
+     * @return a user dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<UserDao> getModelDaoClass() {
+        return UserDao.class;
+    }
+
+    /**
      * a user dao.
      * 
      * @return a user dao
@@ -60,20 +72,8 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
     @Override
     @Internal
     @SuppressWarnings("unchecked")
-    public UserDao getCorrespondingModelDao() throws MbedCloudException {
+    public UserDao getNewModelDao() throws MbedCloudException {
         return new UserDao().configureAndGet(getModuleOrThrow());
-    }
-
-    /**
-     * a user dao class.
-     * 
-     * @return a user dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<UserDao> getCorrespondingModelDaoDefinition() {
-        return UserDao.class;
     }
 
     /**

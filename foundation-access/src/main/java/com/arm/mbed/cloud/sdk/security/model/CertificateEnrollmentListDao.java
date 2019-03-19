@@ -54,6 +54,18 @@ public class CertificateEnrollmentListDao extends
     }
 
     /**
+     * a certificate enrollment dao class.
+     * 
+     * @return a certificate enrollment dao class
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public Class<CertificateEnrollmentDao> getModelDaoClass() {
+        return CertificateEnrollmentDao.class;
+    }
+
+    /**
      * a certificate enrollment dao.
      * 
      * @return a certificate enrollment dao
@@ -63,20 +75,8 @@ public class CertificateEnrollmentListDao extends
     @Override
     @Internal
     @SuppressWarnings("unchecked")
-    public CertificateEnrollmentDao getCorrespondingModelDao() throws MbedCloudException {
+    public CertificateEnrollmentDao getNewModelDao() throws MbedCloudException {
         return new CertificateEnrollmentDao().configureAndGet(getModuleOrThrow());
-    }
-
-    /**
-     * a certificate enrollment dao class.
-     * 
-     * @return a certificate enrollment dao class
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public Class<CertificateEnrollmentDao> getCorrespondingModelDaoDefinition() {
-        return CertificateEnrollmentDao.class;
     }
 
     /**
