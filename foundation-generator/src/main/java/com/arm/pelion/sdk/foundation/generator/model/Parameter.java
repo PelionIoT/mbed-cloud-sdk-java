@@ -16,16 +16,22 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
     private ParameterSpec.Builder specificationBuilder;
     private TypeParameter type;
     private String defaultValue;
+    private String minimum;
+    private String maximum;
     private boolean setAsNullable;
     private boolean setAsNonNull;
 
-    public Parameter(String name, String description, String longDescription, TypeParameter type, String defaultValue) {
+    public Parameter(String name, String description, String longDescription, TypeParameter type, String defaultValue,
+                     String minimum, String maximum) {
         super(false, name, description, longDescription, false, true, false, false, false, false);
+        setMinimum(minimum);
+        setMaximum(maximum);
         setSpecification(null);
         setType(type);
         setDefaultValue(defaultValue);
         setSetAsNonNull(false);
         setSetAsNullable(false);
+        setDefaultValueIfMissing();
     }
 
     public Parameter(String name, Class<?> elementClass) {
@@ -33,7 +39,7 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
                                                          false)
                           : name,
              Utils.generateDocumentationString(elementClass.getSimpleName()), null,
-             TypeFactory.getCorrespondingType(elementClass), null);
+             TypeFactory.getCorrespondingType(elementClass), null, null, null);
     }
 
     public Parameter(java.lang.reflect.Parameter parameter) {
@@ -42,7 +48,7 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
 
     @Override
     public Parameter clone() {
-        final Parameter clone = new Parameter(name, description, longDescription, type, defaultValue);
+        final Parameter clone = new Parameter(name, description, longDescription, type, defaultValue, minimum, maximum);
         clone.setSetAsNonNull(setAsNonNull);
         clone.setSetAsNullable(setAsNullable);
         return clone;
@@ -106,6 +112,46 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
         this.setAsNonNull = setAsNonNull;
         if (setAsNonNull) {
             setSetAsNullable(false);
+        }
+    }
+
+    public boolean hasMaximum() {
+        return has(maximum) && !type.isDate();
+    }
+
+    public boolean hasMinimum() {
+        return has(minimum) && !type.isDate();
+    }
+
+    public String getMinimum() {
+        return minimum;
+    }
+
+    public void setMinimum(String minimum) {
+        this.minimum = minimum;
+    }
+
+    public String getMaximum() {
+        return maximum;
+    }
+
+    public void setMaximum(String maximum) {
+        this.maximum = maximum;
+    }
+
+    private void setDefaultValueIfMissing() {
+        // If no default value is specified but limits are, then consider one of these limits as default value
+        if (!getType().isNumber()) {
+            return;
+        }
+        if (!hasDefaultValue()) {
+            if (hasMinimum()) {
+                setDefaultValue(getMinimum());
+            } else {
+                if (hasMaximum()) {
+                    setDefaultValue(getMaximum());
+                }
+            }
         }
     }
 

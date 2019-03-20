@@ -29,7 +29,9 @@ public class FieldTranslator {
             final Field modelField = new Field(field.isReadOnly(), determineType(field, packageName, group),
                                                field.getKey(), field.getDescription(), field.getLongDescription(),
                                                com.arm.pelion.sdk.foundation.generator.util.Utils.applyPatternHack(field.getPattern()),
-                                               false, field.isCustomCode(), field.isInternal(), field.isRequired(),
+                                               field.hasMinimum() ? String.valueOf(field.getMinimum()) : null,
+                                               field.hasMaximum() ? String.valueOf(field.getMaximum()) : null, false,
+                                               field.isCustomCode(), field.isInternal(), field.isRequired(),
                                                field.getDefaultValue(), false);
             if (primaryKey != null && primaryKey.equals(field.getKey())) {
                 modelField.setAsIdentifier(true);
@@ -52,7 +54,9 @@ public class FieldTranslator {
             return null;
         }
         final Parameter parameter = new Parameter(field.getKey(), field.getDescription(), field.getDescription(),
-                                                  determineType(field, packageName, group), field.getDefaultValue());
+                                                  determineType(field, packageName, group), field.getDefaultValue(),
+                                                  field.hasMinimum() ? String.valueOf(field.getMinimum()) : null,
+                                                  field.hasMaximum() ? String.valueOf(field.getMaximum()) : null);
         return field.isRequired() ? parameter.setAsNonNull(true) : parameter.setAsNullable(true);
     }
 

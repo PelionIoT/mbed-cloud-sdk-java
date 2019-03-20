@@ -158,7 +158,7 @@ public class ModelTest extends AbstractSdkArtifact {
             type.transformIntoWrapper();
             int numberOfElements = filter.canHaveMultipleInputTypes() ? 1 + (int) (Math.random() * 9.0) : 1;
             while (numberOfElements > 0) {
-                ValueGenerator.addGenerateFieldValue(type, false, null, filterValues);
+                ValueGenerator.addGenerateFieldValue(type, false, null, false, null, false, null, filterValues);
                 numberOfElements--;
             }
             if (filter.canHaveMultipleInputTypes()) {

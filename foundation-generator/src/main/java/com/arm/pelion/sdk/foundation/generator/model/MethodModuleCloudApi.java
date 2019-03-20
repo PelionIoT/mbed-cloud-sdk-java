@@ -89,8 +89,8 @@ public class MethodModuleCloudApi extends MethodOverloaded {
 
     private Field generateConstant(Parameter p) {
         return new Field(true, TypeFactory.getCorrespondingType(String.class),
-                         Utils.generateConstantName("tag", p.getName()), "Parameter name", null, null, true, false,
-                         true, false, null, false).initialiser("\"" + p.getName() + "\"");
+                         Utils.generateConstantName("tag", p.getName()), "Parameter name", null, null, null, null, true,
+                         false, true, false, null, false).initialiser("\"" + p.getName() + "\"");
     }
 
     private void determineParameters(List<Parameter> methodParameters) {

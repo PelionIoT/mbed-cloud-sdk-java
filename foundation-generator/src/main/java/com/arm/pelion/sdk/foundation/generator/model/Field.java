@@ -17,6 +17,8 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     public static final String IDENTIFIER_NAME = "id";
     private TypeParameter type;
     private String pattern;
+    private String minimum;
+    private String maximum;
     private String defaultValue;
     private String initialiser;
     private boolean isRequired;
@@ -38,10 +40,12 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
      * @param defaultValue
      */
     public Field(boolean isReadOnly, TypeParameter type, String name, String description, String longDescription,
-                 String pattern, boolean isStatic, boolean needsCustomCode, boolean isInternal, boolean isRequired,
-                 String defaultValue, boolean alreadyDefined) {
+                 String pattern, String minimum, String maximum, boolean isStatic, boolean needsCustomCode,
+                 boolean isInternal, boolean isRequired, String defaultValue, boolean alreadyDefined) {
         super(isReadOnly, name, determineDescription(type, description), longDescription, isStatic, false, false, false,
               needsCustomCode, isInternal);
+        setMinimum(minimum);
+        setMaximum(maximum);
         setPattern(pattern);
         setType(type);
         setRequired(isRequired);
@@ -49,13 +53,14 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         setInitialiser(null);
         setAlreadyDefined(alreadyDefined);
         setAsIdentifier(false);
+        setDefaultValueIfMissing();
     }
 
     public Field(java.lang.reflect.Field field, boolean isInternal, boolean isRequired, String defaultValue,
                  boolean hasSetter) {
         this(isFieldReadOnly(field, hasSetter),
              TypeFactory.getCorrespondingType(field.getType(), field.getGenericType()), field.getName(), null, null,
-             null, java.lang.reflect.Modifier.isStatic(field.getModifiers()), false, isInternal, isRequired,
+             null, null, null, java.lang.reflect.Modifier.isStatic(field.getModifiers()), false, isInternal, isRequired,
              defaultValue, true);
     }
 
@@ -65,7 +70,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
 
     public static Field defaultIdentifier() {
         return new Field(false, TypeFactory.getCorrespondingType(String.class), IDENTIFIER_NAME, IDENTIFIER_NAME, null,
-                         null, false, false, true, false, null, false);
+                         null, null, null, false, false, true, false, null, false);
     }
 
     private static boolean isFieldReadOnly(java.lang.reflect.Field field, boolean hasSetter) {
@@ -116,6 +121,22 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         if (isIdentifier()) {
             super.setReadOnly(false);
             setRequired(false);
+        }
+    }
+
+    private void setDefaultValueIfMissing() {
+        // If no default value is specified but limits are, then consider one of these limits as default value
+        if (!getType().isNumber()) {
+            return;
+        }
+        if (!hasDefaultValue()) {
+            if (hasMinimum()) {
+                setDefaultValue(getMinimum());
+            } else {
+                if (hasMaximum()) {
+                    setDefaultValue(getMaximum());
+                }
+            }
         }
     }
 
@@ -247,6 +268,30 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         this.pattern = pattern;
     }
 
+    public boolean hasMinimum() {
+        return has(minimum) && !type.isDate();
+    }
+
+    public String getMinimum() {
+        return minimum;
+    }
+
+    public void setMinimum(String minimum) {
+        this.minimum = minimum;
+    }
+
+    public boolean hasMaximum() {
+        return has(maximum) && !type.isDate();
+    }
+
+    public String getMaximum() {
+        return maximum;
+    }
+
+    public void setMaximum(String maximum) {
+        this.maximum = maximum;
+    }
+
     /**
      * @return the isRequired
      */
@@ -263,7 +308,8 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     }
 
     public boolean needsValidation() {
-        return isRequired() || hasPattern();// TODO add more cases where validation is needed.
+        return isRequired() || hasPattern() || hasMaximum() || hasMinimum();// TODO add more cases where validation is
+                                                                            // needed.
     }
 
     /**
@@ -346,22 +392,23 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     }
 
     public Parameter toParameter() {
-        return new Parameter(name, description, longDescription, type, defaultValue);
+        return new Parameter(name, description, longDescription, type, defaultValue, minimum, maximum);
     }
 
     @Override
     public Field clone() {
-        Field field = new Field(isReadOnly, type, name, description, longDescription, pattern, isStatic,
-                                needsCustomCode, isInternal, isRequired, defaultValue, alreadyDefined);
+        Field field = new Field(isReadOnly, type, name, description, longDescription, pattern, minimum, maximum,
+                                isStatic, needsCustomCode, isInternal, isRequired, defaultValue, alreadyDefined);
         field.setDeprecation(deprecation);
         return field;
     }
 
     @Override
     public String toString() {
-        return "Field [type=" + type + ", pattern=" + pattern + ", defaultValue=" + defaultValue + ", initialiser="
-               + initialiser + ", isRequired=" + isRequired + ", alreadyDefined=" + alreadyDefined
-               + ", specificationBuilder=" + specificationBuilder + ", parent=" + super.toString() + "]";
+        return "Field [type=" + type + ", pattern=" + pattern + ", minimum=" + minimum + ", maximum=" + maximum
+               + ", defaultValue=" + defaultValue + ", initialiser=" + initialiser + ", isRequired=" + isRequired
+               + ", alreadyDefined=" + alreadyDefined + ", isIdentifier=" + isIdentifier + ", specificationBuilder="
+               + specificationBuilder + ", parent=" + super.toString() + "]";
     }
 
 }

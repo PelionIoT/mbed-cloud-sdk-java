@@ -31,13 +31,26 @@ public interface InputSchema {
     final String RENAMES_TAG = "field_renames";
     final String REQUIRED_TAG = "required";
     final String ITEMS_TAG = "items";
-    final String PATTERN_TAG = "pattern";
     final String HASHTABLE_TAG = "additionalProperties";
     final String ENUMS_TAG = "enums";
     final String ENUM_REFERENCE_TAG = "enum_reference";
     final String ENUM_VALUES_TAG = "values";
     final String ENTITY_REFERENCE_TAG = "entity_name";
     final String INTERNAL_FIELD_TAG = "private_field";
+
+    // Limits
+    final String PATTERN_TAG = "pattern";
+    final String MAXIMUM_TAG = "maximum";
+    final String MINIMUM_TAG = "minimum";
+    final String MAXIMUM_LENGTH_TAG = "maxLength";
+    final String MINIMUM_LENGTH_TAG = "minLength";
+    final String MAXIMUM_ITEMS_TAG = "maxItems";
+    final String MINIMUM_ITEMS_TAG = "minItems";
+    final String MAXIMUM_PROPERTIES_TAG = "maxProperties";
+    final String MINIMUM_PROPERTIES_TAG = "minProperties";
+    final String EXCLUSIVE_MAXIMUM_TAG = "exclusiveMaximum";
+    final String EXCLUSIVE_MINIMUM_TAG = "exclusiveMinimum";
+
     // FIXME remove
     final String FOREIGN_ENTITY_REFERENCE_TAG = "entity";
     final String ENUM_NAME_TAG = "enum_name";

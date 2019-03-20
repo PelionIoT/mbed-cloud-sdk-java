@@ -33,6 +33,28 @@ public class MethodIsFieldValid extends Method {
                               + fetchRegex(field) + "\"))");
             }
         }
+        if (field.hasMinimum()) {
+            if (field.getType().isString()) {
+                checkList.add("(" + field.getName() + " != null && " + field.getName() + ".length() >= "
+                              + field.getMinimum() + ")");
+            } else if (field.getType().isList() || field.getType().isHashtable()) {
+                checkList.add("(" + field.getName() + " != null && " + field.getName() + ".size() >= "
+                              + field.getMinimum() + ")");
+            } else if (field.getType().isNumber()) {
+                checkList.add("(" + field.getName() + " >= " + field.getMinimum() + ")");
+            }
+        }
+        if (field.hasMaximum()) {
+            if (field.getType().isString()) {
+                checkList.add("(" + field.getName() + " == null || " + field.getName() + ".length() <= "
+                              + field.getMaximum() + ")");
+            } else if (field.getType().isList() || field.getType().isHashtable()) {
+                checkList.add("(" + field.getName() + " == null || " + field.getName() + ".size() <= "
+                              + field.getMaximum() + ")");
+            } else if (field.getType().isNumber()) {
+                checkList.add("(" + field.getName() + " <= " + field.getMaximum() + ")");
+            }
+        }
         // TODO add more checks
         return "return " + String.join(System.lineSeparator() + "&& ", checkList);
     }

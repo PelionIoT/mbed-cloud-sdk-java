@@ -51,7 +51,7 @@ public class ModelEndpoints extends ModelMergeable {
         return new Field(true, TypeFactory.getCorrespondingType(moduleClazz), moduleClazz.getSimpleName(),
                          "Low level endpoints for " + Utils.generateDocumentationString(moduleClazz.getSimpleName(),
                                                                                         true),
-                         null, null, false, false, true, false, null, false);
+                         null, null, null, null, false, false, true, false, null, false);
     }
 
 }

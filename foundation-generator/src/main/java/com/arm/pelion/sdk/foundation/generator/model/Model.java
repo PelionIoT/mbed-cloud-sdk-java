@@ -1042,8 +1042,8 @@ public class Model extends AbstractSdkArtifact {
             return;
         }
         final Field serialVersionUID = new Field(true, TypeFactory.getCorrespondingType(long.class),
-                                                 Utils.SERIALISATION_UUID, "Serialisation Id.", null, null, true, false,
-                                                 false, false, null, false);
+                                                 Utils.SERIALISATION_UUID, "Serialisation Id.", null, null, null, null,
+                                                 true, false, false, false, null, false);
         serialVersionUID.setInitialiser(generateSerialisationId() + "L");
         addConstant(serialVersionUID);
     }
@@ -1111,7 +1111,8 @@ public class Model extends AbstractSdkArtifact {
         final String finalParameterName = ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(parameterName == null ? name
                                                                                                                           : parameterName),
                                                                        false);
-        return new Parameter(finalParameterName, Utils.generateDocumentationString(name), null, toType(), null);
+        return new Parameter(finalParameterName, Utils.generateDocumentationString(name), null, toType(), null, null,
+                             null);
     }
 
     public Parameter toParameter() {

@@ -56,7 +56,10 @@ public class Filter {
     public Field getTag() {
         Field tag = new Field(true, TypeFactory.getCorrespondingType(String.class),
                               Utils.generateConstantName("tagFilterBy", fieldName), "Tag for filter by " + fieldName,
-                              null, null, true, false, false, false, null, false).initialiser("\"" + fieldName + "\"");
+                              null, null, null, null, true, false, false, false, null, false).initialiser(
+                                                                                                          "\""
+                                                                                                          + fieldName
+                                                                                                          + "\"");
         tag.setAccessible(true);
         return tag;
     }

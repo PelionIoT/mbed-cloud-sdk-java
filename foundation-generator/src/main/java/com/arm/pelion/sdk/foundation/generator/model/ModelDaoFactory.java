@@ -22,7 +22,7 @@ public class ModelDaoFactory extends Model {
 
     private void addFields() {
         Field context = new Field(true, TypeFactory.getCorrespondingType(SdkContext.class), FIELD_NAME_CONTEXT,
-                                  "Context.", null, null, false, false, true, true, null, false);
+                                  "Context.", null, null, null, null, false, false, true, true, null, false);
 
         addField(context);
 

@@ -17,58 +17,17 @@ public class ValueGenerator {
 
     }
 
-    // public static String generateFieldValue(Field field) {
-    // if (field == null) {
-    // return DEFAULT_VALUE;
-    // }
-    // if (field.getType().isEnum()) {
-    // return (field.getType().hasClass() ? field.getType().getClazz().getName()
-    // : field.getType().getImportPath().getFullyQualifiedName())
-    // + ".getDefault()";
-    //
-    // }
-    // if (!field.getType().hasClass()) {
-    // return DEFAULT_VALUE;
-    // }
-    // if (field.getType().isString()) {
-    // if (field.hasPattern()) {
-    // return "\"" + generateStringBasedOnRegex(field.getPattern()) + "\"";
-    // }
-    // return "\"" + generateRandomString() + "\"";
-    // }
-    // if (field.getType().isBoolean()) {
-    // return String.valueOf(Math.random() > 0.5);
-    // }
-    // if (field.getType().isDate()) {
-    // return String.valueOf("new java.util.Date("
-    // + String.valueOf(new Date().getTime() + (long) (Math.random() * 10000)) + "L)");
-    // }
-    // if (field.getType().isNumber()) {
-    // if (field.getType().isDecimal()) {
-    // final double value = Math.random() * 100000.0;
-    // return field.getType().isPrimitive() ? String.valueOf(value)
-    // : "Double.valueOf(" + String.valueOf(value) + ")";
-    // }
-    // final int value = (int) (Math.random() * 255) - 128;// A random number which can be a byte, int, or a
-    // // long;
-    // if (field.getType().isPrimitive()) {
-    // return String.valueOf(value);
-    // } else {
-    // return (field.getType().isInteger() ? "Integer" : "Long") + ".valueOf(" + String.valueOf(value) + ")";
-    // }
-    // }
-    // return DEFAULT_VALUE;
-    // }
-
     public static void addGenerateFieldValue(Field field, Values values) {
         if (field == null) {
             return;
         }
-        addGenerateFieldValue(field.getType(), field.hasPattern(), field.getPattern(), values);
+        addGenerateFieldValue(field.getType(), field.hasPattern(), field.getPattern(), field.hasMinimum(),
+                              field.getMinimum(), field.hasMaximum(), field.getMaximum(), values);
     }
 
     public static void addGenerateFieldValue(TypeParameter fieldType, boolean hasPattern, String fieldPattern,
-                                             Values values) {
+                                             boolean hasMinimum, String fieldMinimum, boolean hasMaximum,
+                                             String fieldMaximum, Values values) {
 
         if (fieldType == null || values == null) {
             return;
@@ -91,11 +50,20 @@ public class ValueGenerator {
         }
         if (fieldType.isString()) {
             values.addToFormat("$S");
-            if (hasPattern) {
-                values.addValue(generateStringBasedOnRegex(fieldPattern));
-                return;
+            String value = hasPattern ? generateStringBasedOnRegex(fieldPattern) : generateRandomString();
+            if (hasMinimum) {
+                final int min = Integer.parseInt(fieldMinimum);
+                while (value.length() < min) {
+                    value += hasPattern ? generateStringBasedOnRegex(fieldPattern) : generateRandomString();
+                }
             }
-            values.addValue(generateRandomString());
+            if (hasMaximum) {
+                final int max = Integer.parseInt(fieldMaximum);
+                if (value.length() > max) {
+                    value = value.substring(0, max - 1);
+                }
+            }
+            values.addValue(value);
             return;
         }
         if (fieldType.isBoolean()) {
@@ -114,7 +82,10 @@ public class ValueGenerator {
         }
         if (fieldType.isNumber()) {
             if (fieldType.isDecimal()) {
-                final double value = Math.random() * 100000.0;
+                double value = Math.random() * (hasMaximum ? Double.parseDouble(fieldMaximum) : 100000.0);
+                if (hasMinimum) {
+                    value = Math.max(Double.parseDouble(fieldMinimum), value);
+                }
                 if (fieldType.isPrimitive()) {
                     values.addToFormat("$L");
                 } else {
@@ -124,8 +95,14 @@ public class ValueGenerator {
                 values.addValue(Double.valueOf(value));
                 return;
             }
-            final int value = (int) (Math.random() * 255) - 128;// A random number which can be a byte, int, or a
+            int value = (int) (Math.random() * 255) - 128;// A random number which can be a byte, int, or a
             // long;
+            if (hasMinimum) {
+                value = (int) Math.max(Long.parseLong(fieldMinimum), value);
+            }
+            if (hasMaximum) {
+                value = (int) Math.min(Long.parseLong(fieldMaximum), value);
+            }
             if (fieldType.isPrimitive()) {
                 values.addToFormat("$L");
             } else {
@@ -155,32 +132,6 @@ public class ValueGenerator {
                     .replace("\\", "\\\\");
     }
 
-    // public static String generateFieldWithInvalidValue(Field field) {
-    // if (field == null) {
-    // return null;
-    // }
-    // if (field.getType().isString() && field.isRequired()) {
-    // return null;
-    // }
-    // if (field.getType().isString() && field.hasPattern()) {
-    // final String potentialInvalidRegex = "[^"
-    // + generateStringBasedOnRegex(field.getPattern()).replaceAll("[\\[\\]\\-\\\"]",
-    // "")
-    // + "]{64}";
-    // String potentialInvalidString = "";
-    // int trial = 10;
-    // while (trial > 0) {
-    // potentialInvalidString += generateStringBasedOnRegex(potentialInvalidRegex);
-    // if (!potentialInvalidString.matches(field.getPattern())) {
-    // return "\"" + potentialInvalidString + "\"";
-    // }
-    // trial--;
-    // }
-    // return null;
-    // }
-    // return generateFieldValue(field);
-    // }
-
     public static void addGenerateFieldInvalidValue(Field field, Values values) {
         if (values == null || field == null) {
             return;
@@ -209,30 +160,35 @@ public class ValueGenerator {
             values.addToFormat(DEFAULT_VALUE);
             return;
         }
+        if (field.hasMaximum()) {
+            if (field.getType().isNumber()) {
+                values.addToFormat(field.getMaximum() + "+ 1");
+                return;
+            }
+            if (field.getType().isString()) {
+                long max = Long.parseLong(field.getMaximum());
+                String someRandomString = generateRandomString();
+                while (someRandomString.length() < max) {
+                    someRandomString += generateRandomString();
+                }
+                values.addToFormat(someRandomString);
+                return;
+            }
+            // TODO find a way to do hashtables and lists
+        }
+        if (field.hasMinimum()) {
+            if (field.getType().isNumber()) {
+                values.addToFormat(field.getMaximum() + "- 1");
+                return;
+            }
+            if (field.getType().isList() || field.getType().isHashtable() || field.getType().isString()) {
+                values.addToFormat(DEFAULT_VALUE);
+                return;
+            }
+        }
         addGenerateFieldValue(field, values);
     }
 
-    // public static List<String> generateModelFieldWithInvalidValues(Model model) {
-    // if (model == null) {
-    // return null;
-    // }
-    // final List<Field> fields = ((AbstractMethodConstructor)
-    // model.fetchMethod(fetchConstructor(model))).getAllFields();
-    // if (fields.stream().filter(f -> f.needsValidation()).count() == 0) {
-    // return null;
-    // }
-    //
-    // return fields.stream().map(f -> String.valueOf(generateFieldWithInvalidValue(f))).collect(Collectors.toList());
-    // }
-
-    // public static List<String> generateModelFieldValues(Model model) {
-    // if (model == null) {
-    // return new ArrayList<>();
-    // }
-    // final List<Field> fields = ((AbstractMethodConstructor)
-    // model.fetchMethod(fetchConstructor(model))).getAllFields();
-    // return fields.stream().map(f -> String.valueOf(generateFieldValue(f))).collect(Collectors.toList());
-    // }
     public static void generateModelFieldWithInvalidValues(Model model, Values values) {
         if (values == null) {
             return;
@@ -399,4 +355,5 @@ public class ValueGenerator {
         }
 
     }
+
 }

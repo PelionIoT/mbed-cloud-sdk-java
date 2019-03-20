@@ -27,7 +27,8 @@ public class ModelEnum extends ModelPojo {
         this.rawDefaultOption = defaultOption;
         this.defaultOption = determineDefaultValue(defaultOption, options);
         addField(new Field(true, TypeFactory.getCorrespondingType(String.class), "string", "string representation",
-                           null, null, false, false, true, true, generateConstantName(defaultOption), false));
+                           null, null, null, null, false, false, true, true, generateConstantName(defaultOption),
+                           false));
     }
 
     public ModelEnum(String packageName, String name, String group) {
@@ -166,8 +167,8 @@ public class ModelEnum extends ModelPojo {
                                                                                                                        + "  or default "
                                                                                                                        + getDescriptionForDocumentation()
                                                                                                                        + " if not recognised. ");
-        method.addParameter(new Parameter("value", "string", null, TypeFactory.getCorrespondingType(String.class),
-                                          null));
+        method.addParameter(new Parameter("value", "string", null, TypeFactory.getCorrespondingType(String.class), null,
+                                          null, null));
         method.initialiseCodeBuilder();
         method.getCode().beginControlFlow("if (value == null)");
         method.getCode().addStatement("return getDefault()");
@@ -188,9 +189,9 @@ public class ModelEnum extends ModelPojo {
                                                                                               .returnType(new TypeGenericParameter(SdkEnum.class))
                                                                                               .returnDescription("the merged enumerator");
         method.addParameter(new Parameter("obj1", "a " + getDescriptionForDocumentation(), null,
-                                          new TypeGenericParameter(SdkEnum.class), null));
+                                          new TypeGenericParameter(SdkEnum.class), null, null, null));
         method.addParameter(new Parameter("obj2", "a " + getDescriptionForDocumentation(), null,
-                                          new TypeGenericParameter(SdkEnum.class), null));
+                                          new TypeGenericParameter(SdkEnum.class), null, null, null));
         method.initialiseCodeBuilder();
         method.getCode().beginControlFlow("if (obj1 == null)");
         method.getCode().addStatement("return obj2");

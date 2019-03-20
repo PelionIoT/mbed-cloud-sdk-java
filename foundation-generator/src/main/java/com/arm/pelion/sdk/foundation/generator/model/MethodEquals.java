@@ -14,7 +14,7 @@ public class MethodEquals extends AbstractMethodBasedOnModel {
               currentModel == null ? false : currentModel.needsFieldCustomisation(), false, false, true);
         setReturnType(TypeFactory.getCorrespondingType(boolean.class));
         addParameter(new Parameter(PARAMETER_NAME, "an object to compare with this instance", null,
-                                   TypeFactory.getCorrespondingType(Object.class), null));
+                                   TypeFactory.getCorrespondingType(Object.class), null, null, null));
         setReturnDescription("true if this object is the same as the obj argument; false otherwise.");
         initialiseCodeBuilder();
         shouldTest(true);
