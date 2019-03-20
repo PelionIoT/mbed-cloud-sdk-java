@@ -37,6 +37,7 @@ public interface InputSchema {
     final String ENUM_REFERENCE_TAG = "enum_reference";
     final String ENUM_VALUES_TAG = "values";
     final String ENTITY_REFERENCE_TAG = "entity_name";
+    final String INTERNAL_FIELD_TAG = "private_field";
     // FIXME remove
     final String FOREIGN_ENTITY_REFERENCE_TAG = "entity";
     final String ENUM_NAME_TAG = "enum_name";

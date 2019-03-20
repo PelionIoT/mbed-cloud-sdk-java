@@ -823,10 +823,12 @@ public class Model extends AbstractSdkArtifact {
         getFieldList().stream().filter(f -> !f.isAlreadyDefined()).forEach(f -> {
             final MethodGetter getter = new MethodGetter(f, null, false);
             getter.setDeprecation(f.getDeprecation());
+            getter.setInternal(f.isInternal());
             addMethod(getter);
             if (!f.isReadOnly()) {
                 final MethodSetter setter = new MethodSetter(f, null, false);
                 setter.setDeprecation(f.getDeprecation());
+                setter.setInternal(f.isInternal());
                 addMethod(setter);
                 if (f.isIdentifier()) {
                     final Field equivalentF = f.clone();

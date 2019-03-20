@@ -39,9 +39,9 @@ public class Field {
     @JsonProperty(InputSchema.METHOD_PARAMETER_IS_EXTERNAL)
     private boolean isExternal;
 
-    // Java specific fields
-    @JsonProperty(InputSchema.INTERNAL_TAG)
+    @JsonAlias({ InputSchema.INTERNAL_TAG, InputSchema.INTERNAL_FIELD_TAG })
     private boolean internal;
+    // Java specific fields
     @JsonProperty(InputSchema.LONG_DESCRIPTION_TAG)
     private String longDescription;
 
