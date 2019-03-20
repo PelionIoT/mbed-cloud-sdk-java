@@ -881,6 +881,7 @@ public class Security extends AbstractModule {
      * 
      * @return endpoints
      */
+    @Internal
     public SecurityEndpoints getEndpoints() {
         return endpoints;
     }

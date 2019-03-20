@@ -1349,6 +1349,7 @@ public class Accounts extends AbstractModule {
      * 
      * @return endpoints
      */
+    @Internal
     public AccountsEndpoints getEndpoints() {
         return endpoints;
     }

@@ -529,6 +529,7 @@ public class Devices extends AbstractModule {
      * 
      * @return endpoints
      */
+    @Internal
     public DevicesEndpoints getEndpoints() {
         return endpoints;
     }

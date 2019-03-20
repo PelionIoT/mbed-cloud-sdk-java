@@ -52,6 +52,7 @@ public class AccountsEndpoints extends AbstractEndpoints {
      * 
      * @return aggregatorAccountAdminApi
      */
+    @Internal
     public AggregatorAccountAdminApi getAggregatorAccountAdminApi() {
         return aggregatorAccountAdminApi;
     }
@@ -61,6 +62,7 @@ public class AccountsEndpoints extends AbstractEndpoints {
      * 
      * @return developerApi
      */
+    @Internal
     public DeveloperApi getDeveloperApi() {
         return developerApi;
     }
@@ -82,6 +84,7 @@ public class AccountsEndpoints extends AbstractEndpoints {
      * 
      * @return accountAdminApi
      */
+    @Internal
     public AccountAdminApi getAccountAdminApi() {
         return accountAdminApi;
     }

@@ -52,6 +52,7 @@ public class DevicesEndpoints extends AbstractEndpoints {
      * 
      * @return defaultApi
      */
+    @Internal
     public DefaultApi getDefaultApi() {
         return defaultApi;
     }
@@ -61,6 +62,7 @@ public class DevicesEndpoints extends AbstractEndpoints {
      * 
      * @return certificateRenewalApi
      */
+    @Internal
     public CertificateRenewalApi getCertificateRenewalApi() {
         return certificateRenewalApi;
     }
@@ -82,6 +84,7 @@ public class DevicesEndpoints extends AbstractEndpoints {
      * 
      * @return publicApiApi
      */
+    @Internal
     public PublicApiApi getPublicApiApi() {
         return publicApiApi;
     }

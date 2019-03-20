@@ -49,6 +49,7 @@ public enum SubtenantTrustedCertificateService implements SdkEnum {
      * @return string
      */
     @Override
+    @Internal
     public String getString() {
         return string;
     }

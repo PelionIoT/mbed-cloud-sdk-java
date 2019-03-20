@@ -266,6 +266,7 @@ public class DaoFactory implements Cloneable {
      * 
      * @return context
      */
+    @Internal
     public SdkContext getContext() {
         return context;
     }

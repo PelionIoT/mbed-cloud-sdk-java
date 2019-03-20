@@ -51,6 +51,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     /**
      * Device execution mode where 1 means a developer certificate.
      */
+    @Internal
     protected int deviceExecutionMode;
 
     /**
@@ -389,6 +390,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      * 
      * @return deviceExecutionMode
      */
+    @Internal
     public int getDeviceExecutionMode() {
         return deviceExecutionMode;
     }
@@ -399,6 +401,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      * @param deviceExecutionMode
      *            Device execution mode where 1 means a developer certificate.
      */
+    @Internal
     public void setDeviceExecutionMode(int deviceExecutionMode) {
         this.deviceExecutionMode = deviceExecutionMode;
     }
