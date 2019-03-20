@@ -34,6 +34,42 @@ public class TrustedCertificateListDao extends AbstractModelListDao<TrustedCerti
     }
 
     /**
+     * Constructor.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public TrustedCertificateListDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            a connection options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public TrustedCertificateListDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            an sdk context.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public TrustedCertificateListDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+    }
+
+    /**
      * Clones this instance.
      * <p>
      * 

@@ -38,6 +38,42 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     }
 
     /**
+     * Constructor.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public AbstractDeviceEnrollmentBulkDeleteDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            a connection options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public AbstractDeviceEnrollmentBulkDeleteDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            an sdk context.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public AbstractDeviceEnrollmentBulkDeleteDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+    }
+
+    /**
      * Deletes a device enrollment bulk delete.
      * <p>
      * Similar to

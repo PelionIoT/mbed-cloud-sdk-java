@@ -35,6 +35,42 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
     }
 
     /**
+     * Constructor.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public AbstractSubtenantTrustedCertificateDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            a connection options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public AbstractSubtenantTrustedCertificateDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            an sdk context.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public AbstractSubtenantTrustedCertificateDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+    }
+
+    /**
      * Adds a subtenant trusted certificate.
      * <p>
      * Similar to

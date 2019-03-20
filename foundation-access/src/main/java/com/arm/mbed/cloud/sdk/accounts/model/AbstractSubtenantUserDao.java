@@ -37,6 +37,42 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     }
 
     /**
+     * Constructor.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public AbstractSubtenantUserDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            a connection options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public AbstractSubtenantUserDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            an sdk context.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public AbstractSubtenantUserDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+    }
+
+    /**
      * Adds a subtenant user.
      * <p>
      * Similar to

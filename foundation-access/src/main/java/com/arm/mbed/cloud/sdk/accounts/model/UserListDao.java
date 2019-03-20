@@ -34,6 +34,42 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
     }
 
     /**
+     * Constructor.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public UserListDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            a connection options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public UserListDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            an sdk context.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public UserListDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+    }
+
+    /**
      * Clones this instance.
      * <p>
      * 
