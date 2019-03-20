@@ -934,7 +934,7 @@ public class Model extends AbstractSdkArtifact {
         addMethod(new MethodEquals(this, null));
     }
 
-    private void generateConstructors(Model theParent) {
+    protected void generateConstructors(Model theParent) {
         ConstructorList constructors = new ConstructorList();
         contructorsName.clear();
         constructors.add(new MethodConstructorAllFields(this, theParent));

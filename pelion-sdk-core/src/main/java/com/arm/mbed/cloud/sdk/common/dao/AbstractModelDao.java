@@ -5,7 +5,10 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
+import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 /**
@@ -26,6 +29,49 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
      */
     public AbstractModelDao() throws MbedCloudException {
         super();
+        model = new AtomicReference<>();
+        setModel(null);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            options to use.
+     * 
+     * @throws MbedCloudException
+     *             if an error happens during instantiation.
+     */
+    public AbstractModelDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+        model = new AtomicReference<>();
+        setModel(null);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param client
+     *            client to use.
+     * @throws MbedCloudException
+     *             if an error happens during instantiation.
+     */
+    public AbstractModelDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+        model = new AtomicReference<>();
+        setModel(null);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            SDK context.
+     * @throws MbedCloudException
+     *             if an error happens during instantiation.
+     */
+    public AbstractModelDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
         model = new AtomicReference<>();
         setModel(null);
     }

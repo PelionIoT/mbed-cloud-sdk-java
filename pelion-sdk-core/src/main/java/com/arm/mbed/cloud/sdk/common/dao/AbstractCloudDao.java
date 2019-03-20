@@ -37,7 +37,7 @@ public abstract class AbstractCloudDao implements CloudDao {
         module = new AtomicReference<>();
         try {
             configure(ConnectionOptions.newConfiguration(), false);
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
     }
@@ -52,7 +52,7 @@ public abstract class AbstractCloudDao implements CloudDao {
         this();
         try {
             configure(options);
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
     }
@@ -67,7 +67,7 @@ public abstract class AbstractCloudDao implements CloudDao {
         this();
         try {
             configure(client);
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
     }
@@ -82,7 +82,7 @@ public abstract class AbstractCloudDao implements CloudDao {
         this();
         try {
             configure(sdkContext);
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
     }
