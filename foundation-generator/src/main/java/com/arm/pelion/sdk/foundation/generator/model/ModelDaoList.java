@@ -95,7 +95,7 @@ public class ModelDaoList extends ModelDao {
                 }
                 if (p.getType().isListOptions()) {
                     method.addParameter(new Parameter(p.getName(), "list options", null, listOptions.toType(), null,
-                                                      null, null));
+                                                      null));
                     codeFormat.append("$L");
                     values.add(p.getName());
                 } else {

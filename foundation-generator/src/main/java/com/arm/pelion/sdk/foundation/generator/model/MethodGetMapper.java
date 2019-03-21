@@ -42,7 +42,7 @@ public class MethodGetMapper extends Method {
                                 false, true);
         map.setReturnDescription("a mapped object");
         map.setReturnType(type.getTo());
-        map.addParameter(new Parameter(PARAMETER_NAME, "model to be mapped.", null, type.getFrom(), null, null, null));
+        map.addParameter(new Parameter(PARAMETER_NAME, "model to be mapped.", null, type.getFrom(), null, null));
         map.initialiseCodeBuilder();
         map.getCode().addStatement("return $T.$L($N)",
                                    adapterType.hasClass() ? adapterType.getClazz() : adapterType.getTypeName(),

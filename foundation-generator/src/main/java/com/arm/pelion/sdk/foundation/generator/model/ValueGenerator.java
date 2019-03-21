@@ -21,17 +21,15 @@ public class ValueGenerator {
         if (field == null) {
             return;
         }
-        addGenerateFieldValue(field.getType(), field.hasPattern(), field.getPattern(), field.hasMinimum(),
-                              field.getMinimum(), field.hasMaximum(), field.getMaximum(), values);
+        addGenerateFieldValue(field.getType(), field.getValidation(), values);
     }
 
-    public static void addGenerateFieldValue(TypeParameter fieldType, boolean hasPattern, String fieldPattern,
-                                             boolean hasMinimum, String fieldMinimum, boolean hasMaximum,
-                                             String fieldMaximum, Values values) {
+    public static void addGenerateFieldValue(TypeParameter fieldType, Validation validation, Values values) {
 
         if (fieldType == null || values == null) {
             return;
         }
+        boolean hasValidation = validation != null;
         if (fieldType.isEnum()) {
             values.addToFormat("$T.$L()");
             values.addValue(fieldType.hasClass() ? fieldType.getClazz() : fieldType.getTypeName());
@@ -50,21 +48,29 @@ public class ValueGenerator {
         }
         if (fieldType.isString()) {
             values.addToFormat("$S");
-            String value = hasPattern ? generateStringBasedOnRegex(fieldPattern) : generateRandomString();
-            if (hasMinimum) {
-                final int min = Integer.parseInt(fieldMinimum);
-                while (value.length() < min) {
-                    value += hasPattern ? generateStringBasedOnRegex(fieldPattern) : generateRandomString();
+            if (hasValidation) {
+                String value = validation.hasPattern() ? generateStringBasedOnRegex(validation.getPattern())
+                                                       : generateRandomString();
+                if (validation.hasMinimum()) {
+                    final int min = Integer.parseInt(validation.getMinimum());
+                    while (value.length() < min) {
+                        value += validation.hasPattern() ? generateStringBasedOnRegex(validation.getPattern())
+                                                         : generateRandomString();
+                    }
                 }
-            }
-            if (hasMaximum) {
-                final int max = Integer.parseInt(fieldMaximum);
-                if (value.length() > max) {
-                    value = value.substring(0, max - 1);
+                if (validation.hasMaximum()) {
+                    final int max = Integer.parseInt(validation.getMaximum());
+                    if (value.length() > max) {
+                        value = value.substring(0, max - 1);
+                    }
                 }
+                values.addValue(value);
+                return;
+
             }
-            values.addValue(value);
+            values.addValue(generateRandomString());
             return;
+
         }
         if (fieldType.isBoolean()) {
             if (fieldType.isPrimitive()) {
@@ -82,9 +88,11 @@ public class ValueGenerator {
         }
         if (fieldType.isNumber()) {
             if (fieldType.isDecimal()) {
-                double value = Math.random() * (hasMaximum ? Double.parseDouble(fieldMaximum) : 100000.0);
-                if (hasMinimum) {
-                    value = Math.max(Double.parseDouble(fieldMinimum), value);
+                double value = Math.random()
+                               * (hasValidation && validation.hasMaximum() ? Double.parseDouble(validation.getMaximum())
+                                                                           : 100000.0);
+                if (hasValidation && validation.hasMinimum()) {
+                    value = Math.max(Double.parseDouble(validation.getMinimum()), value);
                 }
                 if (fieldType.isPrimitive()) {
                     values.addToFormat("$L");
@@ -97,11 +105,13 @@ public class ValueGenerator {
             }
             int value = (int) (Math.random() * 255) - 128;// A random number which can be a byte, int, or a
             // long;
-            if (hasMinimum) {
-                value = (int) Math.max(Long.parseLong(fieldMinimum), value);
-            }
-            if (hasMaximum) {
-                value = (int) Math.min(Long.parseLong(fieldMaximum), value);
+            if (hasValidation) {
+                if (validation.hasMinimum()) {
+                    value = (int) Math.max(Long.parseLong(validation.getMinimum()), value);
+                }
+                if (validation.hasMaximum()) {
+                    value = (int) Math.min(Long.parseLong(validation.getMaximum()), value);
+                }
             }
             if (fieldType.isPrimitive()) {
                 values.addToFormat("$L");
@@ -141,16 +151,17 @@ public class ValueGenerator {
             values.addToFormat(DEFAULT_VALUE);
             return;
         }
-        if (field.getType().isString() && field.hasPattern()) {
+        if (field.getType().isString() && field.hasValidation() && field.getValidation().hasPattern()) {
             final String potentialInvalidRegex = "[^"
-                                                 + generateStringBasedOnRegex(field.getPattern()).replaceAll("[\\[\\]\\-\\\"]",
+                                                 + generateStringBasedOnRegex(field.getValidation()
+                                                                                   .getPattern()).replaceAll("[\\[\\]\\-\\\"]",
                                                                                                              "")
                                                  + "]{64}";
             String potentialInvalidString = "";
             int trial = 10;
             while (trial > 0) {
                 potentialInvalidString += generateStringBasedOnRegex(potentialInvalidRegex);
-                if (!potentialInvalidString.matches(field.getPattern())) {
+                if (!potentialInvalidString.matches(field.getValidation().getPattern())) {
                     values.addToFormat("$S");
                     values.addValue(potentialInvalidString);
                     return;
@@ -160,25 +171,26 @@ public class ValueGenerator {
             values.addToFormat(DEFAULT_VALUE);
             return;
         }
-        if (field.hasMaximum()) {
+        if (field.hasValidation() && field.getValidation().hasMaximum()) {
             if (field.getType().isNumber()) {
-                values.addToFormat(field.getMaximum() + "+ 1");
+                values.addToFormat(field.getValidation().getMaximum() + "+ 1");
                 return;
             }
             if (field.getType().isString()) {
-                long max = Long.parseLong(field.getMaximum());
+                long max = Long.parseLong(field.getValidation().getMaximum());
                 String someRandomString = generateRandomString();
                 while (someRandomString.length() < max) {
                     someRandomString += generateRandomString();
                 }
-                values.addToFormat(someRandomString);
+                values.addToFormat("$S");
+                values.addValue(someRandomString);
                 return;
             }
             // TODO find a way to do hashtables and lists
         }
-        if (field.hasMinimum()) {
+        if (field.hasValidation() && field.getValidation().hasMinimum()) {
             if (field.getType().isNumber()) {
-                values.addToFormat(field.getMaximum() + "- 1");
+                values.addToFormat(field.getValidation().getMinimum() + "- 1");
                 return;
             }
             if (field.getType().isList() || field.getType().isHashtable() || field.getType().isString()) {

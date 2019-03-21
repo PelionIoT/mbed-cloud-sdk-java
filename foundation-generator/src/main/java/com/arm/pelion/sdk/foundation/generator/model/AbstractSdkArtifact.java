@@ -1,5 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import com.arm.pelion.sdk.foundation.generator.model.StaticAnalysisUtils.AnnotationRegistry;
+
 public abstract class AbstractSdkArtifact implements SdkArtifact {
 
     private static final String UNKOWN_IDENTIFIER = "Unknown identifier";
@@ -13,6 +15,7 @@ public abstract class AbstractSdkArtifact implements SdkArtifact {
     protected boolean isInternal;
     protected boolean needsModifier;
     protected Deprecation deprecation;
+    protected final AnnotationRegistry annotationRegistry;
     /**
      * Specifies whether this instance contains custom code. i.e. code edited manually. If it exists, it must not be
      * overwritten.
@@ -52,6 +55,7 @@ public abstract class AbstractSdkArtifact implements SdkArtifact {
         setInternal(isInternal);
         setDeprecation(null);
         needsModifier();
+        annotationRegistry = StaticAnalysisUtils.newAnnotationRegistry();
     }
 
     /**
@@ -185,7 +189,7 @@ public abstract class AbstractSdkArtifact implements SdkArtifact {
     }
 
     protected static boolean has(String value) {
-        return value != null && !value.isEmpty();
+        return value != null && !value.isEmpty() && !value.equals("null");
     }
 
     @Override
@@ -277,6 +281,8 @@ public abstract class AbstractSdkArtifact implements SdkArtifact {
     public boolean hasDeprecation() {
         return deprecation != null;
     }
+
+    protected abstract void addStaticAnalysisAnnotations();
 
     /*
      * (non-Javadoc)

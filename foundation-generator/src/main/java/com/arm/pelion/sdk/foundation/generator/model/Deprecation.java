@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
+
 public class Deprecation {
 
     private final boolean isField;
@@ -30,7 +32,7 @@ public class Deprecation {
             builder.append(description).append(System.lineSeparator());
         }
         if (links != null && !links.isEmpty()) {
-            builder.append("<p>").append(System.lineSeparator()).append("For more information:")
+            builder.append(Utils.generateNewDocumentationLine()).append("For more information:")
                    .append(System.lineSeparator()).append("<ul>");
             for (URL link : links) {
                 builder.append("<li>").append("<a href=\"").append(link.toString()).append("\">")

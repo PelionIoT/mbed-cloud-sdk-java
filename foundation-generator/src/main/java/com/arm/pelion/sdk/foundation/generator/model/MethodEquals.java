@@ -14,7 +14,7 @@ public class MethodEquals extends AbstractMethodBasedOnModel {
               currentModel == null ? false : currentModel.needsFieldCustomisation(), false, false, true);
         setReturnType(TypeFactory.getCorrespondingType(boolean.class));
         addParameter(new Parameter(PARAMETER_NAME, "an object to compare with this instance", null,
-                                   TypeFactory.getCorrespondingType(Object.class), null, null, null));
+                                   TypeFactory.getCorrespondingType(Object.class), null, null));
         setReturnDescription("true if this object is the same as the obj argument; false otherwise.");
         initialiseCodeBuilder();
         shouldTest(true);
@@ -71,12 +71,12 @@ public class MethodEquals extends AbstractMethodBasedOnModel {
     }
 
     @Override
-    protected void addAnnotations() {
-        super.addAnnotations();
+    protected void addStaticAnalysisAnnotations() {
         if (currentModel.hasFields()
             && currentModel.getFieldList().size() > StaticAnalysisUtils.FIELD_LIMIT_FOR_IGNORING_WARNINGS) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreExcessiveMethodLength());
+            annotationRegistry.ignoreExcessiveMethodLength();
         }
+        super.addStaticAnalysisAnnotations();
     }
 
 }

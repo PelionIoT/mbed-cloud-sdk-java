@@ -41,6 +41,7 @@ public class Model extends AbstractSdkArtifact {
     protected Map<String, Method> superClassMethods;
     protected TypeParameter superClassType;
     protected TypeSpec.Builder specificationBuilder;
+
     private boolean shouldBeSorted;
     private boolean mayHaveLongLines;
     private boolean isFinal;
@@ -625,13 +626,21 @@ public class Model extends AbstractSdkArtifact {
             specificationBuilder.addAnnotation(AnnotationSpec.builder(Internal.class).build());
         }
         if (hasCyclomaticComplexity()) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreCyclomaticComplexity());
+            annotationRegistry.ignoreCyclomaticComplexity();
         }
         if (hasFieldsWithDefaultValues() || isIgnoreLiteralDuplicate()) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreAvoidDuplicateLiterals());
+            annotationRegistry.ignoreAvoidDuplicateLiterals();
         }
         if (mayHaveLongLines()) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreLongLines());
+            annotationRegistry.ignoreLongLines();
+        }
+        addStaticAnalysisAnnotations();
+    }
+
+    @Override
+    protected void addStaticAnalysisAnnotations() {
+        if (annotationRegistry.hasAnnotations()) {
+            specificationBuilder.addAnnotation(annotationRegistry.generateAnnotation());
         }
     }
 
@@ -1013,7 +1022,7 @@ public class Model extends AbstractSdkArtifact {
             builder.append(description);
         }
         if (hasLongDescription) {
-            builder.append(System.lineSeparator()).append("<p>").append(System.lineSeparator());
+            builder.append(Utils.generateNewDocumentationLine());
             builder.append(longDescription);
         }
         return builder.toString();
@@ -1042,8 +1051,8 @@ public class Model extends AbstractSdkArtifact {
             return;
         }
         final Field serialVersionUID = new Field(true, TypeFactory.getCorrespondingType(long.class),
-                                                 Utils.SERIALISATION_UUID, "Serialisation Id.", null, null, null, null,
-                                                 true, false, false, false, null, false);
+                                                 Utils.SERIALISATION_UUID, "Serialisation Id.", null, null, true, false,
+                                                 false, false, null, false);
         serialVersionUID.setInitialiser(generateSerialisationId() + "L");
         addConstant(serialVersionUID);
     }
@@ -1111,8 +1120,7 @@ public class Model extends AbstractSdkArtifact {
         final String finalParameterName = ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(parameterName == null ? name
                                                                                                                           : parameterName),
                                                                        false);
-        return new Parameter(finalParameterName, Utils.generateDocumentationString(name), null, toType(), null, null,
-                             null);
+        return new Parameter(finalParameterName, Utils.generateDocumentationString(name), null, toType(), null, null);
     }
 
     public Parameter toParameter() {

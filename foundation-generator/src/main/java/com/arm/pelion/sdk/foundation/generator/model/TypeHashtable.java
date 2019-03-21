@@ -51,9 +51,11 @@ public class TypeHashtable extends TypeCompose {
             throw new TranslationException("The type definition of the map is unknown ");
         }
         try {
+
             contentType.translate();
             TranslateTypeNameBasedOnContentType();
         } catch (Exception e) {
+            System.out.println(this);
             e.printStackTrace();
             setClazz(getCollectionClass());
             super.translate();

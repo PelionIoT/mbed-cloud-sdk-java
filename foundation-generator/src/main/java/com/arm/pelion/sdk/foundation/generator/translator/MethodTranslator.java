@@ -166,7 +166,7 @@ public class MethodTranslator {
             if (lowLevelMethod.hasArguments()) {
                 for (final LowLevelAPIMethodArgument param : lowLevelMethod.getArguments()) {
                     method.addParameter(new Parameter(param.getName(), null, null, translateParameterType(param), null,
-                                                      null, null));
+                                                      null));
                 }
             }
             method.setReturnType(translateParameterType(lowLevelMethod.getReturnArgument()));

@@ -368,17 +368,25 @@ public class Method extends AbstractSdkArtifact {
         }
         if (ignoreShortName) {
             if (getName() != null && getName().length() < 3) {
-                specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreShortMethodName());
+                annotationRegistry.ignoreShortMethodName();
             }
         }
         if (isUnchecked) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.setAsUnchecked());
+            annotationRegistry.setAsUnchecked();
         }
         if (ignoreResourceClosure) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreResourceClosure());
+            annotationRegistry.ignoreResourceClosure();
         }
         if (hasDeprecation()) {
             specificationBuilder.addAnnotation(Deprecated.class);
+        }
+        addStaticAnalysisAnnotations();
+    }
+
+    @Override
+    protected void addStaticAnalysisAnnotations() {
+        if (annotationRegistry.hasAnnotations()) {
+            specificationBuilder.addAnnotation(annotationRegistry.generateAnnotation());
         }
     }
 
@@ -387,12 +395,12 @@ public class Method extends AbstractSdkArtifact {
         if (hasDescription()) {
             specificationBuilder.addJavadoc(description + System.lineSeparator());
             if (hasLongDescription()) {
-                specificationBuilder.addJavadoc("<p>" + System.lineSeparator() + longDescription
+                specificationBuilder.addJavadoc(Utils.generateNewDocumentationLine() + longDescription
                                                 + System.lineSeparator());
             }
         }
         if (hasDeprecation()) {
-            specificationBuilder.addJavadoc((hasDescription() ? "<p>" + System.lineSeparator() : "")
+            specificationBuilder.addJavadoc((hasDescription() ? Utils.generateNewDocumentationLine() : "")
                                             + getDeprecation().getNotice() + System.lineSeparator());
         }
         if (hasParameters()) {
@@ -405,8 +413,7 @@ public class Method extends AbstractSdkArtifact {
                     }
                 }
                 specificationBuilder.addParameter(parameter.getSpecification().build());
-                specificationBuilder.addJavadoc("@param " + parameter.getName() + " " + parameter.getDescription()
-                                                + System.lineSeparator());
+                specificationBuilder.addJavadoc(parameter.getJavadocDescription() + System.lineSeparator());
             }
         }
 

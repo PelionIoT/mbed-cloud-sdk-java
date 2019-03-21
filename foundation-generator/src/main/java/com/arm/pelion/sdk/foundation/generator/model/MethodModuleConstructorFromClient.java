@@ -34,7 +34,7 @@ public class MethodModuleConstructorFromClient extends AbstractMethodConstructor
     protected void addConstructorParameters() {
         addParameter(new Parameter(PARAMETER_CLOUD_CLIENT,
                                    "Cloud client @see {@link " + getParameterClass().getSimpleName() + "}.", null,
-                                   TypeFactory.getCorrespondingType(getParameterClass()), null, null, null));
+                                   TypeFactory.getCorrespondingType(getParameterClass()), null, null));
     }
 
     public Class<?> getParameterClass() {
