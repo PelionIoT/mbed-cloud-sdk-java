@@ -53,8 +53,8 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
             otherParameters = new LinkedList<>();
         }
         final Parameter optionParameter = new Parameter(PARAMETER_NAME_OPTIONS, "list options.", null,
-                                                        correspondingListOptions.toType(), null, null, null)
-                                                                                                            .setAsNullable(true);
+                                                        correspondingListOptions.toType(), null, null)
+                                                                                                      .setAsNullable(true);
         if (!doesParameterExist(otherParameters, optionParameter.getName())) {
             otherParameters.add(optionParameter);
         }

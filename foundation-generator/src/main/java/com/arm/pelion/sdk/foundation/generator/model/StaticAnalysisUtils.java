@@ -1,5 +1,8 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import com.squareup.javapoet.AnnotationSpec;
 
 public class StaticAnalysisUtils {
@@ -9,47 +12,74 @@ public class StaticAnalysisUtils {
         // Nothing to do
     }
 
-    public static AnnotationSpec ignoreCyclomaticComplexity() {
-        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"PMD.CyclomaticComplexity\"")
-                             .build();
+    public static AnnotationRegistry newAnnotationRegistry() {
+        return new AnnotationRegistry();
     }
 
-    public static AnnotationSpec ignoreExcessiveMethodLength() {
-        return AnnotationSpec.builder(SuppressWarnings.class)
-                             .addMember("value", "{\"PMD.ExcessiveMethodLength\", \"PMD.NcssMethodCount\"}").build();
-    }
+    public static class AnnotationRegistry {
+        private final Set<String> annotations;
 
-    public static AnnotationSpec ignoreUselessParentheses() {
-        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"PMD.UselessParentheses\"").build();
-    }
+        private AnnotationRegistry() {
+            super();
+            annotations = new LinkedHashSet<String>();
+        }
 
-    public static AnnotationSpec ignoreAvoidDuplicateLiterals() {
-        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"PMD.AvoidDuplicateLiterals\"")
-                             .build();
-    }
+        public void ignoreCyclomaticComplexity() {
+            annotations.add("\"PMD.CyclomaticComplexity\"");
+        }
 
-    public static AnnotationSpec ignoreShortMethodName() {
-        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"PMD.ShortMethodName\"").build();
-    }
+        public void ignoreExcessiveMethodLength() {
 
-    public static AnnotationSpec ignoreLongLines() {
-        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"checkstyle:LineLength\"").build();
-    }
+            annotations.add("\"PMD.ExcessiveMethodLength\"");
+            annotations.add("\"PMD.NcssMethodCount\"");
+        }
 
-    public static AnnotationSpec ignoreResourceClosure() {
-        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"resource\"").build();
-    }
+        public void ignoreUselessParentheses() {
+            annotations.add("\"PMD.UselessParentheses\"");
+        }
 
-    public static AnnotationSpec ignoreUnused() {
-        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"unused\"").build();
-    }
+        public void ignoreAvoidDuplicateLiterals() {
+            annotations.add("\"PMD.AvoidDuplicateLiterals\"");
+        }
 
-    public static AnnotationSpec ignoreUnusedAndResourceClosure() {
-        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "{\"unused\", \"resource\"}").build();
-    }
+        public void ignoreShortMethodName() {
+            annotations.add("\"PMD.ShortMethodName\"");
+        }
 
-    public static AnnotationSpec setAsUnchecked() {
-        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"unchecked\"").build();
+        public void ignoreLongLines() {
+            annotations.add("\"checkstyle:LineLength\"");
+        }
+
+        public void ignoreResourceClosure() {
+            annotations.add("\"resource\"");
+        }
+
+        public void ignoreUnused() {
+            annotations.add("\"unused\"");
+        }
+
+        public void setAsUnchecked() {
+            annotations.add("\"unchecked\"");
+        }
+
+        public boolean hasAnnotations() {
+            return !annotations.isEmpty();
+        }
+
+        public AnnotationSpec generateAnnotation() {
+
+            String value = String.join(", ", annotations);
+            if (annotations.size() > 1) {
+                value = "{" + value + "}";
+            }
+
+            return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", value).build();
+
+        }
+
+        public void clear() {
+            annotations.clear();
+        }
     }
 
 }

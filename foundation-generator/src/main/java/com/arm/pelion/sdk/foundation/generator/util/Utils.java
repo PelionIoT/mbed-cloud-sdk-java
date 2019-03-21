@@ -198,6 +198,10 @@ public class Utils {
                                                                           // https://stackoverflow.com/questions/9482309/javadoc-bug-link-cant-handle-generics
     }
 
+    public static String generateNewDocumentationLine() {
+        return System.lineSeparator() + "<p>" + System.lineSeparator();
+    }
+
     public static String applyPatternHack(String pattern) {
         // FIXME hack because JavaPoet does not handle well "$"
         return pattern == null ? null : pattern.replace("$", "$$");

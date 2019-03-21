@@ -75,12 +75,12 @@ public class ModelListOption extends Model {
 
     protected void addFilterDocumentation() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Note:").append("<p>").append(System.lineSeparator());
+        builder.append("Note:").append(Utils.generateNewDocumentationLine());
         builder.append("<ul>").append("<li>").append(System.lineSeparator());
-        builder.append("Filters:").append("<p>").append(System.lineSeparator());
+        builder.append("Filters:").append(Utils.generateNewDocumentationLine());
         builder.append("The list can be filtered server-side on some of the fields of ")
-               .append(Utils.generateDocumentationString(correspondingModel.getName())).append(".").append("<p>")
-               .append(System.lineSeparator());
+               .append(Utils.generateDocumentationString(correspondingModel.getName())).append(".")
+               .append(Utils.generateNewDocumentationLine());
         builder.append("The following filters are currently supported:").append(System.lineSeparator());
         builder.append(generateFilterTable(filters));
         builder.append("</li>").append("</ul>").append(System.lineSeparator());
@@ -196,7 +196,7 @@ public class ModelListOption extends Model {
                                                                     .filter(f -> !f.isUnknownValue())
                                                                     .collect(Collectors.toList());
         final StringBuilder builder = new StringBuilder();
-        builder.append("<p>").append(System.lineSeparator());
+        builder.append(Utils.generateNewDocumentationLine());
         builder.append("<table style=\"border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0\" summary=\"Available filters\">")
                .append(System.lineSeparator());
         builder.append("<caption>Server-side filters</caption>").append(System.lineSeparator());

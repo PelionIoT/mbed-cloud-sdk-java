@@ -158,7 +158,7 @@ public class ModelTest extends AbstractSdkArtifact {
             type.transformIntoWrapper();
             int numberOfElements = filter.canHaveMultipleInputTypes() ? 1 + (int) (Math.random() * 9.0) : 1;
             while (numberOfElements > 0) {
-                ValueGenerator.addGenerateFieldValue(type, false, null, false, null, false, null, filterValues);
+                ValueGenerator.addGenerateFieldValue(type, null, filterValues);
                 numberOfElements--;
             }
             if (filter.canHaveMultipleInputTypes()) {
@@ -442,7 +442,7 @@ public class ModelTest extends AbstractSdkArtifact {
     protected void generateDocumentation() {
         specificationBuilder.addJavadoc(generateClassJavadocComment(hasDescription(), description, hasLongDescription(),
                                                                     longDescription));
-        specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreAvoidDuplicateLiterals());
+        addStaticAnalysisAnnotations();
     }
 
     public String getPackageName() {
@@ -456,7 +456,7 @@ public class ModelTest extends AbstractSdkArtifact {
             builder.append(description);
         }
         if (hasLongDescription) {
-            builder.append(System.lineSeparator()).append("<p>").append(System.lineSeparator());
+            builder.append(Utils.generateNewDocumentationLine());
             builder.append(longDescription);
         }
         return builder.toString();
@@ -481,6 +481,15 @@ public class ModelTest extends AbstractSdkArtifact {
         }
         initialiseBuilder();
         translateTests();
+    }
+
+    @Override
+    protected void addStaticAnalysisAnnotations() {
+        annotationRegistry.ignoreAvoidDuplicateLiterals();
+        if (annotationRegistry.hasAnnotations()) {
+            specificationBuilder.addAnnotation(annotationRegistry.generateAnnotation());
+        }
+
     }
 
 }

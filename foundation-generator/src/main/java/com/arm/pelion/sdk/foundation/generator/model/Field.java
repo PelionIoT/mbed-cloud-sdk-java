@@ -16,10 +16,8 @@ import com.squareup.javapoet.FieldSpec;
 public class Field extends AbstractSdkArtifact implements Cloneable {
     public static final String IDENTIFIER_NAME = "id";
     private TypeParameter type;
-    private String pattern;
-    private String minimum;
-    private String maximum;
     private String defaultValue;
+    private Validation validation;
     private String initialiser;
     private boolean isRequired;
     private boolean alreadyDefined;
@@ -40,19 +38,18 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
      * @param defaultValue
      */
     public Field(boolean isReadOnly, TypeParameter type, String name, String description, String longDescription,
-                 String pattern, String minimum, String maximum, boolean isStatic, boolean needsCustomCode,
-                 boolean isInternal, boolean isRequired, String defaultValue, boolean alreadyDefined) {
+                 Validation validation, boolean isStatic, boolean needsCustomCode, boolean isInternal,
+                 boolean isRequired, String defaultValue, boolean alreadyDefined) {
         super(isReadOnly, name, determineDescription(type, description), longDescription, isStatic, false, false, false,
               needsCustomCode, isInternal);
-        setMinimum(minimum);
-        setMaximum(maximum);
-        setPattern(pattern);
+        setValidation(validation);
         setType(type);
         setRequired(isRequired);
         setDefaultValue(defaultValue);
         setInitialiser(null);
         setAlreadyDefined(alreadyDefined);
         setAsIdentifier(false);
+        alterValidationIfNecessary();
         setDefaultValueIfMissing();
     }
 
@@ -60,7 +57,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
                  boolean hasSetter) {
         this(isFieldReadOnly(field, hasSetter),
              TypeFactory.getCorrespondingType(field.getType(), field.getGenericType()), field.getName(), null, null,
-             null, null, null, java.lang.reflect.Modifier.isStatic(field.getModifiers()), false, isInternal, isRequired,
+             null, java.lang.reflect.Modifier.isStatic(field.getModifiers()), false, isInternal, isRequired,
              defaultValue, true);
     }
 
@@ -70,7 +67,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
 
     public static Field defaultIdentifier() {
         return new Field(false, TypeFactory.getCorrespondingType(String.class), IDENTIFIER_NAME, IDENTIFIER_NAME, null,
-                         null, null, null, false, false, true, false, null, false);
+                         null, false, false, true, false, null, false);
     }
 
     private static boolean isFieldReadOnly(java.lang.reflect.Field field, boolean hasSetter) {
@@ -124,17 +121,30 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         }
     }
 
+    private void alterValidationIfNecessary() {
+        if (isRequired()) {
+            if (!hasValidation()) {
+                setValidation(new Validation());
+            }
+            validation.setNullable(false);
+        }
+        if (hasValidation() && type.isDate()) {
+            validation.setForDate(true);
+        }
+
+    }
+
     private void setDefaultValueIfMissing() {
         // If no default value is specified but limits are, then consider one of these limits as default value
-        if (!getType().isNumber()) {
+        if (!getType().isNumber() || !hasValidation()) {
             return;
         }
         if (!hasDefaultValue()) {
-            if (hasMinimum()) {
-                setDefaultValue(getMinimum());
+            if (validation.hasMinimum()) {
+                setDefaultValue(validation.getMinimum());
             } else {
-                if (hasMaximum()) {
-                    setDefaultValue(getMaximum());
+                if (validation.hasMaximum()) {
+                    setDefaultValue(validation.getMaximum());
                 }
             }
         }
@@ -168,6 +178,18 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
      */
     public String getDefaultValue() {
         return defaultValue;
+    }
+
+    public Validation getValidation() {
+        return validation;
+    }
+
+    public void setValidation(Validation validation) {
+        this.validation = validation;
+    }
+
+    public boolean hasValidation() {
+        return validation != null;
     }
 
     /**
@@ -249,49 +271,6 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         this.specificationBuilder = specificationBuilder;
     }
 
-    public boolean hasPattern() {
-        return has(pattern) && !type.isDate();
-    }
-
-    /**
-     * @return the pattern
-     */
-    public String getPattern() {
-        return pattern;
-    }
-
-    /**
-     * @param pattern
-     *            the pattern to set
-     */
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
-    }
-
-    public boolean hasMinimum() {
-        return has(minimum) && !type.isDate();
-    }
-
-    public String getMinimum() {
-        return minimum;
-    }
-
-    public void setMinimum(String minimum) {
-        this.minimum = minimum;
-    }
-
-    public boolean hasMaximum() {
-        return has(maximum) && !type.isDate();
-    }
-
-    public String getMaximum() {
-        return maximum;
-    }
-
-    public void setMaximum(String maximum) {
-        this.maximum = maximum;
-    }
-
     /**
      * @return the isRequired
      */
@@ -308,8 +287,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     }
 
     public boolean needsValidation() {
-        return isRequired() || hasPattern() || hasMaximum() || hasMinimum();// TODO add more cases where validation is
-                                                                            // needed.
+        return hasValidation() && validation.needsValidation();
     }
 
     /**
@@ -337,12 +315,12 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         if (hasDescription()) {
             specificationBuilder.addJavadoc(description + System.lineSeparator());
             if (hasLongDescription()) {
-                specificationBuilder.addJavadoc("<p>" + System.lineSeparator() + longDescription
+                specificationBuilder.addJavadoc(Utils.generateNewDocumentationLine() + longDescription
                                                 + System.lineSeparator());
             }
         }
         if (hasDeprecation()) {
-            specificationBuilder.addJavadoc((hasDescription() ? "<p>" + System.lineSeparator() : "")
+            specificationBuilder.addJavadoc((hasDescription() ? Utils.generateNewDocumentationLine() : "")
                                             + getDeprecation().getNotice());
         }
     }
@@ -392,23 +370,28 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     }
 
     public Parameter toParameter() {
-        return new Parameter(name, description, longDescription, type, defaultValue, minimum, maximum);
+        return new Parameter(name, description, longDescription, type, defaultValue, validation);
     }
 
     @Override
     public Field clone() {
-        Field field = new Field(isReadOnly, type, name, description, longDescription, pattern, minimum, maximum,
-                                isStatic, needsCustomCode, isInternal, isRequired, defaultValue, alreadyDefined);
+        Field field = new Field(isReadOnly, type, name, description, longDescription, validation.clone(), isStatic,
+                                needsCustomCode, isInternal, isRequired, defaultValue, alreadyDefined);
         field.setDeprecation(deprecation);
         return field;
     }
 
     @Override
     public String toString() {
-        return "Field [type=" + type + ", pattern=" + pattern + ", minimum=" + minimum + ", maximum=" + maximum
-               + ", defaultValue=" + defaultValue + ", initialiser=" + initialiser + ", isRequired=" + isRequired
-               + ", alreadyDefined=" + alreadyDefined + ", isIdentifier=" + isIdentifier + ", specificationBuilder="
-               + specificationBuilder + ", parent=" + super.toString() + "]";
+        return "Field [type=" + type + ", defaultValue=" + defaultValue + ", validation=" + validation
+               + ", initialiser=" + initialiser + ", isRequired=" + isRequired + ", alreadyDefined=" + alreadyDefined
+               + ", isIdentifier=" + isIdentifier + ", specificationBuilder=" + specificationBuilder + ", parent="
+               + super.toString() + "]";
+    }
+
+    @Override
+    protected void addStaticAnalysisAnnotations() {
+        // Nothing to do
     }
 
 }

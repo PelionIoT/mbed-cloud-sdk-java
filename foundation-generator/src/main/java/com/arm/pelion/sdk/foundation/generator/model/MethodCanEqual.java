@@ -13,7 +13,7 @@ public class MethodCanEqual extends AbstractMethodBasedOnModel {
               false, false, false, false, false, false, false, false);
         setReturnType(TypeFactory.getCorrespondingType(boolean.class));
         addParameter(new Parameter(PARAMETER_NAME, "another object", null,
-                                   TypeFactory.getCorrespondingType(Object.class), null, null, null));
+                                   TypeFactory.getCorrespondingType(Object.class), null, null));
         setReturnDescription("true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.");
         initialiseCodeBuilder();
         shouldTest(true);

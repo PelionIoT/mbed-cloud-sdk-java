@@ -11,7 +11,7 @@ public class MethodListOptionsSetOptions extends AbstractMethodBasedOnModel {
         super(currentModel, parentModel, false, IDENTIFIER, "Sets the option values", null, false, false, false, false,
               currentModel == null ? false : currentModel.needsFieldCustomisation(), true, false, true);
         addParameter(new Parameter(OPTIONS_PARAMETER, "an option", null, new TypeGenericParameter(ListOptions.class),
-                                   null, null, null));
+                                   null, null));
         initialiseCodeBuilder();
     }
 

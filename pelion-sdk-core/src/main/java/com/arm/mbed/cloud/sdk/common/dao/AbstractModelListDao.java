@@ -42,6 +42,7 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
      * @param options
      *            options to use.
      * @throws MbedCloudException
+     *             if an error happens during instantiation.
      */
     public AbstractModelListDao(ConnectionOptions options) throws MbedCloudException {
         super(options);

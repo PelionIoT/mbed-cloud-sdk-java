@@ -243,8 +243,9 @@ public class MethodMapper extends Method {
                                                                                     isFromLowLevel));
                 } else if (f.hasDefaultValue()) {
                     code.addStatement("$L.$L($T.$L($L.$L(),$L))", variableName,
-                                      MethodSetter.getCorrespondingSetterMethodName(toFieldName), fromVariableName,
+                                      MethodSetter.getCorrespondingSetterMethodName(toFieldName),
                                       TranslationUtils.class, getTranslationMethod(fType, fromFieldType),
+                                      fromVariableName,
                                       MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean(),
                                                                                     isFromLowLevel),
                                       f.getDefaultValue());

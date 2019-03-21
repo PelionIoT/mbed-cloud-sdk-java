@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.MethodSpec;
 
 public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnModel {
@@ -110,10 +111,10 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
 
     private static String generateLongDescription(String name, String longDescription, boolean isInternal) {
         StringBuilder builder = new StringBuilder();
-        if (has(longDescription) && !longDescription.equals("null")) {
+        if (has(longDescription)) {
             builder.append(longDescription);
             if (isInternal) {
-                builder.append(System.lineSeparator()).append("<p>").append(System.lineSeparator());
+                builder.append(Utils.generateNewDocumentationLine());
             }
         }
         if (isInternal) {

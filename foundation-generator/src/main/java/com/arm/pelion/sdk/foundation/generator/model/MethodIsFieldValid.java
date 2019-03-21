@@ -21,38 +21,38 @@ public class MethodIsFieldValid extends Method {
 
     public String generateStatement(Field field) {
         List<String> checkList = new LinkedList<>();
-        if (field.isRequired()) {
+        final Validation validation = field.getValidation();
+        if (!validation.isNullable()) {
             checkList.add(field.getName() + " != null");
         }
-        if (field.hasPattern()) {
+        final String checkNullOr = validation.isNullable() ? field.getName() + " == null || " : "";
+        final String checkNotNullAnd = validation.isNullable() ? field.getName() + " != null && " : "";
+        if (validation.hasPattern()) {
             if (field.getType().isString()) {
-                checkList.add("(" + field.getName() + " == null || " + field.getName() + ".matches(\""
-                              + fetchRegex(field) + "\"))");
+                checkList.add("(" + checkNullOr + field.getName() + ".matches(\"" + validation.getPattern() + "\"))");
             } else {
-                checkList.add("(" + field.getName() + " == null || String.valueOf(" + field.getName() + ").matches(\""
-                              + fetchRegex(field) + "\"))");
+                checkList.add("(" + checkNullOr + " String.valueOf(" + field.getName() + ").matches(\""
+                              + validation.getPattern() + "\"))");
             }
         }
-        if (field.hasMinimum()) {
+        if (validation.hasMinimum()) {
+
             if (field.getType().isString()) {
-                checkList.add("(" + field.getName() + " != null && " + field.getName() + ".length() >= "
-                              + field.getMinimum() + ")");
+                checkList.add("(" + checkNotNullAnd + field.getName() + ".length() >= " + validation.getMinimum()
+                              + ")");
             } else if (field.getType().isList() || field.getType().isHashtable()) {
-                checkList.add("(" + field.getName() + " != null && " + field.getName() + ".size() >= "
-                              + field.getMinimum() + ")");
+                checkList.add("(" + checkNotNullAnd + field.getName() + ".size() >= " + validation.getMinimum() + ")");
             } else if (field.getType().isNumber()) {
-                checkList.add("(" + field.getName() + " >= " + field.getMinimum() + ")");
+                checkList.add("(" + field.getName() + " >= " + validation.getMinimum() + ")");
             }
         }
-        if (field.hasMaximum()) {
+        if (validation.hasMaximum()) {
             if (field.getType().isString()) {
-                checkList.add("(" + field.getName() + " == null || " + field.getName() + ".length() <= "
-                              + field.getMaximum() + ")");
+                checkList.add("(" + checkNullOr + field.getName() + ".length() <= " + validation.getMaximum() + ")");
             } else if (field.getType().isList() || field.getType().isHashtable()) {
-                checkList.add("(" + field.getName() + " == null || " + field.getName() + ".size() <= "
-                              + field.getMaximum() + ")");
+                checkList.add("(" + checkNullOr + field.getName() + ".size() <= " + validation.getMaximum() + ")");
             } else if (field.getType().isNumber()) {
-                checkList.add("(" + field.getName() + " <= " + field.getMaximum() + ")");
+                checkList.add("(" + field.getName() + " <= " + validation.getMaximum() + ")");
             }
         }
         // TODO add more checks
@@ -60,13 +60,9 @@ public class MethodIsFieldValid extends Method {
     }
 
     @Override
-    protected void addAnnotations() {
-        super.addAnnotations();
-        specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreUselessParentheses());
-    }
-
-    private String fetchRegex(Field field) {
-        return field.getPattern();
+    protected void addStaticAnalysisAnnotations() {
+        annotationRegistry.ignoreUselessParentheses();
+        super.addStaticAnalysisAnnotations();
     }
 
     private static String generateMethodDescription(Field field) {

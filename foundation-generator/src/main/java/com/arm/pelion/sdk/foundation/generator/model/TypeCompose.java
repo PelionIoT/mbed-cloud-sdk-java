@@ -55,6 +55,16 @@ public abstract class TypeCompose extends TypeParameter {
         }
     }
 
+    @Override
+    public boolean isNumber() {
+        return false;
+    }
+
+    @Override
+    public boolean isBoolean() {
+        return false;
+    }
+
     protected void setImportPath() {
         setImportPath(new Import(getCollectionClass().getSimpleName(), getCollectionClass().getPackage().getName()));
     }

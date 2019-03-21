@@ -36,11 +36,11 @@ public abstract class AbstractMethodConstructorWithFieldParameters extends Abstr
     }
 
     @Override
-    protected void addAnnotations() {
-        super.addAnnotations();
+    protected void addStaticAnalysisAnnotations() {
         if (fields != null && fields.size() > StaticAnalysisUtils.FIELD_LIMIT_FOR_IGNORING_WARNINGS) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreCyclomaticComplexity());
+            annotationRegistry.ignoreCyclomaticComplexity();
         }
+        super.addStaticAnalysisAnnotations();
     }
 
 }

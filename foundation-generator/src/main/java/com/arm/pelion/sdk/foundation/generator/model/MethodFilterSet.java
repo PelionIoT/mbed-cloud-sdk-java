@@ -13,7 +13,7 @@ public class MethodFilterSet extends MethodFilter {
         initialiseCodeBuilder();
         parameterName = Utils.combineNames(false, "filterBy", filter.getFieldName());
         addParameter(new Parameter(parameterName, "filter value", null,
-                                   inputType == null ? filter.getFieldType() : inputType, null, null, null));
+                                   inputType == null ? filter.getFieldType() : inputType, null, null));
     }
 
     public MethodFilterSet(Filter filter, TypeParameter inputType, boolean containsCustomCode, boolean plural) {

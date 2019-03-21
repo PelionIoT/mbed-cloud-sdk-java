@@ -45,8 +45,8 @@ public class ModelModule extends ModelMergeable {
         if (endpoints == null) {
             return;
         }
-        addField(new Field(true, endpoints.toType(), ENDPOINTS_FIELD_NAME, "module endpoints", null, null, null, null,
-                           false, false, true, false, null, false));
+        addField(new Field(true, endpoints.toType(), ENDPOINTS_FIELD_NAME, "module endpoints", null, null, false, false,
+                           true, false, null, false));
 
     }
 

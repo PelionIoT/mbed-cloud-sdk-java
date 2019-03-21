@@ -22,10 +22,29 @@ public class MethodSetter extends Method {
 
     private static String generateSetterLongDescription(String longDescription, Field field) {
         String description = has(longDescription) ? longDescription : field.getLongDescription();
-        if (field.hasPattern()) {
-            description = description + System.lineSeparator() + "<p>" + System.lineSeparator()
-                          + "Note: the value has to match {@code /" + field.getPattern() + "/} to be valid";
+        if (!field.hasValidation()) {
+            return description;
         }
+        final Validation validation = field.getValidation();
+        final String limitDescription = field.getType().isNumber() ? "value"
+                                                                   : field.getType().isString() ? "length of the string"
+                                                                                                : "number of elements";
+        if (validation.hasPattern()) {
+            description = (has(description) ? description + Utils.generateNewDocumentationLine() : "") + "Note: the "
+                          + limitDescription + " has to match {@code /" + validation.getPattern() + "/} to be valid";
+        }
+
+        if (validation.hasMinimum()) {
+            description = (has(description) ? description + Utils.generateNewDocumentationLine() : "") + "Note: the "
+                          + limitDescription + " has to be greater than or equal to {@code " + validation.getMinimum()
+                          + "} to be valid";
+        }
+        if (validation.hasMaximum()) {
+            description = (has(description) ? description + Utils.generateNewDocumentationLine() : "") + "Note: the "
+                          + limitDescription + " has to be less than or equal to {@code " + validation.getMaximum()
+                          + "} to be valid";
+        }
+
         return description;
     }
 
