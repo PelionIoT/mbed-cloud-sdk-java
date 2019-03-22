@@ -91,12 +91,13 @@ public class TestSdkUtils {
         String testClassString = "ThisIsAClassName";
         String testMalformedFunctionString = "Device_Event_retrieve";
         assertEquals("this_is_a_function_name", SdkUtils.convertCamelToSnake(testfunctionString));
+        assertEquals("this_is_a_function_name", SdkUtils.convertCamelToSnake(" " + testfunctionString + " "));
         assertEquals("this_is_a_class_name", SdkUtils.convertCamelToSnake(testClassString));
         assertEquals("device_event_retrieve", SdkUtils.convertCamelToSnake(testMalformedFunctionString));
         assertEquals("", SdkUtils.convertCamelToSnake(""));
         assertNull(SdkUtils.convertCamelToSnake(null));
         assertEquals("this_is_a_class_name", SdkUtils.convertCamelToSnake("this_is_a_class_name"));
-
+        assertEquals("this_is_a_function_name", SdkUtils.convertCamelToSnake("thisIs A FunctionName"));
     }
 
     @Test
