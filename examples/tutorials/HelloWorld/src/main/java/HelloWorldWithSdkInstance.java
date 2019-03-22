@@ -14,9 +14,8 @@ public class HelloWorldWithSdkInstance {
 
     public static void main(String[] args) {
         // Create instances of the Pelion Device Management SDK for two accounts
-        Sdk accountOne = Sdk.createSdk(ConnectionOptions.newConfiguration(ACCOUNT_ONE_API_KEY));
-        Sdk accountTwo = Sdk.createSdk(ConnectionOptions.newConfiguration(ACCOUNT_TWO_API_KEY));
-        try {
+        try (Sdk accountOne = Sdk.createSdk(ConnectionOptions.newConfiguration(ACCOUNT_ONE_API_KEY));
+             Sdk accountTwo = Sdk.createSdk(ConnectionOptions.newConfiguration(ACCOUNT_TWO_API_KEY))) {
             // Listing the first 10 devices on the first account
             accountOne.foundation().getDeviceListDao().list((new DeviceListOptions()).maxResults(10))
                       .forEach(device -> System.out.println("Hello device " + device.getName()));
@@ -26,11 +25,7 @@ public class HelloWorldWithSdkInstance {
 
         } catch (MbedCloudException exception) {
             exception.printStackTrace();
-        } finally {
-            accountOne.close();
-            accountTwo.close();
         }
-
     }
 
 }
