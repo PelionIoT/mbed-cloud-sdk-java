@@ -83,7 +83,7 @@ public class CrudExample extends AbstractExample {
             // end of example
             // an example: read first entity in list
             User firstUserInList = sdk.foundation().getUserListDao().list().first();
-            System.out.println("User email address: " + firstUserInList);
+            System.out.println("User email address: " + firstUserInList.getEmail());
             // end of example
 
         } catch (MbedCloudException exception) {
