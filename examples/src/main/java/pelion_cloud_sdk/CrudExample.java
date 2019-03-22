@@ -43,7 +43,7 @@ public class CrudExample extends AbstractExample {
             // cloak
             assertNotNull(userOne);
             // uncloak
-            System.out.println(userOne.getEmail());
+            System.out.println("User email address: " + userOne.getEmail());
             // end of example
             assertEquals("java.sdk.user@arm.com", userOne.getEmail());
 
@@ -78,13 +78,15 @@ public class CrudExample extends AbstractExample {
             Paginator<User> paginatorWithFilters = sdk.foundation().getUserListDao()
                                                       .list(new UserListOptions().equalToEmail("java.sdk.user@arm.com")
                                                                                  .inStatuses(Arrays.asList(UserStatus.ACTIVE,
-                                                                                                           UserStatus.ENROLLING))
-                                                                                 .maxResults(10).pageSize(5)
-                                                                                 .order(Order.ASC).includeTotalCount());
+                                                                                                           UserStatus.ENROLLING)));
 
             paginatorWithFilters.forEach(u -> System.out.println(user.getFullName() + " (" + user.getId() + "): "
                                                                  + u.getEmail()));
             System.out.println("Total count: " + paginatorWithFilters.getElementsTotal());
+            // end of example
+            // an example: read first entity in list
+            User firstUserInList = sdk.foundation().getUserListDao().list().first();
+            System.out.println("User email address: " + firstUserInList);
             // end of example
 
         } catch (MbedCloudException exception) {
