@@ -71,13 +71,14 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public ApiKeyListDao clone() {
         try {
             return new ApiKeyListDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());
@@ -164,6 +165,7 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
 
     /**
      * Lists api keys matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#listApiKeys(com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}

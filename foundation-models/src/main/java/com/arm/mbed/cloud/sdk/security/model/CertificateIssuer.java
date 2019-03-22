@@ -58,6 +58,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuer()} instead.
      * 
@@ -93,6 +94,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuer()} instead.
      * 
@@ -130,6 +132,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuer()} instead.
      * 
@@ -179,11 +182,24 @@ public class CertificateIssuer implements SdkModel {
     /**
      * Sets general description for the certificate issuer.
      * 
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
+     * 
      * @param description
      *            General description for the certificate issuer.
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Checks whether description value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isDescriptionValid() {
+        return (description == null || description.length() <= 100);
     }
 
     /**
@@ -209,6 +225,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Sets the id of the certificate issuer.
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -292,6 +309,9 @@ public class CertificateIssuer implements SdkModel {
     /**
      * Sets certificate issuer name, unique per account.
      * 
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 50} to be valid
+     * 
      * @param name
      *            Certificate issuer name, unique per account.
      */
@@ -307,11 +327,12 @@ public class CertificateIssuer implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isNameValid() {
-        return name != null;
+        return name != null && (name.length() <= 50);
     }
 
     /**
      * Calculates the hash code of this instance based on field values.
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -332,6 +353,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -345,6 +367,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -410,6 +433,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Returns a string representation of the object.
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -423,6 +447,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -430,11 +455,12 @@ public class CertificateIssuer implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isIssuerTypeValid() && isNameValid();
+        return isDescriptionValid() && isIssuerTypeValid() && isNameValid();
     }
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

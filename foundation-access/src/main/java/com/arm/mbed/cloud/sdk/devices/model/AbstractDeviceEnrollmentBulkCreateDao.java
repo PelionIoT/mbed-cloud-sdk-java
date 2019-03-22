@@ -75,6 +75,7 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
 
     /**
      * Adds a device enrollment bulk create.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollmentBulkCreate(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate)}
@@ -142,6 +143,7 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
 
     /**
      * Gets a device enrollment bulk create.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentBulkCreate(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate)}
@@ -158,11 +160,12 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
 
     /**
      * Gets a device enrollment bulk create.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentBulkCreate(String)}
      * 
      * @param id
-     *            Bulk ID.
+     *            Bulk ID. Bulk ID
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.

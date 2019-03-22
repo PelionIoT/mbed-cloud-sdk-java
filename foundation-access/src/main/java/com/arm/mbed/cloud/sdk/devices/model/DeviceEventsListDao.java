@@ -71,13 +71,14 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public DeviceEventsListDao clone() {
         try {
             return new DeviceEventsListDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -165,6 +166,7 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
 
     /**
      * Lists device events matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#listDeviceEventss(com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions)}

@@ -71,13 +71,14 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public UserListDao clone() {
         try {
             return new UserListDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());
@@ -164,6 +165,7 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
 
     /**
      * Lists users matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#listUsers(com.arm.mbed.cloud.sdk.accounts.model.UserListOptions)}

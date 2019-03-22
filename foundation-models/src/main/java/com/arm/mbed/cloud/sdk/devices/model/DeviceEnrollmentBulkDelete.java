@@ -82,6 +82,7 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentBulkDelete()} instead.
      * 
@@ -135,6 +136,7 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentBulkDelete()} instead.
      * 
@@ -177,6 +179,7 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentBulkDelete()} instead.
      * 
@@ -283,10 +286,9 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * Sets bulk id.
+     * 
      * <p>
-     * null
-     * <p>
-     * Note: the value has to match {@code /^[A-Za-z0-9]{32}/} to be valid
+     * Note: the length of the string has to match {@code /^[A-Za-z0-9]{32}/} to be valid
      * 
      * @param id
      *            Bulk ID.
@@ -298,10 +300,11 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * Sets bulk id.
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * <p>
-     * Note: the value has to match {@code /^[A-Za-z0-9]{32}/} to be valid
+     * Note: the length of the string has to match {@code /^[A-Za-z0-9]{32}/} to be valid
      * 
      * @param deviceEnrollmentBulkDeleteId
      *            Bulk ID.
@@ -351,6 +354,7 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -375,6 +379,7 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -388,6 +393,7 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -469,6 +475,7 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * Returns a string representation of the object.
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -484,6 +491,7 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -496,6 +504,7 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

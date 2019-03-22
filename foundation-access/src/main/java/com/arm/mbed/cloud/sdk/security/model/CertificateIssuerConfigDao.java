@@ -71,13 +71,14 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public CertificateIssuerConfigDao clone() {
         try {
             return new CertificateIssuerConfigDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -89,6 +90,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Adds a certificate issuer config.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
@@ -105,6 +107,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Adds a certificate issuer config.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
@@ -124,6 +127,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Deletes a certificate issuer config.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#deleteCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
@@ -138,6 +142,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Deletes a certificate issuer config.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#deleteCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
@@ -155,6 +160,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Deletes a certificate issuer config.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteCertificateIssuerConfig(String)}
      * 
@@ -171,6 +177,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Get certificate issuer configuration.
+     * 
      * 
      * <p>
      * Similar to
@@ -237,6 +244,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Gets a certificate issuer config.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
@@ -253,6 +261,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Gets a certificate issuer config.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#readCertificateIssuerConfig(String)}
      * 
@@ -271,6 +280,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Modifies a certificate issuer config.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
@@ -287,6 +297,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Modifies a certificate issuer config.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig)}
@@ -306,6 +317,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
 
     /**
      * Modifies a certificate issuer config.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#updateCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig, String)}

@@ -79,32 +79,33 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allTrustedCertificates(String, String, Integer, Integer, Integer, String, Boolean, String, String, String, Boolean, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param nameEq
-     *            null
+     *            a string
      * @param serviceEq
-     *            null
+     *            a string
      * @param expireEq
-     *            null
+     *            an integer
      * @param deviceExecutionModeEq
-     *            null
+     *            an integer
      * @param deviceExecutionModeNeq
-     *            null
+     *            an integer
      * @param ownerEq
-     *            null
+     *            a string
      * @param enrollmentModeEq
-     *            null
+     *            a boolean
      * @param statusEq
-     *            null
+     *            a string
      * @param issuerLike
-     *            null
+     *            a string
      * @param subjectLike
-     *            null
+     *            a string
      * @param validEq
-     *            null
+     *            a boolean
      * @param options
      *            list options.
      * @return paginator over the list of subtenant trusted certificates
@@ -126,6 +127,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allTrustedCertificates(String, String, String, Integer, Integer, Integer, String, Boolean, String, String, String, Boolean, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
@@ -133,27 +135,27 @@ public class AccountDao extends AbstractModelDao<Account>
      * @param id
      *            Account ID.
      * @param nameEq
-     *            null
+     *            a string
      * @param serviceEq
-     *            null
+     *            a string
      * @param expireEq
-     *            null
+     *            an integer
      * @param deviceExecutionModeEq
-     *            null
+     *            an integer
      * @param deviceExecutionModeNeq
-     *            null
+     *            an integer
      * @param ownerEq
-     *            null
+     *            a string
      * @param enrollmentModeEq
-     *            null
+     *            a boolean
      * @param statusEq
-     *            null
+     *            a string
      * @param issuerLike
-     *            null
+     *            a string
      * @param subjectLike
-     *            null
+     *            a string
      * @param validEq
-     *            null
+     *            a boolean
      * @param options
      *            list options.
      * @return paginator over the list of subtenant trusted certificates
@@ -175,6 +177,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allTrustedCertificates(String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
@@ -195,6 +198,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allTrustedCertificates(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -212,6 +216,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUserInvitations(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions)}
@@ -219,7 +224,7 @@ public class AccountDao extends AbstractModelDao<Account>
      * @param id
      *            Account ID.
      * @param loginProfileEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return paginator over the list of subtenant user invitations
@@ -234,12 +239,13 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUserInvitations(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param loginProfileEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return paginator over the list of subtenant user invitations
@@ -254,6 +260,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUserInvitations(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -271,6 +278,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -278,15 +286,15 @@ public class AccountDao extends AbstractModelDao<Account>
      * @param id
      *            Account ID.
      * @param emailEq
-     *            null
+     *            a string
      * @param statusEq
-     *            null
+     *            a string
      * @param statusIn
-     *            null
+     *            a string
      * @param statusNin
-     *            null
+     *            a string
      * @param loginProfileEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return paginator over the list of subtenant users
@@ -303,20 +311,21 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param emailEq
-     *            null
+     *            a string
      * @param statusEq
-     *            null
+     *            a string
      * @param statusIn
-     *            null
+     *            a string
      * @param statusNin
-     *            null
+     *            a string
      * @param loginProfileEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return paginator over the list of subtenant users
@@ -333,6 +342,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -352,6 +362,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -368,13 +379,14 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public AccountDao clone() {
         try {
             return new AccountDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());
@@ -385,6 +397,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Adds an account.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
@@ -400,6 +413,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Adds an account.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
@@ -417,6 +431,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Adds an account.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createAccount(String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -431,7 +446,15 @@ public class AccountDao extends AbstractModelDao<Account>
      *            exists, its status is not modified. Email to finish the enrollment or to notify the existing user
      *            about the new account is sent to the admin_email defined in the request.</li>
      *            </ul>
-     *            .
+     *            . Action, either 'create' or 'enroll'.
+     *            <ul>
+     *            <li>'create' creates the account where its admin user has ACTIVE status if admin_password was defined
+     *            in the request, or RESET status if no admin_password was defined. If the user already exists, its
+     *            status is not modified.</li>
+     *            <li>'enroll' creates the account where its admin user has ENROLLING status. If the user already
+     *            exists, its status is not modified. Email to finish the enrollment or to notify the existing user
+     *            about the new account is sent to the admin_email defined in the request.</li>
+     *            </ul>
      * @return an added account
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -493,6 +516,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets my account.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#myAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
@@ -508,6 +532,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets my account.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#myAccount(String, String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -528,6 +553,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets an account.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
@@ -543,6 +569,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets an account.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readAccount(String)}
      * 
@@ -560,12 +587,14 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets an account.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#readAccount(String, String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param include
-     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts. Comma
+     *            separated additional data to return. Currently supported: limits, policies, sub_accounts
      * @param properties
      *            Property name to be returned from account specific properties.
      * @return something
@@ -579,11 +608,13 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets an account.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readAccount(String, String, String)}
      * 
      * @param include
-     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     *            Comma separated additional data to return. Currently supported: limits, policies, sub_accounts. Comma
+     *            separated additional data to return. Currently supported: limits, policies, sub_accounts
      * @param properties
      *            Property name to be returned from account specific properties.
      * @param id
@@ -601,32 +632,33 @@ public class AccountDao extends AbstractModelDao<Account>
     /**
      * Get all trusted certificates.
      * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#trustedCertificates(String, String, Integer, Integer, Integer, String, Boolean, String, String, String, Boolean, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param nameEq
-     *            null
+     *            a string
      * @param serviceEq
-     *            null
+     *            a string
      * @param expireEq
-     *            null
+     *            an integer
      * @param deviceExecutionModeEq
-     *            null
+     *            an integer
      * @param deviceExecutionModeNeq
-     *            null
+     *            an integer
      * @param ownerEq
-     *            null
+     *            a string
      * @param enrollmentModeEq
-     *            null
+     *            a boolean
      * @param statusEq
-     *            null
+     *            a string
      * @param issuerLike
-     *            null
+     *            a string
      * @param subjectLike
-     *            null
+     *            a string
      * @param validEq
-     *            null
+     *            a boolean
      * @param options
      *            list options.
      * @return the list of subtenant trusted certificates corresponding to filter options (One page).
@@ -648,6 +680,7 @@ public class AccountDao extends AbstractModelDao<Account>
     /**
      * Get all trusted certificates.
      * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#trustedCertificates(String, String, String, Integer, Integer, Integer, String, Boolean, String, String, String, Boolean, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
@@ -655,27 +688,27 @@ public class AccountDao extends AbstractModelDao<Account>
      * @param id
      *            Account ID.
      * @param nameEq
-     *            null
+     *            a string
      * @param serviceEq
-     *            null
+     *            a string
      * @param expireEq
-     *            null
+     *            an integer
      * @param deviceExecutionModeEq
-     *            null
+     *            an integer
      * @param deviceExecutionModeNeq
-     *            null
+     *            an integer
      * @param ownerEq
-     *            null
+     *            a string
      * @param enrollmentModeEq
-     *            null
+     *            a boolean
      * @param statusEq
-     *            null
+     *            a string
      * @param issuerLike
-     *            null
+     *            a string
      * @param subjectLike
-     *            null
+     *            a string
      * @param validEq
-     *            null
+     *            a boolean
      * @param options
      *            list options.
      * @return the list of subtenant trusted certificates corresponding to filter options (One page).
@@ -698,6 +731,7 @@ public class AccountDao extends AbstractModelDao<Account>
     /**
      * Get all trusted certificates.
      * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#trustedCertificates(String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
@@ -719,6 +753,7 @@ public class AccountDao extends AbstractModelDao<Account>
     /**
      * Get all trusted certificates.
      * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#trustedCertificates(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -736,6 +771,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Modifies an account.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
@@ -751,6 +787,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Modifies an account.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
@@ -768,6 +805,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Modifies an account.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#updateAccount(String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -786,6 +824,7 @@ public class AccountDao extends AbstractModelDao<Account>
     /**
      * Get the details of all the user invitations.
      * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#userInvitations(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions)}
@@ -793,7 +832,7 @@ public class AccountDao extends AbstractModelDao<Account>
      * @param id
      *            Account ID.
      * @param loginProfileEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return the list of subtenant user invitations corresponding to filter options (One page).
@@ -809,12 +848,13 @@ public class AccountDao extends AbstractModelDao<Account>
     /**
      * Get the details of all the user invitations.
      * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#userInvitations(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param loginProfileEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return the list of subtenant user invitations corresponding to filter options (One page).
@@ -829,6 +869,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get the details of all the user invitations.
+     * 
      * 
      * <p>
      * Similar to
@@ -848,6 +889,7 @@ public class AccountDao extends AbstractModelDao<Account>
     /**
      * Get all user details.
      * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#users(String, String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -855,15 +897,15 @@ public class AccountDao extends AbstractModelDao<Account>
      * @param id
      *            Account ID.
      * @param emailEq
-     *            null
+     *            a string
      * @param statusEq
-     *            null
+     *            a string
      * @param statusIn
-     *            null
+     *            a string
      * @param statusNin
-     *            null
+     *            a string
      * @param loginProfileEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return the list of subtenant users corresponding to filter options (One page).
@@ -881,20 +923,21 @@ public class AccountDao extends AbstractModelDao<Account>
     /**
      * Get all user details.
      * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#users(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param emailEq
-     *            null
+     *            a string
      * @param statusEq
-     *            null
+     *            a string
      * @param statusIn
-     *            null
+     *            a string
      * @param statusNin
-     *            null
+     *            a string
      * @param loginProfileEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return the list of subtenant users corresponding to filter options (One page).
@@ -911,6 +954,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all user details.
+     * 
      * 
      * <p>
      * Similar to
@@ -931,6 +975,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all user details.
+     * 
      * 
      * <p>
      * Similar to

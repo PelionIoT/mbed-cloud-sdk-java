@@ -71,13 +71,14 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public DeviceEnrollmentListDao clone() {
         try {
             return new DeviceEnrollmentListDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -165,6 +166,7 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
 
     /**
      * Lists device enrollments matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#listDeviceEnrollments(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentListOptions)}

@@ -182,6 +182,7 @@ public class Security extends AbstractModule {
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -194,6 +195,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a certificate issuer.
+     * 
      * <p>
      * Similar to
      * {@link #createCertificateIssuer(java.util.Map, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
@@ -214,6 +216,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a certificate issuer.
+     * 
      * <p>
      * Create a certificate issuer. The maximum number of issuers is limited to 20 per account. Multiple certificate
      * issuers of the same issuer type can be created, provided they have a different name. This allows verification of
@@ -280,6 +283,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a certificate issuer config.
+     * 
      * <p>
      * Configure the certificate issuer to be used when creating the device custom certificates. [br] **Example usage:**
      * 
@@ -317,6 +321,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a developer certificate.
+     * 
      * <p>
      * This REST API is intended to be used by customers to get a developer certificate (a certificate that can be
      * flashed into multiple devices to connect to bootstrap server).
@@ -359,6 +364,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a subtenant trusted certificate.
+     * 
      * <p>
      * An endpoint for uploading new trusted certificates.
      * 
@@ -404,6 +410,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a subtenant trusted certificate.
+     * 
      * <p>
      * Similar to
      * {@link #createSubtenantTrustedCertificate(String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
@@ -426,6 +433,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a trusted certificate.
+     * 
      * <p>
      * An endpoint for uploading new trusted certificates.
      * 
@@ -463,6 +471,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a certificate issuer.
+     * 
      * <p>
      * Similar to {@link #deleteCertificateIssuer(String)}
      * 
@@ -479,6 +488,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a certificate issuer.
+     * 
      * <p>
      * Delete a certificate issuer by ID. [br] **Example usage:**
      * 
@@ -511,6 +521,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a certificate issuer config.
+     * 
      * <p>
      * Similar to {@link #deleteCertificateIssuerConfig(String)}
      * 
@@ -528,6 +539,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a certificate issuer config.
+     * 
      * <p>
      * Delete the configured certificate issuer configuration. You can only delete the configurations of custom
      * certificates.
@@ -557,6 +569,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a developer certificate.
+     * 
      * <p>
      * Similar to {@link #deleteDeveloperCertificate(String)}
      * 
@@ -574,6 +587,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a developer certificate.
+     * 
      * <p>
      * An endpoint for deleting a trusted certificate.
      * 
@@ -604,6 +618,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a subtenant trusted certificate.
+     * 
      * <p>
      * An endpoint for deleting the trusted certificate.
      * 
@@ -640,6 +655,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a subtenant trusted certificate.
+     * 
      * <p>
      * Similar to {@link #deleteSubtenantTrustedCertificate(String, String)}
      * 
@@ -658,6 +674,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a trusted certificate.
+     * 
      * <p>
      * An endpoint for deleting a trusted certificate.
      * 
@@ -688,6 +705,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a trusted certificate.
+     * 
      * <p>
      * Similar to {@link #deleteTrustedCertificate(String)}
      * 
@@ -704,6 +722,7 @@ public class Security extends AbstractModule {
 
     /**
      * Fetch bootstrap server credentials.
+     * 
      * 
      * <p>
      * This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to
@@ -736,6 +755,7 @@ public class Security extends AbstractModule {
     /**
      * Fetch bootstrap server credentials.
      * 
+     * 
      * <p>
      * Similar to {@link #getBootstrap()}
      * 
@@ -754,6 +774,7 @@ public class Security extends AbstractModule {
 
     /**
      * Get certificate issuer configuration.
+     * 
      * 
      * <p>
      * Provides the configured certificate issuer to be used when creating device certificates for LwM2M
@@ -784,6 +805,7 @@ public class Security extends AbstractModule {
     /**
      * Get certificate issuer configuration.
      * 
+     * 
      * <p>
      * Similar to {@link #getDefault()}
      * 
@@ -803,6 +825,7 @@ public class Security extends AbstractModule {
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
+     * 
      * 
      * <p>
      * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that
@@ -839,6 +862,7 @@ public class Security extends AbstractModule {
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
      * 
+     * 
      * <p>
      * Similar to {@link #getDeveloperCertificateInfo(String)}
      * 
@@ -858,6 +882,7 @@ public class Security extends AbstractModule {
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
+     * 
      * 
      * <p>
      * Similar to {@link #getDeveloperCertificateInfo(String)}
@@ -888,6 +913,7 @@ public class Security extends AbstractModule {
 
     /**
      * Fetch LwM2M server credentials.
+     * 
      * 
      * <p>
      * This REST API is intended to be used by customers to fetch LwM2M server credentials that they will need to use
@@ -920,6 +946,7 @@ public class Security extends AbstractModule {
     /**
      * Fetch LwM2M server credentials.
      * 
+     * 
      * <p>
      * Similar to {@link #getLwm2m()}
      * 
@@ -950,6 +977,7 @@ public class Security extends AbstractModule {
     /**
      * Get trusted certificate by ID.
      * 
+     * 
      * <p>
      * Similar to {@link #getTrustedCertificateInfo(String)}
      * 
@@ -969,6 +997,7 @@ public class Security extends AbstractModule {
 
     /**
      * Get trusted certificate by ID.
+     * 
      * 
      * <p>
      * An endpoint for retrieving a trusted certificate by ID.
@@ -1003,6 +1032,7 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of certificate enrollments matching filter options.
+     * 
      * <p>
      * Gets an iterator over all certificate enrollments matching filter options.
      * 
@@ -1037,6 +1067,7 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of certificate issuer configs matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link #listAllCertificateIssuerConfigs(String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions)}
@@ -1056,11 +1087,12 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of certificate issuer configs matching filter options.
+     * 
      * <p>
      * Gets an iterator over all certificate issuer configs matching filter options.
      * 
      * @param referenceEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return paginator over the list of certificate issuer configs
@@ -1094,6 +1126,7 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of certificate issuers matching filter options.
+     * 
      * <p>
      * Gets an iterator over all certificate issuers matching filter options.
      * 
@@ -1128,13 +1161,14 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of trusted certificates matching filter options.
+     * 
      * <p>
      * Gets an iterator over all trusted certificates matching filter options.
      * 
      * @param expireEq
-     *            null
+     *            an integer
      * @param ownerEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return paginator over the list of trusted certificates
@@ -1169,6 +1203,7 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of trusted certificates matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link #listAllTrustedCertificates(Integer, String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions)}
@@ -1188,6 +1223,7 @@ public class Security extends AbstractModule {
 
     /**
      * Lists certificate enrollments matching filter options.
+     * 
      * <p>
      * 
      * Get certificate enrollments list, optionally filtered.
@@ -1251,6 +1287,7 @@ public class Security extends AbstractModule {
 
     /**
      * Lists certificate issuer configs matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link #listCertificateIssuerConfigs(String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions)}
@@ -1270,6 +1307,7 @@ public class Security extends AbstractModule {
 
     /**
      * Lists certificate issuer configs matching filter options.
+     * 
      * <p>
      * Get certificate issuer configurations, optionally filtered by reference. [br] **Example usage:**
      * 
@@ -1281,7 +1319,7 @@ public class Security extends AbstractModule {
      * ignored by the system.
      * 
      * @param referenceEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return the list of certificate issuer configs corresponding to filter options (One page).
@@ -1317,6 +1355,7 @@ public class Security extends AbstractModule {
 
     /**
      * Lists certificate issuers matching filter options.
+     * 
      * <p>
      * Note: This endpoint does not implement pagination and therefore, list control parameters such as `limit` or
      * `after` will be ignored by the system.
@@ -1353,6 +1392,7 @@ public class Security extends AbstractModule {
 
     /**
      * Lists trusted certificates matching filter options.
+     * 
      * <p>
      * An endpoint for retrieving trusted certificates in an array.
      * 
@@ -1360,9 +1400,9 @@ public class Security extends AbstractModule {
      * API_KEY'`
      * 
      * @param expireEq
-     *            null
+     *            an integer
      * @param ownerEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return the list of trusted certificates corresponding to filter options (One page).
@@ -1422,6 +1462,7 @@ public class Security extends AbstractModule {
 
     /**
      * Lists trusted certificates matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link #listTrustedCertificates(Integer, String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions)}
@@ -1441,6 +1482,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate enrollment.
+     * 
      * <p>
      * Similar to {@link #readCertificateEnrollment(String)}
      * 
@@ -1460,6 +1502,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate enrollment.
+     * 
      * <p>
      * Get a certificate enrollment by ID.
      * 
@@ -1497,6 +1540,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate issuer.
+     * 
      * <p>
      * Similar to {@link #readCertificateIssuer(String)}
      * 
@@ -1516,6 +1560,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate issuer.
+     * 
      * <p>
      * (No description provided)
      * 
@@ -1546,6 +1591,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate issuer config.
+     * 
      * <p>
      * Similar to {@link #readCertificateIssuerConfig(String)}
      * 
@@ -1565,6 +1611,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate issuer config.
+     * 
      * <p>
      * Provides the configured certificate issuer.
      * 
@@ -1597,6 +1644,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a developer certificate.
+     * 
      * <p>
      * Similar to {@link #readDeveloperCertificate(String)}
      * 
@@ -1616,6 +1664,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a developer certificate.
+     * 
      * <p>
      * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that
      * can be flashed into multiple devices to connect to bootstrap server).
@@ -1650,6 +1699,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a subtenant trusted certificate.
+     * 
      * <p>
      * An endpoint for retrieving a trusted certificate by ID.
      * 
@@ -1691,6 +1741,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a subtenant trusted certificate.
+     * 
      * <p>
      * Similar to {@link #readSubtenantTrustedCertificate(String, String)}
      * 
@@ -1711,6 +1762,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a trusted certificate.
+     * 
      * <p>
      * An endpoint for retrieving a trusted certificate by ID.
      * 
@@ -1744,6 +1796,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a trusted certificate.
+     * 
      * <p>
      * Similar to {@link #readTrustedCertificate(String)}
      * 
@@ -1763,6 +1816,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer.
+     * 
      * <p>
      * Similar to
      * {@link #updateCertificateIssuer(java.util.Map, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
@@ -1783,6 +1837,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer.
+     * 
      * <p>
      * Similar to
      * {@link #updateCertificateIssuer(java.util.Map, String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
@@ -1810,6 +1865,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer.
+     * 
      * <p>
      * Update a certificate issuer. [br] **Example usage:**
      * 
@@ -1860,6 +1916,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer.
+     * 
      * <p>
      * Similar to
      * {@link #updateCertificateIssuer(java.util.Map, String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
@@ -1884,6 +1941,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer config.
+     * 
      * <p>
      * Similar to
      * {@link #updateCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig, String)}
@@ -1905,6 +1963,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer config.
+     * 
      * <p>
      * Update the configured certificate issuer configuration.
      * 
@@ -1945,6 +2004,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a subtenant trusted certificate.
+     * 
      * <p>
      * An endpoint for updating existing trusted certificates.
      * 
@@ -1993,6 +2053,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a subtenant trusted certificate.
+     * 
      * <p>
      * Similar to
      * {@link #updateSubtenantTrustedCertificate(String, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
@@ -2015,6 +2076,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a trusted certificate.
+     * 
      * <p>
      * An endpoint for updating existing trusted certificates.
      * 
@@ -2057,6 +2119,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a trusted certificate.
+     * 
      * <p>
      * Similar to {@link #updateTrustedCertificate(String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
@@ -2078,6 +2141,7 @@ public class Security extends AbstractModule {
     /**
      * Verify certificate issuer.
      * 
+     * 
      * <p>
      * Similar to {@link #verify(String)}
      * 
@@ -2096,6 +2160,7 @@ public class Security extends AbstractModule {
 
     /**
      * Verify certificate issuer.
+     * 
      * 
      * <p>
      * A utility API that can be used to validate the user configuration before activating a certificate issuer.

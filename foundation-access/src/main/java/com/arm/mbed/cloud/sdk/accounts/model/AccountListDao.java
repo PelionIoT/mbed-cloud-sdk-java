@@ -71,13 +71,14 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public AccountListDao clone() {
         try {
             return new AccountListDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());
@@ -164,6 +165,7 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
 
     /**
      * Lists accounts matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#listAccounts(com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}

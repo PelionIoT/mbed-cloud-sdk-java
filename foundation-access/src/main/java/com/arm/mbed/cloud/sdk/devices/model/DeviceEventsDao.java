@@ -70,13 +70,14 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public DeviceEventsDao clone() {
         try {
             return new DeviceEventsDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -138,6 +139,7 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
 
     /**
      * Gets a device events.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(com.arm.mbed.cloud.sdk.devices.model.DeviceEvents)}
@@ -154,11 +156,12 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
 
     /**
      * Gets a device events.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(String)}
      * 
      * @param id
-     *            null
+     *            a string
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.

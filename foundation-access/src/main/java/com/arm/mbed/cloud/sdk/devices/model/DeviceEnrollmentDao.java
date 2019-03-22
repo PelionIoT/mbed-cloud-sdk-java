@@ -73,13 +73,14 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public DeviceEnrollmentDao clone() {
         try {
             return new DeviceEnrollmentDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -91,6 +92,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Adds a device enrollment.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
@@ -107,6 +109,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Adds a device enrollment.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
@@ -125,6 +128,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Deletes a device enrollment.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
@@ -139,6 +143,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Deletes a device enrollment.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
@@ -156,6 +161,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Deletes a device enrollment.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollment(String)}
      * 
@@ -221,6 +227,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Gets a device enrollment.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
@@ -237,6 +244,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Gets a device enrollment.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(String)}
      * 

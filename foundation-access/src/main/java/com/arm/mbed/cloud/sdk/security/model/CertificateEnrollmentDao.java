@@ -71,13 +71,14 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public CertificateEnrollmentDao clone() {
         try {
             return new CertificateEnrollmentDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -139,6 +140,7 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
 
     /**
      * Gets a certificate enrollment.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readCertificateEnrollment(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment)}
@@ -155,6 +157,7 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
 
     /**
      * Gets a certificate enrollment.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#readCertificateEnrollment(String)}
      * 

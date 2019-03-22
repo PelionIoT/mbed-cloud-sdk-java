@@ -22,6 +22,7 @@ import java.util.List;
  * The list can be filtered server-side on some of the fields of a trusted certificate.
  * <p>
  * The following filters are currently supported:
+ * 
  * <p>
  * <table style="border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0" summary="Available
  * filters">
@@ -185,6 +186,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #TrustedCertificateListOptions()} instead.
      * 
@@ -215,6 +217,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #TrustedCertificateListOptions()} instead.
      * 
@@ -237,6 +240,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #TrustedCertificateListOptions()} instead.
      * 
@@ -273,6 +277,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code valid}.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToValidFilter(boolean)}
@@ -308,6 +313,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code name}.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToNameFilter(String)}
@@ -343,6 +349,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code status}.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToStatusFilter(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus)}
@@ -378,6 +385,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code deviceExecutionMode}.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToDeviceExecutionModeFilter(int)}
@@ -404,6 +412,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code deviceExecutionMode}.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addNotEqualToDeviceExecutionModeFilter(int)}
@@ -439,6 +448,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "a like" filter by {@code issuer}.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addLikeIssuerFilter(String)}
@@ -474,6 +484,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code service}.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToServiceFilter(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService)}
@@ -509,6 +520,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "a like" filter by {@code subject}.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addLikeSubjectFilter(String)}
@@ -544,6 +556,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code enrollmentMode}.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToEnrollmentModeFilter(boolean)}
@@ -560,6 +573,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -573,6 +587,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -588,6 +603,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

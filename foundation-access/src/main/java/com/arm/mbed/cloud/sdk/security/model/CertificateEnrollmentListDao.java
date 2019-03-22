@@ -73,13 +73,14 @@ public class CertificateEnrollmentListDao extends
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public CertificateEnrollmentListDao clone() {
         try {
             return new CertificateEnrollmentListDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -167,6 +168,7 @@ public class CertificateEnrollmentListDao extends
 
     /**
      * Lists certificate enrollments matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#listCertificateEnrollments(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions)}

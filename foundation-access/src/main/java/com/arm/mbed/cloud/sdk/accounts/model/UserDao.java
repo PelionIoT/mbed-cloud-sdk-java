@@ -72,13 +72,14 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public UserDao clone() {
         try {
             return new UserDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());
@@ -89,6 +90,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
 
     /**
      * Adds a user.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
@@ -104,6 +106,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
 
     /**
      * Adds a user.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
@@ -121,6 +124,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
 
     /**
      * Adds a user.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createUser(String, com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
@@ -137,6 +141,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
 
     /**
      * Deletes a user.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
@@ -150,6 +155,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
 
     /**
      * Deletes a user.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
@@ -166,6 +172,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
 
     /**
      * Deletes a user.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUser(String)}
      * 
@@ -231,6 +238,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
 
     /**
      * Gets a user.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
@@ -246,6 +254,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
 
     /**
      * Gets a user.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readUser(String)}
      * 
@@ -263,6 +272,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
 
     /**
      * Modifies a user.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
@@ -278,6 +288,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
 
     /**
      * Modifies a user.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
@@ -295,6 +306,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
 
     /**
      * Modifies a user.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateUser(String, com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 

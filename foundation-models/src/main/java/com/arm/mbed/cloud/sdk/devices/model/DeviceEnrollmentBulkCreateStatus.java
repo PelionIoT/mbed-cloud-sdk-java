@@ -58,6 +58,7 @@ public enum DeviceEnrollmentBulkCreateStatus implements SdkEnum {
 
     /**
      * toString.
+     * 
      * <p>
      * 
      * @see java.lang.Enum#toString()
@@ -70,6 +71,7 @@ public enum DeviceEnrollmentBulkCreateStatus implements SdkEnum {
 
     /**
      * States whether it is the default value.
+     * 
      * <p>
      * 
      * @see SdkEnum#isDefault()
@@ -82,6 +84,7 @@ public enum DeviceEnrollmentBulkCreateStatus implements SdkEnum {
 
     /**
      * States whether the value is unknown and an error happened during parsing.
+     * 
      * <p>
      * 
      * @see SdkEnum#isUnknownValue()
@@ -133,6 +136,7 @@ public enum DeviceEnrollmentBulkCreateStatus implements SdkEnum {
 
     /**
      * Merges two states.
+     * 
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)

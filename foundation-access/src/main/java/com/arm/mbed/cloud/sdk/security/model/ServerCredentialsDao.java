@@ -68,13 +68,14 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public ServerCredentialsDao clone() {
         try {
             return new ServerCredentialsDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -86,6 +87,7 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
 
     /**
      * Fetch bootstrap server credentials.
+     * 
      * 
      * <p>
      * Similar to
@@ -102,6 +104,7 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
 
     /**
      * Fetch LwM2M server credentials.
+     * 
      * 
      * <p>
      * Similar to

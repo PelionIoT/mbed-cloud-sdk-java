@@ -151,6 +151,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -163,6 +164,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Adds a device.
+     * 
      * <p>
      * Create a new device.
      * 
@@ -195,6 +197,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Adds a device enrollment.
+     * 
      * <p>
      * When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your
      * account. [br] **Example usage:** ``` curl -X POST \ -H 'Authorization: Bearer [valid access token]' \ -H
@@ -232,6 +235,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Adds a device enrollment bulk create.
+     * 
      * <p>
      * With bulk upload, you can upload a `CSV` file containing a number of enrollment IDs.
      * 
@@ -309,6 +313,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Adds a device enrollment bulk create.
+     * 
      * <p>
      * Similar to {@link #createDeviceEnrollmentBulkCreate(com.arm.mbed.cloud.sdk.common.model.DataFile)}
      * 
@@ -334,6 +339,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device.
+     * 
      * <p>
      * Similar to {@link #deleteDevice(String)}
      * 
@@ -350,12 +356,13 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device.
+     * 
      * <p>
      * Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a
      * production certicate will return a 400 response.
      * 
      * @param id
-     *            null
+     *            a string
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -378,6 +385,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device enrollment.
+     * 
      * <p>
      * Similar to {@link #deleteDeviceEnrollment(String)}
      * 
@@ -394,6 +402,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device enrollment.
+     * 
      * <p>
      * To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need
      * to delete the enrollment and do a factory reset for the device. For more information, s ee [Transferring the
@@ -426,6 +435,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device enrollment bulk delete.
+     * 
      * <p>
      * With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to be deleted.
      * 
@@ -503,6 +513,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device enrollment bulk delete.
+     * 
      * <p>
      * Similar to {@link #deleteDeviceEnrollmentBulkDelete(com.arm.mbed.cloud.sdk.common.model.DataFile)}
      * 
@@ -547,6 +558,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of device enrollments matching filter options.
+     * 
      * <p>
      * Gets an iterator over all device enrollments matching filter options.
      * 
@@ -581,6 +593,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of device events matching filter options.
+     * 
      * <p>
      * Gets an iterator over all device events matching filter options.
      * 
@@ -614,6 +627,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of devices matching filter options.
+     * 
      * <p>
      * Gets an iterator over all devices matching filter options.
      * 
@@ -646,6 +660,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Lists device enrollments matching filter options.
+     * 
      * <p>
      * Provides a list of pending and claimed enrollments. **Example usage:** ``` curl -X GET \ -H 'Authorization:
      * Bearer [valid access token]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments ``` With query
@@ -684,6 +699,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Lists device events matching filter options.
+     * 
      * <p>
      * List all device events for an account.
      * 
@@ -719,6 +735,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Lists devices matching filter options.
+     * 
      * <p>
      * List all devices.
      * 
@@ -753,6 +770,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device.
+     * 
      * <p>
      * Similar to {@link #readDevice(String)}
      * 
@@ -771,6 +789,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device.
+     * 
      * <p>
      * Retrieve information about a specific device.
      * 
@@ -801,6 +820,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment.
+     * 
      * <p>
      * Similar to {@link #readDeviceEnrollment(String)}
      * 
@@ -819,6 +839,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment.
+     * 
      * <p>
      * To check the enrollment info in detail, for example date of claim and expiration date. **Example usage:** ```
      * curl -X GET \ -H 'Authorization: Bearer [valid access token]' \
@@ -851,6 +872,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment bulk create.
+     * 
      * <p>
      * Similar to {@link #readDeviceEnrollmentBulkCreate(String)}
      * 
@@ -870,6 +892,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment bulk create.
+     * 
      * <p>
      * Provides information on bulk upload for the given ID. For example, the bulk status and the number of processed
      * enrollment identities. Also links to the bulk upload reports are provided. **Report file format:** The report
@@ -888,7 +911,7 @@ public class Devices extends AbstractModule {
      * Bearer [valid access token]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} ```
      * 
      * @param id
-     *            Bulk ID.
+     *            Bulk ID. Bulk ID
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -914,6 +937,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment bulk delete.
+     * 
      * <p>
      * Similar to {@link #readDeviceEnrollmentBulkDelete(String)}
      * 
@@ -933,6 +957,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment bulk delete.
+     * 
      * <p>
      * Provides information on bulk delete for the given ID. For example, the bulk status and the number of processed
      * enrollment identities. Also links to the bulk delete reports are provided. **Report file format:** The report
@@ -951,7 +976,7 @@ public class Devices extends AbstractModule {
      * Bearer [valid access token]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id} ```
      * 
      * @param id
-     *            Bulk ID.
+     *            Bulk ID. Bulk ID
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -977,6 +1002,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device events.
+     * 
      * <p>
      * Similar to {@link #readDeviceEvents(String)}
      * 
@@ -995,11 +1021,12 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device events.
+     * 
      * <p>
      * Retrieve a specific device event.
      * 
      * @param id
-     *            null
+     *            a string
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -1026,6 +1053,7 @@ public class Devices extends AbstractModule {
     /**
      * Request certificate renewal.
      * 
+     * 
      * <p>
      * Similar to {@link #renewCertificate(String, String)}
      * 
@@ -1048,6 +1076,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Request certificate renewal.
+     * 
      * 
      * <p>
      * Request a certificate renewal.
@@ -1092,6 +1121,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Modifies a device.
+     * 
      * <p>
      * Similar to {@link #updateDevice(String, com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
@@ -1111,6 +1141,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Modifies a device.
+     * 
      * <p>
      * Update a specific device.
      * 

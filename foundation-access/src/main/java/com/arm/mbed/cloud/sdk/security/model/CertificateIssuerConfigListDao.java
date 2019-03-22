@@ -74,13 +74,14 @@ public class CertificateIssuerConfigListDao extends
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public CertificateIssuerConfigListDao clone() {
         try {
             return new CertificateIssuerConfigListDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -168,6 +169,7 @@ public class CertificateIssuerConfigListDao extends
 
     /**
      * Lists certificate issuer configs matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#listCertificateIssuerConfigs(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions)}

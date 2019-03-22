@@ -22,6 +22,7 @@ import java.util.List;
  * The list can be filtered server-side on some of the fields of an api key.
  * <p>
  * The following filters are currently supported:
+ * 
  * <p>
  * <table style="border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0" summary="Available
  * filters">
@@ -83,6 +84,7 @@ public class ApiKeyListOptions extends ListOptions {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #ApiKeyListOptions()} instead.
      * 
@@ -113,6 +115,7 @@ public class ApiKeyListOptions extends ListOptions {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #ApiKeyListOptions()} instead.
      * 
@@ -135,6 +138,7 @@ public class ApiKeyListOptions extends ListOptions {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #ApiKeyListOptions()} instead.
      * 
@@ -171,6 +175,7 @@ public class ApiKeyListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code owner}.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions#addEqualToOwnerFilter(String)}
      * 
@@ -205,6 +210,7 @@ public class ApiKeyListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code key}.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions#addEqualToKeyFilter(String)}
      * 
@@ -220,6 +226,7 @@ public class ApiKeyListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -233,6 +240,7 @@ public class ApiKeyListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -248,6 +256,7 @@ public class ApiKeyListOptions extends ListOptions {
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

@@ -71,13 +71,14 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public UserInvitationListDao clone() {
         try {
             return new UserInvitationListDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -165,6 +166,7 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
 
     /**
      * Lists user invitations matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#listUserInvitations(com.arm.mbed.cloud.sdk.accounts.model.UserInvitationListOptions)}

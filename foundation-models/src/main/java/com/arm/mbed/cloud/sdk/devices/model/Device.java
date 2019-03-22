@@ -169,6 +169,7 @@ public class Device implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
      * 
@@ -276,6 +277,7 @@ public class Device implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
      * 
@@ -334,6 +336,7 @@ public class Device implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
      * 
@@ -438,11 +441,24 @@ public class Device implements SdkModel {
     /**
      * Sets the certificate issuer's id.
      * 
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 500} to be valid
+     * 
      * @param caId
      *            The certificate issuer's ID.
      */
     public void setCaId(String caId) {
         this.caId = caId;
+    }
+
+    /**
+     * Checks whether caId value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isCaIdValid() {
+        return (caId == null || caId.length() <= 500);
     }
 
     /**
@@ -532,11 +548,24 @@ public class Device implements SdkModel {
     /**
      * Sets the description of the device.
      * 
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 2000} to be valid
+     * 
      * @param description
      *            The description of the device.
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Checks whether description value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isDescriptionValid() {
+        return (description == null || description.length() <= 2000);
     }
 
     /**
@@ -551,11 +580,24 @@ public class Device implements SdkModel {
     /**
      * Sets an id representing the model and hardware revision of the device.
      * 
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 32} to be valid
+     * 
      * @param deviceClass
      *            An ID representing the model and hardware revision of the device.
      */
     public void setDeviceClass(String deviceClass) {
         this.deviceClass = deviceClass;
+    }
+
+    /**
+     * Checks whether deviceClass value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isDeviceClassValid() {
+        return (deviceClass == null || deviceClass.length() <= 32);
     }
 
     /**
@@ -595,11 +637,24 @@ public class Device implements SdkModel {
     /**
      * Sets the fingerprint of the device certificate.
      * 
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 512} to be valid
+     * 
      * @param deviceKey
      *            The fingerprint of the device certificate.
      */
     public void setDeviceKey(String deviceKey) {
         this.deviceKey = deviceKey;
+    }
+
+    /**
+     * Checks whether deviceKey value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isDeviceKeyValid() {
+        return (deviceKey == null || deviceKey.length() <= 512);
     }
 
     /**
@@ -633,11 +688,24 @@ public class Device implements SdkModel {
     /**
      * Sets the endpoint type of the device. for example, the device is a gateway.
      * 
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 64} to be valid
+     * 
      * @param endpointType
      *            The endpoint type of the device. For example, the device is a gateway.
      */
     public void setEndpointType(String endpointType) {
         this.endpointType = endpointType;
+    }
+
+    /**
+     * Checks whether endpointType value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isEndpointTypeValid() {
+        return (endpointType == null || endpointType.length() <= 64);
     }
 
     /**
@@ -710,6 +778,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the id of the device. the device id is used across all device management apis.
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -799,11 +868,24 @@ public class Device implements SdkModel {
     /**
      * Sets the name of the device.
      * 
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 128} to be valid
+     * 
      * @param name
      *            The name of the device.
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Checks whether name value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isNameValid() {
+        return (name == null || name.length() <= 128);
     }
 
     /**
@@ -874,6 +956,7 @@ public class Device implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -917,6 +1000,7 @@ public class Device implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -930,6 +1014,7 @@ public class Device implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -1141,6 +1226,7 @@ public class Device implements SdkModel {
 
     /**
      * Returns a string representation of the object.
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -1163,6 +1249,7 @@ public class Device implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -1170,11 +1257,13 @@ public class Device implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isCaIdValid() && isDescriptionValid() && isDeviceClassValid() && isDeviceKeyValid()
+               && isEndpointTypeValid() && isNameValid();
     }
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

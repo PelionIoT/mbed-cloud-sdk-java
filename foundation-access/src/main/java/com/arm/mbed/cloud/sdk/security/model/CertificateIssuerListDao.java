@@ -71,13 +71,14 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
-    @SuppressWarnings({ "unused", "resource" })
+    @SuppressWarnings({ "resource", "unused" })
     public CertificateIssuerListDao clone() {
         try {
             return new CertificateIssuerListDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -165,6 +166,7 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
 
     /**
      * Lists certificate issuers matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#listCertificateIssuers(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerListOptions)}
