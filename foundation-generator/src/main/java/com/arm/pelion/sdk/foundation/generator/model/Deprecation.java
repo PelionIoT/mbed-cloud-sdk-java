@@ -25,7 +25,7 @@ public class Deprecation {
 
     public String getNotice() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("DEPRECATION: This ").append(isField ? "field" : "method").append(" has been deprecated since ")
+        builder.append("@deprecated This ").append(isField ? "field" : "method").append(" has been deprecated since ")
                .append(since).append(" and will be removed by ").append(when).append(".")
                .append(System.lineSeparator());
         if (description != null && !description.isEmpty()) {
