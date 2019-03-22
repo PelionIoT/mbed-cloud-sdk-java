@@ -72,17 +72,14 @@ public class CrudExample extends AbstractExample {
                                                                       .includeTotalCount());
 
             paginator.forEach(u -> System.out.println(user.getFullName() + " (" + user.getId() + "): " + u.getEmail()));
-            System.out.println("Total count: " + paginator.getElementsTotal());
+            System.out.println("Total count: " + paginator.count());
             // end of example
             // an example: list entities with filters
-            Paginator<User> paginatorWithFilters = sdk.foundation().getUserListDao()
-                                                      .list(new UserListOptions().equalToEmail("java.sdk.user@arm.com")
-                                                                                 .inStatuses(Arrays.asList(UserStatus.ACTIVE,
-                                                                                                           UserStatus.ENROLLING)));
+            sdk.foundation().getUserListDao()
+               .list(new UserListOptions().equalToEmail("java.sdk.user@arm.com")
+                                          .inStatuses(Arrays.asList(UserStatus.ACTIVE, UserStatus.ENROLLING)))
+               .forEach(u -> System.out.println(user.getFullName() + " (" + user.getId() + "): " + u.getEmail()));
 
-            paginatorWithFilters.forEach(u -> System.out.println(user.getFullName() + " (" + user.getId() + "): "
-                                                                 + u.getEmail()));
-            System.out.println("Total count: " + paginatorWithFilters.getElementsTotal());
             // end of example
             // an example: read first entity in list
             User firstUserInList = sdk.foundation().getUserListDao().list().first();

@@ -183,13 +183,25 @@ public abstract class AbstractPaginator<T, U extends AbstractListResponse<T>, V 
 
     /**
      * Gets the total number of elements in the collection.
-     * <p>
-     * Be aware that if the paginator does not currently have this information, an additional call to the server will be
-     * performed.
+     * 
+     * @deprecated Use {@link #count()} instead.
      *
      * @return the total count of elements in the collection.
      */
+    @Deprecated
     public long getElementsTotal() {
+        return count();
+    }
+
+    /**
+     * Gets the total number of elements in the collection.
+     * <p>
+     * Warning: Be aware that if the paginator does not currently have this information, an additional call to the
+     * server will be performed.
+     *
+     * @return the total count of elements in the collection.
+     */
+    public long count() {
         if (totalCount > 0) {
             return totalCount;
         }
