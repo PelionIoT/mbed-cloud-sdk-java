@@ -236,9 +236,9 @@ public class DefaultApiTest {
     @Test
     public void firmwareImageCreateTest() {
         File datafile = null;
-        String name = null;
         String description = null;
-        // FirmwareImage response = api.firmwareImageCreate(datafile, name, description);
+        String name = null;
+        // FirmwareImage response = api.firmwareImageCreate(datafile, description, name);
 
         // TODO: test validations
     }
@@ -294,10 +294,10 @@ public class DefaultApiTest {
     @Test
     public void firmwareManifestCreateTest() {
         File datafile = null;
-        String name = null;
         String description = null;
         File keyTable = null;
-        // FirmwareManifest response = api.firmwareManifestCreate(datafile, name, description, keyTable);
+        String name = null;
+        // FirmwareManifest response = api.firmwareManifestCreate(datafile, description, keyTable, name);
 
         // TODO: test validations
     }
@@ -637,7 +637,7 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // Void response = api.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter);
+        // DevicePage response = api.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter);
 
         // TODO: test validations
     }

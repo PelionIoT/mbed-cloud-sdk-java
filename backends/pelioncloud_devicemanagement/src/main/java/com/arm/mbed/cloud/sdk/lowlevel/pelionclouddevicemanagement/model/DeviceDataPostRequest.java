@@ -82,6 +82,9 @@ public class DeviceDataPostRequest implements Serializable {
     @SerializedName("host_gateway")
     private String hostGateway = null;
 
+    @SerializedName("issuer_fingerprint")
+    private String issuerFingerprint = null;
+
     @SerializedName("manifest")
     private String manifest = null;
 
@@ -318,13 +321,13 @@ public class DeviceDataPostRequest implements Serializable {
     }
 
     /**
-     * Up to five custom key-value attributes. Note that keys cannot start with a number. Both keys and values are
-     * limited to 128 characters.
+     * Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are
+     * limited to 128 characters. Updating this field replaces existing contents.
      * 
      * @return customAttributes
      **/
-    @ApiModelProperty(example = "\"{ 'key': 'value' }\"",
-                      value = "Up to five custom key-value attributes. Note that keys cannot start with a number. Both keys and values are limited to 128 characters.")
+    @ApiModelProperty(example = "{\"key\":\"value\"}",
+                      value = "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.")
     public Map<String, String> getCustomAttributes() {
         return customAttributes;
     }
@@ -535,6 +538,26 @@ public class DeviceDataPostRequest implements Serializable {
         this.hostGateway = hostGateway;
     }
 
+    public DeviceDataPostRequest issuerFingerprint(String issuerFingerprint) {
+        this.issuerFingerprint = issuerFingerprint;
+        return this;
+    }
+
+    /**
+     * SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
+     * 
+     * @return issuerFingerprint
+     **/
+    @ApiModelProperty(example = "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322",
+                      value = "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.")
+    public String getIssuerFingerprint() {
+        return issuerFingerprint;
+    }
+
+    public void setIssuerFingerprint(String issuerFingerprint) {
+        this.issuerFingerprint = issuerFingerprint;
+    }
+
     public DeviceDataPostRequest manifest(String manifest) {
         this.manifest = manifest;
         return this;
@@ -712,6 +735,7 @@ public class DeviceDataPostRequest implements Serializable {
                && Objects.equals(this.firmwareChecksum, deviceDataPostRequest.firmwareChecksum)
                && Objects.equals(this.groups, deviceDataPostRequest.groups)
                && Objects.equals(this.hostGateway, deviceDataPostRequest.hostGateway)
+               && Objects.equals(this.issuerFingerprint, deviceDataPostRequest.issuerFingerprint)
                && Objects.equals(this.manifest, deviceDataPostRequest.manifest)
                && Objects.equals(this.mechanism, deviceDataPostRequest.mechanism)
                && Objects.equals(this.mechanismUrl, deviceDataPostRequest.mechanismUrl)
@@ -726,8 +750,8 @@ public class DeviceDataPostRequest implements Serializable {
     public int hashCode() {
         return Objects.hash(autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate,
                             customAttributes, deployment, description, deviceClass, deviceExecutionMode, deviceKey,
-                            endpointName, endpointType, firmwareChecksum, groups, hostGateway, manifest, mechanism,
-                            mechanismUrl, name, object, serialNumber, state, vendorId);
+                            endpointName, endpointType, firmwareChecksum, groups, hostGateway, issuerFingerprint,
+                            manifest, mechanism, mechanismUrl, name, object, serialNumber, state, vendorId);
     }
 
     @Override
@@ -751,6 +775,7 @@ public class DeviceDataPostRequest implements Serializable {
         sb.append("    firmwareChecksum: ").append(toIndentedString(firmwareChecksum)).append("\n");
         sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
         sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
+        sb.append("    issuerFingerprint: ").append(toIndentedString(issuerFingerprint)).append("\n");
         sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
         sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");
         sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");

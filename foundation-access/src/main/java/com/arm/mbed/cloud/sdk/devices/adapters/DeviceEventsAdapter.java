@@ -152,7 +152,7 @@ public final class DeviceEventsAdapter {
                                                            toBeMapped.getDescription(), toBeMapped.getDeviceId(),
                                                            toBeMapped.getEventType(), toBeMapped.getEventTypeCategory(),
                                                            toBeMapped.getEventTypeDescription(),
-                                                           TranslationUtils.toBool(toBeMapped.isStateChange()));
+                                                           toBeMapped.isStateChange());
         deviceEvents.setId(toBeMapped.getId());
         return deviceEvents;
     }

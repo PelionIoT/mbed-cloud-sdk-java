@@ -22,7 +22,7 @@ import java.util.List;
  * The list can be filtered server-side on some of the fields of a certificate issuer config.
  * <p>
  * The following filters are currently supported:
- * 
+ *
  * <p>
  * <table style="border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0" summary="Available
  * filters">
@@ -67,7 +67,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     * 
+     *
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerConfigListOptions()} instead.
      * 
@@ -98,7 +98,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     * 
+     *
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerConfigListOptions()} instead.
      * 
@@ -121,7 +121,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     * 
+     *
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerConfigListOptions()} instead.
      * 
@@ -158,7 +158,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code certificateReference}.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions#addEqualToCertificateReferenceFilter(String)}
@@ -176,7 +176,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     * 
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -190,7 +190,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -206,7 +206,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Clones this instance.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

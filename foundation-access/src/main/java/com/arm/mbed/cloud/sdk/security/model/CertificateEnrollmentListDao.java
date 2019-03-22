@@ -73,7 +73,7 @@ public class CertificateEnrollmentListDao extends
 
     /**
      * Clones this instance.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -168,7 +168,7 @@ public class CertificateEnrollmentListDao extends
 
     /**
      * Lists certificate enrollments matching filter options.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#listCertificateEnrollments(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions)}

@@ -171,11 +171,13 @@ public interface DefaultApi {
      *            Filterable fields: The below table lists all the fields that can be filtered on with certain filters:
      *            &lt;table&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;Field&lt;/th&gt; &lt;th&gt;&#x3D; / __eq /
      *            __neq&lt;/th&gt; &lt;th&gt;__in / __nin&lt;/th&gt; &lt;th&gt;__lte / __gte&lt;/th&gt; &lt;tr&gt;
-     *            &lt;thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;account_id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;lifecycle_status&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;auto_update&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;bootstrap_expiration_date&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;account_id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;auto_update&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;tr&gt; &lt;td&gt;bootstrap_expiration_date&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
      *            &lt;td&gt;bootstrapped_timestamp&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;ca_id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
@@ -216,9 +218,23 @@ public interface DefaultApi {
      *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;updated_at&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
      *            &lt;td&gt;vendor_id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp; The examples
-     *            below show the queries in *unencoded* form. ###### By device properties (all properties are
-     *            filterable):
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;issuer_fingerprint&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;tr&gt; &lt;td&gt;lifecycle_status&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;operator_suspended&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;tr&gt; &lt;td&gt;last_operator_suspension_category&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;last_operator_suspension_updated_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;system_suspended&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;last_system_suspension_category&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;last_system_suspension_updated_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;
+     *            The examples below show the queries in *unencoded* form. ###### By device properties (all properties
+     *            are filterable):
      *            &#x60;&#x60;&#x60;state&#x3D;[unenrolled|cloud_enrolling|bootstrapped|registered]&#x60;&#x60;&#x60;
      *            &#x60;&#x60;&#x60;device_class&#x3D;{value}&#x60;&#x60;&#x60; ###### On date-time fields: Date-time
      *            fields should be specified in UTC RFC3339 format
@@ -457,17 +473,17 @@ public interface DefaultApi {
      * 
      * @param datafile
      *            The firmware image file to upload (required)
-     * @param name
-     *            The name of the firmware image (required)
      * @param description
      *            The description of the firmware image (optional)
+     * @param name
+     *            The name of the firmware image (optional)
      * @return Call&lt;FirmwareImage&gt;
      */
     @retrofit2.http.Multipart
     @POST("v3/firmware-images/")
     Call<FirmwareImage> firmwareImageCreate(@retrofit2.http.Part() MultipartBody.Part datafile,
-                                            @retrofit2.http.Part("name") String name,
-                                            @retrofit2.http.Part("description") String description);
+                                            @retrofit2.http.Part("description") String description,
+                                            @retrofit2.http.Part("name") String name);
 
     /**
      * Delete an image Delete a firmware image.
@@ -555,20 +571,20 @@ public interface DefaultApi {
      * 
      * @param datafile
      *            The manifest file to create. The API gateway enforces the account-specific file size. (required)
-     * @param name
-     *            The name of the firmware manifest (required)
      * @param description
      *            The description of the firmware manifest (optional)
      * @param keyTable
      *            The key table of pre-shared keys for devices (optional)
+     * @param name
+     *            The name of the firmware manifest (optional)
      * @return Call&lt;FirmwareManifest&gt;
      */
     @retrofit2.http.Multipart
     @POST("v3/firmware-manifests/")
     Call<FirmwareManifest> firmwareManifestCreate(@retrofit2.http.Part() MultipartBody.Part datafile,
-                                                  @retrofit2.http.Part("name") String name,
                                                   @retrofit2.http.Part("description") String description,
-                                                  @retrofit2.http.Part() MultipartBody.Part keyTable);
+                                                  @retrofit2.http.Part() MultipartBody.Part keyTable,
+                                                  @retrofit2.http.Part("name") String name);
 
     /**
      * Delete a manifest Delete a firmware manifest.
@@ -891,8 +907,8 @@ public interface DefaultApi {
      *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;name&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
      *            &lt;td&gt;custom_attributes&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt;
-     *            &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;created_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;created_at&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
      *            &lt;td&gt;updated_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;etag&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;
@@ -984,8 +1000,8 @@ public interface DefaultApi {
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
      *            &lt;td&gt;description&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;custom_attributes&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;created_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;tr&gt; &lt;td&gt;created_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;updated_at&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
      *            &lt;td&gt;etag&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
@@ -1012,10 +1028,10 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;state__nin&#x3D;unenrolled,dergistered&#x60; (optional)
-     * @return Call&lt;Void&gt;
+     * @return Call&lt;DevicePage&gt;
      */
     @GET("v3/device-groups/{device-group-id}/devices/")
-    Call<Void>
+    Call<DevicePage>
         groupMembersRetrieve(@retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId,
                              @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                              @retrofit2.http.Query("after") String after,
@@ -1343,14 +1359,14 @@ public interface DefaultApi {
      *            &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;updated_at&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;hash&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;length&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp; The query string is made up of key-value pairs
-     *            separated by ampersands. For example, this query:
-     *            &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60; would be URL-encoded as:
-     *            &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60; **Filtering by
-     *            properties** &#x60;hash__eq&#x3D;8FS70vXrq5y1VxAAssUMAg&#x3D;&#x3D;&#x60; **Filtering on date-time
-     *            fields** Date-time fields should be specified in UTC RFC3339 format,
+     *            &lt;td&gt;hash&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;length&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt;
+     *            &lt;/table&gt; &amp;nbsp; The query string is made up of key-value pairs separated by ampersands. For
+     *            example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60; would be
+     *            URL-encoded as: &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60;
+     *            **Filtering by properties** &#x60;hash__eq&#x3D;8FS70vXrq5y1VxAAssUMAg&#x3D;&#x3D;&#x60; **Filtering
+     *            on date-time fields** Date-time fields should be specified in UTC RFC3339 format,
      *            &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations: * UTC RFC3339 with
      *            milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds.
      *            Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and

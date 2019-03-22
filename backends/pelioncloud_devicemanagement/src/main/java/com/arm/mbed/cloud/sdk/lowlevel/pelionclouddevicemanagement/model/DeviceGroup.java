@@ -87,11 +87,13 @@ public class DeviceGroup implements Serializable {
     }
 
     /**
-     * Get customAttributes
+     * Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are
+     * limited to 128 characters. Updating this field replaces existing contents.
      * 
      * @return customAttributes
      **/
-    @ApiModelProperty(example = "{\"key\":\"value\"}", value = "")
+    @ApiModelProperty(example = "{\"key\":\"value\"}",
+                      value = "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.")
     public Map<String, String> getCustomAttributes() {
         return customAttributes;
     }
