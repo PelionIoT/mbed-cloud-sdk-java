@@ -9,10 +9,12 @@ import org.junit.Test;
 /**
  * Unit tests for Model SubtenantTrustedCertificateService.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestSubtenantTrustedCertificateService {
     /**
      * Tests the getValue method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testGetValue() {
         try {
@@ -29,7 +31,7 @@ public class TestSubtenantTrustedCertificateService {
             subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("lwm2m");
             assertNotNull(subtenanttrustedcertificateservice);
             assertFalse(subtenanttrustedcertificateservice.isDefault());
-            subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("70c246de-7d0c-4bc8-b01c-9dd5ff070492");
+            subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("348ce904-a36b-468e-94d0-25650ea00861");
             assertNotNull(subtenanttrustedcertificateservice);
             assertTrue(subtenanttrustedcertificateservice.isDefault());
         } catch (Exception exception) {

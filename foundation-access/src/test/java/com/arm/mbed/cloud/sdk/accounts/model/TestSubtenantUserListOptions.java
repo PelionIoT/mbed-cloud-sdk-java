@@ -10,17 +10,19 @@ import org.junit.Test;
 /**
  * Unit tests for Model SubtenantUserListOptions.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestSubtenantUserListOptions {
     /**
      * Tests the clone method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testClone() {
         try {
-            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(90),
-                                                                                              Long.valueOf(-61),
+            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(-64),
+                                                                                              Long.valueOf(80),
                                                                                               Order.getDefault(),
-                                                                                              "90b9db73-28a8-433c-a6eb-8013eec8c972",
+                                                                                              "1b425af7-f2d8-4d13-9dc9-e6ddd1b4a143",
                                                                                               null, null);
             SubtenantUserListOptions subtenantuserlistoptions2 = subtenantuserlistoptions1.clone();
             assertNotNull(subtenantuserlistoptions1);
@@ -35,18 +37,19 @@ public class TestSubtenantUserListOptions {
     /**
      * Tests the hashCode method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testHashCode() {
         try {
-            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(-27),
-                                                                                              Long.valueOf(28),
+            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(-42),
+                                                                                              Long.valueOf(61),
                                                                                               Order.getDefault(),
-                                                                                              "07ff2947-1fcd-4fe2-b615-6d5efaf5ce1e",
+                                                                                              "8414171c-5dd6-462e-b158-1d3981e9cc11",
                                                                                               null, null);
-            SubtenantUserListOptions subtenantuserlistoptions2 = new SubtenantUserListOptions(Integer.valueOf(-27),
-                                                                                              Long.valueOf(28),
+            SubtenantUserListOptions subtenantuserlistoptions2 = new SubtenantUserListOptions(Integer.valueOf(-42),
+                                                                                              Long.valueOf(61),
                                                                                               Order.getDefault(),
-                                                                                              "07ff2947-1fcd-4fe2-b615-6d5efaf5ce1e",
+                                                                                              "8414171c-5dd6-462e-b158-1d3981e9cc11",
                                                                                               null, null);
             assertNotNull(subtenantuserlistoptions1);
             assertNotNull(subtenantuserlistoptions2);
@@ -65,23 +68,24 @@ public class TestSubtenantUserListOptions {
     /**
      * Tests the equals method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testEquals() {
         try {
-            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(-34),
-                                                                                              Long.valueOf(69),
+            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(9),
+                                                                                              Long.valueOf(108),
                                                                                               Order.getDefault(),
-                                                                                              "02c068d9-a0b8-44a7-b390-8a579f306224",
+                                                                                              "ce1f3610-8a6b-4c93-91ce-8c4f14b162b6",
                                                                                               null, null);
-            SubtenantUserListOptions subtenantuserlistoptions2 = new SubtenantUserListOptions(Integer.valueOf(-34),
-                                                                                              Long.valueOf(69),
+            SubtenantUserListOptions subtenantuserlistoptions2 = new SubtenantUserListOptions(Integer.valueOf(9),
+                                                                                              Long.valueOf(108),
                                                                                               Order.getDefault(),
-                                                                                              "02c068d9-a0b8-44a7-b390-8a579f306224",
+                                                                                              "ce1f3610-8a6b-4c93-91ce-8c4f14b162b6",
                                                                                               null, null);
-            SubtenantUserListOptions subtenantuserlistoptions3 = new SubtenantUserListOptions(Integer.valueOf(45),
-                                                                                              Long.valueOf(-84),
+            SubtenantUserListOptions subtenantuserlistoptions3 = new SubtenantUserListOptions(Integer.valueOf(-76),
+                                                                                              Long.valueOf(-91),
                                                                                               Order.getDefault(),
-                                                                                              "3837a334-f789-4e89-a1c6-35a4a82bd4e1",
+                                                                                              "d10e9ebc-0e12-4fc1-b115-97a6ee85aede",
                                                                                               null, null);
             assertNotNull(subtenantuserlistoptions1);
             assertNotNull(subtenantuserlistoptions2);

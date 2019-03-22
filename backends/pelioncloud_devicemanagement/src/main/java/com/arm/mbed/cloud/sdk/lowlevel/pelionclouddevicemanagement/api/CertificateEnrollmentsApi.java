@@ -7,7 +7,6 @@ import retrofit2.http.*;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollmentListResponse;
-import org.joda.time.DateTime;
 
 public interface CertificateEnrollmentsApi {
     /**
@@ -79,9 +78,9 @@ public interface CertificateEnrollmentsApi {
                                   @retrofit2.http.Query("enroll_status__eq") String enrollStatusEq,
                                   @retrofit2.http.Query("enroll_result__neq") String enrollResultNeq,
                                   @retrofit2.http.Query("enroll_result__eq") String enrollResultEq,
-                                  @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
-                                  @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
-                                  @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
-                                  @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte);
+                                  @retrofit2.http.Query("created_at__lte") String createdAtLte,
+                                  @retrofit2.http.Query("created_at__gte") String createdAtGte,
+                                  @retrofit2.http.Query("updated_at__lte") String updatedAtLte,
+                                  @retrofit2.http.Query("updated_at__gte") String updatedAtGte);
 
 }

@@ -180,6 +180,9 @@ public class TypeParameter implements Artifact {
     }
 
     public String getFullyQualifiedName() {
+        if (isPrimitiveOrWrapper()) {
+            return getClassSimpleName();
+        }
         try {
             translate();
             return hasClazz() ? getClazz().getName() : importPath.getFullyQualifiedName();
@@ -360,6 +363,13 @@ public class TypeParameter implements Artifact {
         } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
+    }
+
+    public void transformIntoWrapper() {
+        if (!isPrimitive()) {
+            return;
+        }
+        setClazz(TypePrimitive.getWrapperEquivalent(getClazz()));
     }
 
     public boolean isPrimitiveOrWrapper() {

@@ -25,37 +25,66 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
                            implements ModelListDao<Device, DeviceListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public DeviceListDao() throws MbedCloudException {
         super();
     }
 
     /**
+     * Constructor.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceListDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            a connection options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceListDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            an sdk context.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceListDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+    }
+
+    /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings({ "resource", "unused" })
     public DeviceListDao clone() {
         try {
             return new DeviceListDao().configureAndGet(getModuleOrThrow() == null ? null : getModuleOrThrow().clone());
         } catch (MbedCloudException exception) {
             return null;
         }
-    }
-
-    /**
-     * a device dao.
-     * 
-     * @return a device dao
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public DeviceDao getCorrespondingModelDao() throws MbedCloudException {
-        return new DeviceDao().configureAndGet(getModuleOrThrow());
     }
 
     /**
@@ -66,8 +95,22 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
     @Override
     @Internal
     @SuppressWarnings("unchecked")
-    public Class<DeviceDao> getCorrespondingModelDaoDefinition() {
+    public Class<DeviceDao> getModelDaoClass() {
         return DeviceDao.class;
+    }
+
+    /**
+     * a device dao.
+     * 
+     * @return a device dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public DeviceDao getNewModelDao() throws MbedCloudException {
+        return new DeviceDao().configureAndGet(getModuleOrThrow());
     }
 
     /**
@@ -122,6 +165,7 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
 
     /**
      * Lists devices matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#listDevices(com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions)}
@@ -129,6 +173,8 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
      * @param options
      *            list options.
      * @return one page of devices
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     protected ListResponse<Device> requestOnePage(DeviceListOptions options) throws MbedCloudException {

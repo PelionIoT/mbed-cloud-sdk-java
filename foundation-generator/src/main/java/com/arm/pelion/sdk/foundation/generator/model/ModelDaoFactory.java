@@ -10,17 +10,13 @@ public class ModelDaoFactory extends Model {
 
     private static final String FIELD_NAME_CONTEXT = "context";
 
-    public ModelDaoFactory() {
-        super();
-        setShouldBeSorted(true);
-    }
-
     public ModelDaoFactory(String packageName) {
         super(packageName, "DaoFactory", null, "Factory for SDK DAOs",
               "Utility for fetching DAOs similar to " + DaoProvider.class.getSimpleName()
                                                                        + " but without using reflection",
               false, false, false, true);
-
+        setShouldBeSorted(true);
+        setIgnoreLiteralDuplicate(true);
         addFields();
     }
 
@@ -64,6 +60,7 @@ public class ModelDaoFactory extends Model {
                                             "Gets " + Utils.generateDocumentationString(dao.getName()), null, false,
                                             true, false, false, false, false, false, false);
         daoGetter.addException(MbedCloudException.class);
+        daoGetter.setIgnoreResourceClosure(true);
         TypeParameter daoType = dao.toType();
         try {
             daoType.translate();

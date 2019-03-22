@@ -51,9 +51,11 @@ public class TypeHashtable extends TypeCompose {
             throw new TranslationException("The type definition of the map is unknown ");
         }
         try {
+
             contentType.translate();
             TranslateTypeNameBasedOnContentType();
         } catch (Exception e) {
+            System.out.println(this);
             e.printStackTrace();
             setClazz(getCollectionClass());
             super.translate();
@@ -86,12 +88,12 @@ public class TypeHashtable extends TypeCompose {
      */
     @Override
     public String getShortName() {
-        return Map.class.getSimpleName();
+        return Map.class.getSimpleName() + "<String, " + contentType.getShortName() + ">";
     }
 
     @Override
     public String getFullyQualifiedName() {
-        return Map.class.getName();
+        return Map.class.getName() + "<String, " + contentType.getFullyQualifiedName() + ">";
     }
 
     @Override

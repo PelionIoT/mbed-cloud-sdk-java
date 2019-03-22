@@ -113,13 +113,13 @@ public class DeviceDataPutRequest implements Serializable {
     }
 
     /**
-     * Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are
-     * limited to 128 characters. Updating this field replaces existing contents.
+     * Up to five custom key-value attributes. Note that keys cannot start with a number. Both keys and values are
+     * limited to 128 characters.
      * 
      * @return customAttributes
      **/
-    @ApiModelProperty(example = "{\"key\":\"value\"}",
-                      value = "Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.")
+    @ApiModelProperty(example = "\"{ 'key': 'value' }\"",
+                      value = "Up to five custom key-value attributes. Note that keys cannot start with a number. Both keys and values are limited to 128 characters.")
     public Map<String, String> getCustomAttributes() {
         return customAttributes;
     }
@@ -167,6 +167,11 @@ public class DeviceDataPutRequest implements Serializable {
         this.deviceKey = deviceKey;
     }
 
+    public DeviceDataPutRequest endpointName(String endpointName) {
+        this.endpointName = endpointName;
+        return this;
+    }
+
     /**
      * The endpoint name given to the device.
      * 
@@ -176,6 +181,10 @@ public class DeviceDataPutRequest implements Serializable {
                       value = "The endpoint name given to the device.")
     public String getEndpointName() {
         return endpointName;
+    }
+
+    public void setEndpointName(String endpointName) {
+        this.endpointName = endpointName;
     }
 
     public DeviceDataPutRequest endpointType(String endpointType) {

@@ -10,31 +10,28 @@ import org.junit.Test;
 /**
  * Unit tests for Model Device.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestDevice {
     /**
      * Tests the clone method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testClone() {
         try {
-            Device device1 = new Device("810ade37-e472-4ce1-93b9-4865684a7136", false, new Date(1551867951507L),
-                                        new Date(1551867947979L), "02e6e93f-c8c0-428f-b0ab-8b5c759046e7",
-                                        new Date(1551867946230L), new Date(1551867944691L), null,
-                                        DeviceDeployedState.getDefault(), "29b51c95-95ae-4adb-a4b3-f9c232df67db",
-                                        "c003b692-3d91-417d-acf1-c16557f73cac", "3f812777-cd17-40f7-9f2e-7434265efd3b",
-                                        -17, "a6789425-14d9-4543-b3a0-595d211b0a55",
-                                        "866926b6-961a-41fe-b47f-1b48d54024c0", "50756cb9-6f5a-44ad-86a4-fde0d2921764",
-                                        new Date(1551867947078L), "decb6ace-4ddf-48e4-80c5-391f6777088c",
-                                        "7854eef2-c3a8-472c-acf8-681e836f8093", "7db1ba7e-9f0b-4b6e-a84d-a570318af1b6",
-                                        "A9aAA10ABFab1f9CB99CA845BC578b62fcD3ac39A842adcA8Fa05cd7ceC3b512",
-                                        "4__87_2_fbe_2ec_4b_03d03___7___e", "82fcdd22-93cb-4c79-8292-0ce0106bfe82",
-                                        new Date(1551867944799L), "e_dfb8fc985da1__cc_8bd7__fa___a_",
-                                        "8373b488-073c-40b5-9aaa-957574f58692", new Date(1551867945201L),
-                                        DeviceLifecycleStatus.getDefault(), "5627c1f6-879e-4f5a-a2a7-144453f31c8d",
-                                        new Date(1551867951614L), DeviceMechanism.getDefault(),
-                                        "83b6c672-baca-4bbd-920f-ac6d095329af", "0e926e9d-9ff9-4b64-aedf-39a8e5d3f17a",
-                                        false, "c37ec1c4-ef98-4e0a-908d-a481dc8a1864", DeviceState.getDefault(), false,
-                                        new Date(1551867945979L), "16038c4d-5931-47d5-824d-19eda0876c69");
+            Device device1 = new Device("a94f2337-f686-40ee-9a43-78d81adcb445", true, new Date(1553200098859L),
+                                        new Date(1553200100153L), "f65758d6-5089-4ea0-a7b1-56d297ec8360",
+                                        new Date(1553200101080L), new Date(1553200094342L), null,
+                                        DeviceDeployedState.getDefault(), "88fa943e-df77-4c0b-9e54-c91820df71c1",
+                                        "0ffe9940-d48a-4ebd-97a0-95f736bed16b", "2e7ce8ac-042c-46d2-9b0d-ca00845", 14,
+                                        "ced659c9-6c19-4bcb-a1ce-6b947f861075", "587375de-a433-4571-a280-2712869ca724",
+                                        "f21cdf64-5acf-4195-bb12-0270b2e75a52", new Date(1553200102400L),
+                                        "b646e398-f933-4346-94c4-ecaf603b629b", "28d92d11-e3c7-410b-9233-76df387e4f95",
+                                        "0c8c2a2c-81ec-4e52-9ed8-731560feb41c", "1557e6f3-000f-49f7-8adb-92aae0375773",
+                                        new Date(1553200095250L), DeviceMechanism.getDefault(),
+                                        "976c1bee-5b9d-408f-9e68-1b0bd8b9b90b", "853faf91-9999-4d8c-98e0-58bc7327bbb0",
+                                        "d87a3e1c-c0a4-4fdd-93df-17509a78684e", DeviceState.getDefault(),
+                                        new Date(1553200098146L), "5f0f76ef-42fc-4113-ac5b-121642a87d73");
             Device device2 = device1.clone();
             assertNotNull(device1);
             assertNotNull(device2);
@@ -48,45 +45,36 @@ public class TestDevice {
     /**
      * Tests the hashCode method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testHashCode() {
         try {
-            Device device1 = new Device("b1708bca-39c5-41c3-aac0-b3be84a6ceb7", false, new Date(1551867946850L),
-                                        new Date(1551867945367L), "8d5bb69f-4075-4e24-95f1-e320b63db769",
-                                        new Date(1551867944660L), new Date(1551867952206L), null,
-                                        DeviceDeployedState.getDefault(), "cec5ddf3-b13c-4b71-8de2-26fb04952763",
-                                        "3d4f3ec2-5500-442c-8085-5fffc9dc6ea8", "071ea53c-dd66-4fc8-a60f-5e910470edb4",
-                                        120, "43cc507b-a1c2-4968-98cd-61ceb65a9f43",
-                                        "d6399a7e-2b53-41ae-aa6e-c14d58a3a618", "937ae263-b1c1-4a4c-bc2b-211e7965b3e4",
-                                        new Date(1551867948944L), "e77b4cb3-9217-4844-a962-d8a4ca5f051a",
-                                        "c9e1c44e-3b00-4662-91f8-677dbf8e98fc", "cfecc097-0660-4ee5-a8b3-764c6c7bea2a",
-                                        "EcfF70b3Cc6EABbbB139B8E2F0bEE8EbDFCeC4eAa71bCae6EDcf7eC9fc5644C9",
-                                        "_6d_d0_a7_d____23_e2_39_be7__7d2", "7a2619cf-2743-4be5-8a1b-03c314a1fd61",
-                                        new Date(1551867951271L), "_6_a23de0_a74b___b_bff8___b1c_05",
-                                        "573ea9d0-ec40-4302-9495-f95377422fe2", new Date(1551867952242L),
-                                        DeviceLifecycleStatus.getDefault(), "6d341209-2609-42d1-894e-63bc78a03d26",
-                                        new Date(1551867944445L), DeviceMechanism.getDefault(),
-                                        "bbdd77be-8c54-461a-a911-8e18eefe5bab", "d71bc299-5ee9-40e9-b0ec-dbebc5dc5b73",
-                                        true, "16166d39-645f-45f2-a5b1-47f27fa66ec5", DeviceState.getDefault(), false,
-                                        new Date(1551867947779L), "95922695-3e83-4df0-8908-18929d4fed2d");
-            Device device2 = new Device("b1708bca-39c5-41c3-aac0-b3be84a6ceb7", false, new Date(1551867946850L),
-                                        new Date(1551867945367L), "8d5bb69f-4075-4e24-95f1-e320b63db769",
-                                        new Date(1551867944660L), new Date(1551867952206L), null,
-                                        DeviceDeployedState.getDefault(), "cec5ddf3-b13c-4b71-8de2-26fb04952763",
-                                        "3d4f3ec2-5500-442c-8085-5fffc9dc6ea8", "071ea53c-dd66-4fc8-a60f-5e910470edb4",
-                                        120, "43cc507b-a1c2-4968-98cd-61ceb65a9f43",
-                                        "d6399a7e-2b53-41ae-aa6e-c14d58a3a618", "937ae263-b1c1-4a4c-bc2b-211e7965b3e4",
-                                        new Date(1551867948944L), "e77b4cb3-9217-4844-a962-d8a4ca5f051a",
-                                        "c9e1c44e-3b00-4662-91f8-677dbf8e98fc", "cfecc097-0660-4ee5-a8b3-764c6c7bea2a",
-                                        "EcfF70b3Cc6EABbbB139B8E2F0bEE8EbDFCeC4eAa71bCae6EDcf7eC9fc5644C9",
-                                        "_6d_d0_a7_d____23_e2_39_be7__7d2", "7a2619cf-2743-4be5-8a1b-03c314a1fd61",
-                                        new Date(1551867951271L), "_6_a23de0_a74b___b_bff8___b1c_05",
-                                        "573ea9d0-ec40-4302-9495-f95377422fe2", new Date(1551867952242L),
-                                        DeviceLifecycleStatus.getDefault(), "6d341209-2609-42d1-894e-63bc78a03d26",
-                                        new Date(1551867944445L), DeviceMechanism.getDefault(),
-                                        "bbdd77be-8c54-461a-a911-8e18eefe5bab", "d71bc299-5ee9-40e9-b0ec-dbebc5dc5b73",
-                                        true, "16166d39-645f-45f2-a5b1-47f27fa66ec5", DeviceState.getDefault(), false,
-                                        new Date(1551867947779L), "95922695-3e83-4df0-8908-18929d4fed2d");
+            Device device1 = new Device("4c92b228-698d-4736-8fb2-bb402f03f2fa", false, new Date(1553200097158L),
+                                        new Date(1553200096525L), "00653ad5-20f1-4d70-88ae-f4c07fd5bf15",
+                                        new Date(1553200098783L), new Date(1553200097581L), null,
+                                        DeviceDeployedState.getDefault(), "41b238ea-fc90-439f-af2a-f9292a777ecc",
+                                        "4fd8095b-79a0-4f23-86db-8713d88749a0", "a6df4c89-f887-41a3-b0da-dc3139c", 114,
+                                        "ad72d7ab-0c6d-40f5-b5e5-4673817585a8", "cd6ae04a-b585-47ee-84ad-7e3bf96e3108",
+                                        "1b4050ff-1ac8-4593-a77f-cf169a124fad", new Date(1553200094689L),
+                                        "eb63ea14-29f3-4a3f-9a3c-9d8a0c426a99", "96d2cb20-456f-4376-a370-b37912c3bfde",
+                                        "60f54391-4345-46d0-a93d-bb877c58cb59", "918aee47-c880-4673-a135-68e2cf84d56c",
+                                        new Date(1553200095825L), DeviceMechanism.getDefault(),
+                                        "ca843cc8-82ae-4dd2-8f6c-de27c73b6253", "b3d3caa1-954d-4644-9500-4747ee53049d",
+                                        "ca00fafe-c657-4e8f-959c-69d0ffae0649", DeviceState.getDefault(),
+                                        new Date(1553200102112L), "96cfe9cd-d3b6-4022-b0df-fb29f4d9b749");
+            Device device2 = new Device("4c92b228-698d-4736-8fb2-bb402f03f2fa", false, new Date(1553200097158L),
+                                        new Date(1553200096525L), "00653ad5-20f1-4d70-88ae-f4c07fd5bf15",
+                                        new Date(1553200098783L), new Date(1553200097581L), null,
+                                        DeviceDeployedState.getDefault(), "41b238ea-fc90-439f-af2a-f9292a777ecc",
+                                        "4fd8095b-79a0-4f23-86db-8713d88749a0", "a6df4c89-f887-41a3-b0da-dc3139c", 114,
+                                        "ad72d7ab-0c6d-40f5-b5e5-4673817585a8", "cd6ae04a-b585-47ee-84ad-7e3bf96e3108",
+                                        "1b4050ff-1ac8-4593-a77f-cf169a124fad", new Date(1553200094689L),
+                                        "eb63ea14-29f3-4a3f-9a3c-9d8a0c426a99", "96d2cb20-456f-4376-a370-b37912c3bfde",
+                                        "60f54391-4345-46d0-a93d-bb877c58cb59", "918aee47-c880-4673-a135-68e2cf84d56c",
+                                        new Date(1553200095825L), DeviceMechanism.getDefault(),
+                                        "ca843cc8-82ae-4dd2-8f6c-de27c73b6253", "b3d3caa1-954d-4644-9500-4747ee53049d",
+                                        "ca00fafe-c657-4e8f-959c-69d0ffae0649", DeviceState.getDefault(),
+                                        new Date(1553200102112L), "96cfe9cd-d3b6-4022-b0df-fb29f4d9b749");
             assertNotNull(device1);
             assertNotNull(device2);
             assertNotSame(device2, device1);
@@ -104,113 +92,90 @@ public class TestDevice {
     /**
      * Tests the isValid method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        Device device = new Device("dd44cd21-474c-4bb3-aa2c-6eedbc29e9a7", false, new Date(1551867947149L),
-                                   new Date(1551867943485L), "4bdf5e62-689f-45c8-8745-1cd107bbf16c",
-                                   new Date(1551867951641L), new Date(1551867945579L), null,
-                                   DeviceDeployedState.getDefault(), "6f1e323d-5145-4c84-91bd-0e9c1070f10a",
-                                   "b5c8334f-32f9-4cee-b634-4b0dc0ecbab6", "92f18b39-b653-4eb5-a3ac-f78282274c5b", 16,
-                                   "9d8937dd-8677-4827-bdda-46c484f574b9", "7e6aac00-888b-4074-ad00-88778a18da8d",
-                                   "f8bec852-f38a-43b1-a2e9-5c735741419a", new Date(1551867948316L),
-                                   "5dc11624-9785-4ba3-a7ed-3ddf0c46eb44", "14d111d2-8aab-4f46-9390-3a27910b4062",
-                                   "7a923eda-d5fb-4d67-b54d-981e3e5af55f",
-                                   "4BcffedfdcB4C9eEfDbbF6Eae9cbF0aee060D5D7EAcdFDc7ccc91eBe72a8CFaF",
-                                   "c4642d_4ec3f32c_c__c3ae_1__5589d", "0bef0d21-d79c-4527-8962-44d1efe3edeb",
-                                   new Date(1551867949354L), "_5fd_6___5_ed2bc_62fc___2aed_17_",
-                                   "59f6315f-1046-4809-8d24-a1b7e3d76410", new Date(1551867952384L),
-                                   DeviceLifecycleStatus.getDefault(), "3d378f88-bec4-4337-a9f9-58da6bee5c49",
-                                   new Date(1551867952350L), DeviceMechanism.getDefault(),
-                                   "317def36-5a22-4777-9f99-6cb503f6382c", "cf864c21-ac77-41ab-ba5c-e6df5d9065c0",
-                                   false, "7fe3bd74-6f6b-4f78-9c3b-98b4e9f4b527", DeviceState.getDefault(), true,
-                                   new Date(1551867946971L), "47decf37-9436-454b-bbad-4d31850eb601");
+        Device device = new Device("6bbca83f-3db8-4c27-a38d-6bf5ad04db61", true, new Date(1553200093479L),
+                                   new Date(1553200096466L), "1171a77f-b55b-489a-961b-7ddc6bad7a5b",
+                                   new Date(1553200101163L), new Date(1553200097142L), null,
+                                   DeviceDeployedState.getDefault(), "f32a8bd8-68c2-4ca4-93b3-d3dce440ab0d",
+                                   "fd5ece38-1f16-447e-b125-4932fc1bfcd8", "adefac54-2176-4373-97c0-88e7766", -115,
+                                   "d539e1da-16b7-405e-89b7-12b135081ed5", "0c1014d9-e612-487c-8fbf-d1fe3e232b3f",
+                                   "2cdf5aac-a22c-442b-ba0e-190cd33752fe", new Date(1553200094684L),
+                                   "6b57317c-165a-4bb3-9693-a020e1e9d8dd", "aee3450d-7323-482d-a612-ecad92e21c33",
+                                   "672943ff-3e71-4129-a9dd-1208e9112f97", "f5b8c53c-c4cf-46f2-8954-7bbee234c49a",
+                                   new Date(1553200098143L), DeviceMechanism.getDefault(),
+                                   "7c3bc317-d06f-4192-9e04-33f1fd83e36e", "c99eabbe-faff-4c76-9b3c-b933aff56c79",
+                                   "41422049-ba0b-481f-92bd-1cfd850c4761", DeviceState.getDefault(),
+                                   new Date(1553200094666L), "106bd937-2593-4c80-9ce1-a926c96c1a6f");
         assertTrue(device.isValid());
-        Device deviceInvalid = new Device("ea8b624b-37ac-4204-a3e1-44c68f7c2e30", true, new Date(1551867949192L),
-                                          new Date(1551867944426L), "55857f94-4aa1-4174-a6a5-a91e1e0a2eac",
-                                          new Date(1551867946569L), new Date(1551867946642L), null,
-                                          DeviceDeployedState.getDefault(), "57d5eebf-a1f6-4b28-a640-b1e3655d2d0c",
-                                          "631235e9-0e90-4ac5-95d7-4bce4f62ab67",
-                                          "9347af8b-5efa-404d-9ab8-c32c6e938468", -99,
-                                          "030c08a2-dd0b-46d0-aafe-183a5271fa67",
-                                          "d3ce2bee-8db2-44c5-b3a1-c4ddd9b36274",
-                                          "f1c7c493-89ee-4666-b08e-71a323b35478", new Date(1551867949359L),
-                                          "f642501c-ad90-401c-a21f-e0b210880496",
-                                          "53cfaba7-438d-4fa4-bf1b-c8f0e31e23f6",
-                                          "87ace194-1eeb-4044-ad18-55c144359c33",
-                                          ";Q:-≪'\u001d<1/G\u0017\u0018�?U Q\u0006#\u001f\\\\V\u0003>휟1?1?J堼U1\u00051�?쫋Ṍ1=ᤣZ請�?�??11%ʈ11=\u001c↰?:艕ⓣ\u0006:",
-                                          "`c6c4䙋Mccc8?66䨯0\u001c\u0018\tc\u00036``\u0019\u001a3`D]7c68璺c48F`c`(ZD�?�3746c47\u0003c^[6䫒c-4",
-                                          "d14cd880-aaba-4ed6-8e1d-7e3bdc836480", new Date(1551867947274L),
-                                          "``;\u00074X4`I`4튇4I``444逾6`軒`O芆\u0007`-D`^6-ḿ``4G6666㷸6`KJW`?`\\\\B툸4ࠡ6䰟ｰ6",
-                                          "df2bf763-f47e-444c-a014-5e67775e7d66", new Date(1551867943840L),
-                                          DeviceLifecycleStatus.getDefault(), "0813b511-1542-48af-a754-51ecc0693b36",
-                                          new Date(1551867952449L), DeviceMechanism.getDefault(),
-                                          "2a140369-f2f7-4c85-b1f6-6f711a7f60fe",
-                                          "8810ea01-864c-4486-a6c1-cdc41454ee7b", true,
-                                          "0b6f453d-8251-43a3-9139-2c362c58c06a", DeviceState.getDefault(), true,
-                                          new Date(1551867952907L), "8a1a22b6-bd61-400c-9de2-0b4542871329");
+        Device deviceInvalid = new Device("8ad9c100-e039-4a39-bbe7-a291380da048", false, new Date(1553200097948L),
+                                          new Date(1553200100129L),
+                                          "1c6fffae-71f6-4b17-9bed-2802ea5d76cc4be21542-f035-4fdd-bbb8-4b9fb4434e191b925410-6c2e-4c9b-956d-86b1d9b49d1d22b1fa73-faf3-4bd0-8a97-ebfa320395fb28f71f59-ce9d-4439-b87b-85251d5ee5b915666a57-6433-4c02-b4b3-800815e4714d2b3cbbaf-b332-4c16-b0b7-02cad39e18dd18f842db-0d9b-4de4-b19c-c6c9519c4951552128c5-2dc4-46ee-b517-b236c017bacf21b2abbb-d081-424b-a386-bdf6424775da8246bab0-7beb-4fbd-833d-e84569ecb6db6fe6080e-e1db-4360-a7e2-2589f9f8633de1f54c5b-cecf-42d9-8d5a-c50f225dd31fd0e64391-858c-4701-bf29-07a065bfc5f9",
+                                          new Date(1553200098643L), new Date(1553200095724L), null,
+                                          DeviceDeployedState.getDefault(), "6279e21f-f5b7-454c-82c7-8e037c8f65cf",
+                                          "96ae9a24-b1ab-4097-8466-b0307040b1ca0740a1fb-eefb-42f3-b035-0d4a25462741f693fe41-1d01-467f-931c-8a5396725e5d494d6692-2301-468d-8ad9-de6dea65d852bb2e4b3f-799d-4b97-8c1c-54bd864ae203bb9c55fa-fa5c-4585-b1cb-6c6afb75b4d21c1aef47-6e9b-491a-8781-f95b65c20f845aa27cc9-60d8-4b01-834c-a8c9a008640cfef8f226-98a1-4caa-ad52-f9510681530297aa075b-f400-4269-bb9e-c660d818d05b37cbba72-f185-4f7e-854c-8b9ef36555f88c2d130e-5a10-459e-95bb-4c82e7e31a5650ba3591-47bd-48fb-8678-f6f2b5bf4d0ded084cb5-8ebd-4486-a215-bb2417257f6ea194d724-333a-4236-8f8f-291420a6d2fa4726911f-04c0-4547-8e4e-80da31d78550784511ff-c652-4e5e-98d4-0d2e2480e8afd872afdb-80bb-4575-b840-ee1026c4f7596dced0b0-f075-4780-b025-5c06e366edc219205a06-60b8-45f7-b654-d37ee9f252d6248c4ffe-f767-48b3-9b55-90e59607d7ef98ddf399-ea26-481f-ad64-83dee2af1a7b9a37f9d2-6d97-4090-9515-9cc356114ccd34eb82d2-c844-42c5-9228-c76aa8eb45a1e96d4656-52dc-4142-8da0-7c19b571d0df3c4c1f4d-9454-41ca-a1c9-ca473a4cb9ae9e30d5b4-8acf-4aa4-a48c-c0ef07617336808bc91e-e374-4483-82d6-480af05f59740fee833f-1d4d-4143-9d2b-a8dc31fc811499edabc0-2659-46b7-9270-f7ea6983441cb6fedc73-365b-499b-9c15-3f8a15ab58b600501b56-4440-4d44-9bf7-63fb6ed6e4b3ff9437af-a628-4d4e-b0d6-e26907d0badf1964a410-1da4-48dd-ab62-8ae9ee1e9a4955f27aa0-9abe-4af0-a939-0d9e8ed6b84a6a27867f-9165-407c-99f2-a8e196206fc751572242-a714-404f-90ad-7e934352d0d85f0bc99d-ca81-46c9-a172-5ce5422df4371d012a92-f3a2-42ee-b38f-15eeea04605d8ea130aa-f2c0-44a8-b527-ea17ef9101d58ad37ad1-843d-46e8-9b2c-6ae9320e7cf463ddae8d-494c-45ef-ba64-632b74943cd7a55c91cb-1672-48f5-83bd-450bbab2f772cd9b4ccb-bdd7-43f4-ad6e-2176abc783363b0507ca-0eb0-4f95-a7d7-3d73eca756dd6175d514-5f80-4f2d-bb7d-f26f88fffc45bc21b7ca-1e27-488c-a30f-035b004df8c3281ca086-7a90-44cc-955b-7484746efc84deb7df61-3e76-4d5d-9320-e5c0ce622e5dc39c3d0f-a48a-438e-afff-6dc702cdc7e2e4c20d7b-b379-4c81-a440-e927cf185e185950a4c8-ed98-489f-9db3-8a571c2eb15f0d48baf4-3a7c-47b7-b19e-044517d5db4e37eb94cf-bd6b-4247-a5b6-2bdb12aa5d1af879034f-70ce-42b3-b5ce-de64dfc23199bcf975da-f5e8-4dd3-858f-a96399ef072b",
+                                          "903c1cf0-8429-4b0f-a926-2174cb0495e9", 14,
+                                          "0d886661-b5f6-4013-b4ce-f5dd0e5c365c7ec3c491-d1f9-49c7-b783-229ffcf4de8cbbac172d-053d-4270-82a5-5a919c5924c43bfbe044-1bfb-498d-ad09-807fe5fcf8e6058d57b9-0376-43b5-96ae-e45e65057c58d2c80422-fc7b-4f95-8b2d-ba8738df61bbb1c50907-99cf-40e9-8c40-c7c16896e3108a8f9697-c80d-48aa-992a-ed8fe4df8bf738eeee3a-e250-47ae-8f75-7099eea43e66d894f8a5-586e-4c45-9db0-9ec3dd5a8343a29779a4-376e-4f21-bce1-d72d58d1eccb007cbcb9-9ef2-4af1-a169-dd66e05ebbb268dfdbf0-d476-4683-953e-57d7e321208d5acfa39b-251b-4cff-a1de-a2b3948c431a526e5596-7e8f-486f-a4e3-b61fc9b00eaf",
+                                          "950f2a8f-f51a-4fc1-8bfb-aed46ca933a1",
+                                          "1a8ff42c-e094-4545-b2e3-7307059926247ccb4405-851e-4593-87e7-befec87cf249",
+                                          new Date(1553200101014L), "2d7bf11b-3deb-41f3-ac82-3ffd6bd8ba3c",
+                                          "e186275e-4c4d-43ab-8747-f1e4153494c4",
+                                          "dcda97a3-d863-420f-b5fc-8842bc06a591",
+                                          "50fba6e7-aa4a-43f8-a843-75304e9159e5", new Date(1553200097328L),
+                                          DeviceMechanism.getDefault(), "c8ceec65-ba2a-4285-b580-debe41844991",
+                                          "4dbc809a-c4a3-4155-94c0-0fd36b4477f1a425b097-8972-4bf6-ad4c-304a49a1bab9dfa35070-7ab5-47fd-a027-694958c739920845302c-ac5e-46d1-b419-ebfe64eef3e7",
+                                          "bd8c247c-6932-4adc-9a5e-3b6c8eee1527", DeviceState.getDefault(),
+                                          new Date(1553200098878L), "fc109b3a-98b9-40e5-b237-e7d8f338bb35");
         assertFalse(deviceInvalid.isValid());
     }
 
     /**
      * Tests the equals method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testEquals() {
         try {
-            Device device1 = new Device("1a7311e3-696e-40b0-9c15-7a7784760485", true, new Date(1551867943685L),
-                                        new Date(1551867948320L), "96a4b511-a74f-4348-90d5-49b10eb4988a",
-                                        new Date(1551867945204L), new Date(1551867945431L), null,
-                                        DeviceDeployedState.getDefault(), "4e4ae4fb-7b47-4283-b608-c0d61171b00b",
-                                        "3087b086-3c3f-4129-b32a-662cb37bf0ea", "0e3e3bc1-7e43-4438-9e51-6d7535813340",
-                                        88, "2d07639c-6a2d-4d7a-a9e2-72dd440e69c2",
-                                        "e694bfeb-f96a-4c5c-8d5c-f81ca74cb804", "d59e0024-5dd3-4d7d-b300-bdb50bc8e522",
-                                        new Date(1551867952577L), "eca485fc-bd5f-4893-81f0-76592f118918",
-                                        "9a04cffb-e223-45eb-878f-19c5b7439784", "f4382e8e-d465-4a74-a3e5-a73aa9178801",
-                                        "f811Af22FB7b14dfE1CDbebbDFfEdFCAcD8e1eB65e0C2FA05a952cD8fFCaaBCd",
-                                        "__bb_a__1a1e6_cb_04__8b_c__d_e_7", "6c9243ec-237c-492c-bbfe-6b78023d9e34",
-                                        new Date(1551867952936L), "7_3c9c____488__d6dd_6__a_3c4_20_",
-                                        "688102d6-5419-4223-9e88-a5a857af8467", new Date(1551867947114L),
-                                        DeviceLifecycleStatus.getDefault(), "1f627324-0eb3-4614-8b5b-32a7f74dea76",
-                                        new Date(1551867948336L), DeviceMechanism.getDefault(),
-                                        "0ae7ad41-e427-4882-8b42-87307a6e8a4e", "66a5b1cc-c910-4d34-8f68-fafebb095a80",
-                                        false, "693fec78-f03d-4f03-b686-681332679b9b", DeviceState.getDefault(), false,
-                                        new Date(1551867950575L), "ced1d1e3-36fc-408b-8a80-1230665b69a7");
-            Device device2 = new Device("1a7311e3-696e-40b0-9c15-7a7784760485", true, new Date(1551867943685L),
-                                        new Date(1551867948320L), "96a4b511-a74f-4348-90d5-49b10eb4988a",
-                                        new Date(1551867945204L), new Date(1551867945431L), null,
-                                        DeviceDeployedState.getDefault(), "4e4ae4fb-7b47-4283-b608-c0d61171b00b",
-                                        "3087b086-3c3f-4129-b32a-662cb37bf0ea", "0e3e3bc1-7e43-4438-9e51-6d7535813340",
-                                        88, "2d07639c-6a2d-4d7a-a9e2-72dd440e69c2",
-                                        "e694bfeb-f96a-4c5c-8d5c-f81ca74cb804", "d59e0024-5dd3-4d7d-b300-bdb50bc8e522",
-                                        new Date(1551867952577L), "eca485fc-bd5f-4893-81f0-76592f118918",
-                                        "9a04cffb-e223-45eb-878f-19c5b7439784", "f4382e8e-d465-4a74-a3e5-a73aa9178801",
-                                        "f811Af22FB7b14dfE1CDbebbDFfEdFCAcD8e1eB65e0C2FA05a952cD8fFCaaBCd",
-                                        "__bb_a__1a1e6_cb_04__8b_c__d_e_7", "6c9243ec-237c-492c-bbfe-6b78023d9e34",
-                                        new Date(1551867952936L), "7_3c9c____488__d6dd_6__a_3c4_20_",
-                                        "688102d6-5419-4223-9e88-a5a857af8467", new Date(1551867947114L),
-                                        DeviceLifecycleStatus.getDefault(), "1f627324-0eb3-4614-8b5b-32a7f74dea76",
-                                        new Date(1551867948336L), DeviceMechanism.getDefault(),
-                                        "0ae7ad41-e427-4882-8b42-87307a6e8a4e", "66a5b1cc-c910-4d34-8f68-fafebb095a80",
-                                        false, "693fec78-f03d-4f03-b686-681332679b9b", DeviceState.getDefault(), false,
-                                        new Date(1551867950575L), "ced1d1e3-36fc-408b-8a80-1230665b69a7");
-            Device device3 = new Device("47444ec7-8709-4dc8-999c-21fce38e44d3", true, new Date(1551867952731L),
-                                        new Date(1551867950711L), "d6f770a9-8ec6-4875-b306-cec943ebc58b",
-                                        new Date(1551867947823L), new Date(1551867944426L), null,
-                                        DeviceDeployedState.getDefault(), "36522d14-cc81-4ab9-98ed-23e7a668edf5",
-                                        "5962be81-81b9-4190-a4f2-c0ad2f92ba0c", "a2afeaee-c5e3-4cee-b137-98da7de86240",
-                                        -83, "fc60f7fb-946c-41da-829b-a19e3377fb4d",
-                                        "72d81112-9ab5-4356-bc1d-9e77733ebe46", "8c1f84a3-198e-4a42-87a6-b6948b36b6fd",
-                                        new Date(1551867948126L), "be22b7cf-7302-48c6-b90a-a33d7fbdf516",
-                                        "be4c1033-ccc7-49cf-a12f-74331176ea25", "a8058671-68c3-40b6-87a1-367b75ca3e17",
-                                        "2FADdEe2CB20ca6FE82EFB1cC5aFAA0B64D99b1D79fdAAD4ff6Bd5eD4Ab89546",
-                                        "e5b_76ce6374dc16_dda_c_4_ce4b_2f", "628cdbd5-f271-4ded-81c7-f299dedac102",
-                                        new Date(1551867952045L), "d_a9_d7__ca3_40__cf_20c0e5_f__e_",
-                                        "f95a20ed-d483-4c8f-9642-0464d82bbf34", new Date(1551867951766L),
-                                        DeviceLifecycleStatus.getDefault(), "07b2b36e-2992-4b1a-a442-bde836945e3d",
-                                        new Date(1551867945069L), DeviceMechanism.getDefault(),
-                                        "09926ed0-9f25-477e-aa77-9b334087ed29", "66545ef4-7a16-4da9-af20-8d7ce53a0040",
-                                        false, "1a1cc233-1a31-4ca5-887f-6c9cf8915e5b", DeviceState.getDefault(), false,
-                                        new Date(1551867950709L), "58671747-171f-49ad-ba14-2a2f88f526f5");
+            Device device1 = new Device("4c380c73-dc00-431a-8719-946196e12881", true, new Date(1553200096803L),
+                                        new Date(1553200093796L), "f726c17f-fb09-41df-aba2-c165c80f407f",
+                                        new Date(1553200096906L), new Date(1553200100496L), null,
+                                        DeviceDeployedState.getDefault(), "4091467e-314b-4d71-83a0-de15f98fac4b",
+                                        "3b6bb08e-e1ed-4628-9861-bc2711109d40", "6ed44f68-7586-402b-97b0-999f8be", 23,
+                                        "4d5fbbfd-52d8-4c0f-8152-8258366c5b06", "6b43db8b-28bd-427b-b25e-4e56702e5856",
+                                        "9c135fd6-e662-425a-b139-99b7ad838c74", new Date(1553200098507L),
+                                        "b7af0286-18a0-4c76-81d3-72cc515f0751", "a6f1caf4-2aab-4732-8ef7-7efc00f47989",
+                                        "4c8b8b25-6877-4da5-99c4-35e4c30f6ac4", "1a6d4094-3759-4d5e-b194-9a8b5e74c23d",
+                                        new Date(1553200099044L), DeviceMechanism.getDefault(),
+                                        "7f5106be-23b7-4ef7-9067-6e67a03f8905", "fa425218-003a-40b0-bcbd-2809b5212da9",
+                                        "873a6a4c-9d88-41e7-bad7-18970f5dfddd", DeviceState.getDefault(),
+                                        new Date(1553200093804L), "3e938a51-18a1-4e07-8523-d991523cad77");
+            Device device2 = new Device("4c380c73-dc00-431a-8719-946196e12881", true, new Date(1553200096803L),
+                                        new Date(1553200093796L), "f726c17f-fb09-41df-aba2-c165c80f407f",
+                                        new Date(1553200096906L), new Date(1553200100496L), null,
+                                        DeviceDeployedState.getDefault(), "4091467e-314b-4d71-83a0-de15f98fac4b",
+                                        "3b6bb08e-e1ed-4628-9861-bc2711109d40", "6ed44f68-7586-402b-97b0-999f8be", 23,
+                                        "4d5fbbfd-52d8-4c0f-8152-8258366c5b06", "6b43db8b-28bd-427b-b25e-4e56702e5856",
+                                        "9c135fd6-e662-425a-b139-99b7ad838c74", new Date(1553200098507L),
+                                        "b7af0286-18a0-4c76-81d3-72cc515f0751", "a6f1caf4-2aab-4732-8ef7-7efc00f47989",
+                                        "4c8b8b25-6877-4da5-99c4-35e4c30f6ac4", "1a6d4094-3759-4d5e-b194-9a8b5e74c23d",
+                                        new Date(1553200099044L), DeviceMechanism.getDefault(),
+                                        "7f5106be-23b7-4ef7-9067-6e67a03f8905", "fa425218-003a-40b0-bcbd-2809b5212da9",
+                                        "873a6a4c-9d88-41e7-bad7-18970f5dfddd", DeviceState.getDefault(),
+                                        new Date(1553200093804L), "3e938a51-18a1-4e07-8523-d991523cad77");
+            Device device3 = new Device("81b7a7cb-d715-4e0e-89e4-452974a73900", true, new Date(1553200100680L),
+                                        new Date(1553200098335L), "a0769947-f5ac-4707-84e2-a4d347159af1",
+                                        new Date(1553200101118L), new Date(1553200099659L), null,
+                                        DeviceDeployedState.getDefault(), "f8ad228e-b368-4ae5-8ef6-c20cabb6f080",
+                                        "53b31f19-0077-4b7a-9cb1-042bcf55a82b", "11a80101-4d59-4ec4-85a7-c2a9d3a", 25,
+                                        "317da286-6f91-4aad-ac07-907db6bc3f87", "765439b0-6516-4f69-8132-75d52d8033e4",
+                                        "627e6a3d-50b8-4ef1-83aa-0ae9e5948858", new Date(1553200098756L),
+                                        "91a7fd60-6992-4af8-870b-2bcc6e936949", "f057ee9a-6027-4302-9408-e3a32d5c7bce",
+                                        "c7947bee-41fa-4948-82d3-e5790048cc54", "17b33101-34be-4977-a19a-3de07571fbc3",
+                                        new Date(1553200092707L), DeviceMechanism.getDefault(),
+                                        "d6832ed0-8d94-43d9-bf38-ebc42fce2682", "b8febf2a-6faa-40b0-997e-691cd0f4159a",
+                                        "10f7a729-ae8b-4305-977a-e1e67f441cfd", DeviceState.getDefault(),
+                                        new Date(1553200100878L), "1ea83eef-6c4a-4ecc-ba70-d83985f92397");
             assertNotNull(device1);
             assertNotNull(device2);
             assertNotNull(device3);

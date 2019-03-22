@@ -166,7 +166,7 @@ public class ModelEnum extends ModelPojo {
                                                                                                                        + "  or default "
                                                                                                                        + getDescriptionForDocumentation()
                                                                                                                        + " if not recognised. ");
-        method.addParameter(new Parameter("value", "string", null, TypeFactory.getCorrespondingType(String.class),
+        method.addParameter(new Parameter("value", "string", null, TypeFactory.getCorrespondingType(String.class), null,
                                           null));
         method.initialiseCodeBuilder();
         method.getCode().beginControlFlow("if (value == null)");
@@ -188,9 +188,9 @@ public class ModelEnum extends ModelPojo {
                                                                                               .returnType(new TypeGenericParameter(SdkEnum.class))
                                                                                               .returnDescription("the merged enumerator");
         method.addParameter(new Parameter("obj1", "a " + getDescriptionForDocumentation(), null,
-                                          new TypeGenericParameter(SdkEnum.class), null));
+                                          new TypeGenericParameter(SdkEnum.class), null, null));
         method.addParameter(new Parameter("obj2", "a " + getDescriptionForDocumentation(), null,
-                                          new TypeGenericParameter(SdkEnum.class), null));
+                                          new TypeGenericParameter(SdkEnum.class), null, null));
         method.initialiseCodeBuilder();
         method.getCode().beginControlFlow("if (obj1 == null)");
         method.getCode().addStatement("return obj2");

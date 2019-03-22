@@ -9,10 +9,12 @@ import org.junit.Test;
 /**
  * Unit tests for Model DeviceDeployedState.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestDeviceDeployedState {
     /**
      * Tests the getValue method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testGetValue() {
         try {
@@ -28,7 +30,7 @@ public class TestDeviceDeployedState {
             devicedeployedstate = DeviceDeployedState.getValue("production");
             assertNotNull(devicedeployedstate);
             assertFalse(devicedeployedstate.isDefault());
-            devicedeployedstate = DeviceDeployedState.getValue("21b1fd7f-b4bb-466f-8fa4-f6a606422438");
+            devicedeployedstate = DeviceDeployedState.getValue("afb8857d-24f9-4247-a14b-ad8a3d991d00");
             assertNotNull(devicedeployedstate);
             assertTrue(devicedeployedstate.isDefault());
         } catch (Exception exception) {

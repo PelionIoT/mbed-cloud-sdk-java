@@ -1759,6 +1759,7 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -2944,6 +2945,25 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {
+            "status": [
+              "eq",
+              "in",
+              "nin"
+            ],
+            "tier": [
+              "eq"
+            ],
+            "parent": [
+              "eq"
+            ],
+            "end_market": [
+              "eq"
+            ],
+            "country": [
+              "like"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -4071,6 +4091,7 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -5315,6 +5336,7 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -5935,6 +5957,39 @@
             "self": false,
             "custom": false,
             "type": "subtenant_trusted_certificate"
+          },
+          "x_filter": {
+            "name": [
+              "eq"
+            ],
+            "service": [
+              "eq"
+            ],
+            "expire": [
+              "eq"
+            ],
+            "device_execution_mode": [
+              "eq",
+              "neq"
+            ],
+            "owner": [
+              "eq"
+            ],
+            "enrollment_mode": [
+              "eq"
+            ],
+            "status": [
+              "eq"
+            ],
+            "issuer": [
+              "like"
+            ],
+            "subject": [
+              "like"
+            ],
+            "valid": [
+              "eq"
+            ]
           },
           "drop_fields": [
             "object",
@@ -7480,6 +7535,7 @@
             "custom": false,
             "type": "account"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -7677,7 +7733,6 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -8054,6 +8109,11 @@
             "custom": false,
             "type": "subtenant_user_invitation"
           },
+          "x_filter": {
+            "login_profile": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -8281,7 +8341,6 @@
                           "type": "string",
                           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                           "description": "Address.",
-                          "x-nullable": true,
                           "_key": "address"
                         },
                         {
@@ -8426,7 +8485,6 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -8486,7 +8544,6 @@
                           "type": "string",
                           "example": "PZf9eEUH43DAPE9ULINFeuj",
                           "description": "The password when creating a new user. It will be generated when not present in the request.",
-                          "x-nullable": true,
                           "_key": "password"
                         },
                         {
@@ -8500,7 +8557,6 @@
                           "type": "string",
                           "example": "+44 (1223) 400 400",
                           "description": "Phone number.",
-                          "x-nullable": true,
                           "_key": "phone_number"
                         },
                         {
@@ -8535,7 +8591,6 @@
                           "type": "string",
                           "example": "admin",
                           "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                          "x-nullable": true,
                           "_key": "username"
                         }
                       ],
@@ -8845,6 +8900,19 @@
             "self": false,
             "custom": false,
             "type": "subtenant_user"
+          },
+          "x_filter": {
+            "email": [
+              "eq"
+            ],
+            "status": [
+              "eq",
+              "in",
+              "nin"
+            ],
+            "login_profile": [
+              "eq"
+            ]
           },
           "drop_fields": [
             "object",
@@ -9868,6 +9936,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -10145,6 +10214,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -10575,6 +10645,14 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {
+            "key": [
+              "eq"
+            ],
+            "owner": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -10903,6 +10981,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -11317,6 +11396,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -11840,6 +11920,7 @@
             "custom": false,
             "type": "api_key"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -12109,27 +12190,16 @@
                           "type": "string",
                           "enum": [
                             "success",
-                            "failure",
                             "not_found",
-                            "forbidden"
+                            "forbidden",
+                            "failure"
                           ],
-                          "description": "The result of certificate enrollment request.",
-                          "example": "success",
                           "api_fieldname": "enroll_result",
                           "entity_fieldname": "enroll_result",
                           "_key": "enroll_result"
                         },
                         {
                           "type": "string",
-                          "description": "Additional information in case of failure.",
-                          "example": "The device is currently processing too many certificate renewals.",
-                          "api_fieldname": "enroll_result_detail",
-                          "entity_fieldname": "enroll_result_detail",
-                          "_key": "enroll_result_detail"
-                        },
-                        {
-                          "type": "string",
-                          "description": "The status of certificate enrollment request.",
                           "enum": [
                             "new",
                             "completed"
@@ -12444,6 +12514,30 @@
             "custom": false,
             "type": "certificate_enrollment"
           },
+          "x_filter": {
+            "device_id": [
+              "eq"
+            ],
+            "certificate_name": [
+              "eq"
+            ],
+            "enroll_status": [
+              "neq",
+              "eq"
+            ],
+            "enroll_result": [
+              "neq",
+              "eq"
+            ],
+            "created_at": [
+              "lte",
+              "gte"
+            ],
+            "updated_at": [
+              "lte",
+              "gte"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -12540,27 +12634,16 @@
                     "type": "string",
                     "enum": [
                       "success",
-                      "failure",
                       "not_found",
-                      "forbidden"
+                      "forbidden",
+                      "failure"
                     ],
-                    "description": "The result of certificate enrollment request.",
-                    "example": "success",
                     "api_fieldname": "enroll_result",
                     "entity_fieldname": "enroll_result",
                     "_key": "enroll_result"
                   },
                   {
                     "type": "string",
-                    "description": "Additional information in case of failure.",
-                    "example": "The device is currently processing too many certificate renewals.",
-                    "api_fieldname": "enroll_result_detail",
-                    "entity_fieldname": "enroll_result_detail",
-                    "_key": "enroll_result_detail"
-                  },
-                  {
-                    "type": "string",
-                    "description": "The status of certificate enrollment request.",
                     "enum": [
                       "new",
                       "completed"
@@ -12882,6 +12965,7 @@
             "custom": false,
             "type": "certificate_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -12896,7 +12980,6 @@
             "certificate_name",
             "enroll_status",
             "enroll_result",
-            "enroll_result_detail",
             "updated_at"
           ],
           "group_id": "Security",
@@ -12947,12 +13030,10 @@
           "type": "string",
           "enum": [
             "success",
-            "failure",
             "not_found",
-            "forbidden"
+            "forbidden",
+            "failure"
           ],
-          "description": "The result of certificate enrollment request.",
-          "example": "success",
           "api_fieldname": "enroll_result",
           "readOnly": true,
           "required": false,
@@ -12961,16 +13042,6 @@
         },
         {
           "type": "string",
-          "description": "Additional information in case of failure.",
-          "example": "The device is currently processing too many certificate renewals.",
-          "api_fieldname": "enroll_result_detail",
-          "readOnly": true,
-          "required": false,
-          "_key": "enroll_result_detail"
-        },
-        {
-          "type": "string",
-          "description": "The status of certificate enrollment request.",
           "enum": [
             "new",
             "completed"
@@ -13514,6 +13585,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -13819,6 +13891,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -14190,6 +14263,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -14587,6 +14661,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -15162,6 +15237,7 @@
             "custom": false,
             "type": "certificate_issuer"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -15555,6 +15631,7 @@
             "custom": false,
             "type": "verification_response"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -16039,6 +16116,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -16350,6 +16428,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -16657,6 +16736,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -17074,6 +17154,11 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {
+            "certificate_reference": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -17465,6 +17550,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -17862,6 +17948,7 @@
             "custom": false,
             "type": "certificate_issuer_config"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -18046,7 +18133,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "ID that uniquely identifies the developer certificate.",
+                    "description": "mUUID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "parameter_fieldname": "developerCertificateId",
@@ -18451,6 +18538,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -18735,6 +18823,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -19218,6 +19307,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -19272,7 +19362,7 @@
           "fields": [
             {
               "type": "string",
-              "description": "ID that uniquely identifies the developer certificate.",
+              "description": "mUUID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "developerCertificateId",
@@ -19334,7 +19424,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "ID that uniquely identifies the developer certificate.",
+                    "description": "mUUID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -19631,6 +19721,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -19692,7 +19783,7 @@
         },
         {
           "type": "string",
-          "description": "ID that uniquely identifies the developer certificate.",
+          "description": "mUUID that uniquely identifies the developer certificate.",
           "api_fieldname": "id",
           "parameter_fieldname": "developerCertificateId",
           "in": "path",
@@ -20419,6 +20510,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -20494,6 +20586,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -20929,6 +21022,180 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {
+            "account_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "auto_update": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "bootstrapped_expiration_date": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "bootstrapped_timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "ca_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "connector_expiration_date": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "created_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "custom_attributes": [
+              "eq",
+              "neq"
+            ],
+            "deployed_state": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "deployment": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "description": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_class": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_execution_mode": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_key": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "endpoint_name": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "endpoint_type": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "enrollment_list_timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "firmware_checksum": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "host_gateway": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "manifest": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "manifest_timestamp": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "mechanism": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "mechanism_url": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "name": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "serial_number": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "state": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "updated_at": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "vendor_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -21350,6 +21617,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -21472,27 +21740,16 @@
                     "type": "string",
                     "enum": [
                       "success",
-                      "failure",
                       "not_found",
-                      "forbidden"
+                      "forbidden",
+                      "failure"
                     ],
-                    "description": "The result of certificate enrollment request.",
-                    "example": "success",
                     "api_fieldname": "enroll_result",
                     "entity_fieldname": "enroll_result",
                     "_key": "enroll_result"
                   },
                   {
                     "type": "string",
-                    "description": "Additional information in case of failure.",
-                    "example": "The device is currently processing too many certificate renewals.",
-                    "api_fieldname": "enroll_result_detail",
-                    "entity_fieldname": "enroll_result_detail",
-                    "_key": "enroll_result_detail"
-                  },
-                  {
-                    "type": "string",
-                    "description": "The status of certificate enrollment request.",
                     "enum": [
                       "new",
                       "completed"
@@ -21937,6 +22194,7 @@
             "custom": false,
             "type": "certificate_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -21950,7 +22208,6 @@
             "device_id",
             "enroll_status",
             "enroll_result",
-            "enroll_result_detail",
             "updated_at"
           ],
           "group_id": "Devices",
@@ -22476,6 +22733,7 @@
             "custom": false,
             "type": "device"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -23279,13 +23537,14 @@
             }
           ],
           "path": "/v3/device-enrollments",
-          "summary": "Create a single enrollment.",
+          "summary": "Place an enrollment claim for one or several devices.",
           "return_type": "device_enrollment",
           "return_info": {
             "self": true,
             "custom": false,
             "type": "device_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -23486,6 +23745,7 @@
             "custom": false,
             "type": "device_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -23882,13 +24142,14 @@
             }
           ],
           "path": "/v3/device-enrollments",
-          "summary": "Get a list of enrollments per account.",
+          "summary": "Get enrollment list.",
           "return_type": "paginated_response(device_enrollment)",
           "return_info": {
             "self": true,
             "custom": false,
             "type": "device_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24181,13 +24442,14 @@
             }
           ],
           "path": "/v3/device-enrollments/{id}",
-          "summary": "Get details of an single enrollment by ID.",
+          "summary": "Get details of an enrollment by ID.",
           "return_type": "device_enrollment",
           "return_info": {
             "self": true,
             "custom": false,
             "type": "device_enrollment"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24598,6 +24860,7 @@
             "custom": false,
             "type": "device_enrollment_bulk_create"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24638,6 +24901,7 @@
             "custom": true,
             "type": "file"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -24672,6 +24936,7 @@
             "custom": true,
             "type": "file"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25070,6 +25335,7 @@
             "custom": false,
             "type": "device_enrollment_bulk_create"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25517,6 +25783,7 @@
             "custom": false,
             "type": "device_enrollment_bulk_delete"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25557,6 +25824,7 @@
             "custom": true,
             "type": "file"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25591,6 +25859,7 @@
             "custom": true,
             "type": "file"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -25992,6 +26261,7 @@
             "custom": false,
             "type": "device_enrollment_bulk_delete"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -26375,6 +26645,44 @@
             "custom": false,
             "type": "device_events"
           },
+          "x_filter": {
+            "date_time": [
+              "in",
+              "nin",
+              "lte",
+              "gte"
+            ],
+            "description": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "device_id": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "event_type": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ],
+            "state_change": [
+              "eq",
+              "neq",
+              "in",
+              "nin"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -26566,6 +26874,7 @@
             "custom": false,
             "type": "device_events"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -26946,7 +27255,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "ID that uniquely identifies the entity.",
+                    "description": "mUUID that uniquely identifies the entity.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -27156,6 +27465,7 @@
             "custom": false,
             "type": "server_credentials"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -27210,7 +27520,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "ID that uniquely identifies the entity.",
+                    "description": "mUUID that uniquely identifies the entity.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -27420,6 +27730,7 @@
             "custom": false,
             "type": "server_credentials"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -27458,7 +27769,7 @@
         },
         {
           "type": "string",
-          "description": "ID that uniquely identifies the entity.",
+          "description": "mUUID that uniquely identifies the entity.",
           "api_fieldname": "id",
           "readOnly": true,
           "required": false,
@@ -28134,6 +28445,7 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -28444,6 +28756,7 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -28477,7 +28790,7 @@
             },
             {
               "type": "string",
-              "description": "ID that uniquely identifies the developer certificate.",
+              "description": "mUUID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "developerCertificateId",
@@ -28550,7 +28863,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "ID that uniquely identifies the developer certificate.",
+                    "description": "mUUID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -28847,6 +29160,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -29377,6 +29691,7 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -30057,6 +30372,7 @@
             "custom": false,
             "type": "subtenant_trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -30343,7 +30659,6 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
-              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -30376,7 +30691,6 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -30444,7 +30758,6 @@
               "type": "string",
               "example": "PZf9eEUH43DAPE9ULINFeuj",
               "description": "The password when creating a new user. It will be generated when not present in the request.",
-              "x-nullable": true,
               "api_fieldname": "password",
               "entity_fieldname": "password",
               "parameter_fieldname": "password",
@@ -30456,7 +30769,6 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
-              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -30479,7 +30791,6 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
-              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -30592,7 +30903,6 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
-                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
@@ -30794,7 +31104,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -30861,7 +31170,6 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
@@ -30882,7 +31190,6 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
-                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
@@ -30931,7 +31238,6 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -31322,6 +31628,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -31703,6 +32010,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -31865,7 +32173,6 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
-                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
@@ -32067,7 +32374,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -32134,7 +32440,6 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
@@ -32155,7 +32460,6 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
-                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
@@ -32204,7 +32508,6 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -32449,6 +32752,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -32520,7 +32824,6 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
-              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -32553,7 +32856,6 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -32621,7 +32923,6 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
-              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -32655,7 +32956,6 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
-              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -32768,7 +33068,6 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
-                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "parameter_fieldname": "address",
@@ -32970,7 +33269,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -33037,7 +33335,6 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "parameter_fieldname": "password",
@@ -33058,7 +33355,6 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
-                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "parameter_fieldname": "phone_number",
@@ -33107,7 +33403,6 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "parameter_fieldname": "username",
@@ -33498,6 +33793,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -33807,6 +34103,7 @@
             "custom": false,
             "type": "subtenant_user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -33917,7 +34214,6 @@
           "type": "string",
           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
           "description": "Address.",
-          "x-nullable": true,
           "api_fieldname": "address",
           "parameter_fieldname": "address",
           "in": "body",
@@ -34068,7 +34364,6 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -34136,7 +34431,6 @@
           "type": "string",
           "example": "PZf9eEUH43DAPE9ULINFeuj",
           "description": "The password when creating a new user. It will be generated when not present in the request.",
-          "x-nullable": true,
           "api_fieldname": "password",
           "parameter_fieldname": "password",
           "in": "body",
@@ -34158,7 +34452,6 @@
           "type": "string",
           "example": "+44 (1223) 400 400",
           "description": "Phone number.",
-          "x-nullable": true,
           "api_fieldname": "phone_number",
           "parameter_fieldname": "phone_number",
           "in": "body",
@@ -34232,7 +34525,6 @@
           "type": "string",
           "example": "admin",
           "description": "A username containing alphanumerical letters and -,._@+= characters.",
-          "x-nullable": true,
           "api_fieldname": "username",
           "parameter_fieldname": "username",
           "in": "body",
@@ -34297,7 +34589,6 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -34456,7 +34747,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -34773,6 +35063,7 @@
             "custom": false,
             "type": "subtenant_user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -35060,6 +35351,7 @@
             "custom": false,
             "type": "subtenant_user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -35196,7 +35488,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -35513,6 +35804,7 @@
             "custom": false,
             "type": "subtenant_user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -35593,7 +35885,6 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -36286,6 +36577,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -36585,6 +36877,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -36618,7 +36911,7 @@
             },
             {
               "type": "string",
-              "description": "ID that uniquely identifies the developer certificate.",
+              "description": "mUUID that uniquely identifies the developer certificate.",
               "api_fieldname": "id",
               "entity_fieldname": "id",
               "parameter_fieldname": "developerCertificateId",
@@ -36691,7 +36984,7 @@
                   },
                   {
                     "type": "string",
-                    "description": "ID that uniquely identifies the developer certificate.",
+                    "description": "mUUID that uniquely identifies the developer certificate.",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
                     "_key": "id"
@@ -36988,6 +37281,7 @@
             "custom": false,
             "type": "developer_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -37496,6 +37790,39 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {
+            "name": [
+              "eq"
+            ],
+            "service": [
+              "eq"
+            ],
+            "expire": [
+              "eq"
+            ],
+            "device_execution_mode": [
+              "eq",
+              "neq"
+            ],
+            "owner": [
+              "eq"
+            ],
+            "enrollment_mode": [
+              "eq"
+            ],
+            "status": [
+              "eq"
+            ],
+            "issuer": [
+              "like"
+            ],
+            "subject": [
+              "like"
+            ],
+            "valid": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -37996,6 +38323,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -38716,6 +39044,7 @@
             "custom": false,
             "type": "trusted_certificate"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -38980,7 +39309,6 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
-              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -39013,7 +39341,6 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -39081,7 +39408,6 @@
               "type": "string",
               "example": "PZf9eEUH43DAPE9ULINFeuj",
               "description": "The password when creating a new user. It will be generated when not present in the request.",
-              "x-nullable": true,
               "api_fieldname": "password",
               "entity_fieldname": "password",
               "parameter_fieldname": "password",
@@ -39093,7 +39419,6 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
-              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -39116,7 +39441,6 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
-              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -39229,7 +39553,6 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
-                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "_key": "address"
@@ -39404,7 +39727,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -39468,7 +39790,6 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "_key": "password"
@@ -39486,7 +39807,6 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
-                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "_key": "phone_number"
@@ -39529,7 +39849,6 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -39844,6 +40163,7 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -40214,6 +40534,7 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -40429,7 +40750,6 @@
                           "type": "string",
                           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                           "description": "Address.",
-                          "x-nullable": true,
                           "_key": "address"
                         },
                         {
@@ -40574,7 +40894,6 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -40634,7 +40953,6 @@
                           "type": "string",
                           "example": "PZf9eEUH43DAPE9ULINFeuj",
                           "description": "The password when creating a new user. It will be generated when not present in the request.",
-                          "x-nullable": true,
                           "_key": "password"
                         },
                         {
@@ -40648,7 +40966,6 @@
                           "type": "string",
                           "example": "+44 (1223) 400 400",
                           "description": "Phone number.",
-                          "x-nullable": true,
                           "_key": "phone_number"
                         },
                         {
@@ -40683,7 +41000,6 @@
                           "type": "string",
                           "example": "admin",
                           "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                          "x-nullable": true,
                           "_key": "username"
                         }
                       ],
@@ -40908,6 +41224,19 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {
+            "email": [
+              "eq"
+            ],
+            "status": [
+              "eq",
+              "in",
+              "nin"
+            ],
+            "login_profile": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -41072,7 +41401,6 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
-                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "_key": "address"
@@ -41247,7 +41575,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -41311,7 +41638,6 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "_key": "password"
@@ -41329,7 +41655,6 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
-                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "_key": "phone_number"
@@ -41372,7 +41697,6 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -41614,6 +41938,7 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -41675,7 +42000,6 @@
               "type": "string",
               "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
               "description": "Address.",
-              "x-nullable": true,
               "api_fieldname": "address",
               "entity_fieldname": "address",
               "parameter_fieldname": "address",
@@ -41708,7 +42032,6 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -41776,7 +42099,6 @@
               "type": "string",
               "example": "+44 (1223) 400 400",
               "description": "Phone number.",
-              "x-nullable": true,
               "api_fieldname": "phone_number",
               "entity_fieldname": "phone_number",
               "parameter_fieldname": "phone_number",
@@ -41810,7 +42132,6 @@
               "type": "string",
               "example": "admin",
               "description": "A username containing alphanumerical letters and -,._@+= characters.",
-              "x-nullable": true,
               "api_fieldname": "username",
               "entity_fieldname": "username",
               "parameter_fieldname": "username",
@@ -41923,7 +42244,6 @@
                     "type": "string",
                     "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
                     "description": "Address.",
-                    "x-nullable": true,
                     "api_fieldname": "address",
                     "entity_fieldname": "address",
                     "_key": "address"
@@ -42098,7 +42418,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -42162,7 +42481,6 @@
                     "type": "string",
                     "example": "PZf9eEUH43DAPE9ULINFeuj",
                     "description": "The password when creating a new user. It will be generated when not present in the request.",
-                    "x-nullable": true,
                     "api_fieldname": "password",
                     "entity_fieldname": "password",
                     "_key": "password"
@@ -42180,7 +42498,6 @@
                     "type": "string",
                     "example": "+44 (1223) 400 400",
                     "description": "Phone number.",
-                    "x-nullable": true,
                     "api_fieldname": "phone_number",
                     "entity_fieldname": "phone_number",
                     "_key": "phone_number"
@@ -42223,7 +42540,6 @@
                     "type": "string",
                     "example": "admin",
                     "description": "A username containing alphanumerical letters and -,._@+= characters.",
-                    "x-nullable": true,
                     "api_fieldname": "username",
                     "entity_fieldname": "username",
                     "_key": "username"
@@ -42611,6 +42927,7 @@
             "custom": false,
             "type": "user"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -42736,7 +43053,6 @@
           "type": "string",
           "example": "110 Fulbourn Rd, Cambridge, United Kingdom",
           "description": "Address.",
-          "x-nullable": true,
           "api_fieldname": "address",
           "readOnly": false,
           "required": false,
@@ -42879,7 +43195,6 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [
@@ -42943,7 +43258,6 @@
           "type": "string",
           "example": "PZf9eEUH43DAPE9ULINFeuj",
           "description": "The password when creating a new user. It will be generated when not present in the request.",
-          "x-nullable": true,
           "api_fieldname": "password",
           "readOnly": false,
           "required": false,
@@ -42963,7 +43277,6 @@
           "type": "string",
           "example": "+44 (1223) 400 400",
           "description": "Phone number.",
-          "x-nullable": true,
           "api_fieldname": "phone_number",
           "readOnly": false,
           "required": false,
@@ -43029,7 +43342,6 @@
           "type": "string",
           "example": "admin",
           "description": "A username containing alphanumerical letters and -,._@+= characters.",
-          "x-nullable": true,
           "api_fieldname": "username",
           "readOnly": false,
           "required": false,
@@ -43082,7 +43394,6 @@
             {
               "type": "array",
               "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-              "x-nullable": true,
               "items": {
                 "type": "object",
                 "required": [
@@ -43229,7 +43540,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -43543,6 +43853,7 @@
             "custom": false,
             "type": "user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -43819,6 +44130,7 @@
             "custom": false,
             "type": "user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -43974,7 +44286,6 @@
                         {
                           "type": "array",
                           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                          "x-nullable": true,
                           "items": {
                             "type": "object",
                             "required": [
@@ -44265,6 +44576,11 @@
             "custom": false,
             "type": "user_invitation"
           },
+          "x_filter": {
+            "login_profile": [
+              "eq"
+            ]
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -44387,7 +44703,6 @@
                   {
                     "type": "array",
                     "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-                    "x-nullable": true,
                     "items": {
                       "type": "object",
                       "required": [
@@ -44701,6 +45016,7 @@
             "custom": false,
             "type": "user_invitation"
           },
+          "x_filter": {},
           "drop_fields": [
             "object",
             "etag",
@@ -44778,7 +45094,6 @@
         {
           "type": "array",
           "description": "A list of login profiles for the user. Specified as the identity providers the user is associated with.",
-          "x-nullable": true,
           "items": {
             "type": "object",
             "required": [

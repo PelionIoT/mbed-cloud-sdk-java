@@ -12,11 +12,44 @@ import java.util.List;
 
 /**
  * Options to use when listing subtenant users.
+ * <p>
+ * Note:
+ * <p>
+ * <ul>
+ * <li>Filters:
+ * <p>
+ * The list can be filtered server-side on some of the fields of a subtenant user.
+ * <p>
+ * The following filters are currently supported:
+ * 
+ * <p>
+ * <table style="border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0" summary="Available
+ * filters">
+ * <caption>Server-side filters</caption>
+ * <tr>
+ * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" rowspan="2">Field</th>
+ * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" rowspan="2">Tag</th>
+ * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" colspan="7">Filters</th>
+ * </tr>
+ * <tr>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">not equal to</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">equal to</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">greater than</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">less than</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">like</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">in</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">not in</td>
+ * </tr>
+ * </table>
+ * </li>
+ * </ul>
  */
 @Preamble(description = "Options to use when listing subtenant users.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class SubtenantUserListOptions extends ListOptions {
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #SubtenantUserListOptions()} instead.
      * 
@@ -47,6 +80,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #SubtenantUserListOptions()} instead.
      * 
@@ -69,6 +103,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #SubtenantUserListOptions()} instead.
      * 
@@ -81,11 +116,12 @@ public class SubtenantUserListOptions extends ListOptions {
      */
     @Internal
     public SubtenantUserListOptions(String after, List<IncludeField> include, Filters filter) {
-        this(0, 0L, Order.getDefault(), after, include, filter);
+        this((Integer) null, (Long) null, Order.getDefault(), after, include, filter);
     }
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -99,6 +135,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -107,11 +144,14 @@ public class SubtenantUserListOptions extends ListOptions {
     @Override
     public String toString() {
         return "SubtenantUserListOptions [pageSize=" + pageSize + ", maxResults=" + maxResults + ", order=" + order
-               + ", after=" + after + ", include=" + encodeInclude() + ", filter=" + retrieveFilterAsJson() + "]";
+               + ", after=" + after + ", include="
+               + com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder.encodeInclude(this) + ", filter="
+               + retrieveFilterAsJson() + "]";
     }
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

@@ -62,4 +62,13 @@ public interface ModelDao<T extends SdkModel> extends CloudDao {
      */
     T getModel() throws MbedCloudException;
 
+    /**
+     * Gets the Model Object (POJO) containing the data or a new instance if it was not initially set.
+     *
+     * @return the data model or a new instance.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    T getModelOrNew() throws MbedCloudException;
+
 }

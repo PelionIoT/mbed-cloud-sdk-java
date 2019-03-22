@@ -18,6 +18,16 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 public class FilterOptions implements Cloneable {
 
     public static final String METHOD_FILTER_TO_STRING = "retrieveFilterAsJson";
+    public static final String METHOD_FILTER_ADD_EQUAL = "addEqualFilter";
+    public static final String METHOD_FILTER_ADD_NOT_EQUAL = "addNotEqualFilter";
+    public static final String METHOD_FILTER_ADD_GREATER_THAN = "addGreaterThanFilter";
+    public static final String METHOD_FILTER_ADD_LESS_THAN = "addLessThanFilter";
+    public static final String METHOD_FILTER_ADD_IN = "addInFilter";
+    public static final String METHOD_FILTER_ADD_NOT_IN = "addNotInFilter";
+    public static final String METHOD_FILTER_ADD_LIKE = "addLikeFilter";
+    public static final String METHOD_FILTER_FETCH = "fetchFilters";
+    public static final String METHOD_HAS_FILTERS = "hasFilters";
+    public static final String METHOD_HAS_FILTER = "hasFilter";
     /**
      * Optional filters.
      */
@@ -152,12 +162,22 @@ public class FilterOptions implements Cloneable {
     /**
      * Determines whether filters have been set or not.
      *
+     * @return True if there is a filter defined. False otherwise.
+     */
+    public boolean hasFilters() {
+        return filter != null && !filter.isEmpty();
+    }
+
+    /**
+     * Determines whether filters have been set or not.
+     *
      * @param fieldName
      *            field the filter applies to
      * @return True if there is a filter defined. False otherwise.
      */
     public boolean hasFilters(String fieldName) {
-        return fetchFilters(fieldName) != null && !fetchFilters(fieldName).isEmpty();
+        final List<Filter> filterList = fetchFilters(fieldName);
+        return filterList != null && !filterList.isEmpty();
     }
 
     /**
@@ -355,6 +375,20 @@ public class FilterOptions implements Cloneable {
      * @param fieldName
      *            field name to apply the filter on
      * @param values
+     *            the list values of the filter
+     * @param <T>
+     *            type of the filter values
+     */
+    public <T> void addInFilter(@Nullable String fieldName, @NonNull T[] values) {
+        addFilter(fieldName, FilterOperator.IN, values);
+    }
+
+    /**
+     * Adds an "in" filter.
+     *
+     * @param fieldName
+     *            field name to apply the filter on
+     * @param values
      *            a JSON array or a comma-separated list of values for the filter
      */
     public void addInFilter(@Nullable String fieldName, @NonNull String values) {
@@ -372,6 +406,20 @@ public class FilterOptions implements Cloneable {
      *            type of the filter values
      */
     public <T> void addNotInFilter(@Nullable String fieldName, @NonNull List<T> values) {
+        addFilter(fieldName, FilterOperator.NOT_IN, values);
+    }
+
+    /**
+     * Adds a "not in" filter.
+     *
+     * @param fieldName
+     *            field name to apply the filter on
+     * @param values
+     *            the list values of the filter
+     * @param <T>
+     *            type of the filter values
+     */
+    public <T> void addNotInFilter(@Nullable String fieldName, @NonNull T[] values) {
         addFilter(fieldName, FilterOperator.NOT_IN, values);
     }
 
@@ -399,4 +447,33 @@ public class FilterOptions implements Cloneable {
         addFilter(fieldName, FilterOperator.EQUAL, value);
     }
 
+    protected Object fetchEqualFilterValue(@Nullable String fieldName) {
+        return fetchSpecificFilterValue(fieldName, FilterOperator.EQUAL);
+    }
+
+    protected Object fetchNotEqualFilterValue(@Nullable String fieldName) {
+        return fetchSpecificFilterValue(fieldName, FilterOperator.NOT_EQUAL);
+    }
+
+    protected Object fetchLikeFilterValue(@Nullable String fieldName) {
+        // If no like filter was entered but an equal filter was, equal filter is considered.
+        final Object specificLike = fetchSpecificFilterValue(fieldName, FilterOperator.LIKE);
+        return (specificLike == null) ? fetchEqualFilterValue(fieldName) : specificLike;
+    }
+
+    protected Object fetchInFilterValue(@Nullable String fieldName) {
+        return fetchSpecificFilterValue(fieldName, FilterOperator.IN);
+    }
+
+    protected Object fetchNotInFilterValue(@Nullable String fieldName) {
+        return fetchSpecificFilterValue(fieldName, FilterOperator.NOT_IN);
+    }
+
+    protected Object fetchGreaterThanFilterValue(@Nullable String fieldName) {
+        return fetchSpecificFilterValue(fieldName, FilterOperator.GREATER_THAN);
+    }
+
+    protected Object fetchLessThanFilterValue(@Nullable String fieldName) {
+        return fetchSpecificFilterValue(fieldName, FilterOperator.LESS_THAN);
+    }
 }

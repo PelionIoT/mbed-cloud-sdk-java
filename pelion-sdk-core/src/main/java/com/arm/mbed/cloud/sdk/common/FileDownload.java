@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.model.DataFile;
 
 @Preamble(description = "File on the disk resulting from a download or where some content will be downloaded")
 public class FileDownload {
@@ -29,6 +30,7 @@ public class FileDownload {
         TXT,
         GZ,
         CSV,
+        ZIP,
         DEFAULT
     }
 
@@ -171,6 +173,17 @@ public class FileDownload {
      */
     public File getDestination() {
         return destination;
+    }
+
+    /**
+     * Gets destination data file.
+     * <p>
+     * Note: Similar to {@link #getDestination()} but returning a {@link DataFile} instead.
+     * 
+     * @return the downloaded data file.
+     */
+    public DataFile getDestinationFile() {
+        return new DataFile(getDestination());
     }
 
     /**

@@ -241,11 +241,9 @@ public class ModelDao extends Model {
         method.setIgnoreShortName(true);
         method.addException(MbedCloudException.class);
         method.setNeedsCustomCode(needsCustomCode);
+        method.setDeprecation(moduleMethod.getDeprecation());
         method.initialiseCodeBuilder();
         generateMethodCodeAndReturnType(moduleMethod, method, moduleType);
-        if (suffix == null) {
-            method.generateSuffix();
-        }
         return method;
     }
 
@@ -347,8 +345,19 @@ public class ModelDao extends Model {
 
     @Override
     protected void generateMethodsDependingOnParents(Model theParent) {
-        addConstructor(new MethodModelDaoConstructorEmpty(this, theParent));
+        generateConstructors(theParent);
         generateClone(theParent);
+    }
+
+    @Override
+    protected void generateConstructors(Model theParent) {
+        if (hasSuperClass() && (superClassType.hasClass() || superClassType instanceof TypeCompose)) {
+            final Class<?> parentClass = superClassType.hasClass() ? superClassType.getClazz()
+                                                                   : ((TypeCompose) superClassType).getRawClass();
+
+            Arrays.asList(parentClass.getConstructors()).stream()
+                  .forEach(c -> addConstructor(new MethodConstructorFromParent(c, this)));
+        }
     }
 
     @Override
@@ -402,7 +411,6 @@ public class ModelDao extends Model {
             MethodOverloaded method = new MethodOverloaded(m, "Instantiates model", null, true, true, null);
             method.setAbstract(false);
             method.setInternal(true);
-            method.generateSuffix();
             return method;
         }).collect(Collectors.toList());
         for (Method m : methods) {

@@ -12,6 +12,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -126,7 +127,7 @@ public class DeviceDirectory extends AbstractModule {
             public Call<DevicePage> call() {
                 return endpoint.getDirectory()
                                .deviceList(finalOptions.getPageSize(), finalOptions.getOrder().toString(),
-                                           finalOptions.getAfter(), finalOptions.encodeInclude(),
+                                           finalOptions.getAfter(), ListOptionsEncoder.encodeInclude(finalOptions),
                                            DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()));
             }
         });
@@ -404,7 +405,7 @@ public class DeviceDirectory extends AbstractModule {
             public Call<DeviceQueryPage> call() {
                 return endpoint.getDirectory()
                                .deviceQueryList(finalOptions.getPageSize(), finalOptions.getOrder().toString(),
-                                                finalOptions.getAfter(), finalOptions.encodeInclude(),
+                                                finalOptions.getAfter(), ListOptionsEncoder.encodeInclude(finalOptions),
                                                 new FilterMarshaller(null).encode(finalOptions.getFilter()));
             }
         });
@@ -702,7 +703,7 @@ public class DeviceDirectory extends AbstractModule {
                                                        .deviceLogList(finalOptions.getPageSize(),
                                                                       finalOptions.getOrder().toString(),
                                                                       finalOptions.getAfter(),
-                                                                      finalOptions.encodeInclude(),
+                                                                      ListOptionsEncoder.encodeInclude(finalOptions),
                                                                       DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()));
                                     }
                                 });

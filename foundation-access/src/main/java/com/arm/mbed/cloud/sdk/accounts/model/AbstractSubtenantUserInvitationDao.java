@@ -31,13 +31,108 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
                                                          ReadDao<SubtenantUserInvitation> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public AbstractSubtenantUserInvitationDao() throws MbedCloudException {
         super();
     }
 
     /**
+     * Constructor.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public AbstractSubtenantUserInvitationDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            a connection options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public AbstractSubtenantUserInvitationDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            an sdk context.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public AbstractSubtenantUserInvitationDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+    }
+
+    /**
      * Adds a subtenant user invitation.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
+     * 
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public SubtenantUserInvitation create() throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(getModel()));
+        return getModel();
+    }
+
+    /**
+     * Adds a subtenant user invitation.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
+     * 
+     * @param subtenantUserInvitation
+     *            a subtenant user invitation.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public SubtenantUserInvitation
+           create(@NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
+        setModel(subtenantUserInvitation);
+        return create();
+    }
+
+    /**
+     * Adds a subtenant user invitation.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
+     * 
+     * @param accountId
+     *            The ID of the account the user is invited to.
+     * @return an added subtenant user invitation
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public SubtenantUserInvitation create(@NonNull String accountId) throws MbedCloudException {
+        setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(accountId, getModel()));
+        return getModel();
+    }
+
+    /**
+     * Adds a subtenant user invitation.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(int, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
@@ -46,6 +141,8 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
      *            between 1 and 100 days.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public SubtenantUserInvitation create(@Nullable int validForDays) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(validForDays, getModel()));
@@ -54,6 +151,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Adds a subtenant user invitation.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(int, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
@@ -64,6 +162,8 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * @param accountId
      *            The ID of the account the user is invited to.
      * @return an added subtenant user invitation
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public SubtenantUserInvitation create(@Nullable int validForDays,
                                           @NonNull String accountId) throws MbedCloudException {
@@ -73,9 +173,13 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Deletes a subtenant user invitation.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -84,12 +188,15 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Deletes a subtenant user invitation.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
      * 
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
@@ -99,6 +206,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Deletes a subtenant user invitation.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUserInvitation(String, String)}
      * 
@@ -106,6 +214,8 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      *            Account ID.
      * @param id
      *            The ID of the invitation to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public void delete(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         ((Accounts) getModuleOrThrow()).deleteSubtenantUserInvitation(accountId, id);
@@ -163,11 +273,14 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Gets a subtenant user invitation.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
      * 
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public SubtenantUserInvitation read() throws MbedCloudException {
@@ -177,6 +290,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Gets a subtenant user invitation.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantUserInvitation(String, String)}
      * 
@@ -185,6 +299,8 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * @param id
      *            The ID of the invitation.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public SubtenantUserInvitation read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).readSubtenantUserInvitation(accountId, id));

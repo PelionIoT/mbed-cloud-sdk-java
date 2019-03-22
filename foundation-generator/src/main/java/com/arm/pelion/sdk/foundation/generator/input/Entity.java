@@ -213,6 +213,10 @@ public class Entity {
         return methods.stream().filter(m -> isOtherPaginatedMethod(m)).collect(Collectors.toList());
     }
 
+    public Method getListMethod() {
+        return methods.stream().filter(m -> m.isListMethod()).findFirst().orElse(null);
+    }
+
     private boolean isOtherPaginatedMethod(Method m) {
         return m.hasPaginatedResponse() && !(m.isListMethod() || m.getReturnInformation().doesReturnItSelf());
     }

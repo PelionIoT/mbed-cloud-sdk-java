@@ -24,19 +24,60 @@ import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements ReadDao<DeviceEvents> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public DeviceEventsDao() throws MbedCloudException {
         super();
     }
 
     /**
+     * Constructor.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEventsDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            a connection options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEventsDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            an sdk context.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEventsDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+    }
+
+    /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings({ "resource", "unused" })
     public DeviceEventsDao clone() {
         try {
             return new DeviceEventsDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -98,11 +139,14 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
 
     /**
      * Gets a device events.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(com.arm.mbed.cloud.sdk.devices.model.DeviceEvents)}
      * 
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public DeviceEvents read() throws MbedCloudException {
@@ -112,12 +156,15 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
 
     /**
      * Gets a device events.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(String)}
      * 
      * @param id
-     *            null
+     *            a string
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public DeviceEvents read(@NonNull String id) throws MbedCloudException {

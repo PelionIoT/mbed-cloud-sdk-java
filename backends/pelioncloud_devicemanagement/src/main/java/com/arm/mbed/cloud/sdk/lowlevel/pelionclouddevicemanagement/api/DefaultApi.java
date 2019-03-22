@@ -8,13 +8,13 @@ import retrofit2.http.*;
 import okhttp3.MultipartBody;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BillingReportRawDataResponse;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Block;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Block1;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColor;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColorList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImageList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadata;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadataPage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignMetrics;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceBlockCategory;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceBlockCategoryPage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPutRequest;
@@ -52,74 +52,6 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UploadJ
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UploadJobPage;
 
 public interface DefaultApi {
-    /**
-     * List all device block categories List all device block categories. A block category is a short description of why
-     * a device was suspended or returned to service.
-     * 
-     * @param limit
-     *            How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values
-     *            outside of this range are set to the closest limit. (optional)
-     * @param order
-     *            The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default
-     *            &#x60;ASC&#x60;. (optional)
-     * @param after
-     *            The ID of The item after which to retrieve the next page. (optional)
-     * @param include
-     *            Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60; (optional)
-     * @param filter
-     *            URL encoded query string parameter to filter returned data. ##### Filtering
-     *            &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60; The query string is made
-     *            up of key/value pairs separated by ampersands. So for a query of
-     *            &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this
-     *            would be encoded as follows:
-     *            &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; ######
-     *            Filterable fields: The below table lists all the fields that can be filtered on with certain filters:
-     *            &lt;table&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;Field&lt;/th&gt; &lt;th&gt;&#x3D; / __eq /
-     *            __neq&lt;/th&gt; &lt;th&gt;__in / __nin&lt;/th&gt; &lt;th&gt;__lte / __gte&lt;/th&gt; &lt;tr&gt;
-     *            &lt;thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;created_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp; The examples below show
-     *            the queries in *unencoded* form. ###### By id: &#x60;&#x60;&#x60;id&#x3D;{id}&#x60;&#x60;&#x60; ######
-     *            On date-time fields: Date-time fields should be specified in UTC RFC3339 format
-     *            &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations: *
-     *            UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g.
-     *            2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g.
-     *            20161130T162512Z Date-time filtering supports three operators: * equality * greater than or equal to
-     *            &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to
-     *            &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; Lower and upper limits
-     *            to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60;
-     *            and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter. &#x60;&#x60;&#x60;{field
-     *            name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60; ##### Multi-field example
-     *            &#x60;&#x60;&#x60;id&#x3D;maintenance&amp;26created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&#x60;&#x60;&#x60;
-     *            Encoded:
-     *            &#x60;&#x60;&#x60;?filter&#x3D;id%3Dmaintenance%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z&#x60;&#x60;&#x60;
-     *            ##### Filtering with filter operators String field filtering supports the following operators: *
-     *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
-     *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
-     *            comma-separated: &#x60;id__in&#x3D;maintenance,destroyed&#x60; (optional)
-     * @return Call&lt;DeviceBlockCategoryPage&gt;
-     */
-    @GET("v3/device-block-categories/")
-    Call<DeviceBlockCategoryPage> blockCategoriesList(@retrofit2.http.Query("limit") Integer limit,
-                                                      @retrofit2.http.Query("order") String order,
-                                                      @retrofit2.http.Query("after") String after,
-                                                      @retrofit2.http.Query("include") String include,
-                                                      @retrofit2.http.Query("filter") String filter);
-
-    /**
-     * Get a device block category Get a device block category. A block category is a short description of why a device
-     * was suspended or returned to service.
-     * 
-     * @param blockCategoryReference
-     *            The reference of the block category (required)
-     * @return Call&lt;DeviceBlockCategory&gt;
-     */
-    @GET("v3/device-block-categories/{block_category_reference}")
-    Call<DeviceBlockCategory>
-        blockCategoriesRetrieve(@retrofit2.http.Path(value = "block_category_reference",
-                                                     encoded = true) String blockCategoryReference);
-
     /**
      * Create a device Create a new device.
      * 
@@ -239,13 +171,11 @@ public interface DefaultApi {
      *            Filterable fields: The below table lists all the fields that can be filtered on with certain filters:
      *            &lt;table&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;Field&lt;/th&gt; &lt;th&gt;&#x3D; / __eq /
      *            __neq&lt;/th&gt; &lt;th&gt;__in / __nin&lt;/th&gt; &lt;th&gt;__lte / __gte&lt;/th&gt; &lt;tr&gt;
-     *            &lt;thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;lifecycle_status&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;account_id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;account_id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;auto_update&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
-     *            &lt;tr&gt; &lt;td&gt;bootstrap_expiration_date&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;auto_update&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;bootstrap_expiration_date&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
      *            &lt;td&gt;bootstrapped_timestamp&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;ca_id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
@@ -286,23 +216,9 @@ public interface DefaultApi {
      *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;updated_at&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
      *            &lt;td&gt;vendor_id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;issuer_fingerprint&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
-     *            &lt;tr&gt; &lt;td&gt;lifecycle_status&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;operator_suspended&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
-     *            &lt;tr&gt; &lt;td&gt;last_operator_suspension_category&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;last_operator_suspension_updated_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;system_suspended&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;last_system_suspension_category&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;last_system_suspension_updated_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;
-     *            The examples below show the queries in *unencoded* form. ###### By device properties (all properties
-     *            are filterable):
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp; The examples
+     *            below show the queries in *unencoded* form. ###### By device properties (all properties are
+     *            filterable):
      *            &#x60;&#x60;&#x60;state&#x3D;[unenrolled|cloud_enrolling|bootstrapped|registered]&#x60;&#x60;&#x60;
      *            &#x60;&#x60;&#x60;device_class&#x3D;{value}&#x60;&#x60;&#x60; ###### On date-time fields: Date-time
      *            fields should be specified in UTC RFC3339 format
@@ -514,20 +430,6 @@ public interface DefaultApi {
                                         @retrofit2.http.Body DeviceQueryPostPutRequest body);
 
     /**
-     * Return a device to service. Returning a device to service restores connectivity to the device. All API
-     * functionality is restored.
-     * 
-     * @param id
-     *            (required)
-     * @param block
-     *            (required)
-     * @return Call&lt;Void&gt;
-     */
-    @POST("v3/devices/{id}/resume")
-    Call<Void> deviceResume(@retrofit2.http.Path(value = "id", encoded = true) String id,
-                            @retrofit2.http.Body Block block);
-
-    /**
      * Get a device Retrieve information about a specific device.
      * 
      * @param id
@@ -536,20 +438,6 @@ public interface DefaultApi {
      */
     @GET("v3/devices/{id}/")
     Call<DeviceData> deviceRetrieve(@retrofit2.http.Path(value = "id", encoded = true) String id);
-
-    /**
-     * Suspend a device. Suspending a device prevents a device from connecting. If a device is currently connected, it
-     * will be disconnected. Some API operations will fail while a device is suspended.
-     * 
-     * @param id
-     *            (required)
-     * @param block
-     *            (required)
-     * @return Call&lt;Void&gt;
-     */
-    @POST("v3/devices/{id}/suspend")
-    Call<Void> deviceSuspend(@retrofit2.http.Path(value = "id", encoded = true) String id,
-                             @retrofit2.http.Body Block1 block);
 
     /**
      * Update a device Update a specific device.
@@ -812,6 +700,108 @@ public interface DefaultApi {
     Call<BillingReportRawDataResponse> getBillingReportFirmwareUpdates(@retrofit2.http.Query("month") String month);
 
     /**
+     * Get branding colors of the dark theme. Returns the branding colors of the dark theme.
+     * 
+     * @param accountId
+     *            The ID of the account whose branding colors to be fetched. (required)
+     * @return Call&lt;BrandingColorList&gt;
+     */
+    @GET("auth/accounts/{account_id}/branding-colors/dark")
+    Call<BrandingColorList>
+        getLoginPageAllDarkColors(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
+
+    /**
+     * Get metadata of all images of the dark theme. Returns the metadata of all branding images of the dark theme.
+     * 
+     * @param accountId
+     *            The ID of the account whose branding images to be fetched. (required)
+     * @return Call&lt;BrandingImageList&gt;
+     */
+    @GET("auth/accounts/{account_id}/branding-images/dark")
+    Call<BrandingImageList>
+        getLoginPageAllDarkImageData(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
+
+    /**
+     * Get branding colors of the light theme. Returns the branding colors of the light theme.
+     * 
+     * @param accountId
+     *            The ID of the account whose branding colors to be fetched. (required)
+     * @return Call&lt;BrandingColorList&gt;
+     */
+    @GET("auth/accounts/{account_id}/branding-colors/light")
+    Call<BrandingColorList>
+        getLoginPageAllLightColors(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
+
+    /**
+     * Get metadata of all images of the light theme. Returns the metadata of all branding images of the light theme.
+     * 
+     * @param accountId
+     *            The ID of the account whose branding images to be fetched. (required)
+     * @return Call&lt;BrandingImageList&gt;
+     */
+    @GET("auth/accounts/{account_id}/branding-images/light")
+    Call<BrandingImageList>
+        getLoginPageAllLightImageData(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
+
+    /**
+     * Get branding color of the dark theme. Returns the requested branding color of the dark theme.
+     * 
+     * @param accountId
+     *            The ID of the account whose branding colors to be fetched. (required)
+     * @param reference
+     *            The name of the branding color. (required)
+     * @return Call&lt;BrandingColor&gt;
+     */
+    @GET("auth/accounts/{account_id}/branding-colors/dark/{reference}")
+    Call<BrandingColor>
+        getLoginPageDarkColor(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                              @retrofit2.http.Path(value = "reference", encoded = true) String reference);
+
+    /**
+     * Get metadata of an image of the dark theme. An endpoint for getting metadata of one account branding image of the
+     * dark theme.
+     * 
+     * @param accountId
+     *            The ID of the account whose branding image to be fetched. (required)
+     * @param reference
+     *            Name of the picture whose metadata to be fetched. (required)
+     * @return Call&lt;BrandingImage&gt;
+     */
+    @GET("auth/accounts/{account_id}/branding-images/dark/{reference}")
+    Call<BrandingImage>
+        getLoginPageDarkImageData(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                                  @retrofit2.http.Path(value = "reference", encoded = true) String reference);
+
+    /**
+     * Get branding color of the light theme. Returns the requested branding color of the light theme.
+     * 
+     * @param accountId
+     *            The ID of the account whose branding colors to be fetched. (required)
+     * @param reference
+     *            The name of the branding color. (required)
+     * @return Call&lt;BrandingColor&gt;
+     */
+    @GET("auth/accounts/{account_id}/branding-colors/light/{reference}")
+    Call<BrandingColor>
+        getLoginPageLightColor(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                               @retrofit2.http.Path(value = "reference", encoded = true) String reference);
+
+    /**
+     * Get metadata of an image of the light theme. An endpoint for getting metadata of one account branding image of
+     * the light theme.
+     * 
+     * @param accountId
+     *            The ID of the account whose branding image to be fetched. (required)
+     * @param reference
+     *            Name of the picture whose metadata to be fetched. (required)
+     * @return Call&lt;BrandingImage&gt;
+     */
+    @GET("auth/accounts/{account_id}/branding-images/light/{reference}")
+    Call<BrandingImage>
+        getLoginPageLightImageData(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                                   @retrofit2.http.Path(value = "reference", encoded = true) String reference);
+
+    /**
      * Service package quota. Get the available firmware update quota for the currently authenticated commercial
      * account. **Example usage:** curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota -H
      * &#39;authorization: Bearer {api-key}&#39;
@@ -1022,10 +1012,10 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;state__nin&#x3D;unenrolled,dergistered&#x60; (optional)
-     * @return Call&lt;DevicePage&gt;
+     * @return Call&lt;Void&gt;
      */
     @GET("v3/device-groups/{device-group-id}/devices/")
-    Call<DevicePage>
+    Call<Void>
         groupMembersRetrieve(@retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId,
                              @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                              @retrofit2.http.Query("after") String after,

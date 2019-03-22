@@ -15,8 +15,8 @@ import com.arm.mbed.cloud.sdk.common.CloudRequest;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
-import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -51,7 +51,6 @@ import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate;
 import com.arm.mbed.cloud.sdk.security.model.TrustedCertificate;
 import com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions;
 import com.arm.mbed.cloud.sdk.security.model.VerificationResponse;
-import java.util.Date;
 import java.util.Map;
 import retrofit2.Call;
 
@@ -122,6 +121,12 @@ public class Security extends AbstractModule {
      * Parameter name.
      */
     @Internal
+    private static final String TAG_SERVER_CREDENTIALS = "serverCredentials";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
     private static final String TAG_ACCOUNT_ID = "accountId";
 
     /**
@@ -177,6 +182,7 @@ public class Security extends AbstractModule {
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -189,6 +195,28 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a certificate issuer.
+     * 
+     * <p>
+     * Similar to
+     * {@link #createCertificateIssuer(java.util.Map, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * 
+     * @param certificateIssuerRequest
+     *            a certificate issuer.
+     * @return an added certificate issuer
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public CertificateIssuer
+           createCertificateIssuer(@NonNull CertificateIssuer certificateIssuerRequest) throws MbedCloudException {
+        checkNotNull(certificateIssuerRequest, TAG_CERTIFICATE_ISSUER_REQUEST);
+        return createCertificateIssuer((java.util.Map<String, String>) null, certificateIssuerRequest);
+    }
+
+    /**
+     * Adds a certificate issuer.
+     * 
      * <p>
      * Create a certificate issuer. The maximum number of issuers is limited to 20 per account. Multiple certificate
      * issuers of the same issuer type can be created, provided they have a different name. This allows verification of
@@ -225,6 +253,8 @@ public class Security extends AbstractModule {
      * @param certificateIssuerRequest
      *            a certificate issuer.
      * @return an added certificate issuer
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -253,6 +283,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a certificate issuer config.
+     * 
      * <p>
      * Configure the certificate issuer to be used when creating the device custom certificates. [br] **Example usage:**
      * 
@@ -263,6 +294,8 @@ public class Security extends AbstractModule {
      * @param createCertificateIssuerConfig
      *            a certificate issuer config.
      * @return an added certificate issuer config
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -288,6 +321,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a developer certificate.
+     * 
      * <p>
      * This REST API is intended to be used by customers to get a developer certificate (a certificate that can be
      * flashed into multiple devices to connect to bootstrap server).
@@ -303,6 +337,8 @@ public class Security extends AbstractModule {
      * @param developerCertificate
      *            a developer certificate.
      * @return an added developer certificate
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -328,6 +364,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a subtenant trusted certificate.
+     * 
      * <p>
      * An endpoint for uploading new trusted certificates.
      * 
@@ -341,6 +378,8 @@ public class Security extends AbstractModule {
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
      * @return an added subtenant trusted certificate
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -371,6 +410,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a subtenant trusted certificate.
+     * 
      * <p>
      * Similar to
      * {@link #createSubtenantTrustedCertificate(String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
@@ -378,6 +418,8 @@ public class Security extends AbstractModule {
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -391,6 +433,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a trusted certificate.
+     * 
      * <p>
      * An endpoint for uploading new trusted certificates.
      * 
@@ -401,6 +444,8 @@ public class Security extends AbstractModule {
      * @param trustedCertificate
      *            a trusted certificate.
      * @return an added trusted certificate
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -426,11 +471,14 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a certificate issuer.
+     * 
      * <p>
      * Similar to {@link #deleteCertificateIssuer(String)}
      * 
      * @param certificateIssuer
      *            a certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteCertificateIssuer(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
@@ -440,6 +488,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a certificate issuer.
+     * 
      * <p>
      * Delete a certificate issuer by ID. [br] **Example usage:**
      * 
@@ -450,6 +499,8 @@ public class Security extends AbstractModule {
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer. An active certificate issuer may not be deleted.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteCertificateIssuer(@NonNull String id) throws MbedCloudException {
@@ -470,11 +521,14 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a certificate issuer config.
+     * 
      * <p>
      * Similar to {@link #deleteCertificateIssuerConfig(String)}
      * 
      * @param certificateIssuerConfig
      *            a certificate issuer config.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void
@@ -485,6 +539,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a certificate issuer config.
+     * 
      * <p>
      * Delete the configured certificate issuer configuration. You can only delete the configurations of custom
      * certificates.
@@ -492,6 +547,8 @@ public class Security extends AbstractModule {
      * @param id
      *            The ID of the certificate issuer configuration.
      * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteCertificateIssuerConfig(@NonNull String id) throws MbedCloudException {
@@ -512,11 +569,14 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a developer certificate.
+     * 
      * <p>
      * Similar to {@link #deleteDeveloperCertificate(String)}
      * 
      * @param developerCertificate
      *            a developer certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void
@@ -527,6 +587,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a developer certificate.
+     * 
      * <p>
      * An endpoint for deleting a trusted certificate.
      * 
@@ -535,6 +596,8 @@ public class Security extends AbstractModule {
      * 
      * @param id
      *            The ID of the trusted certificate to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteDeveloperCertificate(@NonNull String id) throws MbedCloudException {
@@ -555,6 +618,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a subtenant trusted certificate.
+     * 
      * <p>
      * An endpoint for deleting the trusted certificate.
      * 
@@ -566,6 +630,8 @@ public class Security extends AbstractModule {
      *            Account ID.
      * @param id
      *            The ID of the trusted certificate to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteSubtenantTrustedCertificate(@NonNull String accountId,
@@ -589,11 +655,14 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a subtenant trusted certificate.
+     * 
      * <p>
      * Similar to {@link #deleteSubtenantTrustedCertificate(String, String)}
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void
@@ -605,6 +674,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a trusted certificate.
+     * 
      * <p>
      * An endpoint for deleting a trusted certificate.
      * 
@@ -613,6 +683,8 @@ public class Security extends AbstractModule {
      * 
      * @param id
      *            The ID of the trusted certificate to be deleted.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteTrustedCertificate(@NonNull String id) throws MbedCloudException {
@@ -633,11 +705,14 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a trusted certificate.
+     * 
      * <p>
      * Similar to {@link #deleteTrustedCertificate(String)}
      * 
      * @param trustedCertificate
      *            a trusted certificate.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public void deleteTrustedCertificate(@NonNull TrustedCertificate trustedCertificate) throws MbedCloudException {
@@ -648,6 +723,7 @@ public class Security extends AbstractModule {
     /**
      * Fetch bootstrap server credentials.
      * 
+     * 
      * <p>
      * This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to
      * use with their clients to connect to bootstrap server.
@@ -656,6 +732,8 @@ public class Security extends AbstractModule {
      * application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
      * 
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -675,13 +753,36 @@ public class Security extends AbstractModule {
     }
 
     /**
+     * Fetch bootstrap server credentials.
+     * 
+     * 
+     * <p>
+     * Similar to {@link #getBootstrap()}
+     * 
+     * @param serverCredentials
+     *            a server credentials.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ServerCredentials getBootstrap(@NonNull ServerCredentials serverCredentials) throws MbedCloudException {
+        checkNotNull(serverCredentials, TAG_SERVER_CREDENTIALS);
+        return getBootstrap();
+    }
+
+    /**
      * Get certificate issuer configuration.
+     * 
      * 
      * <p>
      * Provides the configured certificate issuer to be used when creating device certificates for LwM2M
      * communication.[br]
      * 
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -702,7 +803,29 @@ public class Security extends AbstractModule {
     }
 
     /**
+     * Get certificate issuer configuration.
+     * 
+     * 
+     * <p>
+     * Similar to {@link #getDefault()}
+     * 
+     * @param certificateIssuerConfig
+     *            a certificate issuer config.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public CertificateIssuerConfig
+           getDefault(@NonNull CertificateIssuerConfig certificateIssuerConfig) throws MbedCloudException {
+        checkNotNull(certificateIssuerConfig, TAG_CERTIFICATE_ISSUER_CONFIG);
+        return getDefault();
+    }
+
+    /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
+     * 
      * 
      * <p>
      * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that
@@ -712,8 +835,10 @@ public class Security extends AbstractModule {
      * -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
      * 
      * @param id
-     *            ID that uniquely identifies the developer certificate.
+     *            mUUID that uniquely identifies the developer certificate.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -737,12 +862,15 @@ public class Security extends AbstractModule {
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
      * 
+     * 
      * <p>
      * Similar to {@link #getDeveloperCertificateInfo(String)}
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -755,12 +883,15 @@ public class Security extends AbstractModule {
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
      * 
+     * 
      * <p>
      * Similar to {@link #getDeveloperCertificateInfo(String)}
      * 
      * @param trustedCertificate
      *            a trusted certificate.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -775,12 +906,14 @@ public class Security extends AbstractModule {
      * 
      * @return endpoints
      */
+    @Internal
     public SecurityEndpoints getEndpoints() {
         return endpoints;
     }
 
     /**
      * Fetch LwM2M server credentials.
+     * 
      * 
      * <p>
      * This REST API is intended to be used by customers to fetch LwM2M server credentials that they will need to use
@@ -790,6 +923,8 @@ public class Security extends AbstractModule {
      * application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
      * 
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -809,6 +944,26 @@ public class Security extends AbstractModule {
     }
 
     /**
+     * Fetch LwM2M server credentials.
+     * 
+     * 
+     * <p>
+     * Similar to {@link #getLwm2m()}
+     * 
+     * @param serverCredentials
+     *            a server credentials.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ServerCredentials getLwm2m(@NonNull ServerCredentials serverCredentials) throws MbedCloudException {
+        checkNotNull(serverCredentials, TAG_SERVER_CREDENTIALS);
+        return getLwm2m();
+    }
+
+    /**
      * Gets module name.
      * 
      * @return module name
@@ -822,12 +977,15 @@ public class Security extends AbstractModule {
     /**
      * Get trusted certificate by ID.
      * 
+     * 
      * <p>
      * Similar to {@link #getTrustedCertificateInfo(String)}
      * 
      * @param developerCertificate
      *            a developer certificate.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -840,6 +998,7 @@ public class Security extends AbstractModule {
     /**
      * Get trusted certificate by ID.
      * 
+     * 
      * <p>
      * An endpoint for retrieving a trusted certificate by ID.
      * 
@@ -849,6 +1008,8 @@ public class Security extends AbstractModule {
      * @param id
      *            Entity ID.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -871,52 +1032,20 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of certificate enrollments matching filter options.
+     * 
      * <p>
      * Gets an iterator over all certificate enrollments matching filter options.
      * 
-     * @param deviceIdEq
-     *            null
-     * @param certificateNameEq
-     *            null
-     * @param enrollStatusNeq
-     *            null
-     * @param enrollStatusEq
-     *            null
-     * @param enrollResultNeq
-     *            null
-     * @param enrollResultEq
-     *            null
-     * @param createdAtLte
-     *            null
-     * @param createdAtGte
-     *            null
-     * @param updatedAtLte
-     *            null
-     * @param updatedAtGte
-     *            null
      * @param options
      *            list options.
      * @return paginator over the list of certificate enrollments
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
     public Paginator<CertificateEnrollment>
-           listAllCertificateEnrollments(@Nullable String deviceIdEq, @Nullable String certificateNameEq,
-                                         @Nullable String enrollStatusNeq, @Nullable String enrollStatusEq,
-                                         @Nullable String enrollResultNeq, @Nullable String enrollResultEq,
-                                         @Nullable Date createdAtLte, @Nullable Date createdAtGte,
-                                         @Nullable Date updatedAtLte, @Nullable Date updatedAtGte,
-                                         @Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
-        final String finalDeviceIdEq = deviceIdEq;
-        final String finalCertificateNameEq = certificateNameEq;
-        final String finalEnrollStatusNeq = enrollStatusNeq;
-        final String finalEnrollStatusEq = enrollStatusEq;
-        final String finalEnrollResultNeq = enrollResultNeq;
-        final String finalEnrollResultEq = enrollResultEq;
-        final Date finalCreatedAtLte = createdAtLte;
-        final Date finalCreatedAtGte = createdAtGte;
-        final Date finalUpdatedAtLte = updatedAtLte;
-        final Date finalUpdatedAtGte = updatedAtGte;
+           listAllCertificateEnrollments(@Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
         final CertificateEnrollmentListOptions finalOptions = (options == null) ? new CertificateEnrollmentListOptions()
                                                                                 : options;
         return new Paginator<CertificateEnrollment>(finalOptions, new PageRequester<CertificateEnrollment>() {
@@ -926,27 +1055,49 @@ public class Security extends AbstractModule {
              * @param options
              *            a list options.
              * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              */
             @Override
             public ListResponse<CertificateEnrollment> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listCertificateEnrollments(finalDeviceIdEq, finalCertificateNameEq, finalEnrollStatusNeq,
-                                                  finalEnrollStatusEq, finalEnrollResultNeq, finalEnrollResultEq,
-                                                  finalCreatedAtLte, finalCreatedAtGte, finalUpdatedAtLte,
-                                                  finalUpdatedAtGte, (CertificateEnrollmentListOptions) options);
+                return listCertificateEnrollments((CertificateEnrollmentListOptions) options);
             }
         });
     }
 
     /**
      * Creates a {@link Paginator} for the list of certificate issuer configs matching filter options.
+     * 
+     * <p>
+     * Similar to
+     * {@link #listAllCertificateIssuerConfigs(String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return paginator over the list of certificate issuer configs
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<CertificateIssuerConfig>
+           listAllCertificateIssuerConfigs(@Nullable CertificateIssuerConfigListOptions options) throws MbedCloudException {
+        return listAllCertificateIssuerConfigs((String) null, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of certificate issuer configs matching filter options.
+     * 
      * <p>
      * Gets an iterator over all certificate issuer configs matching filter options.
      * 
      * @param referenceEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return paginator over the list of certificate issuer configs
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -963,6 +1114,8 @@ public class Security extends AbstractModule {
              * @param options
              *            a list options.
              * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              */
             @Override
             public ListResponse<CertificateIssuerConfig> requestNewPage(ListOptions options) throws MbedCloudException {
@@ -973,12 +1126,15 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of certificate issuers matching filter options.
+     * 
      * <p>
      * Gets an iterator over all certificate issuers matching filter options.
      * 
      * @param options
      *            list options.
      * @return paginator over the list of certificate issuers
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -993,6 +1149,8 @@ public class Security extends AbstractModule {
              * @param options
              *            a list options.
              * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              */
             @Override
             public ListResponse<CertificateIssuer> requestNewPage(ListOptions options) throws MbedCloudException {
@@ -1003,55 +1161,27 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of trusted certificates matching filter options.
+     * 
      * <p>
      * Gets an iterator over all trusted certificates matching filter options.
      * 
-     * @param nameEq
-     *            null
-     * @param serviceEq
-     *            null
      * @param expireEq
-     *            null
-     * @param deviceExecutionModeEq
-     *            null
-     * @param deviceExecutionModeNeq
-     *            null
+     *            an integer
      * @param ownerEq
-     *            null
-     * @param enrollmentModeEq
-     *            null
-     * @param statusEq
-     *            null
-     * @param issuerLike
-     *            null
-     * @param subjectLike
-     *            null
-     * @param validEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return paginator over the list of trusted certificates
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
     public Paginator<TrustedCertificate>
-           listAllTrustedCertificates(@Nullable String nameEq, @Nullable String serviceEq, @Nullable Integer expireEq,
-                                      @Nullable Integer deviceExecutionModeEq, @Nullable Integer deviceExecutionModeNeq,
-                                      @Nullable String ownerEq, @Nullable Boolean enrollmentModeEq,
-                                      @Nullable String statusEq, @Nullable String issuerLike,
-                                      @Nullable String subjectLike, @Nullable Boolean validEq,
+           listAllTrustedCertificates(@Nullable Integer expireEq, @Nullable String ownerEq,
                                       @Nullable TrustedCertificateListOptions options) throws MbedCloudException {
-        final String finalNameEq = nameEq;
-        final String finalServiceEq = serviceEq;
         final Integer finalExpireEq = expireEq;
-        final Integer finalDeviceExecutionModeEq = deviceExecutionModeEq;
-        final Integer finalDeviceExecutionModeNeq = deviceExecutionModeNeq;
         final String finalOwnerEq = ownerEq;
-        final Boolean finalEnrollmentModeEq = enrollmentModeEq;
-        final String finalStatusEq = statusEq;
-        final String finalIssuerLike = issuerLike;
-        final String finalSubjectLike = subjectLike;
-        final Boolean finalValidEq = validEq;
         final TrustedCertificateListOptions finalOptions = (options == null) ? new TrustedCertificateListOptions()
                                                                              : options;
         return new Paginator<TrustedCertificate>(finalOptions, new PageRequester<TrustedCertificate>() {
@@ -1061,19 +1191,39 @@ public class Security extends AbstractModule {
              * @param options
              *            a list options.
              * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
              */
             @Override
             public ListResponse<TrustedCertificate> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listTrustedCertificates(finalNameEq, finalServiceEq, finalExpireEq, finalDeviceExecutionModeEq,
-                                               finalDeviceExecutionModeNeq, finalOwnerEq, finalEnrollmentModeEq,
-                                               finalStatusEq, finalIssuerLike, finalSubjectLike, finalValidEq,
-                                               (TrustedCertificateListOptions) options);
+                return listTrustedCertificates(finalExpireEq, finalOwnerEq, (TrustedCertificateListOptions) options);
             }
         });
     }
 
     /**
+     * Creates a {@link Paginator} for the list of trusted certificates matching filter options.
+     * 
+     * <p>
+     * Similar to
+     * {@link #listAllTrustedCertificates(Integer, String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return paginator over the list of trusted certificates
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<TrustedCertificate>
+           listAllTrustedCertificates(@Nullable TrustedCertificateListOptions options) throws MbedCloudException {
+        return listAllTrustedCertificates((Integer) null, (String) null, options);
+    }
+
+    /**
      * Lists certificate enrollments matching filter options.
+     * 
      * <p>
      * 
      * Get certificate enrollments list, optionally filtered.
@@ -1085,49 +1235,16 @@ public class Security extends AbstractModule {
      * access token]'
      * https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000 ```
      * 
-     * @param deviceIdEq
-     *            null
-     * @param certificateNameEq
-     *            null
-     * @param enrollStatusNeq
-     *            null
-     * @param enrollStatusEq
-     *            null
-     * @param enrollResultNeq
-     *            null
-     * @param enrollResultEq
-     *            null
-     * @param createdAtLte
-     *            null
-     * @param createdAtGte
-     *            null
-     * @param updatedAtLte
-     *            null
-     * @param updatedAtGte
-     *            null
      * @param options
      *            list options.
      * @return the list of certificate enrollments corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
     public ListResponse<CertificateEnrollment>
-           listCertificateEnrollments(@Nullable String deviceIdEq, @Nullable String certificateNameEq,
-                                      @Nullable String enrollStatusNeq, @Nullable String enrollStatusEq,
-                                      @Nullable String enrollResultNeq, @Nullable String enrollResultEq,
-                                      @Nullable Date createdAtLte, @Nullable Date createdAtGte,
-                                      @Nullable Date updatedAtLte, @Nullable Date updatedAtGte,
-                                      @Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
-        final String finalDeviceIdEq = deviceIdEq;
-        final String finalCertificateNameEq = certificateNameEq;
-        final String finalEnrollStatusNeq = enrollStatusNeq;
-        final String finalEnrollStatusEq = enrollStatusEq;
-        final String finalEnrollResultNeq = enrollResultNeq;
-        final String finalEnrollResultEq = enrollResultEq;
-        final Date finalCreatedAtLte = createdAtLte;
-        final Date finalCreatedAtGte = createdAtGte;
-        final Date finalUpdatedAtLte = updatedAtLte;
-        final Date finalUpdatedAtGte = updatedAtGte;
+           listCertificateEnrollments(@Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
         final CertificateEnrollmentListOptions finalOptions = (options == null) ? new CertificateEnrollmentListOptions()
                                                                                 : options;
         return CloudCaller.call(this, "listCertificateEnrollments()", CertificateEnrollmentAdapter.getListMapper(),
@@ -1140,26 +1257,57 @@ public class Security extends AbstractModule {
                                     @Override
                                     public Call<CertificateEnrollmentListResponse> call() {
                                         return endpoints.getCertificateEnrollmentsApi()
-                                                        .getCertificateEnrollments(finalDeviceIdEq,
-                                                                                   finalCertificateNameEq,
+                                                        .getCertificateEnrollments(ListOptionsEncoder.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_DEVICE_ID,
+                                                                                                                              finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CERTIFICATE_NAME,
+                                                                                                                              finalOptions),
                                                                                    finalOptions.getPageSize(),
                                                                                    finalOptions.getAfter(),
                                                                                    finalOptions.getOrder().toString(),
-                                                                                   finalOptions.encodeInclude(),
-                                                                                   finalEnrollStatusNeq,
-                                                                                   finalEnrollStatusEq,
-                                                                                   finalEnrollResultNeq,
-                                                                                   finalEnrollResultEq,
-                                                                                   TranslationUtils.toDateTime(finalCreatedAtLte),
-                                                                                   TranslationUtils.toDateTime(finalCreatedAtGte),
-                                                                                   TranslationUtils.toDateTime(finalUpdatedAtLte),
-                                                                                   TranslationUtils.toDateTime(finalUpdatedAtGte));
+                                                                                   ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleNotEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_STATUS,
+                                                                                                                                 finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_STATUS,
+                                                                                                                              finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleNotEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_RESULT,
+                                                                                                                                 finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_RESULT,
+                                                                                                                              finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleLessThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                                                 finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleGreaterThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                                                    finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleLessThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                                                 finalOptions),
+                                                                                   ListOptionsEncoder.encodeSingleGreaterThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                                                    finalOptions));
                                     }
                                 });
     }
 
     /**
      * Lists certificate issuer configs matching filter options.
+     * 
+     * <p>
+     * Similar to
+     * {@link #listCertificateIssuerConfigs(String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return the list of certificate issuer configs corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<CertificateIssuerConfig>
+           listCertificateIssuerConfigs(@Nullable CertificateIssuerConfigListOptions options) throws MbedCloudException {
+        return listCertificateIssuerConfigs((String) null, options);
+    }
+
+    /**
+     * Lists certificate issuer configs matching filter options.
+     * 
      * <p>
      * Get certificate issuer configurations, optionally filtered by reference. [br] **Example usage:**
      * 
@@ -1171,10 +1319,12 @@ public class Security extends AbstractModule {
      * ignored by the system.
      * 
      * @param referenceEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return the list of certificate issuer configs corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1197,7 +1347,7 @@ public class Security extends AbstractModule {
                                                         .getCertificateIssuerConfigs(finalOptions.getPageSize(),
                                                                                      finalOptions.getOrder().toString(),
                                                                                      finalOptions.getAfter(),
-                                                                                     finalOptions.encodeInclude(),
+                                                                                     ListOptionsEncoder.encodeInclude(finalOptions),
                                                                                      finalReferenceEq);
                                     }
                                 });
@@ -1205,6 +1355,7 @@ public class Security extends AbstractModule {
 
     /**
      * Lists certificate issuers matching filter options.
+     * 
      * <p>
      * Note: This endpoint does not implement pagination and therefore, list control parameters such as `limit` or
      * `after` will be ignored by the system.
@@ -1212,6 +1363,8 @@ public class Security extends AbstractModule {
      * @param options
      *            list options.
      * @return the list of certificate issuers corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1232,65 +1385,37 @@ public class Security extends AbstractModule {
                                                         .getCertificateIssuers(finalOptions.getPageSize(),
                                                                                finalOptions.getOrder().toString(),
                                                                                finalOptions.getAfter(),
-                                                                               finalOptions.encodeInclude());
+                                                                               ListOptionsEncoder.encodeInclude(finalOptions));
                                     }
                                 });
     }
 
     /**
      * Lists trusted certificates matching filter options.
+     * 
      * <p>
      * An endpoint for retrieving trusted certificates in an array.
      * 
      * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H 'Authorization: Bearer
      * API_KEY'`
      * 
-     * @param nameEq
-     *            null
-     * @param serviceEq
-     *            null
      * @param expireEq
-     *            null
-     * @param deviceExecutionModeEq
-     *            null
-     * @param deviceExecutionModeNeq
-     *            null
+     *            an integer
      * @param ownerEq
-     *            null
-     * @param enrollmentModeEq
-     *            null
-     * @param statusEq
-     *            null
-     * @param issuerLike
-     *            null
-     * @param subjectLike
-     *            null
-     * @param validEq
-     *            null
+     *            a string
      * @param options
      *            list options.
      * @return the list of trusted certificates corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
     public ListResponse<TrustedCertificate>
-           listTrustedCertificates(@Nullable String nameEq, @Nullable String serviceEq, @Nullable Integer expireEq,
-                                   @Nullable Integer deviceExecutionModeEq, @Nullable Integer deviceExecutionModeNeq,
-                                   @Nullable String ownerEq, @Nullable Boolean enrollmentModeEq,
-                                   @Nullable String statusEq, @Nullable String issuerLike, @Nullable String subjectLike,
-                                   @Nullable Boolean validEq,
+           listTrustedCertificates(@Nullable Integer expireEq, @Nullable String ownerEq,
                                    @Nullable TrustedCertificateListOptions options) throws MbedCloudException {
-        final String finalNameEq = nameEq;
-        final String finalServiceEq = serviceEq;
         final Integer finalExpireEq = expireEq;
-        final Integer finalDeviceExecutionModeEq = deviceExecutionModeEq;
-        final Integer finalDeviceExecutionModeNeq = deviceExecutionModeNeq;
         final String finalOwnerEq = ownerEq;
-        final Boolean finalEnrollmentModeEq = enrollmentModeEq;
-        final String finalStatusEq = statusEq;
-        final String finalIssuerLike = issuerLike;
-        final String finalSubjectLike = subjectLike;
-        final Boolean finalValidEq = validEq;
         final TrustedCertificateListOptions finalOptions = (options == null) ? new TrustedCertificateListOptions()
                                                                              : options;
         return CloudCaller.call(this, "listTrustedCertificates()", TrustedCertificateAdapter.getListMapper(),
@@ -1306,25 +1431,66 @@ public class Security extends AbstractModule {
                                                         .getAllCertificates(finalOptions.getPageSize(),
                                                                             finalOptions.getAfter(),
                                                                             finalOptions.getOrder().toString(),
-                                                                            finalOptions.encodeInclude(), finalNameEq,
-                                                                            finalServiceEq, finalExpireEq,
-                                                                            finalDeviceExecutionModeEq,
-                                                                            finalDeviceExecutionModeNeq, finalOwnerEq,
-                                                                            finalEnrollmentModeEq, finalStatusEq,
-                                                                            finalIssuerLike, finalSubjectLike,
-                                                                            finalValidEq);
+                                                                            ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_NAME,
+                                                                                                                       finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_SERVICE,
+                                                                                                                       finalOptions),
+                                                                            finalExpireEq,
+                                                                            ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
+                                                                                                                       Integer.class,
+                                                                                                                       finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleNotEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
+                                                                                                                          Integer.class,
+                                                                                                                          finalOptions),
+                                                                            finalOwnerEq,
+                                                                            ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_ENROLLMENT_MODE,
+                                                                                                                       Boolean.class,
+                                                                                                                       finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                       finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleLikeFilter(TrustedCertificateListOptions.TAG_FILTER_BY_ISSUER,
+                                                                                                                      finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleLikeFilter(TrustedCertificateListOptions.TAG_FILTER_BY_SUBJECT,
+                                                                                                                      finalOptions),
+                                                                            ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_VALID,
+                                                                                                                       Boolean.class,
+                                                                                                                       finalOptions));
                                     }
                                 });
     }
 
     /**
+     * Lists trusted certificates matching filter options.
+     * 
+     * <p>
+     * Similar to
+     * {@link #listTrustedCertificates(Integer, String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return the list of trusted certificates corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<TrustedCertificate>
+           listTrustedCertificates(@Nullable TrustedCertificateListOptions options) throws MbedCloudException {
+        return listTrustedCertificates((Integer) null, (String) null, options);
+    }
+
+    /**
      * Gets a certificate enrollment.
+     * 
      * <p>
      * Similar to {@link #readCertificateEnrollment(String)}
      * 
      * @param certificateEnrollment
      *            a certificate enrollment.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1336,6 +1502,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate enrollment.
+     * 
      * <p>
      * Get a certificate enrollment by ID.
      * 
@@ -1347,6 +1514,8 @@ public class Security extends AbstractModule {
      * @param id
      *            The ID of the certificate enrollment.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1371,12 +1540,15 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate issuer.
+     * 
      * <p>
      * Similar to {@link #readCertificateIssuer(String)}
      * 
      * @param certificateIssuer
      *            a certificate issuer.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1388,12 +1560,15 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate issuer.
+     * 
      * <p>
      * (No description provided)
      * 
      * @param id
      *            The ID of the certificate issuer.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1416,12 +1591,15 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate issuer config.
+     * 
      * <p>
      * Similar to {@link #readCertificateIssuerConfig(String)}
      * 
      * @param certificateIssuerConfig
      *            a certificate issuer config.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1433,6 +1611,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate issuer config.
+     * 
      * <p>
      * Provides the configured certificate issuer.
      * 
@@ -1440,6 +1619,8 @@ public class Security extends AbstractModule {
      *            The ID of the certificate issuer configuration.
      * 
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1463,12 +1644,15 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a developer certificate.
+     * 
      * <p>
      * Similar to {@link #readDeveloperCertificate(String)}
      * 
      * @param developerCertificate
      *            a developer certificate.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1480,6 +1664,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a developer certificate.
+     * 
      * <p>
      * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that
      * can be flashed into multiple devices to connect to bootstrap server).
@@ -1488,8 +1673,10 @@ public class Security extends AbstractModule {
      * -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
      * 
      * @param id
-     *            ID that uniquely identifies the developer certificate.
+     *            mUUID that uniquely identifies the developer certificate.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1512,6 +1699,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a subtenant trusted certificate.
+     * 
      * <p>
      * An endpoint for retrieving a trusted certificate by ID.
      * 
@@ -1524,6 +1712,8 @@ public class Security extends AbstractModule {
      * @param id
      *            Entity ID.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1551,12 +1741,15 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a subtenant trusted certificate.
+     * 
      * <p>
      * Similar to {@link #readSubtenantTrustedCertificate(String, String)}
      * 
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1569,6 +1762,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a trusted certificate.
+     * 
      * <p>
      * An endpoint for retrieving a trusted certificate by ID.
      * 
@@ -1578,6 +1772,8 @@ public class Security extends AbstractModule {
      * @param id
      *            Entity ID.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1600,12 +1796,15 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a trusted certificate.
+     * 
      * <p>
      * Similar to {@link #readTrustedCertificate(String)}
      * 
      * @param trustedCertificate
      *            a trusted certificate.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1617,6 +1816,28 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer.
+     * 
+     * <p>
+     * Similar to
+     * {@link #updateCertificateIssuer(java.util.Map, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * 
+     * @param certificateIssuer
+     *            a certificate issuer.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public CertificateIssuer
+           updateCertificateIssuer(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
+        checkNotNull(certificateIssuer, TAG_CERTIFICATE_ISSUER);
+        return updateCertificateIssuer((java.util.Map<String, String>) null, certificateIssuer);
+    }
+
+    /**
+     * Modifies a certificate issuer.
+     * 
      * <p>
      * Similar to
      * {@link #updateCertificateIssuer(java.util.Map, String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
@@ -1629,6 +1850,8 @@ public class Security extends AbstractModule {
      * @param certificateIssuer
      *            a certificate issuer.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1642,6 +1865,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer.
+     * 
      * <p>
      * Update a certificate issuer. [br] **Example usage:**
      * 
@@ -1659,6 +1883,8 @@ public class Security extends AbstractModule {
      * @param certificateIssuerUpdateRequest
      *            a certificate issuer.
      * @return an updated certificate issuer
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1689,7 +1915,33 @@ public class Security extends AbstractModule {
     }
 
     /**
+     * Modifies a certificate issuer.
+     * 
+     * <p>
+     * Similar to
+     * {@link #updateCertificateIssuer(java.util.Map, String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
+     * 
+     * @param id
+     *            The ID of the certificate issuer.
+     * @param certificateIssuerUpdateRequest
+     *            a certificate issuer.
+     * @return an updated certificate issuer
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public CertificateIssuer
+           updateCertificateIssuer(@NonNull String id,
+                                   @NonNull CertificateIssuer certificateIssuerUpdateRequest) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        checkNotNull(certificateIssuerUpdateRequest, TAG_CERTIFICATE_ISSUER_UPDATE_REQUEST);
+        return updateCertificateIssuer((java.util.Map<String, String>) null, id, certificateIssuerUpdateRequest);
+    }
+
+    /**
      * Modifies a certificate issuer config.
+     * 
      * <p>
      * Similar to
      * {@link #updateCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig, String)}
@@ -1697,6 +1949,8 @@ public class Security extends AbstractModule {
      * @param certificateIssuerConfig
      *            a certificate issuer config.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1709,6 +1963,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer config.
+     * 
      * <p>
      * Update the configured certificate issuer configuration.
      * 
@@ -1718,6 +1973,8 @@ public class Security extends AbstractModule {
      *            The ID of the certificate issuer configuration.
      * 
      * @return an updated certificate issuer config
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1747,6 +2004,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a subtenant trusted certificate.
+     * 
      * <p>
      * An endpoint for updating existing trusted certificates.
      * 
@@ -1761,6 +2019,8 @@ public class Security extends AbstractModule {
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
      * @return an updated subtenant trusted certificate
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1793,6 +2053,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a subtenant trusted certificate.
+     * 
      * <p>
      * Similar to
      * {@link #updateSubtenantTrustedCertificate(String, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
@@ -1800,6 +2061,8 @@ public class Security extends AbstractModule {
      * @param subtenantTrustedCertificate
      *            a subtenant trusted certificate.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1813,6 +2076,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a trusted certificate.
+     * 
      * <p>
      * An endpoint for updating existing trusted certificates.
      * 
@@ -1824,6 +2088,8 @@ public class Security extends AbstractModule {
      * @param trustedCertificate
      *            a trusted certificate.
      * @return an updated trusted certificate
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1853,12 +2119,15 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a trusted certificate.
+     * 
      * <p>
      * Similar to {@link #updateTrustedCertificate(String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
      * @param trustedCertificate
      *            a trusted certificate.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1872,12 +2141,15 @@ public class Security extends AbstractModule {
     /**
      * Verify certificate issuer.
      * 
+     * 
      * <p>
      * Similar to {@link #verify(String)}
      * 
      * @param certificateIssuer
      *            a certificate issuer.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable
@@ -1888,6 +2160,7 @@ public class Security extends AbstractModule {
 
     /**
      * Verify certificate issuer.
+     * 
      * 
      * <p>
      * A utility API that can be used to validate the user configuration before activating a certificate issuer.
@@ -1903,6 +2176,8 @@ public class Security extends AbstractModule {
      *            The ID of the certificate issuer.
      * 
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     @Nullable

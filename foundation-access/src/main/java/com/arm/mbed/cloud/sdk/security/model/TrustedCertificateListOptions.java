@@ -7,16 +7,186 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.listing.IncludeField;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import java.util.List;
 
 /**
  * Options to use when listing trusted certificates.
+ * <p>
+ * Note:
+ * <p>
+ * <ul>
+ * <li>Filters:
+ * <p>
+ * The list can be filtered server-side on some of the fields of a trusted certificate.
+ * <p>
+ * The following filters are currently supported:
+ * 
+ * <p>
+ * <table style="border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0" summary="Available
+ * filters">
+ * <caption>Server-side filters</caption>
+ * <tr>
+ * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" rowspan="2">Field</th>
+ * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" rowspan="2">Tag</th>
+ * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" colspan="7">Filters</th>
+ * </tr>
+ * <tr>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">not equal to</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">equal to</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">greater than</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">less than</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">like</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">in</td>
+ * <td style="background-color:#dae8fc;text-align:center;" width="10%">not in</td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">service</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_SERVICE</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">status</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_STATUS</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">name</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_NAME</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">subject</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_SUBJECT</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">issuer</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_ISSUER</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">valid</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_VALID</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">deviceExecutionMode</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_DEVICE_EXECUTION_MODE</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">enrollmentMode</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_ENROLLMENT_MODE</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * </table>
+ * </li>
+ * </ul>
  */
 @Preamble(description = "Options to use when listing trusted certificates.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TrustedCertificateListOptions extends ListOptions {
     /**
+     * Tag for filter by valid.
+     */
+    public static final String TAG_FILTER_BY_VALID = "valid";
+
+    /**
+     * Tag for filter by name.
+     */
+    public static final String TAG_FILTER_BY_NAME = "name";
+
+    /**
+     * Tag for filter by status.
+     */
+    public static final String TAG_FILTER_BY_STATUS = "status";
+
+    /**
+     * Tag for filter by deviceExecutionMode.
+     */
+    public static final String TAG_FILTER_BY_DEVICE_EXECUTION_MODE = "deviceExecutionMode";
+
+    /**
+     * Tag for filter by issuer.
+     */
+    public static final String TAG_FILTER_BY_ISSUER = "issuer";
+
+    /**
+     * Tag for filter by service.
+     */
+    public static final String TAG_FILTER_BY_SERVICE = "service";
+
+    /**
+     * Tag for filter by subject.
+     */
+    public static final String TAG_FILTER_BY_SUBJECT = "subject";
+
+    /**
+     * Tag for filter by enrollmentMode.
+     */
+    public static final String TAG_FILTER_BY_ENROLLMENT_MODE = "enrollmentMode";
+
+    /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #TrustedCertificateListOptions()} instead.
      * 
@@ -47,6 +217,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #TrustedCertificateListOptions()} instead.
      * 
@@ -69,6 +240,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #TrustedCertificateListOptions()} instead.
      * 
@@ -81,11 +253,327 @@ public class TrustedCertificateListOptions extends ListOptions {
      */
     @Internal
     public TrustedCertificateListOptions(String after, List<IncludeField> include, Filters filter) {
-        this(0, 0L, Order.getDefault(), after, include, filter);
+        this((Integer) null, (Long) null, Order.getDefault(), after, include, filter);
+    }
+
+    /**
+     * Gets all the filters defined on field {@code valid}.
+     * 
+     * @return All the filters by {@code valid}
+     */
+    public List<Filter> getValidFilters() {
+        return fetchFilters(TAG_FILTER_BY_VALID);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code valid}.
+     * 
+     * @param filterByValid
+     *            filter value.
+     */
+    public void addEqualToValidFilter(boolean filterByValid) {
+        addEqualFilter(TAG_FILTER_BY_VALID, filterByValid);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code valid}.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToValidFilter(boolean)}
+     * 
+     * @param filterByValid
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T equalToValid(boolean filterByValid) {
+        addEqualToValidFilter(filterByValid);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code name}.
+     * 
+     * @return All the filters by {@code name}
+     */
+    public List<Filter> getNameFilters() {
+        return fetchFilters(TAG_FILTER_BY_NAME);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code name}.
+     * 
+     * @param filterByName
+     *            filter value.
+     */
+    public void addEqualToNameFilter(String filterByName) {
+        addEqualFilter(TAG_FILTER_BY_NAME, filterByName);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code name}.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToNameFilter(String)}
+     * 
+     * @param filterByName
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T equalToName(String filterByName) {
+        addEqualToNameFilter(filterByName);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code status}.
+     * 
+     * @return All the filters by {@code status}
+     */
+    public List<Filter> getStatusFilters() {
+        return fetchFilters(TAG_FILTER_BY_STATUS);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code status}.
+     * 
+     * @param filterByStatus
+     *            filter value.
+     */
+    public void addEqualToStatusFilter(TrustedCertificateStatus filterByStatus) {
+        addEqualFilter(TAG_FILTER_BY_STATUS, filterByStatus);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code status}.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToStatusFilter(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus)}
+     * 
+     * @param filterByStatus
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T equalToStatus(TrustedCertificateStatus filterByStatus) {
+        addEqualToStatusFilter(filterByStatus);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code deviceExecutionMode}.
+     * 
+     * @return All the filters by {@code deviceExecutionMode}
+     */
+    public List<Filter> getDeviceExecutionModeFilters() {
+        return fetchFilters(TAG_FILTER_BY_DEVICE_EXECUTION_MODE);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code deviceExecutionMode}.
+     * 
+     * @param filterByDeviceExecutionMode
+     *            filter value.
+     */
+    public void addEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
+        addEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code deviceExecutionMode}.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToDeviceExecutionModeFilter(int)}
+     * 
+     * @param filterByDeviceExecutionMode
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T equalToDeviceExecutionMode(int filterByDeviceExecutionMode) {
+        addEqualToDeviceExecutionModeFilter(filterByDeviceExecutionMode);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code deviceExecutionMode}.
+     * 
+     * @param filterByDeviceExecutionMode
+     *            filter value.
+     */
+    public void addNotEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
+        addNotEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code deviceExecutionMode}.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addNotEqualToDeviceExecutionModeFilter(int)}
+     * 
+     * @param filterByDeviceExecutionMode
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T notEqualToDeviceExecutionMode(int filterByDeviceExecutionMode) {
+        addNotEqualToDeviceExecutionModeFilter(filterByDeviceExecutionMode);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code issuer}.
+     * 
+     * @return All the filters by {@code issuer}
+     */
+    public List<Filter> getIssuerFilters() {
+        return fetchFilters(TAG_FILTER_BY_ISSUER);
+    }
+
+    /**
+     * Sets "a like" filter by {@code issuer}.
+     * 
+     * @param filterByIssuer
+     *            filter value.
+     */
+    public void addLikeIssuerFilter(String filterByIssuer) {
+        addLikeFilter(TAG_FILTER_BY_ISSUER, filterByIssuer);
+    }
+
+    /**
+     * Sets "a like" filter by {@code issuer}.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addLikeIssuerFilter(String)}
+     * 
+     * @param filterByIssuer
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T likeIssuer(String filterByIssuer) {
+        addLikeIssuerFilter(filterByIssuer);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code service}.
+     * 
+     * @return All the filters by {@code service}
+     */
+    public List<Filter> getServiceFilters() {
+        return fetchFilters(TAG_FILTER_BY_SERVICE);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code service}.
+     * 
+     * @param filterByService
+     *            filter value.
+     */
+    public void addEqualToServiceFilter(TrustedCertificateService filterByService) {
+        addEqualFilter(TAG_FILTER_BY_SERVICE, filterByService);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code service}.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToServiceFilter(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService)}
+     * 
+     * @param filterByService
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T equalToService(TrustedCertificateService filterByService) {
+        addEqualToServiceFilter(filterByService);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code subject}.
+     * 
+     * @return All the filters by {@code subject}
+     */
+    public List<Filter> getSubjectFilters() {
+        return fetchFilters(TAG_FILTER_BY_SUBJECT);
+    }
+
+    /**
+     * Sets "a like" filter by {@code subject}.
+     * 
+     * @param filterBySubject
+     *            filter value.
+     */
+    public void addLikeSubjectFilter(String filterBySubject) {
+        addLikeFilter(TAG_FILTER_BY_SUBJECT, filterBySubject);
+    }
+
+    /**
+     * Sets "a like" filter by {@code subject}.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addLikeSubjectFilter(String)}
+     * 
+     * @param filterBySubject
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T likeSubject(String filterBySubject) {
+        addLikeSubjectFilter(filterBySubject);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code enrollmentMode}.
+     * 
+     * @return All the filters by {@code enrollmentMode}
+     */
+    public List<Filter> getEnrollmentModeFilters() {
+        return fetchFilters(TAG_FILTER_BY_ENROLLMENT_MODE);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code enrollmentMode}.
+     * 
+     * @param filterByEnrollmentMode
+     *            filter value.
+     */
+    public void addEqualToEnrollmentModeFilter(boolean filterByEnrollmentMode) {
+        addEqualFilter(TAG_FILTER_BY_ENROLLMENT_MODE, filterByEnrollmentMode);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code enrollmentMode}.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions#addEqualToEnrollmentModeFilter(boolean)}
+     * 
+     * @param filterByEnrollmentMode
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends TrustedCertificateListOptions> T equalToEnrollmentMode(boolean filterByEnrollmentMode) {
+        addEqualToEnrollmentModeFilter(filterByEnrollmentMode);
+        return (T) this;
     }
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -99,6 +587,7 @@ public class TrustedCertificateListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -107,11 +596,14 @@ public class TrustedCertificateListOptions extends ListOptions {
     @Override
     public String toString() {
         return "TrustedCertificateListOptions [pageSize=" + pageSize + ", maxResults=" + maxResults + ", order=" + order
-               + ", after=" + after + ", include=" + encodeInclude() + ", filter=" + retrieveFilterAsJson() + "]";
+               + ", after=" + after + ", include="
+               + com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder.encodeInclude(this) + ", filter="
+               + retrieveFilterAsJson() + "]";
     }
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

@@ -9,7 +9,6 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.devices.model.Device;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceDeployedState;
-import com.arm.mbed.cloud.sdk.devices.model.DeviceLifecycleStatus;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceMechanism;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceState;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
@@ -47,18 +46,8 @@ public final class DeviceAdapter {
         }
         final Device device = new Device(toBeMapped.getAccountId(), TranslationUtils.toDate(toBeMapped.getCreatedAt()),
                                          translateToDeviceDeployedState(toBeMapped.getDeployedState()),
-                                         toBeMapped.getEndpointName(),
                                          TranslationUtils.toDate(toBeMapped.getEnrolmentListTimestamp()),
-                                         toBeMapped.getLastOperatorSuspendedCategory(),
-                                         toBeMapped.getLastOperatorSuspendedDescription(),
-                                         TranslationUtils.toDate(toBeMapped.getLastOperatorSuspendedUpdatedAt()),
-                                         toBeMapped.getLastSystemSuspendedCategory(),
-                                         toBeMapped.getLastSystemSuspendedDescription(),
-                                         TranslationUtils.toDate(toBeMapped.getLastSystemSuspendedUpdatedAt()),
-                                         translateToDeviceLifecycleStatus(toBeMapped.getLifecycleStatus()),
                                          TranslationUtils.toDate(toBeMapped.getManifestTimestamp()),
-                                         TranslationUtils.toBool(toBeMapped.isOperatorSuspended()),
-                                         TranslationUtils.toBool(toBeMapped.isSystemSuspended()),
                                          TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         device.setAutoUpdate(TranslationUtils.toBool(toBeMapped.isAutoUpdate()));
         device.setBootstrapExpirationDate(TranslationUtils.toDate(toBeMapped.getBootstrapExpirationDate()));
@@ -71,11 +60,11 @@ public final class DeviceAdapter {
         device.setDeviceClass(toBeMapped.getDeviceClass());
         device.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
         device.setDeviceKey(toBeMapped.getDeviceKey());
+        device.setEndpointName(toBeMapped.getEndpointName());
         device.setEndpointType(toBeMapped.getEndpointType());
         device.setFirmwareChecksum(toBeMapped.getFirmwareChecksum());
         device.setHostGateway(toBeMapped.getHostGateway());
         device.setId(toBeMapped.getId());
-        device.setIssuerFingerprint(toBeMapped.getIssuerFingerprint());
         device.setManifest(toBeMapped.getManifest());
         device.setMechanism(translateToDeviceMechanism(toBeMapped.getMechanism()));
         device.setMechanismUrl(toBeMapped.getMechanismUrl());
@@ -137,7 +126,6 @@ public final class DeviceAdapter {
         deviceDataPostRequest.setFirmwareChecksum(toBeMapped.getFirmwareChecksum());
         // No field equivalent to groups in DeviceDataPostRequest was found in Device
         deviceDataPostRequest.setHostGateway(toBeMapped.getHostGateway());
-        deviceDataPostRequest.setIssuerFingerprint(toBeMapped.getIssuerFingerprint());
         deviceDataPostRequest.setManifest(toBeMapped.getManifest());
         deviceDataPostRequest.setMechanism(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestMechanismenum(toBeMapped.getMechanism()));
         deviceDataPostRequest.setMechanismUrl(toBeMapped.getMechanismUrl());
@@ -273,6 +261,7 @@ public final class DeviceAdapter {
         deviceDataPutRequest.setCustomAttributes(toBeMapped.getCustomAttributes());
         deviceDataPutRequest.setDescription(toBeMapped.getDescription());
         deviceDataPutRequest.setDeviceKey(toBeMapped.getDeviceKey());
+        deviceDataPutRequest.setEndpointName(toBeMapped.getEndpointName());
         deviceDataPutRequest.setEndpointType(toBeMapped.getEndpointType());
         // No field equivalent to groups in DeviceDataPutRequest was found in Device
         deviceDataPutRequest.setHostGateway(toBeMapped.getHostGateway());
@@ -300,28 +289,6 @@ public final class DeviceAdapter {
                 return DeviceDeployedState.PRODUCTION;
             default:
                 return DeviceDeployedState.getUnknownEnum();
-        }
-    }
-
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a lifecycle status enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static DeviceLifecycleStatus translateToDeviceLifecycleStatus(DeviceData.LifecycleStatusEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return DeviceLifecycleStatus.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case ENABLED:
-                return DeviceLifecycleStatus.ENABLED;
-            case BLOCKED:
-                return DeviceLifecycleStatus.BLOCKED;
-            default:
-                return DeviceLifecycleStatus.getUnknownEnum();
         }
     }
 

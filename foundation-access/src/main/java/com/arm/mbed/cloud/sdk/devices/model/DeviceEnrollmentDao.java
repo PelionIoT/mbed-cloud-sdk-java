@@ -27,19 +27,60 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
                                  DeleteDao<DeviceEnrollment>, ReadDao<DeviceEnrollment> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public DeviceEnrollmentDao() throws MbedCloudException {
         super();
     }
 
     /**
+     * Constructor.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEnrollmentDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            a connection options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEnrollmentDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            an sdk context.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEnrollmentDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+    }
+
+    /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings({ "resource", "unused" })
     public DeviceEnrollmentDao clone() {
         try {
             return new DeviceEnrollmentDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -51,11 +92,14 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Adds a device enrollment.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
      * @return an added device enrollment
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public DeviceEnrollment create() throws MbedCloudException {
@@ -65,6 +109,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Adds a device enrollment.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
@@ -72,6 +117,8 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * @param enrollmentIdentity
      *            a device enrollment.
      * @return an added device enrollment
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public DeviceEnrollment create(@NonNull DeviceEnrollment enrollmentIdentity) throws MbedCloudException {
@@ -81,9 +128,13 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Deletes a device enrollment.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
@@ -92,12 +143,15 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Deletes a device enrollment.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
      * @param deviceEnrollment
      *            a device enrollment.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull DeviceEnrollment deviceEnrollment) throws MbedCloudException {
@@ -107,11 +161,14 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Deletes a device enrollment.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollment(String)}
      * 
      * @param id
      *            Enrollment identity.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public void delete(@NonNull String id) throws MbedCloudException {
@@ -170,11 +227,14 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Gets a device enrollment.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public DeviceEnrollment read() throws MbedCloudException {
@@ -184,12 +244,15 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
 
     /**
      * Gets a device enrollment.
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(String)}
      * 
      * @param id
      *            Enrollment identity.
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     public DeviceEnrollment read(@NonNull String id) throws MbedCloudException {

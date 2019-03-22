@@ -22,19 +22,60 @@ import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public ServerCredentialsDao() throws MbedCloudException {
         super();
     }
 
     /**
+     * Constructor.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ServerCredentialsDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            a connection options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ServerCredentialsDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            an sdk context.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ServerCredentialsDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+    }
+
+    /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings({ "resource", "unused" })
     public ServerCredentialsDao clone() {
         try {
             return new ServerCredentialsDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -47,26 +88,34 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
     /**
      * Fetch bootstrap server credentials.
      * 
+     * 
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getBootstrap()}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#getBootstrap(com.arm.mbed.cloud.sdk.security.model.ServerCredentials)}
      * 
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public ServerCredentials getBootstrap() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getBootstrap());
+        setModel(((Security) getModuleOrThrow()).getBootstrap(getModel()));
         return getModel();
     }
 
     /**
      * Fetch LwM2M server credentials.
      * 
+     * 
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Security#getLwm2m()}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#getLwm2m(com.arm.mbed.cloud.sdk.security.model.ServerCredentials)}
      * 
      * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public ServerCredentials getLwm2m() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getLwm2m());
+        setModel(((Security) getModuleOrThrow()).getLwm2m(getModel()));
         return getModel();
     }
 

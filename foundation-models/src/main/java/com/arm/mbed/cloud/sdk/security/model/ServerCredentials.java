@@ -23,7 +23,7 @@ public class ServerCredentials implements SdkModel {
     private final Date createdAt;
 
     /**
-     * ID that uniquely identifies the entity.
+     * mUUID that uniquely identifies the entity.
      */
     private String id;
 
@@ -40,13 +40,14 @@ public class ServerCredentials implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #ServerCredentials()} instead.
      * 
      * @param createdAt
      *            Creation UTC time RFC3339.
      * @param id
-     *            ID that uniquely identifies the entity.
+     *            mUUID that uniquely identifies the entity.
      * @param serverCertificate
      *            PEM format X.509 server certificate that will be used to validate the server certificate that will be
      *            received during the TLS/DTLS handshake.
@@ -64,6 +65,7 @@ public class ServerCredentials implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #ServerCredentials()} instead.
      * 
@@ -89,7 +91,7 @@ public class ServerCredentials implements SdkModel {
      * Constructor.
      * 
      * @param id
-     *            ID that uniquely identifies the entity.
+     *            mUUID that uniquely identifies the entity.
      */
     public ServerCredentials(String id) {
         this();
@@ -98,6 +100,7 @@ public class ServerCredentials implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #ServerCredentials()} instead.
      * 
@@ -124,7 +127,7 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
-     * Gets id that uniquely identifies the entity.
+     * Gets muuid that uniquely identifies the entity.
      * 
      * @return id
      */
@@ -134,10 +137,10 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
-     * Sets id that uniquely identifies the entity.
+     * Sets muuid that uniquely identifies the entity.
      * 
      * @param id
-     *            ID that uniquely identifies the entity.
+     *            mUUID that uniquely identifies the entity.
      */
     @Override
     public void setId(String id) {
@@ -145,12 +148,13 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
-     * Sets id that uniquely identifies the entity.
+     * Sets muuid that uniquely identifies the entity.
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
      * @param serverCredentialsId
-     *            ID that uniquely identifies the entity.
+     *            mUUID that uniquely identifies the entity.
      */
     @Internal
     public void setServerCredentialsId(String serverCredentialsId) {
@@ -178,6 +182,7 @@ public class ServerCredentials implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -196,6 +201,7 @@ public class ServerCredentials implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -209,6 +215,7 @@ public class ServerCredentials implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -264,6 +271,7 @@ public class ServerCredentials implements SdkModel {
 
     /**
      * Returns a string representation of the object.
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -277,6 +285,7 @@ public class ServerCredentials implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -289,6 +298,7 @@ public class ServerCredentials implements SdkModel {
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

@@ -41,7 +41,7 @@ import ru.vyarus.java.generics.resolver.context.MethodGenericsContext;
 @Preamble(description = "Generator of an SDK API mapping. i.e. list of all APIs present in the SDK")
 public class APIMappingGenerator {
 
-    private static final String JAVA_SDK_PACKAGE = "com.arm.mbed.cloud.sdk";
+    private static final String JAVA_SDK_PACKAGE = "com.arm.mbed.cloud";
 
     /**
      * Obtain a description of the APIs present in the SDK

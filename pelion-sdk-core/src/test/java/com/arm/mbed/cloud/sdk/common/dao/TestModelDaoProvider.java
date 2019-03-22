@@ -222,13 +222,13 @@ public class TestModelDaoProvider {
 
         @SuppressWarnings("unchecked")
         @Override
-        public <V extends ModelDao<ModelTest>> Class<V> getCorrespondingModelDaoDefinition() {
+        public <V extends ModelDao<ModelTest>> Class<V> getModelDaoClass() {
             return (Class<V>) ModelTestDao.class;
         }
 
         @SuppressWarnings("unchecked")
         @Override
-        public <V extends ModelDao<ModelTest>> V getCorrespondingModelDao() {
+        public <V extends ModelDao<ModelTest>> V getNewModelDao() {
             try {
                 return (V) new ModelTestDao();
             } catch (MbedCloudException exception) {

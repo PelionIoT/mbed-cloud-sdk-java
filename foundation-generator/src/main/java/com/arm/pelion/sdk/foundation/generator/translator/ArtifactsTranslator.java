@@ -7,11 +7,13 @@ import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.pelion.sdk.foundation.generator.Configuration;
 import com.arm.pelion.sdk.foundation.generator.input.AdditionalProperty;
 import com.arm.pelion.sdk.foundation.generator.input.Entity;
 import com.arm.pelion.sdk.foundation.generator.input.Enumerator;
 import com.arm.pelion.sdk.foundation.generator.input.Field;
+import com.arm.pelion.sdk.foundation.generator.input.Filters;
 import com.arm.pelion.sdk.foundation.generator.input.Group;
 import com.arm.pelion.sdk.foundation.generator.input.IntermediateApiDefinition;
 import com.arm.pelion.sdk.foundation.generator.input.Method;
@@ -19,6 +21,7 @@ import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIMethod;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIMethodArgument;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIs;
 import com.arm.pelion.sdk.foundation.generator.model.Artifacts;
+import com.arm.pelion.sdk.foundation.generator.model.Filter;
 import com.arm.pelion.sdk.foundation.generator.model.MethodAction;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.ModelAdapter;
@@ -247,7 +250,7 @@ public class ArtifactsTranslator {
         }
     }
 
-    public static ModelListOption translateListOptions(Configuration config, Entity entity,
+    public static ModelListOption translateListOptions(Logger logger, Configuration config, Entity entity,
                                                        Model correspondingModel) throws FoundationGeneratorException {
         if (entity == null) {
             return null;
@@ -256,13 +259,17 @@ public class ArtifactsTranslator {
         final ModelListOption options = new ModelListOption(correspondingModel, null, entity.isCustomCode());
 
         // Do things regarding filters
+        if (entity.hasListMethod() && entity.getListMethod().hasFilters()) {
+            translateFilters(logger, options, correspondingModel, entity.getListMethod().getFilters());
+        }
 
         options.generateMethods();
         return options;
     }
 
     public static List<ModelListOption>
-           translateOtherPaginatedListOptions(Configuration config, Entity entity) throws FoundationGeneratorException {
+           translateOtherPaginatedListOptions(Logger logger, Configuration config,
+                                              Entity entity) throws FoundationGeneratorException {
         if (entity == null) {
             return null;
         }
@@ -281,11 +288,40 @@ public class ArtifactsTranslator {
                                                                                           || correspondingModel.containsCustomCode());
 
             // Do things regarding filters
+            if (otherPaginatedMethod.hasFilters()) {
+                translateFilters(logger, options, correspondingModel, otherPaginatedMethod.getFilters());
+            }
 
             options.generateMethods();
             allOptions.add(options);
         }
         return allOptions;
+    }
+
+    private static void translateFilters(Logger logger, ModelListOption options, Model correspondingModel,
+                                         Filters filters) throws FoundationGeneratorException {
+        for (String fieldName : filters.keySet()) {
+            com.arm.pelion.sdk.foundation.generator.model.Field field = correspondingModel.fetchField(fieldName);
+            if (field == null) {
+                // FIXME: throw an exception in the future rather than just logging it
+                logger.logError("Error in filter definition",
+                                new IllegalArgumentException("No filter can be applied to \"" + fieldName
+                                                             + "\" as there is no such field in "
+                                                             + correspondingModel));
+                continue;
+            }
+            List<String> fieldFilters = filters.getFilters(fieldName);
+            if (fieldFilters != null) {
+                for (String fieldFilter : fieldFilters) {
+                    Filter filter = new Filter();
+                    filter.setFieldName(field.getName());
+                    filter.setFieldType(field.getType());
+                    filter.setOperator(FilterOperator.getFromSuffix(fieldFilter));
+                    options.addFilter(filter);
+                }
+            }
+        }
+
     }
 
     private static ModelEndpoints translateEndpointModel(Configuration config, LowLevelAPIs lowLevelApis, Entity entity,
@@ -368,11 +404,11 @@ public class ArtifactsTranslator {
                                                                artifacts.getAdapterFetcher()));
                     ModelListOption listOptions = null;
                     if (entity.hasListMethod()) {
-                        listOptions = translateListOptions(config, entity, model);
+                        listOptions = translateListOptions(logger, config, entity, model);
                         artifacts.addModel(listOptions);
                     }
                     if (entity.hasOtherPaginatedMethod()) {
-                        artifacts.addModels(translateOtherPaginatedListOptions(config, entity));
+                        artifacts.addModels(translateOtherPaginatedListOptions(logger, config, entity));
                     }
                     final ModelModule module = translateModuleModel(logger, config, lowLevelApis, entity, model,
                                                                     artifacts.getAdapterFetcher(),

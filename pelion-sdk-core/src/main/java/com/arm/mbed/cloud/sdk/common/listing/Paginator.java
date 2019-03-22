@@ -23,6 +23,11 @@ public class Paginator<T extends SdkModel> extends AbstractPaginator<T, ListResp
         super(options, requester);
     }
 
+    public Paginator(ListOptions options, PageRequester<T> requester,
+                     ListResponse<T> firstPage) throws MbedCloudException {
+        super(options, requester, firstPage);
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -31,10 +36,10 @@ public class Paginator<T extends SdkModel> extends AbstractPaginator<T, ListResp
     @Override
     public Paginator<T> clone() throws CloneNotSupportedException {
         try {
-            final Paginator<T> clone = new Paginator<>(cloneListOptions(), getRequester());
+            final Paginator<T> clone = new Paginator<>(cloneListOptions(), getRequester(), cloneCurrentPage());
             clone.setProperties(this);
             return clone;
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
         throw new CloneNotSupportedException();

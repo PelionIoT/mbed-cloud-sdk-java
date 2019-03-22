@@ -10,11 +10,13 @@ import java.util.stream.Collectors;
 import javax.lang.model.element.Modifier;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.NotImplemented;
 import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.NotImplementedException;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeVariableName;
@@ -37,6 +39,7 @@ public class Method extends AbstractSdkArtifact {
     protected final List<Class<?>> exceptions;
     private boolean ignoreShortName;
     private boolean forcePrivate;
+    private boolean ignoreResourceClosure;
 
     public Method(boolean isReadOnly, String name, String description, String longDescription, boolean isStatic,
                   boolean isAccessible, boolean isAbstract, boolean containsCustomCode, boolean needsCustomCode,
@@ -57,6 +60,7 @@ public class Method extends AbstractSdkArtifact {
         setNeedsToBeAtBottomLevel(false);
         setIgnoreShortName(false);
         setForcePrivate(false);
+        setIgnoreResourceClosure(false);
     }
 
     public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride,
@@ -110,6 +114,14 @@ public class Method extends AbstractSdkArtifact {
 
     public void setIgnoreShortName(boolean ignoreShortName) {
         this.ignoreShortName = ignoreShortName;
+    }
+
+    public boolean isIgnoreResourceClosure() {
+        return ignoreResourceClosure;
+    }
+
+    public void setIgnoreResourceClosure(boolean ignoreResourceClosure) {
+        this.ignoreResourceClosure = ignoreResourceClosure;
     }
 
     public boolean isForcePrivate() {
@@ -337,8 +349,8 @@ public class Method extends AbstractSdkArtifact {
         addAnnotations();
     }
 
-    protected void addExceptions() {
-        exceptions.forEach(e -> specificationBuilder.addException(e));
+    public boolean throwsExceptions() {
+        return !exceptions.isEmpty();
     }
 
     protected void addAnnotations() {
@@ -356,22 +368,40 @@ public class Method extends AbstractSdkArtifact {
         }
         if (ignoreShortName) {
             if (getName() != null && getName().length() < 3) {
-                specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreShortMethodName());
+                annotationRegistry.ignoreShortMethodName();
             }
         }
         if (isUnchecked) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.setAsUnchecked());
+            annotationRegistry.setAsUnchecked();
+        }
+        if (ignoreResourceClosure) {
+            annotationRegistry.ignoreResourceClosure();
+        }
+        if (hasDeprecation()) {
+            specificationBuilder.addAnnotation(Deprecated.class);
+        }
+        addStaticAnalysisAnnotations();
+    }
+
+    @Override
+    protected void addStaticAnalysisAnnotations() {
+        if (annotationRegistry.hasAnnotations()) {
+            specificationBuilder.addAnnotation(annotationRegistry.generateAnnotation());
         }
     }
 
-    protected void addParameters() throws TranslationException {
+    protected void defineMethod() throws TranslationException {
         final Map<TypeParameter, Boolean> definedTypes = new HashMap<>();
         if (hasDescription()) {
             specificationBuilder.addJavadoc(description + System.lineSeparator());
             if (hasLongDescription()) {
-                specificationBuilder.addJavadoc("<p>" + System.lineSeparator() + longDescription
+                specificationBuilder.addJavadoc(Utils.generateNewDocumentationLine() + longDescription
                                                 + System.lineSeparator());
             }
+        }
+        if (hasDeprecation()) {
+            specificationBuilder.addJavadoc((hasDescription() ? Utils.generateNewDocumentationLine() : "")
+                                            + getDeprecation().getNotice() + System.lineSeparator());
         }
         if (hasParameters()) {
             for (final Parameter parameter : parameters) {
@@ -383,10 +413,10 @@ public class Method extends AbstractSdkArtifact {
                     }
                 }
                 specificationBuilder.addParameter(parameter.getSpecification().build());
-                specificationBuilder.addJavadoc("@param " + parameter.getName() + " " + parameter.getDescription()
-                                                + System.lineSeparator());
+                specificationBuilder.addJavadoc(parameter.getJavadocDescription() + System.lineSeparator());
             }
         }
+
         if (hasReturn()) {
             returnType.translate();
             if (returnType.isGeneric()) {
@@ -403,6 +433,14 @@ public class Method extends AbstractSdkArtifact {
                                             + String.valueOf(hasReturnDescription() ? returnDescription : "something")
                                             + System.lineSeparator());
         }
+        if (throwsExceptions()) {
+            exceptions.forEach(e -> {
+                specificationBuilder.addException(e);
+                specificationBuilder.addJavadoc("@throws " + e.getSimpleName()
+                                                + " if an error occurs during the process." + System.lineSeparator());
+            });
+
+        }
 
     }
 
@@ -415,6 +453,7 @@ public class Method extends AbstractSdkArtifact {
             return;
         }
         if (containsCustomCode) {
+            specificationBuilder.addAnnotation(NotImplemented.class);
             specificationBuilder.addStatement("// TODO Auto-generated method stub.");
             specificationBuilder.addStatement("throw new $T()", NotImplementedException.class);
             specificationBuilder.addException(NotImplementedException.class);
@@ -461,21 +500,13 @@ public class Method extends AbstractSdkArtifact {
     @Override
     public void translate() throws TranslationException {
         initialiseBuilder();
-        addParameters();
+        defineMethod();
         addModifiers();
-        addExceptions();
         addCode();
     }
 
     public String generateSignatureForDocumentation() {
-        return generateSignatureForDocumentation(name, parameters);
-    }
-
-    public static String generateSignatureForDocumentation(String methodName, List<Parameter> parameters) {
-        return methodName + "(" + (parameters == null ? "" : String.join(", ", parameters.stream().map(p -> {
-            final TypeParameter type = p.getType();
-            return type.isPrimitiveOrWrapper() ? type.getShortName() : type.getFullyQualifiedName();
-        }).collect(Collectors.toList()))) + ")";
+        return Utils.generateSignatureForDocumentation(name, parameters);
     }
 
     /*

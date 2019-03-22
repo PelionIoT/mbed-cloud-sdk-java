@@ -71,10 +71,10 @@ public final class ActiveSessionAdapter {
     }
 
     /**
-     * Maps a list into a list.
+     * Maps a list of active session into a list of active session.
      * 
      * @param toBeMapped
-     *            a list.
+     *            a list of active session.
      * @return mapped simple list
      */
     @Internal

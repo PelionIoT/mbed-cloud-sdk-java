@@ -9,10 +9,12 @@ import org.junit.Test;
 /**
  * Unit tests for Model SubtenantTrustedCertificateStatus.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestSubtenantTrustedCertificateStatus {
     /**
      * Tests the getValue method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testGetValue() {
         try {
@@ -29,7 +31,7 @@ public class TestSubtenantTrustedCertificateStatus {
             subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue("INACTIVE");
             assertNotNull(subtenanttrustedcertificatestatus);
             assertFalse(subtenanttrustedcertificatestatus.isDefault());
-            subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue("c394c7b2-a42e-4923-b198-275db46db3a8");
+            subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue("3b0c6a2d-1fa1-432f-b3a4-bcba5da7464d");
             assertNotNull(subtenanttrustedcertificatestatus);
             assertTrue(subtenanttrustedcertificatestatus.isDefault());
         } catch (Exception exception) {

@@ -40,6 +40,13 @@ public class TestSdkUtils {
         final List<String> list = Arrays.asList("1", "2", "3", "4");
         final String separator = "+-/+_$£&^%!()(&^";
         assertEquals(String.join(separator, list), SdkUtils.joinList(list, separator));
+        final List<EnumTestClass> listEnum = Arrays.asList(EnumTestClass.VALUE1, EnumTestClass.VALUE2);
+        final String enumCsv = SdkUtils.joinList(listEnum, ",");
+        assertEquals("value1,value2", enumCsv);
+        final List<ModelTestClass> listModel = Arrays.asList(new ModelTestClass("test1", null),
+                                                             new ModelTestClass("test2", null));
+        final String modelCsv = SdkUtils.joinList(listModel, ",");
+        assertEquals("test1,test2", modelCsv);
     }
 
     @Test
@@ -84,12 +91,13 @@ public class TestSdkUtils {
         String testClassString = "ThisIsAClassName";
         String testMalformedFunctionString = "Device_Event_retrieve";
         assertEquals("this_is_a_function_name", SdkUtils.convertCamelToSnake(testfunctionString));
+        assertEquals("this_is_a_function_name", SdkUtils.convertCamelToSnake(" " + testfunctionString + " "));
         assertEquals("this_is_a_class_name", SdkUtils.convertCamelToSnake(testClassString));
         assertEquals("device_event_retrieve", SdkUtils.convertCamelToSnake(testMalformedFunctionString));
         assertEquals("", SdkUtils.convertCamelToSnake(""));
         assertNull(SdkUtils.convertCamelToSnake(null));
         assertEquals("this_is_a_class_name", SdkUtils.convertCamelToSnake("this_is_a_class_name"));
-
+        assertEquals("this_is_a_function_name", SdkUtils.convertCamelToSnake("thisIs A FunctionName"));
     }
 
     @Test
@@ -174,6 +182,38 @@ public class TestSdkUtils {
         filePath = "201806-0157528bb84102420a01321400000000-firmwareupdates .csv.gz ";
         assertEquals("201806-0157528bb84102420a01321400000000-firmwareupdates ",
                      SdkUtils.getFileNameWithoutExtension(filePath));
+    }
+
+    private static enum EnumTestClass implements SdkEnum {
+        VALUE1("value1"),
+        VALUE2("value2");
+
+        private final String value;
+
+        private EnumTestClass(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public boolean isUnknownValue() {
+            return false;
+        }
+
+        @Override
+        public boolean isDefault() {
+            return false;
+        }
+
+        @Override
+        public String getString() {
+            return value;
+        }
+
+        @Override
+        public <T extends SdkEnum> T merge(T obj1, T obj2) {
+            return null;
+        }
+
     }
 
     private static class ModelTestClass implements SdkModel {

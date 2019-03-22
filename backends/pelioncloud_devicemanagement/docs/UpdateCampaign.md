@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **deviceFilter** | **String** | The filter for the devices the campaign is targeting at |  [optional]
 **etag** | **String** | The entity instance signature |  [optional]
 **finished** | [**DateTime**](DateTime.md) | The campaign finish timestamp |  [optional]
-**healthIndicator** | [**HealthIndicatorEnum**](#HealthIndicatorEnum) | An indication to the condition of the campaign. |  [optional]
 **id** | **String** | The campaign ID |  [optional]
 **name** | **String** | The campaign name |  [optional]
 **object** | **String** | The API resource entity |  [optional]
@@ -21,15 +20,6 @@ Name | Type | Description | Notes
 **state** | [**StateEnum**](#StateEnum) | DEPRECATED: The state of the campaign (use phase instead). |  [optional]
 **updatedAt** | [**DateTime**](DateTime.md) | The time the object was updated |  [optional]
 **when** | [**DateTime**](DateTime.md) | The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed. |  [optional]
-
-
-<a name="HealthIndicatorEnum"></a>
-## Enum: HealthIndicatorEnum
-Name | Value
----- | -----
-OK | &quot;ok&quot;
-WARNING | &quot;warning&quot;
-ERROR | &quot;error&quot;
 
 
 <a name="StateEnum"></a>

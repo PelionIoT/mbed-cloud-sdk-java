@@ -65,12 +65,12 @@ public final class TranslationUtils {
     /**
      * Converts local date to date.
      *
-     * @param date
+     * @param ldate
      *            local date
      * @return corresponding date
      */
-    public static Date toDate(LocalDate date) {
-        return (date == null) ? null : date.toDate();
+    public static Date toDate(LocalDate ldate) {
+        return (ldate == null) ? null : ldate.toDate();
     }
 
     /**
@@ -192,6 +192,17 @@ public final class TranslationUtils {
     }
 
     /**
+     * Converts to long.
+     * 
+     * @param value
+     *            a date
+     * @return corresponding long number.
+     */
+    public static long toLong(Date value) {
+        return toLong(value, 0L);
+    }
+
+    /**
      * Converts string to a long value.
      * 
      * @param value
@@ -216,6 +227,19 @@ public final class TranslationUtils {
     }
 
     /**
+     * Converts a Date to a long.
+     * 
+     * @param value
+     *            a date
+     * @param defaultValue
+     *            default value.
+     * @return corresponding long number or default value if null.
+     */
+    public static long toLong(Date value, long defaultValue) {
+        return (value == null) ? defaultValue : value.getTime();
+    }
+
+    /**
      * Converts string to a long value.
      *
      * @param stringContainingANumber
@@ -229,7 +253,7 @@ public final class TranslationUtils {
             return defaultValue;
         }
         try {
-            return toLong(Long.parseLong(stringContainingANumber), defaultValue);
+            return Long.parseLong(stringContainingANumber);
         } catch (NumberFormatException exception) {
             SdkLogger.getLogger().logError("Error occurred when parsing the string containing a long number ["
                                            + stringContainingANumber + "]. Defaulting to " + defaultValue, exception);
@@ -320,7 +344,7 @@ public final class TranslationUtils {
     }
 
     /**
-     * Converts a string to an boolean.
+     * Converts a string to a boolean.
      *
      * @param value
      *            string containing a boolean.
@@ -344,7 +368,7 @@ public final class TranslationUtils {
     }
 
     /**
-     * Converts a string to an boolean.
+     * Converts a string to a boolean.
      *
      * @param value
      *            string containing a boolean.
@@ -356,7 +380,67 @@ public final class TranslationUtils {
         if (value == null) {
             return defaultV;
         }
-        return toBool(Boolean.parseBoolean(value.trim()), defaultV);
+        if (Boolean.parseBoolean(value.trim())) {
+            return true;
+        }
+        return value.trim().toLowerCase(Locale.UK).equals("false") ? false : defaultV;
+    }
+
+    /**
+     * Converts a Number to a double.
+     * 
+     * @param value
+     *            double
+     * @return corresponding double or 0.0 if null.
+     */
+    public static double toDouble(Number value) {
+        return toDouble(value, 0.0);
+    }
+
+    /**
+     * Converts a string to a double.
+     *
+     * @param value
+     *            string containing a double.
+     * @return corresponding double or 0.0 if not recognised
+     */
+    public static double toDouble(String value) {
+        return toDouble(value, 0.0);
+    }
+
+    /**
+     * Converts a Number to a double.
+     * 
+     * @param value
+     *            double
+     * @param defaultD
+     *            default value
+     * @return corresponding double or default value if null.
+     */
+    public static double toDouble(Number value, double defaultD) {
+        return (value == null) ? defaultD : value.doubleValue();
+    }
+
+    /**
+     * Converts a string to a double.
+     *
+     * @param value
+     *            string containing a double.
+     * @param defaultD
+     *            default value to consider if string not recognised as a double representation
+     * @return corresponding double or default value if not recognised
+     */
+    public static double toDouble(String value, double defaultD) {
+        if (value == null) {
+            return defaultD;
+        }
+        try {
+            return Double.parseDouble(value.trim());
+        } catch (NumberFormatException exception) {
+            SdkLogger.getLogger().logError("Error occurred when parsing the string containing a double number [" + value
+                                           + "]. Defaulting to " + defaultD, exception);
+            return defaultD;
+        }
     }
 
     /**

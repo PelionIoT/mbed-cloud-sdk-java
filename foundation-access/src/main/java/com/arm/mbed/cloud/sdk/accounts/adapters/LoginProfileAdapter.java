@@ -69,10 +69,10 @@ public final class LoginProfileAdapter {
     }
 
     /**
-     * Maps a list into a list.
+     * Maps a list of login profile into a list of login profile.
      * 
      * @param toBeMapped
-     *            a list.
+     *            a list of login profile.
      * @return mapped simple list
      */
     @Internal
@@ -127,10 +127,10 @@ public final class LoginProfileAdapter {
     }
 
     /**
-     * Maps a list into a list.
+     * Maps a list of login profile into a list of login profile.
      * 
      * @param toBeMapped
-     *            a list.
+     *            a list of login profile.
      * @return mapped simple list
      */
     @Internal
@@ -185,10 +185,10 @@ public final class LoginProfileAdapter {
     }
 
     /**
-     * Maps a list into a list.
+     * Maps a list of login profile into a list of login profile.
      * 
      * @param toBeMapped
-     *            a list.
+     *            a list of login profile.
      * @return mapped simple list
      */
     @Internal

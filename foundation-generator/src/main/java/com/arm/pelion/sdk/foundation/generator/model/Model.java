@@ -36,13 +36,16 @@ public class Model extends AbstractSdkArtifact {
     protected final List<String> contructorsName;
     protected final Map<String, Method> methods;
     protected final Map<String, Field> fields;
+    protected final Map<String, Field> constants;
     protected Map<String, Field> superClassFields;
     protected Map<String, Method> superClassMethods;
     protected TypeParameter superClassType;
     protected TypeSpec.Builder specificationBuilder;
+
     private boolean shouldBeSorted;
     private boolean mayHaveLongLines;
     private boolean isFinal;
+    private boolean ignoreLiteralDuplicate;
     private static final Map<String, Integer> LOOKUP_TABLE = new HashMap<>(26);
     static {
         LOOKUP_TABLE.put("a", Integer.valueOf(1));
@@ -84,6 +87,7 @@ public class Model extends AbstractSdkArtifact {
               containsCustomCode, needsCustomCode, isInternal);
         methods = new LinkedHashMap<>();
         fields = new LinkedHashMap<>();
+        constants = new LinkedHashMap<>();
         contructorsName = new LinkedList<>();
         abstractParent = null;
         setPackageName(packageName);
@@ -94,6 +98,7 @@ public class Model extends AbstractSdkArtifact {
         setShouldBeSorted(false);
         setMayHaveLongLines(false);
         setFinal(false);
+        setIgnoreLiteralDuplicate(false);
     }
 
     public Model() {
@@ -194,6 +199,14 @@ public class Model extends AbstractSdkArtifact {
         return superClassType;
     }
 
+    public boolean isIgnoreLiteralDuplicate() {
+        return ignoreLiteralDuplicate;
+    }
+
+    public void setIgnoreLiteralDuplicate(boolean ignoreLiteralDuplicate) {
+        this.ignoreLiteralDuplicate = ignoreLiteralDuplicate;
+    }
+
     public boolean shouldBeSorted() {
         return shouldBeSorted;
     }
@@ -241,6 +254,31 @@ public class Model extends AbstractSdkArtifact {
         fields.put(field.getIdentifier(), field);
     }
 
+    public Model constant(Field field) {
+        addConstant(field);
+        return this;
+    }
+
+    public void addConstants(Collection<Field> fields) {
+        if (fields == null) {
+            return;
+        }
+        fields.forEach(f -> addConstant(f));
+    }
+
+    public void addConstant(Field field) {
+        if (!hasConstant(field)) {
+            overrideConstantIfExists(field);
+        }
+    }
+
+    public void overrideConstantIfExists(Field field) {
+        if (field == null) {
+            return;
+        }
+        constants.put(field.getIdentifier(), field);
+    }
+
     public String getFullName() {
         return hasPackageName() ? getPackageName() + "." + getName() : getName();
     }
@@ -258,6 +296,10 @@ public class Model extends AbstractSdkArtifact {
 
     public boolean hasFields() {
         return !fields.isEmpty();
+    }
+
+    public boolean hasConstants() {
+        return !constants.isEmpty();
     }
 
     public boolean hasFieldsWithDefaultValues() {
@@ -376,6 +418,9 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public void addMethod(Method method) {
+        if (method != null && method instanceof MethodOverloaded) {
+            ((MethodOverloaded) method).generateSuffix();
+        }
         if (!hasMethod(method) || MethodOverloaded.isOverloadedMethod(method)) {
             overrideMethodIfExist(method);
         }
@@ -391,6 +436,14 @@ public class Model extends AbstractSdkArtifact {
 
     public boolean hasField(String identifier) {
         return identifier == null ? false : fields.containsKey(identifier);
+    }
+
+    public boolean hasConstant(Field constant) {
+        return constant == null ? false : hasConstant(constant.getIdentifier());
+    }
+
+    public boolean hasConstant(String identifier) {
+        return identifier == null ? false : constants.containsKey(identifier);
     }
 
     public boolean hasFieldInSuperclass(String identifier) {
@@ -426,6 +479,10 @@ public class Model extends AbstractSdkArtifact {
         final List<Field> allfields = new ArrayList<>(fields.values());
         allfields.addAll(superClassFields.values());
         return allfields;
+    }
+
+    public List<Field> getConstantList() {
+        return new ArrayList<>(constants.values());
     }
 
     public List<Field> getSettableFields() {
@@ -569,13 +626,21 @@ public class Model extends AbstractSdkArtifact {
             specificationBuilder.addAnnotation(AnnotationSpec.builder(Internal.class).build());
         }
         if (hasCyclomaticComplexity()) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreCyclomaticComplexity());
+            annotationRegistry.ignoreCyclomaticComplexity();
         }
-        if (hasFieldsWithDefaultValues()) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreAvoidDuplicateLiterals());
+        if (hasFieldsWithDefaultValues() || isIgnoreLiteralDuplicate()) {
+            annotationRegistry.ignoreAvoidDuplicateLiterals();
         }
         if (mayHaveLongLines()) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreLongLines());
+            annotationRegistry.ignoreLongLines();
+        }
+        addStaticAnalysisAnnotations();
+    }
+
+    @Override
+    protected void addStaticAnalysisAnnotations() {
+        if (annotationRegistry.hasAnnotations()) {
+            specificationBuilder.addAnnotation(annotationRegistry.generateAnnotation());
         }
     }
 
@@ -766,9 +831,13 @@ public class Model extends AbstractSdkArtifact {
     protected void generateSettersAndGetters() {
         getFieldList().stream().filter(f -> !f.isAlreadyDefined()).forEach(f -> {
             final MethodGetter getter = new MethodGetter(f, null, false);
+            getter.setDeprecation(f.getDeprecation());
+            getter.setInternal(f.isInternal());
             addMethod(getter);
             if (!f.isReadOnly()) {
                 final MethodSetter setter = new MethodSetter(f, null, false);
+                setter.setDeprecation(f.getDeprecation());
+                setter.setInternal(f.isInternal());
                 addMethod(setter);
                 if (f.isIdentifier()) {
                     final Field equivalentF = f.clone();
@@ -782,12 +851,14 @@ public class Model extends AbstractSdkArtifact {
                                                                          Utils.generateDocumentationMethodLink(null,
                                                                                                                getter),
                                                                          true).statement(getter.getCallStatement() + System.lineSeparator());
+                        equivalentGetter.setDeprecation(f.getDeprecation());
                         addMethod(equivalentGetter);
 
                     }
                     Method equivalentSetter = new MethodSetter(equivalentF,
                                                                Utils.generateDocumentationMethodLink(null, setter),
                                                                true).statement(setter.getCallStatement(equivalentF.toParameter()) + System.lineSeparator());
+                    equivalentSetter.setDeprecation(f.getDeprecation());
                     addMethod(equivalentSetter);
                 }
                 if (f.needsValidation()) {
@@ -874,7 +945,7 @@ public class Model extends AbstractSdkArtifact {
         addMethod(new MethodEquals(this, null));
     }
 
-    private void generateConstructors(Model theParent) {
+    protected void generateConstructors(Model theParent) {
         ConstructorList constructors = new ConstructorList();
         contructorsName.clear();
         constructors.add(new MethodConstructorAllFields(this, theParent));
@@ -951,7 +1022,7 @@ public class Model extends AbstractSdkArtifact {
             builder.append(description);
         }
         if (hasLongDescription) {
-            builder.append(System.lineSeparator()).append("<p>").append(System.lineSeparator());
+            builder.append(Utils.generateNewDocumentationLine());
             builder.append(longDescription);
         }
         return builder.toString();
@@ -975,7 +1046,7 @@ public class Model extends AbstractSdkArtifact {
                                                               : serialisationString;
     }
 
-    protected void translateSerialisation() throws TranslationException {
+    protected void addSerialisationId() {
         if (!isSerialisable()) {// isAbstract ||
             return;
         }
@@ -983,8 +1054,18 @@ public class Model extends AbstractSdkArtifact {
                                                  Utils.SERIALISATION_UUID, "Serialisation Id.", null, null, true, false,
                                                  false, false, null, false);
         serialVersionUID.setInitialiser(generateSerialisationId() + "L");
-        serialVersionUID.translate();
-        specificationBuilder.addField(serialVersionUID.getSpecificationBuilder().build());
+        addConstant(serialVersionUID);
+    }
+
+    protected void translateConstants() throws TranslationException {
+        addSerialisationId();
+        if (!hasConstants()) {
+            return;
+        }
+        for (final Field f : getConstantList()) {
+            f.translate();
+            specificationBuilder.addField(f.getSpecificationBuilder().build());
+        }
     }
 
     protected void translateFields() throws TranslationException {
@@ -1019,7 +1100,7 @@ public class Model extends AbstractSdkArtifact {
     public void translate() throws TranslationException {
         try {
             initialiseBuilder();
-            translateSerialisation();
+            translateConstants();
             translateFields();
             translateMethods();
         } catch (TranslationException exception) {
@@ -1039,7 +1120,7 @@ public class Model extends AbstractSdkArtifact {
         final String finalParameterName = ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(parameterName == null ? name
                                                                                                                           : parameterName),
                                                                        false);
-        return new Parameter(finalParameterName, Utils.generateDocumentationString(name), null, toType(), null);
+        return new Parameter(finalParameterName, Utils.generateDocumentationString(name), null, toType(), null, null);
     }
 
     public Parameter toParameter() {

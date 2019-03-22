@@ -7,6 +7,7 @@ import com.arm.pelion.sdk.foundation.generator.model.Parameter;
 import com.arm.pelion.sdk.foundation.generator.model.TypeHashtable;
 import com.arm.pelion.sdk.foundation.generator.model.TypeList;
 import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
+import com.arm.pelion.sdk.foundation.generator.model.Validation;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
 import com.arm.pelion.sdk.foundation.generator.util.Logger;
 
@@ -19,6 +20,18 @@ public class FieldTranslator {
         // TODO Auto-generated constructor stub
     }
 
+    public static Validation translateValidation(com.arm.pelion.sdk.foundation.generator.input.Field field) {
+        final Validation validation = new Validation();
+        validation.setPattern(com.arm.pelion.sdk.foundation.generator.util.Utils.applyPatternHack(field.getPattern()));
+        if (field.hasMinimum()) {
+            validation.setMinimum(String.valueOf(field.getMinimum()));
+        }
+        if (field.hasMaximum()) {
+            validation.setMaximum(String.valueOf(field.getMaximum()));
+        }
+        return validation;
+    }
+
     public static Field translate(Logger logger, com.arm.pelion.sdk.foundation.generator.input.Field field,
                                   String packageName, String group,
                                   String primaryKey) throws FoundationGeneratorException {
@@ -28,16 +41,18 @@ public class FieldTranslator {
         try {
             final Field modelField = new Field(field.isReadOnly(), determineType(field, packageName, group),
                                                field.getKey(), field.getDescription(), field.getLongDescription(),
-                                               com.arm.pelion.sdk.foundation.generator.util.Utils.applyPatternHack(field.getPattern()),
-                                               false, field.isCustomCode(), field.isInternal(), field.isRequired(),
-                                               field.getDefaultValue(), false);
+                                               translateValidation(field), false, field.isCustomCode(),
+                                               field.isInternal(), field.isRequired(), field.getDefaultValue(), false);
             if (primaryKey != null && primaryKey.equals(field.getKey())) {
                 modelField.setAsIdentifier(true);
+            }
+            if (field.hasDeprecation()) {
+                modelField.setDeprecation(CommonTranslator.translateDeprecationNotice(field.getDeprecationNotice(),
+                                                                                      true));
             }
             // TODO do something if needed
             return modelField;
         } catch (FoundationGeneratorException exception) {
-            System.out.println(field);
             logger.logError("Could not translate field " + field + " " + packageName + " " + group, exception);
             throw exception;
         }
@@ -49,7 +64,8 @@ public class FieldTranslator {
             return null;
         }
         final Parameter parameter = new Parameter(field.getKey(), field.getDescription(), field.getDescription(),
-                                                  determineType(field, packageName, group), field.getDefaultValue());
+                                                  determineType(field, packageName, group), field.getDefaultValue(),
+                                                  translateValidation(field));
         return field.isRequired() ? parameter.setAsNonNull(true) : parameter.setAsNullable(true);
     }
 

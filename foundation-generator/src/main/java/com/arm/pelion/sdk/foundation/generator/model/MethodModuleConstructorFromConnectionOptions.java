@@ -34,7 +34,7 @@ public class MethodModuleConstructorFromConnectionOptions extends AbstractMethod
     protected void addConstructorParameters() {
         addParameter(new Parameter(PARAMETER_CONNECTION_OPTIONS,
                                    "connection options @see {@link " + getParameterClass().getSimpleName() + "}.", null,
-                                   TypeFactory.getCorrespondingType(getParameterClass()), null));
+                                   TypeFactory.getCorrespondingType(getParameterClass()), null, null));
     }
 
     public Class<?> getParameterClass() {

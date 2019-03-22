@@ -9,6 +9,7 @@ public class MethodTest extends Method {
     public MethodTest(String name, String description, boolean containsCustomCode) {
         super(false, name, description, null, false, true, false, containsCustomCode, false, false, false, false);
         initialiseCodeBuilder();
+        setIgnoreResourceClosure(true);
     }
 
     public MethodTest(String methodUnderTest, boolean containsCustomCode) {

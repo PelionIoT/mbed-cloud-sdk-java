@@ -92,12 +92,14 @@ public class SecurityEndpoints extends AbstractEndpoints {
      * 
      * @return certificateEnrollmentsApi
      */
+    @Internal
     public CertificateEnrollmentsApi getCertificateEnrollmentsApi() {
         return certificateEnrollmentsApi;
     }
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -113,6 +115,7 @@ public class SecurityEndpoints extends AbstractEndpoints {
      * 
      * @return certificateIssuersApi
      */
+    @Internal
     public CertificateIssuersApi getCertificateIssuersApi() {
         return certificateIssuersApi;
     }
@@ -122,6 +125,7 @@ public class SecurityEndpoints extends AbstractEndpoints {
      * 
      * @return certificateIssuersActivationApi
      */
+    @Internal
     public CertificateIssuersActivationApi getCertificateIssuersActivationApi() {
         return certificateIssuersActivationApi;
     }
@@ -131,6 +135,7 @@ public class SecurityEndpoints extends AbstractEndpoints {
      * 
      * @return developerCertificateApi
      */
+    @Internal
     public DeveloperCertificateApi getDeveloperCertificateApi() {
         return developerCertificateApi;
     }
@@ -140,6 +145,7 @@ public class SecurityEndpoints extends AbstractEndpoints {
      * 
      * @return developerApi
      */
+    @Internal
     public DeveloperApi getDeveloperApi() {
         return developerApi;
     }
@@ -149,6 +155,7 @@ public class SecurityEndpoints extends AbstractEndpoints {
      * 
      * @return serverCredentialsApi
      */
+    @Internal
     public ServerCredentialsApi getServerCredentialsApi() {
         return serverCredentialsApi;
     }
@@ -158,6 +165,7 @@ public class SecurityEndpoints extends AbstractEndpoints {
      * 
      * @return aggregatorAccountAdminApi
      */
+    @Internal
     public AggregatorAccountAdminApi getAggregatorAccountAdminApi() {
         return aggregatorAccountAdminApi;
     }
@@ -167,6 +175,7 @@ public class SecurityEndpoints extends AbstractEndpoints {
      * 
      * @return accountAdminApi
      */
+    @Internal
     public AccountAdminApi getAccountAdminApi() {
         return accountAdminApi;
     }

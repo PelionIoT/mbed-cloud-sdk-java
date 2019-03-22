@@ -27,26 +27,31 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * The time of completing the bulk creation task. Null when creating bulk upload or delete.
+     * 
      */
     private final Date completedAt;
 
     /**
      * The time of receiving the bulk creation task.
+     * 
      */
     private final Date createdAt;
 
     /**
      * The number of enrollment identities with failed processing.
+     * 
      */
     private final int errorsCount;
 
     /**
      * Link to error report file. Null when creating bulk upload or delete.
+     * 
      */
     private final String errorsReportFile;
 
     /**
      * Link to full report file. Null when creating bulk upload or delete.
+     * 
      */
     private final String fullReportFile;
 
@@ -57,23 +62,27 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * The number of enrollment identities processed until now.
+     * 
      */
     private final int processedCount;
 
     /**
      * The state of the process is 'new' at the time of creation. If the creation is still in progress, the state is
      * shown as 'processing'. When the request has been fully processed, the state changes to 'completed'.
+     * 
      */
     @DefaultValue("new")
     private final DeviceEnrollmentBulkCreateStatus status;
 
     /**
      * Total number of enrollment identities found in the input CSV.
+     * 
      */
     private final int totalCount;
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentBulkCreate()} instead.
      * 
@@ -127,6 +136,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentBulkCreate()} instead.
      * 
@@ -169,6 +179,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentBulkCreate()} instead.
      * 
@@ -275,10 +286,9 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * Sets bulk id.
+     * 
      * <p>
-     * null
-     * <p>
-     * Note: the value has to match {@code /^[A-Za-z0-9]{32}/} to be valid
+     * Note: the length of the string has to match {@code /^[A-Za-z0-9]{32}/} to be valid
      * 
      * @param id
      *            Bulk ID.
@@ -290,10 +300,11 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * Sets bulk id.
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * <p>
-     * Note: the value has to match {@code /^[A-Za-z0-9]{32}/} to be valid
+     * Note: the length of the string has to match {@code /^[A-Za-z0-9]{32}/} to be valid
      * 
      * @param deviceEnrollmentBulkCreateId
      *            Bulk ID.
@@ -343,6 +354,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -367,6 +379,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -380,6 +393,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -461,6 +475,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * Returns a string representation of the object.
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -476,6 +491,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -488,6 +504,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

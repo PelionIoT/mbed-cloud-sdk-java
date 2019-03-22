@@ -20,16 +20,19 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Provides details in case of failure.
+     * 
      */
     private final String message;
 
     /**
      * Indicates whether the certificate issuer was verified successfully.
+     * 
      */
     private final boolean successful;
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #VerificationResponse()} instead.
      * 
@@ -49,6 +52,7 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #VerificationResponse()} instead.
      * 
@@ -83,6 +87,7 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Gets id.
+     * 
      * <p>
      * Warning: VerificationResponse model does not have any ID field. This always returns {@code null}.
      * 
@@ -114,6 +119,7 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -130,6 +136,7 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -143,6 +150,7 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -180,6 +188,7 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Returns a string representation of the object.
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -192,6 +201,7 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -204,6 +214,7 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

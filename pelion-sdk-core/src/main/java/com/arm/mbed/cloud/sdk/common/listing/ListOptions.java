@@ -1,16 +1,12 @@
 package com.arm.mbed.cloud.sdk.common.listing;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
-import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
-import com.arm.mbed.cloud.sdk.common.SdkUtils;
-import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
 @Preamble(description = "Options to use when listing objects")
@@ -20,8 +16,8 @@ public class ListOptions extends FilterOptions {
     public static final String FIELD_NAME_PAGESIZE = "pageSize";
     public static final String FIELD_NAME_FORMER_PAGESIZE = "limit";
     public static final String FIELD_NAME_ORDER = "order";
-    public static final String METHOD_INCLUDE_TO_STRING = "encodeInclude";
     public static final String METHOD_FILTER_TO_STRING = FilterOptions.METHOD_FILTER_TO_STRING;
+
     /**
      * how many objects to retrieve in the page.
      * <P>
@@ -292,27 +288,6 @@ public class ListOptions extends FilterOptions {
     }
 
     /**
-     * Gets a string comprising all include fields in Snake case.
-     *
-     * @return string
-     */
-    public @Nullable String encodeInclude() {
-        if (include == null || include.isEmpty()) {
-            return null;
-        }
-        boolean start = true;
-        final StringBuilder builder = new StringBuilder();
-        for (final IncludeField includeField : include) {
-            if (!start) {
-                builder.append(',');
-            }
-            builder.append(includeField.encode());
-            start = false;
-        }
-        return builder.toString();
-    }
-
-    /**
      * Appends an include field.
      *
      * @param includeField
@@ -370,152 +345,6 @@ public class ListOptions extends FilterOptions {
      */
     public void includeTotalCount() {
         addInclude(IncludeField.TOTAL_COUNT);
-    }
-
-    protected Object fetchEqualFilterValue(@Nullable String fieldName) {
-        return fetchSpecificFilterValue(fieldName, FilterOperator.EQUAL);
-    }
-
-    protected Object fetchNotEqualFilterValue(@Nullable String fieldName) {
-        return fetchSpecificFilterValue(fieldName, FilterOperator.NOT_EQUAL);
-    }
-
-    protected Object fetchLikeFilterValue(@Nullable String fieldName) {
-        // If no like filter was entered but an equal filter was, equal filter is considered.
-        final Object specificLike = fetchSpecificFilterValue(fieldName, FilterOperator.LIKE);
-        return (specificLike == null) ? fetchEqualFilterValue(fieldName) : specificLike;
-    }
-
-    protected Object fetchInFilterValue(@Nullable String fieldName) {
-        return fetchSpecificFilterValue(fieldName, FilterOperator.IN);
-    }
-
-    protected Object fetchNotInFilterValue(@Nullable String fieldName) {
-        return fetchSpecificFilterValue(fieldName, FilterOperator.NOT_IN);
-    }
-
-    protected Object fetchGreaterThanFilterValue(@Nullable String fieldName) {
-        return fetchSpecificFilterValue(fieldName, FilterOperator.GREATER_THAN);
-    }
-
-    protected Object fetchLessThanFilterValue(@Nullable String fieldName) {
-        return fetchSpecificFilterValue(fieldName, FilterOperator.LESS_THAN);
-    }
-
-    /**
-     * Gets a string describing an "equal" filter.
-     *
-     * @param fieldName
-     *            filter key
-     * @return string encoded filter
-     */
-    public @Nullable String encodeSingleEqualFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchEqualFilterValue(fieldName);
-        return encodeSingleFilter(filterObj);
-    }
-
-    /**
-     * Gets a string describing a "not equal" filter.
-     * 
-     * @param fieldName
-     *            filter key
-     * @return string encoded filter
-     */
-    public @Nullable String encodeSingleNotEqualFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchNotEqualFilterValue(fieldName);
-        return encodeSingleFilter(filterObj);
-    }
-
-    /**
-     * Gets a string describing a "greater than" filter.
-     * 
-     * @param fieldName
-     *            filter key
-     * @return string encoded filter
-     */
-    public @Nullable String encodeSingleGreaterThanFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchGreaterThanFilterValue(fieldName);
-        return encodeSingleFilter(filterObj);
-    }
-
-    /**
-     * Gets a string describing a "less than" filter.
-     * 
-     * @param fieldName
-     *            filter key
-     * @return string encoded filter
-     */
-    public @Nullable String encodeSingleLessThanFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchLessThanFilterValue(fieldName);
-        return encodeSingleFilter(filterObj);
-    }
-
-    /**
-     * Gets a string describing a "like" filter.
-     *
-     * @param fieldName
-     *            filter key
-     * @return string encoded filter
-     */
-    public @Nullable String encodeSingleLikeFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchLikeFilterValue(fieldName);
-        return encodeSingleFilter(filterObj);
-    }
-
-    /**
-     * Gets a string describing an "In" filter.
-     *
-     * @param fieldName
-     *            filter key
-     * @return string encoded filter
-     */
-    public @Nullable String encodeSingleInFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchInFilterValue(fieldName);
-        return encodeMultipleFilters(filterObj);
-    }
-
-    /**
-     * Gets a string describing a "Not In" filter.
-     *
-     * @param fieldName
-     *            filter key
-     * @return string encoded filter
-     */
-    public @Nullable String encodeSingleNotInFilter(@Nullable String fieldName) {
-        final Object filterObj = fetchNotInFilterValue(fieldName);
-        return encodeMultipleFilters(filterObj);
-    }
-
-    private String encodeSingleFilter(final Object filterObj) {
-        return (filterObj == null) ? null : filterObj.toString();
-    }
-
-    @SuppressWarnings("rawtypes")
-    private String encodeMultipleFilters(final Object filterObj) {
-        if (filterObj == null) {
-            return null;
-        }
-        if (filterObj instanceof List) {
-            return encodeList((List) filterObj);
-        }
-        if (filterObj.getClass().isArray()) {
-            return encodeArray(filterObj);
-        }
-        return encodeSingleFilter(filterObj);
-    }
-
-    private String encodeArray(Object filterObj) {
-        if (filterObj instanceof String[]) {
-            return encodeList(Arrays.asList((String[]) filterObj));
-        }
-        if (filterObj instanceof Object[]) {
-            return encodeList(Arrays.asList(((Object[]) filterObj)));
-        }
-        return null;
-    }
-
-    private String encodeList(List<?> filterObj) {
-        return SdkUtils.joinList(filterObj, ",");
     }
 
     /**
@@ -652,7 +481,8 @@ public class ListOptions extends FilterOptions {
     @Override
     public String toString() {
         return "ListOptions [pageSize=" + pageSize + ", maxResults=" + maxResults + ", order=" + order + ", after="
-               + after + ", include=" + encodeInclude() + ", filter=" + retrieveFilterAsJson() + "]";
+               + after + ", include=" + ListOptionsEncoder.encodeInclude(this) + ", filter=" + retrieveFilterAsJson()
+               + "]";
     }
 
 }

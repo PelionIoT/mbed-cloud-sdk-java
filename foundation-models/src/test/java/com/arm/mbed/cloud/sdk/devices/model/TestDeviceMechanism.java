@@ -9,10 +9,12 @@ import org.junit.Test;
 /**
  * Unit tests for Model DeviceMechanism.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestDeviceMechanism {
     /**
      * Tests the getValue method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testGetValue() {
         try {
@@ -28,7 +30,7 @@ public class TestDeviceMechanism {
             devicemechanism = DeviceMechanism.getValue("direct");
             assertNotNull(devicemechanism);
             assertFalse(devicemechanism.isDefault());
-            devicemechanism = DeviceMechanism.getValue("2f92f3d2-c4f3-46a7-a54a-1577892d4065");
+            devicemechanism = DeviceMechanism.getValue("9999e218-f887-4c6e-9f5e-b970d64323ac");
             assertNotNull(devicemechanism);
             assertTrue(devicemechanism.isDefault());
         } catch (Exception exception) {

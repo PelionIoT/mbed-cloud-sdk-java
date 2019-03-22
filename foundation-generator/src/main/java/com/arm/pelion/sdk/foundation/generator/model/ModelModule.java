@@ -198,6 +198,7 @@ public class ModelModule extends ModelMergeable {
         private final Method lowLevelMethod;
         private final Renames parameterRenames;
         private final Class<?> lowLevelModule;
+        private Deprecation deprecation;
         private ModelEndpoints endpoints;
 
         public CloudCall(MethodAction action, String methodName, String description, String longDescription,
@@ -218,6 +219,7 @@ public class ModelModule extends ModelMergeable {
             this.methodParameters = externalParameters;
             this.allParameters = allParameters;
             this.lowLevelModule = lowLevelModule;
+            deprecation = null;
         }
 
         public CloudCall(MethodAction action, String methodName, String description, String longDescription,
@@ -238,6 +240,19 @@ public class ModelModule extends ModelMergeable {
 
         public String getIdentifier() {
             return methodName;
+        }
+
+        public Deprecation getDeprecation() {
+            return deprecation;
+        }
+
+        public void setDeprecation(Deprecation deprecation) {
+            this.deprecation = deprecation;
+        }
+
+        public boolean hasDeprecation() {
+            return deprecation != null;
+
         }
 
         public void addMethod(ModelModule module) {
@@ -330,6 +345,13 @@ public class ModelModule extends ModelMergeable {
             }
             method.initialise();
             addMethod(module, method, null);
+            MethodModuleDefault defaultMethod = new MethodModuleDefault(method);
+            defaultMethod.initialise();
+            defaultMethod.generateSuffix();
+            method.generateSuffix();
+            if (haveDifferentSignatures(defaultMethod, method)) {
+                addMethod(module, defaultMethod, null);
+            }
             MethodModuleCloudApi overloadedMethod = null;
             switch (action) {
 
@@ -367,10 +389,17 @@ public class ModelModule extends ModelMergeable {
             overloadedMethod.initialise();
             if (action == MethodAction.LIST || action == MethodAction.LIST_OTHER
                 || haveDifferentSignatures(method, overloadedMethod)) {
-                addMethod(module, overloadedMethod,
-                          action == MethodAction.LIST ? MethodAction.PAGINATION
-                                                      : action == MethodAction.LIST_OTHER ? MethodAction.PAGINATION_OTHER
-                                                                                          : null);
+                MethodAction overridingAction = action == MethodAction.LIST ? MethodAction.PAGINATION
+                                                                            : action == MethodAction.LIST_OTHER ? MethodAction.PAGINATION_OTHER
+                                                                                                                : null;
+                addMethod(module, overloadedMethod, overridingAction);
+
+                MethodModuleDefault defaultMethod1 = new MethodModuleDefault(overloadedMethod);
+                defaultMethod1.initialise();
+                if (haveDifferentSignatures(defaultMethod1, overloadedMethod)) {
+                    addMethod(module, defaultMethod1, overridingAction);
+                }
+
             }
             if (action == MethodAction.LIST_OTHER) {
                 MethodModuleFromEntityUnselfList overloadedMethod2 = new MethodModuleFromEntityUnselfList((MethodModuleCloudApiUnself) method,
@@ -382,18 +411,30 @@ public class ModelModule extends ModelMergeable {
                 if (haveDifferentSignatures(method, overloadedMethod2)) {
                     addMethod(module, overloadedMethod2, MethodAction.LIST_OTHER);
                 }
+                MethodModuleDefault defaultMethod1 = new MethodModuleDefault(overloadedMethod2);
+                defaultMethod1.initialise();
+                if (haveDifferentSignatures(defaultMethod1, overloadedMethod2)) {
+                    addMethod(module, defaultMethod1, MethodAction.LIST_OTHER);
+                }
+
                 MethodModuleCloudApi overloadedMethod3 = new MethodModuleFromEntityUnselfPagination(overloadedMethod2,
                                                                                                     isCustom);
                 overloadedMethod3.initialise();
                 if (haveDifferentSignatures(overloadedMethod, overloadedMethod3)) {
                     addMethod(module, overloadedMethod3, MethodAction.PAGINATION_OTHER);
                 }
+
+                MethodModuleDefault defaultMethod2 = new MethodModuleDefault(overloadedMethod3);
+                defaultMethod2.initialise();
+                if (haveDifferentSignatures(defaultMethod2, overloadedMethod3)) {
+                    addMethod(module, defaultMethod2, MethodAction.PAGINATION_OTHER);
+                }
             }
 
         }
 
         private void addMethod(ModelModule module, MethodModuleCloudApi method, MethodAction overridingAction) {
-            method.generateSuffix();
+            method.setDeprecation(deprecation);
             module.addFields(method.getNecessaryConstants());
             module.addMethod(method);
             module.registerMethod(currentModel, overridingAction == null ? action : overridingAction, method);

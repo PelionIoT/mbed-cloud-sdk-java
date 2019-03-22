@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.model.MergeableArtifact;
 import com.arm.pelion.sdk.foundation.generator.model.Method;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
+import com.arm.pelion.sdk.foundation.generator.model.Parameter;
+import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
 
 public class Utils {
     private static final String PLUS = "+";
@@ -20,6 +23,7 @@ public class Utils {
     private static final List<String> VOWELS = Arrays.asList("a", "e", "i", "o", "u");
     private static final List<String> WORD_EXCEPTIONS = Arrays.asList("user");// TODO to extend
     private static final List<String> WORD_OPPOSITE_EXCEPTIONS = Arrays.asList("sdk");// TODO to extend
+    private static final List<String> WORD_PLURAL_EXCEPTIONS = Arrays.asList("status");// TODO to extend
 
     public static <T extends MergeableArtifact> T merge(T artifact1, T artifact2) {
         if (artifact1 == null) {
@@ -78,6 +82,16 @@ public class Utils {
                                            plural, shouldAddArticle);
     }
 
+    public static boolean isSameParameter(String parameterName1, String parameterName2) {
+        if (parameterName1 == null) {
+            return parameterName2 == null;
+        }
+        if (parameterName1.equals(parameterName2)) {
+            return true;
+        }
+        return ApiUtils.convertCamelToSnake(parameterName1).equals(ApiUtils.convertCamelToSnake(parameterName2));
+    }
+
     public static String generateDocumentationString(String modelName, boolean plural) {
         return generateDocumentationString(modelName, plural, true);
     }
@@ -100,22 +114,31 @@ public class Utils {
         }
         String text = generateModelNameAsText(modelName);
         if (plural) {
-            final String processedName = modelName.trim().toLowerCase(Locale.UK);
-            if (!processedName.endsWith("s")) {
-                if (processedName.endsWith("y")) {
-                    if (VOWELS.stream().anyMatch(v -> processedName.endsWith(v + "y"))) {
-                        text += "s";
-                    } else {
-                        text = generateModelNameAsText(modelName.trim().substring(0, processedName.length() - 1)
-                                                       + "ies");
-                    }
-                } else {
-                    text += "s";
-                }
-            }
+            text = generatePlural(modelName);
         }
         build.append(text);
         return build.toString();
+    }
+
+    public static String generatePlural(String modelName) {
+        String text = generateModelNameAsText(modelName);
+        final String processedName = modelName.trim().toLowerCase(Locale.UK);
+        if (!processedName.endsWith("s")) {
+            if (processedName.endsWith("y")) {
+                if (VOWELS.stream().anyMatch(v -> processedName.endsWith(v + "y"))) {
+                    text += "s";
+                } else {
+                    text = generateModelNameAsText(modelName.trim().substring(0, processedName.length() - 1) + "ies");
+                }
+            } else {
+                text += "s";
+            }
+        } else {
+            if (WORD_PLURAL_EXCEPTIONS.stream().anyMatch(w -> w.equals(processedName))) {
+                text = processedName + "es";
+            }
+        }
+        return text;
     }
 
     public static String combineNames(boolean capitalAtStart, String name1, String... names) {
@@ -144,8 +167,8 @@ public class Utils {
     }
 
     public static String generateModelNameAsText(String modelName) {
-        return ApiUtils.convertCamelToSnake(modelName).replace(HYPHEN, UNDERSCORE).replace(UNDERSCORE, WHITE_SPACE)
-                       .replace(WHITE_SPACE + WHITE_SPACE, WHITE_SPACE).trim();
+        return ApiUtils.convertCamelToSnake(modelName).replaceAll("<(.*)>", " of $1").replace(HYPHEN, UNDERSCORE)
+                       .replace(UNDERSCORE, WHITE_SPACE).replace(WHITE_SPACE + WHITE_SPACE, WHITE_SPACE).trim();
     }
 
     public static String generateDocumentationString(String modelName) {
@@ -165,6 +188,18 @@ public class Utils {
         }
         builder.append("}");
         return builder.toString();
+    }
+
+    public static String generateSignatureForDocumentation(String methodName, List<Parameter> parameters) {
+        return (methodName + "(" + (parameters == null ? "" : String.join(", ", parameters.stream().map(p -> {
+            final TypeParameter type = p.getType();
+            return type.isPrimitiveOrWrapper() ? type.getShortName() : type.getFullyQualifiedName();
+        }).collect(Collectors.toList()))) + ")").replaceAll("<(.*)>", "");// See
+                                                                          // https://stackoverflow.com/questions/9482309/javadoc-bug-link-cant-handle-generics
+    }
+
+    public static String generateNewDocumentationLine() {
+        return System.lineSeparator() + "<p>" + System.lineSeparator();
     }
 
     public static String applyPatternHack(String pattern) {

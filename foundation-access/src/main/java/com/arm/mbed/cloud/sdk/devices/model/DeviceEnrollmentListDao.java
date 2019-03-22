@@ -25,19 +25,60 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
                                      implements ModelListDao<DeviceEnrollment, DeviceEnrollmentListOptions> {
     /**
      * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public DeviceEnrollmentListDao() throws MbedCloudException {
         super();
     }
 
     /**
+     * Constructor.
+     * 
+     * @param client
+     *            an api client wrapper.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEnrollmentListDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            a connection options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEnrollmentListDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            an sdk context.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEnrollmentListDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+    }
+
+    /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
     @Override
+    @SuppressWarnings({ "resource", "unused" })
     public DeviceEnrollmentListDao clone() {
         try {
             return new DeviceEnrollmentListDao().configureAndGet(getModuleOrThrow() == null ? null
@@ -48,18 +89,6 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     }
 
     /**
-     * a device enrollment dao.
-     * 
-     * @return a device enrollment dao
-     */
-    @Override
-    @Internal
-    @SuppressWarnings("unchecked")
-    public DeviceEnrollmentDao getCorrespondingModelDao() throws MbedCloudException {
-        return new DeviceEnrollmentDao().configureAndGet(getModuleOrThrow());
-    }
-
-    /**
      * a device enrollment dao class.
      * 
      * @return a device enrollment dao class
@@ -67,8 +96,22 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
     @Override
     @Internal
     @SuppressWarnings("unchecked")
-    public Class<DeviceEnrollmentDao> getCorrespondingModelDaoDefinition() {
+    public Class<DeviceEnrollmentDao> getModelDaoClass() {
         return DeviceEnrollmentDao.class;
+    }
+
+    /**
+     * a device enrollment dao.
+     * 
+     * @return a device enrollment dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    @Internal
+    @SuppressWarnings("unchecked")
+    public DeviceEnrollmentDao getNewModelDao() throws MbedCloudException {
+        return new DeviceEnrollmentDao().configureAndGet(getModuleOrThrow());
     }
 
     /**
@@ -123,6 +166,7 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
 
     /**
      * Lists device enrollments matching filter options.
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#listDeviceEnrollments(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentListOptions)}
@@ -130,6 +174,8 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
      * @param options
      *            list options.
      * @return one page of device enrollments
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @Override
     protected ListResponse<DeviceEnrollment>

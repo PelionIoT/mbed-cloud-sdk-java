@@ -9,10 +9,12 @@ import org.junit.Test;
 /**
  * Unit tests for Model ApiKeyStatus.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestApiKeyStatus {
     /**
      * Tests the getValue method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testGetValue() {
         try {
@@ -28,7 +30,7 @@ public class TestApiKeyStatus {
             apikeystatus = ApiKeyStatus.getValue("INACTIVE");
             assertNotNull(apikeystatus);
             assertFalse(apikeystatus.isDefault());
-            apikeystatus = ApiKeyStatus.getValue("27921259-b5f8-4096-88fe-c2842dd421e9");
+            apikeystatus = ApiKeyStatus.getValue("0ff0b19a-3b3d-4694-b8d4-741c40922141");
             assertNotNull(apikeystatus);
             assertTrue(apikeystatus.isDefault());
         } catch (Exception exception) {

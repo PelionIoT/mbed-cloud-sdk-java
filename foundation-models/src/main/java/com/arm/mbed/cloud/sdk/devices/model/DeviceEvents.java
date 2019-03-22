@@ -23,7 +23,7 @@ public class DeviceEvents implements SdkModel {
     /**
      * value.
      */
-    private final Map<String, Object> changes;
+    private final Map<String, String> changes;
 
     /**
      * value.
@@ -77,6 +77,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
@@ -105,7 +106,7 @@ public class DeviceEvents implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public DeviceEvents(Map<String, Object> changes, Date createdAt, Map<String, String> data, Date dateTime,
+    public DeviceEvents(Map<String, String> changes, Date createdAt, Map<String, String> data, Date dateTime,
                         String description, String deviceId, String eventType, String eventTypeCategory,
                         String eventTypeDescription, String id, boolean stateChange) {
         super();
@@ -124,6 +125,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
@@ -132,9 +134,9 @@ public class DeviceEvents implements SdkModel {
      */
     @Internal
     public DeviceEvents(DeviceEvents deviceEvents) {
-        this(deviceEvents == null ? null : deviceEvents.changes,
+        this(deviceEvents == null ? (java.util.Map<String, String>) null : deviceEvents.changes,
              deviceEvents == null ? new java.util.Date() : deviceEvents.createdAt,
-             deviceEvents == null ? null : deviceEvents.data,
+             deviceEvents == null ? (java.util.Map<String, String>) null : deviceEvents.data,
              deviceEvents == null ? new java.util.Date() : deviceEvents.dateTime,
              deviceEvents == null ? (String) null : deviceEvents.description,
              deviceEvents == null ? (String) null : deviceEvents.deviceId,
@@ -148,8 +150,9 @@ public class DeviceEvents implements SdkModel {
      * Constructor.
      */
     public DeviceEvents() {
-        this(null, new java.util.Date(), null, new java.util.Date(), (String) null, (String) null, (String) null,
-             (String) null, (String) null, (String) null, false);
+        this((java.util.Map<String, String>) null, new java.util.Date(), (java.util.Map<String, String>) null,
+             new java.util.Date(), (String) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, false);
     }
 
     /**
@@ -165,6 +168,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Internal constructor.
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
@@ -190,7 +194,7 @@ public class DeviceEvents implements SdkModel {
      *            value.
      */
     @Internal
-    public DeviceEvents(Map<String, Object> changes, Date createdAt, Map<String, String> data, Date dateTime,
+    public DeviceEvents(Map<String, String> changes, Date createdAt, Map<String, String> data, Date dateTime,
                         String description, String deviceId, String eventType, String eventTypeCategory,
                         String eventTypeDescription, boolean stateChange) {
         this(changes, createdAt, data, dateTime, description, deviceId, eventType, eventTypeCategory,
@@ -202,7 +206,7 @@ public class DeviceEvents implements SdkModel {
      * 
      * @return changes
      */
-    public Map<String, Object> getChanges() {
+    public Map<String, String> getChanges() {
         return changes;
     }
 
@@ -301,6 +305,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Sets value.
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -323,6 +328,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -348,6 +354,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -361,6 +368,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -462,6 +470,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Returns a string representation of the object.
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -477,6 +486,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -489,6 +499,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Clones this instance.
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

@@ -1,11 +1,19 @@
 package com.arm.pelion.sdk.foundation.generator.translator;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.pelion.sdk.foundation.generator.Configuration;
+import com.arm.pelion.sdk.foundation.generator.input.DeprecationNotice;
 import com.arm.pelion.sdk.foundation.generator.input.ForeignKey;
+import com.arm.pelion.sdk.foundation.generator.model.Deprecation;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEnum;
 import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
@@ -125,5 +133,38 @@ public class CommonTranslator {
             return packageName.substring(0, packageName.length() - 1);
         }
         return packageName;
+    }
+
+    public static Deprecation translateDeprecationNotice(DeprecationNotice notice, boolean isField) {
+        if (notice == null) {
+            return null;
+        }
+        Date since = null;
+        Date when = null;
+        final List<URL> links = new LinkedList<>();
+        try {
+            since = TranslationUtils.convertStringToDate(notice.getSince());
+        } catch (MbedCloudException exception) {
+            exception.printStackTrace();
+        }
+        try {
+            when = TranslationUtils.convertStringToDate(notice.getWhen());
+        } catch (MbedCloudException exception) {
+            exception.printStackTrace();
+        }
+        if (notice.hasLinks()) {
+            notice.getLinks().forEach(l -> {
+                try {
+                    String link = l == null ? l : l.trim();
+                    if (link != null && !link.toLowerCase(Locale.UK).startsWith("http")) {
+                        link = "https://" + link;
+                    }
+                    links.add(new URL(link));
+                } catch (MalformedURLException exception) {
+                    exception.printStackTrace();
+                }
+            });
+        }
+        return new Deprecation(isField, since, when, notice.getDescription(), links);
     }
 }

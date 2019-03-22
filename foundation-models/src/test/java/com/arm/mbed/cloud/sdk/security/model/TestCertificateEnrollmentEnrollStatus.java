@@ -9,10 +9,12 @@ import org.junit.Test;
 /**
  * Unit tests for Model CertificateEnrollmentEnrollStatus.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestCertificateEnrollmentEnrollStatus {
     /**
      * Tests the getValue method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testGetValue() {
         try {
@@ -29,7 +31,7 @@ public class TestCertificateEnrollmentEnrollStatus {
             certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("new");
             assertNotNull(certificateenrollmentenrollstatus);
             assertFalse(certificateenrollmentenrollstatus.isDefault());
-            certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("a7989a92-51e6-42e8-99c5-41a18a2ee5d2");
+            certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("3ff72645-c2e8-4fff-b64a-327c6cae0674");
             assertNotNull(certificateenrollmentenrollstatus);
             assertTrue(certificateenrollmentenrollstatus.isDefault());
         } catch (Exception exception) {

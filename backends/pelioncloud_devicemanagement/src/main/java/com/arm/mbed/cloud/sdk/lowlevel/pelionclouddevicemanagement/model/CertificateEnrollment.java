@@ -40,17 +40,17 @@ public class CertificateEnrollment implements Serializable {
     private String deviceId = null;
 
     /**
-     * The result of certificate enrollment request.
+     * Gets or Sets enrollResult
      */
     @JsonAdapter(EnrollResultEnum.Adapter.class)
     public enum EnrollResultEnum {
         SUCCESS("success"),
 
-        FAILURE("failure"),
-
         NOT_FOUND("not_found"),
 
-        FORBIDDEN("forbidden");
+        FORBIDDEN("forbidden"),
+
+        FAILURE("failure");
 
         private String value;
 
@@ -93,11 +93,8 @@ public class CertificateEnrollment implements Serializable {
     @SerializedName("enroll_result")
     private EnrollResultEnum enrollResult = null;
 
-    @SerializedName("enroll_result_detail")
-    private String enrollResultDetail = null;
-
     /**
-     * The status of certificate enrollment request.
+     * Gets or Sets enrollStatus
      */
     @JsonAdapter(EnrollStatusEnum.Adapter.class)
     public enum EnrollStatusEnum {
@@ -266,11 +263,11 @@ public class CertificateEnrollment implements Serializable {
     }
 
     /**
-     * The result of certificate enrollment request.
+     * Get enrollResult
      * 
      * @return enrollResult
      **/
-    @ApiModelProperty(example = "success", value = "The result of certificate enrollment request.")
+    @ApiModelProperty(value = "")
     public EnrollResultEnum getEnrollResult() {
         return enrollResult;
     }
@@ -279,37 +276,17 @@ public class CertificateEnrollment implements Serializable {
         this.enrollResult = enrollResult;
     }
 
-    public CertificateEnrollment enrollResultDetail(String enrollResultDetail) {
-        this.enrollResultDetail = enrollResultDetail;
-        return this;
-    }
-
-    /**
-     * Additional information in case of failure.
-     * 
-     * @return enrollResultDetail
-     **/
-    @ApiModelProperty(example = "The device is currently processing too many certificate renewals.",
-                      value = "Additional information in case of failure.")
-    public String getEnrollResultDetail() {
-        return enrollResultDetail;
-    }
-
-    public void setEnrollResultDetail(String enrollResultDetail) {
-        this.enrollResultDetail = enrollResultDetail;
-    }
-
     public CertificateEnrollment enrollStatus(EnrollStatusEnum enrollStatus) {
         this.enrollStatus = enrollStatus;
         return this;
     }
 
     /**
-     * The status of certificate enrollment request.
+     * Get enrollStatus
      * 
      * @return enrollStatus
      **/
-    @ApiModelProperty(value = "The status of certificate enrollment request.")
+    @ApiModelProperty(value = "")
     public EnrollStatusEnum getEnrollStatus() {
         return enrollStatus;
     }
@@ -408,7 +385,6 @@ public class CertificateEnrollment implements Serializable {
                && Objects.equals(this.createdAt, certificateEnrollment.createdAt)
                && Objects.equals(this.deviceId, certificateEnrollment.deviceId)
                && Objects.equals(this.enrollResult, certificateEnrollment.enrollResult)
-               && Objects.equals(this.enrollResultDetail, certificateEnrollment.enrollResultDetail)
                && Objects.equals(this.enrollStatus, certificateEnrollment.enrollStatus)
                && Objects.equals(this.etag, certificateEnrollment.etag)
                && Objects.equals(this.id, certificateEnrollment.id)
@@ -418,8 +394,8 @@ public class CertificateEnrollment implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(certificateName, createdAt, deviceId, enrollResult, enrollResultDetail, enrollStatus, etag,
-                            id, object, updatedAt);
+        return Objects.hash(certificateName, createdAt, deviceId, enrollResult, enrollStatus, etag, id, object,
+                            updatedAt);
     }
 
     @Override
@@ -431,7 +407,6 @@ public class CertificateEnrollment implements Serializable {
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
         sb.append("    enrollResult: ").append(toIndentedString(enrollResult)).append("\n");
-        sb.append("    enrollResultDetail: ").append(toIndentedString(enrollResultDetail)).append("\n");
         sb.append("    enrollStatus: ").append(toIndentedString(enrollStatus)).append("\n");
         sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");

@@ -94,7 +94,8 @@ public class ModelDaoList extends ModelDao {
                     codeFormat.append(", ");
                 }
                 if (p.getType().isListOptions()) {
-                    method.addParameter(new Parameter(p.getName(), "list options", null, listOptions.toType(), null));
+                    method.addParameter(new Parameter(p.getName(), "list options", null, listOptions.toType(), null,
+                                                      null));
                     codeFormat.append("$L");
                     values.add(p.getName());
                 } else {
@@ -148,7 +149,6 @@ public class ModelDaoList extends ModelDao {
             method.setAbstract(false);
             method.setInternal(true);
             method.setReturnDescription(description);
-            method.generateSuffix();
             method.setUnchecked(setAsUnchecked);
             return method;
         }).collect(Collectors.toList());

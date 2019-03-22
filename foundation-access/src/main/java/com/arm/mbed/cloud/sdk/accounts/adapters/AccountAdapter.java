@@ -77,7 +77,7 @@ public final class AccountAdapter {
         account.setMfaStatus(translateToAccountMfaStatus(toBeMapped.getMfaStatus()));
         account.setNotificationEmails(toBeMapped.getNotificationEmails());
         account.setPasswordPolicy(PasswordPolicyAdapter.map(toBeMapped.getPasswordPolicy()));
-        account.setPasswordRecoveryExpiration(TranslationUtils.toInt(toBeMapped.getPasswordRecoveryExpiration()));
+        account.setPasswordRecoveryExpiration(TranslationUtils.toInt(toBeMapped.getPasswordRecoveryExpiration(), 1));
         account.setPhoneNumber(toBeMapped.getPhoneNumber());
         account.setPostalCode(toBeMapped.getPostalCode());
         account.setSalesContact(toBeMapped.getSalesContact());

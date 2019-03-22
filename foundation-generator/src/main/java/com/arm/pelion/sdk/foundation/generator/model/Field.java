@@ -8,7 +8,6 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.AnnotationSpec;
@@ -17,8 +16,8 @@ import com.squareup.javapoet.FieldSpec;
 public class Field extends AbstractSdkArtifact implements Cloneable {
     public static final String IDENTIFIER_NAME = "id";
     private TypeParameter type;
-    private String pattern;
     private String defaultValue;
+    private Validation validation;
     private String initialiser;
     private boolean isRequired;
     private boolean alreadyDefined;
@@ -39,17 +38,19 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
      * @param defaultValue
      */
     public Field(boolean isReadOnly, TypeParameter type, String name, String description, String longDescription,
-                 String pattern, boolean isStatic, boolean needsCustomCode, boolean isInternal, boolean isRequired,
-                 String defaultValue, boolean alreadyDefined) {
+                 Validation validation, boolean isStatic, boolean needsCustomCode, boolean isInternal,
+                 boolean isRequired, String defaultValue, boolean alreadyDefined) {
         super(isReadOnly, name, determineDescription(type, description), longDescription, isStatic, false, false, false,
               needsCustomCode, isInternal);
-        setPattern(pattern);
+        setValidation(validation);
         setType(type);
         setRequired(isRequired);
         setDefaultValue(defaultValue);
         setInitialiser(null);
         setAlreadyDefined(alreadyDefined);
         setAsIdentifier(false);
+        alterValidationIfNecessary();
+        setDefaultValueIfMissing();
     }
 
     public Field(java.lang.reflect.Field field, boolean isInternal, boolean isRequired, String defaultValue,
@@ -120,6 +121,35 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         }
     }
 
+    private void alterValidationIfNecessary() {
+        if (isRequired()) {
+            if (!hasValidation()) {
+                setValidation(new Validation());
+            }
+            validation.setNullable(false);
+        }
+        if (hasValidation() && type.isDate()) {
+            validation.setForDate(true);
+        }
+
+    }
+
+    private void setDefaultValueIfMissing() {
+        // If no default value is specified but limits are, then consider one of these limits as default value
+        if (!getType().isNumber() || !hasValidation()) {
+            return;
+        }
+        if (!hasDefaultValue()) {
+            if (validation.hasMinimum()) {
+                setDefaultValue(validation.getMinimum());
+            } else {
+                if (validation.hasMaximum()) {
+                    setDefaultValue(validation.getMaximum());
+                }
+            }
+        }
+    }
+
     public boolean isIdentifier() {
         return isIdentifier ? true : isUsualIdentifier();
     }
@@ -133,29 +163,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     }
 
     public String getJavaDefaultValue() {
-        if (type.isBoolean()) {
-            return hasDefaultValue() ? defaultValue : "false";
-        }
-        if (type.isEnum()) {// TODO ensure the method for getting default type is always valid
-            return hasDefaultValue() ? type.getShortName() + "." + SdkEnum.METHOD_GET_VALUE_FROM_STRING + "(\""
-                                       + defaultValue + "\")"
-                                     : type.getShortName() + "." + SdkEnum.METHOD_GET_DEFAULT + "()";
-        }
-        if (type.isNumber()) {
-            return hasDefaultValue() ? defaultValue : type.isInteger() ? "0" : type.isDecimal() ? "0.0" : "0L";
-        }
-        if (type.isDate()) {// TODO ensure the default date value is called now
-            return hasDefaultValue() ? defaultValue.contains("now") ? "new java.util.Date()" : defaultValue
-                                     : "new java.util.Date()";
-        }
-        if (type.isString()) {
-            return hasDefaultValue() ? "\"" + defaultValue + "\"" : "(String) null";
-        }
-        if (type.isList() || type.isHashtable()) {
-            return hasDefaultValue() ? defaultValue : "null";
-        }
-
-        return hasDefaultValue() ? defaultValue : "(" + type.getShortName() + ") null";
+        return ValueGenerator.getJavaDefaultValue(type, defaultValue);
     }
 
     public boolean getJavaDefaultBooleanValue() {
@@ -170,6 +178,18 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
      */
     public String getDefaultValue() {
         return defaultValue;
+    }
+
+    public Validation getValidation() {
+        return validation;
+    }
+
+    public void setValidation(Validation validation) {
+        this.validation = validation;
+    }
+
+    public boolean hasValidation() {
+        return validation != null;
     }
 
     /**
@@ -251,25 +271,6 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         this.specificationBuilder = specificationBuilder;
     }
 
-    public boolean hasPattern() {
-        return has(pattern) && !type.isDate();
-    }
-
-    /**
-     * @return the pattern
-     */
-    public String getPattern() {
-        return pattern;
-    }
-
-    /**
-     * @param pattern
-     *            the pattern to set
-     */
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
-    }
-
     /**
      * @return the isRequired
      */
@@ -286,7 +287,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     }
 
     public boolean needsValidation() {
-        return isRequired() || hasPattern();// TODO add more cases where validation is needed.
+        return hasValidation() && validation.needsValidation();
     }
 
     /**
@@ -301,11 +302,26 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         if (specificationBuilder == null) {
             type.translate();
             specificationBuilder = type.hasClass() ? FieldSpec.builder(type.getClazz(), name,
-                                                                       isAccessible ? Modifier.PROTECTED
+                                                                       isAccessible ? isStatic ? Modifier.PUBLIC
+                                                                                               : Modifier.PROTECTED
                                                                                     : Modifier.PRIVATE)
                                                    : FieldSpec.builder(type.getTypeName(), name,
                                                                        isAccessible ? Modifier.PROTECTED
                                                                                     : Modifier.PRIVATE);
+        }
+    }
+
+    protected void addDocumentation() {
+        if (hasDescription()) {
+            specificationBuilder.addJavadoc(description + System.lineSeparator());
+            if (hasLongDescription()) {
+                specificationBuilder.addJavadoc(Utils.generateNewDocumentationLine() + longDescription
+                                                + System.lineSeparator());
+            }
+        }
+        if (hasDeprecation()) {
+            specificationBuilder.addJavadoc((hasDescription() ? Utils.generateNewDocumentationLine() : "")
+                                            + getDeprecation().getNotice());
         }
     }
 
@@ -316,13 +332,6 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         if (isReadOnly) {
             specificationBuilder.addModifiers(Modifier.FINAL);
         }
-        if (hasDescription()) {
-            specificationBuilder.addJavadoc(description);
-            if (hasLongDescription()) {
-                specificationBuilder.addJavadoc(System.lineSeparator() + "<p>" + System.lineSeparator()
-                                                + longDescription);
-            }
-        }
         if (isInternal) {
             specificationBuilder.addAnnotation(Internal.class);
         }
@@ -332,6 +341,9 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         if (hasDefaultValue()) {
             specificationBuilder.addAnnotation(AnnotationSpec.builder(DefaultValue.class)
                                                              .addMember("value", "\"" + defaultValue + "\"").build());
+        }
+        if (hasDeprecation()) {
+            specificationBuilder.addAnnotation(Deprecated.class);
         }
 
     }
@@ -349,6 +361,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         }
         try {
             initialiseBuilder();
+            addDocumentation();
             addModifiers();
             addValue();
         } catch (TranslationException exception) {
@@ -357,20 +370,28 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     }
 
     public Parameter toParameter() {
-        return new Parameter(name, description, longDescription, type, defaultValue);
+        return new Parameter(name, description, longDescription, type, defaultValue, validation);
     }
 
     @Override
     public Field clone() {
-        return new Field(isReadOnly, type, name, description, longDescription, pattern, isStatic, needsCustomCode,
-                         isInternal, isRequired, defaultValue, alreadyDefined);
+        Field field = new Field(isReadOnly, type, name, description, longDescription, validation.clone(), isStatic,
+                                needsCustomCode, isInternal, isRequired, defaultValue, alreadyDefined);
+        field.setDeprecation(deprecation);
+        return field;
     }
 
     @Override
     public String toString() {
-        return "Field [type=" + type + ", pattern=" + pattern + ", defaultValue=" + defaultValue + ", initialiser="
-               + initialiser + ", isRequired=" + isRequired + ", alreadyDefined=" + alreadyDefined
-               + ", specificationBuilder=" + specificationBuilder + ", parent=" + super.toString() + "]";
+        return "Field [type=" + type + ", defaultValue=" + defaultValue + ", validation=" + validation
+               + ", initialiser=" + initialiser + ", isRequired=" + isRequired + ", alreadyDefined=" + alreadyDefined
+               + ", isIdentifier=" + isIdentifier + ", specificationBuilder=" + specificationBuilder + ", parent="
+               + super.toString() + "]";
+    }
+
+    @Override
+    protected void addStaticAnalysisAnnotations() {
+        // Nothing to do
     }
 
 }

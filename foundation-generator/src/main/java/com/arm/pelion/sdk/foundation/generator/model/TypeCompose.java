@@ -27,8 +27,16 @@ public abstract class TypeCompose extends TypeParameter {
 
     public TypeCompose(TypeParameter contentType, boolean concrete) {
         super();
-        this.contentType = contentType;
+        this.contentType = convertToWrappersIfNeeded(contentType);
         this.concreteImplementation = concrete;
+    }
+
+    private TypeParameter convertToWrappersIfNeeded(TypeParameter contentType) {
+        if (contentType == null) {
+            return null;
+        }
+        contentType.transformIntoWrapper();
+        return contentType;
     }
 
     public TypeCompose(Import importPath) {
@@ -48,11 +56,21 @@ public abstract class TypeCompose extends TypeParameter {
             contentType.translate();
             setImportPath();
             TranslateTypeNameBasedOnContentType();
-        } catch (Exception e) {
+        } catch (@SuppressWarnings("unused") Exception e) {
             // e.printStackTrace();
             setClazz(getCollectionClass());
             super.translate();
         }
+    }
+
+    @Override
+    public boolean isNumber() {
+        return false;
+    }
+
+    @Override
+    public boolean isBoolean() {
+        return false;
     }
 
     protected void setImportPath() {

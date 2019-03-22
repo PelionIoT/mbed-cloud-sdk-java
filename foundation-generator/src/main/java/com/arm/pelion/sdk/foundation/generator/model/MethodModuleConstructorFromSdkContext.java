@@ -34,7 +34,7 @@ public class MethodModuleConstructorFromSdkContext extends AbstractMethodConstru
     protected void addConstructorParameters() {
         addParameter(new Parameter(PARAMETER_SDK_CONTEXT,
                                    "SDK context @see {@link " + getParameterClass().getSimpleName() + "}.", null,
-                                   TypeFactory.getCorrespondingType(getParameterClass()), null));
+                                   TypeFactory.getCorrespondingType(getParameterClass()), null, null));
     }
 
     public Class<?> getParameterClass() {

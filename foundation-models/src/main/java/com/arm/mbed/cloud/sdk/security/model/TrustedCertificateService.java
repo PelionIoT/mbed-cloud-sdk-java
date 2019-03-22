@@ -49,12 +49,14 @@ public enum TrustedCertificateService implements SdkEnum {
      * @return string
      */
     @Override
+    @Internal
     public String getString() {
         return string;
     }
 
     /**
      * toString.
+     * 
      * <p>
      * 
      * @see java.lang.Enum#toString()
@@ -67,6 +69,7 @@ public enum TrustedCertificateService implements SdkEnum {
 
     /**
      * States whether it is the default value.
+     * 
      * <p>
      * 
      * @see SdkEnum#isDefault()
@@ -79,6 +82,7 @@ public enum TrustedCertificateService implements SdkEnum {
 
     /**
      * States whether the value is unknown and an error happened during parsing.
+     * 
      * <p>
      * 
      * @see SdkEnum#isUnknownValue()
@@ -129,6 +133,7 @@ public enum TrustedCertificateService implements SdkEnum {
 
     /**
      * Merges two states.
+     * 
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)

@@ -8,6 +8,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -26,12 +27,12 @@ public class TestListOptions {
     public void testEncodeInclude() {
         ListOptions options = new ListOptions();
         options.addInclude(null);
-        assertEquals(null, options.encodeInclude());
+        assertEquals(null, ListOptionsEncoder.encodeInclude(options));
         options.addInclude(new IncludeField("fieldOne"));
         options.addInclude(new IncludeField("fieldOne"));
         options.addInclude(new IncludeField("FieldTwo"));
         options.includeTotalCount();
-        assertEquals("field_one,field_two,total_count", options.encodeInclude());
+        assertEquals("field_one,field_two,total_count", ListOptionsEncoder.encodeInclude(options));
     }
 
     @Test
@@ -75,8 +76,12 @@ public class TestListOptions {
         ListOptions options = new ListOptions();
         assertNull(options.getFilter());
         options.setFiltersFromJson(jsonFilter);
-        assertNotNull(options.getFilter());
-        List<Filter> filters = options.fetchFilters("test3");
+        ListOptions clonedOptions = options.clone();
+        assertNotNull(clonedOptions.getFilter());
+        assertTrue(clonedOptions.hasFilters("test3"));
+        assertTrue(clonedOptions.hasFilter("test3", FilterOperator.EQUAL));
+        assertTrue(clonedOptions.hasFilter("test3", FilterOperator.LESS_THAN));
+        List<Filter> filters = clonedOptions.fetchFilters("test3");
         assertNotNull(filters);
         assertFalse(filters.isEmpty());
         Filter filter = filters.get(1);
@@ -88,9 +93,48 @@ public class TestListOptions {
     public void testRetrieveFilterAsJson() {
         ListOptions options = new ListOptions();
         options.addCustomFilter("foo", FilterOperator.NOT_EQUAL, "bar");
-        options.addFilter("test_3", FilterOperator.LESS_THAN, "value1");
+        options.addLessThanFilter("test_3", "value1");
         assertEquals("{\"custom_attributes\":{\"foo\":{\"$neq\":\"bar\"}},\"test_3\":{\"$lte\":\"value1\"}}",
                      options.retrieveFilterAsJson());
+    }
+
+    @SuppressWarnings("boxing")
+    @Test
+    public void testEncoding() {
+        ListOptions options = new ListOptions();
+        assertFalse(options.hasFilters());
+        options.addEqualFilter("test", "value1");
+        options.addNotEqualFilter("test", "value2");
+        options.addLessThanFilter("test", "value3");
+        options.addGreaterThanFilter("test", "value4");
+        options.addInFilter("test", "value1,value2");
+        options.addInFilter("test2", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+        Integer[] values = { 1, 2, 3, 4, 5, 6, 91 };
+        options.addInFilter("test3", values);
+        options.addNotInFilter("test", "value3,value4");
+        options.addNotInFilter("test2", Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
+        options.addNotInFilter("test3", values);
+        options.addLikeFilter("test", "some test");
+        assertTrue(options.hasFilters());
+        assertTrue(options.hasFilters("test"));
+        assertFalse(options.hasFilters("test1"));
+        assertTrue(options.hasFilters("test2"));
+        assertTrue(options.hasFilters("test3"));
+        assertTrue(options.hasFilter("test", FilterOperator.IN));
+        assertTrue(options.hasFilter("test", FilterOperator.GREATER_THAN));
+        assertFalse(options.hasFilter("test2", FilterOperator.GREATER_THAN));
+        assertTrue(options.hasFilter("test2", FilterOperator.IN));
+        assertEquals("value1", ListOptionsEncoder.encodeSingleEqualFilter("test", options));
+        assertEquals("value2", ListOptionsEncoder.encodeSingleNotEqualFilter("test", options));
+        assertEquals("value3", ListOptionsEncoder.encodeSingleLessThanFilter("test", options));
+        assertEquals("value4", ListOptionsEncoder.encodeSingleGreaterThanFilter("test", options));
+        assertEquals("value1,value2", ListOptionsEncoder.encodeSingleInFilter("test", options));
+        assertEquals("1,2,3,4,5,6,7,8,9,10", ListOptionsEncoder.encodeSingleInFilter("test2", options));
+        assertEquals("1,2,3,4,5,6,91", ListOptionsEncoder.encodeSingleInFilter("test3", options));
+        assertEquals("value3,value4", ListOptionsEncoder.encodeSingleNotInFilter("test", options));
+        assertEquals("1,2,3,4,5,6,7,8,9,10,11", ListOptionsEncoder.encodeSingleNotInFilter("test2", options));
+        assertEquals("1,2,3,4,5,6,91", ListOptionsEncoder.encodeSingleNotInFilter("test3", options));
+        assertEquals("some test", ListOptionsEncoder.encodeSingleLikeFilter("test", options));
     }
 
     @Test
@@ -113,5 +157,4 @@ public class TestListOptions {
         EqualsVerifier.forClass(ListOptions.class).withRedefinedSuperclass().suppress(Warning.NONFINAL_FIELDS)
                       .suppress(Warning.STRICT_INHERITANCE).withPrefabValues(Filters.class, filters, filters2).verify();
     }
-
 }

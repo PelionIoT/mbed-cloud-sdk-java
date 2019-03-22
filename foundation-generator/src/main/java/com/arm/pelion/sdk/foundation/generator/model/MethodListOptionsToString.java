@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 
 public class MethodListOptionsToString extends MethodToString {
 
@@ -17,7 +18,8 @@ public class MethodListOptionsToString extends MethodToString {
             final String fieldName = f.getName();
             switch (fieldName) {
                 case ListOptions.FIELD_NAME_INCLUDE:
-                    return fieldName + "=\" + " + ListOptions.METHOD_INCLUDE_TO_STRING + "() ";
+                    return fieldName + "=\" + " + ListOptionsEncoder.class.getName() + "."
+                           + ListOptionsEncoder.METHOD_INCLUDE_TO_STRING + "(this) ";
                 case ListOptions.FIELD_NAME_FILTER:
                     return fieldName + "=\" + " + ListOptions.METHOD_FILTER_TO_STRING + "() ";
                 default:

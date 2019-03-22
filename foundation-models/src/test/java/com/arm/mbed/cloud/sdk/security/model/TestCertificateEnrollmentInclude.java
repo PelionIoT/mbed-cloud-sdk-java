@@ -9,10 +9,12 @@ import org.junit.Test;
 /**
  * Unit tests for Model CertificateEnrollmentInclude.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestCertificateEnrollmentInclude {
     /**
      * Tests the getValue method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testGetValue() {
         try {
@@ -26,7 +28,7 @@ public class TestCertificateEnrollmentInclude {
             certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("TOTAL_COUNT");
             assertNotNull(certificateenrollmentinclude);
             assertTrue(certificateenrollmentinclude.isDefault());
-            certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("4356d87b-5073-4316-8fc0-9068726400e5");
+            certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("1d073497-4f16-4fef-875f-5c3c778fa0cc");
             assertNotNull(certificateenrollmentinclude);
             assertTrue(certificateenrollmentinclude.isDefault());
         } catch (Exception exception) {
