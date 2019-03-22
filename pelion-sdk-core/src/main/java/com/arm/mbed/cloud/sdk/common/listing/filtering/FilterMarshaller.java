@@ -376,6 +376,8 @@ public class FilterMarshaller {
      *            filter value.
      * @param type
      *            filter value type.
+     * @param <T>
+     *            type of the filter encoding
      * @return the encoded filter value.
      */
     @SuppressWarnings({ "unchecked", "PMD.CyclomaticComplexity", "PMD.NPathComplexity", "PMD.ExcessiveMethodLength" })
@@ -528,6 +530,8 @@ public class FilterMarshaller {
      *            filter values.
      * @param type
      *            filter value type.
+     * @param <T>
+     *            type of the filter encoding
      * @return the encoded filter values.
      */
     @SuppressWarnings("rawtypes")

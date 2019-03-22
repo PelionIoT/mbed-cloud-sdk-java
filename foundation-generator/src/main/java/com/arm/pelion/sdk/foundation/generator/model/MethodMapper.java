@@ -112,6 +112,7 @@ public class MethodMapper extends Method {
                     final Field fromField = from.fetchField(fromFieldName);
                     if (fromField == null) {
                         recordThatFieldWasNotFound(code, toType, fromType, fromFieldName);
+                        statementString.append(ValueGenerator.getJavaDefaultValue(fType, f.getDefaultValue()));
                     } else {
                         final TypeParameter fromFieldType = fromField.getType();
                         fType.translate();
