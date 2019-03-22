@@ -12,7 +12,7 @@ public class HelloWorld {
 
         try (DeviceListDao dao = new DeviceListDao()) {
 
-            // Listing the first 10 devices on your Pelion Device Management Account
+            // Listing the first 10 devices on your Pelion Device Management account
             dao.list((new DeviceListOptions()).maxResults(10))
                .forEach(device -> System.out.println("Hello device " + device.getName()));
 
