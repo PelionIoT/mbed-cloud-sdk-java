@@ -1,10 +1,10 @@
 
+//an example: hello world with sdk instance
 import com.arm.mbed.cloud.Sdk;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions;
 
-//an example: hello world with sdk instance
 public class HelloWorldWithSdkInstance {
 
     public static void main(String[] args) {

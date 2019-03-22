@@ -1,11 +1,11 @@
 
+//an example: hello world
 import java.io.IOException;
 
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions;
 
-//an example: hello world
 public class HelloWorld {
 
     public static void main(String[] args) {
