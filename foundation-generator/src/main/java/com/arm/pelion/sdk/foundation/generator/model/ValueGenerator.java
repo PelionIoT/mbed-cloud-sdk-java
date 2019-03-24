@@ -246,12 +246,12 @@ public class ValueGenerator {
             values.addValue(Boolean.class);
             if (!hasDefaultValue) {
                 values.addToFormat("$T.$L");
-                values.addValue(Boolean.FALSE);
+                values.addValue("FALSE");
                 return;
             }
             if (Boolean.parseBoolean(defaultValue)) {
                 values.addToFormat("$T.$L");
-                values.addValue(Boolean.TRUE);
+                values.addValue("TRUE");
                 return;
             }
             if ("null".equals(defaultValue.trim().toLowerCase(Locale.UK))) {
@@ -260,7 +260,7 @@ public class ValueGenerator {
                 return;
             }
             values.addToFormat("$T.$L");
-            values.addValue(Boolean.FALSE);
+            values.addValue("FALSE");
             return;
         }
         if (type.isEnum()) {// TODO ensure the method for getting default type is always valid
