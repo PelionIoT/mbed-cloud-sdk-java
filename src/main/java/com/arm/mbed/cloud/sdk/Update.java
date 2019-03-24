@@ -520,10 +520,10 @@ public class Update extends AbstractModule {
                                            call() {
                                         return endpoint.getUpdate()
                                                        .firmwareManifestCreate(DataFileAdapter.reverseMap(finalManifest.getDataFile()),
-                                                                               finalManifest.getName(),
                                                                                finalManifest.getDescription(),
                                                                                DataFileAdapter.reverseMap(KEY_TABLE_PARAMETER,
-                                                                                                          finalManifest.getDecryptionKeysFile()));
+                                                                                                          finalManifest.getDecryptionKeysFile()),
+                                                                               finalManifest.getName());
                                     }
 
                                 });
