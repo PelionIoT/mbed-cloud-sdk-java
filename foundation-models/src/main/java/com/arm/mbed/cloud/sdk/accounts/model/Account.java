@@ -245,7 +245,7 @@ public class Account implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #Account()} instead.
      * 
@@ -402,7 +402,7 @@ public class Account implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #Account()} instead.
      * 
@@ -417,35 +417,31 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.adminFullName, account == null ? (String) null : account.adminId,
              account == null ? (String) null : account.adminKey, account == null ? (String) null : account.adminName,
              account == null ? (String) null : account.adminPassword,
-             account == null ? (java.util.List<String>) null : account.aliases,
-             account == null ? (String) null : account.city, account == null ? (String) null : account.company,
-             account == null ? (String) null : account.contact,
+             account == null ? (List<String>) null : account.aliases, account == null ? (String) null : account.city,
+             account == null ? (String) null : account.company, account == null ? (String) null : account.contact,
              account == null ? (String) null : account.contractNumber,
-             account == null ? (String) null : account.country,
-             account == null ? new java.util.Date() : account.createdAt,
-             account == null ? (java.util.Map<String, String>) null : account.customFields,
+             account == null ? (String) null : account.country, account == null ? new Date() : account.createdAt,
+             account == null ? (Map<String, String>) null : account.customFields,
              account == null ? (String) null : account.customerNumber,
              account == null ? (String) null : account.displayName, account == null ? (String) null : account.email,
-             account == null ? (String) null : account.endMarket,
-             account == null ? new java.util.Date() : account.expiration,
+             account == null ? (String) null : account.endMarket, account == null ? new Date() : account.expiration,
              account == null ? (String) null : account.expirationWarningThreshold,
              account == null ? (String) null : account.id, account == null ? (String) null : account.idleTimeout,
-             account == null ? (java.util.Map<String, String>) null : account.limits,
+             account == null ? (Map<String, String>) null : account.limits,
              account == null ? AccountMfaStatus.getDefault() : account.mfaStatus,
-             account == null ? (java.util.List<String>) null : account.notificationEmails,
+             account == null ? (List<String>) null : account.notificationEmails,
              account == null ? (ParentAccount) null : account.parentAccount,
              account == null ? (String) null : account.parentId,
              account == null ? (PasswordPolicy) null : account.passwordPolicy,
              account == null ? 1 : account.passwordRecoveryExpiration,
              account == null ? (String) null : account.phoneNumber,
-             account == null ? (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.Policy>) null : account.policies,
+             account == null ? (List<Policy>) null : account.policies,
              account == null ? (String) null : account.postalCode, account == null ? (String) null : account.reason,
              account == null ? (String) null : account.referenceNote,
              account == null ? (String) null : account.salesContact, account == null ? (String) null : account.state,
              account == null ? AccountStatus.getDefault() : account.status,
              account == null ? (String) null : account.templateId, account == null ? (String) null : account.tier,
-             account == null ? new java.util.Date() : account.updatedAt,
-             account == null ? new java.util.Date() : account.upgradedAt);
+             account == null ? new Date() : account.updatedAt, account == null ? new Date() : account.upgradedAt);
     }
 
     /**
@@ -453,14 +449,13 @@ public class Account implements SdkModel {
      */
     public Account() {
         this((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, (java.util.List<String>) null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, new java.util.Date(), (java.util.Map<String, String>) null, (String) null, (String) null,
-             (String) null, (String) null, new java.util.Date(), (String) null, (String) null, (String) null,
-             (java.util.Map<String, String>) null, AccountMfaStatus.getDefault(), (java.util.List<String>) null,
-             (ParentAccount) null, (String) null, (PasswordPolicy) null, 1, (String) null,
-             (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.Policy>) null, (String) null, (String) null,
-             (String) null, (String) null, (String) null, AccountStatus.getDefault(), (String) null, (String) null,
-             new java.util.Date(), new java.util.Date());
+             (String) null, (List<String>) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, new Date(), (Map<String, String>) null, (String) null, (String) null, (String) null,
+             (String) null, new Date(), (String) null, (String) null, (String) null, (Map<String, String>) null,
+             AccountMfaStatus.getDefault(), (List<String>) null, (ParentAccount) null, (String) null,
+             (PasswordPolicy) null, 1, (String) null, (List<Policy>) null, (String) null, (String) null, (String) null,
+             (String) null, (String) null, AccountStatus.getDefault(), (String) null, (String) null, new Date(),
+             new Date());
     }
 
     /**
@@ -476,7 +471,7 @@ public class Account implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #Account()} instead.
      * 
@@ -519,12 +514,12 @@ public class Account implements SdkModel {
                    String referenceNote, AccountStatus status, String templateId, String tier, Date updatedAt,
                    Date upgradedAt) {
         this((String) null, (String) null, (String) null, (String) null, adminId, adminKey, (String) null,
-             (String) null, (java.util.List<String>) null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, createdAt, (java.util.Map<String, String>) null, (String) null, (String) null,
-             (String) null, (String) null, expiration, (String) null, (String) null, (String) null, limits,
-             AccountMfaStatus.getDefault(), (java.util.List<String>) null, parentAccount, parentId,
-             (PasswordPolicy) null, 1, (String) null, policies, (String) null, reason, referenceNote, (String) null,
-             (String) null, status, templateId, tier, updatedAt, upgradedAt);
+             (String) null, (List<String>) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, createdAt, (Map<String, String>) null, (String) null, (String) null, (String) null,
+             (String) null, expiration, (String) null, (String) null, (String) null, limits,
+             AccountMfaStatus.getDefault(), (List<String>) null, parentAccount, parentId, (PasswordPolicy) null, 1,
+             (String) null, policies, (String) null, reason, referenceNote, (String) null, (String) null, status,
+             templateId, tier, updatedAt, upgradedAt);
     }
 
     /**
@@ -951,7 +946,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets account id.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -1079,7 +1074,7 @@ public class Account implements SdkModel {
     /**
      * Sets indicates how many minutes a password recovery email for users of this account is valid for. valid range is:
      * 1-45.
-     *
+     * 
      * <p>
      * Note: the value has to be greater than or equal to {@code 1} to be valid
      * <p>
@@ -1254,7 +1249,7 @@ public class Account implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -1312,7 +1307,7 @@ public class Account implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -1326,7 +1321,7 @@ public class Account implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -1644,7 +1639,7 @@ public class Account implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -1670,7 +1665,7 @@ public class Account implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -1683,7 +1678,7 @@ public class Account implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

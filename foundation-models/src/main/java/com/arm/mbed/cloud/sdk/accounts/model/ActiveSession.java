@@ -45,7 +45,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #ActiveSession()} instead.
      * 
@@ -72,7 +72,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #ActiveSession()} instead.
      * 
@@ -83,7 +83,7 @@ public class ActiveSession implements SdkModel {
     public ActiveSession(ActiveSession activeSession) {
         this(activeSession == null ? (String) null : activeSession.accountId,
              activeSession == null ? (String) null : activeSession.ipAddress,
-             activeSession == null ? new java.util.Date() : activeSession.loginTime,
+             activeSession == null ? new Date() : activeSession.loginTime,
              activeSession == null ? (String) null : activeSession.referenceToken,
              activeSession == null ? (String) null : activeSession.userAgent);
     }
@@ -92,7 +92,7 @@ public class ActiveSession implements SdkModel {
      * Constructor.
      */
     public ActiveSession() {
-        this((String) null, (String) null, new java.util.Date(), (String) null, (String) null);
+        this((String) null, (String) null, new Date(), (String) null, (String) null);
     }
 
     /**
@@ -110,7 +110,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Gets id.
-     *
+     * 
      * <p>
      * Warning: ActiveSession model does not have any ID field. This always returns {@code null}.
      * 
@@ -169,7 +169,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -189,7 +189,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -203,7 +203,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -266,7 +266,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -280,7 +280,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -293,7 +293,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

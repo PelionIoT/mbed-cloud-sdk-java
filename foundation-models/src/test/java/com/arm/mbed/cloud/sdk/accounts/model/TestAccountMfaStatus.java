@@ -30,7 +30,7 @@ public class TestAccountMfaStatus {
             accountmfastatus = AccountMfaStatus.getValue("optional");
             assertNotNull(accountmfastatus);
             assertFalse(accountmfastatus.isDefault());
-            accountmfastatus = AccountMfaStatus.getValue("d023cd03-aa58-4d92-9780-1cf541f4a7da");
+            accountmfastatus = AccountMfaStatus.getValue("060efc3e-efd0-4192-93fd-f9de8ffd6604");
             assertNotNull(accountmfastatus);
             assertTrue(accountmfastatus.isDefault());
         } catch (Exception exception) {

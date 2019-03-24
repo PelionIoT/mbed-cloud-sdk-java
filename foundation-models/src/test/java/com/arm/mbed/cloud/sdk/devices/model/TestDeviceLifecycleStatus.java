@@ -9,10 +9,12 @@ import org.junit.Test;
 /**
  * Unit tests for Model DeviceLifecycleStatus.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestDeviceLifecycleStatus {
     /**
      * Tests the getValue method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testGetValue() {
         try {
@@ -28,7 +30,7 @@ public class TestDeviceLifecycleStatus {
             devicelifecyclestatus = DeviceLifecycleStatus.getValue("enabled");
             assertNotNull(devicelifecyclestatus);
             assertFalse(devicelifecyclestatus.isDefault());
-            devicelifecyclestatus = DeviceLifecycleStatus.getValue("d0db0840-47b7-44c5-b00b-0072b5095c21");
+            devicelifecyclestatus = DeviceLifecycleStatus.getValue("17a1e7ef-c50f-42a4-93de-0748bba360d7");
             assertNotNull(devicelifecyclestatus);
             assertTrue(devicelifecyclestatus.isDefault());
         } catch (Exception exception) {

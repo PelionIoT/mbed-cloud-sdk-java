@@ -22,7 +22,7 @@ import java.util.List;
  * The list can be filtered server-side on some of the fields of a user.
  * <p>
  * The following filters are currently supported:
- *
+ * 
  * <p>
  * <table style="border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0" summary="Available
  * filters">
@@ -84,7 +84,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #UserListOptions()} instead.
      * 
@@ -115,7 +115,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #UserListOptions()} instead.
      * 
@@ -138,7 +138,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #UserListOptions()} instead.
      * 
@@ -175,7 +175,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addEqualToStatusFilter(com.arm.mbed.cloud.sdk.accounts.model.UserStatus)}
@@ -192,7 +192,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -219,13 +219,13 @@ public class UserListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void addInStatusesFilter(UserStatus[] filterByStatus) {
+    public void addInStatusesFilter(UserStatus... filterByStatus) {
         addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
     /**
      * Sets "an in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addInStatusesFilter(String)}
      * 
@@ -241,7 +241,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addInStatusesFilter(java.util.List)}
      * 
@@ -257,7 +257,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.UserStatus[])}
@@ -267,14 +267,14 @@ public class UserListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends UserListOptions> T inStatuses(UserStatus[] filterByStatus) {
+    public <T extends UserListOptions> T inStatuses(UserStatus... filterByStatus) {
         addInStatusesFilter(filterByStatus);
         return (T) this;
     }
 
     /**
      * Sets "a not in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -301,13 +301,13 @@ public class UserListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void addNotInStatusesFilter(UserStatus[] filterByStatus) {
+    public void addNotInStatusesFilter(UserStatus... filterByStatus) {
         addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
     /**
      * Sets "a not in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addNotInStatusesFilter(String)}
      * 
@@ -323,7 +323,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addNotInStatusesFilter(java.util.List)}
      * 
@@ -339,7 +339,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addNotInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.UserStatus[])}
@@ -349,7 +349,7 @@ public class UserListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends UserListOptions> T notInStatuses(UserStatus[] filterByStatus) {
+    public <T extends UserListOptions> T notInStatuses(UserStatus... filterByStatus) {
         addNotInStatusesFilter(filterByStatus);
         return (T) this;
     }
@@ -375,7 +375,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code email}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addEqualToEmailFilter(String)}
      * 
@@ -391,7 +391,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -405,7 +405,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -420,7 +420,7 @@ public class UserListOptions extends ListOptions {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

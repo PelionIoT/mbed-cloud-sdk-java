@@ -23,7 +23,7 @@ import java.util.List;
  * The list can be filtered server-side on some of the fields of a device events.
  * <p>
  * The following filters are currently supported:
- *
+ * 
  * <p>
  * <table style="border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0" summary="Available
  * filters">
@@ -153,7 +153,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEventsListOptions()} instead.
      * 
@@ -184,7 +184,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEventsListOptions()} instead.
      * 
@@ -207,7 +207,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEventsListOptions()} instead.
      * 
@@ -244,7 +244,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code deviceId}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addEqualToDeviceIdFilter(String)}
      * 
@@ -270,7 +270,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code deviceId}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotEqualToDeviceIdFilter(String)}
@@ -287,7 +287,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code deviceId}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -314,13 +314,13 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByDeviceId
      *            filter value.
      */
-    public void addInDeviceIdsFilter(String[] filterByDeviceId) {
+    public void addInDeviceIdsFilter(String... filterByDeviceId) {
         addInFilter(TAG_FILTER_BY_DEVICE_ID, filterByDeviceId);
     }
 
     /**
      * Sets "an in" filter by {@code deviceId}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInDeviceIdsFilter(String)}
      * 
@@ -336,7 +336,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code deviceId}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInDeviceIdsFilter(java.util.List)}
@@ -353,7 +353,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code deviceId}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInDeviceIdsFilter(String[])}
      * 
@@ -362,14 +362,14 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inDeviceIds(String[] filterByDeviceId) {
+    public <T extends DeviceEventsListOptions> T inDeviceIds(String... filterByDeviceId) {
         addInDeviceIdsFilter(filterByDeviceId);
         return (T) this;
     }
 
     /**
      * Sets "a not in" filter by {@code deviceId}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -396,13 +396,13 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByDeviceId
      *            filter value.
      */
-    public void addNotInDeviceIdsFilter(String[] filterByDeviceId) {
+    public void addNotInDeviceIdsFilter(String... filterByDeviceId) {
         addNotInFilter(TAG_FILTER_BY_DEVICE_ID, filterByDeviceId);
     }
 
     /**
      * Sets "a not in" filter by {@code deviceId}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInDeviceIdsFilter(String)}
      * 
@@ -418,7 +418,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code deviceId}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInDeviceIdsFilter(java.util.List)}
@@ -435,7 +435,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code deviceId}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInDeviceIdsFilter(String[])}
      * 
@@ -444,7 +444,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInDeviceIds(String[] filterByDeviceId) {
+    public <T extends DeviceEventsListOptions> T notInDeviceIds(String... filterByDeviceId) {
         addNotInDeviceIdsFilter(filterByDeviceId);
         return (T) this;
     }
@@ -470,7 +470,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addEqualToDescriptionFilter(String)}
@@ -497,7 +497,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotEqualToDescriptionFilter(String)}
@@ -514,7 +514,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -541,13 +541,13 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByDescription
      *            filter value.
      */
-    public void addInDescriptionsFilter(String[] filterByDescription) {
+    public void addInDescriptionsFilter(String... filterByDescription) {
         addInFilter(TAG_FILTER_BY_DESCRIPTION, filterByDescription);
     }
 
     /**
      * Sets "an in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInDescriptionsFilter(String)}
      * 
@@ -563,7 +563,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInDescriptionsFilter(java.util.List)}
@@ -580,7 +580,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInDescriptionsFilter(String[])}
      * 
@@ -589,14 +589,14 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inDescriptions(String[] filterByDescription) {
+    public <T extends DeviceEventsListOptions> T inDescriptions(String... filterByDescription) {
         addInDescriptionsFilter(filterByDescription);
         return (T) this;
     }
 
     /**
      * Sets "a not in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -623,13 +623,13 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByDescription
      *            filter value.
      */
-    public void addNotInDescriptionsFilter(String[] filterByDescription) {
+    public void addNotInDescriptionsFilter(String... filterByDescription) {
         addNotInFilter(TAG_FILTER_BY_DESCRIPTION, filterByDescription);
     }
 
     /**
      * Sets "a not in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInDescriptionsFilter(String)}
@@ -646,7 +646,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInDescriptionsFilter(java.util.List)}
@@ -663,7 +663,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInDescriptionsFilter(String[])}
@@ -673,7 +673,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInDescriptions(String[] filterByDescription) {
+    public <T extends DeviceEventsListOptions> T notInDescriptions(String... filterByDescription) {
         addNotInDescriptionsFilter(filterByDescription);
         return (T) this;
     }
@@ -689,7 +689,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code dateTime}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -716,13 +716,13 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByDateTime
      *            filter value.
      */
-    public void addInDateTimesFilter(Date[] filterByDateTime) {
+    public void addInDateTimesFilter(Date... filterByDateTime) {
         addInFilter(TAG_FILTER_BY_DATE_TIME, filterByDateTime);
     }
 
     /**
      * Sets "an in" filter by {@code dateTime}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInDateTimesFilter(String)}
      * 
@@ -738,7 +738,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code dateTime}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInDateTimesFilter(java.util.List)}
@@ -755,7 +755,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code dateTime}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInDateTimesFilter(java.util.Date[])}
@@ -765,14 +765,14 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inDateTimes(Date[] filterByDateTime) {
+    public <T extends DeviceEventsListOptions> T inDateTimes(Date... filterByDateTime) {
         addInDateTimesFilter(filterByDateTime);
         return (T) this;
     }
 
     /**
      * Sets "a not in" filter by {@code dateTime}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -799,13 +799,13 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByDateTime
      *            filter value.
      */
-    public void addNotInDateTimesFilter(Date[] filterByDateTime) {
+    public void addNotInDateTimesFilter(Date... filterByDateTime) {
         addNotInFilter(TAG_FILTER_BY_DATE_TIME, filterByDateTime);
     }
 
     /**
      * Sets "a not in" filter by {@code dateTime}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInDateTimesFilter(String)}
      * 
@@ -821,7 +821,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code dateTime}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInDateTimesFilter(java.util.List)}
@@ -838,7 +838,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code dateTime}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInDateTimesFilter(java.util.Date[])}
@@ -848,7 +848,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInDateTimes(Date[] filterByDateTime) {
+    public <T extends DeviceEventsListOptions> T notInDateTimes(Date... filterByDateTime) {
         addNotInDateTimesFilter(filterByDateTime);
         return (T) this;
     }
@@ -865,7 +865,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code dateTime}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addLessThanDateTimeFilter(java.util.Date)}
@@ -892,7 +892,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code dateTime}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addGreaterThanDateTimeFilter(java.util.Date)}
@@ -928,7 +928,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code stateChange}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addEqualToStateChangeFilter(boolean)}
@@ -955,7 +955,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code stateChange}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotEqualToStateChangeFilter(boolean)}
@@ -972,7 +972,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code stateChange}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -999,13 +999,13 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByStateChange
      *            filter value.
      */
-    public void addInStateChangesFilter(Boolean[] filterByStateChange) {
+    public void addInStateChangesFilter(Boolean... filterByStateChange) {
         addInFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
     }
 
     /**
      * Sets "an in" filter by {@code stateChange}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInStateChangesFilter(String)}
      * 
@@ -1021,7 +1021,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code stateChange}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInStateChangesFilter(java.util.List)}
@@ -1038,7 +1038,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code stateChange}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInStateChangesFilter(Boolean[])}
@@ -1048,14 +1048,14 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inStateChanges(Boolean[] filterByStateChange) {
+    public <T extends DeviceEventsListOptions> T inStateChanges(Boolean... filterByStateChange) {
         addInStateChangesFilter(filterByStateChange);
         return (T) this;
     }
 
     /**
      * Sets "a not in" filter by {@code stateChange}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1082,13 +1082,13 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByStateChange
      *            filter value.
      */
-    public void addNotInStateChangesFilter(Boolean[] filterByStateChange) {
+    public void addNotInStateChangesFilter(Boolean... filterByStateChange) {
         addNotInFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
     }
 
     /**
      * Sets "a not in" filter by {@code stateChange}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInStateChangesFilter(String)}
@@ -1105,7 +1105,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code stateChange}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInStateChangesFilter(java.util.List)}
@@ -1122,7 +1122,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code stateChange}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInStateChangesFilter(Boolean[])}
@@ -1132,7 +1132,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInStateChanges(Boolean[] filterByStateChange) {
+    public <T extends DeviceEventsListOptions> T notInStateChanges(Boolean... filterByStateChange) {
         addNotInStateChangesFilter(filterByStateChange);
         return (T) this;
     }
@@ -1158,7 +1158,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addEqualToIdFilter(String)}
      * 
@@ -1184,7 +1184,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotEqualToIdFilter(String)}
      * 
@@ -1200,7 +1200,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1227,13 +1227,13 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterById
      *            filter value.
      */
-    public void addInIdsFilter(String[] filterById) {
+    public void addInIdsFilter(String... filterById) {
         addInFilter(TAG_FILTER_BY_ID, filterById);
     }
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInIdsFilter(String)}
      * 
@@ -1249,7 +1249,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInIdsFilter(java.util.List)}
      * 
@@ -1265,7 +1265,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInIdsFilter(String[])}
      * 
@@ -1274,14 +1274,14 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inIds(String[] filterById) {
+    public <T extends DeviceEventsListOptions> T inIds(String... filterById) {
         addInIdsFilter(filterById);
         return (T) this;
     }
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1308,13 +1308,13 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterById
      *            filter value.
      */
-    public void addNotInIdsFilter(String[] filterById) {
+    public void addNotInIdsFilter(String... filterById) {
         addNotInFilter(TAG_FILTER_BY_ID, filterById);
     }
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInIdsFilter(String)}
      * 
@@ -1330,7 +1330,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInIdsFilter(java.util.List)}
      * 
@@ -1346,7 +1346,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInIdsFilter(String[])}
      * 
@@ -1355,7 +1355,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInIds(String[] filterById) {
+    public <T extends DeviceEventsListOptions> T notInIds(String... filterById) {
         addNotInIdsFilter(filterById);
         return (T) this;
     }
@@ -1381,7 +1381,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code eventType}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addEqualToEventTypeFilter(String)}
      * 
@@ -1407,7 +1407,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code eventType}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotEqualToEventTypeFilter(String)}
@@ -1424,7 +1424,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code eventType}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1451,13 +1451,13 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByEventType
      *            filter value.
      */
-    public void addInEventTypesFilter(String[] filterByEventType) {
+    public void addInEventTypesFilter(String... filterByEventType) {
         addInFilter(TAG_FILTER_BY_EVENT_TYPE, filterByEventType);
     }
 
     /**
      * Sets "an in" filter by {@code eventType}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInEventTypesFilter(String)}
      * 
@@ -1473,7 +1473,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code eventType}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInEventTypesFilter(java.util.List)}
@@ -1490,7 +1490,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code eventType}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInEventTypesFilter(String[])}
      * 
@@ -1499,14 +1499,14 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inEventTypes(String[] filterByEventType) {
+    public <T extends DeviceEventsListOptions> T inEventTypes(String... filterByEventType) {
         addInEventTypesFilter(filterByEventType);
         return (T) this;
     }
 
     /**
      * Sets "a not in" filter by {@code eventType}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1533,13 +1533,13 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByEventType
      *            filter value.
      */
-    public void addNotInEventTypesFilter(String[] filterByEventType) {
+    public void addNotInEventTypesFilter(String... filterByEventType) {
         addNotInFilter(TAG_FILTER_BY_EVENT_TYPE, filterByEventType);
     }
 
     /**
      * Sets "a not in" filter by {@code eventType}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInEventTypesFilter(String)}
      * 
@@ -1555,7 +1555,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code eventType}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInEventTypesFilter(java.util.List)}
@@ -1572,7 +1572,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code eventType}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInEventTypesFilter(String[])}
@@ -1582,14 +1582,14 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInEventTypes(String[] filterByEventType) {
+    public <T extends DeviceEventsListOptions> T notInEventTypes(String... filterByEventType) {
         addNotInEventTypesFilter(filterByEventType);
         return (T) this;
     }
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -1603,7 +1603,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -1619,7 +1619,7 @@ public class DeviceEventsListOptions extends ListOptions {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

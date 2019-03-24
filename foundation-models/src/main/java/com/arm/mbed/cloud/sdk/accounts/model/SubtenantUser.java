@@ -145,7 +145,7 @@ public class SubtenantUser implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #SubtenantUser()} instead.
      * 
@@ -239,7 +239,7 @@ public class SubtenantUser implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #SubtenantUser()} instead.
      * 
@@ -249,30 +249,27 @@ public class SubtenantUser implements SdkModel {
     @Internal
     public SubtenantUser(SubtenantUser subtenantUser) {
         this(subtenantUser == null ? (String) null : subtenantUser.accountId,
-             subtenantUser == null ? (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.ActiveSession>) null
-                                   : subtenantUser.activeSessions,
+             subtenantUser == null ? (List<ActiveSession>) null : subtenantUser.activeSessions,
              subtenantUser == null ? (String) null : subtenantUser.address,
-             subtenantUser == null ? new java.util.Date() : subtenantUser.createdAt,
-             subtenantUser == null ? 0L : subtenantUser.creationTime,
-             subtenantUser == null ? (java.util.Map<String, String>) null : subtenantUser.customFields,
+             subtenantUser == null ? new Date() : subtenantUser.createdAt,
+             subtenantUser == null ? 0 : subtenantUser.creationTime,
+             subtenantUser == null ? (Map<String, String>) null : subtenantUser.customFields,
              subtenantUser == null ? (String) null : subtenantUser.email,
              subtenantUser != null && subtenantUser.emailVerified,
              subtenantUser == null ? (String) null : subtenantUser.fullName,
              subtenantUser == null ? (String) null : subtenantUser.id,
-             subtenantUser == null ? 0L : subtenantUser.lastLoginTime,
-             subtenantUser == null ? (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginHistory>) null
-                                   : subtenantUser.loginHistory,
-             subtenantUser == null ? (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null
-                                   : subtenantUser.loginProfiles,
+             subtenantUser == null ? 0 : subtenantUser.lastLoginTime,
+             subtenantUser == null ? (List<LoginHistory>) null : subtenantUser.loginHistory,
+             subtenantUser == null ? (List<LoginProfile>) null : subtenantUser.loginProfiles,
              subtenantUser != null && subtenantUser.marketingAccepted,
              subtenantUser == null ? (String) null : subtenantUser.password,
-             subtenantUser == null ? 0L : subtenantUser.passwordChangedTime,
+             subtenantUser == null ? 0 : subtenantUser.passwordChangedTime,
              subtenantUser == null ? (String) null : subtenantUser.phoneNumber,
              subtenantUser == null ? SubtenantUserStatus.getDefault() : subtenantUser.status,
              subtenantUser != null && subtenantUser.termsAccepted,
-             subtenantUser == null ? (java.util.List<String>) null : subtenantUser.totpScratchCodes,
+             subtenantUser == null ? (List<String>) null : subtenantUser.totpScratchCodes,
              subtenantUser != null && subtenantUser.twoFactorAuthentication,
-             subtenantUser == null ? new java.util.Date() : subtenantUser.updatedAt,
+             subtenantUser == null ? new Date() : subtenantUser.updatedAt,
              subtenantUser == null ? (String) null : subtenantUser.username);
     }
 
@@ -280,12 +277,10 @@ public class SubtenantUser implements SdkModel {
      * Constructor.
      */
     public SubtenantUser() {
-        this((String) null, (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.ActiveSession>) null, (String) null,
-             new java.util.Date(), 0L, (java.util.Map<String, String>) null, (String) null, false, (String) null,
-             (String) null, 0L, (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginHistory>) null,
-             (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null, false, (String) null, 0L,
-             (String) null, SubtenantUserStatus.getDefault(), false, (java.util.List<String>) null, false,
-             new java.util.Date(), (String) null);
+        this((String) null, (List<ActiveSession>) null, (String) null, new Date(), 0, (Map<String, String>) null,
+             (String) null, false, (String) null, (String) null, 0, (List<LoginHistory>) null,
+             (List<LoginProfile>) null, false, (String) null, 0, (String) null, SubtenantUserStatus.getDefault(), false,
+             (List<String>) null, false, new Date(), (String) null);
     }
 
     /**
@@ -301,7 +296,7 @@ public class SubtenantUser implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #SubtenantUser()} instead.
      * 
@@ -334,10 +329,9 @@ public class SubtenantUser implements SdkModel {
                          List<LoginHistory> loginHistory, long passwordChangedTime, List<String> totpScratchCodes,
                          Date updatedAt) {
         this((String) null, activeSessions, (String) null, createdAt, creationTime, customFields, (String) null,
-             emailVerified, (String) null, (String) null, lastLoginTime, loginHistory,
-             (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null, false, (String) null,
-             passwordChangedTime, (String) null, SubtenantUserStatus.getDefault(), false, totpScratchCodes, false,
-             updatedAt, (String) null);
+             emailVerified, (String) null, (String) null, lastLoginTime, loginHistory, (List<LoginProfile>) null, false,
+             (String) null, passwordChangedTime, (String) null, SubtenantUserStatus.getDefault(), false,
+             totpScratchCodes, false, updatedAt, (String) null);
     }
 
     /**
@@ -349,12 +343,10 @@ public class SubtenantUser implements SdkModel {
      *            The email address.
      */
     public SubtenantUser(String accountId, String email) {
-        this(accountId, (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.ActiveSession>) null, (String) null,
-             new java.util.Date(), 0L, (java.util.Map<String, String>) null, email, false, (String) null, (String) null,
-             0L, (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginHistory>) null,
-             (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null, false, (String) null, 0L,
-             (String) null, SubtenantUserStatus.getDefault(), false, (java.util.List<String>) null, false,
-             new java.util.Date(), (String) null);
+        this(accountId, (List<ActiveSession>) null, (String) null, new Date(), 0, (Map<String, String>) null, email,
+             false, (String) null, (String) null, 0, (List<LoginHistory>) null, (List<LoginProfile>) null, false,
+             (String) null, 0, (String) null, SubtenantUserStatus.getDefault(), false, (List<String>) null, false,
+             new Date(), (String) null);
     }
 
     /**
@@ -523,7 +515,7 @@ public class SubtenantUser implements SdkModel {
 
     /**
      * Sets the id of the user.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -744,7 +736,7 @@ public class SubtenantUser implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -782,7 +774,7 @@ public class SubtenantUser implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -796,7 +788,7 @@ public class SubtenantUser implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -954,7 +946,7 @@ public class SubtenantUser implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -975,7 +967,7 @@ public class SubtenantUser implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -988,7 +980,7 @@ public class SubtenantUser implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

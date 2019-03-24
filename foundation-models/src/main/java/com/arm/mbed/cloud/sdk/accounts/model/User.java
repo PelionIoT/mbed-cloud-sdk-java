@@ -144,7 +144,7 @@ public class User implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #User()} instead.
      * 
@@ -237,7 +237,7 @@ public class User implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #User()} instead.
      * 
@@ -247,23 +247,17 @@ public class User implements SdkModel {
     @Internal
     public User(User user) {
         this(user == null ? (String) null : user.accountId,
-             user == null ? (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.ActiveSession>) null
-                          : user.activeSessions,
-             user == null ? (String) null : user.address, user == null ? new java.util.Date() : user.createdAt,
-             user == null ? 0L : user.creationTime,
-             user == null ? (java.util.Map<String, String>) null : user.customFields,
+             user == null ? (List<ActiveSession>) null : user.activeSessions,
+             user == null ? (String) null : user.address, user == null ? new Date() : user.createdAt,
+             user == null ? 0 : user.creationTime, user == null ? (Map<String, String>) null : user.customFields,
              user == null ? (String) null : user.email, user != null && user.emailVerified,
              user == null ? (String) null : user.fullName, user == null ? (String) null : user.id,
-             user == null ? 0L : user.lastLoginTime,
-             user == null ? (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginHistory>) null
-                          : user.loginHistory,
-             user == null ? (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null
-                          : user.loginProfiles,
-             user != null && user.marketingAccepted, user == null ? (String) null : user.password,
-             user == null ? 0L : user.passwordChangedTime, user == null ? (String) null : user.phoneNumber,
-             user == null ? UserStatus.getDefault() : user.status, user != null && user.termsAccepted,
-             user == null ? (java.util.List<String>) null : user.totpScratchCodes,
-             user != null && user.twoFactorAuthentication, user == null ? new java.util.Date() : user.updatedAt,
+             user == null ? 0 : user.lastLoginTime, user == null ? (List<LoginHistory>) null : user.loginHistory,
+             user == null ? (List<LoginProfile>) null : user.loginProfiles, user != null && user.marketingAccepted,
+             user == null ? (String) null : user.password, user == null ? 0 : user.passwordChangedTime,
+             user == null ? (String) null : user.phoneNumber, user == null ? UserStatus.getDefault() : user.status,
+             user != null && user.termsAccepted, user == null ? (List<String>) null : user.totpScratchCodes,
+             user != null && user.twoFactorAuthentication, user == null ? new Date() : user.updatedAt,
              user == null ? (String) null : user.username);
     }
 
@@ -271,12 +265,10 @@ public class User implements SdkModel {
      * Constructor.
      */
     public User() {
-        this((String) null, (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.ActiveSession>) null, (String) null,
-             new java.util.Date(), 0L, (java.util.Map<String, String>) null, (String) null, false, (String) null,
-             (String) null, 0L, (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginHistory>) null,
-             (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null, false, (String) null, 0L,
-             (String) null, UserStatus.getDefault(), false, (java.util.List<String>) null, false, new java.util.Date(),
-             (String) null);
+        this((String) null, (List<ActiveSession>) null, (String) null, new Date(), 0, (Map<String, String>) null,
+             (String) null, false, (String) null, (String) null, 0, (List<LoginHistory>) null,
+             (List<LoginProfile>) null, false, (String) null, 0, (String) null, UserStatus.getDefault(), false,
+             (List<String>) null, false, new Date(), (String) null);
     }
 
     /**
@@ -292,7 +284,7 @@ public class User implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #User()} instead.
      * 
@@ -328,10 +320,9 @@ public class User implements SdkModel {
                 List<LoginHistory> loginHistory, long passwordChangedTime, List<String> totpScratchCodes,
                 Date updatedAt) {
         this(accountId, activeSessions, (String) null, createdAt, creationTime, customFields, (String) null,
-             emailVerified, (String) null, (String) null, lastLoginTime, loginHistory,
-             (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null, false, (String) null,
-             passwordChangedTime, (String) null, UserStatus.getDefault(), false, totpScratchCodes, false, updatedAt,
-             (String) null);
+             emailVerified, (String) null, (String) null, lastLoginTime, loginHistory, (List<LoginProfile>) null, false,
+             (String) null, passwordChangedTime, (String) null, UserStatus.getDefault(), false, totpScratchCodes, false,
+             updatedAt, (String) null);
     }
 
     /**
@@ -479,7 +470,7 @@ public class User implements SdkModel {
 
     /**
      * Sets the id of the user.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -700,7 +691,7 @@ public class User implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -738,7 +729,7 @@ public class User implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -752,7 +743,7 @@ public class User implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -910,7 +901,7 @@ public class User implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -931,7 +922,7 @@ public class User implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -944,7 +935,7 @@ public class User implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

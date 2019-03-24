@@ -57,7 +57,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollment()} instead.
      * 
@@ -92,7 +92,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollment()} instead.
      * 
@@ -102,11 +102,11 @@ public class DeviceEnrollment implements SdkModel {
     @Internal
     public DeviceEnrollment(DeviceEnrollment deviceEnrollment) {
         this(deviceEnrollment == null ? (String) null : deviceEnrollment.accountId,
-             deviceEnrollment == null ? new java.util.Date() : deviceEnrollment.claimedAt,
-             deviceEnrollment == null ? new java.util.Date() : deviceEnrollment.createdAt,
+             deviceEnrollment == null ? new Date() : deviceEnrollment.claimedAt,
+             deviceEnrollment == null ? new Date() : deviceEnrollment.createdAt,
              deviceEnrollment == null ? (String) null : deviceEnrollment.enrolledDeviceId,
              deviceEnrollment == null ? (String) null : deviceEnrollment.enrollmentIdentity,
-             deviceEnrollment == null ? new java.util.Date() : deviceEnrollment.expiresAt,
+             deviceEnrollment == null ? new Date() : deviceEnrollment.expiresAt,
              deviceEnrollment == null ? (String) null : deviceEnrollment.id);
     }
 
@@ -114,8 +114,7 @@ public class DeviceEnrollment implements SdkModel {
      * Constructor.
      */
     public DeviceEnrollment() {
-        this((String) null, new java.util.Date(), new java.util.Date(), (String) null, (String) null,
-             new java.util.Date(), (String) null);
+        this((String) null, new Date(), new Date(), (String) null, (String) null, new Date(), (String) null);
     }
 
     /**
@@ -131,7 +130,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollment()} instead.
      * 
@@ -199,7 +198,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Sets enrollment identity.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /^A-[A-Za-z0-9:]{95}$/} to be valid
      * 
@@ -243,7 +242,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Sets enrollment identity.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /^[A-Za-z0-9]{32}/} to be valid
      * 
@@ -257,7 +256,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Sets enrollment identity.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * <p>
@@ -283,7 +282,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -305,7 +304,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -319,7 +318,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -396,7 +395,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -411,7 +410,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -424,7 +423,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

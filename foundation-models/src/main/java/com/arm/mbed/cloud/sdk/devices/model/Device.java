@@ -220,7 +220,7 @@ public class Device implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
      * 
@@ -364,7 +364,7 @@ public class Device implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
      * 
@@ -374,51 +374,47 @@ public class Device implements SdkModel {
     @Internal
     public Device(Device device) {
         this(device == null ? (String) null : device.accountId, device != null && device.autoUpdate,
-             device == null ? new java.util.Date() : device.bootstrapExpirationDate,
-             device == null ? new java.util.Date() : device.bootstrappedTimestamp,
-             device == null ? (String) null : device.caId,
-             device == null ? new java.util.Date() : device.connectorExpirationDate,
-             device == null ? new java.util.Date() : device.createdAt,
-             device == null ? (java.util.Map<String, String>) null : device.customAttributes,
+             device == null ? new Date() : device.bootstrapExpirationDate,
+             device == null ? new Date() : device.bootstrappedTimestamp, device == null ? (String) null : device.caId,
+             device == null ? new Date() : device.connectorExpirationDate,
+             device == null ? new Date() : device.createdAt,
+             device == null ? (Map<String, String>) null : device.customAttributes,
              device == null ? DeviceDeployedState.getDefault() : device.deployedState,
              device == null ? (String) null : device.deployment, device == null ? (String) null : device.description,
              device == null ? (String) null : device.deviceClass,
              device == null ? (Integer) null : device.deviceExecutionMode,
              device == null ? (String) null : device.deviceKey, device == null ? (String) null : device.endpointName,
              device == null ? (String) null : device.endpointType,
-             device == null ? new java.util.Date() : device.enrolmentListTimestamp,
+             device == null ? new Date() : device.enrolmentListTimestamp,
              device == null ? (String) null : device.firmwareChecksum,
              device == null ? (String) null : device.hostGateway, device == null ? (String) null : device.id,
              device == null ? (String) null : device.issuerFingerprint,
              device == null ? (String) null : device.lastOperatorSuspendedCategory,
              device == null ? (String) null : device.lastOperatorSuspendedDescription,
-             device == null ? new java.util.Date() : device.lastOperatorSuspendedUpdatedAt,
+             device == null ? new Date() : device.lastOperatorSuspendedUpdatedAt,
              device == null ? (String) null : device.lastSystemSuspendedCategory,
              device == null ? (String) null : device.lastSystemSuspendedDescription,
-             device == null ? new java.util.Date() : device.lastSystemSuspendedUpdatedAt,
+             device == null ? new Date() : device.lastSystemSuspendedUpdatedAt,
              device == null ? DeviceLifecycleStatus.getDefault() : device.lifecycleStatus,
-             device == null ? (String) null : device.manifest,
-             device == null ? new java.util.Date() : device.manifestTimestamp,
+             device == null ? (String) null : device.manifest, device == null ? new Date() : device.manifestTimestamp,
              device == null ? DeviceMechanism.getDefault() : device.mechanism,
              device == null ? (String) null : device.mechanismUrl, device == null ? (String) null : device.name,
              device != null && device.operatorSuspended, device == null ? (String) null : device.serialNumber,
              device == null ? DeviceState.getDefault() : device.state, device != null && device.systemSuspended,
-             device == null ? new java.util.Date() : device.updatedAt,
-             device == null ? (String) null : device.vendorId);
+             device == null ? new Date() : device.updatedAt, device == null ? (String) null : device.vendorId);
     }
 
     /**
      * Constructor.
      */
     public Device() {
-        this((String) null, Boolean.FALSE, new java.util.Date(), new java.util.Date(), (String) null,
-             new java.util.Date(), new java.util.Date(), (java.util.Map<String, String>) null,
-             DeviceDeployedState.getDefault(), (String) null, (String) null, (String) null, (Integer) null,
-             (String) null, (String) null, (String) null, new java.util.Date(), (String) null, (String) null,
-             (String) null, (String) null, (String) null, (String) null, new java.util.Date(), (String) null,
-             (String) null, new java.util.Date(), DeviceLifecycleStatus.getDefault(), (String) null,
-             new java.util.Date(), DeviceMechanism.getDefault(), (String) null, (String) null, false, (String) null,
-             DeviceState.getDefault(), false, new java.util.Date(), (String) null);
+        this((String) null, Boolean.FALSE, new Date(), new Date(), (String) null, new Date(), new Date(),
+             (Map<String, String>) null, DeviceDeployedState.getDefault(), (String) null, (String) null, (String) null,
+             (Integer) null, (String) null, (String) null, (String) null, new Date(), (String) null, (String) null,
+             (String) null, (String) null, (String) null, (String) null, new Date(), (String) null, (String) null,
+             new Date(), DeviceLifecycleStatus.getDefault(), (String) null, new Date(), DeviceMechanism.getDefault(),
+             (String) null, (String) null, false, (String) null, DeviceState.getDefault(), false, new Date(),
+             (String) null);
     }
 
     /**
@@ -434,7 +430,7 @@ public class Device implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
      * 
@@ -479,14 +475,14 @@ public class Device implements SdkModel {
                   String lastSystemSuspendedCategory, String lastSystemSuspendedDescription,
                   Date lastSystemSuspendedUpdatedAt, DeviceLifecycleStatus lifecycleStatus, Date manifestTimestamp,
                   boolean operatorSuspended, boolean systemSuspended, Date updatedAt) {
-        this(accountId, Boolean.FALSE, new java.util.Date(), new java.util.Date(), (String) null, new java.util.Date(),
-             createdAt, (java.util.Map<String, String>) null, deployedState, (String) null, (String) null,
-             (String) null, (Integer) null, (String) null, endpointName, (String) null, enrolmentListTimestamp,
-             (String) null, (String) null, (String) null, (String) null, lastOperatorSuspendedCategory,
-             lastOperatorSuspendedDescription, lastOperatorSuspendedUpdatedAt, lastSystemSuspendedCategory,
-             lastSystemSuspendedDescription, lastSystemSuspendedUpdatedAt, lifecycleStatus, (String) null,
-             manifestTimestamp, DeviceMechanism.getDefault(), (String) null, (String) null, operatorSuspended,
-             (String) null, DeviceState.getDefault(), systemSuspended, updatedAt, (String) null);
+        this(accountId, Boolean.FALSE, new Date(), new Date(), (String) null, new Date(), createdAt,
+             (Map<String, String>) null, deployedState, (String) null, (String) null, (String) null, (Integer) null,
+             (String) null, endpointName, (String) null, enrolmentListTimestamp, (String) null, (String) null,
+             (String) null, (String) null, lastOperatorSuspendedCategory, lastOperatorSuspendedDescription,
+             lastOperatorSuspendedUpdatedAt, lastSystemSuspendedCategory, lastSystemSuspendedDescription,
+             lastSystemSuspendedUpdatedAt, lifecycleStatus, (String) null, manifestTimestamp,
+             DeviceMechanism.getDefault(), (String) null, (String) null, operatorSuspended, (String) null,
+             DeviceState.getDefault(), systemSuspended, updatedAt, (String) null);
     }
 
     /**
@@ -566,7 +562,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the certificate issuer's id.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 500} to be valid
      * 
@@ -628,7 +624,7 @@ public class Device implements SdkModel {
     /**
      * Sets up to five custom key-value attributes. note that keys cannot begin with a number. both keys and values are
      * limited to 128 characters. updating this field replaces existing contents.
-     *
+     * 
      * <p>
      * Note: the number of elements has to be less than or equal to {@code 5} to be valid
      * 
@@ -689,7 +685,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the description of the device.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 2000} to be valid
      * 
@@ -721,7 +717,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets an id representing the model and hardware revision of the device.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 32} to be valid
      * 
@@ -778,7 +774,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the fingerprint of the device certificate.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 512} to be valid
      * 
@@ -819,7 +815,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the endpoint type of the device. for example, the device is a gateway.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 64} to be valid
      * 
@@ -910,7 +906,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the id of the device. the device id is used across all device management apis.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -933,7 +929,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets sha256 fingerprint of the certificate used to validate the signature of the device certificate.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /[A-Fa-f0-9]{64}/} to be valid
      * 
@@ -1094,7 +1090,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the name of the device.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 128} to be valid
      * 
@@ -1201,7 +1197,7 @@ public class Device implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -1260,7 +1256,7 @@ public class Device implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -1274,7 +1270,7 @@ public class Device implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -1544,7 +1540,7 @@ public class Device implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -1573,7 +1569,7 @@ public class Device implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -1587,7 +1583,7 @@ public class Device implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

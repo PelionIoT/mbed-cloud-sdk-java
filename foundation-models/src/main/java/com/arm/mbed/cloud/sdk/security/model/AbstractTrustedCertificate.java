@@ -112,7 +112,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #AbstractTrustedCertificate()} instead.
      * 
@@ -180,7 +180,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #AbstractTrustedCertificate()} instead.
      * 
@@ -192,7 +192,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
         this(abstractTrustedCertificate == null ? (String) null : abstractTrustedCertificate.accountId,
              abstractTrustedCertificate == null ? (String) null : abstractTrustedCertificate.certificate,
              abstractTrustedCertificate == null ? (String) null : abstractTrustedCertificate.certificateFingerprint,
-             abstractTrustedCertificate == null ? new java.util.Date() : abstractTrustedCertificate.createdAt,
+             abstractTrustedCertificate == null ? new Date() : abstractTrustedCertificate.createdAt,
              abstractTrustedCertificate == null ? (String) null : abstractTrustedCertificate.description,
              abstractTrustedCertificate == null ? 0 : abstractTrustedCertificate.deviceExecutionMode,
              abstractTrustedCertificate != null && abstractTrustedCertificate.enrollmentMode,
@@ -205,18 +205,18 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
              abstractTrustedCertificate == null ? TrustedCertificateStatus.getDefault()
                                                 : abstractTrustedCertificate.status,
              abstractTrustedCertificate == null ? (String) null : abstractTrustedCertificate.subject,
-             abstractTrustedCertificate == null ? new java.util.Date() : abstractTrustedCertificate.updatedAt,
+             abstractTrustedCertificate == null ? new Date() : abstractTrustedCertificate.updatedAt,
              abstractTrustedCertificate != null && abstractTrustedCertificate.valid,
-             abstractTrustedCertificate == null ? new java.util.Date() : abstractTrustedCertificate.validity);
+             abstractTrustedCertificate == null ? new Date() : abstractTrustedCertificate.validity);
     }
 
     /**
      * Constructor.
      */
     public AbstractTrustedCertificate() {
-        this((String) null, (String) null, (String) null, new java.util.Date(), (String) null, 0, false, (String) null,
+        this((String) null, (String) null, (String) null, new Date(), (String) null, 0, false, (String) null,
              (String) null, (String) null, (String) null, TrustedCertificateService.getDefault(),
-             TrustedCertificateStatus.getDefault(), (String) null, new java.util.Date(), false, new java.util.Date());
+             TrustedCertificateStatus.getDefault(), (String) null, new Date(), false, new Date());
     }
 
     /**
@@ -232,7 +232,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #AbstractTrustedCertificate()} instead.
      * 
@@ -274,9 +274,9 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
      *            Service name where the certificate is to be used.
      */
     public AbstractTrustedCertificate(String certificate, String name, TrustedCertificateService service) {
-        this((String) null, certificate, (String) null, new java.util.Date(), (String) null, 0, false, (String) null,
+        this((String) null, certificate, (String) null, new Date(), (String) null, 0, false, (String) null,
              (String) null, name, (String) null, service, TrustedCertificateStatus.getDefault(), (String) null,
-             new java.util.Date(), false, new java.util.Date());
+             new Date(), false, new Date());
     }
 
     /**
@@ -418,7 +418,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Sets entity id.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -556,7 +556,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -570,7 +570,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -581,7 +581,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -613,7 +613,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -741,7 +741,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -759,7 +759,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()

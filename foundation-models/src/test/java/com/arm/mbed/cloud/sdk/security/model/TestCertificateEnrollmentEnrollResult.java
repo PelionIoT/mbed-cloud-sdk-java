@@ -31,7 +31,7 @@ public class TestCertificateEnrollmentEnrollResult {
             certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("forbidden");
             assertNotNull(certificateenrollmentenrollresult);
             assertFalse(certificateenrollmentenrollresult.isDefault());
-            certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("9d651c54-d3a2-44f3-ba59-c68be12ca14f");
+            certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("7f1ca29b-c630-4be0-b3dc-eb759e596253");
             assertNotNull(certificateenrollmentenrollresult);
             assertTrue(certificateenrollmentenrollresult.isDefault());
         } catch (Exception exception) {

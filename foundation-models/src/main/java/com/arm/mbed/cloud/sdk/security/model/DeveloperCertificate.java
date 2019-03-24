@@ -56,7 +56,7 @@ public class DeveloperCertificate implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeveloperCertificate()} instead.
      * 
@@ -91,7 +91,7 @@ public class DeveloperCertificate implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeveloperCertificate()} instead.
      * 
@@ -102,7 +102,7 @@ public class DeveloperCertificate implements SdkModel {
     public DeveloperCertificate(DeveloperCertificate developerCertificate) {
         this(developerCertificate == null ? (String) null : developerCertificate.accountId,
              developerCertificate == null ? (String) null : developerCertificate.certificate,
-             developerCertificate == null ? new java.util.Date() : developerCertificate.createdAt,
+             developerCertificate == null ? new Date() : developerCertificate.createdAt,
              developerCertificate == null ? (String) null : developerCertificate.description,
              developerCertificate == null ? (String) null : developerCertificate.id,
              developerCertificate == null ? (String) null : developerCertificate.name,
@@ -113,8 +113,7 @@ public class DeveloperCertificate implements SdkModel {
      * Constructor.
      */
     public DeveloperCertificate() {
-        this((String) null, (String) null, new java.util.Date(), (String) null, (String) null, (String) null,
-             (String) null);
+        this((String) null, (String) null, new Date(), (String) null, (String) null, (String) null, (String) null);
     }
 
     /**
@@ -130,7 +129,7 @@ public class DeveloperCertificate implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #DeveloperCertificate()} instead.
      * 
@@ -218,7 +217,7 @@ public class DeveloperCertificate implements SdkModel {
 
     /**
      * Sets muuid that uniquely identifies the developer certificate.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -271,7 +270,7 @@ public class DeveloperCertificate implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -293,7 +292,7 @@ public class DeveloperCertificate implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -307,7 +306,7 @@ public class DeveloperCertificate implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -384,7 +383,7 @@ public class DeveloperCertificate implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -399,7 +398,7 @@ public class DeveloperCertificate implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -412,7 +411,7 @@ public class DeveloperCertificate implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
