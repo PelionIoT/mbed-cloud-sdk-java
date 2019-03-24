@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.arm.pelion.sdk.foundation.generator.model.ValueGenerator.Values;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
@@ -62,11 +63,13 @@ public class MethodModuleDefault extends MethodModuleCloudApi {
             } else {
                 builder.append(", ");
             }
-            builder.append("$L");
             if (method.methodParameters.stream().anyMatch(arg -> p.equals(arg))) {
+                builder.append("$L");
                 callElements.add(p.getName());
             } else {
-                callElements.add(p.getJavaDefaultValue());
+                final Values defaultValue = p.getJavaDefaultValue();
+                builder.append(String.join("", defaultValue.getFormats()));
+                callElements.addAll(defaultValue.getValues());
             }
         }
         builder.append(")");

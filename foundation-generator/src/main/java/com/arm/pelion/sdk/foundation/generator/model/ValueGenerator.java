@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.mbed.cloud.sdk.common.UuidGenerator;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.mifmif.common.regex.Generex;
 
@@ -225,63 +226,144 @@ public class ValueGenerator {
                                                                         .orElse(null);
     }
 
-    public static String getJavaDefaultValue(TypeParameter type, String defaultValue) {
+    @SuppressWarnings("boxing")
+    public static void getJavaDefaultValue(TypeParameter type, String defaultValue, Values values) {
+        if (values == null) {
+            return;
+        }
         final boolean hasDefaultValue = defaultValue != null && !defaultValue.isEmpty();
+        try {
+            type.translate();
+        } catch (TranslationException exception) {
+            // Nothing to do
+        }
         if (type.isBoolean()) {
             if (type.isPrimitive()) {
-                return hasDefaultValue ? defaultValue : "false";
+                values.addToFormat("$L");
+                values.addValue(hasDefaultValue ? defaultValue : false);
+                return;
             }
+            values.addValue(Boolean.class);
             if (!hasDefaultValue) {
-                return "Boolean.FALSE";
+                values.addToFormat("$T.$L");
+                values.addValue(Boolean.FALSE);
+                return;
             }
             if (Boolean.parseBoolean(defaultValue)) {
-                return "Boolean.TRUE";
+                values.addToFormat("$T.$L");
+                values.addValue(Boolean.TRUE);
+                return;
             }
             if ("null".equals(defaultValue.trim().toLowerCase(Locale.UK))) {
-                return "null";
+                values.addToFormat("($T) $L");
+                values.addValue(DEFAULT_VALUE);
+                return;
             }
-            return "Boolean.FALSE";
+            values.addToFormat("$T.$L");
+            values.addValue(Boolean.FALSE);
+            return;
         }
         if (type.isEnum()) {// TODO ensure the method for getting default type is always valid
-            return hasDefaultValue ? type.getShortName() + "." + SdkEnum.METHOD_GET_VALUE_FROM_STRING + "(\""
-                                     + defaultValue + "\")"
-                                   : type.getShortName() + "." + SdkEnum.METHOD_GET_DEFAULT + "()";
+            values.addValue(type.hasClass() ? type.getClazz() : type.getTypeName());
+            if (hasDefaultValue) {
+                values.addToFormat("$T.$L($S)");
+                values.addValue(SdkEnum.METHOD_GET_VALUE_FROM_STRING);
+                values.addValue(defaultValue);
+                return;
+            }
+            values.addToFormat("$T.$L()");
+            values.addValue(SdkEnum.METHOD_GET_DEFAULT);
+            return;
         }
         if (type.isNumber()) {
-
             final boolean isPrimitive = type.isPrimitive();
             if (!hasDefaultValue || "null".equals(defaultValue.trim().toLowerCase(Locale.UK))) {
+                values.addToFormat(isPrimitive ? "$L" : "($T) $L");
                 if (type.isInteger()) {
-                    return isPrimitive ? "0" : "(Integer) null";
+                    if (isPrimitive) {
+                        values.addValue(0);
+                        return;
+                    }
+                    values.addValue(Integer.class);
+                    values.addValue(DEFAULT_VALUE);
+                    return;
                 } else if (type.isDecimal()) {
-                    return isPrimitive ? "0.0" : "(Double) null";
+                    if (isPrimitive) {
+                        values.addValue(0.0);
+                        return;
+                    }
+                    values.addValue(Double.class);
+                    values.addValue(DEFAULT_VALUE);
+                    return;
                 } else {
-                    return isPrimitive ? "0L" : "(Long) null";
+                    if (isPrimitive) {
+                        values.addValue(0L);
+                        return;
+                    }
+                    values.addValue(Long.class);
+                    values.addValue(DEFAULT_VALUE);
+                    return;
                 }
             }
+            values.addToFormat(isPrimitive ? "$L" : "$T.valueOf($L)");
             if (type.isInteger()) {
-                return isPrimitive ? defaultValue : "Integer.valueOf(" + defaultValue + ")";
+                if (isPrimitive) {
+                    values.addValue(defaultValue);
+                    return;
+                }
+                values.addValue(Integer.class);
+                values.addValue(defaultValue);
+                return;
             } else if (type.isDecimal()) {
-                return isPrimitive ? defaultValue.contains(".") ? defaultValue : defaultValue.trim() + ".0"
-                                   : "Double.valueOf(" + defaultValue + ")";
-            } else {
-                return isPrimitive ? defaultValue.contains("L") ? defaultValue : defaultValue.trim() + "L"
-                                   : "Long.valueOf(" + defaultValue + ")";
+                if (isPrimitive) {
+                    values.addValue(defaultValue.contains(".") ? defaultValue : defaultValue.trim() + ".0");
+                    return;
+                }
+                values.addValue(Double.class);
+                values.addValue(defaultValue);
+                return;
             }
-
+            if (isPrimitive) {
+                values.addValue(defaultValue.contains("L") ? defaultValue : defaultValue.trim() + "L");
+                return;
+            }
+            values.addValue(Long.class);
+            values.addValue(defaultValue);
+            return;
         }
-        if (type.isDate()) {// TODO ensure the default date value is called now
-            return hasDefaultValue ? defaultValue.contains("now") ? "new java.util.Date()" : defaultValue
-                                   : "new java.util.Date()";
+        if (type.isDate()) {
+            // TODO ensure the default date value is called now
+
+            if (!hasDefaultValue || defaultValue.toLowerCase(Locale.UK).contains("now")) {
+                values.addToFormat("new $T()");
+                values.addValue(Date.class);
+                return;
+            }
+            values.addToFormat("$L");
+            values.addValue(defaultValue);
+            return;
         }
         if (type.isString()) {
-            return hasDefaultValue ? "\"" + defaultValue + "\"" : "(String) null";
-        }
-        if (type.isHashtable() || type.isList()) {
-            return hasDefaultValue ? defaultValue : "(" + type.getFullyQualifiedName() + ") null";
-        }
+            if (hasDefaultValue) {
+                values.addToFormat("$S");
+                values.addValue(defaultValue);
+                return;
+            }
 
-        return hasDefaultValue ? defaultValue : "(" + type.getShortName() + ") null";
+            values.addToFormat("($T) $L");
+            values.addValue(String.class);
+            values.addValue(DEFAULT_VALUE);
+            return;
+        }
+        if (hasDefaultValue) {
+            values.addToFormat("$L");
+            values.addValue(defaultValue);
+            return;
+        }
+        values.addToFormat("($T) $L");
+        values.addValue(type.hasClass() ? type.getClazz() : type.getTypeName());
+        values.addValue(DEFAULT_VALUE);
+        return;
     }
 
     public static class Values {
@@ -294,6 +376,10 @@ public class ValueGenerator {
 
         public List<Object> getValues() {
             return values;
+        }
+
+        public Object[] getValuesArray() {
+            return getValues().toArray();
         }
 
         public void clear() {

@@ -7,6 +7,7 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.adapters.DataFileAdapter;
+import com.arm.pelion.sdk.foundation.generator.model.ValueGenerator.Values;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.CodeBlock;
@@ -112,7 +113,10 @@ public class MethodMapper extends Method {
                     final Field fromField = from.fetchField(fromFieldName);
                     if (fromField == null) {
                         recordThatFieldWasNotFound(code, toType, fromType, fromFieldName);
-                        statementString.append(ValueGenerator.getJavaDefaultValue(fType, f.getDefaultValue()));
+                        final Values defaultValue = new Values();
+                        ValueGenerator.getJavaDefaultValue(fType, f.getDefaultValue(), defaultValue);
+                        statementString.append(String.join("", defaultValue.getFormats()));
+                        values.addAll(defaultValue.getValues());
                     } else {
                         final TypeParameter fromFieldType = fromField.getType();
                         fType.translate();
