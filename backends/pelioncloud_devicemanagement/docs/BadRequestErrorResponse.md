@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | **Integer** | Response code. Always set to 400. | 
 **fields** | [**List&lt;BadRequestErrorResponseField&gt;**](BadRequestErrorResponseField.md) |  | 
-**message** | **String** | A human readable message with detailed info. | 
-**object** | [**ObjectEnum**](#ObjectEnum) | Always set to &#39;error&#39;. | 
-**requestId** | **String** | Request ID | 
-**type** | [**TypeEnum**](#TypeEnum) | Error type. Always set to &#39;validation_error&#39;. | 
+**message** | **String** | A human-readable message with detailed info. | 
+**object** | [**ObjectEnum**](#ObjectEnum) | Always set to &#x60;error&#x60;. | 
+**requestId** | **String** | Request ID. | 
+**type** | [**TypeEnum**](#TypeEnum) | Error type. Always set to &#x60;validation_error&#x60;. | 
 
 
 <a name="ObjectEnum"></a>

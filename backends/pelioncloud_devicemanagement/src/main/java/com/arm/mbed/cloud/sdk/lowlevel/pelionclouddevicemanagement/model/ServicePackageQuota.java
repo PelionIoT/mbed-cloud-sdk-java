@@ -32,7 +32,7 @@ public class ServicePackageQuota implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Always set to &#39;service-package-quota&#39;.
+     * Always set to &#x60;service-package-quota&#x60;.
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
@@ -88,11 +88,11 @@ public class ServicePackageQuota implements Serializable {
     }
 
     /**
-     * Always set to &#39;service-package-quota&#39;.
+     * Always set to &#x60;service-package-quota&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Always set to 'service-package-quota'.")
+    @ApiModelProperty(required = true, value = "Always set to `service-package-quota`.")
     public ObjectEnum getObject() {
         return object;
     }

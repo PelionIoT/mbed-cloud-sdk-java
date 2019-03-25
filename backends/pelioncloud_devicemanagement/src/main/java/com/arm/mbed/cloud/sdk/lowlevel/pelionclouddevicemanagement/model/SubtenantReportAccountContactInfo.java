@@ -182,11 +182,11 @@ public class SubtenantReportAccountContactInfo implements Serializable {
     }
 
     /**
-     * Account subtenant ID if it is a subtenant.
+     * Account subtenant ID, if a subtenant.
      * 
      * @return customerSubtenantId
      **/
-    @ApiModelProperty(required = true, value = "Account subtenant ID if it is a subtenant.")
+    @ApiModelProperty(required = true, value = "Account subtenant ID, if a subtenant.")
     public String getCustomerSubtenantId() {
         return customerSubtenantId;
     }

@@ -4,12 +4,12 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**after** | **String** | After which quota history ID this paged response is fetched. |  [optional]
-**data** | [**List&lt;ServicePackageQuotaHistoryItem&gt;**](ServicePackageQuotaHistoryItem.md) | List of history items, empty list if no entries are available. | 
-**hasMore** | **Boolean** | If there is next available quota history paged response to be fetched. | 
-**limit** | **Integer** | Maximum amount of quota history entries contained in one paged response. | 
-**object** | [**ObjectEnum**](#ObjectEnum) | Always set to &#39;service-package-quota-history&#39;. | 
-**totalCount** | **Integer** | Sum of all quota history entries that should be returned | 
+**after** | **String** | ID after which to fetch quota history. |  [optional]
+**data** | [**List&lt;ServicePackageQuotaHistoryItem&gt;**](ServicePackageQuotaHistoryItem.md) | List of history items. Empty list if no entries are available. | 
+**hasMore** | **Boolean** | If there is next available quota history paged response to fetch. | 
+**limit** | **Integer** | Maximum number of quota history entries contained in one paged response. | 
+**object** | [**ObjectEnum**](#ObjectEnum) | Always set to &#x60;service-package-quota-history&#x60;. | 
+**totalCount** | **Integer** | Sum of all quota history entries that should be returned. | 
 
 
 <a name="ObjectEnum"></a>

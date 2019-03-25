@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **modified** | [**DateTime**](DateTime.md) | Service package latest modified time in RFC3339 date-time with millisecond accuracy and UTC time zone. | 
 **nextId** | **String** | Next service package ID if this service package has a pending renewal or null. |  [optional]
 **previousId** | **String** | Previous service package ID. |  [optional]
-**reason** | [**ReasonEnum**](#ReasonEnum) | Reason why this service package was ended | 
+**reason** | [**ReasonEnum**](#ReasonEnum) | Reason the service package was ended. | 
 **startTime** | [**DateTime**](DateTime.md) | Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone. | 
 
 

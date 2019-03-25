@@ -49,7 +49,7 @@ public class ReportResponse implements Serializable {
     private String month = null;
 
     /**
-     * Billing report response object. Always set to &#39;billing-report&#39;.
+     * Billing report response object. Always set to &#x60;billing-report&#x60;.
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
@@ -127,12 +127,12 @@ public class ReportResponse implements Serializable {
     }
 
     /**
-     * Aggregated report billing data including all subtenant accounts if any.
+     * Aggregated report billing data including all subtenant accounts, if any.
      * 
      * @return aggregated
      **/
     @ApiModelProperty(required = true,
-                      value = "Aggregated report billing data including all subtenant accounts if any.")
+                      value = "Aggregated report billing data including all subtenant accounts, if any.")
     public ReportBillingData getAggregated() {
         return aggregated;
     }
@@ -185,11 +185,11 @@ public class ReportResponse implements Serializable {
     }
 
     /**
-     * Month of requested billing report
+     * Month of requested billing report.
      * 
      * @return month
      **/
-    @ApiModelProperty(required = true, value = "Month of requested billing report")
+    @ApiModelProperty(required = true, value = "Month of requested billing report.")
     public String getMonth() {
         return month;
     }
@@ -204,11 +204,11 @@ public class ReportResponse implements Serializable {
     }
 
     /**
-     * Billing report response object. Always set to &#39;billing-report&#39;.
+     * Billing report response object. Always set to &#x60;billing-report&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Billing report response object. Always set to 'billing-report'.")
+    @ApiModelProperty(required = true, value = "Billing report response object. Always set to `billing-report`.")
     public ObjectEnum getObject() {
         return object;
     }

@@ -18,7 +18,6 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,18 +25,17 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * Quota history of the service package.
+ * DenialAttemptsResponse
  */
-@ApiModel(description = "Quota history of the service package.")
 
-public class ServicePackageQuotaHistoryResponse implements Serializable {
+public class DenialAttemptsResponse implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("after")
     private String after = null;
 
     @SerializedName("data")
-    private List<ServicePackageQuotaHistoryItem> data = new ArrayList<ServicePackageQuotaHistoryItem>();
+    private List<BlackListedDeviceData> data = new ArrayList<BlackListedDeviceData>();
 
     @SerializedName("has_more")
     private Boolean hasMore = null;
@@ -45,16 +43,21 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
     @SerializedName("limit")
     private Integer limit = null;
 
+    @SerializedName("object")
+    private String object = null;
+
     /**
-     * Always set to &#x60;service-package-quota-history&#x60;.
+     * The creation time based order of the entries.
      */
-    @JsonAdapter(ObjectEnum.Adapter.class)
-    public enum ObjectEnum {
-        HISTORY("service-package-quota-history");
+    @JsonAdapter(OrderEnum.Adapter.class)
+    public enum OrderEnum {
+        ASC("ASC"),
+
+        DESC("DESC");
 
         private String value;
 
-        ObjectEnum(String value) {
+        OrderEnum(String value) {
             this.value = value;
         }
 
@@ -67,8 +70,8 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
             return String.valueOf(value);
         }
 
-        public static ObjectEnum fromValue(String text) {
-            for (ObjectEnum b : ObjectEnum.values()) {
+        public static OrderEnum fromValue(String text) {
+            for (OrderEnum b : OrderEnum.values()) {
                 if (String.valueOf(b.value).equals(text)) {
                     return b;
                 }
@@ -76,37 +79,37 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
             return null;
         }
 
-        public static class Adapter extends TypeAdapter<ObjectEnum> {
+        public static class Adapter extends TypeAdapter<OrderEnum> {
             @Override
-            public void write(final JsonWriter jsonWriter, final ObjectEnum enumeration) throws IOException {
+            public void write(final JsonWriter jsonWriter, final OrderEnum enumeration) throws IOException {
                 jsonWriter.value(enumeration.getValue());
             }
 
             @Override
-            public ObjectEnum read(final JsonReader jsonReader) throws IOException {
+            public OrderEnum read(final JsonReader jsonReader) throws IOException {
                 String value = jsonReader.nextString();
-                return ObjectEnum.fromValue(String.valueOf(value));
+                return OrderEnum.fromValue(String.valueOf(value));
             }
         }
     }
 
-    @SerializedName("object")
-    private ObjectEnum object = null;
+    @SerializedName("order")
+    private OrderEnum order = null;
 
     @SerializedName("total_count")
     private Integer totalCount = null;
 
-    public ServicePackageQuotaHistoryResponse after(String after) {
+    public DenialAttemptsResponse after(String after) {
         this.after = after;
         return this;
     }
 
     /**
-     * ID after which to fetch quota history.
+     * An offset token for current page.
      * 
      * @return after
      **/
-    @ApiModelProperty(value = "ID after which to fetch quota history.")
+    @ApiModelProperty(value = "An offset token for current page.")
     public String getAfter() {
         return after;
     }
@@ -115,41 +118,41 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
         this.after = after;
     }
 
-    public ServicePackageQuotaHistoryResponse data(List<ServicePackageQuotaHistoryItem> data) {
+    public DenialAttemptsResponse data(List<BlackListedDeviceData> data) {
         this.data = data;
         return this;
     }
 
-    public ServicePackageQuotaHistoryResponse addDataItem(ServicePackageQuotaHistoryItem dataItem) {
+    public DenialAttemptsResponse addDataItem(BlackListedDeviceData dataItem) {
         this.data.add(dataItem);
         return this;
     }
 
     /**
-     * List of history items. Empty list if no entries are available.
+     * Get data
      * 
      * @return data
      **/
-    @ApiModelProperty(required = true, value = "List of history items. Empty list if no entries are available.")
-    public List<ServicePackageQuotaHistoryItem> getData() {
+    @ApiModelProperty(required = true, value = "")
+    public List<BlackListedDeviceData> getData() {
         return data;
     }
 
-    public void setData(List<ServicePackageQuotaHistoryItem> data) {
+    public void setData(List<BlackListedDeviceData> data) {
         this.data = data;
     }
 
-    public ServicePackageQuotaHistoryResponse hasMore(Boolean hasMore) {
+    public DenialAttemptsResponse hasMore(Boolean hasMore) {
         this.hasMore = hasMore;
         return this;
     }
 
     /**
-     * If there is next available quota history paged response to fetch.
+     * Are there more results available.
      * 
      * @return hasMore
      **/
-    @ApiModelProperty(required = true, value = "If there is next available quota history paged response to fetch.")
+    @ApiModelProperty(example = "false", value = "Are there more results available.")
     public Boolean isHasMore() {
         return hasMore;
     }
@@ -158,18 +161,19 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
         this.hasMore = hasMore;
     }
 
-    public ServicePackageQuotaHistoryResponse limit(Integer limit) {
+    public DenialAttemptsResponse limit(Integer limit) {
         this.limit = limit;
         return this;
     }
 
     /**
-     * Maximum number of quota history entries contained in one paged response. minimum: 2 maximum: 1000
+     * How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of
+     * this range are set to the closest limit. minimum: 2 maximum: 1000
      * 
      * @return limit
      **/
-    @ApiModelProperty(required = true,
-                      value = "Maximum number of quota history entries contained in one paged response.")
+    @ApiModelProperty(example = "50",
+                      value = "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.")
     public Integer getLimit() {
         return limit;
     }
@@ -178,36 +182,55 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
         this.limit = limit;
     }
 
-    public ServicePackageQuotaHistoryResponse object(ObjectEnum object) {
+    public DenialAttemptsResponse object(String object) {
         this.object = object;
         return this;
     }
 
     /**
-     * Always set to &#x60;service-package-quota-history&#x60;.
+     * The type of this API object is a \&quot;list\&quot;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Always set to `service-package-quota-history`.")
-    public ObjectEnum getObject() {
+    @ApiModelProperty(example = "list", required = true, value = "The type of this API object is a \"list\".")
+    public String getObject() {
         return object;
     }
 
-    public void setObject(ObjectEnum object) {
+    public void setObject(String object) {
         this.object = object;
     }
 
-    public ServicePackageQuotaHistoryResponse totalCount(Integer totalCount) {
+    public DenialAttemptsResponse order(OrderEnum order) {
+        this.order = order;
+        return this;
+    }
+
+    /**
+     * The creation time based order of the entries.
+     * 
+     * @return order
+     **/
+    @ApiModelProperty(example = "DESC", value = "The creation time based order of the entries.")
+    public OrderEnum getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderEnum order) {
+        this.order = order;
+    }
+
+    public DenialAttemptsResponse totalCount(Integer totalCount) {
         this.totalCount = totalCount;
         return this;
     }
 
     /**
-     * Sum of all quota history entries that should be returned. minimum: 0
+     * Get totalCount
      * 
      * @return totalCount
      **/
-    @ApiModelProperty(required = true, value = "Sum of all quota history entries that should be returned.")
+    @ApiModelProperty(example = "1", value = "")
     public Integer getTotalCount() {
         return totalCount;
     }
@@ -224,30 +247,32 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ServicePackageQuotaHistoryResponse servicePackageQuotaHistoryResponse = (ServicePackageQuotaHistoryResponse) o;
-        return Objects.equals(this.after, servicePackageQuotaHistoryResponse.after)
-               && Objects.equals(this.data, servicePackageQuotaHistoryResponse.data)
-               && Objects.equals(this.hasMore, servicePackageQuotaHistoryResponse.hasMore)
-               && Objects.equals(this.limit, servicePackageQuotaHistoryResponse.limit)
-               && Objects.equals(this.object, servicePackageQuotaHistoryResponse.object)
-               && Objects.equals(this.totalCount, servicePackageQuotaHistoryResponse.totalCount);
+        DenialAttemptsResponse denialAttemptsResponse = (DenialAttemptsResponse) o;
+        return Objects.equals(this.after, denialAttemptsResponse.after)
+               && Objects.equals(this.data, denialAttemptsResponse.data)
+               && Objects.equals(this.hasMore, denialAttemptsResponse.hasMore)
+               && Objects.equals(this.limit, denialAttemptsResponse.limit)
+               && Objects.equals(this.object, denialAttemptsResponse.object)
+               && Objects.equals(this.order, denialAttemptsResponse.order)
+               && Objects.equals(this.totalCount, denialAttemptsResponse.totalCount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(after, data, hasMore, limit, object, totalCount);
+        return Objects.hash(after, data, hasMore, limit, object, order, totalCount);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class ServicePackageQuotaHistoryResponse {\n");
+        sb.append("class DenialAttemptsResponse {\n");
 
         sb.append("    after: ").append(toIndentedString(after)).append("\n");
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
         sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
         sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
         sb.append("    object: ").append(toIndentedString(object)).append("\n");
+        sb.append("    order: ").append(toIndentedString(order)).append("\n");
         sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
         sb.append("}");
         return sb.toString();

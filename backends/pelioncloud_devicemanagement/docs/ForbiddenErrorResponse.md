@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | **Integer** | Response code. Always set to 403. | 
-**message** | **String** | A human readable message with detailed info. | 
-**object** | [**ObjectEnum**](#ObjectEnum) | Always set to &#39;error&#39;. | 
+**message** | **String** | A human-readable message with detailed info. | 
+**object** | [**ObjectEnum**](#ObjectEnum) | Always set to &#x60;error&#x60;. | 
 **requestId** | **String** | Request ID | 
-**type** | [**TypeEnum**](#TypeEnum) | Error type. Always set to &#39;forbidden&#39;. | 
+**type** | [**TypeEnum**](#TypeEnum) | Error type. Always set to &#x60;forbidden&#x60;. | 
 
 
 <a name="ObjectEnum"></a>
