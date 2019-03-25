@@ -71,7 +71,7 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
 
     /**
      * Clones this instance.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -165,7 +165,7 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
 
     /**
      * Lists users matching filter options.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#listUsers(com.arm.mbed.cloud.sdk.accounts.model.UserListOptions)}

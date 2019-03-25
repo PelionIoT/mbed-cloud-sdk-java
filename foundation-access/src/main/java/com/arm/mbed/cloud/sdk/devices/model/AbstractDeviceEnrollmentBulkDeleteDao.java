@@ -75,7 +75,7 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
 
     /**
      * Deletes a device enrollment bulk delete.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollmentBulkDelete(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDelete)}
@@ -143,7 +143,7 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
 
     /**
      * Gets a device enrollment bulk delete.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentBulkDelete(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDelete)}
@@ -160,7 +160,7 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
 
     /**
      * Gets a device enrollment bulk delete.
-     * 
+     *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentBulkDelete(String)}
      * 

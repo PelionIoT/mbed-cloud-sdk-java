@@ -21,7 +21,7 @@ import java.util.List;
  * The list can be filtered server-side on some of the fields of a device enrollment.
  * <p>
  * The following filters are currently supported:
- * 
+ *
  * <p>
  * <table style="border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0" summary="Available
  * filters">
@@ -49,7 +49,7 @@ import java.util.List;
 public class DeviceEnrollmentListOptions extends ListOptions {
     /**
      * Internal constructor.
-     * 
+     *
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentListOptions()} instead.
      * 
@@ -80,7 +80,7 @@ public class DeviceEnrollmentListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     * 
+     *
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentListOptions()} instead.
      * 
@@ -103,7 +103,7 @@ public class DeviceEnrollmentListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     * 
+     *
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentListOptions()} instead.
      * 
@@ -121,7 +121,7 @@ public class DeviceEnrollmentListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     * 
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -135,7 +135,7 @@ public class DeviceEnrollmentListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -151,7 +151,7 @@ public class DeviceEnrollmentListOptions extends ListOptions {
 
     /**
      * Clones this instance.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

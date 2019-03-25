@@ -21,11 +21,11 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * value.
-     * 
+     *
      * <p>
      * 
-     * @deprecated This field has been deprecated since Tue Jan 15 14:55:20 GMT 2019 and will be removed by Wed Jan 15
-     *             14:55:20 GMT 2020. This field is not used.
+     * @deprecated This field has been deprecated since Tue Jan 15 14:55:20 UTC 2019 and will be removed by Wed Jan 15
+     *             14:55:20 UTC 2020. This field is not used.
      */
     @Deprecated
     private final Map<String, Object> changes;
@@ -82,7 +82,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Internal constructor.
-     * 
+     *
      * <p>
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
@@ -130,7 +130,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Internal constructor.
-     * 
+     *
      * <p>
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
@@ -172,7 +172,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Internal constructor.
-     * 
+     *
      * <p>
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
@@ -207,12 +207,12 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Gets value.
-     * 
+     *
      * <p>
      * 
-     * @deprecated This field has been deprecated since Tue Jan 15 14:55:20 GMT 2019 and will be removed by Wed Jan 15
-     *             14:55:20 GMT 2020. This field is not used.
-     * 
+     * @deprecated This field has been deprecated since Tue Jan 15 14:55:20 UTC 2019 and will be removed by Wed Jan 15
+     *             14:55:20 UTC 2020. This field is not used.
+     *
      * @return changes
      */
     @Deprecated
@@ -315,7 +315,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Sets value.
-     * 
+     *
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -338,7 +338,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -364,7 +364,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     * 
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -378,7 +378,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -484,7 +484,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -500,7 +500,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     * 
+     *
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -513,7 +513,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Clones this instance.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

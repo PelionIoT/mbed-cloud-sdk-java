@@ -71,7 +71,7 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
 
     /**
      * Clones this instance.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -165,7 +165,7 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
 
     /**
      * Lists devices matching filter options.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#listDevices(com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions)}

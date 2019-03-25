@@ -74,7 +74,7 @@ public class DeviceEnrollmentDenialListDao extends
 
     /**
      * Clones this instance.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -169,7 +169,7 @@ public class DeviceEnrollmentDenialListDao extends
 
     /**
      * Lists device enrollment denials matching filter options.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#listDeviceEnrollmentDenials(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDenialListOptions)}
