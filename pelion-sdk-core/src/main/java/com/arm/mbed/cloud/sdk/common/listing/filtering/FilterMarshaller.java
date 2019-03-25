@@ -552,9 +552,13 @@ public class FilterMarshaller {
         if (filterObj instanceof String[]) {
             return encodeFilterList(Arrays.asList((String[]) filterObj), type);
         }
+        if (filterObj instanceof Number[]) {
+            return encodeFilterList(Arrays.asList(((Number[]) filterObj)), type);
+        }
         if (filterObj instanceof Object[]) {
             return encodeFilterList(Arrays.asList(((Object[]) filterObj)), type);
         }
+
         return null;
     }
 
