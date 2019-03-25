@@ -111,7 +111,7 @@ public class CertificateEnrollmentListDao extends
      */
     @Override
     @Internal
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "resource" })
     public CertificateEnrollmentDao getNewModelDao() throws MbedCloudException {
         return new CertificateEnrollmentDao().configureAndGet(getModuleOrThrow());
     }

@@ -472,7 +472,11 @@ public class DeviceEvents implements SdkModel {
         } else if (!id.equals(other.id)) {
             return false;
         }
-        if (stateChange != other.stateChange) {
+        if (stateChange == null) {
+            if (other.stateChange != null) {
+                return false;
+            }
+        } else if (!stateChange.equals(other.stateChange)) {
             return false;
         }
         return true;

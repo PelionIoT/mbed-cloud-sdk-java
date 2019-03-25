@@ -1301,7 +1301,11 @@ public class Device implements SdkModel {
         } else if (!accountId.equals(other.accountId)) {
             return false;
         }
-        if (autoUpdate != other.autoUpdate) {
+        if (autoUpdate == null) {
+            if (other.autoUpdate != null) {
+                return false;
+            }
+        } else if (!autoUpdate.equals(other.autoUpdate)) {
             return false;
         }
         if (bootstrapExpirationDate == null) {
@@ -1370,7 +1374,11 @@ public class Device implements SdkModel {
         } else if (!deviceClass.equals(other.deviceClass)) {
             return false;
         }
-        if (deviceExecutionMode != other.deviceExecutionMode) {
+        if (deviceExecutionMode == null) {
+            if (other.deviceExecutionMode != null) {
+                return false;
+            }
+        } else if (!deviceExecutionMode.equals(other.deviceExecutionMode)) {
             return false;
         }
         if (deviceKey == null) {

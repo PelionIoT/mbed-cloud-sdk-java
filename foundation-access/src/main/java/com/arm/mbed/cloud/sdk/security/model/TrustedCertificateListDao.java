@@ -109,7 +109,7 @@ public class TrustedCertificateListDao extends AbstractModelListDao<TrustedCerti
      */
     @Override
     @Internal
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "resource" })
     public TrustedCertificateDao getNewModelDao() throws MbedCloudException {
         return new TrustedCertificateDao().configureAndGet(getModuleOrThrow());
     }

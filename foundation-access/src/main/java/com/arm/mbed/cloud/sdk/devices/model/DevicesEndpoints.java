@@ -8,6 +8,7 @@ import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateRenewalApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DefaultApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.EnrollmentDenialsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.PublicApiApi;
 
 /**
@@ -35,6 +36,12 @@ public class DevicesEndpoints extends AbstractEndpoints {
     private final PublicApiApi publicApiApi;
 
     /**
+     * Low level endpoints for enrollment denials apis.
+     */
+    @Internal
+    private final EnrollmentDenialsApi enrollmentDenialsApi;
+
+    /**
      * Constructor.
      * 
      * @param services
@@ -45,6 +52,7 @@ public class DevicesEndpoints extends AbstractEndpoints {
         this.defaultApi = initialiseService(DefaultApi.class);
         this.certificateRenewalApi = initialiseService(CertificateRenewalApi.class);
         this.publicApiApi = initialiseService(PublicApiApi.class);
+        this.enrollmentDenialsApi = initialiseService(EnrollmentDenialsApi.class);
     }
 
     /**
@@ -88,5 +96,15 @@ public class DevicesEndpoints extends AbstractEndpoints {
     @Internal
     public PublicApiApi getPublicApiApi() {
         return publicApiApi;
+    }
+
+    /**
+     * Gets low level endpoints for enrollment denials apis.
+     * 
+     * @return enrollmentDenialsApi
+     */
+    @Internal
+    public EnrollmentDenialsApi getEnrollmentDenialsApi() {
+        return enrollmentDenialsApi;
     }
 }

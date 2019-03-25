@@ -835,7 +835,7 @@ public class Security extends AbstractModule {
      * -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
      * 
      * @param id
-     *            mUUID that uniquely identifies the developer certificate.
+     *            ID that uniquely identifies the developer certificate.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -1673,7 +1673,7 @@ public class Security extends AbstractModule {
      * -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
      * 
      * @param id
-     *            mUUID that uniquely identifies the developer certificate.
+     *            ID that uniquely identifies the developer certificate.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.

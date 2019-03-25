@@ -109,7 +109,7 @@ public class DeviceEnrollmentListDao extends AbstractModelListDao<DeviceEnrollme
      */
     @Override
     @Internal
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "resource" })
     public DeviceEnrollmentDao getNewModelDao() throws MbedCloudException {
         return new DeviceEnrollmentDao().configureAndGet(getModuleOrThrow());
     }

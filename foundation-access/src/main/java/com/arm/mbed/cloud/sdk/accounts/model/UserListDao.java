@@ -108,7 +108,7 @@ public class UserListDao extends AbstractModelListDao<User, UserListOptions>
      */
     @Override
     @Internal
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "resource" })
     public UserDao getNewModelDao() throws MbedCloudException {
         return new UserDao().configureAndGet(getModuleOrThrow());
     }

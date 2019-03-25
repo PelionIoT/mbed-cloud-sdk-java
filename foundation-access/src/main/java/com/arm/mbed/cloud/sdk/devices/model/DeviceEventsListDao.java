@@ -109,7 +109,7 @@ public class DeviceEventsListDao extends AbstractModelListDao<DeviceEvents, Devi
      */
     @Override
     @Internal
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "resource" })
     public DeviceEventsDao getNewModelDao() throws MbedCloudException {
         return new DeviceEventsDao().configureAndGet(getModuleOrThrow());
     }

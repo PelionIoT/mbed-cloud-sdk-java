@@ -23,7 +23,7 @@ public class ServerCredentials implements SdkModel {
     private final Date createdAt;
 
     /**
-     * mUUID that uniquely identifies the entity.
+     * ID that uniquely identifies the entity.
      */
     private String id;
 
@@ -47,7 +47,7 @@ public class ServerCredentials implements SdkModel {
      * @param createdAt
      *            Creation UTC time RFC3339.
      * @param id
-     *            mUUID that uniquely identifies the entity.
+     *            ID that uniquely identifies the entity.
      * @param serverCertificate
      *            PEM format X.509 server certificate that will be used to validate the server certificate that will be
      *            received during the TLS/DTLS handshake.
@@ -91,7 +91,7 @@ public class ServerCredentials implements SdkModel {
      * Constructor.
      * 
      * @param id
-     *            mUUID that uniquely identifies the entity.
+     *            ID that uniquely identifies the entity.
      */
     public ServerCredentials(String id) {
         this();
@@ -127,7 +127,7 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
-     * Gets muuid that uniquely identifies the entity.
+     * Gets id that uniquely identifies the entity.
      * 
      * @return id
      */
@@ -137,10 +137,10 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
-     * Sets muuid that uniquely identifies the entity.
+     * Sets id that uniquely identifies the entity.
      * 
      * @param id
-     *            mUUID that uniquely identifies the entity.
+     *            ID that uniquely identifies the entity.
      */
     @Override
     public void setId(String id) {
@@ -148,13 +148,13 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
-     * Sets muuid that uniquely identifies the entity.
+     * Sets id that uniquely identifies the entity.
      * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
      * @param serverCredentialsId
-     *            mUUID that uniquely identifies the entity.
+     *            ID that uniquely identifies the entity.
      */
     @Internal
     public void setServerCredentialsId(String serverCredentialsId) {

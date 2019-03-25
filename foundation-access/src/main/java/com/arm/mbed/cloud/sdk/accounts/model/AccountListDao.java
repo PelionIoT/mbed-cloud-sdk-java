@@ -108,7 +108,7 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
      */
     @Override
     @Internal
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "resource" })
     public AccountDao getNewModelDao() throws MbedCloudException {
         return new AccountDao().configureAndGet(getModuleOrThrow());
     }

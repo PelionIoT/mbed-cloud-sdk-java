@@ -112,7 +112,7 @@ public class CertificateIssuerConfigListDao extends
      */
     @Override
     @Internal
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "resource" })
     public CertificateIssuerConfigDao getNewModelDao() throws MbedCloudException {
         return new CertificateIssuerConfigDao().configureAndGet(getModuleOrThrow());
     }
