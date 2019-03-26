@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **etag** | [**DateTime**](DateTime.md) | The entity instance signature. |  [optional]
 **firmwareChecksum** | **String** | The SHA256 checksum of the current firmware image. |  [optional]
 **groups** | **List&lt;String&gt;** | An array containing an ID of each group this device belongs to. |  [optional]
-**hostGateway** | **String** | The &#x60;endpoint_name&#x60; of the host gateway, if appropriate. |  [optional]
+**hostGateway** | **String** | The ID of the host gateway, if appropriate. |  [optional]
 **id** | **String** | The ID of the device. The device ID is used across all Device Management APIs. |  [optional]
 **issuerFingerprint** | **String** | SHA256 fingerprint of the certificate used to validate the signature of the device certificate. |  [optional]
 **manifest** | **String** | DEPRECATED: The URL for the current device manifest. |  [optional]

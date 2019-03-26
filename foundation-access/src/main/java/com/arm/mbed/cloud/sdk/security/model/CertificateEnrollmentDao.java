@@ -71,7 +71,7 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
 
     /**
      * Clones this instance.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -140,7 +140,7 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
 
     /**
      * Gets a certificate enrollment.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readCertificateEnrollment(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment)}
@@ -157,12 +157,12 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
 
     /**
      * Gets a certificate enrollment.
-     * 
+     *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#readCertificateEnrollment(String)}
      * 
      * @param id
-     *            The ID of the certificate enrollment.
+     *            The certificate enrollment ID.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.

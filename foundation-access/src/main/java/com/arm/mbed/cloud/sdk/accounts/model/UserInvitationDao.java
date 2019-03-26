@@ -75,7 +75,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
 
     /**
      * Clones this instance.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -94,7 +94,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
 
     /**
      * Adds a user invitation.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
@@ -111,7 +111,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
 
     /**
      * Adds a user invitation.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
@@ -130,7 +130,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
 
     /**
      * Adds a user invitation.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createUserInvitation(int, com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
@@ -148,7 +148,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
 
     /**
      * Deletes a user invitation.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#deleteUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
@@ -163,7 +163,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
 
     /**
      * Deletes a user invitation.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#deleteUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
@@ -181,7 +181,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
 
     /**
      * Deletes a user invitation.
-     * 
+     *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUserInvitation(String)}
      * 
@@ -247,7 +247,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
 
     /**
      * Gets a user invitation.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#readUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
@@ -264,7 +264,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
 
     /**
      * Gets a user invitation.
-     * 
+     *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readUserInvitation(String)}
      * 

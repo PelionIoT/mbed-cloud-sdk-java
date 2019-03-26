@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **endpointName** | **String** | The endpoint name given to the device. |  [optional]
 **endpointType** | **String** | The endpoint type of the device. For example, the device is a gateway. |  [optional]
 **groups** | **List&lt;String&gt;** | An array containing an ID of each group this device belongs to. |  [optional]
-**hostGateway** | **String** | The &#x60;endpoint_name&#x60; of the host gateway, if appropriate. |  [optional]
+**hostGateway** | **String** | The ID of the host gateway, if appropriate. |  [optional]
 **name** | **String** | The name of the device. |  [optional]
 **object** | **String** | The API resource entity. |  [optional]
 

@@ -92,7 +92,7 @@ public class CertificateEnrollmentListResponse implements Serializable {
     private ObjectEnum object = null;
 
     /**
-     * The order of the records to return based on creation time. By default ASC.
+     * Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
      */
     @JsonAdapter(OrderEnum.Adapter.class)
     public enum OrderEnum {
@@ -254,11 +254,11 @@ public class CertificateEnrollmentListResponse implements Serializable {
     }
 
     /**
-     * The order of the records to return based on creation time. By default ASC.
+     * Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
      * 
      * @return order
      **/
-    @ApiModelProperty(value = "The order of the records to return based on creation time. By default ASC.")
+    @ApiModelProperty(value = "Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.")
     public OrderEnum getOrder() {
         return order;
     }

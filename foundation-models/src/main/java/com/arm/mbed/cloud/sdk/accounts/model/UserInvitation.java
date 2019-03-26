@@ -63,7 +63,7 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Internal constructor.
-     * 
+     *
      * <p>
      * Note: Should not be used. Use {@link #UserInvitation()} instead.
      * 
@@ -101,7 +101,7 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Internal constructor.
-     * 
+     *
      * <p>
      * Note: Should not be used. Use {@link #UserInvitation()} instead.
      * 
@@ -141,7 +141,7 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Internal constructor.
-     * 
+     *
      * <p>
      * Note: Should not be used. Use {@link #UserInvitation()} instead.
      * 
@@ -242,7 +242,7 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Sets the id of the invitation.
-     * 
+     *
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -294,7 +294,7 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -317,7 +317,7 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     * 
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -331,7 +331,7 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -415,7 +415,7 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -430,7 +430,7 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     * 
+     *
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -443,7 +443,7 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Clones this instance.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

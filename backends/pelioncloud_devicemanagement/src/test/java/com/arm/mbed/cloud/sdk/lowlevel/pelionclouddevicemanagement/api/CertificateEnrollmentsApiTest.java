@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,10 +20,9 @@ public class CertificateEnrollmentsApiTest {
     /**
      * Get a certificate enrollment by ID.
      *
-     * Get a certificate enrollment by ID. **Example usage:** &#x60;&#x60;&#x60; curl -H &#39;authorization: Bearer
-     * &lt;valid access token&gt;&#39;
-     * https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000
-     * &#x60;&#x60;&#x60;
+     * Get a certificate enrollment by ID. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000 \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getCertificateEnrollmentTest() {
@@ -35,12 +35,11 @@ public class CertificateEnrollmentsApiTest {
     /**
      * Get certificate enrollments list.
      *
-     * Get certificate enrollments list, optionally filtered. **Example usage:** &#x60;&#x60;&#x60; curl -H
-     * &#39;authorization: Bearer &lt;valid access token&gt;&#39;
-     * https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl -H
-     * &#39;authorization: Bearer &lt;valid access token&gt;&#39;
+     * Get certificate enrollments list, optionally filtered. **Examples:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq&#x3D;01612df56f3b0a580a010fc700000000
-     * &#x60;&#x60;&#x60;
+     * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getCertificateEnrollmentsTest() {
@@ -54,10 +53,10 @@ public class CertificateEnrollmentsApiTest {
         String enrollStatusEq = null;
         String enrollResultNeq = null;
         String enrollResultEq = null;
-        String createdAtLte = null;
-        String createdAtGte = null;
-        String updatedAtLte = null;
-        String updatedAtGte = null;
+        DateTime createdAtLte = null;
+        DateTime createdAtGte = null;
+        DateTime updatedAtLte = null;
+        DateTime updatedAtGte = null;
         // CertificateEnrollmentListResponse response = api.getCertificateEnrollments(deviceIdEq, certificateNameEq,
         // limit, after, order, include, enrollStatusNeq, enrollStatusEq, enrollResultNeq, enrollResultEq, createdAtLte,
         // createdAtGte, updatedAtLte, updatedAtGte);

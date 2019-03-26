@@ -153,6 +153,7 @@ public final class CertificateEnrollmentAdapter {
                                                                                       TranslationUtils.toDate(toBeMapped.getCreatedAt()),
                                                                                       toBeMapped.getDeviceId(),
                                                                                       translateToCertificateEnrollmentEnrollResult(toBeMapped.getEnrollResult()),
+                                                                                      toBeMapped.getEnrollResultDetail(),
                                                                                       translateToCertificateEnrollmentEnrollStatus(toBeMapped.getEnrollStatus()),
                                                                                       TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         certificateEnrollment.setId(toBeMapped.getId());
@@ -202,12 +203,12 @@ public final class CertificateEnrollmentAdapter {
         switch (toBeMapped) {
             case SUCCESS:
                 return CertificateEnrollmentEnrollResult.SUCCESS;
+            case FAILURE:
+                return CertificateEnrollmentEnrollResult.FAILURE;
             case NOT_FOUND:
                 return CertificateEnrollmentEnrollResult.NOT_FOUND;
             case FORBIDDEN:
                 return CertificateEnrollmentEnrollResult.FORBIDDEN;
-            case FAILURE:
-                return CertificateEnrollmentEnrollResult.FAILURE;
             default:
                 return CertificateEnrollmentEnrollResult.getUnknownEnum();
         }

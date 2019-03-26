@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 Get a certificate enrollment by ID.
 
-Get a certificate enrollment by ID.  **Example usage:**  &#x60;&#x60;&#x60; curl -H &#39;authorization: Bearer &lt;valid access token&gt;&#39; https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000 &#x60;&#x60;&#x60; 
+Get a certificate enrollment by ID.  **Example:**  &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000 \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -34,7 +34,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 CertificateEnrollmentsApi apiInstance = new CertificateEnrollmentsApi();
-String certificateEnrollmentId = "certificateEnrollmentId_example"; // String | The ID of the certificate enrollment. 
+String certificateEnrollmentId = "certificateEnrollmentId_example"; // String | Certificate enrollment ID.
 try {
     CertificateEnrollment result = apiInstance.getCertificateEnrollment(certificateEnrollmentId);
     System.out.println(result);
@@ -48,7 +48,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **certificateEnrollmentId** | **String**| The ID of the certificate enrollment.  |
+ **certificateEnrollmentId** | **String**| Certificate enrollment ID. |
 
 ### Return type
 
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 Get certificate enrollments list.
 
- Get certificate enrollments list, optionally filtered.  **Example usage:**  &#x60;&#x60;&#x60; curl -H &#39;authorization: Bearer &lt;valid access token&gt;&#39; https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl -H &#39;authorization: Bearer &lt;valid access token&gt;&#39; https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq&#x3D;01612df56f3b0a580a010fc700000000 &#x60;&#x60;&#x60; 
+Get certificate enrollments list, optionally filtered.  **Examples:**  &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;  &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq&#x3D;01612df56f3b0a580a010fc700000000 \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -89,20 +89,20 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 CertificateEnrollmentsApi apiInstance = new CertificateEnrollmentsApi();
-String deviceIdEq = "deviceIdEq_example"; // String | An optional filter for the device ID. 
-String certificateNameEq = "certificateNameEq_example"; // String | An optional filter for a certificate. 
-Integer limit = 56; // Integer | The number of results to be returned. Between 2 and 1000, inclusive. 
-String after = "after_example"; // String | The ID of the item after which to retrieve the next page. 
-String order = "order_example"; // String | The order of results. 
-String include = "include_example"; // String | a comma-separated list of data fields to return. 
-String enrollStatusNeq = "enrollStatusNeq_example"; // String | An optional filter for the non-equal certificate enrollment status. 
-String enrollStatusEq = "enrollStatusEq_example"; // String | An optional filter for the certificate enrollment status. 
-String enrollResultNeq = "enrollResultNeq_example"; // String | An optional filter for the non-equal certificate enrollment result. 
-String enrollResultEq = "enrollResultEq_example"; // String | An optional filter for the certificate enrollment result. 
-String createdAtLte = "createdAtLte_example"; // String | An optional filter for the date-time, less than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). 
-String createdAtGte = "createdAtGte_example"; // String | An optional filter for the date-time, greater than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). 
-String updatedAtLte = "updatedAtLte_example"; // String | An optional filter for the date-time, less than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). 
-String updatedAtGte = "updatedAtGte_example"; // String | An optional filter for the date-time, greater than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). 
+String deviceIdEq = "deviceIdEq_example"; // String | An optional filter for the device ID.
+String certificateNameEq = "certificateNameEq_example"; // String | An optional filter for a certificate.
+Integer limit = 56; // Integer | The number of results to return (2-1000).
+String after = "after_example"; // String | The ID of the item after which to retrieve the next page.
+String order = "order_example"; // String | The order of results.
+String include = "include_example"; // String | a comma-separated list of data fields to return.
+String enrollStatusNeq = "enrollStatusNeq_example"; // String | An optional filter for the non-equal certificate enrollment status.
+String enrollStatusEq = "enrollStatusEq_example"; // String | An optional filter for the certificate enrollment status.
+String enrollResultNeq = "enrollResultNeq_example"; // String | An optional filter for the non-equal certificate enrollment result.
+String enrollResultEq = "enrollResultEq_example"; // String | An optional filter for the certificate enrollment result.
+DateTime createdAtLte = new DateTime(); // DateTime | An optional filter for the date-time, less than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).
+DateTime createdAtGte = new DateTime(); // DateTime | An optional filter for the date-time, greater than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).
+DateTime updatedAtLte = new DateTime(); // DateTime | An optional filter for the date-time, less than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).
+DateTime updatedAtGte = new DateTime(); // DateTime | An optional filter for the date-time, greater than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).
 try {
     CertificateEnrollmentListResponse result = apiInstance.getCertificateEnrollments(deviceIdEq, certificateNameEq, limit, after, order, include, enrollStatusNeq, enrollStatusEq, enrollResultNeq, enrollResultEq, createdAtLte, createdAtGte, updatedAtLte, updatedAtGte);
     System.out.println(result);
@@ -116,20 +116,20 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deviceIdEq** | **String**| An optional filter for the device ID.  | [optional]
- **certificateNameEq** | **String**| An optional filter for a certificate.  | [optional]
- **limit** | **Integer**| The number of results to be returned. Between 2 and 1000, inclusive.  | [optional]
- **after** | **String**| The ID of the item after which to retrieve the next page.  | [optional]
- **order** | **String**| The order of results.  | [optional] [enum: ASC, DESC]
- **include** | **String**| a comma-separated list of data fields to return.  | [optional] [enum: total_count]
- **enrollStatusNeq** | **String**| An optional filter for the non-equal certificate enrollment status.  | [optional] [enum: new, completed]
- **enrollStatusEq** | **String**| An optional filter for the certificate enrollment status.  | [optional] [enum: new, completed]
- **enrollResultNeq** | **String**| An optional filter for the non-equal certificate enrollment result.  | [optional]
- **enrollResultEq** | **String**| An optional filter for the certificate enrollment result.  | [optional]
- **createdAtLte** | **String**| An optional filter for the date-time, less than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).  | [optional]
- **createdAtGte** | **String**| An optional filter for the date-time, greater than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).  | [optional]
- **updatedAtLte** | **String**| An optional filter for the date-time, less than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).  | [optional]
- **updatedAtGte** | **String**| An optional filter for the date-time, greater than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z).  | [optional]
+ **deviceIdEq** | **String**| An optional filter for the device ID. | [optional]
+ **certificateNameEq** | **String**| An optional filter for a certificate. | [optional]
+ **limit** | **Integer**| The number of results to return (2-1000). | [optional]
+ **after** | **String**| The ID of the item after which to retrieve the next page. | [optional]
+ **order** | **String**| The order of results. | [optional] [enum: ASC, DESC]
+ **include** | **String**| a comma-separated list of data fields to return. | [optional] [enum: total_count]
+ **enrollStatusNeq** | **String**| An optional filter for the non-equal certificate enrollment status. | [optional] [enum: new, completed]
+ **enrollStatusEq** | **String**| An optional filter for the certificate enrollment status. | [optional] [enum: new, completed]
+ **enrollResultNeq** | **String**| An optional filter for the non-equal certificate enrollment result. | [optional]
+ **enrollResultEq** | **String**| An optional filter for the certificate enrollment result. | [optional]
+ **createdAtLte** | **DateTime**| An optional filter for the date-time, less than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). | [optional]
+ **createdAtGte** | **DateTime**| An optional filter for the date-time, greater than or equal, of the certificate enrollment requests creation. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). | [optional]
+ **updatedAtLte** | **DateTime**| An optional filter for the date-time, less than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). | [optional]
+ **updatedAtGte** | **DateTime**| An optional filter for the date-time, greater than or equal, of the certificate enrollment requests update. Must be in RFC3339 format (for example, 2018-01-30T10:03:50.106Z). | [optional]
 
 ### Return type
 

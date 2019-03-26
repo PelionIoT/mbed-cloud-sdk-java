@@ -7,16 +7,16 @@ import retrofit2.http.*;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollmentListResponse;
+import org.joda.time.DateTime;
 
 public interface CertificateEnrollmentsApi {
     /**
-     * Get a certificate enrollment by ID. Get a certificate enrollment by ID. **Example usage:** &#x60;&#x60;&#x60;
-     * curl -H &#39;authorization: Bearer &lt;valid access token&gt;&#39;
-     * https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000
-     * &#x60;&#x60;&#x60;
+     * Get a certificate enrollment by ID. Get a certificate enrollment by ID. **Example:** &#x60;&#x60;&#x60; curl -X
+     * GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000 \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param certificateEnrollmentId
-     *            The ID of the certificate enrollment. (required)
+     *            Certificate enrollment ID. (required)
      * @return Call&lt;CertificateEnrollment&gt;
      */
     @GET("v3/certificate-enrollments/{certificate-enrollment-id}")
@@ -25,19 +25,18 @@ public interface CertificateEnrollmentsApi {
                                                       encoded = true) String certificateEnrollmentId);
 
     /**
-     * Get certificate enrollments list. Get certificate enrollments list, optionally filtered. **Example usage:**
-     * &#x60;&#x60;&#x60; curl -H &#39;authorization: Bearer &lt;valid access token&gt;&#39;
-     * https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl -H
-     * &#39;authorization: Bearer &lt;valid access token&gt;&#39;
+     * Get certificate enrollments list. Get certificate enrollments list, optionally filtered. **Examples:**
+     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq&#x3D;01612df56f3b0a580a010fc700000000
-     * &#x60;&#x60;&#x60;
+     * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param deviceIdEq
      *            An optional filter for the device ID. (optional)
      * @param certificateNameEq
      *            An optional filter for a certificate. (optional)
      * @param limit
-     *            The number of results to be returned. Between 2 and 1000, inclusive. (optional)
+     *            The number of results to return (2-1000). (optional)
      * @param after
      *            The ID of the item after which to retrieve the next page. (optional)
      * @param order
@@ -78,9 +77,9 @@ public interface CertificateEnrollmentsApi {
                                   @retrofit2.http.Query("enroll_status__eq") String enrollStatusEq,
                                   @retrofit2.http.Query("enroll_result__neq") String enrollResultNeq,
                                   @retrofit2.http.Query("enroll_result__eq") String enrollResultEq,
-                                  @retrofit2.http.Query("created_at__lte") String createdAtLte,
-                                  @retrofit2.http.Query("created_at__gte") String createdAtGte,
-                                  @retrofit2.http.Query("updated_at__lte") String updatedAtLte,
-                                  @retrofit2.http.Query("updated_at__gte") String updatedAtGte);
+                                  @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
+                                  @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
+                                  @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
+                                  @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte);
 
 }

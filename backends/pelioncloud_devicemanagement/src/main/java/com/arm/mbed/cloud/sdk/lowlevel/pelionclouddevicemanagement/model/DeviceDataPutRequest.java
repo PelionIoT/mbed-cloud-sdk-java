@@ -230,11 +230,11 @@ public class DeviceDataPutRequest implements Serializable {
     }
 
     /**
-     * The &#x60;endpoint_name&#x60; of the host gateway, if appropriate.
+     * The ID of the host gateway, if appropriate.
      * 
      * @return hostGateway
      **/
-    @ApiModelProperty(example = "", value = "The `endpoint_name` of the host gateway, if appropriate.")
+    @ApiModelProperty(example = "", value = "The ID of the host gateway, if appropriate.")
     public String getHostGateway() {
         return hostGateway;
     }
