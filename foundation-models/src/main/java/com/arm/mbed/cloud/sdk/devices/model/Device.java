@@ -7,7 +7,6 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Model for a device.
@@ -129,41 +128,6 @@ public class Device implements SdkModel {
     private String issuerFingerprint;
 
     /**
-     * The reference of the block category.
-     */
-    private final String lastOperatorSuspendedCategory;
-
-    /**
-     * The most recent description why the device was suspended or returned to service.
-     */
-    private final String lastOperatorSuspendedDescription;
-
-    /**
-     * The timestamp of the most recent suspension activity.
-     */
-    private final Date lastOperatorSuspendedUpdatedAt;
-
-    /**
-     * The reference of the block category.
-     */
-    private final String lastSystemSuspendedCategory;
-
-    /**
-     * The most recent description of why the device was blocked or unblocked by the system.
-     */
-    private final String lastSystemSuspendedDescription;
-
-    /**
-     * The timestamp of the most recent system block activity.
-     */
-    private final Date lastSystemSuspendedUpdatedAt;
-
-    /**
-     * The lifecycle status of the device.
-     */
-    private final DeviceLifecycleStatus lifecycleStatus;
-
-    /**
      * DEPRECATED: The URL for the current device manifest.
      */
     private String manifest;
@@ -189,11 +153,6 @@ public class Device implements SdkModel {
     private String name;
 
     /**
-     * Is the device suspended by the operator?.
-     */
-    private final boolean operatorSuspended;
-
-    /**
      * The serial number of the device.
      */
     private String serialNumber;
@@ -202,11 +161,6 @@ public class Device implements SdkModel {
      * The current state of the device.
      */
     private DeviceState state;
-
-    /**
-     * Is the device suspended by the system?.
-     */
-    private final boolean systemSuspended;
 
     /**
      * The time the object was updated.
@@ -269,20 +223,6 @@ public class Device implements SdkModel {
      *            The ID of the device. The device ID is used across all Device Management APIs.
      * @param issuerFingerprint
      *            SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
-     * @param lastOperatorSuspendedCategory
-     *            The reference of the block category.
-     * @param lastOperatorSuspendedDescription
-     *            The most recent description why the device was suspended or returned to service.
-     * @param lastOperatorSuspendedUpdatedAt
-     *            The timestamp of the most recent suspension activity.
-     * @param lastSystemSuspendedCategory
-     *            The reference of the block category.
-     * @param lastSystemSuspendedDescription
-     *            The most recent description of why the device was blocked or unblocked by the system.
-     * @param lastSystemSuspendedUpdatedAt
-     *            The timestamp of the most recent system block activity.
-     * @param lifecycleStatus
-     *            The lifecycle status of the device.
      * @param manifest
      *            DEPRECATED: The URL for the current device manifest.
      * @param manifestTimestamp
@@ -293,14 +233,10 @@ public class Device implements SdkModel {
      *            The address of the connector to use.
      * @param name
      *            The name of the device.
-     * @param operatorSuspended
-     *            Is the device suspended by the operator?.
      * @param serialNumber
      *            The serial number of the device.
      * @param state
      *            The current state of the device.
-     * @param systemSuspended
-     *            Is the device suspended by the system?.
      * @param updatedAt
      *            The time the object was updated.
      * @param vendorId
@@ -313,29 +249,16 @@ public class Device implements SdkModel {
                   DeviceDeployedState deployedState, String deployment, String description, String deviceClass,
                   Integer deviceExecutionMode, String deviceKey, String endpointName, String endpointType,
                   Date enrolmentListTimestamp, String firmwareChecksum, String hostGateway, String id,
-                  String issuerFingerprint, String lastOperatorSuspendedCategory,
-                  String lastOperatorSuspendedDescription, Date lastOperatorSuspendedUpdatedAt,
-                  String lastSystemSuspendedCategory, String lastSystemSuspendedDescription,
-                  Date lastSystemSuspendedUpdatedAt, DeviceLifecycleStatus lifecycleStatus, String manifest,
-                  Date manifestTimestamp, DeviceMechanism mechanism, String mechanismUrl, String name,
-                  boolean operatorSuspended, String serialNumber, DeviceState state, boolean systemSuspended,
-                  Date updatedAt, String vendorId) {
+                  String issuerFingerprint, String manifest, Date manifestTimestamp, DeviceMechanism mechanism,
+                  String mechanismUrl, String name, String serialNumber, DeviceState state, Date updatedAt,
+                  String vendorId) {
         super();
         this.accountId = accountId;
         this.createdAt = createdAt;
         this.deployedState = deployedState;
         this.endpointName = endpointName;
         this.enrolmentListTimestamp = enrolmentListTimestamp;
-        this.lastOperatorSuspendedCategory = lastOperatorSuspendedCategory;
-        this.lastOperatorSuspendedDescription = lastOperatorSuspendedDescription;
-        this.lastOperatorSuspendedUpdatedAt = lastOperatorSuspendedUpdatedAt;
-        this.lastSystemSuspendedCategory = lastSystemSuspendedCategory;
-        this.lastSystemSuspendedDescription = lastSystemSuspendedDescription;
-        this.lastSystemSuspendedUpdatedAt = lastSystemSuspendedUpdatedAt;
-        this.lifecycleStatus = lifecycleStatus;
         this.manifestTimestamp = manifestTimestamp;
-        this.operatorSuspended = operatorSuspended;
-        this.systemSuspended = systemSuspended;
         this.updatedAt = updatedAt;
         setAutoUpdate(autoUpdate);
         setBootstrapExpirationDate(bootstrapExpirationDate);
@@ -374,36 +297,26 @@ public class Device implements SdkModel {
     @Internal
     public Device(Device device) {
         this(device == null ? (String) null : device.accountId, device != null && device.autoUpdate,
-             device == null ? new java.util.Date() : device.bootstrapExpirationDate,
-             device == null ? new java.util.Date() : device.bootstrappedTimestamp,
-             device == null ? (String) null : device.caId,
-             device == null ? new java.util.Date() : device.connectorExpirationDate,
-             device == null ? new java.util.Date() : device.createdAt,
-             device == null ? (java.util.Map<String, String>) null : device.customAttributes,
+             device == null ? new Date() : device.bootstrapExpirationDate,
+             device == null ? new Date() : device.bootstrappedTimestamp, device == null ? (String) null : device.caId,
+             device == null ? new Date() : device.connectorExpirationDate,
+             device == null ? new Date() : device.createdAt,
+             device == null ? (Map<String, String>) null : device.customAttributes,
              device == null ? DeviceDeployedState.getDefault() : device.deployedState,
              device == null ? (String) null : device.deployment, device == null ? (String) null : device.description,
              device == null ? (String) null : device.deviceClass,
              device == null ? (Integer) null : device.deviceExecutionMode,
              device == null ? (String) null : device.deviceKey, device == null ? (String) null : device.endpointName,
              device == null ? (String) null : device.endpointType,
-             device == null ? new java.util.Date() : device.enrolmentListTimestamp,
+             device == null ? new Date() : device.enrolmentListTimestamp,
              device == null ? (String) null : device.firmwareChecksum,
              device == null ? (String) null : device.hostGateway, device == null ? (String) null : device.id,
              device == null ? (String) null : device.issuerFingerprint,
-             device == null ? (String) null : device.lastOperatorSuspendedCategory,
-             device == null ? (String) null : device.lastOperatorSuspendedDescription,
-             device == null ? new java.util.Date() : device.lastOperatorSuspendedUpdatedAt,
-             device == null ? (String) null : device.lastSystemSuspendedCategory,
-             device == null ? (String) null : device.lastSystemSuspendedDescription,
-             device == null ? new java.util.Date() : device.lastSystemSuspendedUpdatedAt,
-             device == null ? DeviceLifecycleStatus.getDefault() : device.lifecycleStatus,
-             device == null ? (String) null : device.manifest,
-             device == null ? new java.util.Date() : device.manifestTimestamp,
+             device == null ? (String) null : device.manifest, device == null ? new Date() : device.manifestTimestamp,
              device == null ? DeviceMechanism.getDefault() : device.mechanism,
              device == null ? (String) null : device.mechanismUrl, device == null ? (String) null : device.name,
-             device != null && device.operatorSuspended, device == null ? (String) null : device.serialNumber,
-             device == null ? DeviceState.getDefault() : device.state, device != null && device.systemSuspended,
-             device == null ? new java.util.Date() : device.updatedAt,
+             device == null ? (String) null : device.serialNumber,
+             device == null ? DeviceState.getDefault() : device.state, device == null ? new Date() : device.updatedAt,
              device == null ? (String) null : device.vendorId);
     }
 
@@ -411,14 +324,11 @@ public class Device implements SdkModel {
      * Constructor.
      */
     public Device() {
-        this((String) null, Boolean.FALSE, new java.util.Date(), new java.util.Date(), (String) null,
-             new java.util.Date(), new java.util.Date(), (java.util.Map<String, String>) null,
-             DeviceDeployedState.getDefault(), (String) null, (String) null, (String) null, (Integer) null,
-             (String) null, (String) null, (String) null, new java.util.Date(), (String) null, (String) null,
-             (String) null, (String) null, (String) null, (String) null, new java.util.Date(), (String) null,
-             (String) null, new java.util.Date(), DeviceLifecycleStatus.getDefault(), (String) null,
-             new java.util.Date(), DeviceMechanism.getDefault(), (String) null, (String) null, false, (String) null,
-             DeviceState.getDefault(), false, new java.util.Date(), (String) null);
+        this((String) null, Boolean.FALSE, new Date(), new Date(), (String) null, new Date(), new Date(),
+             (Map<String, String>) null, DeviceDeployedState.getDefault(), (String) null, (String) null, (String) null,
+             (Integer) null, (String) null, (String) null, (String) null, new Date(), (String) null, (String) null,
+             (String) null, (String) null, (String) null, new Date(), DeviceMechanism.getDefault(), (String) null,
+             (String) null, (String) null, DeviceState.getDefault(), new Date(), (String) null);
     }
 
     /**
@@ -448,45 +358,19 @@ public class Device implements SdkModel {
      *            The endpoint name given to the device.
      * @param enrolmentListTimestamp
      *            The claim date/time.
-     * @param lastOperatorSuspendedCategory
-     *            The reference of the block category.
-     * @param lastOperatorSuspendedDescription
-     *            The most recent description why the device was suspended or returned to service.
-     * @param lastOperatorSuspendedUpdatedAt
-     *            The timestamp of the most recent suspension activity.
-     * @param lastSystemSuspendedCategory
-     *            The reference of the block category.
-     * @param lastSystemSuspendedDescription
-     *            The most recent description of why the device was blocked or unblocked by the system.
-     * @param lastSystemSuspendedUpdatedAt
-     *            The timestamp of the most recent system block activity.
-     * @param lifecycleStatus
-     *            The lifecycle status of the device.
      * @param manifestTimestamp
      *            The timestamp of the current manifest version.
-     * @param operatorSuspended
-     *            Is the device suspended by the operator?.
-     * @param systemSuspended
-     *            Is the device suspended by the system?.
      * @param updatedAt
      *            The time the object was updated.
      */
     @Internal
-    @SuppressWarnings("PMD.CyclomaticComplexity")
     public Device(String accountId, Date createdAt, DeviceDeployedState deployedState, String endpointName,
-                  Date enrolmentListTimestamp, String lastOperatorSuspendedCategory,
-                  String lastOperatorSuspendedDescription, Date lastOperatorSuspendedUpdatedAt,
-                  String lastSystemSuspendedCategory, String lastSystemSuspendedDescription,
-                  Date lastSystemSuspendedUpdatedAt, DeviceLifecycleStatus lifecycleStatus, Date manifestTimestamp,
-                  boolean operatorSuspended, boolean systemSuspended, Date updatedAt) {
-        this(accountId, Boolean.FALSE, new java.util.Date(), new java.util.Date(), (String) null, new java.util.Date(),
-             createdAt, (java.util.Map<String, String>) null, deployedState, (String) null, (String) null,
-             (String) null, (Integer) null, (String) null, endpointName, (String) null, enrolmentListTimestamp,
-             (String) null, (String) null, (String) null, (String) null, lastOperatorSuspendedCategory,
-             lastOperatorSuspendedDescription, lastOperatorSuspendedUpdatedAt, lastSystemSuspendedCategory,
-             lastSystemSuspendedDescription, lastSystemSuspendedUpdatedAt, lifecycleStatus, (String) null,
-             manifestTimestamp, DeviceMechanism.getDefault(), (String) null, (String) null, operatorSuspended,
-             (String) null, DeviceState.getDefault(), systemSuspended, updatedAt, (String) null);
+                  Date enrolmentListTimestamp, Date manifestTimestamp, Date updatedAt) {
+        this(accountId, Boolean.FALSE, new Date(), new Date(), (String) null, new Date(), createdAt,
+             (Map<String, String>) null, deployedState, (String) null, (String) null, (String) null, (Integer) null,
+             (String) null, endpointName, (String) null, enrolmentListTimestamp, (String) null, (String) null,
+             (String) null, (String) null, (String) null, manifestTimestamp, DeviceMechanism.getDefault(),
+             (String) null, (String) null, (String) null, DeviceState.getDefault(), updatedAt, (String) null);
     }
 
     /**
@@ -955,69 +839,6 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Gets the reference of the block category.
-     * 
-     * @return lastOperatorSuspendedCategory
-     */
-    public String getLastOperatorSuspendedCategory() {
-        return lastOperatorSuspendedCategory;
-    }
-
-    /**
-     * Gets the most recent description why the device was suspended or returned to service.
-     * 
-     * @return lastOperatorSuspendedDescription
-     */
-    public String getLastOperatorSuspendedDescription() {
-        return lastOperatorSuspendedDescription;
-    }
-
-    /**
-     * Gets the timestamp of the most recent suspension activity.
-     * 
-     * @return lastOperatorSuspendedUpdatedAt
-     */
-    public Date getLastOperatorSuspendedUpdatedAt() {
-        return lastOperatorSuspendedUpdatedAt;
-    }
-
-    /**
-     * Gets the reference of the block category.
-     * 
-     * @return lastSystemSuspendedCategory
-     */
-    public String getLastSystemSuspendedCategory() {
-        return lastSystemSuspendedCategory;
-    }
-
-    /**
-     * Gets the most recent description of why the device was blocked or unblocked by the system.
-     * 
-     * @return lastSystemSuspendedDescription
-     */
-    public String getLastSystemSuspendedDescription() {
-        return lastSystemSuspendedDescription;
-    }
-
-    /**
-     * Gets the timestamp of the most recent system block activity.
-     * 
-     * @return lastSystemSuspendedUpdatedAt
-     */
-    public Date getLastSystemSuspendedUpdatedAt() {
-        return lastSystemSuspendedUpdatedAt;
-    }
-
-    /**
-     * Gets the lifecycle status of the device.
-     * 
-     * @return lifecycleStatus
-     */
-    public DeviceLifecycleStatus getLifecycleStatus() {
-        return lifecycleStatus;
-    }
-
-    /**
      * Gets deprecated: the url for the current device manifest.
      * 
      * @return manifest
@@ -1116,15 +937,6 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Gets is the device suspended by the operator?.
-     * 
-     * @return operatorSuspended
-     */
-    public boolean isOperatorSuspended() {
-        return operatorSuspended;
-    }
-
-    /**
      * Gets the serial number of the device.
      * 
      * @return serialNumber
@@ -1160,15 +972,6 @@ public class Device implements SdkModel {
      */
     public void setState(DeviceState state) {
         this.state = state;
-    }
-
-    /**
-     * Gets is the device suspended by the system?.
-     * 
-     * @return systemSuspended
-     */
-    public boolean isSystemSuspended() {
-        return systemSuspended;
     }
 
     /**
@@ -1232,27 +1035,13 @@ public class Device implements SdkModel {
         result = prime * result + ((hostGateway == null) ? 0 : hostGateway.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((issuerFingerprint == null) ? 0 : issuerFingerprint.hashCode());
-        result = prime * result
-                 + ((lastOperatorSuspendedCategory == null) ? 0 : lastOperatorSuspendedCategory.hashCode());
-        result = prime * result
-                 + ((lastOperatorSuspendedDescription == null) ? 0 : lastOperatorSuspendedDescription.hashCode());
-        result = prime * result
-                 + ((lastOperatorSuspendedUpdatedAt == null) ? 0 : lastOperatorSuspendedUpdatedAt.hashCode());
-        result = prime * result + ((lastSystemSuspendedCategory == null) ? 0 : lastSystemSuspendedCategory.hashCode());
-        result = prime * result
-                 + ((lastSystemSuspendedDescription == null) ? 0 : lastSystemSuspendedDescription.hashCode());
-        result = prime * result
-                 + ((lastSystemSuspendedUpdatedAt == null) ? 0 : lastSystemSuspendedUpdatedAt.hashCode());
-        result = prime * result + ((lifecycleStatus == null) ? 0 : lifecycleStatus.hashCode());
         result = prime * result + ((manifest == null) ? 0 : manifest.hashCode());
         result = prime * result + ((manifestTimestamp == null) ? 0 : manifestTimestamp.hashCode());
         result = prime * result + ((mechanism == null) ? 0 : mechanism.hashCode());
         result = prime * result + ((mechanismUrl == null) ? 0 : mechanismUrl.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + Objects.hashCode(operatorSuspended);
         result = prime * result + ((serialNumber == null) ? 0 : serialNumber.hashCode());
         result = prime * result + ((state == null) ? 0 : state.hashCode());
-        result = prime * result + Objects.hashCode(systemSuspended);
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
         result = prime * result + ((vendorId == null) ? 0 : vendorId.hashCode());
         return result;
@@ -1305,7 +1094,11 @@ public class Device implements SdkModel {
         } else if (!accountId.equals(other.accountId)) {
             return false;
         }
-        if (autoUpdate != other.autoUpdate) {
+        if (autoUpdate == null) {
+            if (other.autoUpdate != null) {
+                return false;
+            }
+        } else if (!autoUpdate.equals(other.autoUpdate)) {
             return false;
         }
         if (bootstrapExpirationDate == null) {
@@ -1374,7 +1167,11 @@ public class Device implements SdkModel {
         } else if (!deviceClass.equals(other.deviceClass)) {
             return false;
         }
-        if (deviceExecutionMode != other.deviceExecutionMode) {
+        if (deviceExecutionMode == null) {
+            if (other.deviceExecutionMode != null) {
+                return false;
+            }
+        } else if (!deviceExecutionMode.equals(other.deviceExecutionMode)) {
             return false;
         }
         if (deviceKey == null) {
@@ -1433,51 +1230,6 @@ public class Device implements SdkModel {
         } else if (!issuerFingerprint.equals(other.issuerFingerprint)) {
             return false;
         }
-        if (lastOperatorSuspendedCategory == null) {
-            if (other.lastOperatorSuspendedCategory != null) {
-                return false;
-            }
-        } else if (!lastOperatorSuspendedCategory.equals(other.lastOperatorSuspendedCategory)) {
-            return false;
-        }
-        if (lastOperatorSuspendedDescription == null) {
-            if (other.lastOperatorSuspendedDescription != null) {
-                return false;
-            }
-        } else if (!lastOperatorSuspendedDescription.equals(other.lastOperatorSuspendedDescription)) {
-            return false;
-        }
-        if (lastOperatorSuspendedUpdatedAt == null) {
-            if (other.lastOperatorSuspendedUpdatedAt != null) {
-                return false;
-            }
-        } else if (!lastOperatorSuspendedUpdatedAt.equals(other.lastOperatorSuspendedUpdatedAt)) {
-            return false;
-        }
-        if (lastSystemSuspendedCategory == null) {
-            if (other.lastSystemSuspendedCategory != null) {
-                return false;
-            }
-        } else if (!lastSystemSuspendedCategory.equals(other.lastSystemSuspendedCategory)) {
-            return false;
-        }
-        if (lastSystemSuspendedDescription == null) {
-            if (other.lastSystemSuspendedDescription != null) {
-                return false;
-            }
-        } else if (!lastSystemSuspendedDescription.equals(other.lastSystemSuspendedDescription)) {
-            return false;
-        }
-        if (lastSystemSuspendedUpdatedAt == null) {
-            if (other.lastSystemSuspendedUpdatedAt != null) {
-                return false;
-            }
-        } else if (!lastSystemSuspendedUpdatedAt.equals(other.lastSystemSuspendedUpdatedAt)) {
-            return false;
-        }
-        if (lifecycleStatus != other.lifecycleStatus) {
-            return false;
-        }
         if (manifest == null) {
             if (other.manifest != null) {
                 return false;
@@ -1509,9 +1261,6 @@ public class Device implements SdkModel {
         } else if (!name.equals(other.name)) {
             return false;
         }
-        if (operatorSuspended != other.operatorSuspended) {
-            return false;
-        }
         if (serialNumber == null) {
             if (other.serialNumber != null) {
                 return false;
@@ -1520,9 +1269,6 @@ public class Device implements SdkModel {
             return false;
         }
         if (state != other.state) {
-            return false;
-        }
-        if (systemSuspended != other.systemSuspended) {
             return false;
         }
         if (updatedAt == null) {
@@ -1560,15 +1306,9 @@ public class Device implements SdkModel {
                + deviceExecutionMode + ", deviceKey=" + deviceKey + ", endpointName=" + endpointName + ", endpointType="
                + endpointType + ", enrolmentListTimestamp=" + enrolmentListTimestamp + ", firmwareChecksum="
                + firmwareChecksum + ", hostGateway=" + hostGateway + ", id=" + id + ", issuerFingerprint="
-               + issuerFingerprint + ", lastOperatorSuspendedCategory=" + lastOperatorSuspendedCategory
-               + ", lastOperatorSuspendedDescription=" + lastOperatorSuspendedDescription
-               + ", lastOperatorSuspendedUpdatedAt=" + lastOperatorSuspendedUpdatedAt + ", lastSystemSuspendedCategory="
-               + lastSystemSuspendedCategory + ", lastSystemSuspendedDescription=" + lastSystemSuspendedDescription
-               + ", lastSystemSuspendedUpdatedAt=" + lastSystemSuspendedUpdatedAt + ", lifecycleStatus="
-               + lifecycleStatus + ", manifest=" + manifest + ", manifestTimestamp=" + manifestTimestamp
-               + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + ", name=" + name
-               + ", operatorSuspended=" + operatorSuspended + ", serialNumber=" + serialNumber + ", state=" + state
-               + ", systemSuspended=" + systemSuspended + ", updatedAt=" + updatedAt + ", vendorId=" + vendorId + "]";
+               + issuerFingerprint + ", manifest=" + manifest + ", manifestTimestamp=" + manifestTimestamp
+               + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + ", name=" + name + ", serialNumber="
+               + serialNumber + ", state=" + state + ", updatedAt=" + updatedAt + ", vendorId=" + vendorId + "]";
     }
 
     /**

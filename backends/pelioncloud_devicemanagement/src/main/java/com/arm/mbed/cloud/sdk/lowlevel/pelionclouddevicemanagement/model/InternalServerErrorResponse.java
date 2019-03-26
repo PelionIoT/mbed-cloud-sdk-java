@@ -24,9 +24,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * 500 Internal Server Error response.
+ * 500 Internal server error response.
  */
-@ApiModel(description = "500 Internal Server Error response.")
+@ApiModel(description = "500 Internal server error response.")
 
 public class InternalServerErrorResponse implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -38,7 +38,7 @@ public class InternalServerErrorResponse implements Serializable {
     private String message = null;
 
     /**
-     * Always set to &#39;error&#39;.
+     * Always set to &#x60;error&#x60;.
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
@@ -89,7 +89,7 @@ public class InternalServerErrorResponse implements Serializable {
     private String requestId = null;
 
     /**
-     * Error type. Always set to &#39;internal_error&#39;.
+     * Error type. Always set to &#x60;internal_error&#x60;.
      */
     @JsonAdapter(TypeEnum.Adapter.class)
     public enum TypeEnum {
@@ -161,11 +161,11 @@ public class InternalServerErrorResponse implements Serializable {
     }
 
     /**
-     * A human readable message with detailed info.
+     * A human-readable message with detailed info.
      * 
      * @return message
      **/
-    @ApiModelProperty(required = true, value = "A human readable message with detailed info.")
+    @ApiModelProperty(required = true, value = "A human-readable message with detailed info.")
     public String getMessage() {
         return message;
     }
@@ -180,11 +180,11 @@ public class InternalServerErrorResponse implements Serializable {
     }
 
     /**
-     * Always set to &#39;error&#39;.
+     * Always set to &#x60;error&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Always set to 'error'.")
+    @ApiModelProperty(required = true, value = "Always set to `error`.")
     public ObjectEnum getObject() {
         return object;
     }
@@ -218,11 +218,11 @@ public class InternalServerErrorResponse implements Serializable {
     }
 
     /**
-     * Error type. Always set to &#39;internal_error&#39;.
+     * Error type. Always set to &#x60;internal_error&#x60;.
      * 
      * @return type
      **/
-    @ApiModelProperty(required = true, value = "Error type. Always set to 'internal_error'.")
+    @ApiModelProperty(required = true, value = "Error type. Always set to `internal_error`.")
     public TypeEnum getType() {
         return type;
     }

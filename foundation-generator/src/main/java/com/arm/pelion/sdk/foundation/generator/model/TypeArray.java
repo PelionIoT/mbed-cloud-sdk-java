@@ -34,6 +34,11 @@ public class TypeArray extends TypeCompose {
         return true;
     }
 
+    @Override
+    public boolean isArray() {
+        return true;
+    }
+
     /*
      * (non-Javadoc)
      *

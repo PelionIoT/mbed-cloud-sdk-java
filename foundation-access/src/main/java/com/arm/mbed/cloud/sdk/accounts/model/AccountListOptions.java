@@ -288,7 +288,7 @@ public class AccountListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void addInStatusesFilter(AccountStatus[] filterByStatus) {
+    public void addInStatusesFilter(AccountStatus... filterByStatus) {
         addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -336,7 +336,7 @@ public class AccountListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends AccountListOptions> T inStatuses(AccountStatus[] filterByStatus) {
+    public <T extends AccountListOptions> T inStatuses(AccountStatus... filterByStatus) {
         addInStatusesFilter(filterByStatus);
         return (T) this;
     }
@@ -370,7 +370,7 @@ public class AccountListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void addNotInStatusesFilter(AccountStatus[] filterByStatus) {
+    public void addNotInStatusesFilter(AccountStatus... filterByStatus) {
         addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -419,7 +419,7 @@ public class AccountListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends AccountListOptions> T notInStatuses(AccountStatus[] filterByStatus) {
+    public <T extends AccountListOptions> T notInStatuses(AccountStatus... filterByStatus) {
         addNotInStatusesFilter(filterByStatus);
         return (T) this;
     }

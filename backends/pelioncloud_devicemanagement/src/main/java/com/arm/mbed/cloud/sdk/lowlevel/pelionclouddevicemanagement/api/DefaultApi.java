@@ -8,13 +8,10 @@ import retrofit2.http.*;
 import okhttp3.MultipartBody;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BillingReportRawDataResponse;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColor;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColorList;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImage;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImageList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadata;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadataPage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignMetrics;
+import org.joda.time.DateTime;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPutRequest;
@@ -37,6 +34,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Firmwar
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifestPage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Group;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Group1;
+import org.joda.time.LocalDate;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ReportResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackageQuota;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackageQuotaHistoryResponse;
@@ -128,13 +126,83 @@ public interface DefaultApi {
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated:
      *            &#x60;event_type__in&#x3D;update.device.device-created,update.device.device-updated&#x60; (optional)
+     * @param dateTimeIn
+     *            in filter for the date_time field (optional)
+     * @param dateTimeNin
+     *            nin filter for the date_time field (optional)
+     * @param dateTimeLte
+     *            lte filter for the date_time field (optional)
+     * @param dateTimeGte
+     *            gte filter for the date_time field (optional)
+     * @param descriptionEq
+     *            eq filter for the description field (optional)
+     * @param descriptionNeq
+     *            neq filter for the description field (optional)
+     * @param descriptionIn
+     *            in filter for the description field (optional)
+     * @param descriptionNin
+     *            nin filter for the description field (optional)
+     * @param idEq
+     *            eq filter for the id field (optional)
+     * @param idNeq
+     *            neq filter for the id field (optional)
+     * @param idIn
+     *            in filter for the id field (optional)
+     * @param idNin
+     *            nin filter for the id field (optional)
+     * @param deviceIdEq
+     *            eq filter for the device_id field (optional)
+     * @param deviceIdNeq
+     *            neq filter for the device_id field (optional)
+     * @param deviceIdIn
+     *            in filter for the device_id field (optional)
+     * @param deviceIdNin
+     *            nin filter for the device_id field (optional)
+     * @param eventTypeEq
+     *            eq filter for the event_type field (optional)
+     * @param eventTypeNeq
+     *            neq filter for the event_type field (optional)
+     * @param eventTypeIn
+     *            in filter for the event_type field (optional)
+     * @param eventTypeNin
+     *            nin filter for the event_type field (optional)
+     * @param stateChangeEq
+     *            eq filter for the state_change field (optional)
+     * @param stateChangeNeq
+     *            neq filter for the state_change field (optional)
+     * @param stateChangeIn
+     *            in filter for the state_change field (optional)
+     * @param stateChangeNin
+     *            nin filter for the state_change field (optional)
      * @return Call&lt;DeviceEventPage&gt;
      */
     @GET("v3/device-events/")
     Call<DeviceEventPage>
         deviceEventList(@retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                         @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include,
-                        @retrofit2.http.Query("filter") String filter);
+                        @retrofit2.http.Query("filter") String filter,
+                        @retrofit2.http.Query("date_time__in") String dateTimeIn,
+                        @retrofit2.http.Query("date_time__nin") String dateTimeNin,
+                        @retrofit2.http.Query("date_time__lte") DateTime dateTimeLte,
+                        @retrofit2.http.Query("date_time__gte") DateTime dateTimeGte,
+                        @retrofit2.http.Query("description__eq") String descriptionEq,
+                        @retrofit2.http.Query("description__neq") String descriptionNeq,
+                        @retrofit2.http.Query("description__in") String descriptionIn,
+                        @retrofit2.http.Query("description__nin") String descriptionNin,
+                        @retrofit2.http.Query("id__eq") String idEq, @retrofit2.http.Query("id__neq") String idNeq,
+                        @retrofit2.http.Query("id__in") String idIn, @retrofit2.http.Query("id__nin") String idNin,
+                        @retrofit2.http.Query("device_id__eq") String deviceIdEq,
+                        @retrofit2.http.Query("device_id__neq") String deviceIdNeq,
+                        @retrofit2.http.Query("device_id__in") String deviceIdIn,
+                        @retrofit2.http.Query("device_id__nin") String deviceIdNin,
+                        @retrofit2.http.Query("event_type__eq") String eventTypeEq,
+                        @retrofit2.http.Query("event_type__neq") String eventTypeNeq,
+                        @retrofit2.http.Query("event_type__in") String eventTypeIn,
+                        @retrofit2.http.Query("event_type__nin") String eventTypeNin,
+                        @retrofit2.http.Query("state_change__eq") Boolean stateChangeEq,
+                        @retrofit2.http.Query("state_change__neq") Boolean stateChangeNeq,
+                        @retrofit2.http.Query("state_change__in") String stateChangeIn,
+                        @retrofit2.http.Query("state_change__nin") String stateChangeNin);
 
     /**
      * Retrieve a device event. Retrieve a specific device event.
@@ -256,13 +324,349 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;state__nin&#x3D;unenrolled,dergistered&#x60; (optional)
+     * @param accountIdEq
+     *            eq filter for the account_id field (optional)
+     * @param accountIdNeq
+     *            neq filter for the account_id field (optional)
+     * @param accountIdIn
+     *            in filter for the account_id field (optional)
+     * @param accountIdNin
+     *            nin filter for the account_id field (optional)
+     * @param autoUpdateEq
+     *            eq filter for the auto_update field (optional)
+     * @param autoUpdateNeq
+     *            neq filter for the auto_update field (optional)
+     * @param autoUpdateIn
+     *            in filter for the auto_update field (optional)
+     * @param autoUpdateNin
+     *            nin filter for the auto_update field (optional)
+     * @param bootstrappedExpirationDateIn
+     *            in filter for the bootstrapped_expiration_date field (optional)
+     * @param bootstrappedExpirationDateNin
+     *            nin filter for the bootstrapped_expiration_date field (optional)
+     * @param bootstrappedExpirationDateLte
+     *            lte filter for the bootstrapped_expiration_date field (optional)
+     * @param bootstrappedExpirationDateGte
+     *            gte filter for the bootstrapped_expiration_date field (optional)
+     * @param bootstrappedTimestampIn
+     *            in filter for the bootstrapped_timestamp field (optional)
+     * @param bootstrappedTimestampNin
+     *            nin filter for the bootstrapped_timestamp field (optional)
+     * @param bootstrappedTimestampLte
+     *            lte filter for the bootstrapped_timestamp field (optional)
+     * @param bootstrappedTimestampGte
+     *            gte filter for the bootstrapped_timestamp field (optional)
+     * @param caIdEq
+     *            eq filter for the ca_id field (optional)
+     * @param caIdNeq
+     *            neq filter for the ca_id field (optional)
+     * @param caIdIn
+     *            in filter for the ca_id field (optional)
+     * @param caIdNin
+     *            nin filter for the ca_id field (optional)
+     * @param connectorExpirationDateIn
+     *            in filter for the connector_expiration_date field (optional)
+     * @param connectorExpirationDateNin
+     *            nin filter for the connector_expiration_date field (optional)
+     * @param connectorExpirationDateLte
+     *            lte filter for the connector_expiration_date field (optional)
+     * @param connectorExpirationDateGte
+     *            gte filter for the connector_expiration_date field (optional)
+     * @param createdAtIn
+     *            in filter for the created_at field (optional)
+     * @param createdAtNin
+     *            nin filter for the created_at field (optional)
+     * @param createdAtLte
+     *            lte filter for the created_at field (optional)
+     * @param createdAtGte
+     *            gte filter for the created_at field (optional)
+     * @param customAttributesEq
+     *            eq filter for the custom_attributes field (optional)
+     * @param customAttributesNeq
+     *            neq filter for the custom_attributes field (optional)
+     * @param deployedStateEq
+     *            eq filter for the deployed_state field (optional)
+     * @param deployedStateNeq
+     *            neq filter for the deployed_state field (optional)
+     * @param deployedStateIn
+     *            in filter for the deployed_state field (optional)
+     * @param deployedStateNin
+     *            nin filter for the deployed_state field (optional)
+     * @param deploymentEq
+     *            eq filter for the deployment field (optional)
+     * @param deploymentNeq
+     *            neq filter for the deployment field (optional)
+     * @param deploymentIn
+     *            in filter for the deployment field (optional)
+     * @param deploymentNin
+     *            nin filter for the deployment field (optional)
+     * @param descriptionEq
+     *            eq filter for the description field (optional)
+     * @param descriptionNeq
+     *            neq filter for the description field (optional)
+     * @param descriptionIn
+     *            in filter for the description field (optional)
+     * @param descriptionNin
+     *            nin filter for the description field (optional)
+     * @param deviceClassEq
+     *            eq filter for the device_class field (optional)
+     * @param deviceClassNeq
+     *            neq filter for the device_class field (optional)
+     * @param deviceClassIn
+     *            in filter for the device_class field (optional)
+     * @param deviceClassNin
+     *            nin filter for the device_class field (optional)
+     * @param deviceExecutionModeEq
+     *            eq filter for the device_execution_mode field (optional)
+     * @param deviceExecutionModeNeq
+     *            neq filter for the device_execution_mode field (optional)
+     * @param deviceExecutionModeIn
+     *            in filter for the device_execution_mode field (optional)
+     * @param deviceExecutionModeNin
+     *            nin filter for the device_execution_mode field (optional)
+     * @param deviceKeyEq
+     *            eq filter for the device_key field (optional)
+     * @param deviceKeyNeq
+     *            neq filter for the device_key field (optional)
+     * @param deviceKeyIn
+     *            in filter for the device_key field (optional)
+     * @param deviceKeyNin
+     *            nin filter for the device_key field (optional)
+     * @param endpointNameEq
+     *            eq filter for the endpoint_name field (optional)
+     * @param endpointNameNeq
+     *            neq filter for the endpoint_name field (optional)
+     * @param endpointNameIn
+     *            in filter for the endpoint_name field (optional)
+     * @param endpointNameNin
+     *            nin filter for the endpoint_name field (optional)
+     * @param endpointTypeEq
+     *            eq filter for the endpoint_type field (optional)
+     * @param endpointTypeNeq
+     *            neq filter for the endpoint_type field (optional)
+     * @param endpointTypeIn
+     *            in filter for the endpoint_type field (optional)
+     * @param endpointTypeNin
+     *            nin filter for the endpoint_type field (optional)
+     * @param enrollmentListTimestampIn
+     *            in filter for the enrollment_list_timestamp field (optional)
+     * @param enrollmentListTimestampNin
+     *            nin filter for the enrollment_list_timestamp field (optional)
+     * @param enrollmentListTimestampLte
+     *            lte filter for the enrollment_list_timestamp field (optional)
+     * @param enrollmentListTimestampGte
+     *            gte filter for the enrollment_list_timestamp field (optional)
+     * @param firmwareChecksumEq
+     *            eq filter for the firmware_checksum field (optional)
+     * @param firmwareChecksumNeq
+     *            neq filter for the firmware_checksum field (optional)
+     * @param firmwareChecksumIn
+     *            in filter for the firmware_checksum field (optional)
+     * @param firmwareChecksumNin
+     *            nin filter for the firmware_checksum field (optional)
+     * @param hostGatewayEq
+     *            eq filter for the host_gateway field (optional)
+     * @param hostGatewayNeq
+     *            neq filter for the host_gateway field (optional)
+     * @param hostGatewayIn
+     *            in filter for the host_gateway field (optional)
+     * @param hostGatewayNin
+     *            nin filter for the host_gateway field (optional)
+     * @param idEq
+     *            eq filter for the id field (optional)
+     * @param idNeq
+     *            neq filter for the id field (optional)
+     * @param idIn
+     *            in filter for the id field (optional)
+     * @param idNin
+     *            nin filter for the id field (optional)
+     * @param manifestEq
+     *            eq filter for the manifest field (optional)
+     * @param manifestNeq
+     *            neq filter for the manifest field (optional)
+     * @param manifestIn
+     *            in filter for the manifest field (optional)
+     * @param manifestNin
+     *            nin filter for the manifest field (optional)
+     * @param manifestTimestampIn
+     *            in filter for the manifest_timestamp field (optional)
+     * @param manifestTimestampNin
+     *            nin filter for the manifest_timestamp field (optional)
+     * @param manifestTimestampLte
+     *            lte filter for the manifest_timestamp field (optional)
+     * @param manifestTimestampGte
+     *            gte filter for the manifest_timestamp field (optional)
+     * @param mechanismEq
+     *            eq filter for the mechanism field (optional)
+     * @param mechanismNeq
+     *            neq filter for the mechanism field (optional)
+     * @param mechanismIn
+     *            in filter for the mechanism field (optional)
+     * @param mechanismNin
+     *            nin filter for the mechanism field (optional)
+     * @param mechanismUrlEq
+     *            eq filter for the mechanism_url field (optional)
+     * @param mechanismUrlNeq
+     *            neq filter for the mechanism_url field (optional)
+     * @param mechanismUrlIn
+     *            in filter for the mechanism_url field (optional)
+     * @param mechanismUrlNin
+     *            nin filter for the mechanism_url field (optional)
+     * @param nameEq
+     *            eq filter for the name field (optional)
+     * @param nameNeq
+     *            neq filter for the name field (optional)
+     * @param nameIn
+     *            in filter for the name field (optional)
+     * @param nameNin
+     *            nin filter for the name field (optional)
+     * @param serialNumberEq
+     *            eq filter for the serial_number field (optional)
+     * @param serialNumberNeq
+     *            neq filter for the serial_number field (optional)
+     * @param serialNumberIn
+     *            in filter for the serial_number field (optional)
+     * @param serialNumberNin
+     *            nin filter for the serial_number field (optional)
+     * @param stateEq
+     *            eq filter for the state field (optional)
+     * @param stateNeq
+     *            neq filter for the state field (optional)
+     * @param stateIn
+     *            in filter for the state field (optional)
+     * @param stateNin
+     *            nin filter for the state field (optional)
+     * @param updatedAtIn
+     *            in filter for the updated_at field (optional)
+     * @param updatedAtNin
+     *            nin filter for the updated_at field (optional)
+     * @param updatedAtLte
+     *            lte filter for the updated_at field (optional)
+     * @param updatedAtGte
+     *            gte filter for the updated_at field (optional)
+     * @param vendorIdEq
+     *            eq filter for the vendor_id field (optional)
+     * @param vendorIdNeq
+     *            neq filter for the vendor_id field (optional)
+     * @param vendorIdIn
+     *            in filter for the vendor_id field (optional)
+     * @param vendorIdNin
+     *            nin filter for the vendor_id field (optional)
      * @return Call&lt;DevicePage&gt;
      */
     @GET("v3/devices/")
     Call<DevicePage>
         deviceList(@retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                    @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include,
-                   @retrofit2.http.Query("filter") String filter);
+                   @retrofit2.http.Query("filter") String filter,
+                   @retrofit2.http.Query("account_id__eq") String accountIdEq,
+                   @retrofit2.http.Query("account_id__neq") String accountIdNeq,
+                   @retrofit2.http.Query("account_id__in") String accountIdIn,
+                   @retrofit2.http.Query("account_id__nin") String accountIdNin,
+                   @retrofit2.http.Query("auto_update__eq") Boolean autoUpdateEq,
+                   @retrofit2.http.Query("auto_update__neq") Boolean autoUpdateNeq,
+                   @retrofit2.http.Query("auto_update__in") String autoUpdateIn,
+                   @retrofit2.http.Query("auto_update__nin") String autoUpdateNin,
+                   @retrofit2.http.Query("bootstrapped_expiration_date__in") String bootstrappedExpirationDateIn,
+                   @retrofit2.http.Query("bootstrapped_expiration_date__nin") String bootstrappedExpirationDateNin,
+                   @retrofit2.http.Query("bootstrapped_expiration_date__lte") String bootstrappedExpirationDateLte,
+                   @retrofit2.http.Query("bootstrapped_expiration_date__gte") String bootstrappedExpirationDateGte,
+                   @retrofit2.http.Query("bootstrapped_timestamp__in") String bootstrappedTimestampIn,
+                   @retrofit2.http.Query("bootstrapped_timestamp__nin") String bootstrappedTimestampNin,
+                   @retrofit2.http.Query("bootstrapped_timestamp__lte") DateTime bootstrappedTimestampLte,
+                   @retrofit2.http.Query("bootstrapped_timestamp__gte") DateTime bootstrappedTimestampGte,
+                   @retrofit2.http.Query("ca_id__eq") String caIdEq, @retrofit2.http.Query("ca_id__neq") String caIdNeq,
+                   @retrofit2.http.Query("ca_id__in") String caIdIn, @retrofit2.http.Query("ca_id__nin") String caIdNin,
+                   @retrofit2.http.Query("connector_expiration_date__in") String connectorExpirationDateIn,
+                   @retrofit2.http.Query("connector_expiration_date__nin") String connectorExpirationDateNin,
+                   @retrofit2.http.Query("connector_expiration_date__lte") LocalDate connectorExpirationDateLte,
+                   @retrofit2.http.Query("connector_expiration_date__gte") LocalDate connectorExpirationDateGte,
+                   @retrofit2.http.Query("created_at__in") String createdAtIn,
+                   @retrofit2.http.Query("created_at__nin") String createdAtNin,
+                   @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
+                   @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
+                   @retrofit2.http.Query("custom_attributes__eq") String customAttributesEq,
+                   @retrofit2.http.Query("custom_attributes__neq") String customAttributesNeq,
+                   @retrofit2.http.Query("deployed_state__eq") String deployedStateEq,
+                   @retrofit2.http.Query("deployed_state__neq") String deployedStateNeq,
+                   @retrofit2.http.Query("deployed_state__in") String deployedStateIn,
+                   @retrofit2.http.Query("deployed_state__nin") String deployedStateNin,
+                   @retrofit2.http.Query("deployment__eq") String deploymentEq,
+                   @retrofit2.http.Query("deployment__neq") String deploymentNeq,
+                   @retrofit2.http.Query("deployment__in") String deploymentIn,
+                   @retrofit2.http.Query("deployment__nin") String deploymentNin,
+                   @retrofit2.http.Query("description__eq") String descriptionEq,
+                   @retrofit2.http.Query("description__neq") String descriptionNeq,
+                   @retrofit2.http.Query("description__in") String descriptionIn,
+                   @retrofit2.http.Query("description__nin") String descriptionNin,
+                   @retrofit2.http.Query("device_class__eq") String deviceClassEq,
+                   @retrofit2.http.Query("device_class__neq") String deviceClassNeq,
+                   @retrofit2.http.Query("device_class__in") String deviceClassIn,
+                   @retrofit2.http.Query("device_class__nin") String deviceClassNin,
+                   @retrofit2.http.Query("device_execution_mode__eq") Integer deviceExecutionModeEq,
+                   @retrofit2.http.Query("device_execution_mode__neq") Integer deviceExecutionModeNeq,
+                   @retrofit2.http.Query("device_execution_mode__in") String deviceExecutionModeIn,
+                   @retrofit2.http.Query("device_execution_mode__nin") String deviceExecutionModeNin,
+                   @retrofit2.http.Query("device_key__eq") String deviceKeyEq,
+                   @retrofit2.http.Query("device_key__neq") String deviceKeyNeq,
+                   @retrofit2.http.Query("device_key__in") String deviceKeyIn,
+                   @retrofit2.http.Query("device_key__nin") String deviceKeyNin,
+                   @retrofit2.http.Query("endpoint_name__eq") String endpointNameEq,
+                   @retrofit2.http.Query("endpoint_name__neq") String endpointNameNeq,
+                   @retrofit2.http.Query("endpoint_name__in") String endpointNameIn,
+                   @retrofit2.http.Query("endpoint_name__nin") String endpointNameNin,
+                   @retrofit2.http.Query("endpoint_type__eq") String endpointTypeEq,
+                   @retrofit2.http.Query("endpoint_type__neq") String endpointTypeNeq,
+                   @retrofit2.http.Query("endpoint_type__in") String endpointTypeIn,
+                   @retrofit2.http.Query("endpoint_type__nin") String endpointTypeNin,
+                   @retrofit2.http.Query("enrollment_list_timestamp__in") String enrollmentListTimestampIn,
+                   @retrofit2.http.Query("enrollment_list_timestamp__nin") String enrollmentListTimestampNin,
+                   @retrofit2.http.Query("enrollment_list_timestamp__lte") String enrollmentListTimestampLte,
+                   @retrofit2.http.Query("enrollment_list_timestamp__gte") String enrollmentListTimestampGte,
+                   @retrofit2.http.Query("firmware_checksum__eq") String firmwareChecksumEq,
+                   @retrofit2.http.Query("firmware_checksum__neq") String firmwareChecksumNeq,
+                   @retrofit2.http.Query("firmware_checksum__in") String firmwareChecksumIn,
+                   @retrofit2.http.Query("firmware_checksum__nin") String firmwareChecksumNin,
+                   @retrofit2.http.Query("host_gateway__eq") String hostGatewayEq,
+                   @retrofit2.http.Query("host_gateway__neq") String hostGatewayNeq,
+                   @retrofit2.http.Query("host_gateway__in") String hostGatewayIn,
+                   @retrofit2.http.Query("host_gateway__nin") String hostGatewayNin,
+                   @retrofit2.http.Query("id__eq") String idEq, @retrofit2.http.Query("id__neq") String idNeq,
+                   @retrofit2.http.Query("id__in") String idIn, @retrofit2.http.Query("id__nin") String idNin,
+                   @retrofit2.http.Query("manifest__eq") String manifestEq,
+                   @retrofit2.http.Query("manifest__neq") String manifestNeq,
+                   @retrofit2.http.Query("manifest__in") String manifestIn,
+                   @retrofit2.http.Query("manifest__nin") String manifestNin,
+                   @retrofit2.http.Query("manifest_timestamp__in") String manifestTimestampIn,
+                   @retrofit2.http.Query("manifest_timestamp__nin") String manifestTimestampNin,
+                   @retrofit2.http.Query("manifest_timestamp__lte") DateTime manifestTimestampLte,
+                   @retrofit2.http.Query("manifest_timestamp__gte") DateTime manifestTimestampGte,
+                   @retrofit2.http.Query("mechanism__eq") String mechanismEq,
+                   @retrofit2.http.Query("mechanism__neq") String mechanismNeq,
+                   @retrofit2.http.Query("mechanism__in") String mechanismIn,
+                   @retrofit2.http.Query("mechanism__nin") String mechanismNin,
+                   @retrofit2.http.Query("mechanism_url__eq") String mechanismUrlEq,
+                   @retrofit2.http.Query("mechanism_url__neq") String mechanismUrlNeq,
+                   @retrofit2.http.Query("mechanism_url__in") String mechanismUrlIn,
+                   @retrofit2.http.Query("mechanism_url__nin") String mechanismUrlNin,
+                   @retrofit2.http.Query("name__eq") String nameEq, @retrofit2.http.Query("name__neq") String nameNeq,
+                   @retrofit2.http.Query("name__in") String nameIn, @retrofit2.http.Query("name__nin") String nameNin,
+                   @retrofit2.http.Query("serial_number__eq") String serialNumberEq,
+                   @retrofit2.http.Query("serial_number__neq") String serialNumberNeq,
+                   @retrofit2.http.Query("serial_number__in") String serialNumberIn,
+                   @retrofit2.http.Query("serial_number__nin") String serialNumberNin,
+                   @retrofit2.http.Query("state__eq") String stateEq,
+                   @retrofit2.http.Query("state__neq") String stateNeq,
+                   @retrofit2.http.Query("state__in") String stateIn,
+                   @retrofit2.http.Query("state__nin") String stateNin,
+                   @retrofit2.http.Query("updated_at__in") String updatedAtIn,
+                   @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
+                   @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
+                   @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte,
+                   @retrofit2.http.Query("vendor_id__eq") String vendorIdEq,
+                   @retrofit2.http.Query("vendor_id__neq") String vendorIdNeq,
+                   @retrofit2.http.Query("vendor_id__in") String vendorIdIn,
+                   @retrofit2.http.Query("vendor_id__nin") String vendorIdNin);
 
     /**
      * DEPRECATED: List all device events. DEPRECATED: List all device events. Use &#x60;/v3/device-events/&#x60;
@@ -321,13 +725,83 @@ public interface DefaultApi {
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated:
      *            &#x60;event_type__in&#x3D;update.device.device-created,update.device.device-updated&#x60; (optional)
+     * @param dateTimeIn
+     *            in filter for the date_time field (optional)
+     * @param dateTimeNin
+     *            nin filter for the date_time field (optional)
+     * @param dateTimeLte
+     *            lte filter for the date_time field (optional)
+     * @param dateTimeGte
+     *            gte filter for the date_time field (optional)
+     * @param descriptionEq
+     *            eq filter for the description field (optional)
+     * @param descriptionNeq
+     *            neq filter for the description field (optional)
+     * @param descriptionIn
+     *            in filter for the description field (optional)
+     * @param descriptionNin
+     *            nin filter for the description field (optional)
+     * @param idEq
+     *            eq filter for the id field (optional)
+     * @param idNeq
+     *            neq filter for the id field (optional)
+     * @param idIn
+     *            in filter for the id field (optional)
+     * @param idNin
+     *            nin filter for the id field (optional)
+     * @param deviceIdEq
+     *            eq filter for the device_id field (optional)
+     * @param deviceIdNeq
+     *            neq filter for the device_id field (optional)
+     * @param deviceIdIn
+     *            in filter for the device_id field (optional)
+     * @param deviceIdNin
+     *            nin filter for the device_id field (optional)
+     * @param eventTypeEq
+     *            eq filter for the event_type field (optional)
+     * @param eventTypeNeq
+     *            neq filter for the event_type field (optional)
+     * @param eventTypeIn
+     *            in filter for the event_type field (optional)
+     * @param eventTypeNin
+     *            nin filter for the event_type field (optional)
+     * @param stateChangeEq
+     *            eq filter for the state_change field (optional)
+     * @param stateChangeNeq
+     *            neq filter for the state_change field (optional)
+     * @param stateChangeIn
+     *            in filter for the state_change field (optional)
+     * @param stateChangeNin
+     *            nin filter for the state_change field (optional)
      * @return Call&lt;DeviceEventPage&gt;
      */
     @GET("v3/devicelog/")
     Call<DeviceEventPage>
         deviceLogList(@retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                       @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include,
-                      @retrofit2.http.Query("filter") String filter);
+                      @retrofit2.http.Query("filter") String filter,
+                      @retrofit2.http.Query("date_time__in") String dateTimeIn,
+                      @retrofit2.http.Query("date_time__nin") String dateTimeNin,
+                      @retrofit2.http.Query("date_time__lte") DateTime dateTimeLte,
+                      @retrofit2.http.Query("date_time__gte") DateTime dateTimeGte,
+                      @retrofit2.http.Query("description__eq") String descriptionEq,
+                      @retrofit2.http.Query("description__neq") String descriptionNeq,
+                      @retrofit2.http.Query("description__in") String descriptionIn,
+                      @retrofit2.http.Query("description__nin") String descriptionNin,
+                      @retrofit2.http.Query("id__eq") String idEq, @retrofit2.http.Query("id__neq") String idNeq,
+                      @retrofit2.http.Query("id__in") String idIn, @retrofit2.http.Query("id__nin") String idNin,
+                      @retrofit2.http.Query("device_id__eq") String deviceIdEq,
+                      @retrofit2.http.Query("device_id__neq") String deviceIdNeq,
+                      @retrofit2.http.Query("device_id__in") String deviceIdIn,
+                      @retrofit2.http.Query("device_id__nin") String deviceIdNin,
+                      @retrofit2.http.Query("event_type__eq") String eventTypeEq,
+                      @retrofit2.http.Query("event_type__neq") String eventTypeNeq,
+                      @retrofit2.http.Query("event_type__in") String eventTypeIn,
+                      @retrofit2.http.Query("event_type__nin") String eventTypeNin,
+                      @retrofit2.http.Query("state_change__eq") Boolean stateChangeEq,
+                      @retrofit2.http.Query("state_change__neq") Boolean stateChangeNeq,
+                      @retrofit2.http.Query("state_change__in") String stateChangeIn,
+                      @retrofit2.http.Query("state_change__nin") String stateChangeNin);
 
     /**
      * DEPRECATED: Retrieve a device event. Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/
@@ -414,13 +888,71 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__nin&#x3D;query1,query2&#x60; (optional)
+     * @param createdAtIn
+     *            in filter for the created_at field (optional)
+     * @param createdAtNin
+     *            nin filter for the created_at field (optional)
+     * @param createdAtLte
+     *            lte filter for the created_at field (optional)
+     * @param createdAtGte
+     *            gte filter for the created_at field (optional)
+     * @param idEq
+     *            eq filter for the id field (optional)
+     * @param idNeq
+     *            neq filter for the id field (optional)
+     * @param idIn
+     *            in filter for the id field (optional)
+     * @param idNin
+     *            nin filter for the id field (optional)
+     * @param nameEq
+     *            eq filter for the name field (optional)
+     * @param nameNeq
+     *            neq filter for the name field (optional)
+     * @param nameIn
+     *            in filter for the name field (optional)
+     * @param nameNin
+     *            nin filter for the name field (optional)
+     * @param queryEq
+     *            eq filter for the query field (optional)
+     * @param queryNeq
+     *            neq filter for the query field (optional)
+     * @param queryIn
+     *            in filter for the query field (optional)
+     * @param queryNin
+     *            nin filter for the query field (optional)
+     * @param updatedAtIn
+     *            in filter for the updated_at field (optional)
+     * @param updatedAtNin
+     *            nin filter for the updated_at field (optional)
+     * @param updatedAtLte
+     *            lte filter for the updated_at field (optional)
+     * @param updatedAtGte
+     *            gte filter for the updated_at field (optional)
      * @return Call&lt;DeviceQueryPage&gt;
      */
     @GET("v3/device-queries/")
     Call<DeviceQueryPage>
         deviceQueryList(@retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                         @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include,
-                        @retrofit2.http.Query("filter") String filter);
+                        @retrofit2.http.Query("filter") String filter,
+                        @retrofit2.http.Query("created_at__in") String createdAtIn,
+                        @retrofit2.http.Query("created_at__nin") String createdAtNin,
+                        @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
+                        @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
+                        @retrofit2.http.Query("id__eq") String idEq, @retrofit2.http.Query("id__neq") String idNeq,
+                        @retrofit2.http.Query("id__in") String idIn, @retrofit2.http.Query("id__nin") String idNin,
+                        @retrofit2.http.Query("name__eq") String nameEq,
+                        @retrofit2.http.Query("name__neq") String nameNeq,
+                        @retrofit2.http.Query("name__in") String nameIn,
+                        @retrofit2.http.Query("name__nin") String nameNin,
+                        @retrofit2.http.Query("query__eq") String queryEq,
+                        @retrofit2.http.Query("query__neq") String queryNeq,
+                        @retrofit2.http.Query("query__in") String queryIn,
+                        @retrofit2.http.Query("query__nin") String queryNin,
+                        @retrofit2.http.Query("updated_at__in") String updatedAtIn,
+                        @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
+                        @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
+                        @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte);
 
     /**
      * Retrieve a device query. Retrieve a specific device query.
@@ -548,13 +1080,119 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; (optional)
+     * @param createdAtIn
+     *            in filter for the created_at field (optional)
+     * @param createdAtNin
+     *            nin filter for the created_at field (optional)
+     * @param createdAtLte
+     *            lte filter for the created_at field (optional)
+     * @param createdAtGte
+     *            gte filter for the created_at field (optional)
+     * @param datafileEq
+     *            eq filter for the datafile field (optional)
+     * @param datafileNeq
+     *            neq filter for the datafile field (optional)
+     * @param datafileIn
+     *            in filter for the datafile field (optional)
+     * @param datafileNin
+     *            nin filter for the datafile field (optional)
+     * @param datafileChecksumEq
+     *            eq filter for the datafile_checksum field (optional)
+     * @param datafileChecksumNeq
+     *            neq filter for the datafile_checksum field (optional)
+     * @param datafileChecksumIn
+     *            in filter for the datafile_checksum field (optional)
+     * @param datafileChecksumNin
+     *            nin filter for the datafile_checksum field (optional)
+     * @param datafileSizeEq
+     *            eq filter for the datafile_size field (optional)
+     * @param datafileSizeNeq
+     *            neq filter for the datafile_size field (optional)
+     * @param datafileSizeIn
+     *            in filter for the datafile_size field (optional)
+     * @param datafileSizeNin
+     *            nin filter for the datafile_size field (optional)
+     * @param descriptionEq
+     *            eq filter for the description field (optional)
+     * @param descriptionNeq
+     *            neq filter for the description field (optional)
+     * @param descriptionIn
+     *            in filter for the description field (optional)
+     * @param descriptionNin
+     *            nin filter for the description field (optional)
+     * @param idEq
+     *            eq filter for the id field (optional)
+     * @param idNeq
+     *            neq filter for the id field (optional)
+     * @param idIn
+     *            in filter for the id field (optional)
+     * @param idNin
+     *            nin filter for the id field (optional)
+     * @param nameEq
+     *            eq filter for the name field (optional)
+     * @param nameNeq
+     *            neq filter for the name field (optional)
+     * @param nameIn
+     *            in filter for the name field (optional)
+     * @param nameNin
+     *            nin filter for the name field (optional)
+     * @param timestampIn
+     *            in filter for the timestamp field (optional)
+     * @param timestampNin
+     *            nin filter for the timestamp field (optional)
+     * @param timestampLte
+     *            lte filter for the timestamp field (optional)
+     * @param timestampGte
+     *            gte filter for the timestamp field (optional)
+     * @param updatedAtIn
+     *            in filter for the updated_at field (optional)
+     * @param updatedAtNin
+     *            nin filter for the updated_at field (optional)
+     * @param updatedAtLte
+     *            lte filter for the updated_at field (optional)
+     * @param updatedAtGte
+     *            gte filter for the updated_at field (optional)
      * @return Call&lt;FirmwareImagePage&gt;
      */
     @GET("v3/firmware-images/")
     Call<FirmwareImagePage>
         firmwareImageList(@retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                           @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include,
-                          @retrofit2.http.Query("filter") String filter);
+                          @retrofit2.http.Query("filter") String filter,
+                          @retrofit2.http.Query("created_at__in") String createdAtIn,
+                          @retrofit2.http.Query("created_at__nin") String createdAtNin,
+                          @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
+                          @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
+                          @retrofit2.http.Query("datafile__eq") String datafileEq,
+                          @retrofit2.http.Query("datafile__neq") String datafileNeq,
+                          @retrofit2.http.Query("datafile__in") String datafileIn,
+                          @retrofit2.http.Query("datafile__nin") String datafileNin,
+                          @retrofit2.http.Query("datafile_checksum__eq") String datafileChecksumEq,
+                          @retrofit2.http.Query("datafile_checksum__neq") String datafileChecksumNeq,
+                          @retrofit2.http.Query("datafile_checksum__in") String datafileChecksumIn,
+                          @retrofit2.http.Query("datafile_checksum__nin") String datafileChecksumNin,
+                          @retrofit2.http.Query("datafile_size__eq") Long datafileSizeEq,
+                          @retrofit2.http.Query("datafile_size__neq") Long datafileSizeNeq,
+                          @retrofit2.http.Query("datafile_size__in") String datafileSizeIn,
+                          @retrofit2.http.Query("datafile_size__nin") String datafileSizeNin,
+                          @retrofit2.http.Query("description__eq") String descriptionEq,
+                          @retrofit2.http.Query("description__neq") String descriptionNeq,
+                          @retrofit2.http.Query("description__in") String descriptionIn,
+                          @retrofit2.http.Query("description__nin") String descriptionNin,
+                          @retrofit2.http.Query("id__eq") String idEq, @retrofit2.http.Query("id__neq") String idNeq,
+                          @retrofit2.http.Query("id__in") String idIn, @retrofit2.http.Query("id__nin") String idNin,
+                          @retrofit2.http.Query("name__eq") String nameEq,
+                          @retrofit2.http.Query("name__neq") String nameNeq,
+                          @retrofit2.http.Query("name__in") String nameIn,
+                          @retrofit2.http.Query("name__nin") String nameNin,
+                          @retrofit2.http.Query("timestamp__in") String timestampIn,
+                          @retrofit2.http.Query("timestamp__nin") String timestampNin,
+                          @retrofit2.http.Query("timestamp__lte") String timestampLte,
+                          @retrofit2.http.Query("timestamp__gte") String timestampGte,
+                          @retrofit2.http.Query("updated_at__in") String updatedAtIn,
+                          @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
+                          @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
+                          @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte);
 
     /**
      * Get an image Retrieve a firmware image.
@@ -649,14 +1287,120 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__in&#x3D;fw-manifest1,fw-manifest2&#x60; (optional)
+     * @param createdAtIn
+     *            in filter for the created_at field (optional)
+     * @param createdAtNin
+     *            nin filter for the created_at field (optional)
+     * @param createdAtLte
+     *            lte filter for the created_at field (optional)
+     * @param createdAtGte
+     *            gte filter for the created_at field (optional)
+     * @param datafileEq
+     *            eq filter for the datafile field (optional)
+     * @param datafileNeq
+     *            neq filter for the datafile field (optional)
+     * @param datafileIn
+     *            in filter for the datafile field (optional)
+     * @param datafileNin
+     *            nin filter for the datafile field (optional)
+     * @param datafileSizeEq
+     *            eq filter for the datafile_size field (optional)
+     * @param datafileSizeNeq
+     *            neq filter for the datafile_size field (optional)
+     * @param datafileSizeIn
+     *            in filter for the datafile_size field (optional)
+     * @param datafileSizeNin
+     *            nin filter for the datafile_size field (optional)
+     * @param descriptionEq
+     *            eq filter for the description field (optional)
+     * @param descriptionNeq
+     *            neq filter for the description field (optional)
+     * @param descriptionIn
+     *            in filter for the description field (optional)
+     * @param descriptionNin
+     *            nin filter for the description field (optional)
+     * @param deviceClassEq
+     *            eq filter for the device_class field (optional)
+     * @param deviceClassNeq
+     *            neq filter for the device_class field (optional)
+     * @param deviceClassIn
+     *            in filter for the device_class field (optional)
+     * @param deviceClassNin
+     *            nin filter for the device_class field (optional)
+     * @param idEq
+     *            eq filter for the id field (optional)
+     * @param idNeq
+     *            neq filter for the id field (optional)
+     * @param idIn
+     *            in filter for the id field (optional)
+     * @param idNin
+     *            nin filter for the id field (optional)
+     * @param nameEq
+     *            eq filter for the name field (optional)
+     * @param nameNeq
+     *            neq filter for the name field (optional)
+     * @param nameIn
+     *            in filter for the name field (optional)
+     * @param nameNin
+     *            nin filter for the name field (optional)
+     * @param timestampIn
+     *            in filter for the timestamp field (optional)
+     * @param timestampNin
+     *            nin filter for the timestamp field (optional)
+     * @param timestampLte
+     *            lte filter for the timestamp field (optional)
+     * @param timestampGte
+     *            gte filter for the timestamp field (optional)
+     * @param updatedAtIn
+     *            in filter for the updated_at field (optional)
+     * @param updatedAtNin
+     *            nin filter for the updated_at field (optional)
+     * @param updatedAtLte
+     *            lte filter for the updated_at field (optional)
+     * @param updatedAtGte
+     *            gte filter for the updated_at field (optional)
      * @return Call&lt;FirmwareManifestPage&gt;
      */
     @GET("v3/firmware-manifests/")
-    Call<FirmwareManifestPage> firmwareManifestList(@retrofit2.http.Query("limit") Integer limit,
-                                                    @retrofit2.http.Query("order") String order,
-                                                    @retrofit2.http.Query("after") String after,
-                                                    @retrofit2.http.Query("include") String include,
-                                                    @retrofit2.http.Query("filter") String filter);
+    Call<FirmwareManifestPage>
+        firmwareManifestList(@retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
+                             @retrofit2.http.Query("after") String after,
+                             @retrofit2.http.Query("include") String include,
+                             @retrofit2.http.Query("filter") String filter,
+                             @retrofit2.http.Query("created_at__in") String createdAtIn,
+                             @retrofit2.http.Query("created_at__nin") String createdAtNin,
+                             @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
+                             @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
+                             @retrofit2.http.Query("datafile__eq") String datafileEq,
+                             @retrofit2.http.Query("datafile__neq") String datafileNeq,
+                             @retrofit2.http.Query("datafile__in") String datafileIn,
+                             @retrofit2.http.Query("datafile__nin") String datafileNin,
+                             @retrofit2.http.Query("datafile_size__eq") Long datafileSizeEq,
+                             @retrofit2.http.Query("datafile_size__neq") Long datafileSizeNeq,
+                             @retrofit2.http.Query("datafile_size__in") String datafileSizeIn,
+                             @retrofit2.http.Query("datafile_size__nin") String datafileSizeNin,
+                             @retrofit2.http.Query("description__eq") String descriptionEq,
+                             @retrofit2.http.Query("description__neq") String descriptionNeq,
+                             @retrofit2.http.Query("description__in") String descriptionIn,
+                             @retrofit2.http.Query("description__nin") String descriptionNin,
+                             @retrofit2.http.Query("device_class__eq") String deviceClassEq,
+                             @retrofit2.http.Query("device_class__neq") String deviceClassNeq,
+                             @retrofit2.http.Query("device_class__in") String deviceClassIn,
+                             @retrofit2.http.Query("device_class__nin") String deviceClassNin,
+                             @retrofit2.http.Query("id__eq") String idEq, @retrofit2.http.Query("id__neq") String idNeq,
+                             @retrofit2.http.Query("id__in") String idIn, @retrofit2.http.Query("id__nin") String idNin,
+                             @retrofit2.http.Query("name__eq") String nameEq,
+                             @retrofit2.http.Query("name__neq") String nameNeq,
+                             @retrofit2.http.Query("name__in") String nameIn,
+                             @retrofit2.http.Query("name__nin") String nameNin,
+                             @retrofit2.http.Query("timestamp__in") String timestampIn,
+                             @retrofit2.http.Query("timestamp__nin") String timestampNin,
+                             @retrofit2.http.Query("timestamp__lte") DateTime timestampLte,
+                             @retrofit2.http.Query("timestamp__gte") DateTime timestampGte,
+                             @retrofit2.http.Query("updated_at__in") String updatedAtIn,
+                             @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
+                             @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
+                             @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte);
 
     /**
      * Get a manifest Retrieve a firmware manifest.
@@ -672,8 +1416,9 @@ public interface DefaultApi {
     /**
      * Get billing report. Fetch the billing report generated for the currently authenticated commercial non-subtenant
      * account. Billing reports for subtenant accounts are included in their aggregator&#39;s billing report response.
-     * **Example usage:** curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report?month&#x3D;2018-07 -H
-     * &#39;authorization: Bearer {api-key}&#39;
+     * **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/billing-report?month&#x3D;2018-07 \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param month
      *            Queried year and month of billing report. (required)
@@ -683,13 +1428,14 @@ public interface DefaultApi {
     Call<ReportResponse> getBillingReport(@retrofit2.http.Query("month") String month);
 
     /**
-     * Get raw billing data of the active devices for the month. Fetch the raw billing data of the active devices for
-     * the currently authenticated commercial non-subtenant account. This is supplementary data for the billing report.
-     * The raw billing data of the active devices for subtenant accounts are included in their aggregator&#39;s raw
-     * billing data of the active devices. The endpoint returns the URL to download the gzipped CSV file. The first line
-     * is the header providing information on the active devices. For example, the ID of an active device. **Example
-     * usage:** curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-active-devices?month&#x3D;2018-07 -H
-     * &#39;authorization: Bearer {api-key}&#39;
+     * Get raw billing data of the active devices for the month. Fetch raw billing data for active devices for the
+     * currently authenticated commercial non-subtenant account. This is supplementary data for the billing report. The
+     * raw billing data of the active devices for subtenant accounts are included in their aggregator&#39;s raw billing
+     * data of the active devices. The endpoint returns the URL to download the gzipped CSV file. The first line is the
+     * header providing information on active devices, for example, the ID of an active device. **Example:**
+     * &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/billing-report-active-devices?month&#x3D;2018-07 \\ -H &#39;Authorization:
+     * Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param month
      *            Queried year and month of billing report. (required)
@@ -699,14 +1445,14 @@ public interface DefaultApi {
     Call<BillingReportRawDataResponse> getBillingReportActiveDevices(@retrofit2.http.Query("month") String month);
 
     /**
-     * Get raw billing data of the firmware updates for the month. Fetch raw billing data of the firmware updates for
-     * the currently authenticated commercial non-subtenant account. This is supplementary data for the billing report.
-     * The raw billing data of the firmware updates for subtenant accounts are included in their aggregator&#39;s raw
+     * Get raw billing data of the firmware updates for the month. Fetch raw billing data for firmware updates for the
+     * currently authenticated commercial non-subtenant account. This is supplementary data for the billing report. The
+     * raw billing data of the firmware updates for subtenant accounts are included in their aggregator&#39;s raw
      * billing data of the firmware updates. The endpoint returns the URL to download the gzipped CSV file. The first
      * line is the header providing information on the firmware updates. For example, the ID of an firmware update.
-     * **Example usage:** curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month&#x3D;2018-07 -H &#39;authorization:
-     * Bearer {api-key}&#39;
+     * **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month&#x3D;2018-07 \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param month
      *            Queried year and month of billing report. (required)
@@ -716,111 +1462,9 @@ public interface DefaultApi {
     Call<BillingReportRawDataResponse> getBillingReportFirmwareUpdates(@retrofit2.http.Query("month") String month);
 
     /**
-     * Get branding colors of the dark theme. Returns the branding colors of the dark theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding colors to be fetched. (required)
-     * @return Call&lt;BrandingColorList&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-colors/dark")
-    Call<BrandingColorList>
-        getLoginPageAllDarkColors(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
-
-    /**
-     * Get metadata of all images of the dark theme. Returns the metadata of all branding images of the dark theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding images to be fetched. (required)
-     * @return Call&lt;BrandingImageList&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-images/dark")
-    Call<BrandingImageList>
-        getLoginPageAllDarkImageData(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
-
-    /**
-     * Get branding colors of the light theme. Returns the branding colors of the light theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding colors to be fetched. (required)
-     * @return Call&lt;BrandingColorList&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-colors/light")
-    Call<BrandingColorList>
-        getLoginPageAllLightColors(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
-
-    /**
-     * Get metadata of all images of the light theme. Returns the metadata of all branding images of the light theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding images to be fetched. (required)
-     * @return Call&lt;BrandingImageList&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-images/light")
-    Call<BrandingImageList>
-        getLoginPageAllLightImageData(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
-
-    /**
-     * Get branding color of the dark theme. Returns the requested branding color of the dark theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding colors to be fetched. (required)
-     * @param reference
-     *            The name of the branding color. (required)
-     * @return Call&lt;BrandingColor&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-colors/dark/{reference}")
-    Call<BrandingColor>
-        getLoginPageDarkColor(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                              @retrofit2.http.Path(value = "reference", encoded = true) String reference);
-
-    /**
-     * Get metadata of an image of the dark theme. An endpoint for getting metadata of one account branding image of the
-     * dark theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding image to be fetched. (required)
-     * @param reference
-     *            Name of the picture whose metadata to be fetched. (required)
-     * @return Call&lt;BrandingImage&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-images/dark/{reference}")
-    Call<BrandingImage>
-        getLoginPageDarkImageData(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                                  @retrofit2.http.Path(value = "reference", encoded = true) String reference);
-
-    /**
-     * Get branding color of the light theme. Returns the requested branding color of the light theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding colors to be fetched. (required)
-     * @param reference
-     *            The name of the branding color. (required)
-     * @return Call&lt;BrandingColor&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-colors/light/{reference}")
-    Call<BrandingColor>
-        getLoginPageLightColor(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                               @retrofit2.http.Path(value = "reference", encoded = true) String reference);
-
-    /**
-     * Get metadata of an image of the light theme. An endpoint for getting metadata of one account branding image of
-     * the light theme.
-     * 
-     * @param accountId
-     *            The ID of the account whose branding image to be fetched. (required)
-     * @param reference
-     *            Name of the picture whose metadata to be fetched. (required)
-     * @return Call&lt;BrandingImage&gt;
-     */
-    @GET("auth/accounts/{account_id}/branding-images/light/{reference}")
-    Call<BrandingImage>
-        getLoginPageLightImageData(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                                   @retrofit2.http.Path(value = "reference", encoded = true) String reference);
-
-    /**
-     * Service package quota. Get the available firmware update quota for the currently authenticated commercial
-     * account. **Example usage:** curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota -H
-     * &#39;authorization: Bearer {api-key}&#39;
+     * Service package quota. Get the available firmware update quota for the current authenticated commercial account.
+     * **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @return Call&lt;ServicePackageQuota&gt;
      */
@@ -828,17 +1472,16 @@ public interface DefaultApi {
     Call<ServicePackageQuota> getServicePackageQuota();
 
     /**
-     * Service package quota history. Get your quota usage history. This API is available for commercial accounts.
-     * Aggregator accounts can see own and subtenant quota usage data. History data is ordered in ascending order based
-     * on the added timestamp. **Example usage:** curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/service-packages-quota-history -H &#39;authorization: Bearer
-     * {api-key}&#39;
+     * Service package quota history. Get your quota usage history. This API is available only for commercial accounts.
+     * Aggregator accounts can see their own and subtenant quota usage data. Data is in ascending order based on the
+     * added timestamp. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/service-packages-quota-history \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param limit
-     *            Maximum amount of quota history entries contained in one paged response. (optional)
+     *            Maximum number of quota history entries contained in one paged response. (optional)
      * @param after
-     *            To fetch after which quota history ID. The results will contain entries after specified entry.
-     *            (optional)
+     *            Results after specified entry ID. (optional)
      * @return Call&lt;ServicePackageQuotaHistoryResponse&gt;
      */
     @GET("v3/service-packages-quota-history")
@@ -846,11 +1489,11 @@ public interface DefaultApi {
                                                                            @retrofit2.http.Query("after") String after);
 
     /**
-     * Get all service packages. Get information of all service packages for the currently authenticated commercial
-     * account. The response is returned in descending order by service package created timestamp, listing first the
-     * pending service package, then the active service package and finally the previous service packages. **Example
-     * usage:** curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages -H &#39;authorization: Bearer
-     * {api-key}&#39;
+     * Get all service packages. Get information for all service packages for the current authenticated commercial
+     * account. The response is returned in descending order by service package created timestamp: first the pending
+     * service package, then the active service package, then the previous service packages. **Example:**
+     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages \\ -H &#39;Authorization:
+     * Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @return Call&lt;ServicePackagesResponse&gt;
      */
@@ -933,13 +1576,81 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__in&#x3D;group1,group2&#x60; (optional)
+     * @param idEq
+     *            eq filter for the id field (optional)
+     * @param idNeq
+     *            neq filter for the id field (optional)
+     * @param idIn
+     *            in filter for the id field (optional)
+     * @param idNin
+     *            nin filter for the id field (optional)
+     * @param devicesCountEq
+     *            eq filter for the devices_count field (optional)
+     * @param devicesCountNeq
+     *            neq filter for the devices_count field (optional)
+     * @param devicesCountIn
+     *            in filter for the devices_count field (optional)
+     * @param devicesCountNin
+     *            nin filter for the devices_count field (optional)
+     * @param devicesCountLte
+     *            lte filter for the devices_count field (optional)
+     * @param devicesCountGte
+     *            gte filter for the devices_count field (optional)
+     * @param nameEq
+     *            eq filter for the name field (optional)
+     * @param nameNeq
+     *            neq filter for the name field (optional)
+     * @param nameIn
+     *            in filter for the name field (optional)
+     * @param nameNin
+     *            nin filter for the name field (optional)
+     * @param customAttributesEq
+     *            eq filter for the custom_attributes field (optional)
+     * @param customAttributesNeq
+     *            neq filter for the custom_attributes field (optional)
+     * @param createdAtIn
+     *            in filter for the created_at field (optional)
+     * @param createdAtNin
+     *            nin filter for the created_at field (optional)
+     * @param createdAtLte
+     *            lte filter for the created_at field (optional)
+     * @param createdAtGte
+     *            gte filter for the created_at field (optional)
+     * @param updatedAtIn
+     *            in filter for the updated_at field (optional)
+     * @param updatedAtNin
+     *            nin filter for the updated_at field (optional)
+     * @param updatedAtLte
+     *            lte filter for the updated_at field (optional)
+     * @param updatedAtGte
+     *            gte filter for the updated_at field (optional)
      * @return Call&lt;DeviceGroupPage&gt;
      */
     @GET("v3/device-groups/")
     Call<DeviceGroupPage>
         groupList(@retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                   @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include,
-                  @retrofit2.http.Query("filter") String filter);
+                  @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("id__eq") String idEq,
+                  @retrofit2.http.Query("id__neq") String idNeq, @retrofit2.http.Query("id__in") String idIn,
+                  @retrofit2.http.Query("id__nin") String idNin,
+                  @retrofit2.http.Query("devices_count__eq") Integer devicesCountEq,
+                  @retrofit2.http.Query("devices_count__neq") Integer devicesCountNeq,
+                  @retrofit2.http.Query("devices_count__in") String devicesCountIn,
+                  @retrofit2.http.Query("devices_count__nin") String devicesCountNin,
+                  @retrofit2.http.Query("devices_count__lte") Integer devicesCountLte,
+                  @retrofit2.http.Query("devices_count__gte") Integer devicesCountGte,
+                  @retrofit2.http.Query("name__eq") String nameEq, @retrofit2.http.Query("name__neq") String nameNeq,
+                  @retrofit2.http.Query("name__in") String nameIn, @retrofit2.http.Query("name__nin") String nameNin,
+                  @retrofit2.http.Query("custom_attributes__eq") String customAttributesEq,
+                  @retrofit2.http.Query("custom_attributes__neq") String customAttributesNeq,
+                  @retrofit2.http.Query("created_at__in") String createdAtIn,
+                  @retrofit2.http.Query("created_at__nin") String createdAtNin,
+                  @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
+                  @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
+                  @retrofit2.http.Query("updated_at__in") String updatedAtIn,
+                  @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
+                  @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
+                  @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte);
 
     /**
      * Add a device to a group Add one device to a group.
@@ -1028,6 +1739,62 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;state__nin&#x3D;unenrolled,dergistered&#x60; (optional)
+     * @param idEq
+     *            eq filter for the id field (optional)
+     * @param idNeq
+     *            neq filter for the id field (optional)
+     * @param idIn
+     *            in filter for the id field (optional)
+     * @param idNin
+     *            nin filter for the id field (optional)
+     * @param devicesCountEq
+     *            eq filter for the devices_count field (optional)
+     * @param devicesCountNeq
+     *            neq filter for the devices_count field (optional)
+     * @param devicesCountIn
+     *            in filter for the devices_count field (optional)
+     * @param devicesCountNin
+     *            nin filter for the devices_count field (optional)
+     * @param devicesCountLte
+     *            lte filter for the devices_count field (optional)
+     * @param devicesCountGte
+     *            gte filter for the devices_count field (optional)
+     * @param nameEq
+     *            eq filter for the name field (optional)
+     * @param nameNeq
+     *            neq filter for the name field (optional)
+     * @param nameIn
+     *            in filter for the name field (optional)
+     * @param nameNin
+     *            nin filter for the name field (optional)
+     * @param descriptionEq
+     *            eq filter for the description field (optional)
+     * @param descriptionNeq
+     *            neq filter for the description field (optional)
+     * @param descriptionIn
+     *            in filter for the description field (optional)
+     * @param descriptionNin
+     *            nin filter for the description field (optional)
+     * @param customAttributesEq
+     *            eq filter for the custom_attributes field (optional)
+     * @param customAttributesNeq
+     *            neq filter for the custom_attributes field (optional)
+     * @param createdAtIn
+     *            in filter for the created_at field (optional)
+     * @param createdAtNin
+     *            nin filter for the created_at field (optional)
+     * @param createdAtLte
+     *            lte filter for the created_at field (optional)
+     * @param createdAtGte
+     *            gte filter for the created_at field (optional)
+     * @param updatedAtIn
+     *            in filter for the updated_at field (optional)
+     * @param updatedAtNin
+     *            nin filter for the updated_at field (optional)
+     * @param updatedAtLte
+     *            lte filter for the updated_at field (optional)
+     * @param updatedAtGte
+     *            gte filter for the updated_at field (optional)
      * @return Call&lt;DevicePage&gt;
      */
     @GET("v3/device-groups/{device-group-id}/devices/")
@@ -1036,7 +1803,33 @@ public interface DefaultApi {
                              @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                              @retrofit2.http.Query("after") String after,
                              @retrofit2.http.Query("include") String include,
-                             @retrofit2.http.Query("filter") String filter);
+                             @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("id__eq") String idEq,
+                             @retrofit2.http.Query("id__neq") String idNeq, @retrofit2.http.Query("id__in") String idIn,
+                             @retrofit2.http.Query("id__nin") String idNin,
+                             @retrofit2.http.Query("devices_count__eq") String devicesCountEq,
+                             @retrofit2.http.Query("devices_count__neq") String devicesCountNeq,
+                             @retrofit2.http.Query("devices_count__in") String devicesCountIn,
+                             @retrofit2.http.Query("devices_count__nin") String devicesCountNin,
+                             @retrofit2.http.Query("devices_count__lte") String devicesCountLte,
+                             @retrofit2.http.Query("devices_count__gte") String devicesCountGte,
+                             @retrofit2.http.Query("name__eq") String nameEq,
+                             @retrofit2.http.Query("name__neq") String nameNeq,
+                             @retrofit2.http.Query("name__in") String nameIn,
+                             @retrofit2.http.Query("name__nin") String nameNin,
+                             @retrofit2.http.Query("description__eq") String descriptionEq,
+                             @retrofit2.http.Query("description__neq") String descriptionNeq,
+                             @retrofit2.http.Query("description__in") String descriptionIn,
+                             @retrofit2.http.Query("description__nin") String descriptionNin,
+                             @retrofit2.http.Query("custom_attributes__eq") String customAttributesEq,
+                             @retrofit2.http.Query("custom_attributes__neq") String customAttributesNeq,
+                             @retrofit2.http.Query("created_at__in") String createdAtIn,
+                             @retrofit2.http.Query("created_at__nin") String createdAtNin,
+                             @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
+                             @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
+                             @retrofit2.http.Query("updated_at__in") String updatedAtIn,
+                             @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
+                             @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
+                             @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte);
 
     /**
      * Get a group. Get a group.
@@ -1184,13 +1977,143 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; (optional)
+     * @param createdAtIn
+     *            in filter for the created_at field (optional)
+     * @param createdAtNin
+     *            nin filter for the created_at field (optional)
+     * @param createdAtLte
+     *            lte filter for the created_at field (optional)
+     * @param createdAtGte
+     *            gte filter for the created_at field (optional)
+     * @param descriptionEq
+     *            eq filter for the description field (optional)
+     * @param descriptionNeq
+     *            neq filter for the description field (optional)
+     * @param descriptionIn
+     *            in filter for the description field (optional)
+     * @param descriptionNin
+     *            nin filter for the description field (optional)
+     * @param deviceFilterEq
+     *            eq filter for the device_filter field (optional)
+     * @param deviceFilterNeq
+     *            neq filter for the device_filter field (optional)
+     * @param deviceFilterIn
+     *            in filter for the device_filter field (optional)
+     * @param deviceFilterNin
+     *            nin filter for the device_filter field (optional)
+     * @param finishedIn
+     *            in filter for the finished field (optional)
+     * @param finishedNin
+     *            nin filter for the finished field (optional)
+     * @param finishedLte
+     *            lte filter for the finished field (optional)
+     * @param finishedGte
+     *            gte filter for the finished field (optional)
+     * @param idEq
+     *            eq filter for the id field (optional)
+     * @param idNeq
+     *            neq filter for the id field (optional)
+     * @param idIn
+     *            in filter for the id field (optional)
+     * @param idNin
+     *            nin filter for the id field (optional)
+     * @param nameEq
+     *            eq filter for the name field (optional)
+     * @param nameNeq
+     *            neq filter for the name field (optional)
+     * @param nameIn
+     *            in filter for the name field (optional)
+     * @param nameNin
+     *            nin filter for the name field (optional)
+     * @param rootManifestIdEq
+     *            eq filter for the root_manifest_id field (optional)
+     * @param rootManifestIdNeq
+     *            neq filter for the root_manifest_id field (optional)
+     * @param rootManifestIdIn
+     *            in filter for the root_manifest_id field (optional)
+     * @param rootManifestIdNin
+     *            nin filter for the root_manifest_id field (optional)
+     * @param startedAtIn
+     *            in filter for the started_at field (optional)
+     * @param startedAtNin
+     *            nin filter for the started_at field (optional)
+     * @param startedAtLte
+     *            lte filter for the started_at field (optional)
+     * @param startedAtGte
+     *            gte filter for the started_at field (optional)
+     * @param stateEq
+     *            eq filter for the state field (optional)
+     * @param stateNeq
+     *            neq filter for the state field (optional)
+     * @param stateIn
+     *            in filter for the state field (optional)
+     * @param stateNin
+     *            nin filter for the state field (optional)
+     * @param updatedAtIn
+     *            in filter for the updated_at field (optional)
+     * @param updatedAtNin
+     *            nin filter for the updated_at field (optional)
+     * @param updatedAtLte
+     *            lte filter for the updated_at field (optional)
+     * @param updatedAtGte
+     *            gte filter for the updated_at field (optional)
+     * @param whenIn
+     *            in filter for the when field (optional)
+     * @param whenNin
+     *            nin filter for the when field (optional)
+     * @param whenLte
+     *            lte filter for the when field (optional)
+     * @param whenGte
+     *            gte filter for the when field (optional)
      * @return Call&lt;UpdateCampaignPage&gt;
      */
     @GET("v3/update-campaigns/")
     Call<UpdateCampaignPage>
         updateCampaignList(@retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                            @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include,
-                           @retrofit2.http.Query("filter") String filter);
+                           @retrofit2.http.Query("filter") String filter,
+                           @retrofit2.http.Query("created_at__in") String createdAtIn,
+                           @retrofit2.http.Query("created_at__nin") String createdAtNin,
+                           @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
+                           @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
+                           @retrofit2.http.Query("description__eq") String descriptionEq,
+                           @retrofit2.http.Query("description__neq") String descriptionNeq,
+                           @retrofit2.http.Query("description__in") String descriptionIn,
+                           @retrofit2.http.Query("description__nin") String descriptionNin,
+                           @retrofit2.http.Query("device_filter__eq") String deviceFilterEq,
+                           @retrofit2.http.Query("device_filter__neq") String deviceFilterNeq,
+                           @retrofit2.http.Query("device_filter__in") String deviceFilterIn,
+                           @retrofit2.http.Query("device_filter__nin") String deviceFilterNin,
+                           @retrofit2.http.Query("finished__in") String finishedIn,
+                           @retrofit2.http.Query("finished__nin") String finishedNin,
+                           @retrofit2.http.Query("finished__lte") DateTime finishedLte,
+                           @retrofit2.http.Query("finished__gte") DateTime finishedGte,
+                           @retrofit2.http.Query("id__eq") String idEq, @retrofit2.http.Query("id__neq") String idNeq,
+                           @retrofit2.http.Query("id__in") String idIn, @retrofit2.http.Query("id__nin") String idNin,
+                           @retrofit2.http.Query("name__eq") String nameEq,
+                           @retrofit2.http.Query("name__neq") String nameNeq,
+                           @retrofit2.http.Query("name__in") String nameIn,
+                           @retrofit2.http.Query("name__nin") String nameNin,
+                           @retrofit2.http.Query("root_manifest_id__eq") String rootManifestIdEq,
+                           @retrofit2.http.Query("root_manifest_id__neq") String rootManifestIdNeq,
+                           @retrofit2.http.Query("root_manifest_id__in") String rootManifestIdIn,
+                           @retrofit2.http.Query("root_manifest_id__nin") String rootManifestIdNin,
+                           @retrofit2.http.Query("started_at__in") String startedAtIn,
+                           @retrofit2.http.Query("started_at__nin") String startedAtNin,
+                           @retrofit2.http.Query("started_at__lte") DateTime startedAtLte,
+                           @retrofit2.http.Query("started_at__gte") DateTime startedAtGte,
+                           @retrofit2.http.Query("state__eq") String stateEq,
+                           @retrofit2.http.Query("state__neq") String stateNeq,
+                           @retrofit2.http.Query("state__in") String stateIn,
+                           @retrofit2.http.Query("state__nin") String stateNin,
+                           @retrofit2.http.Query("updated_at__in") String updatedAtIn,
+                           @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
+                           @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
+                           @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte,
+                           @retrofit2.http.Query("when__in") String whenIn,
+                           @retrofit2.http.Query("when__nin") String whenNin,
+                           @retrofit2.http.Query("when__lte") DateTime whenLte,
+                           @retrofit2.http.Query("when__gte") DateTime whenGte);
 
     /**
      * List all campaign device metadata Get campaign device metadata.
@@ -1383,6 +2306,50 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;status__in&#x3D;in_progress,success&#x60; (optional)
+     * @param createdAtIn
+     *            in filter for the created_at field (optional)
+     * @param createdAtNin
+     *            nin filter for the created_at field (optional)
+     * @param createdAtLte
+     *            lte filter for the created_at field (optional)
+     * @param createdAtGte
+     *            gte filter for the created_at field (optional)
+     * @param idEq
+     *            eq filter for the id field (optional)
+     * @param idNeq
+     *            neq filter for the id field (optional)
+     * @param idIn
+     *            in filter for the id field (optional)
+     * @param idNin
+     *            nin filter for the id field (optional)
+     * @param updatedAtIn
+     *            in filter for the updated_at field (optional)
+     * @param updatedAtNin
+     *            nin filter for the updated_at field (optional)
+     * @param updatedAtLte
+     *            lte filter for the updated_at field (optional)
+     * @param updatedAtGte
+     *            gte filter for the updated_at field (optional)
+     * @param hashEq
+     *            eq filter for the hash field (optional)
+     * @param hashNeq
+     *            neq filter for the hash field (optional)
+     * @param hashIn
+     *            in filter for the hash field (optional)
+     * @param hashNin
+     *            nin filter for the hash field (optional)
+     * @param lengthEq
+     *            eq filter for the length field (optional)
+     * @param lengthNeq
+     *            neq filter for the length field (optional)
+     * @param lengthIn
+     *            in filter for the length field (optional)
+     * @param lengthNin
+     *            nin filter for the length field (optional)
+     * @param lengthLte
+     *            lte filter for the length field (optional)
+     * @param lengthGte
+     *            gte filter for the length field (optional)
      * @return Call&lt;UploadChunkInfoPage&gt;
      */
     @GET("v3/firmware-images/upload-jobs/{upload_job_id}/chunks")
@@ -1390,7 +2357,27 @@ public interface DefaultApi {
         uploadJobChunkList(@retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId,
                            @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                            @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include,
-                           @retrofit2.http.Query("filter") String filter);
+                           @retrofit2.http.Query("filter") String filter,
+                           @retrofit2.http.Query("created_at__in") String createdAtIn,
+                           @retrofit2.http.Query("created_at__nin") String createdAtNin,
+                           @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
+                           @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
+                           @retrofit2.http.Query("id__eq") Integer idEq, @retrofit2.http.Query("id__neq") Integer idNeq,
+                           @retrofit2.http.Query("id__in") String idIn, @retrofit2.http.Query("id__nin") String idNin,
+                           @retrofit2.http.Query("updated_at__in") String updatedAtIn,
+                           @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
+                           @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
+                           @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte,
+                           @retrofit2.http.Query("hash__eq") String hashEq,
+                           @retrofit2.http.Query("hash__neq") String hashNeq,
+                           @retrofit2.http.Query("hash__in") String hashIn,
+                           @retrofit2.http.Query("hash__nin") String hashNin,
+                           @retrofit2.http.Query("length__eq") Integer lengthEq,
+                           @retrofit2.http.Query("length__neq") Integer lengthNeq,
+                           @retrofit2.http.Query("length__in") String lengthIn,
+                           @retrofit2.http.Query("length__nin") String lengthNin,
+                           @retrofit2.http.Query("length__lte") Integer lengthLte,
+                           @retrofit2.http.Query("length__gte") Integer lengthGte);
 
     /**
      * Get metadata about a chunk Get metadata about a chunk
@@ -1477,13 +2464,119 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; (optional)
+     * @param createdAtIn
+     *            in filter for the created_at field (optional)
+     * @param createdAtNin
+     *            nin filter for the created_at field (optional)
+     * @param createdAtLte
+     *            lte filter for the created_at field (optional)
+     * @param createdAtGte
+     *            gte filter for the created_at field (optional)
+     * @param datafileEq
+     *            eq filter for the datafile field (optional)
+     * @param datafileNeq
+     *            neq filter for the datafile field (optional)
+     * @param datafileIn
+     *            in filter for the datafile field (optional)
+     * @param datafileNin
+     *            nin filter for the datafile field (optional)
+     * @param datafileChecksumEq
+     *            eq filter for the datafile_checksum field (optional)
+     * @param datafileChecksumNeq
+     *            neq filter for the datafile_checksum field (optional)
+     * @param datafileChecksumIn
+     *            in filter for the datafile_checksum field (optional)
+     * @param datafileChecksumNin
+     *            nin filter for the datafile_checksum field (optional)
+     * @param datafileSizeEq
+     *            eq filter for the datafile_size field (optional)
+     * @param datafileSizeNeq
+     *            neq filter for the datafile_size field (optional)
+     * @param datafileSizeIn
+     *            in filter for the datafile_size field (optional)
+     * @param datafileSizeNin
+     *            nin filter for the datafile_size field (optional)
+     * @param descriptionEq
+     *            eq filter for the description field (optional)
+     * @param descriptionNeq
+     *            neq filter for the description field (optional)
+     * @param descriptionIn
+     *            in filter for the description field (optional)
+     * @param descriptionNin
+     *            nin filter for the description field (optional)
+     * @param idEq
+     *            eq filter for the id field (optional)
+     * @param idNeq
+     *            neq filter for the id field (optional)
+     * @param idIn
+     *            in filter for the id field (optional)
+     * @param idNin
+     *            nin filter for the id field (optional)
+     * @param nameEq
+     *            eq filter for the name field (optional)
+     * @param nameNeq
+     *            neq filter for the name field (optional)
+     * @param nameIn
+     *            in filter for the name field (optional)
+     * @param nameNin
+     *            nin filter for the name field (optional)
+     * @param timestampIn
+     *            in filter for the timestamp field (optional)
+     * @param timestampNin
+     *            nin filter for the timestamp field (optional)
+     * @param timestampLte
+     *            lte filter for the timestamp field (optional)
+     * @param timestampGte
+     *            gte filter for the timestamp field (optional)
+     * @param updatedAtIn
+     *            in filter for the updated_at field (optional)
+     * @param updatedAtNin
+     *            nin filter for the updated_at field (optional)
+     * @param updatedAtLte
+     *            lte filter for the updated_at field (optional)
+     * @param updatedAtGte
+     *            gte filter for the updated_at field (optional)
      * @return Call&lt;UploadJobPage&gt;
      */
     @GET("v3/firmware-images/upload-jobs")
     Call<UploadJobPage>
         uploadJobList(@retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                       @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include,
-                      @retrofit2.http.Query("filter") String filter);
+                      @retrofit2.http.Query("filter") String filter,
+                      @retrofit2.http.Query("created_at__in") String createdAtIn,
+                      @retrofit2.http.Query("created_at__nin") String createdAtNin,
+                      @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
+                      @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
+                      @retrofit2.http.Query("datafile__eq") String datafileEq,
+                      @retrofit2.http.Query("datafile__neq") String datafileNeq,
+                      @retrofit2.http.Query("datafile__in") String datafileIn,
+                      @retrofit2.http.Query("datafile__nin") String datafileNin,
+                      @retrofit2.http.Query("datafile_checksum__eq") String datafileChecksumEq,
+                      @retrofit2.http.Query("datafile_checksum__neq") String datafileChecksumNeq,
+                      @retrofit2.http.Query("datafile_checksum__in") String datafileChecksumIn,
+                      @retrofit2.http.Query("datafile_checksum__nin") String datafileChecksumNin,
+                      @retrofit2.http.Query("datafile_size__eq") String datafileSizeEq,
+                      @retrofit2.http.Query("datafile_size__neq") String datafileSizeNeq,
+                      @retrofit2.http.Query("datafile_size__in") String datafileSizeIn,
+                      @retrofit2.http.Query("datafile_size__nin") String datafileSizeNin,
+                      @retrofit2.http.Query("description__eq") String descriptionEq,
+                      @retrofit2.http.Query("description__neq") String descriptionNeq,
+                      @retrofit2.http.Query("description__in") String descriptionIn,
+                      @retrofit2.http.Query("description__nin") String descriptionNin,
+                      @retrofit2.http.Query("id__eq") String idEq, @retrofit2.http.Query("id__neq") String idNeq,
+                      @retrofit2.http.Query("id__in") String idIn, @retrofit2.http.Query("id__nin") String idNin,
+                      @retrofit2.http.Query("name__eq") String nameEq,
+                      @retrofit2.http.Query("name__neq") String nameNeq,
+                      @retrofit2.http.Query("name__in") String nameIn,
+                      @retrofit2.http.Query("name__nin") String nameNin,
+                      @retrofit2.http.Query("timestamp__in") String timestampIn,
+                      @retrofit2.http.Query("timestamp__nin") String timestampNin,
+                      @retrofit2.http.Query("timestamp__lte") String timestampLte,
+                      @retrofit2.http.Query("timestamp__gte") String timestampGte,
+                      @retrofit2.http.Query("updated_at__in") String updatedAtIn,
+                      @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
+                      @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
+                      @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte);
 
     /**
      * Get an upload job Get an upload job

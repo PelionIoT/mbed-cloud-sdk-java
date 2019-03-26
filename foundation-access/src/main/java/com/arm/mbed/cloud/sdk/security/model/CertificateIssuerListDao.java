@@ -109,7 +109,7 @@ public class CertificateIssuerListDao extends AbstractModelListDao<CertificateIs
      */
     @Override
     @Internal
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "resource" })
     public CertificateIssuerDao getNewModelDao() throws MbedCloudException {
         return new CertificateIssuerDao().configureAndGet(getModuleOrThrow());
     }

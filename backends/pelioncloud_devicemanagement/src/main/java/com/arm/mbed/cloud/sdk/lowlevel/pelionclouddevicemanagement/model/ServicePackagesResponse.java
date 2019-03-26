@@ -26,10 +26,10 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * Contains service package information for currently active service package, currently pending service package and all
- * previous service packages this account has had.
+ * Contains service package information for currently active service package, currently pending service package, and all
+ * previous service packages associated with the account.
  */
-@ApiModel(description = "Contains service package information for currently active service package, currently pending service package and all previous service packages this account has had.")
+@ApiModel(description = "Contains service package information for currently active service package, currently pending service package, and all previous service packages associated with the account.")
 
 public class ServicePackagesResponse implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -38,7 +38,7 @@ public class ServicePackagesResponse implements Serializable {
     private ActiveServicePackage active = null;
 
     /**
-     * Always set to &#39;service-packages&#39;.
+     * Always set to &#x60;service-packages&#x60;.
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
@@ -116,11 +116,11 @@ public class ServicePackagesResponse implements Serializable {
     }
 
     /**
-     * Always set to &#39;service-packages&#39;.
+     * Always set to &#x60;service-packages&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Always set to 'service-packages'.")
+    @ApiModelProperty(required = true, value = "Always set to `service-packages`.")
     public ObjectEnum getObject() {
         return object;
     }

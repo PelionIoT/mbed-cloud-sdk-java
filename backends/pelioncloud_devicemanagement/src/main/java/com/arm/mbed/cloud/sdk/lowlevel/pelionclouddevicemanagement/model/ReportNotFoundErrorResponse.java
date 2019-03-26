@@ -24,9 +24,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * 404 Not Found response.
+ * 404 Not found response.
  */
-@ApiModel(description = "404 Not Found response.")
+@ApiModel(description = "404 Not found response.")
 
 public class ReportNotFoundErrorResponse implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -38,7 +38,7 @@ public class ReportNotFoundErrorResponse implements Serializable {
     private String message = null;
 
     /**
-     * Always set to &#39;error&#39;.
+     * Always set to &#x60;error&#x60;.
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
@@ -89,7 +89,7 @@ public class ReportNotFoundErrorResponse implements Serializable {
     private String requestId = null;
 
     /**
-     * Error type. Always set to &#39;report_not_found&#39;.
+     * Error type. Always set to &#x60;report_not_found&#x60;.
      */
     @JsonAdapter(TypeEnum.Adapter.class)
     public enum TypeEnum {
@@ -161,11 +161,11 @@ public class ReportNotFoundErrorResponse implements Serializable {
     }
 
     /**
-     * A human readable message with detailed info.
+     * A human-readable message with detailed info.
      * 
      * @return message
      **/
-    @ApiModelProperty(required = true, value = "A human readable message with detailed info.")
+    @ApiModelProperty(required = true, value = "A human-readable message with detailed info.")
     public String getMessage() {
         return message;
     }
@@ -180,11 +180,11 @@ public class ReportNotFoundErrorResponse implements Serializable {
     }
 
     /**
-     * Always set to &#39;error&#39;.
+     * Always set to &#x60;error&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Always set to 'error'.")
+    @ApiModelProperty(required = true, value = "Always set to `error`.")
     public ObjectEnum getObject() {
         return object;
     }
@@ -218,11 +218,11 @@ public class ReportNotFoundErrorResponse implements Serializable {
     }
 
     /**
-     * Error type. Always set to &#39;report_not_found&#39;.
+     * Error type. Always set to &#x60;report_not_found&#x60;.
      * 
      * @return type
      **/
-    @ApiModelProperty(required = true, value = "Error type. Always set to 'report_not_found'.")
+    @ApiModelProperty(required = true, value = "Error type. Always set to `report_not_found`.")
     public TypeEnum getType() {
         return type;
     }

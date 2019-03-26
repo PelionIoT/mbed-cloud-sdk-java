@@ -126,23 +126,24 @@ public class ModelDaoList extends ModelDao {
                                 "return new $T()",
                                 Arrays.asList(listOptionsType.hasClass() ? listOptionsType.getClazz()
                                                                          : listOptionsType.getTypeName()),
-                                Utils.generateDocumentationString(listOptions.getName()), false);
+                                Utils.generateDocumentationString(listOptions.getName()), false, false);
         addInstantiationMethods(AbstractModelListDao.METHOD_GET_CORRESPONDING_MODEL_DAO_DEFINITION, daoModelClassType,
                                 "return $T.class",
                                 Arrays.asList(daoModelType.hasClass() ? daoModelType.getClazz()
                                                                       : daoModelType.getTypeName()),
-                                Utils.generateDocumentationString(correspondingDao.getName()) + " class", true);
+                                Utils.generateDocumentationString(correspondingDao.getName()) + " class", true, false);
         addInstantiationMethods(AbstractModelListDao.METHOD_GET_CORRESPONDING_MODEL_DAO_INSTANCE, daoModelType,
                                 "return new $T().$L($L())",
                                 Arrays.asList(daoModelType.hasClass() ? daoModelType.getClazz()
                                                                       : daoModelType.getTypeName(),
                                               AbstractModelListDao.METHOD_CONFIGURE_AND_GET,
                                               AbstractModelListDao.METHOD_GETTER_MODULE),
-                                Utils.generateDocumentationString(correspondingDao.getName()), true);
+                                Utils.generateDocumentationString(correspondingDao.getName()), true, true);
     }
 
     private void addInstantiationMethods(String methodName, TypeParameter returnType, String format,
-                                         List<Object> values, String description, boolean setAsUnchecked) {
+                                         List<Object> values, String description, boolean setAsUnchecked,
+                                         boolean ignoreResource) {
         final List<java.lang.reflect.Method> classMethods = getListDaoMethods();
         final List<Method> methods = classMethods.stream().filter(m -> methodName.equals(m.getName())).map(m -> {
             MethodOverloaded method = new MethodOverloaded(m, description, null, true, true, null);
@@ -150,6 +151,7 @@ public class ModelDaoList extends ModelDao {
             method.setInternal(true);
             method.setReturnDescription(description);
             method.setUnchecked(setAsUnchecked);
+            method.setIgnoreResourceClosure(ignoreResource);
             return method;
         }).collect(Collectors.toList());
         for (Method m : methods) {

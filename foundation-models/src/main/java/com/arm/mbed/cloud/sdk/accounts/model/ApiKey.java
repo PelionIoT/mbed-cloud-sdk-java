@@ -124,20 +124,20 @@ public class ApiKey implements SdkModel {
      */
     @Internal
     public ApiKey(ApiKey apiKey) {
-        this(apiKey == null ? (String) null : apiKey.accountId,
-             apiKey == null ? new java.util.Date() : apiKey.createdAt, apiKey == null ? 0L : apiKey.creationTime,
-             apiKey == null ? (String) null : apiKey.id, apiKey == null ? (String) null : apiKey.key,
-             apiKey == null ? 0L : apiKey.lastLoginTime, apiKey == null ? (String) null : apiKey.name,
-             apiKey == null ? (String) null : apiKey.owner, apiKey == null ? ApiKeyStatus.getDefault() : apiKey.status,
-             apiKey == null ? new java.util.Date() : apiKey.updatedAt);
+        this(apiKey == null ? (String) null : apiKey.accountId, apiKey == null ? new Date() : apiKey.createdAt,
+             apiKey == null ? 0 : apiKey.creationTime, apiKey == null ? (String) null : apiKey.id,
+             apiKey == null ? (String) null : apiKey.key, apiKey == null ? 0 : apiKey.lastLoginTime,
+             apiKey == null ? (String) null : apiKey.name, apiKey == null ? (String) null : apiKey.owner,
+             apiKey == null ? ApiKeyStatus.getDefault() : apiKey.status,
+             apiKey == null ? new Date() : apiKey.updatedAt);
     }
 
     /**
      * Constructor.
      */
     public ApiKey() {
-        this((String) null, new java.util.Date(), 0L, (String) null, (String) null, 0L, (String) null, (String) null,
-             ApiKeyStatus.getDefault(), new java.util.Date());
+        this((String) null, new Date(), 0, (String) null, (String) null, 0, (String) null, (String) null,
+             ApiKeyStatus.getDefault(), new Date());
     }
 
     /**

@@ -139,10 +139,10 @@ public class DeviceEvents implements SdkModel {
      */
     @Internal
     public DeviceEvents(DeviceEvents deviceEvents) {
-        this(deviceEvents == null ? (java.util.Map<String, java.lang.Object>) null : deviceEvents.changes,
-             deviceEvents == null ? new java.util.Date() : deviceEvents.createdAt,
-             deviceEvents == null ? (java.util.Map<String, String>) null : deviceEvents.data,
-             deviceEvents == null ? new java.util.Date() : deviceEvents.dateTime,
+        this(deviceEvents == null ? (Map<String, Object>) null : deviceEvents.changes,
+             deviceEvents == null ? new Date() : deviceEvents.createdAt,
+             deviceEvents == null ? (Map<String, String>) null : deviceEvents.data,
+             deviceEvents == null ? new Date() : deviceEvents.dateTime,
              deviceEvents == null ? (String) null : deviceEvents.description,
              deviceEvents == null ? (String) null : deviceEvents.deviceId,
              deviceEvents == null ? (String) null : deviceEvents.eventType,
@@ -155,9 +155,8 @@ public class DeviceEvents implements SdkModel {
      * Constructor.
      */
     public DeviceEvents() {
-        this((java.util.Map<String, java.lang.Object>) null, new java.util.Date(), (java.util.Map<String, String>) null,
-             new java.util.Date(), (String) null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, Boolean.FALSE);
+        this((Map<String, Object>) null, new Date(), (Map<String, String>) null, new Date(), (String) null,
+             (String) null, (String) null, (String) null, (String) null, (String) null, Boolean.FALSE);
     }
 
     /**
@@ -473,7 +472,11 @@ public class DeviceEvents implements SdkModel {
         } else if (!id.equals(other.id)) {
             return false;
         }
-        if (stateChange != other.stateChange) {
+        if (stateChange == null) {
+            if (other.stateChange != null) {
+                return false;
+            }
+        } else if (!stateChange.equals(other.stateChange)) {
             return false;
         }
         return true;

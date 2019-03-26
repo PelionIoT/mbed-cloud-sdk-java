@@ -74,7 +74,7 @@ public class LoginHistory implements SdkModel {
      */
     @Internal
     public LoginHistory(LoginHistory loginHistory) {
-        this(loginHistory == null ? new java.util.Date() : loginHistory.date,
+        this(loginHistory == null ? new Date() : loginHistory.date,
              loginHistory == null ? (String) null : loginHistory.ipAddress,
              loginHistory != null && loginHistory.success,
              loginHistory == null ? (String) null : loginHistory.userAgent);
@@ -84,7 +84,7 @@ public class LoginHistory implements SdkModel {
      * Constructor.
      */
     public LoginHistory() {
-        this(new java.util.Date(), (String) null, false, (String) null);
+        this(new Date(), (String) null, false, (String) null);
     }
 
     /**

@@ -63,7 +63,8 @@ public class UserUpdateReq implements Serializable {
     /**
      * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process.
      * INVITED means that the user has not accepted the invitation request. RESET means that the password must be
-     * changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     * changed immediately. INACTIVE users are locked out and not permitted to use the system. Can be changed by the
+     * Aggregator Admin only.
      */
     @JsonAdapter(StatusEnum.Adapter.class)
     public enum StatusEnum {
@@ -146,11 +147,11 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * The email address, not longer than 254 characters.
+     * The email address, not longer than 254 characters. Not allowed to update other user&#39;s email address.
      * 
      * @return email
      **/
-    @ApiModelProperty(value = "The email address, not longer than 254 characters.")
+    @ApiModelProperty(value = "The email address, not longer than 254 characters. Not allowed to update other user's email address.")
     public String getEmail() {
         return email;
     }
@@ -192,11 +193,11 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * A list of group IDs this user belongs to.
+     * A list of group IDs this user belongs to. Can be updated by the Account Admin only.
      * 
      * @return groups
      **/
-    @ApiModelProperty(value = "A list of group IDs this user belongs to.")
+    @ApiModelProperty(value = "A list of group IDs this user belongs to. Can be updated by the Account Admin only.")
     public List<String> getGroups() {
         return groups;
     }
@@ -276,13 +277,13 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * A list of login profiles for the user. Specified as the identity providers the user should be associated with.
-     * Only the ID attribute of the login profile should be set in the request object. The list cannot be empty. A limit
-     * of 100 profiles.
+     * A list of login profiles for the user. Specified as the identity providers associated with the user. Only the ID
+     * attribute of the login profile should be set in the request object. The list cannot be empty. Limit 100 profiles.
+     * Only an account admin may update login profiles.
      * 
      * @return loginProfiles
      **/
-    @ApiModelProperty(value = "A list of login profiles for the user. Specified as the identity providers the user should be associated with. Only the ID attribute of the login profile should be set in the request object. The list cannot be empty. A limit of 100 profiles.")
+    @ApiModelProperty(value = "A list of login profiles for the user. Specified as the identity providers associated with the user. Only the ID attribute of the login profile should be set in the request object. The list cannot be empty. Limit 100 profiles. Only an account admin may update login profiles.")
     public List<LoginProfile> getLoginProfiles() {
         return loginProfiles;
     }
@@ -318,12 +319,13 @@ public class UserUpdateReq implements Serializable {
     /**
      * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process.
      * INVITED means that the user has not accepted the invitation request. RESET means that the password must be
-     * changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     * changed immediately. INACTIVE users are locked out and not permitted to use the system. Can be changed by the
+     * Aggregator Admin only.
      * 
      * @return status
      **/
     @ApiModelProperty(example = "ACTIVE",
-                      value = "The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.")
+                      value = "The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system. Can be changed by the Aggregator Admin only.")
     public StatusEnum getStatus() {
         return status;
     }

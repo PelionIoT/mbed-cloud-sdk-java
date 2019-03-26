@@ -46,7 +46,7 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
     private Integer limit = null;
 
     /**
-     * Always set to &#39;service-package-quota-history&#39;.
+     * Always set to &#x60;service-package-quota-history&#x60;.
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
@@ -102,11 +102,11 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
     }
 
     /**
-     * After which quota history ID this paged response is fetched.
+     * ID after which to fetch quota history.
      * 
      * @return after
      **/
-    @ApiModelProperty(value = "After which quota history ID this paged response is fetched.")
+    @ApiModelProperty(value = "ID after which to fetch quota history.")
     public String getAfter() {
         return after;
     }
@@ -126,11 +126,11 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
     }
 
     /**
-     * List of history items, empty list if no entries are available.
+     * List of history items. Empty list if no entries are available.
      * 
      * @return data
      **/
-    @ApiModelProperty(required = true, value = "List of history items, empty list if no entries are available.")
+    @ApiModelProperty(required = true, value = "List of history items. Empty list if no entries are available.")
     public List<ServicePackageQuotaHistoryItem> getData() {
         return data;
     }
@@ -145,11 +145,11 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
     }
 
     /**
-     * If there is next available quota history paged response to be fetched.
+     * If there is next available quota history paged response to fetch.
      * 
      * @return hasMore
      **/
-    @ApiModelProperty(required = true, value = "If there is next available quota history paged response to be fetched.")
+    @ApiModelProperty(required = true, value = "If there is next available quota history paged response to fetch.")
     public Boolean isHasMore() {
         return hasMore;
     }
@@ -164,12 +164,12 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
     }
 
     /**
-     * Maximum amount of quota history entries contained in one paged response. minimum: 2 maximum: 1000
+     * Maximum number of quota history entries contained in one paged response. minimum: 2 maximum: 1000
      * 
      * @return limit
      **/
     @ApiModelProperty(required = true,
-                      value = "Maximum amount of quota history entries contained in one paged response.")
+                      value = "Maximum number of quota history entries contained in one paged response.")
     public Integer getLimit() {
         return limit;
     }
@@ -184,11 +184,11 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
     }
 
     /**
-     * Always set to &#39;service-package-quota-history&#39;.
+     * Always set to &#x60;service-package-quota-history&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Always set to 'service-package-quota-history'.")
+    @ApiModelProperty(required = true, value = "Always set to `service-package-quota-history`.")
     public ObjectEnum getObject() {
         return object;
     }
@@ -203,11 +203,11 @@ public class ServicePackageQuotaHistoryResponse implements Serializable {
     }
 
     /**
-     * Sum of all quota history entries that should be returned minimum: 0
+     * Sum of all quota history entries that should be returned. minimum: 0
      * 
      * @return totalCount
      **/
-    @ApiModelProperty(required = true, value = "Sum of all quota history entries that should be returned")
+    @ApiModelProperty(required = true, value = "Sum of all quota history entries that should be returned.")
     public Integer getTotalCount() {
         return totalCount;
     }

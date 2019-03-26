@@ -231,6 +231,10 @@ public class TypeParameter implements Artifact {
         return false;
     }
 
+    public boolean isArray() {
+        return false;
+    }
+
     public boolean isHashtable() {
         return false;
     }

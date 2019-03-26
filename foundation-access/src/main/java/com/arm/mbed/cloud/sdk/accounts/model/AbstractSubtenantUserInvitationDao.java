@@ -4,6 +4,7 @@
 package com.arm.mbed.cloud.sdk.accounts.model;
 
 import com.arm.mbed.cloud.sdk.Accounts;
+import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
@@ -138,13 +139,12 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(int, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
      * 
      * @param validForDays
-     *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
-     *            between 1 and 100 days.
+     *            Specifies how many days the invitation will be valid for.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public SubtenantUserInvitation create(@Nullable int validForDays) throws MbedCloudException {
+    public SubtenantUserInvitation create(@Nullable @DefaultValue("30") int validForDays) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(validForDays, getModel()));
         return getModel();
     }
@@ -157,15 +157,14 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(int, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
      * 
      * @param validForDays
-     *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
-     *            between 1 and 100 days.
+     *            Specifies how many days the invitation will be valid for.
      * @param accountId
      *            The ID of the account the user is invited to.
      * @return an added subtenant user invitation
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public SubtenantUserInvitation create(@Nullable int validForDays,
+    public SubtenantUserInvitation create(@Nullable @DefaultValue("30") int validForDays,
                                           @NonNull String accountId) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(validForDays, accountId, getModel()));
         return getModel();

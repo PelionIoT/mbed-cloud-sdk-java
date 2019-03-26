@@ -111,13 +111,12 @@ public class SubtenantUserInvitation implements SdkModel {
     @Internal
     public SubtenantUserInvitation(SubtenantUserInvitation subtenantUserInvitation) {
         this(subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.accountId,
-             subtenantUserInvitation == null ? new java.util.Date() : subtenantUserInvitation.createdAt,
+             subtenantUserInvitation == null ? new Date() : subtenantUserInvitation.createdAt,
              subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.email,
-             subtenantUserInvitation == null ? new java.util.Date() : subtenantUserInvitation.expiration,
+             subtenantUserInvitation == null ? new Date() : subtenantUserInvitation.expiration,
              subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.id,
-             subtenantUserInvitation == null ? (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null
-                                             : subtenantUserInvitation.loginProfiles,
-             subtenantUserInvitation == null ? new java.util.Date() : subtenantUserInvitation.updatedAt,
+             subtenantUserInvitation == null ? (List<LoginProfile>) null : subtenantUserInvitation.loginProfiles,
+             subtenantUserInvitation == null ? new Date() : subtenantUserInvitation.updatedAt,
              subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.userId);
     }
 
@@ -125,8 +124,7 @@ public class SubtenantUserInvitation implements SdkModel {
      * Constructor.
      */
     public SubtenantUserInvitation() {
-        this((String) null, new java.util.Date(), (String) null, new java.util.Date(), (String) null,
-             (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null, new java.util.Date(),
+        this((String) null, new Date(), (String) null, new Date(), (String) null, (List<LoginProfile>) null, new Date(),
              (String) null);
     }
 
@@ -158,8 +156,8 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     @Internal
     public SubtenantUserInvitation(Date createdAt, Date expiration, Date updatedAt, String userId) {
-        this((String) null, createdAt, (String) null, expiration, (String) null,
-             (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null, updatedAt, userId);
+        this((String) null, createdAt, (String) null, expiration, (String) null, (List<LoginProfile>) null, updatedAt,
+             userId);
     }
 
     /**
@@ -171,8 +169,7 @@ public class SubtenantUserInvitation implements SdkModel {
      *            Email address of the invited user.
      */
     public SubtenantUserInvitation(String accountId, String email) {
-        this(accountId, new java.util.Date(), email, new java.util.Date(), (String) null,
-             (java.util.List<com.arm.mbed.cloud.sdk.accounts.model.LoginProfile>) null, new java.util.Date(),
+        this(accountId, new Date(), email, new Date(), (String) null, (List<LoginProfile>) null, new Date(),
              (String) null);
     }
 

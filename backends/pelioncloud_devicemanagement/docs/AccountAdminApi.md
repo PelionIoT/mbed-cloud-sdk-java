@@ -44,7 +44,9 @@ Method | HTTP request | Description
 [**updateMyAccount**](AccountAdminApi.md#updateMyAccount) | **PUT** v3/accounts/me | Updates attributes of the account.
 [**updateUser**](AccountAdminApi.md#updateUser) | **PUT** v3/users/{user_id} | Update user details.
 [**uploadDarkImage**](AccountAdminApi.md#uploadDarkImage) | **POST** v3/branding-images/dark/{reference}/upload | Upload an image in the dark theme.
+[**uploadDarkImageMultipart**](AccountAdminApi.md#uploadDarkImageMultipart) | **POST** v3/branding-images/dark/{reference}/upload-multipart | Upload an image in the dark theme.
 [**uploadLightImage**](AccountAdminApi.md#uploadLightImage) | **POST** v3/branding-images/light/{reference}/upload | Upload an image in the light theme.
+[**uploadLightImageMultipart**](AccountAdminApi.md#uploadLightImageMultipart) | **POST** v3/branding-images/light/{reference}/upload-multipart | Upload an image in the light theme.
 
 
 <a name="addApiKeyToGroups"></a>
@@ -2286,7 +2288,7 @@ Name | Type | Description  | Notes
 
 Upload an image in the dark theme.
 
-An endpoint for uploading a new account branding image in the dark theme in PNG or JPEG format.  **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/upload -H &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary &#39;myimage.png&#39;&#x60;
+An endpoint for uploading a new account branding image in the dark theme in PNG or JPEG format.  **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/upload -H &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary &#39;@myimage.png&#39;&#x60;
 
 ### Example
 ```java
@@ -2337,13 +2339,70 @@ Name | Type | Description  | Notes
  - **Content-Type**: image/png, image/jpeg
  - **Accept**: application/json
 
+<a name="uploadDarkImageMultipart"></a>
+# **uploadDarkImageMultipart**
+> BrandingImage uploadDarkImageMultipart(reference, image)
+
+Upload an image in the dark theme.
+
+An endpoint for uploading a new account branding image as form data in the dark theme in PNG or JPEG format.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String reference = "reference_example"; // String | Name of the branding images (icon or picture).
+File image = new File("/path/to/file.txt"); // File | The image in PNG or JPEG format as multipart form data.
+try {
+    BrandingImage result = apiInstance.uploadDarkImageMultipart(reference, image);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#uploadDarkImageMultipart");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **reference** | **String**| Name of the branding images (icon or picture). | [enum: brand_logo_portrait, brand_logo_square, brand_logo_landscape, brand_logo_email, desktop_background_landscape, desktop_background_square, desktop_background_portrait, carousel_image_portrait_0, carousel_image_portrait_1, carousel_image_portrait_2, carousel_image_portrait_3, carousel_image_portrait_4, carousel_image_portrait_5, carousel_image_portrait_6, carousel_image_portrait_7, carousel_image_portrait_8, carousel_image_portrait_9, carousel_image_square_0, carousel_image_square_1, carousel_image_square_2, carousel_image_square_3, carousel_image_square_4, carousel_image_square_5, carousel_image_square_6, carousel_image_square_7, carousel_image_square_8, carousel_image_square_9, carousel_image_landscape_0, carousel_image_landscape_1, carousel_image_landscape_2, carousel_image_landscape_3, carousel_image_landscape_4, carousel_image_landscape_5, carousel_image_landscape_6, carousel_image_landscape_7, carousel_image_landscape_8, carousel_image_landscape_9]
+ **image** | **File**| The image in PNG or JPEG format as multipart form data. |
+
+### Return type
+
+[**BrandingImage**](BrandingImage.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
 <a name="uploadLightImage"></a>
 # **uploadLightImage**
 > BrandingImage uploadLightImage(reference, body)
 
 Upload an image in the light theme.
 
-An endpoint for uploading a new account branding image in the light theme in PNG or JPEG format.  **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/upload -H &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary &#39;myimage.png&#39;&#x60;
+An endpoint for uploading a new account branding image in the light theme in PNG or JPEG format.  **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/upload -H &#39;content-type: image/png&#39; -H &#39;Authorization: Bearer API_KEY&#39; --data-binary &#39;@myimage.png&#39;&#x60;
 
 ### Example
 ```java
@@ -2392,5 +2451,62 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: image/png, image/jpeg
+ - **Accept**: application/json
+
+<a name="uploadLightImageMultipart"></a>
+# **uploadLightImageMultipart**
+> BrandingImage uploadLightImageMultipart(reference, image)
+
+Upload an image in the light theme.
+
+An endpoint for uploading a new account branding image as form data in the light theme in PNG or JPEG format.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String reference = "reference_example"; // String | Name of the branding images (icon or picture).
+File image = new File("/path/to/file.txt"); // File | The image in PNG or JPEG format as multipart form data.
+try {
+    BrandingImage result = apiInstance.uploadLightImageMultipart(reference, image);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#uploadLightImageMultipart");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **reference** | **String**| Name of the branding images (icon or picture). | [enum: brand_logo_portrait, brand_logo_square, brand_logo_landscape, brand_logo_email, desktop_background_landscape, desktop_background_square, desktop_background_portrait, carousel_image_portrait_0, carousel_image_portrait_1, carousel_image_portrait_2, carousel_image_portrait_3, carousel_image_portrait_4, carousel_image_portrait_5, carousel_image_portrait_6, carousel_image_portrait_7, carousel_image_portrait_8, carousel_image_portrait_9, carousel_image_square_0, carousel_image_square_1, carousel_image_square_2, carousel_image_square_3, carousel_image_square_4, carousel_image_square_5, carousel_image_square_6, carousel_image_square_7, carousel_image_square_8, carousel_image_square_9, carousel_image_landscape_0, carousel_image_landscape_1, carousel_image_landscape_2, carousel_image_landscape_3, carousel_image_landscape_4, carousel_image_landscape_5, carousel_image_landscape_6, carousel_image_landscape_7, carousel_image_landscape_8, carousel_image_landscape_9]
+ **image** | **File**| The image in PNG or JPEG format as multipart form data. |
+
+### Return type
+
+[**BrandingImage**](BrandingImage.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 

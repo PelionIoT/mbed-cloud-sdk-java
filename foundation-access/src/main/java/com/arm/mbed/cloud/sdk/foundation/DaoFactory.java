@@ -22,6 +22,8 @@ import com.arm.mbed.cloud.sdk.devices.model.DeviceDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDeleteDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDao;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDenialDao;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDenialListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEventsDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListDao;
@@ -341,6 +343,30 @@ public class DaoFactory implements Cloneable {
     @SuppressWarnings("resource")
     public DeviceEnrollmentDao getDeviceEnrollmentDao() throws MbedCloudException {
         return new DeviceEnrollmentDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a device enrollment denial dao.
+     * 
+     * @return a device enrollment denial dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public DeviceEnrollmentDenialDao getDeviceEnrollmentDenialDao() throws MbedCloudException {
+        return new DeviceEnrollmentDenialDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a device enrollment denial list dao.
+     * 
+     * @return a device enrollment denial list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public DeviceEnrollmentDenialListDao getDeviceEnrollmentDenialListDao() throws MbedCloudException {
+        return new DeviceEnrollmentDenialListDao().configureAndGet(context);
     }
 
     /**

@@ -3,6 +3,7 @@
 package com.arm.mbed.cloud.sdk.accounts.model;
 
 import com.arm.mbed.cloud.sdk.Accounts;
+import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
@@ -135,13 +136,12 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * {@link com.arm.mbed.cloud.sdk.Accounts#createUserInvitation(int, com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
      * 
      * @param validForDays
-     *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
-     *            between 1 and 100 days.
+     *            Specifies how many days the invitation will be valid for.
      * @return an added user invitation
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public UserInvitation create(@Nullable int validForDays) throws MbedCloudException {
+    public UserInvitation create(@Nullable @DefaultValue("30") int validForDays) throws MbedCloudException {
         setModel(((Accounts) getModuleOrThrow()).createUserInvitation(validForDays, getModel()));
         return getModel();
     }

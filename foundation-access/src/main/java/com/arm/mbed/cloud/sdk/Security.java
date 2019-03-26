@@ -211,7 +211,7 @@ public class Security extends AbstractModule {
     public CertificateIssuer
            createCertificateIssuer(@NonNull CertificateIssuer certificateIssuerRequest) throws MbedCloudException {
         checkNotNull(certificateIssuerRequest, TAG_CERTIFICATE_ISSUER_REQUEST);
-        return createCertificateIssuer((java.util.Map<String, String>) null, certificateIssuerRequest);
+        return createCertificateIssuer((Map<String, String>) null, certificateIssuerRequest);
     }
 
     /**
@@ -835,7 +835,7 @@ public class Security extends AbstractModule {
      * -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
      *
      * @param id
-     *            mUUID that uniquely identifies the developer certificate.
+     *            ID that uniquely identifies the developer certificate.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -1673,7 +1673,7 @@ public class Security extends AbstractModule {
      * -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
      *
      * @param id
-     *            mUUID that uniquely identifies the developer certificate.
+     *            ID that uniquely identifies the developer certificate.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -1832,7 +1832,7 @@ public class Security extends AbstractModule {
     public CertificateIssuer
            updateCertificateIssuer(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
         checkNotNull(certificateIssuer, TAG_CERTIFICATE_ISSUER);
-        return updateCertificateIssuer((java.util.Map<String, String>) null, certificateIssuer);
+        return updateCertificateIssuer((Map<String, String>) null, certificateIssuer);
     }
 
     /**
@@ -1936,7 +1936,7 @@ public class Security extends AbstractModule {
                                    @NonNull CertificateIssuer certificateIssuerUpdateRequest) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
         checkNotNull(certificateIssuerUpdateRequest, TAG_CERTIFICATE_ISSUER_UPDATE_REQUEST);
-        return updateCertificateIssuer((java.util.Map<String, String>) null, id, certificateIssuerUpdateRequest);
+        return updateCertificateIssuer((Map<String, String>) null, id, certificateIssuerUpdateRequest);
     }
 
     /**

@@ -28,8 +28,14 @@ import com.arm.mbed.cloud.sdk.common.model.DataFile;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDenialListOptions;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceState;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig;
+import com.arm.mbed.cloud.sdk.security.model.TrustedCertificate;
+import com.arm.mbed.cloud.sdk.security.model.TrustedCertificateDao;
+import com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListDao;
+import com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions;
+import com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus;
 
 import utils.AbstractExample;
 import utils.Configuration;
@@ -43,18 +49,17 @@ public class FoundationsExamples extends AbstractExample {
     @Example
     public void checkAccountStatus() {
         // an example: checking account status
-        try {
+        try (AccountDao myAccountDao = new AccountDao(Configuration.get())) {
             // Fetch my account
-            AccountDao myAccountDao = new AccountDao().configureAndGet(Configuration.get());
-            myAccountDao.me(null, null);
-            // Print my account detail
+            myAccountDao.me();
+            // Print my account details
             log(myAccountDao.getModel());
             boolean isActive = myAccountDao.getModel().getStatus() == AccountStatus.ACTIVE;
             // cloak
             // Checks that the status is active
             assertTrue(isActive);
             // uncloak
-        } catch (MbedCloudException exception) {
+        } catch (MbedCloudException | IOException exception) {
             // TODO do something with the exception
             exception.printStackTrace();
             // cloak
@@ -93,10 +98,8 @@ public class FoundationsExamples extends AbstractExample {
     @Example
     public void useMultipleApiKeys() {
         // an example: using multiple api keys
-        try {
-            ApiKeyListDao dao1 = new ApiKeyListDao();
-            dao1.configure(ConnectionOptions.newConfiguration("API Key 1 xxxxxx"));
-            ApiKeyListDao dao2 = dao1.clone();
+        try (ApiKeyListDao dao1 = new ApiKeyListDao(ConnectionOptions.newConfiguration("API Key 1 xxxxxx"));
+             ApiKeyListDao dao2 = dao1.clone()) {
             // cloak
             assertEquals(dao1, dao2);
             assertNotSame(dao1, dao2);
@@ -112,7 +115,7 @@ public class FoundationsExamples extends AbstractExample {
             // cloak
             fail("The host is fake");
             // uncloak
-        } catch (MbedCloudException exception) {
+        } catch (MbedCloudException | IOException exception) {
             // TODO do something with the exception
             exception.printStackTrace();
         }
@@ -150,10 +153,10 @@ public class FoundationsExamples extends AbstractExample {
     @Example
     public void manageSubtenants() {
         // an example: creating and managing a subtenant account
-        try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
+        try (Sdk sdk = Sdk.createSdk(Configuration.get()); AccountDao myAccountDao = sdk.foundation().getAccountDao();
+             SubtenantUserDao userDao = sdk.foundation().getSubtenantUserDao();) {
             // Fetch my account
-            AccountDao myAccountDao = sdk.foundation().getAccountDao();
-            myAccountDao.me(null, null);
+            myAccountDao.me();
             // Create a new User
             SubtenantUser user = new SubtenantUser();
             user.setAccountId(myAccountDao.getId());
@@ -161,7 +164,6 @@ public class FoundationsExamples extends AbstractExample {
             user.setEmail("tommi_the_wombat@email.com");
             user.setUsername("tommi_wombat");
             user.setPhoneNumber("0800001066");
-            SubtenantUserDao userDao = sdk.foundation().getSubtenantUserDao();
             // cloak
             // Perform some account cleanup
             performAccountCleanup(myAccountDao, user, userDao);
@@ -175,10 +177,7 @@ public class FoundationsExamples extends AbstractExample {
             // Fetch latest details of the current sub-tenant user.
             userDao.read();
             // Fetching a user from the list of account users
-            SubtenantUser correspondingUser = StreamSupport.stream(myAccountDao.allUsers(null, null, null, null, null,
-                                                                                         null)
-                                                                               .spliterator(),
-                                                                   false)
+            SubtenantUser correspondingUser = StreamSupport.stream(myAccountDao.allUsers(null).spliterator(), false)
                                                            .filter(u -> u.getId().equals(createdId)).findFirst().get();
             // cloak
             assertEquals(userDao.getModel(), correspondingUser);
@@ -186,7 +185,7 @@ public class FoundationsExamples extends AbstractExample {
             // Delete the created user.
             userDao.delete();
 
-        } catch (MbedCloudException exception) {
+        } catch (MbedCloudException | IOException exception) {
             // TODO do something with the exception
             exception.printStackTrace();
             // cloak
@@ -198,7 +197,7 @@ public class FoundationsExamples extends AbstractExample {
 
     private void performAccountCleanup(AccountDao myAccountDao, SubtenantUser user,
                                        SubtenantUserDao userDao) throws MbedCloudException {
-        StreamSupport.stream(myAccountDao.allUsers(null, null, null, null, null, null).spliterator(), false)
+        StreamSupport.stream(myAccountDao.allUsers(null).spliterator(), false)
                      .filter(u -> user.getUsername().equals(u.getUsername())).forEach(u -> {
                          try {
                              userDao.delete(u);
@@ -214,7 +213,7 @@ public class FoundationsExamples extends AbstractExample {
     @Example
     public void renewCertificate() {
         // an example: certificate renew
-        try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
+        try (Sdk sdk = Sdk.createSdk(Configuration.get()); DeviceDao deviceDao = sdk.foundation().getDeviceDao()) {
             // Find the certificate issuers configuration in use. In this case, it is known that the reference is
             // "LWM2M".
             CertificateIssuerConfig myConfig = StreamSupport.stream(sdk.foundation().getCertificateIssuerConfigListDao()
@@ -222,8 +221,6 @@ public class FoundationsExamples extends AbstractExample {
                                                                     false)
                                                             .filter(c -> c.getCertificateReference().equals("LWM2M"))
                                                             .findFirst().get();
-            // Get a device DAO
-            final DeviceDao deviceDao = sdk.foundation().getDeviceDao();
             // Renew the certificate of all connected devices
             StreamSupport.stream(sdk.foundation().getDeviceListDao().paginator().spliterator(), false)
                          .filter(d -> d.getState() == DeviceState.REGISTERED).forEach(d -> {
@@ -232,14 +229,14 @@ public class FoundationsExamples extends AbstractExample {
                                  deviceDao.setModel(d);
                                  deviceDao.renewCertificate(myConfig.getCertificateReference());
                                  log(myConfig + " was renewed on " + d);
-                             } catch (MbedCloudException exception) {
+                             } catch (@SuppressWarnings("unused") MbedCloudException exception) {
                                  // TODO do something with the exception
                                  log(myConfig + " could not be renewed on " + d);
                              }
 
                          });
 
-        } catch (MbedCloudException exception) {
+        } catch (MbedCloudException | IOException exception) {
             // TODO do something with the exception
             exception.printStackTrace();
             // cloak
@@ -268,8 +265,8 @@ public class FoundationsExamples extends AbstractExample {
         assertNotNull(file);
         assertTrue(file.exists());
         // an example: device enrollment bulk
-        try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
-            DeviceEnrollmentBulkCreateDao enrolmentDao = sdk.foundation().getDeviceEnrollmentBulkCreateDao();
+        try (Sdk sdk = Sdk.createSdk(Configuration.get());
+             DeviceEnrollmentBulkCreateDao enrolmentDao = sdk.foundation().getDeviceEnrollmentBulkCreateDao()) {
             // file is a csv file containing all the devices which need to be enrolled. See test.csv in the /resources
             // folder as example.
             enrolmentDao.create(new DataFile(file));
@@ -303,7 +300,54 @@ public class FoundationsExamples extends AbstractExample {
             // uncloak
         }
         // end of example
-
+        catch (IOException exception1) {
+            // TODO Auto-generated catch block
+            exception1.printStackTrace();
+        }
     }
 
+    /**
+     * Renews a device certificate
+     */
+    @Example
+    public void blacklistCertificates() {
+        try (Sdk sdk = Sdk.createSdk(Configuration.get());
+             TrustedCertificateListDao certificateDao = sdk.foundation().getTrustedCertificateListDao()) {
+            // Find a production certificate
+            TrustedCertificate certificateOfInterest = certificateDao.list(new TrustedCertificateListOptions().notEqualToDeviceExecutionMode(1))
+                                                                     .first();
+            assertNotNull(certificateOfInterest);
+            String myCertId = certificateOfInterest.getId();
+            // Record the original status to revert to its original state at the end
+            TrustedCertificateStatus originalStatus = certificateDao.getNewModelDao().read(myCertId).getStatus();
+            // an example: certificate black listing
+
+            // Set the certificate to inactive
+            TrustedCertificateDao myCertificateDao = sdk.foundation().getTrustedCertificateDao();
+            myCertificateDao.read(myCertId);
+            myCertificateDao.getModel().setStatus(TrustedCertificateStatus.INACTIVE);
+            myCertificateDao.update();
+
+            // List all devices which have tried to bootstrap
+            sdk.foundation().getDeviceEnrollmentDenialListDao()
+               .list(new DeviceEnrollmentDenialListOptions().equalToTrustedCertificateId(myCertId))
+               .forEach(d -> System.out.println("Device endpoint name: " + d.getEndpointName()));
+
+            // end of example
+            myCertificateDao.read();
+            assertEquals(TrustedCertificateStatus.INACTIVE, myCertificateDao.getModel().getStatus());
+            // Revert the certificate to its original status
+            myCertificateDao.getModel().setStatus(originalStatus);
+            myCertificateDao.update();
+            myCertificateDao.read();
+            assertEquals(originalStatus, myCertificateDao.getModel().getStatus());
+            myCertificateDao.close();
+        } catch (MbedCloudException | IOException exception) {
+            // TODO do something with the exception
+            exception.printStackTrace();
+
+            fail(exception.getMessage());
+
+        }
+    }
 }

@@ -916,7 +916,7 @@ public class Accounts extends AbstractModule {
                                          @NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
         checkNotNull(accountId, TAG_ACCOUNT_ID);
         checkNotNull(subtenantUserInvitation, TAG_SUBTENANT_USER_INVITATION);
-        return createSubtenantUserInvitation(0, accountId, subtenantUserInvitation);
+        return createSubtenantUserInvitation(30, accountId, subtenantUserInvitation);
     }
 
     /**
@@ -937,7 +937,7 @@ public class Accounts extends AbstractModule {
     public SubtenantUserInvitation
            createSubtenantUserInvitation(@NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
         checkNotNull(subtenantUserInvitation, TAG_SUBTENANT_USER_INVITATION);
-        return createSubtenantUserInvitation(0, subtenantUserInvitation);
+        return createSubtenantUserInvitation(30, subtenantUserInvitation);
     }
 
     /**
@@ -950,8 +950,7 @@ public class Accounts extends AbstractModule {
      * {"email": "myemail@company.com"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
      *
      * @param validForDays
-     *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
-     *            between 1 and 100 days.
+     *            Specifies how many days the invitation will be valid for.
      * @param accountId
      *            The ID of the account the user is invited to.
      * @param subtenantUserInvitation
@@ -963,7 +962,7 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public SubtenantUserInvitation
-           createSubtenantUserInvitation(@Nullable int validForDays, @NonNull String accountId,
+           createSubtenantUserInvitation(@Nullable @DefaultValue("30") int validForDays, @NonNull String accountId,
                                          @NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
         checkNotNull(accountId, TAG_ACCOUNT_ID);
         checkNotNull(subtenantUserInvitation, TAG_SUBTENANT_USER_INVITATION);
@@ -996,8 +995,7 @@ public class Accounts extends AbstractModule {
      * {@link #createSubtenantUserInvitation(int, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
      * 
      * @param validForDays
-     *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
-     *            between 1 and 100 days.
+     *            Specifies how many days the invitation will be valid for.
      * @param subtenantUserInvitation
      *            a subtenant user invitation.
      * @return something
@@ -1007,7 +1005,7 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public SubtenantUserInvitation
-           createSubtenantUserInvitation(@Nullable int validForDays,
+           createSubtenantUserInvitation(@Nullable @DefaultValue("30") int validForDays,
                                          @NonNull SubtenantUserInvitation subtenantUserInvitation) throws MbedCloudException {
         checkNotNull(subtenantUserInvitation, TAG_SUBTENANT_USER_INVITATION);
         checkModelValidity(subtenantUserInvitation, TAG_SUBTENANT_USER_INVITATION);
@@ -1092,7 +1090,7 @@ public class Accounts extends AbstractModule {
     @Nullable
     public UserInvitation createUserInvitation(@NonNull UserInvitation userInvitation) throws MbedCloudException {
         checkNotNull(userInvitation, TAG_USER_INVITATION);
-        return createUserInvitation(0, userInvitation);
+        return createUserInvitation(30, userInvitation);
     }
 
     /**
@@ -1105,8 +1103,7 @@ public class Accounts extends AbstractModule {
      * "myemail@company.com"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
      *
      * @param validForDays
-     *            Specifies how many days the invitation will be valid for. The default is 30 days. Value should be
-     *            between 1 and 100 days.
+     *            Specifies how many days the invitation will be valid for.
      * @param userInvitation
      *            a user invitation.
      * @return an added user invitation
@@ -1115,7 +1112,7 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public UserInvitation createUserInvitation(@Nullable int validForDays,
+    public UserInvitation createUserInvitation(@Nullable @DefaultValue("30") int validForDays,
                                                @NonNull UserInvitation userInvitation) throws MbedCloudException {
         checkNotNull(userInvitation, TAG_USER_INVITATION);
         checkModelValidity(userInvitation, TAG_USER_INVITATION);

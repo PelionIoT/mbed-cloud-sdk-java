@@ -1,7 +1,8 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import com.arm.pelion.sdk.foundation.generator.model.ValueGenerator.Values;
 
 public class MethodConstructorReadOnly extends AbstractMethodConstructorWithFieldParameters {
 
@@ -14,12 +15,20 @@ public class MethodConstructorReadOnly extends AbstractMethodConstructorWithFiel
     @Override
     protected void translateCode() {
         final List<Field> allFields = getAllFields();
-        code.addStatement("this(" + String.join("," + System.lineSeparator(),
-                                                allFields.stream()
-                                                         .map(f -> f.isReadOnly() ? f.toParameter().getName()
-                                                                                  : f.getJavaDefaultValue())
-                                                         .collect(Collectors.toList()))
-                          + ")");
+        final Values values = new Values();
+        allFields.forEach(f -> {
+            if (f.isReadOnly()) {
+                values.addToFormat("$L");
+                values.addValue(f.toParameter().getName());
+
+            } else {
+                values.add(f.getJavaDefaultValue());
+            }
+        });
+
+        code.addStatement("this(" + String.join("," + System.lineSeparator(), values.getFormats())
+
+                          + ")", values.getValuesArray());
     }
 
     @Override

@@ -83,7 +83,7 @@ public class ActiveSession implements SdkModel {
     public ActiveSession(ActiveSession activeSession) {
         this(activeSession == null ? (String) null : activeSession.accountId,
              activeSession == null ? (String) null : activeSession.ipAddress,
-             activeSession == null ? new java.util.Date() : activeSession.loginTime,
+             activeSession == null ? new Date() : activeSession.loginTime,
              activeSession == null ? (String) null : activeSession.referenceToken,
              activeSession == null ? (String) null : activeSession.userAgent);
     }
@@ -92,7 +92,7 @@ public class ActiveSession implements SdkModel {
      * Constructor.
      */
     public ActiveSession() {
-        this((String) null, (String) null, new java.util.Date(), (String) null, (String) null);
+        this((String) null, (String) null, new Date(), (String) null, (String) null);
     }
 
     /**

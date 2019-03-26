@@ -38,7 +38,7 @@ public class UserInvitationReq implements Serializable {
     private List<LoginProfile> loginProfiles = null;
 
     @SerializedName("valid_for_days")
-    private Integer validForDays = null;
+    private Integer validForDays = 30;
 
     public UserInvitationReq email(String email) {
         this.email = email;
@@ -121,12 +121,11 @@ public class UserInvitationReq implements Serializable {
     }
 
     /**
-     * Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and
-     * 100 days.
+     * Specifies how many days the invitation will be valid for. minimum: 1 maximum: 100
      * 
      * @return validForDays
      **/
-    @ApiModelProperty(value = "Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.")
+    @ApiModelProperty(value = "Specifies how many days the invitation will be valid for.")
     public Integer getValidForDays() {
         return validForDays;
     }

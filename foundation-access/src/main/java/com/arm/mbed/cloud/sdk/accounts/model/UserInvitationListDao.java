@@ -109,7 +109,7 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
      */
     @Override
     @Internal
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "resource" })
     public UserInvitationDao getNewModelDao() throws MbedCloudException {
         return new UserInvitationDao().configureAndGet(getModuleOrThrow());
     }

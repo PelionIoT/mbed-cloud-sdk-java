@@ -115,7 +115,8 @@ public class Filter {
 
     @Override
     public String toString() {
-        return "Filter [fieldName=" + fieldName + ", fieldType=" + fieldType + ", operator=" + operator + "]";
+        return "Filter [field=" + fieldName + ", tag=" + getTag().getName() + ", operator=" + operator + ", type="
+               + fieldType.getShortName() + "]";
     }
 
 }

@@ -57,11 +57,10 @@ public interface PublicApiApi {
     Call<BulkResponse> createBulkDeviceEnrollment(@retrofit2.http.Part() MultipartBody.Part enrollmentIdentities);
 
     /**
-     * Place an enrollment claim for one or several devices. When the device connects to the bootstrap server and
-     * provides the enrollment ID, it will be assigned to your account. &lt;br&gt; **Example usage:** &#x60;&#x60;&#x60;
-     * curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -H &#39;content-type:
-     * application/json&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments \\ -d
-     * &#39;{\&quot;enrollment_identity\&quot;:
+     * Create a single enrollment. When the device connects to the bootstrap server and provides the enrollment ID, it
+     * will be assigned to your account. &lt;br&gt; **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H
+     * &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\
+     * https://api.us-east-1.mbedcloud.com/v3/device-enrollments \\ -d &#39;{\&quot;enrollment_identity\&quot;:
      * \&quot;A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5\&quot;}&#39;
      * &#x60;&#x60;&#x60;
      * 
@@ -181,7 +180,7 @@ public interface PublicApiApi {
     Call<BulkResponse> getBulkDeviceEnrollmentDelete(@retrofit2.http.Path(value = "id", encoded = true) String id);
 
     /**
-     * Get details of an enrollment by ID. To check the enrollment info in detail, for example date of claim and
+     * Get details of an single enrollment by ID. To check the enrollment info in detail, for example date of claim and
      * expiration date. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid
      * access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} &#x60;&#x60;&#x60;
      * 
@@ -193,8 +192,8 @@ public interface PublicApiApi {
     Call<EnrollmentIdentity> getDeviceEnrollment(@retrofit2.http.Path(value = "id", encoded = true) String id);
 
     /**
-     * Get enrollment list. Provides a list of pending and claimed enrollments. **Example usage:** &#x60;&#x60;&#x60;
-     * curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\
+     * Get a list of enrollments per account. Provides a list of pending and claimed enrollments. **Example usage:**
+     * &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments &#x60;&#x60;&#x60; With query parameters:
      * &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\
      * &#39;https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit&#x3D;10&#39; &#x60;&#x60;&#x60;

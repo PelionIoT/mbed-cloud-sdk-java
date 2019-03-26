@@ -36,6 +36,7 @@ public class Method extends AbstractSdkArtifact {
     protected boolean doesNotPerformAnything;
     protected boolean isUnchecked;
     protected boolean needsToBeAtBottomLevel;
+    protected boolean shouldUseVarargs;
     protected final List<Class<?>> exceptions;
     private boolean ignoreShortName;
     private boolean forcePrivate;
@@ -61,6 +62,7 @@ public class Method extends AbstractSdkArtifact {
         setIgnoreShortName(false);
         setForcePrivate(false);
         setIgnoreResourceClosure(false);
+        shouldUseVarargs(false);
     }
 
     public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride,
@@ -130,6 +132,14 @@ public class Method extends AbstractSdkArtifact {
 
     public void setForcePrivate(boolean forcePrivate) {
         this.forcePrivate = forcePrivate;
+    }
+
+    public boolean isShouldUseVarargs() {
+        return shouldUseVarargs;
+    }
+
+    public void shouldUseVarargs(boolean shouldUseVarargs) {
+        this.shouldUseVarargs = shouldUseVarargs;
     }
 
     @SuppressWarnings("unchecked")
@@ -414,6 +424,9 @@ public class Method extends AbstractSdkArtifact {
                 }
                 specificationBuilder.addParameter(parameter.getSpecification().build());
                 specificationBuilder.addJavadoc(parameter.getJavadocDescription() + System.lineSeparator());
+            }
+            if (shouldUseVarargs) {
+                specificationBuilder.varargs();
             }
         }
 

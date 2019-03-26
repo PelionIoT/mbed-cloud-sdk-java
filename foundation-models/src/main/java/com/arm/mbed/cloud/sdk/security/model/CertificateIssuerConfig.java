@@ -90,16 +90,16 @@ public class CertificateIssuerConfig implements SdkModel {
     public CertificateIssuerConfig(CertificateIssuerConfig certificateIssuerConfig) {
         this(certificateIssuerConfig == null ? (String) null : certificateIssuerConfig.certificateIssuerId,
              certificateIssuerConfig == null ? (String) null : certificateIssuerConfig.certificateReference,
-             certificateIssuerConfig == null ? new java.util.Date() : certificateIssuerConfig.createdAt,
+             certificateIssuerConfig == null ? new Date() : certificateIssuerConfig.createdAt,
              certificateIssuerConfig == null ? (String) null : certificateIssuerConfig.id,
-             certificateIssuerConfig == null ? new java.util.Date() : certificateIssuerConfig.updatedAt);
+             certificateIssuerConfig == null ? new Date() : certificateIssuerConfig.updatedAt);
     }
 
     /**
      * Constructor.
      */
     public CertificateIssuerConfig() {
-        this((String) null, (String) null, new java.util.Date(), (String) null, new java.util.Date());
+        this((String) null, (String) null, new Date(), (String) null, new Date());
     }
 
     /**
@@ -140,7 +140,7 @@ public class CertificateIssuerConfig implements SdkModel {
      *            The certificate name to which the certificate issuer configuration applies.
      */
     public CertificateIssuerConfig(String certificateIssuerId, String certificateReference) {
-        this(certificateIssuerId, certificateReference, new java.util.Date(), (String) null, new java.util.Date());
+        this(certificateIssuerId, certificateReference, new Date(), (String) null, new Date());
     }
 
     /**

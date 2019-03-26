@@ -108,7 +108,7 @@ public class ApiKeyListDao extends AbstractModelListDao<ApiKey, ApiKeyListOption
      */
     @Override
     @Internal
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "resource" })
     public ApiKeyDao getNewModelDao() throws MbedCloudException {
         return new ApiKeyDao().configureAndGet(getModuleOrThrow());
     }

@@ -102,11 +102,11 @@ public class DeviceEnrollment implements SdkModel {
     @Internal
     public DeviceEnrollment(DeviceEnrollment deviceEnrollment) {
         this(deviceEnrollment == null ? (String) null : deviceEnrollment.accountId,
-             deviceEnrollment == null ? new java.util.Date() : deviceEnrollment.claimedAt,
-             deviceEnrollment == null ? new java.util.Date() : deviceEnrollment.createdAt,
+             deviceEnrollment == null ? new Date() : deviceEnrollment.claimedAt,
+             deviceEnrollment == null ? new Date() : deviceEnrollment.createdAt,
              deviceEnrollment == null ? (String) null : deviceEnrollment.enrolledDeviceId,
              deviceEnrollment == null ? (String) null : deviceEnrollment.enrollmentIdentity,
-             deviceEnrollment == null ? new java.util.Date() : deviceEnrollment.expiresAt,
+             deviceEnrollment == null ? new Date() : deviceEnrollment.expiresAt,
              deviceEnrollment == null ? (String) null : deviceEnrollment.id);
     }
 
@@ -114,8 +114,7 @@ public class DeviceEnrollment implements SdkModel {
      * Constructor.
      */
     public DeviceEnrollment() {
-        this((String) null, new java.util.Date(), new java.util.Date(), (String) null, (String) null,
-             new java.util.Date(), (String) null);
+        this((String) null, new Date(), new Date(), (String) null, (String) null, new Date(), (String) null);
     }
 
     /**

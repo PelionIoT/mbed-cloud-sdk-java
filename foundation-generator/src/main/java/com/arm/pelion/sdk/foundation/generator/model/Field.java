@@ -8,6 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.pelion.sdk.foundation.generator.model.ValueGenerator.Values;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.AnnotationSpec;
@@ -162,8 +163,10 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         return has(defaultValue);
     }
 
-    public String getJavaDefaultValue() {
-        return ValueGenerator.getJavaDefaultValue(type, defaultValue);
+    public Values getJavaDefaultValue() {
+        Values defaultValues = new Values();
+        ValueGenerator.getJavaDefaultValue(type, defaultValue, defaultValues);
+        return defaultValues;
     }
 
     public boolean getJavaDefaultBooleanValue() {

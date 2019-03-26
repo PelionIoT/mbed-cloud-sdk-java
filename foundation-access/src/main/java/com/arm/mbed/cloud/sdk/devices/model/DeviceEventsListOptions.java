@@ -314,7 +314,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByDeviceId
      *            filter value.
      */
-    public void addInDeviceIdsFilter(String[] filterByDeviceId) {
+    public void addInDeviceIdsFilter(String... filterByDeviceId) {
         addInFilter(TAG_FILTER_BY_DEVICE_ID, filterByDeviceId);
     }
 
@@ -362,7 +362,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inDeviceIds(String[] filterByDeviceId) {
+    public <T extends DeviceEventsListOptions> T inDeviceIds(String... filterByDeviceId) {
         addInDeviceIdsFilter(filterByDeviceId);
         return (T) this;
     }
@@ -396,7 +396,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByDeviceId
      *            filter value.
      */
-    public void addNotInDeviceIdsFilter(String[] filterByDeviceId) {
+    public void addNotInDeviceIdsFilter(String... filterByDeviceId) {
         addNotInFilter(TAG_FILTER_BY_DEVICE_ID, filterByDeviceId);
     }
 
@@ -444,7 +444,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInDeviceIds(String[] filterByDeviceId) {
+    public <T extends DeviceEventsListOptions> T notInDeviceIds(String... filterByDeviceId) {
         addNotInDeviceIdsFilter(filterByDeviceId);
         return (T) this;
     }
@@ -541,7 +541,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByDescription
      *            filter value.
      */
-    public void addInDescriptionsFilter(String[] filterByDescription) {
+    public void addInDescriptionsFilter(String... filterByDescription) {
         addInFilter(TAG_FILTER_BY_DESCRIPTION, filterByDescription);
     }
 
@@ -589,7 +589,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inDescriptions(String[] filterByDescription) {
+    public <T extends DeviceEventsListOptions> T inDescriptions(String... filterByDescription) {
         addInDescriptionsFilter(filterByDescription);
         return (T) this;
     }
@@ -623,7 +623,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByDescription
      *            filter value.
      */
-    public void addNotInDescriptionsFilter(String[] filterByDescription) {
+    public void addNotInDescriptionsFilter(String... filterByDescription) {
         addNotInFilter(TAG_FILTER_BY_DESCRIPTION, filterByDescription);
     }
 
@@ -673,7 +673,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInDescriptions(String[] filterByDescription) {
+    public <T extends DeviceEventsListOptions> T notInDescriptions(String... filterByDescription) {
         addNotInDescriptionsFilter(filterByDescription);
         return (T) this;
     }
@@ -716,7 +716,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByDateTime
      *            filter value.
      */
-    public void addInDateTimesFilter(Date[] filterByDateTime) {
+    public void addInDateTimesFilter(Date... filterByDateTime) {
         addInFilter(TAG_FILTER_BY_DATE_TIME, filterByDateTime);
     }
 
@@ -765,7 +765,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inDateTimes(Date[] filterByDateTime) {
+    public <T extends DeviceEventsListOptions> T inDateTimes(Date... filterByDateTime) {
         addInDateTimesFilter(filterByDateTime);
         return (T) this;
     }
@@ -799,7 +799,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByDateTime
      *            filter value.
      */
-    public void addNotInDateTimesFilter(Date[] filterByDateTime) {
+    public void addNotInDateTimesFilter(Date... filterByDateTime) {
         addNotInFilter(TAG_FILTER_BY_DATE_TIME, filterByDateTime);
     }
 
@@ -848,7 +848,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInDateTimes(Date[] filterByDateTime) {
+    public <T extends DeviceEventsListOptions> T notInDateTimes(Date... filterByDateTime) {
         addNotInDateTimesFilter(filterByDateTime);
         return (T) this;
     }
@@ -999,7 +999,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByStateChange
      *            filter value.
      */
-    public void addInStateChangesFilter(Boolean[] filterByStateChange) {
+    public void addInStateChangesFilter(Boolean... filterByStateChange) {
         addInFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
     }
 
@@ -1048,7 +1048,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inStateChanges(Boolean[] filterByStateChange) {
+    public <T extends DeviceEventsListOptions> T inStateChanges(Boolean... filterByStateChange) {
         addInStateChangesFilter(filterByStateChange);
         return (T) this;
     }
@@ -1082,7 +1082,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByStateChange
      *            filter value.
      */
-    public void addNotInStateChangesFilter(Boolean[] filterByStateChange) {
+    public void addNotInStateChangesFilter(Boolean... filterByStateChange) {
         addNotInFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
     }
 
@@ -1132,7 +1132,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInStateChanges(Boolean[] filterByStateChange) {
+    public <T extends DeviceEventsListOptions> T notInStateChanges(Boolean... filterByStateChange) {
         addNotInStateChangesFilter(filterByStateChange);
         return (T) this;
     }
@@ -1227,7 +1227,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterById
      *            filter value.
      */
-    public void addInIdsFilter(String[] filterById) {
+    public void addInIdsFilter(String... filterById) {
         addInFilter(TAG_FILTER_BY_ID, filterById);
     }
 
@@ -1274,7 +1274,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inIds(String[] filterById) {
+    public <T extends DeviceEventsListOptions> T inIds(String... filterById) {
         addInIdsFilter(filterById);
         return (T) this;
     }
@@ -1308,7 +1308,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterById
      *            filter value.
      */
-    public void addNotInIdsFilter(String[] filterById) {
+    public void addNotInIdsFilter(String... filterById) {
         addNotInFilter(TAG_FILTER_BY_ID, filterById);
     }
 
@@ -1355,7 +1355,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInIds(String[] filterById) {
+    public <T extends DeviceEventsListOptions> T notInIds(String... filterById) {
         addNotInIdsFilter(filterById);
         return (T) this;
     }
@@ -1451,7 +1451,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByEventType
      *            filter value.
      */
-    public void addInEventTypesFilter(String[] filterByEventType) {
+    public void addInEventTypesFilter(String... filterByEventType) {
         addInFilter(TAG_FILTER_BY_EVENT_TYPE, filterByEventType);
     }
 
@@ -1499,7 +1499,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inEventTypes(String[] filterByEventType) {
+    public <T extends DeviceEventsListOptions> T inEventTypes(String... filterByEventType) {
         addInEventTypesFilter(filterByEventType);
         return (T) this;
     }
@@ -1533,7 +1533,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByEventType
      *            filter value.
      */
-    public void addNotInEventTypesFilter(String[] filterByEventType) {
+    public void addNotInEventTypesFilter(String... filterByEventType) {
         addNotInFilter(TAG_FILTER_BY_EVENT_TYPE, filterByEventType);
     }
 
@@ -1582,7 +1582,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInEventTypes(String[] filterByEventType) {
+    public <T extends DeviceEventsListOptions> T notInEventTypes(String... filterByEventType) {
         addNotInEventTypesFilter(filterByEventType);
         return (T) this;
     }

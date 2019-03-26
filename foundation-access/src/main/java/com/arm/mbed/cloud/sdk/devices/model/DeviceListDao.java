@@ -108,7 +108,7 @@ public class DeviceListDao extends AbstractModelListDao<Device, DeviceListOption
      */
     @Override
     @Internal
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "resource" })
     public DeviceDao getNewModelDao() throws MbedCloudException {
         return new DeviceDao().configureAndGet(getModuleOrThrow());
     }

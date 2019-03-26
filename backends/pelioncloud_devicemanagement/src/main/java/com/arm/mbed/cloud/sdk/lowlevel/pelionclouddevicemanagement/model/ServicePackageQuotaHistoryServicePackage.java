@@ -106,11 +106,11 @@ public class ServicePackageQuotaHistoryServicePackage implements Serializable {
     }
 
     /**
-     * Previous service package ID or null.
+     * Previous service package ID, or null.
      * 
      * @return previousId
      **/
-    @ApiModelProperty(value = "Previous service package ID or null.")
+    @ApiModelProperty(value = "Previous service package ID, or null.")
     public String getPreviousId() {
         return previousId;
     }

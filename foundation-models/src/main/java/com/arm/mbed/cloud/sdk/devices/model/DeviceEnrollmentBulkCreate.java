@@ -146,8 +146,8 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     @Internal
     public DeviceEnrollmentBulkCreate(DeviceEnrollmentBulkCreate deviceEnrollmentBulkCreate) {
         this(deviceEnrollmentBulkCreate == null ? (String) null : deviceEnrollmentBulkCreate.accountId,
-             deviceEnrollmentBulkCreate == null ? new java.util.Date() : deviceEnrollmentBulkCreate.completedAt,
-             deviceEnrollmentBulkCreate == null ? new java.util.Date() : deviceEnrollmentBulkCreate.createdAt,
+             deviceEnrollmentBulkCreate == null ? new Date() : deviceEnrollmentBulkCreate.completedAt,
+             deviceEnrollmentBulkCreate == null ? new Date() : deviceEnrollmentBulkCreate.createdAt,
              deviceEnrollmentBulkCreate == null ? 0 : deviceEnrollmentBulkCreate.errorsCount,
              deviceEnrollmentBulkCreate == null ? (String) null : deviceEnrollmentBulkCreate.errorsReportFile,
              deviceEnrollmentBulkCreate == null ? (String) null : deviceEnrollmentBulkCreate.fullReportFile,
@@ -162,8 +162,8 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      * Constructor.
      */
     public DeviceEnrollmentBulkCreate() {
-        this((String) null, new java.util.Date(), new java.util.Date(), 0, (String) null, (String) null, (String) null,
-             0, DeviceEnrollmentBulkCreateStatus.getValue("new"), 0);
+        this((String) null, new Date(), new Date(), 0, (String) null, (String) null, (String) null, 0,
+             DeviceEnrollmentBulkCreateStatus.getValue("new"), 0);
     }
 
     /**

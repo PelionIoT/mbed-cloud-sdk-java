@@ -219,7 +219,7 @@ public class UserListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void addInStatusesFilter(UserStatus[] filterByStatus) {
+    public void addInStatusesFilter(UserStatus... filterByStatus) {
         addInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -267,7 +267,7 @@ public class UserListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends UserListOptions> T inStatuses(UserStatus[] filterByStatus) {
+    public <T extends UserListOptions> T inStatuses(UserStatus... filterByStatus) {
         addInStatusesFilter(filterByStatus);
         return (T) this;
     }
@@ -301,7 +301,7 @@ public class UserListOptions extends ListOptions {
      * @param filterByStatus
      *            filter value.
      */
-    public void addNotInStatusesFilter(UserStatus[] filterByStatus) {
+    public void addNotInStatusesFilter(UserStatus... filterByStatus) {
         addNotInFilter(TAG_FILTER_BY_STATUS, filterByStatus);
     }
 
@@ -349,7 +349,7 @@ public class UserListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends UserListOptions> T notInStatuses(UserStatus[] filterByStatus) {
+    public <T extends UserListOptions> T notInStatuses(UserStatus... filterByStatus) {
         addNotInStatusesFilter(filterByStatus);
         return (T) this;
     }

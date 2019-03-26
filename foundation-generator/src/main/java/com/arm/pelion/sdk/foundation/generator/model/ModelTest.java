@@ -145,16 +145,21 @@ public class ModelTest extends AbstractSdkArtifact {
         values.addValue(variable);
         values.addValue(modelUnderTest.getName());
         for (Filter filter : filters) {
-            values.addToFormat(".$L(");
-            values.addValue(MethodFilterSetFluent.generateFluentName(filter, filter.canHaveMultipleInputTypes()));
-            Values filterValues = new Values();
-            TypeParameter type = filter.getFieldType();
+            final TypeParameter type = filter.getFieldType();
             try {
                 type.translate();
             } catch (TranslationException exception) {
                 exception.printStackTrace();
                 continue;
             }
+            if (type.isHashtable()) {
+                test.getCode()
+                    .add("// Cannot test " + filter + " because the field is a hashtable" + System.lineSeparator());
+                continue;
+            }
+            values.addToFormat(".$L(");
+            values.addValue(MethodFilterSetFluent.generateFluentName(filter, filter.canHaveMultipleInputTypes()));
+            Values filterValues = new Values();
             type.transformIntoWrapper();
             int numberOfElements = filter.canHaveMultipleInputTypes() ? 1 + (int) (Math.random() * 9.0) : 1;
             while (numberOfElements > 0) {
@@ -178,6 +183,17 @@ public class ModelTest extends AbstractSdkArtifact {
         test.getCode().addStatement("assertTrue($L.$L())", variable, FilterOptions.METHOD_HAS_FILTERS);
         for (Filter filter : filters) {
             final TypeParameter type = filter.getFieldType();
+            try {
+                type.translate();
+            } catch (TranslationException exception) {
+                exception.printStackTrace();
+                continue;
+            }
+            if (type.isHashtable()) {
+                test.getCode()
+                    .add("// Cannot test " + filter + " because the field is a hashtable" + System.lineSeparator());
+                continue;
+            }
             String encodingMethod = null;
             switch (filter.getOperator()) {
                 case EQUAL:
@@ -201,12 +217,6 @@ public class ModelTest extends AbstractSdkArtifact {
                 case NOT_IN:
                     encodingMethod = ListOptionsEncoder.METHOD_FILTER_ENCODE_NOT_IN;
                     break;
-            }
-            try {
-                type.translate();
-            } catch (TranslationException exception) {
-                exception.printStackTrace();
-                continue;
             }
             final String tagName = filter.getTag().getName();
             test.getCode().addStatement("assertTrue($L.$L($L.$L))", variable, FilterOptions.METHOD_HAS_FILTERS,

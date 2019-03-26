@@ -146,8 +146,8 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
     @Internal
     public DeviceEnrollmentBulkDelete(DeviceEnrollmentBulkDelete deviceEnrollmentBulkDelete) {
         this(deviceEnrollmentBulkDelete == null ? (String) null : deviceEnrollmentBulkDelete.accountId,
-             deviceEnrollmentBulkDelete == null ? new java.util.Date() : deviceEnrollmentBulkDelete.completedAt,
-             deviceEnrollmentBulkDelete == null ? new java.util.Date() : deviceEnrollmentBulkDelete.createdAt,
+             deviceEnrollmentBulkDelete == null ? new Date() : deviceEnrollmentBulkDelete.completedAt,
+             deviceEnrollmentBulkDelete == null ? new Date() : deviceEnrollmentBulkDelete.createdAt,
              deviceEnrollmentBulkDelete == null ? 0 : deviceEnrollmentBulkDelete.errorsCount,
              deviceEnrollmentBulkDelete == null ? (String) null : deviceEnrollmentBulkDelete.errorsReportFile,
              deviceEnrollmentBulkDelete == null ? (String) null : deviceEnrollmentBulkDelete.fullReportFile,
@@ -162,8 +162,8 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
      * Constructor.
      */
     public DeviceEnrollmentBulkDelete() {
-        this((String) null, new java.util.Date(), new java.util.Date(), 0, (String) null, (String) null, (String) null,
-             0, DeviceEnrollmentBulkDeleteStatus.getValue("new"), 0);
+        this((String) null, new Date(), new Date(), 0, (String) null, (String) null, (String) null, 0,
+             DeviceEnrollmentBulkDeleteStatus.getValue("new"), 0);
     }
 
     /**

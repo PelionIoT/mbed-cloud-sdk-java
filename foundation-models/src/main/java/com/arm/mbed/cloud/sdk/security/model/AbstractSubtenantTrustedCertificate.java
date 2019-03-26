@@ -197,8 +197,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
                                                          : abstractSubtenantTrustedCertificate.certificate,
              abstractSubtenantTrustedCertificate == null ? (String) null
                                                          : abstractSubtenantTrustedCertificate.certificateFingerprint,
-             abstractSubtenantTrustedCertificate == null ? new java.util.Date()
-                                                         : abstractSubtenantTrustedCertificate.createdAt,
+             abstractSubtenantTrustedCertificate == null ? new Date() : abstractSubtenantTrustedCertificate.createdAt,
              abstractSubtenantTrustedCertificate == null ? (String) null
                                                          : abstractSubtenantTrustedCertificate.description,
              abstractSubtenantTrustedCertificate == null ? 0 : abstractSubtenantTrustedCertificate.deviceExecutionMode,
@@ -212,21 +211,18 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
              abstractSubtenantTrustedCertificate == null ? SubtenantTrustedCertificateStatus.getDefault()
                                                          : abstractSubtenantTrustedCertificate.status,
              abstractSubtenantTrustedCertificate == null ? (String) null : abstractSubtenantTrustedCertificate.subject,
-             abstractSubtenantTrustedCertificate == null ? new java.util.Date()
-                                                         : abstractSubtenantTrustedCertificate.updatedAt,
+             abstractSubtenantTrustedCertificate == null ? new Date() : abstractSubtenantTrustedCertificate.updatedAt,
              abstractSubtenantTrustedCertificate != null && abstractSubtenantTrustedCertificate.valid,
-             abstractSubtenantTrustedCertificate == null ? new java.util.Date()
-                                                         : abstractSubtenantTrustedCertificate.validity);
+             abstractSubtenantTrustedCertificate == null ? new Date() : abstractSubtenantTrustedCertificate.validity);
     }
 
     /**
      * Constructor.
      */
     public AbstractSubtenantTrustedCertificate() {
-        this((String) null, (String) null, (String) null, new java.util.Date(), (String) null, 0, false, (String) null,
+        this((String) null, (String) null, (String) null, new Date(), (String) null, 0, false, (String) null,
              (String) null, (String) null, (String) null, SubtenantTrustedCertificateService.getDefault(),
-             SubtenantTrustedCertificateStatus.getDefault(), (String) null, new java.util.Date(), false,
-             new java.util.Date());
+             SubtenantTrustedCertificateStatus.getDefault(), (String) null, new Date(), false, new Date());
     }
 
     /**
@@ -286,9 +282,9 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      */
     public AbstractSubtenantTrustedCertificate(String accountId, String certificate, String name,
                                                SubtenantTrustedCertificateService service) {
-        this(accountId, certificate, (String) null, new java.util.Date(), (String) null, 0, false, (String) null,
-             (String) null, name, (String) null, service, SubtenantTrustedCertificateStatus.getDefault(), (String) null,
-             new java.util.Date(), false, new java.util.Date());
+        this(accountId, certificate, (String) null, new Date(), (String) null, 0, false, (String) null, (String) null,
+             name, (String) null, service, SubtenantTrustedCertificateStatus.getDefault(), (String) null, new Date(),
+             false, new Date());
     }
 
     /**

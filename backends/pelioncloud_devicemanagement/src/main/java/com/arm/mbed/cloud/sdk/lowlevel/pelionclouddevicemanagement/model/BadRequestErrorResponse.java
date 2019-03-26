@@ -26,9 +26,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * 400 Bad Request response.
+ * 400 Bad request response.
  */
-@ApiModel(description = "400 Bad Request response.")
+@ApiModel(description = "400 Bad request response.")
 
 public class BadRequestErrorResponse implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -43,7 +43,7 @@ public class BadRequestErrorResponse implements Serializable {
     private String message = null;
 
     /**
-     * Always set to &#39;error&#39;.
+     * Always set to &#x60;error&#x60;.
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
@@ -94,7 +94,7 @@ public class BadRequestErrorResponse implements Serializable {
     private String requestId = null;
 
     /**
-     * Error type. Always set to &#39;validation_error&#39;.
+     * Error type. Always set to &#x60;validation_error&#x60;.
      */
     @JsonAdapter(TypeEnum.Adapter.class)
     public enum TypeEnum {
@@ -190,11 +190,11 @@ public class BadRequestErrorResponse implements Serializable {
     }
 
     /**
-     * A human readable message with detailed info.
+     * A human-readable message with detailed info.
      * 
      * @return message
      **/
-    @ApiModelProperty(required = true, value = "A human readable message with detailed info.")
+    @ApiModelProperty(required = true, value = "A human-readable message with detailed info.")
     public String getMessage() {
         return message;
     }
@@ -209,11 +209,11 @@ public class BadRequestErrorResponse implements Serializable {
     }
 
     /**
-     * Always set to &#39;error&#39;.
+     * Always set to &#x60;error&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Always set to 'error'.")
+    @ApiModelProperty(required = true, value = "Always set to `error`.")
     public ObjectEnum getObject() {
         return object;
     }
@@ -228,11 +228,11 @@ public class BadRequestErrorResponse implements Serializable {
     }
 
     /**
-     * Request ID
+     * Request ID.
      * 
      * @return requestId
      **/
-    @ApiModelProperty(required = true, value = "Request ID")
+    @ApiModelProperty(required = true, value = "Request ID.")
     public String getRequestId() {
         return requestId;
     }
@@ -247,11 +247,11 @@ public class BadRequestErrorResponse implements Serializable {
     }
 
     /**
-     * Error type. Always set to &#39;validation_error&#39;.
+     * Error type. Always set to &#x60;validation_error&#x60;.
      * 
      * @return type
      **/
-    @ApiModelProperty(required = true, value = "Error type. Always set to 'validation_error'.")
+    @ApiModelProperty(required = true, value = "Error type. Always set to `validation_error`.")
     public TypeEnum getType() {
         return type;
     }

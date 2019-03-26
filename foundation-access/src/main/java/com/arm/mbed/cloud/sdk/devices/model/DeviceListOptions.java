@@ -671,7 +671,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByAutoUpdate
      *            filter value.
      */
-    public void addInAutoUpdatesFilter(Boolean[] filterByAutoUpdate) {
+    public void addInAutoUpdatesFilter(Boolean... filterByAutoUpdate) {
         addInFilter(TAG_FILTER_BY_AUTO_UPDATE, filterByAutoUpdate);
     }
 
@@ -718,7 +718,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inAutoUpdates(Boolean[] filterByAutoUpdate) {
+    public <T extends DeviceListOptions> T inAutoUpdates(Boolean... filterByAutoUpdate) {
         addInAutoUpdatesFilter(filterByAutoUpdate);
         return (T) this;
     }
@@ -752,7 +752,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByAutoUpdate
      *            filter value.
      */
-    public void addNotInAutoUpdatesFilter(Boolean[] filterByAutoUpdate) {
+    public void addNotInAutoUpdatesFilter(Boolean... filterByAutoUpdate) {
         addNotInFilter(TAG_FILTER_BY_AUTO_UPDATE, filterByAutoUpdate);
     }
 
@@ -800,7 +800,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInAutoUpdates(Boolean[] filterByAutoUpdate) {
+    public <T extends DeviceListOptions> T notInAutoUpdates(Boolean... filterByAutoUpdate) {
         addNotInAutoUpdatesFilter(filterByAutoUpdate);
         return (T) this;
     }
@@ -843,7 +843,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByCreatedAt
      *            filter value.
      */
-    public void addInCreatedAtsFilter(Date[] filterByCreatedAt) {
+    public void addInCreatedAtsFilter(Date... filterByCreatedAt) {
         addInFilter(TAG_FILTER_BY_CREATED_AT, filterByCreatedAt);
     }
 
@@ -890,7 +890,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inCreatedAts(Date[] filterByCreatedAt) {
+    public <T extends DeviceListOptions> T inCreatedAts(Date... filterByCreatedAt) {
         addInCreatedAtsFilter(filterByCreatedAt);
         return (T) this;
     }
@@ -924,7 +924,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByCreatedAt
      *            filter value.
      */
-    public void addNotInCreatedAtsFilter(Date[] filterByCreatedAt) {
+    public void addNotInCreatedAtsFilter(Date... filterByCreatedAt) {
         addNotInFilter(TAG_FILTER_BY_CREATED_AT, filterByCreatedAt);
     }
 
@@ -973,7 +973,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInCreatedAts(Date[] filterByCreatedAt) {
+    public <T extends DeviceListOptions> T notInCreatedAts(Date... filterByCreatedAt) {
         addNotInCreatedAtsFilter(filterByCreatedAt);
         return (T) this;
     }
@@ -1122,7 +1122,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByManifest
      *            filter value.
      */
-    public void addInManifestsFilter(String[] filterByManifest) {
+    public void addInManifestsFilter(String... filterByManifest) {
         addInFilter(TAG_FILTER_BY_MANIFEST, filterByManifest);
     }
 
@@ -1169,7 +1169,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inManifests(String[] filterByManifest) {
+    public <T extends DeviceListOptions> T inManifests(String... filterByManifest) {
         addInManifestsFilter(filterByManifest);
         return (T) this;
     }
@@ -1203,7 +1203,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByManifest
      *            filter value.
      */
-    public void addNotInManifestsFilter(String[] filterByManifest) {
+    public void addNotInManifestsFilter(String... filterByManifest) {
         addNotInFilter(TAG_FILTER_BY_MANIFEST, filterByManifest);
     }
 
@@ -1250,7 +1250,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInManifests(String[] filterByManifest) {
+    public <T extends DeviceListOptions> T notInManifests(String... filterByManifest) {
         addNotInManifestsFilter(filterByManifest);
         return (T) this;
     }
@@ -1345,7 +1345,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByEndpointType
      *            filter value.
      */
-    public void addInEndpointTypesFilter(String[] filterByEndpointType) {
+    public void addInEndpointTypesFilter(String... filterByEndpointType) {
         addInFilter(TAG_FILTER_BY_ENDPOINT_TYPE, filterByEndpointType);
     }
 
@@ -1393,7 +1393,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inEndpointTypes(String[] filterByEndpointType) {
+    public <T extends DeviceListOptions> T inEndpointTypes(String... filterByEndpointType) {
         addInEndpointTypesFilter(filterByEndpointType);
         return (T) this;
     }
@@ -1427,7 +1427,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByEndpointType
      *            filter value.
      */
-    public void addNotInEndpointTypesFilter(String[] filterByEndpointType) {
+    public void addNotInEndpointTypesFilter(String... filterByEndpointType) {
         addNotInFilter(TAG_FILTER_BY_ENDPOINT_TYPE, filterByEndpointType);
     }
 
@@ -1475,7 +1475,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInEndpointTypes(String[] filterByEndpointType) {
+    public <T extends DeviceListOptions> T notInEndpointTypes(String... filterByEndpointType) {
         addNotInEndpointTypesFilter(filterByEndpointType);
         return (T) this;
     }
@@ -1570,7 +1570,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDeviceKey
      *            filter value.
      */
-    public void addInDeviceKeysFilter(String[] filterByDeviceKey) {
+    public void addInDeviceKeysFilter(String... filterByDeviceKey) {
         addInFilter(TAG_FILTER_BY_DEVICE_KEY, filterByDeviceKey);
     }
 
@@ -1617,7 +1617,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inDeviceKeys(String[] filterByDeviceKey) {
+    public <T extends DeviceListOptions> T inDeviceKeys(String... filterByDeviceKey) {
         addInDeviceKeysFilter(filterByDeviceKey);
         return (T) this;
     }
@@ -1651,7 +1651,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDeviceKey
      *            filter value.
      */
-    public void addNotInDeviceKeysFilter(String[] filterByDeviceKey) {
+    public void addNotInDeviceKeysFilter(String... filterByDeviceKey) {
         addNotInFilter(TAG_FILTER_BY_DEVICE_KEY, filterByDeviceKey);
     }
 
@@ -1699,7 +1699,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInDeviceKeys(String[] filterByDeviceKey) {
+    public <T extends DeviceListOptions> T notInDeviceKeys(String... filterByDeviceKey) {
         addNotInDeviceKeysFilter(filterByDeviceKey);
         return (T) this;
     }
@@ -1796,7 +1796,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByFirmwareChecksum
      *            filter value.
      */
-    public void addInFirmwareChecksumsFilter(String[] filterByFirmwareChecksum) {
+    public void addInFirmwareChecksumsFilter(String... filterByFirmwareChecksum) {
         addInFilter(TAG_FILTER_BY_FIRMWARE_CHECKSUM, filterByFirmwareChecksum);
     }
 
@@ -1844,7 +1844,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inFirmwareChecksums(String[] filterByFirmwareChecksum) {
+    public <T extends DeviceListOptions> T inFirmwareChecksums(String... filterByFirmwareChecksum) {
         addInFirmwareChecksumsFilter(filterByFirmwareChecksum);
         return (T) this;
     }
@@ -1878,7 +1878,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByFirmwareChecksum
      *            filter value.
      */
-    public void addNotInFirmwareChecksumsFilter(String[] filterByFirmwareChecksum) {
+    public void addNotInFirmwareChecksumsFilter(String... filterByFirmwareChecksum) {
         addNotInFilter(TAG_FILTER_BY_FIRMWARE_CHECKSUM, filterByFirmwareChecksum);
     }
 
@@ -1927,7 +1927,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInFirmwareChecksums(String[] filterByFirmwareChecksum) {
+    public <T extends DeviceListOptions> T notInFirmwareChecksums(String... filterByFirmwareChecksum) {
         addNotInFirmwareChecksumsFilter(filterByFirmwareChecksum);
         return (T) this;
     }
@@ -2024,7 +2024,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByState
      *            filter value.
      */
-    public void addInStatesFilter(DeviceState[] filterByState) {
+    public void addInStatesFilter(DeviceState... filterByState) {
         addInFilter(TAG_FILTER_BY_STATE, filterByState);
     }
 
@@ -2072,7 +2072,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inStates(DeviceState[] filterByState) {
+    public <T extends DeviceListOptions> T inStates(DeviceState... filterByState) {
         addInStatesFilter(filterByState);
         return (T) this;
     }
@@ -2106,7 +2106,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByState
      *            filter value.
      */
-    public void addNotInStatesFilter(DeviceState[] filterByState) {
+    public void addNotInStatesFilter(DeviceState... filterByState) {
         addNotInFilter(TAG_FILTER_BY_STATE, filterByState);
     }
 
@@ -2154,7 +2154,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInStates(DeviceState[] filterByState) {
+    public <T extends DeviceListOptions> T notInStates(DeviceState... filterByState) {
         addNotInStatesFilter(filterByState);
         return (T) this;
     }
@@ -2251,7 +2251,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDeviceExecutionMode
      *            filter value.
      */
-    public void addInDeviceExecutionModesFilter(Integer[] filterByDeviceExecutionMode) {
+    public void addInDeviceExecutionModesFilter(Integer... filterByDeviceExecutionMode) {
         addInFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
     }
 
@@ -2300,7 +2300,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inDeviceExecutionModes(Integer[] filterByDeviceExecutionMode) {
+    public <T extends DeviceListOptions> T inDeviceExecutionModes(Integer... filterByDeviceExecutionMode) {
         addInDeviceExecutionModesFilter(filterByDeviceExecutionMode);
         return (T) this;
     }
@@ -2334,7 +2334,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDeviceExecutionMode
      *            filter value.
      */
-    public void addNotInDeviceExecutionModesFilter(Integer[] filterByDeviceExecutionMode) {
+    public void addNotInDeviceExecutionModesFilter(Integer... filterByDeviceExecutionMode) {
         addNotInFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
     }
 
@@ -2384,7 +2384,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInDeviceExecutionModes(Integer[] filterByDeviceExecutionMode) {
+    public <T extends DeviceListOptions> T notInDeviceExecutionModes(Integer... filterByDeviceExecutionMode) {
         addNotInDeviceExecutionModesFilter(filterByDeviceExecutionMode);
         return (T) this;
     }
@@ -2479,7 +2479,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByAccountId
      *            filter value.
      */
-    public void addInAccountIdsFilter(String[] filterByAccountId) {
+    public void addInAccountIdsFilter(String... filterByAccountId) {
         addInFilter(TAG_FILTER_BY_ACCOUNT_ID, filterByAccountId);
     }
 
@@ -2526,7 +2526,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inAccountIds(String[] filterByAccountId) {
+    public <T extends DeviceListOptions> T inAccountIds(String... filterByAccountId) {
         addInAccountIdsFilter(filterByAccountId);
         return (T) this;
     }
@@ -2560,7 +2560,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByAccountId
      *            filter value.
      */
-    public void addNotInAccountIdsFilter(String[] filterByAccountId) {
+    public void addNotInAccountIdsFilter(String... filterByAccountId) {
         addNotInFilter(TAG_FILTER_BY_ACCOUNT_ID, filterByAccountId);
     }
 
@@ -2608,7 +2608,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInAccountIds(String[] filterByAccountId) {
+    public <T extends DeviceListOptions> T notInAccountIds(String... filterByAccountId) {
         addNotInAccountIdsFilter(filterByAccountId);
         return (T) this;
     }
@@ -2703,7 +2703,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByMechanismUrl
      *            filter value.
      */
-    public void addInMechanismUrlsFilter(String[] filterByMechanismUrl) {
+    public void addInMechanismUrlsFilter(String... filterByMechanismUrl) {
         addInFilter(TAG_FILTER_BY_MECHANISM_URL, filterByMechanismUrl);
     }
 
@@ -2751,7 +2751,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inMechanismUrls(String[] filterByMechanismUrl) {
+    public <T extends DeviceListOptions> T inMechanismUrls(String... filterByMechanismUrl) {
         addInMechanismUrlsFilter(filterByMechanismUrl);
         return (T) this;
     }
@@ -2785,7 +2785,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByMechanismUrl
      *            filter value.
      */
-    public void addNotInMechanismUrlsFilter(String[] filterByMechanismUrl) {
+    public void addNotInMechanismUrlsFilter(String... filterByMechanismUrl) {
         addNotInFilter(TAG_FILTER_BY_MECHANISM_URL, filterByMechanismUrl);
     }
 
@@ -2833,7 +2833,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInMechanismUrls(String[] filterByMechanismUrl) {
+    public <T extends DeviceListOptions> T notInMechanismUrls(String... filterByMechanismUrl) {
         addNotInMechanismUrlsFilter(filterByMechanismUrl);
         return (T) this;
     }
@@ -2928,7 +2928,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByVendorId
      *            filter value.
      */
-    public void addInVendorIdsFilter(String[] filterByVendorId) {
+    public void addInVendorIdsFilter(String... filterByVendorId) {
         addInFilter(TAG_FILTER_BY_VENDOR_ID, filterByVendorId);
     }
 
@@ -2975,7 +2975,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inVendorIds(String[] filterByVendorId) {
+    public <T extends DeviceListOptions> T inVendorIds(String... filterByVendorId) {
         addInVendorIdsFilter(filterByVendorId);
         return (T) this;
     }
@@ -3009,7 +3009,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByVendorId
      *            filter value.
      */
-    public void addNotInVendorIdsFilter(String[] filterByVendorId) {
+    public void addNotInVendorIdsFilter(String... filterByVendorId) {
         addNotInFilter(TAG_FILTER_BY_VENDOR_ID, filterByVendorId);
     }
 
@@ -3056,7 +3056,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInVendorIds(String[] filterByVendorId) {
+    public <T extends DeviceListOptions> T notInVendorIds(String... filterByVendorId) {
         addNotInVendorIdsFilter(filterByVendorId);
         return (T) this;
     }
@@ -3151,7 +3151,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDeviceClass
      *            filter value.
      */
-    public void addInDeviceClassFilter(String[] filterByDeviceClass) {
+    public void addInDeviceClassFilter(String... filterByDeviceClass) {
         addInFilter(TAG_FILTER_BY_DEVICE_CLASS, filterByDeviceClass);
     }
 
@@ -3198,7 +3198,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inDeviceClass(String[] filterByDeviceClass) {
+    public <T extends DeviceListOptions> T inDeviceClass(String... filterByDeviceClass) {
         addInDeviceClassFilter(filterByDeviceClass);
         return (T) this;
     }
@@ -3232,7 +3232,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDeviceClass
      *            filter value.
      */
-    public void addNotInDeviceClassFilter(String[] filterByDeviceClass) {
+    public void addNotInDeviceClassFilter(String... filterByDeviceClass) {
         addNotInFilter(TAG_FILTER_BY_DEVICE_CLASS, filterByDeviceClass);
     }
 
@@ -3280,7 +3280,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInDeviceClass(String[] filterByDeviceClass) {
+    public <T extends DeviceListOptions> T notInDeviceClass(String... filterByDeviceClass) {
         addNotInDeviceClassFilter(filterByDeviceClass);
         return (T) this;
     }
@@ -3375,7 +3375,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByHostGateway
      *            filter value.
      */
-    public void addInHostGatewaysFilter(String[] filterByHostGateway) {
+    public void addInHostGatewaysFilter(String... filterByHostGateway) {
         addInFilter(TAG_FILTER_BY_HOST_GATEWAY, filterByHostGateway);
     }
 
@@ -3422,7 +3422,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inHostGateways(String[] filterByHostGateway) {
+    public <T extends DeviceListOptions> T inHostGateways(String... filterByHostGateway) {
         addInHostGatewaysFilter(filterByHostGateway);
         return (T) this;
     }
@@ -3456,7 +3456,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByHostGateway
      *            filter value.
      */
-    public void addNotInHostGatewaysFilter(String[] filterByHostGateway) {
+    public void addNotInHostGatewaysFilter(String... filterByHostGateway) {
         addNotInFilter(TAG_FILTER_BY_HOST_GATEWAY, filterByHostGateway);
     }
 
@@ -3504,7 +3504,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInHostGateways(String[] filterByHostGateway) {
+    public <T extends DeviceListOptions> T notInHostGateways(String... filterByHostGateway) {
         addNotInHostGatewaysFilter(filterByHostGateway);
         return (T) this;
     }
@@ -3547,7 +3547,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByBootstrappedTimestamp
      *            filter value.
      */
-    public void addInBootstrappedTimestampsFilter(Date[] filterByBootstrappedTimestamp) {
+    public void addInBootstrappedTimestampsFilter(Date... filterByBootstrappedTimestamp) {
         addInFilter(TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP, filterByBootstrappedTimestamp);
     }
 
@@ -3597,7 +3597,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inBootstrappedTimestamps(Date[] filterByBootstrappedTimestamp) {
+    public <T extends DeviceListOptions> T inBootstrappedTimestamps(Date... filterByBootstrappedTimestamp) {
         addInBootstrappedTimestampsFilter(filterByBootstrappedTimestamp);
         return (T) this;
     }
@@ -3631,7 +3631,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByBootstrappedTimestamp
      *            filter value.
      */
-    public void addNotInBootstrappedTimestampsFilter(Date[] filterByBootstrappedTimestamp) {
+    public void addNotInBootstrappedTimestampsFilter(Date... filterByBootstrappedTimestamp) {
         addNotInFilter(TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP, filterByBootstrappedTimestamp);
     }
 
@@ -3681,7 +3681,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInBootstrappedTimestamps(Date[] filterByBootstrappedTimestamp) {
+    public <T extends DeviceListOptions> T notInBootstrappedTimestamps(Date... filterByBootstrappedTimestamp) {
         addNotInBootstrappedTimestampsFilter(filterByBootstrappedTimestamp);
         return (T) this;
     }
@@ -3830,7 +3830,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterBySerialNumber
      *            filter value.
      */
-    public void addInSerialNumbersFilter(String[] filterBySerialNumber) {
+    public void addInSerialNumbersFilter(String... filterBySerialNumber) {
         addInFilter(TAG_FILTER_BY_SERIAL_NUMBER, filterBySerialNumber);
     }
 
@@ -3878,7 +3878,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inSerialNumbers(String[] filterBySerialNumber) {
+    public <T extends DeviceListOptions> T inSerialNumbers(String... filterBySerialNumber) {
         addInSerialNumbersFilter(filterBySerialNumber);
         return (T) this;
     }
@@ -3912,7 +3912,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterBySerialNumber
      *            filter value.
      */
-    public void addNotInSerialNumbersFilter(String[] filterBySerialNumber) {
+    public void addNotInSerialNumbersFilter(String... filterBySerialNumber) {
         addNotInFilter(TAG_FILTER_BY_SERIAL_NUMBER, filterBySerialNumber);
     }
 
@@ -3960,7 +3960,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInSerialNumbers(String[] filterBySerialNumber) {
+    public <T extends DeviceListOptions> T notInSerialNumbers(String... filterBySerialNumber) {
         addNotInSerialNumbersFilter(filterBySerialNumber);
         return (T) this;
     }
@@ -4055,7 +4055,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterById
      *            filter value.
      */
-    public void addInIdsFilter(String[] filterById) {
+    public void addInIdsFilter(String... filterById) {
         addInFilter(TAG_FILTER_BY_ID, filterById);
     }
 
@@ -4102,7 +4102,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inIds(String[] filterById) {
+    public <T extends DeviceListOptions> T inIds(String... filterById) {
         addInIdsFilter(filterById);
         return (T) this;
     }
@@ -4136,7 +4136,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterById
      *            filter value.
      */
-    public void addNotInIdsFilter(String[] filterById) {
+    public void addNotInIdsFilter(String... filterById) {
         addNotInFilter(TAG_FILTER_BY_ID, filterById);
     }
 
@@ -4183,7 +4183,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInIds(String[] filterById) {
+    public <T extends DeviceListOptions> T notInIds(String... filterById) {
         addNotInIdsFilter(filterById);
         return (T) this;
     }
@@ -4226,7 +4226,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByConnectorExpirationDate
      *            filter value.
      */
-    public void addInConnectorExpirationDatesFilter(Date[] filterByConnectorExpirationDate) {
+    public void addInConnectorExpirationDatesFilter(Date... filterByConnectorExpirationDate) {
         addInFilter(TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE, filterByConnectorExpirationDate);
     }
 
@@ -4276,7 +4276,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inConnectorExpirationDates(Date[] filterByConnectorExpirationDate) {
+    public <T extends DeviceListOptions> T inConnectorExpirationDates(Date... filterByConnectorExpirationDate) {
         addInConnectorExpirationDatesFilter(filterByConnectorExpirationDate);
         return (T) this;
     }
@@ -4310,7 +4310,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByConnectorExpirationDate
      *            filter value.
      */
-    public void addNotInConnectorExpirationDatesFilter(Date[] filterByConnectorExpirationDate) {
+    public void addNotInConnectorExpirationDatesFilter(Date... filterByConnectorExpirationDate) {
         addNotInFilter(TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE, filterByConnectorExpirationDate);
     }
 
@@ -4360,7 +4360,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInConnectorExpirationDates(Date[] filterByConnectorExpirationDate) {
+    public <T extends DeviceListOptions> T notInConnectorExpirationDates(Date... filterByConnectorExpirationDate) {
         addNotInConnectorExpirationDatesFilter(filterByConnectorExpirationDate);
         return (T) this;
     }
@@ -4509,7 +4509,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByCaId
      *            filter value.
      */
-    public void addInCaIdsFilter(String[] filterByCaId) {
+    public void addInCaIdsFilter(String... filterByCaId) {
         addInFilter(TAG_FILTER_BY_CA_ID, filterByCaId);
     }
 
@@ -4556,7 +4556,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inCaIds(String[] filterByCaId) {
+    public <T extends DeviceListOptions> T inCaIds(String... filterByCaId) {
         addInCaIdsFilter(filterByCaId);
         return (T) this;
     }
@@ -4590,7 +4590,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByCaId
      *            filter value.
      */
-    public void addNotInCaIdsFilter(String[] filterByCaId) {
+    public void addNotInCaIdsFilter(String... filterByCaId) {
         addNotInFilter(TAG_FILTER_BY_CA_ID, filterByCaId);
     }
 
@@ -4637,7 +4637,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInCaIds(String[] filterByCaId) {
+    public <T extends DeviceListOptions> T notInCaIds(String... filterByCaId) {
         addNotInCaIdsFilter(filterByCaId);
         return (T) this;
     }
@@ -4732,7 +4732,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDescription
      *            filter value.
      */
-    public void addInDescriptionsFilter(String[] filterByDescription) {
+    public void addInDescriptionsFilter(String... filterByDescription) {
         addInFilter(TAG_FILTER_BY_DESCRIPTION, filterByDescription);
     }
 
@@ -4779,7 +4779,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inDescriptions(String[] filterByDescription) {
+    public <T extends DeviceListOptions> T inDescriptions(String... filterByDescription) {
         addInDescriptionsFilter(filterByDescription);
         return (T) this;
     }
@@ -4813,7 +4813,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDescription
      *            filter value.
      */
-    public void addNotInDescriptionsFilter(String[] filterByDescription) {
+    public void addNotInDescriptionsFilter(String... filterByDescription) {
         addNotInFilter(TAG_FILTER_BY_DESCRIPTION, filterByDescription);
     }
 
@@ -4861,7 +4861,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInDescriptions(String[] filterByDescription) {
+    public <T extends DeviceListOptions> T notInDescriptions(String... filterByDescription) {
         addNotInDescriptionsFilter(filterByDescription);
         return (T) this;
     }
@@ -4956,7 +4956,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDeployment
      *            filter value.
      */
-    public void addInDeploymentsFilter(String[] filterByDeployment) {
+    public void addInDeploymentsFilter(String... filterByDeployment) {
         addInFilter(TAG_FILTER_BY_DEPLOYMENT, filterByDeployment);
     }
 
@@ -5003,7 +5003,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inDeployments(String[] filterByDeployment) {
+    public <T extends DeviceListOptions> T inDeployments(String... filterByDeployment) {
         addInDeploymentsFilter(filterByDeployment);
         return (T) this;
     }
@@ -5037,7 +5037,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDeployment
      *            filter value.
      */
-    public void addNotInDeploymentsFilter(String[] filterByDeployment) {
+    public void addNotInDeploymentsFilter(String... filterByDeployment) {
         addNotInFilter(TAG_FILTER_BY_DEPLOYMENT, filterByDeployment);
     }
 
@@ -5085,7 +5085,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInDeployments(String[] filterByDeployment) {
+    public <T extends DeviceListOptions> T notInDeployments(String... filterByDeployment) {
         addNotInDeploymentsFilter(filterByDeployment);
         return (T) this;
     }
@@ -5182,7 +5182,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByMechanism
      *            filter value.
      */
-    public void addInMechanismsFilter(DeviceMechanism[] filterByMechanism) {
+    public void addInMechanismsFilter(DeviceMechanism... filterByMechanism) {
         addInFilter(TAG_FILTER_BY_MECHANISM, filterByMechanism);
     }
 
@@ -5230,7 +5230,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inMechanisms(DeviceMechanism[] filterByMechanism) {
+    public <T extends DeviceListOptions> T inMechanisms(DeviceMechanism... filterByMechanism) {
         addInMechanismsFilter(filterByMechanism);
         return (T) this;
     }
@@ -5264,7 +5264,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByMechanism
      *            filter value.
      */
-    public void addNotInMechanismsFilter(DeviceMechanism[] filterByMechanism) {
+    public void addNotInMechanismsFilter(DeviceMechanism... filterByMechanism) {
         addNotInFilter(TAG_FILTER_BY_MECHANISM, filterByMechanism);
     }
 
@@ -5313,7 +5313,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInMechanisms(DeviceMechanism[] filterByMechanism) {
+    public <T extends DeviceListOptions> T notInMechanisms(DeviceMechanism... filterByMechanism) {
         addNotInMechanismsFilter(filterByMechanism);
         return (T) this;
     }
@@ -5473,7 +5473,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDeployedState
      *            filter value.
      */
-    public void addInDeployedStatesFilter(DeviceDeployedState[] filterByDeployedState) {
+    public void addInDeployedStatesFilter(DeviceDeployedState... filterByDeployedState) {
         addInFilter(TAG_FILTER_BY_DEPLOYED_STATE, filterByDeployedState);
     }
 
@@ -5522,7 +5522,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inDeployedStates(DeviceDeployedState[] filterByDeployedState) {
+    public <T extends DeviceListOptions> T inDeployedStates(DeviceDeployedState... filterByDeployedState) {
         addInDeployedStatesFilter(filterByDeployedState);
         return (T) this;
     }
@@ -5556,7 +5556,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDeployedState
      *            filter value.
      */
-    public void addNotInDeployedStatesFilter(DeviceDeployedState[] filterByDeployedState) {
+    public void addNotInDeployedStatesFilter(DeviceDeployedState... filterByDeployedState) {
         addNotInFilter(TAG_FILTER_BY_DEPLOYED_STATE, filterByDeployedState);
     }
 
@@ -5605,7 +5605,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInDeployedStates(DeviceDeployedState[] filterByDeployedState) {
+    public <T extends DeviceListOptions> T notInDeployedStates(DeviceDeployedState... filterByDeployedState) {
         addNotInDeployedStatesFilter(filterByDeployedState);
         return (T) this;
     }
@@ -5648,7 +5648,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByUpdatedAt
      *            filter value.
      */
-    public void addInUpdatedAtsFilter(Date[] filterByUpdatedAt) {
+    public void addInUpdatedAtsFilter(Date... filterByUpdatedAt) {
         addInFilter(TAG_FILTER_BY_UPDATED_AT, filterByUpdatedAt);
     }
 
@@ -5695,7 +5695,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inUpdatedAts(Date[] filterByUpdatedAt) {
+    public <T extends DeviceListOptions> T inUpdatedAts(Date... filterByUpdatedAt) {
         addInUpdatedAtsFilter(filterByUpdatedAt);
         return (T) this;
     }
@@ -5729,7 +5729,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByUpdatedAt
      *            filter value.
      */
-    public void addNotInUpdatedAtsFilter(Date[] filterByUpdatedAt) {
+    public void addNotInUpdatedAtsFilter(Date... filterByUpdatedAt) {
         addNotInFilter(TAG_FILTER_BY_UPDATED_AT, filterByUpdatedAt);
     }
 
@@ -5778,7 +5778,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInUpdatedAts(Date[] filterByUpdatedAt) {
+    public <T extends DeviceListOptions> T notInUpdatedAts(Date... filterByUpdatedAt) {
         addNotInUpdatedAtsFilter(filterByUpdatedAt);
         return (T) this;
     }
@@ -5927,7 +5927,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByName
      *            filter value.
      */
-    public void addInNamesFilter(String[] filterByName) {
+    public void addInNamesFilter(String... filterByName) {
         addInFilter(TAG_FILTER_BY_NAME, filterByName);
     }
 
@@ -5974,7 +5974,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inNames(String[] filterByName) {
+    public <T extends DeviceListOptions> T inNames(String... filterByName) {
         addInNamesFilter(filterByName);
         return (T) this;
     }
@@ -6008,7 +6008,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByName
      *            filter value.
      */
-    public void addNotInNamesFilter(String[] filterByName) {
+    public void addNotInNamesFilter(String... filterByName) {
         addNotInFilter(TAG_FILTER_BY_NAME, filterByName);
     }
 
@@ -6055,7 +6055,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInNames(String[] filterByName) {
+    public <T extends DeviceListOptions> T notInNames(String... filterByName) {
         addNotInNamesFilter(filterByName);
         return (T) this;
     }
@@ -6098,7 +6098,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByManifestTimestamp
      *            filter value.
      */
-    public void addInManifestTimestampsFilter(Date[] filterByManifestTimestamp) {
+    public void addInManifestTimestampsFilter(Date... filterByManifestTimestamp) {
         addInFilter(TAG_FILTER_BY_MANIFEST_TIMESTAMP, filterByManifestTimestamp);
     }
 
@@ -6147,7 +6147,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inManifestTimestamps(Date[] filterByManifestTimestamp) {
+    public <T extends DeviceListOptions> T inManifestTimestamps(Date... filterByManifestTimestamp) {
         addInManifestTimestampsFilter(filterByManifestTimestamp);
         return (T) this;
     }
@@ -6181,7 +6181,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByManifestTimestamp
      *            filter value.
      */
-    public void addNotInManifestTimestampsFilter(Date[] filterByManifestTimestamp) {
+    public void addNotInManifestTimestampsFilter(Date... filterByManifestTimestamp) {
         addNotInFilter(TAG_FILTER_BY_MANIFEST_TIMESTAMP, filterByManifestTimestamp);
     }
 
@@ -6231,7 +6231,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInManifestTimestamps(Date[] filterByManifestTimestamp) {
+    public <T extends DeviceListOptions> T notInManifestTimestamps(Date... filterByManifestTimestamp) {
         addNotInManifestTimestampsFilter(filterByManifestTimestamp);
         return (T) this;
     }
@@ -6380,7 +6380,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByEndpointName
      *            filter value.
      */
-    public void addInEndpointNamesFilter(String[] filterByEndpointName) {
+    public void addInEndpointNamesFilter(String... filterByEndpointName) {
         addInFilter(TAG_FILTER_BY_ENDPOINT_NAME, filterByEndpointName);
     }
 
@@ -6428,7 +6428,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inEndpointNames(String[] filterByEndpointName) {
+    public <T extends DeviceListOptions> T inEndpointNames(String... filterByEndpointName) {
         addInEndpointNamesFilter(filterByEndpointName);
         return (T) this;
     }
@@ -6462,7 +6462,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByEndpointName
      *            filter value.
      */
-    public void addNotInEndpointNamesFilter(String[] filterByEndpointName) {
+    public void addNotInEndpointNamesFilter(String... filterByEndpointName) {
         addNotInFilter(TAG_FILTER_BY_ENDPOINT_NAME, filterByEndpointName);
     }
 
@@ -6510,7 +6510,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInEndpointNames(String[] filterByEndpointName) {
+    public <T extends DeviceListOptions> T notInEndpointNames(String... filterByEndpointName) {
         addNotInEndpointNamesFilter(filterByEndpointName);
         return (T) this;
     }

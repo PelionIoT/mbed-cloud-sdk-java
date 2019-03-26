@@ -57,7 +57,7 @@ public class PreviousServicePackage implements Serializable {
     private String previousId = null;
 
     /**
-     * Reason why this service package was ended
+     * Reason the service package was ended.
      */
     @JsonAdapter(ReasonEnum.Adapter.class)
     public enum ReasonEnum {
@@ -271,11 +271,11 @@ public class PreviousServicePackage implements Serializable {
     }
 
     /**
-     * Reason why this service package was ended
+     * Reason the service package was ended.
      * 
      * @return reason
      **/
-    @ApiModelProperty(required = true, value = "Reason why this service package was ended")
+    @ApiModelProperty(required = true, value = "Reason the service package was ended.")
     public ReasonEnum getReason() {
         return reason;
     }

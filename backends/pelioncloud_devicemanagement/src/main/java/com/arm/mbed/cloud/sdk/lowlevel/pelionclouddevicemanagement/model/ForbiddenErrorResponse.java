@@ -38,7 +38,7 @@ public class ForbiddenErrorResponse implements Serializable {
     private String message = null;
 
     /**
-     * Always set to &#39;error&#39;.
+     * Always set to &#x60;error&#x60;.
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
@@ -89,7 +89,7 @@ public class ForbiddenErrorResponse implements Serializable {
     private String requestId = null;
 
     /**
-     * Error type. Always set to &#39;forbidden&#39;.
+     * Error type. Always set to &#x60;forbidden&#x60;.
      */
     @JsonAdapter(TypeEnum.Adapter.class)
     public enum TypeEnum {
@@ -161,11 +161,11 @@ public class ForbiddenErrorResponse implements Serializable {
     }
 
     /**
-     * A human readable message with detailed info.
+     * A human-readable message with detailed info.
      * 
      * @return message
      **/
-    @ApiModelProperty(required = true, value = "A human readable message with detailed info.")
+    @ApiModelProperty(required = true, value = "A human-readable message with detailed info.")
     public String getMessage() {
         return message;
     }
@@ -180,11 +180,11 @@ public class ForbiddenErrorResponse implements Serializable {
     }
 
     /**
-     * Always set to &#39;error&#39;.
+     * Always set to &#x60;error&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Always set to 'error'.")
+    @ApiModelProperty(required = true, value = "Always set to `error`.")
     public ObjectEnum getObject() {
         return object;
     }
@@ -218,11 +218,11 @@ public class ForbiddenErrorResponse implements Serializable {
     }
 
     /**
-     * Error type. Always set to &#39;forbidden&#39;.
+     * Error type. Always set to &#x60;forbidden&#x60;.
      * 
      * @return type
      **/
-    @ApiModelProperty(required = true, value = "Error type. Always set to 'forbidden'.")
+    @ApiModelProperty(required = true, value = "Error type. Always set to `forbidden`.")
     public TypeEnum getType() {
         return type;
     }

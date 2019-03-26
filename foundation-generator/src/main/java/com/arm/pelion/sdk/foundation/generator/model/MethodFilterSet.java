@@ -14,6 +14,9 @@ public class MethodFilterSet extends MethodFilter {
         parameterName = Utils.combineNames(false, "filterBy", filter.getFieldName());
         addParameter(new Parameter(parameterName, "filter value", null,
                                    inputType == null ? filter.getFieldType() : inputType, null, null));
+        if (inputType != null && inputType.isArray()) {
+            shouldUseVarargs(true);
+        }
     }
 
     public MethodFilterSet(Filter filter, TypeParameter inputType, boolean containsCustomCode, boolean plural) {

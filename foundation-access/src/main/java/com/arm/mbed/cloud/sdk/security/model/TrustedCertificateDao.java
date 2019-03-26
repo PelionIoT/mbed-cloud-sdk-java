@@ -196,7 +196,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(String)}
      * 
      * @param id
-     *            mUUID that uniquely identifies the developer certificate.
+     *            ID that uniquely identifies the developer certificate.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.

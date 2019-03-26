@@ -131,7 +131,13 @@ public class Update extends AbstractModule {
                                                                           finalOptions.getOrder().toString(),
                                                                           finalOptions.getAfter(),
                                                                           ListOptionsEncoder.encodeInclude(finalOptions),
-                                                                          new FilterMarshaller(null).encode(finalOptions.getFilter()));
+                                                                          new FilterMarshaller(null).encode(finalOptions.getFilter()),
+                                                                          null, null, null, null, null, null, null,
+                                                                          null, null, null, null, null, null, null,
+                                                                          null, null, null, null, null, null, null,
+                                                                          null, null, null, null, null, null, null,
+                                                                          null, null, null, null, null, null, null,
+                                                                          null);
                                     }
                                 });
     }
@@ -383,7 +389,13 @@ public class Update extends AbstractModule {
                                                                              finalOptions.getOrder().toString(),
                                                                              finalOptions.getAfter(),
                                                                              ListOptionsEncoder.encodeInclude(finalOptions),
-                                                                             new FilterMarshaller(null).encode(finalOptions.getFilter()));
+                                                                             new FilterMarshaller(null).encode(finalOptions.getFilter()),
+                                                                             null, null, null, null, null, null, null,
+                                                                             null, null, null, null, null, null, null,
+                                                                             null, null, null, null, null, null, null,
+                                                                             null, null, null, null, null, null, null,
+                                                                             null, null, null, null, null, null, null,
+                                                                             null);
                                     }
                                 });
     }
@@ -520,10 +532,10 @@ public class Update extends AbstractModule {
                                            call() {
                                         return endpoint.getUpdate()
                                                        .firmwareManifestCreate(DataFileAdapter.reverseMap(finalManifest.getDataFile()),
-                                                                               finalManifest.getName(),
                                                                                finalManifest.getDescription(),
                                                                                DataFileAdapter.reverseMap(KEY_TABLE_PARAMETER,
-                                                                                                          finalManifest.getDecryptionKeysFile()));
+                                                                                                          finalManifest.getDecryptionKeysFile()),
+                                                                               finalManifest.getName());
                                     }
 
                                 });
@@ -639,7 +651,14 @@ public class Update extends AbstractModule {
                                                                            finalOptions.getOrder().toString(),
                                                                            finalOptions.getAfter(),
                                                                            ListOptionsEncoder.encodeInclude(finalOptions),
-                                                                           CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()));
+                                                                           CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null);
                                     }
                                 });
     }
