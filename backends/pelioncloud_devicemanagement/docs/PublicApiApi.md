@@ -5,13 +5,13 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createBulkDeviceEnrollment**](PublicApiApi.md#createBulkDeviceEnrollment) | **POST** v3/device-enrollments-bulk-uploads | Bulk upload
-[**createDeviceEnrollment**](PublicApiApi.md#createDeviceEnrollment) | **POST** v3/device-enrollments | Place an enrollment claim for one or several devices.
+[**createDeviceEnrollment**](PublicApiApi.md#createDeviceEnrollment) | **POST** v3/device-enrollments | Create a single enrollment.
 [**deleteBulkDeviceEnrollment**](PublicApiApi.md#deleteBulkDeviceEnrollment) | **POST** v3/device-enrollments-bulk-deletes | Bulk delete
 [**deleteDeviceEnrollment**](PublicApiApi.md#deleteDeviceEnrollment) | **DELETE** v3/device-enrollments/{id} | Delete an enrollment by ID.
 [**getBulkDeviceEnrollment**](PublicApiApi.md#getBulkDeviceEnrollment) | **GET** v3/device-enrollments-bulk-uploads/{id} | Get bulk upload entity
 [**getBulkDeviceEnrollmentDelete**](PublicApiApi.md#getBulkDeviceEnrollmentDelete) | **GET** v3/device-enrollments-bulk-deletes/{id} | Get bulk delete entity
-[**getDeviceEnrollment**](PublicApiApi.md#getDeviceEnrollment) | **GET** v3/device-enrollments/{id} | Get details of an enrollment by ID.
-[**getDeviceEnrollments**](PublicApiApi.md#getDeviceEnrollments) | **GET** v3/device-enrollments | Get enrollment list.
+[**getDeviceEnrollment**](PublicApiApi.md#getDeviceEnrollment) | **GET** v3/device-enrollments/{id} | Get details of an single enrollment by ID.
+[**getDeviceEnrollments**](PublicApiApi.md#getDeviceEnrollments) | **GET** v3/device-enrollments | Get a list of enrollments per account.
 
 
 <a name="createBulkDeviceEnrollment"></a>
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 # **createDeviceEnrollment**
 > EnrollmentIdentity createDeviceEnrollment(enrollmentIdentity)
 
-Place an enrollment claim for one or several devices.
+Create a single enrollment.
 
 When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. &lt;br&gt; **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments \\ -d &#39;{\&quot;enrollment_identity\&quot;: \&quot;A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5\&quot;}&#39; &#x60;&#x60;&#x60; 
 
@@ -348,7 +348,7 @@ Name | Type | Description  | Notes
 # **getDeviceEnrollment**
 > EnrollmentIdentity getDeviceEnrollment(id)
 
-Get details of an enrollment by ID.
+Get details of an single enrollment by ID.
 
 To check the enrollment info in detail, for example date of claim and expiration date. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} &#x60;&#x60;&#x60; 
 
@@ -403,7 +403,7 @@ Name | Type | Description  | Notes
 # **getDeviceEnrollments**
 > EnrollmentIdentities getDeviceEnrollments(limit, after, order, include)
 
-Get enrollment list.
+Get a list of enrollments per account.
 
 Provides a list of pending and claimed enrollments. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments &#x60;&#x60;&#x60; With query parameters: &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ &#39;https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit&#x3D;10&#39; &#x60;&#x60;&#x60; 
 

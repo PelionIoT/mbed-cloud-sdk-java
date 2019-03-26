@@ -206,8 +206,8 @@ String order = "order_example"; // String | The order of the records based on cr
 String after = "after_example"; // String | The ID of The item after which to retrieve the next page.
 String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`
 String filter = "filter_example"; // String | URL encoded query string parameter to filter returned data.  ##### Filtering  ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  <table>   <thead>     <tr>       <th>Field</th>       <th>= / __eq / __neq</th>       <th>__in /  __nin</th>       <th>__lte / __gte</th>     <tr>   <thead>   <tbody>     <tr>       <td>date_time</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>description</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>device_id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>event_type</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>state_change</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>   </tbody> </table> &nbsp;  The examples below show the queries in *unencoded* form.  ###### By id:  ```id={id}```  ###### By state change:  ```state_change=[True|False]```  ###### By event type:  ```event_type={value}```  ###### On date-time fields:  Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte``` Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter. ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z```  Encoded:  ```?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated: `event_type__in=update.device.device-created,update.device.device-updated`
-DateTime dateTimeIn = new DateTime(); // DateTime | in filter for the date_time field
-DateTime dateTimeNin = new DateTime(); // DateTime | nin filter for the date_time field
+String dateTimeIn = "dateTimeIn_example"; // String | in filter for the date_time field
+String dateTimeNin = "dateTimeNin_example"; // String | nin filter for the date_time field
 DateTime dateTimeLte = new DateTime(); // DateTime | lte filter for the date_time field
 DateTime dateTimeGte = new DateTime(); // DateTime | gte filter for the date_time field
 String descriptionEq = "descriptionEq_example"; // String | eq filter for the description field
@@ -228,8 +228,8 @@ String eventTypeIn = "eventTypeIn_example"; // String | in filter for the event_
 String eventTypeNin = "eventTypeNin_example"; // String | nin filter for the event_type field
 Boolean stateChangeEq = true; // Boolean | eq filter for the state_change field
 Boolean stateChangeNeq = true; // Boolean | neq filter for the state_change field
-Boolean stateChangeIn = true; // Boolean | in filter for the state_change field
-Boolean stateChangeNin = true; // Boolean | nin filter for the state_change field
+String stateChangeIn = "stateChangeIn_example"; // String | in filter for the state_change field
+String stateChangeNin = "stateChangeNin_example"; // String | nin filter for the state_change field
 try {
     DeviceEventPage result = apiInstance.deviceEventList(limit, order, after, include, filter, dateTimeIn, dateTimeNin, dateTimeLte, dateTimeGte, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, idEq, idNeq, idIn, idNin, deviceIdEq, deviceIdNeq, deviceIdIn, deviceIdNin, eventTypeEq, eventTypeNeq, eventTypeIn, eventTypeNin, stateChangeEq, stateChangeNeq, stateChangeIn, stateChangeNin);
     System.out.println(result);
@@ -248,8 +248,8 @@ Name | Type | Description  | Notes
  **after** | **String**| The ID of The item after which to retrieve the next page. | [optional]
  **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60; | [optional]
  **filter** | **String**| URL encoded query string parameter to filter returned data.  ##### Filtering  &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60;  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  &lt;table&gt;   &lt;thead&gt;     &lt;tr&gt;       &lt;th&gt;Field&lt;/th&gt;       &lt;th&gt;&#x3D; / __eq / __neq&lt;/th&gt;       &lt;th&gt;__in /  __nin&lt;/th&gt;       &lt;th&gt;__lte / __gte&lt;/th&gt;     &lt;tr&gt;   &lt;thead&gt;   &lt;tbody&gt;     &lt;tr&gt;       &lt;td&gt;date_time&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;description&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;device_id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;event_type&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;state_change&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;   &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;  The examples below show the queries in *unencoded* form.  ###### By id:  &#x60;&#x60;&#x60;id&#x3D;{id}&#x60;&#x60;&#x60;  ###### By state change:  &#x60;&#x60;&#x60;state_change&#x3D;[True|False]&#x60;&#x60;&#x60;  ###### By event type:  &#x60;&#x60;&#x60;event_type&#x3D;{value}&#x60;&#x60;&#x60;  ###### On date-time fields:  Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter. &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example  &#x60;&#x60;&#x60;id&#x3D;0158d38771f70000000000010010038c&amp;state_change&#x3D;True&amp;date_time__gte&#x3D;2016-11-30T16:25:12.1234Z&#x60;&#x60;&#x60;  Encoded:  &#x60;&#x60;&#x60;?filter&#x3D;id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z&#x60;&#x60;&#x60;  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated: &#x60;event_type__in&#x3D;update.device.device-created,update.device.device-updated&#x60; | [optional]
- **dateTimeIn** | **DateTime**| in filter for the date_time field | [optional]
- **dateTimeNin** | **DateTime**| nin filter for the date_time field | [optional]
+ **dateTimeIn** | **String**| in filter for the date_time field | [optional]
+ **dateTimeNin** | **String**| nin filter for the date_time field | [optional]
  **dateTimeLte** | **DateTime**| lte filter for the date_time field | [optional]
  **dateTimeGte** | **DateTime**| gte filter for the date_time field | [optional]
  **descriptionEq** | **String**| eq filter for the description field | [optional]
@@ -270,8 +270,8 @@ Name | Type | Description  | Notes
  **eventTypeNin** | **String**| nin filter for the event_type field | [optional]
  **stateChangeEq** | **Boolean**| eq filter for the state_change field | [optional]
  **stateChangeNeq** | **Boolean**| neq filter for the state_change field | [optional]
- **stateChangeIn** | **Boolean**| in filter for the state_change field | [optional]
- **stateChangeNin** | **Boolean**| nin filter for the state_change field | [optional]
+ **stateChangeIn** | **String**| in filter for the state_change field | [optional]
+ **stateChangeNin** | **String**| nin filter for the state_change field | [optional]
 
 ### Return type
 
@@ -378,26 +378,26 @@ String accountIdIn = "accountIdIn_example"; // String | in filter for the accoun
 String accountIdNin = "accountIdNin_example"; // String | nin filter for the account_id field
 Boolean autoUpdateEq = true; // Boolean | eq filter for the auto_update field
 Boolean autoUpdateNeq = true; // Boolean | neq filter for the auto_update field
-Boolean autoUpdateIn = true; // Boolean | in filter for the auto_update field
-Boolean autoUpdateNin = true; // Boolean | nin filter for the auto_update field
+String autoUpdateIn = "autoUpdateIn_example"; // String | in filter for the auto_update field
+String autoUpdateNin = "autoUpdateNin_example"; // String | nin filter for the auto_update field
 String bootstrappedExpirationDateIn = "bootstrappedExpirationDateIn_example"; // String | in filter for the bootstrapped_expiration_date field
 String bootstrappedExpirationDateNin = "bootstrappedExpirationDateNin_example"; // String | nin filter for the bootstrapped_expiration_date field
 String bootstrappedExpirationDateLte = "bootstrappedExpirationDateLte_example"; // String | lte filter for the bootstrapped_expiration_date field
 String bootstrappedExpirationDateGte = "bootstrappedExpirationDateGte_example"; // String | gte filter for the bootstrapped_expiration_date field
-DateTime bootstrappedTimestampIn = new DateTime(); // DateTime | in filter for the bootstrapped_timestamp field
-DateTime bootstrappedTimestampNin = new DateTime(); // DateTime | nin filter for the bootstrapped_timestamp field
+String bootstrappedTimestampIn = "bootstrappedTimestampIn_example"; // String | in filter for the bootstrapped_timestamp field
+String bootstrappedTimestampNin = "bootstrappedTimestampNin_example"; // String | nin filter for the bootstrapped_timestamp field
 DateTime bootstrappedTimestampLte = new DateTime(); // DateTime | lte filter for the bootstrapped_timestamp field
 DateTime bootstrappedTimestampGte = new DateTime(); // DateTime | gte filter for the bootstrapped_timestamp field
 String caIdEq = "caIdEq_example"; // String | eq filter for the ca_id field
 String caIdNeq = "caIdNeq_example"; // String | neq filter for the ca_id field
 String caIdIn = "caIdIn_example"; // String | in filter for the ca_id field
 String caIdNin = "caIdNin_example"; // String | nin filter for the ca_id field
-LocalDate connectorExpirationDateIn = new LocalDate(); // LocalDate | in filter for the connector_expiration_date field
-LocalDate connectorExpirationDateNin = new LocalDate(); // LocalDate | nin filter for the connector_expiration_date field
+String connectorExpirationDateIn = "connectorExpirationDateIn_example"; // String | in filter for the connector_expiration_date field
+String connectorExpirationDateNin = "connectorExpirationDateNin_example"; // String | nin filter for the connector_expiration_date field
 LocalDate connectorExpirationDateLte = new LocalDate(); // LocalDate | lte filter for the connector_expiration_date field
 LocalDate connectorExpirationDateGte = new LocalDate(); // LocalDate | gte filter for the connector_expiration_date field
-DateTime createdAtIn = new DateTime(); // DateTime | in filter for the created_at field
-DateTime createdAtNin = new DateTime(); // DateTime | nin filter for the created_at field
+String createdAtIn = "createdAtIn_example"; // String | in filter for the created_at field
+String createdAtNin = "createdAtNin_example"; // String | nin filter for the created_at field
 DateTime createdAtLte = new DateTime(); // DateTime | lte filter for the created_at field
 DateTime createdAtGte = new DateTime(); // DateTime | gte filter for the created_at field
 String customAttributesEq = "customAttributesEq_example"; // String | eq filter for the custom_attributes field
@@ -420,8 +420,8 @@ String deviceClassIn = "deviceClassIn_example"; // String | in filter for the de
 String deviceClassNin = "deviceClassNin_example"; // String | nin filter for the device_class field
 Integer deviceExecutionModeEq = 56; // Integer | eq filter for the device_execution_mode field
 Integer deviceExecutionModeNeq = 56; // Integer | neq filter for the device_execution_mode field
-Integer deviceExecutionModeIn = 56; // Integer | in filter for the device_execution_mode field
-Integer deviceExecutionModeNin = 56; // Integer | nin filter for the device_execution_mode field
+String deviceExecutionModeIn = "deviceExecutionModeIn_example"; // String | in filter for the device_execution_mode field
+String deviceExecutionModeNin = "deviceExecutionModeNin_example"; // String | nin filter for the device_execution_mode field
 String deviceKeyEq = "deviceKeyEq_example"; // String | eq filter for the device_key field
 String deviceKeyNeq = "deviceKeyNeq_example"; // String | neq filter for the device_key field
 String deviceKeyIn = "deviceKeyIn_example"; // String | in filter for the device_key field
@@ -454,8 +454,8 @@ String manifestEq = "manifestEq_example"; // String | eq filter for the manifest
 String manifestNeq = "manifestNeq_example"; // String | neq filter for the manifest field
 String manifestIn = "manifestIn_example"; // String | in filter for the manifest field
 String manifestNin = "manifestNin_example"; // String | nin filter for the manifest field
-DateTime manifestTimestampIn = new DateTime(); // DateTime | in filter for the manifest_timestamp field
-DateTime manifestTimestampNin = new DateTime(); // DateTime | nin filter for the manifest_timestamp field
+String manifestTimestampIn = "manifestTimestampIn_example"; // String | in filter for the manifest_timestamp field
+String manifestTimestampNin = "manifestTimestampNin_example"; // String | nin filter for the manifest_timestamp field
 DateTime manifestTimestampLte = new DateTime(); // DateTime | lte filter for the manifest_timestamp field
 DateTime manifestTimestampGte = new DateTime(); // DateTime | gte filter for the manifest_timestamp field
 String mechanismEq = "mechanismEq_example"; // String | eq filter for the mechanism field
@@ -478,8 +478,8 @@ String stateEq = "stateEq_example"; // String | eq filter for the state field
 String stateNeq = "stateNeq_example"; // String | neq filter for the state field
 String stateIn = "stateIn_example"; // String | in filter for the state field
 String stateNin = "stateNin_example"; // String | nin filter for the state field
-DateTime updatedAtIn = new DateTime(); // DateTime | in filter for the updated_at field
-DateTime updatedAtNin = new DateTime(); // DateTime | nin filter for the updated_at field
+String updatedAtIn = "updatedAtIn_example"; // String | in filter for the updated_at field
+String updatedAtNin = "updatedAtNin_example"; // String | nin filter for the updated_at field
 DateTime updatedAtLte = new DateTime(); // DateTime | lte filter for the updated_at field
 DateTime updatedAtGte = new DateTime(); // DateTime | gte filter for the updated_at field
 String vendorIdEq = "vendorIdEq_example"; // String | eq filter for the vendor_id field
@@ -510,26 +510,26 @@ Name | Type | Description  | Notes
  **accountIdNin** | **String**| nin filter for the account_id field | [optional]
  **autoUpdateEq** | **Boolean**| eq filter for the auto_update field | [optional]
  **autoUpdateNeq** | **Boolean**| neq filter for the auto_update field | [optional]
- **autoUpdateIn** | **Boolean**| in filter for the auto_update field | [optional]
- **autoUpdateNin** | **Boolean**| nin filter for the auto_update field | [optional]
+ **autoUpdateIn** | **String**| in filter for the auto_update field | [optional]
+ **autoUpdateNin** | **String**| nin filter for the auto_update field | [optional]
  **bootstrappedExpirationDateIn** | **String**| in filter for the bootstrapped_expiration_date field | [optional]
  **bootstrappedExpirationDateNin** | **String**| nin filter for the bootstrapped_expiration_date field | [optional]
  **bootstrappedExpirationDateLte** | **String**| lte filter for the bootstrapped_expiration_date field | [optional]
  **bootstrappedExpirationDateGte** | **String**| gte filter for the bootstrapped_expiration_date field | [optional]
- **bootstrappedTimestampIn** | **DateTime**| in filter for the bootstrapped_timestamp field | [optional]
- **bootstrappedTimestampNin** | **DateTime**| nin filter for the bootstrapped_timestamp field | [optional]
+ **bootstrappedTimestampIn** | **String**| in filter for the bootstrapped_timestamp field | [optional]
+ **bootstrappedTimestampNin** | **String**| nin filter for the bootstrapped_timestamp field | [optional]
  **bootstrappedTimestampLte** | **DateTime**| lte filter for the bootstrapped_timestamp field | [optional]
  **bootstrappedTimestampGte** | **DateTime**| gte filter for the bootstrapped_timestamp field | [optional]
  **caIdEq** | **String**| eq filter for the ca_id field | [optional]
  **caIdNeq** | **String**| neq filter for the ca_id field | [optional]
  **caIdIn** | **String**| in filter for the ca_id field | [optional]
  **caIdNin** | **String**| nin filter for the ca_id field | [optional]
- **connectorExpirationDateIn** | **LocalDate**| in filter for the connector_expiration_date field | [optional]
- **connectorExpirationDateNin** | **LocalDate**| nin filter for the connector_expiration_date field | [optional]
+ **connectorExpirationDateIn** | **String**| in filter for the connector_expiration_date field | [optional]
+ **connectorExpirationDateNin** | **String**| nin filter for the connector_expiration_date field | [optional]
  **connectorExpirationDateLte** | **LocalDate**| lte filter for the connector_expiration_date field | [optional]
  **connectorExpirationDateGte** | **LocalDate**| gte filter for the connector_expiration_date field | [optional]
- **createdAtIn** | **DateTime**| in filter for the created_at field | [optional]
- **createdAtNin** | **DateTime**| nin filter for the created_at field | [optional]
+ **createdAtIn** | **String**| in filter for the created_at field | [optional]
+ **createdAtNin** | **String**| nin filter for the created_at field | [optional]
  **createdAtLte** | **DateTime**| lte filter for the created_at field | [optional]
  **createdAtGte** | **DateTime**| gte filter for the created_at field | [optional]
  **customAttributesEq** | **String**| eq filter for the custom_attributes field | [optional]
@@ -552,8 +552,8 @@ Name | Type | Description  | Notes
  **deviceClassNin** | **String**| nin filter for the device_class field | [optional]
  **deviceExecutionModeEq** | **Integer**| eq filter for the device_execution_mode field | [optional]
  **deviceExecutionModeNeq** | **Integer**| neq filter for the device_execution_mode field | [optional]
- **deviceExecutionModeIn** | **Integer**| in filter for the device_execution_mode field | [optional]
- **deviceExecutionModeNin** | **Integer**| nin filter for the device_execution_mode field | [optional]
+ **deviceExecutionModeIn** | **String**| in filter for the device_execution_mode field | [optional]
+ **deviceExecutionModeNin** | **String**| nin filter for the device_execution_mode field | [optional]
  **deviceKeyEq** | **String**| eq filter for the device_key field | [optional]
  **deviceKeyNeq** | **String**| neq filter for the device_key field | [optional]
  **deviceKeyIn** | **String**| in filter for the device_key field | [optional]
@@ -586,8 +586,8 @@ Name | Type | Description  | Notes
  **manifestNeq** | **String**| neq filter for the manifest field | [optional]
  **manifestIn** | **String**| in filter for the manifest field | [optional]
  **manifestNin** | **String**| nin filter for the manifest field | [optional]
- **manifestTimestampIn** | **DateTime**| in filter for the manifest_timestamp field | [optional]
- **manifestTimestampNin** | **DateTime**| nin filter for the manifest_timestamp field | [optional]
+ **manifestTimestampIn** | **String**| in filter for the manifest_timestamp field | [optional]
+ **manifestTimestampNin** | **String**| nin filter for the manifest_timestamp field | [optional]
  **manifestTimestampLte** | **DateTime**| lte filter for the manifest_timestamp field | [optional]
  **manifestTimestampGte** | **DateTime**| gte filter for the manifest_timestamp field | [optional]
  **mechanismEq** | **String**| eq filter for the mechanism field | [optional]
@@ -610,8 +610,8 @@ Name | Type | Description  | Notes
  **stateNeq** | **String**| neq filter for the state field | [optional]
  **stateIn** | **String**| in filter for the state field | [optional]
  **stateNin** | **String**| nin filter for the state field | [optional]
- **updatedAtIn** | **DateTime**| in filter for the updated_at field | [optional]
- **updatedAtNin** | **DateTime**| nin filter for the updated_at field | [optional]
+ **updatedAtIn** | **String**| in filter for the updated_at field | [optional]
+ **updatedAtNin** | **String**| nin filter for the updated_at field | [optional]
  **updatedAtLte** | **DateTime**| lte filter for the updated_at field | [optional]
  **updatedAtGte** | **DateTime**| gte filter for the updated_at field | [optional]
  **vendorIdEq** | **String**| eq filter for the vendor_id field | [optional]
@@ -663,8 +663,8 @@ String order = "order_example"; // String | The order of the records based on cr
 String after = "after_example"; // String | The ID of The item after which to retrieve the next page.
 String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`.
 String filter = "filter_example"; // String | URL encoded query string parameter to filter returned data.  ##### Filtering  ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  <table>   <thead>     <tr>       <th>Field</th>       <th>= / __eq / __neq</th>       <th>__in /  __nin</th>       <th>__lte / __gte</th>     <tr>   <thead>   <tbody>     <tr>       <td>date_time</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>description</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>device_id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>event_type</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>state_change</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>   </tbody> </table> &nbsp;  The examples below show the queries in *unencoded* form.  ###### By id:  ```id={id}```  ###### By state change:  ```state_change=[True|False]```  ###### By event type:  ```event_type={value}```  ###### On date-time fields:  Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter. ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```id=0158d38771f70000000000010010038c&state_change=True&date_time__gte=2016-11-30T16:25:12.1234Z```  Encoded:  ```?filter=id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated: `event_type__in=update.device.device-created,update.device.device-updated`
-DateTime dateTimeIn = new DateTime(); // DateTime | in filter for the date_time field
-DateTime dateTimeNin = new DateTime(); // DateTime | nin filter for the date_time field
+String dateTimeIn = "dateTimeIn_example"; // String | in filter for the date_time field
+String dateTimeNin = "dateTimeNin_example"; // String | nin filter for the date_time field
 DateTime dateTimeLte = new DateTime(); // DateTime | lte filter for the date_time field
 DateTime dateTimeGte = new DateTime(); // DateTime | gte filter for the date_time field
 String descriptionEq = "descriptionEq_example"; // String | eq filter for the description field
@@ -685,8 +685,8 @@ String eventTypeIn = "eventTypeIn_example"; // String | in filter for the event_
 String eventTypeNin = "eventTypeNin_example"; // String | nin filter for the event_type field
 Boolean stateChangeEq = true; // Boolean | eq filter for the state_change field
 Boolean stateChangeNeq = true; // Boolean | neq filter for the state_change field
-Boolean stateChangeIn = true; // Boolean | in filter for the state_change field
-Boolean stateChangeNin = true; // Boolean | nin filter for the state_change field
+String stateChangeIn = "stateChangeIn_example"; // String | in filter for the state_change field
+String stateChangeNin = "stateChangeNin_example"; // String | nin filter for the state_change field
 try {
     DeviceEventPage result = apiInstance.deviceLogList(limit, order, after, include, filter, dateTimeIn, dateTimeNin, dateTimeLte, dateTimeGte, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, idEq, idNeq, idIn, idNin, deviceIdEq, deviceIdNeq, deviceIdIn, deviceIdNin, eventTypeEq, eventTypeNeq, eventTypeIn, eventTypeNin, stateChangeEq, stateChangeNeq, stateChangeIn, stateChangeNin);
     System.out.println(result);
@@ -705,8 +705,8 @@ Name | Type | Description  | Notes
  **after** | **String**| The ID of The item after which to retrieve the next page. | [optional]
  **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. | [optional]
  **filter** | **String**| URL encoded query string parameter to filter returned data.  ##### Filtering  &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60;  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  &lt;table&gt;   &lt;thead&gt;     &lt;tr&gt;       &lt;th&gt;Field&lt;/th&gt;       &lt;th&gt;&#x3D; / __eq / __neq&lt;/th&gt;       &lt;th&gt;__in /  __nin&lt;/th&gt;       &lt;th&gt;__lte / __gte&lt;/th&gt;     &lt;tr&gt;   &lt;thead&gt;   &lt;tbody&gt;     &lt;tr&gt;       &lt;td&gt;date_time&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;description&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;device_id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;event_type&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;state_change&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;   &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;  The examples below show the queries in *unencoded* form.  ###### By id:  &#x60;&#x60;&#x60;id&#x3D;{id}&#x60;&#x60;&#x60;  ###### By state change:  &#x60;&#x60;&#x60;state_change&#x3D;[True|False]&#x60;&#x60;&#x60;  ###### By event type:  &#x60;&#x60;&#x60;event_type&#x3D;{value}&#x60;&#x60;&#x60;  ###### On date-time fields:  Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter. &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example &#x60;&#x60;&#x60;id&#x3D;0158d38771f70000000000010010038c&amp;state_change&#x3D;True&amp;date_time__gte&#x3D;2016-11-30T16:25:12.1234Z&#x60;&#x60;&#x60;  Encoded:  &#x60;&#x60;&#x60;?filter&#x3D;id%3D0158d38771f70000000000010010038c%26state_change%3DTrue%26date_time__gte%3D2016-11-30T16%3A25%3A12.1234Z&#x60;&#x60;&#x60;  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated: &#x60;event_type__in&#x3D;update.device.device-created,update.device.device-updated&#x60; | [optional]
- **dateTimeIn** | **DateTime**| in filter for the date_time field | [optional]
- **dateTimeNin** | **DateTime**| nin filter for the date_time field | [optional]
+ **dateTimeIn** | **String**| in filter for the date_time field | [optional]
+ **dateTimeNin** | **String**| nin filter for the date_time field | [optional]
  **dateTimeLte** | **DateTime**| lte filter for the date_time field | [optional]
  **dateTimeGte** | **DateTime**| gte filter for the date_time field | [optional]
  **descriptionEq** | **String**| eq filter for the description field | [optional]
@@ -727,8 +727,8 @@ Name | Type | Description  | Notes
  **eventTypeNin** | **String**| nin filter for the event_type field | [optional]
  **stateChangeEq** | **Boolean**| eq filter for the state_change field | [optional]
  **stateChangeNeq** | **Boolean**| neq filter for the state_change field | [optional]
- **stateChangeIn** | **Boolean**| in filter for the state_change field | [optional]
- **stateChangeNin** | **Boolean**| nin filter for the state_change field | [optional]
+ **stateChangeIn** | **String**| in filter for the state_change field | [optional]
+ **stateChangeNin** | **String**| nin filter for the state_change field | [optional]
 
 ### Return type
 
@@ -939,8 +939,8 @@ String order = "order_example"; // String | The order of the records based on cr
 String after = "after_example"; // String | The ID of The item after which to retrieve the next page.
 String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`.
 String filter = "filter_example"; // String | URL encoded query string parameter to filter returned data.  ##### Filtering  ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```  The below table lists all the fields that can be filtered on with certain filters:  <table>   <thead>     <tr>       <th>Field</th>       <th>= / __eq / __neq</th>       <th>__in /  __nin</th>       <th>__lte / __gte</th>     <tr>   <thead>   <tbody>     <tr>       <td>created_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>etag</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>name</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>query</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>updated_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>   </tbody> </table> &nbsp;  The examples below show the queries in *unencoded* form.  ###### By device query properties (all properties are filterable):  For example: ```description={value}```  ###### On date-time fields:  Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter. ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example  ```query_id=0158d38771f70000000000010010038c&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded:  ```filter=query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated: `name__nin=query1,query2`
-DateTime createdAtIn = new DateTime(); // DateTime | in filter for the created_at field
-DateTime createdAtNin = new DateTime(); // DateTime | nin filter for the created_at field
+String createdAtIn = "createdAtIn_example"; // String | in filter for the created_at field
+String createdAtNin = "createdAtNin_example"; // String | nin filter for the created_at field
 DateTime createdAtLte = new DateTime(); // DateTime | lte filter for the created_at field
 DateTime createdAtGte = new DateTime(); // DateTime | gte filter for the created_at field
 String idEq = "idEq_example"; // String | eq filter for the id field
@@ -955,8 +955,8 @@ String queryEq = "queryEq_example"; // String | eq filter for the query field
 String queryNeq = "queryNeq_example"; // String | neq filter for the query field
 String queryIn = "queryIn_example"; // String | in filter for the query field
 String queryNin = "queryNin_example"; // String | nin filter for the query field
-DateTime updatedAtIn = new DateTime(); // DateTime | in filter for the updated_at field
-DateTime updatedAtNin = new DateTime(); // DateTime | nin filter for the updated_at field
+String updatedAtIn = "updatedAtIn_example"; // String | in filter for the updated_at field
+String updatedAtNin = "updatedAtNin_example"; // String | nin filter for the updated_at field
 DateTime updatedAtLte = new DateTime(); // DateTime | lte filter for the updated_at field
 DateTime updatedAtGte = new DateTime(); // DateTime | gte filter for the updated_at field
 try {
@@ -977,8 +977,8 @@ Name | Type | Description  | Notes
  **after** | **String**| The ID of The item after which to retrieve the next page. | [optional]
  **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. | [optional]
  **filter** | **String**| URL encoded query string parameter to filter returned data.  ##### Filtering  &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60;  The below table lists all the fields that can be filtered on with certain filters:  &lt;table&gt;   &lt;thead&gt;     &lt;tr&gt;       &lt;th&gt;Field&lt;/th&gt;       &lt;th&gt;&#x3D; / __eq / __neq&lt;/th&gt;       &lt;th&gt;__in /  __nin&lt;/th&gt;       &lt;th&gt;__lte / __gte&lt;/th&gt;     &lt;tr&gt;   &lt;thead&gt;   &lt;tbody&gt;     &lt;tr&gt;       &lt;td&gt;created_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;etag&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;name&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;query&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;updated_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;   &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;  The examples below show the queries in *unencoded* form.  ###### By device query properties (all properties are filterable):  For example: &#x60;&#x60;&#x60;description&#x3D;{value}&#x60;&#x60;&#x60;  ###### On date-time fields:  Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter. &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example  &#x60;&#x60;&#x60;query_id&#x3D;0158d38771f70000000000010010038c&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;&#x60;&#x60;  Encoded:  &#x60;&#x60;&#x60;filter&#x3D;query_id%3D0158d38771f70000000000010010038c%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&#x60;&#x60;&#x60;  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated: &#x60;name__nin&#x3D;query1,query2&#x60; | [optional]
- **createdAtIn** | **DateTime**| in filter for the created_at field | [optional]
- **createdAtNin** | **DateTime**| nin filter for the created_at field | [optional]
+ **createdAtIn** | **String**| in filter for the created_at field | [optional]
+ **createdAtNin** | **String**| nin filter for the created_at field | [optional]
  **createdAtLte** | **DateTime**| lte filter for the created_at field | [optional]
  **createdAtGte** | **DateTime**| gte filter for the created_at field | [optional]
  **idEq** | **String**| eq filter for the id field | [optional]
@@ -993,8 +993,8 @@ Name | Type | Description  | Notes
  **queryNeq** | **String**| neq filter for the query field | [optional]
  **queryIn** | **String**| in filter for the query field | [optional]
  **queryNin** | **String**| nin filter for the query field | [optional]
- **updatedAtIn** | **DateTime**| in filter for the updated_at field | [optional]
- **updatedAtNin** | **DateTime**| nin filter for the updated_at field | [optional]
+ **updatedAtIn** | **String**| in filter for the updated_at field | [optional]
+ **updatedAtNin** | **String**| nin filter for the updated_at field | [optional]
  **updatedAtLte** | **DateTime**| lte filter for the updated_at field | [optional]
  **updatedAtGte** | **DateTime**| gte filter for the updated_at field | [optional]
 
@@ -1380,8 +1380,8 @@ String order = "order_example"; // String | ASC or DESC
 String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
 String include = "include_example"; // String | A comma-separated list of data fields to return. Currently supported: total_count
 String filter = "filter_example"; // String | URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  ###### Filterable fields:  The table lists all the fields that can be filtered on with certain filters:  <table>   <thead>     <tr>       <th>Field</th>       <th>= / __eq / __neq</th>       <th>__in /  __nin</th>       <th>__lte / __gte</th>     <tr>   <thead>   <tbody>     <tr>       <td>created_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>datafile</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>datafile_checksum</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>datafile_size</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>description</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>etag</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>name</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>timestamp</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>updated_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>   </tbody> </table> &nbsp;  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by properties** `name__eq=myimage`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name__eq=myimage&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
-DateTime createdAtIn = new DateTime(); // DateTime | in filter for the created_at field
-DateTime createdAtNin = new DateTime(); // DateTime | nin filter for the created_at field
+String createdAtIn = "createdAtIn_example"; // String | in filter for the created_at field
+String createdAtNin = "createdAtNin_example"; // String | nin filter for the created_at field
 DateTime createdAtLte = new DateTime(); // DateTime | lte filter for the created_at field
 DateTime createdAtGte = new DateTime(); // DateTime | gte filter for the created_at field
 String datafileEq = "datafileEq_example"; // String | eq filter for the datafile field
@@ -1394,8 +1394,8 @@ String datafileChecksumIn = "datafileChecksumIn_example"; // String | in filter 
 String datafileChecksumNin = "datafileChecksumNin_example"; // String | nin filter for the datafile_checksum field
 Long datafileSizeEq = 789L; // Long | eq filter for the datafile_size field
 Long datafileSizeNeq = 789L; // Long | neq filter for the datafile_size field
-Long datafileSizeIn = 789L; // Long | in filter for the datafile_size field
-Long datafileSizeNin = 789L; // Long | nin filter for the datafile_size field
+String datafileSizeIn = "datafileSizeIn_example"; // String | in filter for the datafile_size field
+String datafileSizeNin = "datafileSizeNin_example"; // String | nin filter for the datafile_size field
 String descriptionEq = "descriptionEq_example"; // String | eq filter for the description field
 String descriptionNeq = "descriptionNeq_example"; // String | neq filter for the description field
 String descriptionIn = "descriptionIn_example"; // String | in filter for the description field
@@ -1412,8 +1412,8 @@ String timestampIn = "timestampIn_example"; // String | in filter for the timest
 String timestampNin = "timestampNin_example"; // String | nin filter for the timestamp field
 String timestampLte = "timestampLte_example"; // String | lte filter for the timestamp field
 String timestampGte = "timestampGte_example"; // String | gte filter for the timestamp field
-DateTime updatedAtIn = new DateTime(); // DateTime | in filter for the updated_at field
-DateTime updatedAtNin = new DateTime(); // DateTime | nin filter for the updated_at field
+String updatedAtIn = "updatedAtIn_example"; // String | in filter for the updated_at field
+String updatedAtNin = "updatedAtNin_example"; // String | nin filter for the updated_at field
 DateTime updatedAtLte = new DateTime(); // DateTime | lte filter for the updated_at field
 DateTime updatedAtGte = new DateTime(); // DateTime | gte filter for the updated_at field
 try {
@@ -1434,8 +1434,8 @@ Name | Type | Description  | Notes
  **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
  **include** | **String**| A comma-separated list of data fields to return. Currently supported: total_count | [optional]
  **filter** | **String**| URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  ###### Filterable fields:  The table lists all the fields that can be filtered on with certain filters:  &lt;table&gt;   &lt;thead&gt;     &lt;tr&gt;       &lt;th&gt;Field&lt;/th&gt;       &lt;th&gt;&#x3D; / __eq / __neq&lt;/th&gt;       &lt;th&gt;__in /  __nin&lt;/th&gt;       &lt;th&gt;__lte / __gte&lt;/th&gt;     &lt;tr&gt;   &lt;thead&gt;   &lt;tbody&gt;     &lt;tr&gt;       &lt;td&gt;created_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;datafile&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;datafile_checksum&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;datafile_size&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;description&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;etag&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;name&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;timestamp&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;updated_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;   &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60;   **Filtering by properties** &#x60;name__eq&#x3D;myimage&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality by appending &#x60;__eq&#x60; to the field name * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__eq|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;name__eq&#x3D;myimage&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; | [optional]
- **createdAtIn** | **DateTime**| in filter for the created_at field | [optional]
- **createdAtNin** | **DateTime**| nin filter for the created_at field | [optional]
+ **createdAtIn** | **String**| in filter for the created_at field | [optional]
+ **createdAtNin** | **String**| nin filter for the created_at field | [optional]
  **createdAtLte** | **DateTime**| lte filter for the created_at field | [optional]
  **createdAtGte** | **DateTime**| gte filter for the created_at field | [optional]
  **datafileEq** | **String**| eq filter for the datafile field | [optional]
@@ -1448,8 +1448,8 @@ Name | Type | Description  | Notes
  **datafileChecksumNin** | **String**| nin filter for the datafile_checksum field | [optional]
  **datafileSizeEq** | **Long**| eq filter for the datafile_size field | [optional]
  **datafileSizeNeq** | **Long**| neq filter for the datafile_size field | [optional]
- **datafileSizeIn** | **Long**| in filter for the datafile_size field | [optional]
- **datafileSizeNin** | **Long**| nin filter for the datafile_size field | [optional]
+ **datafileSizeIn** | **String**| in filter for the datafile_size field | [optional]
+ **datafileSizeNin** | **String**| nin filter for the datafile_size field | [optional]
  **descriptionEq** | **String**| eq filter for the description field | [optional]
  **descriptionNeq** | **String**| neq filter for the description field | [optional]
  **descriptionIn** | **String**| in filter for the description field | [optional]
@@ -1466,8 +1466,8 @@ Name | Type | Description  | Notes
  **timestampNin** | **String**| nin filter for the timestamp field | [optional]
  **timestampLte** | **String**| lte filter for the timestamp field | [optional]
  **timestampGte** | **String**| gte filter for the timestamp field | [optional]
- **updatedAtIn** | **DateTime**| in filter for the updated_at field | [optional]
- **updatedAtNin** | **DateTime**| nin filter for the updated_at field | [optional]
+ **updatedAtIn** | **String**| in filter for the updated_at field | [optional]
+ **updatedAtNin** | **String**| nin filter for the updated_at field | [optional]
  **updatedAtLte** | **DateTime**| lte filter for the updated_at field | [optional]
  **updatedAtGte** | **DateTime**| gte filter for the updated_at field | [optional]
 
@@ -1686,8 +1686,8 @@ String order = "order_example"; // String | ASC or DESC
 String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
 String include = "include_example"; // String | A comma-separated list of data fields to return. Currently supported: total_count
 String filter = "filter_example"; // String | URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  ###### Filterable fields:  The table lists all the fields that can be filtered on with certain filters:  <table>   <thead>     <tr>       <th>Field</th>       <th>= / __eq / __neq</th>       <th>__in /  __nin</th>       <th>__lte / __gte</th>     <tr>   <thead>   <tbody>     <tr>       <td>created_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>datafile</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>datafile_size</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>description</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>device_class</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>etag</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>name</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>timestamp</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>updated_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>   </tbody> </table> &nbsp;  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1__eq=value1&key2__eq=value2&key3__eq=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by properties** `name__eq=mymanifest`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name__eq=mymanifest&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-manifest1,fw-manifest2`
-DateTime createdAtIn = new DateTime(); // DateTime | in filter for the created_at field
-DateTime createdAtNin = new DateTime(); // DateTime | nin filter for the created_at field
+String createdAtIn = "createdAtIn_example"; // String | in filter for the created_at field
+String createdAtNin = "createdAtNin_example"; // String | nin filter for the created_at field
 DateTime createdAtLte = new DateTime(); // DateTime | lte filter for the created_at field
 DateTime createdAtGte = new DateTime(); // DateTime | gte filter for the created_at field
 String datafileEq = "datafileEq_example"; // String | eq filter for the datafile field
@@ -1696,8 +1696,8 @@ String datafileIn = "datafileIn_example"; // String | in filter for the datafile
 String datafileNin = "datafileNin_example"; // String | nin filter for the datafile field
 Long datafileSizeEq = 789L; // Long | eq filter for the datafile_size field
 Long datafileSizeNeq = 789L; // Long | neq filter for the datafile_size field
-Long datafileSizeIn = 789L; // Long | in filter for the datafile_size field
-Long datafileSizeNin = 789L; // Long | nin filter for the datafile_size field
+String datafileSizeIn = "datafileSizeIn_example"; // String | in filter for the datafile_size field
+String datafileSizeNin = "datafileSizeNin_example"; // String | nin filter for the datafile_size field
 String descriptionEq = "descriptionEq_example"; // String | eq filter for the description field
 String descriptionNeq = "descriptionNeq_example"; // String | neq filter for the description field
 String descriptionIn = "descriptionIn_example"; // String | in filter for the description field
@@ -1714,12 +1714,12 @@ String nameEq = "nameEq_example"; // String | eq filter for the name field
 String nameNeq = "nameNeq_example"; // String | neq filter for the name field
 String nameIn = "nameIn_example"; // String | in filter for the name field
 String nameNin = "nameNin_example"; // String | nin filter for the name field
-DateTime timestampIn = new DateTime(); // DateTime | in filter for the timestamp field
-DateTime timestampNin = new DateTime(); // DateTime | nin filter for the timestamp field
+String timestampIn = "timestampIn_example"; // String | in filter for the timestamp field
+String timestampNin = "timestampNin_example"; // String | nin filter for the timestamp field
 DateTime timestampLte = new DateTime(); // DateTime | lte filter for the timestamp field
 DateTime timestampGte = new DateTime(); // DateTime | gte filter for the timestamp field
-DateTime updatedAtIn = new DateTime(); // DateTime | in filter for the updated_at field
-DateTime updatedAtNin = new DateTime(); // DateTime | nin filter for the updated_at field
+String updatedAtIn = "updatedAtIn_example"; // String | in filter for the updated_at field
+String updatedAtNin = "updatedAtNin_example"; // String | nin filter for the updated_at field
 DateTime updatedAtLte = new DateTime(); // DateTime | lte filter for the updated_at field
 DateTime updatedAtGte = new DateTime(); // DateTime | gte filter for the updated_at field
 try {
@@ -1740,8 +1740,8 @@ Name | Type | Description  | Notes
  **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
  **include** | **String**| A comma-separated list of data fields to return. Currently supported: total_count | [optional]
  **filter** | **String**| URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  ###### Filterable fields:  The table lists all the fields that can be filtered on with certain filters:  &lt;table&gt;   &lt;thead&gt;     &lt;tr&gt;       &lt;th&gt;Field&lt;/th&gt;       &lt;th&gt;&#x3D; / __eq / __neq&lt;/th&gt;       &lt;th&gt;__in /  __nin&lt;/th&gt;       &lt;th&gt;__lte / __gte&lt;/th&gt;     &lt;tr&gt;   &lt;thead&gt;   &lt;tbody&gt;     &lt;tr&gt;       &lt;td&gt;created_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;datafile&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;datafile_size&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;description&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;device_class&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;etag&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;name&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;timestamp&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;updated_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;   &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1__eq&#x3D;value1&amp;key2__eq&#x3D;value2&amp;key3__eq&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60;   **Filtering by properties** &#x60;name__eq&#x3D;mymanifest&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality by appending &#x60;__eq&#x60; to the field name * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__eq|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;name__eq&#x3D;mymanifest&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-manifest1,fw-manifest2&#x60; | [optional]
- **createdAtIn** | **DateTime**| in filter for the created_at field | [optional]
- **createdAtNin** | **DateTime**| nin filter for the created_at field | [optional]
+ **createdAtIn** | **String**| in filter for the created_at field | [optional]
+ **createdAtNin** | **String**| nin filter for the created_at field | [optional]
  **createdAtLte** | **DateTime**| lte filter for the created_at field | [optional]
  **createdAtGte** | **DateTime**| gte filter for the created_at field | [optional]
  **datafileEq** | **String**| eq filter for the datafile field | [optional]
@@ -1750,8 +1750,8 @@ Name | Type | Description  | Notes
  **datafileNin** | **String**| nin filter for the datafile field | [optional]
  **datafileSizeEq** | **Long**| eq filter for the datafile_size field | [optional]
  **datafileSizeNeq** | **Long**| neq filter for the datafile_size field | [optional]
- **datafileSizeIn** | **Long**| in filter for the datafile_size field | [optional]
- **datafileSizeNin** | **Long**| nin filter for the datafile_size field | [optional]
+ **datafileSizeIn** | **String**| in filter for the datafile_size field | [optional]
+ **datafileSizeNin** | **String**| nin filter for the datafile_size field | [optional]
  **descriptionEq** | **String**| eq filter for the description field | [optional]
  **descriptionNeq** | **String**| neq filter for the description field | [optional]
  **descriptionIn** | **String**| in filter for the description field | [optional]
@@ -1768,12 +1768,12 @@ Name | Type | Description  | Notes
  **nameNeq** | **String**| neq filter for the name field | [optional]
  **nameIn** | **String**| in filter for the name field | [optional]
  **nameNin** | **String**| nin filter for the name field | [optional]
- **timestampIn** | **DateTime**| in filter for the timestamp field | [optional]
- **timestampNin** | **DateTime**| nin filter for the timestamp field | [optional]
+ **timestampIn** | **String**| in filter for the timestamp field | [optional]
+ **timestampNin** | **String**| nin filter for the timestamp field | [optional]
  **timestampLte** | **DateTime**| lte filter for the timestamp field | [optional]
  **timestampGte** | **DateTime**| gte filter for the timestamp field | [optional]
- **updatedAtIn** | **DateTime**| in filter for the updated_at field | [optional]
- **updatedAtNin** | **DateTime**| nin filter for the updated_at field | [optional]
+ **updatedAtIn** | **String**| in filter for the updated_at field | [optional]
+ **updatedAtNin** | **String**| nin filter for the updated_at field | [optional]
  **updatedAtLte** | **DateTime**| lte filter for the updated_at field | [optional]
  **updatedAtGte** | **DateTime**| gte filter for the updated_at field | [optional]
 
@@ -2316,8 +2316,8 @@ String idIn = "idIn_example"; // String | in filter for the id field
 String idNin = "idNin_example"; // String | nin filter for the id field
 Integer devicesCountEq = 56; // Integer | eq filter for the devices_count field
 Integer devicesCountNeq = 56; // Integer | neq filter for the devices_count field
-Integer devicesCountIn = 56; // Integer | in filter for the devices_count field
-Integer devicesCountNin = 56; // Integer | nin filter for the devices_count field
+String devicesCountIn = "devicesCountIn_example"; // String | in filter for the devices_count field
+String devicesCountNin = "devicesCountNin_example"; // String | nin filter for the devices_count field
 Integer devicesCountLte = 56; // Integer | lte filter for the devices_count field
 Integer devicesCountGte = 56; // Integer | gte filter for the devices_count field
 String nameEq = "nameEq_example"; // String | eq filter for the name field
@@ -2326,12 +2326,12 @@ String nameIn = "nameIn_example"; // String | in filter for the name field
 String nameNin = "nameNin_example"; // String | nin filter for the name field
 String customAttributesEq = "customAttributesEq_example"; // String | eq filter for the custom_attributes field
 String customAttributesNeq = "customAttributesNeq_example"; // String | neq filter for the custom_attributes field
-DateTime createdAtIn = new DateTime(); // DateTime | in filter for the created_at field
-DateTime createdAtNin = new DateTime(); // DateTime | nin filter for the created_at field
+String createdAtIn = "createdAtIn_example"; // String | in filter for the created_at field
+String createdAtNin = "createdAtNin_example"; // String | nin filter for the created_at field
 DateTime createdAtLte = new DateTime(); // DateTime | lte filter for the created_at field
 DateTime createdAtGte = new DateTime(); // DateTime | gte filter for the created_at field
-DateTime updatedAtIn = new DateTime(); // DateTime | in filter for the updated_at field
-DateTime updatedAtNin = new DateTime(); // DateTime | nin filter for the updated_at field
+String updatedAtIn = "updatedAtIn_example"; // String | in filter for the updated_at field
+String updatedAtNin = "updatedAtNin_example"; // String | nin filter for the updated_at field
 DateTime updatedAtLte = new DateTime(); // DateTime | lte filter for the updated_at field
 DateTime updatedAtGte = new DateTime(); // DateTime | gte filter for the updated_at field
 try {
@@ -2358,8 +2358,8 @@ Name | Type | Description  | Notes
  **idNin** | **String**| nin filter for the id field | [optional]
  **devicesCountEq** | **Integer**| eq filter for the devices_count field | [optional]
  **devicesCountNeq** | **Integer**| neq filter for the devices_count field | [optional]
- **devicesCountIn** | **Integer**| in filter for the devices_count field | [optional]
- **devicesCountNin** | **Integer**| nin filter for the devices_count field | [optional]
+ **devicesCountIn** | **String**| in filter for the devices_count field | [optional]
+ **devicesCountNin** | **String**| nin filter for the devices_count field | [optional]
  **devicesCountLte** | **Integer**| lte filter for the devices_count field | [optional]
  **devicesCountGte** | **Integer**| gte filter for the devices_count field | [optional]
  **nameEq** | **String**| eq filter for the name field | [optional]
@@ -2368,12 +2368,12 @@ Name | Type | Description  | Notes
  **nameNin** | **String**| nin filter for the name field | [optional]
  **customAttributesEq** | **String**| eq filter for the custom_attributes field | [optional]
  **customAttributesNeq** | **String**| neq filter for the custom_attributes field | [optional]
- **createdAtIn** | **DateTime**| in filter for the created_at field | [optional]
- **createdAtNin** | **DateTime**| nin filter for the created_at field | [optional]
+ **createdAtIn** | **String**| in filter for the created_at field | [optional]
+ **createdAtNin** | **String**| nin filter for the created_at field | [optional]
  **createdAtLte** | **DateTime**| lte filter for the created_at field | [optional]
  **createdAtGte** | **DateTime**| gte filter for the created_at field | [optional]
- **updatedAtIn** | **DateTime**| in filter for the updated_at field | [optional]
- **updatedAtNin** | **DateTime**| nin filter for the updated_at field | [optional]
+ **updatedAtIn** | **String**| in filter for the updated_at field | [optional]
+ **updatedAtNin** | **String**| nin filter for the updated_at field | [optional]
  **updatedAtLte** | **DateTime**| lte filter for the updated_at field | [optional]
  **updatedAtGte** | **DateTime**| gte filter for the updated_at field | [optional]
 
@@ -2556,12 +2556,12 @@ String descriptionIn = "descriptionIn_example"; // String | in filter for the de
 String descriptionNin = "descriptionNin_example"; // String | nin filter for the description field
 String customAttributesEq = "customAttributesEq_example"; // String | eq filter for the custom_attributes field
 String customAttributesNeq = "customAttributesNeq_example"; // String | neq filter for the custom_attributes field
-DateTime createdAtIn = new DateTime(); // DateTime | in filter for the created_at field
-DateTime createdAtNin = new DateTime(); // DateTime | nin filter for the created_at field
+String createdAtIn = "createdAtIn_example"; // String | in filter for the created_at field
+String createdAtNin = "createdAtNin_example"; // String | nin filter for the created_at field
 DateTime createdAtLte = new DateTime(); // DateTime | lte filter for the created_at field
 DateTime createdAtGte = new DateTime(); // DateTime | gte filter for the created_at field
-DateTime updatedAtIn = new DateTime(); // DateTime | in filter for the updated_at field
-DateTime updatedAtNin = new DateTime(); // DateTime | nin filter for the updated_at field
+String updatedAtIn = "updatedAtIn_example"; // String | in filter for the updated_at field
+String updatedAtNin = "updatedAtNin_example"; // String | nin filter for the updated_at field
 DateTime updatedAtLte = new DateTime(); // DateTime | lte filter for the updated_at field
 DateTime updatedAtGte = new DateTime(); // DateTime | gte filter for the updated_at field
 try {
@@ -2603,12 +2603,12 @@ Name | Type | Description  | Notes
  **descriptionNin** | **String**| nin filter for the description field | [optional]
  **customAttributesEq** | **String**| eq filter for the custom_attributes field | [optional]
  **customAttributesNeq** | **String**| neq filter for the custom_attributes field | [optional]
- **createdAtIn** | **DateTime**| in filter for the created_at field | [optional]
- **createdAtNin** | **DateTime**| nin filter for the created_at field | [optional]
+ **createdAtIn** | **String**| in filter for the created_at field | [optional]
+ **createdAtNin** | **String**| nin filter for the created_at field | [optional]
  **createdAtLte** | **DateTime**| lte filter for the created_at field | [optional]
  **createdAtGte** | **DateTime**| gte filter for the created_at field | [optional]
- **updatedAtIn** | **DateTime**| in filter for the updated_at field | [optional]
- **updatedAtNin** | **DateTime**| nin filter for the updated_at field | [optional]
+ **updatedAtIn** | **String**| in filter for the updated_at field | [optional]
+ **updatedAtNin** | **String**| nin filter for the updated_at field | [optional]
  **updatedAtLte** | **DateTime**| lte filter for the updated_at field | [optional]
  **updatedAtGte** | **DateTime**| gte filter for the updated_at field | [optional]
 
@@ -3049,8 +3049,8 @@ String order = "order_example"; // String | The order of the records. Acceptable
 String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
 String include = "include_example"; // String | A comma-separated list of data fields to return. Currently supported: total_count
 String filter = "filter_example"; // String | URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`   ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  <table>   <thead>     <tr>       <th>Field</th>       <th>= / __eq / __neq</th>       <th>__in /  __nin</th>       <th>__lte / __gte</th>     <tr>   <thead>   <tbody>     <tr>       <td>created_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>description</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>device_filter</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>etag</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>finished</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>name</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>root_manifest_id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>started_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>state</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>updated_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>when</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>   </tbody> </table> &nbsp;  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1__eq=value1&key2__eq=value2&key3__eq=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by campaign properties** `state__eq=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]`  `root_manifest_id__eq=43217771234242e594ddb433816c498a`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `state__eq=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
-DateTime createdAtIn = new DateTime(); // DateTime | in filter for the created_at field
-DateTime createdAtNin = new DateTime(); // DateTime | nin filter for the created_at field
+String createdAtIn = "createdAtIn_example"; // String | in filter for the created_at field
+String createdAtNin = "createdAtNin_example"; // String | nin filter for the created_at field
 DateTime createdAtLte = new DateTime(); // DateTime | lte filter for the created_at field
 DateTime createdAtGte = new DateTime(); // DateTime | gte filter for the created_at field
 String descriptionEq = "descriptionEq_example"; // String | eq filter for the description field
@@ -3061,8 +3061,8 @@ String deviceFilterEq = "deviceFilterEq_example"; // String | eq filter for the 
 String deviceFilterNeq = "deviceFilterNeq_example"; // String | neq filter for the device_filter field
 String deviceFilterIn = "deviceFilterIn_example"; // String | in filter for the device_filter field
 String deviceFilterNin = "deviceFilterNin_example"; // String | nin filter for the device_filter field
-DateTime finishedIn = new DateTime(); // DateTime | in filter for the finished field
-DateTime finishedNin = new DateTime(); // DateTime | nin filter for the finished field
+String finishedIn = "finishedIn_example"; // String | in filter for the finished field
+String finishedNin = "finishedNin_example"; // String | nin filter for the finished field
 DateTime finishedLte = new DateTime(); // DateTime | lte filter for the finished field
 DateTime finishedGte = new DateTime(); // DateTime | gte filter for the finished field
 String idEq = "idEq_example"; // String | eq filter for the id field
@@ -3077,20 +3077,20 @@ String rootManifestIdEq = "rootManifestIdEq_example"; // String | eq filter for 
 String rootManifestIdNeq = "rootManifestIdNeq_example"; // String | neq filter for the root_manifest_id field
 String rootManifestIdIn = "rootManifestIdIn_example"; // String | in filter for the root_manifest_id field
 String rootManifestIdNin = "rootManifestIdNin_example"; // String | nin filter for the root_manifest_id field
-DateTime startedAtIn = new DateTime(); // DateTime | in filter for the started_at field
-DateTime startedAtNin = new DateTime(); // DateTime | nin filter for the started_at field
+String startedAtIn = "startedAtIn_example"; // String | in filter for the started_at field
+String startedAtNin = "startedAtNin_example"; // String | nin filter for the started_at field
 DateTime startedAtLte = new DateTime(); // DateTime | lte filter for the started_at field
 DateTime startedAtGte = new DateTime(); // DateTime | gte filter for the started_at field
 String stateEq = "stateEq_example"; // String | eq filter for the state field
 String stateNeq = "stateNeq_example"; // String | neq filter for the state field
 String stateIn = "stateIn_example"; // String | in filter for the state field
 String stateNin = "stateNin_example"; // String | nin filter for the state field
-DateTime updatedAtIn = new DateTime(); // DateTime | in filter for the updated_at field
-DateTime updatedAtNin = new DateTime(); // DateTime | nin filter for the updated_at field
+String updatedAtIn = "updatedAtIn_example"; // String | in filter for the updated_at field
+String updatedAtNin = "updatedAtNin_example"; // String | nin filter for the updated_at field
 DateTime updatedAtLte = new DateTime(); // DateTime | lte filter for the updated_at field
 DateTime updatedAtGte = new DateTime(); // DateTime | gte filter for the updated_at field
-DateTime whenIn = new DateTime(); // DateTime | in filter for the when field
-DateTime whenNin = new DateTime(); // DateTime | nin filter for the when field
+String whenIn = "whenIn_example"; // String | in filter for the when field
+String whenNin = "whenNin_example"; // String | nin filter for the when field
 DateTime whenLte = new DateTime(); // DateTime | lte filter for the when field
 DateTime whenGte = new DateTime(); // DateTime | gte filter for the when field
 try {
@@ -3111,8 +3111,8 @@ Name | Type | Description  | Notes
  **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
  **include** | **String**| A comma-separated list of data fields to return. Currently supported: total_count | [optional]
  **filter** | **String**| URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;   ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  &lt;table&gt;   &lt;thead&gt;     &lt;tr&gt;       &lt;th&gt;Field&lt;/th&gt;       &lt;th&gt;&#x3D; / __eq / __neq&lt;/th&gt;       &lt;th&gt;__in /  __nin&lt;/th&gt;       &lt;th&gt;__lte / __gte&lt;/th&gt;     &lt;tr&gt;   &lt;thead&gt;   &lt;tbody&gt;     &lt;tr&gt;       &lt;td&gt;created_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;description&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;device_filter&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;etag&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;finished&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;name&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;root_manifest_id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;started_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;state&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;updated_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;when&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;   &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1__eq&#x3D;value1&amp;key2__eq&#x3D;value2&amp;key3__eq&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60;   **Filtering by campaign properties** &#x60;state__eq&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]&#x60;  &#x60;root_manifest_id__eq&#x3D;43217771234242e594ddb433816c498a&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality by appending &#x60;__eq&#x60; to the field name * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__eq|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;state__eq&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; | [optional]
- **createdAtIn** | **DateTime**| in filter for the created_at field | [optional]
- **createdAtNin** | **DateTime**| nin filter for the created_at field | [optional]
+ **createdAtIn** | **String**| in filter for the created_at field | [optional]
+ **createdAtNin** | **String**| nin filter for the created_at field | [optional]
  **createdAtLte** | **DateTime**| lte filter for the created_at field | [optional]
  **createdAtGte** | **DateTime**| gte filter for the created_at field | [optional]
  **descriptionEq** | **String**| eq filter for the description field | [optional]
@@ -3123,8 +3123,8 @@ Name | Type | Description  | Notes
  **deviceFilterNeq** | **String**| neq filter for the device_filter field | [optional]
  **deviceFilterIn** | **String**| in filter for the device_filter field | [optional]
  **deviceFilterNin** | **String**| nin filter for the device_filter field | [optional]
- **finishedIn** | **DateTime**| in filter for the finished field | [optional]
- **finishedNin** | **DateTime**| nin filter for the finished field | [optional]
+ **finishedIn** | **String**| in filter for the finished field | [optional]
+ **finishedNin** | **String**| nin filter for the finished field | [optional]
  **finishedLte** | **DateTime**| lte filter for the finished field | [optional]
  **finishedGte** | **DateTime**| gte filter for the finished field | [optional]
  **idEq** | **String**| eq filter for the id field | [optional]
@@ -3139,20 +3139,20 @@ Name | Type | Description  | Notes
  **rootManifestIdNeq** | **String**| neq filter for the root_manifest_id field | [optional]
  **rootManifestIdIn** | **String**| in filter for the root_manifest_id field | [optional]
  **rootManifestIdNin** | **String**| nin filter for the root_manifest_id field | [optional]
- **startedAtIn** | **DateTime**| in filter for the started_at field | [optional]
- **startedAtNin** | **DateTime**| nin filter for the started_at field | [optional]
+ **startedAtIn** | **String**| in filter for the started_at field | [optional]
+ **startedAtNin** | **String**| nin filter for the started_at field | [optional]
  **startedAtLte** | **DateTime**| lte filter for the started_at field | [optional]
  **startedAtGte** | **DateTime**| gte filter for the started_at field | [optional]
  **stateEq** | **String**| eq filter for the state field | [optional]
  **stateNeq** | **String**| neq filter for the state field | [optional]
  **stateIn** | **String**| in filter for the state field | [optional]
  **stateNin** | **String**| nin filter for the state field | [optional]
- **updatedAtIn** | **DateTime**| in filter for the updated_at field | [optional]
- **updatedAtNin** | **DateTime**| nin filter for the updated_at field | [optional]
+ **updatedAtIn** | **String**| in filter for the updated_at field | [optional]
+ **updatedAtNin** | **String**| nin filter for the updated_at field | [optional]
  **updatedAtLte** | **DateTime**| lte filter for the updated_at field | [optional]
  **updatedAtGte** | **DateTime**| gte filter for the updated_at field | [optional]
- **whenIn** | **DateTime**| in filter for the when field | [optional]
- **whenNin** | **DateTime**| nin filter for the when field | [optional]
+ **whenIn** | **String**| in filter for the when field | [optional]
+ **whenNin** | **String**| nin filter for the when field | [optional]
  **whenLte** | **DateTime**| lte filter for the when field | [optional]
  **whenGte** | **DateTime**| gte filter for the when field | [optional]
 
@@ -3771,16 +3771,16 @@ String order = "order_example"; // String | ASC or DESC
 String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
 String include = "include_example"; // String | A comma-separated list of data fields to return. Currently supported: total_count
 String filter = "filter_example"; // String | URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  ###### Filterable fields:  The table lists all the fields that can be filtered on with certain filters:  <table>   <thead>     <tr>       <th>Field</th>       <th>= / __eq / __neq</th>       <th>__in /  __nin</th>       <th>__lte / __gte</th>     <tr>   <thead>   <tbody>     <tr>       <td>created_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>etag</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>updated_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>hash</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>length</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>   </tbody> </table> &nbsp;  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by properties** `hash__eq=8FS70vXrq5y1VxAAssUMAg==`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `status__eq=in_progress&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `status__in=in_progress,success`
-DateTime createdAtIn = new DateTime(); // DateTime | in filter for the created_at field
-DateTime createdAtNin = new DateTime(); // DateTime | nin filter for the created_at field
+String createdAtIn = "createdAtIn_example"; // String | in filter for the created_at field
+String createdAtNin = "createdAtNin_example"; // String | nin filter for the created_at field
 DateTime createdAtLte = new DateTime(); // DateTime | lte filter for the created_at field
 DateTime createdAtGte = new DateTime(); // DateTime | gte filter for the created_at field
 Integer idEq = 56; // Integer | eq filter for the id field
 Integer idNeq = 56; // Integer | neq filter for the id field
-Integer idIn = 56; // Integer | in filter for the id field
-Integer idNin = 56; // Integer | nin filter for the id field
-DateTime updatedAtIn = new DateTime(); // DateTime | in filter for the updated_at field
-DateTime updatedAtNin = new DateTime(); // DateTime | nin filter for the updated_at field
+String idIn = "idIn_example"; // String | in filter for the id field
+String idNin = "idNin_example"; // String | nin filter for the id field
+String updatedAtIn = "updatedAtIn_example"; // String | in filter for the updated_at field
+String updatedAtNin = "updatedAtNin_example"; // String | nin filter for the updated_at field
 DateTime updatedAtLte = new DateTime(); // DateTime | lte filter for the updated_at field
 DateTime updatedAtGte = new DateTime(); // DateTime | gte filter for the updated_at field
 String hashEq = "hashEq_example"; // String | eq filter for the hash field
@@ -3789,8 +3789,8 @@ String hashIn = "hashIn_example"; // String | in filter for the hash field
 String hashNin = "hashNin_example"; // String | nin filter for the hash field
 Integer lengthEq = 56; // Integer | eq filter for the length field
 Integer lengthNeq = 56; // Integer | neq filter for the length field
-Integer lengthIn = 56; // Integer | in filter for the length field
-Integer lengthNin = 56; // Integer | nin filter for the length field
+String lengthIn = "lengthIn_example"; // String | in filter for the length field
+String lengthNin = "lengthNin_example"; // String | nin filter for the length field
 Integer lengthLte = 56; // Integer | lte filter for the length field
 Integer lengthGte = 56; // Integer | gte filter for the length field
 try {
@@ -3812,16 +3812,16 @@ Name | Type | Description  | Notes
  **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
  **include** | **String**| A comma-separated list of data fields to return. Currently supported: total_count | [optional]
  **filter** | **String**| URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  ###### Filterable fields:  The table lists all the fields that can be filtered on with certain filters:  &lt;table&gt;   &lt;thead&gt;     &lt;tr&gt;       &lt;th&gt;Field&lt;/th&gt;       &lt;th&gt;&#x3D; / __eq / __neq&lt;/th&gt;       &lt;th&gt;__in /  __nin&lt;/th&gt;       &lt;th&gt;__lte / __gte&lt;/th&gt;     &lt;tr&gt;   &lt;thead&gt;   &lt;tbody&gt;     &lt;tr&gt;       &lt;td&gt;created_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;etag&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;updated_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;hash&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;length&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;   &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60;   **Filtering by properties** &#x60;hash__eq&#x3D;8FS70vXrq5y1VxAAssUMAg&#x3D;&#x3D;&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality by appending &#x60;__eq&#x60; to the field name * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__eq|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;status__eq&#x3D;in_progress&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;status__in&#x3D;in_progress,success&#x60; | [optional]
- **createdAtIn** | **DateTime**| in filter for the created_at field | [optional]
- **createdAtNin** | **DateTime**| nin filter for the created_at field | [optional]
+ **createdAtIn** | **String**| in filter for the created_at field | [optional]
+ **createdAtNin** | **String**| nin filter for the created_at field | [optional]
  **createdAtLte** | **DateTime**| lte filter for the created_at field | [optional]
  **createdAtGte** | **DateTime**| gte filter for the created_at field | [optional]
  **idEq** | **Integer**| eq filter for the id field | [optional]
  **idNeq** | **Integer**| neq filter for the id field | [optional]
- **idIn** | **Integer**| in filter for the id field | [optional]
- **idNin** | **Integer**| nin filter for the id field | [optional]
- **updatedAtIn** | **DateTime**| in filter for the updated_at field | [optional]
- **updatedAtNin** | **DateTime**| nin filter for the updated_at field | [optional]
+ **idIn** | **String**| in filter for the id field | [optional]
+ **idNin** | **String**| nin filter for the id field | [optional]
+ **updatedAtIn** | **String**| in filter for the updated_at field | [optional]
+ **updatedAtNin** | **String**| nin filter for the updated_at field | [optional]
  **updatedAtLte** | **DateTime**| lte filter for the updated_at field | [optional]
  **updatedAtGte** | **DateTime**| gte filter for the updated_at field | [optional]
  **hashEq** | **String**| eq filter for the hash field | [optional]
@@ -3830,8 +3830,8 @@ Name | Type | Description  | Notes
  **hashNin** | **String**| nin filter for the hash field | [optional]
  **lengthEq** | **Integer**| eq filter for the length field | [optional]
  **lengthNeq** | **Integer**| neq filter for the length field | [optional]
- **lengthIn** | **Integer**| in filter for the length field | [optional]
- **lengthNin** | **Integer**| nin filter for the length field | [optional]
+ **lengthIn** | **String**| in filter for the length field | [optional]
+ **lengthNin** | **String**| nin filter for the length field | [optional]
  **lengthLte** | **Integer**| lte filter for the length field | [optional]
  **lengthGte** | **Integer**| gte filter for the length field | [optional]
 
@@ -4046,8 +4046,8 @@ String order = "order_example"; // String | ASC or DESC
 String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
 String include = "include_example"; // String | A comma-separated list of data fields to return. Currently supported: total_count
 String filter = "filter_example"; // String | URL-encoded query string parameter to filter returned data  `?filter={URL-encoded query string}`  ###### Filterable fields:  The table lists all the fields that can be filtered on with certain filters:  <table>   <thead>     <tr>       <th>Field</th>       <th>= / __eq / __neq</th>       <th>__in /  __nin</th>       <th>__lte / __gte</th>     <tr>   <thead>   <tbody>     <tr>       <td>name</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>description</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>complete</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>firmware_image_id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>status</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>created_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>etag</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>updated_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>   </tbody> </table> &nbsp;  The query string is made up of key-value pairs separated by ampersands. For example, this query: `key1=value1&key2=value2&key3=value3`  would be URL-encoded as: `?filter=key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3`   **Filtering by properties** `name__eq=myimage`  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality by appending `__eq` to the field name * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  `{field name}[|__eq|__lte|__gte]={UTC RFC3339 date-time}`  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  `created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering on multiple fields**  `name__eq=myimage&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z`  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated:  `name__in=fw-image1,fw-image2`
-DateTime createdAtIn = new DateTime(); // DateTime | in filter for the created_at field
-DateTime createdAtNin = new DateTime(); // DateTime | nin filter for the created_at field
+String createdAtIn = "createdAtIn_example"; // String | in filter for the created_at field
+String createdAtNin = "createdAtNin_example"; // String | nin filter for the created_at field
 DateTime createdAtLte = new DateTime(); // DateTime | lte filter for the created_at field
 DateTime createdAtGte = new DateTime(); // DateTime | gte filter for the created_at field
 String datafileEq = "datafileEq_example"; // String | eq filter for the datafile field
@@ -4078,8 +4078,8 @@ String timestampIn = "timestampIn_example"; // String | in filter for the timest
 String timestampNin = "timestampNin_example"; // String | nin filter for the timestamp field
 String timestampLte = "timestampLte_example"; // String | lte filter for the timestamp field
 String timestampGte = "timestampGte_example"; // String | gte filter for the timestamp field
-DateTime updatedAtIn = new DateTime(); // DateTime | in filter for the updated_at field
-DateTime updatedAtNin = new DateTime(); // DateTime | nin filter for the updated_at field
+String updatedAtIn = "updatedAtIn_example"; // String | in filter for the updated_at field
+String updatedAtNin = "updatedAtNin_example"; // String | nin filter for the updated_at field
 DateTime updatedAtLte = new DateTime(); // DateTime | lte filter for the updated_at field
 DateTime updatedAtGte = new DateTime(); // DateTime | gte filter for the updated_at field
 try {
@@ -4100,8 +4100,8 @@ Name | Type | Description  | Notes
  **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
  **include** | **String**| A comma-separated list of data fields to return. Currently supported: total_count | [optional]
  **filter** | **String**| URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  ###### Filterable fields:  The table lists all the fields that can be filtered on with certain filters:  &lt;table&gt;   &lt;thead&gt;     &lt;tr&gt;       &lt;th&gt;Field&lt;/th&gt;       &lt;th&gt;&#x3D; / __eq / __neq&lt;/th&gt;       &lt;th&gt;__in /  __nin&lt;/th&gt;       &lt;th&gt;__lte / __gte&lt;/th&gt;     &lt;tr&gt;   &lt;thead&gt;   &lt;tbody&gt;     &lt;tr&gt;       &lt;td&gt;name&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;description&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;complete&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;firmware_image_id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;status&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;created_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;etag&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;updated_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;   &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60;   **Filtering by properties** &#x60;name__eq&#x3D;myimage&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality by appending &#x60;__eq&#x60; to the field name * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__eq|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;name__eq&#x3D;myimage&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; | [optional]
- **createdAtIn** | **DateTime**| in filter for the created_at field | [optional]
- **createdAtNin** | **DateTime**| nin filter for the created_at field | [optional]
+ **createdAtIn** | **String**| in filter for the created_at field | [optional]
+ **createdAtNin** | **String**| nin filter for the created_at field | [optional]
  **createdAtLte** | **DateTime**| lte filter for the created_at field | [optional]
  **createdAtGte** | **DateTime**| gte filter for the created_at field | [optional]
  **datafileEq** | **String**| eq filter for the datafile field | [optional]
@@ -4132,8 +4132,8 @@ Name | Type | Description  | Notes
  **timestampNin** | **String**| nin filter for the timestamp field | [optional]
  **timestampLte** | **String**| lte filter for the timestamp field | [optional]
  **timestampGte** | **String**| gte filter for the timestamp field | [optional]
- **updatedAtIn** | **DateTime**| in filter for the updated_at field | [optional]
- **updatedAtNin** | **DateTime**| nin filter for the updated_at field | [optional]
+ **updatedAtIn** | **String**| in filter for the updated_at field | [optional]
+ **updatedAtNin** | **String**| nin filter for the updated_at field | [optional]
  **updatedAtLte** | **DateTime**| lte filter for the updated_at field | [optional]
  **updatedAtGte** | **DateTime**| gte filter for the updated_at field | [optional]
 

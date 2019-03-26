@@ -71,7 +71,7 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
 
     /**
      * Clones this instance.
-     * 
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -165,7 +165,7 @@ public class AccountListDao extends AbstractModelListDao<Account, AccountListOpt
 
     /**
      * Lists accounts matching filter options.
-     * 
+     *
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#listAccounts(com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
