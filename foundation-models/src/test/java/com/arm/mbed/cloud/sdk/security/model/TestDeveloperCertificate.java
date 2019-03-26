@@ -19,13 +19,13 @@ public class TestDeveloperCertificate {
     @Test
     public void testClone() {
         try {
-            DeveloperCertificate developercertificate1 = new DeveloperCertificate("80e8073a-f285-446d-bf21-6d8c14af70a1",
-                                                                                  "8f20c533-c769-45a6-9f80-ab04aa8d9965",
-                                                                                  new Date(1553592029141L),
-                                                                                  "32af9399-7ced-464a-b8ee-06842f793dff",
-                                                                                  "b240233a-cf71-4fa5-aa89-69f106c73b95",
-                                                                                  "2c681912-7ded-4c6a-9b53-93d524d6baa2",
-                                                                                  "336ce91e-e2fc-4e2f-a4a4-7e756d7f66ee");
+            DeveloperCertificate developercertificate1 = new DeveloperCertificate("a6404d98-5697-40ee-87ed-04ec2d63a672",
+                                                                                  "52874e3c-f0c1-4ccb-ba13-8370923e5a40",
+                                                                                  new Date(1553611827127L),
+                                                                                  "3c8de539-0fe6-444b-a9d1-6caee51f6a51",
+                                                                                  "8e6384fa-5357-4d35-b18d-5f6a0b2c94c4",
+                                                                                  "d5e0e08d-7626-41f7-b7b5-7b263bf4e803",
+                                                                                  "b38cf010-5026-44bb-8715-f249d5d3570c");
             DeveloperCertificate developercertificate2 = developercertificate1.clone();
             assertNotNull(developercertificate1);
             assertNotNull(developercertificate2);
@@ -43,20 +43,20 @@ public class TestDeveloperCertificate {
     @Test
     public void testHashCode() {
         try {
-            DeveloperCertificate developercertificate1 = new DeveloperCertificate("14a5cc34-1eee-42a5-9bee-8320c35f850b",
-                                                                                  "dbcdcf75-7b7d-49af-ac1d-f4dda02a06d0",
-                                                                                  new Date(1553592030682L),
-                                                                                  "166865a9-a5ac-47aa-b4ea-3401a8823040",
-                                                                                  "679fb812-ba28-4218-a2c7-85c24cecd7ea",
-                                                                                  "8acbca91-836a-4fd4-a68a-b3bf13d4a8f3",
-                                                                                  "b1161a7b-a2c6-4cb4-ae58-a6c449d1cdcc");
-            DeveloperCertificate developercertificate2 = new DeveloperCertificate("14a5cc34-1eee-42a5-9bee-8320c35f850b",
-                                                                                  "dbcdcf75-7b7d-49af-ac1d-f4dda02a06d0",
-                                                                                  new Date(1553592030682L),
-                                                                                  "166865a9-a5ac-47aa-b4ea-3401a8823040",
-                                                                                  "679fb812-ba28-4218-a2c7-85c24cecd7ea",
-                                                                                  "8acbca91-836a-4fd4-a68a-b3bf13d4a8f3",
-                                                                                  "b1161a7b-a2c6-4cb4-ae58-a6c449d1cdcc");
+            DeveloperCertificate developercertificate1 = new DeveloperCertificate("8cebffa1-878a-475f-b082-832cf95bcd2e",
+                                                                                  "7a0a1b6e-9285-47da-937f-6082d6df0972",
+                                                                                  new Date(1553611832406L),
+                                                                                  "f1c74664-1c3d-4b74-bfec-d8f0763c40dd",
+                                                                                  "0964d4ce-3e1c-48ee-ad2d-d0905008646a",
+                                                                                  "b236d343-d0a4-43a2-9f49-f02401019702",
+                                                                                  "a217bfb2-88b8-44ee-aea5-04e66525d31f");
+            DeveloperCertificate developercertificate2 = new DeveloperCertificate("8cebffa1-878a-475f-b082-832cf95bcd2e",
+                                                                                  "7a0a1b6e-9285-47da-937f-6082d6df0972",
+                                                                                  new Date(1553611832406L),
+                                                                                  "f1c74664-1c3d-4b74-bfec-d8f0763c40dd",
+                                                                                  "0964d4ce-3e1c-48ee-ad2d-d0905008646a",
+                                                                                  "b236d343-d0a4-43a2-9f49-f02401019702",
+                                                                                  "a217bfb2-88b8-44ee-aea5-04e66525d31f");
             assertNotNull(developercertificate1);
             assertNotNull(developercertificate2);
             assertNotSame(developercertificate2, developercertificate1);
@@ -77,21 +77,21 @@ public class TestDeveloperCertificate {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        DeveloperCertificate developercertificate = new DeveloperCertificate("bde93939-24ab-4187-982a-10c3acc676e2",
-                                                                             "7570bc54-c7d3-417d-b485-96a14a5770e2",
-                                                                             new Date(1553592030017L),
-                                                                             "a0f6260a-c02d-44ad-be1d-88635ca7b172",
-                                                                             "17482dc8-dd83-4fe0-9f0f-93c2b2f3812e",
-                                                                             "591a435c-d8d7-4265-8e86-22453778c88f",
-                                                                             "d6e73e14-155d-4cdd-aa4d-1931f506c283");
+        DeveloperCertificate developercertificate = new DeveloperCertificate("71a5b8c2-160b-4796-b303-5a1131b9869a",
+                                                                             "dc1b435a-e9af-4a18-8e1c-99655cd0bdba",
+                                                                             new Date(1553611834342L),
+                                                                             "feaab6cf-01ef-4edf-8e2c-bab488478a23",
+                                                                             "6bc31c54-3000-4b6e-b396-11383e61aac6",
+                                                                             "0ae0f07a-b022-46be-83c0-16f4bfaebae8",
+                                                                             "b9b33bb2-8c8e-4e23-89ff-ac801f6328ec");
         assertTrue(developercertificate.isValid());
-        DeveloperCertificate developercertificateInvalid = new DeveloperCertificate("abd70ab1-e408-4312-8815-6386499061b6",
-                                                                                    "25f01a03-4177-4a5a-a47f-a92510afd2a4",
-                                                                                    new Date(1553592026767L),
-                                                                                    "d9ef26dc-5ea5-487d-90de-15e26e5c0f83",
-                                                                                    "25439035-0d78-47b6-85a8-70b31c23316b",
+        DeveloperCertificate developercertificateInvalid = new DeveloperCertificate("9c59443e-3c4a-42a0-a9ef-4a1da6458123",
+                                                                                    "741f2402-c211-4705-b57e-f42e422f70d5",
+                                                                                    new Date(1553611828589L),
+                                                                                    "90b77dd0-3d9d-41e3-a73e-66a4b45d63f2",
+                                                                                    "1d89c7e7-3119-4e2e-92c3-b78c57e49840",
                                                                                     null,
-                                                                                    "a47eb6db-9c25-456e-9fcf-dda9489c93a8");
+                                                                                    "ec7d1e56-7c7e-4921-89a3-224a2811260e");
         assertFalse(developercertificateInvalid.isValid());
     }
 
@@ -102,27 +102,27 @@ public class TestDeveloperCertificate {
     @Test
     public void testEquals() {
         try {
-            DeveloperCertificate developercertificate1 = new DeveloperCertificate("23a24f53-9c78-4ad5-8e20-50143b3327e8",
-                                                                                  "ea3df2c9-df93-4130-8a49-f653e1394813",
-                                                                                  new Date(1553592030463L),
-                                                                                  "2cd73514-c400-49e8-8661-a6dd3a6b05e2",
-                                                                                  "bb3813bb-0c16-4b7e-bbdc-a9f36797b5a1",
-                                                                                  "1603a5c3-5f29-48f3-a7ac-aa03d398dcb1",
-                                                                                  "6242f9d6-f4a8-4dd8-a251-6339affab641");
-            DeveloperCertificate developercertificate2 = new DeveloperCertificate("23a24f53-9c78-4ad5-8e20-50143b3327e8",
-                                                                                  "ea3df2c9-df93-4130-8a49-f653e1394813",
-                                                                                  new Date(1553592030463L),
-                                                                                  "2cd73514-c400-49e8-8661-a6dd3a6b05e2",
-                                                                                  "bb3813bb-0c16-4b7e-bbdc-a9f36797b5a1",
-                                                                                  "1603a5c3-5f29-48f3-a7ac-aa03d398dcb1",
-                                                                                  "6242f9d6-f4a8-4dd8-a251-6339affab641");
-            DeveloperCertificate developercertificate3 = new DeveloperCertificate("40b72060-9d91-47af-b6ee-6e0311b2f935",
-                                                                                  "41dc6378-a6c9-4fdf-aa65-90e887efd929",
-                                                                                  new Date(1553592027395L),
-                                                                                  "2b2c9fc3-719c-496c-a8c7-b25a3a5ded67",
-                                                                                  "997e8f16-9313-4479-bf53-cef705b796b9",
-                                                                                  "b70f0595-f248-47cb-8e85-0f0d6ab88c17",
-                                                                                  "a26df1ce-6a4c-4d0a-b60d-d7ef6b4023d0");
+            DeveloperCertificate developercertificate1 = new DeveloperCertificate("bc06377d-c75c-49a3-9cea-3762bc7572f5",
+                                                                                  "dda604d7-a481-42f5-a08d-10ceb28f54c6",
+                                                                                  new Date(1553611828151L),
+                                                                                  "2f00ffaf-3153-4ec6-b5dc-5f9a6f43ecbb",
+                                                                                  "1e7142cf-0ea9-4552-90de-7248a41c299a",
+                                                                                  "79fe65f2-e5c8-49d1-bc9b-5056d0cbb4b2",
+                                                                                  "ad47f88e-1551-40f0-98ae-b472adeeb790");
+            DeveloperCertificate developercertificate2 = new DeveloperCertificate("bc06377d-c75c-49a3-9cea-3762bc7572f5",
+                                                                                  "dda604d7-a481-42f5-a08d-10ceb28f54c6",
+                                                                                  new Date(1553611828151L),
+                                                                                  "2f00ffaf-3153-4ec6-b5dc-5f9a6f43ecbb",
+                                                                                  "1e7142cf-0ea9-4552-90de-7248a41c299a",
+                                                                                  "79fe65f2-e5c8-49d1-bc9b-5056d0cbb4b2",
+                                                                                  "ad47f88e-1551-40f0-98ae-b472adeeb790");
+            DeveloperCertificate developercertificate3 = new DeveloperCertificate("99890e0f-3c61-4596-b5a6-26b5c4d8a06c",
+                                                                                  "a5678cf8-bc1c-4b52-8250-305e0f219b2e",
+                                                                                  new Date(1553611831221L),
+                                                                                  "4d180d1d-d3e5-4d98-b802-0cdbef400501",
+                                                                                  "b3e29b90-bf2a-4441-8d4b-bef6ef406949",
+                                                                                  "a9542904-9616-488d-98b1-a523dea347bd",
+                                                                                  "965f4267-67c1-4a65-8a44-cd35e7d54ba4");
             assertNotNull(developercertificate1);
             assertNotNull(developercertificate2);
             assertNotNull(developercertificate3);

@@ -15,7 +15,7 @@ import java.util.Objects;
  * Model for a subtenant user.
  */
 @Preamble(description = "Model for a subtenant user.")
-@SuppressWarnings("PMD.CyclomaticComplexity")
+@SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.AvoidDuplicateLiterals" })
 public class SubtenantUser implements SdkModel {
     /**
      * Serialisation Id.

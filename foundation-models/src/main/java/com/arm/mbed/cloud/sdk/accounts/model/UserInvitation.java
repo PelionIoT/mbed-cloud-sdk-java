@@ -13,6 +13,7 @@ import java.util.List;
  * Model for a user invitation.
  */
 @Preamble(description = "Model for a user invitation.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class UserInvitation implements SdkModel {
     /**
      * Serialisation Id.

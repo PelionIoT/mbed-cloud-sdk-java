@@ -11,6 +11,7 @@ import java.util.Date;
  * Model for a device enrollment denial.
  */
 @Preamble(description = "Model for a device enrollment denial.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class DeviceEnrollmentDenial implements SdkModel {
     /**
      * Serialisation Id.

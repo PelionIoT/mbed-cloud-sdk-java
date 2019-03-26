@@ -12,6 +12,7 @@ import java.util.Date;
  * Model for a device enrollment.
  */
 @Preamble(description = "Model for a device enrollment.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class DeviceEnrollment implements SdkModel {
     /**
      * Serialisation Id.

@@ -15,7 +15,7 @@ import java.util.Objects;
  * Model for a user.
  */
 @Preamble(description = "Model for a user.")
-@SuppressWarnings("PMD.CyclomaticComplexity")
+@SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.AvoidDuplicateLiterals" })
 public class User implements SdkModel {
     /**
      * Serialisation Id.

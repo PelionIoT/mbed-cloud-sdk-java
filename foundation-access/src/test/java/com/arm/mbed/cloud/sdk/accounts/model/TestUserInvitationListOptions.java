@@ -19,10 +19,10 @@ public class TestUserInvitationListOptions {
     @Test
     public void testClone() {
         try {
-            UserInvitationListOptions userinvitationlistoptions1 = new UserInvitationListOptions(Integer.valueOf(54),
-                                                                                                 Long.valueOf(24),
+            UserInvitationListOptions userinvitationlistoptions1 = new UserInvitationListOptions(Integer.valueOf(124),
+                                                                                                 Long.valueOf(-16),
                                                                                                  Order.getDefault(),
-                                                                                                 "cc70d184-7110-492c-91a9-50386c3e404e",
+                                                                                                 "36d3a707-626b-4788-a3e5-715bfa7ef790",
                                                                                                  null, null);
             UserInvitationListOptions userinvitationlistoptions2 = userinvitationlistoptions1.clone();
             assertNotNull(userinvitationlistoptions1);
@@ -41,15 +41,15 @@ public class TestUserInvitationListOptions {
     @Test
     public void testHashCode() {
         try {
-            UserInvitationListOptions userinvitationlistoptions1 = new UserInvitationListOptions(Integer.valueOf(79),
-                                                                                                 Long.valueOf(-102),
+            UserInvitationListOptions userinvitationlistoptions1 = new UserInvitationListOptions(Integer.valueOf(-36),
+                                                                                                 Long.valueOf(-84),
                                                                                                  Order.getDefault(),
-                                                                                                 "c9f3a07a-309c-4ddb-85c3-4b6aa429a158",
+                                                                                                 "4579a34f-3db7-4f30-9508-4b7ff444ad5c",
                                                                                                  null, null);
-            UserInvitationListOptions userinvitationlistoptions2 = new UserInvitationListOptions(Integer.valueOf(79),
-                                                                                                 Long.valueOf(-102),
+            UserInvitationListOptions userinvitationlistoptions2 = new UserInvitationListOptions(Integer.valueOf(-36),
+                                                                                                 Long.valueOf(-84),
                                                                                                  Order.getDefault(),
-                                                                                                 "c9f3a07a-309c-4ddb-85c3-4b6aa429a158",
+                                                                                                 "4579a34f-3db7-4f30-9508-4b7ff444ad5c",
                                                                                                  null, null);
             assertNotNull(userinvitationlistoptions1);
             assertNotNull(userinvitationlistoptions2);
@@ -72,20 +72,20 @@ public class TestUserInvitationListOptions {
     @Test
     public void testEquals() {
         try {
-            UserInvitationListOptions userinvitationlistoptions1 = new UserInvitationListOptions(Integer.valueOf(-100),
-                                                                                                 Long.valueOf(69),
+            UserInvitationListOptions userinvitationlistoptions1 = new UserInvitationListOptions(Integer.valueOf(30),
+                                                                                                 Long.valueOf(66),
                                                                                                  Order.getDefault(),
-                                                                                                 "2d6f35d6-02f5-43cf-a317-49a9bdbb337a",
+                                                                                                 "f2328b42-3405-4c7e-9cd5-0af90bfd79e6",
                                                                                                  null, null);
-            UserInvitationListOptions userinvitationlistoptions2 = new UserInvitationListOptions(Integer.valueOf(-100),
-                                                                                                 Long.valueOf(69),
+            UserInvitationListOptions userinvitationlistoptions2 = new UserInvitationListOptions(Integer.valueOf(30),
+                                                                                                 Long.valueOf(66),
                                                                                                  Order.getDefault(),
-                                                                                                 "2d6f35d6-02f5-43cf-a317-49a9bdbb337a",
+                                                                                                 "f2328b42-3405-4c7e-9cd5-0af90bfd79e6",
                                                                                                  null, null);
-            UserInvitationListOptions userinvitationlistoptions3 = new UserInvitationListOptions(Integer.valueOf(124),
-                                                                                                 Long.valueOf(-74),
+            UserInvitationListOptions userinvitationlistoptions3 = new UserInvitationListOptions(Integer.valueOf(61),
+                                                                                                 Long.valueOf(51),
                                                                                                  Order.getDefault(),
-                                                                                                 "54567fb3-5737-483d-844a-f950676980bc",
+                                                                                                 "a60c9b74-2fb9-4bda-860f-029e7dc04eb1",
                                                                                                  null, null);
             assertNotNull(userinvitationlistoptions1);
             assertNotNull(userinvitationlistoptions2);

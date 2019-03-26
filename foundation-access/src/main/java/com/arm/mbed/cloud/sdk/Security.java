@@ -61,6 +61,7 @@ import retrofit2.Call;
  */
 @Preamble(description = "Specifies Security APIs.")
 @Internal
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @Module
 public class Security extends AbstractModule {
     /**
@@ -1042,6 +1043,7 @@ public class Security extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public Paginator<CertificateEnrollment>
@@ -1175,6 +1177,7 @@ public class Security extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public Paginator<TrustedCertificate>
@@ -1214,6 +1217,7 @@ public class Security extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public Paginator<TrustedCertificate>
@@ -1241,6 +1245,7 @@ public class Security extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public ListResponse<CertificateEnrollment>
@@ -1409,6 +1414,7 @@ public class Security extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public ListResponse<TrustedCertificate>
@@ -1473,6 +1479,7 @@ public class Security extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public ListResponse<TrustedCertificate>

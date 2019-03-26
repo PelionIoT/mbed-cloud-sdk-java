@@ -13,6 +13,7 @@ import java.util.Objects;
  * Model for an api key.
  */
 @Preamble(description = "Model for an api key.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class ApiKey implements SdkModel {
     /**
      * Serialisation Id.

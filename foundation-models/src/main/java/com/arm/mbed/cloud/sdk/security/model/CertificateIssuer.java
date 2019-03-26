@@ -13,6 +13,7 @@ import java.util.Map;
  * Model for a certificate issuer.
  */
 @Preamble(description = "Model for a certificate issuer.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class CertificateIssuer implements SdkModel {
     /**
      * Serialisation Id.

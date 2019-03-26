@@ -13,6 +13,7 @@ import java.util.List;
  * Model for a subtenant user invitation.
  */
 @Preamble(description = "Model for a subtenant user invitation.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class SubtenantUserInvitation implements SdkModel {
     /**
      * Serialisation Id.

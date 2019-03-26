@@ -12,6 +12,7 @@ import java.util.Date;
  * Model for a developer certificate.
  */
 @Preamble(description = "Model for a developer certificate.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class DeveloperCertificate implements SdkModel {
     /**
      * Serialisation Id.

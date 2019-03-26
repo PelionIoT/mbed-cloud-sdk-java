@@ -61,6 +61,7 @@ import retrofit2.Call;
  */
 @Preamble(description = "Specifies Accounts APIs.")
 @Internal
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @Module
 public class Accounts extends AbstractModule {
     /**
@@ -187,6 +188,7 @@ public class Accounts extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public Paginator<SubtenantTrustedCertificate>
@@ -278,6 +280,7 @@ public class Accounts extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public Paginator<SubtenantTrustedCertificate>
@@ -347,6 +350,7 @@ public class Accounts extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public Paginator<SubtenantTrustedCertificate>
@@ -373,6 +377,7 @@ public class Accounts extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public Paginator<SubtenantTrustedCertificate>
@@ -1420,6 +1425,7 @@ public class Accounts extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public ListResponse<Account> listAccounts(@Nullable AccountListOptions options) throws MbedCloudException {
@@ -1446,6 +1452,7 @@ public class Accounts extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public ListResponse<Account> listAccounts(@Nullable String format, @Nullable String properties,
@@ -1500,6 +1507,7 @@ public class Accounts extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public Paginator<Account> listAllAccounts(@Nullable AccountListOptions options) throws MbedCloudException {
@@ -1524,6 +1532,7 @@ public class Accounts extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public Paginator<Account> listAllAccounts(@Nullable String format, @Nullable String properties,
@@ -2433,6 +2442,7 @@ public class Accounts extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public ListResponse<SubtenantTrustedCertificate>
@@ -2489,6 +2499,7 @@ public class Accounts extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public ListResponse<SubtenantTrustedCertificate>
@@ -2554,6 +2565,7 @@ public class Accounts extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public ListResponse<SubtenantTrustedCertificate>
@@ -2581,6 +2593,7 @@ public class Accounts extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public ListResponse<SubtenantTrustedCertificate>

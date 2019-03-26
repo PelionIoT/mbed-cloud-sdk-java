@@ -12,7 +12,7 @@ import java.util.Map;
  * Model for a device.
  */
 @Preamble(description = "Model for a device.")
-@SuppressWarnings("PMD.CyclomaticComplexity")
+@SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.AvoidDuplicateLiterals" })
 public class Device implements SdkModel {
     /**
      * Serialisation Id.

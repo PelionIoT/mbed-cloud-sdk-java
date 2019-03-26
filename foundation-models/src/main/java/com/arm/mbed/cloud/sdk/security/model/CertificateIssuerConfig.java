@@ -12,6 +12,7 @@ import java.util.Date;
  * Model for a certificate issuer config.
  */
 @Preamble(description = "Model for a certificate issuer config.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class CertificateIssuerConfig implements SdkModel {
     /**
      * Serialisation Id.

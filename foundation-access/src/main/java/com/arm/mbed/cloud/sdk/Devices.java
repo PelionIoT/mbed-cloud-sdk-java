@@ -61,6 +61,7 @@ import retrofit2.Call;
  */
 @Preamble(description = "Specifies Devices APIs.")
 @Internal
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 @Module
 public class Devices extends AbstractModule {
     /**
@@ -657,6 +658,7 @@ public class Devices extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public Paginator<DeviceEvents>
@@ -692,6 +694,7 @@ public class Devices extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public Paginator<Device> listAllDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
@@ -727,6 +730,7 @@ public class Devices extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public Paginator<Device>
@@ -862,6 +866,7 @@ public class Devices extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public ListResponse<DeviceEvents>
@@ -951,6 +956,7 @@ public class Devices extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public ListResponse<Device> listDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
@@ -986,6 +992,7 @@ public class Devices extends AbstractModule {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     @API
     @Nullable
     public ListResponse<Device>
