@@ -207,7 +207,7 @@ public class ValueGenerator {
             return;
         }
         final List<Field> fields = ((AbstractMethodConstructor) model.fetchMethod(fetchConstructor(model))).getAllFields();
-        if (fields.stream().filter(f -> f.needsValidation()).count() == 0) {
+        if (fields.stream().filter(f -> f.needsValidation() && !f.isReadOnly()).count() == 0) {
             return;
         }
         fields.forEach(f -> addGenerateFieldInvalidValue(f, values));

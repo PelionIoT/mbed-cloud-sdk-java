@@ -38,6 +38,7 @@ public class ModelModule extends ModelMergeable {
         addEndpointField();
         registry = new MethodRegistry();
         setShouldBeSorted(true);
+        setIgnoreLiteralDuplicate(true);
     }
 
     private void addEndpointField() {

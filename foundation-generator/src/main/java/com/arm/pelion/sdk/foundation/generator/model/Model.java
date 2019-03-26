@@ -817,7 +817,7 @@ public class Model extends AbstractSdkArtifact {
     public void generateMethods() {
         // methods.clear();
         // Adding getters and setters
-        generateSettersAndGetters();
+        generateSettersAndGettersAndValidators();
         generateOtherMethods();
         generateMethodsNecessaryAtEachLevel();
         generateInterfaceMethods();
@@ -828,7 +828,7 @@ public class Model extends AbstractSdkArtifact {
 
     }
 
-    protected void generateSettersAndGetters() {
+    protected void generateSettersAndGettersAndValidators() {
         getFieldList().stream().filter(f -> !f.isAlreadyDefined()).forEach(f -> {
             final MethodGetter getter = new MethodGetter(f, null, false);
             getter.setDeprecation(f.getDeprecation());
@@ -866,6 +866,9 @@ public class Model extends AbstractSdkArtifact {
                 }
             }
         });
+        if (hasFieldsNeedingValidation()) {
+            setIgnoreLiteralDuplicate(true);
+        }
     }
 
     public void addNoIdentifierGetterAndSetter() {

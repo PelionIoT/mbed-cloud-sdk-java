@@ -41,6 +41,7 @@ public class Method extends AbstractSdkArtifact {
     private boolean ignoreShortName;
     private boolean forcePrivate;
     private boolean ignoreResourceClosure;
+    private boolean ignoreMethodLength;
 
     public Method(boolean isReadOnly, String name, String description, String longDescription, boolean isStatic,
                   boolean isAccessible, boolean isAbstract, boolean containsCustomCode, boolean needsCustomCode,
@@ -63,6 +64,7 @@ public class Method extends AbstractSdkArtifact {
         setForcePrivate(false);
         setIgnoreResourceClosure(false);
         shouldUseVarargs(false);
+        setIgnoreMethodLength(false);
     }
 
     public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride,
@@ -124,6 +126,14 @@ public class Method extends AbstractSdkArtifact {
 
     public void setIgnoreResourceClosure(boolean ignoreResourceClosure) {
         this.ignoreResourceClosure = ignoreResourceClosure;
+    }
+
+    public boolean isIgnoreMethodLength() {
+        return ignoreMethodLength;
+    }
+
+    public void setIgnoreMethodLength(boolean ignoreMethodLength) {
+        this.ignoreMethodLength = ignoreMethodLength;
     }
 
     public boolean isForcePrivate() {
@@ -386,6 +396,9 @@ public class Method extends AbstractSdkArtifact {
         }
         if (ignoreResourceClosure) {
             annotationRegistry.ignoreResourceClosure();
+        }
+        if (ignoreMethodLength) {
+            annotationRegistry.ignoreExcessiveMethodLength();
         }
         if (hasDeprecation()) {
             specificationBuilder.addAnnotation(Deprecated.class);

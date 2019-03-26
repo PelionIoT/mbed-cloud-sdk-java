@@ -42,7 +42,7 @@ import utils.Configuration;
 import utils.Example;
 import utils.ExampleLogger;
 
-public class FoundationsExamples extends AbstractExample {
+public class UseCaseExamples extends AbstractExample {
     /**
      * Checks my account status.
      */
@@ -331,7 +331,7 @@ public class FoundationsExamples extends AbstractExample {
             // List all devices which have tried to bootstrap
             sdk.foundation().getDeviceEnrollmentDenialListDao()
                .list(new DeviceEnrollmentDenialListOptions().equalToTrustedCertificateId(myCertId))
-               .forEach(d -> System.out.println("Device endpoint name: " + d.getEndpointName()));
+               .forEach(d -> log("Device endpoint name: " + d.getEndpointName()));
 
             // end of example
             myCertificateDao.read();

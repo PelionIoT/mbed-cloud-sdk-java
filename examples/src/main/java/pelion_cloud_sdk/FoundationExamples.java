@@ -18,7 +18,7 @@ import utils.AbstractExample;
 import utils.Configuration;
 import utils.Example;
 
-public class CrudExample extends AbstractExample {
+public class FoundationExamples extends AbstractExample {
     /**
      * CRUD example on a User
      */

@@ -21,6 +21,7 @@ import com.squareup.javapoet.TypeSpec;
 import retrofit2.Call;
 
 public class MethodModuleCloudApi extends MethodOverloaded {
+    private static final int NUMBER_OF_PARAMETER_THRESHOLD_FOR_STATIC_ANALYSIS = 10;
     private static final String PARAMETER_NAME_LOW_LEVEL_DEFAULT = "body";
     protected final Model currentModel;
     protected final ModelAdapterFetcher adapterFetcher;
@@ -65,7 +66,11 @@ public class MethodModuleCloudApi extends MethodOverloaded {
         necessaryConstants.clear();
         methodParameters = extendParameterList(methodParameters, allParameters, lowLevelMethod, parameterRenames,
                                                currentModel);
-
+        if ((methodParameters != null && methodParameters.size() > NUMBER_OF_PARAMETER_THRESHOLD_FOR_STATIC_ANALYSIS)
+            || (lowLevelMethod != null && lowLevelMethod.hasParameters()
+                && lowLevelMethod.getParameters().size() > NUMBER_OF_PARAMETER_THRESHOLD_FOR_STATIC_ANALYSIS)) {
+            setIgnoreMethodLength(true);
+        }
         determineNecessaryConstants(methodParameters);
         determineParameters(methodParameters);
     }

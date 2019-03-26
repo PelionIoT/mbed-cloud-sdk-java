@@ -167,7 +167,6 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
                 }
                 callElements.add(method.generateFinalVariable(PARAMETER_NAME_OPTIONS));
                 return;
-
             }
         }
         switch (parameterName) {
