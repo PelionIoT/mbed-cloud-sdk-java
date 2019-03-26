@@ -20,7 +20,7 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * The ID of the certificate issuer. Null if Device Management internal HSM is used.
-     *
+     * 
      */
     @Required
     private String certificateIssuerId;
@@ -38,7 +38,7 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * The ID of the certificate issuer configuration.
-     *
+     * 
      */
     private String id;
 
@@ -49,20 +49,20 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerConfig()} instead.
      * 
      * @param certificateIssuerId
      *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
-     *
+     * 
      * @param certificateReference
      *            The certificate name to which the certificate issuer configuration applies.
      * @param createdAt
      *            Created UTC time RFC3339.
      * @param id
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      * @param updatedAt
      *            Updated UTC time RFC3339.
      */
@@ -79,7 +79,7 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerConfig()} instead.
      * 
@@ -107,7 +107,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      * @param id
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      */
     public CertificateIssuerConfig(String id) {
         this();
@@ -116,7 +116,7 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerConfig()} instead.
      * 
@@ -135,7 +135,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      * @param certificateIssuerId
      *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
-     *
+     * 
      * @param certificateReference
      *            The certificate name to which the certificate issuer configuration applies.
      */
@@ -157,7 +157,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      * @param certificateIssuerId
      *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
-     *
+     * 
      */
     @Required
     public void setCertificateIssuerId(String certificateIssuerId) {
@@ -228,7 +228,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      * @param id
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      */
     @Override
     public void setId(String id) {
@@ -237,13 +237,13 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * Sets the id of the certificate issuer configuration.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
      * @param certificateIssuerConfigId
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      */
     @Internal
     public void setCertificateIssuerConfigId(String certificateIssuerConfigId) {
@@ -261,7 +261,7 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -281,7 +281,7 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -295,7 +295,7 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -358,7 +358,7 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -372,7 +372,7 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -385,7 +385,7 @@ public class CertificateIssuerConfig implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

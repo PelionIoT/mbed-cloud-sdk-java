@@ -886,7 +886,7 @@ public class Connect extends AbstractModule {
      * @param cacheOnly
      *            If true, the response will come only from the cache.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
+     *            If true, Pelion Device Connector will not wait for a response.
      * @return A Future from which it is possible to obtain resource value.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
@@ -962,7 +962,7 @@ public class Connect extends AbstractModule {
      * @param cacheOnly
      *            If true, the response will come only from the cache.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
+     *            If true, Pelion Device Connector will not wait for a response.
      * @return A Future from which it is possible to obtain resource value.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
@@ -1039,7 +1039,7 @@ public class Connect extends AbstractModule {
      * @param cacheOnly
      *            If true, the response will come only from the cache.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
+     *            If true, Pelion Device Connector will not wait for a response.
      * @param timeout
      *            Timeout for the request.
      * @return resource value.
@@ -1119,7 +1119,7 @@ public class Connect extends AbstractModule {
      * @param cacheOnly
      *            If true, the response will come only from the cache.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
+     *            If true, Pelion Device Connector will not wait for a response.
      * @param timeout
      *            Timeout for the request.
      * @return resource value.
@@ -1213,7 +1213,7 @@ public class Connect extends AbstractModule {
      * @param resourceValue
      *            value to set.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
+     *            If true, Pelion Device Connector will not wait for a response.
      * @return A Future from which it is possible to set the value.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
@@ -1344,7 +1344,7 @@ public class Connect extends AbstractModule {
      * @param resourceValue
      *            value to set.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
+     *            If true, Pelion Device Connector will not wait for a response.
      * @param timeout
      *            Timeout for the request.
      * @return The value of the new resource.
@@ -1442,7 +1442,7 @@ public class Connect extends AbstractModule {
      * @param resourceValue
      *            value to set.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
+     *            If true, Pelion Device Connector will not wait for a response.
      * @param timeout
      *            Timeout for the request.
      * @return The value of the new resource.
@@ -1565,7 +1565,7 @@ public class Connect extends AbstractModule {
      * @param functionName
      *            The function to trigger.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
+     *            If true, Pelion Device Connector will not wait for a response.
      * @return A Future from which it is possible to get the value returned from the function executed on the resource.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
@@ -1607,7 +1607,7 @@ public class Connect extends AbstractModule {
      * @param functionName
      *            The function to trigger.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
+     *            If true, Pelion Device Connector will not wait for a response.
      * @return A Future from which it is possible to get the value returned from the function executed on the resource.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
@@ -1669,7 +1669,7 @@ public class Connect extends AbstractModule {
      * @param functionName
      *            The function to trigger.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
+     *            If true, Pelion Device Connector will not wait for a response.
      * @param timeout
      *            Timeout for the request.
      * @return the value returned from the function executed on the resource.
@@ -1713,7 +1713,7 @@ public class Connect extends AbstractModule {
      * @param functionName
      *            The function to trigger.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
+     *            If true, Pelion Device Connector will not wait for a response.
      * @param timeout
      *            Timeout for the request.
      * @return the value returned from the function executed on the resource.
@@ -1861,7 +1861,7 @@ public class Connect extends AbstractModule {
      * Adds a pre-subscription.
      * <p>
      * Note: for more information about pre-subscriptions, have a look at @link {@link Presubscription} or
-     * <a href="https://cloud.mbed.com/docs/current/connecting/presubscriptions.html">corresponding Mbed Cloud
+     * <a href="https://cloud.mbed.com/docs/current/connecting/presubscriptions.html">corresponding Pelion Cloud
      * documentation</a>
      *
      * @param presubscription
@@ -1892,7 +1892,7 @@ public class Connect extends AbstractModule {
      * Adds some pre-subscriptions.
      * <p>
      * Note: for more information about pre-subscriptions, have a look at @link {@link Presubscription} or
-     * <a href="https://cloud.mbed.com/docs/current/connecting/presubscriptions.html">corresponding Mbed Cloud
+     * <a href="https://cloud.mbed.com/docs/current/connecting/presubscriptions.html">corresponding Pelion Cloud
      * documentation</a>
      *
      * @param presubscriptions
@@ -2075,7 +2075,7 @@ public class Connect extends AbstractModule {
      */
     @API
     public void deleteSubscriptions() throws MbedCloudException {
-        // The following is a workaround until there is a Mbed Cloud endpoint providing such an action.
+        // The following is a workaround until there is a Pelion Cloud endpoint providing such an action.
         logger.logWarn("deleteSubscriptions() could be slow for large numbers of connected devices. "
                        + "If possible, explicitly delete subscriptions known to have been created.");
         final Paginator<Device> connectedDevices = listAllConnectedDevices(null);
@@ -2152,7 +2152,7 @@ public class Connect extends AbstractModule {
     public @Nullable List<Subscription> listSubscriptions() throws MbedCloudException {
         logger.logWarn("listSubscriptions() could be slow for large numbers of connected devices.");
         final List<Subscription> subscriptions = new LinkedList<>();
-        // The following is a workaround until there is a Mbed Cloud endpoint providing such an action.
+        // The following is a workaround until there is a Pelion Cloud endpoint providing such an action.
         final Paginator<Device> connectedDevices = listAllConnectedDevices(null);
         if (connectedDevices != null) {
             for (final Device connectedDevice : connectedDevices) {
@@ -2805,7 +2805,7 @@ public class Connect extends AbstractModule {
     }
 
     /**
-     * Deletes the callback data (effectively stopping Arm Mbed Cloud Connect from putting notifications).
+     * Deletes the callback data (effectively stopping Arm Pelion Cloud Connect from putting notifications).
      * <p>
      * If no webhook is registered, an exception (404) will be raised.
      * <p>

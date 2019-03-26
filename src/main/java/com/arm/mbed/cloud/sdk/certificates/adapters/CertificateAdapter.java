@@ -34,7 +34,7 @@ public final class CertificateAdapter {
      * Maps certificate.
      *
      * @param iamCertificate
-     *            response from Mbed Cloud.
+     *            response from Pelion Cloud.
      * @return a partial certificate.
      */
     public static Certificate map(TrustedCertificateResp iamCertificate) {
@@ -61,7 +61,7 @@ public final class CertificateAdapter {
      * Maps data regarding server credentials.
      *
      * @param serverResponse
-     *            response from Mbed Cloud.
+     *            response from Pelion Cloud.
      * @return a partial certificate.
      */
     public static Certificate mapServer(ServerCredentialsResponseData serverResponse) {
@@ -76,7 +76,7 @@ public final class CertificateAdapter {
      * Maps a developer certificate.
      *
      * @param developerData
-     *            response from Mbed Cloud.
+     *            response from Pelion Cloud.
      * @return a partial certificate.
      */
     public static Certificate mapDeveloper(DeveloperCertificateResponseData developerData) {

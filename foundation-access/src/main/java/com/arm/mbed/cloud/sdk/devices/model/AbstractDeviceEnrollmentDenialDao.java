@@ -122,7 +122,7 @@ public abstract class AbstractDeviceEnrollmentDenialDao extends AbstractModelDao
 
     /**
      * Gets a device enrollment denial.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentDenial(String, com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDenial)}

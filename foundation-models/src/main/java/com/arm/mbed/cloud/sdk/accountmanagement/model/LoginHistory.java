@@ -8,7 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
-@Preamble(description = "This object represents a user login history in Arm Mbed Cloud")
+@Preamble(description = "This object represents a user login history in Arm Pelion Cloud")
 public class LoginHistory implements SdkModel {
 
     /**

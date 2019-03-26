@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
-@Preamble(description = "Error object sent back from Arm Mbed Cloud in case of errors")
+@Preamble(description = "Error object sent back from Arm Pelion Cloud in case of errors")
 public class Error implements SdkModel {
 
     private static final String DEFAULT_OBJECT = "error";

@@ -593,7 +593,7 @@ downloadLicenses {
 task testJar(type: Jar) {
     dependsOn compileTestJava, jar
     manifest {
-        attributes( 'Implementation-Title': 'Arm Mbed Cloud SDK for Java',
+        attributes( 'Implementation-Title': 'Arm Pelion Cloud SDK (formerly known as Mbed Cloud SDK) for Java',
                     'Implementation-Version': project.version,
                     'MbedCloudSdk-Version': project.version,
                     'Implementation-Vendor': 'Arm Limited',
@@ -618,7 +618,7 @@ task shadowTestJar(type: Jar) {
     group 'Verification'
     dependsOn testJar, shadowJar
     manifest {
-        attributes( 'Implementation-Title': 'Arm Mbed Cloud SDK for Java',
+        attributes( 'Implementation-Title': 'Arm Pelion Cloud SDK (formerly known as Mbed Cloud SDK) for Java',
                     'Implementation-Version': project.version,
                     'MbedCloudSdk-Version': project.version,
                     'Implementation-Vendor': 'Arm Limited',

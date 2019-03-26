@@ -1,5 +1,5 @@
 /**
- * Arm Mbed Cloud SDK: Account Management module.
+ * Arm Pelion Cloud SDK: Account Management module.
  */
 @Preamble(description = "Account Management module")
 package com.arm.mbed.cloud.sdk.accountmanagement;

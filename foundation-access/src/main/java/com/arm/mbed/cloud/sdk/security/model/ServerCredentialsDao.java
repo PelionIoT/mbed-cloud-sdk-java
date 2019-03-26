@@ -68,7 +68,7 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -87,8 +87,8 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
 
     /**
      * Fetch bootstrap server credentials.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#getBootstrap(com.arm.mbed.cloud.sdk.security.model.ServerCredentials)}
@@ -104,8 +104,8 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
 
     /**
      * Fetch LwM2M server credentials.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#getLwm2m(com.arm.mbed.cloud.sdk.security.model.ServerCredentials)}

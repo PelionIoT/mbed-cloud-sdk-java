@@ -74,7 +74,7 @@ public class CertificateIssuerConfigListDao extends
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -169,7 +169,7 @@ public class CertificateIssuerConfigListDao extends
 
     /**
      * Lists certificate issuer configs matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#listCertificateIssuerConfigs(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions)}

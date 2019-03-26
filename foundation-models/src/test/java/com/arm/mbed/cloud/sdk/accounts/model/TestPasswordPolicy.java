@@ -18,7 +18,7 @@ public class TestPasswordPolicy {
     @Test
     public void testClone() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy("a5d2e66a-f48e-4733-9831-48cc0aa1eb06");
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy("70d8ba45-b2fb-4547-ba78-c3811d206f8b");
             PasswordPolicy passwordpolicy2 = passwordpolicy1.clone();
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
@@ -36,8 +36,8 @@ public class TestPasswordPolicy {
     @Test
     public void testHashCode() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy("7353942f-0a0c-45e1-b368-0b362915e350");
-            PasswordPolicy passwordpolicy2 = new PasswordPolicy("7353942f-0a0c-45e1-b368-0b362915e350");
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy("1a50bf8a-b18f-430e-8f27-3ade741782b3");
+            PasswordPolicy passwordpolicy2 = new PasswordPolicy("1a50bf8a-b18f-430e-8f27-3ade741782b3");
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
             assertNotSame(passwordpolicy2, passwordpolicy1);
@@ -58,7 +58,7 @@ public class TestPasswordPolicy {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        PasswordPolicy passwordpolicy = new PasswordPolicy("9e929cd2-e59e-4926-8c9f-ca6b284bcd89");
+        PasswordPolicy passwordpolicy = new PasswordPolicy("7ab723a3-461f-4cbe-b11d-ec78c36103e7");
         assertTrue(passwordpolicy.isValid());
     }
 
@@ -69,9 +69,9 @@ public class TestPasswordPolicy {
     @Test
     public void testEquals() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy("ac5acceb-3297-48c3-a4d4-94399e9affdc");
-            PasswordPolicy passwordpolicy2 = new PasswordPolicy("ac5acceb-3297-48c3-a4d4-94399e9affdc");
-            PasswordPolicy passwordpolicy3 = new PasswordPolicy("456df717-2c9b-4c15-91ae-b34fcd189f66");
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy("f34052b0-b576-4db3-99ce-602043808e6b");
+            PasswordPolicy passwordpolicy2 = new PasswordPolicy("f34052b0-b576-4db3-99ce-602043808e6b");
+            PasswordPolicy passwordpolicy3 = new PasswordPolicy("b43778f4-321e-4338-aa9e-68480a0bc355");
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
             assertNotNull(passwordpolicy3);

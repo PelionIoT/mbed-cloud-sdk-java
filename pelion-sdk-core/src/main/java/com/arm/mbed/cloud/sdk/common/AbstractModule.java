@@ -114,7 +114,7 @@ public abstract class AbstractModule implements SdkContext {
     }
 
     /**
-     * Gets meta data for the last Arm Mbed Cloud API call.
+     * Gets meta data for the last Arm Pelion Cloud API call.
      *
      * @see ApiMetadata
      * @return metadata

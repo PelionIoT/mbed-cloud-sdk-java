@@ -35,7 +35,7 @@ public final class BillingEntityAdapter {
      * Maps service package.
      *
      * @param toBeMapped
-     *            package response from Mbed Cloud.
+     *            package response from Pelion Cloud.
      * @param <T>
      *            type of the raw object to map
      * @return corresponding service package.
@@ -85,7 +85,7 @@ public final class BillingEntityAdapter {
      * Maps reservation.
      *
      * @param toBeMapped
-     *            reservation from Mbed Cloud.
+     *            reservation from Pelion Cloud.
      * @return corresponding reservation.
      */
     public static Reservation mapReservation(ServicePackageQuotaHistoryReservation toBeMapped) {

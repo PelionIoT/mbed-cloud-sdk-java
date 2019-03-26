@@ -71,7 +71,7 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -166,7 +166,7 @@ public class UserInvitationListDao extends AbstractModelListDao<UserInvitation, 
 
     /**
      * Lists user invitations matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#listUserInvitations(com.arm.mbed.cloud.sdk.accounts.model.UserInvitationListOptions)}

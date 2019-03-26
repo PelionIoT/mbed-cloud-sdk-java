@@ -68,7 +68,7 @@ artifacts {
 
 jar {
     manifest {
-        attributes('Implementation-Title': 'Arm Mbed LWM2M library',
+        attributes('Implementation-Title': 'Arm Pelion LWM2M library',
                     'Implementation-Version': project.version,
                     'Implementation-Vendor': 'Arm Limited',
                     'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
@@ -95,7 +95,7 @@ publishing {
             artifact sourcesJar
             artifact javadocJar
             pom.withXml {
-                    asNode().appendNode('name','Arm Mbed LWM2M library')
+                    asNode().appendNode('name','Arm Pelion LWM2M library')
                     asNode().appendNode('url', 'https://github.com/ARMmbed/mbed-cloud-sdk-java')
                     asNode().appendNode('description', 'Library for serialisation/deserialisation of LWM2M objects: https://en.wikipedia.org/wiki/OMA_LWM2M')
                     asNode().appendNode('packaging', 'jar')

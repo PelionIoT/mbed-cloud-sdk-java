@@ -28,7 +28,7 @@ public class EnrollmentClaim implements SdkModel {
     @DefaultValue(value = "now()")
     private final Date claimedAt;
     /**
-     * The enrolment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the
+     * The enrolment claim expiration time. If the device does not connect to Pelion Cloud before the expiration, the
      * claim is removed without a separate notice.
      */
     @DefaultValue(value = "now()")
@@ -170,7 +170,7 @@ public class EnrollmentClaim implements SdkModel {
     }
 
     /**
-     * Gets enrolment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the
+     * Gets enrolment claim expiration time. If the device does not connect to Pelion Cloud before the expiration, the
      * claim is removed without a separate notice.
      * 
      * @return the expiresAt

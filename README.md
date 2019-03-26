@@ -1,8 +1,8 @@
-# Mbed Cloud SDK for Java
+# Pelion Cloud SDK for Java
 
 ![Status](https://img.shields.io/badge/status-beta-orange.svg)
 
-The Mbed Cloud SDK provides a simplified interface to the [Mbed Cloud APIs](https://www.mbed.com/en/platform/cloud/) by exposing functionality using conventions and paradigms familiar to Java developers.
+The Pelion Cloud SDK provides a simplified interface to the [Pelion Cloud APIs](https://www.mbed.com/en/platform/cloud/) by exposing functionality using conventions and paradigms familiar to Java developers.
 
 ## Prerequisites
 * Java > 1.7   _tested with [Oracle JRE](http://www.oracle.com/technetwork/java/javase/downloads/index.html)_
@@ -36,12 +36,12 @@ implementation( 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y' ){
 ```
 ## Usage
 These instructions can also be found in the [official documentation](https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-java/):
-1. Create an API key on [Mbed Cloud Portal](https://portal.mbedcloud.com/).
+1. Create an API key on [Pelion Cloud Portal](https://portal.mbedcloud.com/).
 2. Import the SDK to your project using one of the packages listed above.
 3. Create a configuration object:
     ```java
         String logLevel = "BODY"; //Defines the logging level of HTTP communications. See CallLogLevel for more information.
-        String apiKey = "<apikey>"; //API key to use for contacting Mbed Cloud.
+        String apiKey = "<apikey>"; //API key to use for contacting Pelion Cloud.
         ConnectionOptions config = new ConnectionOptions(apiKey);
         config.setClientLogLevel(CallLogLevel.getLevel(logLevel));
     ```
@@ -56,24 +56,24 @@ These instructions can also be found in the [official documentation](https://clo
         }
     ```
 ## Versioning
-The current version scheme used by the SDK reflects the version of the API it abstracts (e.g. 1.2.3 refers to 1.2 version of Mbed Cloud APIs). The last digit of the version corresponds to the SDK incremental version.
+The current version scheme used by the SDK reflects the version of the API it abstracts (e.g. 1.2.3 refers to 1.2 version of Pelion Cloud APIs). The last digit of the version corresponds to the SDK incremental version.
 
 ## Documentation and examples
 See the full documentation and API reference (i.e. javadoc) at https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-java/.
 For usage examples, please have a look at the [example project](examples/README.md).
 
 ## Contributing
-Mbed Cloud SDK for Java is open source and we would like your help. There is a brief guide on how to get started in [CONTRIBUTING.md](CONTRIBUTING.md).
+Pelion Cloud SDK for Java is open source and we would like your help. There is a brief guide on how to get started in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Project
 * All code inside _\*.internal.\*_ packages or annotated as **@Internal** is considered private API and should not be relied upon at all.
-* Classes annotated as **@Module** contain all Arm Mbed Cloud APIs
-* Methods annotated as **@API** are the functions which can be used to interact with Mbed Cloud.
+* Classes annotated as **@Module** contain all Arm Pelion Cloud APIs
+* Methods annotated as **@API** are the functions which can be used to interact with Pelion Cloud.
 * APIs, objects or methods annotated as **@Deprecated** are supported until the next major release and will be removed later on. It is highly recommended to stop using them.
 * Methods with **@Daemon** annotation should be used to monitor SDK daemon threads.
 
 ## Licence
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Mbed Cloud SDK for Java is free-to-use and licensed under the **Apache License
+Pelion Cloud SDK for Java is free-to-use and licensed under the **Apache License
 2.0**. See [LICENCE](LICENCE) file for more information.

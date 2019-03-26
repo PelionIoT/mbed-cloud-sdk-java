@@ -20,7 +20,7 @@ public final class BillingReportAdapter {
      * Maps billing reports.
      *
      * @param toBeMapped
-     *            billing report from Mbed Cloud.
+     *            billing report from Pelion Cloud.
      * @param destination
      *            destination path
      * @return corresponding service package.

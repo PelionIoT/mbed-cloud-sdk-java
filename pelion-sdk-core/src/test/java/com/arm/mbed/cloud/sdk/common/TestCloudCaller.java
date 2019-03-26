@@ -121,7 +121,7 @@ public class TestCloudCaller {
     }
 
     /**
-     * Testing that calls to Mbed Cloud are carried out as expected.
+     * Testing that calls to Pelion Cloud are carried out as expected.
      */
     @Test
     public void testCloudCaller() {

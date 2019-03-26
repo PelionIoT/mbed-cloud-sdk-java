@@ -174,7 +174,7 @@ public class Device implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
      * 
@@ -287,7 +287,7 @@ public class Device implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
      * 
@@ -344,7 +344,7 @@ public class Device implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
      * 
@@ -450,7 +450,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the certificate issuer's id.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 500} to be valid
      * 
@@ -512,7 +512,7 @@ public class Device implements SdkModel {
     /**
      * Sets up to five custom key-value attributes. note that keys cannot begin with a number. both keys and values are
      * limited to 128 characters. updating this field replaces existing contents.
-     *
+     * 
      * <p>
      * Note: the number of elements has to be less than or equal to {@code 5} to be valid
      * 
@@ -573,7 +573,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the description of the device.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 2000} to be valid
      * 
@@ -605,7 +605,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets an id representing the model and hardware revision of the device.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 32} to be valid
      * 
@@ -662,7 +662,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the fingerprint of the device certificate.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 512} to be valid
      * 
@@ -703,7 +703,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the endpoint type of the device. for example, the device is a gateway.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 64} to be valid
      * 
@@ -794,7 +794,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the id of the device. the device id is used across all device management apis.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -817,7 +817,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets sha256 fingerprint of the certificate used to validate the signature of the device certificate.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /[A-Fa-f0-9]{64}/} to be valid
      * 
@@ -915,7 +915,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the name of the device.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 128} to be valid
      * 
@@ -1004,7 +1004,7 @@ public class Device implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -1049,7 +1049,7 @@ public class Device implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -1063,7 +1063,7 @@ public class Device implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -1290,7 +1290,7 @@ public class Device implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -1313,7 +1313,7 @@ public class Device implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -1327,7 +1327,7 @@ public class Device implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

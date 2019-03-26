@@ -10,7 +10,7 @@ import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.SdkUtils;
 
-@Preamble(description = "This object represents an API key in Arm Mbed Cloud")
+@Preamble(description = "This object represents an API key in Arm Pelion Cloud")
 public class ApiKey implements SdkModel {
     /**
      * Serialisation Id.

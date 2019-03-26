@@ -79,37 +79,37 @@ public class Metric implements SdkModel {
     @DefaultValue(value = "0")
     private final long deletedRegistrations;
     /**
-     * Number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests
-     * are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using
-     * Connect API endpoints.
+     * Number of successful proxy requests from Pelion Cloud Connect to devices linked to the account. The proxy
+     * requests are made from Pelion Cloud Connect to devices when you try to read or write values to device resources
+     * using Connect API endpoints.
      */
     @DefaultValue(value = "0")
     private final long successfulProxyRequests;
     /**
-     * Number of failed proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are
-     * made from Mbed Cloud Connect to devices when you try to read or write values to device resources using Connect
-     * API endpoints.
+     * Number of failed proxy requests from Pelion Cloud Connect to devices linked to the account. The proxy requests
+     * are made from Pelion Cloud Connect to devices when you try to read or write values to device resources using
+     * Connect API endpoints.
      */
     @DefaultValue(value = "0")
     private final long failedProxyRequests;
     /**
-     * Number of successful subscription requests from Mbed Cloud Connect to devices linked to the account.The
-     * subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path
+     * Number of successful subscription requests from Pelion Cloud Connect to devices linked to the account.The
+     * subscription requests are made from Pelion Cloud Connect to devices when you try to subscribe to a resource path
      * using Connect API endpoints.
      */
     @DefaultValue(value = "0")
     private final long successfulSubscriptionRequests;
     /**
-     * Number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription
-     * requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using Connect
-     * API endpoints.
+     * Number of failed subscription requests from Pelion Cloud Connect to devices linked to the account. The
+     * subscription requests are made from Pelion Cloud Connect to devices when you try to subscribe to a resource path
+     * using Connect API endpoints.
      */
     @DefaultValue(value = "0")
     private final long failedSubscriptionRequests;
     /**
-     * Number of observations received by Mbed Cloud Connect from the devices linked to the account.The observations are
-     * pushed from the device to Mbed Cloud Connect when you have successfully subscribed to the device resources using
-     * Connect API endpoints.
+     * Number of observations received by Pelion Cloud Connect from the devices linked to the account.The observations
+     * are pushed from the device to Pelion Cloud Connect when you have successfully subscribed to the device resources
+     * using Connect API endpoints.
      */
     @DefaultValue(value = "0")
     private final long observations;
