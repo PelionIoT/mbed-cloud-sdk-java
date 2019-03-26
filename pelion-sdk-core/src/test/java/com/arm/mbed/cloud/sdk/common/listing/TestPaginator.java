@@ -687,6 +687,14 @@ public class TestPaginator {
             assertNotNull(allAgain);
             assertEquals(maxResult, allAgain.size());
             assertEquals(elements, allAgain);
+            // Checks that all does not reset the paginator
+            paginator.rewind();
+            paginator.next();
+            FakeElement elementBeforeAll = paginator.next();
+            paginator.all();
+            assertEquals(elementBeforeAll, paginator.current());
+            assertNotEquals(paginator.last(), elementBeforeAll);
+            assertNotEquals(paginator.first(), elementBeforeAll);
         } catch (MbedCloudException e) {
             fail(e.getMessage());
         }
