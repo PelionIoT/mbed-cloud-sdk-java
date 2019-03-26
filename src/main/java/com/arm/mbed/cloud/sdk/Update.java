@@ -272,8 +272,8 @@ public class Update extends AbstractModule {
                                            call() {
                                         return endpoint.getUpdate()
                                                        .firmwareImageCreate(DataFileAdapter.reverseMap(finalImage.getDataFile()),
-                                                                            finalImage.getName(),
-                                                                            finalImage.getDescription());
+                                                                            finalImage.getDescription(),
+                                                                            finalImage.getName());
                                     }
 
                                 });
