@@ -83,28 +83,12 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
 
     @Override
     public void setId(String id) throws MbedCloudException {
-        synchronized (model) {
-            if (model.get() == null) {
-                setModel(instantiateModel());
-            }
-            model.get().setId(id);
-        }
+        getModelOrNew().setId(id);
     }
 
     @Override
     public String getId() throws MbedCloudException {
-        final T dataModel = model.get();
-        if (dataModel != null) {
-            return dataModel.getId();
-        }
-        synchronized (model) {
-            final T dataModel2 = model.get();
-            if (dataModel2 != null) {
-                return dataModel2.getId();
-            }
-            setModel(instantiateModel());
-            return getModel().getId();
-        }
+        return getModelOrNew().getId();
     }
 
     @Override

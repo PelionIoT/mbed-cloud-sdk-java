@@ -136,8 +136,7 @@ public class Update extends AbstractModule {
                                                                           null, null, null, null, null, null, null,
                                                                           null, null, null, null, null, null, null,
                                                                           null, null, null, null, null, null, null,
-                                                                          null, null, null, null, null, null, null,
-                                                                          null);
+                                                                          null, null, null, null);
                                     }
                                 });
     }

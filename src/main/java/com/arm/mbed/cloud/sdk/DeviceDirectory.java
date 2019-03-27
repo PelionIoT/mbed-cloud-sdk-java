@@ -138,7 +138,7 @@ public class DeviceDirectory extends AbstractModule {
                                            null, null, null, null, null, null, null, null, null, null, null, null, null,
                                            null, null, null, null, null, null, null, null, null, null, null, null, null,
                                            null, null, null, null, null, null, null, null, null, null, null, null, null,
-                                           null, null, null, null, null, null, null, null, null);
+                                           null, null, null, null, null);
             }
         });
     }
