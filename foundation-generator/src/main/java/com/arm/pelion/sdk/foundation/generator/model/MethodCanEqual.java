@@ -10,7 +10,8 @@ public class MethodCanEqual extends AbstractMethodBasedOnModel {
     public MethodCanEqual(Model currentModel, Model parentModel) {
         super(currentModel, parentModel, false, IDENTIFIER, " Method to ensure {@link #equals(Object)} is correct.",
               " Note: see this article: <a href=\"https://www.artima.com/lejava/articles/equality.html\">canEqual()</a>",
-              false, false, false, false, false, false, false, false);
+              false, false, false, false, false, false, false,
+              parentModel != null && parentModel.hasMethod(IDENTIFIER));
         setReturnType(TypeFactory.getCorrespondingType(boolean.class));
         addParameter(new Parameter(PARAMETER_NAME, "another object", null,
                                    TypeFactory.getCorrespondingType(Object.class), null, null));
