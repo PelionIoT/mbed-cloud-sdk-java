@@ -19,7 +19,11 @@ class SDKBuilder(sdk_common.BuildStepUsingGradle):
             self.execute_gradle_task('spotlessApply')
             # self.execute_gradle_task('walkmodApply', [ '-x', 'test'])
             # self.execute_gradle_task('spotlessApply')
-            self.execute_gradle_task('build', ['-x', 'check', '-x', 'test'])
+            try:
+                self.execute_gradle_task('build', ['-x', 'check', '-x', 'test'])
+            except:
+                self.execute_gradle_task('clean')
+                self.execute_gradle_task('build', ['-x', 'check', '-x', 'test'])
             self.log_info("Building the fat jar")
             self.execute_gradle_task('shadowJar')
             self.log_info("Generating Javadoc")
