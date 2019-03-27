@@ -2258,7 +2258,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDeviceExecutionMode
      *            filter value.
      */
-    public void addEqualToDeviceExecutionModeFilter(Integer filterByDeviceExecutionMode) {
+    public void addEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
         addEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
     }
 
@@ -2274,7 +2274,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T equalToDeviceExecutionMode(Integer filterByDeviceExecutionMode) {
+    public <T extends DeviceListOptions> T equalToDeviceExecutionMode(int filterByDeviceExecutionMode) {
         addEqualToDeviceExecutionModeFilter(filterByDeviceExecutionMode);
         return (T) this;
     }
@@ -2285,7 +2285,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByDeviceExecutionMode
      *            filter value.
      */
-    public void addNotEqualToDeviceExecutionModeFilter(Integer filterByDeviceExecutionMode) {
+    public void addNotEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
         addNotEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
     }
 
@@ -2301,7 +2301,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notEqualToDeviceExecutionMode(Integer filterByDeviceExecutionMode) {
+    public <T extends DeviceListOptions> T notEqualToDeviceExecutionMode(int filterByDeviceExecutionMode) {
         addNotEqualToDeviceExecutionModeFilter(filterByDeviceExecutionMode);
         return (T) this;
     }

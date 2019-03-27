@@ -59,7 +59,7 @@ public final class DeviceAdapter {
         device.setDeployment(toBeMapped.getDeployment());
         device.setDescription(toBeMapped.getDescription());
         device.setDeviceClass(toBeMapped.getDeviceClass());
-        device.setDeviceExecutionMode(toBeMapped.getDeviceExecutionMode());
+        device.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
         device.setDeviceKey(toBeMapped.getDeviceKey());
         device.setEndpointType(toBeMapped.getEndpointType());
         device.setFirmwareChecksum(toBeMapped.getFirmwareChecksum());
