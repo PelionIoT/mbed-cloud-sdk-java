@@ -35,6 +35,11 @@ public class TypeHashtable extends TypeCompose {
         contentType = new TypeParameter(importPath);
     }
 
+    protected TypeHashtable(Import importPath, Class<?> clazz, TypeName typeName, String type, String format,
+                            TypeParameter contentType, boolean concrete) {
+        super(importPath, clazz, typeName, type, format, contentType, concrete);
+    }
+
     @Override
     public boolean isHashtable() {
         return true;
@@ -55,7 +60,6 @@ public class TypeHashtable extends TypeCompose {
             contentType.translate();
             TranslateTypeNameBasedOnContentType();
         } catch (Exception e) {
-            System.out.println(this);
             e.printStackTrace();
             setClazz(getCollectionClass());
             super.translate();
@@ -99,6 +103,12 @@ public class TypeHashtable extends TypeCompose {
     @Override
     public String toString() {
         return "HashtableType [contentType=" + contentType + ", concreteImplementation=" + concreteImplementation + "]";
+    }
+
+    @Override
+    public TypeHashtable clone() {
+        return new TypeHashtable(importPath == null ? null : importPath.clone(), clazz, typeName, type, format,
+                                 contentType, concreteImplementation);
     }
 
 }

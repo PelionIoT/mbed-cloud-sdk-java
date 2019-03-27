@@ -32,6 +32,14 @@ public class Import implements Artifact {
         setEnum(false);
     }
 
+    private Import(String name, String packageName, ClassName className, boolean isEnum) {
+        super();
+        this.name = name;
+        this.packageName = packageName;
+        this.className = className;
+        this.isEnum = isEnum;
+    }
+
     /**
      * @return the name
      */
@@ -196,6 +204,11 @@ public class Import implements Artifact {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Import clone() {
+        return new Import(name, packageName, className, isEnum);
     }
 
 }

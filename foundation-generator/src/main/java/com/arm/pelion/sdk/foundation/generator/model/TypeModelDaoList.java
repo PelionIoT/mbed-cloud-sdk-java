@@ -6,9 +6,16 @@ import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
 
 public class TypeModelDaoList extends TypeCompose {
     private final TypeParameter optionsType;
+
+    protected TypeModelDaoList(Import importPath, Class<?> clazz, TypeName typeName, String type, String format,
+                               TypeParameter contentType, boolean concrete, TypeParameter optionsType) {
+        super(importPath, clazz, typeName, type, format, contentType, concrete);
+        this.optionsType = optionsType;
+    }
 
     public TypeModelDaoList() {
         super();
@@ -94,5 +101,12 @@ public class TypeModelDaoList extends TypeCompose {
     @Override
     public String getShortName() {
         return ModelListDao.class.getSimpleName();
+    }
+
+    @Override
+    public TypeModelDaoList clone() {
+        return new TypeModelDaoList(importPath == null ? null : importPath.clone(), clazz, typeName, type, format,
+                                    optionsType, concreteImplementation,
+                                    optionsType == null ? null : optionsType.clone());
     }
 }

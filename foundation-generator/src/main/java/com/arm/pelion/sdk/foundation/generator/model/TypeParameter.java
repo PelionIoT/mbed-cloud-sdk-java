@@ -29,6 +29,15 @@ public class TypeParameter implements Artifact {
     protected String type;
     protected String format;
 
+    protected TypeParameter(Import importPath, Class<?> clazz, TypeName typeName, String type, String format) {
+        super();
+        this.importPath = importPath;
+        this.clazz = clazz;
+        this.typeName = typeName;
+        this.type = type;
+        this.format = format;
+    }
+
     /**
      *
      */
@@ -563,4 +572,10 @@ public class TypeParameter implements Artifact {
         return "ParameterType [importPath=" + importPath + ", clazz=" + clazz + ", typeName=" + typeName + ", type="
                + type + ", format=" + format + "]";
     }
+
+    @Override
+    public TypeParameter clone() {
+        return new TypeParameter(importPath == null ? null : importPath.clone(), clazz, typeName, type, format);
+    }
+
 }

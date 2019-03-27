@@ -3,6 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
 
 public abstract class TypeCompose extends TypeParameter {
 
@@ -29,6 +30,13 @@ public abstract class TypeCompose extends TypeParameter {
         super();
         this.contentType = convertToWrappersIfNeeded(contentType);
         this.concreteImplementation = concrete;
+    }
+
+    protected TypeCompose(Import importPath, Class<?> clazz, TypeName typeName, String type, String format,
+                          TypeParameter contentType, boolean concrete) {
+        super(importPath, clazz, typeName, type, format);
+        this.concreteImplementation = concrete;
+        this.contentType = contentType;
     }
 
     private TypeParameter convertToWrappersIfNeeded(TypeParameter contentType) {

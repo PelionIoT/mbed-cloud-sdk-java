@@ -1,8 +1,14 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.squareup.javapoet.ArrayTypeName;
+import com.squareup.javapoet.TypeName;
 
 public class TypeArray extends TypeCompose {
+
+    protected TypeArray(Import importPath, Class<?> clazz, TypeName typeName, String type, String format,
+                        TypeParameter contentType, boolean concrete) {
+        super(importPath, clazz, typeName, type, format, contentType, concrete);
+    }
 
     public TypeArray() {
         super();
@@ -82,4 +88,9 @@ public class TypeArray extends TypeCompose {
         // Nothing to do
     }
 
+    @Override
+    public TypeArray clone() {
+        return new TypeArray(importPath == null ? null : importPath.clone(), clazz, typeName, type, format, contentType,
+                             concreteImplementation);
+    }
 }

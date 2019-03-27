@@ -24,7 +24,7 @@ public class Filter {
     }
 
     public void setFieldType(TypeParameter fieldType) {
-        this.fieldType = fieldType;
+        this.fieldType = fieldType == null ? fieldType : fieldType.clone();
     }
 
     public FilterOperator getOperator() {

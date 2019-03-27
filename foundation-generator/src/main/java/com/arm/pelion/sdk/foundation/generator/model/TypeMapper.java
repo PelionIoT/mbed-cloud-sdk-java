@@ -11,6 +11,13 @@ public class TypeMapper extends TypeParameter {
     private TypeParameter from;
     private TypeParameter to;
 
+    protected TypeMapper(Import importPath, Class<?> clazz, TypeName typeName, String type, String format,
+                         TypeParameter from, TypeParameter to) {
+        super(importPath, clazz, typeName, type, format);
+        this.from = from;
+        this.to = to;
+    }
+
     public TypeMapper() {
         this(new TypeParameter(), new TypeParameter());
     }
@@ -65,4 +72,9 @@ public class TypeMapper extends TypeParameter {
         return "MapperType [from=" + from + ", to=" + to + "]";
     }
 
+    @Override
+    public TypeMapper clone() {
+        return new TypeMapper(importPath == null ? null : importPath.clone(), clazz, typeName, type, format,
+                              from == null ? null : from.clone(), to == null ? null : to.clone());
+    }
 }
