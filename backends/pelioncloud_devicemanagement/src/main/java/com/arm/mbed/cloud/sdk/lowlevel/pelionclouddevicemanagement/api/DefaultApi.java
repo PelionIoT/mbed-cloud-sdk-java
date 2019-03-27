@@ -170,10 +170,6 @@ public interface DefaultApi {
      *            eq filter for the state_change field (optional)
      * @param stateChangeNeq
      *            neq filter for the state_change field (optional)
-     * @param stateChangeIn
-     *            in filter for the state_change field (optional)
-     * @param stateChangeNin
-     *            nin filter for the state_change field (optional)
      * @return Call&lt;DeviceEventPage&gt;
      */
     @GET("v3/device-events/")
@@ -200,9 +196,7 @@ public interface DefaultApi {
                         @retrofit2.http.Query("event_type__in") String eventTypeIn,
                         @retrofit2.http.Query("event_type__nin") String eventTypeNin,
                         @retrofit2.http.Query("state_change__eq") Boolean stateChangeEq,
-                        @retrofit2.http.Query("state_change__neq") Boolean stateChangeNeq,
-                        @retrofit2.http.Query("state_change__in") String stateChangeIn,
-                        @retrofit2.http.Query("state_change__nin") String stateChangeNin);
+                        @retrofit2.http.Query("state_change__neq") Boolean stateChangeNeq);
 
     /**
      * Retrieve a device event. Retrieve a specific device event.
@@ -288,21 +282,8 @@ public interface DefaultApi {
      *            &lt;td&gt;vendor_id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;issuer_fingerprint&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
-     *            &lt;tr&gt; &lt;td&gt;lifecycle_status&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;operator_suspended&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
-     *            &lt;tr&gt; &lt;td&gt;last_operator_suspension_category&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;last_operator_suspension_updated_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;system_suspended&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;last_system_suspension_category&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;last_system_suspension_updated_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;
-     *            The examples below show the queries in *unencoded* form. ###### By device properties (all properties
-     *            are filterable):
+     *            &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp; The examples below show the queries in *unencoded* form.
+     *            ###### By device properties (all properties are filterable):
      *            &#x60;&#x60;&#x60;state&#x3D;[unenrolled|cloud_enrolling|bootstrapped|registered]&#x60;&#x60;&#x60;
      *            &#x60;&#x60;&#x60;device_class&#x3D;{value}&#x60;&#x60;&#x60; ###### On date-time fields: Date-time
      *            fields should be specified in UTC RFC3339 format
@@ -336,18 +317,14 @@ public interface DefaultApi {
      *            eq filter for the auto_update field (optional)
      * @param autoUpdateNeq
      *            neq filter for the auto_update field (optional)
-     * @param autoUpdateIn
-     *            in filter for the auto_update field (optional)
-     * @param autoUpdateNin
-     *            nin filter for the auto_update field (optional)
-     * @param bootstrappedExpirationDateIn
-     *            in filter for the bootstrapped_expiration_date field (optional)
-     * @param bootstrappedExpirationDateNin
-     *            nin filter for the bootstrapped_expiration_date field (optional)
-     * @param bootstrappedExpirationDateLte
-     *            lte filter for the bootstrapped_expiration_date field (optional)
-     * @param bootstrappedExpirationDateGte
-     *            gte filter for the bootstrapped_expiration_date field (optional)
+     * @param bootstrapExpirationDateIn
+     *            in filter for the bootstrap_expiration_date field (optional)
+     * @param bootstrapExpirationDateNin
+     *            nin filter for the bootstrap_expiration_date field (optional)
+     * @param bootstrapExpirationDateLte
+     *            lte filter for the bootstrap_expiration_date field (optional)
+     * @param bootstrapExpirationDateGte
+     *            gte filter for the bootstrap_expiration_date field (optional)
      * @param bootstrappedTimestampIn
      *            in filter for the bootstrapped_timestamp field (optional)
      * @param bootstrappedTimestampNin
@@ -380,10 +357,6 @@ public interface DefaultApi {
      *            lte filter for the created_at field (optional)
      * @param createdAtGte
      *            gte filter for the created_at field (optional)
-     * @param customAttributesEq
-     *            eq filter for the custom_attributes field (optional)
-     * @param customAttributesNeq
-     *            neq filter for the custom_attributes field (optional)
      * @param deployedStateEq
      *            eq filter for the deployed_state field (optional)
      * @param deployedStateNeq
@@ -448,14 +421,14 @@ public interface DefaultApi {
      *            in filter for the endpoint_type field (optional)
      * @param endpointTypeNin
      *            nin filter for the endpoint_type field (optional)
-     * @param enrollmentListTimestampIn
-     *            in filter for the enrollment_list_timestamp field (optional)
-     * @param enrollmentListTimestampNin
-     *            nin filter for the enrollment_list_timestamp field (optional)
-     * @param enrollmentListTimestampLte
-     *            lte filter for the enrollment_list_timestamp field (optional)
-     * @param enrollmentListTimestampGte
-     *            gte filter for the enrollment_list_timestamp field (optional)
+     * @param enrolmentListTimestampIn
+     *            in filter for the enrolment_list_timestamp field (optional)
+     * @param enrolmentListTimestampNin
+     *            nin filter for the enrolment_list_timestamp field (optional)
+     * @param enrolmentListTimestampLte
+     *            lte filter for the enrolment_list_timestamp field (optional)
+     * @param enrolmentListTimestampGte
+     *            gte filter for the enrolment_list_timestamp field (optional)
      * @param firmwareChecksumEq
      *            eq filter for the firmware_checksum field (optional)
      * @param firmwareChecksumNeq
@@ -565,12 +538,10 @@ public interface DefaultApi {
                    @retrofit2.http.Query("account_id__nin") String accountIdNin,
                    @retrofit2.http.Query("auto_update__eq") Boolean autoUpdateEq,
                    @retrofit2.http.Query("auto_update__neq") Boolean autoUpdateNeq,
-                   @retrofit2.http.Query("auto_update__in") String autoUpdateIn,
-                   @retrofit2.http.Query("auto_update__nin") String autoUpdateNin,
-                   @retrofit2.http.Query("bootstrapped_expiration_date__in") String bootstrappedExpirationDateIn,
-                   @retrofit2.http.Query("bootstrapped_expiration_date__nin") String bootstrappedExpirationDateNin,
-                   @retrofit2.http.Query("bootstrapped_expiration_date__lte") String bootstrappedExpirationDateLte,
-                   @retrofit2.http.Query("bootstrapped_expiration_date__gte") String bootstrappedExpirationDateGte,
+                   @retrofit2.http.Query("bootstrap_expiration_date__in") String bootstrapExpirationDateIn,
+                   @retrofit2.http.Query("bootstrap_expiration_date__nin") String bootstrapExpirationDateNin,
+                   @retrofit2.http.Query("bootstrap_expiration_date__lte") LocalDate bootstrapExpirationDateLte,
+                   @retrofit2.http.Query("bootstrap_expiration_date__gte") LocalDate bootstrapExpirationDateGte,
                    @retrofit2.http.Query("bootstrapped_timestamp__in") String bootstrappedTimestampIn,
                    @retrofit2.http.Query("bootstrapped_timestamp__nin") String bootstrappedTimestampNin,
                    @retrofit2.http.Query("bootstrapped_timestamp__lte") DateTime bootstrappedTimestampLte,
@@ -585,8 +556,6 @@ public interface DefaultApi {
                    @retrofit2.http.Query("created_at__nin") String createdAtNin,
                    @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
                    @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
-                   @retrofit2.http.Query("custom_attributes__eq") String customAttributesEq,
-                   @retrofit2.http.Query("custom_attributes__neq") String customAttributesNeq,
                    @retrofit2.http.Query("deployed_state__eq") String deployedStateEq,
                    @retrofit2.http.Query("deployed_state__neq") String deployedStateNeq,
                    @retrofit2.http.Query("deployed_state__in") String deployedStateIn,
@@ -619,10 +588,10 @@ public interface DefaultApi {
                    @retrofit2.http.Query("endpoint_type__neq") String endpointTypeNeq,
                    @retrofit2.http.Query("endpoint_type__in") String endpointTypeIn,
                    @retrofit2.http.Query("endpoint_type__nin") String endpointTypeNin,
-                   @retrofit2.http.Query("enrollment_list_timestamp__in") String enrollmentListTimestampIn,
-                   @retrofit2.http.Query("enrollment_list_timestamp__nin") String enrollmentListTimestampNin,
-                   @retrofit2.http.Query("enrollment_list_timestamp__lte") String enrollmentListTimestampLte,
-                   @retrofit2.http.Query("enrollment_list_timestamp__gte") String enrollmentListTimestampGte,
+                   @retrofit2.http.Query("enrolment_list_timestamp__in") String enrolmentListTimestampIn,
+                   @retrofit2.http.Query("enrolment_list_timestamp__nin") String enrolmentListTimestampNin,
+                   @retrofit2.http.Query("enrolment_list_timestamp__lte") DateTime enrolmentListTimestampLte,
+                   @retrofit2.http.Query("enrolment_list_timestamp__gte") DateTime enrolmentListTimestampGte,
                    @retrofit2.http.Query("firmware_checksum__eq") String firmwareChecksumEq,
                    @retrofit2.http.Query("firmware_checksum__neq") String firmwareChecksumNeq,
                    @retrofit2.http.Query("firmware_checksum__in") String firmwareChecksumIn,
@@ -1056,23 +1025,21 @@ public interface DefaultApi {
      *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
      *            &lt;td&gt;name&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;timestamp&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;updated_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp; The query string is made
-     *            up of key-value pairs separated by ampersands. For example, this query:
-     *            &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60; would be URL-encoded as:
-     *            &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60; **Filtering by
-     *            properties** &#x60;name__eq&#x3D;myimage&#x60; **Filtering on date-time fields** Date-time fields
-     *            should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three
-     *            permitted variations: * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60;
-     *            * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened
-     *            without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60; Date-time filtering
-     *            supports three operators: * equality by appending &#x60;__eq&#x60; to the field name * greater than or
-     *            equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending
-     *            &#x60;__lte&#x60; to the field name &#x60;{field name}[|__eq|__lte|__gte]&#x3D;{UTC RFC3339
-     *            date-time}&#x60; Time ranges may be specified by including both the &#x60;__gte&#x60; and
-     *            &#x60;__lte&#x60; forms in the filter. For example:
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;updated_at&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt;
+     *            &lt;/table&gt; &amp;nbsp; The query string is made up of key-value pairs separated by ampersands. For
+     *            example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60; would be
+     *            URL-encoded as: &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60;
+     *            **Filtering by properties** &#x60;name__eq&#x3D;myimage&#x60; **Filtering on date-time fields**
+     *            Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There
+     *            are three permitted variations: * UTC RFC3339 with milliseconds. Example:
+     *            &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example:
+     *            &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation.
+     *            Example: &#x60;20161130T162512Z&#x60; Date-time filtering supports three operators: * equality by
+     *            appending &#x60;__eq&#x60; to the field name * greater than or equal to by appending &#x60;__gte&#x60;
+     *            to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name
+     *            &#x60;{field name}[|__eq|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60; Time ranges may be specified
+     *            by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:
      *            &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;
      *            **Filtering on multiple fields**
      *            &#x60;name__eq&#x3D;myimage&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;
@@ -1136,14 +1103,6 @@ public interface DefaultApi {
      *            in filter for the name field (optional)
      * @param nameNin
      *            nin filter for the name field (optional)
-     * @param timestampIn
-     *            in filter for the timestamp field (optional)
-     * @param timestampNin
-     *            nin filter for the timestamp field (optional)
-     * @param timestampLte
-     *            lte filter for the timestamp field (optional)
-     * @param timestampGte
-     *            gte filter for the timestamp field (optional)
      * @param updatedAtIn
      *            in filter for the updated_at field (optional)
      * @param updatedAtNin
@@ -1185,10 +1144,6 @@ public interface DefaultApi {
                           @retrofit2.http.Query("name__neq") String nameNeq,
                           @retrofit2.http.Query("name__in") String nameIn,
                           @retrofit2.http.Query("name__nin") String nameNin,
-                          @retrofit2.http.Query("timestamp__in") String timestampIn,
-                          @retrofit2.http.Query("timestamp__nin") String timestampNin,
-                          @retrofit2.http.Query("timestamp__lte") String timestampLte,
-                          @retrofit2.http.Query("timestamp__gte") String timestampGte,
                           @retrofit2.http.Query("updated_at__in") String updatedAtIn,
                           @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
                           @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
@@ -1701,23 +1656,60 @@ public interface DefaultApi {
      *            &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this
      *            would be encoded as follows:
      *            &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; ######
-     *            Filterable fields: The table lists all the fields that can be filtered on with certain filters:
+     *            Filterable fields: The below table lists all the fields that can be filtered on with certain filters:
      *            &lt;table&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;Field&lt;/th&gt; &lt;th&gt;&#x3D; / __eq /
      *            __neq&lt;/th&gt; &lt;th&gt;__in / __nin&lt;/th&gt; &lt;th&gt;__lte / __gte&lt;/th&gt; &lt;tr&gt;
-     *            &lt;thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;thead&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;lifecycle_status&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;devices_count&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;name&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;account_id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;auto_update&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;tr&gt; &lt;td&gt;bootstrap_expiration_date&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;bootstrapped_timestamp&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;ca_id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
-     *            &lt;td&gt;description&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;custom_attributes&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
-     *            &lt;tr&gt; &lt;td&gt;created_at&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;updated_at&lt;/td&gt;
+     *            &lt;td&gt;connector_expiration_date&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;created_at&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;custom_attributes&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;deployed_state&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;tr&gt; &lt;td&gt;deployment&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;description&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;tr&gt; &lt;td&gt;device_class&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;device_execution_mode&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;tr&gt; &lt;td&gt;device_key&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;endpoint_name&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;tr&gt; &lt;td&gt;endpoint_type&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;enrolment_list_timestamp&lt;/td&gt;
      *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
      *            &lt;td&gt;etag&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
-     *            &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp; The examples below show the queries in
-     *            *unencoded* form. ###### By device properties (all properties are filterable):
+     *            &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;firmware_checksum&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;host_gateway&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;id&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;tr&gt; &lt;td&gt;manifest&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;manifest_timestamp&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;mechanism&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;mechanism_url&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;tr&gt; &lt;td&gt;name&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;serial_number&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;tr&gt; &lt;td&gt;state&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;updated_at&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     *            &lt;td&gt;vendor_id&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt;
+     *            &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;issuer_fingerprint&lt;/td&gt;
+     *            &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;✓&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt;
+     *            &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp; The examples below show the queries in *unencoded* form.
+     *            ###### By device properties (all properties are filterable):
      *            &#x60;&#x60;&#x60;state&#x3D;[unenrolled|cloud_enrolling|bootstrapped|registered]&#x60;&#x60;&#x60;
      *            &#x60;&#x60;&#x60;device_class&#x3D;{value}&#x60;&#x60;&#x60; ###### On date-time fields: Date-time
      *            fields should be specified in UTC RFC3339 format
@@ -1739,62 +1731,6 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;state__nin&#x3D;unenrolled,dergistered&#x60; (optional)
-     * @param idEq
-     *            eq filter for the id field (optional)
-     * @param idNeq
-     *            neq filter for the id field (optional)
-     * @param idIn
-     *            in filter for the id field (optional)
-     * @param idNin
-     *            nin filter for the id field (optional)
-     * @param devicesCountEq
-     *            eq filter for the devices_count field (optional)
-     * @param devicesCountNeq
-     *            neq filter for the devices_count field (optional)
-     * @param devicesCountIn
-     *            in filter for the devices_count field (optional)
-     * @param devicesCountNin
-     *            nin filter for the devices_count field (optional)
-     * @param devicesCountLte
-     *            lte filter for the devices_count field (optional)
-     * @param devicesCountGte
-     *            gte filter for the devices_count field (optional)
-     * @param nameEq
-     *            eq filter for the name field (optional)
-     * @param nameNeq
-     *            neq filter for the name field (optional)
-     * @param nameIn
-     *            in filter for the name field (optional)
-     * @param nameNin
-     *            nin filter for the name field (optional)
-     * @param descriptionEq
-     *            eq filter for the description field (optional)
-     * @param descriptionNeq
-     *            neq filter for the description field (optional)
-     * @param descriptionIn
-     *            in filter for the description field (optional)
-     * @param descriptionNin
-     *            nin filter for the description field (optional)
-     * @param customAttributesEq
-     *            eq filter for the custom_attributes field (optional)
-     * @param customAttributesNeq
-     *            neq filter for the custom_attributes field (optional)
-     * @param createdAtIn
-     *            in filter for the created_at field (optional)
-     * @param createdAtNin
-     *            nin filter for the created_at field (optional)
-     * @param createdAtLte
-     *            lte filter for the created_at field (optional)
-     * @param createdAtGte
-     *            gte filter for the created_at field (optional)
-     * @param updatedAtIn
-     *            in filter for the updated_at field (optional)
-     * @param updatedAtNin
-     *            nin filter for the updated_at field (optional)
-     * @param updatedAtLte
-     *            lte filter for the updated_at field (optional)
-     * @param updatedAtGte
-     *            gte filter for the updated_at field (optional)
      * @return Call&lt;DevicePage&gt;
      */
     @GET("v3/device-groups/{device-group-id}/devices/")
@@ -1803,33 +1739,7 @@ public interface DefaultApi {
                              @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                              @retrofit2.http.Query("after") String after,
                              @retrofit2.http.Query("include") String include,
-                             @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("id__eq") String idEq,
-                             @retrofit2.http.Query("id__neq") String idNeq, @retrofit2.http.Query("id__in") String idIn,
-                             @retrofit2.http.Query("id__nin") String idNin,
-                             @retrofit2.http.Query("devices_count__eq") String devicesCountEq,
-                             @retrofit2.http.Query("devices_count__neq") String devicesCountNeq,
-                             @retrofit2.http.Query("devices_count__in") String devicesCountIn,
-                             @retrofit2.http.Query("devices_count__nin") String devicesCountNin,
-                             @retrofit2.http.Query("devices_count__lte") String devicesCountLte,
-                             @retrofit2.http.Query("devices_count__gte") String devicesCountGte,
-                             @retrofit2.http.Query("name__eq") String nameEq,
-                             @retrofit2.http.Query("name__neq") String nameNeq,
-                             @retrofit2.http.Query("name__in") String nameIn,
-                             @retrofit2.http.Query("name__nin") String nameNin,
-                             @retrofit2.http.Query("description__eq") String descriptionEq,
-                             @retrofit2.http.Query("description__neq") String descriptionNeq,
-                             @retrofit2.http.Query("description__in") String descriptionIn,
-                             @retrofit2.http.Query("description__nin") String descriptionNin,
-                             @retrofit2.http.Query("custom_attributes__eq") String customAttributesEq,
-                             @retrofit2.http.Query("custom_attributes__neq") String customAttributesNeq,
-                             @retrofit2.http.Query("created_at__in") String createdAtIn,
-                             @retrofit2.http.Query("created_at__nin") String createdAtNin,
-                             @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
-                             @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
-                             @retrofit2.http.Query("updated_at__in") String updatedAtIn,
-                             @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
-                             @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
-                             @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte);
+                             @retrofit2.http.Query("filter") String filter);
 
     /**
      * Get a group. Get a group.
@@ -2464,6 +2374,22 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; (optional)
+     * @param updatedAtIn
+     *            in filter for the updated_at field (optional)
+     * @param updatedAtNin
+     *            nin filter for the updated_at field (optional)
+     * @param updatedAtLte
+     *            lte filter for the updated_at field (optional)
+     * @param updatedAtGte
+     *            gte filter for the updated_at field (optional)
+     * @param nameEq
+     *            eq filter for the name field (optional)
+     * @param nameNeq
+     *            neq filter for the name field (optional)
+     * @param nameIn
+     *            in filter for the name field (optional)
+     * @param nameNin
+     *            nin filter for the name field (optional)
      * @param createdAtIn
      *            in filter for the created_at field (optional)
      * @param createdAtNin
@@ -2472,30 +2398,6 @@ public interface DefaultApi {
      *            lte filter for the created_at field (optional)
      * @param createdAtGte
      *            gte filter for the created_at field (optional)
-     * @param datafileEq
-     *            eq filter for the datafile field (optional)
-     * @param datafileNeq
-     *            neq filter for the datafile field (optional)
-     * @param datafileIn
-     *            in filter for the datafile field (optional)
-     * @param datafileNin
-     *            nin filter for the datafile field (optional)
-     * @param datafileChecksumEq
-     *            eq filter for the datafile_checksum field (optional)
-     * @param datafileChecksumNeq
-     *            neq filter for the datafile_checksum field (optional)
-     * @param datafileChecksumIn
-     *            in filter for the datafile_checksum field (optional)
-     * @param datafileChecksumNin
-     *            nin filter for the datafile_checksum field (optional)
-     * @param datafileSizeEq
-     *            eq filter for the datafile_size field (optional)
-     * @param datafileSizeNeq
-     *            neq filter for the datafile_size field (optional)
-     * @param datafileSizeIn
-     *            in filter for the datafile_size field (optional)
-     * @param datafileSizeNin
-     *            nin filter for the datafile_size field (optional)
      * @param descriptionEq
      *            eq filter for the description field (optional)
      * @param descriptionNeq
@@ -2512,30 +2414,18 @@ public interface DefaultApi {
      *            in filter for the id field (optional)
      * @param idNin
      *            nin filter for the id field (optional)
-     * @param nameEq
-     *            eq filter for the name field (optional)
-     * @param nameNeq
-     *            neq filter for the name field (optional)
-     * @param nameIn
-     *            in filter for the name field (optional)
-     * @param nameNin
-     *            nin filter for the name field (optional)
-     * @param timestampIn
-     *            in filter for the timestamp field (optional)
-     * @param timestampNin
-     *            nin filter for the timestamp field (optional)
-     * @param timestampLte
-     *            lte filter for the timestamp field (optional)
-     * @param timestampGte
-     *            gte filter for the timestamp field (optional)
-     * @param updatedAtIn
-     *            in filter for the updated_at field (optional)
-     * @param updatedAtNin
-     *            nin filter for the updated_at field (optional)
-     * @param updatedAtLte
-     *            lte filter for the updated_at field (optional)
-     * @param updatedAtGte
-     *            gte filter for the updated_at field (optional)
+     * @param completeEq
+     *            eq filter for the complete field (optional)
+     * @param completeNeq
+     *            neq filter for the complete field (optional)
+     * @param statusEq
+     *            eq filter for the status field (optional)
+     * @param statusNeq
+     *            neq filter for the status field (optional)
+     * @param statusIn
+     *            in filter for the status field (optional)
+     * @param statusNin
+     *            nin filter for the status field (optional)
      * @return Call&lt;UploadJobPage&gt;
      */
     @GET("v3/firmware-images/upload-jobs")
@@ -2543,40 +2433,30 @@ public interface DefaultApi {
         uploadJobList(@retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                       @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include,
                       @retrofit2.http.Query("filter") String filter,
+                      @retrofit2.http.Query("updated_at__in") String updatedAtIn,
+                      @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
+                      @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
+                      @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte,
+                      @retrofit2.http.Query("name__eq") String nameEq,
+                      @retrofit2.http.Query("name__neq") String nameNeq,
+                      @retrofit2.http.Query("name__in") String nameIn,
+                      @retrofit2.http.Query("name__nin") String nameNin,
                       @retrofit2.http.Query("created_at__in") String createdAtIn,
                       @retrofit2.http.Query("created_at__nin") String createdAtNin,
                       @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
                       @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
-                      @retrofit2.http.Query("datafile__eq") String datafileEq,
-                      @retrofit2.http.Query("datafile__neq") String datafileNeq,
-                      @retrofit2.http.Query("datafile__in") String datafileIn,
-                      @retrofit2.http.Query("datafile__nin") String datafileNin,
-                      @retrofit2.http.Query("datafile_checksum__eq") String datafileChecksumEq,
-                      @retrofit2.http.Query("datafile_checksum__neq") String datafileChecksumNeq,
-                      @retrofit2.http.Query("datafile_checksum__in") String datafileChecksumIn,
-                      @retrofit2.http.Query("datafile_checksum__nin") String datafileChecksumNin,
-                      @retrofit2.http.Query("datafile_size__eq") String datafileSizeEq,
-                      @retrofit2.http.Query("datafile_size__neq") String datafileSizeNeq,
-                      @retrofit2.http.Query("datafile_size__in") String datafileSizeIn,
-                      @retrofit2.http.Query("datafile_size__nin") String datafileSizeNin,
                       @retrofit2.http.Query("description__eq") String descriptionEq,
                       @retrofit2.http.Query("description__neq") String descriptionNeq,
                       @retrofit2.http.Query("description__in") String descriptionIn,
                       @retrofit2.http.Query("description__nin") String descriptionNin,
                       @retrofit2.http.Query("id__eq") String idEq, @retrofit2.http.Query("id__neq") String idNeq,
                       @retrofit2.http.Query("id__in") String idIn, @retrofit2.http.Query("id__nin") String idNin,
-                      @retrofit2.http.Query("name__eq") String nameEq,
-                      @retrofit2.http.Query("name__neq") String nameNeq,
-                      @retrofit2.http.Query("name__in") String nameIn,
-                      @retrofit2.http.Query("name__nin") String nameNin,
-                      @retrofit2.http.Query("timestamp__in") String timestampIn,
-                      @retrofit2.http.Query("timestamp__nin") String timestampNin,
-                      @retrofit2.http.Query("timestamp__lte") String timestampLte,
-                      @retrofit2.http.Query("timestamp__gte") String timestampGte,
-                      @retrofit2.http.Query("updated_at__in") String updatedAtIn,
-                      @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
-                      @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
-                      @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte);
+                      @retrofit2.http.Query("complete__eq") Boolean completeEq,
+                      @retrofit2.http.Query("complete__neq") Boolean completeNeq,
+                      @retrofit2.http.Query("status__eq") String statusEq,
+                      @retrofit2.http.Query("status__neq") String statusNeq,
+                      @retrofit2.http.Query("status__in") String statusIn,
+                      @retrofit2.http.Query("status__nin") String statusNin);
 
     /**
      * Get an upload job Get an upload job

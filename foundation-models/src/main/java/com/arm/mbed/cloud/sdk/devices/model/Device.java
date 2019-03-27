@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Model for a device.
@@ -27,7 +28,7 @@ public class Device implements SdkModel {
     /**
      * DEPRECATED: Mark this device for automatic firmware update.
      */
-    private Boolean autoUpdate;
+    private boolean autoUpdate;
 
     /**
      * The expiration date of the certificate used to connect to bootstrap server.
@@ -244,7 +245,7 @@ public class Device implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public Device(String accountId, Boolean autoUpdate, Date bootstrapExpirationDate, Date bootstrappedTimestamp,
+    public Device(String accountId, boolean autoUpdate, Date bootstrapExpirationDate, Date bootstrappedTimestamp,
                   String caId, Date connectorExpirationDate, Date createdAt, Map<String, String> customAttributes,
                   DeviceDeployedState deployedState, String deployment, String description, String deviceClass,
                   Integer deviceExecutionMode, String deviceKey, String endpointName, String endpointType,
@@ -324,7 +325,7 @@ public class Device implements SdkModel {
      * Constructor.
      */
     public Device() {
-        this((String) null, Boolean.FALSE, new Date(), new Date(), (String) null, new Date(), new Date(),
+        this((String) null, false, new Date(), new Date(), (String) null, new Date(), new Date(),
              (Map<String, String>) null, DeviceDeployedState.getDefault(), (String) null, (String) null, (String) null,
              (Integer) null, (String) null, (String) null, (String) null, new Date(), (String) null, (String) null,
              (String) null, (String) null, (String) null, new Date(), DeviceMechanism.getDefault(), (String) null,
@@ -366,11 +367,11 @@ public class Device implements SdkModel {
     @Internal
     public Device(String accountId, Date createdAt, DeviceDeployedState deployedState, String endpointName,
                   Date enrolmentListTimestamp, Date manifestTimestamp, Date updatedAt) {
-        this(accountId, Boolean.FALSE, new Date(), new Date(), (String) null, new Date(), createdAt,
-             (Map<String, String>) null, deployedState, (String) null, (String) null, (String) null, (Integer) null,
-             (String) null, endpointName, (String) null, enrolmentListTimestamp, (String) null, (String) null,
-             (String) null, (String) null, (String) null, manifestTimestamp, DeviceMechanism.getDefault(),
-             (String) null, (String) null, (String) null, DeviceState.getDefault(), updatedAt, (String) null);
+        this(accountId, false, new Date(), new Date(), (String) null, new Date(), createdAt, (Map<String, String>) null,
+             deployedState, (String) null, (String) null, (String) null, (Integer) null, (String) null, endpointName,
+             (String) null, enrolmentListTimestamp, (String) null, (String) null, (String) null, (String) null,
+             (String) null, manifestTimestamp, DeviceMechanism.getDefault(), (String) null, (String) null,
+             (String) null, DeviceState.getDefault(), updatedAt, (String) null);
     }
 
     /**
@@ -387,7 +388,7 @@ public class Device implements SdkModel {
      * 
      * @return autoUpdate
      */
-    public Boolean isAutoUpdate() {
+    public boolean isAutoUpdate() {
         return autoUpdate;
     }
 
@@ -397,7 +398,7 @@ public class Device implements SdkModel {
      * @param autoUpdate
      *            DEPRECATED: Mark this device for automatic firmware update.
      */
-    public void setAutoUpdate(Boolean autoUpdate) {
+    public void setAutoUpdate(boolean autoUpdate) {
         this.autoUpdate = autoUpdate;
     }
 
@@ -1015,7 +1016,7 @@ public class Device implements SdkModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
-        result = prime * result + ((autoUpdate == null) ? 0 : autoUpdate.hashCode());
+        result = prime * result + Objects.hashCode(autoUpdate);
         result = prime * result + ((bootstrapExpirationDate == null) ? 0 : bootstrapExpirationDate.hashCode());
         result = prime * result + ((bootstrappedTimestamp == null) ? 0 : bootstrappedTimestamp.hashCode());
         result = prime * result + ((caId == null) ? 0 : caId.hashCode());
@@ -1094,11 +1095,7 @@ public class Device implements SdkModel {
         } else if (!accountId.equals(other.accountId)) {
             return false;
         }
-        if (autoUpdate == null) {
-            if (other.autoUpdate != null) {
-                return false;
-            }
-        } else if (!autoUpdate.equals(other.autoUpdate)) {
+        if (autoUpdate != other.autoUpdate) {
             return false;
         }
         if (bootstrapExpirationDate == null) {

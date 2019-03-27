@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Model for a device events.
@@ -78,7 +79,7 @@ public class DeviceEvents implements SdkModel {
     /**
      * value.
      */
-    private final Boolean stateChange;
+    private final boolean stateChange;
 
     /**
      * Internal constructor.
@@ -113,7 +114,7 @@ public class DeviceEvents implements SdkModel {
     @SuppressWarnings("PMD.CyclomaticComplexity")
     public DeviceEvents(Map<String, Object> changes, Date createdAt, Map<String, String> data, Date dateTime,
                         String description, String deviceId, String eventType, String eventTypeCategory,
-                        String eventTypeDescription, String id, Boolean stateChange) {
+                        String eventTypeDescription, String id, boolean stateChange) {
         super();
         this.changes = changes;
         this.createdAt = createdAt;
@@ -156,7 +157,7 @@ public class DeviceEvents implements SdkModel {
      */
     public DeviceEvents() {
         this((Map<String, Object>) null, new Date(), (Map<String, String>) null, new Date(), (String) null,
-             (String) null, (String) null, (String) null, (String) null, (String) null, Boolean.FALSE);
+             (String) null, (String) null, (String) null, (String) null, (String) null, false);
     }
 
     /**
@@ -200,7 +201,7 @@ public class DeviceEvents implements SdkModel {
     @Internal
     public DeviceEvents(Map<String, Object> changes, Date createdAt, Map<String, String> data, Date dateTime,
                         String description, String deviceId, String eventType, String eventTypeCategory,
-                        String eventTypeDescription, Boolean stateChange) {
+                        String eventTypeDescription, boolean stateChange) {
         this(changes, createdAt, data, dateTime, description, deviceId, eventType, eventTypeCategory,
              eventTypeDescription, (String) null, stateChange);
     }
@@ -332,7 +333,7 @@ public class DeviceEvents implements SdkModel {
      * 
      * @return stateChange
      */
-    public Boolean isStateChange() {
+    public boolean isStateChange() {
         return stateChange;
     }
 
@@ -358,7 +359,7 @@ public class DeviceEvents implements SdkModel {
         result = prime * result + ((eventTypeCategory == null) ? 0 : eventTypeCategory.hashCode());
         result = prime * result + ((eventTypeDescription == null) ? 0 : eventTypeDescription.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((stateChange == null) ? 0 : stateChange.hashCode());
+        result = prime * result + Objects.hashCode(stateChange);
         return result;
     }
 
@@ -472,11 +473,7 @@ public class DeviceEvents implements SdkModel {
         } else if (!id.equals(other.id)) {
             return false;
         }
-        if (stateChange == null) {
-            if (other.stateChange != null) {
-                return false;
-            }
-        } else if (!stateChange.equals(other.stateChange)) {
+        if (stateChange != other.stateChange) {
             return false;
         }
         return true;

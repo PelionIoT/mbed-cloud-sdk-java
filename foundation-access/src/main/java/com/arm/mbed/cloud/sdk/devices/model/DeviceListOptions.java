@@ -11,7 +11,6 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Options to use when listing devices.
@@ -80,6 +79,18 @@ import java.util.Map;
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * </tr>
  * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">bootstrapExpirationDate</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * </tr>
+ * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">caId</td>
  * <td style=
  * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_CA_ID</td>
@@ -135,6 +146,18 @@ import java.util.Map;
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">enrolmentListTimestamp</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
@@ -220,8 +243,8 @@ import java.util.Map;
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * </tr>
  * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">id</td>
@@ -234,18 +257,6 @@ import java.util.Map;
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
- * </tr>
- * <tr>
- * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">customAttributes</td>
- * <td style=
- * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_CUSTOM_ATTRIBUTES</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * </tr>
  * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">updatedAt</td>
@@ -380,6 +391,11 @@ public class DeviceListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_AUTO_UPDATE = "autoUpdate";
 
     /**
+     * Tag for filter by bootstrapExpirationDate.
+     */
+    public static final String TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE = "bootstrapExpirationDate";
+
+    /**
      * Tag for filter by createdAt.
      */
     public static final String TAG_FILTER_BY_CREATED_AT = "createdAt";
@@ -465,6 +481,11 @@ public class DeviceListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_CA_ID = "caId";
 
     /**
+     * Tag for filter by enrolmentListTimestamp.
+     */
+    public static final String TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP = "enrolmentListTimestamp";
+
+    /**
      * Tag for filter by description.
      */
     public static final String TAG_FILTER_BY_DESCRIPTION = "description";
@@ -478,11 +499,6 @@ public class DeviceListOptions extends ListOptions {
      * Tag for filter by mechanism.
      */
     public static final String TAG_FILTER_BY_MECHANISM = "mechanism";
-
-    /**
-     * Tag for filter by customAttributes.
-     */
-    public static final String TAG_FILTER_BY_CUSTOM_ATTRIBUTES = "customAttributes";
 
     /**
      * Tag for filter by deployedState.
@@ -596,7 +612,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByAutoUpdate
      *            filter value.
      */
-    public void addEqualToAutoUpdateFilter(Boolean filterByAutoUpdate) {
+    public void addEqualToAutoUpdateFilter(boolean filterByAutoUpdate) {
         addEqualFilter(TAG_FILTER_BY_AUTO_UPDATE, filterByAutoUpdate);
     }
 
@@ -611,7 +627,7 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T equalToAutoUpdate(Boolean filterByAutoUpdate) {
+    public <T extends DeviceListOptions> T equalToAutoUpdate(boolean filterByAutoUpdate) {
         addEqualToAutoUpdateFilter(filterByAutoUpdate);
         return (T) this;
     }
@@ -622,7 +638,7 @@ public class DeviceListOptions extends ListOptions {
      * @param filterByAutoUpdate
      *            filter value.
      */
-    public void addNotEqualToAutoUpdateFilter(Boolean filterByAutoUpdate) {
+    public void addNotEqualToAutoUpdateFilter(boolean filterByAutoUpdate) {
         addNotEqualFilter(TAG_FILTER_BY_AUTO_UPDATE, filterByAutoUpdate);
     }
 
@@ -637,171 +653,239 @@ public class DeviceListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notEqualToAutoUpdate(Boolean filterByAutoUpdate) {
+    public <T extends DeviceListOptions> T notEqualToAutoUpdate(boolean filterByAutoUpdate) {
         addNotEqualToAutoUpdateFilter(filterByAutoUpdate);
         return (T) this;
     }
 
     /**
-     * Sets "an in" filter by {@code autoUpdate}.
+     * Gets all the filters defined on field {@code bootstrapExpirationDate}.
+     * 
+     * @return All the filters by {@code bootstrapExpirationDate}
+     */
+    public List<Filter> getBootstrapExpirationDateFilters() {
+        return fetchFilters(TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE);
+    }
+
+    /**
+     * Sets "an in" filter by {@code bootstrapExpirationDate}.
      *
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
-     * @param filterByAutoUpdate
+     * @param filterByBootstrapExpirationDate
      *            filter value.
      */
-    public void addInAutoUpdatesFilter(String filterByAutoUpdate) {
-        addInFilter(TAG_FILTER_BY_AUTO_UPDATE, filterByAutoUpdate);
+    public void addInBootstrapExpirationDatesFilter(String filterByBootstrapExpirationDate) {
+        addInFilter(TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE, filterByBootstrapExpirationDate);
     }
 
     /**
-     * Sets "an in" filter by {@code autoUpdate}.
+     * Sets "an in" filter by {@code bootstrapExpirationDate}.
      * 
-     * @param filterByAutoUpdate
+     * @param filterByBootstrapExpirationDate
      *            filter value.
      */
-    public void addInAutoUpdatesFilter(List<Boolean> filterByAutoUpdate) {
-        addInFilter(TAG_FILTER_BY_AUTO_UPDATE, filterByAutoUpdate);
+    public void addInBootstrapExpirationDatesFilter(List<Date> filterByBootstrapExpirationDate) {
+        addInFilter(TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE, filterByBootstrapExpirationDate);
     }
 
     /**
-     * Sets "an in" filter by {@code autoUpdate}.
+     * Sets "an in" filter by {@code bootstrapExpirationDate}.
      * 
-     * @param filterByAutoUpdate
+     * @param filterByBootstrapExpirationDate
      *            filter value.
      */
-    public void addInAutoUpdatesFilter(Boolean... filterByAutoUpdate) {
-        addInFilter(TAG_FILTER_BY_AUTO_UPDATE, filterByAutoUpdate);
+    public void addInBootstrapExpirationDatesFilter(Date... filterByBootstrapExpirationDate) {
+        addInFilter(TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE, filterByBootstrapExpirationDate);
     }
 
     /**
-     * Sets "an in" filter by {@code autoUpdate}.
-     *
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInAutoUpdatesFilter(String)}
-     * 
-     * @param filterByAutoUpdate
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inAutoUpdates(String filterByAutoUpdate) {
-        addInAutoUpdatesFilter(filterByAutoUpdate);
-        return (T) this;
-    }
-
-    /**
-     * Sets "an in" filter by {@code autoUpdate}.
-     *
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInAutoUpdatesFilter(java.util.List)}
-     * 
-     * @param filterByAutoUpdate
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inAutoUpdates(List<Boolean> filterByAutoUpdate) {
-        addInAutoUpdatesFilter(filterByAutoUpdate);
-        return (T) this;
-    }
-
-    /**
-     * Sets "an in" filter by {@code autoUpdate}.
-     *
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInAutoUpdatesFilter(Boolean[])}
-     * 
-     * @param filterByAutoUpdate
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T inAutoUpdates(Boolean... filterByAutoUpdate) {
-        addInAutoUpdatesFilter(filterByAutoUpdate);
-        return (T) this;
-    }
-
-    /**
-     * Sets "a not in" filter by {@code autoUpdate}.
-     *
-     * <p>
-     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
-     * 
-     * @param filterByAutoUpdate
-     *            filter value.
-     */
-    public void addNotInAutoUpdatesFilter(String filterByAutoUpdate) {
-        addNotInFilter(TAG_FILTER_BY_AUTO_UPDATE, filterByAutoUpdate);
-    }
-
-    /**
-     * Sets "a not in" filter by {@code autoUpdate}.
-     * 
-     * @param filterByAutoUpdate
-     *            filter value.
-     */
-    public void addNotInAutoUpdatesFilter(List<Boolean> filterByAutoUpdate) {
-        addNotInFilter(TAG_FILTER_BY_AUTO_UPDATE, filterByAutoUpdate);
-    }
-
-    /**
-     * Sets "a not in" filter by {@code autoUpdate}.
-     * 
-     * @param filterByAutoUpdate
-     *            filter value.
-     */
-    public void addNotInAutoUpdatesFilter(Boolean... filterByAutoUpdate) {
-        addNotInFilter(TAG_FILTER_BY_AUTO_UPDATE, filterByAutoUpdate);
-    }
-
-    /**
-     * Sets "a not in" filter by {@code autoUpdate}.
-     *
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInAutoUpdatesFilter(String)}
-     * 
-     * @param filterByAutoUpdate
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInAutoUpdates(String filterByAutoUpdate) {
-        addNotInAutoUpdatesFilter(filterByAutoUpdate);
-        return (T) this;
-    }
-
-    /**
-     * Sets "a not in" filter by {@code autoUpdate}.
+     * Sets "an in" filter by {@code bootstrapExpirationDate}.
      *
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInAutoUpdatesFilter(java.util.List)}
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInBootstrapExpirationDatesFilter(String)}
      * 
-     * @param filterByAutoUpdate
+     * @param filterByBootstrapExpirationDate
      *            filter value.
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInAutoUpdates(List<Boolean> filterByAutoUpdate) {
-        addNotInAutoUpdatesFilter(filterByAutoUpdate);
+    public <T extends DeviceListOptions> T inBootstrapExpirationDates(String filterByBootstrapExpirationDate) {
+        addInBootstrapExpirationDatesFilter(filterByBootstrapExpirationDate);
         return (T) this;
     }
 
     /**
-     * Sets "a not in" filter by {@code autoUpdate}.
+     * Sets "an in" filter by {@code bootstrapExpirationDate}.
      *
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInAutoUpdatesFilter(Boolean[])}
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInBootstrapExpirationDatesFilter(java.util.List)}
      * 
-     * @param filterByAutoUpdate
+     * @param filterByBootstrapExpirationDate
      *            filter value.
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notInAutoUpdates(Boolean... filterByAutoUpdate) {
-        addNotInAutoUpdatesFilter(filterByAutoUpdate);
+    public <T extends DeviceListOptions> T inBootstrapExpirationDates(List<Date> filterByBootstrapExpirationDate) {
+        addInBootstrapExpirationDatesFilter(filterByBootstrapExpirationDate);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code bootstrapExpirationDate}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInBootstrapExpirationDatesFilter(java.util.Date[])}
+     * 
+     * @param filterByBootstrapExpirationDate
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T inBootstrapExpirationDates(Date... filterByBootstrapExpirationDate) {
+        addInBootstrapExpirationDatesFilter(filterByBootstrapExpirationDate);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code bootstrapExpirationDate}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByBootstrapExpirationDate
+     *            filter value.
+     */
+    public void addNotInBootstrapExpirationDatesFilter(String filterByBootstrapExpirationDate) {
+        addNotInFilter(TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE, filterByBootstrapExpirationDate);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code bootstrapExpirationDate}.
+     * 
+     * @param filterByBootstrapExpirationDate
+     *            filter value.
+     */
+    public void addNotInBootstrapExpirationDatesFilter(List<Date> filterByBootstrapExpirationDate) {
+        addNotInFilter(TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE, filterByBootstrapExpirationDate);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code bootstrapExpirationDate}.
+     * 
+     * @param filterByBootstrapExpirationDate
+     *            filter value.
+     */
+    public void addNotInBootstrapExpirationDatesFilter(Date... filterByBootstrapExpirationDate) {
+        addNotInFilter(TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE, filterByBootstrapExpirationDate);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code bootstrapExpirationDate}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInBootstrapExpirationDatesFilter(String)}
+     * 
+     * @param filterByBootstrapExpirationDate
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T notInBootstrapExpirationDates(String filterByBootstrapExpirationDate) {
+        addNotInBootstrapExpirationDatesFilter(filterByBootstrapExpirationDate);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code bootstrapExpirationDate}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInBootstrapExpirationDatesFilter(java.util.List)}
+     * 
+     * @param filterByBootstrapExpirationDate
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T notInBootstrapExpirationDates(List<Date> filterByBootstrapExpirationDate) {
+        addNotInBootstrapExpirationDatesFilter(filterByBootstrapExpirationDate);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code bootstrapExpirationDate}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInBootstrapExpirationDatesFilter(java.util.Date[])}
+     * 
+     * @param filterByBootstrapExpirationDate
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T notInBootstrapExpirationDates(Date... filterByBootstrapExpirationDate) {
+        addNotInBootstrapExpirationDatesFilter(filterByBootstrapExpirationDate);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a less than" filter by {@code bootstrapExpirationDate}.
+     * 
+     * @param filterByBootstrapExpirationDate
+     *            filter value.
+     */
+    public void addLessThanBootstrapExpirationDateFilter(Date filterByBootstrapExpirationDate) {
+        addLessThanFilter(TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE, filterByBootstrapExpirationDate);
+    }
+
+    /**
+     * Sets "a less than" filter by {@code bootstrapExpirationDate}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addLessThanBootstrapExpirationDateFilter(java.util.Date)}
+     * 
+     * @param filterByBootstrapExpirationDate
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T lessThanBootstrapExpirationDate(Date filterByBootstrapExpirationDate) {
+        addLessThanBootstrapExpirationDateFilter(filterByBootstrapExpirationDate);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a greater than" filter by {@code bootstrapExpirationDate}.
+     * 
+     * @param filterByBootstrapExpirationDate
+     *            filter value.
+     */
+    public void addGreaterThanBootstrapExpirationDateFilter(Date filterByBootstrapExpirationDate) {
+        addGreaterThanFilter(TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE, filterByBootstrapExpirationDate);
+    }
+
+    /**
+     * Sets "a greater than" filter by {@code bootstrapExpirationDate}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addGreaterThanBootstrapExpirationDateFilter(java.util.Date)}
+     * 
+     * @param filterByBootstrapExpirationDate
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T greaterThanBootstrapExpirationDate(Date filterByBootstrapExpirationDate) {
+        addGreaterThanBootstrapExpirationDateFilter(filterByBootstrapExpirationDate);
         return (T) this;
     }
 
@@ -4643,6 +4727,237 @@ public class DeviceListOptions extends ListOptions {
     }
 
     /**
+     * Gets all the filters defined on field {@code enrolmentListTimestamp}.
+     * 
+     * @return All the filters by {@code enrolmentListTimestamp}
+     */
+    public List<Filter> getEnrolmentListTimestampFilters() {
+        return fetchFilters(TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP);
+    }
+
+    /**
+     * Sets "an in" filter by {@code enrolmentListTimestamp}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     */
+    public void addInEnrolmentListTimestampsFilter(String filterByEnrolmentListTimestamp) {
+        addInFilter(TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP, filterByEnrolmentListTimestamp);
+    }
+
+    /**
+     * Sets "an in" filter by {@code enrolmentListTimestamp}.
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     */
+    public void addInEnrolmentListTimestampsFilter(List<Date> filterByEnrolmentListTimestamp) {
+        addInFilter(TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP, filterByEnrolmentListTimestamp);
+    }
+
+    /**
+     * Sets "an in" filter by {@code enrolmentListTimestamp}.
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     */
+    public void addInEnrolmentListTimestampsFilter(Date... filterByEnrolmentListTimestamp) {
+        addInFilter(TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP, filterByEnrolmentListTimestamp);
+    }
+
+    /**
+     * Sets "an in" filter by {@code enrolmentListTimestamp}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInEnrolmentListTimestampsFilter(String)}
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T inEnrolmentListTimestamps(String filterByEnrolmentListTimestamp) {
+        addInEnrolmentListTimestampsFilter(filterByEnrolmentListTimestamp);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code enrolmentListTimestamp}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInEnrolmentListTimestampsFilter(java.util.List)}
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T inEnrolmentListTimestamps(List<Date> filterByEnrolmentListTimestamp) {
+        addInEnrolmentListTimestampsFilter(filterByEnrolmentListTimestamp);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code enrolmentListTimestamp}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInEnrolmentListTimestampsFilter(java.util.Date[])}
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T inEnrolmentListTimestamps(Date... filterByEnrolmentListTimestamp) {
+        addInEnrolmentListTimestampsFilter(filterByEnrolmentListTimestamp);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code enrolmentListTimestamp}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     */
+    public void addNotInEnrolmentListTimestampsFilter(String filterByEnrolmentListTimestamp) {
+        addNotInFilter(TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP, filterByEnrolmentListTimestamp);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code enrolmentListTimestamp}.
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     */
+    public void addNotInEnrolmentListTimestampsFilter(List<Date> filterByEnrolmentListTimestamp) {
+        addNotInFilter(TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP, filterByEnrolmentListTimestamp);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code enrolmentListTimestamp}.
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     */
+    public void addNotInEnrolmentListTimestampsFilter(Date... filterByEnrolmentListTimestamp) {
+        addNotInFilter(TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP, filterByEnrolmentListTimestamp);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code enrolmentListTimestamp}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInEnrolmentListTimestampsFilter(String)}
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T notInEnrolmentListTimestamps(String filterByEnrolmentListTimestamp) {
+        addNotInEnrolmentListTimestampsFilter(filterByEnrolmentListTimestamp);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code enrolmentListTimestamp}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInEnrolmentListTimestampsFilter(java.util.List)}
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T notInEnrolmentListTimestamps(List<Date> filterByEnrolmentListTimestamp) {
+        addNotInEnrolmentListTimestampsFilter(filterByEnrolmentListTimestamp);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code enrolmentListTimestamp}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInEnrolmentListTimestampsFilter(java.util.Date[])}
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T notInEnrolmentListTimestamps(Date... filterByEnrolmentListTimestamp) {
+        addNotInEnrolmentListTimestampsFilter(filterByEnrolmentListTimestamp);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a less than" filter by {@code enrolmentListTimestamp}.
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     */
+    public void addLessThanEnrolmentListTimestampFilter(Date filterByEnrolmentListTimestamp) {
+        addLessThanFilter(TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP, filterByEnrolmentListTimestamp);
+    }
+
+    /**
+     * Sets "a less than" filter by {@code enrolmentListTimestamp}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addLessThanEnrolmentListTimestampFilter(java.util.Date)}
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T lessThanEnrolmentListTimestamp(Date filterByEnrolmentListTimestamp) {
+        addLessThanEnrolmentListTimestampFilter(filterByEnrolmentListTimestamp);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a greater than" filter by {@code enrolmentListTimestamp}.
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     */
+    public void addGreaterThanEnrolmentListTimestampFilter(Date filterByEnrolmentListTimestamp) {
+        addGreaterThanFilter(TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP, filterByEnrolmentListTimestamp);
+    }
+
+    /**
+     * Sets "a greater than" filter by {@code enrolmentListTimestamp}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addGreaterThanEnrolmentListTimestampFilter(java.util.Date)}
+     * 
+     * @param filterByEnrolmentListTimestamp
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T greaterThanEnrolmentListTimestamp(Date filterByEnrolmentListTimestamp) {
+        addGreaterThanEnrolmentListTimestampFilter(filterByEnrolmentListTimestamp);
+        return (T) this;
+    }
+
+    /**
      * Gets all the filters defined on field {@code description}.
      * 
      * @return All the filters by {@code description}
@@ -5315,69 +5630,6 @@ public class DeviceListOptions extends ListOptions {
     @SuppressWarnings("unchecked")
     public <T extends DeviceListOptions> T notInMechanisms(DeviceMechanism... filterByMechanism) {
         addNotInMechanismsFilter(filterByMechanism);
-        return (T) this;
-    }
-
-    /**
-     * Gets all the filters defined on field {@code customAttributes}.
-     * 
-     * @return All the filters by {@code customAttributes}
-     */
-    public List<Filter> getCustomAttributesFilters() {
-        return fetchFilters(TAG_FILTER_BY_CUSTOM_ATTRIBUTES);
-    }
-
-    /**
-     * Sets "an equal to" filter by {@code customAttributes}.
-     * 
-     * @param filterByCustomAttributes
-     *            filter value.
-     */
-    public void addEqualToCustomAttributesFilter(Map<String, String> filterByCustomAttributes) {
-        addEqualFilter(TAG_FILTER_BY_CUSTOM_ATTRIBUTES, filterByCustomAttributes);
-    }
-
-    /**
-     * Sets "an equal to" filter by {@code customAttributes}.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addEqualToCustomAttributesFilter(java.util.Map)}
-     * 
-     * @param filterByCustomAttributes
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T equalToCustomAttributes(Map<String, String> filterByCustomAttributes) {
-        addEqualToCustomAttributesFilter(filterByCustomAttributes);
-        return (T) this;
-    }
-
-    /**
-     * Sets "a not equal to" filter by {@code customAttributes}.
-     * 
-     * @param filterByCustomAttributes
-     *            filter value.
-     */
-    public void addNotEqualToCustomAttributesFilter(Map<String, String> filterByCustomAttributes) {
-        addNotEqualFilter(TAG_FILTER_BY_CUSTOM_ATTRIBUTES, filterByCustomAttributes);
-    }
-
-    /**
-     * Sets "a not equal to" filter by {@code customAttributes}.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotEqualToCustomAttributesFilter(java.util.Map)}
-     * 
-     * @param filterByCustomAttributes
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceListOptions> T notEqualToCustomAttributes(Map<String, String> filterByCustomAttributes) {
-        addNotEqualToCustomAttributesFilter(filterByCustomAttributes);
         return (T) this;
     }
 

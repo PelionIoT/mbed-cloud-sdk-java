@@ -90,12 +90,10 @@ public class DefaultApiTest {
         String eventTypeNin = null;
         Boolean stateChangeEq = null;
         Boolean stateChangeNeq = null;
-        String stateChangeIn = null;
-        String stateChangeNin = null;
         // DeviceEventPage response = api.deviceEventList(limit, order, after, include, filter, dateTimeIn, dateTimeNin,
         // dateTimeLte, dateTimeGte, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, idEq, idNeq, idIn,
         // idNin, deviceIdEq, deviceIdNeq, deviceIdIn, deviceIdNin, eventTypeEq, eventTypeNeq, eventTypeIn,
-        // eventTypeNin, stateChangeEq, stateChangeNeq, stateChangeIn, stateChangeNin);
+        // eventTypeNin, stateChangeEq, stateChangeNeq);
 
         // TODO: test validations
     }
@@ -131,12 +129,10 @@ public class DefaultApiTest {
         String accountIdNin = null;
         Boolean autoUpdateEq = null;
         Boolean autoUpdateNeq = null;
-        String autoUpdateIn = null;
-        String autoUpdateNin = null;
-        String bootstrappedExpirationDateIn = null;
-        String bootstrappedExpirationDateNin = null;
-        String bootstrappedExpirationDateLte = null;
-        String bootstrappedExpirationDateGte = null;
+        String bootstrapExpirationDateIn = null;
+        String bootstrapExpirationDateNin = null;
+        LocalDate bootstrapExpirationDateLte = null;
+        LocalDate bootstrapExpirationDateGte = null;
         String bootstrappedTimestampIn = null;
         String bootstrappedTimestampNin = null;
         DateTime bootstrappedTimestampLte = null;
@@ -153,8 +149,6 @@ public class DefaultApiTest {
         String createdAtNin = null;
         DateTime createdAtLte = null;
         DateTime createdAtGte = null;
-        String customAttributesEq = null;
-        String customAttributesNeq = null;
         String deployedStateEq = null;
         String deployedStateNeq = null;
         String deployedStateIn = null;
@@ -187,10 +181,10 @@ public class DefaultApiTest {
         String endpointTypeNeq = null;
         String endpointTypeIn = null;
         String endpointTypeNin = null;
-        String enrollmentListTimestampIn = null;
-        String enrollmentListTimestampNin = null;
-        String enrollmentListTimestampLte = null;
-        String enrollmentListTimestampGte = null;
+        String enrolmentListTimestampIn = null;
+        String enrolmentListTimestampNin = null;
+        DateTime enrolmentListTimestampLte = null;
+        DateTime enrolmentListTimestampGte = null;
         String firmwareChecksumEq = null;
         String firmwareChecksumNeq = null;
         String firmwareChecksumIn = null;
@@ -240,19 +234,18 @@ public class DefaultApiTest {
         String vendorIdIn = null;
         String vendorIdNin = null;
         // DevicePage response = api.deviceList(limit, order, after, include, filter, accountIdEq, accountIdNeq,
-        // accountIdIn, accountIdNin, autoUpdateEq, autoUpdateNeq, autoUpdateIn, autoUpdateNin,
-        // bootstrappedExpirationDateIn, bootstrappedExpirationDateNin, bootstrappedExpirationDateLte,
-        // bootstrappedExpirationDateGte, bootstrappedTimestampIn, bootstrappedTimestampNin, bootstrappedTimestampLte,
-        // bootstrappedTimestampGte, caIdEq, caIdNeq, caIdIn, caIdNin, connectorExpirationDateIn,
-        // connectorExpirationDateNin, connectorExpirationDateLte, connectorExpirationDateGte, createdAtIn,
-        // createdAtNin, createdAtLte, createdAtGte, customAttributesEq, customAttributesNeq, deployedStateEq,
+        // accountIdIn, accountIdNin, autoUpdateEq, autoUpdateNeq, bootstrapExpirationDateIn,
+        // bootstrapExpirationDateNin, bootstrapExpirationDateLte, bootstrapExpirationDateGte, bootstrappedTimestampIn,
+        // bootstrappedTimestampNin, bootstrappedTimestampLte, bootstrappedTimestampGte, caIdEq, caIdNeq, caIdIn,
+        // caIdNin, connectorExpirationDateIn, connectorExpirationDateNin, connectorExpirationDateLte,
+        // connectorExpirationDateGte, createdAtIn, createdAtNin, createdAtLte, createdAtGte, deployedStateEq,
         // deployedStateNeq, deployedStateIn, deployedStateNin, deploymentEq, deploymentNeq, deploymentIn,
         // deploymentNin, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, deviceClassEq, deviceClassNeq,
         // deviceClassIn, deviceClassNin, deviceExecutionModeEq, deviceExecutionModeNeq, deviceExecutionModeIn,
         // deviceExecutionModeNin, deviceKeyEq, deviceKeyNeq, deviceKeyIn, deviceKeyNin, endpointNameEq,
         // endpointNameNeq, endpointNameIn, endpointNameNin, endpointTypeEq, endpointTypeNeq, endpointTypeIn,
-        // endpointTypeNin, enrollmentListTimestampIn, enrollmentListTimestampNin, enrollmentListTimestampLte,
-        // enrollmentListTimestampGte, firmwareChecksumEq, firmwareChecksumNeq, firmwareChecksumIn, firmwareChecksumNin,
+        // endpointTypeNin, enrolmentListTimestampIn, enrolmentListTimestampNin, enrolmentListTimestampLte,
+        // enrolmentListTimestampGte, firmwareChecksumEq, firmwareChecksumNeq, firmwareChecksumIn, firmwareChecksumNin,
         // hostGatewayEq, hostGatewayNeq, hostGatewayIn, hostGatewayNin, idEq, idNeq, idIn, idNin, manifestEq,
         // manifestNeq, manifestIn, manifestNin, manifestTimestampIn, manifestTimestampNin, manifestTimestampLte,
         // manifestTimestampGte, mechanismEq, mechanismNeq, mechanismIn, mechanismNin, mechanismUrlEq, mechanismUrlNeq,
@@ -507,10 +500,6 @@ public class DefaultApiTest {
         String nameNeq = null;
         String nameIn = null;
         String nameNin = null;
-        String timestampIn = null;
-        String timestampNin = null;
-        String timestampLte = null;
-        String timestampGte = null;
         String updatedAtIn = null;
         String updatedAtNin = null;
         DateTime updatedAtLte = null;
@@ -519,8 +508,8 @@ public class DefaultApiTest {
         // createdAtNin, createdAtLte, createdAtGte, datafileEq, datafileNeq, datafileIn, datafileNin,
         // datafileChecksumEq, datafileChecksumNeq, datafileChecksumIn, datafileChecksumNin, datafileSizeEq,
         // datafileSizeNeq, datafileSizeIn, datafileSizeNin, descriptionEq, descriptionNeq, descriptionIn,
-        // descriptionNin, idEq, idNeq, idIn, idNin, nameEq, nameNeq, nameIn, nameNin, timestampIn, timestampNin,
-        // timestampLte, timestampGte, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte);
+        // descriptionNin, idEq, idNeq, idIn, idNin, nameEq, nameNeq, nameIn, nameNin, updatedAtIn, updatedAtNin,
+        // updatedAtLte, updatedAtGte);
 
         // TODO: test validations
     }
@@ -850,39 +839,7 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        String idEq = null;
-        String idNeq = null;
-        String idIn = null;
-        String idNin = null;
-        String devicesCountEq = null;
-        String devicesCountNeq = null;
-        String devicesCountIn = null;
-        String devicesCountNin = null;
-        String devicesCountLte = null;
-        String devicesCountGte = null;
-        String nameEq = null;
-        String nameNeq = null;
-        String nameIn = null;
-        String nameNin = null;
-        String descriptionEq = null;
-        String descriptionNeq = null;
-        String descriptionIn = null;
-        String descriptionNin = null;
-        String customAttributesEq = null;
-        String customAttributesNeq = null;
-        String createdAtIn = null;
-        String createdAtNin = null;
-        DateTime createdAtLte = null;
-        DateTime createdAtGte = null;
-        String updatedAtIn = null;
-        String updatedAtNin = null;
-        DateTime updatedAtLte = null;
-        DateTime updatedAtGte = null;
-        // DevicePage response = api.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter, idEq,
-        // idNeq, idIn, idNin, devicesCountEq, devicesCountNeq, devicesCountIn, devicesCountNin, devicesCountLte,
-        // devicesCountGte, nameEq, nameNeq, nameIn, nameNin, descriptionEq, descriptionNeq, descriptionIn,
-        // descriptionNin, customAttributesEq, customAttributesNeq, createdAtIn, createdAtNin, createdAtLte,
-        // createdAtGte, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte);
+        // DevicePage response = api.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter);
 
         // TODO: test validations
     }
@@ -1285,22 +1242,18 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
+        String updatedAtIn = null;
+        String updatedAtNin = null;
+        DateTime updatedAtLte = null;
+        DateTime updatedAtGte = null;
+        String nameEq = null;
+        String nameNeq = null;
+        String nameIn = null;
+        String nameNin = null;
         String createdAtIn = null;
         String createdAtNin = null;
         DateTime createdAtLte = null;
         DateTime createdAtGte = null;
-        String datafileEq = null;
-        String datafileNeq = null;
-        String datafileIn = null;
-        String datafileNin = null;
-        String datafileChecksumEq = null;
-        String datafileChecksumNeq = null;
-        String datafileChecksumIn = null;
-        String datafileChecksumNin = null;
-        String datafileSizeEq = null;
-        String datafileSizeNeq = null;
-        String datafileSizeIn = null;
-        String datafileSizeNin = null;
         String descriptionEq = null;
         String descriptionNeq = null;
         String descriptionIn = null;
@@ -1309,24 +1262,16 @@ public class DefaultApiTest {
         String idNeq = null;
         String idIn = null;
         String idNin = null;
-        String nameEq = null;
-        String nameNeq = null;
-        String nameIn = null;
-        String nameNin = null;
-        String timestampIn = null;
-        String timestampNin = null;
-        String timestampLte = null;
-        String timestampGte = null;
-        String updatedAtIn = null;
-        String updatedAtNin = null;
-        DateTime updatedAtLte = null;
-        DateTime updatedAtGte = null;
-        // UploadJobPage response = api.uploadJobList(limit, order, after, include, filter, createdAtIn, createdAtNin,
-        // createdAtLte, createdAtGte, datafileEq, datafileNeq, datafileIn, datafileNin, datafileChecksumEq,
-        // datafileChecksumNeq, datafileChecksumIn, datafileChecksumNin, datafileSizeEq, datafileSizeNeq,
-        // datafileSizeIn, datafileSizeNin, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, idEq, idNeq,
-        // idIn, idNin, nameEq, nameNeq, nameIn, nameNin, timestampIn, timestampNin, timestampLte, timestampGte,
-        // updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte);
+        Boolean completeEq = null;
+        Boolean completeNeq = null;
+        String statusEq = null;
+        String statusNeq = null;
+        String statusIn = null;
+        String statusNin = null;
+        // UploadJobPage response = api.uploadJobList(limit, order, after, include, filter, updatedAtIn, updatedAtNin,
+        // updatedAtLte, updatedAtGte, nameEq, nameNeq, nameIn, nameNin, createdAtIn, createdAtNin, createdAtLte,
+        // createdAtGte, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, idEq, idNeq, idIn, idNin,
+        // completeEq, completeNeq, statusEq, statusNeq, statusIn, statusNin);
 
         // TODO: test validations
     }

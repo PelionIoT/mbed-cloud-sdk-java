@@ -685,8 +685,7 @@ public class Devices extends AbstractModule {
      * Creates a {@link Paginator} for the list of devices matching filter options.
      *
      * <p>
-     * Similar to
-     * {@link #listAllDevices(String, String, String, String, String, String, String, String, com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions)}
+     * Gets an iterator over all devices matching filter options.
      * 
      * @param options
      *            list options.
@@ -698,56 +697,6 @@ public class Devices extends AbstractModule {
     @API
     @Nullable
     public Paginator<Device> listAllDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
-        return listAllDevices((String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
-                              (String) null, (String) null, options);
-    }
-
-    /**
-     * Creates a {@link Paginator} for the list of devices matching filter options.
-     *
-     * <p>
-     * Gets an iterator over all devices matching filter options.
-     * 
-     * @param bootstrappedExpirationDateIn
-     *            a string
-     * @param bootstrappedExpirationDateNin
-     *            a string
-     * @param bootstrappedExpirationDateLte
-     *            a string
-     * @param bootstrappedExpirationDateGte
-     *            a string
-     * @param enrollmentListTimestampIn
-     *            a string
-     * @param enrollmentListTimestampNin
-     *            a string
-     * @param enrollmentListTimestampLte
-     *            a string
-     * @param enrollmentListTimestampGte
-     *            a string
-     * @param options
-     *            list options.
-     * @return paginator over the list of devices
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
-    @API
-    @Nullable
-    public Paginator<Device>
-           listAllDevices(@Nullable String bootstrappedExpirationDateIn, @Nullable String bootstrappedExpirationDateNin,
-                          @Nullable String bootstrappedExpirationDateLte,
-                          @Nullable String bootstrappedExpirationDateGte, @Nullable String enrollmentListTimestampIn,
-                          @Nullable String enrollmentListTimestampNin, @Nullable String enrollmentListTimestampLte,
-                          @Nullable String enrollmentListTimestampGte,
-                          @Nullable DeviceListOptions options) throws MbedCloudException {
-        final String finalBootstrappedExpirationDateIn = bootstrappedExpirationDateIn;
-        final String finalBootstrappedExpirationDateNin = bootstrappedExpirationDateNin;
-        final String finalBootstrappedExpirationDateLte = bootstrappedExpirationDateLte;
-        final String finalBootstrappedExpirationDateGte = bootstrappedExpirationDateGte;
-        final String finalEnrollmentListTimestampIn = enrollmentListTimestampIn;
-        final String finalEnrollmentListTimestampNin = enrollmentListTimestampNin;
-        final String finalEnrollmentListTimestampLte = enrollmentListTimestampLte;
-        final String finalEnrollmentListTimestampGte = enrollmentListTimestampGte;
         final DeviceListOptions finalOptions = (options == null) ? new DeviceListOptions() : options;
         return new Paginator<Device>(finalOptions, new PageRequester<Device>() {
             /**
@@ -761,11 +710,7 @@ public class Devices extends AbstractModule {
              */
             @Override
             public ListResponse<Device> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listDevices(finalBootstrappedExpirationDateIn, finalBootstrappedExpirationDateNin,
-                                   finalBootstrappedExpirationDateLte, finalBootstrappedExpirationDateGte,
-                                   finalEnrollmentListTimestampIn, finalEnrollmentListTimestampNin,
-                                   finalEnrollmentListTimestampLte, finalEnrollmentListTimestampGte,
-                                   (DeviceListOptions) options);
+                return listDevices((DeviceListOptions) options);
             }
         });
     }
@@ -934,11 +879,7 @@ public class Devices extends AbstractModule {
                                                                                                                     finalOptions),
                                                                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceEventsListOptions.TAG_FILTER_BY_STATE_CHANGE,
                                                                                                                        Boolean.class,
-                                                                                                                       finalOptions),
-                                                                         ListOptionsEncoder.encodeSingleInFilter(DeviceEventsListOptions.TAG_FILTER_BY_STATE_CHANGE,
-                                                                                                                 finalOptions),
-                                                                         ListOptionsEncoder.encodeSingleNotInFilter(DeviceEventsListOptions.TAG_FILTER_BY_STATE_CHANGE,
-                                                                                                                    finalOptions));
+                                                                                                                       finalOptions));
                                     }
                                 });
     }
@@ -947,9 +888,8 @@ public class Devices extends AbstractModule {
      * Lists devices matching filter options.
      *
      * <p>
-     * Similar to
-     * {@link #listDevices(String, String, String, String, String, String, String, String, com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions)}
-     * 
+     * List all devices.
+     *
      * @param options
      *            list options.
      * @return the list of devices corresponding to filter options (One page).
@@ -960,55 +900,6 @@ public class Devices extends AbstractModule {
     @API
     @Nullable
     public ListResponse<Device> listDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
-        return listDevices((String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
-                           (String) null, (String) null, options);
-    }
-
-    /**
-     * Lists devices matching filter options.
-     *
-     * <p>
-     * List all devices.
-     *
-     * @param bootstrappedExpirationDateIn
-     *            a string
-     * @param bootstrappedExpirationDateNin
-     *            a string
-     * @param bootstrappedExpirationDateLte
-     *            a string
-     * @param bootstrappedExpirationDateGte
-     *            a string
-     * @param enrollmentListTimestampIn
-     *            a string
-     * @param enrollmentListTimestampNin
-     *            a string
-     * @param enrollmentListTimestampLte
-     *            a string
-     * @param enrollmentListTimestampGte
-     *            a string
-     * @param options
-     *            list options.
-     * @return the list of devices corresponding to filter options (One page).
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
-    @API
-    @Nullable
-    public ListResponse<Device>
-           listDevices(@Nullable String bootstrappedExpirationDateIn, @Nullable String bootstrappedExpirationDateNin,
-                       @Nullable String bootstrappedExpirationDateLte, @Nullable String bootstrappedExpirationDateGte,
-                       @Nullable String enrollmentListTimestampIn, @Nullable String enrollmentListTimestampNin,
-                       @Nullable String enrollmentListTimestampLte, @Nullable String enrollmentListTimestampGte,
-                       @Nullable DeviceListOptions options) throws MbedCloudException {
-        final String finalBootstrappedExpirationDateIn = bootstrappedExpirationDateIn;
-        final String finalBootstrappedExpirationDateNin = bootstrappedExpirationDateNin;
-        final String finalBootstrappedExpirationDateLte = bootstrappedExpirationDateLte;
-        final String finalBootstrappedExpirationDateGte = bootstrappedExpirationDateGte;
-        final String finalEnrollmentListTimestampIn = enrollmentListTimestampIn;
-        final String finalEnrollmentListTimestampNin = enrollmentListTimestampNin;
-        final String finalEnrollmentListTimestampLte = enrollmentListTimestampLte;
-        final String finalEnrollmentListTimestampGte = enrollmentListTimestampGte;
         final DeviceListOptions finalOptions = (options == null) ? new DeviceListOptions() : options;
         return CloudCaller.call(this, "listDevices()", DeviceAdapter.getListMapper(),
                                 new CloudRequest.CloudCall<DevicePage>() {
@@ -1039,14 +930,16 @@ public class Devices extends AbstractModule {
                                                                     ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_AUTO_UPDATE,
                                                                                                                   Boolean.class,
                                                                                                                   finalOptions),
-                                                                    ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_AUTO_UPDATE,
+                                                                    ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
                                                                                                             finalOptions),
-                                                                    ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_AUTO_UPDATE,
+                                                                    ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
                                                                                                                finalOptions),
-                                                                    finalBootstrappedExpirationDateIn,
-                                                                    finalBootstrappedExpirationDateNin,
-                                                                    finalBootstrappedExpirationDateLte,
-                                                                    finalBootstrappedExpirationDateGte,
+                                                                    ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
+                                                                                                                  LocalDate.class,
+                                                                                                                  finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
+                                                                                                                     LocalDate.class,
+                                                                                                                     finalOptions),
                                                                     ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP,
                                                                                                             finalOptions),
                                                                     ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP,
@@ -1085,10 +978,6 @@ public class Devices extends AbstractModule {
                                                                     ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT,
                                                                                                                      DateTime.class,
                                                                                                                      finalOptions),
-                                                                    ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_CUSTOM_ATTRIBUTES,
-                                                                                                               finalOptions),
-                                                                    ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_CUSTOM_ATTRIBUTES,
-                                                                                                                  finalOptions),
                                                                     ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYED_STATE,
                                                                                                                finalOptions),
                                                                     ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYED_STATE,
@@ -1155,10 +1044,16 @@ public class Devices extends AbstractModule {
                                                                                                             finalOptions),
                                                                     ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE,
                                                                                                                finalOptions),
-                                                                    finalEnrollmentListTimestampIn,
-                                                                    finalEnrollmentListTimestampNin,
-                                                                    finalEnrollmentListTimestampLte,
-                                                                    finalEnrollmentListTimestampGte,
+                                                                    ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
+                                                                                                            finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
+                                                                                                               finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
+                                                                                                                  DateTime.class,
+                                                                                                                  finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
+                                                                                                                     DateTime.class,
+                                                                                                                     finalOptions),
                                                                     ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM,
                                                                                                                finalOptions),
                                                                     ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM,

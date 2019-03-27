@@ -51,8 +51,8 @@ import java.util.List;
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * </tr>
  * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">eventType</td>
@@ -922,7 +922,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByStateChange
      *            filter value.
      */
-    public void addEqualToStateChangeFilter(Boolean filterByStateChange) {
+    public void addEqualToStateChangeFilter(boolean filterByStateChange) {
         addEqualFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
     }
 
@@ -938,7 +938,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T equalToStateChange(Boolean filterByStateChange) {
+    public <T extends DeviceEventsListOptions> T equalToStateChange(boolean filterByStateChange) {
         addEqualToStateChangeFilter(filterByStateChange);
         return (T) this;
     }
@@ -949,7 +949,7 @@ public class DeviceEventsListOptions extends ListOptions {
      * @param filterByStateChange
      *            filter value.
      */
-    public void addNotEqualToStateChangeFilter(Boolean filterByStateChange) {
+    public void addNotEqualToStateChangeFilter(boolean filterByStateChange) {
         addNotEqualFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
     }
 
@@ -965,175 +965,8 @@ public class DeviceEventsListOptions extends ListOptions {
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notEqualToStateChange(Boolean filterByStateChange) {
+    public <T extends DeviceEventsListOptions> T notEqualToStateChange(boolean filterByStateChange) {
         addNotEqualToStateChangeFilter(filterByStateChange);
-        return (T) this;
-    }
-
-    /**
-     * Sets "an in" filter by {@code stateChange}.
-     *
-     * <p>
-     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
-     * 
-     * @param filterByStateChange
-     *            filter value.
-     */
-    public void addInStateChangesFilter(String filterByStateChange) {
-        addInFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
-    }
-
-    /**
-     * Sets "an in" filter by {@code stateChange}.
-     * 
-     * @param filterByStateChange
-     *            filter value.
-     */
-    public void addInStateChangesFilter(List<Boolean> filterByStateChange) {
-        addInFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
-    }
-
-    /**
-     * Sets "an in" filter by {@code stateChange}.
-     * 
-     * @param filterByStateChange
-     *            filter value.
-     */
-    public void addInStateChangesFilter(Boolean... filterByStateChange) {
-        addInFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
-    }
-
-    /**
-     * Sets "an in" filter by {@code stateChange}.
-     *
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInStateChangesFilter(String)}
-     * 
-     * @param filterByStateChange
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inStateChanges(String filterByStateChange) {
-        addInStateChangesFilter(filterByStateChange);
-        return (T) this;
-    }
-
-    /**
-     * Sets "an in" filter by {@code stateChange}.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInStateChangesFilter(java.util.List)}
-     * 
-     * @param filterByStateChange
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inStateChanges(List<Boolean> filterByStateChange) {
-        addInStateChangesFilter(filterByStateChange);
-        return (T) this;
-    }
-
-    /**
-     * Sets "an in" filter by {@code stateChange}.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addInStateChangesFilter(Boolean[])}
-     * 
-     * @param filterByStateChange
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T inStateChanges(Boolean... filterByStateChange) {
-        addInStateChangesFilter(filterByStateChange);
-        return (T) this;
-    }
-
-    /**
-     * Sets "a not in" filter by {@code stateChange}.
-     *
-     * <p>
-     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
-     * 
-     * @param filterByStateChange
-     *            filter value.
-     */
-    public void addNotInStateChangesFilter(String filterByStateChange) {
-        addNotInFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
-    }
-
-    /**
-     * Sets "a not in" filter by {@code stateChange}.
-     * 
-     * @param filterByStateChange
-     *            filter value.
-     */
-    public void addNotInStateChangesFilter(List<Boolean> filterByStateChange) {
-        addNotInFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
-    }
-
-    /**
-     * Sets "a not in" filter by {@code stateChange}.
-     * 
-     * @param filterByStateChange
-     *            filter value.
-     */
-    public void addNotInStateChangesFilter(Boolean... filterByStateChange) {
-        addNotInFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
-    }
-
-    /**
-     * Sets "a not in" filter by {@code stateChange}.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInStateChangesFilter(String)}
-     * 
-     * @param filterByStateChange
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInStateChanges(String filterByStateChange) {
-        addNotInStateChangesFilter(filterByStateChange);
-        return (T) this;
-    }
-
-    /**
-     * Sets "a not in" filter by {@code stateChange}.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInStateChangesFilter(java.util.List)}
-     * 
-     * @param filterByStateChange
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInStateChanges(List<Boolean> filterByStateChange) {
-        addNotInStateChangesFilter(filterByStateChange);
-        return (T) this;
-    }
-
-    /**
-     * Sets "a not in" filter by {@code stateChange}.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions#addNotInStateChangesFilter(Boolean[])}
-     * 
-     * @param filterByStateChange
-     *            filter value.
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceEventsListOptions> T notInStateChanges(Boolean... filterByStateChange) {
-        addNotInStateChangesFilter(filterByStateChange);
         return (T) this;
     }
 

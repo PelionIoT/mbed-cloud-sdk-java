@@ -50,7 +50,7 @@ public final class DeviceAdapter {
                                          TranslationUtils.toDate(toBeMapped.getEnrolmentListTimestamp()),
                                          TranslationUtils.toDate(toBeMapped.getManifestTimestamp()),
                                          TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        device.setAutoUpdate(toBeMapped.isAutoUpdate());
+        device.setAutoUpdate(TranslationUtils.toBool(toBeMapped.isAutoUpdate()));
         device.setBootstrapExpirationDate(TranslationUtils.toDate(toBeMapped.getBootstrapExpirationDate()));
         device.setBootstrappedTimestamp(TranslationUtils.toDate(toBeMapped.getBootstrappedTimestamp()));
         device.setCaId(toBeMapped.getCaId());
