@@ -86,7 +86,7 @@ public class Device implements SdkModel {
      * values: - 0 - unspecified execution mode (default if host_gateway invalid or not set) - 1 - development devices -
      * 5 - production devices.
      */
-    private Integer deviceExecutionMode;
+    private int deviceExecutionMode;
 
     /**
      * The fingerprint of the device certificate.
@@ -248,7 +248,7 @@ public class Device implements SdkModel {
     public Device(String accountId, boolean autoUpdate, Date bootstrapExpirationDate, Date bootstrappedTimestamp,
                   String caId, Date connectorExpirationDate, Date createdAt, Map<String, String> customAttributes,
                   DeviceDeployedState deployedState, String deployment, String description, String deviceClass,
-                  Integer deviceExecutionMode, String deviceKey, String endpointName, String endpointType,
+                  int deviceExecutionMode, String deviceKey, String endpointName, String endpointType,
                   Date enrolmentListTimestamp, String firmwareChecksum, String hostGateway, String id,
                   String issuerFingerprint, String manifest, Date manifestTimestamp, DeviceMechanism mechanism,
                   String mechanismUrl, String name, String serialNumber, DeviceState state, Date updatedAt,
@@ -305,8 +305,7 @@ public class Device implements SdkModel {
              device == null ? (Map<String, String>) null : device.customAttributes,
              device == null ? DeviceDeployedState.getDefault() : device.deployedState,
              device == null ? (String) null : device.deployment, device == null ? (String) null : device.description,
-             device == null ? (String) null : device.deviceClass,
-             device == null ? (Integer) null : device.deviceExecutionMode,
+             device == null ? (String) null : device.deviceClass, device == null ? 0 : device.deviceExecutionMode,
              device == null ? (String) null : device.deviceKey, device == null ? (String) null : device.endpointName,
              device == null ? (String) null : device.endpointType,
              device == null ? new Date() : device.enrolmentListTimestamp,
@@ -327,9 +326,9 @@ public class Device implements SdkModel {
     public Device() {
         this((String) null, false, new Date(), new Date(), (String) null, new Date(), new Date(),
              (Map<String, String>) null, DeviceDeployedState.getDefault(), (String) null, (String) null, (String) null,
-             (Integer) null, (String) null, (String) null, (String) null, new Date(), (String) null, (String) null,
-             (String) null, (String) null, (String) null, new Date(), DeviceMechanism.getDefault(), (String) null,
-             (String) null, (String) null, DeviceState.getDefault(), new Date(), (String) null);
+             0, (String) null, (String) null, (String) null, new Date(), (String) null, (String) null, (String) null,
+             (String) null, (String) null, new Date(), DeviceMechanism.getDefault(), (String) null, (String) null,
+             (String) null, DeviceState.getDefault(), new Date(), (String) null);
     }
 
     /**
@@ -368,10 +367,10 @@ public class Device implements SdkModel {
     public Device(String accountId, Date createdAt, DeviceDeployedState deployedState, String endpointName,
                   Date enrolmentListTimestamp, Date manifestTimestamp, Date updatedAt) {
         this(accountId, false, new Date(), new Date(), (String) null, new Date(), createdAt, (Map<String, String>) null,
-             deployedState, (String) null, (String) null, (String) null, (Integer) null, (String) null, endpointName,
-             (String) null, enrolmentListTimestamp, (String) null, (String) null, (String) null, (String) null,
-             (String) null, manifestTimestamp, DeviceMechanism.getDefault(), (String) null, (String) null,
-             (String) null, DeviceState.getDefault(), updatedAt, (String) null);
+             deployedState, (String) null, (String) null, (String) null, 0, (String) null, endpointName, (String) null,
+             enrolmentListTimestamp, (String) null, (String) null, (String) null, (String) null, (String) null,
+             manifestTimestamp, DeviceMechanism.getDefault(), (String) null, (String) null, (String) null,
+             DeviceState.getDefault(), updatedAt, (String) null);
     }
 
     /**
@@ -634,7 +633,7 @@ public class Device implements SdkModel {
      * 
      * @return deviceExecutionMode
      */
-    public Integer getDeviceExecutionMode() {
+    public int getDeviceExecutionMode() {
         return deviceExecutionMode;
     }
 
@@ -648,7 +647,7 @@ public class Device implements SdkModel {
      *            device. Permitted values: - 0 - unspecified execution mode (default if host_gateway invalid or not
      *            set) - 1 - development devices - 5 - production devices.
      */
-    public void setDeviceExecutionMode(Integer deviceExecutionMode) {
+    public void setDeviceExecutionMode(int deviceExecutionMode) {
         this.deviceExecutionMode = deviceExecutionMode;
     }
 
@@ -1027,7 +1026,7 @@ public class Device implements SdkModel {
         result = prime * result + ((deployment == null) ? 0 : deployment.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((deviceClass == null) ? 0 : deviceClass.hashCode());
-        result = prime * result + ((deviceExecutionMode == null) ? 0 : deviceExecutionMode.hashCode());
+        result = prime * result + Objects.hashCode(deviceExecutionMode);
         result = prime * result + ((deviceKey == null) ? 0 : deviceKey.hashCode());
         result = prime * result + ((endpointName == null) ? 0 : endpointName.hashCode());
         result = prime * result + ((endpointType == null) ? 0 : endpointType.hashCode());
@@ -1164,11 +1163,7 @@ public class Device implements SdkModel {
         } else if (!deviceClass.equals(other.deviceClass)) {
             return false;
         }
-        if (deviceExecutionMode == null) {
-            if (other.deviceExecutionMode != null) {
-                return false;
-            }
-        } else if (!deviceExecutionMode.equals(other.deviceExecutionMode)) {
+        if (deviceExecutionMode != other.deviceExecutionMode) {
             return false;
         }
         if (deviceKey == null) {
