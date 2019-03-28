@@ -296,9 +296,6 @@ public class ModelDao extends Model {
             codeFormat.append(")");
         }
         method.getCode().addStatement(codeFormat.toString(), values.toArray());
-        if (moduleMethod.hasReturn() && moduleMethod.getReturnType().isModel(correspondingModel)) {
-            method.getCode().addStatement("return $L()", AbstractModelDao.METHOD_GET_MODEL);
-        }
     }
 
     @Override
