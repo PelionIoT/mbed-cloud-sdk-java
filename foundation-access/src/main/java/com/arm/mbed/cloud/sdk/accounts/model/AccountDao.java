@@ -407,7 +407,7 @@ public class AccountDao extends AbstractModelDao<Account>
      */
     @Override
     public Account create() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createAccount(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createAccount(getModel()));
         return getModel();
     }
 
@@ -460,7 +460,7 @@ public class AccountDao extends AbstractModelDao<Account>
      *             if an error occurs during the process.
      */
     public Account create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createAccount(action, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createAccount(action, getModel()));
         return getModel();
     }
 
@@ -526,7 +526,7 @@ public class AccountDao extends AbstractModelDao<Account>
      */
     @SuppressWarnings("PMD.ShortMethodName")
     public Account me() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).myAccount(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).myAccount(getModel()));
         return getModel();
     }
 
@@ -547,7 +547,7 @@ public class AccountDao extends AbstractModelDao<Account>
      */
     @SuppressWarnings("PMD.ShortMethodName")
     public Account me(@Nullable String include, @Nullable String properties) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).myAccount(include, properties, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).myAccount(include, properties, getModel()));
         return getModel();
     }
 
@@ -563,7 +563,7 @@ public class AccountDao extends AbstractModelDao<Account>
      */
     @Override
     public Account read() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).readAccount(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readAccount(getModel()));
         return getModel();
     }
 
@@ -581,7 +581,7 @@ public class AccountDao extends AbstractModelDao<Account>
      */
     @Override
     public Account read(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).readAccount(id));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readAccount(id));
         return getModel();
     }
 
@@ -602,7 +602,7 @@ public class AccountDao extends AbstractModelDao<Account>
      *             if an error occurs during the process.
      */
     public Account read(@Nullable String include, @Nullable String properties) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).readAccount(include, properties, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readAccount(include, properties, getModel()));
         return getModel();
     }
 
@@ -625,7 +625,7 @@ public class AccountDao extends AbstractModelDao<Account>
      */
     public Account read(@Nullable String include, @Nullable String properties,
                         @NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).readAccount(include, properties, id));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readAccount(include, properties, id));
         return getModel();
     }
 
@@ -781,7 +781,7 @@ public class AccountDao extends AbstractModelDao<Account>
      */
     @Override
     public Account update() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).updateAccount(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateAccount(getModel()));
         return getModel();
     }
 
@@ -817,7 +817,7 @@ public class AccountDao extends AbstractModelDao<Account>
      *             if an error occurs during the process.
      */
     public Account update(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).updateAccount(id, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateAccount(id, getModel()));
         return getModel();
     }
 

@@ -85,7 +85,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      */
     @Override
     public SubtenantUser create() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createSubtenantUser(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createSubtenantUser(getModel()));
         return getModel();
     }
 
@@ -122,7 +122,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      *             if an error occurs during the process.
      */
     public SubtenantUser create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createSubtenantUser(action, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createSubtenantUser(action, getModel()));
         return getModel();
     }
 
@@ -143,7 +143,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      */
     public SubtenantUser create(@Nullable @DefaultValue("create") String action,
                                 @NonNull String accountId) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createSubtenantUser(action, accountId, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createSubtenantUser(action, accountId, getModel()));
         return getModel();
     }
 
@@ -260,7 +260,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      */
     @Override
     public SubtenantUser read() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).readSubtenantUser(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readSubtenantUser(getModel()));
         return getModel();
     }
 
@@ -279,7 +279,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      *             if an error occurs during the process.
      */
     public SubtenantUser read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).readSubtenantUser(accountId, id));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readSubtenantUser(accountId, id));
         return getModel();
     }
 
@@ -296,7 +296,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      */
     @Override
     public SubtenantUser update() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).updateSubtenantUser(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateSubtenantUser(getModel()));
         return getModel();
     }
 
@@ -335,7 +335,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      *             if an error occurs during the process.
      */
     public SubtenantUser update(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).updateSubtenantUser(accountId, id, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateSubtenantUser(accountId, id, getModel()));
         return getModel();
     }
 

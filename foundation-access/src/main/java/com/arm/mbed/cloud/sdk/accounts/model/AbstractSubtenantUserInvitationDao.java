@@ -89,7 +89,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      */
     @Override
     public SubtenantUserInvitation create() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(getModel()));
         return getModel();
     }
 
@@ -127,7 +127,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      *             if an error occurs during the process.
      */
     public SubtenantUserInvitation create(@NonNull String accountId) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(accountId, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(accountId, getModel()));
         return getModel();
     }
 
@@ -145,7 +145,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      *             if an error occurs during the process.
      */
     public SubtenantUserInvitation create(@Nullable @DefaultValue("30") int validForDays) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(validForDays, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(validForDays, getModel()));
         return getModel();
     }
 
@@ -166,7 +166,8 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      */
     public SubtenantUserInvitation create(@Nullable @DefaultValue("30") int validForDays,
                                           @NonNull String accountId) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(validForDays, accountId, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createSubtenantUserInvitation(validForDays, accountId,
+                                                                                            getModel()));
         return getModel();
     }
 
@@ -283,7 +284,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      */
     @Override
     public SubtenantUserInvitation read() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).readSubtenantUserInvitation(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readSubtenantUserInvitation(getModel()));
         return getModel();
     }
 
@@ -302,7 +303,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
      *             if an error occurs during the process.
      */
     public SubtenantUserInvitation read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).readSubtenantUserInvitation(accountId, id));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readSubtenantUserInvitation(accountId, id));
         return getModel();
     }
 }

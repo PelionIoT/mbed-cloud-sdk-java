@@ -83,7 +83,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      */
     @Override
     public SubtenantTrustedCertificate create() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).createSubtenantTrustedCertificate(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).createSubtenantTrustedCertificate(getModel()));
         return getModel();
     }
 
@@ -121,7 +121,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      *             if an error occurs during the process.
      */
     public SubtenantTrustedCertificate create(@NonNull String accountId) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).createSubtenantTrustedCertificate(accountId, getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).createSubtenantTrustedCertificate(accountId, getModel()));
         return getModel();
     }
 
@@ -271,7 +271,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      */
     @Override
     public SubtenantTrustedCertificate read() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).readSubtenantTrustedCertificate(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).readSubtenantTrustedCertificate(getModel()));
         return getModel();
     }
 
@@ -290,7 +290,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      *             if an error occurs during the process.
      */
     public SubtenantTrustedCertificate read(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).readSubtenantTrustedCertificate(accountId, id));
+        return setAndGetModel(((Security) getModuleOrThrow()).readSubtenantTrustedCertificate(accountId, id));
         return getModel();
     }
 
@@ -307,7 +307,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      */
     @Override
     public SubtenantTrustedCertificate update() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).updateSubtenantTrustedCertificate(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).updateSubtenantTrustedCertificate(getModel()));
         return getModel();
     }
 
@@ -347,7 +347,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
      *             if an error occurs during the process.
      */
     public SubtenantTrustedCertificate update(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).updateSubtenantTrustedCertificate(accountId, id, getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).updateSubtenantTrustedCertificate(accountId, id,
+                                                                                                getModel()));
         return getModel();
     }
 }

@@ -103,7 +103,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      */
     @Override
     public DeviceEnrollment create() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).createDeviceEnrollment(getModel()));
+        return setAndGetModel(((Devices) getModuleOrThrow()).createDeviceEnrollment(getModel()));
         return getModel();
     }
 
@@ -238,7 +238,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      */
     @Override
     public DeviceEnrollment read() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).readDeviceEnrollment(getModel()));
+        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollment(getModel()));
         return getModel();
     }
 
@@ -256,7 +256,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      */
     @Override
     public DeviceEnrollment read(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).readDeviceEnrollment(id));
+        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollment(id));
         return getModel();
     }
 }

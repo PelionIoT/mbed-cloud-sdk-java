@@ -100,7 +100,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     @Override
     public User create() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createUser(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createUser(getModel()));
         return getModel();
     }
 
@@ -135,7 +135,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      *             if an error occurs during the process.
      */
     public User create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createUser(action, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createUser(action, getModel()));
         return getModel();
     }
 
@@ -248,7 +248,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     @Override
     public User read() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).readUser(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readUser(getModel()));
         return getModel();
     }
 
@@ -266,7 +266,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     @Override
     public User read(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).readUser(id));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readUser(id));
         return getModel();
     }
 
@@ -282,7 +282,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     @Override
     public User update() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).updateUser(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateUser(getModel()));
         return getModel();
     }
 
@@ -317,7 +317,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      *             if an error occurs during the process.
      */
     public User update(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).updateUser(id, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateUser(id, getModel()));
         return getModel();
     }
 }

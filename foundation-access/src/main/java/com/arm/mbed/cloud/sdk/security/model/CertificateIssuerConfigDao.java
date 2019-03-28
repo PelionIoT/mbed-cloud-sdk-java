@@ -101,7 +101,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      */
     @Override
     public CertificateIssuerConfig create() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).createCertificateIssuerConfig(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).createCertificateIssuerConfig(getModel()));
         return getModel();
     }
 
@@ -188,7 +188,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      *             if an error occurs during the process.
      */
     public CertificateIssuerConfig getDefault() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getDefault(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).getDefault(getModel()));
         return getModel();
     }
 
@@ -255,7 +255,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      */
     @Override
     public CertificateIssuerConfig read() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).readCertificateIssuerConfig(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).readCertificateIssuerConfig(getModel()));
         return getModel();
     }
 
@@ -274,7 +274,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      */
     @Override
     public CertificateIssuerConfig read(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).readCertificateIssuerConfig(id));
+        return setAndGetModel(((Security) getModuleOrThrow()).readCertificateIssuerConfig(id));
         return getModel();
     }
 
@@ -291,7 +291,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      */
     @Override
     public CertificateIssuerConfig update() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).updateCertificateIssuerConfig(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).updateCertificateIssuerConfig(getModel()));
         return getModel();
     }
 
@@ -330,7 +330,7 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      *             if an error occurs during the process.
      */
     public CertificateIssuerConfig update(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).updateCertificateIssuerConfig(getModel(), id));
+        return setAndGetModel(((Security) getModuleOrThrow()).updateCertificateIssuerConfig(getModel(), id));
         return getModel();
     }
 }
