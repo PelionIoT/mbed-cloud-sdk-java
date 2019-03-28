@@ -408,7 +408,6 @@ public class AccountDao extends AbstractModelDao<Account>
     @Override
     public Account create() throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).createAccount(getModel()));
-        return getModel();
     }
 
     /**
@@ -461,7 +460,6 @@ public class AccountDao extends AbstractModelDao<Account>
      */
     public Account create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).createAccount(action, getModel()));
-        return getModel();
     }
 
     /**
@@ -527,7 +525,6 @@ public class AccountDao extends AbstractModelDao<Account>
     @SuppressWarnings("PMD.ShortMethodName")
     public Account me() throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).myAccount(getModel()));
-        return getModel();
     }
 
     /**
@@ -548,7 +545,6 @@ public class AccountDao extends AbstractModelDao<Account>
     @SuppressWarnings("PMD.ShortMethodName")
     public Account me(@Nullable String include, @Nullable String properties) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).myAccount(include, properties, getModel()));
-        return getModel();
     }
 
     /**
@@ -564,7 +560,6 @@ public class AccountDao extends AbstractModelDao<Account>
     @Override
     public Account read() throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).readAccount(getModel()));
-        return getModel();
     }
 
     /**
@@ -582,7 +577,6 @@ public class AccountDao extends AbstractModelDao<Account>
     @Override
     public Account read(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).readAccount(id));
-        return getModel();
     }
 
     /**
@@ -603,7 +597,6 @@ public class AccountDao extends AbstractModelDao<Account>
      */
     public Account read(@Nullable String include, @Nullable String properties) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).readAccount(include, properties, getModel()));
-        return getModel();
     }
 
     /**
@@ -626,7 +619,6 @@ public class AccountDao extends AbstractModelDao<Account>
     public Account read(@Nullable String include, @Nullable String properties,
                         @NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).readAccount(include, properties, id));
-        return getModel();
     }
 
     /**
@@ -782,7 +774,6 @@ public class AccountDao extends AbstractModelDao<Account>
     @Override
     public Account update() throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).updateAccount(getModel()));
-        return getModel();
     }
 
     /**
@@ -818,7 +809,6 @@ public class AccountDao extends AbstractModelDao<Account>
      */
     public Account update(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).updateAccount(id, getModel()));
-        return getModel();
     }
 
     /**

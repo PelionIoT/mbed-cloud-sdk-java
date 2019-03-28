@@ -101,7 +101,6 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     @Override
     public TrustedCertificate create() throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).createTrustedCertificate(getModel()));
-        return getModel();
     }
 
     /**
@@ -269,7 +268,6 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     @Override
     public TrustedCertificate read() throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).readTrustedCertificate(getModel()));
-        return getModel();
     }
 
     /**
@@ -287,7 +285,6 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     @Override
     public TrustedCertificate read(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).readTrustedCertificate(id));
-        return getModel();
     }
 
     /**
@@ -304,7 +301,6 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
     @Override
     public TrustedCertificate update() throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).updateTrustedCertificate(getModel()));
-        return getModel();
     }
 
     /**
@@ -341,6 +337,5 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      */
     public TrustedCertificate update(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).updateTrustedCertificate(id, getModel()));
-        return getModel();
     }
 }

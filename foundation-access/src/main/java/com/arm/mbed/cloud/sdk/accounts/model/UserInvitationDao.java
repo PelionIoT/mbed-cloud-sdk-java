@@ -106,7 +106,6 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
     @Override
     public UserInvitation create() throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).createUserInvitation(getModel()));
-        return getModel();
     }
 
     /**
@@ -143,7 +142,6 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      */
     public UserInvitation create(@Nullable @DefaultValue("30") int validForDays) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).createUserInvitation(validForDays, getModel()));
-        return getModel();
     }
 
     /**
@@ -259,7 +257,6 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
     @Override
     public UserInvitation read() throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).readUserInvitation(getModel()));
-        return getModel();
     }
 
     /**
@@ -277,6 +274,5 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
     @Override
     public UserInvitation read(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).readUserInvitation(id));
-        return getModel();
     }
 }

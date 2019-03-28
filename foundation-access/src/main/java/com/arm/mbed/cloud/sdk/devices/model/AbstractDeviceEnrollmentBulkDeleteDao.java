@@ -89,7 +89,6 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     public DeviceEnrollmentBulkDelete delete(@NonNull DataFile enrollmentIdentities) throws MbedCloudException {
         return setAndGetModel(((Devices) getModuleOrThrow()).deleteDeviceEnrollmentBulkDelete(enrollmentIdentities,
                                                                                               getModel()));
-        return getModel();
     }
 
     /**
@@ -156,7 +155,6 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     @Override
     public DeviceEnrollmentBulkDelete read() throws MbedCloudException {
         return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentBulkDelete(getModel()));
-        return getModel();
     }
 
     /**
@@ -174,6 +172,5 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
     @Override
     public DeviceEnrollmentBulkDelete read(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentBulkDelete(id));
-        return getModel();
     }
 }

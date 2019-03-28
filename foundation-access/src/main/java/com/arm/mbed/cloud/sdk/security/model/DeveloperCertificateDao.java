@@ -105,7 +105,6 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Override
     public DeveloperCertificate create() throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).createDeveloperCertificate(getModel()));
-        return getModel();
     }
 
     /**
@@ -273,7 +272,6 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Override
     public DeveloperCertificate read() throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).readDeveloperCertificate(getModel()));
-        return getModel();
     }
 
     /**
@@ -291,6 +289,5 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
     @Override
     public DeveloperCertificate read(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).readDeveloperCertificate(id));
-        return getModel();
     }
 }

@@ -137,6 +137,5 @@ public abstract class AbstractDeviceEnrollmentDenialDao extends AbstractModelDao
     public DeviceEnrollmentDenial read(@NonNull String deviceEnrollmentDenialId) throws MbedCloudException {
         return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentDenial(deviceEnrollmentDenialId,
                                                                                         getModel()));
-        return getModel();
     }
 }

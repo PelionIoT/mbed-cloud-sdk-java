@@ -101,7 +101,6 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
     @Override
     public User create() throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).createUser(getModel()));
-        return getModel();
     }
 
     /**
@@ -136,7 +135,6 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     public User create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).createUser(action, getModel()));
-        return getModel();
     }
 
     /**
@@ -249,7 +247,6 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
     @Override
     public User read() throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).readUser(getModel()));
-        return getModel();
     }
 
     /**
@@ -267,7 +264,6 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
     @Override
     public User read(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).readUser(id));
-        return getModel();
     }
 
     /**
@@ -283,7 +279,6 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
     @Override
     public User update() throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).updateUser(getModel()));
-        return getModel();
     }
 
     /**
@@ -318,6 +313,5 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     public User update(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).updateUser(id, getModel()));
-        return getModel();
     }
 }

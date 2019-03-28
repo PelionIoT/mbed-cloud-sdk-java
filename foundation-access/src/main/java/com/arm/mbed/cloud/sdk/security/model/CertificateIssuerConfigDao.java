@@ -102,7 +102,6 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     @Override
     public CertificateIssuerConfig create() throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).createCertificateIssuerConfig(getModel()));
-        return getModel();
     }
 
     /**
@@ -189,7 +188,6 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      */
     public CertificateIssuerConfig getDefault() throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).getDefault(getModel()));
-        return getModel();
     }
 
     /**
@@ -256,7 +254,6 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     @Override
     public CertificateIssuerConfig read() throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).readCertificateIssuerConfig(getModel()));
-        return getModel();
     }
 
     /**
@@ -275,7 +272,6 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     @Override
     public CertificateIssuerConfig read(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).readCertificateIssuerConfig(id));
-        return getModel();
     }
 
     /**
@@ -292,7 +288,6 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
     @Override
     public CertificateIssuerConfig update() throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).updateCertificateIssuerConfig(getModel()));
-        return getModel();
     }
 
     /**
@@ -331,6 +326,5 @@ public class CertificateIssuerConfigDao extends AbstractModelDao<CertificateIssu
      */
     public CertificateIssuerConfig update(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Security) getModuleOrThrow()).updateCertificateIssuerConfig(getModel(), id));
-        return getModel();
     }
 }

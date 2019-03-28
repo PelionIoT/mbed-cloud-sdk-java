@@ -151,7 +151,6 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     @Override
     public DeviceEvents read() throws MbedCloudException {
         return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEvents(getModel()));
-        return getModel();
     }
 
     /**
@@ -169,6 +168,5 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
     @Override
     public DeviceEvents read(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEvents(id));
-        return getModel();
     }
 }
