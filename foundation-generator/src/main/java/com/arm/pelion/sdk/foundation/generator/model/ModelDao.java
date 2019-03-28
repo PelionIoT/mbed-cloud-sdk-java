@@ -257,8 +257,8 @@ public class ModelDao extends Model {
             method.setReturnDescription(moduleMethod.getReturnDescription());
             if (moduleMethod.getReturnType().isModel(correspondingModel)) {
                 closeBracket = true;
-                codeFormat.append("$L(");
-                values.add(AbstractModelDao.METHOD_SET_MODEL);
+                codeFormat.append("return $L(");
+                values.add(AbstractModelDao.METHOD_SET_AND_GET_MODEL);
             } else {
                 codeFormat.append("return ");
             }

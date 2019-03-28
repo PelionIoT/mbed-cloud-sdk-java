@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.common.dao;
 
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
+import com.arm.mbed.cloud.sdk.annotations.NotImplemented;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -155,6 +156,7 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      * @throws UnsupportedOperationException
      *             if it is not possible to only list IDs.
      */
+    @NotImplemented
     @Nullable
     IdListResponse idsPage(@Nullable U options) throws MbedCloudException, UnsupportedOperationException;
 
@@ -168,6 +170,7 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      * @throws UnsupportedOperationException
      *             if it is not possible to only list IDs.
      */
+    @NotImplemented
     @Nullable
     IdListResponse idsPage() throws MbedCloudException, UnsupportedOperationException;
 
@@ -262,6 +265,7 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      * @throws UnsupportedOperationException
      *             if it is not possible to only list IDs.
      */
+    @NotImplemented
     @NonNull
     IdPaginator idsPaginator(@Nullable U options) throws MbedCloudException, UnsupportedOperationException;
 
@@ -274,6 +278,7 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      * @throws UnsupportedOperationException
      *             if it is not possible to only list IDs.
      */
+    @NotImplemented
     @NonNull
     IdPaginator idsPaginator() throws MbedCloudException, UnsupportedOperationException;
 }

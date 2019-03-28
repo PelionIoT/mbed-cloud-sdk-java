@@ -19,6 +19,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
 @Preamble(description = "Abstract Model DAO")
 public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloudDao implements ModelDao<T> {
     public static final String METHOD_INSTANTIATE_MODEL = "instantiateModel";
+    public static final String METHOD_SET_AND_GET_MODEL = "setAndGetModel";
     private final AtomicReference<T> model;
 
     /**
@@ -77,39 +78,55 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
     }
 
     @Override
-    public void setModel(T model) throws MbedCloudException {
-        this.model.set(model);
+    public void setModel(T model) {
+        setAndGetModel(model);
     }
 
     @Override
-    public void setId(String id) throws MbedCloudException {
+    public void setId(String id) {
         getModelOrNew().setId(id);
     }
 
     @Override
-    public String getId() throws MbedCloudException {
+    public String getId() {
         return getModelOrNew().getId();
     }
 
     @Override
-    public T getModel() throws MbedCloudException {
+    public T getModel() {
         return model.get();
     }
 
     @Override
-    public T getModelOrNew() throws MbedCloudException {
+    public T getModelOrNew() {
         final T currentModel = getModel();
         if (currentModel == null) {
-            synchronized (model) {
-                final T modelToCheck = getModel();
-                if (modelToCheck == null) {
-                    setModel(instantiateModel());
+            final T newModel = instantiateModel();
+            model.compareAndSet(null, newModel);
+            final T modelToCheck = getModel();
+            if (modelToCheck == null) {
+                synchronized (model) {
+                    model.set(newModel);
                     return getModel();
                 }
-                return modelToCheck;
             }
+            return modelToCheck;
         }
         return currentModel;
+    }
+
+    protected T setAndGetModel(T model) {
+        T prev = null;
+        final T next = model;
+        do {
+            prev = getModel();
+        } while (!this.model.compareAndSet(prev, next));
+        return next;
+    }
+
+    @Override
+    public boolean hasModel() {
+        return getModel() != null;
     }
 
     /**

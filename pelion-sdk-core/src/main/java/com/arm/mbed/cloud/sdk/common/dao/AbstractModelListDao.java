@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.NotImplemented;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -205,12 +206,13 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
             @SuppressWarnings("unchecked")
             final Class<U> modelClass = (Class<U>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
             return modelClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException exception) {
+        } catch (@SuppressWarnings("unused") InstantiationException | IllegalAccessException exception) {
             return null;
         }
     }
 
     // FIXME implement when the APIs allow this mechanism.
+    @NotImplemented
     protected IdListResponse requestOnePageOfIds(U listOptions) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("No mechanism is currently in place in the APIs to only list IDs",
                                                 new NotImplementedException());

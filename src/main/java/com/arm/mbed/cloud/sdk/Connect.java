@@ -107,7 +107,6 @@ public class Connect extends AbstractModule {
     protected final NotificationHandlersStore handlersStore;
     protected final AtomicReference<DeliveryMethod> deliveryMethod;
     private final Object presubscriptionLock = new Object();
-    private final Object deliveryMethodLock = new Object();
     private final Object webhookLock = new Object();
 
     /**
@@ -2786,7 +2785,7 @@ public class Connect extends AbstractModule {
                     logger.logInfo("The webhook is alread set up: " + alreadySetupWebhook);
                     return;
                 }
-            } catch (MbedCloudException exception) {
+            } catch (@SuppressWarnings("unused") MbedCloudException exception) {
                 // Nothing to do
             }
             if (isForceClear()) {
@@ -2925,11 +2924,8 @@ public class Connect extends AbstractModule {
 
     private void setDeliveryMethod(boolean isClient) {
         if (deliveryMethod.get() == DeliveryMethod.UNDEFINED) {
-            synchronized (deliveryMethodLock) {
-                if (deliveryMethod.get() == DeliveryMethod.UNDEFINED) {
-                    deliveryMethod.set(isClient ? DeliveryMethod.CLIENT_INITIATED : DeliveryMethod.SERVER_INITIATED);
-                }
-            }
+            deliveryMethod.compareAndSet(DeliveryMethod.UNDEFINED,
+                                         isClient ? DeliveryMethod.CLIENT_INITIATED : DeliveryMethod.SERVER_INITIATED);
             logger.logInfo("Setting notification delivery method to [" + deliveryMethod.get() + "]");
         }
     }
