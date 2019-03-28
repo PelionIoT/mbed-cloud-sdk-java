@@ -98,7 +98,7 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
      *             if an error occurs during the process.
      */
     public ServerCredentials getBootstrap() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getBootstrap(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).getBootstrap(getModel()));
         return getModel();
     }
 
@@ -115,7 +115,7 @@ public class ServerCredentialsDao extends AbstractModelDao<ServerCredentials> {
      *             if an error occurs during the process.
      */
     public ServerCredentials getLwm2m() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).getLwm2m(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).getLwm2m(getModel()));
         return getModel();
     }
 

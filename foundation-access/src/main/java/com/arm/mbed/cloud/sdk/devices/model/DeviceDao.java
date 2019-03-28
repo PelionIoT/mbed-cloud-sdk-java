@@ -99,7 +99,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      */
     @Override
     public Device create() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).createDevice(getModel()));
+        return setAndGetModel(((Devices) getModuleOrThrow()).createDevice(getModel()));
         return getModel();
     }
 
@@ -230,7 +230,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      */
     @Override
     public Device read() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).readDevice(getModel()));
+        return setAndGetModel(((Devices) getModuleOrThrow()).readDevice(getModel()));
         return getModel();
     }
 
@@ -248,7 +248,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      */
     @Override
     public Device read(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).readDevice(id));
+        return setAndGetModel(((Devices) getModuleOrThrow()).readDevice(id));
         return getModel();
     }
 
@@ -302,7 +302,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      */
     @Override
     public Device update() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).updateDevice(getModel()));
+        return setAndGetModel(((Devices) getModuleOrThrow()).updateDevice(getModel()));
         return getModel();
     }
 
@@ -338,7 +338,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      *             if an error occurs during the process.
      */
     public Device update(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).updateDevice(id, getModel()));
+        return setAndGetModel(((Devices) getModuleOrThrow()).updateDevice(id, getModel()));
         return getModel();
     }
 }

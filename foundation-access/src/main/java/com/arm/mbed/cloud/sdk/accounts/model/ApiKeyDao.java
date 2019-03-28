@@ -98,7 +98,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      */
     @Override
     public ApiKey create() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).createApiKey(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createApiKey(getModel()));
         return getModel();
     }
 
@@ -229,7 +229,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      */
     @SuppressWarnings("PMD.ShortMethodName")
     public ApiKey me() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).myApiKey(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).myApiKey(getModel()));
         return getModel();
     }
 
@@ -245,7 +245,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      */
     @Override
     public ApiKey read() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).readApiKey(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readApiKey(getModel()));
         return getModel();
     }
 
@@ -263,7 +263,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      */
     @Override
     public ApiKey read(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).readApiKey(id));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readApiKey(id));
         return getModel();
     }
 
@@ -279,7 +279,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      */
     @Override
     public ApiKey update() throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).updateApiKey(getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateApiKey(getModel()));
         return getModel();
     }
 
@@ -315,7 +315,7 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      *             if an error occurs during the process.
      */
     public ApiKey update(@NonNull String id) throws MbedCloudException {
-        setModel(((Accounts) getModuleOrThrow()).updateApiKey(id, getModel()));
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateApiKey(id, getModel()));
         return getModel();
     }
 }

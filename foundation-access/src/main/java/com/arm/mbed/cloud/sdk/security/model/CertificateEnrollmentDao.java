@@ -151,7 +151,7 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
      */
     @Override
     public CertificateEnrollment read() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).readCertificateEnrollment(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).readCertificateEnrollment(getModel()));
         return getModel();
     }
 
@@ -169,7 +169,7 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
      */
     @Override
     public CertificateEnrollment read(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).readCertificateEnrollment(id));
+        return setAndGetModel(((Security) getModuleOrThrow()).readCertificateEnrollment(id));
         return getModel();
     }
 }

@@ -100,7 +100,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      */
     @Override
     public TrustedCertificate create() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).createTrustedCertificate(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).createTrustedCertificate(getModel()));
         return getModel();
     }
 
@@ -268,7 +268,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      */
     @Override
     public TrustedCertificate read() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).readTrustedCertificate(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).readTrustedCertificate(getModel()));
         return getModel();
     }
 
@@ -286,7 +286,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      */
     @Override
     public TrustedCertificate read(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).readTrustedCertificate(id));
+        return setAndGetModel(((Security) getModuleOrThrow()).readTrustedCertificate(id));
         return getModel();
     }
 
@@ -303,7 +303,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      */
     @Override
     public TrustedCertificate update() throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).updateTrustedCertificate(getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).updateTrustedCertificate(getModel()));
         return getModel();
     }
 
@@ -340,7 +340,7 @@ public class TrustedCertificateDao extends AbstractModelDao<TrustedCertificate> 
      *             if an error occurs during the process.
      */
     public TrustedCertificate update(@NonNull String id) throws MbedCloudException {
-        setModel(((Security) getModuleOrThrow()).updateTrustedCertificate(id, getModel()));
+        return setAndGetModel(((Security) getModuleOrThrow()).updateTrustedCertificate(id, getModel()));
         return getModel();
     }
 }

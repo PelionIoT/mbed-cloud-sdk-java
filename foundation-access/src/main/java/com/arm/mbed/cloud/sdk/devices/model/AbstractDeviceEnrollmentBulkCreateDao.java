@@ -87,7 +87,8 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
      *             if an error occurs during the process.
      */
     public DeviceEnrollmentBulkCreate create(@NonNull DataFile enrollmentIdentities) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).createDeviceEnrollmentBulkCreate(enrollmentIdentities, getModel()));
+        return setAndGetModel(((Devices) getModuleOrThrow()).createDeviceEnrollmentBulkCreate(enrollmentIdentities,
+                                                                                              getModel()));
         return getModel();
     }
 
@@ -154,7 +155,7 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
      */
     @Override
     public DeviceEnrollmentBulkCreate read() throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentBulkCreate(getModel()));
+        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentBulkCreate(getModel()));
         return getModel();
     }
 
@@ -172,7 +173,7 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
      */
     @Override
     public DeviceEnrollmentBulkCreate read(@NonNull String id) throws MbedCloudException {
-        setModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentBulkCreate(id));
+        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentBulkCreate(id));
         return getModel();
     }
 }
