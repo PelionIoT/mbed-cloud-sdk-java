@@ -2,8 +2,6 @@
 version = SDKVersion
 group = SDKGroup
 
-
-
 buildscript {
     repositories {
         jcenter()
@@ -13,7 +11,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'ru.vyarus:gradle-animalsniffer-plugin:1.4.0'
+        classpath 'ru.vyarus:gradle-animalsniffer-plugin:1.4.6'
         classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
         classpath 'com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2'
         classpath 'de.aaschmid:gradle-cpd-plugin:1.0'
@@ -22,6 +20,8 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:latest.release'
         classpath 'gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.14.0'
         classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.9"
+        classpath 'org.walkmod:gradle-walkmod-plugin:0.0.1'
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.16.0'
     }
 }
 
@@ -29,20 +29,11 @@ buildscript {
 
 apply plugin: 'java-library-distribution'
 apply plugin: 'java-library'
-apply plugin: 'checkstyle' //code style checks
-apply plugin: 'jdepend'// design quality
-apply plugin: 'findbugs' //static analysis
-apply plugin: 'com.github.spotbugs' //static analysis
-apply plugin: 'pmd' //static analysis
-apply plugin: 'de.aaschmid.cpd' //Code duplication
-apply plugin: 'project-report' //Generate project reports
 apply plugin: 'com.github.johnrengelman.shadow' //Generate fat jars
 apply plugin: 'com.dorongold.task-tree'
 apply plugin: 'maven-publish' //POM file generation
 apply plugin: 'com.jfrog.artifactory' //Upload to artifactory
 apply plugin: 'com.jfrog.bintray' //Upload to bintray
-apply plugin: 'ru.vyarus.animalsniffer' //Checks that SDK will work on Java 1.7 onwards
-
 
 
 
@@ -54,6 +45,7 @@ repositories {
     mavenCentral()
 }
 
+def projectToExclude = ['lwm2m', 'backends', 'annotations'].collect{it.toLowerCase()}
 allprojects {
     buildscript {
         repositories {
@@ -68,193 +60,377 @@ allprojects {
         jcenter()
         mavenCentral()
     }
-    if (project != project(':backends')){
-        //The following is to override the version/group values contained in subproject build files
-        tasks.whenTaskAdded { task ->
-            if (project != project(':lwm2m')) {
-                project.version = SDKVersion
-                project.group = SDKGroup
-                if (task.hasProperty('version')) {
-                    task.version = SDKVersion
-                }
-                if (task.hasProperty('group')) {
-                    task.group = SDKGroup
-                }
-            }
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'java-library'
+    apply plugin: 'jacoco'
+    apply plugin: 'project-report' //Generate project reports
+    apply plugin: 'build-dashboard'
+    apply plugin: 'project-report' //Generate project reports
+    apply plugin: 'ru.vyarus.animalsniffer' //Checks that SDK will work on Java 1.7 onwards
+    apply plugin: 'com.diffplug.gradle.spotless' // Code formatting
 
+    test {
+        reports {
+            junitXml.enabled = true
+            html.enabled = true
         }
+        if(project == rootProject){
+            updateArtifactList("SDK_REPORT_DIR", "$reportsDir")
+            updateArtifactList("SDK_UNITTEST_REPORT_DIR", test.reports.html.destination)
+        }
+    }
+    jacoco {
+        toolVersion = "0.7.6.201602180812"
+    }
 
-        task info {
-            doLast { task ->
-                println "Building $task.project.name project..."
-                println "Version: $task.project.version"
-                println "Group: $task.project.group"
+    jacocoTestReport {
+        reports {
+            xml.enabled false
+            csv.enabled false
+            html.enabled true
+        }
+    }
+    animalsniffer {
+        toolVersion = '1.16'
+        sourceSets = [sourceSets.main]
+        ignoreFailures = false
+    }
+
+
+    def isInExcludeList = projectToExclude.findAll{ex -> project.path.toLowerCase().contains(ex)}.size() != 0
+
+    if  (! isInExcludeList){
+        apply plugin: 'checkstyle' //code style checks
+        apply plugin: 'jdepend'// design quality
+        apply plugin: 'findbugs' //static analysis
+        apply plugin: 'com.github.spotbugs' //static analysis
+        apply plugin: 'pmd' //static analysis
+        apply plugin: 'de.aaschmid.cpd' //Code duplication        
+        apply plugin: 'walkmod' // automatic code fix
+    }
+    apply plugin: 'license-report'
+    apply plugin: 'com.github.hierynomus.license-report'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.jfrog.artifactory'
+    apply plugin: 'com.jfrog.bintray'
+
+    //The following is to override the version/group values contained in subproject build files
+    tasks.whenTaskAdded { task ->
+        if (project != project(':lwm2m')) {
+            project.version = SDKVersion
+            project.group = SDKGroup
+            if (task.hasProperty('version')) {
+                task.version = SDKVersion
             }
         }
-        compileJava.dependsOn info
+    }
 
-        apply plugin: 'java-library'
-        apply plugin: 'license-report'
-        apply plugin: 'jacoco'
-        apply plugin: 'eclipse'
-        apply plugin: 'idea'
-        apply plugin: 'maven'
-        apply plugin: 'build-dashboard'
-        apply plugin: 'project-report' //Generate project reports
-        apply plugin: 'maven-publish'
-        apply plugin: 'com.jfrog.artifactory'
-        apply plugin: 'com.jfrog.bintray'
-        apply plugin: 'ru.vyarus.animalsniffer'
-        apply plugin: 'com.github.hierynomus.license-report'
+    task info {
+        doLast { task ->
+            println "Building $task.project.name project..."
+            println "Version: $task.project.version"
+            println "Group: $task.project.group"
+            
+            if(project == rootProject){
+		    	def source_dirs = ''
+				def project_list = []
+			    project.subprojects.each { sproject ->
+			    		println sproject
+			            project_list.add(sproject)
+			    }
+			    println project_list
+			    project_list.add(project)
+			    project_list.each { 
+				    projectObject -> 
+				    projectObject.sourceSets.main.allSource.srcDirs.each{ path -> source_dirs += path.toString() + File.pathSeparator} 
+				    projectObject.sourceSets.test.allSource.srcDirs.each{ path -> source_dirs += path.toString() + File.pathSeparator} 
+				}
+			updateArtifactList("SDK_ALL_SOURCE_DIRS", source_dirs)
+			}
+        }
+    }
+    compileJava.dependsOn info
 
-        compileJava {
-            // Java SDK compatibility
+    tasks.withType(JavaCompile) {
+        if ( options.compilerArgs == null || !options.compilerArgs.contains("-deprecation")){
+            options.compilerArgs += ["-deprecation"]
+        }
+        if ( options.compilerArgs == null || !options.compilerArgs.contains("-parameters")){
+            options.compilerArgs += ["-parameters"]
+        }
+        options.fork = true
+        options.encoding = "UTF-8"
+        if (name == 'compileJava') {
             sourceCompatibility JavaVersion.VERSION_1_7.toString()
             targetCompatibility JavaVersion.VERSION_1_7.toString()
-
-            options.compilerArgs += ["-deprecation", "-parameters"]
-            options.fork = true
-            doFirst {
-                println 'Compiler args for compiled SDK : ' + options.compilerArgs
+        }
+        if (name == 'compileTestJava'){
+            sourceCompatibility JavaVersion.VERSION_1_8.toString()
+            targetCompatibility JavaVersion.VERSION_1_8.toString()
+            if ( options.compilerArgs == null || !options.compilerArgs.contains("-g")){
+                options.compilerArgs += ["-g"]
             }
         }
-        jar {
-            manifest {
-                attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
-                        'Implementation-Version': project.version,
-                        'MbedCloudSdk-Version': project.version,
-                        'MbedCloudTestRunner-Version': SDKTestrunnerVersion,
-                        'Implementation-Vendor': 'Arm Limited',
-                        'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
-                        'Bundle-License': 'http://www.apache.org/licenses/LICENSE-2.0.txt',
-                        'Built-JDK': System.getProperty('java.version'),
-                        'Source-Compatibility': project.sourceCompatibility,
-                        'Target-Compatibility': project.targetCompatibility,
-                        'Built-By': System.getProperty('user.name')
-                        )
+        doFirst {
+                //println  options.dump()
+                println 'Compiler args for compiling '+ project.name +' : ' + options.compilerArgs
+        }
+    }
+    
+    def eclipseConfigFile=new File("$rootProject.projectDir/config/eclipse/formatter.xml").canonicalPath
+    spotless {
+        //format 'misc', {
+        //    target '**/*.gradle', '**/*.md', '**/.gitignore'
+        //    indentWithSpaces()
+        //    trimTrailingWhitespace()
+        //    endWithNewline()
+        //}
+        java {
+            removeUnusedImports() // removes any unused imports
+            eclipse().configFile "${eclipseConfigFile}"
+            encoding 'Cp1252' // java will have Cp1252
+        }
+    }
+
+    jar {
+        manifest {
+            attributes('Implementation-Title': 'Arm Pelion Cloud SDK for Java',
+                    'Implementation-Version': project.version,
+                    'MbedCloudSdk-Version': project.version,
+                    'MbedCloudTestRunner-Version': SDKTestrunnerVersion,
+                    'Implementation-Vendor': 'Arm Limited',
+                    'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
+                    'Bundle-License': 'http://www.apache.org/licenses/LICENSE-2.0.txt',
+                    'Built-JDK': System.getProperty('java.version'),
+                    'Source-Compatibility': project.sourceCompatibility,
+                    'Target-Compatibility': project.targetCompatibility,
+                    'Built-By': System.getProperty('user.name')
+                    )
+        }
+        doLast {
+            if (project == rootProject){
+                updateArtifactList("SDK_JAR", jar.archivePath)
             }
+        }
+    }
+
+    if (project != project(':lwm2m') ) {
+        task sourcesJar(type: Jar, dependsOn: classes) {
+            classifier = 'sources'
+            from sourceSets.main.allSource
             doLast {
                 if (project == rootProject){
-                    updateArtifactList("SDK_JAR", jar.archivePath)
+                    updateArtifactList("SOURCE_JAR", sourcesJar.archivePath)
                 }
             }
         }
-        compileTestJava {
-            options.compilerArgs += ["-g", "-deprecation", "-parameters"]
-            options.fork = true
-            options.encoding = "UTF-8"
-            doFirst {
-                println 'Compiler args for testing: ' + options.compilerArgs
+
+        task javadocJar(type: Jar, dependsOn: javadoc) {
+            classifier = 'javadoc'
+            from javadoc.destinationDir
+            doLast {
+                if (project == rootProject){
+                    updateArtifactList("JAVADOC_JAR", javadocJar.archivePath)
+                }
             }
         }
-        
-        if (project != project(':lwm2m') ) {
-            task sourcesJar(type: Jar, dependsOn: classes) {
-                classifier = 'sources'
-                from sourceSets.main.allSource
-                doLast {
+        configurations {
+            published
+        }
+        artifacts {
+            archives jar
+            archives sourcesJar
+            archives javadocJar
+            //published jar
+            //published sourcesJar
+            //published javadocJar
+        }
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+
+                    from components.java
+                    artifact sourcesJar
+                    artifact javadocJar
+
+                    pom.withXml {
+                        asNode().appendNode('name', 'Arm Pelion Cloud SDK')
+                        asNode().appendNode('url', 'https://github.com/ARMmbed/mbed-cloud-sdk-java')
+                        asNode().appendNode('description', 'The Pelion Cloud SDK (formerly known as Mbed Cloud SDK) provides a simplified interface to the Pelion Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.')
+                        asNode().appendNode('packaging', 'jar')
+                        asNode().appendNode('licenses').appendNode('license').appendNode('url','http://www.apache.org/licenses/LICENSE-2.0.txt').parent().appendNode('name','The Apache License, Version 2.0')
+                        asNode().appendNode('developers').appendNode('developer').appendNode('name','Adrien CABARBAYE').parent().appendNode('email','adrien.cabarbaye@arm.com').parent().appendNode('organization','Arm Pelion').parent().appendNode('organizationUrl','https://cloud.mbed.com/')
+                        asNode().appendNode('scm').appendNode('connection','scm:git:git://github.com/ARMmbed/mbed-cloud-sdk-java.git').parent().appendNode('developerConnection','scm:git:ssh://github.com:ARMmbed/mbed-cloud-sdk-java.git').parent().appendNode('url','https://github.com/ARMmbed/mbed-cloud-sdk-java/tree/master')
+                    }
+                }
+            }
+        }
+        if (!project.hasProperty('maven_central_user') || !project.hasProperty('maven_central_password')){
+            if(rootProject.hasProperty('maven_central_user') && rootProject.hasProperty('maven_central_password')){
+                project.maven_central_user=rootProject.maven_central_user
+                project.maven_central_password=rootProject.maven_central_password
+            }
+        }
+        if (project.hasProperty('bintray_password') && project.hasProperty('bintray_user')){
+            bintray {
+                user = "${bintray_user}"
+                key = "${bintray_password}"
+                configurations = ['archives']
+                publications = ['mavenJava']
+                override = true
+                publish = true
+                //dryRun = true
+                pkg {
+                    repo = 'mbed-cloud-sdk'
                     if (project == rootProject){
-                        updateArtifactList("SOURCE_JAR", sourcesJar.archivePath)
+                        name = 'mbed-cloud-sdk'
+                    } else {
+                        name = 'mbed-cloud-' + project.name
                     }
-                }
-            }
-
-            task javadocJar(type: Jar, dependsOn: javadoc) {
-                classifier = 'javadoc'
-                from javadoc.destinationDir
-                doLast {
-                    if (project == rootProject){
-                        updateArtifactList("JAVADOC_JAR", javadocJar.archivePath)
-                    }
-                }
-            }
-            configurations {
-                published
-            }
-            artifacts {
-                archives jar
-                archives sourcesJar
-                archives javadocJar
-                //published jar
-                //published sourcesJar
-                //published javadocJar
-            }
-            publishing {
-                publications {
-                    mavenJava(MavenPublication) {
-
-                        from components.java
-                        artifact sourcesJar
-                        artifact javadocJar
-
-                        pom.withXml {
-                            asNode().appendNode('name', 'Arm Mbed Cloud SDK')
-                            asNode().appendNode('url', 'https://github.com/ARMmbed/mbed-cloud-sdk-java')
-                            asNode().appendNode('description', 'The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.')
-                            asNode().appendNode('packaging', 'jar')
-                            asNode().appendNode('licenses').appendNode('license').appendNode('url','http://www.apache.org/licenses/LICENSE-2.0.txt').parent().appendNode('name','The Apache License, Version 2.0')
-                            asNode().appendNode('developers').appendNode('developer').appendNode('name','Adrien CABARBAYE').parent().appendNode('email','adrien.cabarbaye@arm.com').parent().appendNode('organization','Arm Mbed').parent().appendNode('organizationUrl','https://www.mbed.com/')
-                            asNode().appendNode('scm').appendNode('connection','scm:git:git://github.com/ARMmbed/mbed-cloud-sdk-java.git').parent().appendNode('developerConnection','scm:git:ssh://github.com:ARMmbed/mbed-cloud-sdk-java.git').parent().appendNode('url','https://github.com/ARMmbed/mbed-cloud-sdk-java/tree/master')
-                        }
-                    }
-                }
-            }
-            if (!project.hasProperty('maven_central_user') || !project.hasProperty('maven_central_password')){ 
-                if(rootProject.hasProperty('maven_central_user') && rootProject.hasProperty('maven_central_password')){
-                    project.maven_central_user=rootProject.maven_central_user
-                    project.maven_central_password=rootProject.maven_central_password
-                }
-            }
-            if (project.hasProperty('bintray_password') && project.hasProperty('bintray_user')){
-                bintray {
-                    user = "${bintray_user}"
-                    key = "${bintray_password}"
-                    configurations = ['archives']
-                    publications = ['mavenJava']
-                    override = true
+                    labels = ["Mbed","Mbed Cloud","Pelion","Pelion Cloud","Cloud","SDK","Java","IoT"]
+                    desc = 'The Pelion Cloud SDK (formerly known as Mbed Cloud SDK) provides a simplified interface to the Pelion Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.'
+                    userOrg = 'armmbed'
+                    licenses = ['Apache-2.0']
+                    websiteUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java'
+                    issueTrackerUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java/issues'
+                    vcsUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java.git'
+                    githubRepo = 'ARMmbed/mbed-cloud-sdk-java'
+                    githubReleaseNotesFile = 'README.md'
+                    publicDownloadNumbers = true
                     publish = true
-                    //dryRun = true
-                    pkg {
-                        repo = 'mbed-cloud-sdk'
-                        if (project == rootProject){
-                            name = 'mbed-cloud-sdk'
-                        } else {
-                            name = 'mbed-cloud-' + project.name
-                        }
-                        labels = ["Mbed","Mbed Cloud","Cloud","SDK","Java","IoT"]
-                        desc = 'The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.'
-                        userOrg = 'armmbed'        
-                        licenses = ['Apache-2.0']
-                        websiteUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java'
-                        issueTrackerUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java/issues'
-                        vcsUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java.git'
-                        githubRepo = 'ARMmbed/mbed-cloud-sdk-java'
-                        githubReleaseNotesFile = 'README.md'
-                        publicDownloadNumbers = true
-                        publish = true
-                        version {
-                            name = SDKVersion
-                            //gpg {
-                            //    sign = true //Determines whether to GPG sign the files. The default is false
-                            //}
-                            if (project.hasProperty('maven_central_user') && project.hasProperty('maven_central_password')){ 
-                                mavenCentralSync {
-                                    sync = true
-                                    user = "${maven_central_user}" //OSS user token
-                                    password = "${maven_central_password}" //OSS user password
-                                    close = '1' // By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
-                                }
-                            }    
+                    version {
+                        name = SDKVersion
+                        //gpg {
+                        //    sign = true //Determines whether to GPG sign the files. The default is false
+                        //}
+                        if (project.hasProperty('maven_central_user') && project.hasProperty('maven_central_password')){
+                            mavenCentralSync {
+                                sync = true
+                                user = "${maven_central_user}" //OSS user token
+                                password = "${maven_central_password}" //OSS user password
+                                close = '1' // By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
+                            }
                         }
                     }
                 }
             }
         }
     }
+    if  (! isInExcludeList){
+        def checkStyleConfigFile=new File("$rootProject.projectDir/config/checkstyle/checkstyle.xml").canonicalPath
+        def pmdConfigFile=new File("$rootProject.projectDir/config/pmd/pmd-rules.xml").canonicalPath
+        def findBugsConfigFile=new File("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml").canonicalPath 
+        checkstyle {
+            toolVersion = '7.2'
+            configFile rootProject.file(checkStyleConfigFile)
+            sourceSets = [sourceSets.main]
+            ignoreFailures = false
+            maxWarnings = 0
+        }
+        checkstyleMain {
+            reports {
+                xml.enabled true
+                html.enabled true
+            }
+        }
+        jdepend {
+            sourceSets = [sourceSets.main]
+            ignoreFailures = true
+        }
+        jdependMain {
+            reports {
+                xml.enabled true
+            }
+        }
+        pmd {
+            toolVersion = "5.0.4"
+            sourceSets = [sourceSets.main]
+            ignoreFailures = false
+            ruleSets = []
+            ruleSetFiles = files(pmdConfigFile)
+        }
+        pmdMain {
+            excludes = []
+            reports {
+                xml.enabled false
+                html.enabled true
+            }
+        }
+        cpd {
+            toolVersion = '5.4.2'
+        }
+        cpdCheck {
+            reports {
+                text.enabled = false
+                xml.enabled = true
+            }
+            ignoreFailures = true
+            source = sourceSets.main.allJava // only java, groovy and scala classes in 'main' sourceSets
+        }
+        findbugs {
+            //toolVersion = "2.0.1"
+            sourceSets = [sourceSets.main]
+            ignoreFailures = false
+            effort = "max"
+            reportLevel = "high"
+            excludeFilter = file(findBugsConfigFile)
+        }
+        spotbugs {
+            toolVersion = '3.1.5'
+            sourceSets = [sourceSets.main]
+            ignoreFailures = false
+            effort = "max"
+            reportLevel = "high"
+            excludeFilter = file(findBugsConfigFile)
+        }
+        tasks.withType(FindBugs) {
+            // Increased heap limit to prevent '137 - OOM' errors when running
+            maxHeapSize = "1000m"
+            reports {
+                xml.enabled = false
+                html.enabled = true
+            }
+        }
+
+        tasks.withType(com.github.spotbugs.SpotBugsTask) {
+            // Increased heap limit to prevent '137 - OOM' errors when running
+            maxHeapSize = "1000m"
+            reports {
+                xml.enabled = false
+                html.enabled = true
+            }
+        }
+
+        walkmod {
+          chains = [ 'pmd' , 'override']
+          verbose = true
+          //properties = "configurationFile=\"${pmdConfigFile}\""
+        }
+    }
 }
 
 subprojects {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
 }
+
+walkmodApply.doFirst {
+	tasks.spotlessApply.execute()
+}
+walkmodApply.doLast {
+	tasks.spotlessApply.execute()
+}
+// The following is to ensure that tasks in the following list are carried out in subprojects which are not in the exclude list above.
+def tasksNeedinSubprojectTasks = ['animalsniffer','pmd','jacoco','test','checkstyle','cpd','findbugs','jdepend','spotbugs','walkmod','spotless'].collect{it.toLowerCase()}
+tasks.findAll{t -> tasksNeedinSubprojectTasks.findAll{n -> t.name.toLowerCase().contains(n)}.size()>0 }.each{ t -> subprojects.findAll{s -> projectToExclude.findAll{ex -> s.path.toLowerCase().contains(ex)}.size() == 0 }.each{s -> if(s.tasks.findAll{st -> st.name == t.name}.size() > 0){t.dependsOn("${s.path}:${t.name}")} }}
+project.afterEvaluate{
+	spotlessApply.outputs.upToDateWhen { false }
+	compileJava.dependsOn("spotlessApply") 
+  //compileJava.dependsOn("walkmodApply") // cannot do this because walkmod needs the compilation to have occurred
+}
+
 
 configurations {
     coverage
@@ -266,19 +442,12 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     compile project(':support-annotations')
     compile project(':lwm2m')
-    compile project(':backends:mbedcloud_common')
-    compile project(':backends:connector_ca')
-    compile project(':backends:external_ca')
-    compile project(':backends:connector_bootstrap')
-    compile project(':backends:device_directory')
-    compile project(':backends:iam')
-    compile project(':backends:mds')
-    compile project(':backends:statistics')
-    compile project(':backends:update_service')
-    compile project(':backends:enrollment')
-    compile project(':backends:billing')
-    compile project(':backends:mbedcloud_common')
-    compile project(':backends:certificate_renewal')
+    compile project(':foundation-core')
+    compile project(':pelion-sdk-core')
+    compile project(':foundation-models')
+    compile project(':foundation-access')
+    compile project(':backends:pelioncloud_devicemanagement')
+
     compile 'io.reactivex.rxjava2:rxjava:2.1.6'
     compile 'joda-time:joda-time:2.9.9'
     compile 'com.jcabi:jcabi-manifests:1.1'
@@ -287,22 +456,16 @@ dependencies {
     testCompile 'org.reflections:reflections:0.9.10'
     testCompile 'org.slf4j:slf4j-simple:1.7.7'
     testCompile 'com.squareup.okhttp:mockwebserver:2.7.5'
+    testCompile  'com.github.dtmo.jfiglet:jfiglet:1.0.0'
+    testCompile 'ru.vyarus:generics-resolver:3.0.0'
     testImplementation 'junit:junit:4.12'
     coverage 'org.jacoco:org.jacoco.agent:0.7.9:runtime@jar'
     coverage 'org.jacoco:org.jacoco.cli:0.8.1:nodeps@jar'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.7.1'
 }
 
-//Disable javadoc step as comment formatting is incorrect in parts of the project (e.g. Endpoint or Resource)
-if (project(':backends:mds').hasProperty('javadoc')) {
-    project(':backends:mds').javadoc.enabled = false
-}
-if (project(':backends:statistics').hasProperty('javadoc')) {
-    project(':backends:statistics').javadoc.enabled = false
-}
-
-javadoc {
-    options.overview = "src/main/javadoc/overview.html"
+def setJavadocOptions = { options, toProject ->
+  options.overview = "src/main/javadoc/overview.html"
     // Add --allow-script-in-comments if available (since 1.8.0_121) see related issue https://github.com/gradle/gradle/issues/1393
     try {
         if (Class.forName('com.sun.tools.doclets.formats.html.ConfigurationImpl')
@@ -312,153 +475,65 @@ javadoc {
     } catch (ignored) {
     }
 
-    if (project.hasProperty('javadocStylesheet') && "${javadocStylesheet}"?.trim()) {
+    if (toProject.hasProperty('javadocStylesheet') && "${javadocStylesheet}"?.trim()) {
         def file = new File("${javadocStylesheet}")
         if (file.exists()) {
             options.setStylesheetFile(file)
         }
     }
-    if (project.hasProperty('javadocHeader') && "${javadocHeader}"?.trim()) {
+    if (toProject.hasProperty('javadocHeader') && "${javadocHeader}"?.trim()) {
         def file = new File("${javadocHeader}")
         if (file.exists()) {
             def headerValue = "\"" + file.getText('UTF-8').replace("\n", "").replace("\r", "") + "\""
             options.setHeader(headerValue)
         }
     }
-    if (project.hasProperty('javadocFooter') && "${javadocFooter}"?.trim()) {
+    if (toProject.hasProperty('javadocFooter') && "${javadocFooter}"?.trim()) {
         def file = new File("${javadocFooter}")
         if (file.exists()) {
             def footerValue = "\"" + file.getText('UTF-8').replace("\n", "").replace("\r", "") + "\""
             options.setFooter(footerValue)
         }
     }
-    if (project.hasProperty('javadocTop') && "${javadocTop}"?.trim()) {
+    if (toProject.hasProperty('javadocTop') && "${javadocTop}"?.trim()) {
         def file = new File("${javadocBottom}")
         if (file.exists()) {
             def topValue = "\"" + file.getText('UTF-8').replace("\n", "").replace("\r", "") + "\""
             options.addStringOption('top', topValue)
         }
     }
-    if (project.hasProperty('javadocBottom') && "${javadocBottom}"?.trim()) {
+    if (toProject.hasProperty('javadocBottom') && "${javadocBottom}"?.trim()) {
         def file = new File("${javadocBottom}")
         if (file.exists()) {
             def bottomValue = "\"" + file.getText('UTF-8').replace("\n", "").replace("\r", "") + "\""
             options.setBottom(bottomValue)
         }
-    }
+     }
 }
 
-test {
-    reports {
-        junitXml.enabled = true
-        html.enabled = true
-    }
-    updateArtifactList("SDK_REPORT_DIR", "$reportsDir")
-    updateArtifactList("SDK_UNITTEST_REPORT_DIR", test.reports.html.destination)
+//FIXME: Disable javadoc step as comment formatting is incorrect in parts of the project (e.g. Endpoint or Resource)
+def projectToExcludeJavadoc = ['mds', 'statistics'].collect{it.toLowerCase()}
+def disableJavadoc = {
+    def projectsToExcludeJavadoc = allprojects.findAll{p ->  projectToExcludeJavadoc.findAll{ex -> p.path.toLowerCase().contains(ex)}.size() != 0}
+    projectsToExcludeJavadoc.each{p -> if(p.hasProperty('javadoc')){p.javadoc.enabled = false}}
+}
+disableJavadoc()
+
+task aggregateJavadocs(type: Javadoc) {
+    // Based on Nebula implementation: https://github.com/nebula-plugins/gradle-aggregate-javadocs-plugin/
+    def projectionsToAggregateJavadoc = allprojects.findAll{p ->  projectToExcludeJavadoc.findAll{ex -> p.path.toLowerCase().contains(ex)}.size() == 0}
+    description 'Aggregates Javadoc API documentation of all projects'
+    group 'Documentation'
+    dependsOn projectionsToAggregateJavadoc.javadoc
+    setJavadocOptions(options,rootProject)
+    source projectionsToAggregateJavadoc.javadoc.source
+    destinationDir rootProject.file("$buildDir/docs/javadoc")
+    classpath = rootProject.files(projectionsToAggregateJavadoc.javadoc.classpath)
 }
 
-checkstyle {
-    toolVersion = '7.2'
-    configFile rootProject.file('config/checkstyle/checkstyle.xml')
-    sourceSets = [sourceSets.main]
-    ignoreFailures = false
-    maxWarnings = 0
+javadoc {
+  setJavadocOptions(options,project)
 }
-
-checkstyleMain {
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
-}
-jdepend {
-    sourceSets = [sourceSets.main]
-    ignoreFailures = true
-}
-jdependMain {
-    reports {
-        xml.enabled true
-    }
-}
-jacoco {
-    toolVersion = "0.7.6.201602180812"
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled false
-        csv.enabled false
-        html.enabled true
-    }
-}
-
-pmd {
-    toolVersion = "5.0.4"
-    sourceSets = [sourceSets.main]
-    ignoreFailures = false
-    ruleSets = []
-    ruleSetFiles = files("$rootDir/config/pmd/pmd-rules.xml")
-}
-pmdMain {
-    excludes = []
-    reports {
-        xml.enabled false
-        html.enabled true
-    }
-}
-
-cpd {
-    toolVersion = '5.4.2'
-}
-
-cpdCheck {
-    reports {
-        text.enabled = false
-        xml.enabled = true
-    }
-    ignoreFailures = true
-    source = sourceSets.main.allJava // only java, groovy and scala classes in 'main' sourceSets
-}
-
-findbugs {
-    //toolVersion = "2.0.1"
-    sourceSets = [sourceSets.main]
-    ignoreFailures = false
-    effort = "max"
-    reportLevel = "high"
-    excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
-}
-
-spotbugs {
-  //toolVersion = '3.1.5'
-    sourceSets = [sourceSets.main]
-    ignoreFailures = false
-    effort = "max"
-    reportLevel = "high"
-    excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
-}
-
-animalsniffer {
-    toolVersion = '1.16'
-    sourceSets = [sourceSets.main]
-    ignoreFailures = false
-}
-
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-
-tasks.withType(com.github.spotbugs.SpotBugsTask) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-
-
 
 def updateArtifactList(propertyName, value) {
     if (UpdateArtifactList) {
@@ -470,7 +545,7 @@ def updateArtifactList(propertyName, value) {
         props.setProperty(propertyName.toString(), value.toString())
         props.sort()
         def fileWriter = propFile.newWriter()
-        props.store(fileWriter, "Arm Mbed Cloud JAVA SDK artifacts");
+        props.store(fileWriter, "Arm Pelion Cloud JAVA SDK artifacts");
         fileWriter.close()
     }
 }
@@ -480,6 +555,12 @@ shadowJar {
     doLast {
         updateArtifactList("SDK_FULL_JAR", shadowJar.archivePath)
     }
+}
+
+task unitTestReport(type: TestReport) {
+    destinationDir = file("$buildDir/reports/allUnitTests")
+    // Include the results from the `test` task in all subprojects
+    reportOn allprojects.collect { it.tasks.withType(Test) }
 }
 
 downloadLicenses {
@@ -492,7 +573,7 @@ downloadLicenses {
     includeProjectDependencies = true
     reportByDependencyFileName='tpip-report'
     reportByLicenseFileName ='used-licences'
-    
+
     licenses = [
         (group( project(':lwm2m').group)) : apacheTwo,
         (group( 'com.arm.mbed.cloud')) : apacheTwo,
@@ -500,7 +581,7 @@ downloadLicenses {
     ]
 
     aliases = [
-        (apacheTwo) : ['The Apache Software License, Version 2.0','Apache 2.0','Apache License, Version 2.0', 'Apache 2', 'Apache License Version 2.0', 'Apache License, Version 2.0', 'Apache License 2.0', license('Apache-2.0', 'http://www.apache.org/licenses/LICENSE-2.0')],
+        (apacheTwo) : ['The Apache License, Version 2.0','The Apache Software License, Version 2.0','Apache 2.0','Apache License, Version 2.0', 'Apache 2', 'Apache License Version 2.0', 'Apache License, Version 2.0', 'Apache License 2.0', license('Apache-2.0', 'http://www.apache.org/licenses/LICENSE-2.0')],
         (bsd) : ['BSD', license('BSD-3-Clause', 'http://www.opensource.org/licenses/bsd-license.php')],
         (mit) : ['MIT', 'The MIT License', 'MIT License', license('MIT', 'https://opensource.org/licenses/mit-license.php')],
         (jsonLicense) : ['The JSON License', 'JSON', license('JSON', 'https://www.json.org/license.html')],
@@ -512,7 +593,7 @@ downloadLicenses {
 task testJar(type: Jar) {
     dependsOn compileTestJava, jar
     manifest {
-        attributes( 'Implementation-Title': 'Arm Mbed Cloud SDK for Java',
+        attributes( 'Implementation-Title': 'Arm Pelion Cloud SDK (formerly known as Mbed Cloud SDK) for Java',
                     'Implementation-Version': project.version,
                     'MbedCloudSdk-Version': project.version,
                     'Implementation-Vendor': 'Arm Limited',
@@ -537,7 +618,7 @@ task shadowTestJar(type: Jar) {
     group 'Verification'
     dependsOn testJar, shadowJar
     manifest {
-        attributes( 'Implementation-Title': 'Arm Mbed Cloud SDK for Java',
+        attributes( 'Implementation-Title': 'Arm Pelion Cloud SDK (formerly known as Mbed Cloud SDK) for Java',
                     'Implementation-Version': project.version,
                     'MbedCloudSdk-Version': project.version,
                     'Implementation-Vendor': 'Arm Limited',
@@ -590,7 +671,9 @@ task projectInitialisation() {
 task reportCoverage(dependsOn: copyCoverageAgent) {
 
     def report_dest = jacoco.reportsDir.toString() + '-all'
+    def report_foundation_dest = jacoco.reportsDir.toString() + '-foundation'
     def classes_files = ''
+    def foundation_class_files = ''
     def source_files = ''
     def project_list = []
     project.subprojects.each { sproject ->
@@ -600,10 +683,18 @@ task reportCoverage(dependsOn: copyCoverageAgent) {
     }
     project_list.add(project)
     project_list.each { projectObject -> classes_files += projectObject.sourceSets.main.output.asPath + File.pathSeparator }
+    project_list.each { projectObject ->
+      if(projectObject.sourceSets.main.output.asPath ==~ /.*foundation-.*/){
+        	foundation_class_files += projectObject.sourceSets.main.output.asPath + File.pathSeparator
+        }
+    }
+
     project_list.each { projectObject -> source_files += projectObject.sourceSets.main.allJava.srcDirs[0].toString() + File.pathSeparator }
     updateArtifactList("SDK_PROJECT_SOURCE_FILES", source_files)
     updateArtifactList("SDK_PROJECT_CLASS_FILES", classes_files)
+    updateArtifactList("SDK_PROJECT_FOUNDATION_CLASS_FILES", foundation_class_files)
     updateArtifactList("SDK_PROJECT_COVERAGE_REPORT_DIR", report_dest)
+    updateArtifactList("SDK_PROJECT_COVERAGE_FOUNDATION_REPORT_DIR", report_foundation_dest)
 }
 
 if (project.hasProperty('artifactory_contextUrl')){
@@ -620,11 +711,11 @@ if (project.hasProperty('artifactory_contextUrl')){
             defaults {
                 //List of Gradle Publications (names or objects) from which to collect the list of artifacts to be deployed to Artifactory.
                 publications('mavenJava')
-                ////List of Gradle Configurations (names or objects) from which to collect the list of artifacts to be deployed to Artifactory. 
+                ////List of Gradle Configurations (names or objects) from which to collect the list of artifacts to be deployed to Artifactory.
                 publishConfigs('archives')
                 publishBuildInfo = true   //Publish build-info to Artifactory.
                 publishArtifacts = true   //Publish artifacts to Artifactory.
-                publishPom = true   //Publish generated POM files to Artifactory.                
+                publishPom = true   //Publish generated POM files to Artifactory.
             }
         }
     }

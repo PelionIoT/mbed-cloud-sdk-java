@@ -1,0 +1,1 @@
+Foundation SDK layer was introduced: DAOs are now available for every Pelion Cloud entity/model

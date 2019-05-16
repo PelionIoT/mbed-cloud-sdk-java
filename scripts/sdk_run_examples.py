@@ -7,6 +7,7 @@ class SDKExamplesRunner(sdk_common.BuildStepUsingGradle):
     def __init__(self, logger=None):
         super(SDKExamplesRunner, self).__init__('SDK examples runner', logger)
         self.gradle_directory = self.common_config.get_config().get_sdk_example_directory()
+        self.reset()
 
     def execute(self):
         self.print_title()

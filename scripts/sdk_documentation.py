@@ -11,7 +11,7 @@ class SDKDocumentationBuilder(sdk_common.BuildStepUsingGradle):
         self.print_title()
         try:
             self.log_info("Generating Javadoc")
-            self.execute_gradle_task('javadoc')
+            self.execute_gradle_task('aggregateJavadocs')
         except:
             self.log_error('Failed to check SDK\'s documentation')
             return False

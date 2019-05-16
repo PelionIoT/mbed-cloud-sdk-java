@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.connect.subscription;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -25,11 +26,11 @@ import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
-import com.arm.mbed.cloud.sdk.internal.mds.model.EndpointData;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationData;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
-import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
-import com.arm.mbed.cloud.sdk.internal.mds.model.ResourcesData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EndpointData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ResourcesData;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationCallback;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceState;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
@@ -106,21 +107,12 @@ public class TestNotificationHandlersStore {
                 assertEquals(i + 1, receivedNotificationsUsingCallbacks.get(i), 0);
                 assertEquals(i + 1, receivedNotificationsUsingObservers.get(i), 0);
             }
-            store.shutdown();
-            if (handle != null) {
-                handle.cancel(true);
-            }
-            executor.shutdownNow();
         } catch (Exception e) {
-            if (handle != null) {
-                handle.cancel(true);
-            }
-            if (executor != null) {
-                executor.shutdownNow();
-            }
             e.printStackTrace();
             fail(e.getMessage());
         }
+        assertNotNull(handle);
+        assertTrue(handle.isCancelled());
     }
 
     private static final String PRESUBSCRIPTION_ENDPOINT_PATH = "v2/subscriptions";
@@ -128,7 +120,7 @@ public class TestNotificationHandlersStore {
     private PresubscriptionArray generatePresubscriptions(int number) {
         PresubscriptionArray array = new PresubscriptionArray();
         for (int j = 0; j < number; j++) {
-            com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription presubscription = new com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription();
+            com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription presubscription = new com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription();
             for (int i = 0; i <= j; i++) {
                 presubscription.addResourcePathItem(i + "/" + (i + j) + "/" + j);
             }
@@ -158,9 +150,7 @@ public class TestNotificationHandlersStore {
             fail(exception.getMessage());
         }
         HttpUrl baseUrl = server.url("");
-        ConnectionOptions opt = new ConnectionOptions("apikey");
-        opt.setHost(baseUrl.toString());
-        opt.setClientLogLevel(CallLogLevel.BODY);
+        ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).logLevel(CallLogLevel.BODY);
         Connect connect = new Connect(opt);
         try (NotificationHandlersStore store = new NotificationHandlersStore(connect, null, executor, null)) {
 
@@ -220,29 +210,25 @@ public class TestNotificationHandlersStore {
             for (int i = 0; i < payloads.length; i++) {
                 assertEquals(i + 1, receivedNotificationsUsingCallbacks.get(i), 0);
             }
-            store.shutdown();
-            // Expecting one call to the server. one for getting the presubscription list. No update should be done
-            // as the added presubscription was not persisted into the server (Mocking).
-            request = server.takeRequest();
-            assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
-            assertEquals("GET", request.getMethod());
-            server.shutdown();
-            Thread.sleep(100);
-            if (handle != null) {
-                handle.cancel(true);
-            }
-            executor.shutdownNow();
 
         } catch (Exception e) {
-            if (handle != null) {
-                handle.cancel(true);
-            }
-            if (executor != null) {
-                executor.shutdownNow();
-            }
             e.printStackTrace();
             fail(e.getMessage());
         }
+        // Expecting one call to the server. one for getting the presubscription list. No update should be done
+        // as the added presubscription was not persisted into the server (Mocking).
+        RecordedRequest request = null;
+        try {
+            request = server.takeRequest();
+        } catch (InterruptedException exception) {
+            exception.printStackTrace();
+            fail(exception.getMessage());
+        }
+        assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
+        assertEquals("GET", request.getMethod());
+
+        assertNotNull(handle);
+        assertTrue(handle.isCancelled());
     }
 
     /**
@@ -316,22 +302,12 @@ public class TestNotificationHandlersStore {
                 assertEquals("0161661e9ce10000000000010010033e", n.getDeviceId());
                 assertEquals(DeviceState.REGISTRATION_UPDATE, n.getState());
             });
-
-            if (handle != null) {
-                handle.cancel(true);
-            }
-            executor.shutdownNow();
-
         } catch (Exception e) {
-            if (handle != null) {
-                handle.cancel(true);
-            }
-            if (executor != null) {
-                executor.shutdownNow();
-            }
             e.printStackTrace();
             fail(e.getMessage());
         }
+        assertNotNull(handle);
+        assertTrue(handle.isCancelled());
     }
 
 }

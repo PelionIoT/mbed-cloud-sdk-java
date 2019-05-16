@@ -14,14 +14,14 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.billing.model.ActiveServicePackage;
-import com.arm.mbed.cloud.sdk.internal.billing.model.PendingServicePackage;
-import com.arm.mbed.cloud.sdk.internal.billing.model.PreviousServicePackage;
-import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuotaHistoryItem;
-import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuotaHistoryReservation;
-import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuotaHistoryResponse;
-import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuotaHistoryServicePackage;
-import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackagesResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ActiveServicePackage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PendingServicePackage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PreviousServicePackage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackageQuotaHistoryItem;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackageQuotaHistoryReservation;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackageQuotaHistoryResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackageQuotaHistoryServicePackage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackagesResponse;
 
 @Preamble(description = "Adapter for Billing entities")
 @Internal
@@ -35,7 +35,7 @@ public final class BillingEntityAdapter {
      * Maps service package.
      *
      * @param toBeMapped
-     *            package response from Mbed Cloud.
+     *            package response from Pelion Cloud.
      * @param <T>
      *            type of the raw object to map
      * @return corresponding service package.
@@ -85,7 +85,7 @@ public final class BillingEntityAdapter {
      * Maps reservation.
      *
      * @param toBeMapped
-     *            reservation from Mbed Cloud.
+     *            reservation from Pelion Cloud.
      * @return corresponding reservation.
      */
     public static Reservation mapReservation(ServicePackageQuotaHistoryReservation toBeMapped) {

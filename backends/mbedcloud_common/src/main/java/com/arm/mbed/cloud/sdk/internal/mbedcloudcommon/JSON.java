@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.internal.mbedcloudcommon;
 
 import com.google.gson.Gson;
@@ -22,7 +21,6 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.google.gson.JsonElement;
 import io.gsonfire.GsonFireBuilder;
-import io.gsonfire.TypeSelector;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
@@ -32,14 +30,11 @@ import org.joda.time.format.ISODateTimeFormat;
 import com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.model.*;
 
 import java.io.IOException;
-import java.io.StringReader;
-import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.Date;
 import java.util.Map;
-import java.util.HashMap;
 
 public class JSON {
     private Gson gson;
@@ -49,14 +44,13 @@ public class JSON {
     private LocalDateTypeAdapter localDateTypeAdapter = new LocalDateTypeAdapter();
 
     public static GsonBuilder createGson() {
-        GsonFireBuilder fireBuilder = new GsonFireBuilder()
-        ;
+        GsonFireBuilder fireBuilder = new GsonFireBuilder();
         return fireBuilder.createGsonBuilder();
     }
 
     private static String getDiscriminatorValue(JsonElement readElement, String discriminatorField) {
         JsonElement element = readElement.getAsJsonObject().get(discriminatorField);
-        if(null == element) {
+        if (null == element) {
             throw new IllegalArgumentException("missing discriminator field: <" + discriminatorField + ">");
         }
         return element.getAsString();
@@ -64,19 +58,17 @@ public class JSON {
 
     private static Class getClassByDiscriminator(Map classByDiscriminatorValue, String discriminatorValue) {
         Class clazz = (Class) classByDiscriminatorValue.get(discriminatorValue.toUpperCase());
-        if(null == clazz) {
+        if (null == clazz) {
             throw new IllegalArgumentException("cannot determine model class of name: <" + discriminatorValue + ">");
         }
         return clazz;
     }
 
     public JSON() {
-        gson = createGson()
-            .registerTypeAdapter(Date.class, dateTypeAdapter)
-            .registerTypeAdapter(java.sql.Date.class, sqlDateTypeAdapter)
-            .registerTypeAdapter(DateTime.class, dateTimeTypeAdapter)
-            .registerTypeAdapter(LocalDate.class, localDateTypeAdapter)
-            .create();
+        gson = createGson().registerTypeAdapter(Date.class, dateTypeAdapter)
+                           .registerTypeAdapter(java.sql.Date.class, sqlDateTypeAdapter)
+                           .registerTypeAdapter(DateTime.class, dateTimeTypeAdapter)
+                           .registerTypeAdapter(LocalDate.class, localDateTypeAdapter).create();
     }
 
     /**
@@ -91,7 +83,8 @@ public class JSON {
     /**
      * Set Gson.
      *
-     * @param gson Gson
+     * @param gson
+     *            Gson
      * @return JSON
      */
     public JSON setGson(Gson gson) {
@@ -107,9 +100,9 @@ public class JSON {
         private DateTimeFormatter formatter;
 
         public DateTimeTypeAdapter() {
-            this(new DateTimeFormatterBuilder()
-                .append(ISODateTimeFormat.dateTime().getPrinter(), ISODateTimeFormat.dateOptionalTimeParser().getParser())
-                .toFormatter());
+            this(new DateTimeFormatterBuilder().append(ISODateTimeFormat.dateTime().getPrinter(),
+                                                       ISODateTimeFormat.dateOptionalTimeParser().getParser())
+                                               .toFormatter());
         }
 
         public DateTimeTypeAdapter(DateTimeFormatter formatter) {
@@ -194,8 +187,7 @@ public class JSON {
     }
 
     /**
-     * Gson TypeAdapter for java.sql.Date type
-     * If the dateFormat is null, a simple "yyyy-MM-dd" format will be used
+     * Gson TypeAdapter for java.sql.Date type If the dateFormat is null, a simple "yyyy-MM-dd" format will be used
      * (more efficient than SimpleDateFormat).
      */
     public static class SqlDateTypeAdapter extends TypeAdapter<java.sql.Date> {
@@ -249,8 +241,7 @@ public class JSON {
     }
 
     /**
-     * Gson TypeAdapter for java.util.Date type
-     * If the dateFormat is null, ISO8601Utils will be used.
+     * Gson TypeAdapter for java.util.Date type If the dateFormat is null, ISO8601Utils will be used.
      */
     public static class DateTypeAdapter extends TypeAdapter<Date> {
 

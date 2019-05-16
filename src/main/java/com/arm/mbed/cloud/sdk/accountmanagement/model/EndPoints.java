@@ -1,56 +1,51 @@
 package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
+import com.arm.mbed.cloud.sdk.accounts.model.AccountsEndpoints;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
-import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
-import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
+import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountPolicyGroupsApi;
 
 @Preamble(description = "Endpoint for Account management")
 @Internal
-public class EndPoints extends AbstractEndpoints {
+@Deprecated
+public class EndPoints extends AccountsEndpoints {
 
-    private final DeveloperApi developer;
-    private final AccountAdminApi admin;
-
-    /**
-     * Constructor.
-     * 
-     * @param wrapper
-     *            API client {@link ApiClientWrapper}.
-     */
-    public EndPoints(ApiClientWrapper wrapper) {
-        super(wrapper);
-        this.developer = initialiseDeveloper(wrapper);
-        this.admin = initialiseAdmin(wrapper);
-    }
+    @Internal
+    private final AccountPolicyGroupsApi accountPolicyGroupApi;
 
     /**
      * Constructor.
      * 
-     * @param options
-     *            connection options {@link ConnectionOptions}
+     * @param services
+     *            created services {@link ServiceRegistry}.
      */
-    public EndPoints(ConnectionOptions options) {
-        this(new ApiClientWrapper(options));
+    public EndPoints(ServiceRegistry services) {
+        super(services);
+        this.accountPolicyGroupApi = initialiseService(AccountPolicyGroupsApi.class);
     }
 
-    private AccountAdminApi initialiseAdmin(ApiClientWrapper wrapper) {
-        return wrapper.createService(AccountAdminApi.class);
+    /**
+     * Clones this instance.
+     * 
+     * <p>
+     * 
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
+     */
+    @Override
+    public EndPoints clone() {
+        return new EndPoints(getRegistryClone());
     }
 
-    private DeveloperApi initialiseDeveloper(ApiClientWrapper wrapper) {
-        return wrapper.createService(DeveloperApi.class);
-    }
-
-    public DeveloperApi getDeveloper() {
-        return developer;
-    }
-
-    public AccountAdminApi getAdmin() {
-        return admin;
+    /**
+     * Gets low level endpoints for account policy group apis.
+     * 
+     * @return accountPolicyGroupApi
+     */
+    @Internal
+    public AccountPolicyGroupsApi getAccountPolicyGroupApi() {
+        return accountPolicyGroupApi;
     }
 
 }

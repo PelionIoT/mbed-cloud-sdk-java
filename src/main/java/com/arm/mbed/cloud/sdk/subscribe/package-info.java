@@ -1,5 +1,5 @@
 /**
- * Arm Mbed Cloud SDK: Subscribe module.
+ * Arm Pelion Cloud SDK: Subscribe module.
  */
 @Preamble(description = "Subscribe module")
 package com.arm.mbed.cloud.sdk.subscribe;

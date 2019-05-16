@@ -11,9 +11,9 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Query;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQuery;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPage;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPostPutRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceQuery;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceQueryPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceQueryPostPutRequest;
 
 @Preamble(description = "Adapter for query model")
 @Internal
@@ -35,7 +35,7 @@ public final class QueryAdapter {
             return null;
         }
         final Query query = new Query(deviceQuery.getId(), TranslationUtils.toDate(deviceQuery.getCreatedAt()),
-                TranslationUtils.toDate(deviceQuery.getUpdatedAt()));
+                                      TranslationUtils.toDate(deviceQuery.getUpdatedAt()));
         query.setName(deviceQuery.getName());
         query.setFilters(decodeFilters(deviceQuery.getQuery()));
         return query;

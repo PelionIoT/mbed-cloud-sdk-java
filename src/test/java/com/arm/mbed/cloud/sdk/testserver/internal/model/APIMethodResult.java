@@ -1,20 +1,29 @@
 package com.arm.mbed.cloud.sdk.testserver.internal.model;
 
-import java.lang.reflect.InvocationTargetException;
-
 import com.arm.mbed.cloud.sdk.common.ApiMetadata;
+import com.arm.mbed.cloud.sdk.common.ApiUtils;
 
-public class APIMethodResult {
+public class APIMethodResult implements Cloneable {
 
     private Object result;
     private ApiMetadata metadata;
-    private InvocationTargetException exception;
+    private boolean allowed;
+    private Exception exception;
 
     public APIMethodResult() {
         super();
         result = null;
         metadata = null;
         exception = null;
+        allowed = true;
+    }
+
+    public APIMethodResult(Object result, ApiMetadata metadata, boolean allowed, Exception exception) {
+        super();
+        this.result = result;
+        this.metadata = metadata;
+        this.allowed = allowed;
+        this.exception = exception;
     }
 
     /**
@@ -51,7 +60,7 @@ public class APIMethodResult {
     /**
      * @return the exception
      */
-    public InvocationTargetException getException() {
+    public Exception getException() {
         return exception;
     }
 
@@ -59,11 +68,37 @@ public class APIMethodResult {
      * @param exception
      *            the exception to set
      */
-    public void setException(InvocationTargetException exception) {
+    public void setException(Exception exception) {
         this.exception = exception;
     }
 
     public boolean wasExceptionRaised() {
         return exception != null;
     }
+
+    public void setAllowed(boolean allowed) {
+        this.allowed = allowed;
+    }
+
+    public boolean wasAllowed() {
+        return allowed;
+    }
+
+    public boolean isCloudException() {
+        return wasExceptionRaised() && ApiUtils.isCloudException(exception);
+    }
+
+    public boolean isParameterException() {
+        return wasExceptionRaised() && ApiUtils.isParameterErrorException(exception);
+    }
+
+    public boolean isNotImplementedException() {
+        return wasExceptionRaised() && ApiUtils.isNotImplementedException(exception);
+    }
+
+    @Override
+    public APIMethodResult clone() {
+        return new APIMethodResult(result, metadata, allowed, exception);
+    }
+
 }

@@ -18,7 +18,7 @@ compileJava {
 
 jar {
     manifest {
-        attributes('Implementation-Title': 'Arm Mbed Cloud SDK Annotations',
+        attributes('Implementation-Title': 'Arm Pelion Cloud SDK Annotations',
                    'Implementation-Version': project.version,
                    'Implementation-Vendor': 'Arm Limited',
                    'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
