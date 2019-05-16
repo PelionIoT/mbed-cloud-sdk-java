@@ -31,7 +31,7 @@ public class TestCampaignDeviceMetadataDeploymentState {
             campaigndevicemetadatadeploymentstate = CampaignDeviceMetadataDeploymentState.getValue("deregistered");
             assertNotNull(campaigndevicemetadatadeploymentstate);
             assertFalse(campaigndevicemetadatadeploymentstate.isDefault());
-            campaigndevicemetadatadeploymentstate = CampaignDeviceMetadataDeploymentState.getValue("e8879aca-62bd-40ba-89b5-2c6d7c85b498");
+            campaigndevicemetadatadeploymentstate = CampaignDeviceMetadataDeploymentState.getValue("8c014a40-afc4-4870-9af7-e478b99b83a5");
             assertNotNull(campaigndevicemetadatadeploymentstate);
             assertTrue(campaigndevicemetadatadeploymentstate.isDefault());
         } catch (Exception exception) {
