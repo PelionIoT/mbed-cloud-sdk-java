@@ -143,7 +143,7 @@ public class DeviceListOptions extends ListOptions {
     }
 
     /**
-     * Adds a device filter based on bootstra[ certificate expiry date field.
+     * Adds a device filter based on bootstrap certificate expiry date field.
      *
      * @param bootstrapCertificateExpiration
      *            filter to apply

@@ -2,8 +2,7 @@ version: 2
 
 sdk_environment: &sdk_environment
   PROJECT_NAME: mbed-cloud-sdk-java
-  DOCS_TEMP_URL: https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html
-  TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
+  TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner
   BUILD_REPORTS_DIR: ./build/reports
   BUILD_JARS_DIR: ./build/libs
   BUILD_DIST_DIR: ./build/distributions
@@ -31,42 +30,40 @@ setting_machine_environment: &setting_machine_environment
       && echo "export PIP_COMMAND=${PIP_COMMAND}" >> ${BASH_ENV}
       && export PYTHON_COMMAND=python
       && echo "export PYTHON_COMMAND=${PYTHON_COMMAND}" >> ${BASH_ENV}
-      && export PROJECT_NAME=mbed-cloud-sdk-java
-      && echo "export PROJECT_NAME=mbed-cloud-sdk-java" >> ${BASH_ENV}
-      && export DOCS_TEMP_URL=https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html
-      && echo "export DOCS_TEMP_URL=https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html" >> ${BASH_ENV}
-      && export TESTRUNNER_DOCKER_IMAGE=104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
-      && echo "export TESTRUNNER_DOCKER_IMAGE=104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master" >> ${BASH_ENV}
-      && export BUILD_REPORTS_DIR=./build/reports
-      && echo "export BUILD_REPORTS_DIR=./build/reports" >> ${BASH_ENV}
-      && export BUILD_JARS_DIR=./build/libs
-      && echo "export BUILD_JARS_DIR=./build/libs" >> ${BASH_ENV}
-      && export BUILD_DIST_DIR=./build/distributions
-      && echo "export BUILD_DIST_DIR=./build/distributions" >> ${BASH_ENV}
-      && export BUILD_DOCS_DIR=./build/docs/javadoc
-      && echo "export BUILD_DOCS_DIR=./build/docs/javadoc" >> ${BASH_ENV}
-      && export BUILD_UNIT_TEST_RESULT_DIR=./build/test-results/test
-      && echo "export BUILD_UNIT_TEST_RESULT_DIR=./build/test-results/test" >> ${BASH_ENV}
-      && export BUILD_UNIT_TEST_COVERAGE_DIR=./build/jacoco
-      && echo "export BUILD_UNIT_TEST_COVERAGE_DIR=./build/jacoco" >> ${BASH_ENV}
-      && export BUILD_INTEGRATION_TEST_RESULT_DIR=./results
-      && echo "export BUILD_INTEGRATION_TEST_RESULT_DIR=./results" >> ${BASH_ENV}
-      && export BUILD_INTEGRATION_TEST_COVERAGE_DIR=./build/coverage-results
-      && echo "export BUILD_INTEGRATION_TEST_COVERAGE_DIR=./build/coverage-results" >> ${BASH_ENV}
-      && export SCRIPTS_DIR=./scripts
-      && echo "export SCRIPTS_DIR=./scripts" >> ${BASH_ENV}
+      && export PROJECT_NAME=${PROJECT_NAME}
+      && echo "export PROJECT_NAME=${PROJECT_NAME}" >> ${BASH_ENV}
+      && export TESTRUNNER_DOCKER_IMAGE=${TESTRUNNER_DOCKER_IMAGE}
+      && echo "export TESTRUNNER_DOCKER_IMAGE=${TESTRUNNER_DOCKER_IMAGE}" >> ${BASH_ENV}
+      && export BUILD_REPORTS_DIR=${BUILD_REPORTS_DIR}
+      && echo "export BUILD_REPORTS_DIR=${BUILD_REPORTS_DIR}" >> ${BASH_ENV}
+      && export BUILD_JARS_DIR=${BUILD_JARS_DIR}
+      && echo "export BUILD_JARS_DIR=${BUILD_JARS_DIR}" >> ${BASH_ENV}
+      && export BUILD_DIST_DIR=${BUILD_DIST_DIR}
+      && echo "export BUILD_DIST_DIR=${BUILD_DIST_DIR}" >> ${BASH_ENV}
+      && export BUILD_DOCS_DIR=${BUILD_DOCS_DIR}
+      && echo "export BUILD_DOCS_DIR=${BUILD_DOCS_DIR}" >> ${BASH_ENV}
+      && export BUILD_UNIT_TEST_RESULT_DIR=${BUILD_UNIT_TEST_RESULT_DIR}
+      && echo "export BUILD_UNIT_TEST_RESULT_DIR=${BUILD_UNIT_TEST_RESULT_DIR}" >> ${BASH_ENV}
+      && export BUILD_UNIT_TEST_COVERAGE_DIR=${BUILD_UNIT_TEST_COVERAGE_DIR}
+      && echo "export BUILD_UNIT_TEST_COVERAGE_DIR=${BUILD_UNIT_TEST_COVERAGE_DIR}" >> ${BASH_ENV}
+      && export BUILD_INTEGRATION_TEST_RESULT_DIR=${BUILD_INTEGRATION_TEST_RESULT_DIR}
+      && echo "export BUILD_INTEGRATION_TEST_RESULT_DIR=${BUILD_INTEGRATION_TEST_RESULT_DIR}" >> ${BASH_ENV}
+      && export BUILD_INTEGRATION_TEST_COVERAGE_DIR=${BUILD_INTEGRATION_TEST_COVERAGE_DIR}
+      && echo "export BUILD_INTEGRATION_TEST_COVERAGE_DIR=${BUILD_INTEGRATION_TEST_COVERAGE_DIR}" >> ${BASH_ENV}
+      && export SCRIPTS_DIR=${SCRIPTS_DIR}
+      && echo "export SCRIPTS_DIR=${SCRIPTS_DIR}" >> ${BASH_ENV}
       && export SCRIPT_COMMAND="${PYTHON_COMMAND} ./scripts/sdk.py"
       && echo "export SCRIPT_COMMAND='${PYTHON_COMMAND} ./scripts/sdk.py'" >> ${BASH_ENV}
       && export ARTIFACTORY_URL=http://localhost:5000/artifactory/
       && echo "export ARTIFACTORY_URL=http://localhost:5000/artifactory/" >> ${BASH_ENV}
-      && export AWS_DEFAULT_REGION=us-west-2
-      && echo "export AWS_DEFAULT_REGION=us-west-2" >> ${BASH_ENV}
-      && export SUDO_COMMAND=sudo
-      && echo "export SUDO_COMMAsudoND=" >> ${BASH_ENV}
-      && export WORKING_DIR=~/mbed-java-sdk
-      && echo "export WORKING_DIR=~/mbed-java-sdk" >> ${BASH_ENV}
-      && export GRADLE_USER_HOME=~/mbed-java-sdk/.gradle/
-      && echo "export GRADLE_USER_HOME=~/mbed-java-sdk/.gradle/" >> ${BASH_ENV}
+      && export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+      && echo "export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}" >> ${BASH_ENV}
+      && export SUDO_COMMAND=${SUDO_COMMAND}
+      && echo "export ${SUDO_COMMAND}=" >> ${BASH_ENV}
+      && export WORKING_DIR=${WORKING_DIR}
+      && echo "export WORKING_DIR=${WORKING_DIR}" >> ${BASH_ENV}
+      && export GRADLE_USER_HOME=${GRADLE_USER_HOME}
+      && echo "export GRADLE_USER_HOME=${GRADLE_USER_HOME}" >> ${BASH_ENV}
 
 production_environment: &production_environment
   IS_PRODUCTION_TESTING: 'true'
@@ -94,6 +91,11 @@ persist_build: &persist_build
     paths:
       - build/
       - backends/
+      - pelion-sdk-core/
+      - foundation-core/
+      - foundation-models/
+      - foundation-access/
+      - support-annotations/
       - lwm2m/
       - .gradle/
       - gradle.properties
@@ -109,6 +111,16 @@ store_logs: &store_logs
           path: ./build_logs
           destination: logs
 
+store_reports: &store_reports  
+  store_artifacts:
+          path: ./build/reports
+          destination: reports
+
+store_artifact_file: &store_artifact_file  
+  store_artifacts:
+          path: ./artifacts.properties
+          destination: artifacts
+          
 anchors:
   &job_image circleci/openjdk:8-jdk-stretch-browsers
 
@@ -206,6 +218,7 @@ jobs:
         no_output_timeout:  1h
     - run: python3 ${SCRIPTS_DIR}/sdk.py notify
     - <<: *store_logs
+    - <<: *store_artifact_file
     - <<: *persist_build
 
  versioning:
@@ -224,6 +237,7 @@ jobs:
         path: CHANGELOG.md
         destination: CHANGELOG.md
     - <<: *store_logs
+    - <<: *store_artifact_file
     - <<: *persist_build
 
  release_versioning:
@@ -248,6 +262,7 @@ jobs:
         path: CHANGELOG.md
         destination: CHANGELOG.md
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  build_documentation:
     docker:
@@ -268,6 +283,8 @@ jobs:
     - <<: *install_python
     - <<: *install_sdk_tools
     # - run: ${SCRIPT_COMMAND} dependencies
+    - run: ${SCRIPT_COMMAND} fetch_generator_info
+    - run: ${SCRIPT_COMMAND} generate_foundation
     - run: ${SCRIPT_COMMAND} configure
     - run: ${SCRIPT_COMMAND} license
     - run: ${SCRIPT_COMMAND} build
@@ -279,6 +296,7 @@ jobs:
           path: build/libs
           destination: artifacts
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  quality_report:
   <<: *java_job_environment
@@ -293,11 +311,13 @@ jobs:
     - run:
         name: Reporting coverage to CodeCov
         command: bash <(curl -s https://codecov.io/bash) -f ${BUILD_REPORTS_DIR}/jacoco-all/coverage.xml
+    - run:
+        name: Reporting foundation coverage to CodeCov
+        command: bash <(curl -s https://codecov.io/bash) -f ${BUILD_REPORTS_DIR}/jacoco-foundation/coverage.xml
     - <<: *persist_build
-    - store_artifacts:
-            path: build/reports
-            destination: reports
+    - <<: *store_reports
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  documentation:
   <<: *java_job_environment
@@ -313,14 +333,16 @@ jobs:
     - run:
         name: Publishing temporary documentation online
         command: >
-          aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS_DIR} s3://${PROJECT_NAME}
-          && echo 'SDK javadoc for this build is now available there:'
-          && echo ${DOCS_TEMP_URL}
+          OUT_PATH=${PROJECT_NAME}/${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}-branch
+          && aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS_DIR} s3://${OUT_PATH}
+          && echo 'SDK javadoc for this build is now available here:'
+          && echo https://s3-us-west-2.amazonaws.com/${OUT_PATH}/index.html
     # - <<: *persist_build
     - store_artifacts:
         path: build/docs/javadoc
         destination: docs
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  static_analysis:
   <<: *java_job_environment
@@ -333,10 +355,9 @@ jobs:
     # - run: ${SCRIPT_COMMAND} dependencies
     - run: ${SCRIPT_COMMAND} static_analysis
     # - <<: *persist_build
-    - store_artifacts:
-        path: build/reports
-        destination: reports
+    - <<: *store_reports
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  build_test_server:
   <<: *java_job_environment
@@ -351,6 +372,7 @@ jobs:
     - run: ${SCRIPT_COMMAND} cache_testserver
     - <<: *persist_build
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  unit_tests:
   <<: *java_job_environment
@@ -371,7 +393,9 @@ jobs:
           - coverage_files/
     - store_test_results:
         path: build/test-results/test
+    - <<: *store_reports
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  run_production_integration_tests:
   <<: *machine_definition
@@ -413,6 +437,7 @@ jobs:
     - store_test_results:
         path: integration_production
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  run_os2_integration_tests:
   <<: *machine_definition
@@ -449,6 +474,7 @@ jobs:
     - store_test_results:
         path: integration_os2
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  examples:
   <<: *java_job_environment

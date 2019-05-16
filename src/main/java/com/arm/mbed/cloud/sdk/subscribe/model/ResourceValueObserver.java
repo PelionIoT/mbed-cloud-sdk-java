@@ -30,9 +30,9 @@ public class ResourceValueObserver extends AbstractObserver<ResourceValueNotific
      *            action on
      */
     public ResourceValueObserver(SubscriptionManager manager, String id, Flowable<ResourceValueNotification> flow,
-            SubscriptionFilterOptions filter,
-            CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
-            CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
+                                 SubscriptionFilterOptions filter,
+                                 CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                                 CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
         super(manager, id, flow, filter, true, actionOnSubscription, actionOnUnsubscription);
     }
 

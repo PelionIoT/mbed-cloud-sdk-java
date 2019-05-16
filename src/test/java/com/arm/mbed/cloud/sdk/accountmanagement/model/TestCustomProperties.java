@@ -21,7 +21,7 @@ public class TestCustomProperties {
         assertTrue(properties.hasProperty("field1"));
         assertEquals(properties, properties.getProperties(CustomProperties.class));
         assertEquals("{\"field2\":{\"a sub-key\":\"a value\"},\"field1\":\"value1\"}",
-                properties.getProperties(String.class));
+                     properties.getProperties(String.class));
         PropertiesTestContainer container = new PropertiesTestContainer();
         container.setField1("value1");
         container.putField2("a sub-key", "a value");
@@ -51,9 +51,9 @@ public class TestCustomProperties {
         CustomProperties properties = new CustomProperties(fields);
         assertEquals(properties, CustomProperties.from(properties));
         assertEquals(properties,
-                CustomProperties.from("{\"field2\":{\"a sub-key\":\"a value\"},\"field1\":\"value1\"}"));
+                     CustomProperties.from("{\"field2\":{\"a sub-key\":\"a value\"},\"field1\":\"value1\"}"));
         assertEquals(properties,
-                new CustomProperties("{\"field2\":{\"a sub-key\":\"a value\"},\"field1\":\"value1\"}"));
+                     new CustomProperties("{\"field2\":{\"a sub-key\":\"a value\"},\"field1\":\"value1\"}"));
         PropertiesTestContainer container = new PropertiesTestContainer();
         container.setField1("value1");
         container.putField2("a sub-key", "a value");

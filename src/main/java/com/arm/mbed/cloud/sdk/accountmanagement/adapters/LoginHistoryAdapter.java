@@ -24,12 +24,13 @@ public final class LoginHistoryAdapter {
      *            login history to map.
      * @return login history.
      */
-    public static LoginHistory map(com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory history) {
+    public static LoginHistory
+           map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.LoginHistory history) {
         if (history == null) {
             return null;
         }
         return new LoginHistory(TranslationUtils.toDate(history.getDate()), history.getUserAgent(),
-                history.getIpAddress(), TranslationUtils.toBool(history.isSuccess(), false));
+                                history.getIpAddress(), TranslationUtils.toBool(history.isSuccess(), false));
     }
 
     /**
@@ -37,11 +38,14 @@ public final class LoginHistoryAdapter {
      * 
      * @return login history.
      */
-    public static Mapper<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory, LoginHistory> getMapper() {
-        return new Mapper<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory, LoginHistory>() {
+    public static Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.LoginHistory, LoginHistory>
+           getMapper() {
+        return new Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.LoginHistory,
+                          LoginHistory>() {
 
             @Override
-            public LoginHistory map(com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory toBeMapped) {
+            public LoginHistory
+                   map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.LoginHistory toBeMapped) {
                 return LoginHistoryAdapter.map(toBeMapped);
             }
 
@@ -55,8 +59,8 @@ public final class LoginHistoryAdapter {
      *            login history list.
      * @return a list of login history.
      */
-    public static List<LoginHistory> mapList(
-            List<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory> loginHistory) {
+    public static List<LoginHistory>
+           mapList(List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.LoginHistory> loginHistory) {
         return GenericAdapter.mapList(loginHistory, getMapper());
     }
 
@@ -65,11 +69,15 @@ public final class LoginHistoryAdapter {
      * 
      * @return list mapper.
      */
-    public static Mapper<List<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory>, List<LoginHistory>> getListMapper() {
-        return new Mapper<List<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory>, List<LoginHistory>>() {
+    public static Mapper<List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.LoginHistory>,
+                         List<LoginHistory>>
+           getListMapper() {
+        return new Mapper<List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.LoginHistory>,
+                          List<LoginHistory>>() {
 
             @Override
-            public List<LoginHistory> map(List<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory> toBeMapped) {
+            public List<LoginHistory>
+                   map(List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.LoginHistory> toBeMapped) {
                 return LoginHistoryAdapter.mapList(toBeMapped);
             }
         };

@@ -11,11 +11,11 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp.StatusEnum;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp.StatusEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserUpdateReq;
 
 @Preamble(description = "Adapter for user model")
 @Internal
@@ -37,13 +37,14 @@ public final class UserAdapter {
             return null;
         }
         final User user = new User(apiUser.getId(), apiUser.getAccountId(), apiUser.getGroups(),
-                toStatus(apiUser.getStatus()), TranslationUtils.toBool(apiUser.isEmailVerified(), false),
-                TranslationUtils.toDate(apiUser.getCreatedAt()),
-                TranslationUtils.toTimeStamp(apiUser.getCreationTime()),
-                TranslationUtils.toTimeStamp(apiUser.getPasswordChangedTime()),
-                TranslationUtils.toTimeStamp(apiUser.getLastLoginTime()),
-                TranslationUtils.toBool(apiUser.isIsTotpEnabled(), false),
-                LoginHistoryAdapter.mapList(apiUser.getLoginHistory()));
+                                   toStatus(apiUser.getStatus()),
+                                   TranslationUtils.toBool(apiUser.isEmailVerified(), false),
+                                   TranslationUtils.toDate(apiUser.getCreatedAt()),
+                                   TranslationUtils.toLong(apiUser.getCreationTime()),
+                                   TranslationUtils.toLong(apiUser.getPasswordChangedTime()),
+                                   TranslationUtils.toLong(apiUser.getLastLoginTime()),
+                                   TranslationUtils.toBool(apiUser.isIsTotpEnabled(), false),
+                                   LoginHistoryAdapter.mapList(apiUser.getLoginHistory()));
         user.setFullName(apiUser.getFullName());
         user.setUsername(apiUser.getUsername());
         user.setPassword(apiUser.getPassword());

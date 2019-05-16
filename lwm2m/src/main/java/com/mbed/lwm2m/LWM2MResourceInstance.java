@@ -86,9 +86,9 @@ public class LWM2MResourceInstance {
                 longValue = (longValue << 8) + (element & 0xFF);
             }
             return String.valueOf(longValue);
-        } else {
-            return new String(value, defaultCharset);
         }
+
+        return new String(value, defaultCharset);
     }
 
     public boolean hasValue() {

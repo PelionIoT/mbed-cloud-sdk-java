@@ -17,31 +17,37 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
-import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoResp;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummary;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoRespList;
 
 import retrofit2.Call;
 
 @Preamble(description = "Specifies account management API")
 @Module
+@Deprecated
 /**
  * API exposing functionality for creating and managing accounts, users, groups and API keys in the organisation.
+ * <p>
+ * 
+ * @deprecated Use foundation interface or {@link Accounts} instead.
  */
-public class AccountManagement extends AbstractApi {
+public class AccountManagement extends AbstractModule {
 
     private static final String TAG_USER_UUID = "user UUID";
     private static final String TAG_API_KEY_UUID = "apiKey UUID";
@@ -62,7 +68,23 @@ public class AccountManagement extends AbstractApi {
      */
     public AccountManagement(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public AccountManagement(SdkContext context) {
+        super(context);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    @Override
+    public AccountManagement clone() {
+        return new AccountManagement(this);
     }
 
     /**
@@ -93,7 +115,7 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<AccountInfo> call() {
-                return endpoint.getDeveloper().getMyAccountInfo("limits, policies", finalPropertyName);
+                return endpoint.getAccountProfileApi().getMyAccountInfo("limits, policies", finalPropertyName);
             }
         });
     }
@@ -152,7 +174,7 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<AccountInfo> call() {
-                return endpoint.getAdmin().updateMyAccount(AccountAdapter.reverseMap(finalAccount));
+                return endpoint.getAccountProfileApi().updateMyAccount(AccountAdapter.reverseMap(finalAccount));
             }
         });
     }
@@ -194,13 +216,15 @@ public class AccountManagement extends AbstractApi {
 
                                     @Override
                                     public Call<ApiKeyInfoRespList> call() {
-                                        return endpoint.getDeveloper()
+                                        return endpoint.getAccountApiKeysApi()
                                                        .getAllApiKeys(finalOptions.getPageSize(),
                                                                       finalOptions.getAfter(),
                                                                       finalOptions.getOrder().toString(),
-                                                                      finalOptions.encodeInclude(),
-                                                                      finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER),
-                                                                      finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.OWNER_ID_FILTER));
+                                                                      ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                      ListOptionsEncoder.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER,
+                                                                                                                 finalOptions),
+                                                                      ListOptionsEncoder.encodeSingleEqualFilter(ApiKeyListOptions.OWNER_ID_FILTER,
+                                                                                                                 finalOptions));
                                     }
                                 });
     }
@@ -279,8 +303,8 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<ApiKeyInfoResp> call() {
-                return finalApiKeyId == null || finalApiKeyId.isEmpty() ? endpoint.getDeveloper().getMyApiKey()
-                                                                        : endpoint.getDeveloper()
+                return finalApiKeyId == null || finalApiKeyId.isEmpty() ? endpoint.getAccountApiKeysApi().getMyApiKey()
+                                                                        : endpoint.getAccountApiKeysApi()
                                                                                   .getApiKey(finalApiKeyId);
             }
         });
@@ -321,7 +345,7 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<ApiKeyInfoResp> call() {
-                return endpoint.getDeveloper().createApiKey(ApiKeyAdapter.reverseMapAdd(finalApiKey));
+                return endpoint.getAccountApiKeysApi().createApiKey(ApiKeyAdapter.reverseMapAdd(finalApiKey));
             }
         });
     }
@@ -372,8 +396,8 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<ApiKeyInfoResp> call() {
-                return endpoint.getDeveloper().updateApiKey(finalApiKey.getId(),
-                                                            ApiKeyAdapter.reverseMapUpdate(finalApiKey));
+                return endpoint.getAccountApiKeysApi().updateApiKey(finalApiKey.getId(),
+                                                                    ApiKeyAdapter.reverseMapUpdate(finalApiKey));
             }
         });
     }
@@ -407,7 +431,7 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getDeveloper().deleteApiKey(finalApiKeyId);
+                return endpoint.getAccountApiKeysApi().deleteApiKey(finalApiKeyId);
             }
         });
     }
@@ -476,13 +500,20 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<UserInfoRespList> call() {
-                return endpoint.getAdmin()
+                return endpoint.getAccountUsersApi()
                                .getAllUsers(finalOptions.getPageSize(), finalOptions.getAfter(),
-                                            finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
-                                            finalOptions.encodeSingleEqualFilter(UserListOptions.EMAIL_FILTER),
-                                            finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
-                                            finalOptions.encodeSingleInFilter(UserListOptions.STATUS_FILTER),
-                                            finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER));
+                                            finalOptions.getOrder().toString(),
+                                            ListOptionsEncoder.encodeInclude(finalOptions),
+                                            ListOptionsEncoder.encodeSingleEqualFilter(UserListOptions.EMAIL_FILTER,
+                                                                                       finalOptions),
+                                            ListOptionsEncoder.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER,
+                                                                                       finalOptions),
+                                            ListOptionsEncoder.encodeSingleInFilter(UserListOptions.STATUS_FILTER,
+                                                                                    finalOptions),
+                                            ListOptionsEncoder.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER,
+                                                                                       finalOptions),
+                                            ListOptionsEncoder.encodeSingleNotInFilter(UserListOptions.LOGIN_PROFILE_FILTER,
+                                                                                       finalOptions));
             }
         });
     }
@@ -563,7 +594,7 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<UserInfoResp> call() {
-                return endpoint.getAdmin().getUser(finalUserId);
+                return endpoint.getAccountUsersApi().getUser(finalUserId);
             }
         });
     }
@@ -604,7 +635,7 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<UserInfoResp> call() {
-                return endpoint.getAdmin().createUser(UserAdapter.reverseMapAdd(finalUser), "create");
+                return endpoint.getAccountUsersApi().createUser(UserAdapter.reverseMapAdd(finalUser), "create");
             }
         });
     }
@@ -656,7 +687,8 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<UserInfoResp> call() {
-                return endpoint.getAdmin().updateUser(finalUser.getId(), UserAdapter.reverseMapUpdate(finalUser));
+                return endpoint.getAccountUsersApi().updateUser(finalUser.getId(),
+                                                                UserAdapter.reverseMapUpdate(finalUser));
             }
         });
     }
@@ -690,7 +722,7 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getAdmin().deleteUser(finalUserId);
+                return endpoint.getAccountUsersApi().deleteUser(finalUserId);
             }
         });
     }
@@ -759,9 +791,11 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<GroupSummaryList> call() {
-                return endpoint.getDeveloper().getAllGroups(finalOptions.getPageSize(), finalOptions.getAfter(),
-                                                            finalOptions.getOrder().toString(),
-                                                            finalOptions.encodeInclude(), finalOptions.getNameFilter());
+                return endpoint.getAccountPolicyGroupApi().getAllGroups(finalOptions.getPageSize(),
+                                                                        finalOptions.getAfter(),
+                                                                        finalOptions.getOrder().toString(),
+                                                                        ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                        finalOptions.getNameFilter());
             }
         });
     }
@@ -839,7 +873,7 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<GroupSummary> call() {
-                return endpoint.getDeveloper().getGroupSummary(finalGroupId);
+                return endpoint.getAccountPolicyGroupApi().getGroupSummary(finalGroupId);
             }
         });
     }
@@ -886,14 +920,17 @@ public class AccountManagement extends AbstractApi {
 
                                     @Override
                                     public Call<UserInfoRespList> call() {
-                                        return endpoint.getAdmin()
+                                        return endpoint.getAccountPolicyGroupApi()
                                                        .getUsersOfGroup(finalGroupId, finalOptions.getPageSize(),
                                                                         finalOptions.getAfter(),
                                                                         finalOptions.getOrder().toString(),
-                                                                        finalOptions.encodeInclude(),
-                                                                        finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
-                                                                        finalOptions.encodeSingleInFilter(UserListOptions.STATUS_FILTER),
-                                                                        finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER));
+                                                                        ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                        ListOptionsEncoder.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER,
+                                                                                                                   finalOptions),
+                                                                        ListOptionsEncoder.encodeSingleInFilter(UserListOptions.STATUS_FILTER,
+                                                                                                                finalOptions),
+                                                                        ListOptionsEncoder.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER,
+                                                                                                                   finalOptions));
                                     }
                                 });
     }
@@ -1063,11 +1100,11 @@ public class AccountManagement extends AbstractApi {
 
                                     @Override
                                     public Call<ApiKeyInfoRespList> call() {
-                                        return endpoint.getDeveloper()
+                                        return endpoint.getAccountPolicyGroupApi()
                                                        .getApiKeysOfGroup(finalGroupId, finalOptions.getPageSize(),
                                                                           finalOptions.getAfter(),
                                                                           finalOptions.getOrder().toString(),
-                                                                          finalOptions.encodeInclude());
+                                                                          ListOptionsEncoder.encodeInclude(finalOptions));
                                     }
                                 });
     }
@@ -1201,4 +1238,5 @@ public class AccountManagement extends AbstractApi {
     public String getModuleName() {
         return "Account Management";
     }
+
 }

@@ -1,5 +1,5 @@
 /**
- * Arm Mbed Cloud SDK: Certificates module.
+ * Arm Pelion Cloud SDK: Certificates module.
  */
 @Preamble(description = "Certificates module")
 package com.arm.mbed.cloud.sdk.certificates;

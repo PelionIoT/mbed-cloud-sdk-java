@@ -9,17 +9,18 @@ import com.arm.mbed.cloud.sdk.bootstrap.adapters.PreSharedKeyAdapter;
 import com.arm.mbed.cloud.sdk.bootstrap.model.EndPoints;
 import com.arm.mbed.cloud.sdk.bootstrap.model.PreSharedKey;
 import com.arm.mbed.cloud.sdk.bootstrap.model.PreSharedKeyListOptions;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
-import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.ListOfPreSharedKeysWithoutSecret;
-import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKeyWithoutSecret;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ListOfPreSharedKeysWithoutSecret;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PreSharedKeyWithoutSecret;
 
 import retrofit2.Call;
 
@@ -28,7 +29,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for dealing with bootstrap.
  */
-public class Bootstrap extends AbstractApi {
+public class Bootstrap extends AbstractModule {
 
     private final EndPoints endpoint;
     private static final String TAG_KEY = "key";
@@ -42,7 +43,23 @@ public class Bootstrap extends AbstractApi {
      */
     public Bootstrap(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public Bootstrap(SdkContext context) {
+        super(context);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    @Override
+    public Bootstrap clone() {
+        return new Bootstrap(this);
     }
 
     /**
@@ -194,7 +211,7 @@ public class Bootstrap extends AbstractApi {
                 }
             }, true);
             return true;
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             return false;
         }
     }

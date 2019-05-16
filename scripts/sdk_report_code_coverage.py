@@ -31,6 +31,9 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
     def generate_class_files_command_arguments(self):
         return self._generate_argument_from_string('SDK_PROJECT_CLASS_FILES', '--classfiles')
 
+    def generate_foundation_class_files_command_arguments(self):
+        return self._generate_argument_from_string('SDK_PROJECT_FOUNDATION_CLASS_FILES', '--classfiles')
+
     def generate_source_files_command_arguments(self):
         return self._generate_argument_from_string('SDK_PROJECT_SOURCE_FILES', '--sourcefiles')
 
@@ -40,11 +43,9 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
             files_list.append(self.clean_path(file, True))
         return files_list
 
-    def generate_report_command(self, coverage_files):
+    def generate_report_command(self, coverage_files, class_files, code_coverage_result_destination):
         code_coverage_tools = self.clean_path(self.artifacts_parser.get_property('SDK_COVERAGE_TOOLS_DIR'),
                                               False)
-        code_coverage_result_destination = self.clean_path(
-            self.artifacts_parser.get_property('SDK_PROJECT_COVERAGE_REPORT_DIR'), False)
         if not code_coverage_tools or not code_coverage_result_destination:
             self.log_warning(
                 "Code coverage tools could not be found. No code coverage reporting will be done.")
@@ -69,10 +70,9 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
         arguments.extend(
             ['--name', self.report_name, '--html', self.clean_path(code_coverage_result_destination, True), '--csv',
              self.clean_path(csv_file, True), '--xml', self.clean_path(xml_file, True)])
-        class_file_args = self.generate_class_files_command_arguments()
         src_file_args = self.generate_source_files_command_arguments()
-        if class_file_args:
-            arguments.extend(class_file_args)
+        if class_files:
+            arguments.extend(class_files)
         if src_file_args:
             arguments.extend(src_file_args)
         return arguments
@@ -97,14 +97,32 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
                     raise Exception("Could not fetch coverage tools")
                 self.log_info("Generating code coverage report with Jacoco CLI")
                 self.artifacts_parser.load()
-                arguments = self.generate_report_command(coverage_files)
+
+                # Generate coverage results for all classes
+                class_files = self.generate_class_files_command_arguments()
+                result_destination = self.clean_path(self.artifacts_parser.get_property('SDK_PROJECT_COVERAGE_REPORT_DIR'), False)
+                arguments = self.generate_report_command(coverage_files, class_files, result_destination)
                 if not arguments:
                     raise Exception('Incorrect command', arguments)
+
                 return_code = self.call_command(arguments, None, True)
+         
+                if return_code != 0:
+                    raise Exception('Error code', return_code)
+
+                # Generate coverage results for just the foundation classes
+                class_files = self.generate_foundation_class_files_command_arguments()
+                result_destination = self.clean_path(self.artifacts_parser.get_property('SDK_PROJECT_COVERAGE_FOUNDATION_REPORT_DIR'), False)
+                arguments = self.generate_report_command(coverage_files, class_files, result_destination)
+                if not arguments:
+                    raise Exception('Incorrect command', arguments)
+
+                return_code = self.call_command(arguments, None, True)
+         
                 if return_code != 0:
                     raise Exception('Error code', return_code)
         except:
             self.log_error('Failed to generate code coverage report')
-            return False
+            return False 
         self.log_info("Done.")
         return True

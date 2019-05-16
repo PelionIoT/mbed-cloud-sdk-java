@@ -14,6 +14,10 @@ public class UserListOptions extends ListOptions {
      * Tag of filter by email.
      */
     public static final String EMAIL_FILTER = "email";
+    /**
+     * Tag of filter by email.
+     */
+    public static final String LOGIN_PROFILE_FILTER = "login_profile";
 
     /**
      * Constructor.

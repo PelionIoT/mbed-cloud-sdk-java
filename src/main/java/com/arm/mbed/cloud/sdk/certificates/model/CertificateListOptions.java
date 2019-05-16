@@ -34,6 +34,14 @@ public class CertificateListOptions extends ListOptions {
      * Tag of filter by issuer.
      */
     public static final String ISSUER_FILTER = "issuer";
+    /**
+     * Tag of filter by status.
+     */
+    public static final String STATUS_FILTER = "status";
+    /**
+     * Tag of filter by valid.
+     */
+    public static final String VALID_FILTER = "valid";
 
     /**
      * Constructor.

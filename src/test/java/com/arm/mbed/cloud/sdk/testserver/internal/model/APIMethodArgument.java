@@ -108,7 +108,7 @@ public class APIMethodArgument {
     @Override
     public String toString() {
         return "APIMethodArgument [name=" + name + ", type=" + type + ", contentType=" + contentType + ", defaultValue="
-                + defaultValue + "]";
+               + defaultValue + "]";
     }
 
     public Class<?> retrieveTypeClass() {
@@ -135,8 +135,8 @@ public class APIMethodArgument {
         return determineClassFromName(contentType);
     }
 
-    public <T> Object determineValue(Class<T> clazz, Class<?> contentClass, Map<String, Object> fields)
-            throws APICallException {
+    public <T> Object determineValue(Class<T> clazz, Class<?> contentClass,
+                                     Map<String, Object> fields) throws APICallException {
         if (clazz == null || Void.class.isAssignableFrom(clazz)) {
             return null;
         }
@@ -154,12 +154,16 @@ public class APIMethodArgument {
         return convertParametersToObject(clazz, contentClass, fields);
     }
 
-    private <T> Object convertParametersToObject(Class<T> clazz, Class<?> contentClass, Map<String, Object> fields)
-            throws APICallException {
+    private <T> Object convertParametersToObject(Class<T> clazz, Class<?> contentClass,
+                                                 Map<String, Object> fields) throws APICallException {
         return (List.class.isAssignableFrom(clazz)) ? Serializer.convertParametersToListObject(fields, contentClass)
-                : (Modifier.isAbstract(clazz.getModifiers()) && !clazz.isPrimitive())
-                        ? Serializer.convertParametersToObjectFromAbstractClasses(fields, clazz)
-                        : Serializer.convertParametersToObject(fields, clazz);
+                                                    : clazz == Map.class ? Serializer.convertParametersToMapObject(fields,
+                                                                                                                   contentClass)
+                                                                         : (Modifier.isAbstract(clazz.getModifiers())
+                                                                            && !clazz.isPrimitive()) ? Serializer.convertParametersToObjectFromAbstractClasses(fields,
+                                                                                                                                                               clazz)
+                                                                                                     : Serializer.convertParametersToObject(fields,
+                                                                                                                                            clazz);
     }
 
     public <T> Object determineValue(Class<T> clazz, String fields) throws APICallException {

@@ -52,16 +52,14 @@ public class ApiKeyAuth implements Interceptor {
             URI newUri;
             try {
                 newUri = new URI(request.url().uri().getScheme(), request.url().uri().getAuthority(),
-                    request.url().uri().getPath(), newQuery, request.url().uri().getFragment());
+                                 request.url().uri().getPath(), newQuery, request.url().uri().getFragment());
             } catch (URISyntaxException e) {
                 throw new IOException(e);
             }
 
             request = request.newBuilder().url(newUri.toURL()).build();
         } else if ("header".equals(location)) {
-            request = request.newBuilder()
-                    .addHeader(paramName, apiKey)
-                    .build();
+            request = request.newBuilder().addHeader(paramName, apiKey).build();
         }
         return chain.proceed(request);
     }

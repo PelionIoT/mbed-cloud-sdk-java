@@ -7,7 +7,8 @@ package com.mbed.lwm2m.tlv;
  *
  */
 public enum IdentifierLength {
-    ONE_BYTE, TWO_BYTES;
+    ONE_BYTE,
+    TWO_BYTES;
 
     public static IdentifierLength determine(int typeField) {
         // Evaluates Bit 5:
