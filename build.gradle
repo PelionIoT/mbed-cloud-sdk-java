@@ -11,15 +11,15 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'ru.vyarus:gradle-animalsniffer-plugin:1.4.6'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+        classpath 'ru.vyarus:gradle-animalsniffer-plugin:1.5.0'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.0.0'
         classpath 'com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2'
-        classpath 'de.aaschmid:gradle-cpd-plugin:1.0'
+        classpath 'de.aaschmid:gradle-cpd-plugin:1.2'
         classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:latest.release'
-        classpath 'gradle.plugin.com.dorongold.plugins:task-tree:1.3'
+        classpath 'gradle.plugin.com.dorongold.plugins:task-tree:1.3.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:latest.release'
         classpath 'gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.14.0'
-        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.9"
+        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.11"
         classpath 'org.walkmod:gradle-walkmod-plugin:0.0.1'
         classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.16.0'
     }
@@ -103,7 +103,6 @@ allprojects {
     if  (! isInExcludeList){
         apply plugin: 'checkstyle' //code style checks
         apply plugin: 'jdepend'// design quality
-        apply plugin: 'findbugs' //static analysis
         apply plugin: 'com.github.spotbugs' //static analysis
         apply plugin: 'pmd' //static analysis
         apply plugin: 'de.aaschmid.cpd' //Code duplication        
@@ -369,14 +368,6 @@ allprojects {
             ignoreFailures = true
             source = sourceSets.main.allJava // only java, groovy and scala classes in 'main' sourceSets
         }
-        findbugs {
-            //toolVersion = "2.0.1"
-            sourceSets = [sourceSets.main]
-            ignoreFailures = false
-            effort = "max"
-            reportLevel = "high"
-            excludeFilter = file(findBugsConfigFile)
-        }
         spotbugs {
             toolVersion = '3.1.5'
             sourceSets = [sourceSets.main]
@@ -385,15 +376,6 @@ allprojects {
             reportLevel = "high"
             excludeFilter = file(findBugsConfigFile)
         }
-        tasks.withType(FindBugs) {
-            // Increased heap limit to prevent '137 - OOM' errors when running
-            maxHeapSize = "1000m"
-            reports {
-                xml.enabled = false
-                html.enabled = true
-            }
-        }
-
         tasks.withType(com.github.spotbugs.SpotBugsTask) {
             // Increased heap limit to prevent '137 - OOM' errors when running
             maxHeapSize = "1000m"
@@ -423,7 +405,7 @@ walkmodApply.doLast {
 	tasks.spotlessApply.execute()
 }
 // The following is to ensure that tasks in the following list are carried out in subprojects which are not in the exclude list above.
-def tasksNeedinSubprojectTasks = ['animalsniffer','pmd','jacoco','test','checkstyle','cpd','findbugs','jdepend','spotbugs','walkmod','spotless'].collect{it.toLowerCase()}
+def tasksNeedinSubprojectTasks = ['animalsniffer','pmd','jacoco','test','checkstyle','cpd','jdepend','spotbugs','walkmod','spotless'].collect{it.toLowerCase()}
 tasks.findAll{t -> tasksNeedinSubprojectTasks.findAll{n -> t.name.toLowerCase().contains(n)}.size()>0 }.each{ t -> subprojects.findAll{s -> projectToExclude.findAll{ex -> s.path.toLowerCase().contains(ex)}.size() == 0 }.each{s -> if(s.tasks.findAll{st -> st.name == t.name}.size() > 0){t.dependsOn("${s.path}:${t.name}")} }}
 project.afterEvaluate{
 	spotlessApply.outputs.upToDateWhen { false }
