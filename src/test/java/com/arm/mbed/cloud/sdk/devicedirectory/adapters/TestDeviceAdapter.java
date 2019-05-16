@@ -15,12 +15,12 @@ public class TestDeviceAdapter {
     @Test
     public void testMapSubscriptionOptions() {
         SubscriptionFilterOptions opt = SubscriptionFilterOptions.newFilter().equalDevice("testa")
-                .notEqualDevice("testb");
+                                                                 .notEqualDevice("testb");
         DeviceListOptions deviceOpt = DeviceAdapter.mapSubscriptionOptions(opt);
         assertNotNull(deviceOpt);
         assertEquals("testa", deviceOpt.fetchSpecificFilterValue(DeviceListOptions.FILTER_ID, FilterOperator.EQUAL));
         assertEquals("testb",
-                deviceOpt.fetchSpecificFilterValue(DeviceListOptions.FILTER_ID, FilterOperator.NOT_EQUAL));
+                     deviceOpt.fetchSpecificFilterValue(DeviceListOptions.FILTER_ID, FilterOperator.NOT_EQUAL));
         // TODO implement other filters when implemented
         assertNull(deviceOpt.fetchSpecificFilterValue(DeviceListOptions.FILTER_ID, FilterOperator.LIKE));
         assertNull(deviceOpt.fetchSpecificFilterValue(DeviceListOptions.FILTER_ID, FilterOperator.IN));

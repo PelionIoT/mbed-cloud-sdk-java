@@ -10,6 +10,8 @@ class SDKBuilder(sdk_common.BuildStepUsingGradle):
     def execute(self):
         self.print_title()
         try:
+            self.log_info("Prettifying the SDK code")
+            self.execute_gradle_task('spotlessApply')
             self.log_info("Performing static analysis on the SDK code")
             self.execute_gradle_task('check', ['-x', 'test'])
         except:

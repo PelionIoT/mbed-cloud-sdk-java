@@ -3,9 +3,8 @@ package com.arm.mbed.cloud.sdk.enrollment.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
-import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
+import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.PublicApiApi;
 
 @Preamble(description = "Endpoint for Enrollment API")
 @Internal
@@ -16,32 +15,21 @@ public class EndPoints extends AbstractEndpoints {
     /**
      * Constructor.
      * 
-     * @param wrapper
-     *            API client {@link ApiClientWrapper}.
+     * @param services
+     *            created services {@link ServiceRegistry}.
      */
-    public EndPoints(ApiClientWrapper wrapper) {
-        super(wrapper);
-        this.enrollment = initialiseEnrollment(wrapper);
+    public EndPoints(ServiceRegistry services) {
+        super(services);
+        this.enrollment = initialiseService(PublicApiApi.class);
 
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param options
-     *            connection options {@link ConnectionOptions}.
-     */
-    public EndPoints(ConnectionOptions options) {
-        this(new ApiClientWrapper(options));
-
-    }
-
-    private PublicApiApi initialiseEnrollment(ApiClientWrapper wrapper) {
-        return wrapper.createService(PublicApiApi.class);
     }
 
     public PublicApiApi getEnrollment() {
         return enrollment;
     }
 
+    @Override
+    public EndPoints clone() {
+        return new EndPoints(getRegistryClone());
+    }
 }

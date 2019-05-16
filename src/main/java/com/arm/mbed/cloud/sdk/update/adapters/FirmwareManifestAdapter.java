@@ -9,7 +9,7 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifestPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifestPage;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareManifest;
 
 @Preamble(description = "Adapter for firmware manifest model")
@@ -27,15 +27,19 @@ public final class FirmwareManifestAdapter {
      *            manifest
      * @return manifest
      */
-    public static FirmwareManifest map(com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest manifest) {
+    public static FirmwareManifest
+           map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest manifest) {
         if (manifest == null) {
             return null;
         }
         final FirmwareManifest firmwareManifest = new FirmwareManifest(manifest.getId(),
-                TranslationUtils.toUrl(manifest.getDatafile()), manifest.getDeviceClass(),
-                TranslationUtils.toLong(manifest.getDatafileSize()), TranslationUtils.toDate(manifest.getCreatedAt()),
-                TranslationUtils.toDate(manifest.getUpdatedAt()), TranslationUtils.toDate(manifest.getTimestamp()),
-                TranslationUtils.toUrl(manifest.getKeyTable()));
+                                                                       TranslationUtils.toUrl(manifest.getDatafile()),
+                                                                       manifest.getDeviceClass(),
+                                                                       TranslationUtils.toLong(manifest.getDatafileSize()),
+                                                                       TranslationUtils.toDate(manifest.getCreatedAt()),
+                                                                       TranslationUtils.toDate(manifest.getUpdatedAt()),
+                                                                       TranslationUtils.toDate(manifest.getTimestamp()),
+                                                                       TranslationUtils.toUrl(manifest.getKeyTable()));
         firmwareManifest.setDataFile(null);
         firmwareManifest.setDecryptionKeysFile(null);
         firmwareManifest.setDescription(manifest.getDescription());
@@ -48,12 +52,15 @@ public final class FirmwareManifestAdapter {
      *
      * @return mapper
      */
-    public static Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest, FirmwareManifest> getMapper() {
-        return new Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest, FirmwareManifest>() {
+    public static
+           Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest, FirmwareManifest>
+           getMapper() {
+        return new Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest,
+                          FirmwareManifest>() {
 
             @Override
-            public FirmwareManifest map(
-                    com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest toBeMapped) {
+            public FirmwareManifest
+                   map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest toBeMapped) {
                 return FirmwareManifestAdapter.map(toBeMapped);
             }
 
@@ -70,7 +77,7 @@ public final class FirmwareManifestAdapter {
     public static ListResponse<FirmwareManifest> mapList(FirmwareManifestPage list) {
 
         final FirmwareManifestPage imageList = list;
-        final RespList<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest> respList = new RespList<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>() {
+        final RespList<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest> respList = new RespList<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest>() {
 
             @Override
             public Boolean getHasMore() {
@@ -103,7 +110,7 @@ public final class FirmwareManifestAdapter {
             }
 
             @Override
-            public List<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest> getData() {
+            public List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest> getData() {
                 return (imageList == null) ? null : imageList.getData();
             }
         };

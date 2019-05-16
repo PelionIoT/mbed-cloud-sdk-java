@@ -10,18 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -29,68 +22,65 @@ import java.io.Serializable;
  */
 
 public class MockModel implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("mocked_property")
-  private String mockedProperty = null;
+    @SerializedName("mocked_property")
+    private String mockedProperty = null;
 
-  public MockModel mockedProperty(String mockedProperty) {
-    this.mockedProperty = mockedProperty;
-    return this;
-  }
-
-   /**
-   * A mocked property.
-   * @return mockedProperty
-  **/
-  @ApiModelProperty(value = "A mocked property.")
-  public String getMockedProperty() {
-    return mockedProperty;
-  }
-
-  public void setMockedProperty(String mockedProperty) {
-    this.mockedProperty = mockedProperty;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public MockModel mockedProperty(String mockedProperty) {
+        this.mockedProperty = mockedProperty;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * A mocked property.
+     * 
+     * @return mockedProperty
+     **/
+    @ApiModelProperty(value = "A mocked property.")
+    public String getMockedProperty() {
+        return mockedProperty;
     }
-    MockModel mockModel = (MockModel) o;
-    return Objects.equals(this.mockedProperty, mockModel.mockedProperty);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(mockedProperty);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class MockModel {\n");
-    
-    sb.append("    mockedProperty: ").append(toIndentedString(mockedProperty)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setMockedProperty(String mockedProperty) {
+        this.mockedProperty = mockedProperty;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MockModel mockModel = (MockModel) o;
+        return Objects.equals(this.mockedProperty, mockModel.mockedProperty);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mockedProperty);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class MockModel {\n");
+
+        sb.append("    mockedProperty: ").append(toIndentedString(mockedProperty)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

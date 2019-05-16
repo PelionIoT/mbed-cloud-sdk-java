@@ -4,7 +4,8 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import com.arm.mbed.cloud.sdk.accountmanagement.model.User;
+import com.arm.mbed.cloud.Sdk;
+import com.arm.mbed.cloud.sdk.accounts.model.User;
 import com.arm.mbed.cloud.sdk.common.CloudRequest;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.GenericClient;
@@ -46,6 +47,7 @@ public class GenericClientExamples extends AbstractExample {
             return data;
         }
 
+        @SuppressWarnings("unused")
         public void setData(List<User> data) {
             this.data = data;
         }
@@ -79,9 +81,8 @@ public class GenericClientExamples extends AbstractExample {
         // cloak
         try {
             // uncloak
-            @SuppressWarnings("boxing")
             // Make the call with the following set of parameters. here, limit = 2.
-            UserListResponse response = client.callApi(requestDefinition, 2);
+            UserListResponse response = client.callApi(requestDefinition, Integer.valueOf(2));
             for (User user : response.getData()) {
                 // Do something with users
                 System.out.println(user);
@@ -119,42 +120,42 @@ public class GenericClientExamples extends AbstractExample {
     public void useGenericClientWithPagination() {
         // uncloak
         // Create a generic client
-        GenericClient client = GenericClient.newClient(Configuration.get());
-        // Define how to generate the request based on a set of parameters
+        try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
 
-        CloudRequest.CloudListRequest<User, PelionListApi,
-                                      ListOptions> requestDefinition = new CloudRequest.CloudListRequest<User,
-                                                                                                         PelionListApi, ListOptions>() {
+            // Define how to generate the request based on a set of parameters
 
-                                          @Override
-                                          public CloudCall<ListResponse<User>>
-                                                 defineCall(PelionListApi service, ListOptions options,
-                                                            Object... extraParameters) throws MbedCloudException {
-                                              return new CloudCall<ListResponse<User>>() {
+            CloudRequest.CloudListRequest<User, PelionListApi,
+                                          ListOptions> requestDefinition = new CloudRequest.CloudListRequest<User,
+                                                                                                             PelionListApi,
+                                                                                                             ListOptions>() {
 
-                                                  @Override
-                                                  public Call<ListResponse<User>> call() {
-                                                      return service.listAllUsers(options.getPageSize());
-                                                  }
-                                              };
-                                          }
+                                              @Override
+                                              public CloudCall<ListResponse<User>>
+                                                     defineCall(PelionListApi service, ListOptions options,
+                                                                Object... extraParameters) throws MbedCloudException {
+                                                  return new CloudCall<ListResponse<User>>() {
 
-                                      };
-        // cloak
-        try {
-            // uncloak
+                                                      @Override
+                                                      public Call<ListResponse<User>> call() {
+                                                          return service.listAllUsers(options.getPageSize());
+                                                      }
+                                                  };
+                                              }
+
+                                          };
             // Make the call with the following set of parameters. here, pageSize = 2.
-            Paginator<User> paginatedResponse = client.callPaginatedApi(requestDefinition,
-                                                                        new ListOptions().pageSize(2));
+            Paginator<User> paginatedResponse = sdk.genericClient().callPaginatedApi(requestDefinition,
+                                                                                     new ListOptions().pageSize(2));
             // Do something with users
             paginatedResponse.forEach(System.out::println);
-            // cloak
-        } catch (Exception e) {
-            // Logs information about the last API call.
-            logError("last API Metadata", client.getLastApiMetadata());
+
+        }
+        // cloak
+        catch (Exception e) {
             fail(e.getMessage());
         }
+        // uncloak
     }
-    // uncloak
+
     // end of example
 }

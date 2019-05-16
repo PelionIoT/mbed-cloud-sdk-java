@@ -10,8 +10,8 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
-import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummary;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummaryList;
 
 @Preamble(description = "Adapter for group model")
 @Internal
@@ -33,10 +33,10 @@ public final class GroupAdapter {
             return null;
         }
         return new Group(groupSummary.getId(), groupSummary.getAccountId(), groupSummary.getName(),
-                TranslationUtils.toInt(groupSummary.getUserCount()),
-                TranslationUtils.toInt(groupSummary.getApikeyCount()),
-                TranslationUtils.toDate(groupSummary.getCreatedAt()),
-                TranslationUtils.toDate(groupSummary.getUpdatedAt()));
+                         TranslationUtils.toInt(groupSummary.getUserCount()),
+                         TranslationUtils.toInt(groupSummary.getApikeyCount()),
+                         TranslationUtils.toDate(groupSummary.getCreatedAt()),
+                         TranslationUtils.toDate(groupSummary.getUpdatedAt()));
     }
 
     /**

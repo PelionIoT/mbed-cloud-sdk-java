@@ -26,36 +26,36 @@ public class AccountManagementExamples extends AbstractExample {
     @Example
     public void getAccount() {
         ConnectionOptions config = Configuration.get();
-        AccountManagement api = new AccountManagement(config);
-        try {
-            Account thisAccount;
-            thisAccount = api.getAccount();
-            log("This account", thisAccount);
-        } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
-            fail(e.getMessage());
+        try (AccountManagement api = new AccountManagement(config)) {
+            try {
+                Account thisAccount;
+                thisAccount = api.getAccount();
+                log("This account", thisAccount);
+            } catch (Exception e) {
+                logError("last API Metadata", api.getLastApiMetadata());
+                fail(e.getMessage());
+            } finally {
+                api.close();
+            }
         }
     }
 
     /**
      * Lists the first 5 API Keys.
      */
-    @SuppressWarnings("boxing")
     @Example
     public void listApiKeys() {
         ConnectionOptions config = Configuration.get();
-        AccountManagement api = new AccountManagement(config);
-        try {
+        try (AccountManagement api = new AccountManagement(config)) {
             // Defining query options
             ApiKeyListOptions options = new ApiKeyListOptions();
-            options.setLimit(5);
+            options.setPageSize(Integer.valueOf(5));
             // Listing API keys.
             Paginator<ApiKey> apikeys = api.listAllApiKeys(options);
             for (ApiKey apiKey : apikeys) {
                 log("API key", apiKey);
             }
         } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
             fail(e.getMessage());
         }
     }
@@ -63,15 +63,13 @@ public class AccountManagementExamples extends AbstractExample {
     /**
      * Lists the last 5 groups and their contents.
      */
-    @SuppressWarnings("boxing")
     @Example
     public void listGroups() {
         ConnectionOptions config = Configuration.get();
-        AccountManagement api = new AccountManagement(config);
-        try {
+        try (AccountManagement api = new AccountManagement(config)) {
             // Defining query options
             GroupListOptions options = new GroupListOptions();
-            options.setLimit(5);
+            options.setPageSize(Integer.valueOf(5));
             options.setOrder(Order.DESC);
             // Listing groups.
             ListResponse<Group> groups = api.listGroups(options);
@@ -87,7 +85,6 @@ public class AccountManagementExamples extends AbstractExample {
                 }
             }
         } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
             fail(e.getMessage());
         }
     }
@@ -95,22 +92,19 @@ public class AccountManagementExamples extends AbstractExample {
     /**
      * Lists the first 5 active users.
      */
-    @SuppressWarnings("boxing")
     @Example
     public void listUsers() {
         ConnectionOptions config = Configuration.get();
-        AccountManagement api = new AccountManagement(config);
-        try {
+        try (AccountManagement api = new AccountManagement(config)) {
             // Defining query options
             UserListOptions options = new UserListOptions();
-            options.setLimit(5);
+            options.setPageSize(Integer.valueOf(5));
             // Listing users.
             Paginator<User> users = api.listAllUsers(options);
             for (User user : users) {
                 log("User", user);
             }
         } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
             fail(e.getMessage());
         }
     }

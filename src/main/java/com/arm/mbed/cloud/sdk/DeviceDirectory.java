@@ -5,14 +5,17 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
+import com.arm.mbed.cloud.sdk.common.CloudRequest;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
@@ -26,21 +29,25 @@ import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.EndPoints;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Query;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.QueryListOptions;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQuery;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DevicePage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceQuery;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceQueryPage;
 
 import retrofit2.Call;
 
 @Preamble(description = "Specifies Device directory API")
 @Module
+@Deprecated
 /**
  * API exposing functionality for dealing with devices
+ * <p>
+ * 
+ * @deprecated Use foundation interface or {@link Devices} instead.
  */
-public class DeviceDirectory extends AbstractApi {
+public class DeviceDirectory extends AbstractModule {
 
     private static final String TAG_DEVICE_EVENT_ID = "deviceEventId";
     private static final String TAG_QUERY = "query";
@@ -57,7 +64,23 @@ public class DeviceDirectory extends AbstractApi {
      */
     public DeviceDirectory(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public DeviceDirectory(SdkContext context) {
+        super(context);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    @Override
+    public DeviceDirectory clone() {
+        return new DeviceDirectory(this);
     }
 
     /**
@@ -107,10 +130,19 @@ public class DeviceDirectory extends AbstractApi {
 
             @Override
             public Call<DevicePage> call() {
-                return endpoint.getDirectory().deviceList(finalOptions.getPageSize(),
-                                                          finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                                                          DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
-                                                          finalOptions.encodeInclude());
+                return endpoint.getDirectory()
+                               .deviceList(finalOptions.getPageSize(), finalOptions.getOrder().toString(),
+                                           finalOptions.getAfter(), ListOptionsEncoder.encodeInclude(finalOptions),
+                                           DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()), null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null);
             }
         });
     }
@@ -385,11 +417,12 @@ public class DeviceDirectory extends AbstractApi {
 
             @Override
             public Call<DeviceQueryPage> call() {
-                return endpoint.getDirectory().deviceQueryList(finalOptions.getPageSize(),
-                                                               finalOptions.getOrder().toString(),
-                                                               finalOptions.getAfter(),
-                                                               new FilterMarshaller(null).encode(finalOptions.getFilter()),
-                                                               finalOptions.encodeInclude());
+                return endpoint.getDirectory()
+                               .deviceQueryList(finalOptions.getPageSize(), finalOptions.getOrder().toString(),
+                                                finalOptions.getAfter(), ListOptionsEncoder.encodeInclude(finalOptions),
+                                                new FilterMarshaller(null).encode(finalOptions.getFilter()), null, null,
+                                                null, null, null, null, null, null, null, null, null, null, null, null,
+                                                null, null, null, null, null, null);
             }
         });
     }
@@ -678,15 +711,23 @@ public class DeviceDirectory extends AbstractApi {
         final DeviceEventListOptions finalOptions = (options == null) ? new DeviceEventListOptions() : options;
 
         return CloudCaller.call(this, "listDeviceEvents()", DeviceEventAdapter.getListMapper(),
-                                new CloudCall<DeviceEventPage>() {
-
+                                new CloudRequest.CloudCall<DeviceEventPage>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
                                     @Override
                                     public Call<DeviceEventPage> call() {
-                                        return endpoint.getDirectory().deviceLogList(finalOptions.getPageSize(),
-                                                                                     finalOptions.getOrder().toString(),
-                                                                                     finalOptions.getAfter(),
-                                                                                     DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
-                                                                                     finalOptions.encodeInclude());
+                                        return endpoint.getDirectory()
+                                                       .deviceLogList(finalOptions.getPageSize(),
+                                                                      finalOptions.getOrder().toString(),
+                                                                      finalOptions.getAfter(),
+                                                                      ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                      DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
+                                                                      null, null, null, null, null, null, null, null,
+                                                                      null, null, null, null, null, null, null, null,
+                                                                      null, null, null, null, null, null, null, null);
                                     }
                                 });
     }

@@ -29,6 +29,8 @@ import sdk_cache_docker_image
 import sdk_build_test_server_image
 import sdk_gather_code_coverage_files
 import sdk_notify
+import sdk_generate_foundation
+import sdk_fetch_foundation_generator_info
 
 
 # Entry point for executing SDK build steps
@@ -68,6 +70,9 @@ class SDKBuild:
                       'retrieve_testserver': sdk_cache_docker_image.SDKTestServerImageManager(
                           self.logger).get_image_retriever(),
                       'notify': sdk_notify.ReleaseNotifier(self.logger),
+                      'generate_foundation': sdk_generate_foundation.SDKFoundationGeneration(self.logger),
+                      'fetch_generator_info': sdk_fetch_foundation_generator_info.SDKFoundationGeneratorInfo(
+                          self.logger),
                       'help': sdk_help.SDKHelp(self.logger)
                       }
         self.steps['help'].set_action_list(self.steps.keys())

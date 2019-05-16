@@ -14,7 +14,7 @@ import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
-@Preamble(description = "Definition of the subscription manager for Mbed Cloud")
+@Preamble(description = "Definition of the subscription manager for Pelion Cloud")
 public interface CloudSubscriptionManager extends SubscriptionManager {
 
     String DEFAULT_BACKPRESSURE_STRATEGY = "BUFFER";

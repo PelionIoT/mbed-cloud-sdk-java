@@ -3,7 +3,7 @@ package com.arm.mbed.cloud.sdk.connect.subscription;
 import com.arm.mbed.cloud.sdk.Connect;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
 import com.arm.mbed.cloud.sdk.subscribe.store.SubscriptionAction;
 
@@ -11,20 +11,20 @@ import com.arm.mbed.cloud.sdk.subscribe.store.SubscriptionAction;
 @Internal
 public abstract class AbstractSubscriptionAction implements SubscriptionAction {
 
-    protected final Connect api;
+    protected final Connect module;
     protected FirstValue mode;
 
     /**
      * Constructor.
      *
-     * @param api
+     * @param module
      *            Connect API instance
      * @param mode
      *            mode
      */
-    public AbstractSubscriptionAction(AbstractApi api, FirstValue mode) {
+    public AbstractSubscriptionAction(AbstractModule module, FirstValue mode) {
         super();
-        this.api = (Connect) api;
+        this.module = (Connect) module;
         this.mode = mode;
     }
 
@@ -59,7 +59,7 @@ public abstract class AbstractSubscriptionAction implements SubscriptionAction {
      * @return true if a cloud connection was set up. False otherwise.
      */
     public boolean hasCloudConnection() {
-        return api != null;
+        return module != null;
     }
 
     /*

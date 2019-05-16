@@ -10,8 +10,8 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.ListOfPreSharedKeysWithoutSecret;
-import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKeyWithoutSecret;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ListOfPreSharedKeysWithoutSecret;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PreSharedKeyWithoutSecret;
 
 @Preamble(description = "Adapter for psk model")
 @Internal
@@ -59,11 +59,12 @@ public final class PreSharedKeyAdapter {
      *            key.
      * @return a preshared key
      */
-    public static com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKey reverseMap(PreSharedKey key) {
+    public static com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PreSharedKey
+           reverseMap(PreSharedKey key) {
         if (key == null) {
             return null;
         }
-        final com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKey sharedKey = new com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKey();
+        final com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PreSharedKey sharedKey = new com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PreSharedKey();
         sharedKey.setEndpointName(key.getId());
         sharedKey.setSecretHex(key.getSecret());
         return sharedKey;

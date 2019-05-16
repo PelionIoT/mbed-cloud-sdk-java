@@ -6,8 +6,8 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationData;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueNotification;
 
 @Preamble(description = "Adapter for resource value change notifications")
