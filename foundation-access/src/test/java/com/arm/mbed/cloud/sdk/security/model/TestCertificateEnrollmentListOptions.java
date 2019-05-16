@@ -22,10 +22,10 @@ public class TestCertificateEnrollmentListOptions {
     @Test
     public void testClone() {
         try {
-            CertificateEnrollmentListOptions certificateenrollmentlistoptions1 = new CertificateEnrollmentListOptions(Integer.valueOf(-79),
-                                                                                                                      Long.valueOf(-90),
+            CertificateEnrollmentListOptions certificateenrollmentlistoptions1 = new CertificateEnrollmentListOptions(Integer.valueOf(-109),
+                                                                                                                      Long.valueOf(7),
                                                                                                                       Order.getDefault(),
-                                                                                                                      "7945897a-c53b-40bc-a3e3-c8eb9e8ffe10",
+                                                                                                                      "5f4c26f6-869a-4515-8ace-b71813b5aff9",
                                                                                                                       null,
                                                                                                                       null);
             CertificateEnrollmentListOptions certificateenrollmentlistoptions2 = certificateenrollmentlistoptions1.clone();
@@ -45,14 +45,14 @@ public class TestCertificateEnrollmentListOptions {
     @Test
     public void testFilters() {
         try {
-            CertificateEnrollmentListOptions option = new CertificateEnrollmentListOptions().lessThanUpdatedAt(new Date(1557969574787L))
-                                                                                            .greaterThanUpdatedAt(new Date(1557969575604L))
-                                                                                            .equalToCertificateName("6d72be73-d107-410e-8dc7-c9663e2f0cf4")
-                                                                                            .equalToDeviceId("353d9400-8edd-402c-bc48-fcc1b35d7dc1")
+            CertificateEnrollmentListOptions option = new CertificateEnrollmentListOptions().lessThanUpdatedAt(new Date(1558000751508L))
+                                                                                            .greaterThanUpdatedAt(new Date(1558000751529L))
+                                                                                            .equalToCertificateName("4f32b095-2b05-4e51-a821-8cd433deed08")
+                                                                                            .equalToDeviceId("26ff9cc3-a849-4f9a-b3fa-e3cb247c10a8")
                                                                                             .notEqualToEnrollResult(CertificateEnrollmentEnrollResult.getDefault())
                                                                                             .equalToEnrollResult(CertificateEnrollmentEnrollResult.getDefault())
-                                                                                            .lessThanCreatedAt(new Date(1557969576222L))
-                                                                                            .greaterThanCreatedAt(new Date(1557969580318L))
+                                                                                            .lessThanCreatedAt(new Date(1558000748775L))
+                                                                                            .greaterThanCreatedAt(new Date(1558000749491L))
                                                                                             .notEqualToEnrollStatus(CertificateEnrollmentEnrollStatus.getDefault())
                                                                                             .equalToEnrollStatus(CertificateEnrollmentEnrollStatus.getDefault());
             assertTrue(option.hasFilters());
@@ -60,28 +60,28 @@ public class TestCertificateEnrollmentListOptions {
             assertTrue(option.hasFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT,
                                         FilterOperator.LESS_THAN));
             assertNotNull(option.getUpdatedAtFilters());
-            assertEquals(new Date(1557969574787L),
+            assertEquals(new Date(1558000751508L),
                          ListOptionsEncoder.encodeSingleLessThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT,
                                                                        Date.class, option));
             assertTrue(option.hasFilters(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT));
             assertTrue(option.hasFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT,
                                         FilterOperator.GREATER_THAN));
             assertNotNull(option.getUpdatedAtFilters());
-            assertEquals(new Date(1557969575604L),
+            assertEquals(new Date(1558000751529L),
                          ListOptionsEncoder.encodeSingleGreaterThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_UPDATED_AT,
                                                                           Date.class, option));
             assertTrue(option.hasFilters(CertificateEnrollmentListOptions.TAG_FILTER_BY_CERTIFICATE_NAME));
             assertTrue(option.hasFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CERTIFICATE_NAME,
                                         FilterOperator.EQUAL));
             assertNotNull(option.getCertificateNameFilters());
-            assertEquals("6d72be73-d107-410e-8dc7-c9663e2f0cf4",
+            assertEquals("4f32b095-2b05-4e51-a821-8cd433deed08",
                          ListOptionsEncoder.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CERTIFICATE_NAME,
                                                                     String.class, option));
             assertTrue(option.hasFilters(CertificateEnrollmentListOptions.TAG_FILTER_BY_DEVICE_ID));
             assertTrue(option.hasFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_DEVICE_ID,
                                         FilterOperator.EQUAL));
             assertNotNull(option.getDeviceIdFilters());
-            assertEquals("353d9400-8edd-402c-bc48-fcc1b35d7dc1",
+            assertEquals("26ff9cc3-a849-4f9a-b3fa-e3cb247c10a8",
                          ListOptionsEncoder.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_DEVICE_ID,
                                                                     String.class, option));
             assertTrue(option.hasFilters(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_RESULT));
@@ -103,14 +103,14 @@ public class TestCertificateEnrollmentListOptions {
             assertTrue(option.hasFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT,
                                         FilterOperator.LESS_THAN));
             assertNotNull(option.getCreatedAtFilters());
-            assertEquals(new Date(1557969576222L),
+            assertEquals(new Date(1558000748775L),
                          ListOptionsEncoder.encodeSingleLessThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT,
                                                                        Date.class, option));
             assertTrue(option.hasFilters(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT));
             assertTrue(option.hasFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT,
                                         FilterOperator.GREATER_THAN));
             assertNotNull(option.getCreatedAtFilters());
-            assertEquals(new Date(1557969580318L),
+            assertEquals(new Date(1558000749491L),
                          ListOptionsEncoder.encodeSingleGreaterThanFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CREATED_AT,
                                                                           Date.class, option));
             assertTrue(option.hasFilters(CertificateEnrollmentListOptions.TAG_FILTER_BY_ENROLL_STATUS));
@@ -140,16 +140,16 @@ public class TestCertificateEnrollmentListOptions {
     @Test
     public void testHashCode() {
         try {
-            CertificateEnrollmentListOptions certificateenrollmentlistoptions1 = new CertificateEnrollmentListOptions(Integer.valueOf(106),
-                                                                                                                      Long.valueOf(4),
+            CertificateEnrollmentListOptions certificateenrollmentlistoptions1 = new CertificateEnrollmentListOptions(Integer.valueOf(-91),
+                                                                                                                      Long.valueOf(-49),
                                                                                                                       Order.getDefault(),
-                                                                                                                      "18b2965e-fafb-4da5-bf1c-1d93929bce1c",
+                                                                                                                      "5f9cdde3-bb30-46db-ae35-1fc33c7cbfac",
                                                                                                                       null,
                                                                                                                       null);
-            CertificateEnrollmentListOptions certificateenrollmentlistoptions2 = new CertificateEnrollmentListOptions(Integer.valueOf(106),
-                                                                                                                      Long.valueOf(4),
+            CertificateEnrollmentListOptions certificateenrollmentlistoptions2 = new CertificateEnrollmentListOptions(Integer.valueOf(-91),
+                                                                                                                      Long.valueOf(-49),
                                                                                                                       Order.getDefault(),
-                                                                                                                      "18b2965e-fafb-4da5-bf1c-1d93929bce1c",
+                                                                                                                      "5f9cdde3-bb30-46db-ae35-1fc33c7cbfac",
                                                                                                                       null,
                                                                                                                       null);
             assertNotNull(certificateenrollmentlistoptions1);
@@ -173,22 +173,22 @@ public class TestCertificateEnrollmentListOptions {
     @Test
     public void testEquals() {
         try {
-            CertificateEnrollmentListOptions certificateenrollmentlistoptions1 = new CertificateEnrollmentListOptions(Integer.valueOf(-42),
-                                                                                                                      Long.valueOf(93),
+            CertificateEnrollmentListOptions certificateenrollmentlistoptions1 = new CertificateEnrollmentListOptions(Integer.valueOf(120),
+                                                                                                                      Long.valueOf(-97),
                                                                                                                       Order.getDefault(),
-                                                                                                                      "c29c6cb9-1e88-41d3-a6e6-c8bd53f50a00",
+                                                                                                                      "5c6a54a5-d61c-473d-b8f6-e8b42b680958",
                                                                                                                       null,
                                                                                                                       null);
-            CertificateEnrollmentListOptions certificateenrollmentlistoptions2 = new CertificateEnrollmentListOptions(Integer.valueOf(-42),
-                                                                                                                      Long.valueOf(93),
+            CertificateEnrollmentListOptions certificateenrollmentlistoptions2 = new CertificateEnrollmentListOptions(Integer.valueOf(120),
+                                                                                                                      Long.valueOf(-97),
                                                                                                                       Order.getDefault(),
-                                                                                                                      "c29c6cb9-1e88-41d3-a6e6-c8bd53f50a00",
+                                                                                                                      "5c6a54a5-d61c-473d-b8f6-e8b42b680958",
                                                                                                                       null,
                                                                                                                       null);
-            CertificateEnrollmentListOptions certificateenrollmentlistoptions3 = new CertificateEnrollmentListOptions(Integer.valueOf(72),
-                                                                                                                      Long.valueOf(27),
+            CertificateEnrollmentListOptions certificateenrollmentlistoptions3 = new CertificateEnrollmentListOptions(Integer.valueOf(41),
+                                                                                                                      Long.valueOf(75),
                                                                                                                       Order.getDefault(),
-                                                                                                                      "d7143237-5e03-4bff-8550-68f22593f24a",
+                                                                                                                      "facc7d34-36ef-4eae-9ce5-bfb444d8a7bc",
                                                                                                                       null,
                                                                                                                       null);
             assertNotNull(certificateenrollmentlistoptions1);
