@@ -16,7 +16,7 @@ import com.arm.mbed.cloud.sdk.billing.model.EndPoints;
 import com.arm.mbed.cloud.sdk.billing.model.QuotaHistory;
 import com.arm.mbed.cloud.sdk.billing.model.ServicePackage;
 import com.arm.mbed.cloud.sdk.billing.model.ServicePackageQuotaListOptions;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
@@ -24,16 +24,17 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.FileDownload;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
-import com.arm.mbed.cloud.sdk.internal.billing.model.BillingReportRawDataResponse;
-import com.arm.mbed.cloud.sdk.internal.billing.model.ReportResponse;
-import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuota;
-import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuotaHistoryResponse;
-import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackagesResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BillingReportRawDataResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ReportResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackageQuota;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackageQuotaHistoryResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackagesResponse;
 
 import retrofit2.Call;
 
@@ -42,7 +43,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for dealing with billing.
  */
-public class Billing extends AbstractApi {
+public class Billing extends AbstractModule {
 
     private static final String REPORT_MONTH_FORMAT = "^\\d{4}-\\d{2}$";
     private static final String TAG_DESTINATION = "destination";
@@ -57,7 +58,23 @@ public class Billing extends AbstractApi {
      */
     public Billing(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public Billing(SdkContext context) {
+        super(context);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    @Override
+    public Billing clone() {
+        return new Billing(this);
     }
 
     /**

@@ -6,8 +6,11 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "Device States")
 public enum DeviceState implements SdkEnum {
-    REGISTRATION("Registrations"), REGISTRATION_UPDATE("RegistrationUpdates"), DEREGISTRATION(
-            "DeRegistrations"), EXPIRED_REGISTRATION("ExpiredRegistrations"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
+    REGISTRATION("Registrations"),
+    REGISTRATION_UPDATE("RegistrationUpdates"),
+    DEREGISTRATION("DeRegistrations"),
+    EXPIRED_REGISTRATION("ExpiredRegistrations"),
+    UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
     private final String value;
 
     /**

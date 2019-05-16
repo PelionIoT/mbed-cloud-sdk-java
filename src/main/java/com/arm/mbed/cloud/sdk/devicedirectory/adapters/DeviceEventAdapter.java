@@ -14,8 +14,8 @@ import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceEvent;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceEventListOptions;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventPage;
 
 @Preamble(description = "Adapter for device event model")
 @Internal
@@ -45,10 +45,11 @@ public final class DeviceEventAdapter {
             return null;
         }
         return new DeviceEvent(deviceEventData.getId(), deviceEventData.getDeviceId(),
-                TranslationUtils.toDate(deviceEventData.getDateTime()),
-                TranslationUtils.toBool(deviceEventData.isStateChange(), false), deviceEventData.getDescription(),
-                deviceEventData.getChanges(), deviceEventData.getEventTypeDescription(), deviceEventData.getEventType(),
-                deviceEventData.getData());
+                               TranslationUtils.toDate(deviceEventData.getDateTime()),
+                               TranslationUtils.toBool(deviceEventData.isStateChange(), false),
+                               deviceEventData.getDescription(), deviceEventData.getChanges(),
+                               deviceEventData.getEventTypeDescription(), deviceEventData.getEventType(),
+                               deviceEventData.getData());
     }
 
     /**

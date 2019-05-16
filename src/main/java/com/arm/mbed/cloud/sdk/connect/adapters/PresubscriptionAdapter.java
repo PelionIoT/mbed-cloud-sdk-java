@@ -11,16 +11,14 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
-import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
 @Preamble(description = "Adapter for presubscription model")
 public final class PresubscriptionAdapter {
 
-    private static final Pattern RESOURCE_PATH_ACCEPTED_LIKE_FILTER_PATTERN = Pattern
-            .compile("[\\p{Alnum}\\\\/]+((\\.?\\*)|[_%\\?])?");
-    private static final Pattern DEVICE_ID_ACCEPTED_LIKE_FILTER_PATTERN = Pattern
-            .compile("[\\p{Alnum} \\.-]+((\\.?\\*)|[_%\\?])?");
+    private static final Pattern RESOURCE_PATH_ACCEPTED_LIKE_FILTER_PATTERN = Pattern.compile("[\\p{Alnum}\\\\/]+((\\.?\\*)|[_%\\?])?");
+    private static final Pattern DEVICE_ID_ACCEPTED_LIKE_FILTER_PATTERN = Pattern.compile("[\\p{Alnum} \\.-]+((\\.?\\*)|[_%\\?])?");
 
     private PresubscriptionAdapter() {
         super();
@@ -76,8 +74,8 @@ public final class PresubscriptionAdapter {
     private static void mapDeviceLike(SubscriptionFilterOptions options, final List<Presubscription> list) {
         final Presubscription presubscription = new Presubscription();
         mapPresubscriptionResourcePath(options, presubscription);
-        presubscription.setDeviceId(mapLikeDeviceIdPath((String) options
-                .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.LIKE)));
+        presubscription.setDeviceId(mapLikeDeviceIdPath((String) options.fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER,
+                                                                                                  FilterOperator.LIKE)));
         if (presubscription.isValid()) {
             list.add(presubscription);
         }
@@ -85,8 +83,8 @@ public final class PresubscriptionAdapter {
 
     private static void mapDeviceEqual(SubscriptionFilterOptions options, final List<Presubscription> list) {
         final Presubscription presubscription = new Presubscription();
-        presubscription.setDeviceId((String) options
-                .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.EQUAL));
+        presubscription.setDeviceId((String) options.fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER,
+                                                                              FilterOperator.EQUAL));
         mapPresubscriptionResourcePath(options, presubscription);
         list.add(presubscription);
     }
@@ -95,8 +93,8 @@ public final class PresubscriptionAdapter {
         final Presubscription presubscription = new Presubscription();
         mapPresubscriptionResourcePath(options, presubscription);
         @SuppressWarnings("unchecked")
-        final List<String> deviceIds = (List<String>) options
-                .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.IN);
+        final List<String> deviceIds = (List<String>) options.fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER,
+                                                                                       FilterOperator.IN);
         for (final String deviceId : deviceIds) {
             list.add(presubscription.clone().deviceId(deviceId));
         }
@@ -104,18 +102,18 @@ public final class PresubscriptionAdapter {
 
     @SuppressWarnings("unchecked")
     protected static void mapPresubscriptionResourcePath(SubscriptionFilterOptions options,
-            Presubscription presubscription) {
+                                                         Presubscription presubscription) {
         if (options.hasFilters(SubscriptionFilterOptions.RESOURCE_PATH_FILTER)) {
             if (options.hasFilter(SubscriptionFilterOptions.RESOURCE_PATH_FILTER, FilterOperator.IN)) {
-                final List<String> resourcePaths = (List<String>) options
-                        .fetchSpecificFilterValue(SubscriptionFilterOptions.RESOURCE_PATH_FILTER, FilterOperator.IN);
+                final List<String> resourcePaths = (List<String>) options.fetchSpecificFilterValue(SubscriptionFilterOptions.RESOURCE_PATH_FILTER,
+                                                                                                   FilterOperator.IN);
                 for (final String resourcePath : resourcePaths) {
                     presubscription.addResourcePath(resourcePath);
                 }
             }
             if (options.hasFilter(SubscriptionFilterOptions.RESOURCE_PATH_FILTER, FilterOperator.EQUAL)) {
-                presubscription.addResourcePath((String) options.fetchSpecificFilterValue(
-                        SubscriptionFilterOptions.RESOURCE_PATH_FILTER, FilterOperator.EQUAL));
+                presubscription.addResourcePath((String) options.fetchSpecificFilterValue(SubscriptionFilterOptions.RESOURCE_PATH_FILTER,
+                                                                                          FilterOperator.EQUAL));
             }
             if (options.hasFilter(SubscriptionFilterOptions.RESOURCE_PATH_FILTER, FilterOperator.LIKE)) {
                 mapPresubscriptionLikeResourcePath(options, presubscription);
@@ -125,9 +123,9 @@ public final class PresubscriptionAdapter {
 
     @SuppressWarnings("unchecked")
     private static void mapPresubscriptionLikeResourcePath(SubscriptionFilterOptions options,
-            Presubscription presubscription) {
+                                                           Presubscription presubscription) {
         final Object filterValue = options.fetchSpecificFilterValue(SubscriptionFilterOptions.RESOURCE_PATH_FILTER,
-                FilterOperator.LIKE);
+                                                                    FilterOperator.LIKE);
         if (filterValue instanceof List) {
             mapLikeResourcePaths(presubscription, (List<String>) filterValue);
         } else if (filterValue.getClass().isArray()) {
@@ -171,7 +169,7 @@ public final class PresubscriptionAdapter {
         String presubscriptionValueString = null;
         if (resourcePathSubstringPattern.matcher(filterValueString).matches()) {
             presubscriptionValueString = filterValueString.replace(".*", "*").replace(".", "*").replace("_", "*")
-                    .replace("%", "*").replace("?", "*");
+                                                          .replace("%", "*").replace("?", "*");
             if (!presubscriptionValueString.contains("*")) {
                 final StringBuffer buffer = new StringBuffer();
                 buffer.append(presubscriptionValueString).append('*');
@@ -188,7 +186,8 @@ public final class PresubscriptionAdapter {
      *            presubscription to map
      * @return mapped presubscription
      */
-    public static Presubscription map(com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription apiPresubscription) {
+    public static Presubscription
+           map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription apiPresubscription) {
         if (apiPresubscription == null) {
             return null;
         }
@@ -206,12 +205,12 @@ public final class PresubscriptionAdapter {
      *            presubscription
      * @return presubscription
      */
-    public static com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription reverseMap(
-            Presubscription presubscription) {
+    public static com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription
+           reverseMap(Presubscription presubscription) {
         if (presubscription == null) {
             return null;
         }
-        final com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription apiPresubscription = new com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription();
+        final com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription apiPresubscription = new com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription();
         apiPresubscription.setEndpointName(presubscription.getDeviceId());
         apiPresubscription.setEndpointType(presubscription.getDeviceType());
         apiPresubscription.setResourcePath(presubscription.getResourcePaths());
@@ -223,11 +222,15 @@ public final class PresubscriptionAdapter {
      *
      * @return mapper
      */
-    public static Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription, Presubscription> getMapper() {
-        return new Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription, Presubscription>() {
+    public static
+           Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription, Presubscription>
+           getMapper() {
+        return new Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription,
+                          Presubscription>() {
 
             @Override
-            public Presubscription map(com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription toBeMapped) {
+            public Presubscription
+                   map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription toBeMapped) {
                 return PresubscriptionAdapter.map(toBeMapped);
             }
 
@@ -239,11 +242,15 @@ public final class PresubscriptionAdapter {
      *
      * @return reverse mapper
      */
-    public static Mapper<Presubscription, com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription> getReverseMapper() {
-        return new Mapper<Presubscription, com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription>() {
+    public static
+           Mapper<Presubscription, com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription>
+           getReverseMapper() {
+        return new Mapper<Presubscription,
+                          com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription>() {
 
             @Override
-            public com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription map(Presubscription toBeMapped) {
+            public com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription
+                   map(Presubscription toBeMapped) {
                 return PresubscriptionAdapter.reverseMap(toBeMapped);
             }
 
@@ -307,7 +314,8 @@ public final class PresubscriptionAdapter {
      *
      * @return a list to registry mapper
      */
-    public static Mapper<PresubscriptionArray, GenericAdapter.MappedObjectRegistry<Presubscription>> getListToRegistryMapper() {
+    public static Mapper<PresubscriptionArray, GenericAdapter.MappedObjectRegistry<Presubscription>>
+           getListToRegistryMapper() {
         return new Mapper<PresubscriptionArray, GenericAdapter.MappedObjectRegistry<Presubscription>>() {
 
             @Override

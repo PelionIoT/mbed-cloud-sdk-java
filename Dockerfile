@@ -1,6 +1,5 @@
 FROM openjdk:8-jdk-stretch
 
-
 WORKDIR /testserver
 
 RUN  apt-get update \

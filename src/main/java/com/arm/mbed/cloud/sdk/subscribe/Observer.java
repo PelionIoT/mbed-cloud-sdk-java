@@ -13,7 +13,7 @@ import com.arm.mbed.cloud.sdk.common.TimePeriod;
 /**
  * Object based on ReactiveX's <a href="http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Flowable.html">Flowable</a>
  * and attempting to provide a solution following the <a href="https://en.wikipedia.org/wiki/Observer_pattern">Observer
- * pattern</a> which reacts to Mbed Cloud notifications such as device state changes, sensor value changes, etc.
+ * pattern</a> which reacts to Pelion Cloud notifications such as device state changes, sensor value changes, etc.
  *
  * @param <T>
  *            Type of the notification message value.

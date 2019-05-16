@@ -13,7 +13,7 @@ class SDKTestServerBuilder(sdk_common.BuildStepUsingGradle):
         self.print_title()
         try:
             self.log_info("Building SDK test server")
-            self.execute_gradle_task('shadowTestJar')
+            self.execute_gradle_task('shadowTestJar', ['-x', 'check'])
             success = self.coverage_tools.execute()
             if not success:
                 raise Exception("Could not fetch coverage tools")

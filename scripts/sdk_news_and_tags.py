@@ -51,33 +51,26 @@ class SDKNewsAndTag(sdk_common.BuildStep):
 
     def tag_github(self):
         self.log_info("Committing the changelog")
-        if not self.common_config.get_config().get_user_name():
-            self.check_shell_command_output("git config --global user.name monty-bot")
-        if not self.common_config.get_config().get_user_email():
-            self.check_shell_command_output("git config --global user.email monty-bot@arm.com")
+        if not self.common_config.get_config().get_user_name() or not self.common_config.get_config().get_user_email():
+            self.git_setup_env()
         if not self.url_with_token:
             if not self.github_token:
                 raise Exception("The GitHub token has not been set properly")
             else:
                 raise Exception("The remote URL could not be resolved")
-        self.check_shell_command_output("git remote set-url origin %s" % self.url_with_token)
-        self.check_shell_command_output("git branch --set-upstream-to origin/%s" % self.branch_name)
+        self.git_set_remote_url(self.url_with_token)
+        self.git_set_upstream_branch(self.branch_name)
         if self.news_folder:
-            files = self.news_folder.strip()
-            if not files.endswith("/"):
-                files += "/"
-            files += "*"
-            self.check_shell_command_output("git add %s" % files)
+            self.git_add_folder( self.news_folder)
         if self.changelog:
-            self.check_shell_command_output("git add %s" % self.changelog.strip())
+            self.git_add_file(self.changelog)
         if self.property_file:
-            self.check_shell_command_output("git add %s" % self.property_file.strip())
-        self.check_shell_command_output(
-            "git commit -m ':checkered_flag: Release %s'" % self.version)
+            self.git_add_file(self.property_file)
+        self.git_commit(':checkered_flag: Release %s' % self.version)
         self.log_info("Tagging the project")
-        self.check_shell_command_output("git tag -a %s -m 'SDK Release'" % self.version)
+        self.git_tag(self.version,'SDK Release')
         self.log_info("Pushing changes back to GitHub")
-        self.check_shell_command_output("git push --follow-tags")
+        self.git_push_and_follow_tags()
         self.log_info("Marking this commit as latest")
-        self.check_shell_command_output("git tag -f latest")
-        self.check_shell_command_output("git push -f --tags")
+        self.git_soft_tag('latest')
+        self.git_force_push_tags()

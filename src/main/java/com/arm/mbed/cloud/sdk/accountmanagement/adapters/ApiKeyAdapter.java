@@ -11,11 +11,11 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp.StatusEnum;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoResp;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoResp.StatusEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyUpdateReq;
 
 @Preamble(description = "Adapter for API key model")
 @Internal
@@ -37,9 +37,9 @@ public final class ApiKeyAdapter {
             return null;
         }
         final ApiKey apiKey = new ApiKey(apiKeyInfo.getId(), apiKeyInfo.getKey(),
-                TranslationUtils.toDate(apiKeyInfo.getCreatedAt()),
-                TranslationUtils.toTimeStamp(apiKeyInfo.getCreationTime()),
-                TranslationUtils.toTimeStamp(apiKeyInfo.getLastLoginTime()));
+                                         TranslationUtils.toDate(apiKeyInfo.getCreatedAt()),
+                                         TranslationUtils.toLong(apiKeyInfo.getCreationTime()),
+                                         TranslationUtils.toLong(apiKeyInfo.getLastLoginTime()));
         apiKey.setName(apiKeyInfo.getName());
         apiKey.setOwnerId(apiKeyInfo.getOwner());
         apiKey.setGroup(apiKeyInfo.getGroups());

@@ -3,7 +3,6 @@ package com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.auth;
 import java.io.IOException;
 
 import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.Credentials;
@@ -12,7 +11,7 @@ public class HttpBasicAuth implements Interceptor {
 
     private String username;
     private String password;
-    
+
     public String getUsername() {
         return username;
     }
@@ -41,9 +40,7 @@ public class HttpBasicAuth implements Interceptor {
         // If the request already have an authorization (eg. Basic auth), do nothing
         if (request.header("Authorization") == null) {
             String credentials = Credentials.basic(username, password);
-            request = request.newBuilder()
-                    .addHeader("Authorization", credentials)
-                    .build();
+            request = request.newBuilder().addHeader("Authorization", credentials).build();
         }
         return chain.proceed(request);
     }

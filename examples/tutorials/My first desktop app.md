@@ -13,7 +13,7 @@ First, it is necessary to set up a project. This can be done using Gradle.
 This command generated all the files (e.g. helper scripts, example code, etc.) necessary for a java application.
 
 As we want to integrate the SDK into our application, we need to add a dependency to it in 'build.gradle' file.
-Open this file in an editor and copy the snippet related to Gradle from https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk into the 'dependencies' section. 
+Open this file in an editor and copy the snippet related to Gradle from https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk into the 'dependencies' section.
 It should be something like:
 */
 

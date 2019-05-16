@@ -1,4 +1,4 @@
-# Arm Mbed Cloud SDK for Java
+# Arm Pelion Cloud SDK for Java
 
 [![CircleCI](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-java.svg?style=shield&circle-token=0167754c8a12d770eb92b9165ac9022a8c422633)](https://circleci.com/gh/ARMmbed/mbed-cloud-sdk-java)
 
@@ -20,28 +20,31 @@
 ## Building
 1. Clone the git repository to your machine:
 
-    ```shell
+    ``shell
         git clone https://github.com/ARMmbed/mbed-cloud-sdk-java.git
-    ```
+    ``
 2. Sets required environment/build variables in gradle.properties
 3. In order to build the SDK, you can call gradle tasks directly or use wrapper scripts present in ./scripts folder
 
-    ```shell
-        ./gradlew <action> (on Linux) gradlew.bat <action> (on Windows)
-        e.g. ./gradlew build
+    ``shell
+        ./gradlew build (on Linux) gradlew.bat build (on Windows)
                 or
         python scripts/sdk.py <action>
         e.g. python sdk.py build
-    ```
+    ``
+  Note that actions other than 'build are available; use ``./gradlew tasks`` to see a complete list
+
+### Formatting the sources
+The build uses checkstyle to ensure that the source code has a consistent format. You can automatically apply formatting to the code by running ``./gradlew spotlessApply`` in the project root at any time.
 
 ## Javadoc
-It is possible to customise the javadoc output by specifying file paths of header, footer, style cheet, etc. in gradle.properties.
+It is possible to customise the javadoc output by specifying file paths of header, footer, style sheet, etc. in gradle.properties.
 e.g. on Windows:
 
 ```shell
     javadocStylesheet=C:\\Users\\john\\mbed-cloud-sdk-java\\stylesheet.css
 ```
-To regenerate afterwards the javadoc, just run the following command:
+To regenerate the javadoc, just run the following command:
 ```shell
     ./gradlew clean javadoc
 ```

@@ -197,7 +197,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
     @Override
     public String toString() {
         return "DeviceStateNotification [state=" + state + ", deviceId=" + deviceId + ", deviceType=" + deviceType
-                + ", resources=" + resources + "]";
+               + ", resources=" + resources + "]";
     }
 
 }

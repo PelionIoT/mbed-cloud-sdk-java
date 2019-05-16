@@ -6,24 +6,26 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
+import com.arm.mbed.cloud.sdk.common.adapters.DataFileAdapter;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImagePage;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifestPage;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadataPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImagePage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifestPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaign;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPage;
 import com.arm.mbed.cloud.sdk.update.adapters.CampaignAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.CampaignDeviceStateAdapter;
-import com.arm.mbed.cloud.sdk.update.adapters.DataFileAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.FirmwareImageAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.FirmwareManifestAdapter;
 import com.arm.mbed.cloud.sdk.update.model.Campaign;
@@ -41,10 +43,14 @@ import retrofit2.Call;
 
 @Preamble(description = "Specifies Update API")
 @Module
+@Deprecated
 /**
  * API exposing functionality for dealing with updates
+ * <p>
+ * 
+ * @deprecated Use foundation interface or {@link DeviceUpdate} instead.
  */
-public class Update extends AbstractApi {
+public class Update extends AbstractModule {
 
     private static final String KEY_TABLE_PARAMETER = "key_table";
     private static final String TAG_CAMPAIGN_ID = "campaign id";
@@ -63,7 +69,23 @@ public class Update extends AbstractApi {
      */
     public Update(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public Update(SdkContext context) {
+        super(context);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    @Override
+    public Update clone() {
+        return new Update(this);
     }
 
     /**
@@ -108,12 +130,17 @@ public class Update extends AbstractApi {
 
                                     @Override
                                     public Call<FirmwareImagePage> call() {
-                                        return endpoint.getUpdate().firmwareImageList(finalOptions.getPageSize(),
-                                                                                      finalOptions.getOrder()
-                                                                                                  .toString(),
-                                                                                      finalOptions.getAfter(),
-                                                                                      new FilterMarshaller(null).encode(finalOptions.getFilter()),
-                                                                                      finalOptions.encodeInclude());
+                                        return endpoint.getUpdate()
+                                                       .firmwareImageList(finalOptions.getPageSize(),
+                                                                          finalOptions.getOrder().toString(),
+                                                                          finalOptions.getAfter(),
+                                                                          ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                          new FilterMarshaller(null).encode(finalOptions.getFilter()),
+                                                                          null, null, null, null, null, null, null,
+                                                                          null, null, null, null, null, null, null,
+                                                                          null, null, null, null, null, null, null,
+                                                                          null, null, null, null, null, null, null,
+                                                                          null, null, null, null);
                                     }
                                 });
     }
@@ -195,10 +222,10 @@ public class Update extends AbstractApi {
         checkNotNull(firmwareImageId, TAG_FIRMWARE_IMAGE_ID);
         final String finalId = firmwareImageId;
         return CloudCaller.call(this, "getFirmwareImage()", FirmwareImageAdapter.getMapper(),
-                                new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>() {
+                                new CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage>() {
 
                                     @Override
-                                    public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>
+                                    public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage>
                                            call() {
                                         return endpoint.getUpdate().firmwareImageRetrieve(finalId);
                                     }
@@ -241,15 +268,15 @@ public class Update extends AbstractApi {
         checkModelValidity(image, TAG_FIRMWARE_IMAGE);
         final FirmwareImage finalImage = image;
         return CloudCaller.call(this, "addFirmwareImage()", FirmwareImageAdapter.getMapper(),
-                                new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>() {
+                                new CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage>() {
 
                                     @Override
-                                    public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>
+                                    public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage>
                                            call() {
-                                        return endpoint.getUpdate().firmwareImageCreate(
-                                                                                        DataFileAdapter.reverseMap(finalImage.getDataFile()),
-                                                                                        finalImage.getName(),
-                                                                                        finalImage.getDescription());
+                                        return endpoint.getUpdate()
+                                                       .firmwareImageCreate(DataFileAdapter.reverseMap(finalImage.getDataFile()),
+                                                                            finalImage.getDescription(),
+                                                                            finalImage.getName());
                                     }
 
                                 });
@@ -360,12 +387,18 @@ public class Update extends AbstractApi {
 
                                     @Override
                                     public Call<FirmwareManifestPage> call() {
-                                        return endpoint.getUpdate().firmwareManifestList(finalOptions.getPageSize(),
-                                                                                         finalOptions.getOrder()
-                                                                                                     .toString(),
-                                                                                         finalOptions.getAfter(),
-                                                                                         new FilterMarshaller(null).encode(finalOptions.getFilter()),
-                                                                                         finalOptions.encodeInclude());
+                                        return endpoint.getUpdate()
+                                                       .firmwareManifestList(finalOptions.getPageSize(),
+                                                                             finalOptions.getOrder().toString(),
+                                                                             finalOptions.getAfter(),
+                                                                             ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                             new FilterMarshaller(null).encode(finalOptions.getFilter()),
+                                                                             null, null, null, null, null, null, null,
+                                                                             null, null, null, null, null, null, null,
+                                                                             null, null, null, null, null, null, null,
+                                                                             null, null, null, null, null, null, null,
+                                                                             null, null, null, null, null, null, null,
+                                                                             null);
                                     }
                                 });
     }
@@ -448,10 +481,10 @@ public class Update extends AbstractApi {
         checkNotNull(firmwareManifestId, TAG_FIRMWARE_MANIFEST_ID);
         final String finalId = firmwareManifestId;
         return CloudCaller.call(this, "getFirmwareManifest()", FirmwareManifestAdapter.getMapper(),
-                                new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>() {
+                                new CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest>() {
 
                                     @Override
-                                    public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>
+                                    public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest>
                                            call() {
                                         return endpoint.getUpdate().firmwareManifestRetrieve(finalId);
                                     }
@@ -495,17 +528,17 @@ public class Update extends AbstractApi {
         checkModelValidity(manifest, TAG_FIRMWARE_MANIFEST);
         final FirmwareManifest finalManifest = manifest;
         return CloudCaller.call(this, "addFirmwareManifest()", FirmwareManifestAdapter.getMapper(),
-                                new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>() {
+                                new CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest>() {
 
                                     @Override
-                                    public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>
+                                    public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest>
                                            call() {
                                         return endpoint.getUpdate()
                                                        .firmwareManifestCreate(DataFileAdapter.reverseMap(finalManifest.getDataFile()),
-                                                                               finalManifest.getName(),
                                                                                finalManifest.getDescription(),
                                                                                DataFileAdapter.reverseMap(KEY_TABLE_PARAMETER,
-                                                                                                          finalManifest.getDecryptionKeysFile()));
+                                                                                                          finalManifest.getDecryptionKeysFile()),
+                                                                               finalManifest.getName());
                                     }
 
                                 });
@@ -616,12 +649,19 @@ public class Update extends AbstractApi {
 
                                     @Override
                                     public Call<UpdateCampaignPage> call() {
-                                        return endpoint.getUpdate().updateCampaignList(finalOptions.getPageSize(),
-                                                                                       finalOptions.getOrder()
-                                                                                                   .toString(),
-                                                                                       finalOptions.getAfter(),
-                                                                                       CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
-                                                                                       finalOptions.encodeInclude());
+                                        return endpoint.getUpdate()
+                                                       .updateCampaignList(finalOptions.getPageSize(),
+                                                                           finalOptions.getOrder().toString(),
+                                                                           finalOptions.getAfter(),
+                                                                           ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                           CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null);
                                     }
                                 });
     }
@@ -1001,7 +1041,7 @@ public class Update extends AbstractApi {
                                                        .updateCampaignMetadataList(finalId, finalOptions.getPageSize(),
                                                                                    finalOptions.getOrder().toString(),
                                                                                    finalOptions.getAfter(),
-                                                                                   finalOptions.encodeInclude());
+                                                                                   ListOptionsEncoder.encodeInclude(finalOptions));
                                     }
                                 });
     }

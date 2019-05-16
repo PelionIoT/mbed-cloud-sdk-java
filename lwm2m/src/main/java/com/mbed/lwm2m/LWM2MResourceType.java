@@ -20,5 +20,11 @@ package com.mbed.lwm2m;
  */
 public enum LWM2MResourceType {
 
-    STRING, INTEGER, FLOAT, BOOLEAN, OPAQUE, TIME, OBJECTLINK
+    STRING,
+    INTEGER,
+    FLOAT,
+    BOOLEAN,
+    OPAQUE,
+    TIME,
+    OBJECTLINK
 }
