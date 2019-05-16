@@ -325,10 +325,11 @@ public final class DeviceAdapter {
     }
 
     /**
-     * Maps to a foundation device
+     * Maps to a foundation device.
      * 
      * @param device
-     * @return a device
+     *            a legacy device
+     * @return a foundation device.
      */
     public static com.arm.mbed.cloud.sdk.devices.model.Device mapToFoundation(Device device) {
         // TODO do properly new com.arm.mbed.cloud.sdk.devices.model.Device(device.getAccountId(), false,

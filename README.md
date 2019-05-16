@@ -29,7 +29,7 @@ compile 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y'
 Current artefacts are not fully tailored for Android but can be used as is on this mobile platform. However, the ``oltu`` dependency will have to be excluded to remove any compilation issue (e.g. ``Error converting bytecode to dex:\nCause: com.android.dex.DexException: Multiple dex files define Lorg/apache/oltu/oauth2/common/domain/credentials/Credentials``.
 To do so, import the SDK in the gradle file, as follows:
 ```java
-implementation( 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y' ){
+implementation( 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:x.y.z' ){
     // Excluding a particular transitive dependency:
     exclude group: 'org.apache.oltu.oauth2'
 }
