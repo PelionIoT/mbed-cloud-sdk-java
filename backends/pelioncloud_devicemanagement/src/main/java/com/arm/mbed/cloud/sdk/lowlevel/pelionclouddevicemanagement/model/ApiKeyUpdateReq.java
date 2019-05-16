@@ -26,9 +26,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This object represents an API key in requests towards Device Management.
+ * Represents an API key in requests towards Device Management.
  */
-@ApiModel(description = "This object represents an API key in requests towards Device Management.")
+@ApiModel(description = "Represents an API key in requests towards Device Management.")
 
 public class ApiKeyUpdateReq implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -125,11 +125,11 @@ public class ApiKeyUpdateReq implements Serializable {
     }
 
     /**
-     * The display name for the API key, not longer than 100 characters.
+     * The display name for the API key.
      * 
      * @return name
      **/
-    @ApiModelProperty(required = true, value = "The display name for the API key, not longer than 100 characters.")
+    @ApiModelProperty(required = true, value = "The display name for the API key.")
     public String getName() {
         return name;
     }

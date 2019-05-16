@@ -11,6 +11,7 @@ import java.util.Date;
  * Model for a certificate enrollment.
  */
 @Preamble(description = "Model for a certificate enrollment.")
+@SuppressWarnings("PMD.CyclomaticComplexity")
 public class CertificateEnrollment implements SdkModel {
     /**
      * Serialisation Id.
@@ -61,6 +62,8 @@ public class CertificateEnrollment implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #CertificateEnrollment()} instead.
      * 
      * @param certificateName
@@ -81,6 +84,7 @@ public class CertificateEnrollment implements SdkModel {
      *            Update UTC time RFC3339.
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public CertificateEnrollment(String certificateName, Date createdAt, String deviceId,
                                  CertificateEnrollmentEnrollResult enrollResult, String enrollResultDetail,
                                  CertificateEnrollmentEnrollStatus enrollStatus, String id, Date updatedAt) {
@@ -98,6 +102,8 @@ public class CertificateEnrollment implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #CertificateEnrollment()} instead.
      * 
@@ -128,7 +134,11 @@ public class CertificateEnrollment implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            The certificate enrollment ID.
      */
@@ -140,6 +150,8 @@ public class CertificateEnrollment implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #CertificateEnrollment()} instead.
      * 
@@ -265,6 +277,21 @@ public class CertificateEnrollment implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "CertificateEnrollment [certificateName=" + certificateName + ", createdAt=" + createdAt + ", deviceId="
+               + deviceId + ", enrollResult=" + enrollResult + ", enrollResultDetail=" + enrollResultDetail
+               + ", enrollStatus=" + enrollStatus + ", id=" + id + ", updatedAt=" + updatedAt + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
      *
      * <p>
@@ -312,6 +339,7 @@ public class CertificateEnrollment implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -375,21 +403,6 @@ public class CertificateEnrollment implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "CertificateEnrollment [certificateName=" + certificateName + ", createdAt=" + createdAt + ", deviceId="
-               + deviceId + ", enrollResult=" + enrollResult + ", enrollResultDetail=" + enrollResultDetail
-               + ", enrollStatus=" + enrollStatus + ", id=" + id + ", updatedAt=" + updatedAt + "]";
     }
 
     /**

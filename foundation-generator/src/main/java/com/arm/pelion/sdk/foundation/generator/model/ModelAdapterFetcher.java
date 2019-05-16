@@ -14,13 +14,13 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
     public ModelAdapter fetchForCollection(TypeCompose fromFieldType, TypeCompose toFieldType, MethodAction action) {
         try {
             fromFieldType.translate();
-        } catch (Exception exception) {
+        } catch (@SuppressWarnings("unused") Exception exception) {
             // Nothing to do;
         }
 
         try {
             toFieldType.translate();
-        } catch (Exception exception) {
+        } catch (@SuppressWarnings("unused") Exception exception) {
             // Nothing to do;
         }
         final ModelAdapter adapter = fetch(fromFieldType.getContentType(), toFieldType.getContentType(), action);
@@ -45,13 +45,13 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
     public ModelAdapter fetch(TypeParameter fromFieldType, TypeParameter toFieldType, MethodAction action) {
         try {
             fromFieldType.translate();
-        } catch (Exception exception) {
+        } catch (@SuppressWarnings("unused") Exception exception) {
             // Nothing to do;
         }
 
         try {
             toFieldType.translate();
-        } catch (Exception exception) {
+        } catch (@SuppressWarnings("unused") Exception exception) {
             // Nothing to do;
         }
         if (fromFieldType.isModel()) {

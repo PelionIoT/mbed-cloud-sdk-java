@@ -6,26 +6,27 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountAdminApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AggregatorAccountAdminApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateEnrollmentsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateIssuersActivationApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateIssuersApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeveloperApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeveloperCertificateApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.ServerCredentialsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceSecurityCertificatesApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceSecurityDeveloperClassCertificatesApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceSecurityDeviceCertificateRenewalsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.PreSharedKeysApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.ServiceSecurityServerCredentialsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantDeviceSecurityCertificatesApi;
 
 /**
  * Endpoints for Security APIs module.
  */
 @Preamble(description = "Endpoints for Security APIs module.")
 @Internal
+@SuppressWarnings("PMD.CyclomaticComplexity")
 public class SecurityEndpoints extends AbstractEndpoints {
     /**
-     * Low level endpoints for certificate enrollments apis.
+     * Low level endpoints for device security device certificate renewals apis.
      */
     @Internal
-    private final CertificateEnrollmentsApi certificateEnrollmentsApi;
+    private final DeviceSecurityDeviceCertificateRenewalsApi deviceSecurityDeviceCertificateRenewalsApi;
 
     /**
      * Low level endpoints for certificate issuers apis.
@@ -40,34 +41,34 @@ public class SecurityEndpoints extends AbstractEndpoints {
     private final CertificateIssuersActivationApi certificateIssuersActivationApi;
 
     /**
-     * Low level endpoints for developer certificate apis.
+     * Low level endpoints for device security developer class certificates apis.
      */
     @Internal
-    private final DeveloperCertificateApi developerCertificateApi;
+    private final DeviceSecurityDeveloperClassCertificatesApi deviceSecurityDeveloperClassCertificatesApi;
 
     /**
-     * Low level endpoints for developer apis.
+     * Low level endpoints for device security certificates apis.
      */
     @Internal
-    private final DeveloperApi developerApi;
+    private final DeviceSecurityCertificatesApi deviceSecurityCertificatesApi;
 
     /**
-     * Low level endpoints for server credentials apis.
+     * Low level endpoints for pre shared keys apis.
      */
     @Internal
-    private final ServerCredentialsApi serverCredentialsApi;
+    private final PreSharedKeysApi preSharedKeysApi;
 
     /**
-     * Low level endpoints for aggregator account admin apis.
+     * Low level endpoints for service security server credentials apis.
      */
     @Internal
-    private final AggregatorAccountAdminApi aggregatorAccountAdminApi;
+    private final ServiceSecurityServerCredentialsApi serviceSecurityServerCredentialsApi;
 
     /**
-     * Low level endpoints for account admin apis.
+     * Low level endpoints for tenant device security certificates apis.
      */
     @Internal
-    private final AccountAdminApi accountAdminApi;
+    private final TenantDeviceSecurityCertificatesApi tenantDeviceSecurityCertificatesApi;
 
     /**
      * Constructor.
@@ -77,37 +78,14 @@ public class SecurityEndpoints extends AbstractEndpoints {
      */
     public SecurityEndpoints(ServiceRegistry services) {
         super(services);
-        this.certificateEnrollmentsApi = initialiseService(CertificateEnrollmentsApi.class);
+        this.deviceSecurityDeviceCertificateRenewalsApi = initialiseService(DeviceSecurityDeviceCertificateRenewalsApi.class);
         this.certificateIssuersApi = initialiseService(CertificateIssuersApi.class);
         this.certificateIssuersActivationApi = initialiseService(CertificateIssuersActivationApi.class);
-        this.developerCertificateApi = initialiseService(DeveloperCertificateApi.class);
-        this.developerApi = initialiseService(DeveloperApi.class);
-        this.serverCredentialsApi = initialiseService(ServerCredentialsApi.class);
-        this.aggregatorAccountAdminApi = initialiseService(AggregatorAccountAdminApi.class);
-        this.accountAdminApi = initialiseService(AccountAdminApi.class);
-    }
-
-    /**
-     * Gets low level endpoints for certificate enrollments apis.
-     * 
-     * @return certificateEnrollmentsApi
-     */
-    @Internal
-    public CertificateEnrollmentsApi getCertificateEnrollmentsApi() {
-        return certificateEnrollmentsApi;
-    }
-
-    /**
-     * Clones this instance.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public SecurityEndpoints clone() {
-        return new SecurityEndpoints(getRegistryClone());
+        this.deviceSecurityDeveloperClassCertificatesApi = initialiseService(DeviceSecurityDeveloperClassCertificatesApi.class);
+        this.deviceSecurityCertificatesApi = initialiseService(DeviceSecurityCertificatesApi.class);
+        this.preSharedKeysApi = initialiseService(PreSharedKeysApi.class);
+        this.serviceSecurityServerCredentialsApi = initialiseService(ServiceSecurityServerCredentialsApi.class);
+        this.tenantDeviceSecurityCertificatesApi = initialiseService(TenantDeviceSecurityCertificatesApi.class);
     }
 
     /**
@@ -131,52 +109,75 @@ public class SecurityEndpoints extends AbstractEndpoints {
     }
 
     /**
-     * Gets low level endpoints for developer certificate apis.
+     * Gets low level endpoints for device security developer class certificates apis.
      * 
-     * @return developerCertificateApi
+     * @return deviceSecurityDeveloperClassCertificatesApi
      */
     @Internal
-    public DeveloperCertificateApi getDeveloperCertificateApi() {
-        return developerCertificateApi;
+    public DeviceSecurityDeveloperClassCertificatesApi getDeviceSecurityDeveloperClassCertificatesApi() {
+        return deviceSecurityDeveloperClassCertificatesApi;
     }
 
     /**
-     * Gets low level endpoints for developer apis.
+     * Gets low level endpoints for device security certificates apis.
      * 
-     * @return developerApi
+     * @return deviceSecurityCertificatesApi
      */
     @Internal
-    public DeveloperApi getDeveloperApi() {
-        return developerApi;
+    public DeviceSecurityCertificatesApi getDeviceSecurityCertificatesApi() {
+        return deviceSecurityCertificatesApi;
     }
 
     /**
-     * Gets low level endpoints for server credentials apis.
+     * Gets low level endpoints for pre shared keys apis.
      * 
-     * @return serverCredentialsApi
+     * @return preSharedKeysApi
      */
     @Internal
-    public ServerCredentialsApi getServerCredentialsApi() {
-        return serverCredentialsApi;
+    public PreSharedKeysApi getPreSharedKeysApi() {
+        return preSharedKeysApi;
     }
 
     /**
-     * Gets low level endpoints for aggregator account admin apis.
+     * Gets low level endpoints for service security server credentials apis.
      * 
-     * @return aggregatorAccountAdminApi
+     * @return serviceSecurityServerCredentialsApi
      */
     @Internal
-    public AggregatorAccountAdminApi getAggregatorAccountAdminApi() {
-        return aggregatorAccountAdminApi;
+    public ServiceSecurityServerCredentialsApi getServiceSecurityServerCredentialsApi() {
+        return serviceSecurityServerCredentialsApi;
     }
 
     /**
-     * Gets low level endpoints for account admin apis.
+     * Gets low level endpoints for tenant device security certificates apis.
      * 
-     * @return accountAdminApi
+     * @return tenantDeviceSecurityCertificatesApi
      */
     @Internal
-    public AccountAdminApi getAccountAdminApi() {
-        return accountAdminApi;
+    public TenantDeviceSecurityCertificatesApi getTenantDeviceSecurityCertificatesApi() {
+        return tenantDeviceSecurityCertificatesApi;
+    }
+
+    /**
+     * Gets low level endpoints for device security device certificate renewals apis.
+     * 
+     * @return deviceSecurityDeviceCertificateRenewalsApi
+     */
+    @Internal
+    public DeviceSecurityDeviceCertificateRenewalsApi getDeviceSecurityDeviceCertificateRenewalsApi() {
+        return deviceSecurityDeviceCertificateRenewalsApi;
+    }
+
+    /**
+     * Clones this instance.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
+     */
+    @Override
+    public SecurityEndpoints clone() {
+        return new SecurityEndpoints(getRegistryClone());
     }
 }

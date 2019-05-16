@@ -244,10 +244,12 @@ public class TestSdkUtils {
             this.fieldRequired = fieldRequired;
         }
 
+        @SuppressWarnings("unused")
         public String getFieldNotRequired() {
             return fieldNotRequired;
         }
 
+        @SuppressWarnings("unused")
         public void setFieldNotRequired(String fieldNotRequired) {
             this.fieldNotRequired = fieldNotRequired;
         }

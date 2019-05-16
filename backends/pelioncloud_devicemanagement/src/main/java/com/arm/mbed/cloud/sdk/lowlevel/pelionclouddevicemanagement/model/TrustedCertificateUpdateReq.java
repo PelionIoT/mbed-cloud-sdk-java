@@ -24,9 +24,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * This object represents a trusted certificate in update requests.
+ * Represents a trusted certificate in update requests.
  */
-@ApiModel(description = "This object represents a trusted certificate in update requests.")
+@ApiModel(description = "Represents a trusted certificate in update requests.")
 
 public class TrustedCertificateUpdateReq implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -172,11 +172,11 @@ public class TrustedCertificateUpdateReq implements Serializable {
     }
 
     /**
-     * Human readable description of this certificate, not longer than 500 characters.
+     * Human readable description of this certificate.
      * 
      * @return description
      **/
-    @ApiModelProperty(value = "Human readable description of this certificate, not longer than 500 characters.")
+    @ApiModelProperty(value = "Human readable description of this certificate.")
     public String getDescription() {
         return description;
     }
@@ -210,11 +210,11 @@ public class TrustedCertificateUpdateReq implements Serializable {
     }
 
     /**
-     * Certificate name, not longer than 100 characters.
+     * Certificate name.
      * 
      * @return name
      **/
-    @ApiModelProperty(value = "Certificate name, not longer than 100 characters.")
+    @ApiModelProperty(value = "Certificate name.")
     public String getName() {
         return name;
     }

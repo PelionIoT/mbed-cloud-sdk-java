@@ -16,6 +16,7 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Query;
 
+@SuppressWarnings("deprecation")
 @Preamble(description = "Campaign")
 public class Campaign implements SdkModel {
 
@@ -357,6 +358,7 @@ public class Campaign implements SdkModel {
      * @param id
      *            the id to set
      */
+    @Override
     public void setId(String id) {
         this.id = id;
     }

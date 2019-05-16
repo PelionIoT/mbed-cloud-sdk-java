@@ -10,6 +10,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
  * Model for a parent account.
  */
 @Preamble(description = "Model for a parent account.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class ParentAccount implements SdkModel {
     /**
      * Serialisation Id.
@@ -35,6 +36,8 @@ public class ParentAccount implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #ParentAccount()} instead.
      * 
      * @param adminEmail
@@ -55,6 +58,8 @@ public class ParentAccount implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #ParentAccount()} instead.
      * 
@@ -77,7 +82,11 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            The ID of the parent account.
      */
@@ -89,6 +98,8 @@ public class ParentAccount implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #ParentAccount()} instead.
      * 
@@ -132,6 +143,9 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Sets the id of the parent account.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param id
      *            The ID of the parent account.
@@ -146,6 +160,8 @@ public class ParentAccount implements SdkModel {
      *
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param parentAccountId
      *            The ID of the parent account.
@@ -153,6 +169,29 @@ public class ParentAccount implements SdkModel {
     @Internal
     public void setParentAccountId(String parentAccountId) {
         setId(parentAccountId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[a-f0-9]{32}"));
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "ParentAccount [adminEmail=" + adminEmail + ", adminName=" + adminName + ", id=" + id + "]";
     }
 
     /**
@@ -237,19 +276,6 @@ public class ParentAccount implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "ParentAccount [adminEmail=" + adminEmail + ", adminName=" + adminName + ", id=" + id + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
      *
      * <p>
@@ -259,7 +285,7 @@ public class ParentAccount implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isIdValid();
     }
 
     /**

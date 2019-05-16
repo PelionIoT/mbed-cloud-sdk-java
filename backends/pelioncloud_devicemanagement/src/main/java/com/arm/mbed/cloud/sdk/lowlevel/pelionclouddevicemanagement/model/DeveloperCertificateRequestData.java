@@ -36,12 +36,12 @@ public class DeveloperCertificateRequestData implements Serializable {
     }
 
     /**
-     * Description for the developer certificate. There is a limit on the length of the description. Please see
-     * [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
+     * Description for the developer certificate. Maximum 500 characters. Please see
+     * [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).
      * 
      * @return description
      **/
-    @ApiModelProperty(value = "Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)")
+    @ApiModelProperty(value = "Description for the developer certificate. Maximum 500 characters. Please see [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).")
     public String getDescription() {
         return description;
     }
@@ -56,13 +56,13 @@ public class DeveloperCertificateRequestData implements Serializable {
     }
 
     /**
-     * Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see
-     * [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
+     * Name of the developer certificate. Must be unique. Maximum 100 characters. Please see
+     * [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).
      * 
      * @return name
      **/
     @ApiModelProperty(required = true,
-                      value = "Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)")
+                      value = "Name of the developer certificate. Must be unique. Maximum 100 characters. Please see [TrustedCertificateReq](../current/api-references/account-management-api.html#trustedcertificatereq).")
     public String getName() {
         return name;
     }

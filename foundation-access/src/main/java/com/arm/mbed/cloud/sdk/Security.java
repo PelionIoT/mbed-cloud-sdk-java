@@ -27,6 +27,8 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Certifi
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerInfoListResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerVerifyResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeveloperCertificateResponseData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ListOfPreSharedKeysWithoutSecret;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PreSharedKeyWithoutSecret;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServerCredentialsResponseData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateResp;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRespList;
@@ -34,6 +36,7 @@ import com.arm.mbed.cloud.sdk.security.adapters.CertificateEnrollmentAdapter;
 import com.arm.mbed.cloud.sdk.security.adapters.CertificateIssuerAdapter;
 import com.arm.mbed.cloud.sdk.security.adapters.CertificateIssuerConfigAdapter;
 import com.arm.mbed.cloud.sdk.security.adapters.DeveloperCertificateAdapter;
+import com.arm.mbed.cloud.sdk.security.adapters.PreSharedKeyAdapter;
 import com.arm.mbed.cloud.sdk.security.adapters.ServerCredentialsAdapter;
 import com.arm.mbed.cloud.sdk.security.adapters.SubtenantTrustedCertificateAdapter;
 import com.arm.mbed.cloud.sdk.security.adapters.TrustedCertificateAdapter;
@@ -45,6 +48,8 @@ import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerListOptions;
 import com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate;
+import com.arm.mbed.cloud.sdk.security.model.PreSharedKey;
+import com.arm.mbed.cloud.sdk.security.model.PreSharedKeyListOptions;
 import com.arm.mbed.cloud.sdk.security.model.SecurityEndpoints;
 import com.arm.mbed.cloud.sdk.security.model.ServerCredentials;
 import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate;
@@ -69,7 +74,7 @@ public class Security extends AbstractModule {
      * Parameter name.
      */
     @Internal
-    private static final String TAG_ID = "id";
+    private static final String TAG_ACCOUNT_ID = "accountId";
 
     /**
      * Parameter name.
@@ -81,25 +86,7 @@ public class Security extends AbstractModule {
      * Parameter name.
      */
     @Internal
-    private static final String TAG_CERTIFICATE_ISSUER_REQUEST = "certificateIssuerRequest";
-
-    /**
-     * Parameter name.
-     */
-    @Internal
     private static final String TAG_CERTIFICATE_ISSUER = "certificateIssuer";
-
-    /**
-     * Parameter name.
-     */
-    @Internal
-    private static final String TAG_CERTIFICATE_ISSUER_UPDATE_REQUEST = "certificateIssuerUpdateRequest";
-
-    /**
-     * Parameter name.
-     */
-    @Internal
-    private static final String TAG_CREATE_CERTIFICATE_ISSUER_CONFIG = "createCertificateIssuerConfig";
 
     /**
      * Parameter name.
@@ -117,19 +104,49 @@ public class Security extends AbstractModule {
      * Parameter name.
      */
     @Internal
+    private static final String TAG_CERTIFICATE_ISSUER_REQUEST = "certificateIssuerRequest";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
+    private static final String TAG_CERTIFICATE_ISSUER_UPDATE_REQUEST = "certificateIssuerUpdateRequest";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
+    private static final String TAG_CREATE_CERTIFICATE_ISSUER_CONFIG = "createCertificateIssuerConfig";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
     private static final String TAG_DEVELOPER_CERTIFICATE = "developerCertificate";
 
     /**
      * Parameter name.
      */
     @Internal
-    private static final String TAG_SERVER_CREDENTIALS = "serverCredentials";
+    private static final String TAG_ID = "id";
 
     /**
      * Parameter name.
      */
     @Internal
-    private static final String TAG_ACCOUNT_ID = "accountId";
+    private static final String TAG_ISSUER_CREDENTIALS = "issuerCredentials";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
+    private static final String TAG_PRE_SHARED_KEY = "preSharedKey";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
+    private static final String TAG_SECRET_HEX = "secretHex";
 
     /**
      * Parameter name.
@@ -199,27 +216,6 @@ public class Security extends AbstractModule {
      * Adds a certificate issuer.
      *
      * <p>
-     * Similar to
-     * {@link #createCertificateIssuer(java.util.Map, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
-     * 
-     * @param certificateIssuerRequest
-     *            a certificate issuer.
-     * @return an added certificate issuer
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public CertificateIssuer
-           createCertificateIssuer(@NonNull CertificateIssuer certificateIssuerRequest) throws MbedCloudException {
-        checkNotNull(certificateIssuerRequest, TAG_CERTIFICATE_ISSUER_REQUEST);
-        return createCertificateIssuer((Map<String, String>) null, certificateIssuerRequest);
-    }
-
-    /**
-     * Adds a certificate issuer.
-     *
-     * <p>
      * Create a certificate issuer. The maximum number of issuers is limited to 20 per account. Multiple certificate
      * issuers of the same issuer type can be created, provided they have a different name. This allows verification of
      * the certificate issuer configuration before activating it. [br] **Example usage:**
@@ -261,8 +257,9 @@ public class Security extends AbstractModule {
     @API
     @Nullable
     public CertificateIssuer
-           createCertificateIssuer(@Nullable Map<String, String> issuerCredentials,
+           createCertificateIssuer(@NonNull Map<String, String> issuerCredentials,
                                    @NonNull CertificateIssuer certificateIssuerRequest) throws MbedCloudException {
+        checkNotNull(issuerCredentials, TAG_ISSUER_CREDENTIALS);
         checkNotNull(certificateIssuerRequest, TAG_CERTIFICATE_ISSUER_REQUEST);
         checkModelValidity(certificateIssuerRequest, TAG_CERTIFICATE_ISSUER_REQUEST);
         final Map<String, String> finalIssuerCredentials = issuerCredentials;
@@ -280,7 +277,7 @@ public class Security extends AbstractModule {
                                                         .createCertificateIssuer(CertificateIssuerAdapter.reverseMapAddRequest(finalCertificateIssuerRequest)
                                                                                                          .issuerCredentials(finalIssuerCredentials));
                                     }
-                                });
+                                }, true);
     }
 
     /**
@@ -318,23 +315,22 @@ public class Security extends AbstractModule {
                                         return endpoints.getCertificateIssuersActivationApi()
                                                         .createCertificateIssuerConfig(CertificateIssuerConfigAdapter.reverseMapAddRequest(finalCreateCertificateIssuerConfig));
                                     }
-                                });
+                                }, true);
     }
 
     /**
      * Adds a developer certificate.
      *
      * <p>
-     * This REST API is intended to be used by customers to get a developer certificate (a certificate that can be
-     * flashed into multiple devices to connect to bootstrap server).
+     * Create a developer certificate (a certificate that can be flashed to multiple devices to connect to the bootstrap
+     * server).
      *
      * **Note:** The number of developer certificates allowed per account is limited. Please see [Using your own
-     * certificate authority](/docs/current/mbed-cloud-deploy/instructions-for-factory-setup-and-devi
-     * ce-provision.html#using-your-own-certificate-authority-with-mbed-cloud).
+     * certificate authority](../provisioning-process/using-CA.html).
      *
-     * **Example usage:** curl -X POST "http://api.us-east-1.mbedcloud.com/v3/developer-certificates" -H "accept:
-     * application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN" -H "content-type: application/json" -d "{ \"name\"
-     * : \"THE_CERTIFICATE_NAME\", \"description\": \"THE_CERTIFICATE_DESCRIPTION\"}"
+     * **Example:** ``` curl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates \ -H "Authorization:
+     * Bearer [api_key]" \ -H "content-type: application/json" \ -d { "name": "[certificate_name]", "description":
+     * "[certificate_description]" } ```
      *
      * @param developerCertificate
      *            a developer certificate.
@@ -358,22 +354,67 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<DeveloperCertificateResponseData> call() {
-                                        return endpoints.getDeveloperCertificateApi()
+                                        return endpoints.getDeviceSecurityDeveloperClassCertificatesApi()
                                                         .createDeveloperCertificate(DeveloperCertificateAdapter.reverseMapAddRequest(finalDeveloperCertificate));
                                     }
-                                });
+                                }, true);
+    }
+
+    /**
+     * Adds a pre shared key.
+     *
+     * <p>
+     * Upload a PSK for an endpoint to allow it to bootstrap. The existing key cannot be overwritten, but needs to be
+     * deleted first in the case of re-setting a PSK for an endpoint.
+     *
+     * **Note**: The PSK APIs are available only to accounts that have this feature enabled.
+     *
+     * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \ -H "Authorization:
+     * Bearer [api_key]" \ -H "content-type: application/json" \ -d '{ "endpoint_name": "my-endpoint-0001",
+     * "secret_hex": "4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a" }' ```
+     *
+     * @param secretHex
+     *            The secret of the PSK in hexadecimal. It is not case sensitive; 4a is same as 4A, and it is allowed
+     *            with or without 0x in the beginning. The minimum length of the secret is 128 bits and maximum 256
+     *            bits.
+     * @param preSharedKey
+     *            a pre shared key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void createPreSharedKey(@NonNull String secretHex,
+                                   @NonNull PreSharedKey preSharedKey) throws MbedCloudException {
+        checkNotNull(secretHex, TAG_SECRET_HEX);
+        checkNotNull(preSharedKey, TAG_PRE_SHARED_KEY);
+        checkModelValidity(preSharedKey, TAG_PRE_SHARED_KEY);
+        final String finalSecretHex = secretHex;
+        final PreSharedKey finalPreSharedKey = preSharedKey;
+        CloudCaller.call(this, "createPreSharedKey()", null, new CloudRequest.CloudCall<Void>() {
+            /**
+             * Makes the low level call to the Cloud.
+             * 
+             * @return Corresponding Retrofit2 Call object
+             */
+            @Override
+            public Call<Void> call() {
+                return endpoints.getPreSharedKeysApi()
+                                .uploadPreSharedKey(PreSharedKeyAdapter.reverseMapAddRequest(finalPreSharedKey)
+                                                                       .secretHex(finalSecretHex));
+            }
+        }, true);
     }
 
     /**
      * Adds a subtenant trusted certificate.
      *
      * <p>
-     * An endpoint for uploading new trusted certificates.
+     * Upload new trusted certificates.
      *
-     * **Example usage:** `curl -X POST
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates -d {"name": "myCert1",
-     * "description": "very important cert", "certificate": "certificate_data", "service ": "lwm2m"} -H 'content-type:
-     * application/json' -H 'Authorization: Bearer API_KEY'`
+     * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates \
+     * -H 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \ -d {"name": "myCert1",
+     * "description": "very important cert", "certificate": "certificate_data", "service": "lwm2m"} ``` Signature is not
+     * used by the SDK as it is a deprecated field.
      *
      * @param accountId
      *            The ID of the account.
@@ -403,11 +444,11 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<TrustedCertificateResp> call() {
-                                        return endpoints.getAggregatorAccountAdminApi()
+                                        return endpoints.getTenantDeviceSecurityCertificatesApi()
                                                         .addAccountCertificate(finalAccountId,
                                                                                SubtenantTrustedCertificateAdapter.reverseMapAddRequest(finalSubtenantTrustedCertificate));
                                     }
-                                });
+                                }, true);
     }
 
     /**
@@ -437,11 +478,12 @@ public class Security extends AbstractModule {
      * Adds a trusted certificate.
      *
      * <p>
-     * An endpoint for uploading new trusted certificates.
+     * Upload new trusted certificates.
      *
-     * **Example usage:** `curl -X POST https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -d {"name":
-     * "myCert1", "description": "very important cert", "certificate": "certificate_data", "service": "lwm2m"} -H
-     * 'conten t-type: application/json' -H 'Authorization: Bearer API_KEY'`
+     * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/trusted-certificates \ -H 'Authorization:
+     * Bearer [api_key]' \ -H 'content-type: application/json' \ -d {"name": "myCert1", "description": "very important
+     * cert", "certificate": "certificate_data", "service": "lwm2m"} ``` Signature is not used by the SDK as it is a
+     * deprecated field.
      *
      * @param trustedCertificate
      *            a trusted certificate.
@@ -465,10 +507,10 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<TrustedCertificateResp> call() {
-                                        return endpoints.getAccountAdminApi()
+                                        return endpoints.getDeviceSecurityCertificatesApi()
                                                         .addCertificate(TrustedCertificateAdapter.reverseMapAddRequest(finalTrustedCertificate));
                                     }
-                                });
+                                }, true);
     }
 
     /**
@@ -591,13 +633,13 @@ public class Security extends AbstractModule {
      * Deletes a developer certificate.
      *
      * <p>
-     * An endpoint for deleting a trusted certificate.
+     * Delete a trusted certificate.
      *
-     * **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} -H
-     * 'Authorization: Bearer API_KEY'`
+     * **Example:** ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \ -H
+     * 'Authorization: Bearer [api_key]' ```
      *
      * @param id
-     *            The ID of the trusted certificate to be deleted.
+     *            The ID of the trusted certificate to delete.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -613,7 +655,70 @@ public class Security extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDeveloperApi().deleteCertificate(finalId);
+                return endpoints.getDeviceSecurityCertificatesApi().deleteCertificate(finalId);
+            }
+        });
+    }
+
+    /**
+     * Deletes a pre shared key.
+     *
+     * <p>
+     * Similar to {@link #deletePreSharedKey(String)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void deletePreSharedKey() throws MbedCloudException {
+        deletePreSharedKey((String) null);
+    }
+
+    /**
+     * Deletes a pre shared key.
+     *
+     * <p>
+     * Similar to {@link #deletePreSharedKey(String)}
+     * 
+     * @param preSharedKey
+     *            a pre shared key.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void deletePreSharedKey(@NonNull PreSharedKey preSharedKey) throws MbedCloudException {
+        checkNotNull(preSharedKey, TAG_PRE_SHARED_KEY);
+        deletePreSharedKey(preSharedKey.getEndpointName());
+    }
+
+    /**
+     * Deletes a pre shared key.
+     *
+     * <p>
+     * Remove a PSK.
+     *
+     * **Example:**
+     *
+     * ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 \ -H
+     * "Authorization: Bearer [api_key]" ```
+     *
+     * @param endpointName
+     *            a string
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void deletePreSharedKey(@Nullable String endpointName) throws MbedCloudException {
+        final String finalEndpointName = endpointName;
+        CloudCaller.call(this, "deletePreSharedKey()", null, new CloudRequest.CloudCall<Void>() {
+            /**
+             * Makes the low level call to the Cloud.
+             * 
+             * @return Corresponding Retrofit2 Call object
+             */
+            @Override
+            public Call<Void> call() {
+                return endpoints.getPreSharedKeysApi().deletePreSharedKey(finalEndpointName);
             }
         });
     }
@@ -622,16 +727,16 @@ public class Security extends AbstractModule {
      * Deletes a subtenant trusted certificate.
      *
      * <p>
-     * An endpoint for deleting the trusted certificate.
+     * Delete the trusted certificate.
      *
-     * **Example usage:** `curl -X DELETE
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} -H 'Authorization:
-     * Bearer API_KEY'`
+     * **Example:** ``` curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} \ -H 'Authorization:
+     * Bearer [api_key]' ```
      *
      * @param accountId
      *            Account ID.
      * @param id
-     *            The ID of the trusted certificate to be deleted.
+     *            The ID of the trusted certificate to delete.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -650,7 +755,8 @@ public class Security extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getAggregatorAccountAdminApi().deleteAccountCertificate(finalAccountId, finalId);
+                return endpoints.getTenantDeviceSecurityCertificatesApi().deleteAccountCertificate(finalAccountId,
+                                                                                                   finalId);
             }
         });
     }
@@ -678,13 +784,13 @@ public class Security extends AbstractModule {
      * Deletes a trusted certificate.
      *
      * <p>
-     * An endpoint for deleting a trusted certificate.
+     * Delete a trusted certificate.
      *
-     * **Example usage:** `curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} -H
-     * 'Authorization: Bearer API_KEY'`
+     * **Example:** ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \ -H
+     * 'Authorization: Bearer [api_key]' ```
      *
      * @param id
-     *            The ID of the trusted certificate to be deleted.
+     *            The ID of the trusted certificate to delete.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -700,7 +806,7 @@ public class Security extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDeveloperApi().deleteCertificate(finalId);
+                return endpoints.getDeviceSecurityCertificatesApi().deleteCertificate(finalId);
             }
         });
     }
@@ -727,11 +833,10 @@ public class Security extends AbstractModule {
      *
      *
      * <p>
-     * This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to
-     * use with their clients to connect to bootstrap server.
+     * Return bootstrap server credentials for client to connect to bootstrap server.
      *
-     * **Example usage:** curl -X GET "http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap" -H "accept:
-     * application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
+     * **Example:** ``` curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap \ -H
+     * "Authorization: Bearer [api_key]" ```
      *
      * @return something
      * @throws MbedCloudException
@@ -749,29 +854,10 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<ServerCredentialsResponseData> call() {
-                                        return endpoints.getServerCredentialsApi().getBootstrapServerCredentials();
+                                        return endpoints.getServiceSecurityServerCredentialsApi()
+                                                        .getBootstrapServerCredentials();
                                     }
-                                });
-    }
-
-    /**
-     * Fetch bootstrap server credentials.
-     *
-     *
-     * <p>
-     * Similar to {@link #getBootstrap()}
-     * 
-     * @param serverCredentials
-     *            a server credentials.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public ServerCredentials getBootstrap(@NonNull ServerCredentials serverCredentials) throws MbedCloudException {
-        checkNotNull(serverCredentials, TAG_SERVER_CREDENTIALS);
-        return getBootstrap();
+                                }, true);
     }
 
     /**
@@ -801,28 +887,7 @@ public class Security extends AbstractModule {
                                         return endpoints.getCertificateIssuersActivationApi()
                                                         .getCertificateIssuerConfig();
                                     }
-                                });
-    }
-
-    /**
-     * Get certificate issuer configuration.
-     *
-     *
-     * <p>
-     * Similar to {@link #getDefault()}
-     * 
-     * @param certificateIssuerConfig
-     *            a certificate issuer config.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public CertificateIssuerConfig
-           getDefault(@NonNull CertificateIssuerConfig certificateIssuerConfig) throws MbedCloudException {
-        checkNotNull(certificateIssuerConfig, TAG_CERTIFICATE_ISSUER_CONFIG);
-        return getDefault();
+                                }, true);
     }
 
     /**
@@ -830,11 +895,11 @@ public class Security extends AbstractModule {
      *
      *
      * <p>
-     * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that
-     * can be flashed into multiple devices to connect to bootstrap server).
+     * Return an existing developer certificate (a certificate that can be flashed to multiple devices to connect to
+     * bootstrap server).
      *
-     * **Example usage:** curl -X GET "http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID"
-     * -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
+     * **Example:** ``` curl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID \ -H
+     * "Authorization: Bearer [api_key]" ```
      *
      * @param id
      *            ID that uniquely identifies the developer certificate.
@@ -856,9 +921,10 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<DeveloperCertificateResponseData> call() {
-                                        return endpoints.getDeveloperCertificateApi().getDeveloperCertificate(finalId);
+                                        return endpoints.getDeviceSecurityDeveloperClassCertificatesApi()
+                                                        .getDeveloperCertificate(finalId);
                                     }
-                                });
+                                }, true);
     }
 
     /**
@@ -918,11 +984,10 @@ public class Security extends AbstractModule {
      *
      *
      * <p>
-     * This REST API is intended to be used by customers to fetch LwM2M server credentials that they will need to use
-     * with their clients to connect to LwM2M server.
+     * Return LwM2M server credentials for client to connect to LwM2M server.
      *
-     * **Example usage:** curl -X GET "http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m" -H "accept:
-     * application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
+     * **Example:** ``` curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m \ -H "Authorization:
+     * Bearer [api_key]" ```
      *
      * @return something
      * @throws MbedCloudException
@@ -940,29 +1005,10 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<ServerCredentialsResponseData> call() {
-                                        return endpoints.getServerCredentialsApi().getL2M2MServerCredentials();
+                                        return endpoints.getServiceSecurityServerCredentialsApi()
+                                                        .getL2M2MServerCredentials();
                                     }
-                                });
-    }
-
-    /**
-     * Fetch LwM2M server credentials.
-     *
-     *
-     * <p>
-     * Similar to {@link #getLwm2m()}
-     * 
-     * @param serverCredentials
-     *            a server credentials.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public ServerCredentials getLwm2m(@NonNull ServerCredentials serverCredentials) throws MbedCloudException {
-        checkNotNull(serverCredentials, TAG_SERVER_CREDENTIALS);
-        return getLwm2m();
+                                }, true);
     }
 
     /**
@@ -1002,10 +1048,10 @@ public class Security extends AbstractModule {
      *
      *
      * <p>
-     * An endpoint for retrieving a trusted certificate by ID.
+     * Retrieve a trusted certificate by ID.
      *
-     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} -H 'Authorization:
-     * Bearer API_KEY'`
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \ -H
+     * 'Authorization: Bearer [api_key]' ```
      *
      * @param id
      *            Entity ID.
@@ -1027,9 +1073,9 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<TrustedCertificateResp> call() {
-                                        return endpoints.getDeveloperApi().getCertificate(finalId);
+                                        return endpoints.getDeviceSecurityCertificatesApi().getCertificate(finalId);
                                     }
-                                });
+                                }, true);
     }
 
     /**
@@ -1072,8 +1118,7 @@ public class Security extends AbstractModule {
      * Creates a {@link Paginator} for the list of certificate issuer configs matching filter options.
      *
      * <p>
-     * Similar to
-     * {@link #listAllCertificateIssuerConfigs(String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions)}
+     * Gets an iterator over all certificate issuer configs matching filter options.
      * 
      * @param options
      *            list options.
@@ -1085,29 +1130,6 @@ public class Security extends AbstractModule {
     @Nullable
     public Paginator<CertificateIssuerConfig>
            listAllCertificateIssuerConfigs(@Nullable CertificateIssuerConfigListOptions options) throws MbedCloudException {
-        return listAllCertificateIssuerConfigs((String) null, options);
-    }
-
-    /**
-     * Creates a {@link Paginator} for the list of certificate issuer configs matching filter options.
-     *
-     * <p>
-     * Gets an iterator over all certificate issuer configs matching filter options.
-     * 
-     * @param referenceEq
-     *            a string
-     * @param options
-     *            list options.
-     * @return paginator over the list of certificate issuer configs
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public Paginator<CertificateIssuerConfig>
-           listAllCertificateIssuerConfigs(@Nullable String referenceEq,
-                                           @Nullable CertificateIssuerConfigListOptions options) throws MbedCloudException {
-        final String finalReferenceEq = referenceEq;
         final CertificateIssuerConfigListOptions finalOptions = (options == null) ? new CertificateIssuerConfigListOptions()
                                                                                   : options;
         return new Paginator<CertificateIssuerConfig>(finalOptions, new PageRequester<CertificateIssuerConfig>() {
@@ -1122,7 +1144,7 @@ public class Security extends AbstractModule {
              */
             @Override
             public ListResponse<CertificateIssuerConfig> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listCertificateIssuerConfigs(finalReferenceEq, (CertificateIssuerConfigListOptions) options);
+                return listCertificateIssuerConfigs((CertificateIssuerConfigListOptions) options);
             }
         });
     }
@@ -1158,6 +1180,40 @@ public class Security extends AbstractModule {
             @Override
             public ListResponse<CertificateIssuer> requestNewPage(ListOptions options) throws MbedCloudException {
                 return listCertificateIssuers((CertificateIssuerListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of pre shared keys matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all pre shared keys matching filter options.
+     * 
+     * @param options
+     *            list options.
+     * @return paginator over the list of pre shared keys
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<PreSharedKey>
+           listAllPreSharedKeys(@Nullable PreSharedKeyListOptions options) throws MbedCloudException {
+        final PreSharedKeyListOptions finalOptions = (options == null) ? new PreSharedKeyListOptions() : options;
+        return new Paginator<PreSharedKey>(finalOptions, new PageRequester<PreSharedKey>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<PreSharedKey> requestNewPage(ListOptions options) throws MbedCloudException {
+                return listPreSharedKeys((PreSharedKeyListOptions) options);
             }
         });
     }
@@ -1263,7 +1319,7 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<CertificateEnrollmentListResponse> call() {
-                                        return endpoints.getCertificateEnrollmentsApi()
+                                        return endpoints.getDeviceSecurityDeviceCertificateRenewalsApi()
                                                         .getCertificateEnrollments(ListOptionsEncoder.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_DEVICE_ID,
                                                                                                                               finalOptions),
                                                                                    ListOptionsEncoder.encodeSingleEqualFilter(CertificateEnrollmentListOptions.TAG_FILTER_BY_CERTIFICATE_NAME,
@@ -1300,9 +1356,15 @@ public class Security extends AbstractModule {
      * Lists certificate issuer configs matching filter options.
      *
      * <p>
-     * Similar to
-     * {@link #listCertificateIssuerConfigs(String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions)}
-     * 
+     * Get certificate issuer configurations, optionally filtered by reference. [br] **Example usage:**
+     *
+     * ``` curl \ -H 'authorization: [valid access token]' \ -H 'content-type: application/json;charset=UTF-8' \
+     * https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \ ``` ``` curl \ -H 'authorization:
+     * [valid access token]' \ -H 'content-type: application/json;charset=UTF-8' \
+     * https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms \ ``` Note: This
+     * endpoint does not implement pagination and therefore, list control parameters such as `limit` or `after` will be
+     * ignored by the system.
+     *
      * @param options
      *            list options.
      * @return the list of certificate issuer configs corresponding to filter options (One page).
@@ -1313,36 +1375,6 @@ public class Security extends AbstractModule {
     @Nullable
     public ListResponse<CertificateIssuerConfig>
            listCertificateIssuerConfigs(@Nullable CertificateIssuerConfigListOptions options) throws MbedCloudException {
-        return listCertificateIssuerConfigs((String) null, options);
-    }
-
-    /**
-     * Lists certificate issuer configs matching filter options.
-     *
-     * <p>
-     * Get certificate issuer configurations, optionally filtered by reference. [br] **Example usage:**
-     *
-     * ``` curl \ -H 'authorization: [valid access token]' \ -H 'content-type: application/json;charset=UTF-8' \
-     * https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \ ``` ``` curl \ -H 'authorization:
-     * [valid access token]' \ -H 'content-type: application/json;charset=UTF-8' \
-     * https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms \ ``` Note: This
-     * endpoint does not implement pagination and therefore, list control parameters such as `limit` or `after` will be
-     * ignored by the system.
-     *
-     * @param referenceEq
-     *            a string
-     * @param options
-     *            list options.
-     * @return the list of certificate issuer configs corresponding to filter options (One page).
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public ListResponse<CertificateIssuerConfig>
-           listCertificateIssuerConfigs(@Nullable String referenceEq,
-                                        @Nullable CertificateIssuerConfigListOptions options) throws MbedCloudException {
-        final String finalReferenceEq = referenceEq;
         final CertificateIssuerConfigListOptions finalOptions = (options == null) ? new CertificateIssuerConfigListOptions()
                                                                                   : options;
         return CloudCaller.call(this, "listCertificateIssuerConfigs()", CertificateIssuerConfigAdapter.getListMapper(),
@@ -1359,7 +1391,8 @@ public class Security extends AbstractModule {
                                                                                      finalOptions.getOrder().toString(),
                                                                                      finalOptions.getAfter(),
                                                                                      ListOptionsEncoder.encodeInclude(finalOptions),
-                                                                                     finalReferenceEq);
+                                                                                     ListOptionsEncoder.encodeSingleEqualFilter(CertificateIssuerConfigListOptions.TAG_FILTER_BY_REFERENCE,
+                                                                                                                                finalOptions));
                                     }
                                 });
     }
@@ -1402,13 +1435,51 @@ public class Security extends AbstractModule {
     }
 
     /**
+     * Lists pre shared keys matching filter options.
+     *
+     * <p>
+     * Retrieve pre-shared keys (PSKs) with pagination. Default page size of 50 entries.
+     *
+     * **Example:**
+     *
+     * ``` curl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \ -H "Authorization: Bearer [api_key]"
+     * ```
+     *
+     * @param options
+     *            list options.
+     * @return the list of pre shared keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<PreSharedKey>
+           listPreSharedKeys(@Nullable PreSharedKeyListOptions options) throws MbedCloudException {
+        final PreSharedKeyListOptions finalOptions = (options == null) ? new PreSharedKeyListOptions() : options;
+        return CloudCaller.call(this, "listPreSharedKeys()", PreSharedKeyAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<ListOfPreSharedKeysWithoutSecret>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<ListOfPreSharedKeysWithoutSecret> call() {
+                                        return endpoints.getPreSharedKeysApi()
+                                                        .listPreSharedKeys(finalOptions.getPageSize(),
+                                                                           finalOptions.getAfter());
+                                    }
+                                });
+    }
+
+    /**
      * Lists trusted certificates matching filter options.
      *
      * <p>
-     * An endpoint for retrieving trusted certificates in an array.
+     * Retrieve trusted certificates in an array.
      *
-     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H 'Authorization: Bearer
-     * API_KEY'`
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates \ -H 'Authorization:
+     * Bearer [api_key]' ```
      *
      * @param expireEq
      *            an integer
@@ -1439,7 +1510,7 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<TrustedCertificateRespList> call() {
-                                        return endpoints.getDeveloperApi()
+                                        return endpoints.getDeviceSecurityCertificatesApi()
                                                         .getAllCertificates(finalOptions.getPageSize(),
                                                                             finalOptions.getAfter(),
                                                                             finalOptions.getOrder().toString(),
@@ -1545,7 +1616,7 @@ public class Security extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>
                                            call() {
-                                        return endpoints.getCertificateEnrollmentsApi()
+                                        return endpoints.getDeviceSecurityDeviceCertificateRenewalsApi()
                                                         .getCertificateEnrollment(finalId);
                                     }
                                 });
@@ -1679,11 +1750,11 @@ public class Security extends AbstractModule {
      * Gets a developer certificate.
      *
      * <p>
-     * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that
-     * can be flashed into multiple devices to connect to bootstrap server).
+     * Return an existing developer certificate (a certificate that can be flashed to multiple devices to connect to
+     * bootstrap server).
      *
-     * **Example usage:** curl -X GET "http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID"
-     * -H "accept: application/json" -H "Authorization: Bearer THE_ACCESS_TOKEN"
+     * **Example:** ``` curl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID \ -H
+     * "Authorization: Bearer [api_key]" ```
      *
      * @param id
      *            ID that uniquely identifies the developer certificate.
@@ -1705,7 +1776,79 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<DeveloperCertificateResponseData> call() {
-                                        return endpoints.getDeveloperCertificateApi().getDeveloperCertificate(finalId);
+                                        return endpoints.getDeviceSecurityDeveloperClassCertificatesApi()
+                                                        .getDeveloperCertificate(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a pre shared key.
+     *
+     * <p>
+     * Similar to {@link #readPreSharedKey(String)}
+     * 
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public PreSharedKey readPreSharedKey() throws MbedCloudException {
+        return readPreSharedKey((String) null);
+    }
+
+    /**
+     * Gets a pre shared key.
+     *
+     * <p>
+     * Similar to {@link #readPreSharedKey(String)}
+     * 
+     * @param preSharedKey
+     *            a pre shared key.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public PreSharedKey readPreSharedKey(@NonNull PreSharedKey preSharedKey) throws MbedCloudException {
+        checkNotNull(preSharedKey, TAG_PRE_SHARED_KEY);
+        return readPreSharedKey(preSharedKey.getEndpointName());
+    }
+
+    /**
+     * Gets a pre shared key.
+     *
+     * <p>
+     * Check if a PSK for an endpoint exists or not. The response does not contain the secret itself.
+     *
+     * **Example:**
+     *
+     * ``` curl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 \ -H "Authorization:
+     * Bearer [api_key]" ```
+     *
+     * @param endpointName
+     *            The unique endpoint identifier that this PSK applies to. 16-64
+     *            [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public PreSharedKey readPreSharedKey(@Nullable String endpointName) throws MbedCloudException {
+        final String finalEndpointName = endpointName;
+        return CloudCaller.call(this, "readPreSharedKey()", PreSharedKeyAdapter.getMapper(),
+                                new CloudRequest.CloudCall<PreSharedKeyWithoutSecret>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<PreSharedKeyWithoutSecret> call() {
+                                        return endpoints.getPreSharedKeysApi().getPreSharedKey(finalEndpointName);
                                     }
                                 });
     }
@@ -1714,11 +1857,11 @@ public class Security extends AbstractModule {
      * Gets a subtenant trusted certificate.
      *
      * <p>
-     * An endpoint for retrieving a trusted certificate by ID.
+     * Retrieve a trusted certificate by ID.
      *
-     * **Example usage:** `curl
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} -H 'Authorization:
-     * Bearer API_KEY'`
+     * **Example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} \ -H 'Authorization:
+     * Bearer [api_key]' ```
      *
      * @param accountId
      *            The ID of the account.
@@ -1746,7 +1889,7 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<TrustedCertificateResp> call() {
-                                        return endpoints.getAggregatorAccountAdminApi()
+                                        return endpoints.getTenantDeviceSecurityCertificatesApi()
                                                         .getAccountCertificate(finalAccountId, finalId);
                                     }
                                 });
@@ -1777,10 +1920,10 @@ public class Security extends AbstractModule {
      * Gets a trusted certificate.
      *
      * <p>
-     * An endpoint for retrieving a trusted certificate by ID.
+     * Retrieve a trusted certificate by ID.
      *
-     * **Example usage:** `curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} -H 'Authorization:
-     * Bearer API_KEY'`
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \ -H
+     * 'Authorization: Bearer [api_key]' ```
      *
      * @param id
      *            Entity ID.
@@ -1802,7 +1945,7 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<TrustedCertificateResp> call() {
-                                        return endpoints.getDeveloperApi().getCertificate(finalId);
+                                        return endpoints.getDeviceSecurityCertificatesApi().getCertificate(finalId);
                                     }
                                 });
     }
@@ -1924,7 +2067,7 @@ public class Security extends AbstractModule {
                                                                                  CertificateIssuerAdapter.reverseMapUpdateRequest(finalCertificateIssuerUpdateRequest)
                                                                                                          .issuerCredentials(finalIssuerCredentials));
                                     }
-                                });
+                                }, true);
     }
 
     /**
@@ -2012,18 +2155,19 @@ public class Security extends AbstractModule {
                                                         .updateCertificateIssuerConfigByID(CertificateIssuerConfigAdapter.reverseMapUpdateRequest(finalCertificateIssuerConfigRequest),
                                                                                            finalId);
                                     }
-                                });
+                                }, true);
     }
 
     /**
      * Modifies a subtenant trusted certificate.
      *
      * <p>
-     * An endpoint for updating existing trusted certificates.
+     * Update existing trusted certificates.
      *
-     * **Example usage:** `curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} -d {"description":
-     * "very important cert"} -H 'content-type: application/json' -H 'Authorization : Bearer API_KEY'`
+     * **Example:** ``` curl -X PUT
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} \ -H 'Authorization:
+     * Bearer [api_key]' \ -H 'content-type: application/json' \ -d {"description": "very important cert"} ``` Signature
+     * is not used by the SDK as it is a deprecated field.
      *
      * @param accountId
      *            The ID of the account.
@@ -2057,11 +2201,11 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<TrustedCertificateResp> call() {
-                                        return endpoints.getAggregatorAccountAdminApi()
+                                        return endpoints.getTenantDeviceSecurityCertificatesApi()
                                                         .updateAccountCertificate(finalAccountId, finalId,
                                                                                   SubtenantTrustedCertificateAdapter.reverseMapUpdateRequest(finalSubtenantTrustedCertificate));
                                     }
-                                });
+                                }, true);
     }
 
     /**
@@ -2091,10 +2235,11 @@ public class Security extends AbstractModule {
      * Modifies a trusted certificate.
      *
      * <p>
-     * An endpoint for updating existing trusted certificates.
+     * Update existing trusted certificates.
      *
-     * **Example usage:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} -d
-     * {"description": "very important cert"} -H 'content-type: application/json' -H 'Authorization: Bearer API_KEY'`
+     * **Example:** ``` curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \ -H
+     * 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \ -d {"description": "very important
+     * cert"} ``` Signature is not used by the SDK as it is a deprecated field.
      *
      * @param id
      *            Entity ID.
@@ -2123,11 +2268,11 @@ public class Security extends AbstractModule {
                                      */
                                     @Override
                                     public Call<TrustedCertificateResp> call() {
-                                        return endpoints.getDeveloperApi()
+                                        return endpoints.getDeviceSecurityCertificatesApi()
                                                         .updateCertificate(finalId,
                                                                            TrustedCertificateAdapter.reverseMapUpdateRequest(finalTrustedCertificate));
                                     }
-                                });
+                                }, true);
     }
 
     /**
@@ -2208,6 +2353,6 @@ public class Security extends AbstractModule {
                                     public Call<CertificateIssuerVerifyResponse> call() {
                                         return endpoints.getCertificateIssuersApi().verifyCertificateIssuer(finalId);
                                     }
-                                });
+                                }, true);
     }
 }

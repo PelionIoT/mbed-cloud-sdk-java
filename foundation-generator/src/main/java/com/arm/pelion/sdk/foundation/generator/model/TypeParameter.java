@@ -8,6 +8,7 @@ import java.util.Calendar;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
+import com.arm.mbed.cloud.sdk.common.Base64;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.dao.CloudDao;
@@ -241,7 +242,36 @@ public class TypeParameter implements Artifact {
     }
 
     public boolean isArray() {
-        return false;
+        if (isBase64()) {
+            return true;
+        }
+        try {
+            translate();
+            return hasClazz() ? getClazz().isArray() : false;
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isBinary() {
+        if (!isArray()) {
+            return false;
+        }
+        try {
+            translate();
+            return hasClazz() ? byte[].class.isAssignableFrom(getClazz()) : false;
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isBase64() {
+        try {
+            translate();
+            return hasClazz() ? Base64.class.isAssignableFrom(getClazz()) : false;
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
+            return false;
+        }
     }
 
     public boolean isHashtable() {
@@ -363,7 +393,8 @@ public class TypeParameter implements Artifact {
     public boolean isVoid() {
         try {
             translate();
-            return hasClazz() ? Void.class.isAssignableFrom(getClazz()) : importPath == null;
+            return hasClazz() ? Void.class.isAssignableFrom(getClazz()) || void.class.isAssignableFrom(getClazz())
+                              : importPath == null;
         } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
@@ -479,11 +510,10 @@ public class TypeParameter implements Artifact {
         return false;
     }
 
-    public boolean isModel(Model model) {
-        if (model == null || !isModel()) {
+    public boolean isEquivalent(TypeParameter type) {
+        if (type == null) {
             return false;
         }
-        TypeParameter type = model.toType();
         try {
             translate();
             type.translate();
@@ -491,7 +521,13 @@ public class TypeParameter implements Artifact {
         } catch (@SuppressWarnings("unused") TranslationException exception) {
             return false;
         }
+    }
 
+    public boolean isModel(Model model) {
+        if (model == null || !isModel()) {
+            return false;
+        }
+        return isEquivalent(model.toType());
     }
 
     public Class<?> getRawClass() {
@@ -530,7 +566,7 @@ public class TypeParameter implements Artifact {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        TypeParameter other = (TypeParameter) obj;
+        final TypeParameter other = (TypeParameter) obj;
         if (clazz == null) {
             if (other.clazz != null) {
                 return false;

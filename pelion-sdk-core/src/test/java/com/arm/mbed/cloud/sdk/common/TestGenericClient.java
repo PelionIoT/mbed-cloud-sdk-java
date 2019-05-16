@@ -66,6 +66,7 @@ public class TestGenericClient {
 
             int queryParameter = 2;
             try {
+                @SuppressWarnings("boxing")
                 UserListResponse response = client.callApi(requestDefinition, queryParameter);
                 assertNotNull(response);
                 assertNotNull(response.getData());
@@ -129,7 +130,7 @@ public class TestGenericClient {
                                                                             new ListOptions().pageSize(queryParameter));
 
                 assertTrue(paginatedResponse.first().isValid());
-                assertEquals(TOTAL_RESULT_NUMBER, paginatedResponse.getElementsTotal());
+                assertEquals(TOTAL_RESULT_NUMBER, paginatedResponse.count());
             } catch (Exception e) {
                 // Logs information about the last API call.
                 System.err.println("last API Metadata: " + client.getLastApiMetadata());
@@ -223,6 +224,7 @@ public class TestGenericClient {
 
         }
 
+        @Override
         public User clone() {
             return this;
         }

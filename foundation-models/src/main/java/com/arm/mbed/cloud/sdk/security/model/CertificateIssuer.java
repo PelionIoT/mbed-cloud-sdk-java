@@ -61,6 +61,8 @@ public class CertificateIssuer implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #CertificateIssuer()} instead.
      * 
      * @param createdAt
@@ -97,6 +99,8 @@ public class CertificateIssuer implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #CertificateIssuer()} instead.
      * 
      * @param certificateIssuer
@@ -122,7 +126,11 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            The ID of the certificate issuer.
      */
@@ -134,6 +142,8 @@ public class CertificateIssuer implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuer()} instead.
      * 
@@ -148,7 +158,11 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on required fields.
+     * <p>
+     *
      * @param issuerType
      *            The type of the certificate issuer. - GLOBAL_SIGN: Certificates are issued by GlobalSign service. The
      *            users must provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by
@@ -288,6 +302,26 @@ public class CertificateIssuer implements SdkModel {
     }
 
     /**
+     * Sets the type of the certificate issuer. - global_sign: certificates are issued by globalsign service. the users
+     * must provide their own globalsign account credentials. - cfssl_auth: certificates are issued by cfssl
+     * authenticated signing service. the users must provide their own cfssl host_url and credentials.
+     *
+     * <p>
+     * Similar to {@link #setIssuerType(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerType)}
+     * 
+     * @param issuerType
+     *            The type of the certificate issuer. - GLOBAL_SIGN: Certificates are issued by GlobalSign service. The
+     *            users must provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by
+     *            CFSSL authenticated signing service. The users must provide their own CFSSL host_url and credentials.
+     *
+     */
+    @Internal
+    @Required
+    public void setIssuerType(String issuerType) {
+        this.issuerType = CertificateIssuerType.getValue(issuerType);
+    }
+
+    /**
      * Checks whether issuerType value is valid.
      * 
      * @return true if the value is valid; false otherwise.
@@ -328,6 +362,20 @@ public class CertificateIssuer implements SdkModel {
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isNameValid() {
         return name != null && (name.length() <= 50);
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "CertificateIssuer [createdAt=" + createdAt + ", description=" + description + ", id=" + id
+               + ", issuerAttributes=" + issuerAttributes + ", issuerType=" + issuerType + ", name=" + name + "]";
     }
 
     /**
@@ -429,20 +477,6 @@ public class CertificateIssuer implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "CertificateIssuer [createdAt=" + createdAt + ", description=" + description + ", id=" + id
-               + ", issuerAttributes=" + issuerAttributes + ", issuerType=" + issuerType + ", name=" + name + "]";
     }
 
     /**

@@ -43,8 +43,12 @@ import retrofit2.Call;
 
 @Preamble(description = "Specifies Update API")
 @Module
+@Deprecated
 /**
  * API exposing functionality for dealing with updates
+ * <p>
+ * 
+ * @deprecated Use foundation interface or {@link DeviceUpdate} instead.
  */
 public class Update extends AbstractModule {
 

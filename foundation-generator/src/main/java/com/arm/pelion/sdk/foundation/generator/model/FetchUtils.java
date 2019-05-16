@@ -18,7 +18,7 @@ public class FetchUtils {
                 return latestModel == null ? model : latestModel;
             }
             return model;
-        } catch (Exception e) {
+        } catch (@SuppressWarnings("unused") Exception e) {
             // Nothing to do
             return model;
         }

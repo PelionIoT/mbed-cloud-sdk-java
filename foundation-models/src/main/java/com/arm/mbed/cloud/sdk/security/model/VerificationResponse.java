@@ -34,6 +34,8 @@ public class VerificationResponse implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #VerificationResponse()} instead.
      * 
      * @param message
@@ -53,6 +55,8 @@ public class VerificationResponse implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #VerificationResponse()} instead.
      * 
@@ -118,6 +122,19 @@ public class VerificationResponse implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "VerificationResponse [message=" + message + ", successful=" + successful + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
      *
      * <p>
@@ -130,7 +147,7 @@ public class VerificationResponse implements SdkModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((message == null) ? 0 : message.hashCode());
-        result = prime * result + Objects.hashCode(successful);
+        result = prime * result + Objects.hashCode(Boolean.valueOf(successful));
         return result;
     }
 
@@ -184,19 +201,6 @@ public class VerificationResponse implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "VerificationResponse [message=" + message + ", successful=" + successful + "]";
     }
 
     /**

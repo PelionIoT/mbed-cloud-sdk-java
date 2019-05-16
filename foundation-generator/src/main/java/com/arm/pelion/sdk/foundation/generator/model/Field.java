@@ -67,8 +67,8 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     }
 
     public static Field defaultIdentifier() {
-        return new Field(false, TypeFactory.getCorrespondingType(String.class), IDENTIFIER_NAME, IDENTIFIER_NAME, null,
-                         null, false, false, true, false, null, false);
+        return new Field(false, TypeFactory.stringType(), IDENTIFIER_NAME, IDENTIFIER_NAME, null, null, false, false,
+                         true, false, null, false);
     }
 
     private static boolean isFieldReadOnly(java.lang.reflect.Field field, boolean hasSetter) {
@@ -156,7 +156,11 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     }
 
     public boolean isUsualIdentifier() {
-        return name == null ? false : IDENTIFIER_NAME.equals(name.toLowerCase(Locale.UK).trim());
+        return isUsualIdentifier(name);
+    }
+
+    public static boolean isUsualIdentifier(String fieldName) {
+        return fieldName == null ? false : IDENTIFIER_NAME.equals(fieldName.toLowerCase(Locale.UK).trim());
     }
 
     public boolean hasDefaultValue() {
@@ -304,13 +308,9 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     protected void initialiseBuilder() throws TranslationException {
         if (specificationBuilder == null) {
             type.translate();
-            specificationBuilder = type.hasClass() ? FieldSpec.builder(type.getClazz(), name,
-                                                                       isAccessible ? isStatic ? Modifier.PUBLIC
-                                                                                               : Modifier.PROTECTED
-                                                                                    : Modifier.PRIVATE)
-                                                   : FieldSpec.builder(type.getTypeName(), name,
-                                                                       isAccessible ? Modifier.PROTECTED
-                                                                                    : Modifier.PRIVATE);
+            final Modifier modifier = isAccessible ? isStatic ? Modifier.PUBLIC : Modifier.PROTECTED : Modifier.PRIVATE;
+            specificationBuilder = type.hasClass() ? FieldSpec.builder(type.getClazz(), name, modifier)
+                                                   : FieldSpec.builder(type.getTypeName(), name, modifier);
         }
     }
 
@@ -378,8 +378,9 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
 
     @Override
     public Field clone() {
-        Field field = new Field(isReadOnly, type, name, description, longDescription, validation.clone(), isStatic,
-                                needsCustomCode, isInternal, isRequired, defaultValue, alreadyDefined);
+        Field field = new Field(isReadOnly, type == null ? null : type.clone(), name, description, longDescription,
+                                validation.clone(), isStatic, needsCustomCode, isInternal, isRequired, defaultValue,
+                                alreadyDefined);
         field.setDeprecation(deprecation);
         return field;
     }

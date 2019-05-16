@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +28,7 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
+import com.arm.mbed.cloud.sdk.common.model.DataFile;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -202,10 +204,10 @@ public class Serializer {
         }
         try {
             return new JsonObject(serialisedObject);
-        } catch (Exception e) {
+        } catch (@SuppressWarnings("unused") Exception e) {
             try {
                 return new JsonArray(serialisedObject);
-            } catch (Exception e1) {
+            } catch (@SuppressWarnings("unused") Exception e1) {
                 return serialisedObject;
             }
         }
@@ -342,7 +344,7 @@ public class Serializer {
         }
         List<T> value = new LinkedList<>();
         try {
-            Object parameterValue = objectFields.get(objectFields.keySet().iterator().next());
+            Object parameterValue = objectFields.get(objectFields.keySet().stream().findFirst().orElse(null));
             JsonArray jsonArray = null;
             if (parameterValue instanceof List<?>) {
                 jsonArray = new JsonArray((List<?>) parameterValue);
@@ -361,6 +363,24 @@ public class Serializer {
             throw new APICallException(e);
         }
         return value;// createObjectInstance(objectClass, transformedObject);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> Map<String, T> convertParametersToMapObject(Map<String, Object> objectFields,
+                                                                  Class<T> contentClass) throws APICallException {
+        if (objectFields == null || objectFields.isEmpty()) {
+            return null;
+        }
+        if (contentClass == null || contentClass == Object.class) {
+            return (Map<String, T>) objectFields;
+        }
+        final Map<String, T> value = new LinkedHashMap<>();
+        try {
+            objectFields.entrySet().forEach(entry -> value.put(entry.getKey(), (T) entry.getValue()));
+        } catch (Exception e) {
+            throw new APICallException(e);
+        }
+        return value;
     }
 
     public static <T> T convertParametersToObjectFromAbstractClasses(Map<String, Object> objectFields,
@@ -409,14 +429,36 @@ public class Serializer {
                                                   .collect(Collectors.toList()));
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T convertObject(Class<T> objectClass, JsonObject transformedObject) throws APICallException {
         try {
             if (Map.class.isAssignableFrom(objectClass)) {
                 return performWorkaroundForMapDeserialisation(objectClass, transformedObject);
             }
+            if (DataFile.class.isAssignableFrom(objectClass)) {
+                return (T) convertDataFile(transformedObject);
+            }
             return transformedObject.mapTo(objectClass);
         } catch (IllegalArgumentException | ClassCastException e) {
             throw new APICallException(e);
+        }
+    }
+
+    private static DataFile convertDataFile(JsonObject transformedObject) {
+        if (transformedObject == null || transformedObject.isEmpty()) {
+            return null;
+        }
+        try {
+            return transformedObject.mapTo(DataFile.class);
+        } catch (@SuppressWarnings("unused") Exception e) {
+            if (transformedObject.size() > 1) {
+                return null;
+            }
+            final Object value = transformedObject.getMap().values().stream().findFirst().orElse(null);
+            if (value instanceof String) {
+                return new DataFile((String) value);
+            }
+            return null;
         }
     }
 
@@ -440,7 +482,8 @@ public class Serializer {
                                              f.setAccessible(true);
                                              try {
                                                  return f.get(result);
-                                             } catch (IllegalArgumentException | IllegalAccessException e) {
+                                             } catch (@SuppressWarnings("unused") IllegalArgumentException
+                                                                                  | IllegalAccessException e) {
                                                  return null;
                                              }
                                          }));
@@ -450,6 +493,7 @@ public class Serializer {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T performWorkaroundForMapDeserialisation(Class<T> objectClass,
                                                                 JsonObject transformedObject) throws APICallException {
         // This is a temporary fix to solve the problem raised against Vertx JsonObject
@@ -458,6 +502,9 @@ public class Serializer {
         // correspond (i.e key equals field name). If so, it tries to set the field with the value.
         // The following is a bit of a hack and has not been thoroughly tested
         try {
+            if (objectClass == Map.class || objectClass == Hashtable.class) {
+                return (T) transformedObject.getMap();
+            }
             Constructor<T> constructor = objectClass.getConstructor();
             if (constructor == null) {
                 throw new APICallException("Cannot find a suitable constructor for class [" + objectClass
@@ -478,7 +525,7 @@ public class Serializer {
                                            f.setAccessible(true);
                                            try {
                                                return f;
-                                           } catch (IllegalArgumentException e) {
+                                           } catch (@SuppressWarnings("unused") IllegalArgumentException e) {
                                                return null;
                                            }
                                        }));

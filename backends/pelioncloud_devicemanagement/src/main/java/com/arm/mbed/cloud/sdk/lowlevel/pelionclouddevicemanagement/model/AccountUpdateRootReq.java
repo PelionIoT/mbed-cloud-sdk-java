@@ -28,9 +28,9 @@ import java.util.Map;
 import java.io.Serializable;
 
 /**
- * This object represents an account update request.
+ * Represents an account update request.
  */
-@ApiModel(description = "This object represents an account update request.")
+@ApiModel(description = "Represents an account update request.")
 
 public class AccountUpdateRootReq implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -75,10 +75,10 @@ public class AccountUpdateRootReq implements Serializable {
     private String endMarket = null;
 
     @SerializedName("expiration_warning_threshold")
-    private String expirationWarningThreshold = null;
+    private Integer expirationWarningThreshold = null;
 
     @SerializedName("idle_timeout")
-    private String idleTimeout = null;
+    private Integer idleTimeout = null;
 
     /**
      * The enforcement status of setting up the multi-factor authentication. &#39;Enforced&#39; means that setting up
@@ -158,12 +158,12 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
+     * Postal address line 1. Required for commercial accounts only.
      * 
      * @return addressLine1
      **/
     @ApiModelProperty(example = "110 Fulbourn Rd",
-                      value = "Postal address line 1, not longer than 100 characters. Required for commercial accounts only.")
+                      value = "Postal address line 1. Required for commercial accounts only.")
     public String getAddressLine1() {
         return addressLine1;
     }
@@ -178,11 +178,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * Postal address line 2, not longer than 100 characters.
+     * Postal address line 2.
      * 
      * @return addressLine2
      **/
-    @ApiModelProperty(example = " ", value = "Postal address line 2, not longer than 100 characters.")
+    @ApiModelProperty(example = " ", value = "Postal address line 2.")
     public String getAddressLine2() {
         return addressLine2;
     }
@@ -205,11 +205,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.
+     * An array of aliases.
      * 
      * @return aliases
      **/
-    @ApiModelProperty(value = "An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters.")
+    @ApiModelProperty(value = "An array of aliases.")
     public List<String> getAliases() {
         return aliases;
     }
@@ -224,12 +224,12 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     * The city part of the postal address. Required for commercial accounts only.
      * 
      * @return city
      **/
     @ApiModelProperty(example = "Cambridge",
-                      value = "The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
+                      value = "The city part of the postal address. Required for commercial accounts only.")
     public String getCity() {
         return city;
     }
@@ -244,12 +244,12 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * The name of the company, not longer than 100 characters. Required for commercial accounts only.
+     * The name of the company. Required for commercial accounts only.
      * 
      * @return company
      **/
     @ApiModelProperty(example = "ARM Holdings Plc",
-                      value = "The name of the company, not longer than 100 characters. Required for commercial accounts only.")
+                      value = "The name of the company. Required for commercial accounts only.")
     public String getCompany() {
         return company;
     }
@@ -264,13 +264,12 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts
-     * only.
+     * The name of the contact person for this account. Required for commercial accounts only.
      * 
      * @return contact
      **/
     @ApiModelProperty(example = "J. Doe",
-                      value = "The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.")
+                      value = "The name of the contact person for this account. Required for commercial accounts only.")
     public String getContact() {
         return contact;
     }
@@ -304,12 +303,12 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
+     * The country part of the postal address. Required for commercial accounts only.
      * 
      * @return country
      **/
     @ApiModelProperty(example = "United Kingdom",
-                      value = "The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
+                      value = "The country part of the postal address. Required for commercial accounts only.")
     public String getCountry() {
         return country;
     }
@@ -332,12 +331,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * Account&#39;s custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100
-     * characters. The values are handled as strings and the maximum length for a value is 1000 characters.
+     * Account&#39;s custom properties as key-value pairs.
      * 
      * @return customFields
      **/
-    @ApiModelProperty(value = "Account's custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.")
+    @ApiModelProperty(value = "Account's custom properties as key-value pairs.")
     public Map<String, String> getCustomFields() {
         return customFields;
     }
@@ -371,11 +369,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * The display name for the account, not longer than 100 characters.
+     * The display name for the account.
      * 
      * @return displayName
      **/
-    @ApiModelProperty(example = "ARM", value = "The display name for the account, not longer than 100 characters.")
+    @ApiModelProperty(example = "ARM", value = "The display name for the account.")
     public String getDisplayName() {
         return displayName;
     }
@@ -390,13 +388,12 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * The company email address for this account, not longer than 254 characters. Required for commercial accounts
-     * only.
+     * The company email address for this account. Required for commercial accounts only.
      * 
      * @return email
      **/
     @ApiModelProperty(example = "info@arm.com",
-                      value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
+                      value = "The company email address for this account. Required for commercial accounts only.")
     public String getEmail() {
         return email;
     }
@@ -411,11 +408,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * The end market for this account, not longer than 100 characters.
+     * The end market for this account.
      * 
      * @return endMarket
      **/
-    @ApiModelProperty(example = "IT", value = "The end market for this account, not longer than 100 characters.")
+    @ApiModelProperty(example = "IT", value = "The end market for this account.")
     public String getEndMarket() {
         return endMarket;
     }
@@ -424,41 +421,42 @@ public class AccountUpdateRootReq implements Serializable {
         this.endMarket = endMarket;
     }
 
-    public AccountUpdateRootReq expirationWarningThreshold(String expirationWarningThreshold) {
+    public AccountUpdateRootReq expirationWarningThreshold(Integer expirationWarningThreshold) {
         this.expirationWarningThreshold = expirationWarningThreshold;
         return this;
     }
 
     /**
-     * Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
+     * Indicates how many days before account expiration a notification email is sent. minimum: 1 maximum: 180
      * 
      * @return expirationWarningThreshold
      **/
-    @ApiModelProperty(value = "Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.")
-    public String getExpirationWarningThreshold() {
+    @ApiModelProperty(value = "Indicates how many days before account expiration a notification email is sent.")
+    public Integer getExpirationWarningThreshold() {
         return expirationWarningThreshold;
     }
 
-    public void setExpirationWarningThreshold(String expirationWarningThreshold) {
+    public void setExpirationWarningThreshold(Integer expirationWarningThreshold) {
         this.expirationWarningThreshold = expirationWarningThreshold;
     }
 
-    public AccountUpdateRootReq idleTimeout(String idleTimeout) {
+    public AccountUpdateRootReq idleTimeout(Integer idleTimeout) {
         this.idleTimeout = idleTimeout;
         return this;
     }
 
     /**
-     * The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
+     * The reference token expiration time in minutes for this account. Between 1 and 120 minutes. minimum: 1 maximum:
+     * 120
      * 
      * @return idleTimeout
      **/
     @ApiModelProperty(value = "The reference token expiration time in minutes for this account. Between 1 and 120 minutes.")
-    public String getIdleTimeout() {
+    public Integer getIdleTimeout() {
         return idleTimeout;
     }
 
-    public void setIdleTimeout(String idleTimeout) {
+    public void setIdleTimeout(Integer idleTimeout) {
         this.idleTimeout = idleTimeout;
     }
 
@@ -534,12 +532,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is:
-     * 1-45. minimum: 1 maximum: 45
+     * Indicates for how many minutes a password recovery email is valid. minimum: 1 maximum: 45
      * 
      * @return passwordRecoveryExpiration
      **/
-    @ApiModelProperty(value = "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.")
+    @ApiModelProperty(value = "Indicates for how many minutes a password recovery email is valid.")
     public Integer getPasswordRecoveryExpiration() {
         return passwordRecoveryExpiration;
     }
@@ -554,12 +551,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * The phone number of a representative of the company, not longer than 100 characters.
+     * The phone number of a representative of the company.
      * 
      * @return phoneNumber
      **/
-    @ApiModelProperty(example = "+44 (1223) 400 400",
-                      value = "The phone number of a representative of the company, not longer than 100 characters.")
+    @ApiModelProperty(example = "+44 (1223) 400 400", value = "The phone number of a representative of the company.")
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -574,12 +570,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * The postal code part of the postal address, not longer than 100 characters.
+     * The postal code part of the postal address.
      * 
      * @return postalCode
      **/
-    @ApiModelProperty(example = "CB1 9NJ",
-                      value = "The postal code part of the postal address, not longer than 100 characters.")
+    @ApiModelProperty(example = "CB1 9NJ", value = "The postal code part of the postal address.")
     public String getPostalCode() {
         return postalCode;
     }
@@ -613,11 +608,11 @@ public class AccountUpdateRootReq implements Serializable {
     }
 
     /**
-     * The state part of the postal address, not longer than 100 characters.
+     * The state part of the postal address.
      * 
      * @return state
      **/
-    @ApiModelProperty(example = " ", value = "The state part of the postal address, not longer than 100 characters.")
+    @ApiModelProperty(example = " ", value = "The state part of the postal address.")
     public String getState() {
         return state;
     }

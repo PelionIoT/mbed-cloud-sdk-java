@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **length** | **Integer** | The length of the chunk |  [optional]
 **object** | **String** | Entity name: always &#39;upload-info&#39; |  [optional]
 **updatedAt** | [**DateTime**](DateTime.md) | The time the entity was updated |  [optional]
+**uploadJobId** | **String** | The upload job ID. |  [optional]
 
 
 

@@ -1,9 +1,11 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.mbed.cloud.sdk.common.UuidGenerator;
@@ -22,10 +24,11 @@ public class ValueGenerator {
         if (field == null) {
             return;
         }
-        addGenerateFieldValue(field.getType(), field.getValidation(), values);
+        addGenerateFieldValue(field.getType(), field.getValidation(), values, Utils.isEmail(field.getIdentifier()));
     }
 
-    public static void addGenerateFieldValue(TypeParameter fieldType, Validation validation, Values values) {
+    public static void addGenerateFieldValue(TypeParameter fieldType, Validation validation, Values values,
+                                             boolean isEmail) {
 
         if (fieldType == null || values == null) {
             return;
@@ -49,6 +52,10 @@ public class ValueGenerator {
         }
         if (fieldType.isString()) {
             values.addToFormat("$S");
+            if (isEmail) {
+                values.addValue(generateEmailAddress());
+                return;
+            }
             if (hasValidation) {
                 String value = validation.hasPattern() ? generateStringBasedOnRegex(validation.getPattern())
                                                        : generateRandomString();
@@ -130,17 +137,21 @@ public class ValueGenerator {
         return UuidGenerator.generate();
     }
 
+    private static String generateEmailAddress() {
+        return generateRandomString().substring(0, 5) + "." + generateRandomString().substring(0, 5) + "@"
+               + generateRandomString().substring(0, 5) + "." + (Math.random() > 0.5 ? "fr" : "me");
+    }
+
     private static String generateStringBasedOnRegex(String pattern) {
-        String patternToConsider = Utils.applyPatternReverseHack(pattern.trim());
+        String patternToConsider = Utils.transformRegexBackFromValidString(Utils.applyPatternReverseHack(pattern.trim()));
         if (patternToConsider.startsWith("^")) {
             patternToConsider = patternToConsider.substring(1);
         }
         if (patternToConsider.endsWith("$")) {
             patternToConsider = patternToConsider.substring(0, patternToConsider.length() - 1);
         }
-        final Generex generex = new Generex(patternToConsider);
-        return Utils.applyPatternHack(generex.random()).replace("\"", "").replace("\n", "").replace("\r", "")
-                    .replace("\\", "\\\\");
+        return Utils.transformRegexIntoValidString(Utils.applyPatternHack(StringGeneratorHolder.INSTANCE.generate(patternToConsider))
+                                                        .replace("\"", "").replace("\n", "").replace("\r", ""));
     }
 
     public static void addGenerateFieldInvalidValue(Field field, Values values) {
@@ -153,6 +164,9 @@ public class ValueGenerator {
             return;
         }
         if (field.getType().isString() && field.hasValidation() && field.getValidation().hasPattern()) {
+            final String validationPattern = Utils.transformRegexBackFromValidString(Utils.applyPatternReverseHack(field.getValidation()
+                                                                                                                        .getPattern()
+                                                                                                                        .trim()));
             final String potentialInvalidRegex = "[^"
                                                  + generateStringBasedOnRegex(field.getValidation()
                                                                                    .getPattern()).replaceAll("[\\[\\]\\-\\\"]",
@@ -162,7 +176,7 @@ public class ValueGenerator {
             int trial = 10;
             while (trial > 0) {
                 potentialInvalidString += generateStringBasedOnRegex(potentialInvalidRegex);
-                if (!potentialInvalidString.matches(field.getValidation().getPattern())) {
+                if (!potentialInvalidString.matches(validationPattern)) {
                     values.addToFormat("$S");
                     values.addValue(potentialInvalidString);
                     return;
@@ -234,7 +248,7 @@ public class ValueGenerator {
         final boolean hasDefaultValue = defaultValue != null && !defaultValue.isEmpty();
         try {
             type.translate();
-        } catch (TranslationException exception) {
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
             // Nothing to do
         }
         if (type.isBoolean()) {
@@ -245,8 +259,8 @@ public class ValueGenerator {
             }
             values.addValue(Boolean.class);
             if (!hasDefaultValue) {
-                values.addToFormat("$T.$L");
-                values.addValue("FALSE");
+                values.addToFormat("($T) $L");
+                values.addValue(DEFAULT_VALUE);
                 return;
             }
             if (Boolean.parseBoolean(defaultValue)) {
@@ -452,6 +466,36 @@ public class ValueGenerator {
             return "Values [formats=" + formats + ", values=" + values + "]";
         }
 
+    }
+
+    // FIXME The following is done because of bug https://github.com/mifmif/Generex/issues/26
+    private static class StringGenerator {
+        private final Map<String, String> generatedStringStore;
+
+        private StringGenerator() {
+            super();
+            generatedStringStore = new LinkedHashMap<>();
+        }
+
+        public String generate(String regex) {
+            if (regex == null || regex.isEmpty()) {
+                return generateRandomString();
+            }
+            if (generatedStringStore.containsKey(regex)) {
+                return generatedStringStore.get(regex);
+            }
+            // FIXME Hack to avoid the stack overflow
+            final String transformRegex = regex.replace("\\w", "[a-zA-Z1-9_]").replaceAll("(\\[.*)\\[(.*)\\](.*\\])",
+                                                                                          "$1$2$3");
+            final Generex generex = new Generex(transformRegex);
+            final String randomString = generex.random();
+            generatedStringStore.put(regex, randomString);
+            return randomString;
+        }
+    }
+
+    private static class StringGeneratorHolder {
+        private static final StringGenerator INSTANCE = new StringGenerator();
     }
 
 }

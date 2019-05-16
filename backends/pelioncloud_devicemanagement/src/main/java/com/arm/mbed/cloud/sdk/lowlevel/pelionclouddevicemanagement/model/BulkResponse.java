@@ -106,9 +106,8 @@ public class BulkResponse implements Serializable {
     private Integer processedCount = null;
 
     /**
-     * The state of the process is &#39;new&#39; at the time of creation. If the creation is still in progress, the
-     * state is shown as &#39;processing&#39;. When the request has been fully processed, the state changes to
-     * &#39;completed&#39;.
+     * The state of the process is &#39;new&#39; at the time of creation. If creation is still in progress, the state
+     * shows as &#39;processing&#39;. When the request is fully processed, the state changes to &#39;completed&#39;.
      */
     @JsonAdapter(StatusEnum.Adapter.class)
     public enum StatusEnum {
@@ -187,11 +186,11 @@ public class BulkResponse implements Serializable {
     }
 
     /**
-     * The time of completing the bulk creation task. Null when creating bulk upload or delete.
+     * The time the bulk creation task was completed. Null when creating bulk upload or delete.
      * 
      * @return completedAt
      **/
-    @ApiModelProperty(value = "The time of completing the bulk creation task. Null when creating bulk upload or delete. ")
+    @ApiModelProperty(value = "The time the bulk creation task was completed. Null when creating bulk upload or delete.")
     public DateTime getCompletedAt() {
         return completedAt;
     }
@@ -210,7 +209,7 @@ public class BulkResponse implements Serializable {
      * 
      * @return createdAt
      **/
-    @ApiModelProperty(required = true, value = "The time of receiving the bulk creation task. ")
+    @ApiModelProperty(required = true, value = "The time of receiving the bulk creation task.")
     public DateTime getCreatedAt() {
         return createdAt;
     }
@@ -230,7 +229,7 @@ public class BulkResponse implements Serializable {
      * @return errorsCount
      **/
     @ApiModelProperty(example = "0", required = true,
-                      value = "The number of enrollment identities with failed processing. ")
+                      value = "The number of enrollment identities with failed processing.")
     public Integer getErrorsCount() {
         return errorsCount;
     }
@@ -250,7 +249,7 @@ public class BulkResponse implements Serializable {
      * @return errorsReportFile
      **/
     @ApiModelProperty(example = "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv",
-                      required = true, value = "Link to error report file. Null when creating bulk upload or delete. ")
+                      required = true, value = "Link to error report file. Null when creating bulk upload or delete.")
     public String getErrorsReportFile() {
         return errorsReportFile;
     }
@@ -289,7 +288,7 @@ public class BulkResponse implements Serializable {
      * @return fullReportFile
      **/
     @ApiModelProperty(example = "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv",
-                      required = true, value = "Link to full report file. Null when creating bulk upload or delete. ")
+                      required = true, value = "Link to full report file. Null when creating bulk upload or delete.")
     public String getFullReportFile() {
         return fullReportFile;
     }
@@ -347,7 +346,7 @@ public class BulkResponse implements Serializable {
      * @return processedCount
      **/
     @ApiModelProperty(example = "0", required = true,
-                      value = "The number of enrollment identities processed until now. ")
+                      value = "The number of enrollment identities processed until now.")
     public Integer getProcessedCount() {
         return processedCount;
     }
@@ -362,14 +361,13 @@ public class BulkResponse implements Serializable {
     }
 
     /**
-     * The state of the process is &#39;new&#39; at the time of creation. If the creation is still in progress, the
-     * state is shown as &#39;processing&#39;. When the request has been fully processed, the state changes to
-     * &#39;completed&#39;.
+     * The state of the process is &#39;new&#39; at the time of creation. If creation is still in progress, the state
+     * shows as &#39;processing&#39;. When the request is fully processed, the state changes to &#39;completed&#39;.
      * 
      * @return status
      **/
     @ApiModelProperty(example = "new", required = true,
-                      value = "The state of the process is 'new' at the time of creation. If the creation is still in progress, the state is shown as 'processing'. When the request has been fully processed, the state changes to 'completed'. ")
+                      value = "The state of the process is 'new' at the time of creation. If creation is still in progress, the state shows as 'processing'. When the request is fully processed, the state changes to 'completed'.")
     public StatusEnum getStatus() {
         return status;
     }
@@ -389,7 +387,7 @@ public class BulkResponse implements Serializable {
      * @return totalCount
      **/
     @ApiModelProperty(example = "10", required = true,
-                      value = "Total number of enrollment identities found in the input CSV. ")
+                      value = "Total number of enrollment identities found in the input CSV.")
     public Integer getTotalCount() {
         return totalCount;
     }

@@ -50,8 +50,11 @@ public class DeprecationNotice {
         return links;
     }
 
-    public void setLinks(List<String> links) {
-        this.links = links;
+    @SuppressWarnings("unchecked")
+    public void setLinks(Object links) {
+        if (links instanceof List) {
+            this.links = (List<String>) links;
+        }
     }
 
     public boolean hasLinks() {

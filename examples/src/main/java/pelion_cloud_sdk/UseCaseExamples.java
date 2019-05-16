@@ -219,15 +219,15 @@ public class UseCaseExamples extends AbstractExample {
             CertificateIssuerConfig myConfig = StreamSupport.stream(sdk.foundation().getCertificateIssuerConfigListDao()
                                                                        .getPaginator().spliterator(),
                                                                     false)
-                                                            .filter(c -> c.getCertificateReference().equals("LWM2M"))
-                                                            .findFirst().get();
+                                                            .filter(c -> c.getReference().equals("LWM2M")).findFirst()
+                                                            .get();
             // Renew the certificate of all connected devices
             StreamSupport.stream(sdk.foundation().getDeviceListDao().paginator().spliterator(), false)
                          .filter(d -> d.getState() == DeviceState.REGISTERED).forEach(d -> {
                              // Configure the DAO with the model of interest
                              try {
                                  deviceDao.setModel(d);
-                                 deviceDao.renewCertificate(myConfig.getCertificateReference());
+                                 deviceDao.renewCertificate(myConfig.getReference());
                                  log(myConfig + " was renewed on " + d);
                              } catch (@SuppressWarnings("unused") MbedCloudException exception) {
                                  // TODO do something with the exception

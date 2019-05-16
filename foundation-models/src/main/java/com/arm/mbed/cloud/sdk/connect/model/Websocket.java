@@ -55,6 +55,7 @@ public class Websocket implements SdkModel {
     /**
      * Gets the unique identifier of the channel.
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -62,6 +63,7 @@ public class Websocket implements SdkModel {
     /**
      * Sets the unique identifier of the channel.
      */
+    @Override
     public void setId(String id) {
         this.id = id;
     }

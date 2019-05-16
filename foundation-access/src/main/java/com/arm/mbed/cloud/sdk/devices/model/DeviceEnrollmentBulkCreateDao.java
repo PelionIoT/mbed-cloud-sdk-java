@@ -120,12 +120,13 @@ public class DeviceEnrollmentBulkCreateDao extends AbstractDeviceEnrollmentBulkC
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
+    @SuppressWarnings("resource")
     @Override
     public DeviceEnrollmentBulkCreateDao clone() {
         try {
             return new DeviceEnrollmentBulkCreateDao().configureAndGet(getModuleOrThrow() == null ? null
                                                                                                   : getModuleOrThrow().clone());
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             return null;
         }
     }

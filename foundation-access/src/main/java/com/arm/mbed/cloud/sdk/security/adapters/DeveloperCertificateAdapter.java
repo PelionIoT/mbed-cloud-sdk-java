@@ -40,6 +40,7 @@ public final class DeveloperCertificateAdapter {
         final DeveloperCertificate developerCertificate = new DeveloperCertificate(toBeMapped.getAccountId(),
                                                                                    toBeMapped.getDeveloperCertificate(),
                                                                                    TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                                   toBeMapped.getDeveloperPrivateKey(),
                                                                                    toBeMapped.getSecurityFileContent());
         developerCertificate.setDescription(toBeMapped.getDescription());
         developerCertificate.setId(toBeMapped.getId());

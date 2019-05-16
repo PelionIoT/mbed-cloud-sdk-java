@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MethodConstructorAllFields extends AbstractMethodConstructorWithFieldParameters {
+    private static final String CONSTRUCTOR_DESCRIPTION = "Constructor based on all fields.";
     public static final String IDENTIFIER = new MethodConstructorAllFields(null, null).getIdentifier();
     private boolean callSuperConstructor;
 
     public MethodConstructorAllFields(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, hasFields(currentModel, parentModel));
+        super(CONSTRUCTOR_DESCRIPTION, currentModel, parentModel, null, null, hasFields(currentModel, parentModel));
         callSuperConstructor = true;
     }
 
@@ -73,6 +74,7 @@ public class MethodConstructorAllFields extends AbstractMethodConstructorWithFie
         this.callSuperConstructor = callSuperConstructor;
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends MethodConstructorAllFields> T callSuperConstructor(boolean callSuperConstructor) {
         setCallSuperConstructor(callSuperConstructor);
         return (T) this;

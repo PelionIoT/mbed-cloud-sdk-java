@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -13,6 +14,8 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import org.junit.Test;
+
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 public class TestFilterMarshaller {
     @Test
@@ -41,6 +44,10 @@ public class TestFilterMarshaller {
         filters.add(new CustomFilter("fooBar", FilterOperator.GREATER_THAN, "top"));
         filters.add(new Filter("key", FilterOperator.EQUAL, "value"));
         assertEquals("custom_attributes__foo_bar__gte=top&key__eq=value", new FilterMarshaller(null).encode(filters));
+        filters.add(new Filter("keys", FilterOperator.IN, Arrays.asList(new ModelTest("id1"), new ModelTest("id2"))));
+        filters.add(new Filter("otherKeys", FilterOperator.NOT_IN, Arrays.asList("id1", "id2")));
+        assertEquals("custom_attributes__foo_bar__gte=top&key__eq=value&keys__in=id1,id2&other_keys__nin=id1,id2",
+                     new FilterMarshaller(null).encode(filters));
         // TODO add more test cases
     }
 
@@ -257,6 +264,42 @@ public class TestFilterMarshaller {
         newfilters = FilterMarshaller.fromJson(filterJson);
         assertEquals(filters, newfilters);
         assertEquals(encodedFilter, new FilterMarshaller(null).encode(newfilters));
+    }
+
+    private static class ModelTest implements SdkModel {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 4357358777733316229L;
+        private String id;
+
+        public ModelTest(String id) {
+            super();
+            this.id = id;
+        }
+
+        @Override
+        public boolean isValid() {
+            return true;
+        }
+
+        @Override
+        public String getId() {
+            return id;
+        }
+
+        @Override
+        public void setId(String id) {
+            this.id = id;
+
+        }
+
+        @Override
+        public ModelTest clone() {
+            return null;
+        }
+
     }
 
 }

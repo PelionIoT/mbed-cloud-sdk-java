@@ -94,8 +94,10 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * Adds a device enrollment.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDao#create(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
      * @return an added device enrollment
      * @throws MbedCloudException
@@ -103,7 +105,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      */
     @Override
     public DeviceEnrollment create() throws MbedCloudException {
-        return setAndGetModel(((Devices) getModuleOrThrow()).createDeviceEnrollment(getModel()));
+        return create(getModel());
     }
 
     /**
@@ -121,23 +123,24 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      */
     @Override
     public DeviceEnrollment create(@NonNull DeviceEnrollment enrollmentIdentity) throws MbedCloudException {
-        setModel(enrollmentIdentity);
-        return create();
+        return setAndGetModel(((Devices) getModuleOrThrow()).createDeviceEnrollment(enrollmentIdentity));
     }
 
     /**
      * Deletes a device enrollment.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDao#delete(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
-        ((Devices) getModuleOrThrow()).deleteDeviceEnrollment(getModel());
+        delete(getModel());
     }
 
     /**
@@ -154,8 +157,7 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      */
     @Override
     public void delete(@NonNull DeviceEnrollment deviceEnrollment) throws MbedCloudException {
-        setModel(deviceEnrollment);
-        delete();
+        ((Devices) getModuleOrThrow()).deleteDeviceEnrollment(deviceEnrollment);
     }
 
     /**
@@ -228,8 +230,10 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      * Gets a device enrollment.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDao#read(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
      * 
      * @return something
      * @throws MbedCloudException
@@ -237,7 +241,24 @@ public class DeviceEnrollmentDao extends AbstractModelDao<DeviceEnrollment> impl
      */
     @Override
     public DeviceEnrollment read() throws MbedCloudException {
-        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollment(getModel()));
+        return read(getModel());
+    }
+
+    /**
+     * Gets a device enrollment.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollment(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment)}
+     * 
+     * @param deviceEnrollment
+     *            a device enrollment.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEnrollment read(@NonNull DeviceEnrollment deviceEnrollment) throws MbedCloudException {
+        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollment(deviceEnrollment));
     }
 
     /**

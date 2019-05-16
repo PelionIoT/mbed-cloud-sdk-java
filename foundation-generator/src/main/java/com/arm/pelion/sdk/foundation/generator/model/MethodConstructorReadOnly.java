@@ -7,9 +7,10 @@ import com.arm.pelion.sdk.foundation.generator.model.ValueGenerator.Values;
 public class MethodConstructorReadOnly extends AbstractMethodConstructorWithFieldParameters {
 
     public static final String IDENTIFIER = new MethodConstructorReadOnly(null, null).getIdentifier();
+    private static final String CONSTRUCTOR_DESCRIPTION = "Constructor based on read-only fields.";
 
     public MethodConstructorReadOnly(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, true);
+        super(CONSTRUCTOR_DESCRIPTION, currentModel, parentModel, null, null, true);
     }
 
     @Override

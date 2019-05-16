@@ -22,12 +22,13 @@ public class ModelEnum extends ModelPojo {
     public ModelEnum(String packageName, String attachedEntity, String name, String group, String longDescription,
                      List<String> options, String defaultOption) {
         super(packageName, generateName(attachedEntity, name), group,
-              Utils.generateDescriptionFromName(generateName(attachedEntity, name)), longDescription, false, false);
+              Utils.generateDescriptionFromName(generateName(attachedEntity, name)), longDescription, false, false,
+              null);
         this.options = options == null ? new LinkedList<>() : options;
         this.rawDefaultOption = defaultOption;
         this.defaultOption = determineDefaultValue(defaultOption, options);
-        addField(new Field(true, TypeFactory.getCorrespondingType(String.class), "string", "string representation",
-                           null, null, false, false, true, true, generateConstantName(defaultOption), false));
+        addField(new Field(true, TypeFactory.stringType(), "string", "string representation", null, null, false, false,
+                           true, true, generateConstantName(defaultOption), false));
     }
 
     public ModelEnum(String packageName, String name, String group) {
@@ -125,8 +126,7 @@ public class ModelEnum extends ModelPojo {
     @Override
     protected void generateToString(Model theParent) {
         overrideMethodIfExist(new Method(false, "toString", "toString", "@see java.lang.Enum#toString()", false, true,
-                                         false, false, false, false, false, true)
-                                                                                 .returnType(TypeFactory.getCorrespondingType(String.class))
+                                         false, false, false, false, false, true).returnType(TypeFactory.stringType())
                                                                                  .returnDescription("the string representation of this value")
                                                                                  .statement("return getString()"));
     }
@@ -166,8 +166,7 @@ public class ModelEnum extends ModelPojo {
                                                                                                                        + "  or default "
                                                                                                                        + getDescriptionForDocumentation()
                                                                                                                        + " if not recognised. ");
-        method.addParameter(new Parameter("value", "string", null, TypeFactory.getCorrespondingType(String.class), null,
-                                          null));
+        method.addParameter(new Parameter("value", "string", null, TypeFactory.stringType(), null, null));
         method.initialiseCodeBuilder();
         method.getCode().beginControlFlow("if (value == null)");
         method.getCode().addStatement("return getDefault()");

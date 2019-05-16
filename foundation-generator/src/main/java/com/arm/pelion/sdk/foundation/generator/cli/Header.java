@@ -27,7 +27,7 @@ public class Header {
         StringBuilder builder = new StringBuilder();
         try {
             figletRenderer = new FigletRenderer(FigFontResources.loadFigFontResource(FigFontResources.BIG_FLF));
-        } catch (IOException exception) {
+        } catch (@SuppressWarnings("unused") IOException exception) {
             // Nothing to do
         }
         if (figletRenderer == null) {

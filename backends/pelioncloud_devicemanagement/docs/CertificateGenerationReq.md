@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **algorithm** | [**AlgorithmEnum**](#AlgorithmEnum) | The algorithm and its key size used for generating the certificate. Defaults to RSA2048. |  [optional]
-**validity** | **Integer** | Validity for the certificate in days. Value can be in the range of 1 to 3650. Defaults to 365 days. |  [optional]
+**validity** | **Integer** | Validity for the certificate in days. |  [optional]
 
 
 <a name="AlgorithmEnum"></a>

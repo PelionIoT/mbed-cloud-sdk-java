@@ -44,11 +44,11 @@ public class CertificateIssuerUpdateRequest implements Serializable {
     }
 
     /**
-     * General description for the certificate issuer.
+     * General description of the certificate issuer.
      * 
      * @return description
      **/
-    @ApiModelProperty(value = "General description for the certificate issuer.")
+    @ApiModelProperty(value = "General description of the certificate issuer.")
     public String getDescription() {
         return description;
     }

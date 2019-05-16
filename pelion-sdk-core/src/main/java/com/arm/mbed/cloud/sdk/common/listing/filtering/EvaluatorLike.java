@@ -59,7 +59,7 @@ public class EvaluatorLike implements FilterEvaluator {
             if (Pattern.matches(pattern, valueString)) {
                 return true;
             }
-        } catch (PatternSyntaxException exception) {
+        } catch (@SuppressWarnings("unused") PatternSyntaxException exception) {
             // Nothing to do
         }
         // If filterValue is a SQL like entry i.e.
@@ -67,7 +67,7 @@ public class EvaluatorLike implements FilterEvaluator {
                                           .replace("?", ".").replace("_", ".").replace("%", ".*");
         try {
             return Pattern.matches(javaPattern, valueString);
-        } catch (PatternSyntaxException exception) {
+        } catch (@SuppressWarnings("unused") PatternSyntaxException exception) {
             return false;
         }
     }

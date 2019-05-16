@@ -57,11 +57,11 @@ public class GroupCreationInfo implements Serializable {
     }
 
     /**
-     * The group name, not longer than 100 characters.
+     * The group name.
      * 
      * @return name
      **/
-    @ApiModelProperty(required = true, value = "The group name, not longer than 100 characters.")
+    @ApiModelProperty(required = true, value = "The group name.")
     public String getName() {
         return name;
     }

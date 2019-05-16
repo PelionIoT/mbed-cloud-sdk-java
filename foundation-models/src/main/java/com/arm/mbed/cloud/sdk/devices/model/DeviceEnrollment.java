@@ -25,7 +25,7 @@ public class DeviceEnrollment implements SdkModel {
     private final String accountId;
 
     /**
-     * The time of claiming the device to be assigned to the account.
+     * The time the device was claimed.
      */
     private final Date claimedAt;
 
@@ -35,7 +35,7 @@ public class DeviceEnrollment implements SdkModel {
     private final Date createdAt;
 
     /**
-     * The ID of the device in the Device Directory once it has been registered.
+     * The ID of the device in the Device Directory once it is registered.
      */
     private final String enrolledDeviceId;
 
@@ -46,8 +46,8 @@ public class DeviceEnrollment implements SdkModel {
     private String enrollmentIdentity;
 
     /**
-     * The enrollment claim expiration time. If the device does not connect to Device Management before the expiration,
-     * the claim is removed without a separate notice.
+     * The enrollment claim expiration time. If the device does not connect to Device Management before expiration, the
+     * claim is removed without separate notice.
      */
     private final Date expiresAt;
 
@@ -60,21 +60,23 @@ public class DeviceEnrollment implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollment()} instead.
      * 
      * @param accountId
      *            ID.
      * @param claimedAt
-     *            The time of claiming the device to be assigned to the account.
+     *            The time the device was claimed.
      * @param createdAt
      *            The time of the enrollment identity creation.
      * @param enrolledDeviceId
-     *            The ID of the device in the Device Directory once it has been registered.
+     *            The ID of the device in the Device Directory once it is registered.
      * @param enrollmentIdentity
      *            Enrollment identity.
      * @param expiresAt
-     *            The enrollment claim expiration time. If the device does not connect to Device Management before the
-     *            expiration, the claim is removed without a separate notice.
+     *            The enrollment claim expiration time. If the device does not connect to Device Management before
+     *            expiration, the claim is removed without separate notice.
      * @param id
      *            Enrollment identity.
      */
@@ -94,6 +96,8 @@ public class DeviceEnrollment implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollment()} instead.
      * 
@@ -120,7 +124,11 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            Enrollment identity.
      */
@@ -133,19 +141,21 @@ public class DeviceEnrollment implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on read-only fields.
+     * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollment()} instead.
      * 
      * @param accountId
      *            ID.
      * @param claimedAt
-     *            The time of claiming the device to be assigned to the account.
+     *            The time the device was claimed.
      * @param createdAt
      *            The time of the enrollment identity creation.
      * @param enrolledDeviceId
-     *            The ID of the device in the Device Directory once it has been registered.
+     *            The ID of the device in the Device Directory once it is registered.
      * @param expiresAt
-     *            The enrollment claim expiration time. If the device does not connect to Device Management before the
-     *            expiration, the claim is removed without a separate notice.
+     *            The enrollment claim expiration time. If the device does not connect to Device Management before
+     *            expiration, the claim is removed without separate notice.
      */
     @Internal
     public DeviceEnrollment(String accountId, Date claimedAt, Date createdAt, String enrolledDeviceId, Date expiresAt) {
@@ -162,7 +172,7 @@ public class DeviceEnrollment implements SdkModel {
     }
 
     /**
-     * Gets the time of claiming the device to be assigned to the account.
+     * Gets the time the device was claimed.
      * 
      * @return claimedAt
      */
@@ -180,7 +190,7 @@ public class DeviceEnrollment implements SdkModel {
     }
 
     /**
-     * Gets the id of the device in the device directory once it has been registered.
+     * Gets the id of the device in the device directory once it is registered.
      * 
      * @return enrolledDeviceId
      */
@@ -222,8 +232,8 @@ public class DeviceEnrollment implements SdkModel {
     }
 
     /**
-     * Gets the enrollment claim expiration time. if the device does not connect to device management before the
-     * expiration, the claim is removed without a separate notice.
+     * Gets the enrollment claim expiration time. if the device does not connect to device management before expiration,
+     * the claim is removed without separate notice.
      * 
      * @return expiresAt
      */
@@ -279,6 +289,21 @@ public class DeviceEnrollment implements SdkModel {
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isIdValid() {
         return (id == null || id.matches("^[A-Za-z0-9]{32}"));
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "DeviceEnrollment [accountId=" + accountId + ", claimedAt=" + claimedAt + ", createdAt=" + createdAt
+               + ", enrolledDeviceId=" + enrolledDeviceId + ", enrollmentIdentity=" + enrollmentIdentity
+               + ", expiresAt=" + expiresAt + ", id=" + id + "]";
     }
 
     /**
@@ -392,21 +417,6 @@ public class DeviceEnrollment implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "DeviceEnrollment [accountId=" + accountId + ", claimedAt=" + claimedAt + ", createdAt=" + createdAt
-               + ", enrolledDeviceId=" + enrolledDeviceId + ", enrollmentIdentity=" + enrollmentIdentity
-               + ", expiresAt=" + expiresAt + ", id=" + id + "]";
     }
 
     /**

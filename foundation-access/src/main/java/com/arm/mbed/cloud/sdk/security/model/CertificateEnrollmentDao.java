@@ -142,8 +142,10 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
      * Gets a certificate enrollment.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Security#readCertificateEnrollment(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentDao#read(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment)}
      * 
      * @return something
      * @throws MbedCloudException
@@ -151,7 +153,24 @@ public class CertificateEnrollmentDao extends AbstractModelDao<CertificateEnroll
      */
     @Override
     public CertificateEnrollment read() throws MbedCloudException {
-        return setAndGetModel(((Security) getModuleOrThrow()).readCertificateEnrollment(getModel()));
+        return read(getModel());
+    }
+
+    /**
+     * Gets a certificate enrollment.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#readCertificateEnrollment(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment)}
+     * 
+     * @param certificateEnrollment
+     *            a certificate enrollment.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public CertificateEnrollment read(@NonNull CertificateEnrollment certificateEnrollment) throws MbedCloudException {
+        return setAndGetModel(((Security) getModuleOrThrow()).readCertificateEnrollment(certificateEnrollment));
     }
 
     /**

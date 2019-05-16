@@ -25,9 +25,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * This object represents a trusted certificate in responses.
+ * Represents a trusted certificate in responses.
  */
-@ApiModel(description = "This object represents a trusted certificate in responses.")
+@ApiModel(description = "Represents a trusted certificate in responses.")
 
 public class TrustedCertificateResp implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -117,7 +117,7 @@ public class TrustedCertificateResp implements Serializable {
     private String ownerId = null;
 
     /**
-     * Service name where the certificate is to be used.
+     * Service name where the certificate is used.
      */
     @JsonAdapter(ServiceEnum.Adapter.class)
     public enum ServiceEnum {
@@ -483,11 +483,11 @@ public class TrustedCertificateResp implements Serializable {
     }
 
     /**
-     * Service name where the certificate is to be used.
+     * Service name where the certificate is used.
      * 
      * @return service
      **/
-    @ApiModelProperty(required = true, value = "Service name where the certificate is to be used.")
+    @ApiModelProperty(required = true, value = "Service name where the certificate is used.")
     public ServiceEnum getService() {
         return service;
     }

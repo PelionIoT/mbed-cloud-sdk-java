@@ -5,8 +5,10 @@ import java.util.List;
 import com.arm.pelion.sdk.foundation.generator.model.ValueGenerator.Values;
 
 public class MethodConstructorRequired extends AbstractMethodConstructorWithFieldParameters {
+    private static final String CONSTRUCTOR_DESCRIPTION = "Constructor based on required fields.";
+
     public MethodConstructorRequired(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, false);
+        super(CONSTRUCTOR_DESCRIPTION, currentModel, parentModel, null, null, false);
     }
 
     /*

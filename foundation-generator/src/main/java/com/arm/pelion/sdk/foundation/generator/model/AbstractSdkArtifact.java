@@ -172,6 +172,7 @@ public abstract class AbstractSdkArtifact implements SdkArtifact {
         this.needsCustomCode = needsCustomCode;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T extends SdkArtifact> T needsCustomCode(boolean needsCustomCode) {
         setNeedsCustomCode(needsCustomCode);
@@ -280,6 +281,10 @@ public abstract class AbstractSdkArtifact implements SdkArtifact {
 
     public boolean hasDeprecation() {
         return deprecation != null;
+    }
+
+    public AnnotationRegistry getAnnotationRegistry() {
+        return annotationRegistry;
     }
 
     protected abstract void addStaticAnalysisAnnotations();

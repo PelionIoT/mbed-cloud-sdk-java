@@ -124,6 +124,10 @@ public class Method extends AbstractSdkArtifact {
         return ignoreResourceClosure;
     }
 
+    public boolean isConstructor() {
+        return false;
+    }
+
     public void setIgnoreResourceClosure(boolean ignoreResourceClosure) {
         this.ignoreResourceClosure = ignoreResourceClosure;
     }
@@ -271,6 +275,14 @@ public class Method extends AbstractSdkArtifact {
         return !parameters.isEmpty();
     }
 
+    public boolean hasParameterOfType(TypeParameter type) {
+        return type == null ? false : parameters.stream().anyMatch(p -> p.getType().isEquivalent(type));
+    }
+
+    public int getParameterCount() {
+        return parameters.size();
+    }
+
     /**
      * @return the statement
      */
@@ -318,6 +330,7 @@ public class Method extends AbstractSdkArtifact {
         this.statement = statement;
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends Method> T statement(String aStatement) {
         setStatement(aStatement);
         return (T) this;
@@ -362,6 +375,9 @@ public class Method extends AbstractSdkArtifact {
         }
         if (isStatic) {
             specificationBuilder.addModifiers(Modifier.STATIC);
+        }
+        if (isReadOnly) {
+            specificationBuilder.addModifiers(Modifier.FINAL);
         }
         if (isAbstract) {
             specificationBuilder.addModifiers(Modifier.ABSTRACT);
@@ -470,6 +486,7 @@ public class Method extends AbstractSdkArtifact {
 
     }
 
+    @SuppressWarnings("unused")
     protected void translateCode() throws TranslationException {
         // TODO Implement
     }
@@ -517,7 +534,7 @@ public class Method extends AbstractSdkArtifact {
                 specificationBuilder.addStatement(statement);
             }
         }
-        if (hasCode()) {
+        if (hasCode() && !hasStatement()) {
             translateCode();
             specificationBuilder.addCode(code.build());
         }

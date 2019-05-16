@@ -12,7 +12,7 @@ public class MethodEndpointsConstructorFromServiceStore extends AbstractMethodCo
     protected List<Field> fields;
 
     public MethodEndpointsConstructorFromServiceStore(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, false);
+        super(null, currentModel, parentModel, null, null, false);
     }
 
     @Override

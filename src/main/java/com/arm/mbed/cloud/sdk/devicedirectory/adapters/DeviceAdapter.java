@@ -95,7 +95,6 @@ public final class DeviceAdapter {
                                          TranslationUtils.toDate(deviceData.getUpdatedAt()),
                                          TranslationUtils.toDate(deviceData.getEnrolmentListTimestamp()),
                                          TranslationUtils.toDate(deviceData.getManifestTimestamp()));
-        device.setBootstrappedTimestamp(TranslationUtils.toDate(deviceData.getBootstrappedTimestamp()));
         device.setCustomAttributes(deviceData.getCustomAttributes());
         device.setDescription(deviceData.getDescription());
         device.setDeviceClass(deviceData.getDeviceClass());
@@ -111,7 +110,6 @@ public final class DeviceAdapter {
         device.setCertificateIssuerId(deviceData.getCaId());
         device.setConnectorCertificateExpiration(TranslationUtils.toDate(deviceData.getConnectorExpirationDate()));
         device.setDeviceExecutionMode(deviceData.getDeviceExecutionMode());
-        device.setFirmwareChecksum(deviceData.getFirmwareChecksum());
         device.setHostGateway(deviceData.getHostGateway());
         device.setDeviceType(deviceData.getEndpointType());
         return device;
@@ -217,14 +215,12 @@ public final class DeviceAdapter {
         addDevice.setMechanismUrl(TranslationUtils.toString(device.getMechanismUrl()));
         addDevice.setSerialNumber(device.getSerialNumber());
         addDevice.setDescription(device.getDescription());
-        addDevice.setBootstrapExpirationDate(TranslationUtils.toDateTime(device.getBootstrapCertificateExpiration()));
-        addDevice.setBootstrappedTimestamp(TranslationUtils.toDateTime(device.getBootstrappedTimestamp()));
+        addDevice.setBootstrapExpirationDate(TranslationUtils.toLocalDate(device.getBootstrapCertificateExpiration()));
         addDevice.setCaId(device.getCertificateIssuerId());
-        addDevice.setConnectorExpirationDate(TranslationUtils.toDateTime(device.getConnectorCertificateExpiration()));
+        addDevice.setConnectorExpirationDate(TranslationUtils.toLocalDate(device.getConnectorCertificateExpiration()));
         addDevice.setDeviceExecutionMode(device.getDeviceExecutionMode());
         addDevice.setDeviceKey(device.getCertificateFingerprint());
         addDevice.setEndpointName(device.getAlias());
-        addDevice.setFirmwareChecksum(device.getFirmwareChecksum());
         addDevice.setState(toAddState(device.getState()));
         addDevice.setHostGateway(device.getHostGateway());
         addDevice.setEndpointType(device.getDeviceType());
@@ -326,6 +322,24 @@ public final class DeviceAdapter {
 
         }
         return null;
+    }
+
+    /**
+     * Maps to a foundation device
+     * 
+     * @param device
+     * @return a device
+     */
+    public static com.arm.mbed.cloud.sdk.devices.model.Device mapToFoundation(Device device) {
+        // TODO do properly new com.arm.mbed.cloud.sdk.devices.model.Device(device.getAccountId(), false,
+        // device.getBootstrapCertificateExpiration(), device.getBootstrappedTimestamp(),
+        // device.getCertificateIssuerId(), device.getConnectorCertificateExpiration(), device.getCreatedAt(),
+        // device.getCustomAttributes(), null, null, device.getDescription(), device.getDeviceClass(),
+        // device.getDeviceExecutionMode(), null, device.getAlias(), device.getDeviceType(), 0,
+        // device.getFirmwareChecksum(), device.getHostGateway(), device.getId(), device.getCertificateFingerprint(),
+        // null, device.getManifestTimestamp(), device.getMechanism(), device.getMechanismUrl(), device.getName(),
+        // device.getSerialNumber(), null, device.getUpdatedAt(), device.getVendorId());
+        return device == null ? null : new com.arm.mbed.cloud.sdk.devices.model.Device(device.getId());
     }
 
 }

@@ -27,12 +27,6 @@ public class CertificateIssuerConfig implements SdkModel {
     private String certificateIssuerId;
 
     /**
-     * The certificate name to which the certificate issuer configuration applies.
-     */
-    @Required
-    private String certificateReference;
-
-    /**
      * Created UTC time RFC3339.
      */
     private final Date createdAt;
@@ -44,6 +38,12 @@ public class CertificateIssuerConfig implements SdkModel {
     private String id;
 
     /**
+     * The certificate name to which the certificate issuer configuration applies.
+     */
+    @Required
+    private String reference;
+
+    /**
      * Updated UTC time RFC3339.
      */
     private final Date updatedAt;
@@ -52,35 +52,39 @@ public class CertificateIssuerConfig implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerConfig()} instead.
      * 
      * @param certificateIssuerId
      *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
      *
-     * @param certificateReference
-     *            The certificate name to which the certificate issuer configuration applies.
      * @param createdAt
      *            Created UTC time RFC3339.
      * @param id
      *            The ID of the certificate issuer configuration.
      *
+     * @param reference
+     *            The certificate name to which the certificate issuer configuration applies.
      * @param updatedAt
      *            Updated UTC time RFC3339.
      */
     @Internal
-    public CertificateIssuerConfig(String certificateIssuerId, String certificateReference, Date createdAt, String id,
+    public CertificateIssuerConfig(String certificateIssuerId, Date createdAt, String id, String reference,
                                    Date updatedAt) {
         super();
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         setCertificateIssuerId(certificateIssuerId);
-        setCertificateReference(certificateReference);
         setId(id);
+        setReference(reference);
     }
 
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerConfig()} instead.
      * 
@@ -90,9 +94,9 @@ public class CertificateIssuerConfig implements SdkModel {
     @Internal
     public CertificateIssuerConfig(CertificateIssuerConfig certificateIssuerConfig) {
         this(certificateIssuerConfig == null ? (String) null : certificateIssuerConfig.certificateIssuerId,
-             certificateIssuerConfig == null ? (String) null : certificateIssuerConfig.certificateReference,
              certificateIssuerConfig == null ? new Date() : certificateIssuerConfig.createdAt,
              certificateIssuerConfig == null ? (String) null : certificateIssuerConfig.id,
+             certificateIssuerConfig == null ? (String) null : certificateIssuerConfig.reference,
              certificateIssuerConfig == null ? new Date() : certificateIssuerConfig.updatedAt);
     }
 
@@ -100,12 +104,16 @@ public class CertificateIssuerConfig implements SdkModel {
      * Constructor.
      */
     public CertificateIssuerConfig() {
-        this((String) null, (String) null, new Date(), (String) null, new Date());
+        this((String) null, new Date(), (String) null, (String) null, new Date());
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            The ID of the certificate issuer configuration.
      *
@@ -119,6 +127,8 @@ public class CertificateIssuerConfig implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on read-only fields.
+     * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerConfig()} instead.
      * 
      * @param createdAt
@@ -128,20 +138,24 @@ public class CertificateIssuerConfig implements SdkModel {
      */
     @Internal
     public CertificateIssuerConfig(Date createdAt, Date updatedAt) {
-        this((String) null, (String) null, createdAt, (String) null, updatedAt);
+        this((String) null, createdAt, (String) null, (String) null, updatedAt);
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on required fields.
+     * <p>
+     *
      * @param certificateIssuerId
      *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
      *
-     * @param certificateReference
+     * @param reference
      *            The certificate name to which the certificate issuer configuration applies.
      */
-    public CertificateIssuerConfig(String certificateIssuerId, String certificateReference) {
-        this(certificateIssuerId, certificateReference, new Date(), (String) null, new Date());
+    public CertificateIssuerConfig(String certificateIssuerId, String reference) {
+        this(certificateIssuerId, new Date(), (String) null, reference, new Date());
     }
 
     /**
@@ -173,36 +187,6 @@ public class CertificateIssuerConfig implements SdkModel {
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isCertificateIssuerIdValid() {
         return certificateIssuerId != null;
-    }
-
-    /**
-     * Gets the certificate name to which the certificate issuer configuration applies.
-     * 
-     * @return certificateReference
-     */
-    public String getCertificateReference() {
-        return certificateReference;
-    }
-
-    /**
-     * Sets the certificate name to which the certificate issuer configuration applies.
-     * 
-     * @param certificateReference
-     *            The certificate name to which the certificate issuer configuration applies.
-     */
-    @Required
-    public void setCertificateReference(String certificateReference) {
-        this.certificateReference = certificateReference;
-    }
-
-    /**
-     * Checks whether certificateReference value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isCertificateReferenceValid() {
-        return certificateReference != null;
     }
 
     /**
@@ -252,12 +236,56 @@ public class CertificateIssuerConfig implements SdkModel {
     }
 
     /**
+     * Gets the certificate name to which the certificate issuer configuration applies.
+     * 
+     * @return reference
+     */
+    public String getReference() {
+        return reference;
+    }
+
+    /**
+     * Sets the certificate name to which the certificate issuer configuration applies.
+     * 
+     * @param reference
+     *            The certificate name to which the certificate issuer configuration applies.
+     */
+    @Required
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    /**
+     * Checks whether reference value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isReferenceValid() {
+        return reference != null;
+    }
+
+    /**
      * Gets updated utc time rfc3339.
      * 
      * @return updatedAt
      */
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "CertificateIssuerConfig [certificateIssuerId=" + certificateIssuerId + ", createdAt=" + createdAt
+               + ", id=" + id + ", reference=" + reference + ", updatedAt=" + updatedAt + "]";
     }
 
     /**
@@ -273,9 +301,9 @@ public class CertificateIssuerConfig implements SdkModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((certificateIssuerId == null) ? 0 : certificateIssuerId.hashCode());
-        result = prime * result + ((certificateReference == null) ? 0 : certificateReference.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((reference == null) ? 0 : reference.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
         return result;
     }
@@ -326,13 +354,6 @@ public class CertificateIssuerConfig implements SdkModel {
         } else if (!certificateIssuerId.equals(other.certificateIssuerId)) {
             return false;
         }
-        if (certificateReference == null) {
-            if (other.certificateReference != null) {
-                return false;
-            }
-        } else if (!certificateReference.equals(other.certificateReference)) {
-            return false;
-        }
         if (createdAt == null) {
             if (other.createdAt != null) {
                 return false;
@@ -347,6 +368,13 @@ public class CertificateIssuerConfig implements SdkModel {
         } else if (!id.equals(other.id)) {
             return false;
         }
+        if (reference == null) {
+            if (other.reference != null) {
+                return false;
+            }
+        } else if (!reference.equals(other.reference)) {
+            return false;
+        }
         if (updatedAt == null) {
             if (other.updatedAt != null) {
                 return false;
@@ -355,20 +383,6 @@ public class CertificateIssuerConfig implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "CertificateIssuerConfig [certificateIssuerId=" + certificateIssuerId + ", certificateReference="
-               + certificateReference + ", createdAt=" + createdAt + ", id=" + id + ", updatedAt=" + updatedAt + "]";
     }
 
     /**
@@ -381,7 +395,7 @@ public class CertificateIssuerConfig implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isCertificateIssuerIdValid() && isCertificateReferenceValid();
+        return isCertificateIssuerIdValid() && isReferenceValid();
     }
 
     /**

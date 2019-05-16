@@ -2,10 +2,13 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Date;
 
+import com.arm.mbed.cloud.sdk.common.Base64;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.arm.mbed.cloud.sdk.common.model.DataFile;
 
 public class TypePrimitive {
 
+    private static final Class<Base64> SDK_BASE64 = Base64.class;
     public static final Class<?> SDK_DATE_CLASS = Date.class;
 
     @SuppressWarnings("incomplete-switch")
@@ -26,6 +29,8 @@ public class TypePrimitive {
                 return DataFile.class;
             case "object":
                 return Object.class;
+            case "filter":
+                return Filters.class;
         }
         return null;
     }
@@ -65,7 +70,7 @@ public class TypePrimitive {
             case "binary":
                 return byte[].class;
             case "byte":
-                return String.class;
+                return SDK_BASE64;
             case "date":
             case "date-time":
                 return SDK_DATE_CLASS;

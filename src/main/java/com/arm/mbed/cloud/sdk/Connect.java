@@ -17,6 +17,7 @@ import io.reactivex.functions.Function;
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
@@ -62,9 +63,11 @@ import com.arm.mbed.cloud.sdk.connect.subscription.ResourceAction;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceActionParameters;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceValueType;
 import com.arm.mbed.cloud.sdk.connect.subscription.adapters.ResourceActionAdapter;
-import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
+import com.arm.mbed.cloud.sdk.devicedirectory.adapters.DeviceAdapter;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceState;
+import com.arm.mbed.cloud.sdk.devices.model.Device;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceListDao;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
@@ -108,6 +111,11 @@ public class Connect extends AbstractModule {
     protected final AtomicReference<DeliveryMethod> deliveryMethod;
     private final Object presubscriptionLock = new Object();
     private final Object webhookLock = new Object();
+
+    @Internal
+    protected Connect() {
+        this(new ConnectionOptions());
+    }
 
     /**
      * Connect module constructor.
@@ -195,14 +203,6 @@ public class Connect extends AbstractModule {
      * If an external callback is not set up (using `update_webhook`) then calling this function is mandatory to get or
      * set resources. Unless {@link ConnectionOptions#setAutostartDaemon(boolean)} has been set to true or left as
      * default.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * connectApi.startNotifications();
-     * }
-     * </pre>
      *
      * @throws MbedCloudException
      *             if a problem occurred during the process.
@@ -228,7 +228,7 @@ public class Connect extends AbstractModule {
         Webhook webhook = null;
         try {
             webhook = getWebhook();
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
         if (webhook != null) {
@@ -252,13 +252,6 @@ public class Connect extends AbstractModule {
     /**
      * Stops notification pull for notifications.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * connectApi.stopNotifications();
-     * }
-     * </pre>
      *
      * @throws MbedCloudException
      *             if a problem occurred during the process.
@@ -292,13 +285,6 @@ public class Connect extends AbstractModule {
     /**
      * Shuts down all daemon services.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * connectApi.shutdownConnectService();
-     * }
-     * </pre>
      */
     @API
     @Daemon(task = "Notification pull", shutdown = true)
@@ -313,7 +299,7 @@ public class Connect extends AbstractModule {
         super.close();
         try {
             stopNotifications();
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
         shutdownConnectService();
@@ -322,28 +308,8 @@ public class Connect extends AbstractModule {
     /**
      * Lists connected devices (One page).
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     DeviceListOptions options = new DeviceListOptions();
-     *
-     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
-     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     *
-     *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
-     *
-     *     ListResponse<Device> devices = connectApi.listConnectedDevices(options);
-     *     for (Device device : devices) {
-     *         System.out.println("Device ID: " + device.getId());
-     *     }
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
+     * 
+     * @deprecated Use {@link DeviceListDao} instead
      * @param options
      *            filter options
      * @return the list of connected devices (One page).
@@ -351,36 +317,17 @@ public class Connect extends AbstractModule {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<Device> listConnectedDevices(DeviceListOptions options) throws MbedCloudException {
+    @Deprecated
+    public @Nullable ListResponse<com.arm.mbed.cloud.sdk.devicedirectory.model.Device>
+           listConnectedDevices(DeviceListOptions options) throws MbedCloudException {
         return deviceDirectory.listDevicesWithExtraFilters("listConnectedDevices()", options, CONNECTED_DEVICES_FILTER);
     }
 
     /**
      * Gets an iterator over all connected devices according to filter options.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     DeviceListOptions options = new DeviceListOptions();
-     *
-     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
-     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     *
-     *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
-     *
-     *     Paginator<Device> devices = connectApi.listAllDevices(options);
-     *     while (devices.hasNext()) {
-     *         Device device = devices.next();
-     *         System.out.println("Device ID: " + device.getId());
-     *     }
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
+     * 
+     * @deprecated Use {@link DeviceListDao} instead
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the list of devices corresponding to filter options.
@@ -388,37 +335,41 @@ public class Connect extends AbstractModule {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<Device>
+    @Deprecated
+    public @Nullable Paginator<com.arm.mbed.cloud.sdk.devicedirectory.model.Device>
            listAllConnectedDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
-        return new Paginator<>((options == null) ? new DeviceListOptions() : options, new PageRequester<Device>() {
+        return new Paginator<>((options == null) ? new DeviceListOptions() : options,
+                               new PageRequester<com.arm.mbed.cloud.sdk.devicedirectory.model.Device>() {
 
-            @Override
-            public ListResponse<Device> requestNewPage(ListOptions opt) throws MbedCloudException {
-                return listConnectedDevices((DeviceListOptions) opt);
-            }
-        });
+                                   @Override
+                                   public ListResponse<com.arm.mbed.cloud.sdk.devicedirectory.model.Device>
+                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                       return listConnectedDevices((DeviceListOptions) opt);
+                                   }
+                               });
     }
 
     /**
      * Lists device's resources.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     Device device = new Device();
-     *     device.setId("015f4ac587f500000000000100100249");
-     *
-     *     List<Resource> resources = connectApi.listResources(device);
-     *     for (Resource resource : resources) {
-     *         System.out.println("Resource path: " + resource.getPath());
-     *     }
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
+     * 
+     * @deprecated use {@link #listResources(Device)} instead.
+     * @param device
+     *            Device.
+     * @return list of resources present on a device.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    @Deprecated
+    public @Nullable List<Resource>
+           listResources(@NonNull com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) throws MbedCloudException {
+        return listResources(DeviceAdapter.mapToFoundation(device));
+    }
+
+    /**
+     * Lists device's resources.
+     * <p>
      *
      * @param device
      *            Device.
@@ -446,25 +397,28 @@ public class Connect extends AbstractModule {
     /**
      * Lists device's observable resources.
      *
+     * @deprecated use {@link #listObservableResources(Device)} instead
      * @see Resource#isObservable()
      *      <p>
-     *      Example:
      *
-     *      <pre>
-     * {@code
-     * try {
-     *     Device device = new Device();
-     *     device.setId("015f4ac587f500000000000100100249");
+     * @param device
+     *            Device.
+     * @return list of observable resources present on a device.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    @Deprecated
+    public @Nullable List<Resource>
+           listObservableResources(@NonNull com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) throws MbedCloudException {
+        return listObservableResources(DeviceAdapter.mapToFoundation(device));
+    }
+
+    /**
+     * Lists device's observable resources.
      *
-     *     List<Resource> resources = connectApi.listObservableResources(device);
-     *     for (Resource resource : resources) {
-     *         System.out.println("Resource path: " + resource.getPath());
-     *     }
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     *      </pre>
+     * @see Resource#isObservable()
+     *      <p>
      *
      * @param device
      *            Device.
@@ -490,24 +444,27 @@ public class Connect extends AbstractModule {
     /**
      * Gets device's resource.
      * <p>
-     * Example:
+     * 
+     * @deprecated use {@link #getResource(Device, String)} instead.
      *
-     * <pre>
-     * {@code
-     * try {
-     *     Device device = new Device();
-     *     device.setId("015f4ac587f500000000000100100249");
-     *
-     *     String resourcePath = "/3201/0/5853";
-     *
-     *     Resource resource = connectApi.getResource(device, resourcePath);
-     *     System.out.println("Confirmed resource path: " + resource.getPath());
-     *     assert resourcePath == resource.getPath();
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
+     * @param device
+     *            Device.
+     * @param resourcePath
+     *            Path of the resource to get
+     * @return resource present on the device.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    @Deprecated
+    public @Nullable Resource getResource(@NonNull com.arm.mbed.cloud.sdk.devicedirectory.model.Device device,
+                                          @NonNull String resourcePath) throws MbedCloudException {
+        return getResource(DeviceAdapter.mapToFoundation(device), resourcePath);
+    }
+
+    /**
+     * Gets device's resource.
+     * <p>
      *
      * @param device
      *            Device.
@@ -538,23 +495,24 @@ public class Connect extends AbstractModule {
     /**
      * Lists a device's subscriptions.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     Device device = new Device();
-     *     device.setId("015f4ac587f500000000000100100249");
-     *
-     *     List<String> subscriptions = connectApi.listDeviceSubscriptions(device);
-     *     for (String subscription : subscriptions) {
-     *         System.out.println("Device subscription: " + subscription);
-     *     }
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
+     * 
+     * @deprecated use {@link #listDeviceSubscriptions(Device)} instead.
+     * @param device
+     *            Device.
+     * @return list of subscriptions
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    @Deprecated
+    public @Nullable List<String>
+           listDeviceSubscriptions(@NonNull com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) throws MbedCloudException {
+        return listDeviceSubscriptions(DeviceAdapter.mapToFoundation(device));
+    }
+
+    /**
+     * Lists a device's subscriptions.
+     * <p>
      *
      * @param device
      *            Device.
@@ -594,32 +552,6 @@ public class Connect extends AbstractModule {
     /**
      * Lists metrics.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     Calendar startDate = GregorianCalendar(2017,10,30,10,20,56);
-     *     Calendar endDate = GregorianCalendar(2017,11,31,10,20,56);
-     *
-     *     MetricsStartEndListOptions listOptions = new MetricsStartEndListOptions();
-     *     listOptions.setStart(startDate.getTime());
-     *     listOptions.setEnd(endDate.getTime());
-     *     listOptions.setInterval(new TimePeriod(360)); //Once an hour
-     *
-     *     ListResponse<Metric> metrics = connectApi.listMetrics(listOptions);
-     *     //Iterates over a page
-     *     for (Metric metric : metrics.getData()) {
-     *         System.out.println("Time: " + dateFormat.format(metric.getTimestamp()));
-     *         System.out.println("Successful bootstraps: " + metric.getSuccessfulBootstraps());
-     *         System.out.println("Successful api calls: " + metric.getSuccessfulApiCalls());
-     *         System.out.println("");
-     *     }
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
      *
      * @param options
      *            metrics options.
@@ -662,32 +594,6 @@ public class Connect extends AbstractModule {
     /**
      * Gets an iterator over all metrics according to filter options.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     Calendar startDate = GregorianCalendar(2017,10,30,10,20,56);
-     *     Calendar endDate = GregorianCalendar(2017,11,31,10,20,56);
-     *
-     *     MetricsStartEndListOptions listOptions = new MetricsStartEndListOptions();
-     *     listOptions.setStart(startDate.getTime());
-     *     listOptions.setEnd(endDate.getTime());
-     *     listOptions.setInterval(new TimePeriod(360)); //Once an hour
-     *
-     *     Paginator<Metric> metrics = connectApi.listAllMetrics(listOptions);
-     *     for (Metric metric : metrics) {
-     *         System.out.println("Time: " + dateFormat.format(metric.getTimestamp()));
-     *         System.out.println("Successful bootstraps: " + metric.getSuccessfulBootstraps());
-     *         System.out.println("Successful api calls: " + metric.getSuccessfulApiCalls());
-     *         System.out.println("");
-     *     }
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * }
-     * </pre>
      *
      * @param options
      *            filter options.
@@ -788,6 +694,7 @@ public class Connect extends AbstractModule {
                                             resource, strategy, value, valueType, false);
     }
 
+    @SuppressWarnings("resource")
     protected ResourceAction createResourceAction(String functionName,
                                                   Mapper<ResourceActionParameters, DeviceRequest> requestMapper) {
         final AbstractModule module = this;
@@ -847,9 +754,8 @@ public class Connect extends AbstractModule {
                                                                 apply(AsynchronousResponseNotification notification) throws Exception {
                                                              if (notification.reportsFailure()) {
                                                                  return notification.toError();
-                                                             } else {
-                                                                 return notification.getPayload();
                                                              }
+                                                             return notification.getPayload();
                                                          }
                                                      }).take(1);
             return newFlow.toFuture();
@@ -2056,19 +1962,8 @@ public class Connect extends AbstractModule {
      * <p>
      * It could be slow for large numbers of connected devices. If possible, explicitly delete subscriptions known to
      * have been created.
-     * <p>
-     * Example:
      *
-     * <pre>
-     * {@code
-     * try {
-     *     connectApi.deleteSubscriptions();
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
+     * 
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
@@ -2077,9 +1972,9 @@ public class Connect extends AbstractModule {
         // The following is a workaround until there is a Pelion Cloud endpoint providing such an action.
         logger.logWarn("deleteSubscriptions() could be slow for large numbers of connected devices. "
                        + "If possible, explicitly delete subscriptions known to have been created.");
-        final Paginator<Device> connectedDevices = listAllConnectedDevices(null);
+        final Paginator<com.arm.mbed.cloud.sdk.devicedirectory.model.Device> connectedDevices = listAllConnectedDevices(null);
         if (connectedDevices != null) {
-            for (final Device connectedDevice : connectedDevices) {
+            for (final com.arm.mbed.cloud.sdk.devicedirectory.model.Device connectedDevice : connectedDevices) {
                 deleteDeviceSubscriptions(connectedDevice);
             }
         }
@@ -2097,20 +1992,10 @@ public class Connect extends AbstractModule {
     /**
      * Removes all subscriptions.
      * <p>
-     * Note: use {@link #deleteSubscriptions()} instead.
-     * <p>
-     * Example:
+     * 
+     * @deprecated use {@link #deleteSubscriptions()} instead.
      *
-     * <pre>
-     * {@code
-     * try {
-     *     connectApi.deleteSubscribers();
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
+     * 
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
@@ -2127,21 +2012,6 @@ public class Connect extends AbstractModule {
      * <p>
      * It could be slow for large numbers of connected devices.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *
-     *     List<String> subscriptions = connectApi.listSubscriptions();
-     *     for (Subscription subscription : subscriptions) {
-     *         System.out.println("subscription: " + subscription);
-     *     }
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
      *
      * @return list of subscriptions
      * @throws MbedCloudException
@@ -2152,9 +2022,9 @@ public class Connect extends AbstractModule {
         logger.logWarn("listSubscriptions() could be slow for large numbers of connected devices.");
         final List<Subscription> subscriptions = new LinkedList<>();
         // The following is a workaround until there is a Pelion Cloud endpoint providing such an action.
-        final Paginator<Device> connectedDevices = listAllConnectedDevices(null);
+        final Paginator<com.arm.mbed.cloud.sdk.devicedirectory.model.Device> connectedDevices = listAllConnectedDevices(null);
         if (connectedDevices != null) {
-            for (final Device connectedDevice : connectedDevices) {
+            for (final com.arm.mbed.cloud.sdk.devicedirectory.model.Device connectedDevice : connectedDevices) {
                 final List<String> deviceSubscriptions = listDeviceSubscriptions(connectedDevice);
                 if (deviceSubscriptions != null) {
                     subscriptions.add(new Subscription(connectedDevice.getId(), deviceSubscriptions));
@@ -2169,20 +2039,26 @@ public class Connect extends AbstractModule {
      * <p>
      * Note: this method will deregister all subscription callbacks or observers for this device if any.
      * <p>
-     * Example:
+     * 
+     * @deprecated use {@link #deleteDeviceSubscriptions(Device)} instead.
      *
-     * <pre>
-     * {@code
-     * try {
-     *     Device device = new Device();
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     device.setId(deviceId);
-     *     connectApi.deleteDeviceSubscriptions(device);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
+     * @param device
+     *            Device to consider.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    @Deprecated
+    public void
+           deleteDeviceSubscriptions(@NonNull com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) throws MbedCloudException {
+        deleteDeviceSubscriptions(DeviceAdapter.mapToFoundation(device));
+    }
+
+    /**
+     * Deletes a device's subscriptions.
+     * <p>
+     * Note: this method will deregister all subscription callbacks or observers for this device if any.
+     * <p>
      *
      * @param device
      *            Device to consider.
@@ -2207,22 +2083,6 @@ public class Connect extends AbstractModule {
     /**
      * Gets the status of a resource's subscription.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3200/0/5501";
-     *     Resource buttonResource = new Resource(deviceId, resourcePath);
-     *
-     *     boolean subscribed = connectApi.getResourceSubscription(buttonResource);
-     *     System.out.println("Is " + deviceId + " subscribed to: " + resourcePath + "? " + (subscribed ? "yes" : "no"));
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
      *
      * @param resource
      *            resource
@@ -2248,44 +2108,13 @@ public class Connect extends AbstractModule {
                 }
             }, true);
             return true;
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             return false;
         }
     }
 
     /**
      * Allows notifications (received from a Webhook) to be injected into the notifications system.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *       String deviceId = "015f4ac587f500000000000100100249";
-     *       String resourcePath = "/3200/0/5501";
-     *       String payload ="Q2hhbmdlIG1lIQ==";
-     *
-     *       NotificationData notification = new NotificationData();
-     *       notification.setEp(deviceId);
-     *       notification.setPath(resourcePath);
-     *       notification.setPayload(payload);
-     *       NotificationMessage notifications = new NotificationMessage();
-     *       notifications.addNotificationsItem(notification);
-     *       Resource resource = new Resource(deviceId, resourcePath);
-     *       api.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
-     *               .subscribe(new Consumer<Object>() {
-     *
-     *                   &#64;Override
-     *                   public void accept(Object t) throws Exception {
-     *                       log("Received notification value", t);
-     *                   }
-     *               });
-     *       api.notify(notifications);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
      *
      * @param data
      *            The notification data to inject
@@ -2298,32 +2127,6 @@ public class Connect extends AbstractModule {
     /**
      * Allows notifications expressed as a JSON string to be injected into the notifications system.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *       String deviceId = "015f4ac587f500000000000100100249";
-     *       String resourcePath = "/3200/0/5501";
-     *       String payload ="Q2hhbmdlIG1lIQ==";
-     *       String notifications = "{\"async-responses\":[{\"payload\":\"MQ\u003d\u003d\",\"id\":\"sfjasldfjl\"}],\"notifications\""
-     *       +":[{\"path\":\"/3200/0/5501\",\"payload\":\"MQ\u003d\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}]}";
-     *
-     *       Resource resource = new Resource(deviceId, resourcePath);
-     *       api.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
-     *               .subscribe(new Consumer<Object>() {
-     *
-     *                   &#64;Override
-     *                   public void accept(Object t) throws Exception {
-     *                       log("Received notification value", t);
-     *                   }
-     *               });
-     *       api.notify(notifications);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
      *
      * @param dataAsJson
      *            The notification data to inject as JSON String.
@@ -2336,33 +2139,6 @@ public class Connect extends AbstractModule {
     /**
      * Allows a notification to be injected into the notifications system.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *       String deviceId = "015f4ac587f500000000000100100249";
-     *       String resourcePath = "/3200/0/5501";
-     *       String payload ="Q2hhbmdlIG1lIQ==";
-     *       JSONSerialiser jsonSerialiser = new JSONSerialiser();
-     *       String notifications = "{\"async-responses\":[{\"payload\":\"MQ\u003d\u003d\",\"id\":\"sfjasldfjl\"}],\"notifications\""
-     *       +":[{\"path\":\"/3200/0/5501\",\"payload\":\"MQ\u003d\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}]}";
-     *
-     *       Resource resource = new Resource(deviceId, resourcePath);
-     *       api.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
-     *               .subscribe(new Consumer<Object>() {
-     *
-     *                   &#64;Override
-     *                   public void accept(Object t) throws Exception {
-     *                       log("Received notification value", t);
-     *                   }
-     *               });
-     *       api.notify(jsonSerialiser, notifications);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
      *
      * @param deserialiser
      *            JSON deserialiser to use.
@@ -2629,16 +2405,6 @@ public class Connect extends AbstractModule {
     /**
      * Removes the subscription observer of a resource.
      * <p>
-     * Example:
-     *
-     * <pre>
-     *
-     * {@code String resourcePath = "/3200/0/5501"
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     Resource resource = new Resource(deviceId, path);
-     *     connectApi.removeResourceSubscriptionObserver(resource);
-     * }
-     * </pre>
      *
      * @param resource
      *            resource to consider.
@@ -2655,17 +2421,25 @@ public class Connect extends AbstractModule {
     /**
      * Deregisters all subscription observers or callbacks for a device.
      * <p>
-     * Example:
+     * 
+     * @deprecated use {@link #deregisterAllResourceSubscriptionObserversOrCallbacks()}
+     * @param device
+     *            device to consider.
+     * @throws MbedCloudException
+     *             if an error occurred in the process.
+     */
+    @API
+    @Deprecated
+    public void
+           deregisterAllResourceSubscriptionObserversOrCallbacks(@NonNull com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) throws MbedCloudException {
+        deregisterAllResourceSubscriptionObserversOrCallbacks(DeviceAdapter.mapToFoundation(device));
+    }
+
+    /**
+     * Deregisters all subscription observers or callbacks for a device.
+     * <p>
      *
-     * <pre>
-     *
-     * {@code String deviceId = "015f4ac587f500000000000100100249"
-     *     Device device = new Device();
-     *     device.setId(deviceId);
-     *     connectApi.deregisterAllResourceSubscriptionObserversOrCallbacks(device);
-     * }
-     * </pre>
-     *
+     * 
      * @param device
      *            device to consider.
      * @throws MbedCloudException

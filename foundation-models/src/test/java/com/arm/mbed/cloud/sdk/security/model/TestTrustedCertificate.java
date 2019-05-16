@@ -24,8 +24,7 @@ public class TestTrustedCertificate {
     @Test
     public void testClone() {
         try {
-            TrustedCertificate trustedcertificate1 = new TrustedCertificate(false,
-                                                                            "2d354731-f898-4d7a-8a0a-1d26b0bc6fdd",
+            TrustedCertificate trustedcertificate1 = new TrustedCertificate("2d354731-f898-4d7a-8a0a-1d26b0bc6fdd",
                                                                             "18dc01f9-b6ba-4213-8633-ae1ee99e9a27",
                                                                             "a6210c02-cefc-4853-9de6-2f8022106ca4",
                                                                             new Date(1547147143593L),
@@ -56,8 +55,7 @@ public class TestTrustedCertificate {
     @Test
     public void testHashCode() {
         try {
-            TrustedCertificate trustedcertificate1 = new TrustedCertificate(false,
-                                                                            "55f41201-b452-428a-8e6d-1cc3fb7fd4f1",
+            TrustedCertificate trustedcertificate1 = new TrustedCertificate("55f41201-b452-428a-8e6d-1cc3fb7fd4f1",
                                                                             "525d7bbf-0d6a-46b3-a9b3-aff9551d2064",
                                                                             "eb8a1de9-d7df-4aef-b482-ef8adcb5eaab",
                                                                             new Date(1547147142662L),
@@ -72,8 +70,7 @@ public class TestTrustedCertificate {
                                                                             "9334216e-4f35-4e5b-bc01-ff32c1c384ed",
                                                                             new Date(1547147141586L), true,
                                                                             new Date(1547147137910L));
-            TrustedCertificate trustedcertificate2 = new TrustedCertificate(false,
-                                                                            "55f41201-b452-428a-8e6d-1cc3fb7fd4f1",
+            TrustedCertificate trustedcertificate2 = new TrustedCertificate("55f41201-b452-428a-8e6d-1cc3fb7fd4f1",
                                                                             "525d7bbf-0d6a-46b3-a9b3-aff9551d2064",
                                                                             "eb8a1de9-d7df-4aef-b482-ef8adcb5eaab",
                                                                             new Date(1547147142662L),
@@ -107,12 +104,12 @@ public class TestTrustedCertificate {
      */
     @Test
     public void testIsValid() {
-        TrustedCertificate trustedcertificate = new TrustedCertificate(false, "fd09702f-3e3f-456f-afde-b98af562c857",
+        TrustedCertificate trustedcertificate = new TrustedCertificate("fd09702f3e3f456fafdeb98af562c857",
                                                                        "e45b5ced-f2ee-44e1-85ce-70b116e934d8",
                                                                        "590693cb-87d9-403e-9657-3e41f5adcd14",
                                                                        new Date(1547147138652L),
                                                                        "1e62d67b-05a1-455d-abf1-5132ed15cccf", 83,
-                                                                       false, "bd637b78-fca6-4932-88c5-0c0701fe7d5f",
+                                                                       false, "bd637b78fca6493288c50c0701fe7d5f",
                                                                        "5c9c6232-0997-47d6-8a60-eaea51d9de1b",
                                                                        "f1b5dfad-f2a4-4b33-bab9-459da9251d3e",
                                                                        "0c7ac6f2-d5a7-47bd-a143-c0e28c42975d",
@@ -122,8 +119,7 @@ public class TestTrustedCertificate {
                                                                        new Date(1547147137473L), true,
                                                                        new Date(1547147137251L));
         assertTrue(trustedcertificate.isValid());
-        TrustedCertificate trustedcertificateInvalid = new TrustedCertificate(false,
-                                                                              "ae19d1c1-2fee-4268-924e-92d80d387de3",
+        TrustedCertificate trustedcertificateInvalid = new TrustedCertificate("ae19d1c1-2fee-4268-924e-92d80d387de3",
                                                                               null,
                                                                               "18cb94ae-4c2e-40cd-85a5-74a909d40572",
                                                                               new Date(1547147140979L),
@@ -146,8 +142,7 @@ public class TestTrustedCertificate {
     @Test
     public void testEquals() {
         try {
-            TrustedCertificate trustedcertificate3 = new TrustedCertificate(true,
-                                                                            "83e500dc-60e1-450d-b21c-41fb34566b0e",
+            TrustedCertificate trustedcertificate3 = new TrustedCertificate("83e500dc-60e1-450d-b21c-41fb34566b0e",
                                                                             "6b12724b-12eb-4df7-9fc3-ea944eb13d7b",
                                                                             "a12d9f14-3a2f-4a3b-99bc-77f0ef41b3ca",
                                                                             new Date(1547147135276L),
@@ -162,8 +157,7 @@ public class TestTrustedCertificate {
                                                                             "b3c945b9-b964-4181-b444-8301efacf12f",
                                                                             new Date(1547147138240L), true,
                                                                             new Date(1547147139968L));
-            TrustedCertificate trustedcertificate2 = new TrustedCertificate(true,
-                                                                            "335a59d5-72fb-4338-90da-b503d44ed8ea",
+            TrustedCertificate trustedcertificate2 = new TrustedCertificate("335a59d5-72fb-4338-90da-b503d44ed8ea",
                                                                             "bc4b352a-5041-4a7f-a52d-2627c33a747c",
                                                                             "453c5f59-0561-4d32-a32a-890b230a814c",
                                                                             new Date(1547147138864L),
@@ -178,8 +172,7 @@ public class TestTrustedCertificate {
                                                                             "9ca45c6c-bd38-4288-880d-87950a636307",
                                                                             new Date(1547147136237L), true,
                                                                             new Date(1547147142061L));
-            TrustedCertificate trustedcertificate1 = new TrustedCertificate(true,
-                                                                            "335a59d5-72fb-4338-90da-b503d44ed8ea",
+            TrustedCertificate trustedcertificate1 = new TrustedCertificate("335a59d5-72fb-4338-90da-b503d44ed8ea",
                                                                             "bc4b352a-5041-4a7f-a52d-2627c33a747c",
                                                                             "453c5f59-0561-4d32-a32a-890b230a814c",
                                                                             new Date(1547147138864L),

@@ -271,7 +271,7 @@ public class GenericAdapter {
         public boolean contains(@Nullable String objectId) {
             try {
                 return isEmpty() || objectId == null ? false : registry.containsKey(translateStringToKey(objectId));
-            } catch (NumberFormatException exception) {
+            } catch (@SuppressWarnings("unused") NumberFormatException exception) {
                 return false;
             }
         }
@@ -286,7 +286,7 @@ public class GenericAdapter {
         public @Nullable T getEntry(@Nullable String objectId) {
             try {
                 return isEmpty() || objectId == null ? null : registry.get(translateStringToKey(objectId));
-            } catch (NumberFormatException exception) {
+            } catch (@SuppressWarnings("unused") NumberFormatException exception) {
                 return null;
             }
         }
@@ -303,7 +303,7 @@ public class GenericAdapter {
                     return;
                 }
                 registry.remove(generateObjectId(object));
-            } catch (NumberFormatException exception) {
+            } catch (@SuppressWarnings("unused") NumberFormatException exception) {
                 return;
             }
         }
@@ -320,7 +320,7 @@ public class GenericAdapter {
                     return;
                 }
                 registry.remove(translateStringToKey(objectId));
-            } catch (NumberFormatException exception) {
+            } catch (@SuppressWarnings("unused") NumberFormatException exception) {
                 return;
             }
         }

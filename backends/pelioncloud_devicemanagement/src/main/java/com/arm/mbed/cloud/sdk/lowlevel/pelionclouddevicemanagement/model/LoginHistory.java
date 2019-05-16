@@ -20,9 +20,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * This object represents an entry in login history.
+ * Represents an entry in login history.
  */
-@ApiModel(description = "This object represents an entry in login history.")
+@ApiModel(description = "Represents an entry in login history.")
 
 public class LoginHistory implements Serializable {
     private static final long serialVersionUID = 1L;

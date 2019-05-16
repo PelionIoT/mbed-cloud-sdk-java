@@ -1,18 +1,18 @@
 package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
+import com.arm.mbed.cloud.sdk.accounts.model.AccountsEndpoints;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountAdminApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeveloperApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountPolicyGroupsApi;
 
 @Preamble(description = "Endpoint for Account management")
 @Internal
-public class EndPoints extends AbstractEndpoints {
+@Deprecated
+public class EndPoints extends AccountsEndpoints {
 
-    private final DeveloperApi developer;
-    private final AccountAdminApi admin;
+    @Internal
+    private final AccountPolicyGroupsApi accountPolicyGroupApi;
 
     /**
      * Constructor.
@@ -22,20 +22,30 @@ public class EndPoints extends AbstractEndpoints {
      */
     public EndPoints(ServiceRegistry services) {
         super(services);
-        this.developer = initialiseService(DeveloperApi.class);
-        this.admin = initialiseService(AccountAdminApi.class);
+        this.accountPolicyGroupApi = initialiseService(AccountPolicyGroupsApi.class);
     }
 
-    public DeveloperApi getDeveloper() {
-        return developer;
-    }
-
-    public AccountAdminApi getAdmin() {
-        return admin;
-    }
-
+    /**
+     * Clones this instance.
+     * 
+     * <p>
+     * 
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
+     */
     @Override
     public EndPoints clone() {
         return new EndPoints(getRegistryClone());
     }
+
+    /**
+     * Gets low level endpoints for account policy group apis.
+     * 
+     * @return accountPolicyGroupApi
+     */
+    @Internal
+    public AccountPolicyGroupsApi getAccountPolicyGroupApi() {
+        return accountPolicyGroupApi;
+    }
+
 }

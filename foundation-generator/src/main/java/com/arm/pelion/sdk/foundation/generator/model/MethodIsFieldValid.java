@@ -15,10 +15,6 @@ public class MethodIsFieldValid extends Method {
         setStatement(generateStatement(field));
     }
 
-    private static String generateGetterLongDescription(String longDescription, Field field) {
-        return has(longDescription) ? longDescription : field.getLongDescription();
-    }
-
     public String generateStatement(Field field) {
         List<String> checkList = new LinkedList<>();
         final Validation validation = field.getValidation();

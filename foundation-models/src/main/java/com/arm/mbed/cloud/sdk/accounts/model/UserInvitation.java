@@ -13,7 +13,7 @@ import java.util.List;
  * Model for a user invitation.
  */
 @Preamble(description = "Model for a user invitation.")
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+@SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.AvoidDuplicateLiterals" })
 public class UserInvitation implements SdkModel {
     /**
      * Serialisation Id.
@@ -65,6 +65,8 @@ public class UserInvitation implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #UserInvitation()} instead.
      * 
      * @param accountId
@@ -86,6 +88,7 @@ public class UserInvitation implements SdkModel {
      *            The ID of the invited user.
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public UserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
                           List<LoginProfile> loginProfiles, Date updatedAt, String userId) {
         super();
@@ -102,6 +105,8 @@ public class UserInvitation implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #UserInvitation()} instead.
      * 
@@ -130,7 +135,11 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            The ID of the invitation.
      */
@@ -142,6 +151,8 @@ public class UserInvitation implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #UserInvitation()} instead.
      * 
@@ -191,6 +202,9 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Sets email address of the invited user.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /^(?=.{3,254}$).+@.+/} to be valid
      * 
      * @param email
      *            Email address of the invited user.
@@ -207,7 +221,7 @@ public class UserInvitation implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isEmailValid() {
-        return email != null;
+        return email != null && (email.matches("^(?=.{3,254}$).+@.+"));
     }
 
     /**
@@ -231,6 +245,9 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Sets the id of the invitation.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param id
      *            The ID of the invitation.
@@ -245,6 +262,8 @@ public class UserInvitation implements SdkModel {
      *
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param userInvitationId
      *            The ID of the invitation.
@@ -252,6 +271,16 @@ public class UserInvitation implements SdkModel {
     @Internal
     public void setUserInvitationId(String userInvitationId) {
         setId(userInvitationId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[a-f0-9]{32}"));
     }
 
     /**
@@ -290,6 +319,21 @@ public class UserInvitation implements SdkModel {
      */
     public String getUserId() {
         return userId;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "UserInvitation [accountId=" + accountId + ", createdAt=" + createdAt + ", email=" + email
+               + ", expiration=" + expiration + ", id=" + id + ", loginProfiles=" + loginProfiles + ", updatedAt="
+               + updatedAt + ", userId=" + userId + "]";
     }
 
     /**
@@ -340,6 +384,7 @@ public class UserInvitation implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -414,21 +459,6 @@ public class UserInvitation implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "UserInvitation [accountId=" + accountId + ", createdAt=" + createdAt + ", email=" + email
-               + ", expiration=" + expiration + ", id=" + id + ", loginProfiles=" + loginProfiles + ", updatedAt="
-               + updatedAt + ", userId=" + userId + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
      *
      * <p>
@@ -438,7 +468,7 @@ public class UserInvitation implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isEmailValid();
+        return isEmailValid() && isIdValid();
     }
 
     /**

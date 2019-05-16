@@ -119,7 +119,7 @@ public class LowLevelAPIMethod {
     public Class<?> getModuleClazz() {
         try {
             return moduleClassName == null ? null : Class.forName(moduleClassName);
-        } catch (ClassNotFoundException exception) {
+        } catch (@SuppressWarnings("unused") ClassNotFoundException exception) {
             return null;
         }
     }

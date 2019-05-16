@@ -4,6 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**campaignId** | **String** | ID of the associated campaign. |  [optional]
 **count** | **Integer** |  |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) |  |  [optional]
 **id** | [**IdEnum**](#IdEnum) | ID of the event type description |  [optional]

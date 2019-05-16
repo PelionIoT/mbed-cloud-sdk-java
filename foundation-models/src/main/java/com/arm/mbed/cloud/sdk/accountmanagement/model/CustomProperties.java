@@ -98,11 +98,12 @@ public class CustomProperties implements SdkModel {
         for (final Entry<String, String> pair : rawProperties.entrySet()) {
             final Map<String, String> subMap = new HashMap<>();
             try {
+                @SuppressWarnings("unchecked")
                 final Map<String, Object> parsedMap = jsonMarshaller.fromJson(pair.getValue(), Map.class);
                 for (final Entry<String, Object> subpair : parsedMap.entrySet()) {
                     subMap.put(subpair.getKey(), String.valueOf(subpair.getValue()));
                 }
-            } catch (Exception exception) {
+            } catch (@SuppressWarnings("unused") Exception exception) {
                 subMap.put(pair.getValue(), pair.getValue());
             }
             newMap.put(pair.getKey(), subMap);
@@ -207,7 +208,7 @@ public class CustomProperties implements SdkModel {
         for (final Entry<String, String> pair : rawProperties.entrySet()) {
             try {
                 newMap.put(pair.getKey(), jsonMarshaller.fromJson(pair.getValue(), Map.class));
-            } catch (Exception exception) {
+            } catch (@SuppressWarnings("unused") Exception exception) {
 
                 newMap.put(pair.getKey(), pair.getValue());
             }
@@ -245,6 +246,7 @@ public class CustomProperties implements SdkModel {
         if (json == null) {
             return;
         }
+        @SuppressWarnings("unchecked")
         final Map<String, Object> underlyingMap = jsonMarshaller.fromJson(json, Map.class);
         for (final Entry<String, Object> pair : underlyingMap.entrySet()) {
             setProperty(pair.getKey(), pair.getValue());

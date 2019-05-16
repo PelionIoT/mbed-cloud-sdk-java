@@ -6,33 +6,76 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountAdminApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AggregatorAccountAdminApi;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeveloperApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountApiKeysApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountProfileApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountUserInvitationsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountUsersApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsAccountsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsApiKeysApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsUserInvitationsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsUsersApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantDeviceSecurityCertificatesApi;
 
 /**
  * Endpoints for Accounts APIs module.
  */
 @Preamble(description = "Endpoints for Accounts APIs module.")
 @Internal
+@SuppressWarnings("PMD.CyclomaticComplexity")
 public class AccountsEndpoints extends AbstractEndpoints {
     /**
-     * Low level endpoints for aggregator account admin apis.
+     * Low level endpoints for tenant accounts api keys apis.
      */
     @Internal
-    private final AggregatorAccountAdminApi aggregatorAccountAdminApi;
+    private final TenantAccountsApiKeysApi tenantAccountsApiKeysApi;
 
     /**
-     * Low level endpoints for developer apis.
+     * Low level endpoints for tenant accounts accounts apis.
      */
     @Internal
-    private final DeveloperApi developerApi;
+    private final TenantAccountsAccountsApi tenantAccountsAccountsApi;
 
     /**
-     * Low level endpoints for account admin apis.
+     * Low level endpoints for account profile apis.
      */
     @Internal
-    private final AccountAdminApi accountAdminApi;
+    private final AccountProfileApi accountProfileApi;
+
+    /**
+     * Low level endpoints for tenant device security certificates apis.
+     */
+    @Internal
+    private final TenantDeviceSecurityCertificatesApi tenantDeviceSecurityCertificatesApi;
+
+    /**
+     * Low level endpoints for tenant accounts user invitations apis.
+     */
+    @Internal
+    private final TenantAccountsUserInvitationsApi tenantAccountsUserInvitationsApi;
+
+    /**
+     * Low level endpoints for tenant accounts users apis.
+     */
+    @Internal
+    private final TenantAccountsUsersApi tenantAccountsUsersApi;
+
+    /**
+     * Low level endpoints for account api keys apis.
+     */
+    @Internal
+    private final AccountApiKeysApi accountApiKeysApi;
+
+    /**
+     * Low level endpoints for account users apis.
+     */
+    @Internal
+    private final AccountUsersApi accountUsersApi;
+
+    /**
+     * Low level endpoints for account user invitations apis.
+     */
+    @Internal
+    private final AccountUserInvitationsApi accountUserInvitationsApi;
 
     /**
      * Constructor.
@@ -42,29 +85,105 @@ public class AccountsEndpoints extends AbstractEndpoints {
      */
     public AccountsEndpoints(ServiceRegistry services) {
         super(services);
-        this.aggregatorAccountAdminApi = initialiseService(AggregatorAccountAdminApi.class);
-        this.developerApi = initialiseService(DeveloperApi.class);
-        this.accountAdminApi = initialiseService(AccountAdminApi.class);
+        this.tenantAccountsApiKeysApi = initialiseService(TenantAccountsApiKeysApi.class);
+        this.tenantAccountsAccountsApi = initialiseService(TenantAccountsAccountsApi.class);
+        this.accountProfileApi = initialiseService(AccountProfileApi.class);
+        this.tenantDeviceSecurityCertificatesApi = initialiseService(TenantDeviceSecurityCertificatesApi.class);
+        this.tenantAccountsUserInvitationsApi = initialiseService(TenantAccountsUserInvitationsApi.class);
+        this.tenantAccountsUsersApi = initialiseService(TenantAccountsUsersApi.class);
+        this.accountApiKeysApi = initialiseService(AccountApiKeysApi.class);
+        this.accountUsersApi = initialiseService(AccountUsersApi.class);
+        this.accountUserInvitationsApi = initialiseService(AccountUserInvitationsApi.class);
     }
 
     /**
-     * Gets low level endpoints for aggregator account admin apis.
+     * Gets low level endpoints for account api keys apis.
      * 
-     * @return aggregatorAccountAdminApi
+     * @return accountApiKeysApi
      */
     @Internal
-    public AggregatorAccountAdminApi getAggregatorAccountAdminApi() {
-        return aggregatorAccountAdminApi;
+    public AccountApiKeysApi getAccountApiKeysApi() {
+        return accountApiKeysApi;
     }
 
     /**
-     * Gets low level endpoints for developer apis.
+     * Gets low level endpoints for tenant accounts api keys apis.
      * 
-     * @return developerApi
+     * @return tenantAccountsApiKeysApi
      */
     @Internal
-    public DeveloperApi getDeveloperApi() {
-        return developerApi;
+    public TenantAccountsApiKeysApi getTenantAccountsApiKeysApi() {
+        return tenantAccountsApiKeysApi;
+    }
+
+    /**
+     * Gets low level endpoints for tenant accounts users apis.
+     * 
+     * @return tenantAccountsUsersApi
+     */
+    @Internal
+    public TenantAccountsUsersApi getTenantAccountsUsersApi() {
+        return tenantAccountsUsersApi;
+    }
+
+    /**
+     * Gets low level endpoints for tenant accounts user invitations apis.
+     * 
+     * @return tenantAccountsUserInvitationsApi
+     */
+    @Internal
+    public TenantAccountsUserInvitationsApi getTenantAccountsUserInvitationsApi() {
+        return tenantAccountsUserInvitationsApi;
+    }
+
+    /**
+     * Gets low level endpoints for account users apis.
+     * 
+     * @return accountUsersApi
+     */
+    @Internal
+    public AccountUsersApi getAccountUsersApi() {
+        return accountUsersApi;
+    }
+
+    /**
+     * Gets low level endpoints for account user invitations apis.
+     * 
+     * @return accountUserInvitationsApi
+     */
+    @Internal
+    public AccountUserInvitationsApi getAccountUserInvitationsApi() {
+        return accountUserInvitationsApi;
+    }
+
+    /**
+     * Gets low level endpoints for tenant accounts accounts apis.
+     * 
+     * @return tenantAccountsAccountsApi
+     */
+    @Internal
+    public TenantAccountsAccountsApi getTenantAccountsAccountsApi() {
+        return tenantAccountsAccountsApi;
+    }
+
+    /**
+     * Gets low level endpoints for account profile apis.
+     * 
+     * @return accountProfileApi
+     */
+    @Internal
+    public AccountProfileApi getAccountProfileApi() {
+        return accountProfileApi;
+    }
+
+    /**
+     * Gets low level endpoints for tenant device security certificates apis.
+     * 
+     * @return tenantDeviceSecurityCertificatesApi
+     */
+    @Internal
+    public TenantDeviceSecurityCertificatesApi getTenantDeviceSecurityCertificatesApi() {
+        return tenantDeviceSecurityCertificatesApi;
     }
 
     /**
@@ -78,15 +197,5 @@ public class AccountsEndpoints extends AbstractEndpoints {
     @Override
     public AccountsEndpoints clone() {
         return new AccountsEndpoints(getRegistryClone());
-    }
-
-    /**
-     * Gets low level endpoints for account admin apis.
-     * 
-     * @return accountAdminApi
-     */
-    @Internal
-    public AccountAdminApi getAccountAdminApi() {
-        return accountAdminApi;
     }
 }

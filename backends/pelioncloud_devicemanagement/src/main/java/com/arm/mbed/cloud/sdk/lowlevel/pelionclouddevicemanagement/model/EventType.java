@@ -25,6 +25,9 @@ import java.io.Serializable;
 public class EventType implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @SerializedName("campaign_id")
+    private String campaignId = null;
+
     @SerializedName("count")
     private Integer count = null;
 
@@ -45,6 +48,28 @@ public class EventType implements Serializable {
 
     @SerializedName("summary_status")
     private String summaryStatus = null;
+
+    @SerializedName("summary_status_id")
+    private String summaryStatusId = null;
+
+    public EventType campaignId(String campaignId) {
+        this.campaignId = campaignId;
+        return this;
+    }
+
+    /**
+     * ID of the associated campaign.
+     * 
+     * @return campaignId
+     **/
+    @ApiModelProperty(example = "00000000000000000000000000000000", value = "ID of the associated campaign.")
+    public String getCampaignId() {
+        return campaignId;
+    }
+
+    public void setCampaignId(String campaignId) {
+        this.campaignId = campaignId;
+    }
 
     public EventType count(Integer count) {
         this.count = count;
@@ -179,6 +204,25 @@ public class EventType implements Serializable {
         this.summaryStatus = summaryStatus;
     }
 
+    public EventType summaryStatusId(String summaryStatusId) {
+        this.summaryStatusId = summaryStatusId;
+        return this;
+    }
+
+    /**
+     * Get summaryStatusId
+     * 
+     * @return summaryStatusId
+     **/
+    @ApiModelProperty(example = "fail", value = "")
+    public String getSummaryStatusId() {
+        return summaryStatusId;
+    }
+
+    public void setSummaryStatusId(String summaryStatusId) {
+        this.summaryStatusId = summaryStatusId;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -188,16 +232,19 @@ public class EventType implements Serializable {
             return false;
         }
         EventType eventType = (EventType) o;
-        return Objects.equals(this.count, eventType.count) && Objects.equals(this.createdAt, eventType.createdAt)
+        return Objects.equals(this.campaignId, eventType.campaignId) && Objects.equals(this.count, eventType.count)
+               && Objects.equals(this.createdAt, eventType.createdAt)
                && Objects.equals(this.description, eventType.description)
                && Objects.equals(this.eventType, eventType.eventType) && Objects.equals(this.id, eventType.id)
                && Objects.equals(this.object, eventType.object)
-               && Objects.equals(this.summaryStatus, eventType.summaryStatus);
+               && Objects.equals(this.summaryStatus, eventType.summaryStatus)
+               && Objects.equals(this.summaryStatusId, eventType.summaryStatusId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(count, createdAt, description, eventType, id, object, summaryStatus);
+        return Objects.hash(campaignId, count, createdAt, description, eventType, id, object, summaryStatus,
+                            summaryStatusId);
     }
 
     @Override
@@ -205,6 +252,7 @@ public class EventType implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("class EventType {\n");
 
+        sb.append("    campaignId: ").append(toIndentedString(campaignId)).append("\n");
         sb.append("    count: ").append(toIndentedString(count)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
@@ -212,6 +260,7 @@ public class EventType implements Serializable {
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    object: ").append(toIndentedString(object)).append("\n");
         sb.append("    summaryStatus: ").append(toIndentedString(summaryStatus)).append("\n");
+        sb.append("    summaryStatusId: ").append(toIndentedString(summaryStatusId)).append("\n");
         sb.append("}");
         return sb.toString();
     }

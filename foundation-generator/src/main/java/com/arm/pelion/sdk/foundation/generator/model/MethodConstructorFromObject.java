@@ -7,10 +7,11 @@ import java.util.List;
 import com.arm.pelion.sdk.foundation.generator.model.ValueGenerator.Values;
 
 public class MethodConstructorFromObject extends AbstractMethodConstructor {
+    private static final String CONSTRUCTOR_DESCRIPTION = "Constructor based on a similar object.";
     protected Parameter parameter;
 
     public MethodConstructorFromObject(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, true);
+        super(CONSTRUCTOR_DESCRIPTION, currentModel, parentModel, null, null, true);
         setParameter();
     }
 

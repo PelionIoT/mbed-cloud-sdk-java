@@ -112,7 +112,7 @@ public class MethodMapper extends Method {
                                                                                          : toFieldName;
                     final Field fromField = from.fetchField(fromFieldName);
                     if (fromField == null) {
-                        recordThatFieldWasNotFound(code, toType, fromType, fromFieldName);
+                        recordThatFieldWasNotFound(code, fromType, toType, toFieldName);
                         final Values defaultValue = new Values();
                         ValueGenerator.getJavaDefaultValue(fType, f.getDefaultValue(), defaultValue);
                         statementString.append(String.join("", defaultValue.getFormats()));
@@ -121,47 +121,39 @@ public class MethodMapper extends Method {
                         final TypeParameter fromFieldType = fromField.getType();
                         fType.translate();
                         fromFieldType.translate();
+                        final String getterName = MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                                                                                                fType.isBoolean(),
+                                                                                                isFromLowLevel);
                         if (needsTranslation(fromFieldType, fType)) {
                             if (!doesTypeNeedTranslation(fType)) {
-                                statementString.append("$L.$L()");
-                                values.addAll(Arrays.asList(fromVariableName,
-                                                            MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                          fType.isBoolean(),
-                                                                                                          isFromLowLevel)));
+                                if (fromFieldType.isPrimitive()) {
+                                    statementString.append("$T.valueOf($L.$L())");
+                                    values.add(getWrapperEquivalent(fromFieldType));
+                                } else {
+                                    statementString.append("$L.$L()");
+                                }
+                                values.addAll(Arrays.asList(fromVariableName, getterName));
                             } else if (fType.isFormPart()) {
                                 statementString.append("$T.$L($L.$L())");
                                 values.addAll(Arrays.asList(DataFileAdapter.class, DataFileAdapter.METHOD_REVERSE_MAP,
-                                                            fromVariableName,
-                                                            MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                          fType.isBoolean(),
-                                                                                                          isFromLowLevel)));
+                                                            fromVariableName, getterName));
                             } else if (f.hasDefaultValue()) {
                                 statementString.append("$T.$L($L.$L(),$L)");
                                 values.addAll(Arrays.asList(TranslationUtils.class,
                                                             getTranslationMethod(fType, fromFieldType),
-                                                            fromVariableName,
-                                                            MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                          fType.isBoolean(),
-                                                                                                          isFromLowLevel),
-                                                            f.getDefaultValue()));
+                                                            fromVariableName, getterName, f.getDefaultValue()));
                             } else {
                                 statementString.append("$T.$L($L.$L())");
                                 values.addAll(Arrays.asList(TranslationUtils.class,
                                                             getTranslationMethod(fType, fromFieldType),
-                                                            fromVariableName,
-                                                            MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                          fType.isBoolean(),
-                                                                                                          isFromLowLevel)));
+                                                            fromVariableName, getterName));
                             }
                         } else if (fType.isEnum()) {
                             statementString.append("$L($L.$L())");
                             values.addAll(Arrays.asList(MethodMapperEnum.generateName(toIsLowLevelModel ? fromField : f,
                                                                                       toIsLowLevelModel ? f : fromField,
                                                                                       toIsLowLevelModel),
-                                                        fromVariableName,
-                                                        MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                      fType.isBoolean(),
-                                                                                                      isFromLowLevel)));
+                                                        fromVariableName, getterName));
                         } else if (TypeUtils.checkIfCollectionOfModel(fType)) {
                             final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCompose) fromFieldType,
                                                                                               (TypeCompose) fType,
@@ -186,10 +178,7 @@ public class MethodMapper extends Method {
                                 statementString.append("$T.$L($L.$L())");
                                 values.addAll(Arrays.asList(modelAdapterType.hasClass() ? modelAdapterType.getClazz()
                                                                                         : modelAdapterType.getTypeName(),
-                                                            mapListMethodName, fromVariableName,
-                                                            MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                          fType.isBoolean(),
-                                                                                                          isFromLowLevel)));
+                                                            mapListMethodName, fromVariableName, getterName));
                             }
 
                         } else if (TypeUtils.checkIfModel(fType)) {
@@ -198,16 +187,10 @@ public class MethodMapper extends Method {
                             statementString.append("$T.$L($L.$L())");
                             values.addAll(Arrays.asList(modelAdapterType.hasClass() ? modelAdapterType.getClazz()
                                                                                     : modelAdapterType.getTypeName(),
-                                                        mapFunction, fromVariableName,
-                                                        MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                      fType.isBoolean(),
-                                                                                                      isFromLowLevel)));
+                                                        mapFunction, fromVariableName, getterName));
                         } else {
                             statementString.append("$L.$L()");
-                            values.addAll(Arrays.asList(fromVariableName,
-                                                        MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                      fType.isBoolean(),
-                                                                                                      isFromLowLevel)));
+                            values.addAll(Arrays.asList(fromVariableName, getterName));
                         }
 
                     }
@@ -234,85 +217,71 @@ public class MethodMapper extends Method {
             final TypeParameter fromFieldType = fromField == null ? null : fromField.getType();
             if (fromFieldType == null) {
                 recordThatFieldWasNotFound(code, fromType, toType, toFieldName);
-            } else if (needsTranslation(fromFieldType, fType)) {
-                if (!doesTypeNeedTranslation(fType)) {
-                    code.addStatement("$L.$L($L.$L())", variableName,
-                                      MethodSetter.getCorrespondingSetterMethodName(toFieldName), fromVariableName,
-                                      MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean(),
-                                                                                    isFromLowLevel));
-                } else if (fType.isFormPart()) {
-                    code.addStatement("$L.$L($T.$L($L.$L()))", variableName,
-                                      MethodSetter.getCorrespondingSetterMethodName(toFieldName), DataFileAdapter.class,
-                                      DataFileAdapter.METHOD_REVERSE_MAP, fromVariableName,
-                                      MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean(),
-                                                                                    isFromLowLevel));
-                } else if (f.hasDefaultValue()) {
-                    code.addStatement("$L.$L($T.$L($L.$L(),$L))", variableName,
-                                      MethodSetter.getCorrespondingSetterMethodName(toFieldName),
-                                      TranslationUtils.class, getTranslationMethod(fType, fromFieldType),
-                                      fromVariableName,
-                                      MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean(),
-                                                                                    isFromLowLevel),
-                                      f.getDefaultValue());
-                } else {
-                    code.addStatement("$L.$L($T.$L($L.$L()))", variableName,
-                                      MethodSetter.getCorrespondingSetterMethodName(toFieldName),
-                                      TranslationUtils.class, getTranslationMethod(fType, fromFieldType),
-                                      fromVariableName,
-                                      MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean(),
-                                                                                    isFromLowLevel));
-                }
-            } else if (fType.isEnum()) {
-                code.addStatement("$L.$L($L($L.$L()))", variableName,
-                                  MethodSetter.getCorrespondingSetterMethodName(toFieldName),
-                                  MethodMapperEnum.generateName(toIsLowLevelModel ? fromField : f,
-                                                                toIsLowLevelModel ? f : fromField, toIsLowLevelModel),
-                                  fromVariableName,
-                                  MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean(),
-                                                                                isFromLowLevel));
-            } else if (TypeUtils.checkIfCollectionOfModel(fType)) {
-                final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCompose) fromFieldType,
-                                                                                  (TypeCompose) fType, action)
-                                                              .toType();
-                modelAdapterType.translate();
-                // TODO do what is needed for hashtable
-                if (fType.isList()) {
-                    String mapListMethodName = null;
-                    switch (action) {
-                        case CREATE:
-                            mapListMethodName = ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST_ADD;
-                            break;
-                        case UPDATE:
-                            mapListMethodName = ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST_UPDATE;
-                            break;
-                        default:
-                            mapListMethodName = ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST;
-                            break;
-
+            } else {
+                final String setterName = MethodSetter.getCorrespondingSetterMethodName(toFieldName);
+                final String getterName = MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                                                                                        fType.isBoolean(),
+                                                                                        isFromLowLevel);
+                if (needsTranslation(fromFieldType, fType)) {
+                    if (!doesTypeNeedTranslation(fType)) {
+                        if (fromFieldType.isPrimitive()) {
+                            code.addStatement("$L.$L($T.valueOf($L.$L()))", variableName, setterName,
+                                              getWrapperEquivalent(fromFieldType), fromVariableName, getterName);
+                        } else {
+                            code.addStatement("$L.$L($L.$L())", variableName, setterName, fromVariableName, getterName);
+                        }
+                    } else if (fType.isFormPart()) {
+                        code.addStatement("$L.$L($T.$L($L.$L()))", variableName, setterName, DataFileAdapter.class,
+                                          DataFileAdapter.METHOD_REVERSE_MAP, fromVariableName, getterName);
+                    } else if (f.hasDefaultValue()) {
+                        code.addStatement("$L.$L($T.$L($L.$L(),$L))", variableName, setterName, TranslationUtils.class,
+                                          getTranslationMethod(fType, fromFieldType), fromVariableName, getterName,
+                                          f.getDefaultValue());
+                    } else {
+                        code.addStatement("$L.$L($T.$L($L.$L()))", variableName, setterName, TranslationUtils.class,
+                                          getTranslationMethod(fType, fromFieldType), fromVariableName, getterName);
                     }
-                    code.addStatement("$L.$L($T.$L($L.$L()))", variableName,
-                                      MethodSetter.getCorrespondingSetterMethodName(toFieldName),
+                } else if (fType.isEnum()) {
+                    code.addStatement("$L.$L($L($L.$L()))", variableName, setterName,
+                                      MethodMapperEnum.generateName(toIsLowLevelModel ? fromField : f,
+                                                                    toIsLowLevelModel ? f : fromField,
+                                                                    toIsLowLevelModel),
+                                      fromVariableName, getterName);
+                } else if (TypeUtils.checkIfCollectionOfModel(fType)) {
+                    final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCompose) fromFieldType,
+                                                                                      (TypeCompose) fType, action)
+                                                                  .toType();
+                    modelAdapterType.translate();
+                    // TODO do what is needed for hashtable
+                    if (fType.isList()) {
+                        String mapListMethodName = null;
+                        switch (action) {
+                            case CREATE:
+                                mapListMethodName = ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST_ADD;
+                                break;
+                            case UPDATE:
+                                mapListMethodName = ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST_UPDATE;
+                                break;
+                            default:
+                                mapListMethodName = ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST;
+                                break;
+
+                        }
+                        code.addStatement("$L.$L($T.$L($L.$L()))", variableName, setterName,
+                                          modelAdapterType.hasClass() ? modelAdapterType.getClazz()
+                                                                      : modelAdapterType.getTypeName(),
+                                          mapListMethodName, fromVariableName, getterName);
+                    }
+                } else if (TypeUtils.checkIfModel(fType)) {
+                    final TypeParameter modelAdapterType = fetcher.fetch(fromFieldType, fType, action).toType();
+                    modelAdapterType.translate();
+                    code.addStatement("$L.$L($T.$L($L.$L()))", variableName, setterName,
                                       modelAdapterType.hasClass() ? modelAdapterType.getClazz()
                                                                   : modelAdapterType.getTypeName(),
-                                      mapListMethodName, fromVariableName,
-                                      MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean(),
-                                                                                    isFromLowLevel));
+                                      mapFunction, fromVariableName, getterName);
+                } else {
+                    code.addStatement("$L.$L($L.$L())", variableName, setterName, fromVariableName, getterName);
                 }
-            } else if (TypeUtils.checkIfModel(fType)) {
-                final TypeParameter modelAdapterType = fetcher.fetch(fromFieldType, fType, action).toType();
-                modelAdapterType.translate();
-                code.addStatement("$L.$L($T.$L($L.$L()))", variableName,
-                                  MethodSetter.getCorrespondingSetterMethodName(toFieldName),
-                                  modelAdapterType.hasClass() ? modelAdapterType.getClazz()
-                                                              : modelAdapterType.getTypeName(),
-                                  mapFunction, fromVariableName,
-                                  MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean(),
-                                                                                isFromLowLevel));
-            } else {
-                code.addStatement("$L.$L($L.$L())", variableName,
-                                  MethodSetter.getCorrespondingSetterMethodName(toFieldName), fromVariableName,
-                                  MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean(),
-                                                                                isFromLowLevel));
             }
 
         }
@@ -326,8 +295,30 @@ public class MethodMapper extends Method {
                  fromType.hasClass() ? fromType.getClazz() : fromType.getTypeName());
     }
 
-    private static String getTranslationMethod(TypeParameter fType,
-                                               TypeParameter fromFieldType) throws TranslationException {
+    public static Class<?> getWrapperEquivalent(TypeParameter parameterType) {
+        if (!parameterType.isPrimitive()) {
+            return null;
+        }
+        if (parameterType.isBoolean()) {
+            return Boolean.class;
+        }
+        // must be a number
+        if (parameterType.isDecimal()) {
+            return Double.class;
+        } else if (parameterType.isInteger()) {
+            return Integer.class;
+        }
+        return Long.class;
+    }
+
+    public static String getTranslationMethod(TypeParameter fType,
+                                              TypeParameter fromFieldType) throws TranslationException {
+        if (fType == null || fromFieldType == null) {
+            throw new TranslationException("Could not find an appropriate translation method in "
+                                           + TranslationUtils.class.getName() + " for conversion from " + fromFieldType
+                                           + " to " + fType,
+                                           new IllegalArgumentException("One of the types is undefined"));
+        }
         if (fType.isDate()) {
             if (fromFieldType.isJodaDate() || fromFieldType.isJodaTime() || fromFieldType.isCalendar()
                 || fromFieldType.isNumber()) {
@@ -373,27 +364,28 @@ public class MethodMapper extends Method {
             return fromFieldType.isDate() ? TranslationUtils.METHOD_CONVERT_DATE_TO_STRING
                                           : TranslationUtils.METHOD_CONVERT_ANY_TO_STRING;
         }
+        if (fType.isBase64()) {
+            return TranslationUtils.METHOD_CONVERT_ANY_TO_BASE64;
+        }
+        if (fType.isBinary()) {
+            return TranslationUtils.METHOD_CONVERT_ANY_TO_BYTE_ARRAY;
+        }
 
         throw new TranslationException("Could not find an appropriate translation method in "
                                        + TranslationUtils.class.getName() + " for conversion from " + fromFieldType
                                        + " to " + fType);
     }
 
-    private static boolean needsTranslation(TypeParameter from, TypeParameter to) {
-        if (from.hasClazz() && (from.getClazz() == to.getClazz())) {
+    public static boolean needsTranslation(TypeParameter from, TypeParameter to) {
+        if (TypeUtils.areSame(from, to)) {
             return false;
-        }
-        if (!from.hasClazz() && (from.getTypeName() == to.getTypeName())) {
-            return false;
-        }
-        if (to.isString()) {
-            return true;
         }
         return doesTypeNeedTranslation(from) || doesTypeNeedTranslation(to);
     }
 
     public static boolean doesTypeNeedTranslation(TypeParameter type) {
-        return type.isDate() || isLowLevelType(type) || type.isPrimitive() || type.isUrl() || type.isFile();
+        return type.isDate() || isLowLevelType(type) || type.isPrimitive() || type.isUrl() || type.isFile()
+               || type.isString();
     }
 
     public static boolean isLowLevelType(TypeParameter type) {

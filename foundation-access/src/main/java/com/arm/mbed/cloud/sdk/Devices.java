@@ -68,37 +68,19 @@ public class Devices extends AbstractModule {
      * Parameter name.
      */
     @Internal
-    private static final String TAG_DEVICE = "device";
-
-    /**
-     * Parameter name.
-     */
-    @Internal
-    private static final String TAG_ID = "id";
-
-    /**
-     * Parameter name.
-     */
-    @Internal
     private static final String TAG_CERTIFICATE_NAME = "certificateName";
 
     /**
      * Parameter name.
      */
     @Internal
-    private static final String TAG_ENROLLMENT_IDENTITY = "enrollmentIdentity";
+    private static final String TAG_DEVICE = "device";
 
     /**
      * Parameter name.
      */
     @Internal
     private static final String TAG_DEVICE_ENROLLMENT = "deviceEnrollment";
-
-    /**
-     * Parameter name.
-     */
-    @Internal
-    private static final String TAG_ENROLLMENT_IDENTITIES = "enrollmentIdentities";
 
     /**
      * Parameter name.
@@ -122,13 +104,25 @@ public class Devices extends AbstractModule {
      * Parameter name.
      */
     @Internal
-    private static final String TAG_DEVICE_ENROLLMENT_DENIAL = "deviceEnrollmentDenial";
+    private static final String TAG_DEVICE_EVENTS = "deviceEvents";
 
     /**
      * Parameter name.
      */
     @Internal
-    private static final String TAG_DEVICE_EVENTS = "deviceEvents";
+    private static final String TAG_ENROLLMENT_IDENTITIES = "enrollmentIdentities";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
+    private static final String TAG_ENROLLMENT_IDENTITY = "enrollmentIdentity";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
+    private static final String TAG_ID = "id";
 
     /**
      * module endpoints.
@@ -212,17 +206,16 @@ public class Devices extends AbstractModule {
                                         return endpoints.getDefaultApi()
                                                         .deviceCreate(DeviceAdapter.reverseMapAddRequest(finalDevice));
                                     }
-                                });
+                                }, true);
     }
 
     /**
      * Adds a device enrollment.
      *
      * <p>
-     * When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your
-     * account. [br] **Example usage:** ``` curl -X POST \ -H 'Authorization: Bearer [valid access token]' \ -H
-     * 'content-type: application/json' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments \ -d
-     * '{"enrollment_identity":
+     * When the device connects to the bootstrap server and provides the enrollment ID, it is assigned to your account.
+     * [br] **Example:** ``` curl -X POST \ -H 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \
+     * https://api.us-east-1.mbedcloud.com/v3/device-enrollments \ -d '{"enrollment_identity":
      * "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5"}' ```
      *
      * @param enrollmentIdentity
@@ -250,7 +243,7 @@ public class Devices extends AbstractModule {
                                         return endpoints.getPublicApiApi()
                                                         .createDeviceEnrollment(DeviceEnrollmentAdapter.reverseMapAddRequest(finalEnrollmentIdentity));
                                     }
-                                });
+                                }, true);
     }
 
     /**
@@ -259,19 +252,18 @@ public class Devices extends AbstractModule {
      * <p>
      * With bulk upload, you can upload a `CSV` file containing a number of enrollment IDs.
      *
-     * **Example usage:** ``` curl -X POST \ -H 'Authorization: Bearer [valid access token]' \ -F
+     * **Example:** ``` curl -X POST \ -H 'Authorization: Bearer [api_key]' \ -F
      * 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads
      *
-     * ``` **The validation rules for an CSV file.** 1. The first line in the uploaded CSV file is assumed to be the
-     * header and is ignored. 1. Each line can contain comma-separated values, where the first value is always assumed
-     * to be the Enrollment ID. Everything after the first comma is ignored. 1. Valid enrollments begin with A followed
-     * by a - and 95 characters in the format as below. 1. Up to one enrollment ID is expected per line. Empty lines are
-     * ignored. 1. Trailing comma at the end of the line is optional. 1. Lines are terminated with either a line feed
-     * \n, a carriage return \r, or both together \r\n. 1. Leading and trailing whitespace characters (Unicode U+0000 -
-     * U+0020) are removed from the identity before validation. 1. Empty identities are ignored. 1. Valid enrollment
-     * identities may be enclosed within quotes. Whitespace inside quotes is not trimmed and will fail validation. Empty
-     * quotes are also considered to be an invalid enrollment identity. 1. UTF-8 encoding is expected.
+     * ``` **To ensure your CSV file is valid:** 1. The first line of the file (header) is ignored. 1. Each line can
+     * contain comma-separated values, where the first value is the Enrollment ID. Everything after the first comma is
+     * ignored. 1. Valid enrollments begin with A followed by a - and 95 characters (examples below). 1. One enrollment
+     * ID per line. Empty lines are ignored. 1. Trailing comma at the end of the line is optional. 1. Lines are
+     * terminated with either a line feed \n, a carriage return \r, or both \r\n. 1. Leading and trailing whitespace
+     * characters (Unicode U+0000 - U+0020) are removed from the identity before validation. 1. Empty identities are
+     * ignored. 1. Valid enrollment identities may be enclosed within quotation marks. Whitespace inside quotation marks
+     * is not trimmed and will cause validation to fail. Empty quotation marks are also invalid. 1. Use UTF-8 encoding.
      *
      *
      * **A valid enrollment file:** ``` "Examples of valid identites, notes"
@@ -279,30 +271,30 @@ public class Devices extends AbstractModule {
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12"
      * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12
      * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:24:44:71:22:15:43:23:12, This text is
-     * ignored, A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12 ,
-     * Whitespace is trimmed before validation
+     * ignored. A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12 ,
+     * Whitespace is trimmed before validation.
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12" , Whitespace
-     * around quotes is also trimmed
+     * around quotation marks is also trimmed.
      *
      * ```
      *
      * **A file containing invalid identities:** ```
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12", First line
-     * is ignored A_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,
-     * Invalid version identifier
-     * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Too short
-     * identity "", Empty quotes are an invalid identity "
+     * is ignored. A_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,
+     * Invalid version identifier.
+     * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Too-short
+     * identity. "", Empty quotation marks are an invalid identity "
      * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 ", Whitespace
-     * inside quotes is not trimmed causing an error
+     * inside quotation marks is not trimmed, causing an error.
      *
      * ```
      *
      * **An empty file:** ``` "Examples of blank lines that are ignored"
      *
-     * ,, , This is also considered to a blank line ```
+     * ,, , This is also considered a blank line. ```
      *
      * @param enrollmentIdentities
-     *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
+     *            The `CSV` file containing the enrollment IDs. The maximum file size is 10 MB.
      * @return an added device enrollment bulk create
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -328,33 +320,7 @@ public class Devices extends AbstractModule {
                                                         .createBulkDeviceEnrollment(DataFileAdapter.reverseMap("enrollment_identities",
                                                                                                                finalEnrollmentIdentities));
                                     }
-                                });
-    }
-
-    /**
-     * Adds a device enrollment bulk create.
-     *
-     * <p>
-     * Similar to {@link #createDeviceEnrollmentBulkCreate(com.arm.mbed.cloud.sdk.common.model.DataFile)}
-     * 
-     * @param enrollmentIdentities
-     *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
-     * @param deviceEnrollmentBulkCreate
-     *            a device enrollment bulk create.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public DeviceEnrollmentBulkCreate
-           createDeviceEnrollmentBulkCreate(@NonNull DataFile enrollmentIdentities,
-                                            @NonNull DeviceEnrollmentBulkCreate deviceEnrollmentBulkCreate) throws MbedCloudException {
-        checkNotNull(enrollmentIdentities, TAG_ENROLLMENT_IDENTITIES);
-        checkNotNull(deviceEnrollmentBulkCreate, TAG_DEVICE_ENROLLMENT_BULK_CREATE);
-        checkModelValidity(enrollmentIdentities, TAG_ENROLLMENT_IDENTITIES);
-        checkModelValidity(deviceEnrollmentBulkCreate, TAG_DEVICE_ENROLLMENT_BULK_CREATE);
-        return createDeviceEnrollmentBulkCreate(enrollmentIdentities);
+                                }, true);
     }
 
     /**
@@ -424,11 +390,10 @@ public class Devices extends AbstractModule {
      * Deletes a device enrollment.
      *
      * <p>
-     * To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need
-     * to delete the enrollment and do a factory reset for the device. For more information, s ee [Transferring the
-     * ownership using
-     * First-to-Claim](/docs/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html). [br] **Example
-     * usage:** ``` curl -X DELETE \ -H 'Authorization: Bearer [valid access token]' \
+     * To free a device from your account, delete the enrollment claim. To bypass the device ownership, you need to
+     * delete the enrollment and factory reset the device. For more information, see [Transferring ownership using
+     * First-to-Claim](../docs/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html). [br]
+     * **Example:** ``` curl -X DELETE \ -H 'Authorization: Bearer [api_key]' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ```
      *
      * @param id
@@ -457,22 +422,20 @@ public class Devices extends AbstractModule {
      * Deletes a device enrollment bulk delete.
      *
      * <p>
-     * With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to be deleted.
+     * With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to delete.
      *
-     * **Example usage:** ``` curl -X POST \ -H 'Authorization: Bearer [valid access token]' \ -F
+     * **Example:** ``` curl -X POST \ -H 'Authorization: Bearer [api_key]' \ -F
      * 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes
      *
-     * ``` **The validation rules for an CSV file.** 1. The first line in the uploaded CSV file is assumed to be the
-     * header and is ignored. 1. Each line can contain comma-separated values, where the first value is always assumed
-     * to be the Enrollment ID. Everything after the first comma is ignored. 1. Valid enrollments begin with A followed
-     * by a - and 95 characters in the format as below. 1. Up to one enrollment ID is expected per line. Empty lines are
-     * ignored. 1. Trailing comma at the end of the line is optional. 1. Lines are terminated with either a line feed
-     * \n, a carriage return \r, or both together \r\n. 1. Leading and trailing whitespace characters (Unicode U+0000 -
-     * U+0020) are removed from the identity before validation. 1. Empty identities are ignored. 1. Valid enrollment
-     * identities may be enclosed within quotes. Whitespace inside quotes is not trimmed and will fail validation. Empty
-     * quotes are also considered to be an invalid enrollment identity. 1. UTF-8 encoding is expected.
-     *
+     * ``` **To ensure your CSV file is valid:** 1. The first line of the file (header) is ignored. 1. Each line can
+     * contain comma-separated values, where the first value is the Enrollment ID. Everything after the first comma is
+     * ignored. 1. Valid enrollments begin with A followed by a - and 95 characters (examples below). 1. One enrollment
+     * ID per line. Empty lines are ignored. 1. Trailing comma at the end of the line is optional. 1. Lines are
+     * terminated with either a line feed \n, a carriage return \r, or both \r\n. 1. Leading and trailing whitespace
+     * characters (Unicode U+0000 - U+0020) are removed from the identity before validation. 1. Empty identities are
+     * ignored. 1. Valid enrollment identities may be enclosed within quotation marks. Whitespace inside quotation marks
+     * is not trimmed and will cause validation to fail. Empty quotation marks are also invalid. 1. Use UTF-8 encoding.
      *
      * **A valid enrollment file:** ``` "Examples of valid identites, notes"
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12",
@@ -480,26 +443,26 @@ public class Devices extends AbstractModule {
      * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12
      * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:24:44:71:22:15:43:23:12, This text is
      * ignored, A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12 ,
-     * Whitespace is trimmed before validation
+     * Whitespace is trimmed before validation.
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12" , Whitespace
-     * around quotes is also trimmed
+     * around quotation marks is also trimmed.
      *
      * ```
      *
      * **A file containing invalid identities:** ```
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12", First line
-     * is ignored A_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,
-     * Invalid version identifier
-     * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Too short
-     * identity "", Empty quotes are an invalid identity "
+     * is ignored. A_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,
+     * Invalid version identifier.
+     * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12, Too-short
+     * identity. "", Empty quotation marks are an invalid identity. "
      * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 ", Whitespace
-     * inside quotes is not trimmed causing an error
+     * inside quotation marks is not trimmed, causing an error.
      *
      * ```
      *
-     * **An empty file:** ``` "Examples of blank lines that are ignored"
+     * **An empty file:** ``` "Examples of blank lines that are ignored."
      *
-     * ,, , This is also considered to a blank line ```
+     * ,, , This is also considered to a blank line. ```
      *
      * @param enrollmentIdentities
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
@@ -529,30 +492,6 @@ public class Devices extends AbstractModule {
                                                                                                                finalEnrollmentIdentities));
                                     }
                                 });
-    }
-
-    /**
-     * Deletes a device enrollment bulk delete.
-     *
-     * <p>
-     * Similar to {@link #deleteDeviceEnrollmentBulkDelete(com.arm.mbed.cloud.sdk.common.model.DataFile)}
-     * 
-     * @param enrollmentIdentities
-     *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
-     * @param deviceEnrollmentBulkDelete
-     *            a device enrollment bulk delete.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public DeviceEnrollmentBulkDelete
-           deleteDeviceEnrollmentBulkDelete(@NonNull DataFile enrollmentIdentities,
-                                            @NonNull DeviceEnrollmentBulkDelete deviceEnrollmentBulkDelete) throws MbedCloudException {
-        checkNotNull(enrollmentIdentities, TAG_ENROLLMENT_IDENTITIES);
-        checkNotNull(deviceEnrollmentBulkDelete, TAG_DEVICE_ENROLLMENT_BULK_DELETE);
-        return deleteDeviceEnrollmentBulkDelete(enrollmentIdentities);
     }
 
     /**
@@ -764,10 +703,11 @@ public class Devices extends AbstractModule {
      * Lists device enrollments matching filter options.
      *
      * <p>
-     * Provides a list of pending and claimed enrollments. **Example usage:** ``` curl -X GET \ -H 'Authorization:
-     * Bearer [valid access token]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments ``` With query
-     * parameters: ``` curl -X GET \ -H 'Authorization: Bearer [valid access token]' \
-     * 'https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10' ```
+     * Provides a list of pending and claimed enrollments.
+     *
+     * **Example:** ``` curl -X GET \ -H 'Authorization: Bearer [api_key]' \
+     * https://api.us-east-1.mbedcloud.com/v3/device-enrollments ``` With query parameters: ``` curl -X GET \ -H
+     * 'Authorization: Bearer [api_key]' \ 'https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10' ```
      *
      * @param options
      *            list options.
@@ -1231,8 +1171,9 @@ public class Devices extends AbstractModule {
      * Gets a device enrollment.
      *
      * <p>
-     * To check the enrollment info in detail, for example date of claim and expiration date. **Example usage:** ```
-     * curl -X GET \ -H 'Authorization: Bearer [valid access token]' \
+     * Check detailed enrollment info, for example, date of claim or expiration date.
+     *
+     * **Example:** ``` curl -X GET \ -H 'Authorization: Bearer [api_key]' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ```
      *
      * @param id
@@ -1284,11 +1225,14 @@ public class Devices extends AbstractModule {
      * Gets a device enrollment bulk create.
      *
      * <p>
-     * Provides information on bulk upload for the given ID. For example, the bulk status and the number of processed
-     * enrollment identities. Also links to the bulk upload reports are provided. **Report file format:** The report
-     * files have a header line and the value are separated by commas. The lines are delimited by a line break (CRLF).
-     * The report file is compliant with IETF Informal CSV common format [RFC 4180](
-     * https://tools.ietf.org/html/rfc4180). An example of a full report file: ```
+     * Provides information on bulk upload for the given ID, for example, bulk status and number of processed enrollment
+     * identities. Provides links to bulk upload reports as well.
+     *
+     * **Report file format:** The report files have a header line, and the values are separated by commas. Delimit
+     * lines with a line break (CRLF). Make sure the report file is compliant with IETF Informal CSV common format [RFC
+     * 41 80](https://tools.ietf.org/html/rfc4180).
+     *
+     * An example of a full report file: ```
      * "entity__id","entity__created_at","error__code","error__type","error__message","error__fields"
      * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","2018-09-07T12:10:58.428Z","","","",""
      * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","2018-09-07T12:10:58.428Z","","","",""
@@ -1297,8 +1241,8 @@ public class Devices extends AbstractModule {
      * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","409","duplicate","Enrollment
      * identity is already claimed in the mbed Cloud.",""
      * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","409","duplicate","Enrollment
-     * identity is already claimed in the mbed Cloud.","" ``` **Example usage:** ``` curl -X GET \ -H 'Authorization:
-     * Bearer [valid access token]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} ```
+     * identity is already claimed in the mbed Cloud.","" ``` **Example:** ``` curl -X GET \ -H 'Authorization: Bearer
+     * [api_key]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} ```
      *
      * @param id
      *            Bulk ID. Bulk ID
@@ -1349,11 +1293,14 @@ public class Devices extends AbstractModule {
      * Gets a device enrollment bulk delete.
      *
      * <p>
-     * Provides information on bulk delete for the given ID. For example, the bulk status and the number of processed
-     * enrollment identities. Also links to the bulk delete reports are provided. **Report file format:** The report
-     * files have a header line and the value are separated by commas. The lines are delimited by a line break (CRLF).
-     * The report file is compliant with IETF Informal CSV common format [RFC 4180](
-     * https://tools.ietf.org/html/rfc4180). An example of a full report file: ```
+     * Provides information on bulk delete for the given ID, for example, bulk status and the number of processed
+     * enrollment identities. Provides links to bulk delete reports as well.
+     *
+     * **Report file format:** The report files have a header line and the value are separated by commas. The lines are
+     * delimited by a line break (CRLF). Make sure the report file is compliant with IETF Informal CSV common format [
+     * RFC 4180](https://tools.ietf.org/html/rfc4180).
+     *
+     * An example of a full report file: ```
      * "entity__id","entity__deleted_at","error__code","error__type","error__message","error__fields"
      * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","2018-09-07T12:10:58.428Z","","","",""
      * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","2018-09-07T12:10:58.428Z","","","",""
@@ -1362,8 +1309,8 @@ public class Devices extends AbstractModule {
      * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","409","duplicate","Enrollment
      * identity is already claimed in the mbed Cloud.",""
      * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","409","duplicate","Enrollment
-     * identity is already claimed in the mbed Cloud.","" ``` **Example usage:** ``` curl -X GET \ -H 'Authorization:
-     * Bearer [valid access token]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id} ```
+     * identity is already claimed in the mbed Cloud.","" ``` **Example:** ``` curl -X GET \ -H 'Authorization: Bearer
+     * [api_key]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id} ```
      *
      * @param id
      *            Bulk ID. Bulk ID
@@ -1424,30 +1371,6 @@ public class Devices extends AbstractModule {
                                                         .getEnrollmentDenialAttempt(finalDeviceEnrollmentDenialId);
                                     }
                                 });
-    }
-
-    /**
-     * Gets a device enrollment denial.
-     *
-     * <p>
-     * Similar to {@link #readDeviceEnrollmentDenial(String)}
-     * 
-     * @param deviceEnrollmentDenialId
-     *            id of the recorded failed bootstrap attempt. id of the recorded failed bootstrap attempt
-     * @param deviceEnrollmentDenial
-     *            a device enrollment denial.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public DeviceEnrollmentDenial
-           readDeviceEnrollmentDenial(@NonNull String deviceEnrollmentDenialId,
-                                      @NonNull DeviceEnrollmentDenial deviceEnrollmentDenial) throws MbedCloudException {
-        checkNotNull(deviceEnrollmentDenialId, TAG_DEVICE_ENROLLMENT_DENIAL_ID);
-        checkNotNull(deviceEnrollmentDenial, TAG_DEVICE_ENROLLMENT_DENIAL);
-        return readDeviceEnrollmentDenial(deviceEnrollmentDenialId);
     }
 
     /**
@@ -1563,10 +1486,10 @@ public class Devices extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>
                                            call() {
-                                        return endpoints.getCertificateRenewalApi()
+                                        return endpoints.getDeviceSecurityDeviceCertificateRenewalsApi()
                                                         .requestCertificateRenewal(finalId, finalCertificateName);
                                     }
-                                });
+                                }, true);
     }
 
     /**
@@ -1624,6 +1547,6 @@ public class Devices extends AbstractModule {
                                                         .deviceUpdate(finalId,
                                                                       DeviceAdapter.reverseMapUpdateRequest(finalDevice));
                                     }
-                                });
+                                }, true);
     }
 }

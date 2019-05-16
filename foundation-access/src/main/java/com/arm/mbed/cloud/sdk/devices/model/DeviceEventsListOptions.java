@@ -122,9 +122,9 @@ import java.util.List;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class DeviceEventsListOptions extends ListOptions {
     /**
-     * Tag for filter by deviceId.
+     * Tag for filter by dateTime.
      */
-    public static final String TAG_FILTER_BY_DEVICE_ID = "deviceId";
+    public static final String TAG_FILTER_BY_DATE_TIME = "dateTime";
 
     /**
      * Tag for filter by description.
@@ -132,19 +132,9 @@ public class DeviceEventsListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_DESCRIPTION = "description";
 
     /**
-     * Tag for filter by dateTime.
+     * Tag for filter by deviceId.
      */
-    public static final String TAG_FILTER_BY_DATE_TIME = "dateTime";
-
-    /**
-     * Tag for filter by stateChange.
-     */
-    public static final String TAG_FILTER_BY_STATE_CHANGE = "stateChange";
-
-    /**
-     * Tag for filter by id.
-     */
-    public static final String TAG_FILTER_BY_ID = "id";
+    public static final String TAG_FILTER_BY_DEVICE_ID = "deviceId";
 
     /**
      * Tag for filter by eventType.
@@ -152,8 +142,20 @@ public class DeviceEventsListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_EVENT_TYPE = "eventType";
 
     /**
+     * Tag for filter by id.
+     */
+    public static final String TAG_FILTER_BY_ID = "id";
+
+    /**
+     * Tag for filter by stateChange.
+     */
+    public static final String TAG_FILTER_BY_STATE_CHANGE = "stateChange";
+
+    /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEventsListOptions()} instead.
      * 
@@ -186,6 +188,8 @@ public class DeviceEventsListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #DeviceEventsListOptions()} instead.
      * 
      * @param deviceEventsListOptions
@@ -208,6 +212,8 @@ public class DeviceEventsListOptions extends ListOptions {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEventsListOptions()} instead.
      * 
@@ -923,7 +929,7 @@ public class DeviceEventsListOptions extends ListOptions {
      *            filter value.
      */
     public void addEqualToStateChangeFilter(boolean filterByStateChange) {
-        addEqualFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
+        addEqualFilter(TAG_FILTER_BY_STATE_CHANGE, Boolean.valueOf(filterByStateChange));
     }
 
     /**
@@ -950,7 +956,7 @@ public class DeviceEventsListOptions extends ListOptions {
      *            filter value.
      */
     public void addNotEqualToStateChangeFilter(boolean filterByStateChange) {
-        addNotEqualFilter(TAG_FILTER_BY_STATE_CHANGE, filterByStateChange);
+        addNotEqualFilter(TAG_FILTER_BY_STATE_CHANGE, Boolean.valueOf(filterByStateChange));
     }
 
     /**
@@ -1421,20 +1427,6 @@ public class DeviceEventsListOptions extends ListOptions {
     }
 
     /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     *
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof DeviceEventsListOptions;
-    }
-
-    /**
      * Returns a string representation of the object.
      *
      * <p>
@@ -1451,6 +1443,21 @@ public class DeviceEventsListOptions extends ListOptions {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return other instanceof DeviceEventsListOptions;
+    }
+
+    /**
      * Clones this instance.
      *
      * <p>
@@ -1463,5 +1470,50 @@ public class DeviceEventsListOptions extends ListOptions {
         final DeviceEventsListOptions opt = new DeviceEventsListOptions();
         opt.setOptions(this);
         return opt;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof DeviceEventsListOptions)) {
+            return false;
+        }
+        final DeviceEventsListOptions other = (DeviceEventsListOptions) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    @SuppressWarnings("PMD.UselessOverridingMethod")
+    public int hashCode() {
+        return super.hashCode();
     }
 }

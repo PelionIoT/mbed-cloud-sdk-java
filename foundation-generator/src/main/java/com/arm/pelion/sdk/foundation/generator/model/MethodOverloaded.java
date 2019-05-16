@@ -37,6 +37,10 @@ public class MethodOverloaded extends Method {
         return generateIdentifier(super.getIdentifier(), overloadingSuffix);
     }
 
+    public void setOverloadingSuffix(String overloadingSuffix) {
+        this.overloadingSuffix = overloadingSuffix;
+    }
+
     public void generateSuffix() {
         if (overloadingSuffix == null) {
             overloadingSuffix = generateOverloadSuffix(this);

@@ -11,6 +11,18 @@ public class ArtifactFetcher<T extends Model> {
         this.store = store;
     }
 
+    public boolean has(TypeParameter modelType) {
+        if (modelType == null) {
+            return false;
+        }
+        try {
+            modelType.translate();
+        } catch (@SuppressWarnings("unused") TranslationException exception) {
+            return false;
+        }
+        return store.has(modelType.getShortName());
+    }
+
     public T fetch(TypeParameter modelType) {
         if (modelType == null) {
             return null;

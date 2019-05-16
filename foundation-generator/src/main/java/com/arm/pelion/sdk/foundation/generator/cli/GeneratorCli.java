@@ -46,6 +46,10 @@ public class GeneratorCli implements Runnable {
             description = "name of the project where generated models will be put into (default: ${DEFAULT-VALUE})")
     private String outputModels = null;
 
+    @Option(names = { "-p", "--output-primary" }, paramLabel = "<PROJECT_NAME>",
+            description = "name of the project where generated primary interface will be put into (default: ${DEFAULT-VALUE})")
+    private String outputPrimary = null;
+
     @Parameters(paramLabel = "<TOP>", description = "project top directory (default: ${DEFAULT-VALUE})", arity = "*")
     private File top = FileSystems.getDefault().getPath(".").toFile();
 
@@ -132,6 +136,18 @@ public class GeneratorCli implements Runnable {
         this.outputModels = outputModels;
     }
 
+    public String getOutputPrimary() {
+        return outputPrimary;
+    }
+
+    public void setOutputPrimary(String outputPrimary) {
+        this.outputPrimary = outputPrimary;
+    }
+
+    public boolean hasOutputPrimary() {
+        return getOutputPrimary() != null;
+    }
+
     public File getTop() {
         return top;
     }
@@ -148,12 +164,20 @@ public class GeneratorCli implements Runnable {
         return generateClassDirectory(getTop(), hasOutputModels() ? getOutputModels() : getOutput(), true);
     }
 
+    public File getPrimarySourceOuputDirectory() throws FoundationGeneratorException {
+        return generateClassDirectory(getTop(), getOutputPrimary(), true);
+    }
+
     public File getFoundationTestOuputDirectory() throws FoundationGeneratorException {
         return generateClassDirectory(getTop(), getOutput(), false);
     }
 
     public File getFoundationModelTestOuputDirectory() throws FoundationGeneratorException {
         return generateClassDirectory(getTop(), hasOutputModels() ? getOutputModels() : getOutput(), false);
+    }
+
+    public File getPrimaryTestOuputDirectory() throws FoundationGeneratorException {
+        return generateClassDirectory(getTop(), getOutputPrimary(), false);
     }
 
     private static File generateClassDirectory(File top, String projectName,
@@ -204,8 +228,9 @@ public class GeneratorCli implements Runnable {
     @Override
     public String toString() {
         return "GeneratorCli [config=" + config + ", files=" + Arrays.toString(files) + ", helpRequested="
-               + helpRequested + ", versionInfoRequested=" + versionInfoRequested + ", output=" + output
-               + ", outputModels=" + outputModels + ", top=" + top + "]";
+               + helpRequested + ", forceUniTestRegeneration=" + forceUniTestRegeneration + ", versionInfoRequested="
+               + versionInfoRequested + ", output=" + output + ", outputModels=" + outputModels + ", outputPrimary="
+               + outputPrimary + ", top=" + top + "]";
     }
 
 }

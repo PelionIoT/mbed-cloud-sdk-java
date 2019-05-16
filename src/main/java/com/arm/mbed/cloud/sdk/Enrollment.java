@@ -27,8 +27,12 @@ import retrofit2.Call;
 
 @Preamble(description = "Specifies Enrollment API")
 @Module
+@Deprecated
 /**
  * API exposing functionality for dealing with enrolment.
+ * <p>
+ * 
+ * @deprecated Use foundation interface or {@link Devices} instead.
  */
 public class Enrollment extends AbstractModule {
 

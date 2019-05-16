@@ -10,7 +10,6 @@ import com.arm.mbed.cloud.sdk.certificates.adapters.CertificateAdapter;
 import com.arm.mbed.cloud.sdk.certificates.model.Certificate;
 import com.arm.mbed.cloud.sdk.certificates.model.CertificateListOptions;
 import com.arm.mbed.cloud.sdk.certificates.model.CertificateType;
-import com.arm.mbed.cloud.sdk.certificates.model.EndPoints;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
@@ -27,19 +26,24 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Develop
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServerCredentialsResponseData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateResp;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRespList;
+import com.arm.mbed.cloud.sdk.security.model.SecurityEndpoints;
 
 import retrofit2.Call;
 
 @Preamble(description = "Specifies Certificates API")
 @Module
+@Deprecated
 /**
  * API exposing functionality for dealing with certificates.
+ * <p>
+ * 
+ * @deprecated Use foundation interface or {@link Security} instead.
  */
 public class Certificates extends AbstractModule {
 
     private static final String TAG_CERTIFICATE = "certificate";
     private static final String TAG_CERTIFICATE_ID = "certificateId";
-    private final EndPoints endpoint;
+    private final SecurityEndpoints endpoint;
 
     /**
      * Certificates module constructor.
@@ -49,7 +53,7 @@ public class Certificates extends AbstractModule {
      */
     public Certificates(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.serviceRegistry);
+        endpoint = new SecurityEndpoints(this.serviceRegistry);
     }
 
     /**
@@ -60,7 +64,7 @@ public class Certificates extends AbstractModule {
      */
     public Certificates(SdkContext context) {
         super(context);
-        endpoint = new EndPoints(this.serviceRegistry);
+        endpoint = new SecurityEndpoints(this.serviceRegistry);
     }
 
     @Override
@@ -82,7 +86,7 @@ public class Certificates extends AbstractModule {
 
                     @Override
                     public Call<ServerCredentialsResponseData> call() {
-                        return endpoint.getServerCredentials().getBootstrapServerCredentials();
+                        return endpoint.getServiceSecurityServerCredentialsApi().getBootstrapServerCredentials();
                     }
 
                 };
@@ -92,7 +96,7 @@ public class Certificates extends AbstractModule {
 
                     @Override
                     public Call<ServerCredentialsResponseData> call() {
-                        return endpoint.getServerCredentials().getL2M2MServerCredentials();
+                        return endpoint.getServiceSecurityServerCredentialsApi().getL2M2MServerCredentials();
                     }
 
                 };
@@ -103,7 +107,8 @@ public class Certificates extends AbstractModule {
 
                     @Override
                     public Call<DeveloperCertificateResponseData> call() {
-                        return endpoint.getCertDeveloper().getDeveloperCertificate(finalCertificateId);
+                        return endpoint.getDeviceSecurityDeveloperClassCertificatesApi()
+                                       .getDeveloperCertificate(finalCertificateId);
                     }
 
                 };
@@ -180,7 +185,7 @@ public class Certificates extends AbstractModule {
                                 new CloudCall<TrustedCertificateRespList>() {
                                     @Override
                                     public Call<TrustedCertificateRespList> call() {
-                                        return endpoint.getAccountDeveloper()
+                                        return endpoint.getDeviceSecurityCertificatesApi()
                                                        .getAllCertificates(finalOptions.getPageSize(),
                                                                            finalOptions.getAfter(),
                                                                            finalOptions.getOrder().toString(),
@@ -287,7 +292,7 @@ public class Certificates extends AbstractModule {
 
             @Override
             public Call<TrustedCertificateResp> call() {
-                return endpoint.getAccountDeveloper().getCertificate(id);
+                return endpoint.getDeviceSecurityCertificatesApi().getCertificate(id);
             }
         });
     }
@@ -329,7 +334,8 @@ public class Certificates extends AbstractModule {
 
             @Override
             public Call<TrustedCertificateResp> call() {
-                return endpoint.getAdmin().addCertificate(CertificateAdapter.reverseMapAdd(finalCertificate));
+                return endpoint.getDeviceSecurityCertificatesApi()
+                               .addCertificate(CertificateAdapter.reverseMapAdd(finalCertificate));
             }
         });
     }
@@ -377,7 +383,7 @@ public class Certificates extends AbstractModule {
                                                                           @Override
                                                                           public Call<DeveloperCertificateResponseData>
                                                                                  call() {
-                                                                              return endpoint.getCertDeveloper()
+                                                                              return endpoint.getDeviceSecurityDeveloperClassCertificatesApi()
                                                                                              .createDeveloperCertificate(CertificateAdapter.reverseDeveloperMap(finalCertificate));
                                                                           }
                                                                       });
@@ -390,7 +396,7 @@ public class Certificates extends AbstractModule {
                                                                                   @Override
                                                                                   public Call<TrustedCertificateResp>
                                                                                          call() {
-                                                                                      return endpoint.getAccountDeveloper()
+                                                                                      return endpoint.getDeviceSecurityCertificatesApi()
                                                                                                      .getCertificate(addedPartialCertificate1.getId());
                                                                                   }
                                                                               });
@@ -437,7 +443,7 @@ public class Certificates extends AbstractModule {
 
             @Override
             public Call<TrustedCertificateResp> call() {
-                return endpoint.getAccountDeveloper()
+                return endpoint.getDeviceSecurityCertificatesApi()
                                .updateCertificate(finalCertificate.getId(),
                                                   CertificateAdapter.reverseMapUpdate(finalCertificate));
             }
@@ -473,7 +479,7 @@ public class Certificates extends AbstractModule {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getAccountDeveloper().deleteCertificate(id);
+                return endpoint.getDeviceSecurityCertificatesApi().deleteCertificate(id);
             }
         });
     }

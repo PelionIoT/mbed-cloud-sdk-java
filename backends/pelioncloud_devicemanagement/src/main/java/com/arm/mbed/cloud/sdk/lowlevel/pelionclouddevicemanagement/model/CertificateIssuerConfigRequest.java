@@ -33,13 +33,12 @@ public class CertificateIssuerConfigRequest implements Serializable {
     }
 
     /**
-     * The ID of the certificate issuer. For LwM2M, it may be null if Device Management internal certificate issuer is
-     * used.
+     * Certificate issuer ID. For LwM2M, may be null if Device Management internal certificate issuer is used.
      * 
      * @return certificateIssuerId
      **/
     @ApiModelProperty(example = "01648415a2a30242ac18000500000000",
-                      value = "The ID of the certificate issuer. For LwM2M, it may be null if Device Management internal certificate issuer is used. ")
+                      value = "Certificate issuer ID. For LwM2M, may be null if Device Management internal certificate issuer is used.")
     public String getCertificateIssuerId() {
         return certificateIssuerId;
     }

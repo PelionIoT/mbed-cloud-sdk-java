@@ -51,6 +51,8 @@ public class CertificateIssuerListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerListOptions()} instead.
      * 
      * @param pageSize
@@ -82,6 +84,8 @@ public class CertificateIssuerListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerListOptions()} instead.
      * 
      * @param certificateIssuerListOptions
@@ -105,6 +109,8 @@ public class CertificateIssuerListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on read-only fields.
+     * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerListOptions()} instead.
      * 
      * @param after
@@ -117,20 +123,6 @@ public class CertificateIssuerListOptions extends ListOptions {
     @Internal
     public CertificateIssuerListOptions(String after, List<IncludeField> include, Filters filter) {
         this((Integer) null, (Long) null, Order.getDefault(), after, include, filter);
-    }
-
-    /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     *
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof CertificateIssuerListOptions;
     }
 
     /**
@@ -150,6 +142,21 @@ public class CertificateIssuerListOptions extends ListOptions {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return other instanceof CertificateIssuerListOptions;
+    }
+
+    /**
      * Clones this instance.
      *
      * <p>
@@ -162,5 +169,50 @@ public class CertificateIssuerListOptions extends ListOptions {
         final CertificateIssuerListOptions opt = new CertificateIssuerListOptions();
         opt.setOptions(this);
         return opt;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof CertificateIssuerListOptions)) {
+            return false;
+        }
+        final CertificateIssuerListOptions other = (CertificateIssuerListOptions) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    @SuppressWarnings("PMD.UselessOverridingMethod")
+    public int hashCode() {
+        return super.hashCode();
     }
 }

@@ -19,9 +19,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * This object represents parent account contact details in responses.
+ * Represents parent account contact details in responses.
  */
-@ApiModel(description = "This object represents parent account contact details in responses.")
+@ApiModel(description = "Represents parent account contact details in responses.")
 
 public class ParentAccountInfo implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -81,11 +81,11 @@ public class ParentAccountInfo implements Serializable {
     }
 
     /**
-     * The ID of the parent account
+     * The ID of the parent account.
      * 
      * @return id
      **/
-    @ApiModelProperty(example = "01619571dad80242ac12000600000000", value = "The ID of the parent account")
+    @ApiModelProperty(example = "01619571dad80242ac12000600000000", value = "The ID of the parent account.")
     public String getId() {
         return id;
     }

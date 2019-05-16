@@ -4,8 +4,10 @@ import java.util.List;
 
 public class MethodConstructorIdentifiers extends AbstractMethodConstructorWithFieldParameters {
 
+    private static final String CONSTRUCTOR_DESCRIPTION = "Constructor based on object identifier.";
+
     public MethodConstructorIdentifiers(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, false);
+        super(CONSTRUCTOR_DESCRIPTION, currentModel, parentModel, null, null, false);
     }
 
     @Override

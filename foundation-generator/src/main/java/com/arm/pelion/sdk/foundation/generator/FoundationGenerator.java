@@ -48,6 +48,8 @@ public class FoundationGenerator {
                                                               cli.getFoundationTestOuputDirectory(),
                                                               cli.getFoundationModelSourceOuputDirectory(),
                                                               cli.getFoundationModelTestOuputDirectory(),
+                                                              cli.getPrimarySourceOuputDirectory(),
+                                                              cli.getPrimaryTestOuputDirectory(),
                                                               ArtifactsTranslator.translate(logger, config, definition,
                                                                                             lowLevelAPIs),
                                                               cli.forceRegenerateUnitTests() || config.isForceRegenerateUnitTests());

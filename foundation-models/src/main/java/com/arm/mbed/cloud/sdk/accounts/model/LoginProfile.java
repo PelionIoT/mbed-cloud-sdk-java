@@ -30,6 +30,8 @@ public class LoginProfile implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #LoginProfile()} instead.
      * 
      * @param id
@@ -47,6 +49,8 @@ public class LoginProfile implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #LoginProfile()} instead.
      * 
@@ -68,7 +72,11 @@ public class LoginProfile implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            ID of the identity provider.
      */
@@ -129,6 +137,19 @@ public class LoginProfile implements SdkModel {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "LoginProfile [id=" + id + ", name=" + name + "]";
     }
 
     /**
@@ -202,19 +223,6 @@ public class LoginProfile implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "LoginProfile [id=" + id + ", name=" + name + "]";
     }
 
     /**

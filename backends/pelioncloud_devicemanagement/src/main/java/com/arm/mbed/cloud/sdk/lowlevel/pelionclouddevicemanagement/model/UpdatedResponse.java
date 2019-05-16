@@ -24,9 +24,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * This object represents a response to an update request.
+ * Represents a response to an update request.
  */
-@ApiModel(description = "This object represents a response to an update request.")
+@ApiModel(description = "Represents a response to an update request.")
 
 public class UpdatedResponse implements Serializable {
     private static final long serialVersionUID = 1L;

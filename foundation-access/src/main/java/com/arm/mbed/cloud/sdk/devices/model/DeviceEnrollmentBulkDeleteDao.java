@@ -6,6 +6,7 @@ import java.io.File;
 import java.net.URL;
 
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
+import com.arm.mbed.cloud.sdk.annotations.NotImplemented;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.FileDownload;
@@ -97,6 +98,7 @@ public class DeviceEnrollmentBulkDeleteDao extends AbstractDeviceEnrollmentBulkD
      * @param id
      *            a string.
      */
+    @NotImplemented
     @Override
     public void delete(String id) throws MbedCloudException, UnsupportedOperationException, NotImplementedException {
         // TODO Auto-generated method stub.;
@@ -107,8 +109,9 @@ public class DeviceEnrollmentBulkDeleteDao extends AbstractDeviceEnrollmentBulkD
      * Executes delete.
      * 
      * @param modelToDelete
-     *            an sdk model.
+     *            an SDK model.
      */
+    @NotImplemented
     @Override
     public void delete(DeviceEnrollmentBulkDelete modelToDelete) throws MbedCloudException, NotImplementedException {
         // TODO Auto-generated method stub.;
@@ -118,6 +121,7 @@ public class DeviceEnrollmentBulkDeleteDao extends AbstractDeviceEnrollmentBulkD
     /**
      * Executes delete.
      */
+    @NotImplemented
     @Override
     public void delete() throws MbedCloudException, NotImplementedException {
         // TODO Auto-generated method stub.;
@@ -131,12 +135,13 @@ public class DeviceEnrollmentBulkDeleteDao extends AbstractDeviceEnrollmentBulkD
      * @see java.lang.Object#clone()
      * @return a cloned instance
      */
+    @SuppressWarnings("resource")
     @Override
     public DeviceEnrollmentBulkDeleteDao clone() {
         try {
             return new DeviceEnrollmentBulkDeleteDao().configureAndGet(getModuleOrThrow() == null ? null
                                                                                                   : getModuleOrThrow().clone());
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             return null;
         }
     }

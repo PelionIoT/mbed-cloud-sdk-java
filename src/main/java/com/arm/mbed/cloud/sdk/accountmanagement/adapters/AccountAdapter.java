@@ -151,15 +151,11 @@ public final class AccountAdapter {
         accountUpdateReq.setState(updateAccount.getState());
         accountUpdateReq.setPostalCode(updateAccount.getPostcode());
         accountUpdateReq.setCountry(updateAccount.getCountry());
-        accountUpdateReq.setExpirationWarningThreshold(toWarningExpiry(updateAccount));
+        accountUpdateReq.setExpirationWarningThreshold((int) updateAccount.getExpiryWarning());
         accountUpdateReq.setMfaStatus(toMfaStatus(updateAccount.getMultifactorAuthenticationStatus()));
         accountUpdateReq.setNotificationEmails(updateAccount.getNotificationEmails());
 
         return accountUpdateReq;
-    }
-
-    private static String toWarningExpiry(Account updateAccount) {
-        return (updateAccount.getExpiryWarning() == 0) ? null : String.valueOf(updateAccount.getExpiryWarning());
     }
 
 }

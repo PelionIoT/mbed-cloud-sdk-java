@@ -56,13 +56,13 @@ public final class UserAdapter {
         user.setEmail(toBeMapped.getEmail());
         user.setFullName(toBeMapped.getFullName());
         user.setId(toBeMapped.getId());
+        user.setIsGtcAccepted(TranslationUtils.toBool(toBeMapped.isIsGtcAccepted()));
+        user.setIsMarketingAccepted(TranslationUtils.toBool(toBeMapped.isIsMarketingAccepted()));
+        user.setIsTotpEnabled(TranslationUtils.toBool(toBeMapped.isIsTotpEnabled()));
         user.setLoginProfiles(LoginProfileAdapter.mapSimpleList(toBeMapped.getLoginProfiles()));
-        user.setMarketingAccepted(TranslationUtils.toBool(toBeMapped.isIsMarketingAccepted()));
         user.setPassword(toBeMapped.getPassword());
         user.setPhoneNumber(toBeMapped.getPhoneNumber());
         user.setStatus(translateToUserStatus(toBeMapped.getStatus()));
-        user.setTermsAccepted(TranslationUtils.toBool(toBeMapped.isIsGtcAccepted()));
-        user.setTwoFactorAuthentication(TranslationUtils.toBool(toBeMapped.isIsTotpEnabled()));
         user.setUsername(toBeMapped.getUsername());
         return user;
     }
@@ -106,8 +106,8 @@ public final class UserAdapter {
         userInfoReq.setEmail(toBeMapped.getEmail());
         userInfoReq.setFullName(toBeMapped.getFullName());
         // No field equivalent to groups in UserInfoReq was found in User
-        userInfoReq.setIsGtcAccepted(toBeMapped.isTermsAccepted());
-        userInfoReq.setIsMarketingAccepted(toBeMapped.isMarketingAccepted());
+        userInfoReq.setIsGtcAccepted(Boolean.valueOf(toBeMapped.isGtcAccepted()));
+        userInfoReq.setIsMarketingAccepted(Boolean.valueOf(toBeMapped.isMarketingAccepted()));
         userInfoReq.setLoginProfiles(LoginProfileAdapter.reverseMapAddSimpleList(toBeMapped.getLoginProfiles()));
         userInfoReq.setPassword(toBeMapped.getPassword());
         userInfoReq.setPhoneNumber(toBeMapped.getPhoneNumber());
@@ -238,9 +238,9 @@ public final class UserAdapter {
         userUpdateReq.setEmail(toBeMapped.getEmail());
         userUpdateReq.setFullName(toBeMapped.getFullName());
         // No field equivalent to groups in UserUpdateReq was found in User
-        userUpdateReq.setIsGtcAccepted(toBeMapped.isTermsAccepted());
-        userUpdateReq.setIsMarketingAccepted(toBeMapped.isMarketingAccepted());
-        userUpdateReq.setIsTotpEnabled(toBeMapped.isTwoFactorAuthentication());
+        userUpdateReq.setIsGtcAccepted(Boolean.valueOf(toBeMapped.isGtcAccepted()));
+        userUpdateReq.setIsMarketingAccepted(Boolean.valueOf(toBeMapped.isMarketingAccepted()));
+        userUpdateReq.setIsTotpEnabled(Boolean.valueOf(toBeMapped.isTotpEnabled()));
         userUpdateReq.setLoginProfiles(LoginProfileAdapter.reverseMapUpdateSimpleList(toBeMapped.getLoginProfiles()));
         userUpdateReq.setPhoneNumber(toBeMapped.getPhoneNumber());
         userUpdateReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelUserupdatereqStatusenum(toBeMapped.getStatus()));

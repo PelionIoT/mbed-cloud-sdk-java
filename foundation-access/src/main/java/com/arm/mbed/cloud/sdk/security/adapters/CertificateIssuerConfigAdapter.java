@@ -44,8 +44,8 @@ public final class CertificateIssuerConfigAdapter {
         final CertificateIssuerConfig certificateIssuerConfig = new CertificateIssuerConfig(TranslationUtils.toDate(toBeMapped.getCreatedAt()),
                                                                                             TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         certificateIssuerConfig.setCertificateIssuerId(toBeMapped.getCertificateIssuerId());
-        certificateIssuerConfig.setCertificateReference(toBeMapped.getReference());
         certificateIssuerConfig.setId(toBeMapped.getId());
+        certificateIssuerConfig.setReference(toBeMapped.getReference());
         return certificateIssuerConfig;
     }
 
@@ -85,7 +85,7 @@ public final class CertificateIssuerConfigAdapter {
         }
         final CreateCertificateIssuerConfig createCertificateIssuerConfig = new CreateCertificateIssuerConfig();
         createCertificateIssuerConfig.setCertificateIssuerId(toBeMapped.getCertificateIssuerId());
-        createCertificateIssuerConfig.setReference(toBeMapped.getCertificateReference());
+        createCertificateIssuerConfig.setReference(toBeMapped.getReference());
         return createCertificateIssuerConfig;
     }
 

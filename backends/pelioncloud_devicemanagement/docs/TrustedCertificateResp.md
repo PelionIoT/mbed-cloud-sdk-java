@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **name** | **String** | Certificate name. | 
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;trusted-cert&#39; | 
 **ownerId** | **String** | The ID of the owner. |  [optional]
-**service** | [**ServiceEnum**](#ServiceEnum) | Service name where the certificate is to be used. | 
+**service** | [**ServiceEnum**](#ServiceEnum) | Service name where the certificate is used. | 
 **status** | [**StatusEnum**](#StatusEnum) | Status of the certificate. |  [optional]
 **subject** | **String** | Subject of the certificate. | 
 **updatedAt** | [**DateTime**](DateTime.md) | Last update UTC time RFC3339. |  [optional]

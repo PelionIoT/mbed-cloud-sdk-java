@@ -11,8 +11,8 @@ public class MethodHashCode extends AbstractMethodBasedOnModel {
     public MethodHashCode(Model currentModel, Model parentModel) {
         super(currentModel, parentModel, false, IDENTIFIER,
               "Calculates the hash code of this instance based on field values", "@see java.lang.Object#hashCode()",
-              false, true, false, false, currentModel == null ? false : currentModel.needsFieldCustomisation(), false,
-              false, true);
+              false, true, false, currentModel == null ? false : currentModel.needsFieldCustomisation(),
+              currentModel == null ? false : currentModel.needsFieldCustomisation(), false, false, true);
         setReturnType(TypeFactory.getCorrespondingType(int.class));
         setReturnDescription("hash code");
         initialiseCodeBuilder();
@@ -37,12 +37,14 @@ public class MethodHashCode extends AbstractMethodBasedOnModel {
 
             currentModel.getFieldList().stream().filter(f -> !f.needsCustomCode() && !f.isAlreadyDefined())
                         .forEach(f -> {
-                            if (f.getType().isPrimitive()) {
-                                if (f.getType().isCharacter() || f.getType().isString()) {
+                            final TypeParameter fieldType = f.getType();
+                            if (fieldType.isPrimitive()) {
+                                if (fieldType.isCharacter() || fieldType.isString()) {
                                     code.addStatement("result = prime * result + (($L == null) ? 0 : $T.hashCode($L))",
                                                       f.getName(), Objects.class, f.getName());
                                 } else {
-                                    code.addStatement("result = prime * result +  $T.hashCode($L)", Objects.class,
+                                    code.addStatement("result = prime * result +  $T.hashCode($T.valueOf($L))",
+                                                      Objects.class, MethodMapper.getWrapperEquivalent(fieldType),
                                                       f.getName());
                                 }
                             } else {
@@ -60,4 +62,11 @@ public class MethodHashCode extends AbstractMethodBasedOnModel {
         }
     }
 
+    @Override
+    protected void addStaticAnalysisAnnotations() {
+        if (hasCurrentModel() && !currentModel.hasFields()) {
+            annotationRegistry.ignoreUselessOverridingMethod();
+        }
+        super.addStaticAnalysisAnnotations();
+    }
 }

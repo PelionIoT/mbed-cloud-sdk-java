@@ -22,8 +22,6 @@ Name | Value
 ---- | -----
 SUCCESS | &quot;success&quot;
 FAILURE | &quot;failure&quot;
-NOT_FOUND | &quot;not_found&quot;
-FORBIDDEN | &quot;forbidden&quot;
 
 
 <a name="EnrollStatusEnum"></a>

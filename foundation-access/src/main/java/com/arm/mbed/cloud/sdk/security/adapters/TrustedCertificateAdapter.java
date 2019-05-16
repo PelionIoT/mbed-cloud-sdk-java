@@ -43,10 +43,12 @@ public final class TrustedCertificateAdapter {
         if (toBeMapped == null) {
             return null;
         }
+        // No field equivalent to isDeveloperCertificate in TrustedCertificate was found in TrustedCertificateResp
         final TrustedCertificate trustedCertificate = new TrustedCertificate(toBeMapped.getAccountId(),
                                                                              toBeMapped.getCertificateFingerprint(),
                                                                              TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                                                             toBeMapped.getIssuer(),
+                                                                             TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()),
+                                                                             false, toBeMapped.getIssuer(),
                                                                              toBeMapped.getOwnerId(),
                                                                              toBeMapped.getSubject(),
                                                                              TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
@@ -54,10 +56,8 @@ public final class TrustedCertificateAdapter {
                                                                              TranslationUtils.toDate(toBeMapped.getValidity()));
         trustedCertificate.setCertificate(toBeMapped.getCertificate());
         trustedCertificate.setDescription(toBeMapped.getDescription());
-        trustedCertificate.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
         trustedCertificate.setEnrollmentMode(TranslationUtils.toBool(toBeMapped.isEnrollmentMode()));
         trustedCertificate.setId(toBeMapped.getId());
-        // No field equivalent to isDeveloperCertificate in TrustedCertificate was found in TrustedCertificateResp
         trustedCertificate.setName(toBeMapped.getName());
         trustedCertificate.setService(translateToTrustedCertificateService(toBeMapped.getService()));
         trustedCertificate.setStatus(translateToTrustedCertificateStatus(toBeMapped.getStatus()));
@@ -101,7 +101,7 @@ public final class TrustedCertificateAdapter {
         final TrustedCertificateReq trustedCertificateReq = new TrustedCertificateReq();
         trustedCertificateReq.setCertificate(toBeMapped.getCertificate());
         trustedCertificateReq.setDescription(toBeMapped.getDescription());
-        trustedCertificateReq.setEnrollmentMode(toBeMapped.isEnrollmentMode());
+        trustedCertificateReq.setEnrollmentMode(Boolean.valueOf(toBeMapped.isEnrollmentMode()));
         trustedCertificateReq.setName(toBeMapped.getName());
         trustedCertificateReq.setService(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqServiceenum(toBeMapped.getService()));
         // No field equivalent to signature in TrustedCertificateReq was found in TrustedCertificate
@@ -230,7 +230,7 @@ public final class TrustedCertificateAdapter {
         final TrustedCertificateUpdateReq trustedCertificateUpdateReq = new TrustedCertificateUpdateReq();
         trustedCertificateUpdateReq.setCertificate(toBeMapped.getCertificate());
         trustedCertificateUpdateReq.setDescription(toBeMapped.getDescription());
-        trustedCertificateUpdateReq.setEnrollmentMode(toBeMapped.isEnrollmentMode());
+        trustedCertificateUpdateReq.setEnrollmentMode(Boolean.valueOf(toBeMapped.isEnrollmentMode()));
         trustedCertificateUpdateReq.setName(toBeMapped.getName());
         trustedCertificateUpdateReq.setService(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificateupdatereqServiceenum(toBeMapped.getService()));
         // No field equivalent to signature in TrustedCertificateUpdateReq was found in TrustedCertificate

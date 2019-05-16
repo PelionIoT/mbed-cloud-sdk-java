@@ -46,11 +46,7 @@ public class CertificateEnrollment implements Serializable {
     public enum EnrollResultEnum {
         SUCCESS("success"),
 
-        FAILURE("failure"),
-
-        NOT_FOUND("not_found"),
-
-        FORBIDDEN("forbidden");
+        FAILURE("failure");
 
         private String value;
 

@@ -44,15 +44,17 @@ public final class DeviceAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final Device device = new Device(toBeMapped.getAccountId(), TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+        final Device device = new Device(toBeMapped.getAccountId(),
+                                         TranslationUtils.toDate(toBeMapped.getBootstrappedTimestamp()),
+                                         TranslationUtils.toDate(toBeMapped.getCreatedAt()),
                                          translateToDeviceDeployedState(toBeMapped.getDeployedState()),
                                          toBeMapped.getEndpointName(),
                                          TranslationUtils.toDate(toBeMapped.getEnrolmentListTimestamp()),
+                                         toBeMapped.getFirmwareChecksum(),
                                          TranslationUtils.toDate(toBeMapped.getManifestTimestamp()),
                                          TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         device.setAutoUpdate(TranslationUtils.toBool(toBeMapped.isAutoUpdate()));
         device.setBootstrapExpirationDate(TranslationUtils.toDate(toBeMapped.getBootstrapExpirationDate()));
-        device.setBootstrappedTimestamp(TranslationUtils.toDate(toBeMapped.getBootstrappedTimestamp()));
         device.setCaId(toBeMapped.getCaId());
         device.setConnectorExpirationDate(TranslationUtils.toDate(toBeMapped.getConnectorExpirationDate()));
         device.setCustomAttributes(toBeMapped.getCustomAttributes());
@@ -62,7 +64,6 @@ public final class DeviceAdapter {
         device.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
         device.setDeviceKey(toBeMapped.getDeviceKey());
         device.setEndpointType(toBeMapped.getEndpointType());
-        device.setFirmwareChecksum(toBeMapped.getFirmwareChecksum());
         device.setHostGateway(toBeMapped.getHostGateway());
         device.setId(toBeMapped.getId());
         device.setIssuerFingerprint(toBeMapped.getIssuerFingerprint());
@@ -111,28 +112,24 @@ public final class DeviceAdapter {
             return null;
         }
         final DeviceDataPostRequest deviceDataPostRequest = new DeviceDataPostRequest();
-        deviceDataPostRequest.setAutoUpdate(toBeMapped.isAutoUpdate());
-        deviceDataPostRequest.setBootstrapExpirationDate(TranslationUtils.toDateTime(toBeMapped.getBootstrapExpirationDate()));
-        deviceDataPostRequest.setBootstrappedTimestamp(TranslationUtils.toDateTime(toBeMapped.getBootstrappedTimestamp()));
+        deviceDataPostRequest.setAutoUpdate(Boolean.valueOf(toBeMapped.isAutoUpdate()));
+        deviceDataPostRequest.setBootstrapExpirationDate(TranslationUtils.toLocalDate(toBeMapped.getBootstrapExpirationDate()));
         deviceDataPostRequest.setCaId(toBeMapped.getCaId());
-        deviceDataPostRequest.setConnectorExpirationDate(TranslationUtils.toDateTime(toBeMapped.getConnectorExpirationDate()));
+        deviceDataPostRequest.setConnectorExpirationDate(TranslationUtils.toLocalDate(toBeMapped.getConnectorExpirationDate()));
         deviceDataPostRequest.setCustomAttributes(toBeMapped.getCustomAttributes());
         deviceDataPostRequest.setDeployment(toBeMapped.getDeployment());
         deviceDataPostRequest.setDescription(toBeMapped.getDescription());
         deviceDataPostRequest.setDeviceClass(toBeMapped.getDeviceClass());
-        deviceDataPostRequest.setDeviceExecutionMode(toBeMapped.getDeviceExecutionMode());
+        deviceDataPostRequest.setDeviceExecutionMode(Integer.valueOf(toBeMapped.getDeviceExecutionMode()));
         deviceDataPostRequest.setDeviceKey(toBeMapped.getDeviceKey());
         deviceDataPostRequest.setEndpointName(toBeMapped.getEndpointName());
         deviceDataPostRequest.setEndpointType(toBeMapped.getEndpointType());
-        deviceDataPostRequest.setFirmwareChecksum(toBeMapped.getFirmwareChecksum());
-        // No field equivalent to groups in DeviceDataPostRequest was found in Device
         deviceDataPostRequest.setHostGateway(toBeMapped.getHostGateway());
         deviceDataPostRequest.setIssuerFingerprint(toBeMapped.getIssuerFingerprint());
         deviceDataPostRequest.setManifest(toBeMapped.getManifest());
         deviceDataPostRequest.setMechanism(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestMechanismenum(toBeMapped.getMechanism()));
         deviceDataPostRequest.setMechanismUrl(toBeMapped.getMechanismUrl());
         deviceDataPostRequest.setName(toBeMapped.getName());
-        // No field equivalent to object in DeviceDataPostRequest was found in Device
         deviceDataPostRequest.setSerialNumber(toBeMapped.getSerialNumber());
         deviceDataPostRequest.setState(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestStateenum(toBeMapped.getState()));
         deviceDataPostRequest.setVendorId(toBeMapped.getVendorId());
@@ -258,16 +255,14 @@ public final class DeviceAdapter {
             return null;
         }
         final DeviceDataPutRequest deviceDataPutRequest = new DeviceDataPutRequest();
-        deviceDataPutRequest.setAutoUpdate(toBeMapped.isAutoUpdate());
+        deviceDataPutRequest.setAutoUpdate(Boolean.valueOf(toBeMapped.isAutoUpdate()));
         deviceDataPutRequest.setCaId(toBeMapped.getCaId());
         deviceDataPutRequest.setCustomAttributes(toBeMapped.getCustomAttributes());
         deviceDataPutRequest.setDescription(toBeMapped.getDescription());
         deviceDataPutRequest.setDeviceKey(toBeMapped.getDeviceKey());
         deviceDataPutRequest.setEndpointType(toBeMapped.getEndpointType());
-        // No field equivalent to groups in DeviceDataPutRequest was found in Device
         deviceDataPutRequest.setHostGateway(toBeMapped.getHostGateway());
         deviceDataPutRequest.setName(toBeMapped.getName());
-        // No field equivalent to object in DeviceDataPutRequest was found in Device
         return deviceDataPutRequest;
     }
 

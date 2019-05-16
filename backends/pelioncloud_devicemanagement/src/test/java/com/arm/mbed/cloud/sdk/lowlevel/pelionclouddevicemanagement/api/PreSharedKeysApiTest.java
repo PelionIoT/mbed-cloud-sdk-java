@@ -18,11 +18,11 @@ public class PreSharedKeysApiTest {
     }
 
     /**
-     * Remove a pre-shared key.
+     * Remove a PSK.
      *
-     * Remove a pre-shared key. **Example usage:** &#x60;&#x60;&#x60; curl -H \&quot;authorization: Bearer
-     * ${API_TOKEN}\&quot; -X DELETE https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001
-     * &#x60;&#x60;&#x60;
+     * Remove a PSK. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 \\ -H \&quot;Authorization: Bearer
+     * &lt;api_key&gt;\&quot; &#x60;&#x60;&#x60;
      */
     @Test
     public void deletePreSharedKeyTest() {
@@ -33,11 +33,11 @@ public class PreSharedKeysApiTest {
     }
 
     /**
-     * Get a pre-shared key.
+     * Get a PSK.
      *
-     * Check if a pre-shared key for an endpoint exists or not. The response does not contain the secret itself.
-     * **Example usage:** &#x60;&#x60;&#x60; curl -H \&quot;authorization: Bearer ${API_TOKEN}\&quot;
-     * https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 &#x60;&#x60;&#x60;
+     * Check if a PSK for an endpoint exists or not. The response does not contain the secret itself. **Example:**
+     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 \\ -H
+     * \&quot;Authorization: Bearer &lt;api_key&gt;\&quot; &#x60;&#x60;&#x60;
      */
     @Test
     public void getPreSharedKeyTest() {
@@ -48,11 +48,11 @@ public class PreSharedKeysApiTest {
     }
 
     /**
-     * List pre-shared keys.
+     * List PSKs.
      *
-     * List pre-shared keys with pagination and default page size of 50 entries. **Example usage:** &#x60;&#x60;&#x60;
-     * curl -H \&quot;authorization: Bearer ${API_TOKEN}\&quot;
-     * https://api.us-east-1.mbedcloud.com/v2/device-shared-keys &#x60;&#x60;&#x60;
+     * Retrieve pre-shared keys (PSKs) with pagination. Default page size of 50 entries. **Example:** &#x60;&#x60;&#x60;
+     * curl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\ -H \&quot;Authorization: Bearer
+     * &lt;api_key&gt;\&quot; &#x60;&#x60;&#x60;
      */
     @Test
     public void listPreSharedKeysTest() {
@@ -64,15 +64,15 @@ public class PreSharedKeysApiTest {
     }
 
     /**
-     * Upload a pre-shared key to Pelion Device Management.
+     * Upload a PSK to Pelion Device Management.
      *
-     * Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten
-     * but needs to be deleted first in case of re-setting PSK for an endpoint. **Note**: The PSK APIs are available
-     * only to accounts that have this feature enabled. **Example usage:** &#x60;&#x60;&#x60; curl -H
-     * \&quot;authorization: Bearer ${API_TOKEN}\&quot; -H \&quot;content-type: application/json\&quot; -X POST
-     * https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\ -d &#39;{\&quot;endpoint_name\&quot;:
-     * \&quot;my-endpoint-0001\&quot;, \&quot;secret_hex\&quot;: \&quot;4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\&quot; }&#39;
-     * &#x60;&#x60;&#x60;
+     * Upload a PSK for an endpoint to allow it to bootstrap. The existing key cannot be overwritten, but needs to be
+     * deleted first in the case of re-setting a PSK for an endpoint. **Note**: The PSK APIs are available only to
+     * accounts that have this feature enabled. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\ -H \&quot;Authorization: Bearer
+     * &lt;api_key&gt;\&quot; \\ -H \&quot;content-type: application/json\&quot; \\ -d &#39;{
+     * \&quot;endpoint_name\&quot;: \&quot;my-endpoint-0001\&quot;, \&quot;secret_hex\&quot;:
+     * \&quot;4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\&quot; }&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void uploadPreSharedKeyTest() {

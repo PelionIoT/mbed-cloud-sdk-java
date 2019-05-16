@@ -14,6 +14,8 @@ import com.arm.pelion.sdk.foundation.generator.model.Parameter;
 import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
 
 public class Utils {
+    private static final String LINK_SUFFIX = "}";
+    private static final String LINK_PREFIX = "{@link ";
     private static final String PLUS = "+";
     public static final String MY_ARTICLE = "my";
     private static final String HYPHEN = "-";
@@ -44,6 +46,10 @@ public class Utils {
         return mergedElement;
     }
 
+    public static String generateCloudFieldName(String fieldName) {
+        return ApiUtils.convertCamelToSnake(fieldName);
+    }
+
     public static String generateConstantName(String prefix, String constantName) {
         if (constantName == null || constantName.isEmpty()) {
             return null;
@@ -59,7 +65,7 @@ public class Utils {
         }
         builder.append(constantName.toUpperCase(Locale.UK)
                                    .equals(constantName) ? constantName : ApiUtils.convertCamelToSnake(constantName));
-        return builder.toString().toUpperCase(Locale.UK);
+        return builder.toString().replace(HYPHEN, UNDERSCORE).toUpperCase(Locale.UK);
     }
 
     public static String generateDocumentationString(String prefix, String modelName, boolean plural) {
@@ -179,15 +185,19 @@ public class Utils {
         if (model == null && method == null) {
             return null;
         }
-        final StringBuilder builder = new StringBuilder("Similar to {@link ");
+        final StringBuilder builder = new StringBuilder("Similar to " + LINK_PREFIX);
         if (model != null) {
             builder.append(model.toType().getFullyQualifiedName());
         }
         if (method != null) {
             builder.append("#").append(method.generateSignatureForDocumentation());
         }
-        builder.append("}");
+        builder.append(LINK_SUFFIX);
         return builder.toString();
+    }
+
+    public static String generateLinkToClass(Class<?> clazz) {
+        return clazz == null ? null : LINK_PREFIX + clazz.getName() + LINK_SUFFIX;
     }
 
     public static String generateSignatureForDocumentation(String methodName, List<Parameter> parameters) {
@@ -207,8 +217,22 @@ public class Utils {
         return pattern == null ? null : pattern.replace("$", "$$");
     }
 
+    public static String transformRegexIntoValidString(String pattern) {
+        // Characters in the regex such as \w, etc. need to be modified so that that the string in Java is valid
+        return pattern == null ? null : pattern.replace("\\@", "@").replace("\\", "\\\\");
+    }
+
     public static String applyPatternReverseHack(String pattern) {
         // FIXME hack because JavaPoet does not handle well "$"
-        return pattern == null ? null : pattern.replace("$$", "$");
+        return pattern == null ? null : pattern.replace("$$", "$").replace("\\@", "@");
+    }
+
+    public static String transformRegexBackFromValidString(String pattern) {
+        return pattern == null ? null : pattern.replace("\\@", "@").replace("\\\\", "\\");
+    }
+
+    public static boolean isEmail(String fieldName) {
+        return fieldName == null ? false : fieldName.toLowerCase(Locale.UK).contains("email")
+                                           || fieldName.toLowerCase(Locale.UK).contains("salescontact");
     }
 }

@@ -73,18 +73,20 @@ import java.util.List;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class ApiKeyListOptions extends ListOptions {
     /**
-     * Tag for filter by owner.
-     */
-    public static final String TAG_FILTER_BY_OWNER = "owner";
-
-    /**
      * Tag for filter by key.
      */
     public static final String TAG_FILTER_BY_KEY = "key";
 
     /**
+     * Tag for filter by owner.
+     */
+    public static final String TAG_FILTER_BY_OWNER = "owner";
+
+    /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #ApiKeyListOptions()} instead.
      * 
@@ -117,6 +119,8 @@ public class ApiKeyListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #ApiKeyListOptions()} instead.
      * 
      * @param apiKeyListOptions
@@ -139,6 +143,8 @@ public class ApiKeyListOptions extends ListOptions {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #ApiKeyListOptions()} instead.
      * 
@@ -225,20 +231,6 @@ public class ApiKeyListOptions extends ListOptions {
     }
 
     /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     *
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof ApiKeyListOptions;
-    }
-
-    /**
      * Returns a string representation of the object.
      *
      * <p>
@@ -255,6 +247,21 @@ public class ApiKeyListOptions extends ListOptions {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return other instanceof ApiKeyListOptions;
+    }
+
+    /**
      * Clones this instance.
      *
      * <p>
@@ -267,5 +274,50 @@ public class ApiKeyListOptions extends ListOptions {
         final ApiKeyListOptions opt = new ApiKeyListOptions();
         opt.setOptions(this);
         return opt;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof ApiKeyListOptions)) {
+            return false;
+        }
+        final ApiKeyListOptions other = (ApiKeyListOptions) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    @SuppressWarnings("PMD.UselessOverridingMethod")
+    public int hashCode() {
+        return super.hashCode();
     }
 }

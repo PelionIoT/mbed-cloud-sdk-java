@@ -6,6 +6,7 @@ import com.arm.mbed.cloud.sdk.accounts.model.AccountDao;
 import com.arm.mbed.cloud.sdk.accounts.model.AccountListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyDao;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListDao;
+import com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationDao;
 import com.arm.mbed.cloud.sdk.accounts.model.UserDao;
@@ -28,6 +29,16 @@ import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEventsDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceListDao;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignDeviceMetadataDao;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsDao;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsEventsDao;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsListDao;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareImageDao;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareImageListDao;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestDao;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListDao;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignDao;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListDao;
 import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentDao;
 import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListDao;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigDao;
@@ -35,6 +46,8 @@ import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListDao;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerDao;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerListDao;
 import com.arm.mbed.cloud.sdk.security.model.DeveloperCertificateDao;
+import com.arm.mbed.cloud.sdk.security.model.PreSharedKeyDao;
+import com.arm.mbed.cloud.sdk.security.model.PreSharedKeyListDao;
 import com.arm.mbed.cloud.sdk.security.model.ServerCredentialsDao;
 import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateDao;
 import com.arm.mbed.cloud.sdk.security.model.TrustedCertificateDao;
@@ -58,7 +71,11 @@ public class DaoFactory implements Cloneable {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on all fields.
+     * <p>
+     *
      * @param context
      *            Context.
      */
@@ -76,7 +93,11 @@ public class DaoFactory implements Cloneable {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on a similar object.
+     * <p>
+     *
      * @param daoFactory
      *            a dao factory.
      */
@@ -192,6 +213,54 @@ public class DaoFactory implements Cloneable {
     @SuppressWarnings("resource")
     public ApiKeyListDao getApiKeyListDao() throws MbedCloudException {
         return new ApiKeyListDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a campaign device metadata dao.
+     * 
+     * @return a campaign device metadata dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public CampaignDeviceMetadataDao getCampaignDeviceMetadataDao() throws MbedCloudException {
+        return new CampaignDeviceMetadataDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a campaign statistics dao.
+     * 
+     * @return a campaign statistics dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public CampaignStatisticsDao getCampaignStatisticsDao() throws MbedCloudException {
+        return new CampaignStatisticsDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a campaign statistics events dao.
+     * 
+     * @return a campaign statistics events dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public CampaignStatisticsEventsDao getCampaignStatisticsEventsDao() throws MbedCloudException {
+        return new CampaignStatisticsEventsDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a campaign statistics list dao.
+     * 
+     * @return a campaign statistics list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public CampaignStatisticsListDao getCampaignStatisticsListDao() throws MbedCloudException {
+        return new CampaignStatisticsListDao().configureAndGet(context);
     }
 
     /**
@@ -418,6 +487,78 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
+     * Gets a firmware image dao.
+     * 
+     * @return a firmware image dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public FirmwareImageDao getFirmwareImageDao() throws MbedCloudException {
+        return new FirmwareImageDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a firmware image list dao.
+     * 
+     * @return a firmware image list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public FirmwareImageListDao getFirmwareImageListDao() throws MbedCloudException {
+        return new FirmwareImageListDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a firmware manifest dao.
+     * 
+     * @return a firmware manifest dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public FirmwareManifestDao getFirmwareManifestDao() throws MbedCloudException {
+        return new FirmwareManifestDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a firmware manifest list dao.
+     * 
+     * @return a firmware manifest list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public FirmwareManifestListDao getFirmwareManifestListDao() throws MbedCloudException {
+        return new FirmwareManifestListDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a pre shared key dao.
+     * 
+     * @return a pre shared key dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public PreSharedKeyDao getPreSharedKeyDao() throws MbedCloudException {
+        return new PreSharedKeyDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a pre shared key list dao.
+     * 
+     * @return a pre shared key list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public PreSharedKeyListDao getPreSharedKeyListDao() throws MbedCloudException {
+        return new PreSharedKeyListDao().configureAndGet(context);
+    }
+
+    /**
      * Gets a server credentials dao.
      * 
      * @return a server credentials dao
@@ -427,6 +568,18 @@ public class DaoFactory implements Cloneable {
     @SuppressWarnings("resource")
     public ServerCredentialsDao getServerCredentialsDao() throws MbedCloudException {
         return new ServerCredentialsDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a subtenant api key dao.
+     * 
+     * @return a subtenant api key dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public SubtenantApiKeyDao getSubtenantApiKeyDao() throws MbedCloudException {
+        return new SubtenantApiKeyDao().configureAndGet(context);
     }
 
     /**
@@ -487,6 +640,30 @@ public class DaoFactory implements Cloneable {
     @SuppressWarnings("resource")
     public TrustedCertificateListDao getTrustedCertificateListDao() throws MbedCloudException {
         return new TrustedCertificateListDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets an update campaign dao.
+     * 
+     * @return an update campaign dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public UpdateCampaignDao getUpdateCampaignDao() throws MbedCloudException {
+        return new UpdateCampaignDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets an update campaign list dao.
+     * 
+     * @return an update campaign list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public UpdateCampaignListDao getUpdateCampaignListDao() throws MbedCloudException {
+        return new UpdateCampaignListDao().configureAndGet(context);
     }
 
     /**

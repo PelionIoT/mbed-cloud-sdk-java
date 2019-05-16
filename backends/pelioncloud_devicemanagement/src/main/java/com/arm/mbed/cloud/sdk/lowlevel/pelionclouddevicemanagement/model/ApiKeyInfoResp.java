@@ -27,9 +27,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * This object represents an API key in Device Management.
+ * Represents an API key in Device Management.
  */
-@ApiModel(description = "This object represents an API key in Device Management.")
+@ApiModel(description = "Represents an API key in Device Management.")
 
 public class ApiKeyInfoResp implements Serializable {
     private static final long serialVersionUID = 1L;

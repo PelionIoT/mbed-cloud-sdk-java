@@ -96,8 +96,10 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * Adds a user invitation.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#createUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitationDao#create(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
      * 
      * @return an added user invitation
      * @throws MbedCloudException
@@ -105,7 +107,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      */
     @Override
     public UserInvitation create() throws MbedCloudException {
-        return setAndGetModel(((Accounts) getModuleOrThrow()).createUserInvitation(getModel()));
+        return create(getModel());
     }
 
     /**
@@ -123,8 +125,26 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      */
     @Override
     public UserInvitation create(@NonNull UserInvitation userInvitation) throws MbedCloudException {
-        setModel(userInvitation);
-        return create();
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createUserInvitation(userInvitation));
+    }
+
+    /**
+     * Adds a user invitation.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitationDao#create(int, com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
+     * 
+     * @param validForDays
+     *            Specifies how many days the invitation will be valid for.
+     * @return an added user invitation
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public UserInvitation create(@Nullable @DefaultValue("30") int validForDays) throws MbedCloudException {
+        return create(validForDays, getModel());
     }
 
     /**
@@ -136,27 +156,32 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * 
      * @param validForDays
      *            Specifies how many days the invitation will be valid for.
+     * @param userInvitation
+     *            a user invitation.
      * @return an added user invitation
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public UserInvitation create(@Nullable @DefaultValue("30") int validForDays) throws MbedCloudException {
-        return setAndGetModel(((Accounts) getModuleOrThrow()).createUserInvitation(validForDays, getModel()));
+    public UserInvitation create(@Nullable @DefaultValue("30") int validForDays,
+                                 @NonNull UserInvitation userInvitation) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createUserInvitation(validForDays, userInvitation));
     }
 
     /**
      * Deletes a user invitation.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#deleteUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitationDao#delete(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
      * 
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
-        ((Accounts) getModuleOrThrow()).deleteUserInvitation(getModel());
+        delete(getModel());
     }
 
     /**
@@ -173,8 +198,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      */
     @Override
     public void delete(@NonNull UserInvitation userInvitation) throws MbedCloudException {
-        setModel(userInvitation);
-        delete();
+        ((Accounts) getModuleOrThrow()).deleteUserInvitation(userInvitation);
     }
 
     /**
@@ -184,7 +208,7 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUserInvitation(String)}
      * 
      * @param id
-     *            The ID of the invitation to be deleted.
+     *            The ID of the invitation to delete.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -247,8 +271,10 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      * Gets a user invitation.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#readUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserInvitationDao#read(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
      * 
      * @return something
      * @throws MbedCloudException
@@ -256,7 +282,24 @@ public class UserInvitationDao extends AbstractModelDao<UserInvitation> implemen
      */
     @Override
     public UserInvitation read() throws MbedCloudException {
-        return setAndGetModel(((Accounts) getModuleOrThrow()).readUserInvitation(getModel()));
+        return read(getModel());
+    }
+
+    /**
+     * Gets a user invitation.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#readUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
+     * 
+     * @param userInvitation
+     *            a user invitation.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public UserInvitation read(@NonNull UserInvitation userInvitation) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readUserInvitation(userInvitation));
     }
 
     /**

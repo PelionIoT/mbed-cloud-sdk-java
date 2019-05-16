@@ -22,7 +22,7 @@ public class FieldTranslator {
 
     public static Validation translateValidation(com.arm.pelion.sdk.foundation.generator.input.Field field) {
         final Validation validation = new Validation();
-        validation.setPattern(com.arm.pelion.sdk.foundation.generator.util.Utils.applyPatternHack(field.getPattern()));
+        validation.setPattern(com.arm.pelion.sdk.foundation.generator.util.Utils.transformRegexIntoValidString(com.arm.pelion.sdk.foundation.generator.util.Utils.applyPatternHack(field.getPattern())));
         if (field.hasMinimum()) {
             validation.setMinimum(String.valueOf(field.getMinimum()));
         }

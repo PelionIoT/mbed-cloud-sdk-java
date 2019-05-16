@@ -193,7 +193,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
     public boolean isValid() {
         try {
             return !isApiKeyEmpty() && !isHostEmpty() && new URL(getHost()).getHost() != null;
-        } catch (MalformedURLException exception) {
+        } catch (@SuppressWarnings("unused") MalformedURLException exception) {
             return false;
         }
     }

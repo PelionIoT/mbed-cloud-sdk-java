@@ -158,6 +158,7 @@ public class FirmwareImage implements SdkModel {
      * @param id
      *            the id to set
      */
+    @Override
     public void setId(String id) {
         this.id = id;
     }

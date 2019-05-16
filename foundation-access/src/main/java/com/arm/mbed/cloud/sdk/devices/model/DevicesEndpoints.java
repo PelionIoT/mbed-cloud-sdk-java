@@ -6,8 +6,8 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateRenewalApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DefaultApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceSecurityDeviceCertificateRenewalsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.EnrollmentDenialsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.PublicApiApi;
 
@@ -24,10 +24,10 @@ public class DevicesEndpoints extends AbstractEndpoints {
     private final DefaultApi defaultApi;
 
     /**
-     * Low level endpoints for certificate renewal apis.
+     * Low level endpoints for device security device certificate renewals apis.
      */
     @Internal
-    private final CertificateRenewalApi certificateRenewalApi;
+    private final DeviceSecurityDeviceCertificateRenewalsApi deviceSecurityDeviceCertificateRenewalsApi;
 
     /**
      * Low level endpoints for public api apis.
@@ -50,42 +50,9 @@ public class DevicesEndpoints extends AbstractEndpoints {
     public DevicesEndpoints(ServiceRegistry services) {
         super(services);
         this.defaultApi = initialiseService(DefaultApi.class);
-        this.certificateRenewalApi = initialiseService(CertificateRenewalApi.class);
+        this.deviceSecurityDeviceCertificateRenewalsApi = initialiseService(DeviceSecurityDeviceCertificateRenewalsApi.class);
         this.publicApiApi = initialiseService(PublicApiApi.class);
         this.enrollmentDenialsApi = initialiseService(EnrollmentDenialsApi.class);
-    }
-
-    /**
-     * Gets low level endpoints for default apis.
-     * 
-     * @return defaultApi
-     */
-    @Internal
-    public DefaultApi getDefaultApi() {
-        return defaultApi;
-    }
-
-    /**
-     * Gets low level endpoints for certificate renewal apis.
-     * 
-     * @return certificateRenewalApi
-     */
-    @Internal
-    public CertificateRenewalApi getCertificateRenewalApi() {
-        return certificateRenewalApi;
-    }
-
-    /**
-     * Clones this instance.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public DevicesEndpoints clone() {
-        return new DevicesEndpoints(getRegistryClone());
     }
 
     /**
@@ -106,5 +73,38 @@ public class DevicesEndpoints extends AbstractEndpoints {
     @Internal
     public EnrollmentDenialsApi getEnrollmentDenialsApi() {
         return enrollmentDenialsApi;
+    }
+
+    /**
+     * Gets low level endpoints for default apis.
+     * 
+     * @return defaultApi
+     */
+    @Internal
+    public DefaultApi getDefaultApi() {
+        return defaultApi;
+    }
+
+    /**
+     * Gets low level endpoints for device security device certificate renewals apis.
+     * 
+     * @return deviceSecurityDeviceCertificateRenewalsApi
+     */
+    @Internal
+    public DeviceSecurityDeviceCertificateRenewalsApi getDeviceSecurityDeviceCertificateRenewalsApi() {
+        return deviceSecurityDeviceCertificateRenewalsApi;
+    }
+
+    /**
+     * Clones this instance.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
+     */
+    @Override
+    public DevicesEndpoints clone() {
+        return new DevicesEndpoints(getRegistryClone());
     }
 }

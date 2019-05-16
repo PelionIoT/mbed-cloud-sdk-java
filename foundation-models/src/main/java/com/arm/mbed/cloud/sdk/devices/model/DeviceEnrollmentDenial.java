@@ -47,6 +47,8 @@ public class DeviceEnrollmentDenial implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentDenial()} instead.
      * 
      * @param accountId
@@ -75,6 +77,8 @@ public class DeviceEnrollmentDenial implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentDenial()} instead.
      * 
      * @param deviceEnrollmentDenial
@@ -98,7 +102,11 @@ public class DeviceEnrollmentDenial implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            id of the recorded failed bootstrap attempt.
      */
@@ -110,6 +118,8 @@ public class DeviceEnrollmentDenial implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentDenial()} instead.
      * 
@@ -214,6 +224,20 @@ public class DeviceEnrollmentDenial implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "DeviceEnrollmentDenial [accountId=" + accountId + ", createdAt=" + createdAt + ", endpointName="
+               + endpointName + ", id=" + id + ", trustedCertificateId=" + trustedCertificateId + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
      *
      * <p>
@@ -308,20 +332,6 @@ public class DeviceEnrollmentDenial implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "DeviceEnrollmentDenial [accountId=" + accountId + ", createdAt=" + createdAt + ", endpointName="
-               + endpointName + ", id=" + id + ", trustedCertificateId=" + trustedCertificateId + "]";
     }
 
     /**

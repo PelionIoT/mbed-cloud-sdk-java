@@ -157,11 +157,13 @@ public class APIMethodArgument {
     private <T> Object convertParametersToObject(Class<T> clazz, Class<?> contentClass,
                                                  Map<String, Object> fields) throws APICallException {
         return (List.class.isAssignableFrom(clazz)) ? Serializer.convertParametersToListObject(fields, contentClass)
-                                                    : (Modifier.isAbstract(clazz.getModifiers())
-                                                       && !clazz.isPrimitive()) ? Serializer.convertParametersToObjectFromAbstractClasses(fields,
-                                                                                                                                          clazz)
-                                                                                : Serializer.convertParametersToObject(fields,
-                                                                                                                       clazz);
+                                                    : clazz == Map.class ? Serializer.convertParametersToMapObject(fields,
+                                                                                                                   contentClass)
+                                                                         : (Modifier.isAbstract(clazz.getModifiers())
+                                                                            && !clazz.isPrimitive()) ? Serializer.convertParametersToObjectFromAbstractClasses(fields,
+                                                                                                                                                               clazz)
+                                                                                                     : Serializer.convertParametersToObject(fields,
+                                                                                                                                            clazz);
     }
 
     public <T> Object determineValue(Class<T> clazz, String fields) throws APICallException {

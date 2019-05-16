@@ -11,7 +11,7 @@ public class MethodModuleConstructorFromClient extends AbstractMethodConstructor
     private static final String PARAMETER_CLOUD_CLIENT = "client";
 
     public MethodModuleConstructorFromClient(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, false);
+        super(null, currentModel, parentModel, null, null, false);
     }
 
     @Override

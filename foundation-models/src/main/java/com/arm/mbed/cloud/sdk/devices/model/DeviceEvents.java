@@ -85,6 +85,8 @@ public class DeviceEvents implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
      * @param changes
@@ -133,6 +135,8 @@ public class DeviceEvents implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
      * @param deviceEvents
@@ -162,7 +166,11 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            value.
      */
@@ -174,6 +182,8 @@ public class DeviceEvents implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
@@ -199,6 +209,7 @@ public class DeviceEvents implements SdkModel {
      *            value.
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public DeviceEvents(Map<String, Object> changes, Date createdAt, Map<String, String> data, Date dateTime,
                         String description, String deviceId, String eventType, String eventTypeCategory,
                         String eventTypeDescription, boolean stateChange) {
@@ -338,6 +349,22 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "DeviceEvents [changes=" + changes + ", createdAt=" + createdAt + ", data=" + data + ", dateTime="
+               + dateTime + ", description=" + description + ", deviceId=" + deviceId + ", eventType=" + eventType
+               + ", eventTypeCategory=" + eventTypeCategory + ", eventTypeDescription=" + eventTypeDescription + ", id="
+               + id + ", stateChange=" + stateChange + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
      *
      * <p>
@@ -359,7 +386,7 @@ public class DeviceEvents implements SdkModel {
         result = prime * result + ((eventTypeCategory == null) ? 0 : eventTypeCategory.hashCode());
         result = prime * result + ((eventTypeDescription == null) ? 0 : eventTypeDescription.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + Objects.hashCode(stateChange);
+        result = prime * result + Objects.hashCode(Boolean.valueOf(stateChange));
         return result;
     }
 
@@ -477,22 +504,6 @@ public class DeviceEvents implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "DeviceEvents [changes=" + changes + ", createdAt=" + createdAt + ", data=" + data + ", dateTime="
-               + dateTime + ", description=" + description + ", deviceId=" + deviceId + ", eventType=" + eventType
-               + ", eventTypeCategory=" + eventTypeCategory + ", eventTypeDescription=" + eventTypeDescription + ", id="
-               + id + ", stateChange=" + stateChange + "]";
     }
 
     /**

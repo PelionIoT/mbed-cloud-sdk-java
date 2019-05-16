@@ -78,7 +78,7 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
      *
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollmentBulkDelete(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDelete)}
+     * {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceEnrollmentBulkDelete(com.arm.mbed.cloud.sdk.common.model.DataFile)}
      * 
      * @param enrollmentIdentities
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
@@ -87,8 +87,7 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
      *             if an error occurs during the process.
      */
     public DeviceEnrollmentBulkDelete delete(@NonNull DataFile enrollmentIdentities) throws MbedCloudException {
-        return setAndGetModel(((Devices) getModuleOrThrow()).deleteDeviceEnrollmentBulkDelete(enrollmentIdentities,
-                                                                                              getModel()));
+        return setAndGetModel(((Devices) getModuleOrThrow()).deleteDeviceEnrollmentBulkDelete(enrollmentIdentities));
     }
 
     /**
@@ -145,8 +144,10 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
      * Gets a device enrollment bulk delete.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentBulkDelete(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDelete)}
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDeleteDao#read(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDelete)}
      * 
      * @return something
      * @throws MbedCloudException
@@ -154,7 +155,25 @@ public abstract class AbstractDeviceEnrollmentBulkDeleteDao extends AbstractMode
      */
     @Override
     public DeviceEnrollmentBulkDelete read() throws MbedCloudException {
-        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentBulkDelete(getModel()));
+        return read(getModel());
+    }
+
+    /**
+     * Gets a device enrollment bulk delete.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentBulkDelete(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDelete)}
+     * 
+     * @param deviceEnrollmentBulkDelete
+     *            a device enrollment bulk delete.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEnrollmentBulkDelete
+           read(@NonNull DeviceEnrollmentBulkDelete deviceEnrollmentBulkDelete) throws MbedCloudException {
+        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentBulkDelete(deviceEnrollmentBulkDelete));
     }
 
     /**

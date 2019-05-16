@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **etag** | **String** | API resource entity version. | 
 **id** | **String** | The ID of the group. | 
 **name** | **String** | The name of the group. | 
-**object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;group&#39; | 
+**object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#x60;group&#x60;. | 
 **updatedAt** | [**DateTime**](DateTime.md) | Last update UTC time RFC3339. |  [optional]
 **userCount** | **Integer** | The number of users in this group. | 
 

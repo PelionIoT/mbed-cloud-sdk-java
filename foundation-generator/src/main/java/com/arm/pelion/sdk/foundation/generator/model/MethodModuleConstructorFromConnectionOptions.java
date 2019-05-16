@@ -11,7 +11,7 @@ public class MethodModuleConstructorFromConnectionOptions extends AbstractMethod
     private static final String PARAMETER_CONNECTION_OPTIONS = "options";
 
     public MethodModuleConstructorFromConnectionOptions(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, false);
+        super(null, currentModel, parentModel, null, null, false);
     }
 
     @Override

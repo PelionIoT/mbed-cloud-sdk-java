@@ -47,6 +47,8 @@ public class ActiveSession implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #ActiveSession()} instead.
      * 
      * @param accountId
@@ -73,6 +75,8 @@ public class ActiveSession implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #ActiveSession()} instead.
      * 
@@ -165,6 +169,20 @@ public class ActiveSession implements SdkModel {
      */
     public String getUserAgent() {
         return userAgent;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "ActiveSession [accountId=" + accountId + ", ipAddress=" + ipAddress + ", loginTime=" + loginTime
+               + ", referenceToken=" + referenceToken + ", userAgent=" + userAgent + "]";
     }
 
     /**
@@ -262,20 +280,6 @@ public class ActiveSession implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "ActiveSession [accountId=" + accountId + ", ipAddress=" + ipAddress + ", loginTime=" + loginTime
-               + ", referenceToken=" + referenceToken + ", userAgent=" + userAgent + "]";
     }
 
     /**

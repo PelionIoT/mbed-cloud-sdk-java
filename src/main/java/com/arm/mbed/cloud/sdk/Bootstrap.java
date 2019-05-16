@@ -211,7 +211,7 @@ public class Bootstrap extends AbstractModule {
                 }
             }, true);
             return true;
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             return false;
         }
     }

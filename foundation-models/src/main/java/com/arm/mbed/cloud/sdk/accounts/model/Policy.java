@@ -19,7 +19,7 @@ public class Policy implements SdkModel {
     private static final long serialVersionUID = -169110117416151L;
 
     /**
-     * Comma separated list of actions, empty string represents all actions.
+     * Comma-separated list of actions, empty string represents all actions.
      */
     private final String action;
 
@@ -47,10 +47,12 @@ public class Policy implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #Policy()} instead.
      * 
      * @param action
-     *            Comma separated list of actions, empty string represents all actions.
+     *            Comma-separated list of actions, empty string represents all actions.
      * @param allow
      *            True or false controlling whether an action is allowed or not.
      * @param feature
@@ -73,6 +75,8 @@ public class Policy implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #Policy()} instead.
      * 
@@ -121,7 +125,7 @@ public class Policy implements SdkModel {
     }
 
     /**
-     * Gets comma separated list of actions, empty string represents all actions.
+     * Gets comma-separated list of actions, empty string represents all actions.
      * 
      * @return action
      */
@@ -166,6 +170,20 @@ public class Policy implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "Policy [action=" + action + ", allow=" + allow + ", feature=" + feature + ", inherited=" + inherited
+               + ", resource=" + resource + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
      *
      * <p>
@@ -178,9 +196,9 @@ public class Policy implements SdkModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((action == null) ? 0 : action.hashCode());
-        result = prime * result + Objects.hashCode(allow);
+        result = prime * result + Objects.hashCode(Boolean.valueOf(allow));
         result = prime * result + ((feature == null) ? 0 : feature.hashCode());
-        result = prime * result + Objects.hashCode(inherited);
+        result = prime * result + Objects.hashCode(Boolean.valueOf(inherited));
         result = prime * result + ((resource == null) ? 0 : resource.hashCode());
         return result;
     }
@@ -252,20 +270,6 @@ public class Policy implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "Policy [action=" + action + ", allow=" + allow + ", feature=" + feature + ", inherited=" + inherited
-               + ", resource=" + resource + "]";
     }
 
     /**

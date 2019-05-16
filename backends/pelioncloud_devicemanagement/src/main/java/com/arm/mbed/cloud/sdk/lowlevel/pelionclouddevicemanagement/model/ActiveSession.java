@@ -25,9 +25,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * This object represents an active user session.
+ * Represents an active user session.
  */
-@ApiModel(description = "This object represents an active user session.")
+@ApiModel(description = "Represents an active user session.")
 
 public class ActiveSession implements Serializable {
     private static final long serialVersionUID = 1L;

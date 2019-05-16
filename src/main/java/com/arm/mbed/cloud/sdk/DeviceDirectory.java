@@ -40,8 +40,12 @@ import retrofit2.Call;
 
 @Preamble(description = "Specifies Device directory API")
 @Module
+@Deprecated
 /**
  * API exposing functionality for dealing with devices
+ * <p>
+ * 
+ * @deprecated Use foundation interface or {@link Devices} instead.
  */
 public class DeviceDirectory extends AbstractModule {
 

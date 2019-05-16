@@ -42,9 +42,9 @@ import java.util.List;
  * <td style="background-color:#dae8fc;text-align:center;" width="10%">not in</td>
  * </tr>
  * <tr>
- * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">certificateReference</td>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">reference</td>
  * <td style=
- * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_CERTIFICATE_REFERENCE</td>
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_REFERENCE</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
@@ -61,13 +61,15 @@ import java.util.List;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class CertificateIssuerConfigListOptions extends ListOptions {
     /**
-     * Tag for filter by certificateReference.
+     * Tag for filter by reference.
      */
-    public static final String TAG_FILTER_BY_CERTIFICATE_REFERENCE = "certificateReference";
+    public static final String TAG_FILTER_BY_REFERENCE = "reference";
 
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerConfigListOptions()} instead.
      * 
@@ -100,6 +102,8 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerConfigListOptions()} instead.
      * 
      * @param certificateIssuerConfigListOptions
@@ -123,6 +127,8 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on read-only fields.
+     * <p>
      * Note: Should not be used. Use {@link #CertificateIssuerConfigListOptions()} instead.
      * 
      * @param after
@@ -138,54 +144,39 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
     }
 
     /**
-     * Gets all the filters defined on field {@code certificateReference}.
+     * Gets all the filters defined on field {@code reference}.
      * 
-     * @return All the filters by {@code certificateReference}
+     * @return All the filters by {@code reference}
      */
-    public List<Filter> getCertificateReferenceFilters() {
-        return fetchFilters(TAG_FILTER_BY_CERTIFICATE_REFERENCE);
+    public List<Filter> getReferenceFilters() {
+        return fetchFilters(TAG_FILTER_BY_REFERENCE);
     }
 
     /**
-     * Sets "an equal to" filter by {@code certificateReference}.
+     * Sets "an equal to" filter by {@code reference}.
      * 
-     * @param filterByCertificateReference
+     * @param filterByReference
      *            filter value.
      */
-    public void addEqualToCertificateReferenceFilter(String filterByCertificateReference) {
-        addEqualFilter(TAG_FILTER_BY_CERTIFICATE_REFERENCE, filterByCertificateReference);
+    public void addEqualToReferenceFilter(String filterByReference) {
+        addEqualFilter(TAG_FILTER_BY_REFERENCE, filterByReference);
     }
 
     /**
-     * Sets "an equal to" filter by {@code certificateReference}.
+     * Sets "an equal to" filter by {@code reference}.
      *
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions#addEqualToCertificateReferenceFilter(String)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions#addEqualToReferenceFilter(String)}
      * 
-     * @param filterByCertificateReference
+     * @param filterByReference
      *            filter value.
      * @return These list options
      */
     @SuppressWarnings("unchecked")
-    public <T extends CertificateIssuerConfigListOptions> T
-           equalToCertificateReference(String filterByCertificateReference) {
-        addEqualToCertificateReferenceFilter(filterByCertificateReference);
+    public <T extends CertificateIssuerConfigListOptions> T equalToReference(String filterByReference) {
+        addEqualToReferenceFilter(filterByReference);
         return (T) this;
-    }
-
-    /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     *
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof CertificateIssuerConfigListOptions;
     }
 
     /**
@@ -205,6 +196,21 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return other instanceof CertificateIssuerConfigListOptions;
+    }
+
+    /**
      * Clones this instance.
      *
      * <p>
@@ -217,5 +223,50 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
         final CertificateIssuerConfigListOptions opt = new CertificateIssuerConfigListOptions();
         opt.setOptions(this);
         return opt;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof CertificateIssuerConfigListOptions)) {
+            return false;
+        }
+        final CertificateIssuerConfigListOptions other = (CertificateIssuerConfigListOptions) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    @SuppressWarnings("PMD.UselessOverridingMethod")
+    public int hashCode() {
+        return super.hashCode();
     }
 }

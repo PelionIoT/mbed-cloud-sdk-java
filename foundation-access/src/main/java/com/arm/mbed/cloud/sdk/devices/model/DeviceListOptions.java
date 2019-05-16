@@ -386,74 +386,14 @@ import java.util.List;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class DeviceListOptions extends ListOptions {
     /**
-     * Tag for filter by autoUpdate.
-     */
-    public static final String TAG_FILTER_BY_AUTO_UPDATE = "autoUpdate";
-
-    /**
-     * Tag for filter by bootstrapExpirationDate.
-     */
-    public static final String TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE = "bootstrapExpirationDate";
-
-    /**
-     * Tag for filter by createdAt.
-     */
-    public static final String TAG_FILTER_BY_CREATED_AT = "createdAt";
-
-    /**
-     * Tag for filter by manifest.
-     */
-    public static final String TAG_FILTER_BY_MANIFEST = "manifest";
-
-    /**
-     * Tag for filter by endpointType.
-     */
-    public static final String TAG_FILTER_BY_ENDPOINT_TYPE = "endpointType";
-
-    /**
-     * Tag for filter by deviceKey.
-     */
-    public static final String TAG_FILTER_BY_DEVICE_KEY = "deviceKey";
-
-    /**
-     * Tag for filter by firmwareChecksum.
-     */
-    public static final String TAG_FILTER_BY_FIRMWARE_CHECKSUM = "firmwareChecksum";
-
-    /**
-     * Tag for filter by state.
-     */
-    public static final String TAG_FILTER_BY_STATE = "state";
-
-    /**
-     * Tag for filter by deviceExecutionMode.
-     */
-    public static final String TAG_FILTER_BY_DEVICE_EXECUTION_MODE = "deviceExecutionMode";
-
-    /**
      * Tag for filter by accountId.
      */
     public static final String TAG_FILTER_BY_ACCOUNT_ID = "accountId";
 
     /**
-     * Tag for filter by mechanismUrl.
+     * Tag for filter by autoUpdate.
      */
-    public static final String TAG_FILTER_BY_MECHANISM_URL = "mechanismUrl";
-
-    /**
-     * Tag for filter by vendorId.
-     */
-    public static final String TAG_FILTER_BY_VENDOR_ID = "vendorId";
-
-    /**
-     * Tag for filter by deviceClass.
-     */
-    public static final String TAG_FILTER_BY_DEVICE_CLASS = "deviceClass";
-
-    /**
-     * Tag for filter by hostGateway.
-     */
-    public static final String TAG_FILTER_BY_HOST_GATEWAY = "hostGateway";
+    public static final String TAG_FILTER_BY_AUTO_UPDATE = "autoUpdate";
 
     /**
      * Tag for filter by bootstrappedTimestamp.
@@ -461,19 +401,9 @@ public class DeviceListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP = "bootstrappedTimestamp";
 
     /**
-     * Tag for filter by serialNumber.
+     * Tag for filter by bootstrapExpirationDate.
      */
-    public static final String TAG_FILTER_BY_SERIAL_NUMBER = "serialNumber";
-
-    /**
-     * Tag for filter by id.
-     */
-    public static final String TAG_FILTER_BY_ID = "id";
-
-    /**
-     * Tag for filter by connectorExpirationDate.
-     */
-    public static final String TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE = "connectorExpirationDate";
+    public static final String TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE = "bootstrapExpirationDate";
 
     /**
      * Tag for filter by caId.
@@ -481,24 +411,14 @@ public class DeviceListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_CA_ID = "caId";
 
     /**
-     * Tag for filter by enrolmentListTimestamp.
+     * Tag for filter by connectorExpirationDate.
      */
-    public static final String TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP = "enrolmentListTimestamp";
+    public static final String TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE = "connectorExpirationDate";
 
     /**
-     * Tag for filter by description.
+     * Tag for filter by createdAt.
      */
-    public static final String TAG_FILTER_BY_DESCRIPTION = "description";
-
-    /**
-     * Tag for filter by deployment.
-     */
-    public static final String TAG_FILTER_BY_DEPLOYMENT = "deployment";
-
-    /**
-     * Tag for filter by mechanism.
-     */
-    public static final String TAG_FILTER_BY_MECHANISM = "mechanism";
+    public static final String TAG_FILTER_BY_CREATED_AT = "createdAt";
 
     /**
      * Tag for filter by deployedState.
@@ -506,19 +426,29 @@ public class DeviceListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_DEPLOYED_STATE = "deployedState";
 
     /**
-     * Tag for filter by updatedAt.
+     * Tag for filter by deployment.
      */
-    public static final String TAG_FILTER_BY_UPDATED_AT = "updatedAt";
+    public static final String TAG_FILTER_BY_DEPLOYMENT = "deployment";
 
     /**
-     * Tag for filter by name.
+     * Tag for filter by description.
      */
-    public static final String TAG_FILTER_BY_NAME = "name";
+    public static final String TAG_FILTER_BY_DESCRIPTION = "description";
 
     /**
-     * Tag for filter by manifestTimestamp.
+     * Tag for filter by deviceClass.
      */
-    public static final String TAG_FILTER_BY_MANIFEST_TIMESTAMP = "manifestTimestamp";
+    public static final String TAG_FILTER_BY_DEVICE_CLASS = "deviceClass";
+
+    /**
+     * Tag for filter by deviceExecutionMode.
+     */
+    public static final String TAG_FILTER_BY_DEVICE_EXECUTION_MODE = "deviceExecutionMode";
+
+    /**
+     * Tag for filter by deviceKey.
+     */
+    public static final String TAG_FILTER_BY_DEVICE_KEY = "deviceKey";
 
     /**
      * Tag for filter by endpointName.
@@ -526,8 +456,80 @@ public class DeviceListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_ENDPOINT_NAME = "endpointName";
 
     /**
+     * Tag for filter by endpointType.
+     */
+    public static final String TAG_FILTER_BY_ENDPOINT_TYPE = "endpointType";
+
+    /**
+     * Tag for filter by enrolmentListTimestamp.
+     */
+    public static final String TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP = "enrolmentListTimestamp";
+
+    /**
+     * Tag for filter by firmwareChecksum.
+     */
+    public static final String TAG_FILTER_BY_FIRMWARE_CHECKSUM = "firmwareChecksum";
+
+    /**
+     * Tag for filter by hostGateway.
+     */
+    public static final String TAG_FILTER_BY_HOST_GATEWAY = "hostGateway";
+
+    /**
+     * Tag for filter by id.
+     */
+    public static final String TAG_FILTER_BY_ID = "id";
+
+    /**
+     * Tag for filter by manifest.
+     */
+    public static final String TAG_FILTER_BY_MANIFEST = "manifest";
+
+    /**
+     * Tag for filter by manifestTimestamp.
+     */
+    public static final String TAG_FILTER_BY_MANIFEST_TIMESTAMP = "manifestTimestamp";
+
+    /**
+     * Tag for filter by mechanism.
+     */
+    public static final String TAG_FILTER_BY_MECHANISM = "mechanism";
+
+    /**
+     * Tag for filter by mechanismUrl.
+     */
+    public static final String TAG_FILTER_BY_MECHANISM_URL = "mechanismUrl";
+
+    /**
+     * Tag for filter by name.
+     */
+    public static final String TAG_FILTER_BY_NAME = "name";
+
+    /**
+     * Tag for filter by serialNumber.
+     */
+    public static final String TAG_FILTER_BY_SERIAL_NUMBER = "serialNumber";
+
+    /**
+     * Tag for filter by state.
+     */
+    public static final String TAG_FILTER_BY_STATE = "state";
+
+    /**
+     * Tag for filter by updatedAt.
+     */
+    public static final String TAG_FILTER_BY_UPDATED_AT = "updatedAt";
+
+    /**
+     * Tag for filter by vendorId.
+     */
+    public static final String TAG_FILTER_BY_VENDOR_ID = "vendorId";
+
+    /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #DeviceListOptions()} instead.
      * 
@@ -560,6 +562,8 @@ public class DeviceListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #DeviceListOptions()} instead.
      * 
      * @param deviceListOptions
@@ -582,6 +586,8 @@ public class DeviceListOptions extends ListOptions {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #DeviceListOptions()} instead.
      * 
@@ -613,7 +619,7 @@ public class DeviceListOptions extends ListOptions {
      *            filter value.
      */
     public void addEqualToAutoUpdateFilter(boolean filterByAutoUpdate) {
-        addEqualFilter(TAG_FILTER_BY_AUTO_UPDATE, filterByAutoUpdate);
+        addEqualFilter(TAG_FILTER_BY_AUTO_UPDATE, Boolean.valueOf(filterByAutoUpdate));
     }
 
     /**
@@ -639,7 +645,7 @@ public class DeviceListOptions extends ListOptions {
      *            filter value.
      */
     public void addNotEqualToAutoUpdateFilter(boolean filterByAutoUpdate) {
-        addNotEqualFilter(TAG_FILTER_BY_AUTO_UPDATE, filterByAutoUpdate);
+        addNotEqualFilter(TAG_FILTER_BY_AUTO_UPDATE, Boolean.valueOf(filterByAutoUpdate));
     }
 
     /**
@@ -2259,7 +2265,7 @@ public class DeviceListOptions extends ListOptions {
      *            filter value.
      */
     public void addEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
-        addEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
+        addEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, Integer.valueOf(filterByDeviceExecutionMode));
     }
 
     /**
@@ -2286,7 +2292,7 @@ public class DeviceListOptions extends ListOptions {
      *            filter value.
      */
     public void addNotEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
-        addNotEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
+        addNotEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, Integer.valueOf(filterByDeviceExecutionMode));
     }
 
     /**
@@ -6768,20 +6774,6 @@ public class DeviceListOptions extends ListOptions {
     }
 
     /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     *
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof DeviceListOptions;
-    }
-
-    /**
      * Returns a string representation of the object.
      *
      * <p>
@@ -6798,6 +6790,21 @@ public class DeviceListOptions extends ListOptions {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return other instanceof DeviceListOptions;
+    }
+
+    /**
      * Clones this instance.
      *
      * <p>
@@ -6810,5 +6817,50 @@ public class DeviceListOptions extends ListOptions {
         final DeviceListOptions opt = new DeviceListOptions();
         opt.setOptions(this);
         return opt;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof DeviceListOptions)) {
+            return false;
+        }
+        final DeviceListOptions other = (DeviceListOptions) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    @SuppressWarnings("PMD.UselessOverridingMethod")
+    public int hashCode() {
+        return super.hashCode();
     }
 }

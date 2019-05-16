@@ -25,9 +25,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * This object represents an account notification entry.
+ * Represents an account notification entry.
  */
-@ApiModel(description = "This object represents an account notification entry.")
+@ApiModel(description = "Represents an account notification entry.")
 
 public class NotificationEntry implements Serializable {
     private static final long serialVersionUID = 1L;

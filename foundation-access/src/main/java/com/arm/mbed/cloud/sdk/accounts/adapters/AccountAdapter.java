@@ -71,9 +71,9 @@ public final class AccountAdapter {
         account.setDisplayName(toBeMapped.getDisplayName());
         account.setEmail(toBeMapped.getEmail());
         account.setEndMarket(toBeMapped.getEndMarket());
-        account.setExpirationWarningThreshold(toBeMapped.getExpirationWarningThreshold());
+        account.setExpirationWarningThreshold(TranslationUtils.toInt(toBeMapped.getExpirationWarningThreshold(), 1));
         account.setId(toBeMapped.getId());
-        account.setIdleTimeout(toBeMapped.getIdleTimeout());
+        account.setIdleTimeout(TranslationUtils.toInt(toBeMapped.getIdleTimeout(), 1));
         account.setMfaStatus(translateToAccountMfaStatus(toBeMapped.getMfaStatus()));
         account.setNotificationEmails(toBeMapped.getNotificationEmails());
         account.setPasswordPolicy(PasswordPolicyAdapter.map(toBeMapped.getPasswordPolicy()));
@@ -274,12 +274,12 @@ public final class AccountAdapter {
         accountUpdateRootReq.setDisplayName(toBeMapped.getDisplayName());
         accountUpdateRootReq.setEmail(toBeMapped.getEmail());
         accountUpdateRootReq.setEndMarket(toBeMapped.getEndMarket());
-        accountUpdateRootReq.setExpirationWarningThreshold(toBeMapped.getExpirationWarningThreshold());
-        accountUpdateRootReq.setIdleTimeout(toBeMapped.getIdleTimeout());
+        accountUpdateRootReq.setExpirationWarningThreshold(Integer.valueOf(toBeMapped.getExpirationWarningThreshold()));
+        accountUpdateRootReq.setIdleTimeout(Integer.valueOf(toBeMapped.getIdleTimeout()));
         accountUpdateRootReq.setMfaStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelAccountupdaterootreqMfastatusenum(toBeMapped.getMfaStatus()));
         accountUpdateRootReq.setNotificationEmails(toBeMapped.getNotificationEmails());
         accountUpdateRootReq.setPasswordPolicy(PasswordPolicyAdapter.reverseMapUpdateRequest(toBeMapped.getPasswordPolicy()));
-        accountUpdateRootReq.setPasswordRecoveryExpiration(toBeMapped.getPasswordRecoveryExpiration());
+        accountUpdateRootReq.setPasswordRecoveryExpiration(Integer.valueOf(toBeMapped.getPasswordRecoveryExpiration()));
         accountUpdateRootReq.setPhoneNumber(toBeMapped.getPhoneNumber());
         accountUpdateRootReq.setPostalCode(toBeMapped.getPostalCode());
         accountUpdateRootReq.setSalesContact(toBeMapped.getSalesContact());

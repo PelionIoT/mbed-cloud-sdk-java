@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -26,12 +29,15 @@ import com.arm.pelion.sdk.foundation.generator.util.Utils;
 public class ModelDao extends Model {
     protected final Model correspondingModel;
     protected final ModelModule correspondingModule;
+    private final MethodRegistry methodRegistry;
     private final Map<String, Class<?>> superinterfaces;
 
     public ModelDao(Model currentModel, ModelModule module, boolean needsCustom) {
         super(currentModel.packageName, DaoProvider.getCorrespondingDaoName(currentModel.name), currentModel.group,
               generateDescription(currentModel), generateLongDescription(currentModel), currentModel.isAbstract,
               needsCustom, currentModel.containsCustomCode, currentModel.isInternal);
+        methodRegistry = new MethodRegistry();
+        methodRegistry.clear();
         correspondingModel = currentModel;
         correspondingModule = module;
         superinterfaces = new HashMap<>(4);
@@ -118,12 +124,14 @@ public class ModelDao extends Model {
             addSuperInterface(correspondingInterface);
             checkSuperInterfaces();
         }
-        if (correspondingInterface == null) {
-            generateOtherMethod(action, methodName, daoMethodName, description, longDescription, needsCustomCode, true);
-        } else {
-            generateCrudMethods(action, daoMethodName, correspondingInterface, needsCustomCode, true);
-        }
+        registerMethod(action, methodName, description, longDescription, needsCustomCode, correspondingInterface,
+                       daoMethodName);
+    }
 
+    protected void registerMethod(MethodAction action, String methodName, String description, String longDescription,
+                                  boolean needsCustomCode, Class<?> correspondingInterface, String daoMethodName) {
+        methodRegistry.addRecord(new MethodRecord(action, methodName, description, longDescription, needsCustomCode,
+                                                  correspondingInterface, daoMethodName));
     }
 
     protected void addSuperInterface(Class<?> correspondingInterface) {
@@ -144,52 +152,17 @@ public class ModelDao extends Model {
         for (Method moduleMethod : moduleMethods) {
             final MethodOverloaded method = generateMethod(daoMethodName, needsCustomCode, isPublic, null, moduleMethod,
                                                            correspondingModule.toType());
-            addMethod(method);
+            addMethodAndMethodWithInternalModel(method);
         }
-        generateSomeInterfaceMethods(daoMethodName, correspondingInterface, moduleMethods, null, needsCustomCode);
     }
 
-    private void generateSomeInterfaceMethods(String daoMethodName, Class<?> correspondingInterface,
-                                              List<Method> moduleMethods, String suffix, boolean needsCustomCode) {
-        final String moduleMethodSuffix = MethodOverloaded.generateOverloadSuffix(Arrays.asList(correspondingModel.toParameter()));
-        final String interfaceMethodSuffix = MethodOverloaded.generateOverloadSuffix(Arrays.asList(new Parameter("model",
-                                                                                                                 SdkModel.class)));
-        final Method moduleMethod = moduleMethods == null ? null
-                                                          : moduleMethods.stream()
-                                                                         .filter(m -> moduleMethodSuffix.equals(MethodOverloaded.generateOverloadSuffix(m)))
-                                                                         .findFirst().orElse(null);
-        final java.lang.reflect.Method interfaceMethod = Arrays.asList(correspondingInterface.getDeclaredMethods())
-                                                               .stream()
-                                                               .filter(m -> interfaceMethodSuffix.equals(MethodOverloaded.generateOverloadSuffix(m)))
-                                                               .findFirst().orElse(null);
-        if (interfaceMethod == null || moduleMethod == null
-            || !Arrays.asList(correspondingInterface.getDeclaredMethods()).stream()
-                      .anyMatch(m -> m.getParameterCount() == 0)) {
-            return;
-        }
-        final MethodOverloaded method = new MethodOverloaded(false, daoMethodName, moduleMethod.getDescription(),
-                                                             Utils.generateDocumentationMethodLink(correspondingModule,
-                                                                                                   moduleMethod),
-                                                             false, true, false, false, false, false, false, false,
-                                                             interfaceMethodSuffix);
-        method.addException(MbedCloudException.class);
-        method.setNeedsCustomCode(needsCustomCode);
-        if (moduleMethod.hasReturn()) {
-            method.setReturnDescription(moduleMethod.getReturnDescription());
-            method.setReturnType(moduleMethod.getReturnType());
-        }
-
-        method.initialiseCodeBuilder();
-        final Parameter methodParameter = moduleMethod.getParameters().stream().findFirst().orElse(null);
-        if (methodParameter == null) {
-            return;
-        }
-        method.addParameter(methodParameter);
-        method.getCode().addStatement("$L($L)", AbstractModelDao.METHOD_SET_MODEL, methodParameter.getName());
-        if (moduleMethod.hasReturn()) {
-            method.getCode().addStatement("return $L()", daoMethodName);
-        } else {
-            method.getCode().addStatement("$L()", daoMethodName);
+    private void addMethodAndMethodWithInternalModel(final MethodOverloaded method) {
+        if (method.hasParameterOfType(correspondingModel.toType())) {
+            addMethod(generateMethodWithInternalModel(method, null));
+            if (method.getParameterCount() == 1) {
+                method.setOverloadingSuffix(MethodOverloaded.generateOverloadSuffix(Arrays.asList(new Parameter("model",
+                                                                                                                SdkModel.class))));
+            }
         }
         addMethod(method);
     }
@@ -228,7 +201,7 @@ public class ModelDao extends Model {
                                                                                                         : daoMethodName,
                                                        needsCustomCode, isPublic, null, moduleMethod,
                                                        correspondingModule.toType());
-        addMethod(method);
+        addMethodAndMethodWithInternalModel(method);
     }
 
     private MethodOverloaded generateMethod(String methodName, boolean needsCustomCode, boolean isPublic, String suffix,
@@ -240,15 +213,66 @@ public class ModelDao extends Model {
                                                              suffix);
         method.setIgnoreShortName(true);
         method.addException(MbedCloudException.class);
-        method.setNeedsCustomCode(needsCustomCode);
+        method.setNeedsCustomCode(needsCustomCode || moduleMethod.isInternal());
         method.setDeprecation(moduleMethod.getDeprecation());
         method.initialiseCodeBuilder();
-        generateMethodCodeAndReturnType(moduleMethod, method, moduleType);
+        generateMethodCodeAndReturnType(moduleMethod, method, moduleType, false);
         return method;
     }
 
+    private MethodOverloaded generateMethodWithInternalModel(MethodOverloaded methodToUse, String suffix) {
+        final String longDescription = "Note: uses internal data model" + Utils.generateNewDocumentationLine()
+                                       + Utils.generateDocumentationMethodLink(this, methodToUse);
+        final MethodOverloaded method = new MethodOverloaded(false, methodToUse.getName(), methodToUse.getDescription(),
+                                                             longDescription, false, methodToUse.isAccessible, false,
+                                                             false, false, false, false, false, suffix);
+        method.setIgnoreShortName(true);
+        method.addException(MbedCloudException.class);
+        method.setDeprecation(methodToUse.getDeprecation());
+        method.initialiseCodeBuilder();
+        generateMethodCodeAndReturnTypeUsingInternalModel(methodToUse, method);
+        return method;
+    }
+
+    private void generateMethodCodeAndReturnTypeUsingInternalModel(Method methodToUse, final MethodOverloaded method) {
+        StringBuilder codeFormat = new StringBuilder();
+        List<Object> values = new LinkedList<>();
+        boolean closeBracket = false;
+        if (methodToUse.hasReturn()) {
+            method.setReturnType(methodToUse.getReturnType());
+            method.setReturnDescription(methodToUse.getReturnDescription());
+
+            codeFormat.append("return ");
+        }
+        codeFormat.append("$L(");
+        values.add(methodToUse.getName());
+        if (methodToUse.hasParameters()) {
+            boolean start = true;
+            for (Parameter p : methodToUse.getParameters()) {
+                if (start) {
+                    start = false;
+                } else {
+                    codeFormat.append(", ");
+                }
+                if (p.getType().isModel(correspondingModel)) {
+                    codeFormat.append("$L()");
+                    values.add(AbstractModelDao.METHOD_GET_MODEL);
+                } else {
+                    method.addParameter(p);
+                    codeFormat.append("$L");
+                    values.add(p.getName());
+                }
+            }
+        }
+        codeFormat.append(")");
+        if (closeBracket) {
+            codeFormat.append(")");
+        }
+        method.getCode().addStatement(codeFormat.toString(), values.toArray());
+    }
+
     protected void generateMethodCodeAndReturnType(Method moduleMethod, final MethodOverloaded method,
-                                                   TypeParameter moduleType) {
+                                                   TypeParameter moduleType, boolean useInternalModel) {
         StringBuilder codeFormat = new StringBuilder();
         List<Object> values = new LinkedList<>();
         boolean closeBracket = false;
@@ -281,7 +305,7 @@ public class ModelDao extends Model {
                 } else {
                     codeFormat.append(", ");
                 }
-                if (p.getType().isModel(correspondingModel)) {
+                if (useInternalModel && p.getType().isModel(correspondingModel)) {
                     codeFormat.append("$L()");
                     values.add(AbstractModelDao.METHOD_GET_MODEL);
                 } else {
@@ -316,7 +340,7 @@ public class ModelDao extends Model {
     }
 
     @Override
-    protected void generateHashCodeAndEquals() {
+    protected void generateHashCodeAndEquals(Model theParent) {
         // Do not generate anything
     }
 
@@ -362,6 +386,24 @@ public class ModelDao extends Model {
         super.generateOtherMethods();
         generateModuleIntantiationMethods();
         generateOtherIntantiationMethods();
+        generateAllDaoMethods();
+    }
+
+    protected void generateAllDaoMethods() {
+        retrieveMethodRecords().forEach(r -> {
+            if (r.hasCorrespondingInterface()) {
+                generateCrudMethods(r.getAction(), r.getDaoMethodName(), r.getCorrespondingInterface(),
+                                    r.isNeedsCustomCode(), true);
+            } else {
+                generateOtherMethod(r.getAction(), r.getMethodName(), r.getDaoMethodName(), r.getDescription(),
+                                    r.getLongDescription(), r.isNeedsCustomCode(), true);
+            }
+        });
+
+    }
+
+    protected Set<MethodRecord> retrieveMethodRecords() {
+        return methodRegistry.getRecords();
     }
 
     private void generateModuleIntantiationMethods() {
@@ -447,6 +489,111 @@ public class ModelDao extends Model {
 
     protected ModelDao instantiateDaoModel() {
         return new ModelDao(correspondingModel, correspondingModule, needsCustomCode);
+    }
+
+    private static class MethodRegistry {
+        private final Set<MethodRecord> records;
+
+        public MethodRegistry() {
+            super();
+            records = new LinkedHashSet<>();
+        }
+
+        public Set<MethodRecord> getRecords() {
+            return records;
+        }
+
+        public void clear() {
+            records.clear();
+        }
+
+        public void addRecord(MethodRecord record) {
+            if (record != null) {
+                records.add(record);
+            }
+        }
+
+    }
+
+    protected static class MethodRecord {
+        private final MethodAction action;
+        private final String methodName;
+        private final String description;
+        private final String longDescription;
+        private final boolean needsCustomCode;
+        private final Class<?> correspondingInterface;
+        private final String daoMethodName;
+
+        public MethodRecord(MethodAction action, String methodName, String description, String longDescription,
+                            boolean needsCustomCode, Class<?> correspondingInterface, String daoMethodName) {
+            super();
+            this.action = action;
+            this.methodName = methodName;
+            this.description = description;
+            this.longDescription = longDescription;
+            this.needsCustomCode = needsCustomCode;
+            this.correspondingInterface = correspondingInterface;
+            this.daoMethodName = daoMethodName;
+        }
+
+        @SuppressWarnings("boxing")
+        @Override
+        public int hashCode() {
+            return Objects.hash(action, correspondingInterface, daoMethodName, description, longDescription, methodName,
+                                needsCustomCode);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (!(obj instanceof MethodRecord)) {
+                return false;
+            }
+            final MethodRecord other = (MethodRecord) obj;
+            return action == other.action && Objects.equals(correspondingInterface, other.correspondingInterface)
+                   && Objects.equals(daoMethodName, other.daoMethodName)
+                   && Objects.equals(description, other.description)
+                   && Objects.equals(longDescription, other.longDescription)
+                   && Objects.equals(methodName, other.methodName) && needsCustomCode == other.needsCustomCode;
+        }
+
+        public MethodAction getAction() {
+            return action;
+        }
+
+        public String getMethodName() {
+            return methodName;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getLongDescription() {
+            return longDescription;
+        }
+
+        public boolean isNeedsCustomCode() {
+            return needsCustomCode;
+        }
+
+        public Class<?> getCorrespondingInterface() {
+            return correspondingInterface;
+        }
+
+        public boolean hasCorrespondingInterface() {
+            return correspondingInterface != null;
+        }
+
+        public String getDaoMethodName() {
+            return daoMethodName;
+        }
+
     }
 
 }

@@ -26,8 +26,7 @@ public class TestSubtenantTrustedCertificate {
     @Test
     public void testClone() {
         try {
-            SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate(true,
-                                                                                                       "2c2c63da-d7f8-408d-9186-565700938047",
+            SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate("2c2c63da-d7f8-408d-9186-565700938047",
                                                                                                        "2b7cc35c-052a-479d-b351-519efd55e0dc",
                                                                                                        "13602a42-ea4d-49e0-a5bd-aa65384f289c",
                                                                                                        new Date(1547147139208L),
@@ -59,8 +58,7 @@ public class TestSubtenantTrustedCertificate {
     @Test
     public void testHashCode() {
         try {
-            SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate(true,
-                                                                                                       "4c35dc2a-1559-48a8-abfd-d4e7caab4ef9",
+            SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate("4c35dc2a-1559-48a8-abfd-d4e7caab4ef9",
                                                                                                        "a9b9f5f3-88ea-4316-ac56-82c2ca375289",
                                                                                                        "fa025d82-8fe9-4541-8850-05e0320ba738",
                                                                                                        new Date(1547147135553L),
@@ -76,8 +74,7 @@ public class TestSubtenantTrustedCertificate {
                                                                                                        new Date(1547147136155L),
                                                                                                        false,
                                                                                                        new Date(1547147143857L));
-            SubtenantTrustedCertificate subtenanttrustedcertificate2 = new SubtenantTrustedCertificate(true,
-                                                                                                       "4c35dc2a-1559-48a8-abfd-d4e7caab4ef9",
+            SubtenantTrustedCertificate subtenanttrustedcertificate2 = new SubtenantTrustedCertificate("4c35dc2a-1559-48a8-abfd-d4e7caab4ef9",
                                                                                                        "a9b9f5f3-88ea-4316-ac56-82c2ca375289",
                                                                                                        "fa025d82-8fe9-4541-8850-05e0320ba738",
                                                                                                        new Date(1547147135553L),
@@ -112,14 +109,13 @@ public class TestSubtenantTrustedCertificate {
      */
     @Test
     public void testIsValid() {
-        SubtenantTrustedCertificate subtenanttrustedcertificate = new SubtenantTrustedCertificate(true,
-                                                                                                  "45d9ab07-e306-4609-8a7b-e216f9e49ef4",
+        SubtenantTrustedCertificate subtenanttrustedcertificate = new SubtenantTrustedCertificate("45d9ab07e30646098a7be216f9e49ef4",
                                                                                                   "bdec288b-475e-4a9f-aad0-9285682e3375",
                                                                                                   "5d0dfaf7-8cd3-4951-abfb-0918831820be",
                                                                                                   new Date(1547147143670L),
                                                                                                   "d9a0d572-233c-4ef3-b271-741706ada845",
                                                                                                   -95, false,
-                                                                                                  "0a994b23-3d7e-4e97-85b0-1fdb020cb841",
+                                                                                                  "0a994b233d7e4e9785b01fdb020cb841",
                                                                                                   "f44ccc7d-b0a4-4be2-8100-dc6a838d2e18",
                                                                                                   "4598ee2f-c8c5-4ba1-9e52-39c04f87272d",
                                                                                                   "0aa32f9d-3c99-49e5-bf4b-76d0ef26bfda",
@@ -130,8 +126,7 @@ public class TestSubtenantTrustedCertificate {
                                                                                                   false,
                                                                                                   new Date(1547147139159L));
         assertTrue(subtenanttrustedcertificate.isValid());
-        SubtenantTrustedCertificate subtenanttrustedcertificateInvalid = new SubtenantTrustedCertificate(true, null,
-                                                                                                         null,
+        SubtenantTrustedCertificate subtenanttrustedcertificateInvalid = new SubtenantTrustedCertificate(null, null,
                                                                                                          "965dec67-6f31-4ae9-88f7-cb99f31a3816",
                                                                                                          new Date(1547147139850L),
                                                                                                          "75cfe090-2e0e-47e7-a4e2-b7c862f7c1b1",
@@ -155,8 +150,7 @@ public class TestSubtenantTrustedCertificate {
     @Test
     public void testEquals() throws NotImplementedException {
         try {
-            SubtenantTrustedCertificate subtenanttrustedcertificate3 = new SubtenantTrustedCertificate(true,
-                                                                                                       "4baf1356-7a6e-4a7a-8054-d8bec350558e",
+            SubtenantTrustedCertificate subtenanttrustedcertificate3 = new SubtenantTrustedCertificate("4baf1356-7a6e-4a7a-8054-d8bec350558e",
                                                                                                        "07f46a3b-0a17-4f1e-8ee0-a5efa30a9d62",
                                                                                                        "be07da66-5f85-46cb-80ef-db523c8c9287",
                                                                                                        new Date(1547147138571L),
@@ -172,8 +166,7 @@ public class TestSubtenantTrustedCertificate {
                                                                                                        new Date(1547147136978L),
                                                                                                        true,
                                                                                                        new Date(1547147135814L));
-            SubtenantTrustedCertificate subtenanttrustedcertificate2 = new SubtenantTrustedCertificate(true,
-                                                                                                       "9168e10c-2ab5-4408-b431-519a8e44ae07",
+            SubtenantTrustedCertificate subtenanttrustedcertificate2 = new SubtenantTrustedCertificate("9168e10c-2ab5-4408-b431-519a8e44ae07",
                                                                                                        "9a4f0fb9-a85a-47cc-ac47-2be076277b7e",
                                                                                                        "6ec59ae8-1e57-4d43-971f-2c4b24e5a0cc",
                                                                                                        new Date(1547147141701L),
@@ -189,8 +182,7 @@ public class TestSubtenantTrustedCertificate {
                                                                                                        new Date(1547147136760L),
                                                                                                        true,
                                                                                                        new Date(1547147142504L));
-            SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate(true,
-                                                                                                       "9168e10c-2ab5-4408-b431-519a8e44ae07",
+            SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate("9168e10c-2ab5-4408-b431-519a8e44ae07",
                                                                                                        "9a4f0fb9-a85a-47cc-ac47-2be076277b7e",
                                                                                                        "6ec59ae8-1e57-4d43-971f-2c4b24e5a0cc",
                                                                                                        new Date(1547147141701L),

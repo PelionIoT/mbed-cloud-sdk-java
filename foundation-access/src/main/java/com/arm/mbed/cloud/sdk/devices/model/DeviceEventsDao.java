@@ -141,8 +141,10 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
      * Gets a device events.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(com.arm.mbed.cloud.sdk.devices.model.DeviceEvents)}
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEventsDao#read(com.arm.mbed.cloud.sdk.devices.model.DeviceEvents)}
      * 
      * @return something
      * @throws MbedCloudException
@@ -150,7 +152,24 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
      */
     @Override
     public DeviceEvents read() throws MbedCloudException {
-        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEvents(getModel()));
+        return read(getModel());
+    }
+
+    /**
+     * Gets a device events.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(com.arm.mbed.cloud.sdk.devices.model.DeviceEvents)}
+     * 
+     * @param deviceEvents
+     *            a device events.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEvents read(@NonNull DeviceEvents deviceEvents) throws MbedCloudException {
+        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEvents(deviceEvents));
     }
 
     /**

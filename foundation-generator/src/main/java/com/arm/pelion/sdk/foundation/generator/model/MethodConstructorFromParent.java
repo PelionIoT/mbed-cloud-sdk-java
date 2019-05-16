@@ -12,7 +12,7 @@ public class MethodConstructorFromParent extends AbstractMethodConstructor {
     private List<Parameter> constructorParameters = null;
 
     public MethodConstructorFromParent(Constructor<?> parentConstructor, Model currentModel) {
-        super(currentModel, null, null, null, false);
+        super(null, currentModel, null, null, null, false);
         exceptions.addAll(Arrays.asList(parentConstructor.getExceptionTypes()));
         constructorParameters = determineListOfParameters(parentConstructor);
         addConstructorParameters();

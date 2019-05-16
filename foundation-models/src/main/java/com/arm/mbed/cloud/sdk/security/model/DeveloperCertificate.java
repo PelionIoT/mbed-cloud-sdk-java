@@ -7,25 +7,36 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
+import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * Model for a developer certificate.
  */
 @Preamble(description = "Model for a developer certificate.")
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+@SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.AvoidDuplicateLiterals" })
 public class DeveloperCertificate implements SdkModel {
+    /**
+     * Mapping needed for encoding or decoding filters.
+     *
+     * <p>
+     * Filters are used when listing models. See {@link com.arm.mbed.cloud.sdk.common.listing.filtering.Filters}
+     */
+    @Internal
+    public static final Map<String, String> FILTER_MAPPING = generateFilterMapping();
+
     /**
      * Serialisation Id.
      */
     private static final long serialVersionUID = -154971195745225L;
 
     /**
-     * account to which the developer certificate belongs.
+     * Account to which the developer certificate belongs.
      */
     private final String accountId;
 
     /**
-     * PEM format X.509 developer certificate.
+     * PEM-format X.509 developer certificate.
      */
     private final String certificate;
 
@@ -40,6 +51,11 @@ public class DeveloperCertificate implements SdkModel {
     private String description;
 
     /**
+     * PEM-format developer private key associated with the certificate.
+     */
+    private final String developerPrivateKey;
+
+    /**
      * ID that uniquely identifies the developer certificate.
      */
     private String id;
@@ -51,7 +67,7 @@ public class DeveloperCertificate implements SdkModel {
     private String name;
 
     /**
-     * Content of the security.c file that will be flashed into the device to provide the security credentials.
+     * Content of the `security.c` file flashed to the device to provide security credentials.
      */
     private final String securityFileContent;
 
@@ -59,31 +75,36 @@ public class DeveloperCertificate implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #DeveloperCertificate()} instead.
      * 
      * @param accountId
-     *            account to which the developer certificate belongs.
+     *            Account to which the developer certificate belongs.
      * @param certificate
-     *            PEM format X.509 developer certificate.
+     *            PEM-format X.509 developer certificate.
      * @param createdAt
      *            Creation UTC time RFC3339.
      * @param description
      *            Description for the developer certificate.
+     * @param developerPrivateKey
+     *            PEM-format developer private key associated with the certificate.
      * @param id
      *            ID that uniquely identifies the developer certificate.
      * @param name
      *            Name of the developer certificate.
      * @param securityFileContent
-     *            Content of the security.c file that will be flashed into the device to provide the security
-     *            credentials.
+     *            Content of the `security.c` file flashed to the device to provide security credentials.
      */
     @Internal
-    public DeveloperCertificate(String accountId, String certificate, Date createdAt, String description, String id,
-                                String name, String securityFileContent) {
+    @SuppressWarnings("PMD.CyclomaticComplexity")
+    public DeveloperCertificate(String accountId, String certificate, Date createdAt, String description,
+                                String developerPrivateKey, String id, String name, String securityFileContent) {
         super();
         this.accountId = accountId;
         this.certificate = certificate;
         this.createdAt = createdAt;
+        this.developerPrivateKey = developerPrivateKey;
         this.securityFileContent = securityFileContent;
         setDescription(description);
         setId(id);
@@ -93,6 +114,8 @@ public class DeveloperCertificate implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #DeveloperCertificate()} instead.
      * 
@@ -105,6 +128,7 @@ public class DeveloperCertificate implements SdkModel {
              developerCertificate == null ? (String) null : developerCertificate.certificate,
              developerCertificate == null ? new Date() : developerCertificate.createdAt,
              developerCertificate == null ? (String) null : developerCertificate.description,
+             developerCertificate == null ? (String) null : developerCertificate.developerPrivateKey,
              developerCertificate == null ? (String) null : developerCertificate.id,
              developerCertificate == null ? (String) null : developerCertificate.name,
              developerCertificate == null ? (String) null : developerCertificate.securityFileContent);
@@ -114,12 +138,17 @@ public class DeveloperCertificate implements SdkModel {
      * Constructor.
      */
     public DeveloperCertificate() {
-        this((String) null, (String) null, new Date(), (String) null, (String) null, (String) null, (String) null);
+        this((String) null, (String) null, new Date(), (String) null, (String) null, (String) null, (String) null,
+             (String) null);
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            ID that uniquely identifies the developer certificate.
      */
@@ -132,21 +161,26 @@ public class DeveloperCertificate implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on read-only fields.
+     * <p>
      * Note: Should not be used. Use {@link #DeveloperCertificate()} instead.
      * 
      * @param accountId
-     *            account to which the developer certificate belongs.
+     *            Account to which the developer certificate belongs.
      * @param certificate
-     *            PEM format X.509 developer certificate.
+     *            PEM-format X.509 developer certificate.
      * @param createdAt
      *            Creation UTC time RFC3339.
+     * @param developerPrivateKey
+     *            PEM-format developer private key associated with the certificate.
      * @param securityFileContent
-     *            Content of the security.c file that will be flashed into the device to provide the security
-     *            credentials.
+     *            Content of the `security.c` file flashed to the device to provide security credentials.
      */
     @Internal
-    public DeveloperCertificate(String accountId, String certificate, Date createdAt, String securityFileContent) {
-        this(accountId, certificate, createdAt, (String) null, (String) null, (String) null, securityFileContent);
+    public DeveloperCertificate(String accountId, String certificate, Date createdAt, String developerPrivateKey,
+                                String securityFileContent) {
+        this(accountId, certificate, createdAt, (String) null, developerPrivateKey, (String) null, (String) null,
+             securityFileContent);
     }
 
     /**
@@ -159,7 +193,7 @@ public class DeveloperCertificate implements SdkModel {
     }
 
     /**
-     * Gets pem format x.509 developer certificate.
+     * Gets pem-format x.509 developer certificate.
      * 
      * @return certificate
      */
@@ -193,6 +227,15 @@ public class DeveloperCertificate implements SdkModel {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Gets pem-format developer private key associated with the certificate.
+     * 
+     * @return developerPrivateKey
+     */
+    public String getDeveloperPrivateKey() {
+        return developerPrivateKey;
     }
 
     /**
@@ -261,12 +304,42 @@ public class DeveloperCertificate implements SdkModel {
     }
 
     /**
-     * Gets content of the security.c file that will be flashed into the device to provide the security credentials.
+     * Gets content of the `security.c` file flashed to the device to provide security credentials.
      * 
      * @return securityFileContent
      */
     public String getSecurityFileContent() {
         return securityFileContent;
+    }
+
+    /**
+     * Method generating the mapping needed for encoding or decoding filters.
+     *
+     * <p>
+     * Filters are used when listing models. See {@link com.arm.mbed.cloud.sdk.common.listing.filtering.Filters}
+     * 
+     * @return the mapping table
+     */
+    @Internal
+    protected static final Map<String, String> generateFilterMapping() {
+        final Map<String, String> filterMapping = new Hashtable<>(1);
+        filterMapping.put("certificate", "developer_certificate");
+        return filterMapping;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "DeveloperCertificate [accountId=" + accountId + ", certificate=" + certificate + ", createdAt="
+               + createdAt + ", description=" + description + ", developerPrivateKey=" + developerPrivateKey + ", id="
+               + id + ", name=" + name + ", securityFileContent=" + securityFileContent + "]";
     }
 
     /**
@@ -285,6 +358,7 @@ public class DeveloperCertificate implements SdkModel {
         result = prime * result + ((certificate == null) ? 0 : certificate.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + ((developerPrivateKey == null) ? 0 : developerPrivateKey.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((securityFileContent == null) ? 0 : securityFileContent.hashCode());
@@ -316,6 +390,7 @@ public class DeveloperCertificate implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -358,6 +433,13 @@ public class DeveloperCertificate implements SdkModel {
         } else if (!description.equals(other.description)) {
             return false;
         }
+        if (developerPrivateKey == null) {
+            if (other.developerPrivateKey != null) {
+                return false;
+            }
+        } else if (!developerPrivateKey.equals(other.developerPrivateKey)) {
+            return false;
+        }
         if (id == null) {
             if (other.id != null) {
                 return false;
@@ -380,21 +462,6 @@ public class DeveloperCertificate implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "DeveloperCertificate [accountId=" + accountId + ", certificate=" + certificate + ", createdAt="
-               + createdAt + ", description=" + description + ", id=" + id + ", name=" + name + ", securityFileContent="
-               + securityFileContent + "]";
     }
 
     /**

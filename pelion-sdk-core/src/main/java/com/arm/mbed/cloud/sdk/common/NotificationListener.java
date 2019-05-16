@@ -91,7 +91,7 @@ public class NotificationListener extends WebSocketListener {
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
         logInfo("Opening [" + webSocket.toString() + "]: " + response.toString());
-        onOpenCallBack.execute(response.code());
+        onOpenCallBack.execute(Integer.valueOf(response.code()));
     }
 
     @Override
@@ -111,7 +111,7 @@ public class NotificationListener extends WebSocketListener {
     public void onClosing(WebSocket webSocket, int code, @Nullable String reason) {
         logInfo("Closing [" + webSocket.toString() + "]: " + code + ". Reason: " + reason);
         webSocket.close(NORMAL_CLOSURE_STATUS, reason);
-        onClosingCallBack.execute(code);
+        onClosingCallBack.execute(Integer.valueOf(code));
     }
 
     @Override

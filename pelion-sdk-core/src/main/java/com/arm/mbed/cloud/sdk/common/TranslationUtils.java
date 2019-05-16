@@ -3,6 +3,8 @@ package com.arm.mbed.cloud.sdk.common;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,7 +43,10 @@ public final class TranslationUtils {
     public static final String METHOD_CONVERT_BOOL_TO_BOOL = "toBool";
     public static final String METHOD_CONVERT_NUMBER_TO_LONG = "toLong";
     public static final String METHOD_CONVERT_NUMBER_TO_INT = "toInt";
+    public static final String METHOD_CONVERT_NUMBER_TO_DOUBLE = "toDouble";
     public static final String METHOD_CONVERT_ANY_TO_STRING = "toString";
+    public static final String METHOD_CONVERT_ANY_TO_BYTE_ARRAY = "toByteArray";
+    public static final String METHOD_CONVERT_ANY_TO_BASE64 = "toBase64";
     public static final String METHOD_CONVERT_TO_DATA_FILE = "toDataFile";
 
     /**
@@ -144,7 +149,7 @@ public final class TranslationUtils {
      * @return corresponding datetime.
      */
     public static DateTime toDateTime(Date date) {
-        return (date == null) ? null : new DateTime(date);
+        return moveToUtc(date);
     }
 
     /**
@@ -306,7 +311,7 @@ public final class TranslationUtils {
      * @return corresponding integer or default value if not recognised
      */
     public static int toInt(String value, int defaultV) {
-        return toInt(toInteger(value, defaultV));
+        return toInt(toInteger(value, Integer.valueOf(defaultV)));
     }
 
     /**
@@ -469,6 +474,54 @@ public final class TranslationUtils {
      */
     public static String toString(Object obj) {
         return (obj == null) ? null : obj.toString();
+    }
+
+    /**
+     * Converts object to Base64 object.
+     * <p>
+     * Note: See {@link Base64}
+     * 
+     * @param obj
+     *            a base64 encoded object
+     * @return corresponding base64 object or null if the translation could not be performed.
+     */
+    public static Base64 toBase64(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof String) {
+            return Base64.decode((String) obj);
+        }
+        if (obj instanceof byte[]) {
+            return Base64.decode((byte[]) obj);
+        }
+        if (obj instanceof ByteBuffer) {
+            return Base64.decode((ByteBuffer) obj);
+        }
+        return null;
+    }
+
+    /**
+     * Converts object to byte array.
+     * 
+     * @param obj
+     *            an object
+     * @return corresponding byte array or null if the translation could not be performed.
+     */
+    public static byte[] toByteArray(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof String) {
+            return ((String) obj).getBytes(StandardCharsets.UTF_8);
+        }
+        if (obj instanceof byte[]) {
+            return ((byte[]) obj);
+        }
+        if (obj instanceof Base64) {
+            return ((Base64) obj).getEncodedArray();
+        }
+        return null;
     }
 
     /**

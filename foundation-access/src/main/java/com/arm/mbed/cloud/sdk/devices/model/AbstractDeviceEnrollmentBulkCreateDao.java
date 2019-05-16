@@ -78,17 +78,16 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
      *
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollmentBulkCreate(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate)}
+     * {@link com.arm.mbed.cloud.sdk.Devices#createDeviceEnrollmentBulkCreate(com.arm.mbed.cloud.sdk.common.model.DataFile)}
      * 
      * @param enrollmentIdentities
-     *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
-     * @return something
+     *            The `CSV` file containing the enrollment IDs. The maximum file size is 10 MB.
+     * @return an added device enrollment bulk create
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     public DeviceEnrollmentBulkCreate create(@NonNull DataFile enrollmentIdentities) throws MbedCloudException {
-        return setAndGetModel(((Devices) getModuleOrThrow()).createDeviceEnrollmentBulkCreate(enrollmentIdentities,
-                                                                                              getModel()));
+        return setAndGetModel(((Devices) getModuleOrThrow()).createDeviceEnrollmentBulkCreate(enrollmentIdentities));
     }
 
     /**
@@ -145,8 +144,10 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
      * Gets a device enrollment bulk create.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentBulkCreate(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate)}
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateDao#read(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate)}
      * 
      * @return something
      * @throws MbedCloudException
@@ -154,7 +155,25 @@ public abstract class AbstractDeviceEnrollmentBulkCreateDao extends AbstractMode
      */
     @Override
     public DeviceEnrollmentBulkCreate read() throws MbedCloudException {
-        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentBulkCreate(getModel()));
+        return read(getModel());
+    }
+
+    /**
+     * Gets a device enrollment bulk create.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentBulkCreate(com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate)}
+     * 
+     * @param deviceEnrollmentBulkCreate
+     *            a device enrollment bulk create.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeviceEnrollmentBulkCreate
+           read(@NonNull DeviceEnrollmentBulkCreate deviceEnrollmentBulkCreate) throws MbedCloudException {
+        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentBulkCreate(deviceEnrollmentBulkCreate));
     }
 
     /**

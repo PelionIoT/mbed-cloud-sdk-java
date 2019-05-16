@@ -34,13 +34,12 @@ public class Account implements SdkModel {
     private String addressLine2;
 
     /**
-     * The email address of the admin user created for this account. Present only in the response for the account
-     * creation.
+     * The email address of the admin user created for this account. Present only in the response for account creation.
      */
     private String adminEmail;
 
     /**
-     * The full name of the admin user created for this account. Present only in the response for the account creation.
+     * The full name of the admin user created for this account. Present only in the response for account creation.
      */
     private String adminFullName;
 
@@ -50,17 +49,17 @@ public class Account implements SdkModel {
     private final String adminId;
 
     /**
-     * The admin API key created for this account. Present only in the response for the account creation.
+     * The admin API key created for this account. Present only in the response for account creation.
      */
     private final String adminKey;
 
     /**
-     * The username of the admin user created for this account. Present only in the response for the account creation.
+     * The username of the admin user created for this account. Present only in the response for account creation.
      */
     private String adminName;
 
     /**
-     * The password of the admin user created for this account. Present only in the response for the account creation.
+     * The password of the admin user created for this account. Present only in the response for account creation.
      */
     private String adminPassword;
 
@@ -131,9 +130,10 @@ public class Account implements SdkModel {
     private final Date expiration;
 
     /**
-     * Indicates how many days (1-180) before account expiration a notification email should be sent.
+     * Indicates how many days (1-180) before account expiration a notification email is sent.
      */
-    private String expirationWarningThreshold;
+    @DefaultValue("1")
+    private int expirationWarningThreshold;
 
     /**
      * Account ID.
@@ -141,9 +141,10 @@ public class Account implements SdkModel {
     private String id;
 
     /**
-     * The reference token expiration time in minutes for this account.
+     * The reference token expiration time, in minutes, for this account.
      */
-    private String idleTimeout;
+    @DefaultValue("1")
+    private int idleTimeout;
 
     /**
      * List of limits as key-value pairs if requested.
@@ -151,7 +152,7 @@ public class Account implements SdkModel {
     private final Map<String, String> limits;
 
     /**
-     * The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
+     * The enforcement status of multi-factor authentication, either `enforced` or `optional`.
      */
     private AccountMfaStatus mfaStatus;
 
@@ -161,29 +162,28 @@ public class Account implements SdkModel {
     private List<String> notificationEmails;
 
     /**
-     * This object represents parent account contact details in responses.
+     * Represents parent account contact details in responses.
      */
     private final ParentAccount parentAccount;
 
     /**
-     * The ID of the parent account, if it has any.
+     * The ID of the parent account, if any.
      */
     private final String parentId;
 
     /**
-     * value.
+     * The password policy for this account.
      */
     private PasswordPolicy passwordPolicy;
 
     /**
-     * Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is:
-     * 1-45.
+     * Indicates for how many minutes a password recovery email is valid.
      */
     @DefaultValue("1")
     private int passwordRecoveryExpiration;
 
     /**
-     * The phone number of a representative of the company.
+     * The phone number of a company representative.
      */
     private String phoneNumber;
 
@@ -198,7 +198,7 @@ public class Account implements SdkModel {
     private String postalCode;
 
     /**
-     * A reason note for updating the status of the account.
+     * A note with the reason for account status update.
      */
     private final String reason;
 
@@ -228,7 +228,7 @@ public class Account implements SdkModel {
     private final String templateId;
 
     /**
-     * The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are
+     * The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are
      * reserved for the future.
      */
     private final String tier;
@@ -247,6 +247,8 @@ public class Account implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #Account()} instead.
      * 
      * @param addressLine1
@@ -254,20 +256,20 @@ public class Account implements SdkModel {
      * @param addressLine2
      *            Postal address line 2.
      * @param adminEmail
-     *            The email address of the admin user created for this account. Present only in the response for the
-     *            account creation.
+     *            The email address of the admin user created for this account. Present only in the response for account
+     *            creation.
      * @param adminFullName
-     *            The full name of the admin user created for this account. Present only in the response for the account
+     *            The full name of the admin user created for this account. Present only in the response for account
      *            creation.
      * @param adminId
      *            The ID of the admin user created for this account.
      * @param adminKey
-     *            The admin API key created for this account. Present only in the response for the account creation.
+     *            The admin API key created for this account. Present only in the response for account creation.
      * @param adminName
-     *            The username of the admin user created for this account. Present only in the response for the account
+     *            The username of the admin user created for this account. Present only in the response for account
      *            creation.
      * @param adminPassword
-     *            The password of the admin user created for this account. Present only in the response for the account
+     *            The password of the admin user created for this account. Present only in the response for account
      *            creation.
      * @param aliases
      *            An array of aliases.
@@ -296,34 +298,33 @@ public class Account implements SdkModel {
      * @param expiration
      *            Expiration time of the account, as UTC time RFC3339.
      * @param expirationWarningThreshold
-     *            Indicates how many days (1-180) before account expiration a notification email should be sent.
+     *            Indicates how many days (1-180) before account expiration a notification email is sent.
      * @param id
      *            Account ID.
      * @param idleTimeout
-     *            The reference token expiration time in minutes for this account.
+     *            The reference token expiration time, in minutes, for this account.
      * @param limits
      *            List of limits as key-value pairs if requested.
      * @param mfaStatus
-     *            The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
+     *            The enforcement status of multi-factor authentication, either `enforced` or `optional`.
      * @param notificationEmails
      *            A list of notification email addresses.
      * @param parentAccount
-     *            This object represents parent account contact details in responses.
+     *            Represents parent account contact details in responses.
      * @param parentId
-     *            The ID of the parent account, if it has any.
+     *            The ID of the parent account, if any.
      * @param passwordPolicy
-     *            value.
+     *            The password policy for this account.
      * @param passwordRecoveryExpiration
-     *            Indicates how many minutes a password recovery email for users of this account is valid for. Valid
-     *            range is: 1-45.
+     *            Indicates for how many minutes a password recovery email is valid.
      * @param phoneNumber
-     *            The phone number of a representative of the company.
+     *            The phone number of a company representative.
      * @param policies
      *            List of policies if requested.
      * @param postalCode
      *            The postal code part of the postal address.
      * @param reason
-     *            A reason note for updating the status of the account.
+     *            A note with the reason for account status update.
      * @param referenceNote
      *            A reference note for updating the status of the account.
      * @param salesContact
@@ -335,7 +336,7 @@ public class Account implements SdkModel {
      * @param templateId
      *            Account template ID.
      * @param tier
-     *            The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other
+     *            The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other
      *            values are reserved for the future.
      * @param updatedAt
      *            Last update UTC time RFC3339.
@@ -348,12 +349,13 @@ public class Account implements SdkModel {
                    String adminKey, String adminName, String adminPassword, List<String> aliases, String city,
                    String company, String contact, String contractNumber, String country, Date createdAt,
                    Map<String, String> customFields, String customerNumber, String displayName, String email,
-                   String endMarket, Date expiration, String expirationWarningThreshold, String id, String idleTimeout,
-                   Map<String, String> limits, AccountMfaStatus mfaStatus, List<String> notificationEmails,
-                   ParentAccount parentAccount, String parentId, PasswordPolicy passwordPolicy,
-                   @DefaultValue("1") int passwordRecoveryExpiration, String phoneNumber, List<Policy> policies,
-                   String postalCode, String reason, String referenceNote, String salesContact, String state,
-                   AccountStatus status, String templateId, String tier, Date updatedAt, Date upgradedAt) {
+                   String endMarket, Date expiration, @DefaultValue("1") int expirationWarningThreshold, String id,
+                   @DefaultValue("1") int idleTimeout, Map<String, String> limits, AccountMfaStatus mfaStatus,
+                   List<String> notificationEmails, ParentAccount parentAccount, String parentId,
+                   PasswordPolicy passwordPolicy, @DefaultValue("1") int passwordRecoveryExpiration, String phoneNumber,
+                   List<Policy> policies, String postalCode, String reason, String referenceNote, String salesContact,
+                   String state, AccountStatus status, String templateId, String tier, Date updatedAt,
+                   Date upgradedAt) {
         super();
         this.adminId = adminId;
         this.adminKey = adminKey;
@@ -404,6 +406,8 @@ public class Account implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #Account()} instead.
      * 
      * @param account
@@ -425,9 +429,8 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.customerNumber,
              account == null ? (String) null : account.displayName, account == null ? (String) null : account.email,
              account == null ? (String) null : account.endMarket, account == null ? new Date() : account.expiration,
-             account == null ? (String) null : account.expirationWarningThreshold,
-             account == null ? (String) null : account.id, account == null ? (String) null : account.idleTimeout,
-             account == null ? (Map<String, String>) null : account.limits,
+             account == null ? 1 : account.expirationWarningThreshold, account == null ? (String) null : account.id,
+             account == null ? 1 : account.idleTimeout, account == null ? (Map<String, String>) null : account.limits,
              account == null ? AccountMfaStatus.getDefault() : account.mfaStatus,
              account == null ? (List<String>) null : account.notificationEmails,
              account == null ? (ParentAccount) null : account.parentAccount,
@@ -451,16 +454,19 @@ public class Account implements SdkModel {
         this((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
              (String) null, (List<String>) null, (String) null, (String) null, (String) null, (String) null,
              (String) null, new Date(), (Map<String, String>) null, (String) null, (String) null, (String) null,
-             (String) null, new Date(), (String) null, (String) null, (String) null, (Map<String, String>) null,
-             AccountMfaStatus.getDefault(), (List<String>) null, (ParentAccount) null, (String) null,
-             (PasswordPolicy) null, 1, (String) null, (List<Policy>) null, (String) null, (String) null, (String) null,
-             (String) null, (String) null, AccountStatus.getDefault(), (String) null, (String) null, new Date(),
-             new Date());
+             (String) null, new Date(), 1, (String) null, 1, (Map<String, String>) null, AccountMfaStatus.getDefault(),
+             (List<String>) null, (ParentAccount) null, (String) null, (PasswordPolicy) null, 1, (String) null,
+             (List<Policy>) null, (String) null, (String) null, (String) null, (String) null, (String) null,
+             AccountStatus.getDefault(), (String) null, (String) null, new Date(), new Date());
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            Account ID.
      */
@@ -473,12 +479,14 @@ public class Account implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on read-only fields.
+     * <p>
      * Note: Should not be used. Use {@link #Account()} instead.
      * 
      * @param adminId
      *            The ID of the admin user created for this account.
      * @param adminKey
-     *            The admin API key created for this account. Present only in the response for the account creation.
+     *            The admin API key created for this account. Present only in the response for account creation.
      * @param createdAt
      *            Creation UTC time RFC3339.
      * @param expiration
@@ -486,13 +494,13 @@ public class Account implements SdkModel {
      * @param limits
      *            List of limits as key-value pairs if requested.
      * @param parentAccount
-     *            This object represents parent account contact details in responses.
+     *            Represents parent account contact details in responses.
      * @param parentId
-     *            The ID of the parent account, if it has any.
+     *            The ID of the parent account, if any.
      * @param policies
      *            List of policies if requested.
      * @param reason
-     *            A reason note for updating the status of the account.
+     *            A note with the reason for account status update.
      * @param referenceNote
      *            A reference note for updating the status of the account.
      * @param status
@@ -500,7 +508,7 @@ public class Account implements SdkModel {
      * @param templateId
      *            Account template ID.
      * @param tier
-     *            The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other
+     *            The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other
      *            values are reserved for the future.
      * @param updatedAt
      *            Last update UTC time RFC3339.
@@ -516,10 +524,9 @@ public class Account implements SdkModel {
         this((String) null, (String) null, (String) null, (String) null, adminId, adminKey, (String) null,
              (String) null, (List<String>) null, (String) null, (String) null, (String) null, (String) null,
              (String) null, createdAt, (Map<String, String>) null, (String) null, (String) null, (String) null,
-             (String) null, expiration, (String) null, (String) null, (String) null, limits,
-             AccountMfaStatus.getDefault(), (List<String>) null, parentAccount, parentId, (PasswordPolicy) null, 1,
-             (String) null, policies, (String) null, reason, referenceNote, (String) null, (String) null, status,
-             templateId, tier, updatedAt, upgradedAt);
+             (String) null, expiration, 1, (String) null, 1, limits, AccountMfaStatus.getDefault(), (List<String>) null,
+             parentAccount, parentId, (PasswordPolicy) null, 1, (String) null, policies, (String) null, reason,
+             referenceNote, (String) null, (String) null, status, templateId, tier, updatedAt, upgradedAt);
     }
 
     /**
@@ -533,12 +540,25 @@ public class Account implements SdkModel {
 
     /**
      * Sets postal address line 1.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param addressLine1
      *            Postal address line 1.
      */
     public void setAddressLine1(String addressLine1) {
         this.addressLine1 = addressLine1;
+    }
+
+    /**
+     * Checks whether addressLine1 value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isAddressLine1Valid() {
+        return (addressLine1 == null || addressLine1.length() <= 100);
     }
 
     /**
@@ -552,6 +572,9 @@ public class Account implements SdkModel {
 
     /**
      * Sets postal address line 2.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param addressLine2
      *            Postal address line 2.
@@ -561,7 +584,17 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the email address of the admin user created for this account. present only in the response for the account
+     * Checks whether addressLine2 value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isAddressLine2Valid() {
+        return (addressLine2 == null || addressLine2.length() <= 100);
+    }
+
+    /**
+     * Gets the email address of the admin user created for this account. present only in the response for account
      * creation.
      * 
      * @return adminEmail
@@ -571,20 +604,32 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the email address of the admin user created for this account. present only in the response for the account
+     * Sets the email address of the admin user created for this account. present only in the response for account
      * creation.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /^(?=.{3,254}$).+@.+/} to be valid
      * 
      * @param adminEmail
-     *            The email address of the admin user created for this account. Present only in the response for the
-     *            account creation.
+     *            The email address of the admin user created for this account. Present only in the response for account
+     *            creation.
      */
     public void setAdminEmail(String adminEmail) {
         this.adminEmail = adminEmail;
     }
 
     /**
-     * Gets the full name of the admin user created for this account. present only in the response for the account
-     * creation.
+     * Checks whether adminEmail value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isAdminEmailValid() {
+        return (adminEmail == null || adminEmail.matches("^(?=.{3,254}$).+@.+"));
+    }
+
+    /**
+     * Gets the full name of the admin user created for this account. present only in the response for account creation.
      * 
      * @return adminFullName
      */
@@ -593,15 +638,27 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the full name of the admin user created for this account. present only in the response for the account
-     * creation.
+     * Sets the full name of the admin user created for this account. present only in the response for account creation.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param adminFullName
-     *            The full name of the admin user created for this account. Present only in the response for the account
+     *            The full name of the admin user created for this account. Present only in the response for account
      *            creation.
      */
     public void setAdminFullName(String adminFullName) {
         this.adminFullName = adminFullName;
+    }
+
+    /**
+     * Checks whether adminFullName value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isAdminFullNameValid() {
+        return (adminFullName == null || adminFullName.length() <= 100);
     }
 
     /**
@@ -614,7 +671,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the admin api key created for this account. present only in the response for the account creation.
+     * Gets the admin api key created for this account. present only in the response for account creation.
      * 
      * @return adminKey
      */
@@ -623,8 +680,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the username of the admin user created for this account. present only in the response for the account
-     * creation.
+     * Gets the username of the admin user created for this account. present only in the response for account creation.
      * 
      * @return adminName
      */
@@ -633,11 +689,13 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the username of the admin user created for this account. present only in the response for the account
-     * creation.
+     * Sets the username of the admin user created for this account. present only in the response for account creation.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param adminName
-     *            The username of the admin user created for this account. Present only in the response for the account
+     *            The username of the admin user created for this account. Present only in the response for account
      *            creation.
      */
     public void setAdminName(String adminName) {
@@ -645,8 +703,17 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the password of the admin user created for this account. present only in the response for the account
-     * creation.
+     * Checks whether adminName value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isAdminNameValid() {
+        return (adminName == null || adminName.length() <= 100);
+    }
+
+    /**
+     * Gets the password of the admin user created for this account. present only in the response for account creation.
      * 
      * @return adminPassword
      */
@@ -655,11 +722,10 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the password of the admin user created for this account. present only in the response for the account
-     * creation.
+     * Sets the password of the admin user created for this account. present only in the response for account creation.
      * 
      * @param adminPassword
-     *            The password of the admin user created for this account. Present only in the response for the account
+     *            The password of the admin user created for this account. Present only in the response for account
      *            creation.
      */
     public void setAdminPassword(String adminPassword) {
@@ -677,12 +743,25 @@ public class Account implements SdkModel {
 
     /**
      * Sets an array of aliases.
+     *
+     * <p>
+     * Note: the number of elements has to be less than or equal to {@code 10} to be valid
      * 
      * @param aliases
      *            An array of aliases.
      */
     public void setAliases(List<String> aliases) {
         this.aliases = aliases;
+    }
+
+    /**
+     * Checks whether aliases value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isAliasesValid() {
+        return (aliases == null || aliases.size() <= 10);
     }
 
     /**
@@ -696,12 +775,25 @@ public class Account implements SdkModel {
 
     /**
      * Sets the city part of the postal address.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param city
      *            The city part of the postal address.
      */
     public void setCity(String city) {
         this.city = city;
+    }
+
+    /**
+     * Checks whether city value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isCityValid() {
+        return (city == null || city.length() <= 100);
     }
 
     /**
@@ -715,12 +807,25 @@ public class Account implements SdkModel {
 
     /**
      * Sets the name of the company.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param company
      *            The name of the company.
      */
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    /**
+     * Checks whether company value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isCompanyValid() {
+        return (company == null || company.length() <= 100);
     }
 
     /**
@@ -734,12 +839,25 @@ public class Account implements SdkModel {
 
     /**
      * Sets the name of the contact person for this account.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param contact
      *            The name of the contact person for this account.
      */
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    /**
+     * Checks whether contact value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isContactValid() {
+        return (contact == null || contact.length() <= 100);
     }
 
     /**
@@ -772,12 +890,25 @@ public class Account implements SdkModel {
 
     /**
      * Sets the country part of the postal address.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param country
      *            The country part of the postal address.
      */
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    /**
+     * Checks whether country value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isCountryValid() {
+        return (country == null || country.length() <= 100);
     }
 
     /**
@@ -838,12 +969,25 @@ public class Account implements SdkModel {
 
     /**
      * Sets the display name for the account.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param displayName
      *            The display name for the account.
      */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    /**
+     * Checks whether displayName value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isDisplayNameValid() {
+        return (displayName == null || displayName.length() <= 100);
     }
 
     /**
@@ -857,12 +1001,25 @@ public class Account implements SdkModel {
 
     /**
      * Sets the company email address for this account.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /^(?=.{3,254}$).+@.+/} to be valid
      * 
      * @param email
      *            The company email address for this account.
      */
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    /**
+     * Checks whether email value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isEmailValid() {
+        return (email == null || email.matches("^(?=.{3,254}$).+@.+"));
     }
 
     /**
@@ -905,22 +1062,37 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets indicates how many days (1-180) before account expiration a notification email should be sent.
+     * Gets indicates how many days (1-180) before account expiration a notification email is sent.
      * 
      * @return expirationWarningThreshold
      */
-    public String getExpirationWarningThreshold() {
+    public int getExpirationWarningThreshold() {
         return expirationWarningThreshold;
     }
 
     /**
-     * Sets indicates how many days (1-180) before account expiration a notification email should be sent.
+     * Sets indicates how many days (1-180) before account expiration a notification email is sent.
+     *
+     * <p>
+     * Note: the value has to be greater than or equal to {@code 1} to be valid
+     * <p>
+     * Note: the value has to be less than or equal to {@code 180} to be valid
      * 
      * @param expirationWarningThreshold
-     *            Indicates how many days (1-180) before account expiration a notification email should be sent.
+     *            Indicates how many days (1-180) before account expiration a notification email is sent.
      */
-    public void setExpirationWarningThreshold(String expirationWarningThreshold) {
+    public void setExpirationWarningThreshold(@DefaultValue("1") int expirationWarningThreshold) {
         this.expirationWarningThreshold = expirationWarningThreshold;
+    }
+
+    /**
+     * Checks whether expirationWarningThreshold value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isExpirationWarningThresholdValid() {
+        return (expirationWarningThreshold >= 1) && (expirationWarningThreshold <= 180);
     }
 
     /**
@@ -935,6 +1107,9 @@ public class Account implements SdkModel {
 
     /**
      * Sets account id.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param id
      *            Account ID.
@@ -949,6 +1124,8 @@ public class Account implements SdkModel {
      *
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param accountId
      *            Account ID.
@@ -959,22 +1136,47 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the reference token expiration time in minutes for this account.
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[a-f0-9]{32}"));
+    }
+
+    /**
+     * Gets the reference token expiration time, in minutes, for this account.
      * 
      * @return idleTimeout
      */
-    public String getIdleTimeout() {
+    public int getIdleTimeout() {
         return idleTimeout;
     }
 
     /**
-     * Sets the reference token expiration time in minutes for this account.
+     * Sets the reference token expiration time, in minutes, for this account.
+     *
+     * <p>
+     * Note: the value has to be greater than or equal to {@code 1} to be valid
+     * <p>
+     * Note: the value has to be less than or equal to {@code 120} to be valid
      * 
      * @param idleTimeout
-     *            The reference token expiration time in minutes for this account.
+     *            The reference token expiration time, in minutes, for this account.
      */
-    public void setIdleTimeout(String idleTimeout) {
+    public void setIdleTimeout(@DefaultValue("1") int idleTimeout) {
         this.idleTimeout = idleTimeout;
+    }
+
+    /**
+     * Checks whether idleTimeout value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdleTimeoutValid() {
+        return (idleTimeout >= 1) && (idleTimeout <= 120);
     }
 
     /**
@@ -987,7 +1189,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
+     * Gets the enforcement status of multi-factor authentication, either `enforced` or `optional`.
      * 
      * @return mfaStatus
      */
@@ -996,13 +1198,27 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
+     * Sets the enforcement status of multi-factor authentication, either `enforced` or `optional`.
      * 
      * @param mfaStatus
-     *            The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
+     *            The enforcement status of multi-factor authentication, either `enforced` or `optional`.
      */
     public void setMfaStatus(AccountMfaStatus mfaStatus) {
         this.mfaStatus = mfaStatus;
+    }
+
+    /**
+     * Sets the enforcement status of multi-factor authentication, either `enforced` or `optional`.
+     *
+     * <p>
+     * Similar to {@link #setMfaStatus(com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus)}
+     * 
+     * @param mfaStatus
+     *            The enforcement status of multi-factor authentication, either `enforced` or `optional`.
+     */
+    @Internal
+    public void setMfaStatus(String mfaStatus) {
+        this.mfaStatus = AccountMfaStatus.getValue(mfaStatus);
     }
 
     /**
@@ -1025,7 +1241,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets this object represents parent account contact details in responses.
+     * Gets represents parent account contact details in responses.
      * 
      * @return parentAccount
      */
@@ -1034,7 +1250,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the id of the parent account, if it has any.
+     * Gets the id of the parent account, if any.
      * 
      * @return parentId
      */
@@ -1043,7 +1259,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets value.
+     * Gets the password policy for this account.
      * 
      * @return passwordPolicy
      */
@@ -1052,18 +1268,17 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets value.
+     * Sets the password policy for this account.
      * 
      * @param passwordPolicy
-     *            value.
+     *            The password policy for this account.
      */
     public void setPasswordPolicy(PasswordPolicy passwordPolicy) {
         this.passwordPolicy = passwordPolicy;
     }
 
     /**
-     * Gets indicates how many minutes a password recovery email for users of this account is valid for. valid range is:
-     * 1-45.
+     * Gets indicates for how many minutes a password recovery email is valid.
      * 
      * @return passwordRecoveryExpiration
      */
@@ -1072,8 +1287,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets indicates how many minutes a password recovery email for users of this account is valid for. valid range is:
-     * 1-45.
+     * Sets indicates for how many minutes a password recovery email is valid.
      *
      * <p>
      * Note: the value has to be greater than or equal to {@code 1} to be valid
@@ -1081,8 +1295,7 @@ public class Account implements SdkModel {
      * Note: the value has to be less than or equal to {@code 45} to be valid
      * 
      * @param passwordRecoveryExpiration
-     *            Indicates how many minutes a password recovery email for users of this account is valid for. Valid
-     *            range is: 1-45.
+     *            Indicates for how many minutes a password recovery email is valid.
      */
     public void setPasswordRecoveryExpiration(@DefaultValue("1") int passwordRecoveryExpiration) {
         this.passwordRecoveryExpiration = passwordRecoveryExpiration;
@@ -1099,7 +1312,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the phone number of a representative of the company.
+     * Gets the phone number of a company representative.
      * 
      * @return phoneNumber
      */
@@ -1108,13 +1321,26 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Sets the phone number of a representative of the company.
+     * Sets the phone number of a company representative.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param phoneNumber
-     *            The phone number of a representative of the company.
+     *            The phone number of a company representative.
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * Checks whether phoneNumber value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isPhoneNumberValid() {
+        return (phoneNumber == null || phoneNumber.length() <= 100);
     }
 
     /**
@@ -1137,6 +1363,9 @@ public class Account implements SdkModel {
 
     /**
      * Sets the postal code part of the postal address.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param postalCode
      *            The postal code part of the postal address.
@@ -1146,7 +1375,17 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets a reason note for updating the status of the account.
+     * Checks whether postalCode value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isPostalCodeValid() {
+        return (postalCode == null || postalCode.length() <= 100);
+    }
+
+    /**
+     * Gets a note with the reason for account status update.
      * 
      * @return reason
      */
@@ -1174,12 +1413,25 @@ public class Account implements SdkModel {
 
     /**
      * Sets email address of the sales contact.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /^(?=.{3,254}$).+@.+/} to be valid
      * 
      * @param salesContact
      *            Email address of the sales contact.
      */
     public void setSalesContact(String salesContact) {
         this.salesContact = salesContact;
+    }
+
+    /**
+     * Checks whether salesContact value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isSalesContactValid() {
+        return (salesContact == null || salesContact.matches("^(?=.{3,254}$).+@.+"));
     }
 
     /**
@@ -1193,12 +1445,25 @@ public class Account implements SdkModel {
 
     /**
      * Sets the state part of the postal address.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param state
      *            The state part of the postal address.
      */
     public void setState(String state) {
         this.state = state;
+    }
+
+    /**
+     * Checks whether state value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isStateValid() {
+        return (state == null || state.length() <= 100);
     }
 
     /**
@@ -1220,7 +1485,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. other values are
+     * Gets the tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. other values are
      * reserved for the future.
      * 
      * @return tier
@@ -1245,6 +1510,32 @@ public class Account implements SdkModel {
      */
     public Date getUpgradedAt() {
         return upgradedAt;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "Account [addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", adminEmail=" + adminEmail
+               + ", adminFullName=" + adminFullName + ", adminId=" + adminId + ", adminKey=" + adminKey + ", adminName="
+               + adminName + ", adminPassword=" + adminPassword + ", aliases=" + aliases + ", city=" + city
+               + ", company=" + company + ", contact=" + contact + ", contractNumber=" + contractNumber + ", country="
+               + country + ", createdAt=" + createdAt + ", customFields=" + customFields + ", customerNumber="
+               + customerNumber + ", displayName=" + displayName + ", email=" + email + ", endMarket=" + endMarket
+               + ", expiration=" + expiration + ", expirationWarningThreshold=" + expirationWarningThreshold + ", id="
+               + id + ", idleTimeout=" + idleTimeout + ", limits=" + limits + ", mfaStatus=" + mfaStatus
+               + ", notificationEmails=" + notificationEmails + ", parentAccount=" + parentAccount + ", parentId="
+               + parentId + ", passwordPolicy=" + passwordPolicy + ", passwordRecoveryExpiration="
+               + passwordRecoveryExpiration + ", phoneNumber=" + phoneNumber + ", policies=" + policies
+               + ", postalCode=" + postalCode + ", reason=" + reason + ", referenceNote=" + referenceNote
+               + ", salesContact=" + salesContact + ", state=" + state + ", status=" + status + ", templateId="
+               + templateId + ", tier=" + tier + ", updatedAt=" + updatedAt + ", upgradedAt=" + upgradedAt + "]";
     }
 
     /**
@@ -1280,16 +1571,16 @@ public class Account implements SdkModel {
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((endMarket == null) ? 0 : endMarket.hashCode());
         result = prime * result + ((expiration == null) ? 0 : expiration.hashCode());
-        result = prime * result + ((expirationWarningThreshold == null) ? 0 : expirationWarningThreshold.hashCode());
+        result = prime * result + Objects.hashCode(Integer.valueOf(expirationWarningThreshold));
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((idleTimeout == null) ? 0 : idleTimeout.hashCode());
+        result = prime * result + Objects.hashCode(Integer.valueOf(idleTimeout));
         result = prime * result + ((limits == null) ? 0 : limits.hashCode());
         result = prime * result + ((mfaStatus == null) ? 0 : mfaStatus.hashCode());
         result = prime * result + ((notificationEmails == null) ? 0 : notificationEmails.hashCode());
         result = prime * result + ((parentAccount == null) ? 0 : parentAccount.hashCode());
         result = prime * result + ((parentId == null) ? 0 : parentId.hashCode());
         result = prime * result + ((passwordPolicy == null) ? 0 : passwordPolicy.hashCode());
-        result = prime * result + Objects.hashCode(passwordRecoveryExpiration);
+        result = prime * result + Objects.hashCode(Integer.valueOf(passwordRecoveryExpiration));
         result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
         result = prime * result + ((policies == null) ? 0 : policies.hashCode());
         result = prime * result + ((postalCode == null) ? 0 : postalCode.hashCode());
@@ -1492,11 +1783,7 @@ public class Account implements SdkModel {
         } else if (!expiration.equals(other.expiration)) {
             return false;
         }
-        if (expirationWarningThreshold == null) {
-            if (other.expirationWarningThreshold != null) {
-                return false;
-            }
-        } else if (!expirationWarningThreshold.equals(other.expirationWarningThreshold)) {
+        if (expirationWarningThreshold != other.expirationWarningThreshold) {
             return false;
         }
         if (id == null) {
@@ -1506,11 +1793,7 @@ public class Account implements SdkModel {
         } else if (!id.equals(other.id)) {
             return false;
         }
-        if (idleTimeout == null) {
-            if (other.idleTimeout != null) {
-                return false;
-            }
-        } else if (!idleTimeout.equals(other.idleTimeout)) {
+        if (idleTimeout != other.idleTimeout) {
             return false;
         }
         if (limits == null) {
@@ -1638,32 +1921,6 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "Account [addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", adminEmail=" + adminEmail
-               + ", adminFullName=" + adminFullName + ", adminId=" + adminId + ", adminKey=" + adminKey + ", adminName="
-               + adminName + ", adminPassword=" + adminPassword + ", aliases=" + aliases + ", city=" + city
-               + ", company=" + company + ", contact=" + contact + ", contractNumber=" + contractNumber + ", country="
-               + country + ", createdAt=" + createdAt + ", customFields=" + customFields + ", customerNumber="
-               + customerNumber + ", displayName=" + displayName + ", email=" + email + ", endMarket=" + endMarket
-               + ", expiration=" + expiration + ", expirationWarningThreshold=" + expirationWarningThreshold + ", id="
-               + id + ", idleTimeout=" + idleTimeout + ", limits=" + limits + ", mfaStatus=" + mfaStatus
-               + ", notificationEmails=" + notificationEmails + ", parentAccount=" + parentAccount + ", parentId="
-               + parentId + ", passwordPolicy=" + passwordPolicy + ", passwordRecoveryExpiration="
-               + passwordRecoveryExpiration + ", phoneNumber=" + phoneNumber + ", policies=" + policies
-               + ", postalCode=" + postalCode + ", reason=" + reason + ", referenceNote=" + referenceNote
-               + ", salesContact=" + salesContact + ", state=" + state + ", status=" + status + ", templateId="
-               + templateId + ", tier=" + tier + ", updatedAt=" + updatedAt + ", upgradedAt=" + upgradedAt + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
      *
      * <p>
@@ -1673,7 +1930,12 @@ public class Account implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isEndMarketValid() && isPasswordRecoveryExpirationValid();
+        return isAddressLine1Valid() && isAddressLine2Valid() && isAdminEmailValid() && isAdminFullNameValid()
+               && isAdminNameValid() && isAliasesValid() && isCityValid() && isCompanyValid() && isContactValid()
+               && isCountryValid() && isDisplayNameValid() && isEmailValid() && isEndMarketValid()
+               && isExpirationWarningThresholdValid() && isIdValid() && isIdleTimeoutValid()
+               && isPasswordRecoveryExpirationValid() && isPhoneNumberValid() && isPostalCodeValid()
+               && isSalesContactValid() && isStateValid();
     }
 
     /**

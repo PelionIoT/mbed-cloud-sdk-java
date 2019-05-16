@@ -40,8 +40,12 @@ import retrofit2.Call;
 
 @Preamble(description = "Specifies account management API")
 @Module
+@Deprecated
 /**
  * API exposing functionality for creating and managing accounts, users, groups and API keys in the organisation.
+ * <p>
+ * 
+ * @deprecated Use foundation interface or {@link Accounts} instead.
  */
 public class AccountManagement extends AbstractModule {
 
@@ -111,7 +115,7 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<AccountInfo> call() {
-                return endpoint.getDeveloper().getMyAccountInfo("limits, policies", finalPropertyName);
+                return endpoint.getAccountProfileApi().getMyAccountInfo("limits, policies", finalPropertyName);
             }
         });
     }
@@ -170,7 +174,7 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<AccountInfo> call() {
-                return endpoint.getAdmin().updateMyAccount(AccountAdapter.reverseMap(finalAccount));
+                return endpoint.getAccountProfileApi().updateMyAccount(AccountAdapter.reverseMap(finalAccount));
             }
         });
     }
@@ -212,7 +216,7 @@ public class AccountManagement extends AbstractModule {
 
                                     @Override
                                     public Call<ApiKeyInfoRespList> call() {
-                                        return endpoint.getDeveloper()
+                                        return endpoint.getAccountApiKeysApi()
                                                        .getAllApiKeys(finalOptions.getPageSize(),
                                                                       finalOptions.getAfter(),
                                                                       finalOptions.getOrder().toString(),
@@ -299,8 +303,8 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<ApiKeyInfoResp> call() {
-                return finalApiKeyId == null || finalApiKeyId.isEmpty() ? endpoint.getDeveloper().getMyApiKey()
-                                                                        : endpoint.getDeveloper()
+                return finalApiKeyId == null || finalApiKeyId.isEmpty() ? endpoint.getAccountApiKeysApi().getMyApiKey()
+                                                                        : endpoint.getAccountApiKeysApi()
                                                                                   .getApiKey(finalApiKeyId);
             }
         });
@@ -341,7 +345,7 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<ApiKeyInfoResp> call() {
-                return endpoint.getDeveloper().createApiKey(ApiKeyAdapter.reverseMapAdd(finalApiKey));
+                return endpoint.getAccountApiKeysApi().createApiKey(ApiKeyAdapter.reverseMapAdd(finalApiKey));
             }
         });
     }
@@ -392,8 +396,8 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<ApiKeyInfoResp> call() {
-                return endpoint.getDeveloper().updateApiKey(finalApiKey.getId(),
-                                                            ApiKeyAdapter.reverseMapUpdate(finalApiKey));
+                return endpoint.getAccountApiKeysApi().updateApiKey(finalApiKey.getId(),
+                                                                    ApiKeyAdapter.reverseMapUpdate(finalApiKey));
             }
         });
     }
@@ -427,7 +431,7 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getDeveloper().deleteApiKey(finalApiKeyId);
+                return endpoint.getAccountApiKeysApi().deleteApiKey(finalApiKeyId);
             }
         });
     }
@@ -496,7 +500,7 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<UserInfoRespList> call() {
-                return endpoint.getAdmin()
+                return endpoint.getAccountUsersApi()
                                .getAllUsers(finalOptions.getPageSize(), finalOptions.getAfter(),
                                             finalOptions.getOrder().toString(),
                                             ListOptionsEncoder.encodeInclude(finalOptions),
@@ -590,7 +594,7 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<UserInfoResp> call() {
-                return endpoint.getAdmin().getUser(finalUserId);
+                return endpoint.getAccountUsersApi().getUser(finalUserId);
             }
         });
     }
@@ -631,7 +635,7 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<UserInfoResp> call() {
-                return endpoint.getAdmin().createUser(UserAdapter.reverseMapAdd(finalUser), "create");
+                return endpoint.getAccountUsersApi().createUser(UserAdapter.reverseMapAdd(finalUser), "create");
             }
         });
     }
@@ -683,7 +687,8 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<UserInfoResp> call() {
-                return endpoint.getAdmin().updateUser(finalUser.getId(), UserAdapter.reverseMapUpdate(finalUser));
+                return endpoint.getAccountUsersApi().updateUser(finalUser.getId(),
+                                                                UserAdapter.reverseMapUpdate(finalUser));
             }
         });
     }
@@ -717,7 +722,7 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getAdmin().deleteUser(finalUserId);
+                return endpoint.getAccountUsersApi().deleteUser(finalUserId);
             }
         });
     }
@@ -786,10 +791,11 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<GroupSummaryList> call() {
-                return endpoint.getDeveloper().getAllGroups(finalOptions.getPageSize(), finalOptions.getAfter(),
-                                                            finalOptions.getOrder().toString(),
-                                                            ListOptionsEncoder.encodeInclude(finalOptions),
-                                                            finalOptions.getNameFilter());
+                return endpoint.getAccountPolicyGroupApi().getAllGroups(finalOptions.getPageSize(),
+                                                                        finalOptions.getAfter(),
+                                                                        finalOptions.getOrder().toString(),
+                                                                        ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                        finalOptions.getNameFilter());
             }
         });
     }
@@ -867,7 +873,7 @@ public class AccountManagement extends AbstractModule {
 
             @Override
             public Call<GroupSummary> call() {
-                return endpoint.getDeveloper().getGroupSummary(finalGroupId);
+                return endpoint.getAccountPolicyGroupApi().getGroupSummary(finalGroupId);
             }
         });
     }
@@ -914,7 +920,7 @@ public class AccountManagement extends AbstractModule {
 
                                     @Override
                                     public Call<UserInfoRespList> call() {
-                                        return endpoint.getAdmin()
+                                        return endpoint.getAccountPolicyGroupApi()
                                                        .getUsersOfGroup(finalGroupId, finalOptions.getPageSize(),
                                                                         finalOptions.getAfter(),
                                                                         finalOptions.getOrder().toString(),
@@ -1094,7 +1100,7 @@ public class AccountManagement extends AbstractModule {
 
                                     @Override
                                     public Call<ApiKeyInfoRespList> call() {
-                                        return endpoint.getDeveloper()
+                                        return endpoint.getAccountPolicyGroupApi()
                                                        .getApiKeysOfGroup(finalGroupId, finalOptions.getPageSize(),
                                                                           finalOptions.getAfter(),
                                                                           finalOptions.getOrder().toString(),

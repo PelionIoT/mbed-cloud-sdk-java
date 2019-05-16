@@ -124,8 +124,7 @@ public abstract class AbstractDeviceEnrollmentDenialDao extends AbstractModelDao
      * Gets a device enrollment denial.
      *
      * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentDenial(String, com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDenial)}
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEnrollmentDenial(String)}
      * 
      * @param deviceEnrollmentDenialId
      *            id of the recorded failed bootstrap attempt. id of the recorded failed bootstrap attempt
@@ -135,7 +134,6 @@ public abstract class AbstractDeviceEnrollmentDenialDao extends AbstractModelDao
      */
     @Override
     public DeviceEnrollmentDenial read(@NonNull String deviceEnrollmentDenialId) throws MbedCloudException {
-        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentDenial(deviceEnrollmentDenialId,
-                                                                                        getModel()));
+        return setAndGetModel(((Devices) getModuleOrThrow()).readDeviceEnrollmentDenial(deviceEnrollmentDenialId));
     }
 }

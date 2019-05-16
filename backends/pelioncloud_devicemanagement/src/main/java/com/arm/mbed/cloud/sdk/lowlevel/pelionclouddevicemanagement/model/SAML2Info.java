@@ -21,9 +21,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This object represents SAML2 specific attributes in responses.
+ * Represents SAML2 specific attributes in responses.
  */
-@ApiModel(description = "This object represents SAML2 specific attributes in responses.")
+@ApiModel(description = "Represents SAML2 specific attributes in responses.")
 
 public class SAML2Info implements Serializable {
     private static final long serialVersionUID = 1L;

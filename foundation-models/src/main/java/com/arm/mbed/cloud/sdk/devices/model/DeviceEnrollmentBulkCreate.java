@@ -13,7 +13,7 @@ import java.util.Objects;
  * Model for a device enrollment bulk create.
  */
 @Preamble(description = "Model for a device enrollment bulk create.")
-@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+@SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.AvoidDuplicateLiterals" })
 public class DeviceEnrollmentBulkCreate implements SdkModel {
     /**
      * Serialisation Id.
@@ -26,32 +26,27 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     private final String accountId;
 
     /**
-     * The time of completing the bulk creation task. Null when creating bulk upload or delete.
-     *
+     * The time the bulk creation task was completed. Null when creating bulk upload or delete.
      */
     private final Date completedAt;
 
     /**
      * The time of receiving the bulk creation task.
-     *
      */
     private final Date createdAt;
 
     /**
      * The number of enrollment identities with failed processing.
-     *
      */
     private final int errorsCount;
 
     /**
      * Link to error report file. Null when creating bulk upload or delete.
-     *
      */
     private final String errorsReportFile;
 
     /**
      * Link to full report file. Null when creating bulk upload or delete.
-     *
      */
     private final String fullReportFile;
 
@@ -62,21 +57,18 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * The number of enrollment identities processed until now.
-     *
      */
     private final int processedCount;
 
     /**
-     * The state of the process is 'new' at the time of creation. If the creation is still in progress, the state is
-     * shown as 'processing'. When the request has been fully processed, the state changes to 'completed'.
-     *
+     * The state of the process is 'new' at the time of creation. If creation is still in progress, the state shows as
+     * 'processing'. When the request is fully processed, the state changes to 'completed'.
      */
     @DefaultValue("new")
     private final DeviceEnrollmentBulkCreateStatus status;
 
     /**
      * Total number of enrollment identities found in the input CSV.
-     *
      */
     private final int totalCount;
 
@@ -84,40 +76,34 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentBulkCreate()} instead.
      * 
      * @param accountId
      *            ID.
      * @param completedAt
-     *            The time of completing the bulk creation task. Null when creating bulk upload or delete.
-     *
+     *            The time the bulk creation task was completed. Null when creating bulk upload or delete.
      * @param createdAt
      *            The time of receiving the bulk creation task.
-     *
      * @param errorsCount
      *            The number of enrollment identities with failed processing.
-     *
      * @param errorsReportFile
      *            Link to error report file. Null when creating bulk upload or delete.
-     *
      * @param fullReportFile
      *            Link to full report file. Null when creating bulk upload or delete.
-     *
      * @param id
      *            Bulk ID.
      * @param processedCount
      *            The number of enrollment identities processed until now.
-     *
      * @param status
-     *            The state of the process is 'new' at the time of creation. If the creation is still in progress, the
-     *            state is shown as 'processing'. When the request has been fully processed, the state changes to
-     *            'completed'.
-     *
+     *            The state of the process is 'new' at the time of creation. If creation is still in progress, the state
+     *            shows as 'processing'. When the request is fully processed, the state changes to 'completed'.
      * @param totalCount
      *            Total number of enrollment identities found in the input CSV.
-     *
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public DeviceEnrollmentBulkCreate(String accountId, Date completedAt, Date createdAt, int errorsCount,
                                       String errorsReportFile, String fullReportFile, String id, int processedCount,
                                       @DefaultValue("new") DeviceEnrollmentBulkCreateStatus status, int totalCount) {
@@ -137,6 +123,8 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentBulkCreate()} instead.
      * 
@@ -168,7 +156,11 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            Bulk ID.
      */
@@ -181,38 +173,32 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on read-only fields.
+     * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollmentBulkCreate()} instead.
      * 
      * @param accountId
      *            ID.
      * @param completedAt
-     *            The time of completing the bulk creation task. Null when creating bulk upload or delete.
-     *
+     *            The time the bulk creation task was completed. Null when creating bulk upload or delete.
      * @param createdAt
      *            The time of receiving the bulk creation task.
-     *
      * @param errorsCount
      *            The number of enrollment identities with failed processing.
-     *
      * @param errorsReportFile
      *            Link to error report file. Null when creating bulk upload or delete.
-     *
      * @param fullReportFile
      *            Link to full report file. Null when creating bulk upload or delete.
-     *
      * @param processedCount
      *            The number of enrollment identities processed until now.
-     *
      * @param status
-     *            The state of the process is 'new' at the time of creation. If the creation is still in progress, the
-     *            state is shown as 'processing'. When the request has been fully processed, the state changes to
-     *            'completed'.
-     *
+     *            The state of the process is 'new' at the time of creation. If creation is still in progress, the state
+     *            shows as 'processing'. When the request is fully processed, the state changes to 'completed'.
      * @param totalCount
      *            Total number of enrollment identities found in the input CSV.
-     *
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public DeviceEnrollmentBulkCreate(String accountId, Date completedAt, Date createdAt, int errorsCount,
                                       String errorsReportFile, String fullReportFile, int processedCount,
                                       @DefaultValue("new") DeviceEnrollmentBulkCreateStatus status, int totalCount) {
@@ -230,7 +216,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
-     * Gets the time of completing the bulk creation task. null when creating bulk upload or delete.
+     * Gets the time the bulk creation task was completed. null when creating bulk upload or delete.
      * 
      * @return completedAt
      */
@@ -334,8 +320,8 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
-     * Gets the state of the process is 'new' at the time of creation. if the creation is still in progress, the state
-     * is shown as 'processing'. when the request has been fully processed, the state changes to 'completed'.
+     * Gets the state of the process is 'new' at the time of creation. if creation is still in progress, the state shows
+     * as 'processing'. when the request is fully processed, the state changes to 'completed'.
      * 
      * @return status
      */
@@ -353,6 +339,22 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "DeviceEnrollmentBulkCreate [accountId=" + accountId + ", completedAt=" + completedAt + ", createdAt="
+               + createdAt + ", errorsCount=" + errorsCount + ", errorsReportFile=" + errorsReportFile
+               + ", fullReportFile=" + fullReportFile + ", id=" + id + ", processedCount=" + processedCount
+               + ", status=" + status + ", totalCount=" + totalCount + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
      *
      * <p>
@@ -367,13 +369,13 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
         result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
         result = prime * result + ((completedAt == null) ? 0 : completedAt.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-        result = prime * result + Objects.hashCode(errorsCount);
+        result = prime * result + Objects.hashCode(Integer.valueOf(errorsCount));
         result = prime * result + ((errorsReportFile == null) ? 0 : errorsReportFile.hashCode());
         result = prime * result + ((fullReportFile == null) ? 0 : fullReportFile.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + Objects.hashCode(processedCount);
+        result = prime * result + Objects.hashCode(Integer.valueOf(processedCount));
         result = prime * result + ((status == null) ? 0 : status.hashCode());
-        result = prime * result + Objects.hashCode(totalCount);
+        result = prime * result + Objects.hashCode(Integer.valueOf(totalCount));
         return result;
     }
 
@@ -402,6 +404,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -471,22 +474,6 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "DeviceEnrollmentBulkCreate [accountId=" + accountId + ", completedAt=" + completedAt + ", createdAt="
-               + createdAt + ", errorsCount=" + errorsCount + ", errorsReportFile=" + errorsReportFile
-               + ", fullReportFile=" + fullReportFile + ", id=" + id + ", processedCount=" + processedCount
-               + ", status=" + status + ", totalCount=" + totalCount + "]";
     }
 
     /**

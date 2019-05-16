@@ -38,7 +38,7 @@ public class Device implements SdkModel {
     /**
      * The timestamp of the device's most recent bootstrap process.
      */
-    private Date bootstrappedTimestamp;
+    private final Date bootstrappedTimestamp;
 
     /**
      * The certificate issuer's ID.
@@ -111,7 +111,7 @@ public class Device implements SdkModel {
     /**
      * The SHA256 checksum of the current firmware image.
      */
-    private String firmwareChecksum;
+    private final String firmwareChecksum;
 
     /**
      * The ID of the host gateway, if appropriate.
@@ -176,6 +176,8 @@ public class Device implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
      * 
@@ -255,15 +257,16 @@ public class Device implements SdkModel {
                   String vendorId) {
         super();
         this.accountId = accountId;
+        this.bootstrappedTimestamp = bootstrappedTimestamp;
         this.createdAt = createdAt;
         this.deployedState = deployedState;
         this.endpointName = endpointName;
         this.enrolmentListTimestamp = enrolmentListTimestamp;
+        this.firmwareChecksum = firmwareChecksum;
         this.manifestTimestamp = manifestTimestamp;
         this.updatedAt = updatedAt;
         setAutoUpdate(autoUpdate);
         setBootstrapExpirationDate(bootstrapExpirationDate);
-        setBootstrappedTimestamp(bootstrappedTimestamp);
         setCaId(caId);
         setConnectorExpirationDate(connectorExpirationDate);
         setCustomAttributes(customAttributes);
@@ -273,7 +276,6 @@ public class Device implements SdkModel {
         setDeviceExecutionMode(deviceExecutionMode);
         setDeviceKey(deviceKey);
         setEndpointType(endpointType);
-        setFirmwareChecksum(firmwareChecksum);
         setHostGateway(hostGateway);
         setId(id);
         setIssuerFingerprint(issuerFingerprint);
@@ -289,6 +291,8 @@ public class Device implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
      * 
@@ -333,7 +337,11 @@ public class Device implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
      */
@@ -346,10 +354,14 @@ public class Device implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on read-only fields.
+     * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
      * 
      * @param accountId
      *            The ID of the associated account.
+     * @param bootstrappedTimestamp
+     *            The timestamp of the device's most recent bootstrap process.
      * @param createdAt
      *            The timestamp of when the device was created in the device directory.
      * @param deployedState
@@ -358,19 +370,23 @@ public class Device implements SdkModel {
      *            The endpoint name given to the device.
      * @param enrolmentListTimestamp
      *            The claim date/time.
+     * @param firmwareChecksum
+     *            The SHA256 checksum of the current firmware image.
      * @param manifestTimestamp
      *            The timestamp of the current manifest version.
      * @param updatedAt
      *            The time the object was updated.
      */
     @Internal
-    public Device(String accountId, Date createdAt, DeviceDeployedState deployedState, String endpointName,
-                  Date enrolmentListTimestamp, Date manifestTimestamp, Date updatedAt) {
-        this(accountId, false, new Date(), new Date(), (String) null, new Date(), createdAt, (Map<String, String>) null,
-             deployedState, (String) null, (String) null, (String) null, 0, (String) null, endpointName, (String) null,
-             enrolmentListTimestamp, (String) null, (String) null, (String) null, (String) null, (String) null,
-             manifestTimestamp, DeviceMechanism.getDefault(), (String) null, (String) null, (String) null,
-             DeviceState.getDefault(), updatedAt, (String) null);
+    @SuppressWarnings("PMD.CyclomaticComplexity")
+    public Device(String accountId, Date bootstrappedTimestamp, Date createdAt, DeviceDeployedState deployedState,
+                  String endpointName, Date enrolmentListTimestamp, String firmwareChecksum, Date manifestTimestamp,
+                  Date updatedAt) {
+        this(accountId, false, new Date(), bootstrappedTimestamp, (String) null, new Date(), createdAt,
+             (Map<String, String>) null, deployedState, (String) null, (String) null, (String) null, 0, (String) null,
+             endpointName, (String) null, enrolmentListTimestamp, firmwareChecksum, (String) null, (String) null,
+             (String) null, (String) null, manifestTimestamp, DeviceMechanism.getDefault(), (String) null,
+             (String) null, (String) null, DeviceState.getDefault(), updatedAt, (String) null);
     }
 
     /**
@@ -427,16 +443,6 @@ public class Device implements SdkModel {
      */
     public Date getBootstrappedTimestamp() {
         return bootstrappedTimestamp;
-    }
-
-    /**
-     * Sets the timestamp of the device's most recent bootstrap process.
-     * 
-     * @param bootstrappedTimestamp
-     *            The timestamp of the device's most recent bootstrap process.
-     */
-    public void setBootstrappedTimestamp(Date bootstrappedTimestamp) {
-        this.bootstrappedTimestamp = bootstrappedTimestamp;
     }
 
     /**
@@ -743,16 +749,6 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets the sha256 checksum of the current firmware image.
-     * 
-     * @param firmwareChecksum
-     *            The SHA256 checksum of the current firmware image.
-     */
-    public void setFirmwareChecksum(String firmwareChecksum) {
-        this.firmwareChecksum = firmwareChecksum;
-    }
-
-    /**
      * Gets the id of the host gateway, if appropriate.
      * 
      * @return hostGateway
@@ -886,6 +882,20 @@ public class Device implements SdkModel {
     }
 
     /**
+     * Sets the id of the channel used to communicate with the device.
+     *
+     * <p>
+     * Similar to {@link #setMechanism(com.arm.mbed.cloud.sdk.devices.model.DeviceMechanism)}
+     * 
+     * @param mechanism
+     *            The ID of the channel used to communicate with the device.
+     */
+    @Internal
+    public void setMechanism(String mechanism) {
+        this.mechanism = DeviceMechanism.getValue(mechanism);
+    }
+
+    /**
      * Gets the address of the connector to use.
      * 
      * @return mechanismUrl
@@ -975,6 +985,20 @@ public class Device implements SdkModel {
     }
 
     /**
+     * Sets the current state of the device.
+     *
+     * <p>
+     * Similar to {@link #setState(com.arm.mbed.cloud.sdk.devices.model.DeviceState)}
+     * 
+     * @param state
+     *            The current state of the device.
+     */
+    @Internal
+    public void setState(String state) {
+        this.state = DeviceState.getValue(state);
+    }
+
+    /**
      * Gets the time the object was updated.
      * 
      * @return updatedAt
@@ -1003,6 +1027,29 @@ public class Device implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "Device [accountId=" + accountId + ", autoUpdate=" + autoUpdate + ", bootstrapExpirationDate="
+               + bootstrapExpirationDate + ", bootstrappedTimestamp=" + bootstrappedTimestamp + ", caId=" + caId
+               + ", connectorExpirationDate=" + connectorExpirationDate + ", createdAt=" + createdAt
+               + ", customAttributes=" + customAttributes + ", deployedState=" + deployedState + ", deployment="
+               + deployment + ", description=" + description + ", deviceClass=" + deviceClass + ", deviceExecutionMode="
+               + deviceExecutionMode + ", deviceKey=" + deviceKey + ", endpointName=" + endpointName + ", endpointType="
+               + endpointType + ", enrolmentListTimestamp=" + enrolmentListTimestamp + ", firmwareChecksum="
+               + firmwareChecksum + ", hostGateway=" + hostGateway + ", id=" + id + ", issuerFingerprint="
+               + issuerFingerprint + ", manifest=" + manifest + ", manifestTimestamp=" + manifestTimestamp
+               + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + ", name=" + name + ", serialNumber="
+               + serialNumber + ", state=" + state + ", updatedAt=" + updatedAt + ", vendorId=" + vendorId + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
      *
      * <p>
@@ -1015,7 +1062,7 @@ public class Device implements SdkModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
-        result = prime * result + Objects.hashCode(autoUpdate);
+        result = prime * result + Objects.hashCode(Boolean.valueOf(autoUpdate));
         result = prime * result + ((bootstrapExpirationDate == null) ? 0 : bootstrapExpirationDate.hashCode());
         result = prime * result + ((bootstrappedTimestamp == null) ? 0 : bootstrappedTimestamp.hashCode());
         result = prime * result + ((caId == null) ? 0 : caId.hashCode());
@@ -1026,7 +1073,7 @@ public class Device implements SdkModel {
         result = prime * result + ((deployment == null) ? 0 : deployment.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((deviceClass == null) ? 0 : deviceClass.hashCode());
-        result = prime * result + Objects.hashCode(deviceExecutionMode);
+        result = prime * result + Objects.hashCode(Integer.valueOf(deviceExecutionMode));
         result = prime * result + ((deviceKey == null) ? 0 : deviceKey.hashCode());
         result = prime * result + ((endpointName == null) ? 0 : endpointName.hashCode());
         result = prime * result + ((endpointType == null) ? 0 : endpointType.hashCode());
@@ -1278,29 +1325,6 @@ public class Device implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "Device [accountId=" + accountId + ", autoUpdate=" + autoUpdate + ", bootstrapExpirationDate="
-               + bootstrapExpirationDate + ", bootstrappedTimestamp=" + bootstrappedTimestamp + ", caId=" + caId
-               + ", connectorExpirationDate=" + connectorExpirationDate + ", createdAt=" + createdAt
-               + ", customAttributes=" + customAttributes + ", deployedState=" + deployedState + ", deployment="
-               + deployment + ", description=" + description + ", deviceClass=" + deviceClass + ", deviceExecutionMode="
-               + deviceExecutionMode + ", deviceKey=" + deviceKey + ", endpointName=" + endpointName + ", endpointType="
-               + endpointType + ", enrolmentListTimestamp=" + enrolmentListTimestamp + ", firmwareChecksum="
-               + firmwareChecksum + ", hostGateway=" + hostGateway + ", id=" + id + ", issuerFingerprint="
-               + issuerFingerprint + ", manifest=" + manifest + ", manifestTimestamp=" + manifestTimestamp
-               + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + ", name=" + name + ", serialNumber="
-               + serialNumber + ", state=" + state + ", updatedAt=" + updatedAt + ", vendorId=" + vendorId + "]";
     }
 
     /**

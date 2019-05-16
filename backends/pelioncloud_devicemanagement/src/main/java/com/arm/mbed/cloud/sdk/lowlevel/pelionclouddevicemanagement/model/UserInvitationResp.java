@@ -27,9 +27,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * This object represents an user invitation in responses.
+ * Represents an user invitation in responses.
  */
-@ApiModel(description = "This object represents an user invitation in responses.")
+@ApiModel(description = "Represents an user invitation in responses.")
 
 public class UserInvitationResp implements Serializable {
     private static final long serialVersionUID = 1L;

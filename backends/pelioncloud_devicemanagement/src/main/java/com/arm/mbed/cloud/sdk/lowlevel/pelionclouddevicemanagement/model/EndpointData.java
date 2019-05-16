@@ -85,17 +85,16 @@ public class EndpointData implements Serializable {
     }
 
     /**
-     * In case of a self-provided endpoint name that is used to initiate the device registration, Device Management
-     * provides a new device ID to be used from that point on. The new Pelion platform provided Device ID is forwarded
-     * as the &#39;ep&#39; property and the original self-provided one as the optional &#39;original-ep&#39; property in
-     * a registration notification. The name and ID can then be mapped accordingly. Device Management saves the original
-     * endpoint name in the Device Directory for future device registrations so that you don&#39;t need to do the
-     * mapping again.
+     * If device registration is initiated with a self-provided endpoint name, Device Management provides a new device
+     * ID for subsequent use. The new platform-provided Device ID is forwarded as the &#39;ep&#39; property and the
+     * original self-provided one as the optional &#39;original-ep&#39; property in a registration notification. The
+     * name and ID can then be mapped accordingly. Device Management saves the original endpoint name in the Device
+     * Directory for future device registrations so you don&#39;t need to do mapping again.
      * 
      * @return originalEp
      **/
     @ApiModelProperty(example = "my-device-123",
-                      value = "In case of a self-provided endpoint name that is used to initiate the device registration, Device Management provides a new device ID to be used from that point on. The new Pelion platform provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Device Management saves the original endpoint name in the Device Directory for future device registrations so that you don't need to do the mapping again. ")
+                      value = "If device registration is initiated with a self-provided endpoint name, Device Management provides a new device ID for subsequent use. The new platform-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Device Management saves the original endpoint name in the Device Directory for future device registrations so you don't need to do mapping again.")
     public String getOriginalEp() {
         return originalEp;
     }

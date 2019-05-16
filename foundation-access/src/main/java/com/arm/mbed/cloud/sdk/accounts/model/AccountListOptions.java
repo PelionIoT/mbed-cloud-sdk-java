@@ -97,14 +97,9 @@ import java.util.List;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class AccountListOptions extends ListOptions {
     /**
-     * Tag for filter by tier.
+     * Tag for filter by country.
      */
-    public static final String TAG_FILTER_BY_TIER = "tier";
-
-    /**
-     * Tag for filter by status.
-     */
-    public static final String TAG_FILTER_BY_STATUS = "status";
+    public static final String TAG_FILTER_BY_COUNTRY = "country";
 
     /**
      * Tag for filter by endMarket.
@@ -112,13 +107,20 @@ public class AccountListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_END_MARKET = "endMarket";
 
     /**
-     * Tag for filter by country.
+     * Tag for filter by status.
      */
-    public static final String TAG_FILTER_BY_COUNTRY = "country";
+    public static final String TAG_FILTER_BY_STATUS = "status";
+
+    /**
+     * Tag for filter by tier.
+     */
+    public static final String TAG_FILTER_BY_TIER = "tier";
 
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #AccountListOptions()} instead.
      * 
@@ -151,6 +153,8 @@ public class AccountListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #AccountListOptions()} instead.
      * 
      * @param accountListOptions
@@ -173,6 +177,8 @@ public class AccountListOptions extends ListOptions {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #AccountListOptions()} instead.
      * 
@@ -495,20 +501,6 @@ public class AccountListOptions extends ListOptions {
     }
 
     /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     *
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof AccountListOptions;
-    }
-
-    /**
      * Returns a string representation of the object.
      *
      * <p>
@@ -525,6 +517,21 @@ public class AccountListOptions extends ListOptions {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return other instanceof AccountListOptions;
+    }
+
+    /**
      * Clones this instance.
      *
      * <p>
@@ -537,5 +544,50 @@ public class AccountListOptions extends ListOptions {
         final AccountListOptions opt = new AccountListOptions();
         opt.setOptions(this);
         return opt;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof AccountListOptions)) {
+            return false;
+        }
+        final AccountListOptions other = (AccountListOptions) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    @SuppressWarnings("PMD.UselessOverridingMethod")
+    public int hashCode() {
+        return super.hashCode();
     }
 }

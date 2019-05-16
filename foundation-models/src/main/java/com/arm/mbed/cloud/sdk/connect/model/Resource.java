@@ -6,7 +6,7 @@ import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
-import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
+import com.arm.mbed.cloud.sdk.devices.model.Device;
 
 @Preamble(description = "Resource")
 public class Resource implements SdkModel {
@@ -106,7 +106,21 @@ public class Resource implements SdkModel {
 
     /**
      * Constructor.
-     *
+     * 
+     * @deprecated use {@link #Resource(Device, String)} instead
+     * @param device
+     *            device.
+     * @param path
+     *            resource path.
+     */
+    @Deprecated
+    public Resource(com.arm.mbed.cloud.sdk.devicedirectory.model.Device device, String path) {
+        this((device == null) ? null : device.getId(), path);
+    }
+
+    /**
+     * Constructor.
+     * 
      * @param device
      *            device.
      * @param path
@@ -138,13 +152,30 @@ public class Resource implements SdkModel {
 
     /**
      * Creates an observable resource.
-     *
+     * 
+     * @deprecated use {@link #newObservableResource(Device, String)} instead.
      * @param device
      *            device .
      * @param path
      *            resource path.
      * @return corresponding observable resource
      */
+    @Deprecated
+    public static Resource newObservableResource(com.arm.mbed.cloud.sdk.devicedirectory.model.Device device,
+                                                 String path) {
+        return newObservableResource((device == null) ? null : device.getId(), path);
+    }
+
+    /**
+     * Creates an observable resource.
+     *
+     * @param device
+     *            device.
+     * @param path
+     *            resource path.
+     * @return corresponding observable resource
+     */
+
     public static Resource newObservableResource(Device device, String path) {
         return newObservableResource((device == null) ? null : device.getId(), path);
     }

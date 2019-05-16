@@ -19,10 +19,10 @@ public class TestUserInvitationListOptions {
     @Test
     public void testClone() {
         try {
-            UserInvitationListOptions userinvitationlistoptions1 = new UserInvitationListOptions(Integer.valueOf(89),
-                                                                                                 Long.valueOf(-34),
+            UserInvitationListOptions userinvitationlistoptions1 = new UserInvitationListOptions(Integer.valueOf(-69),
+                                                                                                 Long.valueOf(42),
                                                                                                  Order.getDefault(),
-                                                                                                 "9890e6d0-27e9-4a4f-81c6-6e847b365f06",
+                                                                                                 "0e289bbd-4e30-4a30-aa13-625d89cae5d2",
                                                                                                  null, null);
             UserInvitationListOptions userinvitationlistoptions2 = userinvitationlistoptions1.clone();
             assertNotNull(userinvitationlistoptions1);
@@ -35,21 +35,41 @@ public class TestUserInvitationListOptions {
     }
 
     /**
+     * Tests the filters method.
+     */
+    @SuppressWarnings("resource")
+    @Test
+    public void testFilters() {
+        try {
+            // Cannot test Filter [field=loginProfiles, spec field=loginProfiles, tag=TAG_FILTER_BY_LOGIN_PROFILES,
+            // operator=equal to, type=List<LoginProfile>, isVerified=true] because the field is a list and the filter
+            // only accepts single values
+            UserInvitationListOptions option = new UserInvitationListOptions();
+            assertFalse(option.hasFilters());
+            // Cannot test Filter [field=loginProfiles, spec field=loginProfiles, tag=TAG_FILTER_BY_LOGIN_PROFILES,
+            // operator=equal to, type=List<LoginProfile>, isVerified=true] because the field is a list and the filter
+            // only accepts single values
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
+    }
+
+    /**
      * Tests the hashCode method.
      */
     @SuppressWarnings("resource")
     @Test
     public void testHashCode() {
         try {
-            UserInvitationListOptions userinvitationlistoptions1 = new UserInvitationListOptions(Integer.valueOf(55),
-                                                                                                 Long.valueOf(-119),
+            UserInvitationListOptions userinvitationlistoptions1 = new UserInvitationListOptions(Integer.valueOf(-37),
+                                                                                                 Long.valueOf(-17),
                                                                                                  Order.getDefault(),
-                                                                                                 "e108cb7e-e0bd-4732-8b5d-16c4bf0811da",
+                                                                                                 "c1d8e88d-4d6c-4b03-9af5-e898b47c92c3",
                                                                                                  null, null);
-            UserInvitationListOptions userinvitationlistoptions2 = new UserInvitationListOptions(Integer.valueOf(55),
-                                                                                                 Long.valueOf(-119),
+            UserInvitationListOptions userinvitationlistoptions2 = new UserInvitationListOptions(Integer.valueOf(-37),
+                                                                                                 Long.valueOf(-17),
                                                                                                  Order.getDefault(),
-                                                                                                 "e108cb7e-e0bd-4732-8b5d-16c4bf0811da",
+                                                                                                 "c1d8e88d-4d6c-4b03-9af5-e898b47c92c3",
                                                                                                  null, null);
             assertNotNull(userinvitationlistoptions1);
             assertNotNull(userinvitationlistoptions2);
@@ -72,20 +92,20 @@ public class TestUserInvitationListOptions {
     @Test
     public void testEquals() {
         try {
-            UserInvitationListOptions userinvitationlistoptions1 = new UserInvitationListOptions(Integer.valueOf(22),
-                                                                                                 Long.valueOf(121),
+            UserInvitationListOptions userinvitationlistoptions1 = new UserInvitationListOptions(Integer.valueOf(76),
+                                                                                                 Long.valueOf(-82),
                                                                                                  Order.getDefault(),
-                                                                                                 "a9b80ff5-a635-469a-a438-dbc3a5b915c0",
+                                                                                                 "deef53d9-ce1e-40f0-a1fb-d81db0022d58",
                                                                                                  null, null);
-            UserInvitationListOptions userinvitationlistoptions2 = new UserInvitationListOptions(Integer.valueOf(22),
-                                                                                                 Long.valueOf(121),
+            UserInvitationListOptions userinvitationlistoptions2 = new UserInvitationListOptions(Integer.valueOf(76),
+                                                                                                 Long.valueOf(-82),
                                                                                                  Order.getDefault(),
-                                                                                                 "a9b80ff5-a635-469a-a438-dbc3a5b915c0",
+                                                                                                 "deef53d9-ce1e-40f0-a1fb-d81db0022d58",
                                                                                                  null, null);
-            UserInvitationListOptions userinvitationlistoptions3 = new UserInvitationListOptions(Integer.valueOf(89),
-                                                                                                 Long.valueOf(98),
+            UserInvitationListOptions userinvitationlistoptions3 = new UserInvitationListOptions(Integer.valueOf(-26),
+                                                                                                 Long.valueOf(-5),
                                                                                                  Order.getDefault(),
-                                                                                                 "5600f38f-24e9-4a18-926e-fc9ac2b94e4f",
+                                                                                                 "287b6eb9-31e3-4bba-b84f-975718537d2d",
                                                                                                  null, null);
             assertNotNull(userinvitationlistoptions1);
             assertNotNull(userinvitationlistoptions2);

@@ -88,8 +88,16 @@ public final class ApiUtils {
      * @return True if the exception is due to a parameter error. False otherwise.
      */
     public static boolean isParameterErrorException(Throwable exception) {
-        return exception == null ? false : exception instanceof IllegalArgumentException
-                                           || isParameterErrorException(exception.getCause());
+        return exception == null ? false
+                                 : exception instanceof IllegalArgumentException || isNotFoundException(exception)
+                                   || isParameterErrorException(exception.getCause());
+    }
+
+    private static boolean isNotFoundException(Throwable exception) {
+        if (exception.getMessage() == null) {
+            return false;
+        }
+        return exception.getMessage().contains("404");
     }
 
     /**

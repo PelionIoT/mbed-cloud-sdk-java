@@ -2,6 +2,7 @@ package com.arm.pelion.sdk.foundation.generator.input;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Method {
@@ -12,6 +13,8 @@ public class Method {
     private String description;
     @JsonProperty(InputSchema.SUMMARY_TAG)
     private String summary;
+    @JsonAlias({ InputSchema.LONG_DESCRIPTION_TAG, InputSchema.NOTES_TAG })
+    private String longDescription;
     @JsonProperty(InputSchema.GROUP_ID_TAG)
     private List<String> groupId;
     @JsonProperty(InputSchema.RENAMES_TAG)
@@ -37,6 +40,9 @@ public class Method {
 
     @JsonProperty(InputSchema.METHOD_DEPRECATION_TAG)
     private DeprecationNotice deprecationNotice;
+
+    @JsonAlias({ InputSchema.INTERNAL_TAG, InputSchema.INTERNAL_METHOD_TAG })
+    private boolean internal = false;
 
     public String getKey() {
         return key;
@@ -78,6 +84,14 @@ public class Method {
         this.id = Utils.getKey(id, true);
     }
 
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
+
     public boolean hasPaginatedResponse() {
         return hasPaginatedResponse;
     }
@@ -93,6 +107,14 @@ public class Method {
     // public void setParameterMap(List<Mapping> parameterMap) {
     // this.parameterMap = parameterMap;
     // }
+
+    public boolean isInternal() {
+        return internal;
+    }
+
+    public void setInternal(boolean internal) {
+        this.internal = internal;
+    }
 
     public List<String> getGroupId() {
         return groupId;
@@ -233,10 +255,11 @@ public class Method {
 
     @Override
     public String toString() {
-        return "Method [key=" + key + ", description=" + description + ", summary=" + summary + ", groupId=" + groupId
-               + ", renames=" + renames + ", parameters=" + parameters + ", id=" + id + ", hasPaginatedResponse="
-               + hasPaginatedResponse + ", returnInformation=" + returnInformation + ", customCode=" + customCode
-               + ", customMethod=" + customMethod + ", filters=" + filters + "]";
+        return "Method [key=" + key + ", description=" + description + ", summary=" + summary + ", longDescription="
+               + longDescription + ", groupId=" + groupId + ", renames=" + renames + ", parameters=" + parameters
+               + ", id=" + id + ", hasPaginatedResponse=" + hasPaginatedResponse + ", returnInformation="
+               + returnInformation + ", customCode=" + customCode + ", customMethod=" + customMethod + ", filters="
+               + filters + ", deprecationNotice=" + deprecationNotice + ", internal=" + internal + "]";
     }
 
 }

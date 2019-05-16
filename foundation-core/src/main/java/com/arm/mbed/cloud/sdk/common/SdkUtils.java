@@ -222,7 +222,7 @@ public final class SdkUtils {
             try {
                 modelField.setAccessible(true);
                 value = modelField.get(model);
-            } catch (IllegalArgumentException | IllegalAccessException exception) {
+            } catch (@SuppressWarnings("unused") IllegalArgumentException | IllegalAccessException exception) {
                 // Nothing to do
             }
             if (value == null) {

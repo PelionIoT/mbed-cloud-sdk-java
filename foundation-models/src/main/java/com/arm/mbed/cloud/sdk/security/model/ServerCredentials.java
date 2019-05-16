@@ -23,18 +23,18 @@ public class ServerCredentials implements SdkModel {
     private final Date createdAt;
 
     /**
-     * ID that uniquely identifies the entity.
+     * Unique entity ID.
      */
     private String id;
 
     /**
-     * PEM format X.509 server certificate that will be used to validate the server certificate that will be received
-     * during the TLS/DTLS handshake.
+     * PEM-format X.509 server certificate used to validate the server certificate received during the TLS/DTLS
+     * handshake.
      */
     private final String serverCertificate;
 
     /**
-     * Server URI to which the client needs to connect to.
+     * Server URI that the client connects to.
      */
     private final String serverUri;
 
@@ -42,17 +42,19 @@ public class ServerCredentials implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #ServerCredentials()} instead.
      * 
      * @param createdAt
      *            Creation UTC time RFC3339.
      * @param id
-     *            ID that uniquely identifies the entity.
+     *            Unique entity ID.
      * @param serverCertificate
-     *            PEM format X.509 server certificate that will be used to validate the server certificate that will be
-     *            received during the TLS/DTLS handshake.
+     *            PEM-format X.509 server certificate used to validate the server certificate received during the
+     *            TLS/DTLS handshake.
      * @param serverUri
-     *            Server URI to which the client needs to connect to.
+     *            Server URI that the client connects to.
      */
     @Internal
     public ServerCredentials(Date createdAt, String id, String serverCertificate, String serverUri) {
@@ -66,6 +68,8 @@ public class ServerCredentials implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #ServerCredentials()} instead.
      * 
@@ -89,9 +93,13 @@ public class ServerCredentials implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
-     *            ID that uniquely identifies the entity.
+     *            Unique entity ID.
      */
     public ServerCredentials(String id) {
         this();
@@ -102,15 +110,17 @@ public class ServerCredentials implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on read-only fields.
+     * <p>
      * Note: Should not be used. Use {@link #ServerCredentials()} instead.
      * 
      * @param createdAt
      *            Creation UTC time RFC3339.
      * @param serverCertificate
-     *            PEM format X.509 server certificate that will be used to validate the server certificate that will be
-     *            received during the TLS/DTLS handshake.
+     *            PEM-format X.509 server certificate used to validate the server certificate received during the
+     *            TLS/DTLS handshake.
      * @param serverUri
-     *            Server URI to which the client needs to connect to.
+     *            Server URI that the client connects to.
      */
     @Internal
     public ServerCredentials(Date createdAt, String serverCertificate, String serverUri) {
@@ -127,7 +137,7 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
-     * Gets id that uniquely identifies the entity.
+     * Gets unique entity id.
      * 
      * @return id
      */
@@ -137,10 +147,10 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
-     * Sets id that uniquely identifies the entity.
+     * Sets unique entity id.
      * 
      * @param id
-     *            ID that uniquely identifies the entity.
+     *            Unique entity ID.
      */
     @Override
     public void setId(String id) {
@@ -148,13 +158,13 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
-     * Sets id that uniquely identifies the entity.
+     * Sets unique entity id.
      *
      * <p>
      * Similar to {@link #setId(String)}
      * 
      * @param serverCredentialsId
-     *            ID that uniquely identifies the entity.
+     *            Unique entity ID.
      */
     @Internal
     public void setServerCredentialsId(String serverCredentialsId) {
@@ -162,8 +172,8 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
-     * Gets pem format x.509 server certificate that will be used to validate the server certificate that will be
-     * received during the tls/dtls handshake.
+     * Gets pem-format x.509 server certificate used to validate the server certificate received during the tls/dtls
+     * handshake.
      * 
      * @return serverCertificate
      */
@@ -172,12 +182,26 @@ public class ServerCredentials implements SdkModel {
     }
 
     /**
-     * Gets server uri to which the client needs to connect to.
+     * Gets server uri that the client connects to.
      * 
      * @return serverUri
      */
     public String getServerUri() {
         return serverUri;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "ServerCredentials [createdAt=" + createdAt + ", id=" + id + ", serverCertificate=" + serverCertificate
+               + ", serverUri=" + serverUri + "]";
     }
 
     /**
@@ -267,20 +291,6 @@ public class ServerCredentials implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "ServerCredentials [createdAt=" + createdAt + ", id=" + id + ", serverCertificate=" + serverCertificate
-               + ", serverUri=" + serverUri + "]";
     }
 
     /**

@@ -115,6 +115,7 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
         return currentModel;
     }
 
+    @SuppressWarnings("checkstyle:RightCurly")
     protected T setAndGetModel(T model) {
         T prev = null;
         final T next = model;

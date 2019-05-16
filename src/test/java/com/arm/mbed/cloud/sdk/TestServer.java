@@ -396,7 +396,7 @@ public class TestServer {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.deleteLowLevelInstance(instanceId);
+                    return Boolean.valueOf(engine.deleteLowLevelInstance(instanceId));
                 }
             }, false);
         });
@@ -411,7 +411,7 @@ public class TestServer {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.deleteFoundationInstance(instanceId);
+                    return Boolean.valueOf(engine.deleteFoundationInstance(instanceId));
                 }
             }, false);
         });
@@ -538,7 +538,8 @@ public class TestServer {
                                                                                  + result.getException() + " was raised"
                                                                                : result.getException().getMessage());
                     } else {
-                        sendError(setResponse(500, routingContext), result.getMetadata().getStatusCode(),
+                        sendError(setResponse(500, routingContext),
+                                  Integer.valueOf(result.getMetadata().getStatusCode()),
                                   "An error occurred during call. Call metadata: " + result.getMetadata().toString());
                     }
                 }
@@ -569,7 +570,7 @@ public class TestServer {
         try {
             ModuleInstance instance = Serializer.convertStringToObject(instanceIdAsString, ModuleInstance.class);
             instanceIdAsString = instance.getId();
-        } catch (Exception e) {
+        } catch (@SuppressWarnings("unused") Exception e) {
             // Nothing to do
         }
         return instanceIdAsString;
@@ -591,7 +592,7 @@ public class TestServer {
         SdkConfiguration conf = null;
         try {
             conf = Serializer.convertStringToObject(bodyAsString, SdkConfiguration.class);
-        } catch (Exception e) {
+        } catch (@SuppressWarnings("unused") Exception e) {
             logger.logWarn("The test server could not interpret instance configuration properly: [" + bodyAsString
                            + "]. Defaulting to test server configuration.");
             return defaultConnectionConfiguration;
@@ -679,7 +680,7 @@ public class TestServer {
             FigletRenderer figletRenderer = new FigletRenderer(FigFontResources.loadFigFontResource(FigFontResources.IVRIT_FLF));
             figletRenderer.setPrintDirection(PrintDirection.LEFT_TO_RIGHT);
             builder.append(figletRenderer.renderText(TOOL_NAME.replace(" ", "\n")));
-        } catch (IOException exception) {
+        } catch (@SuppressWarnings("unused") IOException exception) {
             // Nothing to do
         }
         builder.append(System.lineSeparator());
@@ -728,7 +729,7 @@ public class TestServer {
     }
 
     private void sendError(HttpServerResponse res, Integer errorCode, String errorMessage) {
-        int statusCode = (errorCode == null) ? 500 : errorCode;
+        int statusCode = (errorCode == null) ? 500 : errorCode.intValue();
         JsonObject responseMessage = new JsonObject();
         responseMessage.put("message", errorMessage);
         logger.logInfo(String.valueOf(statusCode) + ": " + String.valueOf(errorMessage));

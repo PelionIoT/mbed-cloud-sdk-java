@@ -2,7 +2,7 @@
 
 ![Status](https://img.shields.io/badge/status-beta-orange.svg)
 
-The Pelion Cloud SDK provides a simplified interface to the [Pelion Cloud APIs](https://www.mbed.com/en/platform/cloud/) by exposing functionality using conventions and paradigms familiar to Java developers.
+The Pelion Device Management SDK (formerly known as Mbed Cloud SDK) provides a simplified interface to the [Pelion Device Management APIs](https://www.mbed.com/en/platform/cloud/) by exposing functionality using conventions and paradigms familiar to Java developers.
 
 ## Prerequisites
 * Java > 1.7   _tested with [Oracle JRE](http://www.oracle.com/technetwork/java/javase/downloads/index.html)_
@@ -36,7 +36,7 @@ implementation( 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y' ){
 ```
 ## Usage
 These instructions can also be found in the [official documentation](https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-java/):
-1. Create an API key on [Pelion Cloud Portal](https://portal.mbedcloud.com/).
+1. Create an API key on [Pelion Device Management Portal](https://portal.mbedcloud.com/).
 2. Import the SDK to your project using one of the packages listed above.
 3. Create a configuration object:
     ```java
@@ -56,24 +56,32 @@ These instructions can also be found in the [official documentation](https://clo
         }
     ```
 ## Versioning
-The current version scheme used by the SDK reflects the version of the API it abstracts (e.g. 1.2.3 refers to 1.2 version of Pelion Cloud APIs). The last digit of the version corresponds to the SDK incremental version.
+The SDK version scheme follows [Semantic versioning](https://semver.org/)
+
+`<SDK major>.<SDK minor>.<SDK bugFix>`
 
 ## Documentation and examples
-See the full documentation and API reference (i.e. javadoc) at https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-java/.
-For usage examples, please have a look at the [example project](examples/README.md).
+The SDK guide and examples are available on [GitHub](https://armmbed.github.io/mbed-cloud-sdk-documentation/#introduction)
+
+The documentation contains many examples covering various Use Cases that you may have. In each case you can compare the Java implementation with alternatives in languages
+supported by the other Pelion Device Management SDKs.
+
+See API reference (i.e. javadoc) at https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-java/.
+
+For specific Java usage examples, please have a look at the [example project](examples/README.md).
 
 ## Contributing
-Pelion Cloud SDK for Java is open source and we would like your help. There is a brief guide on how to get started in [CONTRIBUTING.md](CONTRIBUTING.md).
+The Pelion Device Management SDK for Java is open source and we would like your help. There is a brief guide on how to get started in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Project
 * All code inside _\*.internal.\*_ packages or annotated as **@Internal** is considered private API and should not be relied upon at all.
-* Classes annotated as **@Module** contain all Arm Pelion Cloud APIs
-* Methods annotated as **@API** are the functions which can be used to interact with Pelion Cloud.
+* Classes annotated as **@Module** contain all Arm Pelion Device Management REST APIs
+* Methods annotated as **@API** are low-level functions which can be used to interact with Pelion Cloud. However, it is advised to use DAOs instead.
 * APIs, objects or methods annotated as **@Deprecated** are supported until the next major release and will be removed later on. It is highly recommended to stop using them.
 * Methods with **@Daemon** annotation should be used to monitor SDK daemon threads.
 
 ## Licence
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Pelion Cloud SDK for Java is free-to-use and licensed under the **Apache License
+Pelion Device Management SDK for Java is free-to-use and licensed under the **Apache License
 2.0**. See [LICENCE](LICENCE) file for more information.

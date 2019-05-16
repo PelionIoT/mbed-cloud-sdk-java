@@ -5,6 +5,7 @@ import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class MethodFilterSet extends MethodFilter {
 
+    private static final String METHOD_PREFIX = "add";
     protected final String parameterName;
 
     public MethodFilterSet(Filter filter, TypeParameter inputType, String name, String description,
@@ -33,7 +34,7 @@ public class MethodFilterSet extends MethodFilter {
     }
 
     protected static String generateName(Filter filter2, boolean plural) {
-        return Utils.combineNames(false, "add", getFilterOperatorName(filter2),
+        return Utils.combineNames(false, METHOD_PREFIX, getFilterOperatorName(filter2),
                                   plural ? Utils.generatePlural(filter2.getFieldName()) : filter2.getFieldName(),
                                   "filter");
     }
@@ -50,7 +51,13 @@ public class MethodFilterSet extends MethodFilter {
     @Override
     protected void translateCode() throws TranslationException {
         super.translateCode();
-        code.addStatement("$L($L, $L)", filter.getAddFilterMethodName(), filter.getTag().getName(), parameterName);
+        final TypeParameter fieldType = filter.getFieldType();
+        if (fieldType.isPrimitive()) {
+            code.addStatement("$L($L, $T.valueOf($L))", filter.getAddFilterMethodName(), filter.getTag().getName(),
+                              MethodMapper.getWrapperEquivalent(fieldType), parameterName);
+        } else {
+            code.addStatement("$L($L, $L)", filter.getAddFilterMethodName(), filter.getTag().getName(), parameterName);
+        }
     }
 
 }

@@ -43,6 +43,8 @@ public class LoginHistory implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #LoginHistory()} instead.
      * 
      * @param date
@@ -66,6 +68,8 @@ public class LoginHistory implements SdkModel {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #LoginHistory()} instead.
      * 
@@ -151,6 +155,20 @@ public class LoginHistory implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "LoginHistory [date=" + date + ", ipAddress=" + ipAddress + ", success=" + success + ", userAgent="
+               + userAgent + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
      *
      * <p>
@@ -164,7 +182,7 @@ public class LoginHistory implements SdkModel {
         int result = 1;
         result = prime * result + ((date == null) ? 0 : date.hashCode());
         result = prime * result + ((ipAddress == null) ? 0 : ipAddress.hashCode());
-        result = prime * result + Objects.hashCode(success);
+        result = prime * result + Objects.hashCode(Boolean.valueOf(success));
         result = prime * result + ((userAgent == null) ? 0 : userAgent.hashCode());
         return result;
     }
@@ -233,20 +251,6 @@ public class LoginHistory implements SdkModel {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "LoginHistory [date=" + date + ", ipAddress=" + ipAddress + ", success=" + success + ", userAgent="
-               + userAgent + "]";
     }
 
     /**

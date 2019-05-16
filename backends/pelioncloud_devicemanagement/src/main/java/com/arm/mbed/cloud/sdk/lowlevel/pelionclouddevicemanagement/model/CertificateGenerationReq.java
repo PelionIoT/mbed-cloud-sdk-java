@@ -24,9 +24,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * This object is used for generating a new service provider certificate.
+ * Generate a new service provider certificate.
  */
-@ApiModel(description = "This object is used for generating a new service provider certificate.")
+@ApiModel(description = "Generate a new service provider certificate.")
 
 public class CertificateGenerationReq implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -125,11 +125,11 @@ public class CertificateGenerationReq implements Serializable {
     }
 
     /**
-     * Validity for the certificate in days. Value can be in the range of 1 to 3650. Defaults to 365 days.
+     * Validity for the certificate in days.
      * 
      * @return validity
      **/
-    @ApiModelProperty(value = "Validity for the certificate in days. Value can be in the range of 1 to 3650. Defaults to 365 days.")
+    @ApiModelProperty(value = "Validity for the certificate in days.")
     public Integer getValidity() {
         return validity;
     }

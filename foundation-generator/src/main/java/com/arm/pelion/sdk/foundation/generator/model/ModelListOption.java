@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
+import com.arm.pelion.sdk.foundation.generator.util.Logger;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class ModelListOption extends Model {
@@ -19,18 +20,21 @@ public class ModelListOption extends Model {
 
     private final List<Filter> filters;
     private final Model correspondingModel;
+    private final ArtifactFetcher<Model> modelFetcher;
 
-    public ModelListOption(Model model, String description, boolean needsCustomCode) {
+    public ModelListOption(Model model, ArtifactFetcher<Model> modelFetcher, String description,
+                           boolean needsCustomCode) {
         super(model.getPackageName(), generateName(model.getName()), model.getGroup(),
               generateDescription(model.getName(), description), null, needsCustomCode, false);
         setSuperClassType(TypeFactory.getCorrespondingType(ListOptions.class));
         filters = new LinkedList<>();
         correspondingModel = model;
+        this.modelFetcher = modelFetcher;
         setIgnoreLiteralDuplicate(true);
     }
 
     public ModelListOption() {
-        this(new Model(ListOptions.class), "Default list options", false);
+        this(new Model(ListOptions.class), null, "Default list options", false);
     }
 
     private static String generateDescription(String name, String description) {
@@ -59,21 +63,44 @@ public class ModelListOption extends Model {
     }
 
     public List<Filter> getFilters() {
-        return filters;
+        return filters.stream().filter(f -> f.isVerified()).collect(Collectors.toList());
     }
 
     public boolean hasFilters() {
-        return !filters.isEmpty();
+        return filters.stream().anyMatch(f -> f.isVerified());
     }
 
     @Override
     protected void generateOtherMethods() {
         super.generateOtherMethods();
-        filters.forEach(f -> addFilterMethods(f));
+        verifyFilters();
+        getFilters().forEach(f -> addFilterMethods(f));
         addFilterDocumentation();
     }
 
-    protected void addFilterDocumentation() {
+    private void verifyFilters() {
+        // fetching latest version of the model
+
+        final Model relatedModel = modelFetcher == null ? correspondingModel
+                                                        : modelFetcher.has(correspondingModel.toType()) ? modelFetcher.fetch(correspondingModel.toType())
+                                                                                                        : correspondingModel;
+        filters.stream().filter(f -> !f.isVerified()).collect(Collectors.toList()).forEach(f -> {
+            final Field field = relatedModel.fetchField(f.getFieldName());
+            if (field == null) {
+                // FIXME: throw an exception in the future rather than just logging it
+                Logger.getLogger()
+                      .logError("Error in filter definition",
+                                new IllegalArgumentException("No filter can be applied to \"" + f.getFieldName()
+                                                             + "\" as there is no such field in " + relatedModel));
+                return;
+            }
+            f.setVerified(true);
+            f.setFieldName(field.getName());
+            f.setFieldType(field.getType());
+        });
+    }
+
+    private void addFilterDocumentation() {
         final StringBuilder builder = new StringBuilder();
         builder.append("Note:").append(Utils.generateNewDocumentationLine());
         builder.append("<ul>").append("<li>").append(System.lineSeparator());
@@ -82,12 +109,12 @@ public class ModelListOption extends Model {
                .append(Utils.generateDocumentationString(correspondingModel.getName())).append(".")
                .append(Utils.generateNewDocumentationLine());
         builder.append("The following filters are currently supported:").append(System.lineSeparator());
-        builder.append(generateFilterTable(filters));
+        builder.append(generateFilterTable(getFilters()));
         builder.append("</li>").append("</ul>").append(System.lineSeparator());
         setLongDescription(builder.toString());
     }
 
-    protected void addFilterMethods(Filter filter) {
+    private void addFilterMethods(Filter filter) {
         if (filter == null) {
             return;
         }
@@ -107,7 +134,7 @@ public class ModelListOption extends Model {
 
     private void addMultipleMethodFilters(Filter filter, boolean containsCustomCode) {
         final Map<TypeParameter, Method> table = new LinkedHashMap<>();
-        Arrays.asList(TypeFactory.getCorrespondingType(String.class), new TypeList(filter.getFieldType()),
+        Arrays.asList(TypeFactory.stringType(), new TypeList(filter.getFieldType()),
                       new TypeArray(filter.getFieldType()))
               .forEach(t -> {
                   final MethodOverloaded setMethod = new MethodFilterSet(filter, t, containsCustomCode, true);
@@ -162,6 +189,12 @@ public class ModelListOption extends Model {
         overrideMethodIfExist((new MethodListOptionsConstructorEmpty(this, theParent)));
     }
 
+    @Override
+    protected void generateHashCodeAndEquals(Model theParent) {
+        super.generateHashCodeAndEquals(theParent);
+        generateHashCode(theParent);
+    }
+
     private void generateSetOptions(Model theParent) {
         if (hasFields()) {
             overrideMethodIfExist(new MethodListOptionsSetOptions(this, theParent));
@@ -190,8 +223,7 @@ public class ModelListOption extends Model {
         // Nothing to do
     }
 
-    @SuppressWarnings("boxing")
-    protected static String generateFilterTable(List<Filter> filters) {
+    private static String generateFilterTable(List<Filter> filters) {
         final List<FilterOperator> availableFilterOperators = Arrays.asList(FilterOperator.values()).stream()
                                                                     .filter(f -> !f.isUnknownValue())
                                                                     .collect(Collectors.toList());

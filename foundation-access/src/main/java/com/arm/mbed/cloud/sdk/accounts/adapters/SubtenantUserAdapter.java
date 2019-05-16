@@ -57,13 +57,13 @@ public final class SubtenantUserAdapter {
         subtenantUser.setEmail(toBeMapped.getEmail());
         subtenantUser.setFullName(toBeMapped.getFullName());
         subtenantUser.setId(toBeMapped.getId());
+        subtenantUser.setIsGtcAccepted(TranslationUtils.toBool(toBeMapped.isIsGtcAccepted()));
+        subtenantUser.setIsMarketingAccepted(TranslationUtils.toBool(toBeMapped.isIsMarketingAccepted()));
+        subtenantUser.setIsTotpEnabled(TranslationUtils.toBool(toBeMapped.isIsTotpEnabled()));
         subtenantUser.setLoginProfiles(LoginProfileAdapter.mapSimpleList(toBeMapped.getLoginProfiles()));
-        subtenantUser.setMarketingAccepted(TranslationUtils.toBool(toBeMapped.isIsMarketingAccepted()));
         subtenantUser.setPassword(toBeMapped.getPassword());
         subtenantUser.setPhoneNumber(toBeMapped.getPhoneNumber());
         subtenantUser.setStatus(translateToSubtenantUserStatus(toBeMapped.getStatus()));
-        subtenantUser.setTermsAccepted(TranslationUtils.toBool(toBeMapped.isIsGtcAccepted()));
-        subtenantUser.setTwoFactorAuthentication(TranslationUtils.toBool(toBeMapped.isIsTotpEnabled()));
         subtenantUser.setUsername(toBeMapped.getUsername());
         return subtenantUser;
     }
@@ -107,8 +107,8 @@ public final class SubtenantUserAdapter {
         userInfoReq.setEmail(toBeMapped.getEmail());
         userInfoReq.setFullName(toBeMapped.getFullName());
         // No field equivalent to groups in UserInfoReq was found in SubtenantUser
-        userInfoReq.setIsGtcAccepted(toBeMapped.isTermsAccepted());
-        userInfoReq.setIsMarketingAccepted(toBeMapped.isMarketingAccepted());
+        userInfoReq.setIsGtcAccepted(Boolean.valueOf(toBeMapped.isGtcAccepted()));
+        userInfoReq.setIsMarketingAccepted(Boolean.valueOf(toBeMapped.isMarketingAccepted()));
         userInfoReq.setLoginProfiles(LoginProfileAdapter.reverseMapAddSimpleList(toBeMapped.getLoginProfiles()));
         userInfoReq.setPassword(toBeMapped.getPassword());
         userInfoReq.setPhoneNumber(toBeMapped.getPhoneNumber());
@@ -133,9 +133,9 @@ public final class SubtenantUserAdapter {
         userUpdateReq.setEmail(toBeMapped.getEmail());
         userUpdateReq.setFullName(toBeMapped.getFullName());
         // No field equivalent to groups in UserUpdateReq was found in SubtenantUser
-        userUpdateReq.setIsGtcAccepted(toBeMapped.isTermsAccepted());
-        userUpdateReq.setIsMarketingAccepted(toBeMapped.isMarketingAccepted());
-        userUpdateReq.setIsTotpEnabled(toBeMapped.isTwoFactorAuthentication());
+        userUpdateReq.setIsGtcAccepted(Boolean.valueOf(toBeMapped.isGtcAccepted()));
+        userUpdateReq.setIsMarketingAccepted(Boolean.valueOf(toBeMapped.isMarketingAccepted()));
+        userUpdateReq.setIsTotpEnabled(Boolean.valueOf(toBeMapped.isTotpEnabled()));
         userUpdateReq.setLoginProfiles(LoginProfileAdapter.reverseMapUpdateSimpleList(toBeMapped.getLoginProfiles()));
         userUpdateReq.setPhoneNumber(toBeMapped.getPhoneNumber());
         userUpdateReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelUserupdatereqStatusenum(toBeMapped.getStatus()));

@@ -377,7 +377,9 @@ public abstract class AbstractPaginator<T, U extends AbstractListResponse<T>, V 
     }
 
     private boolean isLastElementInCurrentPage() {
-        return pageSize != null && pageIndex + 1 > initialOptions.getMaxResults().longValue() / pageSize.intValue();
+        return pageSize != null
+               && (pageSize.intValue() == 0
+                   || pageIndex + 1 > initialOptions.getMaxResults().longValue() / pageSize.intValue());
     }
 
     /**
@@ -571,7 +573,6 @@ public abstract class AbstractPaginator<T, U extends AbstractListResponse<T>, V 
         return all;
     }
 
-    @SuppressWarnings("unchecked")
     protected void setProperties(AbstractPaginator<T, U, V> other) {
         if (other == null) {
             lastOptions = null;

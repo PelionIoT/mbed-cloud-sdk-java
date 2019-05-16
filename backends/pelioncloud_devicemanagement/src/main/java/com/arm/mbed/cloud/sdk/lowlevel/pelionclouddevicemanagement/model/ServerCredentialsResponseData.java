@@ -87,11 +87,11 @@ public class ServerCredentialsResponseData implements Serializable {
     }
 
     /**
-     * ID that uniquely identifies the entity.
+     * Unique entity ID.
      * 
      * @return id
      **/
-    @ApiModelProperty(value = "ID that uniquely identifies the entity.")
+    @ApiModelProperty(value = "Unique entity ID.")
     public String getId() {
         return id;
     }
@@ -106,11 +106,11 @@ public class ServerCredentialsResponseData implements Serializable {
     }
 
     /**
-     * Entity name, always &#39;server-credentials&#39;
+     * Entity name: always &#x60;server-credentials&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(value = "Entity name, always 'server-credentials'")
+    @ApiModelProperty(value = "Entity name: always `server-credentials`.")
     public String getObject() {
         return object;
     }
@@ -125,12 +125,12 @@ public class ServerCredentialsResponseData implements Serializable {
     }
 
     /**
-     * PEM format X.509 server certificate that will be used to validate the server certificate that will be received
-     * during the TLS/DTLS handshake.
+     * PEM-format X.509 server certificate used to validate the server certificate received during the TLS/DTLS
+     * handshake.
      * 
      * @return serverCertificate
      **/
-    @ApiModelProperty(value = "PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.")
+    @ApiModelProperty(value = "PEM-format X.509 server certificate used to validate the server certificate received during the TLS/DTLS handshake.")
     public String getServerCertificate() {
         return serverCertificate;
     }
@@ -145,11 +145,11 @@ public class ServerCredentialsResponseData implements Serializable {
     }
 
     /**
-     * Server URI to which the client needs to connect to.
+     * Server URI that the client connects to.
      * 
      * @return serverUri
      **/
-    @ApiModelProperty(value = "Server URI to which the client needs to connect to.")
+    @ApiModelProperty(value = "Server URI that the client connects to.")
     public String getServerUri() {
         return serverUri;
     }

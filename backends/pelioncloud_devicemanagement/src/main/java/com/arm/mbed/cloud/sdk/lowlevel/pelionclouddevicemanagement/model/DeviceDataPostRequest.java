@@ -20,11 +20,9 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import java.io.Serializable;
 
 /**
@@ -38,16 +36,13 @@ public class DeviceDataPostRequest implements Serializable {
     private Boolean autoUpdate = null;
 
     @SerializedName("bootstrap_expiration_date")
-    private DateTime bootstrapExpirationDate = null;
-
-    @SerializedName("bootstrapped_timestamp")
-    private DateTime bootstrappedTimestamp = null;
+    private LocalDate bootstrapExpirationDate = null;
 
     @SerializedName("ca_id")
     private String caId = null;
 
     @SerializedName("connector_expiration_date")
-    private DateTime connectorExpirationDate = null;
+    private LocalDate connectorExpirationDate = null;
 
     @SerializedName("custom_attributes")
     private Map<String, String> customAttributes = null;
@@ -72,12 +67,6 @@ public class DeviceDataPostRequest implements Serializable {
 
     @SerializedName("endpoint_type")
     private String endpointType = null;
-
-    @SerializedName("firmware_checksum")
-    private String firmwareChecksum = null;
-
-    @SerializedName("groups")
-    private List<String> groups = null;
 
     @SerializedName("host_gateway")
     private String hostGateway = null;
@@ -143,9 +132,6 @@ public class DeviceDataPostRequest implements Serializable {
 
     @SerializedName("name")
     private String name = null;
-
-    @SerializedName("object")
-    private String object = null;
 
     @SerializedName("serial_number")
     private String serialNumber = null;
@@ -228,7 +214,7 @@ public class DeviceDataPostRequest implements Serializable {
         this.autoUpdate = autoUpdate;
     }
 
-    public DeviceDataPostRequest bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
+    public DeviceDataPostRequest bootstrapExpirationDate(LocalDate bootstrapExpirationDate) {
         this.bootstrapExpirationDate = bootstrapExpirationDate;
         return this;
     }
@@ -238,34 +224,14 @@ public class DeviceDataPostRequest implements Serializable {
      * 
      * @return bootstrapExpirationDate
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z",
+    @ApiModelProperty(example = "2017-05-22",
                       value = "The expiration date of the certificate used to connect to bootstrap server.")
-    public DateTime getBootstrapExpirationDate() {
+    public LocalDate getBootstrapExpirationDate() {
         return bootstrapExpirationDate;
     }
 
-    public void setBootstrapExpirationDate(DateTime bootstrapExpirationDate) {
+    public void setBootstrapExpirationDate(LocalDate bootstrapExpirationDate) {
         this.bootstrapExpirationDate = bootstrapExpirationDate;
-    }
-
-    public DeviceDataPostRequest bootstrappedTimestamp(DateTime bootstrappedTimestamp) {
-        this.bootstrappedTimestamp = bootstrappedTimestamp;
-        return this;
-    }
-
-    /**
-     * The timestamp of the device&#39;s most recent bootstrap process.
-     * 
-     * @return bootstrappedTimestamp
-     **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z",
-                      value = "The timestamp of the device's most recent bootstrap process.")
-    public DateTime getBootstrappedTimestamp() {
-        return bootstrappedTimestamp;
-    }
-
-    public void setBootstrappedTimestamp(DateTime bootstrappedTimestamp) {
-        this.bootstrappedTimestamp = bootstrappedTimestamp;
     }
 
     public DeviceDataPostRequest caId(String caId) {
@@ -287,7 +253,7 @@ public class DeviceDataPostRequest implements Serializable {
         this.caId = caId;
     }
 
-    public DeviceDataPostRequest connectorExpirationDate(DateTime connectorExpirationDate) {
+    public DeviceDataPostRequest connectorExpirationDate(LocalDate connectorExpirationDate) {
         this.connectorExpirationDate = connectorExpirationDate;
         return this;
     }
@@ -297,13 +263,13 @@ public class DeviceDataPostRequest implements Serializable {
      * 
      * @return connectorExpirationDate
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z",
+    @ApiModelProperty(example = "2017-05-22",
                       value = "The expiration date of the certificate used to connect to the LwM2M server.")
-    public DateTime getConnectorExpirationDate() {
+    public LocalDate getConnectorExpirationDate() {
         return connectorExpirationDate;
     }
 
-    public void setConnectorExpirationDate(DateTime connectorExpirationDate) {
+    public void setConnectorExpirationDate(LocalDate connectorExpirationDate) {
         this.connectorExpirationDate = connectorExpirationDate;
     }
 
@@ -472,53 +438,6 @@ public class DeviceDataPostRequest implements Serializable {
         this.endpointType = endpointType;
     }
 
-    public DeviceDataPostRequest firmwareChecksum(String firmwareChecksum) {
-        this.firmwareChecksum = firmwareChecksum;
-        return this;
-    }
-
-    /**
-     * The SHA256 checksum of the current firmware image.
-     * 
-     * @return firmwareChecksum
-     **/
-    @ApiModelProperty(example = "0000000000000000000000000000000000000000000000000000000000000000",
-                      value = "The SHA256 checksum of the current firmware image.")
-    public String getFirmwareChecksum() {
-        return firmwareChecksum;
-    }
-
-    public void setFirmwareChecksum(String firmwareChecksum) {
-        this.firmwareChecksum = firmwareChecksum;
-    }
-
-    public DeviceDataPostRequest groups(List<String> groups) {
-        this.groups = groups;
-        return this;
-    }
-
-    public DeviceDataPostRequest addGroupsItem(String groupsItem) {
-        if (this.groups == null) {
-            this.groups = new ArrayList<String>();
-        }
-        this.groups.add(groupsItem);
-        return this;
-    }
-
-    /**
-     * An array containing an ID of each group this device belongs to.
-     * 
-     * @return groups
-     **/
-    @ApiModelProperty(value = "An array containing an ID of each group this device belongs to.")
-    public List<String> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(List<String> groups) {
-        this.groups = groups;
-    }
-
     public DeviceDataPostRequest hostGateway(String hostGateway) {
         this.hostGateway = hostGateway;
         return this;
@@ -634,25 +553,6 @@ public class DeviceDataPostRequest implements Serializable {
         this.name = name;
     }
 
-    public DeviceDataPostRequest object(String object) {
-        this.object = object;
-        return this;
-    }
-
-    /**
-     * The API resource entity.
-     * 
-     * @return object
-     **/
-    @ApiModelProperty(example = "device", value = "The API resource entity.")
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
-    }
-
     public DeviceDataPostRequest serialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
         return this;
@@ -721,7 +621,6 @@ public class DeviceDataPostRequest implements Serializable {
         DeviceDataPostRequest deviceDataPostRequest = (DeviceDataPostRequest) o;
         return Objects.equals(this.autoUpdate, deviceDataPostRequest.autoUpdate)
                && Objects.equals(this.bootstrapExpirationDate, deviceDataPostRequest.bootstrapExpirationDate)
-               && Objects.equals(this.bootstrappedTimestamp, deviceDataPostRequest.bootstrappedTimestamp)
                && Objects.equals(this.caId, deviceDataPostRequest.caId)
                && Objects.equals(this.connectorExpirationDate, deviceDataPostRequest.connectorExpirationDate)
                && Objects.equals(this.customAttributes, deviceDataPostRequest.customAttributes)
@@ -732,15 +631,12 @@ public class DeviceDataPostRequest implements Serializable {
                && Objects.equals(this.deviceKey, deviceDataPostRequest.deviceKey)
                && Objects.equals(this.endpointName, deviceDataPostRequest.endpointName)
                && Objects.equals(this.endpointType, deviceDataPostRequest.endpointType)
-               && Objects.equals(this.firmwareChecksum, deviceDataPostRequest.firmwareChecksum)
-               && Objects.equals(this.groups, deviceDataPostRequest.groups)
                && Objects.equals(this.hostGateway, deviceDataPostRequest.hostGateway)
                && Objects.equals(this.issuerFingerprint, deviceDataPostRequest.issuerFingerprint)
                && Objects.equals(this.manifest, deviceDataPostRequest.manifest)
                && Objects.equals(this.mechanism, deviceDataPostRequest.mechanism)
                && Objects.equals(this.mechanismUrl, deviceDataPostRequest.mechanismUrl)
                && Objects.equals(this.name, deviceDataPostRequest.name)
-               && Objects.equals(this.object, deviceDataPostRequest.object)
                && Objects.equals(this.serialNumber, deviceDataPostRequest.serialNumber)
                && Objects.equals(this.state, deviceDataPostRequest.state)
                && Objects.equals(this.vendorId, deviceDataPostRequest.vendorId);
@@ -748,10 +644,10 @@ public class DeviceDataPostRequest implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate,
-                            customAttributes, deployment, description, deviceClass, deviceExecutionMode, deviceKey,
-                            endpointName, endpointType, firmwareChecksum, groups, hostGateway, issuerFingerprint,
-                            manifest, mechanism, mechanismUrl, name, object, serialNumber, state, vendorId);
+        return Objects.hash(autoUpdate, bootstrapExpirationDate, caId, connectorExpirationDate, customAttributes,
+                            deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName,
+                            endpointType, hostGateway, issuerFingerprint, manifest, mechanism, mechanismUrl, name,
+                            serialNumber, state, vendorId);
     }
 
     @Override
@@ -761,7 +657,6 @@ public class DeviceDataPostRequest implements Serializable {
 
         sb.append("    autoUpdate: ").append(toIndentedString(autoUpdate)).append("\n");
         sb.append("    bootstrapExpirationDate: ").append(toIndentedString(bootstrapExpirationDate)).append("\n");
-        sb.append("    bootstrappedTimestamp: ").append(toIndentedString(bootstrappedTimestamp)).append("\n");
         sb.append("    caId: ").append(toIndentedString(caId)).append("\n");
         sb.append("    connectorExpirationDate: ").append(toIndentedString(connectorExpirationDate)).append("\n");
         sb.append("    customAttributes: ").append(toIndentedString(customAttributes)).append("\n");
@@ -772,15 +667,12 @@ public class DeviceDataPostRequest implements Serializable {
         sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");
         sb.append("    endpointName: ").append(toIndentedString(endpointName)).append("\n");
         sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
-        sb.append("    firmwareChecksum: ").append(toIndentedString(firmwareChecksum)).append("\n");
-        sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
         sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
         sb.append("    issuerFingerprint: ").append(toIndentedString(issuerFingerprint)).append("\n");
         sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
         sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");
         sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    object: ").append(toIndentedString(object)).append("\n");
         sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");
         sb.append("    state: ").append(toIndentedString(state)).append("\n");
         sb.append("    vendorId: ").append(toIndentedString(vendorId)).append("\n");

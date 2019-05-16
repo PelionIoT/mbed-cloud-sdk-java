@@ -29,9 +29,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * This object represents an account in requests and responses.
+ * Represents an account in requests and responses.
  */
-@ApiModel(description = "This object represents an account in requests and responses.")
+@ApiModel(description = "Represents an account in requests and responses.")
 
 public class AccountInfo implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -103,19 +103,19 @@ public class AccountInfo implements Serializable {
     private DateTime expiration = null;
 
     @SerializedName("expiration_warning_threshold")
-    private String expirationWarningThreshold = null;
+    private Integer expirationWarningThreshold = null;
 
     @SerializedName("id")
     private String id = null;
 
     @SerializedName("idle_timeout")
-    private String idleTimeout = null;
+    private Integer idleTimeout = null;
 
     @SerializedName("limits")
     private Map<String, String> limits = null;
 
     /**
-     * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
+     * The enforcement status of multi-factor authentication, either &#x60;enforced&#x60; or &#x60;optional&#x60;.
      */
     @JsonAdapter(MfaStatusEnum.Adapter.class)
     public enum MfaStatusEnum {
@@ -168,7 +168,7 @@ public class AccountInfo implements Serializable {
     private List<String> notificationEmails = null;
 
     /**
-     * Entity name: always &#39;account&#39;
+     * Entity name: always &#x60;account&#x60;.
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
@@ -361,13 +361,12 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * The email address of the admin user created for this account. Present only in the response for the account
-     * creation.
+     * The email address of the admin user created for this account. Present only in the response for account creation.
      * 
      * @return adminEmail
      **/
     @ApiModelProperty(example = "admin@arm.com",
-                      value = "The email address of the admin user created for this account. Present only in the response for the account creation.")
+                      value = "The email address of the admin user created for this account. Present only in the response for account creation.")
     public String getAdminEmail() {
         return adminEmail;
     }
@@ -382,12 +381,12 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * The full name of the admin user created for this account. Present only in the response for the account creation.
+     * The full name of the admin user created for this account. Present only in the response for account creation.
      * 
      * @return adminFullName
      **/
     @ApiModelProperty(example = "Admin Doe",
-                      value = "The full name of the admin user created for this account. Present only in the response for the account creation.")
+                      value = "The full name of the admin user created for this account. Present only in the response for account creation.")
     public String getAdminFullName() {
         return adminFullName;
     }
@@ -417,12 +416,12 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * The admin API key created for this account. Present only in the response for the account creation.
+     * The admin API key created for this account. Present only in the response for account creation.
      * 
      * @return adminKey
      **/
     @ApiModelProperty(example = "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000B40IkJADMANmAscAj0Ot0n2yeQnyt9tT",
-                      value = "The admin API key created for this account. Present only in the response for the account creation.")
+                      value = "The admin API key created for this account. Present only in the response for account creation.")
     public String getAdminKey() {
         return adminKey;
     }
@@ -433,12 +432,12 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * The username of the admin user created for this account. Present only in the response for the account creation.
+     * The username of the admin user created for this account. Present only in the response for account creation.
      * 
      * @return adminName
      **/
     @ApiModelProperty(example = "admin",
-                      value = "The username of the admin user created for this account. Present only in the response for the account creation.")
+                      value = "The username of the admin user created for this account. Present only in the response for account creation.")
     public String getAdminName() {
         return adminName;
     }
@@ -453,12 +452,12 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * The password of the admin user created for this account. Present only in the response for the account creation.
+     * The password of the admin user created for this account. Present only in the response for account creation.
      * 
      * @return adminPassword
      **/
     @ApiModelProperty(example = "PZf9eEUH43DAPE9ULINFeuj",
-                      value = "The password of the admin user created for this account. Present only in the response for the account creation.")
+                      value = "The password of the admin user created for this account. Present only in the response for account creation.")
     public String getAdminPassword() {
         return adminPassword;
     }
@@ -749,23 +748,23 @@ public class AccountInfo implements Serializable {
         this.expiration = expiration;
     }
 
-    public AccountInfo expirationWarningThreshold(String expirationWarningThreshold) {
+    public AccountInfo expirationWarningThreshold(Integer expirationWarningThreshold) {
         this.expirationWarningThreshold = expirationWarningThreshold;
         return this;
     }
 
     /**
-     * Indicates how many days (1-180) before account expiration a notification email should be sent.
+     * Indicates how many days (1-180) before account expiration a notification email is sent. minimum: 1 maximum: 180
      * 
      * @return expirationWarningThreshold
      **/
     @ApiModelProperty(example = "180",
-                      value = "Indicates how many days (1-180) before account expiration a notification email should be sent.")
-    public String getExpirationWarningThreshold() {
+                      value = "Indicates how many days (1-180) before account expiration a notification email is sent.")
+    public Integer getExpirationWarningThreshold() {
         return expirationWarningThreshold;
     }
 
-    public void setExpirationWarningThreshold(String expirationWarningThreshold) {
+    public void setExpirationWarningThreshold(Integer expirationWarningThreshold) {
         this.expirationWarningThreshold = expirationWarningThreshold;
     }
 
@@ -788,22 +787,22 @@ public class AccountInfo implements Serializable {
         this.id = id;
     }
 
-    public AccountInfo idleTimeout(String idleTimeout) {
+    public AccountInfo idleTimeout(Integer idleTimeout) {
         this.idleTimeout = idleTimeout;
         return this;
     }
 
     /**
-     * The reference token expiration time in minutes for this account.
+     * The reference token expiration time, in minutes, for this account. minimum: 1 maximum: 120
      * 
      * @return idleTimeout
      **/
-    @ApiModelProperty(example = "30", value = "The reference token expiration time in minutes for this account.")
-    public String getIdleTimeout() {
+    @ApiModelProperty(example = "30", value = "The reference token expiration time, in minutes, for this account.")
+    public Integer getIdleTimeout() {
         return idleTimeout;
     }
 
-    public void setIdleTimeout(String idleTimeout) {
+    public void setIdleTimeout(Integer idleTimeout) {
         this.idleTimeout = idleTimeout;
     }
 
@@ -840,11 +839,11 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
+     * The enforcement status of multi-factor authentication, either &#x60;enforced&#x60; or &#x60;optional&#x60;.
      * 
      * @return mfaStatus
      **/
-    @ApiModelProperty(value = "The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.")
+    @ApiModelProperty(value = "The enforcement status of multi-factor authentication, either `enforced` or `optional`.")
     public MfaStatusEnum getMfaStatus() {
         return mfaStatus;
     }
@@ -886,11 +885,11 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * Entity name: always &#39;account&#39;
+     * Entity name: always &#x60;account&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Entity name: always 'account'")
+    @ApiModelProperty(required = true, value = "Entity name: always `account`.")
     public ObjectEnum getObject() {
         return object;
     }
@@ -924,12 +923,11 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * The ID of the parent account, if it has any.
+     * The ID of the parent account, if any.
      * 
      * @return parentId
      **/
-    @ApiModelProperty(example = "01619571dad80242ac12000600000000",
-                      value = "The ID of the parent account, if it has any.")
+    @ApiModelProperty(example = "01619571dad80242ac12000600000000", value = "The ID of the parent account, if any.")
     public String getParentId() {
         return parentId;
     }
@@ -963,12 +961,11 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is:
-     * 1-45. minimum: 1 maximum: 45
+     * Indicates for how many minutes a password recovery email is valid. minimum: 1 maximum: 45
      * 
      * @return passwordRecoveryExpiration
      **/
-    @ApiModelProperty(value = "Indicates how many minutes a password recovery email for users of this account is valid for. Valid range is: 1-45.")
+    @ApiModelProperty(value = "Indicates for how many minutes a password recovery email is valid.")
     public Integer getPasswordRecoveryExpiration() {
         return passwordRecoveryExpiration;
     }
@@ -983,11 +980,11 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * The phone number of a representative of the company.
+     * The phone number of a company representative.
      * 
      * @return phoneNumber
      **/
-    @ApiModelProperty(example = "+44 (1223) 400 400", value = "The phone number of a representative of the company.")
+    @ApiModelProperty(example = "+44 (1223) 400 400", value = "The phone number of a company representative.")
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -1048,11 +1045,11 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * A reason note for updating the status of the account
+     * A note with the reason for account status update.
      * 
      * @return reason
      **/
-    @ApiModelProperty(example = "Subscription paid.", value = "A reason note for updating the status of the account")
+    @ApiModelProperty(example = "Subscription paid.", value = "A note with the reason for account status update.")
     public String getReason() {
         return reason;
     }
@@ -1067,11 +1064,11 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * A reference note for updating the status of the account
+     * A reference note for updating the status of the account.
      * 
      * @return referenceNote
      **/
-    @ApiModelProperty(example = "ARM-INT-0001", value = "A reference note for updating the status of the account")
+    @ApiModelProperty(example = "ARM-INT-0001", value = "A reference note for updating the status of the account.")
     public String getReferenceNote() {
         return referenceNote;
     }
@@ -1189,13 +1186,13 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner
-     * tier. Other values are reserved for the future.
+     * The tier level of the account; &#x60;0&#x60;: free tier, &#x60;1&#x60;: commercial account, &#x60;2&#x60;:
+     * partner tier. Other values are reserved for the future.
      * 
      * @return tier
      **/
     @ApiModelProperty(example = "1", required = true,
-                      value = "The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.")
+                      value = "The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other values are reserved for the future.")
     public String getTier() {
         return tier;
     }

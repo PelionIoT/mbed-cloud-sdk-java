@@ -144,11 +144,11 @@ public class IdentityProviderCreationReq implements Serializable {
     }
 
     /**
-     * Description for the identity provider, not longer than 500 characters.
+     * Description for the identity provider.
      * 
      * @return description
      **/
-    @ApiModelProperty(value = "Description for the identity provider, not longer than 500 characters.")
+    @ApiModelProperty(value = "Description for the identity provider.")
     public String getDescription() {
         return description;
     }
@@ -163,11 +163,11 @@ public class IdentityProviderCreationReq implements Serializable {
     }
 
     /**
-     * Name of the identity provider, not longer than 100 characters.
+     * Name of the identity provider.
      * 
      * @return name
      **/
-    @ApiModelProperty(required = true, value = "Name of the identity provider, not longer than 100 characters.")
+    @ApiModelProperty(required = true, value = "Name of the identity provider.")
     public String getName() {
         return name;
     }

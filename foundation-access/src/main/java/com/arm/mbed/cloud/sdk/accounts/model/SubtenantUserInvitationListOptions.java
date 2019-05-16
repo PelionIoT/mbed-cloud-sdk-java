@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.listing.IncludeField;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import java.util.List;
 
@@ -40,6 +41,18 @@ import java.util.List;
  * <td style="background-color:#dae8fc;text-align:center;" width="10%">in</td>
  * <td style="background-color:#dae8fc;text-align:center;" width="10%">not in</td>
  * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">loginProfiles</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_LOGIN_PROFILES</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
  * </table>
  * </li>
  * </ul>
@@ -48,8 +61,15 @@ import java.util.List;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class SubtenantUserInvitationListOptions extends ListOptions {
     /**
+     * Tag for filter by loginProfiles.
+     */
+    public static final String TAG_FILTER_BY_LOGIN_PROFILES = "loginProfiles";
+
+    /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #SubtenantUserInvitationListOptions()} instead.
      * 
@@ -82,6 +102,8 @@ public class SubtenantUserInvitationListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #SubtenantUserInvitationListOptions()} instead.
      * 
      * @param subtenantUserInvitationListOptions
@@ -105,6 +127,8 @@ public class SubtenantUserInvitationListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on read-only fields.
+     * <p>
      * Note: Should not be used. Use {@link #SubtenantUserInvitationListOptions()} instead.
      * 
      * @param after
@@ -120,17 +144,40 @@ public class SubtenantUserInvitationListOptions extends ListOptions {
     }
 
     /**
-     * Method to ensure {@link #equals(Object)} is correct.
+     * Gets all the filters defined on field {@code loginProfiles}.
+     * 
+     * @return All the filters by {@code loginProfiles}
+     */
+    public List<Filter> getLoginProfilesFilters() {
+        return fetchFilters(TAG_FILTER_BY_LOGIN_PROFILES);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code loginProfiles}.
+     * 
+     * @param filterByLoginProfiles
+     *            filter value.
+     */
+    public void addEqualToLoginProfilesFilter(List<LoginProfile> filterByLoginProfiles) {
+        addEqualFilter(TAG_FILTER_BY_LOGIN_PROFILES, filterByLoginProfiles);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code loginProfiles}.
      *
      * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions#addEqualToLoginProfilesFilter(java.util.List)}
      * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     * @param filterByLoginProfiles
+     *            filter value.
+     * @return These list options
      */
-    protected boolean canEqual(Object other) {
-        return other instanceof SubtenantUserInvitationListOptions;
+    @SuppressWarnings("unchecked")
+    public <T extends SubtenantUserInvitationListOptions> T
+           equalToLoginProfiles(List<LoginProfile> filterByLoginProfiles) {
+        addEqualToLoginProfilesFilter(filterByLoginProfiles);
+        return (T) this;
     }
 
     /**
@@ -150,6 +197,21 @@ public class SubtenantUserInvitationListOptions extends ListOptions {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return other instanceof SubtenantUserInvitationListOptions;
+    }
+
+    /**
      * Clones this instance.
      *
      * <p>
@@ -162,5 +224,50 @@ public class SubtenantUserInvitationListOptions extends ListOptions {
         final SubtenantUserInvitationListOptions opt = new SubtenantUserInvitationListOptions();
         opt.setOptions(this);
         return opt;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof SubtenantUserInvitationListOptions)) {
+            return false;
+        }
+        final SubtenantUserInvitationListOptions other = (SubtenantUserInvitationListOptions) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    @SuppressWarnings("PMD.UselessOverridingMethod")
+    public int hashCode() {
+        return super.hashCode();
     }
 }

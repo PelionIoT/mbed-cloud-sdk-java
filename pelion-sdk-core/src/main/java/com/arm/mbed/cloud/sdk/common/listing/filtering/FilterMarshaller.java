@@ -221,7 +221,7 @@ public class FilterMarshaller {
             builder.append(suffix);
         }
         builder.append(FILTER_KEY_VALUE_SEPARATOR);
-        builder.append(formatFilterValue(filter.getValue()));
+        builder.append(encodeSingleFilter(filter.getValue(), String.class));
         return builder.toString();
     }
 
@@ -292,14 +292,6 @@ public class FilterMarshaller {
             reverseMapping.put(entry.getValue(), entry.getKey());
         }
         return reverseMapping;
-    }
-
-    private static String formatFilterValue(Object value) {
-        if (value instanceof Date) {
-            // Moving dates/Times to UTC and formatting them according to rfc3339
-            return ApiUtils.toUtcTimestamp((Date) value);
-        }
-        return String.valueOf(value);
     }
 
     private static String removeSuffix(String string, FilterOperator operator) {
@@ -384,6 +376,9 @@ public class FilterMarshaller {
     public static <T> T encodeSingleFilter(final Object filterObj, Class<T> type) {
         if (filterObj == null || type == null) {
             return null;
+        }
+        if (isMultipleFilters(filterObj)) {
+            return encodeMultipleFilters(filterObj, type);
         }
         if (String.class.isAssignableFrom(type)) {
             if (filterObj instanceof String) {
@@ -546,6 +541,10 @@ public class FilterMarshaller {
             return encodeArray(filterObj, type);
         }
         return encodeSingleFilter(filterObj, type);
+    }
+
+    private static boolean isMultipleFilters(final Object filterObj) {
+        return filterObj == null ? false : filterObj.getClass().isArray() || filterObj instanceof List;
     }
 
     private static <T> T encodeArray(Object filterObj, Class<T> type) {

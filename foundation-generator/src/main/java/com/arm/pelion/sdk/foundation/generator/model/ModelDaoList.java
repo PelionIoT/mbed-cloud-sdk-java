@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.common.dao.AbstractModelListDao;
 import com.arm.mbed.cloud.sdk.common.dao.DaoProvider;
 import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.pelion.sdk.foundation.generator.model.ValueGenerator.Values;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
@@ -51,17 +52,25 @@ public class ModelDaoList extends ModelDao {
                 daoMethodName = AbstractModelListDao.METHOD_REQUEST_ONE_PAGE;
                 break;
         }
-        if (correspondingInterface == null) {
-            Method method = new MethodGeneric(methodName, null, null, null);
-            addMethod(method);
-        } else {
-            generateCrudMethods(action, daoMethodName, correspondingInterface, needsCustomCode, false);
-        }
+        registerMethod(action, methodName, null, null, needsCustomCode, correspondingInterface, daoMethodName);
+    }
+
+    @Override
+    protected void generateAllDaoMethods() {
+        retrieveMethodRecords().forEach(r -> {
+            if (r.hasCorrespondingInterface()) {
+                generateCrudMethods(r.getAction(), r.getDaoMethodName(), r.getCorrespondingInterface(),
+                                    r.isNeedsCustomCode(), false);
+            } else {
+                Method method = new MethodGeneric(r.getMethodName(), null, null, null);
+                addMethod(method);
+            }
+        });
     }
 
     @Override
     protected void generateMethodCodeAndReturnType(Method moduleMethod, MethodOverloaded method,
-                                                   TypeParameter moduleType) {
+                                                   TypeParameter moduleType, boolean useInternalModel) {
         StringBuilder codeFormat = new StringBuilder();
         List<Object> values = new LinkedList<>();
 
@@ -99,8 +108,9 @@ public class ModelDaoList extends ModelDao {
                     codeFormat.append("$L");
                     values.add(p.getName());
                 } else {
-                    codeFormat.append("$L");
-                    values.add("null");
+                    final Values defaultValue = p.getJavaDefaultValue();
+                    codeFormat.append(String.join("", defaultValue.getFormats()));
+                    values.addAll(defaultValue.getValues());
                     method.needsCustomCode(true);
                 }
             }

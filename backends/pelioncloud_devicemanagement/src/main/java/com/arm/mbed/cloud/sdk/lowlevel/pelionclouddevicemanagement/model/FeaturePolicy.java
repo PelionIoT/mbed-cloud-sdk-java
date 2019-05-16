@@ -19,9 +19,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * This object represents a feature policy. Either the feature or the resource must be specified.
+ * Represents a feature policy. Either the feature or the resource must be specified.
  */
-@ApiModel(description = "This object represents a feature policy. Either the feature or the resource must be specified.")
+@ApiModel(description = "Represents a feature policy. Either the feature or the resource must be specified.")
 
 public class FeaturePolicy implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -47,11 +47,11 @@ public class FeaturePolicy implements Serializable {
     }
 
     /**
-     * Comma separated list of actions, empty string represents all actions.
+     * Comma-separated list of actions, empty string represents all actions.
      * 
      * @return action
      **/
-    @ApiModelProperty(example = "GET", value = "Comma separated list of actions, empty string represents all actions.")
+    @ApiModelProperty(example = "GET", value = "Comma-separated list of actions, empty string represents all actions.")
     public String getAction() {
         return action;
     }

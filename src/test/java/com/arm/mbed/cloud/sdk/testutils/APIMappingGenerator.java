@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
@@ -112,7 +113,9 @@ public class APIMappingGenerator {
         for (Method method : determinePublicMethods(clazz)) {
             APIMethod apiMethod = recordAPIMethod(method, context, false);
             if (apiMethod != null) {
-                apiMethod.setSubMethod(APIMethod.getCorrespondingDao());
+                if (listEntity != null) {
+                    apiMethod.setSubMethod(APIMethod.getCorrespondingDao());
+                }
                 entity.addMethod(apiMethod);
             }
         }
@@ -178,12 +181,14 @@ public class APIMappingGenerator {
     }
 
     private Class<?> determineContentType(Parameter parameter) {
-        if (parameter == null || !(List.class.isAssignableFrom(parameter.getType()))) {
+        final boolean isList = parameter == null ? false : List.class.isAssignableFrom(parameter.getType());
+        if (parameter == null || !(isList || (Map.class.isAssignableFrom(parameter.getType())))) {
             return null;
         }
         try {
-            return (Class<?>) ((ParameterizedType) parameter.getParameterizedType()).getActualTypeArguments()[0];
-        } catch (Exception e) {
+            return (Class<?>) ((ParameterizedType) parameter.getParameterizedType()).getActualTypeArguments()[isList ? 0
+                                                                                                                     : 1];
+        } catch (@SuppressWarnings("unused") Exception e) {
             return null;
         }
     }

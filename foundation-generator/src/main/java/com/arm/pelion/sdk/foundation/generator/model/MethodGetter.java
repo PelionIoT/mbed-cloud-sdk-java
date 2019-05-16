@@ -1,20 +1,26 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 
 public class MethodGetter extends Method {
 
-    public MethodGetter(Field field, String longDescription, boolean isInternal) {
+    public MethodGetter(Field field, String longDescription, boolean isInternal, boolean shouldReturnString) {
         super(false, generateGetterName(field), generateGetterDescription(field),
               generateGetterLongDescription(longDescription, field), false, true, false, field.containsCustomCode(),
               field.needsCustomCode(), isInternal, false, false);
-        setReturnType(field.getType());
+        setReturnType(shouldReturnString ? TypeFactory.stringType() : field.getType());
         setReturnDescription(field.getName());
-        setStatement(generateStatement(field));
+        if (shouldReturnString) {
+            initialiseCodeBuilder();
+            generateComplexStatement(field);
+        } else {
+            setStatement(generateStatement(field));
+        }
     }
 
     public MethodGetter(Field field) {
-        this(field, null, false);
+        this(field, null, false, false);
     }
 
     private static String generateGetterLongDescription(String longDescription, Field field) {
@@ -23,6 +29,15 @@ public class MethodGetter extends Method {
 
     public String generateStatement(Field field) {
         return "return " + field.getName();
+    }
+
+    public void generateComplexStatement(Field field) {
+        if (field.getType().isPrimitive()) {
+            annotationRegistry.ignoreBoxing();
+        }
+        getCode().addStatement("return $T.$L($L)", TranslationUtils.class,
+                               TranslationUtils.METHOD_CONVERT_ANY_TO_STRING, field.getName());
+
     }
 
     private static String generateGetterDescription(Field field) {

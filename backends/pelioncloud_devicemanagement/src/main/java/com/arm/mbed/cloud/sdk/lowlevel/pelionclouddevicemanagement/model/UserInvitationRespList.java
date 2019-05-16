@@ -44,7 +44,7 @@ public class UserInvitationRespList implements Serializable {
     private Integer limit = null;
 
     /**
-     * Entity name: always &#39;list&#39;
+     * Entity name: always &#x60;list&#x60;.
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
@@ -194,11 +194,11 @@ public class UserInvitationRespList implements Serializable {
     }
 
     /**
-     * Flag indicating whether there is more results.
+     * Flag indicating whether there are more results.
      * 
      * @return hasMore
      **/
-    @ApiModelProperty(example = "false", required = true, value = "Flag indicating whether there is more results.")
+    @ApiModelProperty(example = "false", required = true, value = "Flag indicating whether there are more results.")
     public Boolean isHasMore() {
         return hasMore;
     }
@@ -213,12 +213,12 @@ public class UserInvitationRespList implements Serializable {
     }
 
     /**
-     * The number of results to return, (range: 2-1000), or equals to &#x60;total_count&#x60;
+     * The number of results to return (2-1000), or equal to &#x60;total_count&#x60;.
      * 
      * @return limit
      **/
     @ApiModelProperty(example = "50", required = true,
-                      value = "The number of results to return, (range: 2-1000), or equals to `total_count`")
+                      value = "The number of results to return (2-1000), or equal to `total_count`.")
     public Integer getLimit() {
         return limit;
     }
@@ -233,11 +233,11 @@ public class UserInvitationRespList implements Serializable {
     }
 
     /**
-     * Entity name: always &#39;list&#39;
+     * Entity name: always &#x60;list&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Entity name: always 'list'")
+    @ApiModelProperty(required = true, value = "Entity name: always `list`.")
     public ObjectEnum getObject() {
         return object;
     }
@@ -271,12 +271,11 @@ public class UserInvitationRespList implements Serializable {
     }
 
     /**
-     * The total number or records, if requested. It might be returned also for small lists.
+     * The total number of records, if requested.
      * 
      * @return totalCount
      **/
-    @ApiModelProperty(example = "20", required = true,
-                      value = "The total number or records, if requested. It might be returned also for small lists.")
+    @ApiModelProperty(example = "20", required = true, value = "The total number of records, if requested.")
     public Integer getTotalCount() {
         return totalCount;
     }

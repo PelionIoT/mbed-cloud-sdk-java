@@ -10,21 +10,21 @@ public class ArtifactsGenerator extends AbstractGenerator {
     private final Artifacts artifacts;
     private final boolean forceRegenerateUnitTests;
     protected final File modelSourceDestinationDirectory;
+    protected final File primarySourceDestinationDirectory;
     protected final File modelTestDestinationDirectory;
+    protected final File primaryTestDestinationDirectory;
 
-    /**
-     * @param destinationDirectory
-     * @param model
-     */
     public ArtifactsGenerator(File sourceDestinationDirectory, File testDestinationDirectory,
                               File modelSourceDestinationDirectory, File modelTestDestinationDirectory,
+                              File primarySourceDestinationDirectory, File primaryTestDestinationDirectory,
                               Artifacts artifacts, boolean forceRegenerateUnitTests) {
         super(sourceDestinationDirectory, testDestinationDirectory);
         this.artifacts = artifacts;
         this.forceRegenerateUnitTests = forceRegenerateUnitTests;
         this.modelSourceDestinationDirectory = modelSourceDestinationDirectory;
+        this.primarySourceDestinationDirectory = primarySourceDestinationDirectory;
         this.modelTestDestinationDirectory = modelTestDestinationDirectory;
-
+        this.primaryTestDestinationDirectory = primaryTestDestinationDirectory;
     }
 
     @Override
@@ -69,10 +69,17 @@ public class ArtifactsGenerator extends AbstractGenerator {
         for (final Model model : artifacts.getProcessedNonPojoModels()) {
             new ModelGenerator(sourceDestinationDirectory, model).generate();
         }
+        for (final Model model : artifacts.getModuleFactory()) {
+            new ModelGenerator(primarySourceDestinationDirectory, model).generate();
+        }
         logger.logInfo("Generating unit tests");
         for (final ModelTest unittest : artifacts.getNonPojoUnitTests()) {
             unittest.generateTests();
             new ModelTestGenerator(testDestinationDirectory, unittest, forceRegenerateUnitTests).generate();
+        }
+        for (final ModelTest unittest : artifacts.getModuleFactoryUnitTests()) {
+            unittest.generateTests();
+            new ModelTestGenerator(primaryTestDestinationDirectory, unittest, forceRegenerateUnitTests).generate();
         }
 
     }

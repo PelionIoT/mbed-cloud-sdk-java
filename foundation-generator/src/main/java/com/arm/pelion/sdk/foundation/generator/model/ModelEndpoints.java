@@ -30,7 +30,7 @@ public class ModelEndpoints extends ModelMergeable {
     }
 
     @Override
-    protected void generateHashCodeAndEquals() {
+    protected void generateHashCodeAndEquals(Model theParent) {
         // Do not generate anything
     }
 

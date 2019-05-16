@@ -6,7 +6,7 @@ import java.util.Set;
 import com.squareup.javapoet.AnnotationSpec;
 
 public class StaticAnalysisUtils {
-    public static final int FIELD_LIMIT_FOR_IGNORING_WARNINGS = 10;
+    public static final int FIELD_LIMIT_FOR_IGNORING_WARNINGS = 7;
 
     private StaticAnalysisUtils() {
         // Nothing to do
@@ -56,6 +56,14 @@ public class StaticAnalysisUtils {
 
         public void ignoreUnused() {
             annotations.add("\"unused\"");
+        }
+
+        public void ignoreBoxing() {
+            annotations.add("\"boxing\"");
+        }
+
+        public void ignoreUselessOverridingMethod() {
+            annotations.add("\"PMD.UselessOverridingMethod\"");
         }
 
         public void setAsUnchecked() {

@@ -8,8 +8,24 @@ import com.arm.pelion.sdk.foundation.generator.util.Utils;
 public class Filter {
 
     private String fieldName;
+    private String specFieldName;
     private TypeParameter fieldType;
     private FilterOperator operator;
+    private boolean isVerified;
+
+    public Filter(String fieldName, String specFieldName, TypeParameter fieldType, FilterOperator operator,
+                  boolean isVerified) {
+        super();
+        this.fieldName = fieldName;
+        this.specFieldName = specFieldName;
+        this.fieldType = fieldType;
+        this.operator = operator;
+        this.isVerified = isVerified;
+    }
+
+    public Filter() {
+        this(null, null, null, null, false);
+    }
 
     public String getFieldName() {
         return fieldName;
@@ -17,6 +33,14 @@ public class Filter {
 
     public void setFieldName(String fieldName) {
         this.fieldName = fieldName;
+    }
+
+    public String getSpecFieldName() {
+        return specFieldName;
+    }
+
+    public void setSpecFieldName(String specFieldName) {
+        this.specFieldName = specFieldName;
     }
 
     public TypeParameter getFieldType() {
@@ -39,6 +63,14 @@ public class Filter {
         return op == null ? false : op.equals(operator);
     }
 
+    public boolean isVerified() {
+        return isVerified;
+    }
+
+    public void setVerified(boolean isVerified) {
+        this.isVerified = isVerified;
+    }
+
     public boolean correspondsToParameter(Parameter parameter) {
         if (parameter == null) {
             return false;
@@ -50,13 +82,17 @@ public class Filter {
         if (parameterIdentifier == null) {
             return false;
         }
-        return Utils.isSameParameter(parameterIdentifier, Utils.combineNames(false, fieldName, operator.getSuffix()));
+        return Utils.isSameParameter(parameterIdentifier, Utils.combineNames(false, fieldName, operator.getSuffix()))
+               || Utils.isSameParameter(parameterIdentifier,
+                                        Utils.combineNames(false, specFieldName, operator.getSuffix()));
     }
 
     public Field getTag() {
-        Field tag = new Field(true, TypeFactory.getCorrespondingType(String.class),
-                              Utils.generateConstantName("tagFilterBy", fieldName), "Tag for filter by " + fieldName,
-                              null, null, true, false, false, false, null, false).initialiser("\"" + fieldName + "\"");
+        Field tag = new Field(true, TypeFactory.stringType(), Utils.generateConstantName("tagFilterBy", fieldName),
+                              "Tag for filter by " + fieldName, null, null, true, false, false, false, null, false)
+                                                                                                                   .initialiser("\""
+                                                                                                                                + fieldName
+                                                                                                                                + "\"");
         tag.setAccessible(true);
         return tag;
     }
@@ -106,7 +142,7 @@ public class Filter {
     }
 
     public boolean canHaveMultipleInputTypes() {
-        return operator == FilterOperator.IN || operator == FilterOperator.NOT_IN;
+        return operator.isMultipleValuesOperator();
     }
 
     public String getIdentifier() {
@@ -115,8 +151,9 @@ public class Filter {
 
     @Override
     public String toString() {
-        return "Filter [field=" + fieldName + ", tag=" + getTag().getName() + ", operator=" + operator + ", type="
-               + fieldType.getShortName() + "]";
+        return "Filter [field=" + fieldName + ", spec field=" + specFieldName + ", tag=" + getTag().getName()
+               + ", operator=" + operator + ", type=" + (fieldType == null ? null : fieldType.getShortName())
+               + ", isVerified=" + isVerified + "]";
     }
 
 }

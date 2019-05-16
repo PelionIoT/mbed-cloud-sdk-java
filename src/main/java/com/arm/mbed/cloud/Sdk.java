@@ -6,6 +6,7 @@ import java.util.Map;
 import io.reactivex.BackpressureStrategy;
 
 import com.arm.mbed.cloud.sdk.Connect;
+import com.arm.mbed.cloud.sdk.ModuleFactory;
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
@@ -44,6 +45,7 @@ public class Sdk extends AbstractModule {
     private static final String BUFFER = "BUFFER";
     private final Connect connectApi;
     private final DaoFactory daoFactory;
+    private final ModuleFactory moduleFactory;
     private final GenericClient genericClient;
 
     /**
@@ -54,7 +56,8 @@ public class Sdk extends AbstractModule {
      */
     public Sdk(ConnectionOptions options) {
         super(options, extendUserAgent());
-        connectApi = new Connect(options);
+        connectApi = new Connect(this);
+        moduleFactory = new ModuleFactory(this, connectApi);
         daoFactory = new DaoFactory(this);
         genericClient = new GenericClient(this);
     }
@@ -98,6 +101,18 @@ public class Sdk extends AbstractModule {
     @API
     public DaoFactory foundation() {
         return daoFactory;
+    }
+
+    /**
+     * Gets a factory for all the low-level REST modules available in the system.
+     * <p>
+     * Note: See {@link Module}
+     * 
+     * @return a Module Factory
+     */
+    @API
+    public ModuleFactory lowLevelRest() {
+        return moduleFactory;
     }
 
     /**

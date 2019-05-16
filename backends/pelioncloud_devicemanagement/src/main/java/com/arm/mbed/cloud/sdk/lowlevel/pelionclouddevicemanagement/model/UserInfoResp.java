@@ -29,9 +29,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * This object represents a user in Device Management.
+ * Represents a user in Device Management.
  */
-@ApiModel(description = "This object represents a user in Device Management.")
+@ApiModel(description = "Represents a user in Device Management.")
 
 public class UserInfoResp implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -91,7 +91,7 @@ public class UserInfoResp implements Serializable {
     private List<LoginProfile> loginProfiles = null;
 
     /**
-     * Entity name: always &#39;user&#39;
+     * Entity name: always &#x60;user&#x60;.
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
@@ -332,11 +332,11 @@ public class UserInfoResp implements Serializable {
     }
 
     /**
-     * User&#39;s account specific custom properties. The value is a string.
+     * User&#39;s account-specific custom properties. The value is a string.
      * 
      * @return customFields
      **/
-    @ApiModelProperty(value = "User's account specific custom properties. The value is a string.")
+    @ApiModelProperty(value = "User's account-specific custom properties. The value is a string.")
     public Map<String, String> getCustomFields() {
         return customFields;
     }
@@ -474,12 +474,12 @@ public class UserInfoResp implements Serializable {
     }
 
     /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
+     * A flag indicating that the user has accepted General Terms and Conditions.
      * 
      * @return isGtcAccepted
      **/
     @ApiModelProperty(example = "true",
-                      value = "A flag indicating that the General Terms and Conditions has been accepted.")
+                      value = "A flag indicating that the user has accepted General Terms and Conditions.")
     public Boolean isIsGtcAccepted() {
         return isGtcAccepted;
     }
@@ -494,12 +494,12 @@ public class UserInfoResp implements Serializable {
     }
 
     /**
-     * A flag indicating that receiving marketing information has been accepted.
+     * A flag indicating that the user has consented to receive marketing information.
      * 
      * @return isMarketingAccepted
      **/
     @ApiModelProperty(example = "true",
-                      value = "A flag indicating that receiving marketing information has been accepted.")
+                      value = "A flag indicating that the user has consented to receive marketing information.")
     public Boolean isIsMarketingAccepted() {
         return isMarketingAccepted;
     }
@@ -514,12 +514,12 @@ public class UserInfoResp implements Serializable {
     }
 
     /**
-     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+     * A flag indicating whether two-factor authentication (TOTP) has been enabled.
      * 
      * @return isTotpEnabled
      **/
     @ApiModelProperty(example = "true",
-                      value = "A flag indicating whether 2-factor authentication (TOTP) has been enabled.")
+                      value = "A flag indicating whether two-factor authentication (TOTP) has been enabled.")
     public Boolean isIsTotpEnabled() {
         return isTotpEnabled;
     }
@@ -609,11 +609,11 @@ public class UserInfoResp implements Serializable {
     }
 
     /**
-     * Entity name: always &#39;user&#39;
+     * Entity name: always &#x60;user&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Entity name: always 'user'")
+    @ApiModelProperty(required = true, value = "Entity name: always `user`.")
     public ObjectEnum getObject() {
         return object;
     }
@@ -717,12 +717,12 @@ public class UserInfoResp implements Serializable {
     }
 
     /**
-     * A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the
-     * codes regenerated.
+     * A list of scratch codes for the two-factor authentication. Visible only when 2FA is requested to be enabled or
+     * the codes regenerated.
      * 
      * @return totpScratchCodes
      **/
-    @ApiModelProperty(value = "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.")
+    @ApiModelProperty(value = "A list of scratch codes for the two-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.")
     public List<String> getTotpScratchCodes() {
         return totpScratchCodes;
     }
@@ -756,11 +756,11 @@ public class UserInfoResp implements Serializable {
     }
 
     /**
-     * A username containing alphanumerical letters and -,._@+&#x3D; characters.
+     * A username.
      * 
      * @return username
      **/
-    @ApiModelProperty(example = "admin", value = "A username containing alphanumerical letters and -,._@+= characters.")
+    @ApiModelProperty(example = "admin", value = "A username.")
     public String getUsername() {
         return username;
     }

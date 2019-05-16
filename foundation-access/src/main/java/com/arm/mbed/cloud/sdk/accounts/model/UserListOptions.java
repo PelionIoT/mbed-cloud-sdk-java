@@ -42,6 +42,18 @@ import java.util.List;
  * <td style="background-color:#dae8fc;text-align:center;" width="10%">not in</td>
  * </tr>
  * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">loginProfiles</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_LOGIN_PROFILES</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">status</td>
  * <td style=
  * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_STATUS</td>
@@ -73,18 +85,25 @@ import java.util.List;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class UserListOptions extends ListOptions {
     /**
-     * Tag for filter by status.
-     */
-    public static final String TAG_FILTER_BY_STATUS = "status";
-
-    /**
      * Tag for filter by email.
      */
     public static final String TAG_FILTER_BY_EMAIL = "email";
 
     /**
+     * Tag for filter by loginProfiles.
+     */
+    public static final String TAG_FILTER_BY_LOGIN_PROFILES = "loginProfiles";
+
+    /**
+     * Tag for filter by status.
+     */
+    public static final String TAG_FILTER_BY_STATUS = "status";
+
+    /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #UserListOptions()} instead.
      * 
@@ -117,6 +136,8 @@ public class UserListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #UserListOptions()} instead.
      * 
      * @param userListOptions
@@ -140,6 +161,8 @@ public class UserListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on read-only fields.
+     * <p>
      * Note: Should not be used. Use {@link #UserListOptions()} instead.
      * 
      * @param after
@@ -152,6 +175,42 @@ public class UserListOptions extends ListOptions {
     @Internal
     public UserListOptions(String after, List<IncludeField> include, Filters filter) {
         this((Integer) null, (Long) null, Order.getDefault(), after, include, filter);
+    }
+
+    /**
+     * Gets all the filters defined on field {@code loginProfiles}.
+     * 
+     * @return All the filters by {@code loginProfiles}
+     */
+    public List<Filter> getLoginProfilesFilters() {
+        return fetchFilters(TAG_FILTER_BY_LOGIN_PROFILES);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code loginProfiles}.
+     * 
+     * @param filterByLoginProfiles
+     *            filter value.
+     */
+    public void addEqualToLoginProfilesFilter(List<LoginProfile> filterByLoginProfiles) {
+        addEqualFilter(TAG_FILTER_BY_LOGIN_PROFILES, filterByLoginProfiles);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code loginProfiles}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserListOptions#addEqualToLoginProfilesFilter(java.util.List)}
+     * 
+     * @param filterByLoginProfiles
+     *            filter value.
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends UserListOptions> T equalToLoginProfiles(List<LoginProfile> filterByLoginProfiles) {
+        addEqualToLoginProfilesFilter(filterByLoginProfiles);
+        return (T) this;
     }
 
     /**
@@ -390,20 +449,6 @@ public class UserListOptions extends ListOptions {
     }
 
     /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     *
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof UserListOptions;
-    }
-
-    /**
      * Returns a string representation of the object.
      *
      * <p>
@@ -419,6 +464,21 @@ public class UserListOptions extends ListOptions {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return other instanceof UserListOptions;
+    }
+
+    /**
      * Clones this instance.
      *
      * <p>
@@ -431,5 +491,50 @@ public class UserListOptions extends ListOptions {
         final UserListOptions opt = new UserListOptions();
         opt.setOptions(this);
         return opt;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof UserListOptions)) {
+            return false;
+        }
+        final UserListOptions other = (UserListOptions) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    @SuppressWarnings("PMD.UselessOverridingMethod")
+    public int hashCode() {
+        return super.hashCode();
     }
 }

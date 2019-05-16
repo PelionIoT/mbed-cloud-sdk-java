@@ -122,14 +122,14 @@ import java.util.List;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class CertificateEnrollmentListOptions extends ListOptions {
     /**
-     * Tag for filter by updatedAt.
-     */
-    public static final String TAG_FILTER_BY_UPDATED_AT = "updatedAt";
-
-    /**
      * Tag for filter by certificateName.
      */
     public static final String TAG_FILTER_BY_CERTIFICATE_NAME = "certificateName";
+
+    /**
+     * Tag for filter by createdAt.
+     */
+    public static final String TAG_FILTER_BY_CREATED_AT = "createdAt";
 
     /**
      * Tag for filter by deviceId.
@@ -142,18 +142,20 @@ public class CertificateEnrollmentListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_ENROLL_RESULT = "enrollResult";
 
     /**
-     * Tag for filter by createdAt.
-     */
-    public static final String TAG_FILTER_BY_CREATED_AT = "createdAt";
-
-    /**
      * Tag for filter by enrollStatus.
      */
     public static final String TAG_FILTER_BY_ENROLL_STATUS = "enrollStatus";
 
     /**
+     * Tag for filter by updatedAt.
+     */
+    public static final String TAG_FILTER_BY_UPDATED_AT = "updatedAt";
+
+    /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #CertificateEnrollmentListOptions()} instead.
      * 
@@ -186,6 +188,8 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #CertificateEnrollmentListOptions()} instead.
      * 
      * @param certificateEnrollmentListOptions
@@ -208,6 +212,8 @@ public class CertificateEnrollmentListOptions extends ListOptions {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #CertificateEnrollmentListOptions()} instead.
      * 
@@ -552,20 +558,6 @@ public class CertificateEnrollmentListOptions extends ListOptions {
     }
 
     /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     *
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof CertificateEnrollmentListOptions;
-    }
-
-    /**
      * Returns a string representation of the object.
      *
      * <p>
@@ -582,6 +574,21 @@ public class CertificateEnrollmentListOptions extends ListOptions {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return other instanceof CertificateEnrollmentListOptions;
+    }
+
+    /**
      * Clones this instance.
      *
      * <p>
@@ -594,5 +601,50 @@ public class CertificateEnrollmentListOptions extends ListOptions {
         final CertificateEnrollmentListOptions opt = new CertificateEnrollmentListOptions();
         opt.setOptions(this);
         return opt;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof CertificateEnrollmentListOptions)) {
+            return false;
+        }
+        final CertificateEnrollmentListOptions other = (CertificateEnrollmentListOptions) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    @SuppressWarnings("PMD.UselessOverridingMethod")
+    public int hashCode() {
+        return super.hashCode();
     }
 }

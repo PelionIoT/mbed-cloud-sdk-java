@@ -95,8 +95,10 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * Adds a developer certificate.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Security#createDeveloperCertificate(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificateDao#create(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
      * 
      * @return an added developer certificate
      * @throws MbedCloudException
@@ -104,7 +106,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      */
     @Override
     public DeveloperCertificate create() throws MbedCloudException {
-        return setAndGetModel(((Security) getModuleOrThrow()).createDeveloperCertificate(getModel()));
+        return create(getModel());
     }
 
     /**
@@ -122,23 +124,24 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      */
     @Override
     public DeveloperCertificate create(@NonNull DeveloperCertificate developerCertificate) throws MbedCloudException {
-        setModel(developerCertificate);
-        return create();
+        return setAndGetModel(((Security) getModuleOrThrow()).createDeveloperCertificate(developerCertificate));
     }
 
     /**
      * Deletes a developer certificate.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Security#deleteDeveloperCertificate(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificateDao#delete(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
      * 
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
-        ((Security) getModuleOrThrow()).deleteDeveloperCertificate(getModel());
+        delete(getModel());
     }
 
     /**
@@ -155,8 +158,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      */
     @Override
     public void delete(@NonNull DeveloperCertificate developerCertificate) throws MbedCloudException {
-        setModel(developerCertificate);
-        delete();
+        ((Security) getModuleOrThrow()).deleteDeveloperCertificate(developerCertificate);
     }
 
     /**
@@ -166,7 +168,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteDeveloperCertificate(String)}
      * 
      * @param id
-     *            The ID of the trusted certificate to be deleted.
+     *            The ID of the trusted certificate to delete.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -180,15 +182,36 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      *
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificateInfo(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificateDao#getTrustedCertificateInfo(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
      * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     public TrustedCertificate getTrustedCertificateInfo() throws MbedCloudException {
-        return ((Security) getModuleOrThrow()).getTrustedCertificateInfo(getModel());
+        return getTrustedCertificateInfo(getModel());
+    }
+
+    /**
+     * Get trusted certificate by ID.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificateInfo(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
+     * 
+     * @param developerCertificate
+     *            a developer certificate.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public TrustedCertificate
+           getTrustedCertificateInfo(@NonNull DeveloperCertificate developerCertificate) throws MbedCloudException {
+        return ((Security) getModuleOrThrow()).getTrustedCertificateInfo(developerCertificate);
     }
 
     /**
@@ -262,8 +285,10 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      * Gets a developer certificate.
      *
      * <p>
+     * Note: uses internal data model
+     * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Security#readDeveloperCertificate(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
+     * {@link com.arm.mbed.cloud.sdk.security.model.DeveloperCertificateDao#read(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
      * 
      * @return something
      * @throws MbedCloudException
@@ -271,7 +296,24 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
      */
     @Override
     public DeveloperCertificate read() throws MbedCloudException {
-        return setAndGetModel(((Security) getModuleOrThrow()).readDeveloperCertificate(getModel()));
+        return read(getModel());
+    }
+
+    /**
+     * Gets a developer certificate.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Security#readDeveloperCertificate(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
+     * 
+     * @param developerCertificate
+     *            a developer certificate.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DeveloperCertificate read(@NonNull DeveloperCertificate developerCertificate) throws MbedCloudException {
+        return setAndGetModel(((Security) getModuleOrThrow()).readDeveloperCertificate(developerCertificate));
     }
 
     /**

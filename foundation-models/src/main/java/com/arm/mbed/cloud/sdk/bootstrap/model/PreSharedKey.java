@@ -125,6 +125,7 @@ public class PreSharedKey implements SdkModel {
      * @param id
      *            the id to set
      */
+    @Override
     @Required
     public void setId(String id) {
         this.id = id;

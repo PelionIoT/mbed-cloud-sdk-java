@@ -416,6 +416,7 @@ public class TestCloudCaller {
         /**
          * @return the color
          */
+        @SuppressWarnings("unused")
         public String getColor() {
             return color;
         }
@@ -423,6 +424,7 @@ public class TestCloudCaller {
         /**
          * @return the category
          */
+        @SuppressWarnings("unused")
         public String getCategory() {
             return category;
         }
@@ -430,6 +432,7 @@ public class TestCloudCaller {
         /**
          * @return the type
          */
+        @SuppressWarnings("unused")
         public String getType() {
             return type;
         }
@@ -437,6 +440,7 @@ public class TestCloudCaller {
         /**
          * @return the rgba
          */
+        @SuppressWarnings("unused")
         public int[] getRgba() {
             return rgba;
         }
@@ -444,6 +448,7 @@ public class TestCloudCaller {
         /**
          * @return the hex
          */
+        @SuppressWarnings("unused")
         public String getHex() {
             return hex;
         }
@@ -451,6 +456,7 @@ public class TestCloudCaller {
         /**
          * @return the etag
          */
+        @SuppressWarnings("unused")
         public String getEtag() {
             return etag;
         }
@@ -459,6 +465,7 @@ public class TestCloudCaller {
          * @param color
          *            the color to set
          */
+        @SuppressWarnings("unused")
         public void setColor(String color) {
             this.color = color;
         }
@@ -467,6 +474,7 @@ public class TestCloudCaller {
          * @param category
          *            the category to set
          */
+        @SuppressWarnings("unused")
         public void setCategory(String category) {
             this.category = category;
         }
@@ -475,6 +483,7 @@ public class TestCloudCaller {
          * @param type
          *            the type to set
          */
+        @SuppressWarnings("unused")
         public void setType(String type) {
             this.type = type;
         }
@@ -483,6 +492,7 @@ public class TestCloudCaller {
          * @param rgba
          *            the rgba to set
          */
+        @SuppressWarnings("unused")
         public void setRgba(int[] rgba) {
             this.rgba = rgba;
         }
@@ -491,6 +501,7 @@ public class TestCloudCaller {
          * @param hex
          *            the hex to set
          */
+        @SuppressWarnings("unused")
         public void setHex(String hex) {
             this.hex = hex;
         }
@@ -499,6 +510,7 @@ public class TestCloudCaller {
          * @param etag
          *            the etag to set
          */
+        @SuppressWarnings("unused")
         public void setEtag(String etag) {
             this.etag = etag;
         }

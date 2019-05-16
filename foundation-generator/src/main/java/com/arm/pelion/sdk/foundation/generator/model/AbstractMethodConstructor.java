@@ -10,13 +10,15 @@ import com.squareup.javapoet.MethodSpec;
 public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnModel {
 
     protected boolean isNecessary;
+    protected final String constructorDescription;
 
-    public AbstractMethodConstructor(Model currentModel, Model parentModel, String description, String longDescription,
-                                     boolean isInternal) {
+    public AbstractMethodConstructor(String constructorDescription, Model currentModel, Model parentModel,
+                                     String description, String longDescription, boolean isInternal) {
         super(currentModel, parentModel, false, null, generateDescription(description, isInternal),
-              generateLongDescription(currentModel == null ? "Unknown" : currentModel.getName(), longDescription,
-                                      isInternal),
+              generateLongDescription(currentModel == null ? "Unknown" : currentModel.getName(), constructorDescription,
+                                      longDescription, isInternal),
               false, true, false, false, false, isInternal, false, false);
+        this.constructorDescription = constructorDescription;
         addConstructorParameters();
         initialiseCodeBuilder();
         setNecessary(true);
@@ -28,7 +30,7 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
         if (constructor == null) {
             return false;
         }
-        return getSignature().equals(constructor.getSignature());
+        return String.join(",", getSignature()).equals(String.join(",", constructor.getSignature()));
     }
 
     @SuppressWarnings("unchecked")
@@ -97,6 +99,11 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
         return isNecessary;
     }
 
+    @Override
+    public boolean isConstructor() {
+        return true;
+    }
+
     /**
      * @param isNecessary
      *            the isNecessary to set
@@ -109,8 +116,13 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
         return has(description) ? description : isInternal ? "Internal constructor" : "Constructor";
     }
 
-    private static String generateLongDescription(String name, String longDescription, boolean isInternal) {
+    private static String generateLongDescription(String name, String constructorDescription, String longDescription,
+                                                  boolean isInternal) {
         StringBuilder builder = new StringBuilder();
+        if (constructorDescription != null && !constructorDescription.isEmpty()) {
+            builder.append(constructorDescription);
+            builder.append(Utils.generateNewDocumentationLine());
+        }
         if (has(longDescription)) {
             builder.append(longDescription);
             if (isInternal) {
@@ -131,8 +143,8 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
 
     protected void regnerateDocumentation() {
         setDescription(generateDescription(isInternal() ? getDescription() : null, isInternal()));
-        setLongDescription(generateLongDescription(getName(), isInternal() ? getLongDescription() : null,
-                                                   isInternal()));
+        setLongDescription(generateLongDescription(getName(), constructorDescription,
+                                                   isInternal() ? getLongDescription() : null, isInternal()));
     }
 
     @Override

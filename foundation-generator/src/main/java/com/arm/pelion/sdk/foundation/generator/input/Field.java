@@ -41,8 +41,7 @@ public class Field {
 
     @JsonAlias({ InputSchema.INTERNAL_TAG, InputSchema.INTERNAL_FIELD_TAG })
     private boolean internal;
-    // Java specific fields
-    @JsonProperty(InputSchema.LONG_DESCRIPTION_TAG)
+    @JsonAlias({ InputSchema.LONG_DESCRIPTION_TAG, InputSchema.DETAILED_DESCRIPTION_TAG })
     private String longDescription;
 
     @JsonProperty(InputSchema.FIELD_DEPRECATION_TAG)

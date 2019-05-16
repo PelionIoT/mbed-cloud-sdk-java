@@ -328,6 +328,7 @@ class GitAction(Action):
                 folder += "/"
             folder += "*"
             self.git_add_file(folder)
+            self.log_info("Added Folder [%s]" % str(folder))
 
     def git_commit(self, message):
         self.check_shell_command_output("git commit -m '%s'" % message)

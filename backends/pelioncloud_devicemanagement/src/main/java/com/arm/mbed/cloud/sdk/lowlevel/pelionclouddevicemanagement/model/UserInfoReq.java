@@ -21,9 +21,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This object represents a user in requests towards Device Management.
+ * Represents a user in requests towards Device Management.
  */
-@ApiModel(description = "This object represents a user in requests towards Device Management.")
+@ApiModel(description = "Represents a user in requests towards Device Management.")
 
 public class UserInfoReq implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -64,11 +64,11 @@ public class UserInfoReq implements Serializable {
     }
 
     /**
-     * Address, not longer than 100 characters.
+     * Address.
      * 
      * @return address
      **/
-    @ApiModelProperty(value = "Address, not longer than 100 characters.")
+    @ApiModelProperty(value = "Address.")
     public String getAddress() {
         return address;
     }
@@ -83,11 +83,11 @@ public class UserInfoReq implements Serializable {
     }
 
     /**
-     * The email address, not longer than 254 characters.
+     * The email address.
      * 
      * @return email
      **/
-    @ApiModelProperty(required = true, value = "The email address, not longer than 254 characters.")
+    @ApiModelProperty(required = true, value = "The email address.")
     public String getEmail() {
         return email;
     }
@@ -102,11 +102,11 @@ public class UserInfoReq implements Serializable {
     }
 
     /**
-     * The full name of the user, not longer than 100 characters.
+     * The full name of the user.
      * 
      * @return fullName
      **/
-    @ApiModelProperty(value = "The full name of the user, not longer than 100 characters.")
+    @ApiModelProperty(value = "The full name of the user.")
     public String getFullName() {
         return fullName;
     }
@@ -148,11 +148,11 @@ public class UserInfoReq implements Serializable {
     }
 
     /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
+     * A flag indicating that the user has accepted General Terms and Conditions.
      * 
      * @return isGtcAccepted
      **/
-    @ApiModelProperty(value = "A flag indicating that the General Terms and Conditions has been accepted.")
+    @ApiModelProperty(value = "A flag indicating that the user has accepted General Terms and Conditions.")
     public Boolean isIsGtcAccepted() {
         return isGtcAccepted;
     }
@@ -167,11 +167,11 @@ public class UserInfoReq implements Serializable {
     }
 
     /**
-     * A flag indicating that receiving marketing information has been accepted.
+     * A flag indicating that the user has consented to receive marketing information.
      * 
      * @return isMarketingAccepted
      **/
-    @ApiModelProperty(value = "A flag indicating that receiving marketing information has been accepted.")
+    @ApiModelProperty(value = "A flag indicating that the user has consented to receive marketing information.")
     public Boolean isIsMarketingAccepted() {
         return isMarketingAccepted;
     }
@@ -195,12 +195,11 @@ public class UserInfoReq implements Serializable {
 
     /**
      * A list of login profiles for the user. Specified as the identity providers the user should be associated with.
-     * Only the ID attribute of the login profile should be set in the request object. The list cannot be empty. A limit
-     * of 100 profiles.
+     * Only the ID attribute of the login profile should be set in the request object.
      * 
      * @return loginProfiles
      **/
-    @ApiModelProperty(value = "A list of login profiles for the user. Specified as the identity providers the user should be associated with. Only the ID attribute of the login profile should be set in the request object. The list cannot be empty. A limit of 100 profiles.")
+    @ApiModelProperty(value = "A list of login profiles for the user. Specified as the identity providers the user should be associated with. Only the ID attribute of the login profile should be set in the request object.")
     public List<LoginProfile> getLoginProfiles() {
         return loginProfiles;
     }
@@ -215,11 +214,11 @@ public class UserInfoReq implements Serializable {
     }
 
     /**
-     * The password when creating a new user. It will be generated when not present in the request.
+     * The password for a new user. Generated when not present in the request.
      * 
      * @return password
      **/
-    @ApiModelProperty(value = "The password when creating a new user. It will be generated when not present in the request.")
+    @ApiModelProperty(value = "The password for a new user. Generated when not present in the request.")
     public String getPassword() {
         return password;
     }
@@ -234,11 +233,11 @@ public class UserInfoReq implements Serializable {
     }
 
     /**
-     * Phone number, not longer than 100 characters.
+     * Phone number.
      * 
      * @return phoneNumber
      **/
-    @ApiModelProperty(value = "Phone number, not longer than 100 characters.")
+    @ApiModelProperty(value = "Phone number.")
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -253,12 +252,11 @@ public class UserInfoReq implements Serializable {
     }
 
     /**
-     * A username containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than
-     * 30 character long.
+     * A username.
      * 
      * @return username
      **/
-    @ApiModelProperty(value = "A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
+    @ApiModelProperty(value = "A username.")
     public String getUsername() {
         return username;
     }

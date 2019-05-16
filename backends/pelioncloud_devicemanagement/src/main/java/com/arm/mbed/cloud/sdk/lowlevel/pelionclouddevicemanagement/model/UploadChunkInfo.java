@@ -46,6 +46,9 @@ public class UploadChunkInfo implements Serializable {
     @SerializedName("updated_at")
     private DateTime updatedAt = null;
 
+    @SerializedName("upload_job_id")
+    private String uploadJobId = null;
+
     public UploadChunkInfo createdAt(DateTime createdAt) {
         this.createdAt = createdAt;
         return this;
@@ -180,6 +183,25 @@ public class UploadChunkInfo implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public UploadChunkInfo uploadJobId(String uploadJobId) {
+        this.uploadJobId = uploadJobId;
+        return this;
+    }
+
+    /**
+     * The upload job ID.
+     * 
+     * @return uploadJobId
+     **/
+    @ApiModelProperty(example = "00000000000000000000000000000000", value = "The upload job ID.")
+    public String getUploadJobId() {
+        return uploadJobId;
+    }
+
+    public void setUploadJobId(String uploadJobId) {
+        this.uploadJobId = uploadJobId;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -193,12 +215,13 @@ public class UploadChunkInfo implements Serializable {
                && Objects.equals(this.etag, uploadChunkInfo.etag) && Objects.equals(this.hash, uploadChunkInfo.hash)
                && Objects.equals(this.id, uploadChunkInfo.id) && Objects.equals(this.length, uploadChunkInfo.length)
                && Objects.equals(this.object, uploadChunkInfo.object)
-               && Objects.equals(this.updatedAt, uploadChunkInfo.updatedAt);
+               && Objects.equals(this.updatedAt, uploadChunkInfo.updatedAt)
+               && Objects.equals(this.uploadJobId, uploadChunkInfo.uploadJobId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(createdAt, etag, hash, id, length, object, updatedAt);
+        return Objects.hash(createdAt, etag, hash, id, length, object, updatedAt, uploadJobId);
     }
 
     @Override
@@ -213,6 +236,7 @@ public class UploadChunkInfo implements Serializable {
         sb.append("    length: ").append(toIndentedString(length)).append("\n");
         sb.append("    object: ").append(toIndentedString(object)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+        sb.append("    uploadJobId: ").append(toIndentedString(uploadJobId)).append("\n");
         sb.append("}");
         return sb.toString();
     }

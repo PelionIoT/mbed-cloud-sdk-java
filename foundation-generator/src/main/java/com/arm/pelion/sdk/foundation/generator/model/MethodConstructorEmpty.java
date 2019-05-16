@@ -11,7 +11,7 @@ public class MethodConstructorEmpty extends AbstractMethodConstructor {
     private boolean useParent;
 
     public MethodConstructorEmpty(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, false);
+        super(null, currentModel, parentModel, null, null, false);
         setUseParent(false);
     }
 

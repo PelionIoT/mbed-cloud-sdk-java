@@ -92,7 +92,10 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * Adds a user.
      *
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserDao#create(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
      * @return an added user
      * @throws MbedCloudException
@@ -100,7 +103,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     @Override
     public User create() throws MbedCloudException {
-        return setAndGetModel(((Accounts) getModuleOrThrow()).createUser(getModel()));
+        return create(getModel());
     }
 
     /**
@@ -117,8 +120,26 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     @Override
     public User create(@NonNull User user) throws MbedCloudException {
-        setModel(user);
-        return create();
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createUser(user));
+    }
+
+    /**
+     * Adds a user.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserDao#create(String, com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * 
+     * @param action
+     *            Action, either `create` or `invite`.
+     * @return an added user
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public User create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
+        return create(action, getModel());
     }
 
     /**
@@ -128,27 +149,32 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createUser(String, com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
      * @param action
-     *            Action, either 'create' or 'invite'.
+     *            Action, either `create` or `invite`.
+     * @param user
+     *            a user.
      * @return an added user
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public User create(@Nullable @DefaultValue("create") String action) throws MbedCloudException {
-        return setAndGetModel(((Accounts) getModuleOrThrow()).createUser(action, getModel()));
+    public User create(@Nullable @DefaultValue("create") String action, @NonNull User user) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createUser(action, user));
     }
 
     /**
      * Deletes a user.
      *
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserDao#delete(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
     public void delete() throws MbedCloudException {
-        ((Accounts) getModuleOrThrow()).deleteUser(getModel());
+        delete(getModel());
     }
 
     /**
@@ -164,8 +190,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     @Override
     public void delete(@NonNull User user) throws MbedCloudException {
-        setModel(user);
-        delete();
+        ((Accounts) getModuleOrThrow()).deleteUser(user);
     }
 
     /**
@@ -175,7 +200,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteUser(String)}
      * 
      * @param id
-     *            The ID of the user to be deleted.
+     *            The ID of the user to delete.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -238,7 +263,9 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * Gets a user.
      *
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * Note: uses internal data model
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.UserDao#read(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
      * @return something
      * @throws MbedCloudException
@@ -246,7 +273,23 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     @Override
     public User read() throws MbedCloudException {
-        return setAndGetModel(((Accounts) getModuleOrThrow()).readUser(getModel()));
+        return read(getModel());
+    }
+
+    /**
+     * Gets a user.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * 
+     * @param user
+     *            a user.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public User read(@NonNull User user) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).readUser(user));
     }
 
     /**
@@ -270,7 +313,10 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * Modifies a user.
      *
      * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateUser(com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserDao#update(com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
      * @return something
      * @throws MbedCloudException
@@ -278,7 +324,7 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     @Override
     public User update() throws MbedCloudException {
-        return setAndGetModel(((Accounts) getModuleOrThrow()).updateUser(getModel()));
+        return update(getModel());
     }
 
     /**
@@ -295,8 +341,26 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     @Override
     public User update(@NonNull User user) throws MbedCloudException {
-        setModel(user);
-        return update();
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateUser(user));
+    }
+
+    /**
+     * Modifies a user.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserDao#update(String, com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * 
+     * @param id
+     *            The ID of the user.
+     * @return an updated user
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public User update(@NonNull String id) throws MbedCloudException {
+        return update(id, getModel());
     }
 
     /**
@@ -307,11 +371,13 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      * 
      * @param id
      *            The ID of the user.
+     * @param user
+     *            a user.
      * @return an updated user
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public User update(@NonNull String id) throws MbedCloudException {
-        return setAndGetModel(((Accounts) getModuleOrThrow()).updateUser(id, getModel()));
+    public User update(@NonNull String id, @NonNull User user) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateUser(id, user));
     }
 }

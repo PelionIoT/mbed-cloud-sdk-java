@@ -144,12 +144,20 @@ public class ModelTest extends AbstractSdkArtifact {
         values.addValue(modelUnderTest.getName());
         values.addValue(variable);
         values.addValue(modelUnderTest.getName());
+        int filterCount = 0;
         for (Filter filter : filters) {
             final TypeParameter type = filter.getFieldType();
             try {
                 type.translate();
             } catch (TranslationException exception) {
                 exception.printStackTrace();
+                continue;
+            }
+            if (filter.getOperator().isSingleValueOperator() && type.isList()) {
+                test.getCode()
+                    .add("// Cannot test " + filter
+                         + " because the field is a list and the filter only accepts single values"
+                         + System.lineSeparator());
                 continue;
             }
             if (type.isHashtable()) {
@@ -160,10 +168,13 @@ public class ModelTest extends AbstractSdkArtifact {
             values.addToFormat(".$L(");
             values.addValue(MethodFilterSetFluent.generateFluentName(filter, filter.canHaveMultipleInputTypes()));
             Values filterValues = new Values();
+            if (type.isPrimitive()) {
+                test.getAnnotationRegistry().ignoreBoxing();
+            }
             type.transformIntoWrapper();
             int numberOfElements = filter.canHaveMultipleInputTypes() ? 1 + (int) (Math.random() * 9.0) : 1;
             while (numberOfElements > 0) {
-                ValueGenerator.addGenerateFieldValue(type, null, filterValues);
+                ValueGenerator.addGenerateFieldValue(type, null, filterValues, Utils.isEmail(filter.getFieldName()));
                 numberOfElements--;
             }
             if (filter.canHaveMultipleInputTypes()) {
@@ -177,16 +188,25 @@ public class ModelTest extends AbstractSdkArtifact {
             testValues.put(filter.getIdentifier(), filterValues);
             values.add(filterValues);
             values.addToFormat(")");
+            filterCount++;
 
         }
         test.getCode().addStatement(String.join("", values.getFormats()), values.getValues().toArray());
-        test.getCode().addStatement("assertTrue($L.$L())", variable, FilterOptions.METHOD_HAS_FILTERS);
+        test.getCode().addStatement("assert$L($L.$L())", filterCount > 0 ? "True" : "False", variable,
+                                    FilterOptions.METHOD_HAS_FILTERS);
         for (Filter filter : filters) {
             final TypeParameter type = filter.getFieldType();
             try {
                 type.translate();
             } catch (TranslationException exception) {
                 exception.printStackTrace();
+                continue;
+            }
+            if (filter.getOperator().isSingleValueOperator() && type.isList()) {
+                test.getCode()
+                    .add("// Cannot test " + filter
+                         + " because the field is a list and the filter only accepts single values"
+                         + System.lineSeparator());
                 continue;
             }
             if (type.isHashtable()) {
@@ -231,9 +251,10 @@ public class ModelTest extends AbstractSdkArtifact {
             assertValues.addToFormat(", $T.$L($L.$L,$T.class,$L)");
             assertValues.addValue(Arrays.asList(ListOptionsEncoder.class, encodingMethod, modelUnderTest.getName(),
                                                 tagName,
-                                                filter.canHaveMultipleInputTypes() ? List.class
-                                                                                   : type.hasClass() ? type.getClazz()
-                                                                                                     : type.getTypeName(),
+                                                filter.canHaveMultipleInputTypes()
+                                                         || type.isList() ? List.class
+                                                                          : type.hasClass() ? type.getClazz()
+                                                                                            : type.getTypeName(),
                                                 variable));
             assertValues.addToFormat(")");
             test.getCode().addStatement(String.join("", assertValues.getFormats()), assertValues.getValues().toArray());

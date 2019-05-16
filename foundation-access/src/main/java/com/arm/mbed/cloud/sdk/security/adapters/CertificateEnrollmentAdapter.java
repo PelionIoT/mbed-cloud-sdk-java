@@ -205,10 +205,6 @@ public final class CertificateEnrollmentAdapter {
                 return CertificateEnrollmentEnrollResult.SUCCESS;
             case FAILURE:
                 return CertificateEnrollmentEnrollResult.FAILURE;
-            case NOT_FOUND:
-                return CertificateEnrollmentEnrollResult.NOT_FOUND;
-            case FORBIDDEN:
-                return CertificateEnrollmentEnrollResult.FORBIDDEN;
             default:
                 return CertificateEnrollmentEnrollResult.getUnknownEnum();
         }

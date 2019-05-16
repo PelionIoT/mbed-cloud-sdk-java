@@ -48,7 +48,7 @@ public class User implements SdkModel {
     private final long creationTime;
 
     /**
-     * User's account specific custom properties. The value is a string.
+     * User's account-specific custom properties. The value is a string.
      */
     private final Map<String, String> customFields;
 
@@ -74,6 +74,21 @@ public class User implements SdkModel {
     private String id;
 
     /**
+     * A flag indicating that the user has accepted General Terms and Conditions.
+     */
+    private boolean isGtcAccepted;
+
+    /**
+     * A flag indicating that the user has consented to receive marketing information.
+     */
+    private boolean isMarketingAccepted;
+
+    /**
+     * A flag indicating whether two-factor authentication (TOTP) has been enabled.
+     */
+    private boolean isTotpEnabled;
+
+    /**
      * A timestamp of the latest login of the user, in milliseconds.
      */
     private final long lastLoginTime;
@@ -88,11 +103,6 @@ public class User implements SdkModel {
      * A list of login profiles for the user. Specified as the identity providers the user is associated with.
      */
     private List<LoginProfile> loginProfiles;
-
-    /**
-     * A flag indicating that receiving marketing information has been accepted.
-     */
-    private boolean marketingAccepted;
 
     /**
      * The password when creating a new user. It will be generated when not present in the request.
@@ -117,20 +127,10 @@ public class User implements SdkModel {
     private UserStatus status;
 
     /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
-     */
-    private boolean termsAccepted;
-
-    /**
-     * A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the
-     * codes regenerated.
+     * A list of scratch codes for the two-factor authentication. Visible only when 2FA is requested to be enabled or
+     * the codes regenerated.
      */
     private final List<String> totpScratchCodes;
-
-    /**
-     * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
-     */
-    private boolean twoFactorAuthentication;
 
     /**
      * Last update UTC time RFC3339.
@@ -138,13 +138,15 @@ public class User implements SdkModel {
     private final Date updatedAt;
 
     /**
-     * A username containing alphanumerical letters and -,._@+= characters.
+     * A username.
      */
     private String username;
 
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #User()} instead.
      * 
@@ -159,7 +161,7 @@ public class User implements SdkModel {
      * @param creationTime
      *            A timestamp of the user creation in the storage, in milliseconds.
      * @param customFields
-     *            User's account specific custom properties. The value is a string.
+     *            User's account-specific custom properties. The value is a string.
      * @param email
      *            The email address.
      * @param emailVerified
@@ -168,6 +170,12 @@ public class User implements SdkModel {
      *            The full name of the user.
      * @param id
      *            The ID of the user.
+     * @param isGtcAccepted
+     *            A flag indicating that the user has accepted General Terms and Conditions.
+     * @param isMarketingAccepted
+     *            A flag indicating that the user has consented to receive marketing information.
+     * @param isTotpEnabled
+     *            A flag indicating whether two-factor authentication (TOTP) has been enabled.
      * @param lastLoginTime
      *            A timestamp of the latest login of the user, in milliseconds.
      * @param loginHistory
@@ -176,8 +184,6 @@ public class User implements SdkModel {
      * @param loginProfiles
      *            A list of login profiles for the user. Specified as the identity providers the user is associated
      *            with.
-     * @param marketingAccepted
-     *            A flag indicating that receiving marketing information has been accepted.
      * @param password
      *            The password when creating a new user. It will be generated when not present in the request.
      * @param passwordChangedTime
@@ -189,26 +195,22 @@ public class User implements SdkModel {
      *            process. INVITED means that the user has not accepted the invitation request. RESET means that the
      *            password must be changed immediately. INACTIVE users are locked out and not permitted to use the
      *            system.
-     * @param termsAccepted
-     *            A flag indicating that the General Terms and Conditions has been accepted.
      * @param totpScratchCodes
-     *            A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be
+     *            A list of scratch codes for the two-factor authentication. Visible only when 2FA is requested to be
      *            enabled or the codes regenerated.
-     * @param twoFactorAuthentication
-     *            A flag indicating whether 2-factor authentication (TOTP) has been enabled.
      * @param updatedAt
      *            Last update UTC time RFC3339.
      * @param username
-     *            A username containing alphanumerical letters and -,._@+= characters.
+     *            A username.
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
     public User(String accountId, List<ActiveSession> activeSessions, String address, Date createdAt, long creationTime,
                 Map<String, String> customFields, String email, boolean emailVerified, String fullName, String id,
-                long lastLoginTime, List<LoginHistory> loginHistory, List<LoginProfile> loginProfiles,
-                boolean marketingAccepted, String password, long passwordChangedTime, String phoneNumber,
-                UserStatus status, boolean termsAccepted, List<String> totpScratchCodes,
-                boolean twoFactorAuthentication, Date updatedAt, String username) {
+                boolean isGtcAccepted, boolean isMarketingAccepted, boolean isTotpEnabled, long lastLoginTime,
+                List<LoginHistory> loginHistory, List<LoginProfile> loginProfiles, String password,
+                long passwordChangedTime, String phoneNumber, UserStatus status, List<String> totpScratchCodes,
+                Date updatedAt, String username) {
         super();
         this.accountId = accountId;
         this.activeSessions = activeSessions;
@@ -225,19 +227,21 @@ public class User implements SdkModel {
         setEmail(email);
         setFullName(fullName);
         setId(id);
+        setIsGtcAccepted(isGtcAccepted);
+        setIsMarketingAccepted(isMarketingAccepted);
+        setIsTotpEnabled(isTotpEnabled);
         setLoginProfiles(loginProfiles);
-        setMarketingAccepted(marketingAccepted);
         setPassword(password);
         setPhoneNumber(phoneNumber);
         setStatus(status);
-        setTermsAccepted(termsAccepted);
-        setTwoFactorAuthentication(twoFactorAuthentication);
         setUsername(username);
     }
 
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #User()} instead.
      * 
@@ -252,12 +256,13 @@ public class User implements SdkModel {
              user == null ? 0 : user.creationTime, user == null ? (Map<String, String>) null : user.customFields,
              user == null ? (String) null : user.email, user != null && user.emailVerified,
              user == null ? (String) null : user.fullName, user == null ? (String) null : user.id,
-             user == null ? 0 : user.lastLoginTime, user == null ? (List<LoginHistory>) null : user.loginHistory,
-             user == null ? (List<LoginProfile>) null : user.loginProfiles, user != null && user.marketingAccepted,
+             user != null && user.isGtcAccepted, user != null && user.isMarketingAccepted,
+             user != null && user.isTotpEnabled, user == null ? 0 : user.lastLoginTime,
+             user == null ? (List<LoginHistory>) null : user.loginHistory,
+             user == null ? (List<LoginProfile>) null : user.loginProfiles,
              user == null ? (String) null : user.password, user == null ? 0 : user.passwordChangedTime,
              user == null ? (String) null : user.phoneNumber, user == null ? UserStatus.getDefault() : user.status,
-             user != null && user.termsAccepted, user == null ? (List<String>) null : user.totpScratchCodes,
-             user != null && user.twoFactorAuthentication, user == null ? new Date() : user.updatedAt,
+             user == null ? (List<String>) null : user.totpScratchCodes, user == null ? new Date() : user.updatedAt,
              user == null ? (String) null : user.username);
     }
 
@@ -266,14 +271,18 @@ public class User implements SdkModel {
      */
     public User() {
         this((String) null, (List<ActiveSession>) null, (String) null, new Date(), 0, (Map<String, String>) null,
-             (String) null, false, (String) null, (String) null, 0, (List<LoginHistory>) null,
-             (List<LoginProfile>) null, false, (String) null, 0, (String) null, UserStatus.getDefault(), false,
-             (List<String>) null, false, new Date(), (String) null);
+             (String) null, false, (String) null, (String) null, false, false, false, 0, (List<LoginHistory>) null,
+             (List<LoginProfile>) null, (String) null, 0, (String) null, UserStatus.getDefault(), (List<String>) null,
+             new Date(), (String) null);
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            The ID of the user.
      */
@@ -286,6 +295,8 @@ public class User implements SdkModel {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on read-only fields.
+     * <p>
      * Note: Should not be used. Use {@link #User()} instead.
      * 
      * @param accountId
@@ -297,7 +308,7 @@ public class User implements SdkModel {
      * @param creationTime
      *            A timestamp of the user creation in the storage, in milliseconds.
      * @param customFields
-     *            User's account specific custom properties. The value is a string.
+     *            User's account-specific custom properties. The value is a string.
      * @param emailVerified
      *            A flag indicating whether the user's email address has been verified or not.
      * @param lastLoginTime
@@ -308,7 +319,7 @@ public class User implements SdkModel {
      * @param passwordChangedTime
      *            A timestamp of the latest change of the user password, in milliseconds.
      * @param totpScratchCodes
-     *            A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be
+     *            A list of scratch codes for the two-factor authentication. Visible only when 2FA is requested to be
      *            enabled or the codes regenerated.
      * @param updatedAt
      *            Last update UTC time RFC3339.
@@ -320,9 +331,9 @@ public class User implements SdkModel {
                 List<LoginHistory> loginHistory, long passwordChangedTime, List<String> totpScratchCodes,
                 Date updatedAt) {
         this(accountId, activeSessions, (String) null, createdAt, creationTime, customFields, (String) null,
-             emailVerified, (String) null, (String) null, lastLoginTime, loginHistory, (List<LoginProfile>) null, false,
-             (String) null, passwordChangedTime, (String) null, UserStatus.getDefault(), false, totpScratchCodes, false,
-             updatedAt, (String) null);
+             emailVerified, (String) null, (String) null, false, false, false, lastLoginTime, loginHistory,
+             (List<LoginProfile>) null, (String) null, passwordChangedTime, (String) null, UserStatus.getDefault(),
+             totpScratchCodes, updatedAt, (String) null);
     }
 
     /**
@@ -381,7 +392,7 @@ public class User implements SdkModel {
     }
 
     /**
-     * Gets user's account specific custom properties. the value is a string.
+     * Gets user's account-specific custom properties. the value is a string.
      * 
      * @return customFields
      */
@@ -400,6 +411,9 @@ public class User implements SdkModel {
 
     /**
      * Sets the email address.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /^(?=.{3,254}$).+@.+/} to be valid
      * 
      * @param email
      *            The email address.
@@ -416,7 +430,7 @@ public class User implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isEmailValid() {
-        return email != null;
+        return email != null && (email.matches("^(?=.{3,254}$).+@.+"));
     }
 
     /**
@@ -439,12 +453,25 @@ public class User implements SdkModel {
 
     /**
      * Sets the full name of the user.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param fullName
      *            The full name of the user.
      */
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    /**
+     * Checks whether fullName value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isFullNameValid() {
+        return (fullName == null || fullName.length() <= 100);
     }
 
     /**
@@ -459,6 +486,9 @@ public class User implements SdkModel {
 
     /**
      * Sets the id of the user.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param id
      *            The ID of the user.
@@ -473,6 +503,8 @@ public class User implements SdkModel {
      *
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param userId
      *            The ID of the user.
@@ -480,6 +512,73 @@ public class User implements SdkModel {
     @Internal
     public void setUserId(String userId) {
         setId(userId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[a-f0-9]{32}"));
+    }
+
+    /**
+     * Gets a flag indicating that the user has accepted general terms and conditions.
+     * 
+     * @return isGtcAccepted
+     */
+    public boolean isGtcAccepted() {
+        return isGtcAccepted;
+    }
+
+    /**
+     * Sets a flag indicating that the user has accepted general terms and conditions.
+     * 
+     * @param isGtcAccepted
+     *            A flag indicating that the user has accepted General Terms and Conditions.
+     */
+    public void setIsGtcAccepted(boolean isGtcAccepted) {
+        this.isGtcAccepted = isGtcAccepted;
+    }
+
+    /**
+     * Gets a flag indicating that the user has consented to receive marketing information.
+     * 
+     * @return isMarketingAccepted
+     */
+    public boolean isMarketingAccepted() {
+        return isMarketingAccepted;
+    }
+
+    /**
+     * Sets a flag indicating that the user has consented to receive marketing information.
+     * 
+     * @param isMarketingAccepted
+     *            A flag indicating that the user has consented to receive marketing information.
+     */
+    public void setIsMarketingAccepted(boolean isMarketingAccepted) {
+        this.isMarketingAccepted = isMarketingAccepted;
+    }
+
+    /**
+     * Gets a flag indicating whether two-factor authentication (totp) has been enabled.
+     * 
+     * @return isTotpEnabled
+     */
+    public boolean isTotpEnabled() {
+        return isTotpEnabled;
+    }
+
+    /**
+     * Sets a flag indicating whether two-factor authentication (totp) has been enabled.
+     * 
+     * @param isTotpEnabled
+     *            A flag indicating whether two-factor authentication (TOTP) has been enabled.
+     */
+    public void setIsTotpEnabled(boolean isTotpEnabled) {
+        this.isTotpEnabled = isTotpEnabled;
     }
 
     /**
@@ -522,25 +621,6 @@ public class User implements SdkModel {
     }
 
     /**
-     * Gets a flag indicating that receiving marketing information has been accepted.
-     * 
-     * @return marketingAccepted
-     */
-    public boolean isMarketingAccepted() {
-        return marketingAccepted;
-    }
-
-    /**
-     * Sets a flag indicating that receiving marketing information has been accepted.
-     * 
-     * @param marketingAccepted
-     *            A flag indicating that receiving marketing information has been accepted.
-     */
-    public void setMarketingAccepted(boolean marketingAccepted) {
-        this.marketingAccepted = marketingAccepted;
-    }
-
-    /**
      * Gets the password when creating a new user. it will be generated when not present in the request.
      * 
      * @return password
@@ -579,12 +659,25 @@ public class User implements SdkModel {
 
     /**
      * Sets phone number.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param phoneNumber
      *            Phone number.
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    /**
+     * Checks whether phoneNumber value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isPhoneNumberValid() {
+        return (phoneNumber == null || phoneNumber.length() <= 100);
     }
 
     /**
@@ -614,51 +707,32 @@ public class User implements SdkModel {
     }
 
     /**
-     * Gets a flag indicating that the general terms and conditions has been accepted.
+     * Sets the status of the user. enrolling state indicates that the user is in the middle of the enrollment process.
+     * invited means that the user has not accepted the invitation request. reset means that the password must be
+     * changed immediately. inactive users are locked out and not permitted to use the system.
+     *
+     * <p>
+     * Similar to {@link #setStatus(com.arm.mbed.cloud.sdk.accounts.model.UserStatus)}
      * 
-     * @return termsAccepted
+     * @param status
+     *            The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment
+     *            process. INVITED means that the user has not accepted the invitation request. RESET means that the
+     *            password must be changed immediately. INACTIVE users are locked out and not permitted to use the
+     *            system.
      */
-    public boolean isTermsAccepted() {
-        return termsAccepted;
+    @Internal
+    public void setStatus(String status) {
+        this.status = UserStatus.getValue(status);
     }
 
     /**
-     * Sets a flag indicating that the general terms and conditions has been accepted.
-     * 
-     * @param termsAccepted
-     *            A flag indicating that the General Terms and Conditions has been accepted.
-     */
-    public void setTermsAccepted(boolean termsAccepted) {
-        this.termsAccepted = termsAccepted;
-    }
-
-    /**
-     * Gets a list of scratch codes for the 2-factor authentication. visible only when 2fa is requested to be enabled or
-     * the codes regenerated.
+     * Gets a list of scratch codes for the two-factor authentication. visible only when 2fa is requested to be enabled
+     * or the codes regenerated.
      * 
      * @return totpScratchCodes
      */
     public List<String> getTotpScratchCodes() {
         return totpScratchCodes;
-    }
-
-    /**
-     * Gets a flag indicating whether 2-factor authentication (totp) has been enabled.
-     * 
-     * @return twoFactorAuthentication
-     */
-    public boolean isTwoFactorAuthentication() {
-        return twoFactorAuthentication;
-    }
-
-    /**
-     * Sets a flag indicating whether 2-factor authentication (totp) has been enabled.
-     * 
-     * @param twoFactorAuthentication
-     *            A flag indicating whether 2-factor authentication (TOTP) has been enabled.
-     */
-    public void setTwoFactorAuthentication(boolean twoFactorAuthentication) {
-        this.twoFactorAuthentication = twoFactorAuthentication;
     }
 
     /**
@@ -671,7 +745,7 @@ public class User implements SdkModel {
     }
 
     /**
-     * Gets a username containing alphanumerical letters and -,._@+= characters.
+     * Gets a username.
      * 
      * @return username
      */
@@ -680,13 +754,46 @@ public class User implements SdkModel {
     }
 
     /**
-     * Sets a username containing alphanumerical letters and -,._@+= characters.
+     * Sets a username.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[\\w\\-,._@+=]{4,30}/} to be valid
      * 
      * @param username
-     *            A username containing alphanumerical letters and -,._@+= characters.
+     *            A username.
      */
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    /**
+     * Checks whether username value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isUsernameValid() {
+        return (username == null || username.matches("[\\w\\-,._@+=]{4,30}"));
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "User [accountId=" + accountId + ", activeSessions=" + activeSessions + ", address=" + address
+               + ", createdAt=" + createdAt + ", creationTime=" + creationTime + ", customFields=" + customFields
+               + ", email=" + email + ", emailVerified=" + emailVerified + ", fullName=" + fullName + ", id=" + id
+               + ", isGtcAccepted=" + isGtcAccepted + ", isMarketingAccepted=" + isMarketingAccepted
+               + ", isTotpEnabled=" + isTotpEnabled + ", lastLoginTime=" + lastLoginTime + ", loginHistory="
+               + loginHistory + ", loginProfiles=" + loginProfiles + ", password=" + password + ", passwordChangedTime="
+               + passwordChangedTime + ", phoneNumber=" + phoneNumber + ", status=" + status + ", totpScratchCodes="
+               + totpScratchCodes + ", updatedAt=" + updatedAt + ", username=" + username + "]";
     }
 
     /**
@@ -705,23 +812,23 @@ public class User implements SdkModel {
         result = prime * result + ((activeSessions == null) ? 0 : activeSessions.hashCode());
         result = prime * result + ((address == null) ? 0 : address.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-        result = prime * result + Objects.hashCode(creationTime);
+        result = prime * result + Objects.hashCode(Long.valueOf(creationTime));
         result = prime * result + ((customFields == null) ? 0 : customFields.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
-        result = prime * result + Objects.hashCode(emailVerified);
+        result = prime * result + Objects.hashCode(Boolean.valueOf(emailVerified));
         result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + Objects.hashCode(lastLoginTime);
+        result = prime * result + Objects.hashCode(Boolean.valueOf(isGtcAccepted));
+        result = prime * result + Objects.hashCode(Boolean.valueOf(isMarketingAccepted));
+        result = prime * result + Objects.hashCode(Boolean.valueOf(isTotpEnabled));
+        result = prime * result + Objects.hashCode(Long.valueOf(lastLoginTime));
         result = prime * result + ((loginHistory == null) ? 0 : loginHistory.hashCode());
         result = prime * result + ((loginProfiles == null) ? 0 : loginProfiles.hashCode());
-        result = prime * result + Objects.hashCode(marketingAccepted);
         result = prime * result + ((password == null) ? 0 : password.hashCode());
-        result = prime * result + Objects.hashCode(passwordChangedTime);
+        result = prime * result + Objects.hashCode(Long.valueOf(passwordChangedTime));
         result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
         result = prime * result + ((status == null) ? 0 : status.hashCode());
-        result = prime * result + Objects.hashCode(termsAccepted);
         result = prime * result + ((totpScratchCodes == null) ? 0 : totpScratchCodes.hashCode());
-        result = prime * result + Objects.hashCode(twoFactorAuthentication);
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
         result = prime * result + ((username == null) ? 0 : username.hashCode());
         return result;
@@ -829,6 +936,15 @@ public class User implements SdkModel {
         } else if (!id.equals(other.id)) {
             return false;
         }
+        if (isGtcAccepted != other.isGtcAccepted) {
+            return false;
+        }
+        if (isMarketingAccepted != other.isMarketingAccepted) {
+            return false;
+        }
+        if (isTotpEnabled != other.isTotpEnabled) {
+            return false;
+        }
         if (lastLoginTime != other.lastLoginTime) {
             return false;
         }
@@ -844,9 +960,6 @@ public class User implements SdkModel {
                 return false;
             }
         } else if (!loginProfiles.equals(other.loginProfiles)) {
-            return false;
-        }
-        if (marketingAccepted != other.marketingAccepted) {
             return false;
         }
         if (password == null) {
@@ -869,17 +982,11 @@ public class User implements SdkModel {
         if (status != other.status) {
             return false;
         }
-        if (termsAccepted != other.termsAccepted) {
-            return false;
-        }
         if (totpScratchCodes == null) {
             if (other.totpScratchCodes != null) {
                 return false;
             }
         } else if (!totpScratchCodes.equals(other.totpScratchCodes)) {
-            return false;
-        }
-        if (twoFactorAuthentication != other.twoFactorAuthentication) {
             return false;
         }
         if (updatedAt == null) {
@@ -900,27 +1007,6 @@ public class User implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     *
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "User [accountId=" + accountId + ", activeSessions=" + activeSessions + ", address=" + address
-               + ", createdAt=" + createdAt + ", creationTime=" + creationTime + ", customFields=" + customFields
-               + ", email=" + email + ", emailVerified=" + emailVerified + ", fullName=" + fullName + ", id=" + id
-               + ", lastLoginTime=" + lastLoginTime + ", loginHistory=" + loginHistory + ", loginProfiles="
-               + loginProfiles + ", marketingAccepted=" + marketingAccepted + ", password=" + password
-               + ", passwordChangedTime=" + passwordChangedTime + ", phoneNumber=" + phoneNumber + ", status=" + status
-               + ", termsAccepted=" + termsAccepted + ", totpScratchCodes=" + totpScratchCodes
-               + ", twoFactorAuthentication=" + twoFactorAuthentication + ", updatedAt=" + updatedAt + ", username="
-               + username + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
      *
      * <p>
@@ -930,7 +1016,7 @@ public class User implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isEmailValid();
+        return isEmailValid() && isFullNameValid() && isIdValid() && isPhoneNumberValid() && isUsernameValid();
     }
 
     /**

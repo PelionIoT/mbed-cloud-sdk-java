@@ -15,10 +15,6 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 public enum CertificateEnrollmentEnrollResult implements SdkEnum {
     FAILURE("failure"),
 
-    FORBIDDEN("forbidden"),
-
-    NOT_FOUND("not_found"),
-
     SUCCESS("success"),
 
     UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);

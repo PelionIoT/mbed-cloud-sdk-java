@@ -36,6 +36,7 @@ public interface TestedItemInstance<T extends TestedItem> extends Serializable, 
 
     Object getInstance();
 
+    @Override
     String toString();
 
     T getDescription();

@@ -26,7 +26,9 @@ public interface InputSchema {
     final String DEFAULT_VALUE_TAG = "default";
     final String DESCRIPTION_TAG = "description";
     final String SUMMARY_TAG = "summary";
+    final String DETAILED_DESCRIPTION_TAG = "detail";
     final String LONG_DESCRIPTION_TAG = "long_description";
+    final String NOTES_TAG = "notes";
     final String FIELDS_TAG = "fields";
     final String RENAMES_TAG = "field_renames";
     final String REQUIRED_TAG = "required";
@@ -37,6 +39,7 @@ public interface InputSchema {
     final String ENUM_VALUES_TAG = "values";
     final String ENTITY_REFERENCE_TAG = "entity_name";
     final String INTERNAL_FIELD_TAG = "private_field";
+    final String INTERNAL_METHOD_TAG = "private_method";
 
     // Limits
     final String PATTERN_TAG = "pattern";

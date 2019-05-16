@@ -145,39 +145,9 @@ import java.util.List;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TrustedCertificateListOptions extends ListOptions {
     /**
-     * Tag for filter by valid.
-     */
-    public static final String TAG_FILTER_BY_VALID = "valid";
-
-    /**
-     * Tag for filter by name.
-     */
-    public static final String TAG_FILTER_BY_NAME = "name";
-
-    /**
-     * Tag for filter by status.
-     */
-    public static final String TAG_FILTER_BY_STATUS = "status";
-
-    /**
      * Tag for filter by deviceExecutionMode.
      */
     public static final String TAG_FILTER_BY_DEVICE_EXECUTION_MODE = "deviceExecutionMode";
-
-    /**
-     * Tag for filter by issuer.
-     */
-    public static final String TAG_FILTER_BY_ISSUER = "issuer";
-
-    /**
-     * Tag for filter by service.
-     */
-    public static final String TAG_FILTER_BY_SERVICE = "service";
-
-    /**
-     * Tag for filter by subject.
-     */
-    public static final String TAG_FILTER_BY_SUBJECT = "subject";
 
     /**
      * Tag for filter by enrollmentMode.
@@ -185,8 +155,40 @@ public class TrustedCertificateListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_ENROLLMENT_MODE = "enrollmentMode";
 
     /**
+     * Tag for filter by issuer.
+     */
+    public static final String TAG_FILTER_BY_ISSUER = "issuer";
+
+    /**
+     * Tag for filter by name.
+     */
+    public static final String TAG_FILTER_BY_NAME = "name";
+
+    /**
+     * Tag for filter by service.
+     */
+    public static final String TAG_FILTER_BY_SERVICE = "service";
+
+    /**
+     * Tag for filter by status.
+     */
+    public static final String TAG_FILTER_BY_STATUS = "status";
+
+    /**
+     * Tag for filter by subject.
+     */
+    public static final String TAG_FILTER_BY_SUBJECT = "subject";
+
+    /**
+     * Tag for filter by valid.
+     */
+    public static final String TAG_FILTER_BY_VALID = "valid";
+
+    /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #TrustedCertificateListOptions()} instead.
      * 
@@ -219,6 +221,8 @@ public class TrustedCertificateListOptions extends ListOptions {
      * Internal constructor.
      *
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #TrustedCertificateListOptions()} instead.
      * 
      * @param trustedCertificateListOptions
@@ -241,6 +245,8 @@ public class TrustedCertificateListOptions extends ListOptions {
     /**
      * Internal constructor.
      *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #TrustedCertificateListOptions()} instead.
      * 
@@ -272,7 +278,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      *            filter value.
      */
     public void addEqualToValidFilter(boolean filterByValid) {
-        addEqualFilter(TAG_FILTER_BY_VALID, filterByValid);
+        addEqualFilter(TAG_FILTER_BY_VALID, Boolean.valueOf(filterByValid));
     }
 
     /**
@@ -380,7 +386,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      *            filter value.
      */
     public void addEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
-        addEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
+        addEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, Integer.valueOf(filterByDeviceExecutionMode));
     }
 
     /**
@@ -407,7 +413,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      *            filter value.
      */
     public void addNotEqualToDeviceExecutionModeFilter(int filterByDeviceExecutionMode) {
-        addNotEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, filterByDeviceExecutionMode);
+        addNotEqualFilter(TAG_FILTER_BY_DEVICE_EXECUTION_MODE, Integer.valueOf(filterByDeviceExecutionMode));
     }
 
     /**
@@ -551,7 +557,7 @@ public class TrustedCertificateListOptions extends ListOptions {
      *            filter value.
      */
     public void addEqualToEnrollmentModeFilter(boolean filterByEnrollmentMode) {
-        addEqualFilter(TAG_FILTER_BY_ENROLLMENT_MODE, filterByEnrollmentMode);
+        addEqualFilter(TAG_FILTER_BY_ENROLLMENT_MODE, Boolean.valueOf(filterByEnrollmentMode));
     }
 
     /**
@@ -572,20 +578,6 @@ public class TrustedCertificateListOptions extends ListOptions {
     }
 
     /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     *
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof TrustedCertificateListOptions;
-    }
-
-    /**
      * Returns a string representation of the object.
      *
      * <p>
@@ -602,6 +594,21 @@ public class TrustedCertificateListOptions extends ListOptions {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return other instanceof TrustedCertificateListOptions;
+    }
+
+    /**
      * Clones this instance.
      *
      * <p>
@@ -614,5 +621,50 @@ public class TrustedCertificateListOptions extends ListOptions {
         final TrustedCertificateListOptions opt = new TrustedCertificateListOptions();
         opt.setOptions(this);
         return opt;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof TrustedCertificateListOptions)) {
+            return false;
+        }
+        final TrustedCertificateListOptions other = (TrustedCertificateListOptions) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    @SuppressWarnings("PMD.UselessOverridingMethod")
+    public int hashCode() {
+        return super.hashCode();
     }
 }

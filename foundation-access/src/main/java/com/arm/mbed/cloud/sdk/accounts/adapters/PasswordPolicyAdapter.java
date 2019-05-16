@@ -6,6 +6,7 @@ import com.arm.mbed.cloud.sdk.accounts.model.PasswordPolicy;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 
 /**
  * Adapter for password policies.
@@ -35,7 +36,8 @@ public final class PasswordPolicyAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final PasswordPolicy passwordPolicy = new PasswordPolicy(toBeMapped.getMinimumLength());
+        final PasswordPolicy passwordPolicy = new PasswordPolicy(TranslationUtils.toInt(toBeMapped.getMinimumLength(),
+                                                                                        8));
         return passwordPolicy;
     }
 
@@ -80,7 +82,7 @@ public final class PasswordPolicyAdapter {
             return null;
         }
         final com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy passwordPolicy = new com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PasswordPolicy();
-        passwordPolicy.setMinimumLength(toBeMapped.getMinimumLength());
+        passwordPolicy.setMinimumLength(Integer.valueOf(toBeMapped.getMinimumLength()));
         return passwordPolicy;
     }
 }
