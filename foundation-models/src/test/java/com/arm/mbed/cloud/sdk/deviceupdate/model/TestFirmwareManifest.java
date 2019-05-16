@@ -19,15 +19,15 @@ public class TestFirmwareManifest {
     @Test
     public void testClone() {
         try {
-            FirmwareManifest firmwaremanifest1 = new FirmwareManifest(new Date(1557959066392L), -116,
-                                                                      "e12eac79-1ddb-475b-b23e-a51c72633c6d",
-                                                                      "99e21899-3a18-4d2b-9f33-172f869b6d64",
-                                                                      "94bbdb56-2fbc-464f-8f89-6b21b76fe6a4",
-                                                                      "e1453c9f-2894-4d2c-a49f-94d7c9e128b7",
-                                                                      "80d6f1a0-6c10-4743-85b8-7dcb2cf59131",
-                                                                      "809d70e5-67f5-496e-94a2-c370d691e572",
-                                                                      new Date(1557959073349L),
-                                                                      new Date(1557959067434L));
+            FirmwareManifest firmwaremanifest1 = new FirmwareManifest(new Date(1557969578894L), 91,
+                                                                      "3d591056-2753-4d72-a077-f8bc0514a5c9",
+                                                                      "ef0a1b53-c435-4583-99e4-8bf97d1a21a3",
+                                                                      "f10b8302-96e8-4113-9225-720e9b76e65c",
+                                                                      "343a28f8-48d3-45e1-9b7e-9878993df78a",
+                                                                      "fe56bf15-7ec0-4cfc-bd1a-e84dc7316df2",
+                                                                      "6ba95015-336e-46e4-97c8-8eab1cab27a7",
+                                                                      new Date(1557969575333L),
+                                                                      new Date(1557969574731L));
             FirmwareManifest firmwaremanifest2 = firmwaremanifest1.clone();
             assertNotNull(firmwaremanifest1);
             assertNotNull(firmwaremanifest2);
@@ -45,24 +45,24 @@ public class TestFirmwareManifest {
     @Test
     public void testHashCode() {
         try {
-            FirmwareManifest firmwaremanifest1 = new FirmwareManifest(new Date(1557959064849L), -60,
-                                                                      "d0c2a927-cec5-4aef-9567-fb2410d2b14b",
-                                                                      "b79f06db-555d-489e-97e7-7427a1d33966",
-                                                                      "e5c596e0-e9e0-423b-bf29-27ca3cb52d0b",
-                                                                      "5cf70b29-2b3c-4530-8c96-d3defb77af1b",
-                                                                      "7fa82cd6-4911-4b35-aee8-3abff639220e",
-                                                                      "de06bd58-9402-4e1b-89fd-29e0c030f54b",
-                                                                      new Date(1557959065731L),
-                                                                      new Date(1557959071394L));
-            FirmwareManifest firmwaremanifest2 = new FirmwareManifest(new Date(1557959064849L), -60,
-                                                                      "d0c2a927-cec5-4aef-9567-fb2410d2b14b",
-                                                                      "b79f06db-555d-489e-97e7-7427a1d33966",
-                                                                      "e5c596e0-e9e0-423b-bf29-27ca3cb52d0b",
-                                                                      "5cf70b29-2b3c-4530-8c96-d3defb77af1b",
-                                                                      "7fa82cd6-4911-4b35-aee8-3abff639220e",
-                                                                      "de06bd58-9402-4e1b-89fd-29e0c030f54b",
-                                                                      new Date(1557959065731L),
-                                                                      new Date(1557959071394L));
+            FirmwareManifest firmwaremanifest1 = new FirmwareManifest(new Date(1557969578312L), -56,
+                                                                      "da9a0b78-0f12-49e6-a57b-1e3990d0a915",
+                                                                      "759af172-b11c-454a-b11b-df4be7654641",
+                                                                      "866899ba-3ef8-4e4b-afc3-317ce03f159f",
+                                                                      "814c9f00-06e9-4f0b-b269-48acdabae741",
+                                                                      "df6ccb8a-4b73-4bd5-82b0-953e5a70868a",
+                                                                      "cc543205-0527-49ce-b3e5-e2209bc7f9ba",
+                                                                      new Date(1557969569597L),
+                                                                      new Date(1557969571753L));
+            FirmwareManifest firmwaremanifest2 = new FirmwareManifest(new Date(1557969578312L), -56,
+                                                                      "da9a0b78-0f12-49e6-a57b-1e3990d0a915",
+                                                                      "759af172-b11c-454a-b11b-df4be7654641",
+                                                                      "866899ba-3ef8-4e4b-afc3-317ce03f159f",
+                                                                      "814c9f00-06e9-4f0b-b269-48acdabae741",
+                                                                      "df6ccb8a-4b73-4bd5-82b0-953e5a70868a",
+                                                                      "cc543205-0527-49ce-b3e5-e2209bc7f9ba",
+                                                                      new Date(1557969569597L),
+                                                                      new Date(1557969571753L));
             assertNotNull(firmwaremanifest1);
             assertNotNull(firmwaremanifest2);
             assertNotSame(firmwaremanifest2, firmwaremanifest1);
@@ -83,24 +83,24 @@ public class TestFirmwareManifest {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        FirmwareManifest firmwaremanifest = new FirmwareManifest(new Date(1557959068542L), -84,
-                                                                 "f120e9a6-fa9c-4653-ab2d-2988d88f771a",
-                                                                 "080bf30e-2d03-4468-bb27-d46445f2e689",
-                                                                 "c3599e59-d991-4172-a660-34c7237bb1b6",
-                                                                 "66fdba96-5b7c-4748-8fd4-3ad2315bbd1b",
-                                                                 "d6ad307e-5eba-4ca3-bfcc-2453e24a9bd7",
-                                                                 "ab48496d-64e9-405d-802c-48e924ddbcbd",
-                                                                 new Date(1557959066463L), new Date(1557959073327L));
+        FirmwareManifest firmwaremanifest = new FirmwareManifest(new Date(1557969575807L), 125,
+                                                                 "34d38245-74d7-44f1-867a-c5742d0849f8",
+                                                                 "1be69050-c533-451c-a2a0-2bb6dd78b68d",
+                                                                 "5fb04b02-0ec3-4b44-b79e-3cef276bc805",
+                                                                 "185a28d8-12f3-4743-972c-78e4ab5fdb0f",
+                                                                 "e8a5d6e5-319c-4455-a7f0-5e8a66196fb8",
+                                                                 "a3da116a-521c-43f1-9e47-1e179c94acc5",
+                                                                 new Date(1557969577421L), new Date(1557969571427L));
         assertTrue(firmwaremanifest.isValid());
-        FirmwareManifest firmwaremanifestInvalid = new FirmwareManifest(new Date(1557959070794L), 35,
-                                                                        "a9988193-61fc-4852-930e-d28238749dbb",
-                                                                        "b648fddc-ee55-4dd6-83a6-2cab1b39b4269070a06a-d205-403f-8ee3-fd7204670567bfc54a93-e2c8-4c2c-b700-8bf49596c354ea6bf43e-8132-408f-b5e0-acc196f837697fc3dceb-962c-4043-bb95-24625c58baef68152322-2055-4b6c-beab-b7685e71c1822b6c1422-42ca-45ee-b7e4-0687f05b580df3a67622-42a6-4add-b007-2112872f63da097308f5-3bd6-448a-a622-3ba60d75a87ec93c2447-1b8c-4ac4-bfd8-52be7a5c633e000a3c7f-4054-4897-9a92-3053dc0aba83d8e2ce58-2267-4ea9-960b-5ba11e1d1dd20d788ba4-4cd4-41ed-a508-93ff58edc2bd332bfacf-1288-44a5-b0de-ef240d5ca28b614f5226-afd4-482d-afcc-f273b4aaa4426c3ff157-8caf-4728-9311-b0dbdaeb62e381cfa42b-5f9b-446c-bc06-9bce7547c84c4205235a-0caf-4361-88eb-f219137cb1b5efbcb2fc-388d-409b-80c4-976ce1b624bae503572d-bbb4-4959-8391-177a7af29c03c206b802-2dfb-4936-b5c1-88e3655c6dbf3f3392b7-be22-484c-9409-273402e132b1a7c8499a-e0f4-45a3-a2ab-0732e350507a9bdb89ff-d131-4f07-8a30-38ab6c09ad32e0eecec4-b5fb-4483-abf5-19888832e28ccf6a2af4-b089-49df-ab2e-65219e6b8399c4e1867d-99bf-4ff9-92fc-98003113c6949f8fb42a-4392-4134-8ac3-fd2e1062e0d0dab7c55b-3f09-484a-93eb-b985ec4f2422455a0295-e38f-4146-946f-3b9c95e76c9b278cf505-c937-45c7-86fc-62fe11445ed14aaaa50a-a60a-4e48-a5dd-16a07c9feb5c82a2e846-91f2-4427-9be4-2d0cdecfd32f64493894-b585-4c11-961e-4f8e074356a23b6a209d-aa88-4ee9-8d88-ee39a64febc0a53a59d3-9873-4d4d-977e-84ad807cd1eda29cac64-9644-497b-8406-6c72ab93e4cd97b1099d-1491-4160-869e-f240f91a1c1d22a2a444-f0b9-4849-9c67-545187ebbedd31b870e3-07e8-4eda-9afb-3c3a520ef2e99e3b1735-176d-44f8-9f4c-f9da20130d4b96de0632-0733-49c3-aa21-cd255bec3659610b3ebd-dd19-487a-8bcc-01441569bd0b704c41c9-a66f-49e4-820c-fef5c5a6e38353e213d9-70b9-4b18-b006-4539041cd2ded7cff389-f003-48e6-b753-694f878e9aced722ab75-9aee-408e-84ff-bb1e65b895021443cca5-a4c6-4c11-8cbc-51863f3a380a09277a64-06cc-41f5-9628-14e8da6271ade3c6dccc-0711-49e0-88d6-155cb16e0358b9977ccf-d377-4fa6-af67-1723c383e8b993af0e30-8114-4457-9dbc-f1cf3285da9c7d21e697-82fb-40bb-84d3-46e80c5bab0f01c01125-2dda-4dee-adeb-fd284d501fe2167afb5a-a142-429f-bee4-caaba0104113f6b1db6a-7287-41d5-adf4-ddeceddf0188",
-                                                                        "1cd4c636-cb7a-4974-82f7-5a5a29182b8c",
-                                                                        "8b8cbb4e-1be3-4704-945c-e615420d5ec2",
-                                                                        "18ed8339-b3a0-4f50-a1ba-2776c26bed63",
-                                                                        "121e3054-578b-426a-8589-92a3edea84755a258ea2-ec5a-4a77-909a-8a6bba1f7ab6874c19a7-7f0d-453a-9d39-52f0fa6bb9d0aecccbb6-3bfe-4c5f-a56d-8abe31c8a898",
-                                                                        new Date(1557959068722L),
-                                                                        new Date(1557959072205L));
+        FirmwareManifest firmwaremanifestInvalid = new FirmwareManifest(new Date(1557969573217L), -73,
+                                                                        "016ac5f8-60c7-402f-80e1-aae375f40f5c",
+                                                                        "aa592400-7663-4161-9686-81608f4d75665dbdd930-9cb4-4f68-9689-2a9b75c63f78c8cc53f9-0f27-46e8-b8ca-4872220ee3a56feb06d7-35f8-4f3c-96c1-22ad47e013f95f2a137e-c8e4-4356-a3c2-ac3ae1aae1e3be1550d1-601c-4e2d-a348-9c81fef3fe233207b225-2f8d-48f4-8a3f-548006e45eabdc5d6d10-8f8c-4478-9bbd-525978a620aed6b45afd-3163-4f71-9a60-78d48b17b852f6220a14-c980-4738-8659-d79e31c8f1a37dd66184-2704-4ea8-92e7-23b3f5955b370283bedc-9a8a-4eac-ada8-78f26ca3f6a0ceca37e9-91a1-444e-9ab5-c8651dae234c38a8bcb1-fb31-4b06-8ef1-8d8aa2da3838e53ea423-5400-4e1a-95a5-f2695441427f2d82bcd5-b508-4776-ab79-dbbfdddf167794eff5bf-75e3-4abb-871b-34da42e54401abd6fa08-2621-489e-ae95-2963cb884bbe2e8b50c9-53f9-4087-9035-b166b4a433c5d47d6b1e-8275-443c-b973-5a890a4cf39ae37b91d0-4f0e-4977-a97b-de2ef17460721db892a1-ef4e-4c85-8e80-8304daa732c927e04fe4-6405-424b-8d6f-8db0f1231fd4231a12f8-54c0-4dfc-bb34-b44841a90aa602819c00-c570-4bea-9cb4-a5e0d2922f566e0d1bd0-73db-4a3e-9700-0139c03a320963dbc3d4-ce64-47ef-9dd3-aeef098c3ef57bff6540-c25e-4d96-91d8-41eba2bbd0311b72768c-619c-49f2-8555-2c6b45c5c9c76444a485-bb33-407e-bb26-9c7ed1c09620e03a0904-5c4e-474d-ad86-19f0d588ff4adee7e735-80e2-4365-b581-0928fb980d2f4851a210-735c-4cb3-b007-76ccca4d744ffd4dbd24-840e-40bc-8731-374fdb9a5d0371a1e6ea-5bac-43fe-9430-aa759314ee09f4aa13df-edea-47d2-b34e-54a2b0ed279a94098ab4-177b-4e47-aa52-4ee721cdac904c5311a8-a394-4b53-8e24-3e8c9ae0920d076b4e04-f65c-4dbd-a677-8c22b9d2b2cb5d3af51b-b9ad-42cf-8aa0-8e2e13f81b68fb52e763-c946-4806-9ce7-48ecbebcde15828ad8bd-5f0f-4fea-ad43-1b82ad6a83962e743df2-1736-4d1a-843a-02996dea3f957947a1e0-321a-421b-b5fb-099d75bd8ff9a6bf736d-8f29-4e74-b434-3a7242f90e388b06de53-231e-4e53-9e4b-2aeb372372996e3570e2-09c9-4993-8b87-7b36f88dfa04d70ae25d-5b92-4806-b1ec-775c59643df8f8825f28-315f-45b3-968a-8e3207af16ff2797131c-5829-46ef-bd62-28185d260d537973f230-9667-41f6-b719-975386d69a4f460fa1f0-5d76-4a75-b33a-d609d2fee7c9721e0853-9060-4318-bf62-5522a91a5a389d7eb47e-7b9f-4b2e-88f2-84ef55090a3ca756b9f4-8b6f-4b2a-bee8-1c6e894bd1fef0304423-f3fd-49e1-86e2-89361d609c44",
+                                                                        "078e852e-6116-45b0-b71d-1e624435dcc3",
+                                                                        "496ee954-abbe-4a4a-8c15-fbae075e1905",
+                                                                        "50d39023-cf3f-4a76-8d86-0c2740a85c67",
+                                                                        "bb16ea0d-381c-4a41-938f-70ff4f665f3ddbcf4d8c-2a13-4aa4-996f-c2b1e7604ab8f1bf94a2-4849-4cfc-8b0f-0c9d620e883c3f6cfed8-914a-416e-be32-89de20daa2e6",
+                                                                        new Date(1557969579111L),
+                                                                        new Date(1557969574217L));
         assertFalse(firmwaremanifestInvalid.isValid());
     }
 
@@ -111,33 +111,33 @@ public class TestFirmwareManifest {
     @Test
     public void testEquals() {
         try {
-            FirmwareManifest firmwaremanifest1 = new FirmwareManifest(new Date(1557959066896L), -76,
-                                                                      "7bfb75af-cfac-484b-ad71-ce780b8fe104",
-                                                                      "9aedb25a-ac05-43af-bce3-fa7cdb25c2e9",
-                                                                      "ae13a976-4e09-4025-b1bf-a0a404172a96",
-                                                                      "f3e18491-b248-402f-91fc-95b651676bbf",
-                                                                      "746dad17-f457-47bd-a54a-e779fdb87129",
-                                                                      "58860839-bb2a-487f-b362-8ecf27b330e1",
-                                                                      new Date(1557959073500L),
-                                                                      new Date(1557959066768L));
-            FirmwareManifest firmwaremanifest2 = new FirmwareManifest(new Date(1557959066896L), -76,
-                                                                      "7bfb75af-cfac-484b-ad71-ce780b8fe104",
-                                                                      "9aedb25a-ac05-43af-bce3-fa7cdb25c2e9",
-                                                                      "ae13a976-4e09-4025-b1bf-a0a404172a96",
-                                                                      "f3e18491-b248-402f-91fc-95b651676bbf",
-                                                                      "746dad17-f457-47bd-a54a-e779fdb87129",
-                                                                      "58860839-bb2a-487f-b362-8ecf27b330e1",
-                                                                      new Date(1557959073500L),
-                                                                      new Date(1557959066768L));
-            FirmwareManifest firmwaremanifest3 = new FirmwareManifest(new Date(1557959066912L), 104,
-                                                                      "3a6bdf26-7a92-4368-9c4e-770f55e291b2",
-                                                                      "6f9a4d7b-b204-442c-93e9-96f25ac2de17",
-                                                                      "5d3ea9ec-a931-4bf8-a959-825c4e68c97e",
-                                                                      "80b114c5-3acb-4b7b-a133-e3ce041c4c29",
-                                                                      "3188ebee-1a4a-4065-bd22-6e583d50c02f",
-                                                                      "57397bf7-4b28-47a5-84e9-1d8d03e0e934",
-                                                                      new Date(1557959065424L),
-                                                                      new Date(1557959063742L));
+            FirmwareManifest firmwaremanifest1 = new FirmwareManifest(new Date(1557969571692L), -25,
+                                                                      "477b601a-a393-45fc-bfd2-289a3308a959",
+                                                                      "ee62281d-0b5e-42bb-8206-b449f794b16d",
+                                                                      "f56b4d5f-5452-4f64-a792-93252da3b385",
+                                                                      "857105a2-3859-4af7-a1a9-ba0c95558815",
+                                                                      "3ce052ce-598d-4d4c-ab26-e50149d42cec",
+                                                                      "a2218436-3c8f-462e-8306-aab0ee58bd34",
+                                                                      new Date(1557969571035L),
+                                                                      new Date(1557969575025L));
+            FirmwareManifest firmwaremanifest2 = new FirmwareManifest(new Date(1557969571692L), -25,
+                                                                      "477b601a-a393-45fc-bfd2-289a3308a959",
+                                                                      "ee62281d-0b5e-42bb-8206-b449f794b16d",
+                                                                      "f56b4d5f-5452-4f64-a792-93252da3b385",
+                                                                      "857105a2-3859-4af7-a1a9-ba0c95558815",
+                                                                      "3ce052ce-598d-4d4c-ab26-e50149d42cec",
+                                                                      "a2218436-3c8f-462e-8306-aab0ee58bd34",
+                                                                      new Date(1557969571035L),
+                                                                      new Date(1557969575025L));
+            FirmwareManifest firmwaremanifest3 = new FirmwareManifest(new Date(1557969572890L), 5,
+                                                                      "cbf3989e-d1ef-4b22-ba81-852fda5ed56f",
+                                                                      "62d661d5-e927-4d41-8da0-18d384c0d3c9",
+                                                                      "be2e162a-9fda-41a5-b50c-c15e669bed1f",
+                                                                      "e8bdb2a6-6cf5-4f99-a546-d3b78bf09266",
+                                                                      "fb9d99d3-31fe-40fa-9992-3b1b65039f01",
+                                                                      "4c9bb1cd-6f2e-4ac7-9852-e3931db2c04f",
+                                                                      new Date(1557969572613L),
+                                                                      new Date(1557969579282L));
             assertNotNull(firmwaremanifest1);
             assertNotNull(firmwaremanifest2);
             assertNotNull(firmwaremanifest3);
