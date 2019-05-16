@@ -6,6 +6,52 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+2.3.0 (2019-05-16)
+==================
+
+### Features
+
+- First to Claim - to bulk upload for Enrolment Identities added to the _Foundation Interface_. (#1162)
+
+- Refactored the communication channel selection in connect. Introduced `NOTIFICATION_CHANNEL_FORCE_CLEAR` and `NOTIFICATION_CHANNEL_SKIP_CLEANUP` environment variables for automated environments such as server-side applications. (#1302)
+
+- First to Claim - to bulk delete for Enrolment Identities added to the _Foundation Interface_. (#1432)
+
+- Certificate entities added to the _Foundation Interface_. (#1438)
+
+- Update Campaigns statistics summary and events added to the _Foundation Interface_. (#1467)
+
+- Introduction of the _Foundation Interface_ which adds a new 'Entities' based interface. (#1567)
+
+- Addition of server credentials entity to the _Foundation Interface_ including ability to get all credentials in a single resource. (#1604)
+
+- Account Management entities to support Aggregators / Sub-Tenant accounts added to the _Foundation Interface_. (#1605)
+
+- It is now possible to carry out bulk (batch) device enrollment (#1727)
+
+- Foundation SDK layer was introduced: DAOs are now available for every Pelion Cloud entity/model (#1741)
+
+- Device Events entity added to the _Foundation Interface_. (#1768)
+
+- Addition of device entity to the _Foundation SDK_ and support added for Certificate Renew. (#1827)
+
+- Rebranded the SDK to reflect its new name: Pelion Device Management SDK (#1911)
+
+- Pelion Device Management rebranding (previously Mbed Cloud). (#1915)
+
+- Support for Certificate Blacklist (Enrolment Denials) added to the _Foundation Interface_. (#1997)
+
+- Device Update support added to the _Foundation Interface_. (#2004)
+
+- Support for filtering list endpoints added to the _Foundation Interface_. (#2039)
+
+- Pre-Shared Key (PSK) added to the _Foundation Interface_. (#2339)
+
+### Bugfixes
+
+- Fixed various warnings across the project (#1)
+
+
 2.2.1 (2019-02-25)
 ==================
 
