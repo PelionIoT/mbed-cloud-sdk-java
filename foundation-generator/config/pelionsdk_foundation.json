@@ -1,0 +1,9 @@
+{
+	"rootPackageName": "com.arm.mbed.cloud.sdk",
+	"modelPackage": "model",
+	"adapterPackage": "adapters",
+	"modulePackage": null,
+	"factoryPackage": "foundation",
+	"forceUniTestRegeneration": true,
+	"lowLevelApiModuleNameRegex": ".*Api"
+}

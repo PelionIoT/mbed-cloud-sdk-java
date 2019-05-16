@@ -13,11 +13,11 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign.StateEnum;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPostRequest;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPutRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaign;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaign.StateEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPostRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPutRequest;
 import com.arm.mbed.cloud.sdk.update.model.Campaign;
 import com.arm.mbed.cloud.sdk.update.model.CampaignListOptions;
 import com.arm.mbed.cloud.sdk.update.model.CampaignState;
@@ -52,9 +52,11 @@ public final class CampaignAdapter {
             return null;
         }
         final Campaign updateCampaign = new Campaign(campaign.getId(), campaign.getPhase(),
-                TranslationUtils.toUrl(campaign.getRootManifestUrl()), TranslationUtils.toDate(campaign.getCreatedAt()),
-                TranslationUtils.toDate(campaign.getStartedAt()), TranslationUtils.toDate(campaign.getFinished()),
-                TranslationUtils.toDate(campaign.getUpdatedAt()));
+                                                     TranslationUtils.toUrl(campaign.getRootManifestUrl()),
+                                                     TranslationUtils.toDate(campaign.getCreatedAt()),
+                                                     TranslationUtils.toDate(campaign.getStartedAt()),
+                                                     TranslationUtils.toDate(campaign.getFinished()),
+                                                     TranslationUtils.toDate(campaign.getUpdatedAt()));
         updateCampaign.setDescription(campaign.getDescription());
         updateCampaign.setManifestId(campaign.getRootManifestId());
         updateCampaign.setName(campaign.getName());
@@ -185,45 +187,29 @@ public final class CampaignAdapter {
         }
         switch (state) {
             case ALLOCATED_QUOTA:
-                return UpdateCampaignPostRequest.StateEnum.ALLOCATEDQUOTA;
             case ALLOCATING_QUOTA:
-                return UpdateCampaignPostRequest.StateEnum.ALLOCATINGQUOTA;
             case ALLOCATING_QUOTA_FAILED:
-                return UpdateCampaignPostRequest.StateEnum.QUOTAALLOCATIONFAILED;
             case AUTO_STOPPED:
-                return UpdateCampaignPostRequest.StateEnum.AUTOSTOPPED;
             case CHECKED_MANIFEST:
-                return UpdateCampaignPostRequest.StateEnum.CHECKEDMANIFEST;
             case CHECKING_MANIFEST:
-                return UpdateCampaignPostRequest.StateEnum.CHECKINGMANIFEST;
             case CONFLICT:
-                return UpdateCampaignPostRequest.StateEnum.CONFLICT;
             case DEPLOYED:
-                return UpdateCampaignPostRequest.StateEnum.DEPLOYED;
             case DEPLOYING:
-                return UpdateCampaignPostRequest.StateEnum.DEPLOYING;
             case DEVICE_CHECK:
-                return UpdateCampaignPostRequest.StateEnum.DEVICECHECK;
             case DEVICE_COPY:
-                return UpdateCampaignPostRequest.StateEnum.DEVICECOPY;
             case DEVICE_FETCH:
-                return UpdateCampaignPostRequest.StateEnum.DEVICEFETCH;
+            case EXPIRED:
+            case MANIFEST_REMOVED:
+            case PUBLISHING:
+            case STOPPING:
+            case USER_STOPPED:
+                break;
             case DRAFT:
                 return UpdateCampaignPostRequest.StateEnum.DRAFT;
-            case EXPIRED:
-                return UpdateCampaignPostRequest.StateEnum.EXPIRED;
-            case MANIFEST_REMOVED:
-                return UpdateCampaignPostRequest.StateEnum.MANIFESTREMOVED;
-            case PUBLISHING:
-                return UpdateCampaignPostRequest.StateEnum.PUBLISHING;
             case SCHEDULED:
                 return UpdateCampaignPostRequest.StateEnum.SCHEDULED;
-            case STOPPING:
-                return UpdateCampaignPostRequest.StateEnum.STOPPING;
             case UNKNOWN_ENUM:
                 break;
-            case USER_STOPPED:
-                return UpdateCampaignPostRequest.StateEnum.USERSTOPPED;
             default:
                 break;
 

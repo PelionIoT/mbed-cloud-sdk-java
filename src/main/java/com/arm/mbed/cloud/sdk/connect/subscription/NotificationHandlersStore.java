@@ -16,12 +16,11 @@ import io.reactivex.schedulers.Schedulers;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CallFeedback;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
-import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -29,7 +28,7 @@ import com.arm.mbed.cloud.sdk.common.SdkLogger;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationCallback;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
@@ -52,7 +51,7 @@ public class NotificationHandlersStore implements Closeable {
 
     private static final TimePeriod REQUEST_TIMEOUT = new TimePeriod(50);
 
-    private final AbstractApi api;
+    private final AbstractModule module;
     private final ExecutorService pullThreads;
     private Future<?> pullHandle;
     private final EndPoints endpoint;
@@ -62,7 +61,7 @@ public class NotificationHandlersStore implements Closeable {
     /**
      * Notification store constructor.
      *
-     * @param api
+     * @param module
      *            API module
      * @param pullingThread
      *            thread pool
@@ -71,27 +70,34 @@ public class NotificationHandlersStore implements Closeable {
      * @param subscriptionHandlingExecutor
      *            subscription handling executor
      */
-    public NotificationHandlersStore(AbstractApi api, ExecutorService pullingThread,
+    public NotificationHandlersStore(AbstractModule module, ExecutorService pullingThread,
                                      ExecutorService subscriptionHandlingExecutor, EndPoints endpoint) {
         super();
         this.pullThreads = pullingThread;
         this.endpoint = createNotificationPull(endpoint);
-        this.api = api;
+        this.module = module;
         pullHandle = null;
         customSubscriptionHandlingExecutor = subscriptionHandlingExecutor;
+        final boolean unsubscribeOnExit = module == null ? false
+                                                         : module.getConnectionOption() == null ? true
+                                                                                                : !module.getConnectionOption()
+                                                                                                         .isSkipCleanup();
         observerStore = new SubscriptionObserversStore((customSubscriptionHandlingExecutor == null) ? Schedulers.computation()
                                                                                                     : Schedulers.from(customSubscriptionHandlingExecutor),
-                                                       new ResourceSubscriber(api, FirstValue.getDefault()),
-                                                       new ResourceUnsubscriber(api, FirstValue.getDefault()));
+                                                       new ResourceSubscriber(module, FirstValue.getDefault()),
+                                                       new ResourceUnsubscriber(module, FirstValue.getDefault()),
+                                                       unsubscribeOnExit ? new ResourceUnsubscriberAll(module,
+                                                                                                       FirstValue.getDefault())
+                                                                         : null);
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
         if (endpoint2 == null) {
             return null;
         }
-        final ConnectionOptions options = endpoint2.getConnectionOptions();
-        options.setRequestTimeout(REQUEST_TIMEOUT);
-        return new EndPoints(options);
+        final EndPoints clone = endpoint2.clone();
+        clone.setRequestTimeout(REQUEST_TIMEOUT);
+        return clone;
     }
 
     public CloudSubscriptionManager getSubscriptionManager() {
@@ -99,9 +105,9 @@ public class NotificationHandlersStore implements Closeable {
     }
 
     /**
-     * Starts notification pull.
+     * Starts notification listener.
      */
-    public void startNotificationPull() {
+    public void startNotificationListener() {
         if (isPullingActive()) {
             logInfo("Notification pull is already working.");
             return;
@@ -134,9 +140,9 @@ public class NotificationHandlersStore implements Closeable {
     }
 
     /**
-     * Stops notification pull.
+     * Stops notification listener.
      */
-    public void stopNotificationPull() {
+    public void stopNotificationListener() {
         if (pullHandle != null && !(pullHandle.isDone() || pullHandle.isCancelled())) {
             pullHandle.cancel(true);
         }
@@ -180,21 +186,21 @@ public class NotificationHandlersStore implements Closeable {
     }
 
     protected void logDebug(String message) {
-        final SdkLogger logger = api == null ? null : api.getLogger();
+        final SdkLogger logger = module == null ? null : module.getLogger();
         if (logger != null) {
             logger.logDebug(message);
         }
     }
 
     protected void logError(String message, Exception exception) {
-        final SdkLogger logger = api == null ? null : api.getLogger();
+        final SdkLogger logger = module == null ? null : module.getLogger();
         if (logger != null) {
             logger.logError(message, exception);
         }
     }
 
     protected void logInfo(String message) {
-        final SdkLogger logger = api == null ? null : api.getLogger();
+        final SdkLogger logger = module == null ? null : module.getLogger();
         if (logger != null) {
             logger.logInfo(message);
         }
@@ -330,13 +336,13 @@ public class NotificationHandlersStore implements Closeable {
 
     private Runnable createPollingSingleAction() {
         return new Runnable() {
-            private final ExponentialBackoff backoffPolicy = new ExponentialBackoff(api.getLogger());
+            private final ExponentialBackoff backoffPolicy = new ExponentialBackoff(module.getLogger());
 
             @Override
             public void run() {
                 try {
                     final CallFeedback<NotificationMessage,
-                                       NotificationMessage> feedback = CloudCaller.callWithFeedback(api,
+                                       NotificationMessage> feedback = CloudCaller.callWithFeedback(module,
                                                                                                     "NotificationPullGet()",
                                                                                                     GenericAdapter.identityMapper(NotificationMessage.class),
                                                                                                     new CloudCall<NotificationMessage>() {
@@ -414,7 +420,7 @@ public class NotificationHandlersStore implements Closeable {
 
     }
 
-    private void clearStores() {
+    private void clearStores() throws MbedCloudException {
         observerStore.unsubscribeAll();
     }
 

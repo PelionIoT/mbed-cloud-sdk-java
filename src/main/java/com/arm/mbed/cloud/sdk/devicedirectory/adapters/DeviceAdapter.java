@@ -17,12 +17,12 @@ import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceState;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.MechanismType;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest.MechanismEnum;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest.StateEnum;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPutRequest;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest.MechanismEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest.StateEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPutRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DevicePage;
 import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
 @Preamble(description = "Adapter for device model")
@@ -63,15 +63,15 @@ public final class DeviceAdapter {
         final DeviceListOptions listOptions = new DeviceListOptions();
         if (filters.hasFilter(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.EQUAL)) {
             addedFilters = true;
-            listOptions.addIdFilter((String) filters
-                    .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.EQUAL),
-                    FilterOperator.EQUAL);
+            listOptions.addIdFilter((String) filters.fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER,
+                                                                              FilterOperator.EQUAL),
+                                    FilterOperator.EQUAL);
         }
         if (filters.hasFilter(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.NOT_EQUAL)) {
             addedFilters = true;
-            listOptions.addIdFilter((String) filters
-                    .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.NOT_EQUAL),
-                    FilterOperator.NOT_EQUAL);
+            listOptions.addIdFilter((String) filters.fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER,
+                                                                              FilterOperator.NOT_EQUAL),
+                                    FilterOperator.NOT_EQUAL);
         }
         // TODO do other filters when implemented
 
@@ -91,10 +91,10 @@ public final class DeviceAdapter {
             return null;
         }
         final Device device = new Device(deviceData.getId(), deviceData.getAccountId(),
-                TranslationUtils.toDate(deviceData.getCreatedAt()), TranslationUtils.toDate(deviceData.getUpdatedAt()),
-                TranslationUtils.toDate(deviceData.getEnrolmentListTimestamp()),
-                TranslationUtils.toDate(deviceData.getManifestTimestamp()));
-        device.setBootstrappedTimestamp(TranslationUtils.toDate(deviceData.getBootstrappedTimestamp()));
+                                         TranslationUtils.toDate(deviceData.getCreatedAt()),
+                                         TranslationUtils.toDate(deviceData.getUpdatedAt()),
+                                         TranslationUtils.toDate(deviceData.getEnrolmentListTimestamp()),
+                                         TranslationUtils.toDate(deviceData.getManifestTimestamp()));
         device.setCustomAttributes(deviceData.getCustomAttributes());
         device.setDescription(deviceData.getDescription());
         device.setDeviceClass(deviceData.getDeviceClass());
@@ -110,7 +110,6 @@ public final class DeviceAdapter {
         device.setCertificateIssuerId(deviceData.getCaId());
         device.setConnectorCertificateExpiration(TranslationUtils.toDate(deviceData.getConnectorExpirationDate()));
         device.setDeviceExecutionMode(deviceData.getDeviceExecutionMode());
-        device.setFirmwareChecksum(deviceData.getFirmwareChecksum());
         device.setHostGateway(deviceData.getHostGateway());
         device.setDeviceType(deviceData.getEndpointType());
         return device;
@@ -216,14 +215,12 @@ public final class DeviceAdapter {
         addDevice.setMechanismUrl(TranslationUtils.toString(device.getMechanismUrl()));
         addDevice.setSerialNumber(device.getSerialNumber());
         addDevice.setDescription(device.getDescription());
-        addDevice.setBootstrapExpirationDate(TranslationUtils.toDateTime(device.getBootstrapCertificateExpiration()));
-        addDevice.setBootstrappedTimestamp(TranslationUtils.toDateTime(device.getBootstrappedTimestamp()));
+        addDevice.setBootstrapExpirationDate(TranslationUtils.toLocalDate(device.getBootstrapCertificateExpiration()));
         addDevice.setCaId(device.getCertificateIssuerId());
-        addDevice.setConnectorExpirationDate(TranslationUtils.toDateTime(device.getConnectorCertificateExpiration()));
+        addDevice.setConnectorExpirationDate(TranslationUtils.toLocalDate(device.getConnectorCertificateExpiration()));
         addDevice.setDeviceExecutionMode(device.getDeviceExecutionMode());
         addDevice.setDeviceKey(device.getCertificateFingerprint());
         addDevice.setEndpointName(device.getAlias());
-        addDevice.setFirmwareChecksum(device.getFirmwareChecksum());
         addDevice.setState(toAddState(device.getState()));
         addDevice.setHostGateway(device.getHostGateway());
         addDevice.setEndpointType(device.getDeviceType());
@@ -247,7 +244,6 @@ public final class DeviceAdapter {
         updateDevice.setDescription(device.getDescription());
         updateDevice.setCaId(device.getCertificateIssuerId());
         updateDevice.setDeviceKey(device.getCertificateFingerprint());
-        updateDevice.setEndpointName(device.getAlias());
         updateDevice.setHostGateway(device.getHostGateway());
         updateDevice.setEndpointType(device.getDeviceType());
         return updateDevice;
@@ -326,6 +322,25 @@ public final class DeviceAdapter {
 
         }
         return null;
+    }
+
+    /**
+     * Maps to a foundation device.
+     * 
+     * @param device
+     *            a legacy device
+     * @return a foundation device.
+     */
+    public static com.arm.mbed.cloud.sdk.devices.model.Device mapToFoundation(Device device) {
+        // TODO do properly new com.arm.mbed.cloud.sdk.devices.model.Device(device.getAccountId(), false,
+        // device.getBootstrapCertificateExpiration(), device.getBootstrappedTimestamp(),
+        // device.getCertificateIssuerId(), device.getConnectorCertificateExpiration(), device.getCreatedAt(),
+        // device.getCustomAttributes(), null, null, device.getDescription(), device.getDeviceClass(),
+        // device.getDeviceExecutionMode(), null, device.getAlias(), device.getDeviceType(), 0,
+        // device.getFirmwareChecksum(), device.getHostGateway(), device.getId(), device.getCertificateFingerprint(),
+        // null, device.getManifestTimestamp(), device.getMechanism(), device.getMechanismUrl(), device.getName(),
+        // device.getSerialNumber(), null, device.getUpdatedAt(), device.getVendorId());
+        return device == null ? null : new com.arm.mbed.cloud.sdk.devices.model.Device(device.getId());
     }
 
 }

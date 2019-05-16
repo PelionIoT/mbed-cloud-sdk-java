@@ -38,6 +38,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
     private final Scheduler scheduler;
     private final SubscriptionAction resourceSubscriber;
     private final SubscriptionAction resourceUnsubscriber;
+    private final SubscriptionAction resourceUnsubscriberAll;
 
     /**
      * Constructor.
@@ -48,9 +49,12 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
      *            action to perform on subscription
      * @param resourceUnsubscriber
      *            action to perform on unsubscription
+     * @param resourceUnsubscriberAll
+     *            action to perform on shutdown
      */
     public SubscriptionObserversStore(Scheduler scheduler, SubscriptionAction resourceSubscriber,
-                                      SubscriptionAction resourceUnsubscriber) {
+                                      SubscriptionAction resourceUnsubscriber,
+                                      SubscriptionAction resourceUnsubscriberAll) {
         super();
         this.scheduler = scheduler;
         store = new EnumMap<>(SubscriptionType.class);
@@ -62,6 +66,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
                   new AsynchronousResponseSubscriptionObserverStore(this.scheduler, getManagerReference()));
         this.resourceSubscriber = resourceSubscriber;
         this.resourceUnsubscriber = resourceUnsubscriber;
+        this.resourceUnsubscriberAll = resourceUnsubscriberAll;
         resourceToObserverStore = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
     }
 
@@ -99,10 +104,17 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
     }
 
     @Override
-    public void unsubscribeAll() {
+    public void unsubscribeAll() throws MbedCloudException {
         resourceToObserverStore.clear();
         for (final SubscriptionManager substore : store.values()) {
-            substore.unsubscribeAll();
+            try {
+                substore.unsubscribeAll();
+            } catch (MbedCloudException exception) {
+                // Continue
+            }
+        }
+        if (resourceUnsubscriberAll != null) {
+            resourceUnsubscriberAll.execute(null);
         }
     }
 

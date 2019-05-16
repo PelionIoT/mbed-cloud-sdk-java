@@ -1,0 +1,17 @@
+{
+  "modelPackage": "com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model",
+  "apiPackage": "com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api",
+  "invokerPackage": "com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement",
+  "artifactId": "pelioncloud_devicemanagement",
+  "groupId": "com.arm.mbed.cloud.sdk",
+  "localVariablePrefix": "",
+  "licenseName": "Apache 2.0",
+  "LicenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.html",
+  "serializableModel": true,
+  "fullJavaUtil": false,
+  "hideGenerationTimestamp": true,
+  "useBeanValidation": false,
+  "performBeanValidation": false,
+  "library": "retrofit2",
+  "dateLibrary": "joda"
+}

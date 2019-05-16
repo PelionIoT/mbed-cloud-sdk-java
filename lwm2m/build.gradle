@@ -68,7 +68,7 @@ artifacts {
 
 jar {
     manifest {
-        attributes('Implementation-Title': 'Arm Mbed LWM2M library',
+        attributes('Implementation-Title': 'Arm Pelion LWM2M library',
                     'Implementation-Version': project.version,
                     'Implementation-Vendor': 'Arm Limited',
                     'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
@@ -95,7 +95,7 @@ publishing {
             artifact sourcesJar
             artifact javadocJar
             pom.withXml {
-                    asNode().appendNode('name','Arm Mbed LWM2M library')
+                    asNode().appendNode('name','Arm Pelion LWM2M library')
                     asNode().appendNode('url', 'https://github.com/ARMmbed/mbed-cloud-sdk-java')
                     asNode().appendNode('description', 'Library for serialisation/deserialisation of LWM2M objects: https://en.wikipedia.org/wiki/OMA_LWM2M')
                     asNode().appendNode('packaging', 'jar')
@@ -113,7 +113,7 @@ bintray {
     }
     if (project.hasProperty('bintray_password')){
         key = "${bintray_password}"
-    }    
+    }
     configurations = ['archives']
     publications = ['mavenJava']
     override = true
@@ -124,7 +124,7 @@ bintray {
         name = 'mbed-lwm2m'
         labels = ["Mbed","LWM2M","TLV","Java","IoT"]
         desc = 'Utilities for serialisation/deserialisation of LWM2M objects: https://en.wikipedia.org/wiki/OMA_LWM2M.'
-        userOrg = 'armmbed'        
+        userOrg = 'armmbed'
         licenses = ['Apache-2.0']
         websiteUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java'
         issueTrackerUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java/issues'
@@ -139,14 +139,14 @@ bintray {
                 //gpg {
                 //    sign = true //Determines whether to GPG sign the files. The default is false
                 //}
-                if (project.hasProperty('maven_central_user') && project.hasProperty('maven_central_password')){ 
+                if (project.hasProperty('maven_central_user') && project.hasProperty('maven_central_password')){
                     mavenCentralSync {
                         sync = true
                         user = "${maven_central_user}" //OSS user token
                         password = "${maven_central_password}" //OSS user password
                         close = '1' // By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
                     }
-                }                
+                }
             }
         }
     }

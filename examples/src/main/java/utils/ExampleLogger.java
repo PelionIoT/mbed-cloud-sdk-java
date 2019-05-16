@@ -14,13 +14,16 @@ public class ExampleLogger {
         log(builder.toString());
     }
 
+    public static void log(Object obj) {
+        log(String.valueOf(obj));
+    }
+
     public static void log(String message) {
-        // System.out.println(message);
         logger.info(message);
     }
 
     public static void logError(String message) {
-        // System.err.println(message);
         logger.error(message);
     }
+
 }

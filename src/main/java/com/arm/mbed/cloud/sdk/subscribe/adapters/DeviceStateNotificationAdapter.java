@@ -8,8 +8,8 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.connect.adapters.ResourceAdapter;
-import com.arm.mbed.cloud.sdk.internal.mds.model.EndpointData;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EndpointData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceState;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateNotification;
 
@@ -36,8 +36,8 @@ public final class DeviceStateNotificationAdapter {
         }
         final DeviceStateNotification notification = new DeviceStateNotification(state, endpointData.getEp());
         notification.setDeviceType(endpointData.getEpt());
-        notification
-                .setResources(ResourceAdapter.mapResourceDataList(endpointData.getEp(), endpointData.getResources()));
+        notification.setResources(ResourceAdapter.mapResourceDataList(endpointData.getEp(),
+                                                                      endpointData.getResources()));
 
         return notification;
     }
@@ -170,23 +170,23 @@ public final class DeviceStateNotificationAdapter {
             return null;
         }
         final List<DeviceStateNotification> deviceStateNotifications = new LinkedList<>();
-        List<DeviceStateNotification> sublist = DeviceStateNotificationAdapter
-                .mapList(notificationMessage.getRegistrations(), DeviceState.REGISTRATION);
+        List<DeviceStateNotification> sublist = DeviceStateNotificationAdapter.mapList(notificationMessage.getRegistrations(),
+                                                                                       DeviceState.REGISTRATION);
         if (sublist != null) {
             deviceStateNotifications.addAll(sublist);
         }
         sublist = DeviceStateNotificationAdapter.mapList(notificationMessage.getRegUpdates(),
-                DeviceState.REGISTRATION_UPDATE);
+                                                         DeviceState.REGISTRATION_UPDATE);
         if (sublist != null) {
             deviceStateNotifications.addAll(sublist);
         }
         sublist = DeviceStateNotificationAdapter.mapDeviceIdList(notificationMessage.getDeRegistrations(),
-                DeviceState.DEREGISTRATION);
+                                                                 DeviceState.DEREGISTRATION);
         if (sublist != null) {
             deviceStateNotifications.addAll(sublist);
         }
         sublist = DeviceStateNotificationAdapter.mapDeviceIdList(notificationMessage.getRegistrationsExpired(),
-                DeviceState.EXPIRED_REGISTRATION);
+                                                                 DeviceState.EXPIRED_REGISTRATION);
         if (sublist != null) {
             deviceStateNotifications.addAll(sublist);
         }

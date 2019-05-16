@@ -23,7 +23,7 @@ public class DeviceStateObserver extends AbstractObserver<DeviceStateNotificatio
      *            filter
      */
     public DeviceStateObserver(SubscriptionManager manager, String id, Flowable<DeviceStateNotification> flow,
-            DeviceStateFilterOptions filter) {
+                               DeviceStateFilterOptions filter) {
         super(manager, id, flow, filter, true, null, null);
     }
 

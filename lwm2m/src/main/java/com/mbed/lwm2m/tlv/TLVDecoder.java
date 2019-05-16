@@ -65,14 +65,15 @@ public class TLVDecoder {
             TILFields typeField = decodeTypeField(buffer);
             if (!typeField.type.getObjectRepresentation().equals(clazz)) {
                 throw new DecodingException("The TLV data parsed " + typeField
-                        + " does not correspond to expected object type [" + clazz + "]");
+                                            + " does not correspond to expected object type [" + clazz + "]");
             }
             try {
                 T decodedObject = null;
                 switch (typeField.type) {
                     case MULTI_RESOURCE:
                         List<LWM2MResourceInstance> resourceInstances = decodeChildren(typeField,
-                                LWM2MResourceInstance.class, buffer);
+                                                                                       LWM2MResourceInstance.class,
+                                                                                       buffer);
                         decodedObject = (T) new LWM2MResource(typeField.id, resourceInstances);
                         break;
                     case OBJECT_INSTANCE:
@@ -81,7 +82,7 @@ public class TLVDecoder {
                         break;
                     case RESOURCE_INSTANCE:
                         decodedObject = (T) new LWM2MResourceInstance(typeField.id,
-                                getResourceValue(buffer, typeField));
+                                                                      getResourceValue(buffer, typeField));
                         break;
                     case RESOURCE_VALUE:
                         decodedObject = (T) new LWM2MResource(typeField.id, getResourceValue(buffer, typeField));
@@ -107,7 +108,7 @@ public class TLVDecoder {
     }
 
     private static <T> List<T> decodeChildren(final TILFields typeField, final Class<T> childrenClass,
-            ByteBuffer buffer) throws DecodingException {
+                                              ByteBuffer buffer) throws DecodingException {
         ByteBuffer childrenBuffer = buffer.slice();
         childrenBuffer.limit(typeField.length);
         buffer.position(buffer.position() + typeField.length);
@@ -136,16 +137,16 @@ public class TLVDecoder {
 
                 // Bit 5: Indicates the length of the Identifier
                 IdentifierLength idLength = IdentifierLength.determine(typeField);
-                this.id = LWM2MID.from(
-                        (idLength == IdentifierLength.ONE_BYTE) ? buffer.get() & 0xFF : buffer.getShort() & 0xFFFF);
+                this.id = LWM2MID.from((idLength == IdentifierLength.ONE_BYTE) ? buffer.get() & 0xFF
+                                                                               : buffer.getShort() & 0xFFFF);
                 // Bits 4-3: Indicates the type of Length
                 this.length = decodeLength(typeField, buffer);
             } catch (DecodingException e) {
                 throw new DecodingException("Type field [" + getTypeFieldSequence(typeField)
-                        + "] could not be decoded properly. Reason: " + e.getMessage());
+                                            + "] could not be decoded properly. Reason: " + e.getMessage());
             } catch (Exception e) {
-                throw new DecodingException(
-                        "Type field [" + getTypeFieldSequence(typeField) + "] could not be decoded properly", e);
+                throw new DecodingException("Type field [" + getTypeFieldSequence(typeField)
+                                            + "] could not be decoded properly", e);
             }
         }
 
@@ -196,7 +197,7 @@ public class TLVDecoder {
         @Override
         public String toString() {
             return "TILFields (0x" + getTypeFieldSequence(typeField) + ") [type=" + type + ", id=" + id + " (0x"
-                    + getTypeFieldSequence(id.intValue()) + "), length=" + getLengthInBytes(length) + "]";
+                   + getTypeFieldSequence(id.intValue()) + "), length=" + getLengthInBytes(length) + "]";
         }
 
     }

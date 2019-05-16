@@ -9,6 +9,9 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+/**
+ * Annotation.
+ */
 @Preamble(description = "Specifies the default value of an element (e.g. field, parameter, etc).")
 @Documented
 @Retention(RUNTIME)

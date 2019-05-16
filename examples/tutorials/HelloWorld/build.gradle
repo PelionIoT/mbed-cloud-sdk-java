@@ -12,12 +12,12 @@ plugins {
 
     // Apply the application plugin to add support for building an application
     id 'application'
-    
+
     id 'eclipse'
 }
 
 // Define the main class for the application
-mainClassName = 'App'
+mainClassName = 'HelloWorldWithSdkInstance'
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.

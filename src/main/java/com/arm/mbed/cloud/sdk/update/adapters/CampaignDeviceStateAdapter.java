@@ -9,9 +9,9 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata.DeploymentStateEnum;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadata;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadata.DeploymentStateEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadataPage;
 import com.arm.mbed.cloud.sdk.update.model.CampaignDeviceState;
 import com.arm.mbed.cloud.sdk.update.model.DeviceState;
 
@@ -35,9 +35,10 @@ public final class CampaignDeviceStateAdapter {
             return null;
         }
         return new CampaignDeviceState(metadata.getId(), metadata.getDeviceId(), metadata.getCampaign(),
-                toDeviceState(metadata.getDeploymentState()), metadata.getName(), metadata.getDescription(),
-                TranslationUtils.toDate(metadata.getCreatedAt()), TranslationUtils.toDate(metadata.getUpdatedAt()),
-                metadata.getMechanism(), TranslationUtils.toUrl(metadata.getMechanismUrl()));
+                                       toDeviceState(metadata.getDeploymentState()), metadata.getName(),
+                                       metadata.getDescription(), TranslationUtils.toDate(metadata.getCreatedAt()),
+                                       TranslationUtils.toDate(metadata.getUpdatedAt()), metadata.getMechanism(),
+                                       TranslationUtils.toUrl(metadata.getMechanismUrl()));
     }
 
     /**

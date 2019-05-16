@@ -19,7 +19,7 @@ public final class WebhookAdapter {
      *            webhook to map
      * @return a webhook
      */
-    public static Webhook map(com.arm.mbed.cloud.sdk.internal.mds.model.Webhook apiWebhook) {
+    public static Webhook map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook apiWebhook) {
         if (apiWebhook == null) {
             return null;
         }
@@ -34,11 +34,12 @@ public final class WebhookAdapter {
      * 
      * @return mapper
      */
-    public static Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook, Webhook> getMapper() {
-        return new Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook, Webhook>() {
+    public static Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook, Webhook>
+           getMapper() {
+        return new Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook, Webhook>() {
 
             @Override
-            public Webhook map(com.arm.mbed.cloud.sdk.internal.mds.model.Webhook toBeMapped) {
+            public Webhook map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook toBeMapped) {
                 return WebhookAdapter.map(toBeMapped);
             }
 
@@ -52,11 +53,12 @@ public final class WebhookAdapter {
      *            new webhook
      * @return a new webhook request
      */
-    public static com.arm.mbed.cloud.sdk.internal.mds.model.Webhook reverseMap(Webhook webhook) {
+    public static com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook
+           reverseMap(Webhook webhook) {
         if (webhook == null) {
             return null;
         }
-        final com.arm.mbed.cloud.sdk.internal.mds.model.Webhook internalWebhook = new com.arm.mbed.cloud.sdk.internal.mds.model.Webhook();
+        final com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook internalWebhook = new com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook();
         internalWebhook.setUrl(TranslationUtils.toString(webhook.getUrl()));
         internalWebhook.setHeaders(webhook.getHeaders());
         return internalWebhook;

@@ -21,8 +21,9 @@ public class TestPresubscriptionAdapter {
         List<Presubscription> list = null;
         // Devices - equal filter
         opt = SubscriptionFilterOptions.newFilter().equalResourcePath("/56/435/3/")
-                .inResourcePaths("/102/2/3/,/102/2/4/").likeResourcePaths(Arrays.asList("/105/%", "/0/1.*", "/2/5/"))
-                .equalDevice("015f361175ae0000000000010010003a");
+                                       .inResourcePaths("/102/2/3/,/102/2/4/")
+                                       .likeResourcePaths(Arrays.asList("/105/%", "/0/1.*", "/2/5/"))
+                                       .equalDevice("015f361175ae0000000000010010003a");
         list = PresubscriptionAdapter.mapSubscriptionFilter(opt);
         assertNotNull(list);
         assertEquals(1, list.size());
@@ -31,8 +32,9 @@ public class TestPresubscriptionAdapter {
 
         // Devices - like filter
         opt = SubscriptionFilterOptions.newFilter().equalResourcePath("/56/435/3/")
-                .inResourcePaths("/102/2/3/,/102/2/4/").likeResourcePaths(Arrays.asList("/105/%", "/0/1.*", "/2/5/"))
-                .likeDevice("015f35%");
+                                       .inResourcePaths("/102/2/3/,/102/2/4/")
+                                       .likeResourcePaths(Arrays.asList("/105/%", "/0/1.*", "/2/5/"))
+                                       .likeDevice("015f35%");
         list = PresubscriptionAdapter.mapSubscriptionFilter(opt);
         assertNotNull(list);
         assertEquals(1, list.size());
@@ -41,8 +43,9 @@ public class TestPresubscriptionAdapter {
 
         // Devices - in filter
         opt = SubscriptionFilterOptions.newFilter().equalResourcePath("/56/435/3/")
-                .inResourcePaths("/102/2/3/,/102/2/4/").likeResourcePaths(Arrays.asList("/105/%", "/0/1.*", "/2/5/"))
-                .inDeviceIds("015f361175ae0000000000010010003a,015f4d820be900000000000100100040");
+                                       .inResourcePaths("/102/2/3/,/102/2/4/")
+                                       .likeResourcePaths(Arrays.asList("/105/%", "/0/1.*", "/2/5/"))
+                                       .inDeviceIds("015f361175ae0000000000010010003a,015f4d820be900000000000100100040");
         list = PresubscriptionAdapter.mapSubscriptionFilter(opt);
         assertNotNull(list);
         assertEquals(2, list.size());
@@ -52,7 +55,8 @@ public class TestPresubscriptionAdapter {
 
         // Just resource paths
         opt = SubscriptionFilterOptions.newFilter().equalResourcePath("/56/435/3/")
-                .inResourcePaths("/102/2/3/,/102/2/4/").likeResourcePaths(Arrays.asList("/105/%", "/0/1.*", "/2/5/"));
+                                       .inResourcePaths("/102/2/3/,/102/2/4/")
+                                       .likeResourcePaths(Arrays.asList("/105/%", "/0/1.*", "/2/5/"));
         list = PresubscriptionAdapter.mapSubscriptionFilter(opt);
         assertNotNull(list);
         assertEquals(1, list.size());
@@ -79,8 +83,9 @@ public class TestPresubscriptionAdapter {
 
         // Combination of device filters
         opt = SubscriptionFilterOptions.newFilter().equalResourcePath("/56/435/3/")
-                .inResourcePaths("/102/2/3/,/102/2/4/").likeResourcePaths(Arrays.asList("/105/%", "/0/1.*", "/2/5/"))
-                .equalDevice("015f361175ae0000000000010010003a").likeDevice("015f35_");
+                                       .inResourcePaths("/102/2/3/,/102/2/4/")
+                                       .likeResourcePaths(Arrays.asList("/105/%", "/0/1.*", "/2/5/"))
+                                       .equalDevice("015f361175ae0000000000010010003a").likeDevice("015f35_");
         list = PresubscriptionAdapter.mapSubscriptionFilter(opt);
         assertNotNull(list);
         assertEquals(2, list.size());
@@ -94,7 +99,9 @@ public class TestPresubscriptionAdapter {
     public void testMapPresubscriptionResourcePath() {
         Presubscription presubscription = new Presubscription();
         SubscriptionFilterOptions opt = SubscriptionFilterOptions.newFilter().equalResourcePath("/56/435/3/")
-                .inResourcePaths("/102/2/3/,/102/2/4/").likeResourcePaths(Arrays.asList("/105/%", "/0/1.*", "/2/5/"));
+                                                                 .inResourcePaths("/102/2/3/,/102/2/4/")
+                                                                 .likeResourcePaths(Arrays.asList("/105/%", "/0/1.*",
+                                                                                                  "/2/5/"));
         PresubscriptionAdapter.mapPresubscriptionResourcePath(opt, presubscription);
         assertNull(presubscription.getDeviceId());
         assertNotNull(presubscription.getResourcePaths());

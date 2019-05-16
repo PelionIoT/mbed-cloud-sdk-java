@@ -13,3 +13,9 @@
 *.iws
 *.prefs
 *.log
+/**/*.jar
+*.jar
+*.zip
+
+
+artifacts\.properties

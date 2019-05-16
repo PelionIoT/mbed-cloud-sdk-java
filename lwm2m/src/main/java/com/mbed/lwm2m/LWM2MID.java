@@ -61,7 +61,7 @@ public class LWM2MID implements Comparable<LWM2MID> {
 
         try {
             this.intId = Integer.parseInt(stringId);
-        } catch (NumberFormatException exception) {
+        } catch (@SuppressWarnings("unused") NumberFormatException exception) {
             this.intId = stringId != null ? stringId.hashCode() & 0x08FF : -1;
         }
     }
@@ -90,7 +90,7 @@ public class LWM2MID implements Comparable<LWM2MID> {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(intId);
+        return Integer.valueOf(intId).hashCode();
     }
 
     @Override
@@ -102,9 +102,9 @@ public class LWM2MID implements Comparable<LWM2MID> {
     public int compareTo(LWM2MID that) {
         if (this.stringId == null) {
             return that.stringId == null ? 0 : -1;
-        } else {
-            return that.stringId == null ? 1 : this.stringId.compareTo(that.stringId);
         }
+
+        return that.stringId == null ? 1 : this.stringId.compareTo(that.stringId);
     }
 
 }

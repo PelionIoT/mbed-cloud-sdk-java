@@ -7,6 +7,9 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+/**
+ * Annotation.
+ */
 @Preamble(description = "Specifies a SDK method")
 @Documented
 @Retention(RUNTIME)
