@@ -1,1 +1,0 @@
-Refactored the communication channel selection in connect. Introduced `NOTIFICATION_CHANNEL_FORCE_CLEAR` and `NOTIFICATION_CHANNEL_SKIP_CLEANUP` environment variables for automated environments such as server-side applications.

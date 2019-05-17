@@ -21,10 +21,10 @@ public class TestCertificateIssuerConfigListOptions {
     @Test
     public void testClone() {
         try {
-            CertificateIssuerConfigListOptions certificateissuerconfiglistoptions1 = new CertificateIssuerConfigListOptions(Integer.valueOf(-41),
-                                                                                                                            Long.valueOf(-10),
+            CertificateIssuerConfigListOptions certificateissuerconfiglistoptions1 = new CertificateIssuerConfigListOptions(Integer.valueOf(-11),
+                                                                                                                            Long.valueOf(-125),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "0de4dd96-335d-49b7-9e6d-a050e6e60080",
+                                                                                                                            "8eac3a56-a92f-4979-a3b2-044c16e5eb9f",
                                                                                                                             null,
                                                                                                                             null);
             CertificateIssuerConfigListOptions certificateissuerconfiglistoptions2 = certificateissuerconfiglistoptions1.clone();
@@ -44,13 +44,13 @@ public class TestCertificateIssuerConfigListOptions {
     @Test
     public void testFilters() {
         try {
-            CertificateIssuerConfigListOptions option = new CertificateIssuerConfigListOptions().equalToReference("12b0c5bc-b8e7-4b10-a034-6c6d0fb27d17");
+            CertificateIssuerConfigListOptions option = new CertificateIssuerConfigListOptions().equalToReference("0d7c6414-4296-4871-b57f-55ef8bc5c959");
             assertTrue(option.hasFilters());
             assertTrue(option.hasFilters(CertificateIssuerConfigListOptions.TAG_FILTER_BY_REFERENCE));
             assertTrue(option.hasFilter(CertificateIssuerConfigListOptions.TAG_FILTER_BY_REFERENCE,
                                         FilterOperator.EQUAL));
             assertNotNull(option.getReferenceFilters());
-            assertEquals("12b0c5bc-b8e7-4b10-a034-6c6d0fb27d17",
+            assertEquals("0d7c6414-4296-4871-b57f-55ef8bc5c959",
                          ListOptionsEncoder.encodeSingleEqualFilter(CertificateIssuerConfigListOptions.TAG_FILTER_BY_REFERENCE,
                                                                     String.class, option));
         } catch (Exception exception) {
@@ -65,16 +65,16 @@ public class TestCertificateIssuerConfigListOptions {
     @Test
     public void testHashCode() {
         try {
-            CertificateIssuerConfigListOptions certificateissuerconfiglistoptions1 = new CertificateIssuerConfigListOptions(Integer.valueOf(-67),
-                                                                                                                            Long.valueOf(-75),
+            CertificateIssuerConfigListOptions certificateissuerconfiglistoptions1 = new CertificateIssuerConfigListOptions(Integer.valueOf(52),
+                                                                                                                            Long.valueOf(-49),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "fd634d41-2b58-424d-877c-4d076559dca1",
+                                                                                                                            "3ec992f0-6a8b-4632-9e8a-b03688e94cd2",
                                                                                                                             null,
                                                                                                                             null);
-            CertificateIssuerConfigListOptions certificateissuerconfiglistoptions2 = new CertificateIssuerConfigListOptions(Integer.valueOf(-67),
-                                                                                                                            Long.valueOf(-75),
+            CertificateIssuerConfigListOptions certificateissuerconfiglistoptions2 = new CertificateIssuerConfigListOptions(Integer.valueOf(52),
+                                                                                                                            Long.valueOf(-49),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "fd634d41-2b58-424d-877c-4d076559dca1",
+                                                                                                                            "3ec992f0-6a8b-4632-9e8a-b03688e94cd2",
                                                                                                                             null,
                                                                                                                             null);
             assertNotNull(certificateissuerconfiglistoptions1);
@@ -99,22 +99,22 @@ public class TestCertificateIssuerConfigListOptions {
     @Test
     public void testEquals() {
         try {
-            CertificateIssuerConfigListOptions certificateissuerconfiglistoptions1 = new CertificateIssuerConfigListOptions(Integer.valueOf(67),
-                                                                                                                            Long.valueOf(-53),
+            CertificateIssuerConfigListOptions certificateissuerconfiglistoptions1 = new CertificateIssuerConfigListOptions(Integer.valueOf(-36),
+                                                                                                                            Long.valueOf(-76),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "336b8d23-a82b-42b5-8459-6ae6001751dc",
+                                                                                                                            "9ef99767-c888-4b01-b612-2f49b2246d22",
                                                                                                                             null,
                                                                                                                             null);
-            CertificateIssuerConfigListOptions certificateissuerconfiglistoptions2 = new CertificateIssuerConfigListOptions(Integer.valueOf(67),
-                                                                                                                            Long.valueOf(-53),
+            CertificateIssuerConfigListOptions certificateissuerconfiglistoptions2 = new CertificateIssuerConfigListOptions(Integer.valueOf(-36),
+                                                                                                                            Long.valueOf(-76),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "336b8d23-a82b-42b5-8459-6ae6001751dc",
+                                                                                                                            "9ef99767-c888-4b01-b612-2f49b2246d22",
                                                                                                                             null,
                                                                                                                             null);
-            CertificateIssuerConfigListOptions certificateissuerconfiglistoptions3 = new CertificateIssuerConfigListOptions(Integer.valueOf(38),
-                                                                                                                            Long.valueOf(-69),
+            CertificateIssuerConfigListOptions certificateissuerconfiglistoptions3 = new CertificateIssuerConfigListOptions(Integer.valueOf(-58),
+                                                                                                                            Long.valueOf(-59),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "861f953d-292a-4227-840d-1b66c9b7d4af",
+                                                                                                                            "7490ae9b-1376-4031-9442-f717ccd3a239",
                                                                                                                             null,
                                                                                                                             null);
             assertNotNull(certificateissuerconfiglistoptions1);
