@@ -62,7 +62,7 @@ The SDK guide and examples are available on [GitHub](https://armmbed.github.io/m
 The documentation contains many examples covering various Use Cases that you may have. In each case you can compare the Java implementation with alternatives in languages
 supported by the other Pelion Device Management SDKs.
 
-See API reference (i.e. javadoc) at https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-java/.
+See API reference (i.e. javadoc) at https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-java/. or locally hosted at [GitHub]((https://armmbed.github.io/mbed-cloud-sdk-java/javadoc)
 
 For specific Java usage examples, please have a look at the [example project](examples/README.md).
 
