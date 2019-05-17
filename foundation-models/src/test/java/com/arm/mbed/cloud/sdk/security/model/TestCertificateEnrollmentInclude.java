@@ -28,7 +28,7 @@ public class TestCertificateEnrollmentInclude {
             certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("TOTAL_COUNT");
             assertNotNull(certificateenrollmentinclude);
             assertTrue(certificateenrollmentinclude.isDefault());
-            certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("afa89e00-1fbf-494f-b0d0-a4917c6d65c9");
+            certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("c9280946-cb93-4249-a291-1a65bd71645a");
             assertNotNull(certificateenrollmentinclude);
             assertTrue(certificateenrollmentinclude.isDefault());
         } catch (Exception exception) {
