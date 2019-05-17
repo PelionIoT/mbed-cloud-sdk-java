@@ -69,12 +69,14 @@ public class MethodTranslator {
 
     }
 
-    private static String processSwaggerDescription(String description) {
+    private static String processSwaggerDescription(String... descriptions) {
         // Removes any incorrect characters or long lines.
-        if (description == null) {
-            return description;
+        if (descriptions == null) {
+            return null;
         }
-        description = description.replace("<", "[").replace(">", "]");
+        String description = String.join(System.lineSeparator(), descriptions);
+        description = description.replace(System.lineSeparator() + "null", "").replace("<", "[").replace(">", "]")
+                                 .replace("&", "&amp;");
         final int maxLength = 200;
         String lines[] = description.split("\\r?\\n");
         final StringBuilder builder = new StringBuilder();
@@ -89,7 +91,7 @@ public class MethodTranslator {
         return builder.toString();
     }
 
-    private static String generateMethodLongDescription(String description) {
+    private static String generateMethodLongDescription(String... description) {
         // TODO do some processing if needed
         return processSwaggerDescription(description);
     }
@@ -165,7 +167,7 @@ public class MethodTranslator {
                                                                                                                                    false);
             if (lowLevelMethod.hasArguments()) {
                 for (final LowLevelAPIMethodArgument param : lowLevelMethod.getArguments()) {
-                    method.addParameter(new Parameter(param.getName(), null, null, translateParameterType(param),
+                    method.addParameter(new Parameter(param.getName(), null, null, translateParameterType(param), null,
                                                       null));
                 }
             }
@@ -193,19 +195,33 @@ public class MethodTranslator {
         }).collect(Collectors.toList());
     }
 
+    private static boolean areParametersOnlyExternal(Method m) {
+        if (m == null || m.getParameters().isEmpty()) {
+            return true;
+        }
+        return !m.getParameters().stream().anyMatch(f -> !f.isExternal());
+    }
+
     public static CloudCall translate(Method m, LowLevelAPIMethod method, Model currentModel,
                                       Model returnModel) throws FoundationGeneratorException {
         final MethodAction action = determineMethodAction(m);
         final Renames parameterRenames = new Renames();
         m.getParameters().forEach(f -> parameterRenames.addEntry(f.getProcessedFrom(), f.getProcessedTo()));
-        return new CloudCall(action, generateMethodName(action, currentModel, m.getKey()),
-                             generateMethodDescription(action, currentModel, m.getSummary(), m.getKey(),
-                                                       m.hasPaginatedResponse()),
-                             generateMethodLongDescription(m.getDescription()), currentModel, returnModel,
-                             m.isCustomCode(), m.hasPaginatedResponse(),
-                             translateParameters(m, currentModel.getPackageName(), currentModel.getGroup(), true),
-                             translateParameters(m, currentModel.getPackageName(), currentModel.getGroup(), false),
-                             parameterRenames, translateMethod(method), method.getModuleClazz());
+        CloudCall call = new CloudCall(action, generateMethodName(action, currentModel, m.getKey()),
+                                       generateMethodDescription(action, currentModel, m.getSummary(), m.getKey(),
+                                                                 m.hasPaginatedResponse()),
+                                       generateMethodLongDescription(m.getDescription(), m.getLongDescription()),
+                                       currentModel, returnModel, m.isCustomCode(), m.hasPaginatedResponse(),
+                                       translateParameters(m, currentModel.getPackageName(), currentModel.getGroup(),
+                                                           true),
+                                       translateParameters(m, currentModel.getPackageName(), currentModel.getGroup(),
+                                                           false),
+                                       areParametersOnlyExternal(m), parameterRenames, translateMethod(method),
+                                       method.getModuleClazz(), m.isInternal());
+        if (m.hasDeprecation()) {
+            call.setDeprecation(CommonTranslator.translateDeprecationNotice(m.getDeprecationNotice(), false));
+        }
+        return call;
     }
 
 }

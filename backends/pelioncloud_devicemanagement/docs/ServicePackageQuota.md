@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | [**ObjectEnum**](#ObjectEnum) | Always set to &#39;service-package-quota&#39;. | 
+**object** | [**ObjectEnum**](#ObjectEnum) | Always set to &#x60;service-package-quota&#x60;. | 
 **quota** | **Long** | Available quota for the service package. | 
 
 

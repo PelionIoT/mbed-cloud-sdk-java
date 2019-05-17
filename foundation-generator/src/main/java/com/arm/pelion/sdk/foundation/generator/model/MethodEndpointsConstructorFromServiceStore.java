@@ -12,7 +12,7 @@ public class MethodEndpointsConstructorFromServiceStore extends AbstractMethodCo
     protected List<Field> fields;
 
     public MethodEndpointsConstructorFromServiceStore(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, false);
+        super(null, currentModel, parentModel, null, null, false);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class MethodEndpointsConstructorFromServiceStore extends AbstractMethodCo
     @Override
     protected void addConstructorParameters() {
         addParameter(new Parameter(PARAM_SERVICE_STORE, "created services {@link ServiceRegistry}.", null,
-                                   TypeFactory.getCorrespondingType(ServiceRegistry.class), null));
+                                   TypeFactory.getCorrespondingType(ServiceRegistry.class), null, null));
     }
 
     @Override

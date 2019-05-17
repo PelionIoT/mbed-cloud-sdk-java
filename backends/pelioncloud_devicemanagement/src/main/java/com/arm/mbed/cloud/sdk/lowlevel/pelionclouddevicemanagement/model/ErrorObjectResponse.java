@@ -74,11 +74,11 @@ public class ErrorObjectResponse implements Serializable {
     }
 
     /**
-     * A list of request fields that failed the validation.
+     * A list of request fields that failed validation.
      * 
      * @return fields
      **/
-    @ApiModelProperty(required = true, value = "A list of request fields that failed the validation.")
+    @ApiModelProperty(required = true, value = "A list of request fields that failed validation.")
     public List<FieldMessageEntry> getFields() {
         return fields;
     }
@@ -112,11 +112,11 @@ public class ErrorObjectResponse implements Serializable {
     }
 
     /**
-     * entity name: &#39;error&#39;
+     * Entity name: &#x60;error&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "entity name: 'error'")
+    @ApiModelProperty(required = true, value = "Entity name: `error`.")
     public String getObject() {
         return object;
     }

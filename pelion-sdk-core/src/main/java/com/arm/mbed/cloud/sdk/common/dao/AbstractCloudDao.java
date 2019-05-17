@@ -37,7 +37,7 @@ public abstract class AbstractCloudDao implements CloudDao {
         module = new AtomicReference<>();
         try {
             configure(ConnectionOptions.newConfiguration(), false);
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
     }
@@ -52,7 +52,7 @@ public abstract class AbstractCloudDao implements CloudDao {
         this();
         try {
             configure(options);
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
     }
@@ -67,7 +67,7 @@ public abstract class AbstractCloudDao implements CloudDao {
         this();
         try {
             configure(client);
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
     }
@@ -82,7 +82,7 @@ public abstract class AbstractCloudDao implements CloudDao {
         this();
         try {
             configure(sdkContext);
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             // Nothing to do
         }
     }
@@ -103,19 +103,19 @@ public abstract class AbstractCloudDao implements CloudDao {
             throw new MbedCloudException(new InvalidParameterException("The connection options set are invalid: "
                                                                        + configuration));
         }
-        module.set(instantiateModule(options));
+        module.getAndSet(instantiateModule(options));
     }
 
     @Override
     public void configure(@NonNull ApiClientWrapper client) throws MbedCloudException {
         ApiUtils.checkNotNull(SdkLogger.getLogger(), client, PARAMETER_CLIENT);
-        module.set(instantiateModule(client));
+        module.getAndSet(instantiateModule(client));
     }
 
     @Override
     public void configure(@NonNull SdkContext sdkContext) throws MbedCloudException {
         ApiUtils.checkNotNull(SdkLogger.getLogger(), sdkContext, PARAMETER_CONTEXT);
-        module.set(instantiateModule(sdkContext));
+        module.getAndSet(instantiateModule(sdkContext));
     }
 
     @SuppressWarnings("unchecked")
@@ -139,9 +139,11 @@ public abstract class AbstractCloudDao implements CloudDao {
         return (T) this;
     }
 
+    @SuppressWarnings("resource")
     @Override
     public DaoProvider getDaoProvider() {
-        return getModule() == null ? DaoProvider.newGlobalProvider() : new DaoProvider(getModule());
+        final SdkContext module = getModule();
+        return module == null ? DaoProvider.newGlobalProvider() : new DaoProvider(module);
     }
 
     @Override
@@ -210,5 +212,6 @@ public abstract class AbstractCloudDao implements CloudDao {
 
     protected abstract SdkContext instantiateModule(SdkContext context);
 
+    @Override
     public abstract CloudDao clone();
 }

@@ -9,9 +9,11 @@ import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.Base64;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.adapters.DataFileAdapter;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
@@ -21,6 +23,7 @@ import com.squareup.javapoet.TypeSpec;
 import retrofit2.Call;
 
 public class MethodModuleCloudApi extends MethodOverloaded {
+    private static final int NUMBER_OF_PARAMETER_THRESHOLD_FOR_STATIC_ANALYSIS = 10;
     private static final String PARAMETER_NAME_LOW_LEVEL_DEFAULT = "body";
     protected final Model currentModel;
     protected final ModelAdapterFetcher adapterFetcher;
@@ -33,6 +36,7 @@ public class MethodModuleCloudApi extends MethodOverloaded {
     protected List<Parameter> methodParameters;
     protected final List<Field> necessaryConstants;
     protected final boolean enforceModelValidity;
+    protected boolean throwExceptionOn404;
 
     public MethodModuleCloudApi(Model currentModel, ModelAdapterFetcher adapterFetcher, String name, String description,
                                 String longDescription, boolean needsCustomCode, ModelEndpoints endpoints,
@@ -53,6 +57,11 @@ public class MethodModuleCloudApi extends MethodOverloaded {
         necessaryConstants = new LinkedList<>();
         this.enforceModelValidity = enforceModelValidity;
         exceptions.add(MbedCloudException.class);
+        throwExceptionOn404 = true;
+    }
+
+    public void ignore404() {
+        throwExceptionOn404 = false;
     }
 
     public void initialise() {
@@ -61,11 +70,22 @@ public class MethodModuleCloudApi extends MethodOverloaded {
         determineReturnType(currentModel, lowLevelMethod);
     }
 
+    public boolean hasRequiredParameters() {
+        if (methodParameters == null) {
+            return false;
+        }
+        return methodParameters.stream().anyMatch(p -> p.isSetAsNonNull());
+    }
+
     protected void initialiseParameters() {
         necessaryConstants.clear();
         methodParameters = extendParameterList(methodParameters, allParameters, lowLevelMethod, parameterRenames,
                                                currentModel);
-
+        if ((methodParameters != null && methodParameters.size() > NUMBER_OF_PARAMETER_THRESHOLD_FOR_STATIC_ANALYSIS)
+            || (lowLevelMethod != null && lowLevelMethod.hasParameters()
+                && lowLevelMethod.getParameters().size() > NUMBER_OF_PARAMETER_THRESHOLD_FOR_STATIC_ANALYSIS)) {
+            setIgnoreMethodLength(true);
+        }
         determineNecessaryConstants(methodParameters);
         determineParameters(methodParameters);
     }
@@ -88,9 +108,11 @@ public class MethodModuleCloudApi extends MethodOverloaded {
     }
 
     private Field generateConstant(Parameter p) {
-        return new Field(true, TypeFactory.getCorrespondingType(String.class),
-                         Utils.generateConstantName("tag", p.getName()), "Parameter name", null, null, true, false,
-                         true, false, null, false).initialiser("\"" + p.getName() + "\"");
+        return new Field(true, TypeFactory.stringType(), Utils.generateConstantName("tag", p.getName()),
+                         "Parameter name", null, null, true, false, true, false, null, false).initialiser(
+                                                                                                          "\""
+                                                                                                          + p.getName()
+                                                                                                          + "\"");
     }
 
     private void determineParameters(List<Parameter> methodParameters) {
@@ -153,6 +175,12 @@ public class MethodModuleCloudApi extends MethodOverloaded {
         return extendedMethodParameters.stream().anyMatch(arg -> parameterName.equals(arg.getIdentifier()));
     }
 
+    protected static TypeParameter fetchParameterType(List<Parameter> extendedMethodParameters,
+                                                      final String parameterName, TypeParameter defaultType) {
+        return extendedMethodParameters.stream().filter(arg -> parameterName.equals(arg.getIdentifier()))
+                                       .map(arg -> arg.getType()).findFirst().orElse(defaultType);
+    }
+
     private String ensureParameterNameUniqueness(List<Parameter> extendedMethodParameters, String name) {
         final AtomicInteger count = new AtomicInteger(0);
         String newName = name;
@@ -183,7 +211,8 @@ public class MethodModuleCloudApi extends MethodOverloaded {
 
     protected void generateMethodCode() throws TranslationException {
         code.addStatement((hasReturn() ? "return " : "") + "$T.$L(this, $S,"
-                          + (hasReturn() ? "$T." + getMappingMethod() + "()" : "$L") + ",$L )", CloudCaller.class,
+                          + (hasReturn() ? "$T." + getMappingMethod() + "()" : "$L") + ",$L "
+                          + (throwExceptionOn404 ? ", true" : "") + ")", CloudCaller.class,
                           CloudCaller.METHOD_CALL_CLOUD_API, name + "()", hasReturn() ? getReturnAdapter() : "null",
                           generateCloudCallCode());
     }
@@ -240,7 +269,7 @@ public class MethodModuleCloudApi extends MethodOverloaded {
     }
 
     private boolean shouldCheckNull(Parameter p) {
-        return p != null && p.isSetAsNonNull();
+        return p != null && p.isSetAsNonNull() && !p.getType().isPrimitive();
     }
 
     private Object generateCloudCallCode() throws TranslationException {
@@ -323,12 +352,14 @@ public class MethodModuleCloudApi extends MethodOverloaded {
                                                                                                     : p.getName();
                 String variableName = parameterName;
                 boolean isExternalParameter = false;
+                TypeParameter fromType = p.getType();
                 if (doesParameterExist(methodParameters, parameterName)) {
+                    fromType = fetchParameterType(methodParameters, parameterName, fromType);
                     variableName = generateFinalVariable(parameterName);
                     isExternalParameter = true;
                 }
-                translateParameter(variableName, parameterName, p.getType(), builder, callElements, isExternalParameter,
-                                   unusedParameters);
+                translateParameter(variableName, p.getName(), p.getType(), fromType, builder, callElements,
+                                   isExternalParameter, unusedParameters);
             }
         }
         builder.append(")");
@@ -336,51 +367,130 @@ public class MethodModuleCloudApi extends MethodOverloaded {
     }
 
     protected void translateParameter(String parameterName, String initialParameterName, TypeParameter type,
-                                      StringBuilder builder, List<Object> callElements, boolean isExternalParameter,
+                                      TypeParameter fromType, StringBuilder builder, List<Object> callElements,
+                                      boolean isExternalParameter,
                                       List<Parameter> unusedParameters) throws TranslationException {
 
         if (isExternalParameter) {
-            if (MethodMapper.isLowLevelType(type)) {
-                builder.append("$T.$L(");
-                // TODO extend the list below if necessary
-                if (type.isFormPart()) {
-                    builder.append("$S, ");
-                    callElements.add(DataFileAdapter.class);
-                    callElements.add(DataFileAdapter.METHOD_REVERSE_MAP);
-                    // Forcing the form part to be named as the parameter name in snake case.
-                    callElements.add(ApiUtils.convertCamelToSnake(initialParameterName));
-                }
-                if (type.isJodaDate()) {
-                    callElements.add(TranslationUtils.class);
-                    callElements.add(TranslationUtils.METHOD_CONVERT_DATE_TO_LOCALDATE);
-                }
-                if (type.isJodaTime()) {
-                    callElements.add(TranslationUtils.class);
-                    callElements.add(TranslationUtils.METHOD_CONVERT_DATE_TO_DATETIME);
-                }
-                builder.append("$L)");
-            } else {
+            if (TypeUtils.areSame(fromType, type)) {
                 builder.append("$L");
+                callElements.add(parameterName);
+            } else {
+                if (MethodMapper.isLowLevelType(type)) {
+                    builder.append("$T.$L(");
+                    // TODO extend the list below if necessary
+                    if (type.isFormPart()) {
+                        builder.append("$S, ");
+                        callElements.add(DataFileAdapter.class);
+                        callElements.add(DataFileAdapter.METHOD_REVERSE_MAP);
+                        // Forcing the form part to be named as the parameter name in snake case.
+                        callElements.add(ApiUtils.convertCamelToSnake(initialParameterName));
+                    }
+                    if (type.isJodaDate()) {
+                        callElements.add(TranslationUtils.class);
+                        callElements.add(TranslationUtils.METHOD_CONVERT_DATE_TO_LOCALDATE);
+                    }
+                    if (type.isJodaTime()) {
+                        callElements.add(TranslationUtils.class);
+                        callElements.add(TranslationUtils.METHOD_CONVERT_DATE_TO_DATETIME);
+                    }
+                    builder.append("$L)");
+                    callElements.add(parameterName);
+                } else if (type.isPrimitiveOrWrapper() && fromType.isPrimitive()) {
+                    if (type.isVoid()) {
+                        throw new TranslationException("Expected destination type is Void: " + parameterName);
+                    }
+                    builder.append("$T.valueOf($L)");
+                    callElements.add(type.hasClass() ? type.getClazz() : type.getTypeName());
+                    callElements.add(parameterName);
+                } else if (type.isString()) {
+                    if (fromType.isEnum()) {
+                        builder.append("$L == null ? null : $L.$L()");
+                        callElements.add(parameterName);
+                        callElements.add(parameterName);
+                        callElements.add(SdkEnum.METHOD_GET_STRING);
+                    } else if (fromType.isBase64()) {
+                        builder.append("$L == null ? null : $L.$L()");
+                        callElements.add(parameterName);
+                        callElements.add(parameterName);
+                        callElements.add(Base64.METHOD_GET_ENCODED_STRING);
+                    } else {
+                        builder.append("$T.$L($L)");
+                        callElements.add(TranslationUtils.class);
+                        callElements.add(TranslationUtils.METHOD_CONVERT_DATE_TO_DATETIME);
+                        callElements.add(parameterName);
+                    }
+                } else if (type.isBinary()) {
+                    builder.append("$T.$L($L)");
+                    callElements.add(TranslationUtils.class);
+                    callElements.add(TranslationUtils.METHOD_CONVERT_ANY_TO_BYTE_ARRAY);
+                    callElements.add(parameterName);
+                } else {
+                    builder.append("$L");
+                    callElements.add(parameterName);
+                }
             }
-            callElements.add(parameterName);
             if (type.isLowLevelModel() && !unusedParameters.isEmpty()) {
-                addUnusedParametersToBodyParameter(unusedParameters, builder, callElements);
+                addUnusedParametersToBodyParameter(type, unusedParameters, builder, callElements);
             }
         } else {
             builder.append("$L");
-            callElements.add("null");
+            callElements.add(ValueGenerator.DEFAULT_VALUE);
         }
     }
 
-    protected void addUnusedParametersToBodyParameter(List<Parameter> unusedParameters, StringBuilder builder,
-                                                      List<Object> callElements) {
+    protected void addUnusedParametersToBodyParameter(TypeParameter type, List<Parameter> unusedParameters,
+                                                      StringBuilder builder, List<Object> callElements) {
         // If body parameter
         for (Parameter p : unusedParameters) {
-            builder.append(".$L($L)");
             callElements.add(MethodSetter.getCorrespondingSetterMethodName(p.getName(), true));
+            final TypeParameter parameterType = p.getType();
+            if (MethodMapper.doesTypeNeedTranslation(parameterType)) {
+                if (parameterType.isPrimitive()) {
+                    builder.append(".$L($T.valueOf($L))");
+                    callElements.add(MethodMapper.getWrapperEquivalent(parameterType));
+                } else {
+                    final TypeParameter toType = findFieldType(type, p.getName());
+                    if (!MethodMapper.needsTranslation(parameterType, toType)) {
+                        builder.append(".$L($L)");
+                    } else {
+                        String translationMethod = null;
+                        try {
+                            translationMethod = MethodMapper.getTranslationMethod(toType, parameterType);
+                        } catch (TranslationException exception) {
+                            exception.printStackTrace();
+                        }
+                        if (translationMethod == null) {
+                            builder.append(".$L($L)");
+                        } else {
+                            builder.append(".$L($T.$L($L))");
+                            callElements.add(TranslationUtils.class);
+                            callElements.add(translationMethod);
+                        }
+                    }
+                }
+
+            } else {
+                builder.append(".$L($L)");
+            }
             callElements.add(generateFinalVariable(p.getName()));
         }
         unusedParameters.clear();
+    }
+
+    private TypeParameter findFieldType(TypeParameter baseModel, String fieldName) {
+        if (fieldName == null) {
+            return null;
+        }
+        if (!baseModel.isModel() && !baseModel.isLowLevelModel()) {
+            return null;
+        }
+        if (!baseModel.hasClass()) {
+            return null;
+        }
+        Model model = new Model(baseModel.getClazz());
+        Field f = model.fetchField(fieldName);
+        return f == null ? null : f.getType();
     }
 
     protected Object getAdapter(Model model) throws TranslationException {
@@ -410,6 +520,10 @@ public class MethodModuleCloudApi extends MethodOverloaded {
         if (getMethodSignature().equals(otherMethod.getMethodSignature())) {
             return true;
         }
+        if (getMethodSignature().size() != otherMethod.getMethodSignature().size()) {
+            return false;
+        }
+        // Checking if the parameters are in a different order although this is not perfect.
         for (Parameter p : getMethodSignature()) {
             if (!otherMethod.getMethodSignature().stream().anyMatch(arg -> {
                 return arg.equals(p) && arg.getType().equals(p.getType());

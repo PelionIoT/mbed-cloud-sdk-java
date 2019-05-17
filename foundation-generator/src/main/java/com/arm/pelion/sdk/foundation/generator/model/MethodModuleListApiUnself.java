@@ -55,21 +55,22 @@ public class MethodModuleListApiUnself extends MethodModuleCloudApiUnself {
 
     @Override
     protected void translateParameter(String parameterName, String initialParameterName, TypeParameter type,
-                                      StringBuilder builder, List<Object> callElements, boolean isExternalParameter,
+                                      TypeParameter fromType, StringBuilder builder, List<Object> callElements,
+                                      boolean isExternalParameter,
                                       List<Parameter> unusedParameters) throws TranslationException {
         if (isPaginatedList) {
-            // FIXME refactor the following when filters are supported.
             final ModelListOption correspondingListOptions = MethodModuleListApi.determineListOptionModel(returnModel,
                                                                                                           fetcher);
             if (correspondingListOptions.hasFieldInHierachy(parameterName)) {
-                MethodModuleListApi.translateListOptionParameter(this, parameterName, type, builder, callElements);
+                MethodModuleListApi.translateListOptionParameter(this, correspondingListOptions, parameterName, type,
+                                                                 builder, callElements);
             } else {
-                super.translateParameter(parameterName, initialParameterName, type, builder, callElements,
+                super.translateParameter(parameterName, initialParameterName, type, fromType, builder, callElements,
                                          isExternalParameter, unusedParameters);
             }
 
         } else {
-            super.translateParameter(parameterName, initialParameterName, type, builder, callElements,
+            super.translateParameter(parameterName, initialParameterName, type, fromType, builder, callElements,
                                      isExternalParameter, unusedParameters);
         }
     }

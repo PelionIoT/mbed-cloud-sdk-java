@@ -20,6 +20,9 @@ import com.arm.mbed.cloud.sdk.annotations.Required;
 
 @Preamble(description = "SDK Utilities")
 public final class SdkUtils {
+    private static final String DOUBLE_UNDERSCORE = "__";
+    private static final String WHITE_SPACE = " ";
+    private static final String UNDERSCORE = "_";
     private static final Pattern JSON_ARRAY_PATTERN = Pattern.compile("\\[([\'\"][\\w-\\s\\S]*[\'\"],?)*\\]");
     private static final String EMPTY_STRING = "";
     public static final String EXTENSION_SEPARATOR = ".";
@@ -72,10 +75,23 @@ public final class SdkUtils {
             if (!start) {
                 buffer.append(separator);
             }
-            buffer.append(element.toString().trim());
+            buffer.append(toSting(element));
             start = false;
         }
         return buffer.toString();
+    }
+
+    private static String toSting(final Object element) {
+        if (element == null) {
+            return null;
+        }
+        if (element instanceof SdkEnum) {
+            return ((SdkEnum) element).getString();
+        }
+        if (element instanceof SdkModel) {
+            return ((SdkModel) element).getId();
+        }
+        return element.toString().trim();
     }
 
     /**
@@ -206,7 +222,7 @@ public final class SdkUtils {
             try {
                 modelField.setAccessible(true);
                 value = modelField.get(model);
-            } catch (IllegalArgumentException | IllegalAccessException exception) {
+            } catch (@SuppressWarnings("unused") IllegalArgumentException | IllegalAccessException exception) {
                 // Nothing to do
             }
             if (value == null) {
@@ -337,7 +353,7 @@ public final class SdkUtils {
         }
         final StringBuffer sb = new StringBuffer();
         boolean start = true;
-        final String[] stringElements = stringToConvert.split("_");
+        final String[] stringElements = stringToConvert.replace(DOUBLE_UNDERSCORE, UNDERSCORE).split(UNDERSCORE);
         final int numberOfElements = stringElements.length;
         for (final String s : stringElements) {
             if (start) {
@@ -368,8 +384,9 @@ public final class SdkUtils {
         if (stringToConvert == null || stringToConvert.isEmpty()) {
             return stringToConvert;
         }
-        return stringToConvert.replaceAll("(.)(\\p{Upper})", "$1_$2").replaceAll("(\\p{Upper})(\\p{Upper})", "$1_$2")
-                              .replace("__", "_").toLowerCase(Locale.UK).trim();
+        return stringToConvert.trim().replaceAll("(.)(\\p{Upper})", "$1_$2")
+                              .replaceAll("(\\p{Upper})(\\p{Upper})", "$1_$2").replace(WHITE_SPACE, UNDERSCORE)
+                              .replace(DOUBLE_UNDERSCORE, UNDERSCORE).toLowerCase(Locale.UK).trim();
     }
 
     public interface CaseConverter {

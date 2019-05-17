@@ -146,7 +146,7 @@ public class APIMethod {
            invokeAPI(Object instance,
                      Map<String, Map<String, Object>> argsDescription) throws NoSuchMethodException, SecurityException,
                                                                        ClassNotFoundException, IllegalAccessException,
-                                                                       IllegalArgumentException, APICallException,
+                                                                       IllegalArgumentException,
                                                                        InvocationTargetException {
 
         APIMethodResult result = new APIMethodResult();
@@ -177,13 +177,13 @@ public class APIMethod {
         return result;
     }
 
-    private Object
-            invokeMethod(Object instance,
-                         Map<String, Map<String, Object>> argsDescription) throws NoSuchMethodException,
-                                                                           SecurityException, ClassNotFoundException,
-                                                                           IllegalAccessException,
-                                                                           IllegalArgumentException,
-                                                                           InvocationTargetException, APICallException {
+    private Object invokeMethod(Object instance,
+                                Map<String, Map<String, Object>> argsDescription) throws NoSuchMethodException,
+                                                                                  SecurityException,
+                                                                                  ClassNotFoundException,
+                                                                                  IllegalAccessException,
+                                                                                  IllegalArgumentException,
+                                                                                  InvocationTargetException {
         if (instance == null) {
             throw new NoSuchElementException();
         }
@@ -191,7 +191,11 @@ public class APIMethod {
         if (m == null) {
             throw new NoSuchMethodException();
         }
-        Object[] args = fetchArgsValues(argsDescription);
+        Object[] args = null;
+        try {
+            args = fetchArgsValues(argsDescription);
+        } catch (@SuppressWarnings("unused") Exception e) {
+        }
         return (args == null) ? m.invoke(instance) : m.invoke(instance, args);
 
     }

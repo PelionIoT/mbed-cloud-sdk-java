@@ -1,5 +1,5 @@
 /**
- * Arm Mbed Cloud SDK: Bootstrap module.
+ * Arm Pelion Cloud SDK: Bootstrap module.
  */
 @Preamble(description = "Bootstrap module")
 package com.arm.mbed.cloud.sdk.bootstrap;

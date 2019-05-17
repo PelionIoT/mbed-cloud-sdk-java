@@ -65,12 +65,12 @@ public class ResourcesData implements Serializable {
 
     /**
      * Interface description that defines a name or URI that indicates how to interact with the target resource. It
-     * describes a generic interface type, such as a \&quot;sensor\&quot;.
+     * describes a generic interface type, such as a &#39;sensor&#39;.
      * 
      * @return _if
      **/
     @ApiModelProperty(example = "sensor",
-                      value = "Interface description that defines a name or URI that indicates how to interact with the target resource. It describes a generic interface type, such as a \"sensor\".")
+                      value = "Interface description that defines a name or URI that indicates how to interact with the target resource. It describes a generic interface type, such as a 'sensor'.")
     public String getIf() {
         return _if;
     }
@@ -85,11 +85,11 @@ public class ResourcesData implements Serializable {
     }
 
     /**
-     * Whether the resource is observable or not (true/false).
+     * Whether the resource is observable (true/false).
      * 
      * @return obs
      **/
-    @ApiModelProperty(example = "true", value = "Whether the resource is observable or not (true/false).")
+    @ApiModelProperty(example = "true", value = "Whether the resource is observable (true/false).")
     public Boolean isObs() {
         return obs;
     }
@@ -123,14 +123,14 @@ public class ResourcesData implements Serializable {
     }
 
     /**
-     * Application-specific resource type that describes this resource. [It is created by the client side
-     * application](/docs/current/connecting/resource-setup-in-device-management-client.html). Not meant to be a
-     * human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
+     * Application-specific resource type that describes this resource. It is created by the [client side
+     * application](../connecting/resource-setup-in-device-management-client.html). Not meant to be a human-readable
+     * name for the resource. Multiple resource types may be included, separated by a space.
      * 
      * @return rt
      **/
     @ApiModelProperty(example = "light_sensor",
-                      value = "Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-device-management-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.")
+                      value = "Application-specific resource type that describes this resource. It is created by the [client side application](../connecting/resource-setup-in-device-management-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, separated by a space.")
     public String getRt() {
         return rt;
     }

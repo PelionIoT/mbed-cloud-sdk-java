@@ -38,9 +38,13 @@ public class ModelModule extends ModelMergeable {
         addEndpointField();
         registry = new MethodRegistry();
         setShouldBeSorted(true);
+        setIgnoreLiteralDuplicate(true);
     }
 
     private void addEndpointField() {
+        if (endpointFetcher == null) {
+            return;
+        }
         final ModelEndpoints endpoints = endpointFetcher.fetch(getGroup());
         if (endpoints == null) {
             return;
@@ -88,7 +92,7 @@ public class ModelModule extends ModelMergeable {
     }
 
     @Override
-    protected void generateHashCodeAndEquals() {
+    protected void generateHashCodeAndEquals(Model theParent) {
         // Do not generate anything
     }
 
@@ -110,7 +114,7 @@ public class ModelModule extends ModelMergeable {
     private void generateGetModuleName() {
         Method method = new Method(false, AbstractModule.METHOD_GET_MODULE_NAME, "Gets module name", null, false, true,
                                    false, false, false, true, false, true);
-        method.setReturnType(TypeFactory.getCorrespondingType(String.class));
+        method.setReturnType(TypeFactory.stringType());
         method.setReturnDescription("module name");
         method.initialiseCodeBuilder();
         method.getCode().addStatement("return $S",
@@ -191,6 +195,7 @@ public class ModelModule extends ModelMergeable {
         private final Model returnModel;
         private final boolean isCustom;
         private final boolean isPaginated;
+        private final boolean containsOnlyExternalParameters;
         private final String description;
         private final String longDescription;
         private final List<Parameter> methodParameters;
@@ -198,12 +203,15 @@ public class ModelModule extends ModelMergeable {
         private final Method lowLevelMethod;
         private final Renames parameterRenames;
         private final Class<?> lowLevelModule;
+        private Deprecation deprecation;
         private ModelEndpoints endpoints;
+        private boolean internal;
 
         public CloudCall(MethodAction action, String methodName, String description, String longDescription,
                          Model currentModel, Model returnModel, boolean custom, boolean isPaginated,
-                         List<Parameter> externalParameters, List<Parameter> allParameters, Renames parameterRenames,
-                         Method lowLevelMethod, Class<?> lowLevelModule) {
+                         List<Parameter> externalParameters, List<Parameter> allParameters,
+                         boolean containsOnlyExternalParameters, Renames parameterRenames, Method lowLevelMethod,
+                         Class<?> lowLevelModule, boolean internal) {
             super();
             this.action = action;
             this.methodName = methodName;
@@ -218,14 +226,9 @@ public class ModelModule extends ModelMergeable {
             this.methodParameters = externalParameters;
             this.allParameters = allParameters;
             this.lowLevelModule = lowLevelModule;
-        }
-
-        public CloudCall(MethodAction action, String methodName, String description, String longDescription,
-                         Model currentModel, boolean custom, boolean isPaginated, List<Parameter> externalParameters,
-                         List<Parameter> allParameters, Renames parameterRenames, Method lowLevelMethod,
-                         Class<?> lowLevelModule) {
-            this(action, methodName, description, longDescription, currentModel, null, custom, isPaginated,
-                 externalParameters, allParameters, parameterRenames, lowLevelMethod, lowLevelModule);
+            this.internal = internal;
+            this.containsOnlyExternalParameters = containsOnlyExternalParameters;
+            deprecation = null;
         }
 
         public ModelEndpoints getEndpoints() {
@@ -238,6 +241,19 @@ public class ModelModule extends ModelMergeable {
 
         public String getIdentifier() {
             return methodName;
+        }
+
+        public Deprecation getDeprecation() {
+            return deprecation;
+        }
+
+        public void setDeprecation(Deprecation deprecation) {
+            this.deprecation = deprecation;
+        }
+
+        public boolean hasDeprecation() {
+            return deprecation != null;
+
         }
 
         public void addMethod(ModelModule module) {
@@ -328,8 +344,33 @@ public class ModelModule extends ModelMergeable {
                     break;
 
             }
+            switch (action) {
+                case DELETE:
+                case LIST:
+                case LIST_OTHER:
+                case PAGINATION:
+                case PAGINATION_OTHER:
+                case READ:
+                    if (method != null) {
+                        method.ignore404();
+                    }
+                    break;
+                default:
+                    break;
+
+            }
             method.initialise();
             addMethod(module, method, null);
+            MethodModuleDefault defaultMethod = new MethodModuleDefault(method);
+            defaultMethod.initialise();
+            // defaultMethod.generateSuffix();
+            // method.generateSuffix();
+            if (haveDifferentSignatures(defaultMethod, method)) {
+                addMethod(module, defaultMethod, null);
+            }
+            if (containsOnlyExternalParameters && !action.isAboutListing()) {
+                return;
+            }
             MethodModuleCloudApi overloadedMethod = null;
             switch (action) {
 
@@ -365,12 +406,18 @@ public class ModelModule extends ModelMergeable {
 
             }
             overloadedMethod.initialise();
-            if (action == MethodAction.LIST || action == MethodAction.LIST_OTHER
-                || haveDifferentSignatures(method, overloadedMethod)) {
-                addMethod(module, overloadedMethod,
-                          action == MethodAction.LIST ? MethodAction.PAGINATION
-                                                      : action == MethodAction.LIST_OTHER ? MethodAction.PAGINATION_OTHER
-                                                                                          : null);
+            if (action.isAboutListing() || haveDifferentSignatures(method, overloadedMethod)) {
+                MethodAction overridingAction = action == MethodAction.LIST ? MethodAction.PAGINATION
+                                                                            : action == MethodAction.LIST_OTHER ? MethodAction.PAGINATION_OTHER
+                                                                                                                : null;
+                addMethod(module, overloadedMethod, overridingAction);
+
+                MethodModuleDefault defaultMethod1 = new MethodModuleDefault(overloadedMethod);
+                defaultMethod1.initialise();
+                if (haveDifferentSignatures(defaultMethod1, overloadedMethod)) {
+                    addMethod(module, defaultMethod1, overridingAction);
+                }
+
             }
             if (action == MethodAction.LIST_OTHER) {
                 MethodModuleFromEntityUnselfList overloadedMethod2 = new MethodModuleFromEntityUnselfList((MethodModuleCloudApiUnself) method,
@@ -382,19 +429,32 @@ public class ModelModule extends ModelMergeable {
                 if (haveDifferentSignatures(method, overloadedMethod2)) {
                     addMethod(module, overloadedMethod2, MethodAction.LIST_OTHER);
                 }
+                MethodModuleDefault defaultMethod1 = new MethodModuleDefault(overloadedMethod2);
+                defaultMethod1.initialise();
+                if (haveDifferentSignatures(defaultMethod1, overloadedMethod2)) {
+                    addMethod(module, defaultMethod1, MethodAction.LIST_OTHER);
+                }
+
                 MethodModuleCloudApi overloadedMethod3 = new MethodModuleFromEntityUnselfPagination(overloadedMethod2,
                                                                                                     isCustom);
                 overloadedMethod3.initialise();
                 if (haveDifferentSignatures(overloadedMethod, overloadedMethod3)) {
                     addMethod(module, overloadedMethod3, MethodAction.PAGINATION_OTHER);
                 }
+
+                MethodModuleDefault defaultMethod2 = new MethodModuleDefault(overloadedMethod3);
+                defaultMethod2.initialise();
+                if (haveDifferentSignatures(defaultMethod2, overloadedMethod3)) {
+                    addMethod(module, defaultMethod2, MethodAction.PAGINATION_OTHER);
+                }
             }
 
         }
 
         private void addMethod(ModelModule module, MethodModuleCloudApi method, MethodAction overridingAction) {
-            method.generateSuffix();
-            module.addFields(method.getNecessaryConstants());
+            method.setDeprecation(deprecation);
+            method.setInternal(internal);
+            module.addConstants(method.getNecessaryConstants());
             module.addMethod(method);
             module.registerMethod(currentModel, overridingAction == null ? action : overridingAction, method);
         }

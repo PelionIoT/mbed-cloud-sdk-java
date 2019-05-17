@@ -31,6 +31,7 @@ public class TestFilter {
         assertEquals(filter1, filter2);
         filter1 = new Filter("Test", FilterOperator.EQUAL, "Value");
         filter2 = new Filter("Test", FilterOperator.EQUAL, "Value");
+        assertTrue(filter1.getOperator().isSingleValueOperator());
         assertEquals(filter1, filter2);
         assertEquals(filter1.hashCode(), filter2.hashCode());
         filter1 = new Filter("Test", FilterOperator.GREATER_THAN, "Value");
@@ -48,6 +49,16 @@ public class TestFilter {
         filter1 = new Filter("test1", FilterOperator.EQUAL, "3 ");
         filter2 = new Filter("test2", FilterOperator.EQUAL, "3");
         assertNotEquals(filter1, filter2);
+    }
+
+    @Test
+    public void testOperatorType() {
+        Filter filter1 = new Filter("Test", FilterOperator.EQUAL, "Value");
+        Filter filter2 = new Filter("Test", FilterOperator.IN, "Value");
+        assertTrue(filter1.getOperator().isSingleValueOperator());
+        assertFalse(filter1.getOperator().isMultipleValuesOperator());
+        assertTrue(filter2.getOperator().isMultipleValuesOperator());
+        assertFalse(filter2.getOperator().isSingleValueOperator());
     }
 
     @Test

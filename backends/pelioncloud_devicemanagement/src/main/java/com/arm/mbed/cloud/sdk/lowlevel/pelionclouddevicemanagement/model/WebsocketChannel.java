@@ -29,14 +29,18 @@ import java.io.Serializable;
 public class WebsocketChannel implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @SerializedName("queueSize")
+    private Integer queueSize = null;
+
     /**
-     * Gets or Sets status
+     * Channel status is &#39;connected&#39; when the channel has an active WebSocket bound to it. The state is
+     * &#39;disconnected&#39; when either the channel or the WebSocket bound to it is closed.
      */
     @JsonAdapter(StatusEnum.Adapter.class)
     public enum StatusEnum {
-        CONNECTED("CONNECTED"),
+        CONNECTED("connected"),
 
-        DISCONNECTED("DISCONNECTED");
+        DISCONNECTED("disconnected");
 
         private String value;
 
@@ -79,17 +83,38 @@ public class WebsocketChannel implements Serializable {
     @SerializedName("status")
     private StatusEnum status = StatusEnum.DISCONNECTED;
 
+    public WebsocketChannel queueSize(Integer queueSize) {
+        this.queueSize = queueSize;
+        return this;
+    }
+
+    /**
+     * Number of events in the channel&#39;s event queue waiting to be delivered.
+     * 
+     * @return queueSize
+     **/
+    @ApiModelProperty(example = "0", value = "Number of events in the channel's event queue waiting to be delivered.")
+    public Integer getQueueSize() {
+        return queueSize;
+    }
+
+    public void setQueueSize(Integer queueSize) {
+        this.queueSize = queueSize;
+    }
+
     public WebsocketChannel status(StatusEnum status) {
         this.status = status;
         return this;
     }
 
     /**
-     * Get status
+     * Channel status is &#39;connected&#39; when the channel has an active WebSocket bound to it. The state is
+     * &#39;disconnected&#39; when either the channel or the WebSocket bound to it is closed.
      * 
      * @return status
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(example = "disconnected",
+                      value = "Channel status is 'connected' when the channel has an active WebSocket bound to it. The state is 'disconnected' when either the channel or the WebSocket bound to it is closed.")
     public StatusEnum getStatus() {
         return status;
     }
@@ -107,12 +132,13 @@ public class WebsocketChannel implements Serializable {
             return false;
         }
         WebsocketChannel websocketChannel = (WebsocketChannel) o;
-        return Objects.equals(this.status, websocketChannel.status);
+        return Objects.equals(this.queueSize, websocketChannel.queueSize)
+               && Objects.equals(this.status, websocketChannel.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(status);
+        return Objects.hash(queueSize, status);
     }
 
     @Override
@@ -120,6 +146,7 @@ public class WebsocketChannel implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("class WebsocketChannel {\n");
 
+        sb.append("    queueSize: ").append(toIndentedString(queueSize)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("}");
         return sb.toString();

@@ -11,7 +11,7 @@ public class MethodModuleConstructorFromSdkContext extends AbstractMethodConstru
     private static final String PARAMETER_SDK_CONTEXT = "context";
 
     public MethodModuleConstructorFromSdkContext(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, false);
+        super(null, currentModel, parentModel, null, null, false);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class MethodModuleConstructorFromSdkContext extends AbstractMethodConstru
     protected void addConstructorParameters() {
         addParameter(new Parameter(PARAMETER_SDK_CONTEXT,
                                    "SDK context @see {@link " + getParameterClass().getSimpleName() + "}.", null,
-                                   TypeFactory.getCorrespondingType(getParameterClass()), null));
+                                   TypeFactory.getCorrespondingType(getParameterClass()), null, null));
     }
 
     public Class<?> getParameterClass() {

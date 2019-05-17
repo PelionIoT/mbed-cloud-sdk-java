@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.common;
 import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -18,6 +19,7 @@ import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.junit.Test;
 
 public class TestTranslationUtils {
@@ -47,7 +49,20 @@ public class TestTranslationUtils {
     @Test
     public void testToDateTime() {
         DateTime time = new DateTime(1000);
-        assertEquals(time, TranslationUtils.toDateTime(new Date(1000)));
+        assertEquals(time.withZone(DateTimeZone.UTC), TranslationUtils.toDateTime(new Date(1000)));
+    }
+
+    @Test
+    public void testDatetimeTranslation() {
+        String timestamp = "1989-12-09T12:52:32+12:45";
+        Date date = null;
+        try {
+            date = TranslationUtils.convertStringToDate(timestamp);
+            System.out.println(date);
+        } catch (MbedCloudException exception) {
+            fail(exception.getMessage());
+        }
+        assertEquals("1989-12-09T00:07:32.000Z", TranslationUtils.toUtcTimestamp(date));
     }
     // Test only passing when run in the UK
     // @Test
@@ -123,6 +138,63 @@ public class TestTranslationUtils {
         assertEquals(longValue, TranslationUtils.toLong(longString, 0));
         assertEquals(0, TranslationUtils.toLong("454.4554", 0));
         assertEquals(10, TranslationUtils.toLong("fsdlfsfkls", 10));
+        assertEquals(1000, TranslationUtils.toLong(new Date(1000)));
+    }
+
+    @SuppressWarnings("boxing")
+    @Test
+    public void testToBoolConversion() {
+        boolean bool = true;
+        String boolString = String.valueOf(bool);
+        assertEquals(bool, TranslationUtils.toBool(boolString, false));
+        assertEquals(false, TranslationUtils.toBool("454.4554", false));
+        assertEquals(true, TranslationUtils.toBool("fsdlfsfkls", true));
+    }
+
+    @Test
+    public void testToDoubleConversion() {
+        double doubleValue = 156433465.45464564;
+        String doubleString = String.valueOf(doubleValue);
+        assertEquals(doubleValue, TranslationUtils.toDouble(doubleString, 0), 0);
+        doubleValue = Double.MAX_VALUE;
+        doubleString = String.valueOf(doubleValue);
+        assertEquals(doubleValue, TranslationUtils.toDouble(doubleString, 0), 0);
+        assertEquals(10.0, TranslationUtils.toDouble(new Integer(10)), 0);
+        assertEquals(10, TranslationUtils.toDouble("fsdlfsfkls", 10), 0);
+        assertEquals(0.0, TranslationUtils.toDouble("fsdlfsfkls"), 0);
+    }
+
+    @Test
+    public void testToByteArrayConversion() {
+        String encodedSource = "VGhpcyBpcyBhIHRlc3QgZm9yIGRlY29kaW5nIGJhc2U2NCBlbmNvZGVkIHN0cmluZ3M=";
+        byte[] encodedByteArray = { 0x56, 0x47, 0x68, 0x70, 0x63, 0x79, 0x42, 0x70, 0x63, 0x79, 0x42, 0x68, 0x49, 0x48,
+                                    0x52, 0x6c, 0x63, 0x33, 0x51, 0x67, 0x5a, 0x6d, 0x39, 0x79, 0x49, 0x47, 0x52, 0x6c,
+                                    0x59, 0x32, 0x39, 0x6b, 0x61, 0x57, 0x35, 0x6e, 0x49, 0x47, 0x4a, 0x68, 0x63, 0x32,
+                                    0x55, 0x32, 0x4e, 0x43, 0x42, 0x6c, 0x62, 0x6d, 0x4e, 0x76, 0x5a, 0x47, 0x56, 0x6b,
+                                    0x49, 0x48, 0x4e, 0x30, 0x63, 0x6d, 0x6c, 0x75, 0x5a, 0x33, 0x4d, 0x3d };
+        String expectedDecodedValue = "This is a test for decoding base64 encoded strings";
+        byte[] expectedDecodedByteArray = { 0x54, 0x68, 0x69, 0x73, 0x20, 0x69, 0x73, 0x20, 0x61, 0x20, 0x74, 0x65,
+                                            0x73, 0x74, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x64, 0x65, 0x63, 0x6f, 0x64,
+                                            0x69, 0x6e, 0x67, 0x20, 0x62, 0x61, 0x73, 0x65, 0x36, 0x34, 0x20, 0x65,
+                                            0x6e, 0x63, 0x6f, 0x64, 0x65, 0x64, 0x20, 0x73, 0x74, 0x72, 0x69, 0x6e,
+                                            0x67, 0x73 };
+        assertArrayEquals(expectedDecodedByteArray, TranslationUtils.toByteArray(expectedDecodedValue));
+        assertArrayEquals(expectedDecodedByteArray, TranslationUtils.toByteArray(expectedDecodedByteArray));
+        assertArrayEquals(encodedByteArray, TranslationUtils.toByteArray(new Base64(expectedDecodedByteArray)));
+        assertArrayEquals(encodedByteArray, TranslationUtils.toByteArray(Base64.decode(encodedSource)));
+    }
+
+    @Test
+    public void testToBase64Conversion() {
+        byte[] encodedByteArray = { 0x56, 0x47, 0x68, 0x70, 0x63, 0x79, 0x42, 0x70, 0x63, 0x79, 0x42, 0x68, 0x49, 0x48,
+                                    0x52, 0x6c, 0x63, 0x33, 0x51, 0x67, 0x5a, 0x6d, 0x39, 0x79, 0x49, 0x47, 0x52, 0x6c,
+                                    0x59, 0x32, 0x39, 0x6b, 0x61, 0x57, 0x35, 0x6e, 0x49, 0x47, 0x4a, 0x68, 0x63, 0x32,
+                                    0x55, 0x32, 0x4e, 0x43, 0x42, 0x6c, 0x62, 0x6d, 0x4e, 0x76, 0x5a, 0x47, 0x56, 0x6b,
+                                    0x49, 0x48, 0x4e, 0x30, 0x63, 0x6d, 0x6c, 0x75, 0x5a, 0x33, 0x4d, 0x3d };
+        String encodedSource = "VGhpcyBpcyBhIHRlc3QgZm9yIGRlY29kaW5nIGJhc2U2NCBlbmNvZGVkIHN0cmluZ3M=";
+        Base64 expected = new Base64("This is a test for decoding base64 encoded strings");
+        assertEquals(expected, TranslationUtils.toBase64(encodedByteArray));
+        assertEquals(expected, TranslationUtils.toBase64(encodedSource));
     }
 
     @Test
@@ -195,11 +267,10 @@ public class TestTranslationUtils {
         assertEquals("http://localhost:80/", TranslationUtils.toString(url));
     }
 
-    @SuppressWarnings("boxing")
     @Test
     public void testConvertToInteger() {
-        assertEquals(1234, (int) TranslationUtils.toInt(" 1234 ", 0));
-        assertEquals(0, (int) TranslationUtils.toInt(" 1p234 ", 0));
+        assertEquals(1234, TranslationUtils.toInt(" 1234 ", 0));
+        assertEquals(0, TranslationUtils.toInt(" 1p234 ", 0));
     }
 
     @Test
@@ -208,7 +279,7 @@ public class TestTranslationUtils {
         Date date = null;
         try {
             date = TranslationUtils.convertTimestamp(timestamp, new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z"));
-        } catch (Exception e) {
+        } catch (@SuppressWarnings("unused") Exception e) {
             fail("Could not convert date");
         }
         Calendar calendar = Calendar.getInstance();

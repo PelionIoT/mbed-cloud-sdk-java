@@ -38,7 +38,7 @@ public class CertificateIssuerRequest implements Serializable {
     private Map<String, String> issuerAttributes = null;
 
     @SerializedName("issuer_credentials")
-    private Map<String, String> issuerCredentials = null;
+    private Map<String, String> issuerCredentials = new HashMap<String, String>();
 
     /**
      * The type of the certificate issuer. - GLOBAL_SIGN: Certificates are issued by GlobalSign service. The users must
@@ -101,11 +101,11 @@ public class CertificateIssuerRequest implements Serializable {
     }
 
     /**
-     * General description for the certificate issuer.
+     * General description of the certificate issuer.
      * 
      * @return description
      **/
-    @ApiModelProperty(value = "General description for the certificate issuer.")
+    @ApiModelProperty(value = "General description of the certificate issuer.")
     public String getDescription() {
         return description;
     }
@@ -149,9 +149,6 @@ public class CertificateIssuerRequest implements Serializable {
     }
 
     public CertificateIssuerRequest putIssuerCredentialsItem(String key, String issuerCredentialsItem) {
-        if (this.issuerCredentials == null) {
-            this.issuerCredentials = new HashMap<String, String>();
-        }
         this.issuerCredentials.put(key, issuerCredentialsItem);
         return this;
     }
@@ -162,7 +159,7 @@ public class CertificateIssuerRequest implements Serializable {
      * 
      * @return issuerCredentials
      **/
-    @ApiModelProperty(example = "{}",
+    @ApiModelProperty(example = "{}", required = true,
                       value = "The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials. ")
     public Map<String, String> getIssuerCredentials() {
         return issuerCredentials;

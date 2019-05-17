@@ -61,11 +61,11 @@ public class DeveloperCertificateResponseData implements Serializable {
     }
 
     /**
-     * account to which the developer certificate belongs
+     * Account to which the developer certificate belongs.
      * 
      * @return accountId
      **/
-    @ApiModelProperty(value = "account to which the developer certificate belongs")
+    @ApiModelProperty(value = "Account to which the developer certificate belongs.")
     public String getAccountId() {
         return accountId;
     }
@@ -118,11 +118,11 @@ public class DeveloperCertificateResponseData implements Serializable {
     }
 
     /**
-     * PEM format X.509 developer certificate.
+     * PEM-format X.509 developer certificate.
      * 
      * @return developerCertificate
      **/
-    @ApiModelProperty(value = "PEM format X.509 developer certificate.")
+    @ApiModelProperty(value = "PEM-format X.509 developer certificate.")
     public String getDeveloperCertificate() {
         return developerCertificate;
     }
@@ -137,11 +137,11 @@ public class DeveloperCertificateResponseData implements Serializable {
     }
 
     /**
-     * PEM format developer private key associated to the certificate.
+     * PEM-format developer private key associated with the certificate.
      * 
      * @return developerPrivateKey
      **/
-    @ApiModelProperty(value = "PEM format developer private key associated to the certificate.")
+    @ApiModelProperty(value = "PEM-format developer private key associated with the certificate.")
     public String getDeveloperPrivateKey() {
         return developerPrivateKey;
     }
@@ -175,11 +175,11 @@ public class DeveloperCertificateResponseData implements Serializable {
     }
 
     /**
-     * mUUID that uniquely identifies the developer certificate.
+     * ID that uniquely identifies the developer certificate.
      * 
      * @return id
      **/
-    @ApiModelProperty(value = "mUUID that uniquely identifies the developer certificate.")
+    @ApiModelProperty(value = "ID that uniquely identifies the developer certificate.")
     public String getId() {
         return id;
     }
@@ -213,11 +213,11 @@ public class DeveloperCertificateResponseData implements Serializable {
     }
 
     /**
-     * Entity name, always &#39;trusted-cert&#39;
+     * Entity name: always &#x60;trusted-cert&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(value = "Entity name, always 'trusted-cert'")
+    @ApiModelProperty(value = "Entity name: always `trusted-cert`.")
     public String getObject() {
         return object;
     }
@@ -232,11 +232,11 @@ public class DeveloperCertificateResponseData implements Serializable {
     }
 
     /**
-     * Content of the security.c file that will be flashed into the device to provide the security credentials
+     * Content of the &#x60;security.c&#x60; file flashed to the device to provide security credentials.
      * 
      * @return securityFileContent
      **/
-    @ApiModelProperty(value = "Content of the security.c file that will be flashed into the device to provide the security credentials")
+    @ApiModelProperty(value = "Content of the `security.c` file flashed to the device to provide security credentials.")
     public String getSecurityFileContent() {
         return securityFileContent;
     }

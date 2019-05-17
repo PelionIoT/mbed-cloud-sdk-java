@@ -15,10 +15,6 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 public enum CertificateEnrollmentEnrollResult implements SdkEnum {
     FAILURE("failure"),
 
-    FORBIDDEN("forbidden"),
-
-    NOT_FOUND("not_found"),
-
     SUCCESS("success"),
 
     UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
@@ -53,12 +49,14 @@ public enum CertificateEnrollmentEnrollResult implements SdkEnum {
      * @return string
      */
     @Override
+    @Internal
     public String getString() {
         return string;
     }
 
     /**
      * toString.
+     *
      * <p>
      * 
      * @see java.lang.Enum#toString()
@@ -71,6 +69,7 @@ public enum CertificateEnrollmentEnrollResult implements SdkEnum {
 
     /**
      * States whether it is the default value.
+     *
      * <p>
      * 
      * @see SdkEnum#isDefault()
@@ -83,6 +82,7 @@ public enum CertificateEnrollmentEnrollResult implements SdkEnum {
 
     /**
      * States whether the value is unknown and an error happened during parsing.
+     *
      * <p>
      * 
      * @see SdkEnum#isUnknownValue()
@@ -134,9 +134,12 @@ public enum CertificateEnrollmentEnrollResult implements SdkEnum {
 
     /**
      * Merges two states.
+     *
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     * @param <T>
+     *            type of an sdk enum
      * @param obj1
      *            a certificate enrollment enroll result.
      * @param obj2

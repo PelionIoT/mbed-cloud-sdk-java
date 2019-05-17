@@ -33,6 +33,7 @@ public class TestModelDaoProvider {
     public void testGetCorrespondingDaoT() {
         try {
             ModelTest aModel = new ModelTest();
+            @SuppressWarnings("resource")
             ModelDao<?> foundDao = DaoProvider.getCorrespondingGlobalDao(aModel);
             assertNotNull(foundDao);
             assertEquals(ModelTestDao.class, foundDao.getClass());
@@ -45,6 +46,7 @@ public class TestModelDaoProvider {
             foundDao.configure(ConnectionOptions.newConfiguration(anApiKey).host(cloudHost));
             assertEquals(anApiKey, foundDao.getContext().getClient().getConnectionOptions().getApiKey());
             assertEquals(cloudHost, foundDao.getContext().getClient().getConnectionOptions().getHost());
+            @SuppressWarnings("resource")
             ModelDao<?> daoWithContext = foundDao.getDaoProvider().getCorrespondingDao(aModel);
             assertEquals(anApiKey, daoWithContext.getContext().getClient().getConnectionOptions().getApiKey());
             assertEquals(cloudHost, daoWithContext.getContext().getClient().getConnectionOptions().getHost());
@@ -65,6 +67,7 @@ public class TestModelDaoProvider {
     public void testGetCorrespondingListDaoClassOfTU() {
         try {
             ListOptions someOptions = new ListOptions().maxResults(454);
+            @SuppressWarnings("resource")
             ModelTestListDao foundDao = DaoProvider.getCorrespondingGlobalListDao(ModelTest.class, someOptions);
             assertNotNull(foundDao);
             assertEquals(ModelTestListDao.class, foundDao.getClass());
@@ -72,6 +75,7 @@ public class TestModelDaoProvider {
             String cloudHost = "http://testHost/";
             String anApiKey = "testApiKey";
             foundDao.configure(ConnectionOptions.newConfiguration(anApiKey).host(cloudHost));
+            @SuppressWarnings("resource")
             ModelTestListDao daoWithContext = foundDao.getDaoProvider().getCorrespondingListDao(ModelTest.class,
                                                                                                 someOptions);
             assertEquals(anApiKey, daoWithContext.getContext().getClient().getConnectionOptions().getApiKey());
@@ -222,13 +226,13 @@ public class TestModelDaoProvider {
 
         @SuppressWarnings("unchecked")
         @Override
-        public <V extends ModelDao<ModelTest>> Class<V> getCorrespondingModelDaoDefinition() {
+        public <V extends ModelDao<ModelTest>> Class<V> getModelDaoClass() {
             return (Class<V>) ModelTestDao.class;
         }
 
         @SuppressWarnings("unchecked")
         @Override
-        public <V extends ModelDao<ModelTest>> V getCorrespondingModelDao() {
+        public <V extends ModelDao<ModelTest>> V getNewModelDao() {
             try {
                 return (V) new ModelTestDao();
             } catch (MbedCloudException exception) {

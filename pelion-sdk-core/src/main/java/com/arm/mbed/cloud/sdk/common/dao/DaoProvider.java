@@ -96,7 +96,7 @@ public final class DaoProvider {
         try {
             return modelType == null ? null
                                      : (Class<? extends ModelDao<T>>) DaoProvider.class.forName(getCorrespondingDaoName(modelType.getName()));
-        } catch (ClassNotFoundException exception) {
+        } catch (@SuppressWarnings("unused") ClassNotFoundException exception) {
             return null;
         }
     }
@@ -129,7 +129,7 @@ public final class DaoProvider {
             specifyDaoClient(dao);
             dao.setModel(model);
             return dao;
-        } catch (InstantiationException | IllegalAccessException exception) {
+        } catch (@SuppressWarnings("unused") InstantiationException | IllegalAccessException exception) {
             return null;
         }
     }
@@ -183,7 +183,7 @@ public final class DaoProvider {
             return modelType == null ? null
                                      : (Class<? extends ModelListDao<T,
                                                                      ? extends ListOptions>>) DaoProvider.class.forName(getCorrespondingListDaoName(modelType.getName()));
-        } catch (ClassNotFoundException exception) {
+        } catch (@SuppressWarnings("unused") ClassNotFoundException exception) {
             return null;
         }
     }
@@ -220,7 +220,7 @@ public final class DaoProvider {
             specifyDaoClient(listDao);
             listDao.setListOptions(options);
             return listDao;
-        } catch (InstantiationException | IllegalAccessException exception) {
+        } catch (@SuppressWarnings("unused") InstantiationException | IllegalAccessException exception) {
             return null;
         }
     }

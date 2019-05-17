@@ -21,9 +21,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This object represents SAML2 specific attributes in responses.
+ * Represents SAML2 specific attributes in responses.
  */
-@ApiModel(description = "This object represents SAML2 specific attributes in responses.")
+@ApiModel(description = "Represents SAML2 specific attributes in responses.")
 
 public class SAML2Info implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -152,23 +152,15 @@ public class SAML2Info implements Serializable {
         this.spEntityId = spEntityId;
     }
 
-    public SAML2Info spX509Cert(String spX509Cert) {
-        this.spX509Cert = spX509Cert;
-        return this;
-    }
-
     /**
-     * Public X509 certificate of the service provider in PEM format.
+     * Public X509 certificate of the service provider in PEM format. This is a read-only attribute, see API
+     * documentation about how to generate a new one or how to delete it.
      * 
      * @return spX509Cert
      **/
-    @ApiModelProperty(value = "Public X509 certificate of the service provider in PEM format.")
+    @ApiModelProperty(value = "Public X509 certificate of the service provider in PEM format. This is a read-only attribute, see API documentation about how to generate a new one or how to delete it.")
     public String getSpX509Cert() {
         return spX509Cert;
-    }
-
-    public void setSpX509Cert(String spX509Cert) {
-        this.spX509Cert = spX509Cert;
     }
 
     public SAML2Info ssoEndpoint(String ssoEndpoint) {

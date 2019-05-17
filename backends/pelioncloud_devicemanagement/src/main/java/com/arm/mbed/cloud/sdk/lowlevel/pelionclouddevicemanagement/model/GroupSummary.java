@@ -51,7 +51,7 @@ public class GroupSummary implements Serializable {
     private String name = null;
 
     /**
-     * Entity name: always &#39;group&#39;
+     * Entity name: always &#x60;group&#x60;.
      */
     @JsonAdapter(ObjectEnum.Adapter.class)
     public enum ObjectEnum {
@@ -225,11 +225,11 @@ public class GroupSummary implements Serializable {
     }
 
     /**
-     * Entity name: always &#39;group&#39;
+     * Entity name: always &#x60;group&#x60;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Entity name: always 'group'")
+    @ApiModelProperty(required = true, value = "Entity name: always `group`.")
     public ObjectEnum getObject() {
         return object;
     }

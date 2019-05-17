@@ -6,6 +6,18 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+2.2.1 (2019-02-25)
+==================
+
+### Bugfixes
+
+- Changed the log level of `An error occurred when trying to fetch server date from API metadata` to remove confusion. (#2233)
+
+### Misc
+
+- #1
+
+
 2.2.0 (2018-11-15)
 ==================
 
@@ -112,7 +124,7 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 - Exponential backoff in case of request call failure during notification pull
   was implemented. (1065)
 
-- Specified User Agent header when sending requests to Mbed Cloud (634)
+- Specified User Agent header when sending requests to Pelion Cloud (634)
 
 - Notification channels for device registration status notifications (4 events)
   were added. (722)
@@ -193,7 +205,7 @@ The application source code is hosted on GitHub at https://github.com/ARMmbed/mb
 Built artefacts can be retrieved using any Java package manager (e.g. Gradle, Ant/Ivy, Maven) from [Jcenter](https://bintray.com/armmbed/mbed-cloud-sdk) or [Maven Central](https://mvnrepository.com/artifact/com.arm.mbed.cloud.sdk/mbed-cloud-sdk).
 
 ### Changes
-- Initial release tracking Mbed Cloud 1.2 APIs
+- Initial release tracking Pelion Cloud 1.2 APIs
 - APIs supported:
   - Account Management
   - Certificates

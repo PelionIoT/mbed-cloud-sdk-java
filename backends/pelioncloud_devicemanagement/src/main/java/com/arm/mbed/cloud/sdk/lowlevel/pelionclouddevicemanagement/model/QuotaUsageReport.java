@@ -25,9 +25,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * Account&#39;s quota usage entry for queried month.
+ * Account quota usage entry for queried month.
  */
-@ApiModel(description = "Account's quota usage entry for queried month.")
+@ApiModel(description = "Account quota usage entry for queried month.")
 
 public class QuotaUsageReport implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -105,11 +105,11 @@ public class QuotaUsageReport implements Serializable {
     }
 
     /**
-     * Amount of quota usage entry. Negative if it is quota consumption.
+     * Amount of quota usage entry. Negative if quota consumption.
      * 
      * @return amount
      **/
-    @ApiModelProperty(required = true, value = "Amount of quota usage entry. Negative if it is quota consumption.")
+    @ApiModelProperty(required = true, value = "Amount of quota usage entry. Negative if quota consumption.")
     public Long getAmount() {
         return amount;
     }
@@ -124,11 +124,12 @@ public class QuotaUsageReport implements Serializable {
     }
 
     /**
-     * Campaign name of quota usage entry. Null if quota usage entry type is not reservation or reservation release.
+     * Campaign name of quota usage entry. Null if quota usage entry type is not &#x60;reservation&#x60; or
+     * &#x60;reservation release&#x60;.
      * 
      * @return campaignName
      **/
-    @ApiModelProperty(value = "Campaign name of quota usage entry. Null if quota usage entry type is not reservation or reservation release.")
+    @ApiModelProperty(value = "Campaign name of quota usage entry. Null if quota usage entry type is not `reservation` or `reservation release`.")
     public String getCampaignName() {
         return campaignName;
     }

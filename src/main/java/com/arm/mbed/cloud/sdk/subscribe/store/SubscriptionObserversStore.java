@@ -49,6 +49,8 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
      *            action to perform on subscription
      * @param resourceUnsubscriber
      *            action to perform on unsubscription
+     * @param resourceUnsubscriberAll
+     *            action to perform on shutdown
      */
     public SubscriptionObserversStore(Scheduler scheduler, SubscriptionAction resourceSubscriber,
                                       SubscriptionAction resourceUnsubscriber,
@@ -68,6 +70,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
         resourceToObserverStore = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
     }
 
+    @SuppressWarnings("cast")
     protected WeakReference<SubscriptionManager> getManagerReference() {
         return new WeakReference<>((SubscriptionManager) this);
     }
@@ -107,7 +110,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
         for (final SubscriptionManager substore : store.values()) {
             try {
                 substore.unsubscribeAll();
-            } catch (MbedCloudException exception) {
+            } catch (@SuppressWarnings("unused") MbedCloudException exception) {
                 // Continue
             }
         }

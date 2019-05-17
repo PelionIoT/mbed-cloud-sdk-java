@@ -36,13 +36,16 @@ public class Model extends AbstractSdkArtifact {
     protected final List<String> contructorsName;
     protected final Map<String, Method> methods;
     protected final Map<String, Field> fields;
+    protected final Map<String, Field> constants;
     protected Map<String, Field> superClassFields;
     protected Map<String, Method> superClassMethods;
     protected TypeParameter superClassType;
     protected TypeSpec.Builder specificationBuilder;
+
     private boolean shouldBeSorted;
     private boolean mayHaveLongLines;
     private boolean isFinal;
+    private boolean ignoreLiteralDuplicate;
     private static final Map<String, Integer> LOOKUP_TABLE = new HashMap<>(26);
     static {
         LOOKUP_TABLE.put("a", Integer.valueOf(1));
@@ -84,6 +87,7 @@ public class Model extends AbstractSdkArtifact {
               containsCustomCode, needsCustomCode, isInternal);
         methods = new LinkedHashMap<>();
         fields = new LinkedHashMap<>();
+        constants = new LinkedHashMap<>();
         contructorsName = new LinkedList<>();
         abstractParent = null;
         setPackageName(packageName);
@@ -94,6 +98,7 @@ public class Model extends AbstractSdkArtifact {
         setShouldBeSorted(false);
         setMayHaveLongLines(false);
         setFinal(false);
+        setIgnoreLiteralDuplicate(false);
     }
 
     public Model() {
@@ -194,6 +199,14 @@ public class Model extends AbstractSdkArtifact {
         return superClassType;
     }
 
+    public boolean isIgnoreLiteralDuplicate() {
+        return ignoreLiteralDuplicate;
+    }
+
+    public void setIgnoreLiteralDuplicate(boolean ignoreLiteralDuplicate) {
+        this.ignoreLiteralDuplicate = ignoreLiteralDuplicate;
+    }
+
     public boolean shouldBeSorted() {
         return shouldBeSorted;
     }
@@ -241,6 +254,31 @@ public class Model extends AbstractSdkArtifact {
         fields.put(field.getIdentifier(), field);
     }
 
+    public Model constant(Field field) {
+        addConstant(field);
+        return this;
+    }
+
+    public void addConstants(Collection<Field> fields) {
+        if (fields == null) {
+            return;
+        }
+        fields.forEach(f -> addConstant(f));
+    }
+
+    public void addConstant(Field field) {
+        if (!hasConstant(field)) {
+            overrideConstantIfExists(field);
+        }
+    }
+
+    public void overrideConstantIfExists(Field field) {
+        if (field == null) {
+            return;
+        }
+        constants.put(field.getIdentifier(), field);
+    }
+
     public String getFullName() {
         return hasPackageName() ? getPackageName() + "." + getName() : getName();
     }
@@ -258,6 +296,10 @@ public class Model extends AbstractSdkArtifact {
 
     public boolean hasFields() {
         return !fields.isEmpty();
+    }
+
+    public boolean hasConstants() {
+        return !constants.isEmpty();
     }
 
     public boolean hasFieldsWithDefaultValues() {
@@ -376,6 +418,9 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public void addMethod(Method method) {
+        if (method != null && method instanceof MethodOverloaded) {
+            ((MethodOverloaded) method).generateSuffix();
+        }
         if (!hasMethod(method) || MethodOverloaded.isOverloadedMethod(method)) {
             overrideMethodIfExist(method);
         }
@@ -389,8 +434,34 @@ public class Model extends AbstractSdkArtifact {
         return field == null ? false : hasField(field.getIdentifier());
     }
 
+    public boolean hasIdentifierField() {
+        return fields.values().stream().anyMatch(f -> f.isIdentifier());
+    }
+
+    public Field getIdentifierField() {
+        return fields.values().stream().filter(f -> f.isIdentifier()).findFirst().orElse(null);
+    }
+
     public boolean hasField(String identifier) {
-        return identifier == null ? false : fields.containsKey(identifier);
+        if (identifier == null) {
+            return false;
+        }
+        final boolean hasField = fields.containsKey(identifier);
+        if (hasField) {
+            return true;
+        }
+        if (Field.isUsualIdentifier(identifier)) {
+            return hasIdentifierField();
+        }
+        return false;
+    }
+
+    public boolean hasConstant(Field constant) {
+        return constant == null ? false : hasConstant(constant.getIdentifier());
+    }
+
+    public boolean hasConstant(String identifier) {
+        return identifier == null ? false : constants.containsKey(identifier);
     }
 
     public boolean hasFieldInSuperclass(String identifier) {
@@ -402,7 +473,14 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public Field fetchField(String identifier) {
-        return hasField(identifier) ? fields.get(identifier) : null;
+        if (hasField(identifier)) {
+            final Field value = fields.get(identifier);
+            if (value == null && Field.isUsualIdentifier(identifier)) {
+                return getIdentifierField();
+            }
+            return value;
+        }
+        return null;
     }
 
     public void overrideMethodIfExist(Method method) {
@@ -428,6 +506,11 @@ public class Model extends AbstractSdkArtifact {
         return allfields;
     }
 
+    public List<Field> getConstantList() {
+        return new ArrayList<>(constants.values()).stream().sorted(Comparator.comparing(Field::getIdentifier))
+                                                  .collect(Collectors.toList());
+    }
+
     public List<Field> getSettableFields() {
         return getFieldList().stream().filter(f -> !f.isReadOnly()).collect(Collectors.toList());
     }
@@ -437,7 +520,7 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public boolean hasReadOnlyFields() {
-        return getFieldList().stream().filter(f -> f.isReadOnly() && !f.isStatic()).count() > 0;
+        return getFieldList().stream().anyMatch(f -> f.isReadOnly() && !f.isStatic());
     }
 
     /**
@@ -506,7 +589,7 @@ public class Model extends AbstractSdkArtifact {
         }
     }
 
-    private String generateParentClassName() {
+    public String generateParentClassName() {
         return name.startsWith(ABSTRACT_CLASS_PREFIX) ? ApiUtils.convertSnakeToCamel(name, true)
                                                       : ABSTRACT_CLASS_PREFIX
                                                         + ApiUtils.convertSnakeToCamel(name, true);
@@ -569,13 +652,21 @@ public class Model extends AbstractSdkArtifact {
             specificationBuilder.addAnnotation(AnnotationSpec.builder(Internal.class).build());
         }
         if (hasCyclomaticComplexity()) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreCyclomaticComplexity());
+            annotationRegistry.ignoreCyclomaticComplexity();
         }
-        if (hasFieldsWithDefaultValues()) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreAvoidDuplicateLiterals());
+        if (hasFieldsWithDefaultValues() || isIgnoreLiteralDuplicate()) {
+            annotationRegistry.ignoreAvoidDuplicateLiterals();
         }
         if (mayHaveLongLines()) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreLongLines());
+            annotationRegistry.ignoreLongLines();
+        }
+        addStaticAnalysisAnnotations();
+    }
+
+    @Override
+    protected void addStaticAnalysisAnnotations() {
+        if (annotationRegistry.hasAnnotations()) {
+            specificationBuilder.addAnnotation(annotationRegistry.generateAnnotation());
         }
     }
 
@@ -591,11 +682,11 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public boolean needsMethodCustomisation() {
-        return getMethodList().stream().filter(m -> m.needsCustomCode()).count() > 0;
+        return getMethodList().stream().anyMatch(m -> m.needsCustomCode());
     }
 
     public boolean needsFieldCustomisation() {
-        return getFieldList().stream().filter(f -> f.needsCustomCode()).count() > 0;
+        return getFieldList().stream().anyMatch(f -> f.needsCustomCode());
     }
 
     public boolean hasCyclomaticComplexity() {
@@ -675,11 +766,11 @@ public class Model extends AbstractSdkArtifact {
             f.setAccessible(true);
             abstractModel.addField(f);
         });
-        getMethodList().stream().filter(m -> !m.needsCustomCode() && !m.needsToBeAtBottomLevel())
+        getMethodList().stream().filter(m -> !m.isConstructor() && !m.needsCustomCode() && !m.needsToBeAtBottomLevel())
                        .forEach(m -> abstractModel.addMethod(m));
         addSpecificAbstractMethods(abstractModel);
         abstractModel.generateMethodsNecessaryAtEachLevel();
-        abstractModel.ensureSdkModelMethodsHaveOverrideAnnotation();
+        abstractModel.ensureInterfaceMethodsHaveOverrideAnnotation();
         return abstractModel;
     }
 
@@ -694,12 +785,13 @@ public class Model extends AbstractSdkArtifact {
             f.setContainsCustomCode(true);
             child.addField(f);
         });
-        getMethodList().stream().filter(m -> m.needsCustomCode() || m.needsToBeAtBottomLevel()).forEach(m -> {
-            modifyChildMethod(m);
-            child.addMethod(m);
-        });
+        getMethodList().stream().filter(m -> !m.isConstructor() && (m.needsCustomCode() || m.needsToBeAtBottomLevel()))
+                       .forEach(m -> {
+                           modifyChildMethod(m);
+                           child.addMethod(m);
+                       });
         child.generateMethodsNecessaryAtEachLevel();
-        child.ensureSdkModelMethodsHaveOverrideAnnotation();
+        child.ensureInterfaceMethodsHaveOverrideAnnotation();
         return child;
     }
 
@@ -752,7 +844,7 @@ public class Model extends AbstractSdkArtifact {
     public void generateMethods() {
         // methods.clear();
         // Adding getters and setters
-        generateSettersAndGetters();
+        generateSettersAndGettersAndValidators();
         generateOtherMethods();
         generateMethodsNecessaryAtEachLevel();
         generateInterfaceMethods();
@@ -763,31 +855,70 @@ public class Model extends AbstractSdkArtifact {
 
     }
 
-    protected void generateSettersAndGetters() {
+    protected void generateSettersAndGettersAndValidators() {
         getFieldList().stream().filter(f -> !f.isAlreadyDefined()).forEach(f -> {
-            final MethodGetter getter = new MethodGetter(f, null, false);
+            final MethodGetter getter = new MethodGetter(f, null, false, f.isIdentifier() && !f.getType().isString());
+            getter.setDeprecation(f.getDeprecation());
+            getter.setInternal(f.isInternal());
             addMethod(getter);
             if (!f.isReadOnly()) {
-                final MethodSetter setter = new MethodSetter(f, null, false);
+                final MethodSetter setter = new MethodSetter(f, null, false, false);
+                setter.setDeprecation(f.getDeprecation());
+                setter.setInternal(f.isInternal());
                 addMethod(setter);
                 if (f.isIdentifier()) {
+                    boolean notStringId = !f.getType().isString();
                     final Field equivalentF = f.clone();
+                    Method equivalentGetter = null;
                     if (f.isUsualIdentifier()) {
                         equivalentF.setName(Utils.combineNames(false, name, Field.IDENTIFIER_NAME));// model name + id
                         // e.g. ApiKeyId
                     } else {
                         equivalentF.setName(Field.IDENTIFIER_NAME);// Have a setId/getId methods
                         // a getId method needs to also be added
-                        final Method equivalentGetter = new MethodGetter(equivalentF,
-                                                                         Utils.generateDocumentationMethodLink(null,
+                        equivalentGetter = new MethodGetter(equivalentF, Utils.generateDocumentationMethodLink(null,
                                                                                                                getter),
-                                                                         true).statement(getter.getCallStatement() + System.lineSeparator());
-                        addMethod(equivalentGetter);
+                                                            true, notStringId).statement(
+                                                                                         getter.getCallStatement()
+                                                                                         + System.lineSeparator());
+
+                    }
+                    if (notStringId) {
+                        final MethodSetter NotStringSetter = new MethodSetter(f.isUsualIdentifier() ? f : equivalentF,
+                                                                              null, false, true);
+                        NotStringSetter.setDeprecation(f.getDeprecation());
+                        NotStringSetter.setInternal(f.isInternal());
+                        addMethod(NotStringSetter);
+                        final Field equivalentF2 = (f.isUsualIdentifier() ? equivalentF : f).clone();
+                        equivalentF2.setType(TypeFactory.stringType());
+                        final Method NotStringSetter2 = new MethodSetter(equivalentF2,
+                                                                         Utils.generateDocumentationMethodLink(null,
+                                                                                                               NotStringSetter),
+                                                                         true, false).statement(
+                                                                                                NotStringSetter.getCallStatement(equivalentF2.toParameter())
+                                                                                                + System.lineSeparator());
+                        addMethod(NotStringSetter2);
 
                     }
                     Method equivalentSetter = new MethodSetter(equivalentF,
-                                                               Utils.generateDocumentationMethodLink(null, setter),
-                                                               true).statement(setter.getCallStatement(equivalentF.toParameter()) + System.lineSeparator());
+                                                               Utils.generateDocumentationMethodLink(null,
+                                                                                                     setter),
+                                                               true, false).statement(
+                                                                                      setter.getCallStatement(equivalentF.toParameter())
+                                                                                      + System.lineSeparator());
+                    equivalentSetter.setDeprecation(f.getDeprecation());
+                    addMethod(equivalentSetter);
+                    if (equivalentGetter != null) {
+                        equivalentGetter.setDeprecation(f.getDeprecation());
+                        addMethod(equivalentGetter);
+                    }
+
+                }
+                // Ensures it is possible to set an enumerator from its String representation
+                if (f.getType().isModelEnum()) {
+                    Method equivalentSetter = new MethodSetter(f, Utils.generateDocumentationMethodLink(null, setter),
+                                                               true, true);
+                    equivalentSetter.setDeprecation(f.getDeprecation());
                     addMethod(equivalentSetter);
                 }
                 if (f.needsValidation()) {
@@ -795,6 +926,9 @@ public class Model extends AbstractSdkArtifact {
                 }
             }
         });
+        if (hasFieldsNeedingValidation()) {
+            setIgnoreLiteralDuplicate(true);
+        }
     }
 
     public void addNoIdentifierGetterAndSetter() {
@@ -805,20 +939,18 @@ public class Model extends AbstractSdkArtifact {
         addMethod(setter);
         final Method getter = new MethodGetter(Field.defaultIdentifier(),
                                                "Warning: " + name + " model does not have any ID field. This always returns {@code null}.",
-                                               true);
+                                               true, false);
         getter.setStatement("return null");
         addMethod(getter);
     }
 
     protected void generateMethodsNecessaryAtEachLevel() {
-        generateHashCodeAndEquals();
         generateMethodsDependingOnParents(null);
     }
 
     protected void generateMethodsDependingOnParents(Model theParent) {
         generateToString(theParent);
-        // FIXME better handle tests depending on the type of model
-
+        generateHashCodeAndEquals(theParent);
         generateIsValid(theParent);
         generateConstructors(theParent);
         generateClone(theParent);
@@ -828,7 +960,7 @@ public class Model extends AbstractSdkArtifact {
         checkInterfaceMethodsState(true);
     }
 
-    private void ensureSdkModelMethodsHaveOverrideAnnotation() {
+    private void ensureInterfaceMethodsHaveOverrideAnnotation() {
         checkInterfaceMethodsState(false);
     }
 
@@ -866,15 +998,29 @@ public class Model extends AbstractSdkArtifact {
         return true;
     }
 
-    protected void generateHashCodeAndEquals() {
+    protected void generateHashCodeAndEquals(Model theParent) {
         if (hasFields()) {
-            addMethod(new MethodHashCode(this, null));
+            generateHashCode(theParent);
         }
-        overrideMethodIfExist(new MethodCanEqual(this, null));
-        addMethod(new MethodEquals(this, null));
+        overrideMethodIfExist(new MethodCanEqual(this, theParent));
+        Method equal = new MethodEquals(this, theParent);
+        if (theParent == null) {
+            addMethod(equal);
+        } else {
+            overrideMethodIfExist(equal);
+        }
     }
 
-    private void generateConstructors(Model theParent) {
+    protected void generateHashCode(Model theParent) {
+        Method hashCode = new MethodHashCode(this, theParent);
+        if (theParent == null) {
+            addMethod(hashCode);
+        } else {
+            overrideMethodIfExist(hashCode);
+        }
+    }
+
+    protected void generateConstructors(Model theParent) {
         ConstructorList constructors = new ConstructorList();
         contructorsName.clear();
         constructors.add(new MethodConstructorAllFields(this, theParent));
@@ -951,7 +1097,7 @@ public class Model extends AbstractSdkArtifact {
             builder.append(description);
         }
         if (hasLongDescription) {
-            builder.append(System.lineSeparator()).append("<p>").append(System.lineSeparator());
+            builder.append(Utils.generateNewDocumentationLine());
             builder.append(longDescription);
         }
         return builder.toString();
@@ -975,7 +1121,7 @@ public class Model extends AbstractSdkArtifact {
                                                               : serialisationString;
     }
 
-    protected void translateSerialisation() throws TranslationException {
+    protected void addSerialisationId() {
         if (!isSerialisable()) {// isAbstract ||
             return;
         }
@@ -983,8 +1129,18 @@ public class Model extends AbstractSdkArtifact {
                                                  Utils.SERIALISATION_UUID, "Serialisation Id.", null, null, true, false,
                                                  false, false, null, false);
         serialVersionUID.setInitialiser(generateSerialisationId() + "L");
-        serialVersionUID.translate();
-        specificationBuilder.addField(serialVersionUID.getSpecificationBuilder().build());
+        addConstant(serialVersionUID);
+    }
+
+    protected void translateConstants() throws TranslationException {
+        addSerialisationId();
+        if (!hasConstants()) {
+            return;
+        }
+        for (final Field f : getConstantList()) {
+            f.translate();
+            specificationBuilder.addField(f.getSpecificationBuilder().build());
+        }
     }
 
     protected void translateFields() throws TranslationException {
@@ -1019,7 +1175,7 @@ public class Model extends AbstractSdkArtifact {
     public void translate() throws TranslationException {
         try {
             initialiseBuilder();
-            translateSerialisation();
+            translateConstants();
             translateFields();
             translateMethods();
         } catch (TranslationException exception) {
@@ -1039,7 +1195,7 @@ public class Model extends AbstractSdkArtifact {
         final String finalParameterName = ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(parameterName == null ? name
                                                                                                                           : parameterName),
                                                                        false);
-        return new Parameter(finalParameterName, Utils.generateDocumentationString(name), null, toType(), null);
+        return new Parameter(finalParameterName, Utils.generateDocumentationString(name), null, toType(), null, null);
     }
 
     public Parameter toParameter() {
@@ -1072,7 +1228,7 @@ public class Model extends AbstractSdkArtifact {
             if (constructor == null) {
                 return;
             }
-            if (constructors.stream().filter(c -> c.hasSameSignature(constructor)).count() == 0) {
+            if (!constructors.stream().anyMatch(c -> c.hasSameSignature(constructor))) {
                 constructors.add(constructor);
             }
         }

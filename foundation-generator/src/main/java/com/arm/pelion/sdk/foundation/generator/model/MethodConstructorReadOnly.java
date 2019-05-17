@@ -1,25 +1,35 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import com.arm.pelion.sdk.foundation.generator.model.ValueGenerator.Values;
 
 public class MethodConstructorReadOnly extends AbstractMethodConstructorWithFieldParameters {
 
     public static final String IDENTIFIER = new MethodConstructorReadOnly(null, null).getIdentifier();
+    private static final String CONSTRUCTOR_DESCRIPTION = "Constructor based on read-only fields.";
 
     public MethodConstructorReadOnly(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, true);
+        super(CONSTRUCTOR_DESCRIPTION, currentModel, parentModel, null, null, true);
     }
 
     @Override
     protected void translateCode() {
         final List<Field> allFields = getAllFields();
-        code.addStatement("this(" + String.join("," + System.lineSeparator(),
-                                                allFields.stream()
-                                                         .map(f -> f.isReadOnly() ? f.toParameter().getName()
-                                                                                  : f.getJavaDefaultValue())
-                                                         .collect(Collectors.toList()))
-                          + ")");
+        final Values values = new Values();
+        allFields.forEach(f -> {
+            if (f.isReadOnly()) {
+                values.addToFormat("$L");
+                values.addValue(f.toParameter().getName());
+
+            } else {
+                values.add(f.getJavaDefaultValue());
+            }
+        });
+
+        code.addStatement("this(" + String.join("," + System.lineSeparator(), values.getFormats())
+
+                          + ")", values.getValuesArray());
     }
 
     @Override

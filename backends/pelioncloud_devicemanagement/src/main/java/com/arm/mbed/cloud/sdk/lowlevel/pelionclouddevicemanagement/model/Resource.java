@@ -42,13 +42,13 @@ public class Resource implements Serializable {
     }
 
     /**
-     * Observable determines whether you can subscribe to changes for this resource. It can have values
-     * \&quot;true\&quot; or \&quot;false\&quot;.
+     * &#39;Determines whether you can subscribe to changes for this resource. It can have values &#x60;true&#x60; or
+     * &#x60;false&#x60;.&#39;
      * 
      * @return obs
      **/
     @ApiModelProperty(example = "true",
-                      value = "Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". ")
+                      value = "'Determines whether you can subscribe to changes for this resource. It can have values `true` or `false`.'")
     public Boolean isObs() {
         return obs;
     }
@@ -63,14 +63,14 @@ public class Resource implements Serializable {
     }
 
     /**
-     * Application specific resource type that describes this resource. [It is created by the client side
-     * application](/docs/current/connecting/resource-setup-in-device-management-client.html). Not meant to be a
-     * human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
+     * Application-specific resource type that describes this resource. It is created by the [client side
+     * application](../connecting/resource-setup-in-device-management-client.html). Not meant to be a human-readable
+     * name for the resource. Multiple resource types may be included, separated by a space.
      * 
      * @return rt
      **/
     @ApiModelProperty(example = "light_sensor",
-                      value = "Application specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-device-management-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.")
+                      value = "Application-specific resource type that describes this resource. It is created by the [client side application](../connecting/resource-setup-in-device-management-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, separated by a space.")
     public String getRt() {
         return rt;
     }
@@ -85,14 +85,13 @@ public class Resource implements Serializable {
     }
 
     /**
-     * The content type of the resource. &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Important&lt;/b&gt;&lt;br/&gt; You are
-     * encouraged to use the resource types listed in the [LwM2M
+     * The content type of the resource. We recommend you use the **resource types** listed in the [LwM2M
      * specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry).
      * 
      * @return type
      **/
     @ApiModelProperty(example = "text/plain",
-                      value = "The content type of the resource. <br/><br/><b>Important</b><br/> You are encouraged to use the resource types listed in the [LwM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry). ")
+                      value = "The content type of the resource.  We recommend you use the **resource types** listed in the [LwM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry).")
     public String getType() {
         return type;
     }
@@ -107,11 +106,11 @@ public class Resource implements Serializable {
     }
 
     /**
-     * The URL of the resource.
+     * The resource URL.
      * 
      * @return uri
      **/
-    @ApiModelProperty(example = "/sen/light", required = true, value = "The URL of the resource.")
+    @ApiModelProperty(example = "/sen/light", required = true, value = "The resource URL.")
     public String getUri() {
         return uri;
     }

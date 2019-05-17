@@ -2,10 +2,13 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Date;
 
+import com.arm.mbed.cloud.sdk.common.Base64;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.arm.mbed.cloud.sdk.common.model.DataFile;
 
 public class TypePrimitive {
 
+    private static final Class<Base64> SDK_BASE64 = Base64.class;
     public static final Class<?> SDK_DATE_CLASS = Date.class;
 
     @SuppressWarnings("incomplete-switch")
@@ -24,6 +27,10 @@ public class TypePrimitive {
                 return boolean.class;
             case "file":
                 return DataFile.class;
+            case "object":
+                return Object.class;
+            case "filter":
+                return Filters.class;
         }
         return null;
     }
@@ -63,7 +70,7 @@ public class TypePrimitive {
             case "binary":
                 return byte[].class;
             case "byte":
-                return String.class;
+                return SDK_BASE64;
             case "date":
             case "date-time":
                 return SDK_DATE_CLASS;
@@ -71,4 +78,37 @@ public class TypePrimitive {
         return String.class;
     }
 
+    public static Class<?> getWrapperEquivalent(Class<?> primitive) {
+        if (primitive == null) {
+            return null;
+        }
+        if (primitive == byte.class) {
+            return Byte.class;
+        }
+        if (primitive == short.class) {
+            return Short.class;
+        }
+        if (primitive == int.class) {
+            return Integer.class;
+        }
+        if (primitive == long.class) {
+            return Long.class;
+        }
+        if (primitive == float.class) {
+            return Float.class;
+        }
+        if (primitive == double.class) {
+            return Double.class;
+        }
+        if (primitive == char.class) {
+            return Character.class;
+        }
+        if (primitive == boolean.class) {
+            return Boolean.class;
+        }
+        if (primitive == void.class) {
+            return Void.class;
+        }
+        return null;
+    }
 }

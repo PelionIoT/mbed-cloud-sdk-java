@@ -35,7 +35,7 @@ public class PreSharedKey implements SdkModel {
      */
     private String secret;
     /**
-     * the date-time when this pre-shared key was uploaded to Mbed Cloud.
+     * the date-time when this pre-shared key was uploaded to Pelion Cloud.
      */
     private final Date createdAt;
 
@@ -125,6 +125,7 @@ public class PreSharedKey implements SdkModel {
      * @param id
      *            the id to set
      */
+    @Override
     @Required
     public void setId(String id) {
         this.id = id;
@@ -203,9 +204,9 @@ public class PreSharedKey implements SdkModel {
     }
 
     /**
-     * Gets when this pre-shared key was uploaded to Mbed Cloud.
+     * Gets when this pre-shared key was uploaded to Pelion Cloud.
      *
-     * @return the date when this pre-shared key was uploaded to Mbed Cloud.
+     * @return the date when this pre-shared key was uploaded to Pelion Cloud.
      */
     public Date getCreatedAt() {
         return createdAt;

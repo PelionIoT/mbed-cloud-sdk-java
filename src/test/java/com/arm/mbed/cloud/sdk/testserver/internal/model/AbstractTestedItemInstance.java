@@ -84,6 +84,7 @@ public abstract class AbstractTestedItemInstance<T extends TestedItem> implement
         return (id != null && description != null && reference != null && options != null && options.isValid());
     }
 
+    @Override
     public T getDescription() {
         return description;
     }

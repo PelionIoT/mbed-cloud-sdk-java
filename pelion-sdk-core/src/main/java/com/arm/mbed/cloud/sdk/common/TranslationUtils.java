@@ -3,6 +3,8 @@ package com.arm.mbed.cloud.sdk.common;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,7 +43,10 @@ public final class TranslationUtils {
     public static final String METHOD_CONVERT_BOOL_TO_BOOL = "toBool";
     public static final String METHOD_CONVERT_NUMBER_TO_LONG = "toLong";
     public static final String METHOD_CONVERT_NUMBER_TO_INT = "toInt";
+    public static final String METHOD_CONVERT_NUMBER_TO_DOUBLE = "toDouble";
     public static final String METHOD_CONVERT_ANY_TO_STRING = "toString";
+    public static final String METHOD_CONVERT_ANY_TO_BYTE_ARRAY = "toByteArray";
+    public static final String METHOD_CONVERT_ANY_TO_BASE64 = "toBase64";
     public static final String METHOD_CONVERT_TO_DATA_FILE = "toDataFile";
 
     /**
@@ -65,12 +70,12 @@ public final class TranslationUtils {
     /**
      * Converts local date to date.
      *
-     * @param date
+     * @param ldate
      *            local date
      * @return corresponding date
      */
-    public static Date toDate(LocalDate date) {
-        return (date == null) ? null : date.toDate();
+    public static Date toDate(LocalDate ldate) {
+        return (ldate == null) ? null : ldate.toDate();
     }
 
     /**
@@ -144,7 +149,7 @@ public final class TranslationUtils {
      * @return corresponding datetime.
      */
     public static DateTime toDateTime(Date date) {
-        return (date == null) ? null : new DateTime(date);
+        return moveToUtc(date);
     }
 
     /**
@@ -192,6 +197,17 @@ public final class TranslationUtils {
     }
 
     /**
+     * Converts to long.
+     * 
+     * @param value
+     *            a date
+     * @return corresponding long number.
+     */
+    public static long toLong(Date value) {
+        return toLong(value, 0L);
+    }
+
+    /**
      * Converts string to a long value.
      * 
      * @param value
@@ -216,6 +232,19 @@ public final class TranslationUtils {
     }
 
     /**
+     * Converts a Date to a long.
+     * 
+     * @param value
+     *            a date
+     * @param defaultValue
+     *            default value.
+     * @return corresponding long number or default value if null.
+     */
+    public static long toLong(Date value, long defaultValue) {
+        return (value == null) ? defaultValue : value.getTime();
+    }
+
+    /**
      * Converts string to a long value.
      *
      * @param stringContainingANumber
@@ -229,7 +258,7 @@ public final class TranslationUtils {
             return defaultValue;
         }
         try {
-            return toLong(Long.parseLong(stringContainingANumber), defaultValue);
+            return Long.parseLong(stringContainingANumber);
         } catch (NumberFormatException exception) {
             SdkLogger.getLogger().logError("Error occurred when parsing the string containing a long number ["
                                            + stringContainingANumber + "]. Defaulting to " + defaultValue, exception);
@@ -282,7 +311,7 @@ public final class TranslationUtils {
      * @return corresponding integer or default value if not recognised
      */
     public static int toInt(String value, int defaultV) {
-        return toInt(toInteger(value, defaultV));
+        return toInt(toInteger(value, Integer.valueOf(defaultV)));
     }
 
     /**
@@ -320,7 +349,7 @@ public final class TranslationUtils {
     }
 
     /**
-     * Converts a string to an boolean.
+     * Converts a string to a boolean.
      *
      * @param value
      *            string containing a boolean.
@@ -344,7 +373,7 @@ public final class TranslationUtils {
     }
 
     /**
-     * Converts a string to an boolean.
+     * Converts a string to a boolean.
      *
      * @param value
      *            string containing a boolean.
@@ -356,7 +385,67 @@ public final class TranslationUtils {
         if (value == null) {
             return defaultV;
         }
-        return toBool(Boolean.parseBoolean(value.trim()), defaultV);
+        if (Boolean.parseBoolean(value.trim())) {
+            return true;
+        }
+        return value.trim().toLowerCase(Locale.UK).equals("false") ? false : defaultV;
+    }
+
+    /**
+     * Converts a Number to a double.
+     * 
+     * @param value
+     *            double
+     * @return corresponding double or 0.0 if null.
+     */
+    public static double toDouble(Number value) {
+        return toDouble(value, 0.0);
+    }
+
+    /**
+     * Converts a string to a double.
+     *
+     * @param value
+     *            string containing a double.
+     * @return corresponding double or 0.0 if not recognised
+     */
+    public static double toDouble(String value) {
+        return toDouble(value, 0.0);
+    }
+
+    /**
+     * Converts a Number to a double.
+     * 
+     * @param value
+     *            double
+     * @param defaultD
+     *            default value
+     * @return corresponding double or default value if null.
+     */
+    public static double toDouble(Number value, double defaultD) {
+        return (value == null) ? defaultD : value.doubleValue();
+    }
+
+    /**
+     * Converts a string to a double.
+     *
+     * @param value
+     *            string containing a double.
+     * @param defaultD
+     *            default value to consider if string not recognised as a double representation
+     * @return corresponding double or default value if not recognised
+     */
+    public static double toDouble(String value, double defaultD) {
+        if (value == null) {
+            return defaultD;
+        }
+        try {
+            return Double.parseDouble(value.trim());
+        } catch (NumberFormatException exception) {
+            SdkLogger.getLogger().logError("Error occurred when parsing the string containing a double number [" + value
+                                           + "]. Defaulting to " + defaultD, exception);
+            return defaultD;
+        }
     }
 
     /**
@@ -385,6 +474,54 @@ public final class TranslationUtils {
      */
     public static String toString(Object obj) {
         return (obj == null) ? null : obj.toString();
+    }
+
+    /**
+     * Converts object to Base64 object.
+     * <p>
+     * Note: See {@link Base64}
+     * 
+     * @param obj
+     *            a base64 encoded object
+     * @return corresponding base64 object or null if the translation could not be performed.
+     */
+    public static Base64 toBase64(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof String) {
+            return Base64.decode((String) obj);
+        }
+        if (obj instanceof byte[]) {
+            return Base64.decode((byte[]) obj);
+        }
+        if (obj instanceof ByteBuffer) {
+            return Base64.decode((ByteBuffer) obj);
+        }
+        return null;
+    }
+
+    /**
+     * Converts object to byte array.
+     * 
+     * @param obj
+     *            an object
+     * @return corresponding byte array or null if the translation could not be performed.
+     */
+    public static byte[] toByteArray(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof String) {
+            return ((String) obj).getBytes(StandardCharsets.UTF_8);
+        }
+        if (obj instanceof byte[]) {
+            return ((byte[]) obj);
+        }
+        if (obj instanceof Base64) {
+            return ((Base64) obj).getEncodedArray();
+        }
+        return null;
     }
 
     /**

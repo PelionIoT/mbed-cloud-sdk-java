@@ -21,9 +21,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This object represents arrays of user and API key IDs.
+ * Represents arrays of user and API key IDs.
  */
-@ApiModel(description = "This object represents arrays of user and API key IDs.")
+@ApiModel(description = "Represents arrays of user and API key IDs.")
 
 public class SubjectList implements Serializable {
     private static final long serialVersionUID = 1L;

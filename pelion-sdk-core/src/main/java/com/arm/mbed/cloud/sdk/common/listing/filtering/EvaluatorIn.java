@@ -19,7 +19,7 @@ public class EvaluatorIn implements FilterEvaluator {
             final List<?> filterValues = filter.getValue() instanceof List ? (List<?>) filter.getValue()
                                                                            : Arrays.asList(filter.getValue());
             return verify(value, filterValues);
-        } catch (Exception exception) {
+        } catch (@SuppressWarnings("unused") Exception exception) {
             return false;
         }
     }

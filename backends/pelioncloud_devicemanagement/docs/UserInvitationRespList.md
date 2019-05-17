@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **after** | **String** | The entity ID to fetch after the given one. |  [optional]
 **data** | [**List&lt;UserInvitationResp&gt;**](UserInvitationResp.md) | A list of entities. | 
-**hasMore** | **Boolean** | Flag indicating whether there is more results. | 
-**limit** | **Integer** | The number of results to return, (range: 2-1000), or equals to &#x60;total_count&#x60; | 
-**object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;list&#39; | 
+**hasMore** | **Boolean** | Flag indicating whether there are more results. | 
+**limit** | **Integer** | The number of results to return (2-1000), or equal to &#x60;total_count&#x60;. | 
+**object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#x60;list&#x60;. | 
 **order** | [**OrderEnum**](#OrderEnum) | The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC. |  [optional]
-**totalCount** | **Integer** | The total number or records, if requested. It might be returned also for small lists. | 
+**totalCount** | **Integer** | The total number of records, if requested. | 
 
 
 <a name="ObjectEnum"></a>

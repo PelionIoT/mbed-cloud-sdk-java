@@ -14,6 +14,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.adapters.DataFileAdapter;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -42,8 +43,12 @@ import retrofit2.Call;
 
 @Preamble(description = "Specifies Update API")
 @Module
+@Deprecated
 /**
  * API exposing functionality for dealing with updates
+ * <p>
+ * 
+ * @deprecated Use foundation interface or {@link DeviceUpdate} instead.
  */
 public class Update extends AbstractModule {
 
@@ -129,8 +134,13 @@ public class Update extends AbstractModule {
                                                        .firmwareImageList(finalOptions.getPageSize(),
                                                                           finalOptions.getOrder().toString(),
                                                                           finalOptions.getAfter(),
-                                                                          finalOptions.encodeInclude(),
-                                                                          new FilterMarshaller(null).encode(finalOptions.getFilter()));
+                                                                          ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                          new FilterMarshaller(null).encode(finalOptions.getFilter()),
+                                                                          null, null, null, null, null, null, null,
+                                                                          null, null, null, null, null, null, null,
+                                                                          null, null, null, null, null, null, null,
+                                                                          null, null, null, null, null, null, null,
+                                                                          null, null, null, null);
                                     }
                                 });
     }
@@ -265,8 +275,8 @@ public class Update extends AbstractModule {
                                            call() {
                                         return endpoint.getUpdate()
                                                        .firmwareImageCreate(DataFileAdapter.reverseMap(finalImage.getDataFile()),
-                                                                            finalImage.getName(),
-                                                                            finalImage.getDescription());
+                                                                            finalImage.getDescription(),
+                                                                            finalImage.getName());
                                     }
 
                                 });
@@ -381,8 +391,14 @@ public class Update extends AbstractModule {
                                                        .firmwareManifestList(finalOptions.getPageSize(),
                                                                              finalOptions.getOrder().toString(),
                                                                              finalOptions.getAfter(),
-                                                                             finalOptions.encodeInclude(),
-                                                                             new FilterMarshaller(null).encode(finalOptions.getFilter()));
+                                                                             ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                             new FilterMarshaller(null).encode(finalOptions.getFilter()),
+                                                                             null, null, null, null, null, null, null,
+                                                                             null, null, null, null, null, null, null,
+                                                                             null, null, null, null, null, null, null,
+                                                                             null, null, null, null, null, null, null,
+                                                                             null, null, null, null, null, null, null,
+                                                                             null);
                                     }
                                 });
     }
@@ -519,10 +535,10 @@ public class Update extends AbstractModule {
                                            call() {
                                         return endpoint.getUpdate()
                                                        .firmwareManifestCreate(DataFileAdapter.reverseMap(finalManifest.getDataFile()),
-                                                                               finalManifest.getName(),
                                                                                finalManifest.getDescription(),
                                                                                DataFileAdapter.reverseMap(KEY_TABLE_PARAMETER,
-                                                                                                          finalManifest.getDecryptionKeysFile()));
+                                                                                                          finalManifest.getDecryptionKeysFile()),
+                                                                               finalManifest.getName());
                                     }
 
                                 });
@@ -637,8 +653,15 @@ public class Update extends AbstractModule {
                                                        .updateCampaignList(finalOptions.getPageSize(),
                                                                            finalOptions.getOrder().toString(),
                                                                            finalOptions.getAfter(),
-                                                                           finalOptions.encodeInclude(),
-                                                                           CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()));
+                                                                           ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                           CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null, null, null, null, null, null,
+                                                                           null, null);
                                     }
                                 });
     }
@@ -1018,7 +1041,7 @@ public class Update extends AbstractModule {
                                                        .updateCampaignMetadataList(finalId, finalOptions.getPageSize(),
                                                                                    finalOptions.getOrder().toString(),
                                                                                    finalOptions.getAfter(),
-                                                                                   finalOptions.encodeInclude());
+                                                                                   ListOptionsEncoder.encodeInclude(finalOptions));
                                     }
                                 });
     }

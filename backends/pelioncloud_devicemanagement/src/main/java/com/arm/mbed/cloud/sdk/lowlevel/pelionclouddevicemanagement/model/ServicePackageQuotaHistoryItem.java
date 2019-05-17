@@ -131,11 +131,11 @@ public class ServicePackageQuotaHistoryItem implements Serializable {
     }
 
     /**
-     * the amount of quota usage, negative or positive
+     * Negative or positive quota usage.
      * 
      * @return amount
      **/
-    @ApiModelProperty(required = true, value = "the amount of quota usage, negative or positive")
+    @ApiModelProperty(required = true, value = "Negative or positive quota usage.")
     public Long getAmount() {
         return amount;
     }
@@ -188,11 +188,12 @@ public class ServicePackageQuotaHistoryItem implements Serializable {
     }
 
     /**
-     * Reservation details if reason is reservation, reservation_release or reservation_termination.
+     * Reservation details if reason is &#x60;reservation&#x60;, &#x60;reservation_releasem&#x60; or
+     * &#x60;reservation_termination&#x60;.
      * 
      * @return reservation
      **/
-    @ApiModelProperty(value = "Reservation details if reason is reservation, reservation_release or reservation_termination.")
+    @ApiModelProperty(value = "Reservation details if reason is `reservation`, `reservation_releasem` or `reservation_termination`.")
     public ServicePackageQuotaHistoryReservation getReservation() {
         return reservation;
     }
@@ -207,11 +208,12 @@ public class ServicePackageQuotaHistoryItem implements Serializable {
     }
 
     /**
-     * Service package details if reason is package_creation, package_renewal or package_termination
+     * Service package details if reason is &#x60;package_creation&#x60;, &#x60;package_renewal&#x60; or
+     * &#x60;package_termination&#x60;.
      * 
      * @return servicePackage
      **/
-    @ApiModelProperty(value = "Service package details if reason is package_creation, package_renewal or package_termination")
+    @ApiModelProperty(value = "Service package details if reason is `package_creation`, `package_renewal` or `package_termination`.")
     public ServicePackageQuotaHistoryServicePackage getServicePackage() {
         return servicePackage;
     }

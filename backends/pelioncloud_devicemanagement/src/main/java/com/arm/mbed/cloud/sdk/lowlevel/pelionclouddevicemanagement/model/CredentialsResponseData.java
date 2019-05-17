@@ -36,12 +36,12 @@ public class CredentialsResponseData implements Serializable {
     }
 
     /**
-     * PEM format X.509 server certificate that will be used to validate the server certificate that will be received
-     * during the TLS/DTLS handshake.
+     * PEM-format X.509 server certificate used to validate the server certificate received during the TLS/DTLS
+     * handshake.
      * 
      * @return certificate
      **/
-    @ApiModelProperty(value = "PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.")
+    @ApiModelProperty(value = "PEM-format X.509 server certificate used to validate the server certificate received during the TLS/DTLS handshake.")
     public String getCertificate() {
         return certificate;
     }
@@ -56,11 +56,11 @@ public class CredentialsResponseData implements Serializable {
     }
 
     /**
-     * Server URI to which the client needs to connect to.
+     * Server URI that the client connects to.
      * 
      * @return url
      **/
-    @ApiModelProperty(value = "Server URI to which the client needs to connect to.")
+    @ApiModelProperty(value = "Server URI that the client connects to.")
     public String getUrl() {
         return url;
     }

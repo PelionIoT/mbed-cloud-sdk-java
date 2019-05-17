@@ -24,9 +24,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * This object represents a user login profile in Device Management.
+ * Represents a user login profile in Device Management.
  */
-@ApiModel(description = "This object represents a user login profile in Device Management.")
+@ApiModel(description = "Represents a user login profile in Device Management.")
 
 public class LoginProfile implements Serializable {
     private static final long serialVersionUID = 1L;

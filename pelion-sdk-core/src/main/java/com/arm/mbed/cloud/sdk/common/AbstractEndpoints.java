@@ -34,7 +34,7 @@ public abstract class AbstractEndpoints implements Cloneable {
     protected <S> S initialiseService(Class<S> serviceClass) {
         try {
             return serviceRegistry == null ? null : serviceRegistry.getService(serviceClass);
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
             return null;
         }
     }

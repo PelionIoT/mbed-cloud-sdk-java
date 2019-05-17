@@ -14,6 +14,9 @@ import com.arm.pelion.sdk.foundation.generator.util.SimpleModelDefinitionStore;
 public class Artifacts {
 
     private final ModelDefinitionStore<Model> rawModels;
+    private final ModelDefinitionStore<Model> listOptionModels;
+    private final ModelDefinitionStore<Model> daoModels;
+    private final ModelDefinitionStore<Model> factoryModels;
     private final ArtifactFetcher<Model> modelFetcher;
     private final ModelListOptionFetcher listOptionFetcher;
     private final ModelDefinitionStore<ModelAdapter> adapterModels;
@@ -36,6 +39,9 @@ public class Artifacts {
         super();
         rawModels = new SimpleModelDefinitionStore<>();
         adapterModels = new SimpleModelDefinitionStore<>();
+        listOptionModels = new SimpleModelDefinitionStore<>();
+        daoModels = new SimpleModelDefinitionStore<>();
+        factoryModels = new SimpleModelDefinitionStore<>();
         processedModels = new LinkedList<>();
         unitTests = new LinkedList<>();
         packagesInfo = new HashMap<>();
@@ -44,7 +50,7 @@ public class Artifacts {
         rawModules = new MergeableModelDefinitionStore<>();
         processedModules = new LinkedList<>();
         modelFetcher = new ArtifactFetcher<>(rawModels);
-        listOptionFetcher = new ModelListOptionFetcher(rawModels);
+        listOptionFetcher = new ModelListOptionFetcher(listOptionModels);
         adapterFetcher = new ModelAdapterFetcher(adapterModels, modelFetcher);
         endpointsFetcher = new ModelEndpointsFetcher(rawEndpoints);
     }
@@ -66,6 +72,25 @@ public class Artifacts {
 
     public void addModel(Model model) {
         this.rawModels.store(model);
+    }
+
+    public void addListOption(ModelListOption listOptionModel) {
+        this.listOptionModels.store(listOptionModel);
+    }
+
+    public void addDao(ModelDao daoModel) {
+        daoModels.store(daoModel);
+    }
+
+    public void addFactory(Model factory) {
+        factoryModels.store(factory);
+    }
+
+    public <T extends ModelListOption> void addListOptions(List<T> models) {
+        if (models == null || models.isEmpty()) {
+            return;
+        }
+        models.forEach(m -> addListOption(m));
     }
 
     public void addAdapter(ModelAdapter adapter) {
@@ -106,22 +131,46 @@ public class Artifacts {
             storePackageInfo(m);
             processedModels.addAll(m.getProcessedModels());
         });
+        // List options processed models
+        listOptionModels.getModels().forEach(m -> {
+            storePackageInfo(m);
+            m.generateMethods();
+            processedModels.addAll(m.getProcessedModels());
+        });
         // Add adapter packages and generate methods.
         adapterModels.getModels().forEach(m -> {
             storePackageInfo(m);
             m.generateMethods();
         });
-        // Unit tests
-        processedModels.stream().filter(m -> !m.isAbstract()).forEach(m -> unitTests.add(new ModelTest(m)));
         // Process Endpoints
-        rawEndpoints.getModels().forEach(m -> storePackageInfo(m));
-        processedModels.addAll(rawEndpoints.getModels());
+        rawEndpoints.getModels().forEach(m -> {
+            storePackageInfo(m);
+            m.generateMethods();
+            processedEndpoints.addAll(m.getProcessedModels().stream().map(e -> (ModelEndpoints) e)
+                                       .collect(Collectors.toList()));
+        });
         // Process Modules
         rawModules.getModels().forEach(m -> {
             storePackageInfo(m);
+            m.generateMethods();
             processedModules.addAll(m.getProcessedModels().stream().map(c -> (ModelModule) c)
                                      .collect(Collectors.toList()));
         });
+        // DAO processed models
+        daoModels.getModels().forEach(m -> {
+            storePackageInfo(m);
+            m.generateMethods();
+            processedModels.addAll(m.getProcessedModels());
+        });
+        // Factory processed models
+        factoryModels.getModels().forEach(m -> {
+            storePackageInfo(m);
+            m.generateMethods();
+            processedModels.addAll(m.getProcessedModels());
+        });
+
+        // Unit tests
+        processedModels.stream().filter(m -> !m.isAbstract()).forEach(m -> unitTests.add(new ModelTest(m)));
     }
 
     /**
@@ -134,6 +183,9 @@ public class Artifacts {
     public List<Model> getAllRawModels() {
         final List<Model> raw = new ArrayList<>(rawModels.getModels());
         raw.addAll(adapterModels.getModels());
+        raw.addAll(listOptionModels.getModels());
+        raw.addAll(daoModels.getModels());
+        raw.addAll(factoryModels.getModels());
         raw.addAll(rawEndpoints.getModels());
         raw.addAll(rawModules.getModels());
         // TODO add missing
@@ -151,8 +203,14 @@ public class Artifacts {
         return getProcessedModels().stream().filter(m -> m instanceof ModelPojo).collect(Collectors.toList());
     }
 
+    public List<Model> getModuleFactory() {
+        return getProcessedModels().stream().filter(m -> m instanceof ModelModuleFactory).collect(Collectors.toList());
+    }
+
     public List<Model> getProcessedNonPojoModels() {
-        return getProcessedModels().stream().filter(m -> !(m instanceof ModelPojo)).collect(Collectors.toList());
+        return getProcessedModels().stream()
+                                   .filter(m -> !(m instanceof ModelPojo) && !(m instanceof ModelModuleFactory))
+                                   .collect(Collectors.toList());
     }
 
     public List<ModelEndpoints> getProcessedEndpoints() {
@@ -186,13 +244,20 @@ public class Artifacts {
         return unitTests;
     }
 
+    public List<ModelTest> getModuleFactoryUnitTests() {
+        return getUnitTests().stream().filter(m -> m.getModelUnderTest() instanceof ModelModuleFactory)
+                             .collect(Collectors.toList());
+    }
+
     public List<ModelTest> getPojoUnitTests() {
         return getUnitTests().stream().filter(m -> m.getModelUnderTest() instanceof ModelPojo)
                              .collect(Collectors.toList());
     }
 
     public List<ModelTest> getNonPojoUnitTests() {
-        return getUnitTests().stream().filter(m -> !(m.getModelUnderTest() instanceof ModelPojo))
+        return getUnitTests().stream()
+                             .filter(m -> !(m.getModelUnderTest() instanceof ModelPojo)
+                                          && !(m.getModelUnderTest() instanceof ModelModuleFactory))
                              .collect(Collectors.toList());
     }
 

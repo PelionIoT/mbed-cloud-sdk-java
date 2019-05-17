@@ -20,16 +20,21 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Provides details in case of failure.
+     *
      */
     private final String message;
 
     /**
      * Indicates whether the certificate issuer was verified successfully.
+     *
      */
     private final boolean successful;
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #VerificationResponse()} instead.
      * 
@@ -49,6 +54,9 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #VerificationResponse()} instead.
      * 
@@ -83,6 +91,7 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Gets id.
+     *
      * <p>
      * Warning: VerificationResponse model does not have any ID field. This always returns {@code null}.
      * 
@@ -113,7 +122,21 @@ public class VerificationResponse implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "VerificationResponse [message=" + message + ", successful=" + successful + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
+     *
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -124,12 +147,13 @@ public class VerificationResponse implements SdkModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((message == null) ? 0 : message.hashCode());
-        result = prime * result + Objects.hashCode(successful);
+        result = prime * result + Objects.hashCode(Boolean.valueOf(successful));
         return result;
     }
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -143,6 +167,7 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     *
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -179,19 +204,8 @@ public class VerificationResponse implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "VerificationResponse [message=" + message + ", successful=" + successful + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
+     *
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -204,6 +218,7 @@ public class VerificationResponse implements SdkModel {
 
     /**
      * Clones this instance.
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

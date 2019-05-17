@@ -37,12 +37,12 @@ public class PreSharedKeyWithoutSecret implements Serializable {
     }
 
     /**
-     * The date-time (RFC3339) when this pre-shared key was uploaded to Pelion device management.
+     * The date-time (RFC3339) when this PSK was uploaded to Device Management.
      * 
      * @return createdAt
      **/
     @ApiModelProperty(example = "2017-07-21T17:32:28.012Z",
-                      value = "The date-time (RFC3339) when this pre-shared key was uploaded to Pelion device management.")
+                      value = "The date-time (RFC3339) when this PSK was uploaded to Device Management.")
     public DateTime getCreatedAt() {
         return createdAt;
     }
@@ -57,13 +57,13 @@ public class PreSharedKeyWithoutSecret implements Serializable {
     }
 
     /**
-     * The unique endpoint identifier that this pre-shared key applies to. 16-64
+     * The unique endpoint identifier that this PSK applies to. 16-64
      * [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
      * 
      * @return endpointName
      **/
     @ApiModelProperty(example = "my-endpoint-0001", required = true,
-                      value = "The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.")
+                      value = "The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.")
     public String getEndpointName() {
         return endpointName;
     }

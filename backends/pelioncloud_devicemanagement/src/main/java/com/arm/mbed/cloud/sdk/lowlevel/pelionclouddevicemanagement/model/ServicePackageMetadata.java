@@ -20,9 +20,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * Account&#39;s service package metadata.
+ * Account&#39;s service package metadata. Value is &#x60;null&#x60; if service package has expired.
  */
-@ApiModel(description = "Account's service package metadata.")
+@ApiModel(description = "Account's service package metadata. Value is `null` if service package has expired.")
 
 public class ServicePackageMetadata implements Serializable {
     private static final long serialVersionUID = 1L;

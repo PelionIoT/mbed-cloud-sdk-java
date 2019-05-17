@@ -74,12 +74,12 @@ public class ListOfPreSharedKeysWithoutSecret implements Serializable {
 
     /**
      * An offset token for fetching the next page. Note that exactly the same limit needs to be used on the request for
-     * fetching the subsequent pages.
+     * fetching subsequent pages.
      * 
      * @return continuationMarker
      **/
     @ApiModelProperty(example = "001e001000120010fac8f300487f11e8839a459edde8bd42f07fffffebf07fffffebb1219cc7862b64bbaf775dc545e274810005",
-                      value = "An offset token for fetching the next page. Note that exactly the same limit needs to be used on the request for fetching the subsequent pages.")
+                      value = "An offset token for fetching the next page. Note that exactly the same limit needs to be used on the request for fetching subsequent pages.")
     public String getContinuationMarker() {
         return continuationMarker;
     }
@@ -99,12 +99,11 @@ public class ListOfPreSharedKeysWithoutSecret implements Serializable {
     }
 
     /**
-     * Array of the pre-shared key entries. The array is empty if there are no pre-shared keys.
+     * Array of the PSK entries. The array is empty if there are no PSKs.
      * 
      * @return data
      **/
-    @ApiModelProperty(required = true,
-                      value = "Array of the pre-shared key entries. The array is empty if there are no pre-shared keys.")
+    @ApiModelProperty(required = true, value = "Array of the PSK entries. The array is empty if there are no PSKs.")
     public List<PreSharedKeyWithoutSecret> getData() {
         return data;
     }
@@ -119,11 +118,11 @@ public class ListOfPreSharedKeysWithoutSecret implements Serializable {
     }
 
     /**
-     * Are there more results available.
+     * More results are available.
      * 
      * @return hasMore
      **/
-    @ApiModelProperty(example = "true", required = true, value = "Are there more results available.")
+    @ApiModelProperty(example = "true", required = true, value = "More results are available.")
     public Boolean isHasMore() {
         return hasMore;
     }
@@ -177,11 +176,11 @@ public class ListOfPreSharedKeysWithoutSecret implements Serializable {
     }
 
     /**
-     * The creation time based order of the entries.
+     * Record order based on creation time.
      * 
      * @return order
      **/
-    @ApiModelProperty(example = "DESC", required = true, value = "The creation time based order of the entries.")
+    @ApiModelProperty(example = "DESC", required = true, value = "Record order based on creation time.")
     public String getOrder() {
         return order;
     }

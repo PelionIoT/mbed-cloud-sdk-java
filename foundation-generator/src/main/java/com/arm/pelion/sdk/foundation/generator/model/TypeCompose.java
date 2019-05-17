@@ -3,6 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
 
 public abstract class TypeCompose extends TypeParameter {
 
@@ -27,8 +28,23 @@ public abstract class TypeCompose extends TypeParameter {
 
     public TypeCompose(TypeParameter contentType, boolean concrete) {
         super();
-        this.contentType = contentType;
+        this.contentType = convertToWrappersIfNeeded(contentType);
         this.concreteImplementation = concrete;
+    }
+
+    protected TypeCompose(Import importPath, Class<?> clazz, TypeName typeName, String type, String format,
+                          TypeParameter contentType, boolean concrete) {
+        super(importPath, clazz, typeName, type, format);
+        this.concreteImplementation = concrete;
+        this.contentType = contentType;
+    }
+
+    private TypeParameter convertToWrappersIfNeeded(TypeParameter contentType) {
+        if (contentType == null) {
+            return null;
+        }
+        contentType.transformIntoWrapper();
+        return contentType;
     }
 
     public TypeCompose(Import importPath) {
@@ -48,11 +64,21 @@ public abstract class TypeCompose extends TypeParameter {
             contentType.translate();
             setImportPath();
             TranslateTypeNameBasedOnContentType();
-        } catch (Exception e) {
+        } catch (@SuppressWarnings("unused") Exception e) {
             // e.printStackTrace();
             setClazz(getCollectionClass());
             super.translate();
         }
+    }
+
+    @Override
+    public boolean isNumber() {
+        return false;
+    }
+
+    @Override
+    public boolean isBoolean() {
+        return false;
     }
 
     protected void setImportPath() {
@@ -122,6 +148,11 @@ public abstract class TypeCompose extends TypeParameter {
     @Override
     public String getShortName() {
         return getCollectionClass().getSimpleName();
+    }
+
+    @Override
+    public String getFullyQualifiedName() {
+        return getCollectionClass().getName();
     }
 
     protected void TranslateTypeNameBasedOnContentType() {

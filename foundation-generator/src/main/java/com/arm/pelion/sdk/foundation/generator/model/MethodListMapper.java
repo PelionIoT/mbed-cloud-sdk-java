@@ -102,7 +102,8 @@ public class MethodListMapper extends MethodMapper {
                 method.getCode().addStatement("return ($L == null) ? null : $L.$L()", localVariableFrom,
                                               localVariableFrom, correspondingMethod.getName());
             }
-        } catch (NoSuchMethodException | SecurityException | NullPointerException exception) {
+        } catch (@SuppressWarnings("unused") NoSuchMethodException | SecurityException
+                                             | NullPointerException exception) {
             if (isBoolean) {
                 method.getCode().addStatement("return false");
             } else {

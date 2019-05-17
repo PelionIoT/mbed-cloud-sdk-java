@@ -10,11 +10,13 @@ import java.util.stream.Collectors;
 import javax.lang.model.element.Modifier;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.NotImplemented;
 import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.NotImplementedException;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeVariableName;
@@ -34,9 +36,12 @@ public class Method extends AbstractSdkArtifact {
     protected boolean doesNotPerformAnything;
     protected boolean isUnchecked;
     protected boolean needsToBeAtBottomLevel;
+    protected boolean shouldUseVarargs;
     protected final List<Class<?>> exceptions;
     private boolean ignoreShortName;
     private boolean forcePrivate;
+    private boolean ignoreResourceClosure;
+    private boolean ignoreMethodLength;
 
     public Method(boolean isReadOnly, String name, String description, String longDescription, boolean isStatic,
                   boolean isAccessible, boolean isAbstract, boolean containsCustomCode, boolean needsCustomCode,
@@ -57,6 +62,9 @@ public class Method extends AbstractSdkArtifact {
         setNeedsToBeAtBottomLevel(false);
         setIgnoreShortName(false);
         setForcePrivate(false);
+        setIgnoreResourceClosure(false);
+        shouldUseVarargs(false);
+        setIgnoreMethodLength(false);
     }
 
     public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride,
@@ -112,12 +120,40 @@ public class Method extends AbstractSdkArtifact {
         this.ignoreShortName = ignoreShortName;
     }
 
+    public boolean isIgnoreResourceClosure() {
+        return ignoreResourceClosure;
+    }
+
+    public boolean isConstructor() {
+        return false;
+    }
+
+    public void setIgnoreResourceClosure(boolean ignoreResourceClosure) {
+        this.ignoreResourceClosure = ignoreResourceClosure;
+    }
+
+    public boolean isIgnoreMethodLength() {
+        return ignoreMethodLength;
+    }
+
+    public void setIgnoreMethodLength(boolean ignoreMethodLength) {
+        this.ignoreMethodLength = ignoreMethodLength;
+    }
+
     public boolean isForcePrivate() {
         return forcePrivate;
     }
 
     public void setForcePrivate(boolean forcePrivate) {
         this.forcePrivate = forcePrivate;
+    }
+
+    public boolean isShouldUseVarargs() {
+        return shouldUseVarargs;
+    }
+
+    public void shouldUseVarargs(boolean shouldUseVarargs) {
+        this.shouldUseVarargs = shouldUseVarargs;
     }
 
     @SuppressWarnings("unchecked")
@@ -239,6 +275,14 @@ public class Method extends AbstractSdkArtifact {
         return !parameters.isEmpty();
     }
 
+    public boolean hasParameterOfType(TypeParameter type) {
+        return type == null ? false : parameters.stream().anyMatch(p -> p.getType().isEquivalent(type));
+    }
+
+    public int getParameterCount() {
+        return parameters.size();
+    }
+
     /**
      * @return the statement
      */
@@ -286,6 +330,7 @@ public class Method extends AbstractSdkArtifact {
         this.statement = statement;
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends Method> T statement(String aStatement) {
         setStatement(aStatement);
         return (T) this;
@@ -331,14 +376,17 @@ public class Method extends AbstractSdkArtifact {
         if (isStatic) {
             specificationBuilder.addModifiers(Modifier.STATIC);
         }
+        if (isReadOnly) {
+            specificationBuilder.addModifiers(Modifier.FINAL);
+        }
         if (isAbstract) {
             specificationBuilder.addModifiers(Modifier.ABSTRACT);
         }
         addAnnotations();
     }
 
-    protected void addExceptions() {
-        exceptions.forEach(e -> specificationBuilder.addException(e));
+    public boolean throwsExceptions() {
+        return !exceptions.isEmpty();
     }
 
     protected void addAnnotations() {
@@ -356,22 +404,43 @@ public class Method extends AbstractSdkArtifact {
         }
         if (ignoreShortName) {
             if (getName() != null && getName().length() < 3) {
-                specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreShortMethodName());
+                annotationRegistry.ignoreShortMethodName();
             }
         }
         if (isUnchecked) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.setAsUnchecked());
+            annotationRegistry.setAsUnchecked();
+        }
+        if (ignoreResourceClosure) {
+            annotationRegistry.ignoreResourceClosure();
+        }
+        if (ignoreMethodLength) {
+            annotationRegistry.ignoreExcessiveMethodLength();
+        }
+        if (hasDeprecation()) {
+            specificationBuilder.addAnnotation(Deprecated.class);
+        }
+        addStaticAnalysisAnnotations();
+    }
+
+    @Override
+    protected void addStaticAnalysisAnnotations() {
+        if (annotationRegistry.hasAnnotations()) {
+            specificationBuilder.addAnnotation(annotationRegistry.generateAnnotation());
         }
     }
 
-    protected void addParameters() throws TranslationException {
+    protected void defineMethod() throws TranslationException {
         final Map<TypeParameter, Boolean> definedTypes = new HashMap<>();
         if (hasDescription()) {
             specificationBuilder.addJavadoc(description + System.lineSeparator());
             if (hasLongDescription()) {
-                specificationBuilder.addJavadoc("<p>" + System.lineSeparator() + longDescription
+                specificationBuilder.addJavadoc(Utils.generateNewDocumentationLine() + longDescription
                                                 + System.lineSeparator());
             }
+        }
+        if (hasDeprecation()) {
+            specificationBuilder.addJavadoc((hasDescription() ? Utils.generateNewDocumentationLine() : "")
+                                            + getDeprecation().getNotice() + System.lineSeparator());
         }
         if (hasParameters()) {
             for (final Parameter parameter : parameters) {
@@ -379,19 +448,25 @@ public class Method extends AbstractSdkArtifact {
                 if (parameter.getType().isGeneric()) {
                     if (!definedTypes.containsKey(parameter.getType())) {
                         specificationBuilder.addTypeVariable((TypeVariableName) parameter.getType().getTypeName());
+                        specificationBuilder.addJavadoc(parameter.getType().getJavadocDescription()
+                                                        + System.lineSeparator());
                         definedTypes.put(parameter.getType(), Boolean.TRUE);
                     }
                 }
                 specificationBuilder.addParameter(parameter.getSpecification().build());
-                specificationBuilder.addJavadoc("@param " + parameter.getName() + " " + parameter.getDescription()
-                                                + System.lineSeparator());
+                specificationBuilder.addJavadoc(parameter.getJavadocDescription() + System.lineSeparator());
+            }
+            if (shouldUseVarargs) {
+                specificationBuilder.varargs();
             }
         }
+
         if (hasReturn()) {
             returnType.translate();
             if (returnType.isGeneric()) {
                 if (!definedTypes.containsKey(returnType)) {
                     specificationBuilder.addTypeVariable((TypeVariableName) returnType.getTypeName());
+                    specificationBuilder.addJavadoc(returnType.getJavadocDescription() + System.lineSeparator());
                 }
             }
             if (returnType.hasClass()) {
@@ -403,9 +478,18 @@ public class Method extends AbstractSdkArtifact {
                                             + String.valueOf(hasReturnDescription() ? returnDescription : "something")
                                             + System.lineSeparator());
         }
+        if (throwsExceptions()) {
+            exceptions.forEach(e -> {
+                specificationBuilder.addException(e);
+                specificationBuilder.addJavadoc("@throws " + e.getSimpleName()
+                                                + " if an error occurs during the process." + System.lineSeparator());
+            });
+
+        }
 
     }
 
+    @SuppressWarnings("unused")
     protected void translateCode() throws TranslationException {
         // TODO Implement
     }
@@ -415,6 +499,7 @@ public class Method extends AbstractSdkArtifact {
             return;
         }
         if (containsCustomCode) {
+            specificationBuilder.addAnnotation(NotImplemented.class);
             specificationBuilder.addStatement("// TODO Auto-generated method stub.");
             specificationBuilder.addStatement("throw new $T()", NotImplementedException.class);
             specificationBuilder.addException(NotImplementedException.class);
@@ -452,7 +537,7 @@ public class Method extends AbstractSdkArtifact {
                 specificationBuilder.addStatement(statement);
             }
         }
-        if (hasCode()) {
+        if (hasCode() && !hasStatement()) {
             translateCode();
             specificationBuilder.addCode(code.build());
         }
@@ -461,21 +546,13 @@ public class Method extends AbstractSdkArtifact {
     @Override
     public void translate() throws TranslationException {
         initialiseBuilder();
-        addParameters();
+        defineMethod();
         addModifiers();
-        addExceptions();
         addCode();
     }
 
     public String generateSignatureForDocumentation() {
-        return generateSignatureForDocumentation(name, parameters);
-    }
-
-    public static String generateSignatureForDocumentation(String methodName, List<Parameter> parameters) {
-        return methodName + "("
-               + (parameters == null ? "" : String.join(",", parameters.stream().map(p -> p.getType().getShortName())
-                                                                       .collect(Collectors.toList())))
-               + ")";
+        return Utils.generateSignatureForDocumentation(name, parameters);
     }
 
     /*

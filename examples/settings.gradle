@@ -23,6 +23,8 @@ include ':pelion-sdk-core'
 project(':pelion-sdk-core').projectDir = file('../pelion-sdk-core')
 include 'foundation-models'
 project(':foundation-models').projectDir = file('../foundation-models')
+include 'foundation-access'
+project(':foundation-access').projectDir = file('../foundation-access')
 include ':mbed-cloud-sdk-java'
 project(':mbed-cloud-sdk-java').projectDir = file('../')
 

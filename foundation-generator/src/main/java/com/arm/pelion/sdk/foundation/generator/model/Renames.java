@@ -36,6 +36,18 @@ public class Renames {
         return fieldName == null ? false : fromTo.containsKey(fieldName) || toFrom.containsKey(fieldName);
     }
 
+    public int numberOfRenames() {
+        return fromTo.size();
+    }
+
+    public boolean isEmpty() {
+        return fromTo.isEmpty();
+    }
+
+    public Map<String, String> getToFrom() {
+        return toFrom;
+    }
+
     public void addEntry(String from, String to) {
         if (from == null || to == null) {
             return;

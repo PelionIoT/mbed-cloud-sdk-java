@@ -41,6 +41,9 @@ public class LoginHistory implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #LoginHistory()} instead.
      * 
@@ -64,6 +67,9 @@ public class LoginHistory implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #LoginHistory()} instead.
      * 
@@ -72,7 +78,7 @@ public class LoginHistory implements SdkModel {
      */
     @Internal
     public LoginHistory(LoginHistory loginHistory) {
-        this(loginHistory == null ? new java.util.Date() : loginHistory.date,
+        this(loginHistory == null ? new Date() : loginHistory.date,
              loginHistory == null ? (String) null : loginHistory.ipAddress,
              loginHistory != null && loginHistory.success,
              loginHistory == null ? (String) null : loginHistory.userAgent);
@@ -82,7 +88,7 @@ public class LoginHistory implements SdkModel {
      * Constructor.
      */
     public LoginHistory() {
-        this(new java.util.Date(), (String) null, false, (String) null);
+        this(new Date(), (String) null, false, (String) null);
     }
 
     /**
@@ -100,6 +106,7 @@ public class LoginHistory implements SdkModel {
 
     /**
      * Gets id.
+     *
      * <p>
      * Warning: LoginHistory model does not have any ID field. This always returns {@code null}.
      * 
@@ -148,7 +155,22 @@ public class LoginHistory implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "LoginHistory [date=" + date + ", ipAddress=" + ipAddress + ", success=" + success + ", userAgent="
+               + userAgent + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
+     *
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -160,13 +182,14 @@ public class LoginHistory implements SdkModel {
         int result = 1;
         result = prime * result + ((date == null) ? 0 : date.hashCode());
         result = prime * result + ((ipAddress == null) ? 0 : ipAddress.hashCode());
-        result = prime * result + Objects.hashCode(success);
+        result = prime * result + Objects.hashCode(Boolean.valueOf(success));
         result = prime * result + ((userAgent == null) ? 0 : userAgent.hashCode());
         return result;
     }
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -180,6 +203,7 @@ public class LoginHistory implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     *
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -230,20 +254,8 @@ public class LoginHistory implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "LoginHistory [date=" + date + ", ipAddress=" + ipAddress + ", success=" + success + ", userAgent="
-               + userAgent + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
+     *
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -256,6 +268,7 @@ public class LoginHistory implements SdkModel {
 
     /**
      * Clones this instance.
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

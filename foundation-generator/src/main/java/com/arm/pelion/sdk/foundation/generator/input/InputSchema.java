@@ -26,17 +26,34 @@ public interface InputSchema {
     final String DEFAULT_VALUE_TAG = "default";
     final String DESCRIPTION_TAG = "description";
     final String SUMMARY_TAG = "summary";
+    final String DETAILED_DESCRIPTION_TAG = "detail";
     final String LONG_DESCRIPTION_TAG = "long_description";
+    final String NOTES_TAG = "notes";
     final String FIELDS_TAG = "fields";
     final String RENAMES_TAG = "field_renames";
     final String REQUIRED_TAG = "required";
     final String ITEMS_TAG = "items";
-    final String PATTERN_TAG = "pattern";
     final String HASHTABLE_TAG = "additionalProperties";
     final String ENUMS_TAG = "enums";
     final String ENUM_REFERENCE_TAG = "enum_reference";
     final String ENUM_VALUES_TAG = "values";
     final String ENTITY_REFERENCE_TAG = "entity_name";
+    final String INTERNAL_FIELD_TAG = "private_field";
+    final String INTERNAL_METHOD_TAG = "private_method";
+
+    // Limits
+    final String PATTERN_TAG = "pattern";
+    final String MAXIMUM_TAG = "maximum";
+    final String MINIMUM_TAG = "minimum";
+    final String MAXIMUM_LENGTH_TAG = "maxLength";
+    final String MINIMUM_LENGTH_TAG = "minLength";
+    final String MAXIMUM_ITEMS_TAG = "maxItems";
+    final String MINIMUM_ITEMS_TAG = "minItems";
+    final String MAXIMUM_PROPERTIES_TAG = "maxProperties";
+    final String MINIMUM_PROPERTIES_TAG = "minProperties";
+    final String EXCLUSIVE_MAXIMUM_TAG = "exclusiveMaximum";
+    final String EXCLUSIVE_MINIMUM_TAG = "exclusiveMinimum";
+
     // FIXME remove
     final String FOREIGN_ENTITY_REFERENCE_TAG = "entity";
     final String ENUM_NAME_TAG = "enum_name";
@@ -52,13 +69,31 @@ public interface InputSchema {
     final String METHOD_DOES_RETURN_ITSELF_TAG = "self";
     final String METHOD_DOES_RETURN_CUSTOM_TAG = "custom";
 
+    // Filters
+    final String FILTER_TAG = "x_filter";
+    final String FILTER_EQUAL_TAG = "eq";
+    final String FILTER_NOT_EQUAL_TAG = "neq";
+    final String FILTER_LESS_THAN_TAG = "lte";
+    final String FILTER_GREATER_THAN_TAG = "gte";
+    final String FILTER_IN_TAG = "in";
+    final String FILTER_NOT_IN_THAN_TAG = "nin";
+    final String FILTER_LIKE_TAG = "like";
+
     // Method types
     final String CUSTOM_METHOD_TAG = "custom_method";
     final String LIST_METHOD_TAG = "list";
     final String CREATE_METHOD_TAG = "create";
-    final String READ_METHOD_TAG = "get";
+    final String READ_METHOD_TAG = "read";
     final String UPDATE_METHOD_TAG = "update";
     final String DELETE_METHOD_TAG = "delete";
     final String ME_METHOD_TAG = "me";
+
+    // deprecation
+    final String FIELD_DEPRECATION_TAG = "x-deprecation";
+    final String METHOD_DEPRECATION_TAG = "x_deprecation";
+    final String SINCE_DEPRECATION_TAG = "issued_at";
+    final String WHEN_DEPRECATION_TAG = "end_of_life_at";
+    final String DESCRIPTION_DEPRECATION_TAG = "comment";
+    final String LINKS_DEPRECATION_TAG = "links";
 
 }

@@ -107,7 +107,7 @@ public class LowLevelAPIMethodArgument {
                 Field dataField = argClass.getDeclaredField(LIST_RESPONSE_LIST_FIELD());
                 return ((ParameterizedType) dataField.getGenericType()).getActualTypeArguments()[0].getTypeName();
             }
-        } catch (Exception exception) {
+        } catch (@SuppressWarnings("unused") Exception exception) {
             // Nothing to do
         }
         return null;
@@ -121,7 +121,7 @@ public class LowLevelAPIMethodArgument {
         Class<?> clazz;
         try {
             clazz = determineClass();
-        } catch (ClassNotFoundException exception) {
+        } catch (@SuppressWarnings("unused") ClassNotFoundException exception) {
             return false;
         }
         return isOpenApiModel(clazz);

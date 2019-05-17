@@ -24,8 +24,8 @@ public class DataFile implements SdkModel {
      * Serialisation Id.
      */
     private static final long serialVersionUID = 2092096356697353992L;
-    protected static final String BINARY_FILE_MEDIA_TYPE = "application/octet-stream";
-    protected static final String CSV_FILE_MEDIA_TYPE = "application/vnd.ms-excel";
+    public static final String BINARY_FILE_MEDIA_TYPE = "application/octet-stream";
+    public static final String CSV_FILE_MEDIA_TYPE = "application/vnd.ms-excel";
     @Required
     private String contentType;
     @Required
@@ -333,6 +333,11 @@ public class DataFile implements SdkModel {
         return SdkUtils.getFileExtension(fileName).toLowerCase(Locale.UK)
                        .equals(CSV_EXTENSION) ? CSV_FILE_MEDIA_TYPE : BINARY_FILE_MEDIA_TYPE;
 
+    }
+
+    @Override
+    public String toString() {
+        return "DataFile [contentType=" + contentType + ", file=" + file + "]";
     }
 
 }

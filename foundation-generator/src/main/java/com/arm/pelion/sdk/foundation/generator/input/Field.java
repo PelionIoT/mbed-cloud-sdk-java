@@ -39,11 +39,24 @@ public class Field {
     @JsonProperty(InputSchema.METHOD_PARAMETER_IS_EXTERNAL)
     private boolean isExternal;
 
-    // Java specific fields
-    @JsonProperty(InputSchema.INTERNAL_TAG)
+    @JsonAlias({ InputSchema.INTERNAL_TAG, InputSchema.INTERNAL_FIELD_TAG })
     private boolean internal;
-    @JsonProperty(InputSchema.LONG_DESCRIPTION_TAG)
+    @JsonAlias({ InputSchema.LONG_DESCRIPTION_TAG, InputSchema.DETAILED_DESCRIPTION_TAG })
     private String longDescription;
+
+    @JsonProperty(InputSchema.FIELD_DEPRECATION_TAG)
+    private DeprecationNotice deprecationNotice;
+
+    @JsonAlias({ InputSchema.MAXIMUM_ITEMS_TAG, InputSchema.MAXIMUM_LENGTH_TAG, InputSchema.MAXIMUM_PROPERTIES_TAG,
+                 InputSchema.MAXIMUM_TAG })
+    private Number maximum;
+    @JsonAlias({ InputSchema.MINIMUM_ITEMS_TAG, InputSchema.MINIMUM_LENGTH_TAG, InputSchema.MINIMUM_PROPERTIES_TAG,
+                 InputSchema.MINIMUM_TAG })
+    private Number minimum;
+    @JsonProperty(InputSchema.EXCLUSIVE_MAXIMUM_TAG)
+    private boolean exclusiveMaximum;
+    @JsonProperty(InputSchema.EXCLUSIVE_MINIMUM_TAG)
+    private boolean exclusiveMinimum;
 
     public Field() {
         key = null;
@@ -64,6 +77,11 @@ public class Field {
         enumRef = null;
         foreignKey = null;
         isExternal = false;
+        deprecationNotice = null;
+        maximum = null;
+        minimum = null;
+        exclusiveMaximum = false;
+        exclusiveMinimum = false;
     }
 
     /**
@@ -337,6 +355,74 @@ public class Field {
         return Utils.getKey(key, true);
     }
 
+    public DeprecationNotice getDeprecationNotice() {
+        return deprecationNotice;
+    }
+
+    public void setDeprecationNotice(DeprecationNotice deprecationNotice) {
+        this.deprecationNotice = deprecationNotice;
+    }
+
+    public boolean hasDeprecation() {
+        return deprecationNotice != null;
+    }
+
+    public Number getMaximum() {
+        if (isExclusiveMaximum()) {
+            if (maximum instanceof Integer || maximum instanceof Byte || maximum instanceof Short) {
+                return Integer.valueOf(maximum.intValue() - 1);
+            }
+            if (maximum instanceof Long) {
+                return Long.valueOf(maximum.longValue() - 1L);
+            }
+        }
+        return maximum;
+    }
+
+    public void setMaximum(Number maximum) {
+        this.maximum = maximum;
+    }
+
+    public boolean hasMaximum() {
+        return maximum != null;
+    }
+
+    public Number getMinimum() {
+        if (isExclusiveMinimum()) {
+            if (minimum instanceof Integer || minimum instanceof Byte || minimum instanceof Short) {
+                return Integer.valueOf(minimum.intValue() + 1);
+            }
+            if (minimum instanceof Long) {
+                return Long.valueOf(minimum.longValue() + 1L);
+            }
+        }
+        return minimum;
+    }
+
+    public void setMinimum(Number minimum) {
+        this.minimum = minimum;
+    }
+
+    public boolean hasMinimum() {
+        return minimum != null;
+    }
+
+    public boolean isExclusiveMaximum() {
+        return exclusiveMaximum;
+    }
+
+    public void setExclusiveMaximum(boolean exclusiveMaximum) {
+        this.exclusiveMaximum = exclusiveMaximum;
+    }
+
+    public boolean isExclusiveMinimum() {
+        return exclusiveMinimum;
+    }
+
+    public void setExclusiveMinimum(boolean exclusiveMinimum) {
+        this.exclusiveMinimum = exclusiveMinimum;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -384,7 +470,9 @@ public class Field {
                + readOnly + ", pattern=" + pattern + ", enumRef=" + enumRef + ", additionalProperties="
                + additionalProperties + ", type=" + type + ", format=" + format + ", foreignKey=" + foreignKey
                + ", parameterFieldname=" + parameterFieldname + ", isExternal=" + isExternal + ", internal=" + internal
-               + ", longDescription=" + longDescription + "]";
+               + ", longDescription=" + longDescription + ", deprecationNotice=" + deprecationNotice + ", maximum="
+               + maximum + ", minimum=" + minimum + ", exclusiveMaximum=" + exclusiveMaximum + ", exclusiveMinimum="
+               + exclusiveMinimum + "]";
     }
 
 }

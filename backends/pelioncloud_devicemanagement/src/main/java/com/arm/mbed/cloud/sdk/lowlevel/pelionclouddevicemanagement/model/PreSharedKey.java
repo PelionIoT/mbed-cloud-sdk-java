@@ -36,13 +36,13 @@ public class PreSharedKey implements Serializable {
     }
 
     /**
-     * The unique endpoint identifier that this pre-shared key applies to. 16-64
+     * The unique endpoint identifier that this PSK applies to. 16-64
      * [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
      * 
      * @return endpointName
      **/
     @ApiModelProperty(example = "my-endpoint-0001", required = true,
-                      value = "The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.")
+                      value = "The unique endpoint identifier that this PSK applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.")
     public String getEndpointName() {
         return endpointName;
     }
@@ -57,13 +57,13 @@ public class PreSharedKey implements Serializable {
     }
 
     /**
-     * The secret of the pre-shared key in hexadecimal. It is not case sensitive; 4a is same as 4A, and it is allowed
-     * with or without 0x in the beginning. The minimum length of the secret is 128 bits and maximum 256 bits.
+     * The secret of the PSK in hexadecimal. It is not case sensitive; 4a is same as 4A, and it is allowed with or
+     * without 0x in the beginning. The minimum length of the secret is 128 bits and maximum 256 bits.
      * 
      * @return secretHex
      **/
     @ApiModelProperty(example = "4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a", required = true,
-                      value = "The secret of the pre-shared key in hexadecimal. It is not case sensitive; 4a is same as 4A, and it is allowed with or without 0x in the beginning. The minimum length of the secret is 128 bits and maximum 256 bits.")
+                      value = "The secret of the PSK in hexadecimal. It is not case sensitive; 4a is same as 4A, and it is allowed with or without 0x in the beginning. The minimum length of the secret is 128 bits and maximum 256 bits.")
     public String getSecretHex() {
         return secretHex;
     }

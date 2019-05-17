@@ -7,18 +7,23 @@ import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.pelion.sdk.foundation.generator.Configuration;
 import com.arm.pelion.sdk.foundation.generator.input.AdditionalProperty;
 import com.arm.pelion.sdk.foundation.generator.input.Entity;
 import com.arm.pelion.sdk.foundation.generator.input.Enumerator;
 import com.arm.pelion.sdk.foundation.generator.input.Field;
+import com.arm.pelion.sdk.foundation.generator.input.Filters;
 import com.arm.pelion.sdk.foundation.generator.input.Group;
 import com.arm.pelion.sdk.foundation.generator.input.IntermediateApiDefinition;
+import com.arm.pelion.sdk.foundation.generator.input.Mapping;
 import com.arm.pelion.sdk.foundation.generator.input.Method;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIMethod;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIMethodArgument;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIs;
+import com.arm.pelion.sdk.foundation.generator.model.ArtifactFetcher;
 import com.arm.pelion.sdk.foundation.generator.model.Artifacts;
+import com.arm.pelion.sdk.foundation.generator.model.Filter;
 import com.arm.pelion.sdk.foundation.generator.model.MethodAction;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.ModelAdapter;
@@ -32,6 +37,7 @@ import com.arm.pelion.sdk.foundation.generator.model.ModelEnum;
 import com.arm.pelion.sdk.foundation.generator.model.ModelListOption;
 import com.arm.pelion.sdk.foundation.generator.model.ModelListOptionFetcher;
 import com.arm.pelion.sdk.foundation.generator.model.ModelModule;
+import com.arm.pelion.sdk.foundation.generator.model.ModelModuleFactory;
 import com.arm.pelion.sdk.foundation.generator.model.ModelPojo;
 import com.arm.pelion.sdk.foundation.generator.model.Renames;
 import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
@@ -45,10 +51,14 @@ public class ArtifactsTranslator {
     }
 
     private static ModelDaoFactory translateFactory(Configuration config) {
-        // TODO CHANGE
         return new ModelDaoFactory(generateFactoryPackageName(config, null));
     }
 
+    private static ModelModuleFactory translateModuleFactory(Configuration config) {
+        return new ModelModuleFactory(generateModuleFactoryPackageName(config, null));
+    }
+
+    @SuppressWarnings("unused")
     private static ModelDaoList translateListDao(Model model, ModelModule module, ModelDao correspondingDao,
                                                  ModelListOption listOptions,
                                                  Entity entity) throws FoundationGeneratorException {
@@ -63,10 +73,10 @@ public class ArtifactsTranslator {
                                m.isCustomCode());
             }
         }
-        dao.generateMethods();
         return dao;
     }
 
+    @SuppressWarnings("unused")
     private static ModelDao translateDao(Model model, ModelModule module,
                                          Entity entity) throws FoundationGeneratorException {
         if (!entity.hasMethods()) {
@@ -79,7 +89,6 @@ public class ArtifactsTranslator {
                                m.getSummary(), m.getDescription(), m.isCustomCode() || m.isCustomMethod());
             }
         }
-        dao.generateMethods();
         return dao;
     }
 
@@ -116,15 +125,13 @@ public class ArtifactsTranslator {
             }
             module.addCloudCall(MethodTranslator.translate(m, method, model, returnModel));
         }
-        module.generateMethods();
         return module;
     }
 
     private static ModelAdapter
             translateAdapterModel(Logger logger, Configuration config, LowLevelAPIs lowLevelApis, Entity entity,
                                   Model model, ModelAdapterFetcher adapterFetcher) throws FoundationGeneratorException {
-        final Renames defaultRenames = new Renames();
-        entity.getRenames().forEach(m -> defaultRenames.addEntry(m.getProcessedFrom(), m.getProcessedTo()));
+        final Renames defaultRenames = translateRenames(entity.getRenames());
         ModelAdapter adapter = adapterFetcher.fetchAdapter(model.getIdentifier());
         if (adapter == null) {
             adapter = new ModelAdapter(model, generateAdapterPackageName(config, entity.getGroupId()), null,
@@ -144,8 +151,7 @@ public class ArtifactsTranslator {
                 throw new FoundationGeneratorException("Failed generating adapter for " + model + " as method ["
                                                        + m.getKey() + "] does not have an ID.");
             }
-            final Renames methodRenames = new Renames();
-            m.getRenames().forEach(f -> methodRenames.addEntry(f.getProcessedFrom(), f.getProcessedTo()));
+            final Renames methodRenames = translateRenames(m.getRenames());
             final LowLevelAPIMethod method = lowLevelApis.getFirstMethod(m.getId());
             if (method == null) {
                 throw new FoundationGeneratorException("Failed generating adapter for " + model + " as method ["
@@ -208,55 +214,77 @@ public class ArtifactsTranslator {
 
             }
         }
-        adapter.generateMethods();
         return adapter;
     }
 
-    public static ModelPojo translate(Configuration config, Entity entity) throws FoundationGeneratorException {
-        if (entity == null) {
+    private static Renames translateRenames(List<Mapping> mapping) {
+        if (mapping == null) {
             return null;
         }
-        final String packageName = CommonTranslator.generateModelPackageName(config, entity.getGroupId());
-        ModelPojo model = new ModelPojo(packageName, generateEntityName(entity.getKey()),
-                                        CommonTranslator.generateGoup(entity.getGroupId()), entity.getDescription(),
-                                        entity.getLongDescription(), entity.isCustomCode(), entity.isInternal());
-        if (entity.hasAdditionalProperties()) {
-            final AdditionalProperty properties = entity.getAdditionalProperties();
-            model.setSuperClassType(properties.hasForeignKey() ? CommonTranslator.FetchNestedEntityType(packageName,
-                                                                                                        properties.getForeignKey())
-                                                               : new TypeParameter(properties.getType(),
-                                                                                   properties.getFormat()));
-        }
-        if (entity.hasFields()) {
-            for (final Field field : entity.getFields()) {
-                model.addField(FieldTranslator.translate(field, model.getPackageName(), model.getGroup(),
-                                                         entity.getPrimaryKey()));
-            }
-        }
-        if (!entity.hasPrimaryKey()) {
-            model.addNoIdentifierGetterAndSetter();
-        }
-
-        model.generateMethods();
-        return model;
+        final Renames renames = new Renames();
+        mapping.forEach(m -> renames.addEntry(m.getProcessedFrom(), m.getProcessedTo()));
+        return renames;
     }
 
-    public static ModelListOption translateListOptions(Configuration config, Entity entity,
-                                                       Model correspondingModel) throws FoundationGeneratorException {
+    public static ModelPojo translateModel(Logger logger, Configuration config,
+                                           Entity entity) throws FoundationGeneratorException {
+        try {
+            if (entity == null) {
+                return null;
+            }
+            final String packageName = CommonTranslator.generateModelPackageName(config, entity.getGroupId());
+            final Renames renames = translateRenames(entity.getRenames());
+            ModelPojo model = new ModelPojo(packageName, generateEntityName(entity.getKey()),
+                                            CommonTranslator.generateGoup(entity.getGroupId()), entity.getDescription(),
+                                            entity.getLongDescription(), entity.isCustomCode(), entity.isInternal(),
+                                            renames);
+            if (entity.hasAdditionalProperties()) {
+                final AdditionalProperty properties = entity.getAdditionalProperties();
+                model.setSuperClassType(properties.hasForeignKey() ? CommonTranslator.FetchNestedEntityType(packageName,
+                                                                                                            properties.getForeignKey())
+                                                                   : new TypeParameter(properties.getType(),
+                                                                                       properties.getFormat()));
+            }
+            if (entity.hasFields()) {
+                for (final Field field : entity.getFields()) {
+                    model.addField(FieldTranslator.translate(logger, field, model.getPackageName(), model.getGroup(),
+                                                             entity.getPrimaryKey()));
+                }
+            }
+            if (!entity.hasPrimaryKey()) {
+                model.addNoIdentifierGetterAndSetter();
+            }
+
+            model.generateMethods();
+            return model;
+        } catch (FoundationGeneratorException exception) {
+            logger.logError("Could not translate entity: " + entity, exception);
+            throw exception;
+        }
+    }
+
+    public static ModelListOption
+           translateListOptions(Logger logger, Configuration config, Entity entity, Model correspondingModel,
+                                ArtifactFetcher<Model> modelFetcher) throws FoundationGeneratorException {
         if (entity == null) {
             return null;
         }
         // change null by description if description is set in the intermediate config.
-        final ModelListOption options = new ModelListOption(correspondingModel, null, entity.isCustomCode());
+        final ModelListOption options = new ModelListOption(correspondingModel, modelFetcher, null,
+                                                            entity.isCustomCode());
 
         // Do things regarding filters
+        if (entity.hasListMethod() && entity.getListMethod().hasFilters()) {
+            translateFilters(logger, options, correspondingModel, entity.getListMethod().getFilters(),
+                             translateRenames(entity.getRenames()));
+        }
 
-        options.generateMethods();
         return options;
     }
 
     public static List<ModelListOption>
-           translateOtherPaginatedListOptions(Configuration config, Entity entity) throws FoundationGeneratorException {
+           translateOtherPaginatedListOptions(Logger logger, Configuration config, Entity entity,
+                                              ArtifactFetcher<Model> modelFetcher) throws FoundationGeneratorException {
         if (entity == null) {
             return null;
         }
@@ -270,16 +298,46 @@ public class ArtifactsTranslator {
                                                                                       otherPaginatedMethod.getReturnInformation()
                                                                                                           .getReturnType());
             // change null by description if description is set in the intermediate config.
-            final ModelListOption options = new ModelListOption(correspondingModel, null,
-                                                                correspondingModel.needsCustomCode()
-                                                                                          || correspondingModel.containsCustomCode());
+            final ModelListOption options = new ModelListOption(correspondingModel, modelFetcher, null,
+                                                                correspondingModel.needsCustomCode() || correspondingModel.containsCustomCode());
 
             // Do things regarding filters
+            if (otherPaginatedMethod.hasFilters()) {
+                translateFilters(logger, options, correspondingModel, otherPaginatedMethod.getFilters(),
+                                 translateRenames(entity.getRenames()));
+            }
 
-            options.generateMethods();
             allOptions.add(options);
         }
         return allOptions;
+    }
+
+    @SuppressWarnings("unused")
+    private static void translateFilters(Logger logger, ModelListOption options, Model correspondingModel,
+                                         Filters filters, Renames renames) throws FoundationGeneratorException {
+        for (String fieldName : filters.keySet()) {
+            com.arm.pelion.sdk.foundation.generator.model.Field field = correspondingModel.fetchField(fieldName);
+            boolean isFound = field != null;
+            final List<String> fieldFilters = filters.getFilters(fieldName);
+            if (fieldFilters != null) {
+                for (String fieldFilter : fieldFilters) {
+                    final Filter filter = new Filter();
+                    filter.setSpecFieldName(renames.containsMappingFor(fieldName) ? renames.getRenamedField(fieldName)
+                                                                                  : fieldName);
+                    filter.setOperator(FilterOperator.getFromSuffix(fieldFilter));
+                    if (isFound) {
+                        filter.setVerified(true);
+                        filter.setFieldName(field.getName());
+                        filter.setFieldType(field.getType());
+                    } else {
+                        filter.setVerified(false);
+                        filter.setFieldName(fieldName);
+                    }
+                    options.addFilter(filter);
+                }
+            }
+        }
+
     }
 
     private static ModelEndpoints translateEndpointModel(Configuration config, LowLevelAPIs lowLevelApis, Entity entity,
@@ -294,11 +352,10 @@ public class ArtifactsTranslator {
                 endpoints.addModule(moduleClazz);
             }
         });
-        endpoints.generateMethods();
         return endpoints;
     }
 
-    private static ModelPojo translate(Configuration config, Enumerator enumerator) {
+    private static ModelPojo translateEnum(Configuration config, Enumerator enumerator) {
         if (enumerator == null) {
             return null;
         }
@@ -331,6 +388,11 @@ public class ArtifactsTranslator {
         return CommonTranslator.generatePackageName(config.getRootPackageName(), config.getModulePackage(), null);
     }
 
+    private static String generateModuleFactoryPackageName(Configuration config, List<String> groupId) {
+        // TODO Can be changed
+        return generateModulePackageName(config, groupId);
+    }
+
     private static String generateFactoryPackageName(Configuration config, List<String> groupId) {
         // TODO Can be changed
         return CommonTranslator.generatePackageName(config.getRootPackageName(), config.getFactoryPackage(), null);
@@ -341,8 +403,8 @@ public class ArtifactsTranslator {
         if (definition == null) {
             return null;
         }
-        // FIXME TO remove
-        List<String> avoid = Arrays.asList();// "Account", "DeviceEvents");
+        // TODO add any entity to avoid during generation
+        List<String> avoid = Arrays.asList();// e.g. "Account", "DeviceEvents");
         final Artifacts artifacts = new Artifacts();
         if (definition.hasGroups()) {
             for (final Group group : definition.getGroups()) {
@@ -352,39 +414,43 @@ public class ArtifactsTranslator {
         }
         if (definition.hasEntities()) {
             ModelDaoFactory factory = translateFactory(config);
+            ModelModuleFactory moduleFactory = translateModuleFactory(config);
             // Note: not using streams so that exceptions are raised
             for (final Entity entity : definition.getEntities()) {
                 if (!avoid.stream().anyMatch(n -> n.equals(entity.getKey()))) {
-                    final ModelPojo model = PelionModelDefinitionStore.get().store(translate(config, entity));
+                    final ModelPojo model = PelionModelDefinitionStore.get()
+                                                                      .store(translateModel(logger, config, entity));
                     artifacts.addModel(model);
                     artifacts.addEndpoint(translateEndpointModel(config, lowLevelApis, entity, model));
                     artifacts.addAdapter(translateAdapterModel(logger, config, lowLevelApis, entity, model,
                                                                artifacts.getAdapterFetcher()));
                     ModelListOption listOptions = null;
                     if (entity.hasListMethod()) {
-                        listOptions = translateListOptions(config, entity, model);
-                        artifacts.addModel(listOptions);
+                        listOptions = translateListOptions(logger, config, entity, model, artifacts.getModelFetcher());
+                        artifacts.addListOption(listOptions);
                     }
                     if (entity.hasOtherPaginatedMethod()) {
-                        artifacts.addModels(translateOtherPaginatedListOptions(config, entity));
+                        artifacts.addListOptions(translateOtherPaginatedListOptions(logger, config, entity,
+                                                                                    artifacts.getModelFetcher()));
                     }
                     final ModelModule module = translateModuleModel(logger, config, lowLevelApis, entity, model,
                                                                     artifacts.getAdapterFetcher(),
                                                                     artifacts.getEndpointsFetcher(),
                                                                     artifacts.getListOptionFetcher());
                     artifacts.addModule(module);
+                    moduleFactory.addModule(module);
                     final ModelDao dao = translateDao(model, module, entity);
-                    artifacts.addModel(dao);
+                    artifacts.addDao(dao);
                     factory.addDao(dao);
                     if (entity.hasListMethod()) {
                         final ModelDaoList daoList = translateListDao(model, module, dao, listOptions, entity);
-                        artifacts.addModel(daoList);
+                        artifacts.addDao(daoList);
                         factory.addDao(daoList);
                     }
                 }
             }
-            factory.generateMethods();
-            artifacts.addModel(factory);
+            artifacts.addFactory(factory);
+            artifacts.addFactory(moduleFactory);
         }
         if (definition.hasEnums()) {
             // Order enum is defined globally
@@ -392,7 +458,7 @@ public class ArtifactsTranslator {
                                                .filter(e -> e.hasValues() && !e.getName().contains("order_enum"))
                                                .collect(Collectors.toList());
             for (final Enumerator enumerator : enums) {
-                artifacts.addModel(PelionModelDefinitionStore.get().store(translate(config, enumerator)));
+                artifacts.addModel(PelionModelDefinitionStore.get().store(translateEnum(config, enumerator)));
             }
         }
         return artifacts;

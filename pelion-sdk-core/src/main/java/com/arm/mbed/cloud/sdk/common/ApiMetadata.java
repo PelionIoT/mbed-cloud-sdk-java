@@ -44,7 +44,7 @@ public final class ApiMetadata {
      */
     private String etag;
     /**
-     * Error message if an error occurred during Mbed Cloud request null if no error happened.
+     * Error message if an error occurred during Pelion Cloud request null if no error happened.
      */
     public @Nullable Error errorMessage;
 

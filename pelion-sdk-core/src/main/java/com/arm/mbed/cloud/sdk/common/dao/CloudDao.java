@@ -110,7 +110,7 @@ public interface CloudDao extends Cloneable, Closeable {
     <T extends CloudDao> T configureAndGet(@NonNull SdkContext context) throws MbedCloudException;
 
     /**
-     * Gets meta data for the last Arm Mbed Cloud API call.
+     * Gets meta data for the last Arm Pelion Cloud API call.
      *
      * @see ApiMetadata
      * @return metadata

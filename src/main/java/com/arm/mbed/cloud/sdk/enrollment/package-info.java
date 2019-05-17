@@ -1,5 +1,5 @@
 /**
- * Arm Mbed Cloud SDK: Enrollment module.
+ * Arm Pelion Cloud SDK: Enrollment module.
  */
 @Preamble(description = "Enrollment module")
 package com.arm.mbed.cloud.sdk.enrollment;

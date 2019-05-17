@@ -20,7 +20,7 @@ plugins {
     // Apply the application plugin to add support for building an application
     id 'application'
     id "com.diffplug.gradle.spotless" version "3.16.0"
-    id "org.hidetake.swagger.generator" version '2.16.0'
+    id "org.hidetake.swagger.generator" version '2.18.1'
 }
 apply plugin: 'walkmod'
 
@@ -53,7 +53,7 @@ dependencies {
     implementation project(':backends:mbedcloud_common')
     implementation project(':backends:pelioncloud_devicemanagement')
     openapiCodegen 'io.swagger:swagger-codegen-cli:2.3.1'   // Swagger Codegen V2
-    //swaggerCodegen 'io.swagger:swagger-codegen-cli:2.3.1'	// Uncomment when help is needed
+    //swaggerCodegen 'io.swagger:swagger-codegen-cli:2.3.1'    // Uncomment when help is needed
     // Use JUnit test framework
     testCompile 'junit:junit:4.+'
 }
@@ -101,8 +101,8 @@ allprojects {
 }
 
 walkmod {
-	chains = [ 'pmd' , 'override']
-	verbose = true
+    chains = [ 'pmd' , 'override']
+    verbose = true
 }
 
 spotless {
@@ -117,9 +117,9 @@ spotless {
 mainClassName = 'com.arm.pelion.sdk.foundation.generator.FoundationGenerator'
 
 run {
-	classpath sourceSets.main.runtimeClasspath
-	main = mainClassName
-	args = ["-i", "$rootProject.projectDir/$foundationSourceDir/$foundationSourceFileName", "-c", "$rootProject.projectDir/$openApiCodegenConfigDir/$foundationConfigFile", "-m", "$foundationModelDestProject", "$rootProject.projectDir/../"]
+    classpath sourceSets.main.runtimeClasspath
+    main = mainClassName
+    args = ["-i", "$rootProject.projectDir/$foundationSourceDir/$foundationSourceFileName", "-c", "$rootProject.projectDir/$openApiCodegenConfigDir/$foundationConfigFile", "-m", "$foundationModelDestProject", "-o", "$foundationDestProject", "$rootProject.projectDir/../"]
 }
 
 swaggerSources {
@@ -127,11 +127,11 @@ swaggerSources {
   common {
     inputFile = file(new File("$rootProject.projectDir/$commonClientBackendSourceDir/$commonClientBackendSourceFileName").canonicalPath)    
     code {
-      language = 'java'	  
+      language = 'java'
       wipeOutputDir = true
-	  configFile = file(new File("$rootProject.projectDir/$openApiCodegenConfigDir/${project(':backends:mbedcloud_common').name}.json").canonicalPath)
-	  outputDir = file("${project(':backends:mbedcloud_common').projectDir}")
-	  templateDir = file(lowlevelTemplatesDir)
+      configFile = file(new File("$rootProject.projectDir/$openApiCodegenConfigDir/${project(':backends:mbedcloud_common').name}.json").canonicalPath)
+      outputDir = file("${project(':backends:mbedcloud_common').projectDir}")
+      templateDir = file(lowlevelTemplatesDir)
       configuration = configurations.openapiCodegen
       // Validate YAML before code generation
       dependsOn validation
@@ -140,11 +140,11 @@ swaggerSources {
   pelion {
     inputFile = file(new File("$rootProject.projectDir/$pelionBackendSourceDir/$pelionBackendSourceFileName").canonicalPath)    
     code {
-      language = 'java'	  
+      language = 'java'
       wipeOutputDir = true
-	  configFile = file(new File("$rootProject.projectDir/$openApiCodegenConfigDir/${project(':backends:pelioncloud_devicemanagement').name}.json").canonicalPath)
-	  outputDir = file("${project(':backends:pelioncloud_devicemanagement').projectDir}")
-	  templateDir = file(lowlevelTemplatesDir)
+      configFile = file(new File("$rootProject.projectDir/$openApiCodegenConfigDir/${project(':backends:pelioncloud_devicemanagement').name}.json").canonicalPath)
+      outputDir = file("${project(':backends:pelioncloud_devicemanagement').projectDir}")
+      templateDir = file(lowlevelTemplatesDir)
       configuration = configurations.openapiCodegen
       // Validate YAML before code generation
       //dependsOn validation
@@ -153,8 +153,8 @@ swaggerSources {
 }
 
 task info {
-	def source_files = ''
-	def project_list = []
+    def source_files = ''
+    def project_list = []
     project.subprojects.each { sproject ->
             project_list.add(sproject)
     }

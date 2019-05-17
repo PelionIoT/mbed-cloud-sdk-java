@@ -12,13 +12,14 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 
 import io.vertx.core.json.JsonObject;
 
-import com.arm.mbed.cloud.sdk.Sdk;
+import com.arm.mbed.cloud.Sdk;
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
@@ -41,7 +42,7 @@ import ru.vyarus.java.generics.resolver.context.MethodGenericsContext;
 @Preamble(description = "Generator of an SDK API mapping. i.e. list of all APIs present in the SDK")
 public class APIMappingGenerator {
 
-    private static final String JAVA_SDK_PACKAGE = "com.arm.mbed.cloud.sdk";
+    private static final String JAVA_SDK_PACKAGE = "com.arm.mbed.cloud";
 
     /**
      * Obtain a description of the APIs present in the SDK
@@ -112,7 +113,9 @@ public class APIMappingGenerator {
         for (Method method : determinePublicMethods(clazz)) {
             APIMethod apiMethod = recordAPIMethod(method, context, false);
             if (apiMethod != null) {
-                apiMethod.setSubMethod(APIMethod.getCorrespondingDao());
+                if (listEntity != null) {
+                    apiMethod.setSubMethod(APIMethod.getCorrespondingDao());
+                }
                 entity.addMethod(apiMethod);
             }
         }
@@ -178,12 +181,14 @@ public class APIMappingGenerator {
     }
 
     private Class<?> determineContentType(Parameter parameter) {
-        if (parameter == null || !(List.class.isAssignableFrom(parameter.getType()))) {
+        final boolean isList = parameter == null ? false : List.class.isAssignableFrom(parameter.getType());
+        if (parameter == null || !(isList || (Map.class.isAssignableFrom(parameter.getType())))) {
             return null;
         }
         try {
-            return (Class<?>) ((ParameterizedType) parameter.getParameterizedType()).getActualTypeArguments()[0];
-        } catch (Exception e) {
+            return (Class<?>) ((ParameterizedType) parameter.getParameterizedType()).getActualTypeArguments()[isList ? 0
+                                                                                                                     : 1];
+        } catch (@SuppressWarnings("unused") Exception e) {
             return null;
         }
     }

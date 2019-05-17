@@ -1,8 +1,7 @@
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Block;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Block1;
+import org.joda.time.DateTime;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPutRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroupManipulation;
@@ -10,6 +9,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceQ
 import java.io.File;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Group;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Group1;
+import org.joda.time.LocalDate;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPostRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPutRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UploadJob;
@@ -27,38 +27,6 @@ public class DefaultApiTest {
     @Before
     public void setup() {
         api = new ApiClient().createService(DefaultApi.class);
-    }
-
-    /**
-     * List all device block categories
-     *
-     * List all device block categories. A block category is a short description of why a device was suspended or
-     * returned to service.
-     */
-    @Test
-    public void blockCategoriesListTest() {
-        Integer limit = null;
-        String order = null;
-        String after = null;
-        String include = null;
-        String filter = null;
-        // DeviceBlockCategoryPage response = api.blockCategoriesList(limit, order, after, include, filter);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Get a device block category
-     *
-     * Get a device block category. A block category is a short description of why a device was suspended or returned to
-     * service.
-     */
-    @Test
-    public void blockCategoriesRetrieveTest() {
-        String blockCategoryReference = null;
-        // DeviceBlockCategory response = api.blockCategoriesRetrieve(blockCategoryReference);
-
-        // TODO: test validations
     }
 
     /**
@@ -100,7 +68,32 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // DeviceEventPage response = api.deviceEventList(limit, order, after, include, filter);
+        String dateTimeIn = null;
+        String dateTimeNin = null;
+        DateTime dateTimeLte = null;
+        DateTime dateTimeGte = null;
+        String descriptionEq = null;
+        String descriptionNeq = null;
+        String descriptionIn = null;
+        String descriptionNin = null;
+        String idEq = null;
+        String idNeq = null;
+        String idIn = null;
+        String idNin = null;
+        String deviceIdEq = null;
+        String deviceIdNeq = null;
+        String deviceIdIn = null;
+        String deviceIdNin = null;
+        String eventTypeEq = null;
+        String eventTypeNeq = null;
+        String eventTypeIn = null;
+        String eventTypeNin = null;
+        Boolean stateChangeEq = null;
+        Boolean stateChangeNeq = null;
+        // DeviceEventPage response = api.deviceEventList(limit, order, after, include, filter, dateTimeIn, dateTimeNin,
+        // dateTimeLte, dateTimeGte, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, idEq, idNeq, idIn,
+        // idNin, deviceIdEq, deviceIdNeq, deviceIdIn, deviceIdNin, eventTypeEq, eventTypeNeq, eventTypeIn,
+        // eventTypeNin, stateChangeEq, stateChangeNeq);
 
         // TODO: test validations
     }
@@ -130,7 +123,135 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // DevicePage response = api.deviceList(limit, order, after, include, filter);
+        String accountIdEq = null;
+        String accountIdNeq = null;
+        String accountIdIn = null;
+        String accountIdNin = null;
+        Boolean autoUpdateEq = null;
+        Boolean autoUpdateNeq = null;
+        String bootstrapExpirationDateIn = null;
+        String bootstrapExpirationDateNin = null;
+        LocalDate bootstrapExpirationDateLte = null;
+        LocalDate bootstrapExpirationDateGte = null;
+        String bootstrappedTimestampIn = null;
+        String bootstrappedTimestampNin = null;
+        DateTime bootstrappedTimestampLte = null;
+        DateTime bootstrappedTimestampGte = null;
+        String caIdEq = null;
+        String caIdNeq = null;
+        String caIdIn = null;
+        String caIdNin = null;
+        String connectorExpirationDateIn = null;
+        String connectorExpirationDateNin = null;
+        LocalDate connectorExpirationDateLte = null;
+        LocalDate connectorExpirationDateGte = null;
+        String createdAtIn = null;
+        String createdAtNin = null;
+        DateTime createdAtLte = null;
+        DateTime createdAtGte = null;
+        String deployedStateEq = null;
+        String deployedStateNeq = null;
+        String deployedStateIn = null;
+        String deployedStateNin = null;
+        String deploymentEq = null;
+        String deploymentNeq = null;
+        String deploymentIn = null;
+        String deploymentNin = null;
+        String descriptionEq = null;
+        String descriptionNeq = null;
+        String descriptionIn = null;
+        String descriptionNin = null;
+        String deviceClassEq = null;
+        String deviceClassNeq = null;
+        String deviceClassIn = null;
+        String deviceClassNin = null;
+        Integer deviceExecutionModeEq = null;
+        Integer deviceExecutionModeNeq = null;
+        String deviceExecutionModeIn = null;
+        String deviceExecutionModeNin = null;
+        String deviceKeyEq = null;
+        String deviceKeyNeq = null;
+        String deviceKeyIn = null;
+        String deviceKeyNin = null;
+        String endpointNameEq = null;
+        String endpointNameNeq = null;
+        String endpointNameIn = null;
+        String endpointNameNin = null;
+        String endpointTypeEq = null;
+        String endpointTypeNeq = null;
+        String endpointTypeIn = null;
+        String endpointTypeNin = null;
+        String enrolmentListTimestampIn = null;
+        String enrolmentListTimestampNin = null;
+        DateTime enrolmentListTimestampLte = null;
+        DateTime enrolmentListTimestampGte = null;
+        String firmwareChecksumEq = null;
+        String firmwareChecksumNeq = null;
+        String firmwareChecksumIn = null;
+        String firmwareChecksumNin = null;
+        String hostGatewayEq = null;
+        String hostGatewayNeq = null;
+        String hostGatewayIn = null;
+        String hostGatewayNin = null;
+        String idEq = null;
+        String idNeq = null;
+        String idIn = null;
+        String idNin = null;
+        String manifestEq = null;
+        String manifestNeq = null;
+        String manifestIn = null;
+        String manifestNin = null;
+        String manifestTimestampIn = null;
+        String manifestTimestampNin = null;
+        DateTime manifestTimestampLte = null;
+        DateTime manifestTimestampGte = null;
+        String mechanismEq = null;
+        String mechanismNeq = null;
+        String mechanismIn = null;
+        String mechanismNin = null;
+        String mechanismUrlEq = null;
+        String mechanismUrlNeq = null;
+        String mechanismUrlIn = null;
+        String mechanismUrlNin = null;
+        String nameEq = null;
+        String nameNeq = null;
+        String nameIn = null;
+        String nameNin = null;
+        String serialNumberEq = null;
+        String serialNumberNeq = null;
+        String serialNumberIn = null;
+        String serialNumberNin = null;
+        String stateEq = null;
+        String stateNeq = null;
+        String stateIn = null;
+        String stateNin = null;
+        String updatedAtIn = null;
+        String updatedAtNin = null;
+        DateTime updatedAtLte = null;
+        DateTime updatedAtGte = null;
+        String vendorIdEq = null;
+        String vendorIdNeq = null;
+        String vendorIdIn = null;
+        String vendorIdNin = null;
+        // DevicePage response = api.deviceList(limit, order, after, include, filter, accountIdEq, accountIdNeq,
+        // accountIdIn, accountIdNin, autoUpdateEq, autoUpdateNeq, bootstrapExpirationDateIn,
+        // bootstrapExpirationDateNin, bootstrapExpirationDateLte, bootstrapExpirationDateGte, bootstrappedTimestampIn,
+        // bootstrappedTimestampNin, bootstrappedTimestampLte, bootstrappedTimestampGte, caIdEq, caIdNeq, caIdIn,
+        // caIdNin, connectorExpirationDateIn, connectorExpirationDateNin, connectorExpirationDateLte,
+        // connectorExpirationDateGte, createdAtIn, createdAtNin, createdAtLte, createdAtGte, deployedStateEq,
+        // deployedStateNeq, deployedStateIn, deployedStateNin, deploymentEq, deploymentNeq, deploymentIn,
+        // deploymentNin, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, deviceClassEq, deviceClassNeq,
+        // deviceClassIn, deviceClassNin, deviceExecutionModeEq, deviceExecutionModeNeq, deviceExecutionModeIn,
+        // deviceExecutionModeNin, deviceKeyEq, deviceKeyNeq, deviceKeyIn, deviceKeyNin, endpointNameEq,
+        // endpointNameNeq, endpointNameIn, endpointNameNin, endpointTypeEq, endpointTypeNeq, endpointTypeIn,
+        // endpointTypeNin, enrolmentListTimestampIn, enrolmentListTimestampNin, enrolmentListTimestampLte,
+        // enrolmentListTimestampGte, firmwareChecksumEq, firmwareChecksumNeq, firmwareChecksumIn, firmwareChecksumNin,
+        // hostGatewayEq, hostGatewayNeq, hostGatewayIn, hostGatewayNin, idEq, idNeq, idIn, idNin, manifestEq,
+        // manifestNeq, manifestIn, manifestNin, manifestTimestampIn, manifestTimestampNin, manifestTimestampLte,
+        // manifestTimestampGte, mechanismEq, mechanismNeq, mechanismIn, mechanismNin, mechanismUrlEq, mechanismUrlNeq,
+        // mechanismUrlIn, mechanismUrlNin, nameEq, nameNeq, nameIn, nameNin, serialNumberEq, serialNumberNeq,
+        // serialNumberIn, serialNumberNin, stateEq, stateNeq, stateIn, stateNin, updatedAtIn, updatedAtNin,
+        // updatedAtLte, updatedAtGte, vendorIdEq, vendorIdNeq, vendorIdIn, vendorIdNin);
 
         // TODO: test validations
     }
@@ -147,7 +268,34 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // DeviceEventPage response = api.deviceLogList(limit, order, after, include, filter);
+        String dateTimeIn = null;
+        String dateTimeNin = null;
+        DateTime dateTimeLte = null;
+        DateTime dateTimeGte = null;
+        String descriptionEq = null;
+        String descriptionNeq = null;
+        String descriptionIn = null;
+        String descriptionNin = null;
+        String idEq = null;
+        String idNeq = null;
+        String idIn = null;
+        String idNin = null;
+        String deviceIdEq = null;
+        String deviceIdNeq = null;
+        String deviceIdIn = null;
+        String deviceIdNin = null;
+        String eventTypeEq = null;
+        String eventTypeNeq = null;
+        String eventTypeIn = null;
+        String eventTypeNin = null;
+        Boolean stateChangeEq = null;
+        Boolean stateChangeNeq = null;
+        String stateChangeIn = null;
+        String stateChangeNin = null;
+        // DeviceEventPage response = api.deviceLogList(limit, order, after, include, filter, dateTimeIn, dateTimeNin,
+        // dateTimeLte, dateTimeGte, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, idEq, idNeq, idIn,
+        // idNin, deviceIdEq, deviceIdNeq, deviceIdIn, deviceIdNin, eventTypeEq, eventTypeNeq, eventTypeIn,
+        // eventTypeNin, stateChangeEq, stateChangeNeq, stateChangeIn, stateChangeNin);
 
         // TODO: test validations
     }
@@ -203,7 +351,29 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // DeviceQueryPage response = api.deviceQueryList(limit, order, after, include, filter);
+        String createdAtIn = null;
+        String createdAtNin = null;
+        DateTime createdAtLte = null;
+        DateTime createdAtGte = null;
+        String idEq = null;
+        String idNeq = null;
+        String idIn = null;
+        String idNin = null;
+        String nameEq = null;
+        String nameNeq = null;
+        String nameIn = null;
+        String nameNin = null;
+        String queryEq = null;
+        String queryNeq = null;
+        String queryIn = null;
+        String queryNin = null;
+        String updatedAtIn = null;
+        String updatedAtNin = null;
+        DateTime updatedAtLte = null;
+        DateTime updatedAtGte = null;
+        // DeviceQueryPage response = api.deviceQueryList(limit, order, after, include, filter, createdAtIn,
+        // createdAtNin, createdAtLte, createdAtGte, idEq, idNeq, idIn, idNin, nameEq, nameNeq, nameIn, nameNin,
+        // queryEq, queryNeq, queryIn, queryNin, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte);
 
         // TODO: test validations
     }
@@ -236,20 +406,6 @@ public class DefaultApiTest {
     }
 
     /**
-     * Return a device to service.
-     *
-     * Returning a device to service restores connectivity to the device. All API functionality is restored.
-     */
-    @Test
-    public void deviceResumeTest() {
-        String id = null;
-        Block block = null;
-        // Void response = api.deviceResume(id, block);
-
-        // TODO: test validations
-    }
-
-    /**
      * Get a device
      *
      * Retrieve information about a specific device.
@@ -258,21 +414,6 @@ public class DefaultApiTest {
     public void deviceRetrieveTest() {
         String id = null;
         // DeviceData response = api.deviceRetrieve(id);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Suspend a device.
-     *
-     * Suspending a device prevents a device from connecting. If a device is currently connected, it will be
-     * disconnected. Some API operations will fail while a device is suspended.
-     */
-    @Test
-    public void deviceSuspendTest() {
-        String id = null;
-        Block1 block = null;
-        // Void response = api.deviceSuspend(id, block);
 
         // TODO: test validations
     }
@@ -299,9 +440,9 @@ public class DefaultApiTest {
     @Test
     public void firmwareImageCreateTest() {
         File datafile = null;
-        String name = null;
         String description = null;
-        // FirmwareImage response = api.firmwareImageCreate(datafile, name, description);
+        String name = null;
+        // FirmwareImage response = api.firmwareImageCreate(datafile, description, name);
 
         // TODO: test validations
     }
@@ -331,7 +472,44 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // FirmwareImagePage response = api.firmwareImageList(limit, order, after, include, filter);
+        String createdAtIn = null;
+        String createdAtNin = null;
+        DateTime createdAtLte = null;
+        DateTime createdAtGte = null;
+        String datafileEq = null;
+        String datafileNeq = null;
+        String datafileIn = null;
+        String datafileNin = null;
+        String datafileChecksumEq = null;
+        String datafileChecksumNeq = null;
+        String datafileChecksumIn = null;
+        String datafileChecksumNin = null;
+        Long datafileSizeEq = null;
+        Long datafileSizeNeq = null;
+        String datafileSizeIn = null;
+        String datafileSizeNin = null;
+        String descriptionEq = null;
+        String descriptionNeq = null;
+        String descriptionIn = null;
+        String descriptionNin = null;
+        String idEq = null;
+        String idNeq = null;
+        String idIn = null;
+        String idNin = null;
+        String nameEq = null;
+        String nameNeq = null;
+        String nameIn = null;
+        String nameNin = null;
+        String updatedAtIn = null;
+        String updatedAtNin = null;
+        DateTime updatedAtLte = null;
+        DateTime updatedAtGte = null;
+        // FirmwareImagePage response = api.firmwareImageList(limit, order, after, include, filter, createdAtIn,
+        // createdAtNin, createdAtLte, createdAtGte, datafileEq, datafileNeq, datafileIn, datafileNin,
+        // datafileChecksumEq, datafileChecksumNeq, datafileChecksumIn, datafileChecksumNin, datafileSizeEq,
+        // datafileSizeNeq, datafileSizeIn, datafileSizeNin, descriptionEq, descriptionNeq, descriptionIn,
+        // descriptionNin, idEq, idNeq, idIn, idNin, nameEq, nameNeq, nameIn, nameNin, updatedAtIn, updatedAtNin,
+        // updatedAtLte, updatedAtGte);
 
         // TODO: test validations
     }
@@ -357,10 +535,10 @@ public class DefaultApiTest {
     @Test
     public void firmwareManifestCreateTest() {
         File datafile = null;
-        String name = null;
         String description = null;
         File keyTable = null;
-        // FirmwareManifest response = api.firmwareManifestCreate(datafile, name, description, keyTable);
+        String name = null;
+        // FirmwareManifest response = api.firmwareManifestCreate(datafile, description, keyTable, name);
 
         // TODO: test validations
     }
@@ -390,7 +568,48 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // FirmwareManifestPage response = api.firmwareManifestList(limit, order, after, include, filter);
+        String createdAtIn = null;
+        String createdAtNin = null;
+        DateTime createdAtLte = null;
+        DateTime createdAtGte = null;
+        String datafileEq = null;
+        String datafileNeq = null;
+        String datafileIn = null;
+        String datafileNin = null;
+        Long datafileSizeEq = null;
+        Long datafileSizeNeq = null;
+        String datafileSizeIn = null;
+        String datafileSizeNin = null;
+        String descriptionEq = null;
+        String descriptionNeq = null;
+        String descriptionIn = null;
+        String descriptionNin = null;
+        String deviceClassEq = null;
+        String deviceClassNeq = null;
+        String deviceClassIn = null;
+        String deviceClassNin = null;
+        String idEq = null;
+        String idNeq = null;
+        String idIn = null;
+        String idNin = null;
+        String nameEq = null;
+        String nameNeq = null;
+        String nameIn = null;
+        String nameNin = null;
+        String timestampIn = null;
+        String timestampNin = null;
+        DateTime timestampLte = null;
+        DateTime timestampGte = null;
+        String updatedAtIn = null;
+        String updatedAtNin = null;
+        DateTime updatedAtLte = null;
+        DateTime updatedAtGte = null;
+        // FirmwareManifestPage response = api.firmwareManifestList(limit, order, after, include, filter, createdAtIn,
+        // createdAtNin, createdAtLte, createdAtGte, datafileEq, datafileNeq, datafileIn, datafileNin, datafileSizeEq,
+        // datafileSizeNeq, datafileSizeIn, datafileSizeNin, descriptionEq, descriptionNeq, descriptionIn,
+        // descriptionNin, deviceClassEq, deviceClassNeq, deviceClassIn, deviceClassNin, idEq, idNeq, idIn, idNin,
+        // nameEq, nameNeq, nameIn, nameNin, timestampIn, timestampNin, timestampLte, timestampGte, updatedAtIn,
+        // updatedAtNin, updatedAtLte, updatedAtGte);
 
         // TODO: test validations
     }
@@ -412,9 +631,9 @@ public class DefaultApiTest {
      * Get billing report.
      *
      * Fetch the billing report generated for the currently authenticated commercial non-subtenant account. Billing
-     * reports for subtenant accounts are included in their aggregator&#39;s billing report response. **Example usage:**
-     * curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report?month&#x3D;2018-07 -H &#39;authorization:
-     * Bearer {api-key}&#39;
+     * reports for subtenant accounts are included in their aggregator&#39;s billing report response. **Example:**
+     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report?month&#x3D;2018-07 \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getBillingReportTest() {
@@ -427,13 +646,13 @@ public class DefaultApiTest {
     /**
      * Get raw billing data of the active devices for the month.
      *
-     * Fetch the raw billing data of the active devices for the currently authenticated commercial non-subtenant
-     * account. This is supplementary data for the billing report. The raw billing data of the active devices for
-     * subtenant accounts are included in their aggregator&#39;s raw billing data of the active devices. The endpoint
-     * returns the URL to download the gzipped CSV file. The first line is the header providing information on the
-     * active devices. For example, the ID of an active device. **Example usage:** curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/billing-report-active-devices?month&#x3D;2018-07 -H &#39;authorization:
-     * Bearer {api-key}&#39;
+     * Fetch raw billing data for active devices for the currently authenticated commercial non-subtenant account. This
+     * is supplementary data for the billing report. The raw billing data of the active devices for subtenant accounts
+     * are included in their aggregator&#39;s raw billing data of the active devices. The endpoint returns the URL to
+     * download the gzipped CSV file. The first line is the header providing information on active devices, for example,
+     * the ID of an active device. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/billing-report-active-devices?month&#x3D;2018-07 \\ -H &#39;Authorization:
+     * Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getBillingReportActiveDevicesTest() {
@@ -446,13 +665,13 @@ public class DefaultApiTest {
     /**
      * Get raw billing data of the firmware updates for the month.
      *
-     * Fetch raw billing data of the firmware updates for the currently authenticated commercial non-subtenant account.
+     * Fetch raw billing data for firmware updates for the currently authenticated commercial non-subtenant account.
      * This is supplementary data for the billing report. The raw billing data of the firmware updates for subtenant
      * accounts are included in their aggregator&#39;s raw billing data of the firmware updates. The endpoint returns
      * the URL to download the gzipped CSV file. The first line is the header providing information on the firmware
-     * updates. For example, the ID of an firmware update. **Example usage:** curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month&#x3D;2018-07 -H &#39;authorization:
-     * Bearer {api-key}&#39;
+     * updates. For example, the ID of an firmware update. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month&#x3D;2018-07 \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getBillingReportFirmwareUpdatesTest() {
@@ -463,119 +682,11 @@ public class DefaultApiTest {
     }
 
     /**
-     * Get branding colors of the dark theme.
-     *
-     * Returns the branding colors of the dark theme.
-     */
-    @Test
-    public void getLoginPageAllDarkColorsTest() {
-        String accountId = null;
-        // BrandingColorList response = api.getLoginPageAllDarkColors(accountId);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Get metadata of all images of the dark theme.
-     *
-     * Returns the metadata of all branding images of the dark theme.
-     */
-    @Test
-    public void getLoginPageAllDarkImageDataTest() {
-        String accountId = null;
-        // BrandingImageList response = api.getLoginPageAllDarkImageData(accountId);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Get branding colors of the light theme.
-     *
-     * Returns the branding colors of the light theme.
-     */
-    @Test
-    public void getLoginPageAllLightColorsTest() {
-        String accountId = null;
-        // BrandingColorList response = api.getLoginPageAllLightColors(accountId);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Get metadata of all images of the light theme.
-     *
-     * Returns the metadata of all branding images of the light theme.
-     */
-    @Test
-    public void getLoginPageAllLightImageDataTest() {
-        String accountId = null;
-        // BrandingImageList response = api.getLoginPageAllLightImageData(accountId);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Get branding color of the dark theme.
-     *
-     * Returns the requested branding color of the dark theme.
-     */
-    @Test
-    public void getLoginPageDarkColorTest() {
-        String accountId = null;
-        String reference = null;
-        // BrandingColor response = api.getLoginPageDarkColor(accountId, reference);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Get metadata of an image of the dark theme.
-     *
-     * An endpoint for getting metadata of one account branding image of the dark theme.
-     */
-    @Test
-    public void getLoginPageDarkImageDataTest() {
-        String accountId = null;
-        String reference = null;
-        // BrandingImage response = api.getLoginPageDarkImageData(accountId, reference);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Get branding color of the light theme.
-     *
-     * Returns the requested branding color of the light theme.
-     */
-    @Test
-    public void getLoginPageLightColorTest() {
-        String accountId = null;
-        String reference = null;
-        // BrandingColor response = api.getLoginPageLightColor(accountId, reference);
-
-        // TODO: test validations
-    }
-
-    /**
-     * Get metadata of an image of the light theme.
-     *
-     * An endpoint for getting metadata of one account branding image of the light theme.
-     */
-    @Test
-    public void getLoginPageLightImageDataTest() {
-        String accountId = null;
-        String reference = null;
-        // BrandingImage response = api.getLoginPageLightImageData(accountId, reference);
-
-        // TODO: test validations
-    }
-
-    /**
      * Service package quota.
      *
-     * Get the available firmware update quota for the currently authenticated commercial account. **Example usage:**
-     * curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota -H &#39;authorization: Bearer
-     * {api-key}&#39;
+     * Get the available firmware update quota for the current authenticated commercial account. **Example:**
+     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getServicePackageQuotaTest() {
@@ -587,10 +698,10 @@ public class DefaultApiTest {
     /**
      * Service package quota history.
      *
-     * Get your quota usage history. This API is available for commercial accounts. Aggregator accounts can see own and
-     * subtenant quota usage data. History data is ordered in ascending order based on the added timestamp. **Example
-     * usage:** curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota-history -H &#39;authorization:
-     * Bearer {api-key}&#39;
+     * Get your quota usage history. This API is available only for commercial accounts. Aggregator accounts can see
+     * their own and subtenant quota usage data. Data is in ascending order based on the added timestamp. **Example:**
+     * &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota-history \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      */
     @Test
     public void getServicePackageQuotaHistoryTest() {
@@ -604,10 +715,11 @@ public class DefaultApiTest {
     /**
      * Get all service packages.
      *
-     * Get information of all service packages for the currently authenticated commercial account. The response is
-     * returned in descending order by service package created timestamp, listing first the pending service package,
-     * then the active service package and finally the previous service packages. **Example usage:** curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/service-packages -H &#39;authorization: Bearer {api-key}&#39;
+     * Get information for all service packages for the current authenticated commercial account. The response is
+     * returned in descending order by service package created timestamp: first the pending service package, then the
+     * active service package, then the previous service packages. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/service-packages \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
+     * &#x60;&#x60;&#x60;
      */
     @Test
     public void getServicePackagesTest() {
@@ -654,7 +766,34 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // DeviceGroupPage response = api.groupList(limit, order, after, include, filter);
+        String idEq = null;
+        String idNeq = null;
+        String idIn = null;
+        String idNin = null;
+        Integer devicesCountEq = null;
+        Integer devicesCountNeq = null;
+        String devicesCountIn = null;
+        String devicesCountNin = null;
+        Integer devicesCountLte = null;
+        Integer devicesCountGte = null;
+        String nameEq = null;
+        String nameNeq = null;
+        String nameIn = null;
+        String nameNin = null;
+        String customAttributesEq = null;
+        String customAttributesNeq = null;
+        String createdAtIn = null;
+        String createdAtNin = null;
+        DateTime createdAtLte = null;
+        DateTime createdAtGte = null;
+        String updatedAtIn = null;
+        String updatedAtNin = null;
+        DateTime updatedAtLte = null;
+        DateTime updatedAtGte = null;
+        // DeviceGroupPage response = api.groupList(limit, order, after, include, filter, idEq, idNeq, idIn, idNin,
+        // devicesCountEq, devicesCountNeq, devicesCountIn, devicesCountNin, devicesCountLte, devicesCountGte, nameEq,
+        // nameNeq, nameIn, nameNin, customAttributesEq, customAttributesNeq, createdAtIn, createdAtNin, createdAtLte,
+        // createdAtGte, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte);
 
         // TODO: test validations
     }
@@ -812,7 +951,57 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // UpdateCampaignPage response = api.updateCampaignList(limit, order, after, include, filter);
+        String createdAtIn = null;
+        String createdAtNin = null;
+        DateTime createdAtLte = null;
+        DateTime createdAtGte = null;
+        String descriptionEq = null;
+        String descriptionNeq = null;
+        String descriptionIn = null;
+        String descriptionNin = null;
+        String deviceFilterEq = null;
+        String deviceFilterNeq = null;
+        String deviceFilterIn = null;
+        String deviceFilterNin = null;
+        String finishedIn = null;
+        String finishedNin = null;
+        DateTime finishedLte = null;
+        DateTime finishedGte = null;
+        String idEq = null;
+        String idNeq = null;
+        String idIn = null;
+        String idNin = null;
+        String nameEq = null;
+        String nameNeq = null;
+        String nameIn = null;
+        String nameNin = null;
+        String rootManifestIdEq = null;
+        String rootManifestIdNeq = null;
+        String rootManifestIdIn = null;
+        String rootManifestIdNin = null;
+        String startedAtIn = null;
+        String startedAtNin = null;
+        DateTime startedAtLte = null;
+        DateTime startedAtGte = null;
+        String stateEq = null;
+        String stateNeq = null;
+        String stateIn = null;
+        String stateNin = null;
+        String updatedAtIn = null;
+        String updatedAtNin = null;
+        DateTime updatedAtLte = null;
+        DateTime updatedAtGte = null;
+        String whenIn = null;
+        String whenNin = null;
+        DateTime whenLte = null;
+        DateTime whenGte = null;
+        // UpdateCampaignPage response = api.updateCampaignList(limit, order, after, include, filter, createdAtIn,
+        // createdAtNin, createdAtLte, createdAtGte, descriptionEq, descriptionNeq, descriptionIn, descriptionNin,
+        // deviceFilterEq, deviceFilterNeq, deviceFilterIn, deviceFilterNin, finishedIn, finishedNin, finishedLte,
+        // finishedGte, idEq, idNeq, idIn, idNin, nameEq, nameNeq, nameIn, nameNin, rootManifestIdEq, rootManifestIdNeq,
+        // rootManifestIdIn, rootManifestIdNin, startedAtIn, startedAtNin, startedAtLte, startedAtGte, stateEq,
+        // stateNeq, stateIn, stateNin, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte, whenIn, whenNin, whenLte,
+        // whenGte);
 
         // TODO: test validations
     }
@@ -971,7 +1160,32 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // UploadChunkInfoPage response = api.uploadJobChunkList(uploadJobId, limit, order, after, include, filter);
+        String createdAtIn = null;
+        String createdAtNin = null;
+        DateTime createdAtLte = null;
+        DateTime createdAtGte = null;
+        Integer idEq = null;
+        Integer idNeq = null;
+        String idIn = null;
+        String idNin = null;
+        String updatedAtIn = null;
+        String updatedAtNin = null;
+        DateTime updatedAtLte = null;
+        DateTime updatedAtGte = null;
+        String hashEq = null;
+        String hashNeq = null;
+        String hashIn = null;
+        String hashNin = null;
+        Integer lengthEq = null;
+        Integer lengthNeq = null;
+        String lengthIn = null;
+        String lengthNin = null;
+        Integer lengthLte = null;
+        Integer lengthGte = null;
+        // UploadChunkInfoPage response = api.uploadJobChunkList(uploadJobId, limit, order, after, include, filter,
+        // createdAtIn, createdAtNin, createdAtLte, createdAtGte, idEq, idNeq, idIn, idNin, updatedAtIn, updatedAtNin,
+        // updatedAtLte, updatedAtGte, hashEq, hashNeq, hashIn, hashNin, lengthEq, lengthNeq, lengthIn, lengthNin,
+        // lengthLte, lengthGte);
 
         // TODO: test validations
     }
@@ -1028,7 +1242,36 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // UploadJobPage response = api.uploadJobList(limit, order, after, include, filter);
+        String updatedAtIn = null;
+        String updatedAtNin = null;
+        DateTime updatedAtLte = null;
+        DateTime updatedAtGte = null;
+        String nameEq = null;
+        String nameNeq = null;
+        String nameIn = null;
+        String nameNin = null;
+        String createdAtIn = null;
+        String createdAtNin = null;
+        DateTime createdAtLte = null;
+        DateTime createdAtGte = null;
+        String descriptionEq = null;
+        String descriptionNeq = null;
+        String descriptionIn = null;
+        String descriptionNin = null;
+        String idEq = null;
+        String idNeq = null;
+        String idIn = null;
+        String idNin = null;
+        Boolean completeEq = null;
+        Boolean completeNeq = null;
+        String statusEq = null;
+        String statusNeq = null;
+        String statusIn = null;
+        String statusNin = null;
+        // UploadJobPage response = api.uploadJobList(limit, order, after, include, filter, updatedAtIn, updatedAtNin,
+        // updatedAtLte, updatedAtGte, nameEq, nameNeq, nameIn, nameNin, createdAtIn, createdAtNin, createdAtLte,
+        // createdAtGte, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, idEq, idNeq, idIn, idNin,
+        // completeEq, completeNeq, statusEq, statusNeq, statusIn, statusNin);
 
         // TODO: test validations
     }

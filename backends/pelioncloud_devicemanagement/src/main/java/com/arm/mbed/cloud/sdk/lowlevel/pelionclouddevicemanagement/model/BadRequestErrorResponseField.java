@@ -19,9 +19,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * Single field that failed validation
+ * Single field that failed validation.
  */
-@ApiModel(description = "Single field that failed validation")
+@ApiModel(description = "Single field that failed validation.")
 
 public class BadRequestErrorResponseField implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -38,11 +38,11 @@ public class BadRequestErrorResponseField implements Serializable {
     }
 
     /**
-     * A human readable message with detailed validation error.
+     * A human-readable message with detailed validation error.
      * 
      * @return message
      **/
-    @ApiModelProperty(required = true, value = "A human readable message with detailed validation error.")
+    @ApiModelProperty(required = true, value = "A human-readable message with detailed validation error.")
     public String getMessage() {
         return message;
     }
@@ -57,13 +57,13 @@ public class BadRequestErrorResponseField implements Serializable {
     }
 
     /**
-     * Name of the field that failed the validation. If name is set to \&quot;body\&quot; then the validation failed on
+     * Name of the field that failed validation. If name is set to &#x60;body,&#x60; then the validation failed on
      * request body.
      * 
      * @return name
      **/
     @ApiModelProperty(required = true,
-                      value = "Name of the field that failed the validation. If name is set to \"body\" then the validation failed on request body.")
+                      value = "Name of the field that failed validation. If name is set to `body,` then the validation failed on request body.")
     public String getName() {
         return name;
     }

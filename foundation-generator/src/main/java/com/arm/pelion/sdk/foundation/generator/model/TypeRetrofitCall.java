@@ -1,8 +1,15 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import com.squareup.javapoet.TypeName;
+
 import retrofit2.Call;
 
 public class TypeRetrofitCall extends TypeCompose {
+
+    protected TypeRetrofitCall(Import importPath, Class<?> clazz, TypeName typeName, String type, String format,
+                               TypeParameter contentType, boolean concrete) {
+        super(importPath, clazz, typeName, type, format, contentType, concrete);
+    }
 
     public TypeRetrofitCall() {
         super();
@@ -40,6 +47,12 @@ public class TypeRetrofitCall extends TypeCompose {
     @Override
     public String toString() {
         return "TypeRetrofitCall [contentType=" + contentType + "]";
+    }
+
+    @Override
+    public TypeRetrofitCall clone() {
+        return new TypeRetrofitCall(importPath == null ? null : importPath.clone(), clazz, typeName, type, format,
+                                    contentType, concreteImplementation);
     }
 
 }

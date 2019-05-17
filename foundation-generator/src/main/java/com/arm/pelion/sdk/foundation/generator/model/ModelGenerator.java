@@ -5,7 +5,9 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import com.arm.pelion.sdk.foundation.generator.util.CleanException;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
@@ -31,8 +33,8 @@ public class ModelGenerator extends AbstractGenerator {
         if (model == null) {
             return;
         }
-        logger.logDebug("Generating " + model.getClass().getSimpleName().toLowerCase(Locale.UK) + " ["
-                        + model.getFullName() + "]");
+        logger.logInfo("Generating " + model.getClass().getSimpleName().toLowerCase(Locale.UK) + " ["
+                       + model.getFullName() + "]");
         model.translate();
         TypeSpec modelClass = model.getSpecificationBuilder().build();
         JavaFile file = JavaFile.builder(model.getPackageName(), modelClass).addFileComment(generateFileComment(model))
@@ -43,15 +45,16 @@ public class ModelGenerator extends AbstractGenerator {
                 logger.logWarn("The destination directory for the generated code was not specified. It will hence only be output to Standard out.");
                 file.writeTo(System.out);
             } else {
-                logger.logDebug("Generating model file [" + destinationFile.getName() + "]");
-                if (model.containsCustomCode() && destinationFile.exists()) {
+                logger.logInfo("Generating model file [" + destinationFile.getName() + "]");
+                if (model.containsCustomCode() && destinationFile.exists()
+                    && AbstractFileRegistryHolder.get().didModelHaveParent(model)) {
                     logger.logInfo("The model file " + destinationFile.getName()
                                    + " is already present and contains some custom code. Therefore, it won't be regenerated.");
                     return;
                 }
 
                 file.writeTo(sourceDestinationDirectory);
-                logger.logDebug("Model [" + model.getFullName() + "] was generated as " + destinationFile.toString());
+                logger.logInfo("Model [" + model.getFullName() + "] was generated as " + destinationFile.toString());
             }
         } catch (Exception exception) {
             throw new TranslationException(exception);
@@ -117,10 +120,52 @@ public class ModelGenerator extends AbstractGenerator {
         for (final File fileToDelete : filesToClean) {
             try {
                 logger.logInfo("Removing model file [" + fileToDelete.getName() + "]");
+                AbstractFileRegistryHolder.get().registerParent(fileToDelete.getName());
                 Files.delete(fileToDelete.toPath());
             } catch (IOException exception) {
                 throw new CleanException(exception);
             }
+        }
+    }
+
+    public static class AbstractFileRegistry {
+        private static final String JAVA_EXTENSION = ".java";
+        private final Set<String> fileNames;
+
+        private AbstractFileRegistry() {
+            super();
+            this.fileNames = new LinkedHashSet<>();
+        }
+
+        public void registerParent(String parentFileName) {
+            if (parentFileName == null) {
+                return;
+            }
+            fileNames.add(parentFileName);
+        }
+
+        public boolean didModelHaveParent(Model model) {
+            if (model == null) {
+                return false;
+            }
+            String parentName = model.generateParentClassName();
+            if (parentName == null) {
+                return false;
+            }
+            if (!parentName.endsWith(JAVA_EXTENSION)) {
+                parentName += JAVA_EXTENSION;
+            }
+            return fileNames.contains(parentName);
+
+        }
+
+    }
+
+    private static class AbstractFileRegistryHolder {
+        private static final AbstractFileRegistry INSTANCE = new AbstractFileRegistry();
+
+        public static AbstractFileRegistry get() {
+            return INSTANCE;
         }
     }
 

@@ -61,7 +61,7 @@ public class LWM2MID implements Comparable<LWM2MID> {
 
         try {
             this.intId = Integer.parseInt(stringId);
-        } catch (NumberFormatException exception) {
+        } catch (@SuppressWarnings("unused") NumberFormatException exception) {
             this.intId = stringId != null ? stringId.hashCode() & 0x08FF : -1;
         }
     }

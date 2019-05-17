@@ -22,8 +22,14 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * value.
+     *
+     * <p>
+     * 
+     * @deprecated This field has been deprecated since Tue Jan 15 14:55:20 UTC 2019 and will be removed by Wed Jan 15
+     *             14:55:20 UTC 2020. This field is not used.
      */
-    private final Map<String, String> changes;
+    @Deprecated
+    private final Map<String, Object> changes;
 
     /**
      * value.
@@ -77,6 +83,9 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
@@ -105,7 +114,7 @@ public class DeviceEvents implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public DeviceEvents(Map<String, String> changes, Date createdAt, Map<String, String> data, Date dateTime,
+    public DeviceEvents(Map<String, Object> changes, Date createdAt, Map<String, String> data, Date dateTime,
                         String description, String deviceId, String eventType, String eventTypeCategory,
                         String eventTypeDescription, String id, boolean stateChange) {
         super();
@@ -124,6 +133,9 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
@@ -132,10 +144,10 @@ public class DeviceEvents implements SdkModel {
      */
     @Internal
     public DeviceEvents(DeviceEvents deviceEvents) {
-        this(deviceEvents == null ? null : deviceEvents.changes,
-             deviceEvents == null ? new java.util.Date() : deviceEvents.createdAt,
-             deviceEvents == null ? null : deviceEvents.data,
-             deviceEvents == null ? new java.util.Date() : deviceEvents.dateTime,
+        this(deviceEvents == null ? (Map<String, Object>) null : deviceEvents.changes,
+             deviceEvents == null ? new Date() : deviceEvents.createdAt,
+             deviceEvents == null ? (Map<String, String>) null : deviceEvents.data,
+             deviceEvents == null ? new Date() : deviceEvents.dateTime,
              deviceEvents == null ? (String) null : deviceEvents.description,
              deviceEvents == null ? (String) null : deviceEvents.deviceId,
              deviceEvents == null ? (String) null : deviceEvents.eventType,
@@ -148,13 +160,17 @@ public class DeviceEvents implements SdkModel {
      * Constructor.
      */
     public DeviceEvents() {
-        this(null, new java.util.Date(), null, new java.util.Date(), (String) null, (String) null, (String) null,
-             (String) null, (String) null, (String) null, false);
+        this((Map<String, Object>) null, new Date(), (Map<String, String>) null, new Date(), (String) null,
+             (String) null, (String) null, (String) null, (String) null, (String) null, false);
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            value.
      */
@@ -165,6 +181,9 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
@@ -190,7 +209,8 @@ public class DeviceEvents implements SdkModel {
      *            value.
      */
     @Internal
-    public DeviceEvents(Map<String, String> changes, Date createdAt, Map<String, String> data, Date dateTime,
+    @SuppressWarnings("PMD.CyclomaticComplexity")
+    public DeviceEvents(Map<String, Object> changes, Date createdAt, Map<String, String> data, Date dateTime,
                         String description, String deviceId, String eventType, String eventTypeCategory,
                         String eventTypeDescription, boolean stateChange) {
         this(changes, createdAt, data, dateTime, description, deviceId, eventType, eventTypeCategory,
@@ -199,10 +219,16 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Gets value.
+     *
+     * <p>
      * 
+     * @deprecated This field has been deprecated since Tue Jan 15 14:55:20 UTC 2019 and will be removed by Wed Jan 15
+     *             14:55:20 UTC 2020. This field is not used.
+     *
      * @return changes
      */
-    public Map<String, String> getChanges() {
+    @Deprecated
+    public Map<String, Object> getChanges() {
         return changes;
     }
 
@@ -301,6 +327,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Sets value.
+     *
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -322,7 +349,24 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "DeviceEvents [changes=" + changes + ", createdAt=" + createdAt + ", data=" + data + ", dateTime="
+               + dateTime + ", description=" + description + ", deviceId=" + deviceId + ", eventType=" + eventType
+               + ", eventTypeCategory=" + eventTypeCategory + ", eventTypeDescription=" + eventTypeDescription + ", id="
+               + id + ", stateChange=" + stateChange + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
+     *
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -342,12 +386,13 @@ public class DeviceEvents implements SdkModel {
         result = prime * result + ((eventTypeCategory == null) ? 0 : eventTypeCategory.hashCode());
         result = prime * result + ((eventTypeDescription == null) ? 0 : eventTypeDescription.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + Objects.hashCode(stateChange);
+        result = prime * result + Objects.hashCode(Boolean.valueOf(stateChange));
         return result;
     }
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -361,6 +406,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     *
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -461,22 +507,8 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "DeviceEvents [changes=" + changes + ", createdAt=" + createdAt + ", data=" + data + ", dateTime="
-               + dateTime + ", description=" + description + ", deviceId=" + deviceId + ", eventType=" + eventType
-               + ", eventTypeCategory=" + eventTypeCategory + ", eventTypeDescription=" + eventTypeDescription + ", id="
-               + id + ", stateChange=" + stateChange + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
+     *
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -489,6 +521,7 @@ public class DeviceEvents implements SdkModel {
 
     /**
      * Clones this instance.
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

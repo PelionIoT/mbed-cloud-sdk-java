@@ -36,6 +36,7 @@ public class GenericClient {
      * @param options
      *            connection options.
      */
+    @SuppressWarnings("resource")
     public GenericClient(@NonNull ConnectionOptions options) {
         this(new DefaultModule(options));
     }

@@ -24,10 +24,13 @@ public class LoginProfile implements SdkModel {
     /**
      * Name of the identity provider.
      */
-    private final String name;
+    private String name;
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #LoginProfile()} instead.
      * 
@@ -39,12 +42,15 @@ public class LoginProfile implements SdkModel {
     @Internal
     public LoginProfile(String id, String name) {
         super();
-        this.name = name;
         setId(id);
+        setName(name);
     }
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #LoginProfile()} instead.
      * 
@@ -66,7 +72,11 @@ public class LoginProfile implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            ID of the identity provider.
      */
@@ -98,6 +108,7 @@ public class LoginProfile implements SdkModel {
 
     /**
      * Sets id of the identity provider.
+     *
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -119,7 +130,31 @@ public class LoginProfile implements SdkModel {
     }
 
     /**
+     * Sets name of the identity provider.
+     * 
+     * @param name
+     *            Name of the identity provider.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "LoginProfile [id=" + id + ", name=" + name + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
+     *
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -136,6 +171,7 @@ public class LoginProfile implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -149,6 +185,7 @@ public class LoginProfile implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     *
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -189,19 +226,8 @@ public class LoginProfile implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "LoginProfile [id=" + id + ", name=" + name + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
+     *
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -214,6 +240,7 @@ public class LoginProfile implements SdkModel {
 
     /**
      * Clones this instance.
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

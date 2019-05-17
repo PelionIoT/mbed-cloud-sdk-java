@@ -67,11 +67,11 @@ public class ServicePackageReport implements Serializable {
     }
 
     /**
-     * Get metadata
+     * &#x60;Null&#x60; if service package has expired.
      * 
      * @return metadata
      **/
-    @ApiModelProperty(required = true, value = "")
+    @ApiModelProperty(required = true, value = "`Null` if service package has expired.")
     public ServicePackageMetadata getMetadata() {
         return metadata;
     }

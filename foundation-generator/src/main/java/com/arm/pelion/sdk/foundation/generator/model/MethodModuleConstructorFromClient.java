@@ -11,7 +11,7 @@ public class MethodModuleConstructorFromClient extends AbstractMethodConstructor
     private static final String PARAMETER_CLOUD_CLIENT = "client";
 
     public MethodModuleConstructorFromClient(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, false);
+        super(null, currentModel, parentModel, null, null, false);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class MethodModuleConstructorFromClient extends AbstractMethodConstructor
     protected void addConstructorParameters() {
         addParameter(new Parameter(PARAMETER_CLOUD_CLIENT,
                                    "Cloud client @see {@link " + getParameterClass().getSimpleName() + "}.", null,
-                                   TypeFactory.getCorrespondingType(getParameterClass()), null));
+                                   TypeFactory.getCorrespondingType(getParameterClass()), null, null));
     }
 
     public Class<?> getParameterClass() {

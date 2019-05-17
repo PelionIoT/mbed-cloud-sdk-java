@@ -13,6 +13,7 @@ import java.util.Objects;
  * Model for an api key.
  */
 @Preamble(description = "Model for an api key.")
+@SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.AvoidDuplicateLiterals" })
 public class ApiKey implements SdkModel {
     /**
      * Serialisation Id.
@@ -72,6 +73,9 @@ public class ApiKey implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #ApiKey()} instead.
      * 
@@ -97,6 +101,7 @@ public class ApiKey implements SdkModel {
      *            Last update UTC time RFC3339.
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public ApiKey(String accountId, Date createdAt, long creationTime, String id, String key, long lastLoginTime,
                   String name, String owner, ApiKeyStatus status, Date updatedAt) {
         super();
@@ -114,6 +119,9 @@ public class ApiKey implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #ApiKey()} instead.
      * 
@@ -122,25 +130,29 @@ public class ApiKey implements SdkModel {
      */
     @Internal
     public ApiKey(ApiKey apiKey) {
-        this(apiKey == null ? (String) null : apiKey.accountId,
-             apiKey == null ? new java.util.Date() : apiKey.createdAt, apiKey == null ? 0L : apiKey.creationTime,
-             apiKey == null ? (String) null : apiKey.id, apiKey == null ? (String) null : apiKey.key,
-             apiKey == null ? 0L : apiKey.lastLoginTime, apiKey == null ? (String) null : apiKey.name,
-             apiKey == null ? (String) null : apiKey.owner, apiKey == null ? ApiKeyStatus.getDefault() : apiKey.status,
-             apiKey == null ? new java.util.Date() : apiKey.updatedAt);
+        this(apiKey == null ? (String) null : apiKey.accountId, apiKey == null ? new Date() : apiKey.createdAt,
+             apiKey == null ? 0 : apiKey.creationTime, apiKey == null ? (String) null : apiKey.id,
+             apiKey == null ? (String) null : apiKey.key, apiKey == null ? 0 : apiKey.lastLoginTime,
+             apiKey == null ? (String) null : apiKey.name, apiKey == null ? (String) null : apiKey.owner,
+             apiKey == null ? ApiKeyStatus.getDefault() : apiKey.status,
+             apiKey == null ? new Date() : apiKey.updatedAt);
     }
 
     /**
      * Constructor.
      */
     public ApiKey() {
-        this((String) null, new java.util.Date(), 0L, (String) null, (String) null, 0L, (String) null, (String) null,
-             ApiKeyStatus.getDefault(), new java.util.Date());
+        this((String) null, new Date(), 0, (String) null, (String) null, 0, (String) null, (String) null,
+             ApiKeyStatus.getDefault(), new Date());
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            The ID of the API key.
      */
@@ -151,6 +163,9 @@ public class ApiKey implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #ApiKey()} instead.
      * 
@@ -212,6 +227,9 @@ public class ApiKey implements SdkModel {
 
     /**
      * Sets the id of the api key.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param id
      *            The ID of the API key.
@@ -223,8 +241,11 @@ public class ApiKey implements SdkModel {
 
     /**
      * Sets the id of the api key.
+     *
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param apiKeyId
      *            The ID of the API key.
@@ -232,6 +253,16 @@ public class ApiKey implements SdkModel {
     @Internal
     public void setApiKeyId(String apiKeyId) {
         setId(apiKeyId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[a-f0-9]{32}"));
     }
 
     /**
@@ -263,6 +294,9 @@ public class ApiKey implements SdkModel {
 
     /**
      * Sets the display name for the api key.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param name
      *            The display name for the API key.
@@ -279,7 +313,7 @@ public class ApiKey implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isNameValid() {
-        return name != null;
+        return name != null && (name.length() <= 100);
     }
 
     /**
@@ -293,12 +327,25 @@ public class ApiKey implements SdkModel {
 
     /**
      * Sets the owner of this api key, who is the creator by default.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param owner
      *            The owner of this API key, who is the creator by default.
      */
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    /**
+     * Checks whether owner value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isOwnerValid() {
+        return (owner == null || owner.matches("[a-f0-9]{32}"));
     }
 
     /**
@@ -321,6 +368,20 @@ public class ApiKey implements SdkModel {
     }
 
     /**
+     * Sets the status of the api key.
+     *
+     * <p>
+     * Similar to {@link #setStatus(com.arm.mbed.cloud.sdk.accounts.model.ApiKeyStatus)}
+     * 
+     * @param status
+     *            The status of the API key.
+     */
+    @Internal
+    public void setStatus(String status) {
+        this.status = ApiKeyStatus.getValue(status);
+    }
+
+    /**
      * Gets last update utc time rfc3339.
      * 
      * @return updatedAt
@@ -330,7 +391,23 @@ public class ApiKey implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "ApiKey [accountId=" + accountId + ", createdAt=" + createdAt + ", creationTime=" + creationTime
+               + ", id=" + id + ", key=" + key + ", lastLoginTime=" + lastLoginTime + ", name=" + name + ", owner="
+               + owner + ", status=" + status + ", updatedAt=" + updatedAt + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
+     *
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -342,10 +419,10 @@ public class ApiKey implements SdkModel {
         int result = 1;
         result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-        result = prime * result + Objects.hashCode(creationTime);
+        result = prime * result + Objects.hashCode(Long.valueOf(creationTime));
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((key == null) ? 0 : key.hashCode());
-        result = prime * result + Objects.hashCode(lastLoginTime);
+        result = prime * result + Objects.hashCode(Long.valueOf(lastLoginTime));
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((owner == null) ? 0 : owner.hashCode());
         result = prime * result + ((status == null) ? 0 : status.hashCode());
@@ -355,6 +432,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -368,6 +446,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     *
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -376,6 +455,7 @@ public class ApiKey implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -452,21 +532,8 @@ public class ApiKey implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "ApiKey [accountId=" + accountId + ", createdAt=" + createdAt + ", creationTime=" + creationTime
-               + ", id=" + id + ", key=" + key + ", lastLoginTime=" + lastLoginTime + ", name=" + name + ", owner="
-               + owner + ", status=" + status + ", updatedAt=" + updatedAt + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
+     *
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -474,11 +541,12 @@ public class ApiKey implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isNameValid();
+        return isIdValid() && isNameValid() && isOwnerValid();
     }
 
     /**
      * Clones this instance.
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

@@ -7,9 +7,10 @@ public abstract class AbstractMethodConstructorWithFieldParameters extends Abstr
 
     protected List<Field> fields;
 
-    public AbstractMethodConstructorWithFieldParameters(Model currentModel, Model parentModel, String description,
-                                                        String longDescription, boolean isInternal) {
-        super(currentModel, parentModel, description, longDescription, isInternal);
+    public AbstractMethodConstructorWithFieldParameters(String constructorDescription, Model currentModel,
+                                                        Model parentModel, String description, String longDescription,
+                                                        boolean isInternal) {
+        super(constructorDescription, currentModel, parentModel, description, longDescription, isInternal);
     }
 
     protected abstract void setFields();
@@ -36,11 +37,11 @@ public abstract class AbstractMethodConstructorWithFieldParameters extends Abstr
     }
 
     @Override
-    protected void addAnnotations() {
-        super.addAnnotations();
+    protected void addStaticAnalysisAnnotations() {
         if (fields != null && fields.size() > StaticAnalysisUtils.FIELD_LIMIT_FOR_IGNORING_WARNINGS) {
-            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreCyclomaticComplexity());
+            annotationRegistry.ignoreCyclomaticComplexity();
         }
+        super.addStaticAnalysisAnnotations();
     }
 
 }

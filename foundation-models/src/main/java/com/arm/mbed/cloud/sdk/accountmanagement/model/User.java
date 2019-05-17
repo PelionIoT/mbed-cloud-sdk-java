@@ -9,7 +9,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
-@Preamble(description = "This object represents a user in Arm Mbed Cloud")
+@Preamble(description = "This object represents a user in Arm Pelion Cloud")
 public class User implements SdkModel {
     /**
      * Serialisation Id.
@@ -270,6 +270,7 @@ public class User implements SdkModel {
      * @param id
      *            the id to set.
      */
+    @Override
     public void setId(String id) {
         this.id = id;
     }

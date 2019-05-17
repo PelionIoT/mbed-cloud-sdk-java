@@ -10,6 +10,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 
+@SuppressWarnings("deprecation")
 @Preamble(description = "Presubscription")
 public class Presubscription implements SdkModel {
     /**

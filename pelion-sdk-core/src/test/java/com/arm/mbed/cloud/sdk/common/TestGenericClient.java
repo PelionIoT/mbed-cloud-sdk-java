@@ -28,7 +28,7 @@ public class TestGenericClient {
     private static final int TOTAL_RESULT_NUMBER = 9;
     private static final String SOME_FAKE_USER_DATA = "{\"object\":\"list\",\"limit\":2,\"after\":null,\"order\":\"ASC\",\"totalCount\":"
                                                       + TOTAL_RESULT_NUMBER
-                                                      + ",\"hasMore\":false,\"data\":[{\"accountId\":\"015a9e3ac83502420a01500a00000000\",\"loginProfiles\":[{\"id\":\"016290940a005e1b17c358ff00000000\",\"name\":\"Mbed Cloud\",\"type\":\"NATIVE\"}],\"status\":\"RESET\",\"username\":null,\"password\":null,\"fullName\":\"Rob Moran\",\"email\":\"rob.moran@itisatest.com\",\"address\":null,\"phoneNumber\":null,\"groups\":[\"0157d765ebc502420a010f0d00000000\",\"015a9e3ac86802420a01400a00000000\",\"015a9e3ac86102420a01400a00000000\"],\"areTermsAccepted\":true,\"isMarketingAccepted\":true,\"creationTime\":1488713336000,\"lastLoginTime\":1517679475125,\"passwordChangedTime\":1521112093416,\"twoFactorAuthentication\":false,\"object\":\"user\",\"id\":\"0157d80ee2db02420a010f0d00000000\",\"etag\":\"1\",\"createdAt\":\"2017-03-05T11:28:56Z\",\"updatedAt\":null},{\"accountId\":\"015a9e3ac83502420a01400a00000000\",\"loginProfiles\":[{\"id\":\"0162909c0a005e1b17c358ff00000000\",\"name\":\"Mbed Cloud\",\"type\":\"NATIVE\"}],\"status\":\"ACTIVE\",\"username\":\"joea\",\"password\":null,\"fullName\":\"joea\",\"email\":\"joe.alderson@test.com\",\"address\":null,\"phoneNumber\":null,\"groups\":[\"015a9e3ac86102420a01400a00000000\",\"015a9e3ac86802420a01400a00000000\"],\"areTermsAccepted\":false,\"isMarketingAccepted\":false,\"creationTime\":1488713336000,\"lastLoginTime\":1522858931763,\"passwordChangedTime\":1522858921732,\"twoFactorAuthentication\":false,\"object\":\"user\",\"id\":\"015a9e3ac85a02420a01400a00000000\",\"etag\":\"1\",\"createdAt\":\"2017-03-05T11:28:56Z\",\"updatedAt\":null}]}";
+                                                      + ",\"hasMore\":false,\"data\":[{\"accountId\":\"015a9e3ac83502420a01500a00000000\",\"loginProfiles\":[{\"id\":\"016290940a005e1b17c358ff00000000\",\"name\":\"Pelion Cloud\",\"type\":\"NATIVE\"}],\"status\":\"RESET\",\"username\":null,\"password\":null,\"fullName\":\"Rob Moran\",\"email\":\"rob.moran@itisatest.com\",\"address\":null,\"phoneNumber\":null,\"groups\":[\"0157d765ebc502420a010f0d00000000\",\"015a9e3ac86802420a01400a00000000\",\"015a9e3ac86102420a01400a00000000\"],\"areTermsAccepted\":true,\"isMarketingAccepted\":true,\"creationTime\":1488713336000,\"lastLoginTime\":1517679475125,\"passwordChangedTime\":1521112093416,\"twoFactorAuthentication\":false,\"object\":\"user\",\"id\":\"0157d80ee2db02420a010f0d00000000\",\"etag\":\"1\",\"createdAt\":\"2017-03-05T11:28:56Z\",\"updatedAt\":null},{\"accountId\":\"015a9e3ac83502420a01400a00000000\",\"loginProfiles\":[{\"id\":\"0162909c0a005e1b17c358ff00000000\",\"name\":\"Pelion Cloud\",\"type\":\"NATIVE\"}],\"status\":\"ACTIVE\",\"username\":\"joea\",\"password\":null,\"fullName\":\"joea\",\"email\":\"joe.alderson@test.com\",\"address\":null,\"phoneNumber\":null,\"groups\":[\"015a9e3ac86102420a01400a00000000\",\"015a9e3ac86802420a01400a00000000\"],\"areTermsAccepted\":false,\"isMarketingAccepted\":false,\"creationTime\":1488713336000,\"lastLoginTime\":1522858931763,\"passwordChangedTime\":1522858921732,\"twoFactorAuthentication\":false,\"object\":\"user\",\"id\":\"015a9e3ac85a02420a01400a00000000\",\"etag\":\"1\",\"createdAt\":\"2017-03-05T11:28:56Z\",\"updatedAt\":null}]}";
     private static final String AN_ENDPOINT_PATH = "v3/users/";
     private static final String QUERY_PARAMETER = "limit";
 
@@ -66,6 +66,7 @@ public class TestGenericClient {
 
             int queryParameter = 2;
             try {
+                @SuppressWarnings("boxing")
                 UserListResponse response = client.callApi(requestDefinition, queryParameter);
                 assertNotNull(response);
                 assertNotNull(response.getData());
@@ -129,7 +130,7 @@ public class TestGenericClient {
                                                                             new ListOptions().pageSize(queryParameter));
 
                 assertTrue(paginatedResponse.first().isValid());
-                assertEquals(TOTAL_RESULT_NUMBER, paginatedResponse.getElementsTotal());
+                assertEquals(TOTAL_RESULT_NUMBER, paginatedResponse.count());
             } catch (Exception e) {
                 // Logs information about the last API call.
                 System.err.println("last API Metadata: " + client.getLastApiMetadata());
@@ -223,6 +224,7 @@ public class TestGenericClient {
 
         }
 
+        @Override
         public User clone() {
             return this;
         }

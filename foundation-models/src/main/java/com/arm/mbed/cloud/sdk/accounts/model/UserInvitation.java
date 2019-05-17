@@ -13,6 +13,7 @@ import java.util.List;
  * Model for a user invitation.
  */
 @Preamble(description = "Model for a user invitation.")
+@SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.AvoidDuplicateLiterals" })
 public class UserInvitation implements SdkModel {
     /**
      * Serialisation Id.
@@ -62,6 +63,9 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #UserInvitation()} instead.
      * 
@@ -84,6 +88,7 @@ public class UserInvitation implements SdkModel {
      *            The ID of the invited user.
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public UserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
                           List<LoginProfile> loginProfiles, Date updatedAt, String userId) {
         super();
@@ -99,6 +104,9 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #UserInvitation()} instead.
      * 
@@ -108,12 +116,12 @@ public class UserInvitation implements SdkModel {
     @Internal
     public UserInvitation(UserInvitation userInvitation) {
         this(userInvitation == null ? (String) null : userInvitation.accountId,
-             userInvitation == null ? new java.util.Date() : userInvitation.createdAt,
+             userInvitation == null ? new Date() : userInvitation.createdAt,
              userInvitation == null ? (String) null : userInvitation.email,
-             userInvitation == null ? new java.util.Date() : userInvitation.expiration,
+             userInvitation == null ? new Date() : userInvitation.expiration,
              userInvitation == null ? (String) null : userInvitation.id,
-             userInvitation == null ? null : userInvitation.loginProfiles,
-             userInvitation == null ? new java.util.Date() : userInvitation.updatedAt,
+             userInvitation == null ? (List<LoginProfile>) null : userInvitation.loginProfiles,
+             userInvitation == null ? new Date() : userInvitation.updatedAt,
              userInvitation == null ? (String) null : userInvitation.userId);
     }
 
@@ -121,13 +129,17 @@ public class UserInvitation implements SdkModel {
      * Constructor.
      */
     public UserInvitation() {
-        this((String) null, new java.util.Date(), (String) null, new java.util.Date(), (String) null, null,
-             new java.util.Date(), (String) null);
+        this((String) null, new Date(), (String) null, new Date(), (String) null, (List<LoginProfile>) null, new Date(),
+             (String) null);
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            The ID of the invitation.
      */
@@ -138,6 +150,9 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #UserInvitation()} instead.
      * 
@@ -154,7 +169,8 @@ public class UserInvitation implements SdkModel {
      */
     @Internal
     public UserInvitation(String accountId, Date createdAt, Date expiration, Date updatedAt, String userId) {
-        this(accountId, createdAt, (String) null, expiration, (String) null, null, updatedAt, userId);
+        this(accountId, createdAt, (String) null, expiration, (String) null, (List<LoginProfile>) null, updatedAt,
+             userId);
     }
 
     /**
@@ -186,6 +202,9 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Sets email address of the invited user.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /^(?=.{3,254}$).+@.+/} to be valid
      * 
      * @param email
      *            Email address of the invited user.
@@ -202,7 +221,7 @@ public class UserInvitation implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isEmailValid() {
-        return email != null;
+        return email != null && (email.matches("^(?=.{3,254}$).+@.+"));
     }
 
     /**
@@ -226,6 +245,9 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Sets the id of the invitation.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param id
      *            The ID of the invitation.
@@ -237,8 +259,11 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Sets the id of the invitation.
+     *
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param userInvitationId
      *            The ID of the invitation.
@@ -246,6 +271,16 @@ public class UserInvitation implements SdkModel {
     @Internal
     public void setUserInvitationId(String userInvitationId) {
         setId(userInvitationId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[a-f0-9]{32}"));
     }
 
     /**
@@ -287,7 +322,23 @@ public class UserInvitation implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "UserInvitation [accountId=" + accountId + ", createdAt=" + createdAt + ", email=" + email
+               + ", expiration=" + expiration + ", id=" + id + ", loginProfiles=" + loginProfiles + ", updatedAt="
+               + updatedAt + ", userId=" + userId + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
+     *
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -310,6 +361,7 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -323,6 +375,7 @@ public class UserInvitation implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     *
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -331,6 +384,7 @@ public class UserInvitation implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -405,21 +459,8 @@ public class UserInvitation implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "UserInvitation [accountId=" + accountId + ", createdAt=" + createdAt + ", email=" + email
-               + ", expiration=" + expiration + ", id=" + id + ", loginProfiles=" + loginProfiles + ", updatedAt="
-               + updatedAt + ", userId=" + userId + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
+     *
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -427,11 +468,12 @@ public class UserInvitation implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isEmailValid();
+        return isEmailValid() && isIdValid();
     }
 
     /**
      * Clones this instance.
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

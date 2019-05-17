@@ -7,11 +7,13 @@ import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
+import com.arm.mbed.cloud.sdk.common.CloudRequest;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -38,8 +40,12 @@ import retrofit2.Call;
 
 @Preamble(description = "Specifies Device directory API")
 @Module
+@Deprecated
 /**
  * API exposing functionality for dealing with devices
+ * <p>
+ * 
+ * @deprecated Use foundation interface or {@link Devices} instead.
  */
 public class DeviceDirectory extends AbstractModule {
 
@@ -126,8 +132,17 @@ public class DeviceDirectory extends AbstractModule {
             public Call<DevicePage> call() {
                 return endpoint.getDirectory()
                                .deviceList(finalOptions.getPageSize(), finalOptions.getOrder().toString(),
-                                           finalOptions.getAfter(), finalOptions.encodeInclude(),
-                                           DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()));
+                                           finalOptions.getAfter(), ListOptionsEncoder.encodeInclude(finalOptions),
+                                           DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()), null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null, null, null, null, null, null, null, null, null,
+                                           null, null, null, null, null);
             }
         });
     }
@@ -404,8 +419,10 @@ public class DeviceDirectory extends AbstractModule {
             public Call<DeviceQueryPage> call() {
                 return endpoint.getDirectory()
                                .deviceQueryList(finalOptions.getPageSize(), finalOptions.getOrder().toString(),
-                                                finalOptions.getAfter(), finalOptions.encodeInclude(),
-                                                new FilterMarshaller(null).encode(finalOptions.getFilter()));
+                                                finalOptions.getAfter(), ListOptionsEncoder.encodeInclude(finalOptions),
+                                                new FilterMarshaller(null).encode(finalOptions.getFilter()), null, null,
+                                                null, null, null, null, null, null, null, null, null, null, null, null,
+                                                null, null, null, null, null, null);
             }
         });
     }
@@ -694,16 +711,23 @@ public class DeviceDirectory extends AbstractModule {
         final DeviceEventListOptions finalOptions = (options == null) ? new DeviceEventListOptions() : options;
 
         return CloudCaller.call(this, "listDeviceEvents()", DeviceEventAdapter.getListMapper(),
-                                new CloudCall<DeviceEventPage>() {
-
+                                new CloudRequest.CloudCall<DeviceEventPage>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
                                     @Override
                                     public Call<DeviceEventPage> call() {
                                         return endpoint.getDirectory()
                                                        .deviceLogList(finalOptions.getPageSize(),
                                                                       finalOptions.getOrder().toString(),
                                                                       finalOptions.getAfter(),
-                                                                      finalOptions.encodeInclude(),
-                                                                      DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()));
+                                                                      ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                      DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
+                                                                      null, null, null, null, null, null, null, null,
+                                                                      null, null, null, null, null, null, null, null,
+                                                                      null, null, null, null, null, null, null, null);
                                     }
                                 });
     }

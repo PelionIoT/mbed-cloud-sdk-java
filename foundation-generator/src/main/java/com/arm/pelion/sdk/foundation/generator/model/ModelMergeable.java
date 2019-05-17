@@ -35,11 +35,15 @@ public class ModelMergeable extends Model implements MergeableArtifact {
             return;
         }
         final ModelMergeable otherEndpoints = (ModelMergeable) otherArtifact;
+        otherEndpoints.generateMethods();
         if (otherEndpoints.methods != null) {
             otherEndpoints.methods.values().forEach(m -> addMethod(m));
         }
         if (otherEndpoints.fields != null) {
             otherEndpoints.fields.values().forEach(f -> addField(f));
+        }
+        if (otherEndpoints.constants != null) {
+            otherEndpoints.constants.values().forEach(c -> addConstant(c));
         }
     }
 

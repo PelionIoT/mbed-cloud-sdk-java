@@ -51,7 +51,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     /**
      * Device execution mode where 1 means a developer certificate.
      */
-    protected int deviceExecutionMode;
+    protected final int deviceExecutionMode;
 
     /**
      * If true, signature is not required. Default value false.
@@ -80,7 +80,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     protected final String ownerId;
 
     /**
-     * Service name where the certificate is to be used.
+     * Service name where the certificate is used.
      */
     @Required
     protected SubtenantTrustedCertificateService service;
@@ -101,12 +101,20 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     protected final Date updatedAt;
 
     /**
+     * This read-only flag indicates whether the certificate is valid or not.
+     */
+    protected final boolean valid;
+
+    /**
      * Expiration time in UTC formatted as RFC3339.
      */
     protected final Date validity;
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #AbstractSubtenantTrustedCertificate()} instead.
      * 
@@ -133,13 +141,15 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      * @param ownerId
      *            The ID of the owner.
      * @param service
-     *            Service name where the certificate is to be used.
+     *            Service name where the certificate is used.
      * @param status
      *            Status of the certificate.
      * @param subject
      *            Subject of the certificate.
      * @param updatedAt
      *            Last update UTC time RFC3339.
+     * @param valid
+     *            This read-only flag indicates whether the certificate is valid or not.
      * @param validity
      *            Expiration time in UTC formatted as RFC3339.
      */
@@ -150,19 +160,20 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
                                                boolean enrollmentMode, String id, String issuer, String name,
                                                String ownerId, SubtenantTrustedCertificateService service,
                                                SubtenantTrustedCertificateStatus status, String subject, Date updatedAt,
-                                               Date validity) {
+                                               boolean valid, Date validity) {
         super();
         this.certificateFingerprint = certificateFingerprint;
         this.createdAt = createdAt;
+        this.deviceExecutionMode = deviceExecutionMode;
         this.issuer = issuer;
         this.ownerId = ownerId;
         this.subject = subject;
         this.updatedAt = updatedAt;
+        this.valid = valid;
         this.validity = validity;
         setAccountId(accountId);
         setCertificate(certificate);
         setDescription(description);
-        setDeviceExecutionMode(deviceExecutionMode);
         setEnrollmentMode(enrollmentMode);
         setId(id);
         setName(name);
@@ -172,6 +183,9 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #AbstractSubtenantTrustedCertificate()} instead.
      * 
@@ -186,8 +200,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
                                                          : abstractSubtenantTrustedCertificate.certificate,
              abstractSubtenantTrustedCertificate == null ? (String) null
                                                          : abstractSubtenantTrustedCertificate.certificateFingerprint,
-             abstractSubtenantTrustedCertificate == null ? new java.util.Date()
-                                                         : abstractSubtenantTrustedCertificate.createdAt,
+             abstractSubtenantTrustedCertificate == null ? new Date() : abstractSubtenantTrustedCertificate.createdAt,
              abstractSubtenantTrustedCertificate == null ? (String) null
                                                          : abstractSubtenantTrustedCertificate.description,
              abstractSubtenantTrustedCertificate == null ? 0 : abstractSubtenantTrustedCertificate.deviceExecutionMode,
@@ -201,24 +214,27 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
              abstractSubtenantTrustedCertificate == null ? SubtenantTrustedCertificateStatus.getDefault()
                                                          : abstractSubtenantTrustedCertificate.status,
              abstractSubtenantTrustedCertificate == null ? (String) null : abstractSubtenantTrustedCertificate.subject,
-             abstractSubtenantTrustedCertificate == null ? new java.util.Date()
-                                                         : abstractSubtenantTrustedCertificate.updatedAt,
-             abstractSubtenantTrustedCertificate == null ? new java.util.Date()
-                                                         : abstractSubtenantTrustedCertificate.validity);
+             abstractSubtenantTrustedCertificate == null ? new Date() : abstractSubtenantTrustedCertificate.updatedAt,
+             abstractSubtenantTrustedCertificate != null && abstractSubtenantTrustedCertificate.valid,
+             abstractSubtenantTrustedCertificate == null ? new Date() : abstractSubtenantTrustedCertificate.validity);
     }
 
     /**
      * Constructor.
      */
     public AbstractSubtenantTrustedCertificate() {
-        this((String) null, (String) null, (String) null, new java.util.Date(), (String) null, 0, false, (String) null,
+        this((String) null, (String) null, (String) null, new Date(), (String) null, 0, false, (String) null,
              (String) null, (String) null, (String) null, SubtenantTrustedCertificateService.getDefault(),
-             SubtenantTrustedCertificateStatus.getDefault(), (String) null, new java.util.Date(), new java.util.Date());
+             SubtenantTrustedCertificateStatus.getDefault(), (String) null, new Date(), false, new Date());
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            Entity ID.
      */
@@ -229,6 +245,9 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #AbstractSubtenantTrustedCertificate()} instead.
      * 
@@ -236,6 +255,8 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      *            A SHA-256 fingerprint of the certificate.
      * @param createdAt
      *            Creation UTC time RFC3339.
+     * @param deviceExecutionMode
+     *            Device execution mode where 1 means a developer certificate.
      * @param issuer
      *            Issuer of the certificate.
      * @param ownerId
@@ -244,20 +265,28 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      *            Subject of the certificate.
      * @param updatedAt
      *            Last update UTC time RFC3339.
+     * @param valid
+     *            This read-only flag indicates whether the certificate is valid or not.
      * @param validity
      *            Expiration time in UTC formatted as RFC3339.
      */
     @Internal
-    public AbstractSubtenantTrustedCertificate(String certificateFingerprint, Date createdAt, String issuer,
-                                               String ownerId, String subject, Date updatedAt, Date validity) {
-        this((String) null, (String) null, certificateFingerprint, createdAt, (String) null, 0, false, (String) null,
-             issuer, (String) null, ownerId, SubtenantTrustedCertificateService.getDefault(),
-             SubtenantTrustedCertificateStatus.getDefault(), subject, updatedAt, validity);
+    @SuppressWarnings("PMD.CyclomaticComplexity")
+    public AbstractSubtenantTrustedCertificate(String certificateFingerprint, Date createdAt, int deviceExecutionMode,
+                                               String issuer, String ownerId, String subject, Date updatedAt,
+                                               boolean valid, Date validity) {
+        this((String) null, (String) null, certificateFingerprint, createdAt, (String) null, deviceExecutionMode, false,
+             (String) null, issuer, (String) null, ownerId, SubtenantTrustedCertificateService.getDefault(),
+             SubtenantTrustedCertificateStatus.getDefault(), subject, updatedAt, valid, validity);
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on required fields.
+     * <p>
+     *
      * @param accountId
      *            The ID of the account.
      * @param certificate
@@ -265,13 +294,13 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      * @param name
      *            Certificate name.
      * @param service
-     *            Service name where the certificate is to be used.
+     *            Service name where the certificate is used.
      */
     public AbstractSubtenantTrustedCertificate(String accountId, String certificate, String name,
                                                SubtenantTrustedCertificateService service) {
-        this(accountId, certificate, (String) null, new java.util.Date(), (String) null, 0, false, (String) null,
-             (String) null, name, (String) null, service, SubtenantTrustedCertificateStatus.getDefault(), (String) null,
-             new java.util.Date(), new java.util.Date());
+        this(accountId, certificate, (String) null, new Date(), (String) null, 0, false, (String) null, (String) null,
+             name, (String) null, service, SubtenantTrustedCertificateStatus.getDefault(), (String) null, new Date(),
+             false, new Date());
     }
 
     /**
@@ -285,6 +314,9 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
 
     /**
      * Sets the id of the account.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param accountId
      *            The ID of the account.
@@ -301,7 +333,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isAccountIdValid() {
-        return accountId != null;
+        return accountId != null && (accountId.matches("[a-f0-9]{32}"));
     }
 
     /**
@@ -363,6 +395,9 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
 
     /**
      * Sets human readable description of this certificate.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 500} to be valid
      * 
      * @param description
      *            Human readable description of this certificate.
@@ -372,22 +407,22 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     }
 
     /**
+     * Checks whether description value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isDescriptionValid() {
+        return (description == null || description.length() <= 500);
+    }
+
+    /**
      * Gets device execution mode where 1 means a developer certificate.
      * 
      * @return deviceExecutionMode
      */
     public int getDeviceExecutionMode() {
         return deviceExecutionMode;
-    }
-
-    /**
-     * Sets device execution mode where 1 means a developer certificate.
-     * 
-     * @param deviceExecutionMode
-     *            Device execution mode where 1 means a developer certificate.
-     */
-    public void setDeviceExecutionMode(int deviceExecutionMode) {
-        this.deviceExecutionMode = deviceExecutionMode;
     }
 
     /**
@@ -421,6 +456,9 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
 
     /**
      * Sets entity id.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param id
      *            Entity ID.
@@ -432,8 +470,11 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
 
     /**
      * Sets entity id.
+     *
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param subtenantTrustedCertificateId
      *            Entity ID.
@@ -441,6 +482,16 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     @Internal
     public void setSubtenantTrustedCertificateId(String subtenantTrustedCertificateId) {
         setId(subtenantTrustedCertificateId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[a-f0-9]{32}"));
     }
 
     /**
@@ -463,6 +514,9 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
 
     /**
      * Sets certificate name.
+     *
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
      * @param name
      *            Certificate name.
@@ -479,7 +533,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isNameValid() {
-        return name != null;
+        return name != null && (name.length() <= 100);
     }
 
     /**
@@ -492,7 +546,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     }
 
     /**
-     * Gets service name where the certificate is to be used.
+     * Gets service name where the certificate is used.
      * 
      * @return service
      */
@@ -501,14 +555,29 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     }
 
     /**
-     * Sets service name where the certificate is to be used.
+     * Sets service name where the certificate is used.
      * 
      * @param service
-     *            Service name where the certificate is to be used.
+     *            Service name where the certificate is used.
      */
     @Required
     public void setService(SubtenantTrustedCertificateService service) {
         this.service = service;
+    }
+
+    /**
+     * Sets service name where the certificate is used.
+     *
+     * <p>
+     * Similar to {@link #setService(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateService)}
+     * 
+     * @param service
+     *            Service name where the certificate is used.
+     */
+    @Internal
+    @Required
+    public void setService(String service) {
+        this.service = SubtenantTrustedCertificateService.getValue(service);
     }
 
     /**
@@ -541,6 +610,20 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     }
 
     /**
+     * Sets status of the certificate.
+     *
+     * <p>
+     * Similar to {@link #setStatus(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateStatus)}
+     * 
+     * @param status
+     *            Status of the certificate.
+     */
+    @Internal
+    public void setStatus(String status) {
+        this.status = SubtenantTrustedCertificateStatus.getValue(status);
+    }
+
+    /**
      * Gets subject of the certificate.
      * 
      * @return subject
@@ -569,6 +652,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -582,6 +666,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
 
     /**
      * Clones this instance.
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -591,7 +676,26 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     public abstract Object clone();
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "AbstractSubtenantTrustedCertificate [accountId=" + accountId + ", certificate=" + certificate
+               + ", certificateFingerprint=" + certificateFingerprint + ", createdAt=" + createdAt + ", description="
+               + description + ", deviceExecutionMode=" + deviceExecutionMode + ", enrollmentMode=" + enrollmentMode
+               + ", id=" + id + ", issuer=" + issuer + ", name=" + name + ", ownerId=" + ownerId + ", service="
+               + service + ", status=" + status + ", subject=" + subject + ", updatedAt=" + updatedAt + ", valid="
+               + valid + ", validity=" + validity + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
+     *
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -606,8 +710,8 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
         result = prime * result + ((certificateFingerprint == null) ? 0 : certificateFingerprint.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + Objects.hashCode(deviceExecutionMode);
-        result = prime * result + Objects.hashCode(enrollmentMode);
+        result = prime * result + Objects.hashCode(Integer.valueOf(deviceExecutionMode));
+        result = prime * result + Objects.hashCode(Boolean.valueOf(enrollmentMode));
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((issuer == null) ? 0 : issuer.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -616,12 +720,14 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
         result = prime * result + ((status == null) ? 0 : status.hashCode());
         result = prime * result + ((subject == null) ? 0 : subject.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+        result = prime * result + Objects.hashCode(Boolean.valueOf(valid));
         result = prime * result + ((validity == null) ? 0 : validity.hashCode());
         return result;
     }
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     *
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -734,6 +840,9 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
         } else if (!updatedAt.equals(other.updatedAt)) {
             return false;
         }
+        if (valid != other.valid) {
+            return false;
+        }
         if (validity == null) {
             if (other.validity != null) {
                 return false;
@@ -745,24 +854,8 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "AbstractSubtenantTrustedCertificate [accountId=" + accountId + ", certificate=" + certificate
-               + ", certificateFingerprint=" + certificateFingerprint + ", createdAt=" + createdAt + ", description="
-               + description + ", deviceExecutionMode=" + deviceExecutionMode + ", enrollmentMode=" + enrollmentMode
-               + ", id=" + id + ", issuer=" + issuer + ", name=" + name + ", ownerId=" + ownerId + ", service="
-               + service + ", status=" + status + ", subject=" + subject + ", updatedAt=" + updatedAt + ", validity="
-               + validity + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
+     *
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -770,6 +863,7 @@ public abstract class AbstractSubtenantTrustedCertificate implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isAccountIdValid() && isCertificateValid() && isNameValid() && isServiceValid();
+        return isAccountIdValid() && isCertificateValid() && isDescriptionValid() && isIdValid() && isNameValid()
+               && isServiceValid();
     }
 }

@@ -83,13 +83,13 @@ public class NotificationData implements Serializable {
     }
 
     /**
-     * Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited
-     * to 3 days. A default value of 60 seconds is assumed in the absence of the option.
+     * Max age value is an integer number of seconds between 0 and 2^32-1, but the actual maximum cache time is limited
+     * to 3 days. Default 60.
      * 
      * @return maxAge
      **/
     @ApiModelProperty(example = "60",
-                      value = "Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. ")
+                      value = "Max age value is an integer number of seconds between 0 and 2^32-1, but the actual maximum cache time is limited to 3 days. Default 60.")
     public String getMaxAge() {
         return maxAge;
     }

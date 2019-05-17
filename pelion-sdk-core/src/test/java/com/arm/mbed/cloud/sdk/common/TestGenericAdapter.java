@@ -50,7 +50,6 @@ public class TestGenericAdapter {
         }
     }
 
-    @SuppressWarnings("boxing")
     @Test
     public void testMapListToRegistry() {
         List<String> data = new LinkedList<>();
@@ -129,7 +128,6 @@ public class TestGenericAdapter {
         };
         ListResponse<IntegerModel> listResp = GenericAdapter.mapList(list, new Mapper<String, IntegerModel>() {
 
-            @SuppressWarnings("boxing")
             @Override
             public IntegerModel map(String toBeMapped) {
                 return new IntegerModel(TranslationUtils.toInt(toBeMapped, 0));

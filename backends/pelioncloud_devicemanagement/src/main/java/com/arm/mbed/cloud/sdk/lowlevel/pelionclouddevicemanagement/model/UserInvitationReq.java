@@ -21,9 +21,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This object represents a user invitation in requests towards Device Management.
+ * Represents a user invitation in requests towards Device Management.
  */
-@ApiModel(description = "This object represents a user invitation in requests towards Device Management.")
+@ApiModel(description = "Represents a user invitation in requests towards Device Management.")
 
 public class UserInvitationReq implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -38,7 +38,7 @@ public class UserInvitationReq implements Serializable {
     private List<LoginProfile> loginProfiles = null;
 
     @SerializedName("valid_for_days")
-    private Integer validForDays = null;
+    private Integer validForDays = 30;
 
     public UserInvitationReq email(String email) {
         this.email = email;
@@ -46,11 +46,11 @@ public class UserInvitationReq implements Serializable {
     }
 
     /**
-     * The email address, not longer than 254 characters.
+     * The email address.
      * 
      * @return email
      **/
-    @ApiModelProperty(required = true, value = "The email address, not longer than 254 characters.")
+    @ApiModelProperty(required = true, value = "The email address.")
     public String getEmail() {
         return email;
     }
@@ -101,12 +101,11 @@ public class UserInvitationReq implements Serializable {
 
     /**
      * A list of login profiles for the user. Specified as the identity providers the user should be associated with.
-     * Only the ID attribute of the login profile should be set in the request object. The list cannot be empty. A limit
-     * of 100 profiles.
+     * Only the ID attribute of the login profile should be set in the request object.
      * 
      * @return loginProfiles
      **/
-    @ApiModelProperty(value = "A list of login profiles for the user. Specified as the identity providers the user should be associated with. Only the ID attribute of the login profile should be set in the request object. The list cannot be empty. A limit of 100 profiles.")
+    @ApiModelProperty(value = "A list of login profiles for the user. Specified as the identity providers the user should be associated with. Only the ID attribute of the login profile should be set in the request object.")
     public List<LoginProfile> getLoginProfiles() {
         return loginProfiles;
     }
@@ -121,12 +120,11 @@ public class UserInvitationReq implements Serializable {
     }
 
     /**
-     * Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and
-     * 100 days.
+     * Specifies how many days the invitation will be valid for. minimum: 1 maximum: 100
      * 
      * @return validForDays
      **/
-    @ApiModelProperty(value = "Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.")
+    @ApiModelProperty(value = "Specifies how many days the invitation will be valid for.")
     public Integer getValidForDays() {
         return validForDays;
     }

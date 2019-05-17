@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **hasMore** | **Boolean** | Flag indicating whether there are more results. |  [optional]
 **limit** | **Integer** | The number of results to return. |  [optional]
 **object** | [**ObjectEnum**](#ObjectEnum) | Describes the type of objects in the list. |  [optional]
-**order** | [**OrderEnum**](#OrderEnum) | The order of the records to return based on creation time. By default ASC. |  [optional]
+**order** | [**OrderEnum**](#OrderEnum) | Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. |  [optional]
 **totalCount** | **Integer** | The total number of records. |  [optional]
 
 

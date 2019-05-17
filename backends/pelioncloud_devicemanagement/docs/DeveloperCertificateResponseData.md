@@ -4,16 +4,16 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**accountId** | **String** | account to which the developer certificate belongs |  [optional]
+**accountId** | **String** | Account to which the developer certificate belongs. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
 **description** | **String** | Description for the developer certificate. |  [optional]
-**developerCertificate** | **String** | PEM format X.509 developer certificate. |  [optional]
-**developerPrivateKey** | **String** | PEM format developer private key associated to the certificate. |  [optional]
+**developerCertificate** | **String** | PEM-format X.509 developer certificate. |  [optional]
+**developerPrivateKey** | **String** | PEM-format developer private key associated with the certificate. |  [optional]
 **etag** | **String** | API resource entity version. |  [optional]
-**id** | **String** | mUUID that uniquely identifies the developer certificate. |  [optional]
+**id** | **String** | ID that uniquely identifies the developer certificate. |  [optional]
 **name** | **String** | Name of the developer certificate. |  [optional]
-**object** | **String** | Entity name, always &#39;trusted-cert&#39; |  [optional]
-**securityFileContent** | **String** | Content of the security.c file that will be flashed into the device to provide the security credentials |  [optional]
+**object** | **String** | Entity name: always &#x60;trusted-cert&#x60;. |  [optional]
+**securityFileContent** | **String** | Content of the &#x60;security.c&#x60; file flashed to the device to provide security credentials. |  [optional]
 
 
 

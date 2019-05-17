@@ -32,18 +32,18 @@ public class TestApiUtils {
         try {
             ApiUtils.checkNotNull(logger, test, "test");
             assertTrue(true);
-        } catch (MbedCloudException e) {
+        } catch (@SuppressWarnings("unused") MbedCloudException e) {
             fail("Check has not worked");
         }
         try {
             ApiUtils.checkNotNull(new SdkLogger(), new Date(), "now()");
-        } catch (Exception e) {
+        } catch (@SuppressWarnings("unused") Exception e) {
             fail("No exception should have been raised");
         }
         try {
             ApiUtils.checkNotNull(logger, null, "test");
             fail("Check has not worked");
-        } catch (MbedCloudException e) {
+        } catch (@SuppressWarnings("unused") MbedCloudException e) {
             assertTrue(true);
         }
 
@@ -132,20 +132,20 @@ public class TestApiUtils {
         try {
             ApiUtils.checkModelValidity(logger, test, "test");
             assertTrue(true);
-        } catch (MbedCloudException e) {
+        } catch (@SuppressWarnings("unused") MbedCloudException e) {
             fail("No exception should have been raised");
         }
         test = new ModelClass(1, "Test", null);
         try {
             ApiUtils.checkModelValidity(logger, test, "test");
             assertTrue(true);
-        } catch (MbedCloudException e) {
+        } catch (@SuppressWarnings("unused") MbedCloudException e) {
             fail("Check has not worked");
         }
         test = new ModelClass(1, "", null);
         try {
             ApiUtils.checkModelValidity(logger, test, "test");
-        } catch (Exception e) {
+        } catch (@SuppressWarnings("unused") Exception e) {
             fail("No exception should have been raised");
         }
         test = new ModelClass(1, null, "Test");
@@ -161,14 +161,14 @@ public class TestApiUtils {
         try {
             ApiUtils.checkModelValidity(logger, test, "test");
             fail("Check has not worked");
-        } catch (MbedCloudException e) {
+        } catch (@SuppressWarnings("unused") MbedCloudException e) {
             assertTrue(true);
         }
         test = new ModelClass(null, null, "Test");
         try {
             ApiUtils.checkModelValidity(logger, test, "test");
             fail("Check has not worked");
-        } catch (MbedCloudException e) {
+        } catch (@SuppressWarnings("unused") MbedCloudException e) {
             assertTrue(true);
         }
     }

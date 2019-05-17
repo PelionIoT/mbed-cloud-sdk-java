@@ -9,15 +9,17 @@ import org.junit.Test;
 /**
  * Unit tests for Model LoginProfile.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class TestLoginProfile {
     /**
      * Tests the clone method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testClone() {
         try {
-            LoginProfile loginprofile1 = new LoginProfile("ac6a9c67-fd14-4650-86fa-28d383377c6c",
-                                                          "e68ea601-b1d9-4cd4-940f-afd653c4471d");
+            LoginProfile loginprofile1 = new LoginProfile("3ee60ecf-440e-4e21-816f-7642a22e44f2",
+                                                          "bb0d3e39-ca67-4250-a226-76c87972c7ce");
             LoginProfile loginprofile2 = loginprofile1.clone();
             assertNotNull(loginprofile1);
             assertNotNull(loginprofile2);
@@ -31,13 +33,14 @@ public class TestLoginProfile {
     /**
      * Tests the hashCode method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testHashCode() {
         try {
-            LoginProfile loginprofile1 = new LoginProfile("6826132b-fb18-40e3-859c-57798da0a4a2",
-                                                          "6b5f838e-90b7-4ca1-bd5d-763870e9ea7c");
-            LoginProfile loginprofile2 = new LoginProfile("6826132b-fb18-40e3-859c-57798da0a4a2",
-                                                          "6b5f838e-90b7-4ca1-bd5d-763870e9ea7c");
+            LoginProfile loginprofile1 = new LoginProfile("f2e89745-c5c1-49d0-a02e-aa635758532a",
+                                                          "52ec8413-57f5-4a7b-a3f2-a4d49585b97d");
+            LoginProfile loginprofile2 = new LoginProfile("f2e89745-c5c1-49d0-a02e-aa635758532a",
+                                                          "52ec8413-57f5-4a7b-a3f2-a4d49585b97d");
             assertNotNull(loginprofile1);
             assertNotNull(loginprofile2);
             assertNotSame(loginprofile2, loginprofile1);
@@ -55,25 +58,27 @@ public class TestLoginProfile {
     /**
      * Tests the isValid method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        LoginProfile loginprofile = new LoginProfile("99134bf9-35e0-44c0-891b-22e2006538fd",
-                                                     "0870479b-6964-43ea-bc6d-0a6b30e32c1c");
+        LoginProfile loginprofile = new LoginProfile("ebadd42d-9cc3-44f0-abc4-35a09b4734af",
+                                                     "8b6ae7ec-78f4-4849-8856-986bce0bfdb6");
         assertTrue(loginprofile.isValid());
     }
 
     /**
      * Tests the equals method.
      */
+    @SuppressWarnings("resource")
     @Test
     public void testEquals() {
         try {
-            LoginProfile loginprofile1 = new LoginProfile("9822dd6f-dd2c-455d-8371-a264f2e6c21d",
-                                                          "3a6cdb2f-68ba-4556-94f0-bbc8027eb493");
-            LoginProfile loginprofile2 = new LoginProfile("9822dd6f-dd2c-455d-8371-a264f2e6c21d",
-                                                          "3a6cdb2f-68ba-4556-94f0-bbc8027eb493");
-            LoginProfile loginprofile3 = new LoginProfile("81e372f9-2bef-42c2-9e6e-eabb7b19457b",
-                                                          "4d8d1cce-4cf3-4fb8-8642-c342f6c98f0b");
+            LoginProfile loginprofile1 = new LoginProfile("82a71415-2c7a-40e7-84d5-00bf5670f6de",
+                                                          "504556d6-1595-456b-ac04-afcf8a4860d4");
+            LoginProfile loginprofile2 = new LoginProfile("82a71415-2c7a-40e7-84d5-00bf5670f6de",
+                                                          "504556d6-1595-456b-ac04-afcf8a4860d4");
+            LoginProfile loginprofile3 = new LoginProfile("159ae651-b82e-4346-a675-c58134379912",
+                                                          "3586e7e5-7ebb-43d8-8d7d-39fe20811b89");
             assertNotNull(loginprofile1);
             assertNotNull(loginprofile2);
             assertNotNull(loginprofile3);

@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.common.dao.AbstractModelListDao;
 import com.arm.mbed.cloud.sdk.common.dao.DaoProvider;
 import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.pelion.sdk.foundation.generator.model.ValueGenerator.Values;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
@@ -51,17 +52,25 @@ public class ModelDaoList extends ModelDao {
                 daoMethodName = AbstractModelListDao.METHOD_REQUEST_ONE_PAGE;
                 break;
         }
-        if (correspondingInterface == null) {
-            Method method = new MethodGeneric(methodName, null, null, null);
-            addMethod(method);
-        } else {
-            generateCrudMethods(action, daoMethodName, correspondingInterface, needsCustomCode, false);
-        }
+        registerMethod(action, methodName, null, null, needsCustomCode, correspondingInterface, daoMethodName);
+    }
+
+    @Override
+    protected void generateAllDaoMethods() {
+        retrieveMethodRecords().forEach(r -> {
+            if (r.hasCorrespondingInterface()) {
+                generateCrudMethods(r.getAction(), r.getDaoMethodName(), r.getCorrespondingInterface(),
+                                    r.isNeedsCustomCode(), false);
+            } else {
+                Method method = new MethodGeneric(r.getMethodName(), null, null, null);
+                addMethod(method);
+            }
+        });
     }
 
     @Override
     protected void generateMethodCodeAndReturnType(Method moduleMethod, MethodOverloaded method,
-                                                   TypeParameter moduleType) {
+                                                   TypeParameter moduleType, boolean useInternalModel) {
         StringBuilder codeFormat = new StringBuilder();
         List<Object> values = new LinkedList<>();
 
@@ -94,12 +103,14 @@ public class ModelDaoList extends ModelDao {
                     codeFormat.append(", ");
                 }
                 if (p.getType().isListOptions()) {
-                    method.addParameter(new Parameter(p.getName(), "list options", null, listOptions.toType(), null));
+                    method.addParameter(new Parameter(p.getName(), "list options", null, listOptions.toType(), null,
+                                                      null));
                     codeFormat.append("$L");
                     values.add(p.getName());
                 } else {
-                    codeFormat.append("$L");
-                    values.add("null");
+                    final Values defaultValue = p.getJavaDefaultValue();
+                    codeFormat.append(String.join("", defaultValue.getFormats()));
+                    values.addAll(defaultValue.getValues());
                     method.needsCustomCode(true);
                 }
             }
@@ -125,31 +136,32 @@ public class ModelDaoList extends ModelDao {
                                 "return new $T()",
                                 Arrays.asList(listOptionsType.hasClass() ? listOptionsType.getClazz()
                                                                          : listOptionsType.getTypeName()),
-                                Utils.generateDocumentationString(listOptions.getName()), false);
+                                Utils.generateDocumentationString(listOptions.getName()), false, false);
         addInstantiationMethods(AbstractModelListDao.METHOD_GET_CORRESPONDING_MODEL_DAO_DEFINITION, daoModelClassType,
                                 "return $T.class",
                                 Arrays.asList(daoModelType.hasClass() ? daoModelType.getClazz()
                                                                       : daoModelType.getTypeName()),
-                                Utils.generateDocumentationString(correspondingDao.getName()) + " class", true);
+                                Utils.generateDocumentationString(correspondingDao.getName()) + " class", true, false);
         addInstantiationMethods(AbstractModelListDao.METHOD_GET_CORRESPONDING_MODEL_DAO_INSTANCE, daoModelType,
                                 "return new $T().$L($L())",
                                 Arrays.asList(daoModelType.hasClass() ? daoModelType.getClazz()
                                                                       : daoModelType.getTypeName(),
                                               AbstractModelListDao.METHOD_CONFIGURE_AND_GET,
                                               AbstractModelListDao.METHOD_GETTER_MODULE),
-                                Utils.generateDocumentationString(correspondingDao.getName()), true);
+                                Utils.generateDocumentationString(correspondingDao.getName()), true, true);
     }
 
     private void addInstantiationMethods(String methodName, TypeParameter returnType, String format,
-                                         List<Object> values, String description, boolean setAsUnchecked) {
+                                         List<Object> values, String description, boolean setAsUnchecked,
+                                         boolean ignoreResource) {
         final List<java.lang.reflect.Method> classMethods = getListDaoMethods();
         final List<Method> methods = classMethods.stream().filter(m -> methodName.equals(m.getName())).map(m -> {
             MethodOverloaded method = new MethodOverloaded(m, description, null, true, true, null);
             method.setAbstract(false);
             method.setInternal(true);
             method.setReturnDescription(description);
-            method.generateSuffix();
             method.setUnchecked(setAsUnchecked);
+            method.setIgnoreResourceClosure(ignoreResource);
             return method;
         }).collect(Collectors.toList());
         for (Method m : methods) {

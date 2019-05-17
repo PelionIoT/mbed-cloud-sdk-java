@@ -19,9 +19,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * This object is used when updating groups.
+ * This object is used when Update groups.
  */
-@ApiModel(description = "This object is used when updating groups.")
+@ApiModel(description = "This object is used when Update groups.")
 
 public class GroupUpdateInfo implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -35,11 +35,11 @@ public class GroupUpdateInfo implements Serializable {
     }
 
     /**
-     * The group name, not longer than 100 characters.
+     * The group name.
      * 
      * @return name
      **/
-    @ApiModelProperty(required = true, value = "The group name, not longer than 100 characters.")
+    @ApiModelProperty(required = true, value = "The group name.")
     public String getName() {
         return name;
     }

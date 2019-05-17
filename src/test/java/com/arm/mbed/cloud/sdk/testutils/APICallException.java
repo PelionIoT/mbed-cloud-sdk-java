@@ -42,7 +42,6 @@ public class APICallException extends Exception {
         return arg0.getException().getCause();
     }
 
-    @SuppressWarnings("cast")
     private static String generateErrorMessage(APIMethodResult arg0) {
         if (arg0 == null) {
             return "Unknown reason";

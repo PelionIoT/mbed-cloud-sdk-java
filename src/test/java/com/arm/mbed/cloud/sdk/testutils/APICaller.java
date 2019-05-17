@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkUtils;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodArgument;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
@@ -64,7 +65,7 @@ public class APICaller {
             throwUnknownAPI(description.getSimpleName(), method);
         }
         APICallException lastException = null;
-        APIMethodResult result = null;
+        APIMethodResult result = null, notImplementedResult = null;
         Object rawInstance = instance.getInstance();
         // This is iterating over all methods with the same name but different signatures. If calls to all of them fail
         // then last exception is raised or the last result is returned if not null.
@@ -76,13 +77,39 @@ public class APICaller {
                 result = api.call(rawInstance, parameters);
                 // If the call was successful then it is returned straight away and there is no need to iterate over
                 // other methods
-                if (!result.wasExceptionRaised() || (result.isCloudException() && !result.isParameterException())
-                    || result.isNotImplementedException()) {
+                if (!result.wasExceptionRaised() || (result.isCloudException() && !result.isParameterException())) {
                     return result;
+                }
+                if (result.isNotImplementedException() && notImplementedResult == null) {
+                    notImplementedResult = result.clone();
                 }
             } catch (APICallException exception) {
                 lastException = exception;
             }
+        }
+        modifyParameterNames(instance, parameters);
+        // Trying with another set of parameters
+        for (final APIMethod methodObj : getMethodList(parameters, methodObjs)) {
+            try {
+                result = null;
+                lastException = null;
+                API api = new API(description, methodObj);
+                result = api.call(rawInstance, parameters);
+                // If the call was successful then it is returned straight away and there is no need to iterate over
+                // other methods
+                if (!result.wasExceptionRaised() || (result.isCloudException() && !result.isParameterException())) {
+                    return result;
+                }
+                if (result.isNotImplementedException() && notImplementedResult == null) {
+                    notImplementedResult = result.clone();
+                }
+            } catch (APICallException exception) {
+                lastException = exception;
+            }
+        }
+        // If the call failed because the Java method is not implemented.
+        if (notImplementedResult != null) {
+            return notImplementedResult;
         }
         // If the call was successful but an exception was raised during it then the failure is returned.
         if (result != null) {
@@ -95,6 +122,24 @@ public class APICaller {
         }
         // If the call was not successful and hence, an exception was raised, then it is thrown.
         throw lastException;
+    }
+
+    // Hack to determine another set of parameters if "id" was specified as "instance name"+"id"
+    private void modifyParameterNames(TestedItemInstance<?> instance, Map<String, Object> parameters) {
+        if (instance == null || instance.getReference() == null) {
+            return;
+        }
+        // Instance name + id
+        final String testrunnerIdConvention1 = SdkUtils.convertCamelToSnake(instance.getReference()) + "_id";
+        final String testrunnerIdConvention2 = SdkUtils.convertSnakeToCamel(testrunnerIdConvention1, false);
+        if (parameters.containsKey(testrunnerIdConvention1)) {
+            parameters.put("id", parameters.get(testrunnerIdConvention1));
+            parameters.remove(testrunnerIdConvention1);
+        }
+        if (parameters.containsKey(testrunnerIdConvention2)) {
+            parameters.put("id", parameters.get(testrunnerIdConvention2));
+            parameters.remove(testrunnerIdConvention2);
+        }
     }
 
     private List<APIMethod> getMethodList(Map<String, Object> parameters, final List<APIMethod> methodObjs) {
@@ -154,7 +199,7 @@ public class APICaller {
                 return method.invokeAPI(instance, argDescription);
             } catch (NoSuchMethodException | SecurityException | ClassNotFoundException | IllegalAccessException
                      | IllegalArgumentException | InvocationTargetException e) {
-                e.printStackTrace();
+                // e.printStackTrace();
                 throwAPICallException(item, method, e);
             }
             return null;
@@ -175,7 +220,7 @@ public class APICaller {
                         Class<?> argumentClass = null;
                         try {
                             argumentClass = argument.determineClass();
-                        } catch (ClassNotFoundException e) {
+                        } catch (@SuppressWarnings("unused") ClassNotFoundException e) {
                             // DO nothing
                         }
                         String argName = argument.getName();
@@ -188,22 +233,28 @@ public class APICaller {
                         }
                     }
                     if (!unfoundArguments.isEmpty()) {
-                        if (testParameters.hasUnusedParameters()) {// In case, some parameters were specified with
-                                                                   // different names
-                            for (APIMethodArgument argument : unfoundArguments) {
-                                Class<?> argumentClass = null;
-                                try {
-                                    argumentClass = argument.determineClass();
-                                } catch (ClassNotFoundException e) {
-                                    // DO nothing
+                        if (testParameters.hasUnusedParameters()) {
+                            if (unfoundArguments.size() == 1) {
+                                // In case the unused test parameters are fields of the model
+                                APIMethodArgument argument = unfoundArguments.stream().findFirst().get();
+                                argDescription.put(argument.getName(), testParameters.getUnused());
+                            } else {
+                                // In case, some parameters were specified with different names
+                                for (APIMethodArgument argument : unfoundArguments) {
+                                    Class<?> argumentClass = null;
+                                    try {
+                                        argumentClass = argument.determineClass();
+                                    } catch (@SuppressWarnings("unused") ClassNotFoundException e) {
+                                        // DO nothing
+                                    }
+                                    Entry<String, Object> unusedEntry = testParameters.pop();
+                                    Map<String,
+                                        Object> guessedSubMap = (unusedEntry == null) ? new HashMap<>()
+                                                                                      : determineParameterValue(unusedEntry.getKey(),
+                                                                                                                unusedEntry.getValue(),
+                                                                                                                argumentClass);
+                                    argDescription.put(argument.getName(), guessedSubMap);
                                 }
-                                Entry<String, Object> unusedEntry = testParameters.pop();
-                                Map<String,
-                                    Object> guessedSubMap = (unusedEntry == null) ? new HashMap<>()
-                                                                                  : determineParameterValue(unusedEntry.getKey(),
-                                                                                                            unusedEntry.getValue(),
-                                                                                                            argumentClass);
-                                argDescription.put(argument.getName(), guessedSubMap);
                             }
                         } else {
                             for (APIMethodArgument argument : unfoundArguments) {
@@ -231,8 +282,8 @@ public class APICaller {
                 if (subMap != null && paramClass != null && paramClass.isAssignableFrom(Date.class)) {
                     try {
                         subMap = ApiUtils.convertStringToDate(subMap.toString());
-                    } catch (MbedCloudException e) {
-                        e.printStackTrace();
+                    } catch (@SuppressWarnings("unused") MbedCloudException e) {
+                        // e.printStackTrace();
                         // Nothing to do
                     }
                 }
@@ -261,7 +312,7 @@ public class APICaller {
             this.parameters = (parameters == null) ? new HashMap<>() : parameters;
             this.unused = new HashMap<>();
             for (String name : this.parameters.keySet()) {
-                unused.put(name, false);
+                unused.put(name, Boolean.FALSE);
             }
         }
 
@@ -283,11 +334,17 @@ public class APICaller {
             return value;
         }
 
+        public Map<String, Object> getUnused() {
+            Map<String, Object> allunused = new HashMap<>(unused.size());
+            unused.keySet().forEach(k -> allunused.put(k, parameters.get(k)));
+            return allunused;
+        }
+
         public Entry<String, Object> pop() {
             if (unused.isEmpty()) {
                 return null;
             }
-            String key = unused.keySet().iterator().next();
+            String key = unused.keySet().stream().findFirst().orElse(null);
             return new Entry<String, Object>() {
 
                 @Override
@@ -309,6 +366,11 @@ public class APICaller {
 
         public boolean hasUnusedParameters() {
             return !unused.isEmpty();
+        }
+
+        @Override
+        public String toString() {
+            return "TestParameters [parameters=" + parameters + ", unused=" + unused + "]";
         }
     }
 

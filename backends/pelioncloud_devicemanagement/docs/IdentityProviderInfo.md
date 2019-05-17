@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **accountId** | **String** | The ID of the account the identity provider belongs to. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
-**description** | **String** | Description for the identity provider, not longer than 500 characters. |  [optional]
+**description** | **String** | Description for the identity provider. |  [optional]
 **etag** | **String** | API resource entity version. | 
 **id** | **String** | Entity ID. | 
-**name** | **String** | Name of the identity provider, not longer than 100 characters. | 
+**name** | **String** | Name of the identity provider. | 
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;identity-provider&#39; | 
 **saml2Attributes** | [**SAML2Info**](SAML2Info.md) | SAML2 specific attributes. |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) | Status of the identity provider. |  [optional]

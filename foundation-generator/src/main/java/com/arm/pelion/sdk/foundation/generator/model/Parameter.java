@@ -6,6 +6,7 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.pelion.sdk.foundation.generator.model.ValueGenerator.Values;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.AnnotationSpec;
@@ -16,16 +17,23 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
     private ParameterSpec.Builder specificationBuilder;
     private TypeParameter type;
     private String defaultValue;
+    private Validation validation;
     private boolean setAsNullable;
     private boolean setAsNonNull;
 
-    public Parameter(String name, String description, String longDescription, TypeParameter type, String defaultValue) {
+    public Parameter(String name, String description, String longDescription, TypeParameter type, String defaultValue,
+                     Validation validation) {
         super(false, name, description, longDescription, false, true, false, false, false, false);
+        setValidation(validation);
         setSpecification(null);
         setType(type);
+        if (hasValidation()) {
+            validation.setForDate(type.isDate());
+        }
         setDefaultValue(defaultValue);
         setSetAsNonNull(false);
         setSetAsNullable(false);
+        setDefaultValueIfMissing();
     }
 
     public Parameter(String name, Class<?> elementClass) {
@@ -33,7 +41,7 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
                                                          false)
                           : name,
              Utils.generateDocumentationString(elementClass.getSimpleName()), null,
-             TypeFactory.getCorrespondingType(elementClass), null);
+             TypeFactory.getCorrespondingType(elementClass), null, null);
     }
 
     public Parameter(java.lang.reflect.Parameter parameter) {
@@ -42,7 +50,8 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
 
     @Override
     public Parameter clone() {
-        final Parameter clone = new Parameter(name, description, longDescription, type, defaultValue);
+        final Parameter clone = new Parameter(name, description, longDescription, type, defaultValue,
+                                              hasValidation() ? validation.clone() : validation);
         clone.setSetAsNonNull(setAsNonNull);
         clone.setSetAsNullable(setAsNullable);
         return clone;
@@ -90,6 +99,9 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
         this.setAsNullable = setAsNullable;
         if (setAsNullable) {
             setSetAsNonNull(false);
+            if (hasValidation()) {
+                validation.setNullable(true);
+            }
         }
     }
 
@@ -106,6 +118,37 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
         this.setAsNonNull = setAsNonNull;
         if (setAsNonNull) {
             setSetAsNullable(false);
+            if (hasValidation()) {
+                validation.setNullable(false);
+            }
+        }
+    }
+
+    public boolean hasValidation() {
+        return validation != null;
+    }
+
+    public Validation getValidation() {
+        return validation;
+    }
+
+    public void setValidation(Validation validation) {
+        this.validation = validation;
+    }
+
+    private void setDefaultValueIfMissing() {
+        // If no default value is specified but limits are, then consider one of these limits as default value
+        if (!getType().isNumber() || !hasValidation()) {
+            return;
+        }
+        if (!hasDefaultValue()) {
+            if (validation.hasMinimum()) {
+                setDefaultValue(validation.getMinimum());
+            } else {
+                if (validation.hasMaximum()) {
+                    setDefaultValue(validation.getMaximum());
+                }
+            }
         }
     }
 
@@ -140,7 +183,9 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
     }
 
     public String getJavadocDescription() {
-        return "@param " + name + " " + description + String.valueOf(hasLongDescription() ? " " + longDescription : "");
+        return "@param " + name + " "
+               + (hasDescription() ? description : Utils.generateDocumentationString(type.getShortName(), false))
+               + (hasLongDescription() && !longDescription.equals(description) ? " " + longDescription : "");
     }
 
     protected void initialiseBuilder() throws TranslationException {
@@ -157,7 +202,7 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
             type.translate();
             other.getType().translate();
             return type.equals(other.getType());
-        } catch (Exception exception) {
+        } catch (@SuppressWarnings("unused") Exception exception) {
             return false;
         }
     }
@@ -179,10 +224,21 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
 
     }
 
+    public Values getJavaDefaultValue() {
+        Values defaultValues = new Values();
+        ValueGenerator.getJavaDefaultValue(type, defaultValue, defaultValues);
+        return defaultValues;
+    }
+
     @Override
     public void translate() throws TranslationException {
         initialiseBuilder();
         addModifiers();
+    }
+
+    @Override
+    protected void addStaticAnalysisAnnotations() {
+        // Nothing to do
     }
 
 }

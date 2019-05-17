@@ -1,5 +1,8 @@
 package com.arm.mbed.cloud.sdk.common.listing.filtering;
 
+import java.net.URL;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -8,14 +11,21 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.SdkUtils;
 import com.arm.mbed.cloud.sdk.common.SdkUtils.CaseConversion;
 import com.arm.mbed.cloud.sdk.common.SdkUtils.CaseConverter;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 
 @Preamble(description = "Filters marshaller for serialisation/deserialisation")
 public class FilterMarshaller {
@@ -211,7 +221,7 @@ public class FilterMarshaller {
             builder.append(suffix);
         }
         builder.append(FILTER_KEY_VALUE_SEPARATOR);
-        builder.append(formatFilterValue(filter.getValue()));
+        builder.append(encodeSingleFilter(filter.getValue(), String.class));
         return builder.toString();
     }
 
@@ -284,14 +294,6 @@ public class FilterMarshaller {
         return reverseMapping;
     }
 
-    private static String formatFilterValue(Object value) {
-        if (value instanceof Date) {
-            // Moving dates/Times to UTC and formatting them according to rfc3339
-            return ApiUtils.toUtcTimestamp((Date) value);
-        }
-        return String.valueOf(value);
-    }
-
     private static String removeSuffix(String string, FilterOperator operator) {
         String suffix = (operator == null) ? null : operator.getSuffix();
         if (suffix != null) {
@@ -359,6 +361,223 @@ public class FilterMarshaller {
         }
     }
 
+    /**
+     * Encodes a single filter value.
+     * 
+     * @param filterObj
+     *            filter value.
+     * @param type
+     *            filter value type.
+     * @param <T>
+     *            type of the filter encoding
+     * @return the encoded filter value.
+     */
+    @SuppressWarnings({ "unchecked", "PMD.CyclomaticComplexity", "PMD.NPathComplexity", "PMD.ExcessiveMethodLength" })
+    public static <T> T encodeSingleFilter(final Object filterObj, Class<T> type) {
+        if (filterObj == null || type == null) {
+            return null;
+        }
+        if (isMultipleFilters(filterObj)) {
+            return encodeMultipleFilters(filterObj, type);
+        }
+        if (String.class.isAssignableFrom(type)) {
+            if (filterObj instanceof String) {
+                return (T) filterObj;
+            }
+            if (filterObj instanceof Boolean) {
+                return (T) ((Boolean) filterObj).toString();
+            }
+            if (filterObj instanceof SdkEnum) {
+                return (T) ((SdkEnum) filterObj).getString();
+            }
+            if (filterObj instanceof SdkModel) {
+                return (T) ((SdkModel) filterObj).getId();
+            }
+            if (filterObj instanceof Date) {
+                return (T) TranslationUtils.toUtcTimestamp((Date) filterObj);
+            }
+            if (filterObj instanceof Calendar) {
+                return (T) TranslationUtils.toUtcTimestamp(TranslationUtils.toDate((Calendar) filterObj));
+            }
+            if (filterObj instanceof URL) {
+                return (T) ((URL) filterObj).toString();
+            }
+            return (T) filterObj.toString();
+        }
+        if (DateTime.class.isAssignableFrom(type)) {
+            if (filterObj instanceof DateTime) {
+                return (T) filterObj;
+            }
+            if (filterObj instanceof LocalDate) {
+                return (T) TranslationUtils.toDateTime(TranslationUtils.toDate((LocalDate) filterObj));
+            }
+            if (filterObj instanceof String) {
+                try {
+                    return (T) TranslationUtils.toDateTime(TranslationUtils.convertStringToDate((String) filterObj));
+                } catch (@SuppressWarnings("unused") MbedCloudException exception) {
+                    // Nothing to do.
+                    return null;
+                }
+            }
+            if (filterObj instanceof Date) {
+                return (T) TranslationUtils.toDateTime((Date) filterObj);
+            }
+            if (filterObj instanceof Number) {
+                return (T) TranslationUtils.toDateTime(TranslationUtils.toDate((Number) filterObj));
+            }
+            return null;
+        }
+        if (LocalDate.class.isAssignableFrom(type)) {
+            if (filterObj instanceof LocalDate) {
+                return (T) filterObj;
+            }
+            if (filterObj instanceof DateTime) {
+                return (T) TranslationUtils.toLocalDate(TranslationUtils.toDate((DateTime) filterObj));
+            }
+            if (filterObj instanceof String) {
+                try {
+                    return (T) TranslationUtils.toLocalDate(TranslationUtils.convertStringToDate((String) filterObj));
+                } catch (@SuppressWarnings("unused") MbedCloudException exception) {
+                    // Nothing to do.
+                    return null;
+                }
+            }
+            if (filterObj instanceof Date) {
+                return (T) TranslationUtils.toLocalDate((Date) filterObj);
+            }
+            if (filterObj instanceof Number) {
+                return (T) TranslationUtils.toLocalDate(TranslationUtils.toDate((Number) filterObj));
+            }
+            return null;
+        }
+        if (Date.class.isAssignableFrom(type)) {
+            if (filterObj instanceof LocalDate) {
+                return (T) TranslationUtils.toDate((LocalDate) filterObj);
+            }
+            if (filterObj instanceof DateTime) {
+                return (T) TranslationUtils.toDate((DateTime) filterObj);
+            }
+            if (filterObj instanceof String) {
+                try {
+                    return (T) TranslationUtils.convertStringToDate((String) filterObj);
+                } catch (@SuppressWarnings("unused") MbedCloudException exception) {
+                    // Nothing to do.
+                    return null;
+                }
+            }
+            if (filterObj instanceof Date) {
+                return (T) filterObj;
+            }
+            if (filterObj instanceof Number) {
+                return (T) TranslationUtils.toDate((Number) filterObj);
+            }
+            return null;
+        }
+        if (Boolean.class.isAssignableFrom(type) || boolean.class.isAssignableFrom(type)) {
+            if (filterObj instanceof String) {
+                return (T) Boolean.valueOf(TranslationUtils.toBool((String) filterObj));
+            }
+            if (filterObj instanceof Boolean) {
+                return (T) filterObj;
+            }
+            return null;
+        }
+        if (Integer.class.isAssignableFrom(type) || int.class.isAssignableFrom(type)) {
+            if (filterObj instanceof String) {
+                return (T) Integer.valueOf(TranslationUtils.toInt((String) filterObj));
+            }
+            if (filterObj instanceof Number) {
+                return (T) Integer.valueOf(TranslationUtils.toInt((Number) filterObj));
+            }
+            return null;
+        }
+        if (Long.class.isAssignableFrom(type) || long.class.isAssignableFrom(type)) {
+            if (filterObj instanceof String) {
+                return (T) Long.valueOf(TranslationUtils.toLong((String) filterObj));
+            }
+            if (filterObj instanceof Number) {
+                return (T) Long.valueOf(TranslationUtils.toLong((Number) filterObj));
+            }
+            if (filterObj instanceof Date) {
+                return (T) Long.valueOf(TranslationUtils.toLong((Date) filterObj));
+            }
+            return null;
+        }
+        if (Double.class.isAssignableFrom(type) || double.class.isAssignableFrom(type)) {
+            if (filterObj instanceof String) {
+                return (T) Double.valueOf(TranslationUtils.toDouble((String) filterObj));
+            }
+            if (filterObj instanceof Number) {
+                return (T) Double.valueOf(TranslationUtils.toDouble((Number) filterObj));
+            }
+        }
+        if (SdkEnum.class.isAssignableFrom(type) || type.isEnum()) {
+            return (T) filterObj;
+        }
+
+        return null;
+    }
+
+    /**
+     * Encodes multiple filter values.
+     * 
+     * @param filterObj
+     *            filter values.
+     * @param type
+     *            filter value type.
+     * @param <T>
+     *            type of the filter encoding
+     * @return the encoded filter values.
+     */
+    @SuppressWarnings("rawtypes")
+    public static <T> T encodeMultipleFilters(final Object filterObj, Class<T> type) {
+        if (filterObj == null) {
+            return null;
+        }
+        if (filterObj instanceof List) {
+            return encodeFilterList((List) filterObj, type);
+        }
+        if (filterObj.getClass().isArray()) {
+            return encodeArray(filterObj, type);
+        }
+        return encodeSingleFilter(filterObj, type);
+    }
+
+    private static boolean isMultipleFilters(final Object filterObj) {
+        return filterObj == null ? false : filterObj.getClass().isArray() || filterObj instanceof List;
+    }
+
+    private static <T> T encodeArray(Object filterObj, Class<T> type) {
+        if (filterObj instanceof String[]) {
+            return encodeFilterList(Arrays.asList((String[]) filterObj), type);
+        }
+        if (filterObj instanceof Number[]) {
+            return encodeFilterList(Arrays.asList(((Number[]) filterObj)), type);
+        }
+        if (filterObj instanceof Object[]) {
+            return encodeFilterList(Arrays.asList(((Object[]) filterObj)), type);
+        }
+
+        return null;
+    }
+
+    @SuppressWarnings({ "unchecked", "PMD.ClassCastExceptionWithToArray" })
+    private static <T> T encodeFilterList(List<?> filterObj, Class<T> type) {
+        if (String.class.isAssignableFrom(type)) {
+            return (T) SdkUtils.joinList(filterObj, ",");
+        }
+        if (List.class.isAssignableFrom(type)) {
+            if (filterObj.getClass().isArray()) {
+                return (T) Arrays.asList(filterObj);
+            }
+            return (T) filterObj;
+        }
+        if (type.isArray()) {
+            return (T) filterObj.toArray();
+        }
+        return null;
+    }
+
     private static class JsonObject {
 
         private final JsonSerialiser jsonSerialiser = new JsonSerialiser();
@@ -372,6 +591,7 @@ public class FilterMarshaller {
             setMap(null);
         }
 
+        @SuppressWarnings("unchecked")
         public JsonObject(String string) {
             super();
             if (string == null || string.isEmpty()) {
@@ -407,7 +627,7 @@ public class FilterMarshaller {
                 try {
                     // Trying to see if it is a date
                     return ApiUtils.convertStringToDate(valueStr);
-                } catch (Exception exception) {
+                } catch (@SuppressWarnings("unused") Exception exception) {
                     return valueStr;
                 }
             }

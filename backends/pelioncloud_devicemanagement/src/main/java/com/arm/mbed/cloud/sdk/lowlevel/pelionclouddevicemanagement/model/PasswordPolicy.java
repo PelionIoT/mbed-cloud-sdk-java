@@ -25,25 +25,24 @@ public class PasswordPolicy implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("minimum_length")
-    private String minimumLength = null;
+    private Integer minimumLength = null;
 
-    public PasswordPolicy minimumLength(String minimumLength) {
+    public PasswordPolicy minimumLength(Integer minimumLength) {
         this.minimumLength = minimumLength;
         return this;
     }
 
     /**
-     * Minimum length for the password. A number between 8 and 512.
+     * Minimum length for the password. minimum: 8 maximum: 512
      * 
      * @return minimumLength
      **/
-    @ApiModelProperty(example = "8", required = true,
-                      value = "Minimum length for the password. A number between 8 and 512.")
-    public String getMinimumLength() {
+    @ApiModelProperty(example = "8", required = true, value = "Minimum length for the password.")
+    public Integer getMinimumLength() {
         return minimumLength;
     }
 
-    public void setMinimumLength(String minimumLength) {
+    public void setMinimumLength(Integer minimumLength) {
         this.minimumLength = minimumLength;
     }
 

@@ -25,9 +25,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * This object represents a trusted certificate in responses.
+ * Represents a trusted certificate in responses.
  */
-@ApiModel(description = "This object represents a trusted certificate in responses.")
+@ApiModel(description = "Represents a trusted certificate in responses.")
 
 public class TrustedCertificateResp implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -117,7 +117,7 @@ public class TrustedCertificateResp implements Serializable {
     private String ownerId = null;
 
     /**
-     * Service name where the certificate is to be used.
+     * Service name where the certificate is used.
      */
     @JsonAdapter(ServiceEnum.Adapter.class)
     public enum ServiceEnum {
@@ -221,6 +221,9 @@ public class TrustedCertificateResp implements Serializable {
 
     @SerializedName("updated_at")
     private DateTime updatedAt = null;
+
+    @SerializedName("valid")
+    private Boolean valid = null;
 
     @SerializedName("validity")
     private DateTime validity = null;
@@ -480,11 +483,11 @@ public class TrustedCertificateResp implements Serializable {
     }
 
     /**
-     * Service name where the certificate is to be used.
+     * Service name where the certificate is used.
      * 
      * @return service
      **/
-    @ApiModelProperty(required = true, value = "Service name where the certificate is to be used.")
+    @ApiModelProperty(required = true, value = "Service name where the certificate is used.")
     public ServiceEnum getService() {
         return service;
     }
@@ -550,6 +553,17 @@ public class TrustedCertificateResp implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    /**
+     * This read-only flag indicates whether the certificate is valid or not.
+     * 
+     * @return valid
+     **/
+    @ApiModelProperty(example = "true",
+                      value = "This read-only flag indicates whether the certificate is valid or not.")
+    public Boolean isValid() {
+        return valid;
+    }
+
     public TrustedCertificateResp validity(DateTime validity) {
         this.validity = validity;
         return this;
@@ -596,6 +610,7 @@ public class TrustedCertificateResp implements Serializable {
                && Objects.equals(this.status, trustedCertificateResp.status)
                && Objects.equals(this.subject, trustedCertificateResp.subject)
                && Objects.equals(this.updatedAt, trustedCertificateResp.updatedAt)
+               && Objects.equals(this.valid, trustedCertificateResp.valid)
                && Objects.equals(this.validity, trustedCertificateResp.validity);
     }
 
@@ -603,7 +618,7 @@ public class TrustedCertificateResp implements Serializable {
     public int hashCode() {
         return Objects.hash(accountId, certificate, certificateFingerprint, createdAt, description, deviceExecutionMode,
                             enrollmentMode, etag, id, issuer, name, object, ownerId, service, status, subject,
-                            updatedAt, validity);
+                            updatedAt, valid, validity);
     }
 
     @Override
@@ -628,6 +643,7 @@ public class TrustedCertificateResp implements Serializable {
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    subject: ").append(toIndentedString(subject)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+        sb.append("    valid: ").append(toIndentedString(valid)).append("\n");
         sb.append("    validity: ").append(toIndentedString(validity)).append("\n");
         sb.append("}");
         return sb.toString();

@@ -60,11 +60,11 @@ public class ServicePackageQuotaHistoryReservation implements Serializable {
     }
 
     /**
-     * Textual campaign name for this reservation.
+     * Campaign name for this reservation.
      * 
      * @return campaignName
      **/
-    @ApiModelProperty(required = true, value = "Textual campaign name for this reservation.")
+    @ApiModelProperty(required = true, value = "Campaign name for this reservation.")
     public String getCampaignName() {
         return campaignName;
     }

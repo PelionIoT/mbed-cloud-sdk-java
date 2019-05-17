@@ -5,7 +5,10 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
+import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 /**
@@ -16,6 +19,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
 @Preamble(description = "Abstract Model DAO")
 public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloudDao implements ModelDao<T> {
     public static final String METHOD_INSTANTIATE_MODEL = "instantiateModel";
+    public static final String METHOD_SET_AND_GET_MODEL = "setAndGetModel";
     private final AtomicReference<T> model;
 
     /**
@@ -30,40 +34,100 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
         setModel(null);
     }
 
-    @Override
-    public void setModel(T model) throws MbedCloudException {
-        this.model.set(model == null ? instantiateModel() : model);
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            options to use.
+     * 
+     * @throws MbedCloudException
+     *             if an error happens during instantiation.
+     */
+    public AbstractModelDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+        model = new AtomicReference<>();
+        setModel(null);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param client
+     *            client to use.
+     * @throws MbedCloudException
+     *             if an error happens during instantiation.
+     */
+    public AbstractModelDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+        model = new AtomicReference<>();
+        setModel(null);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            SDK context.
+     * @throws MbedCloudException
+     *             if an error happens during instantiation.
+     */
+    public AbstractModelDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+        model = new AtomicReference<>();
+        setModel(null);
     }
 
     @Override
-    public void setId(String id) throws MbedCloudException {
-        synchronized (model) {
-            if (model.get() == null) {
-                setModel(instantiateModel());
-            }
-            model.get().setId(id);
-        }
+    public void setModel(T model) {
+        setAndGetModel(model);
     }
 
     @Override
-    public String getId() throws MbedCloudException {
-        final T dataModel = model.get();
-        if (dataModel != null) {
-            return dataModel.getId();
-        }
-        synchronized (model) {
-            final T dataModel2 = model.get();
-            if (dataModel2 != null) {
-                return dataModel2.getId();
-            }
-            setModel(instantiateModel());
-            return getModel().getId();
-        }
+    public void setId(String id) {
+        getModelOrNew().setId(id);
     }
 
     @Override
-    public T getModel() throws MbedCloudException {
+    public String getId() {
+        return getModelOrNew().getId();
+    }
+
+    @Override
+    public T getModel() {
         return model.get();
+    }
+
+    @Override
+    public T getModelOrNew() {
+        final T currentModel = getModel();
+        if (currentModel == null) {
+            final T newModel = instantiateModel();
+            model.compareAndSet(null, newModel);
+            final T modelToCheck = getModel();
+            if (modelToCheck == null) {
+                synchronized (model) {
+                    model.set(newModel);
+                    return getModel();
+                }
+            }
+            return modelToCheck;
+        }
+        return currentModel;
+    }
+
+    @SuppressWarnings("checkstyle:RightCurly")
+    protected T setAndGetModel(T model) {
+        T prev = null;
+        final T next = model;
+        do {
+            prev = getModel();
+        } while (!this.model.compareAndSet(prev, next));
+        return next;
+    }
+
+    @Override
+    public boolean hasModel() {
+        return getModel() != null;
     }
 
     /**
@@ -78,7 +142,7 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
             @SuppressWarnings("unchecked")
             final Class<T> modelClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
             return modelClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException exception) {
+        } catch (@SuppressWarnings("unused") InstantiationException | IllegalAccessException exception) {
             return null;
         }
     }

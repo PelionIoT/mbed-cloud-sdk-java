@@ -10,6 +10,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
  * Model for a parent account.
  */
 @Preamble(description = "Model for a parent account.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class ParentAccount implements SdkModel {
     /**
      * Serialisation Id.
@@ -33,6 +34,9 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #ParentAccount()} instead.
      * 
@@ -53,6 +57,9 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #ParentAccount()} instead.
      * 
@@ -75,7 +82,11 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            The ID of the parent account.
      */
@@ -86,6 +97,9 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #ParentAccount()} instead.
      * 
@@ -129,6 +143,9 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Sets the id of the parent account.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param id
      *            The ID of the parent account.
@@ -140,8 +157,11 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Sets the id of the parent account.
+     *
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param parentAccountId
      *            The ID of the parent account.
@@ -152,7 +172,31 @@ public class ParentAccount implements SdkModel {
     }
 
     /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[a-f0-9]{32}"));
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "ParentAccount [adminEmail=" + adminEmail + ", adminName=" + adminName + ", id=" + id + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
+     *
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -170,6 +214,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -183,6 +228,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     *
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -230,19 +276,8 @@ public class ParentAccount implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "ParentAccount [adminEmail=" + adminEmail + ", adminName=" + adminName + ", id=" + id + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
+     *
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -250,11 +285,12 @@ public class ParentAccount implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isIdValid();
     }
 
     /**
      * Clones this instance.
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

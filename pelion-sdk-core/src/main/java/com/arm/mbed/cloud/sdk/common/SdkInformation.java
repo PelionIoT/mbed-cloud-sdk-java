@@ -11,6 +11,7 @@ import com.jcabi.manifests.Manifests;
 public class SdkInformation implements Serializable {
 
     private static final String MBED_IDENTIFIER = "mbed";
+    private static final String PELION_IDENTIFIER = "pelion";
     private static final String DEFAULT_VERSION = "unknown_dev";
     private static final String LICENCE_URL_ATTRIBUTE = "Bundle-License";
     private static final String DEFAULT_DESCRIPTION = "Arm Pelion Cloud SDK for Java";
@@ -50,7 +51,8 @@ public class SdkInformation implements Serializable {
         boolean foundCorrectInformationInManifest = false;
         if (Manifests.exists(IMPLEMENTATION_TITLE_ATTRIBUTE)) {
             final String description = Manifests.read(IMPLEMENTATION_TITLE_ATTRIBUTE);
-            if (description.toLowerCase(Locale.getDefault()).contains(MBED_IDENTIFIER)) {
+            final String processedDescription = description.toLowerCase(Locale.getDefault());
+            if (processedDescription.contains(MBED_IDENTIFIER) || processedDescription.contains(PELION_IDENTIFIER)) {
                 foundCorrectInformationInManifest = true;
                 setSdkDescription(description);
             } else {

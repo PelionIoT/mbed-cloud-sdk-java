@@ -30,6 +30,9 @@ import java.io.Serializable;
 public class EventTypeSummary implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @SerializedName("campaign_id")
+    private String campaignId = null;
+
     @SerializedName("count")
     private Integer count = null;
 
@@ -147,6 +150,25 @@ public class EventTypeSummary implements Serializable {
     @SerializedName("summary_status")
     private SummaryStatusEnum summaryStatus = null;
 
+    public EventTypeSummary campaignId(String campaignId) {
+        this.campaignId = campaignId;
+        return this;
+    }
+
+    /**
+     * ID of the associated campaign.
+     * 
+     * @return campaignId
+     **/
+    @ApiModelProperty(example = "00000000000000000000000000000000", value = "ID of the associated campaign.")
+    public String getCampaignId() {
+        return campaignId;
+    }
+
+    public void setCampaignId(String campaignId) {
+        this.campaignId = campaignId;
+    }
+
     public EventTypeSummary count(Integer count) {
         this.count = count;
         return this;
@@ -251,7 +273,8 @@ public class EventTypeSummary implements Serializable {
             return false;
         }
         EventTypeSummary eventTypeSummary = (EventTypeSummary) o;
-        return Objects.equals(this.count, eventTypeSummary.count)
+        return Objects.equals(this.campaignId, eventTypeSummary.campaignId)
+               && Objects.equals(this.count, eventTypeSummary.count)
                && Objects.equals(this.createdAt, eventTypeSummary.createdAt)
                && Objects.equals(this.id, eventTypeSummary.id) && Objects.equals(this.object, eventTypeSummary.object)
                && Objects.equals(this.summaryStatus, eventTypeSummary.summaryStatus);
@@ -259,7 +282,7 @@ public class EventTypeSummary implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(count, createdAt, id, object, summaryStatus);
+        return Objects.hash(campaignId, count, createdAt, id, object, summaryStatus);
     }
 
     @Override
@@ -267,6 +290,7 @@ public class EventTypeSummary implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("class EventTypeSummary {\n");
 
+        sb.append("    campaignId: ").append(toIndentedString(campaignId)).append("\n");
         sb.append("    count: ").append(toIndentedString(count)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");

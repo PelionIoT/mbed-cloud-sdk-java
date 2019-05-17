@@ -49,7 +49,7 @@ public class TestIdPaginator {
             assertEquals(String.valueOf(0), testingElement);
             assertEquals(paginator.first(), paginator.last());
             assertEquals(paginator.first(), paginator.current());
-            assertEquals(server.numberOfSentElements(), paginator.getElementsTotal());
+            assertEquals(server.numberOfSentElements(), paginator.count());
             assertEquals(pageSize, paginator.getNumberOfPageElements());
             assertEquals(1, paginator.getPagesNumber());
             assertEquals(0, paginator.getPageIndex());
@@ -93,7 +93,7 @@ public class TestIdPaginator {
             testingElement = paginator.last();
             assertEquals(String.valueOf(server.numberOfSentElements() - 1), testingElement);
             assertEquals(paginator.first(), paginator.current());
-            assertEquals(server.numberOfSentElements(), paginator.getElementsTotal());
+            assertEquals(server.numberOfSentElements(), paginator.count());
             assertEquals(pageSize, paginator.getNumberOfPageElements());
             assertEquals(1, paginator.getPagesNumber());
             assertEquals(0, paginator.getPageIndex());
@@ -151,7 +151,7 @@ public class TestIdPaginator {
             testingElement = paginator.last();
             assertEquals(String.valueOf(maxResult - 1), testingElement);
             assertEquals(paginator.first(), paginator.current());
-            assertEquals(server.numberOfSentElements(), paginator.getElementsTotal());
+            assertEquals(server.numberOfSentElements(), paginator.count());
             assertEquals(pageSize, paginator.getNumberOfPageElements());
             assertEquals(1, paginator.getPagesNumber());
             assertEquals(0, paginator.getPageIndex());
@@ -216,7 +216,7 @@ public class TestIdPaginator {
             assertEquals(String.valueOf(0), testingElement);
             testingElement = paginator.last();
             assertEquals(String.valueOf(server.numberOfSentElements() - 1), testingElement);
-            assertEquals(server.numberOfSentElements(), paginator.getElementsTotal());
+            assertEquals(server.numberOfSentElements(), paginator.count());
             assertEquals(pageSize, paginator.getNumberOfPageElements());
             assertEquals(pageNumber, paginator.getPagesNumber());
             assertNotEquals(0, paginator.getPageIndex());
@@ -313,7 +313,7 @@ public class TestIdPaginator {
             assertEquals(String.valueOf(0), testingElement);
             testingElement = paginator.last();
             assertEquals(String.valueOf(server.numberOfSentElements() - 1), testingElement);
-            assertEquals(server.numberOfSentElements(), paginator.getElementsTotal());
+            assertEquals(server.numberOfSentElements(), paginator.count());
             assertEquals(pageSize, paginator.getNumberOfPageElements());
             assertEquals(pageNumber, paginator.getPagesNumber());
             assertNotEquals(0, paginator.getPageIndex());
@@ -414,7 +414,7 @@ public class TestIdPaginator {
             assertEquals(String.valueOf(0), testingElement);
             testingElement = paginator.last();
             assertEquals(String.valueOf(maxResult - 1), testingElement);
-            assertEquals(server.numberOfSentElements(), paginator.getElementsTotal());
+            assertEquals(server.numberOfSentElements(), paginator.count());
             assertEquals(pageSize, paginator.getNumberOfPageElements());
             assertEquals((maxResult % pageSize > 0) ? (maxResult / pageSize) + 1 : maxResult / pageSize,
                          paginator.getPagesNumber());
@@ -520,7 +520,7 @@ public class TestIdPaginator {
             assertEquals(String.valueOf(0), testingElement);
             testingElement = paginator.last();
             assertEquals(String.valueOf(maxResult - 1), testingElement);
-            assertEquals(server.numberOfSentElements(), paginator.getElementsTotal());
+            assertEquals(server.numberOfSentElements(), paginator.count());
             assertEquals(pageSize, paginator.getNumberOfPageElements());
             assertEquals((maxResult % pageSize > 0) ? (maxResult / pageSize) + 1 : maxResult / pageSize,
                          paginator.getPagesNumber());

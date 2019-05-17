@@ -19,9 +19,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * The response includes the URL to download the raw billing data.
+ * The response includes the URL to download raw billing data.
  */
-@ApiModel(description = "The response includes the URL to download the raw billing data.")
+@ApiModel(description = "The response includes the URL to download raw billing data.")
 
 public class BillingReportRawDataResponse implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -41,12 +41,12 @@ public class BillingReportRawDataResponse implements Serializable {
     }
 
     /**
-     * The filename of the raw billing data file to be downloaded. It contains the file extensions.
+     * The filename of the raw billing data file to download. Contains file extensions.
      * 
      * @return filename
      **/
     @ApiModelProperty(required = true,
-                      value = "The filename of the raw billing data file to be downloaded. It contains the file extensions.")
+                      value = "The filename of the raw billing data file to download. Contains file extensions.")
     public String getFilename() {
         return filename;
     }
@@ -80,11 +80,11 @@ public class BillingReportRawDataResponse implements Serializable {
     }
 
     /**
-     * The URL to download the raw billing data.
+     * The URL to download raw billing data.
      * 
      * @return url
      **/
-    @ApiModelProperty(required = true, value = "The URL to download the raw billing data.")
+    @ApiModelProperty(required = true, value = "The URL to download raw billing data.")
     public String getUrl() {
         return url;
     }

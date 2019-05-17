@@ -4,8 +4,12 @@ import java.lang.reflect.ParameterizedType;
 import java.util.concurrent.atomic.AtomicReference;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.NotImplemented;
+import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
+import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.NotImplementedException;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.listing.IdListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.IdPageRequester;
@@ -22,8 +26,56 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
     public static final String METHOD_INSTANTIATE_LIST_OPTIONS = "instantiateListOptions";
     private final AtomicReference<U> options;
 
+    /**
+     * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error happens during instantiation.
+     */
     public AbstractModelListDao() throws MbedCloudException {
         options = new AtomicReference<>();
+        setListOptions(null);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            options to use.
+     * @throws MbedCloudException
+     *             if an error happens during instantiation.
+     */
+    public AbstractModelListDao(ConnectionOptions options) throws MbedCloudException {
+        super(options);
+        this.options = new AtomicReference<>();
+        setListOptions(null);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param client
+     *            client to use.
+     * @throws MbedCloudException
+     *             if an error happens during instantiation.
+     */
+    public AbstractModelListDao(ApiClientWrapper client) throws MbedCloudException {
+        super(client);
+        this.options = new AtomicReference<>();
+        setListOptions(null);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param sdkContext
+     *            SDK context.
+     * @throws MbedCloudException
+     *             if an error happens during instantiation.
+     */
+    public AbstractModelListDao(SdkContext sdkContext) throws MbedCloudException {
+        super(sdkContext);
+        this.options = new AtomicReference<>();
         setListOptions(null);
     }
 
@@ -154,12 +206,13 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
             @SuppressWarnings("unchecked")
             final Class<U> modelClass = (Class<U>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
             return modelClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException exception) {
+        } catch (@SuppressWarnings("unused") InstantiationException | IllegalAccessException exception) {
             return null;
         }
     }
 
     // FIXME implement when the APIs allow this mechanism.
+    @NotImplemented
     protected IdListResponse requestOnePageOfIds(U listOptions) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("No mechanism is currently in place in the APIs to only list IDs",
                                                 new NotImplementedException());

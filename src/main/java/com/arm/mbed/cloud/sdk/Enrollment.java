@@ -12,6 +12,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptionsEncoder;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -26,8 +27,12 @@ import retrofit2.Call;
 
 @Preamble(description = "Specifies Enrollment API")
 @Module
+@Deprecated
 /**
  * API exposing functionality for dealing with enrolment.
+ * <p>
+ * 
+ * @deprecated Use foundation interface or {@link Devices} instead.
  */
 public class Enrollment extends AbstractModule {
 
@@ -104,7 +109,7 @@ public class Enrollment extends AbstractModule {
                                                        .getDeviceEnrollments(finalOptions.getPageSize(),
                                                                              finalOptions.getAfter(),
                                                                              finalOptions.getOrder().toString(),
-                                                                             finalOptions.encodeInclude());
+                                                                             ListOptionsEncoder.encodeInclude(finalOptions));
                                     }
                                 });
     }

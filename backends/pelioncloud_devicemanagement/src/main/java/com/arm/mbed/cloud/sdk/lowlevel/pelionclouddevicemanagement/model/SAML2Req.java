@@ -97,12 +97,11 @@ public class SAML2Req implements Serializable {
     }
 
     /**
-     * List of public X509 certificates of the identity provider. Certificates must be in PEM format. Limit of 100
-     * certificates.
+     * List of public X509 certificates of the identity provider. Certificates must be in PEM format.
      * 
      * @return idpX509Certs
      **/
-    @ApiModelProperty(value = "List of public X509 certificates of the identity provider. Certificates must be in PEM format. Limit of 100 certificates.")
+    @ApiModelProperty(value = "List of public X509 certificates of the identity provider. Certificates must be in PEM format.")
     public List<String> getIdpX509Certs() {
         return idpX509Certs;
     }

@@ -119,11 +119,11 @@ public class ActiveServicePackage implements Serializable {
     }
 
     /**
-     * Is this service package on grace period or not?
+     * Indicates whether the service package is in its grace period.
      * 
      * @return gracePeriod
      **/
-    @ApiModelProperty(required = true, value = "Is this service package on grace period or not?")
+    @ApiModelProperty(required = true, value = "Indicates whether the service package is in its grace period.")
     public Boolean isGracePeriod() {
         return gracePeriod;
     }
@@ -177,11 +177,11 @@ public class ActiveServicePackage implements Serializable {
     }
 
     /**
-     * Next service package ID if this service package has a pending renewal or null.
+     * Next service package ID if this service package has a pending renewal, or null.
      * 
      * @return nextId
      **/
-    @ApiModelProperty(value = "Next service package ID if this service package has a pending renewal or null.")
+    @ApiModelProperty(value = "Next service package ID if this service package has a pending renewal, or null.")
     public String getNextId() {
         return nextId;
     }

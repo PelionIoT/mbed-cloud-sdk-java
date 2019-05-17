@@ -13,6 +13,7 @@ import java.util.List;
  * Model for a subtenant user invitation.
  */
 @Preamble(description = "Model for a subtenant user invitation.")
+@SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.AvoidDuplicateLiterals" })
 public class SubtenantUserInvitation implements SdkModel {
     /**
      * Serialisation Id.
@@ -63,6 +64,9 @@ public class SubtenantUserInvitation implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #SubtenantUserInvitation()} instead.
      * 
@@ -85,6 +89,7 @@ public class SubtenantUserInvitation implements SdkModel {
      *            The ID of the invited user.
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public SubtenantUserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
                                    List<LoginProfile> loginProfiles, Date updatedAt, String userId) {
         super();
@@ -100,6 +105,9 @@ public class SubtenantUserInvitation implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #SubtenantUserInvitation()} instead.
      * 
@@ -109,12 +117,12 @@ public class SubtenantUserInvitation implements SdkModel {
     @Internal
     public SubtenantUserInvitation(SubtenantUserInvitation subtenantUserInvitation) {
         this(subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.accountId,
-             subtenantUserInvitation == null ? new java.util.Date() : subtenantUserInvitation.createdAt,
+             subtenantUserInvitation == null ? new Date() : subtenantUserInvitation.createdAt,
              subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.email,
-             subtenantUserInvitation == null ? new java.util.Date() : subtenantUserInvitation.expiration,
+             subtenantUserInvitation == null ? new Date() : subtenantUserInvitation.expiration,
              subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.id,
-             subtenantUserInvitation == null ? null : subtenantUserInvitation.loginProfiles,
-             subtenantUserInvitation == null ? new java.util.Date() : subtenantUserInvitation.updatedAt,
+             subtenantUserInvitation == null ? (List<LoginProfile>) null : subtenantUserInvitation.loginProfiles,
+             subtenantUserInvitation == null ? new Date() : subtenantUserInvitation.updatedAt,
              subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.userId);
     }
 
@@ -122,13 +130,17 @@ public class SubtenantUserInvitation implements SdkModel {
      * Constructor.
      */
     public SubtenantUserInvitation() {
-        this((String) null, new java.util.Date(), (String) null, new java.util.Date(), (String) null, null,
-             new java.util.Date(), (String) null);
+        this((String) null, new Date(), (String) null, new Date(), (String) null, (List<LoginProfile>) null, new Date(),
+             (String) null);
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            The ID of the invitation.
      */
@@ -139,6 +151,9 @@ public class SubtenantUserInvitation implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #SubtenantUserInvitation()} instead.
      * 
@@ -153,19 +168,24 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     @Internal
     public SubtenantUserInvitation(Date createdAt, Date expiration, Date updatedAt, String userId) {
-        this((String) null, createdAt, (String) null, expiration, (String) null, null, updatedAt, userId);
+        this((String) null, createdAt, (String) null, expiration, (String) null, (List<LoginProfile>) null, updatedAt,
+             userId);
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on required fields.
+     * <p>
+     *
      * @param accountId
      *            The ID of the account the user is invited to.
      * @param email
      *            Email address of the invited user.
      */
     public SubtenantUserInvitation(String accountId, String email) {
-        this(accountId, new java.util.Date(), email, new java.util.Date(), (String) null, null, new java.util.Date(),
+        this(accountId, new Date(), email, new Date(), (String) null, (List<LoginProfile>) null, new Date(),
              (String) null);
     }
 
@@ -180,6 +200,9 @@ public class SubtenantUserInvitation implements SdkModel {
 
     /**
      * Sets the id of the account the user is invited to.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param accountId
      *            The ID of the account the user is invited to.
@@ -196,7 +219,7 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isAccountIdValid() {
-        return accountId != null;
+        return accountId != null && (accountId.matches("[a-f0-9]{32}"));
     }
 
     /**
@@ -219,6 +242,9 @@ public class SubtenantUserInvitation implements SdkModel {
 
     /**
      * Sets email address of the invited user.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /^(?=.{3,254}$).+@.+/} to be valid
      * 
      * @param email
      *            Email address of the invited user.
@@ -235,7 +261,7 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isEmailValid() {
-        return email != null;
+        return email != null && (email.matches("^(?=.{3,254}$).+@.+"));
     }
 
     /**
@@ -259,6 +285,9 @@ public class SubtenantUserInvitation implements SdkModel {
 
     /**
      * Sets the id of the invitation.
+     *
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param id
      *            The ID of the invitation.
@@ -270,8 +299,11 @@ public class SubtenantUserInvitation implements SdkModel {
 
     /**
      * Sets the id of the invitation.
+     *
      * <p>
      * Similar to {@link #setId(String)}
+     * <p>
+     * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
      * @param subtenantUserInvitationId
      *            The ID of the invitation.
@@ -279,6 +311,16 @@ public class SubtenantUserInvitation implements SdkModel {
     @Internal
     public void setSubtenantUserInvitationId(String subtenantUserInvitationId) {
         setId(subtenantUserInvitationId);
+    }
+
+    /**
+     * Checks whether id value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIdValid() {
+        return (id == null || id.matches("[a-f0-9]{32}"));
     }
 
     /**
@@ -320,7 +362,23 @@ public class SubtenantUserInvitation implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "SubtenantUserInvitation [accountId=" + accountId + ", createdAt=" + createdAt + ", email=" + email
+               + ", expiration=" + expiration + ", id=" + id + ", loginProfiles=" + loginProfiles + ", updatedAt="
+               + updatedAt + ", userId=" + userId + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
+     *
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -343,6 +401,7 @@ public class SubtenantUserInvitation implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -356,6 +415,7 @@ public class SubtenantUserInvitation implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     *
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -364,6 +424,7 @@ public class SubtenantUserInvitation implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -438,21 +499,8 @@ public class SubtenantUserInvitation implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "SubtenantUserInvitation [accountId=" + accountId + ", createdAt=" + createdAt + ", email=" + email
-               + ", expiration=" + expiration + ", id=" + id + ", loginProfiles=" + loginProfiles + ", updatedAt="
-               + updatedAt + ", userId=" + userId + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
+     *
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -460,11 +508,12 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isAccountIdValid() && isEmailValid();
+        return isAccountIdValid() && isEmailValid() && isIdValid();
     }
 
     /**
      * Clones this instance.
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

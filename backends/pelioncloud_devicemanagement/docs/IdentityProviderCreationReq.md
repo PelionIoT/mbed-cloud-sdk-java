@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **String** | Description for the identity provider, not longer than 500 characters. |  [optional]
-**name** | **String** | Name of the identity provider, not longer than 100 characters. | 
+**description** | **String** | Description for the identity provider. |  [optional]
+**name** | **String** | Name of the identity provider. | 
 **saml2Attributes** | [**SAML2Req**](SAML2Req.md) | SAML2 specific attributes. |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) | Status of the identity provider. |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) | Identity provider type. | 

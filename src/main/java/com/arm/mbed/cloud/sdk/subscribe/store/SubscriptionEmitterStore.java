@@ -39,7 +39,7 @@ public class SubscriptionEmitterStore<T extends NotificationMessageValue> {
                 @SuppressWarnings("unchecked")
                 final T notificationClone = (notification == null) ? null : (T) notification.clone();
                 emitter.emit(notificationClone, throwable);
-            } catch (Exception exception) {
+            } catch (@SuppressWarnings("unused") Exception exception) {
                 // exception.printStackTrace();
             }
 

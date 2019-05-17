@@ -31,7 +31,7 @@ public class LowLevelAPIModule {
     public String getName() {
         try {
             return moduleClassName == null ? null : Class.forName(moduleClassName).getName();
-        } catch (ClassNotFoundException exception) {
+        } catch (@SuppressWarnings("unused") ClassNotFoundException exception) {
             return null;
         }
     }
@@ -39,7 +39,7 @@ public class LowLevelAPIModule {
     public Class<?> getClazz() {
         try {
             return moduleClassName == null ? null : Class.forName(moduleClassName);
-        } catch (ClassNotFoundException exception) {
+        } catch (@SuppressWarnings("unused") ClassNotFoundException exception) {
             return null;
         }
     }
@@ -50,7 +50,7 @@ public class LowLevelAPIModule {
     public String getSimpleName() {
         try {
             return moduleClassName == null ? null : Class.forName(moduleClassName).getSimpleName();
-        } catch (ClassNotFoundException exception) {
+        } catch (@SuppressWarnings("unused") ClassNotFoundException exception) {
             return null;
         }
     }

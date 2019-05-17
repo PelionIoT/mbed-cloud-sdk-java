@@ -12,17 +12,17 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Preamble(description = "APIs connection options/configuration")
 public class ConnectionOptions implements Cloneable, Serializable {
     /**
-     * Environment variable for setting Mbed Cloud host.
+     * Environment variable for setting Pelion Cloud host.
      */
     public static final String ENVIRONMENT_VARIABLE_HOST = "MBED_CLOUD_SDK_HOST";
     /**
-     * Environment variable for setting the level of HTTP logs when communicating to Mbed Cloud.
+     * Environment variable for setting the level of HTTP logs when communicating to Pelion Cloud.
      *
      * @see CallLogLevel for more details about the possible values.
      */
     public static final String ENVIRONMENT_VARIABLE_HTTP_LOG_LEVEL = "MBED_CLOUD_SDK_LOG_LEVEL";
     /**
-     * Environment variable for setting the API Key to use for Mbed Cloud.
+     * Environment variable for setting the API Key to use for Pelion Cloud.
      */
     public static final String ENVIRONMENT_VARIABLE_API_KEY = "MBED_CLOUD_SDK_API_KEY";
     /**
@@ -64,7 +64,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
     private final transient Dotenv dotenv;
 
     /**
-     * Constructor for communications to Arm Mbed Cloud.
+     * Constructor for communications to Arm Pelion Cloud.
      * <p>
      * Note: the API key will be read from environment variables or .env file. {@link #ENVIRONMENT_VARIABLE_API_KEY} is
      * required to be set.
@@ -75,10 +75,10 @@ public class ConnectionOptions implements Cloneable, Serializable {
     }
 
     /**
-     * Constructor for communications to Arm Mbed Cloud.
+     * Constructor for communications to Arm Pelion Cloud.
      *
      * @param apiKey
-     *            API key to use. The host does not need to be specified and will default to Arm Mbed Cloud production
+     *            API key to use. The host does not need to be specified and will default to Arm Pelion Cloud production
      *            system.
      *
      */
@@ -92,7 +92,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
      * @param apiKey
      *            API key to use.
      * @param host
-     *            Arm Mbed Cloud URL
+     *            Arm Pelion Cloud URL
      */
     public ConnectionOptions(String apiKey, String host) {
         super();
@@ -106,7 +106,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
     }
 
     /**
-     * Generates a new Mbed Cloud connection configuration.
+     * Generates a new Pelion Cloud connection configuration.
      * <p>
      * Note: the API key will be read from environment variables or .env file.
      * <p>
@@ -119,7 +119,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
     }
 
     /**
-     * Generates a new Mbed Cloud connection configuration.
+     * Generates a new Pelion Cloud connection configuration.
      *
      * @param apiKey
      *            API key to use.
@@ -131,13 +131,13 @@ public class ConnectionOptions implements Cloneable, Serializable {
 
     /**
      *
-     * Generates a new Mbed Cloud connection configuration.
+     * Generates a new Pelion Cloud connection configuration.
      *
      * @param apiKey
      *            API key to use.
      * @param host
-     *            Host address of the Cloud to use. The host does not need to be specified and will default to Arm Mbed
-     *            Cloud production system.
+     *            Host address of the Cloud to use. The host does not need to be specified and will default to Arm
+     *            Pelion Cloud production system.
      * @return corresponding configuration
      */
     public static ConnectionOptions newConfiguration(String apiKey, String host) {
@@ -193,13 +193,13 @@ public class ConnectionOptions implements Cloneable, Serializable {
     public boolean isValid() {
         try {
             return !isApiKeyEmpty() && !isHostEmpty() && new URL(getHost()).getHost() != null;
-        } catch (MalformedURLException exception) {
+        } catch (@SuppressWarnings("unused") MalformedURLException exception) {
             return false;
         }
     }
 
     /**
-     * Gets Pelion Cloud Host to contact.
+     * Gets the Arm Pelion Cloud Host to contact.
      *
      * @return the host
      */
@@ -219,7 +219,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the Arm Mbed Cloud Host to contact.
+     * Sets the Arm Pelion Cloud Host to contact.
      *
      * @param host
      *            the host to set

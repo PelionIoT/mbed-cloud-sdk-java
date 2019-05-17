@@ -24,9 +24,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * This object represents a trusted certificate in upload requests.
+ * Represents a trusted certificate in upload requests.
  */
-@ApiModel(description = "This object represents a trusted certificate in upload requests.")
+@ApiModel(description = "Represents a trusted certificate in upload requests.")
 
 public class TrustedCertificateReq implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -173,11 +173,11 @@ public class TrustedCertificateReq implements Serializable {
     }
 
     /**
-     * Human readable description of this certificate, not longer than 500 characters.
+     * Human readable description of this certificate.
      * 
      * @return description
      **/
-    @ApiModelProperty(value = "Human readable description of this certificate, not longer than 500 characters.")
+    @ApiModelProperty(value = "Human readable description of this certificate.")
     public String getDescription() {
         return description;
     }
@@ -211,11 +211,11 @@ public class TrustedCertificateReq implements Serializable {
     }
 
     /**
-     * Certificate name, not longer than 100 characters.
+     * Certificate name.
      * 
      * @return name
      **/
-    @ApiModelProperty(required = true, value = "Certificate name, not longer than 100 characters.")
+    @ApiModelProperty(required = true, value = "Certificate name.")
     public String getName() {
         return name;
     }
@@ -249,12 +249,12 @@ public class TrustedCertificateReq implements Serializable {
     }
 
     /**
-     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature
-     * must be hashed with SHA256.
+     * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to upload. The signature must be
+     * hashed with SHA256.
      * 
      * @return signature
      **/
-    @ApiModelProperty(value = "DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256.")
+    @ApiModelProperty(value = "DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to upload. The signature must be hashed with SHA256.")
     public String getSignature() {
         return signature;
     }

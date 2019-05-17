@@ -2,7 +2,7 @@ package com.arm.mbed.cloud.sdk.common;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
-@Preamble(description = "Log level of the http communications between client and Arm Mbed Cloud")
+@Preamble(description = "Log level of the http communications between client and Arm Pelion Cloud")
 public enum CallLogLevel {
     /**
      * No HTTP logs are logged.

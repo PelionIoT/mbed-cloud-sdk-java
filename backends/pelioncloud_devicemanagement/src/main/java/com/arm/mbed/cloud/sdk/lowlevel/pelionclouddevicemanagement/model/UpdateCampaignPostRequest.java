@@ -52,41 +52,7 @@ public class UpdateCampaignPostRequest implements Serializable {
     public enum StateEnum {
         DRAFT("draft"),
 
-        SCHEDULED("scheduled"),
-
-        ALLOCATINGQUOTA("allocatingquota"),
-
-        ALLOCATEDQUOTA("allocatedquota"),
-
-        QUOTAALLOCATIONFAILED("quotaallocationfailed"),
-
-        CHECKINGMANIFEST("checkingmanifest"),
-
-        CHECKEDMANIFEST("checkedmanifest"),
-
-        DEVICEFETCH("devicefetch"),
-
-        DEVICECOPY("devicecopy"),
-
-        DEVICECHECK("devicecheck"),
-
-        PUBLISHING("publishing"),
-
-        DEPLOYING("deploying"),
-
-        DEPLOYED("deployed"),
-
-        MANIFESTREMOVED("manifestremoved"),
-
-        EXPIRED("expired"),
-
-        STOPPING("stopping"),
-
-        AUTOSTOPPED("autostopped"),
-
-        USERSTOPPED("userstopped"),
-
-        CONFLICT("conflict");
+        SCHEDULED("scheduled");
 
         private String value;
 

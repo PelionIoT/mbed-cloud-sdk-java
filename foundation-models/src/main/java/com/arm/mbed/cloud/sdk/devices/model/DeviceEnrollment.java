@@ -12,6 +12,7 @@ import java.util.Date;
  * Model for a device enrollment.
  */
 @Preamble(description = "Model for a device enrollment.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class DeviceEnrollment implements SdkModel {
     /**
      * Serialisation Id.
@@ -24,7 +25,7 @@ public class DeviceEnrollment implements SdkModel {
     private final String accountId;
 
     /**
-     * The time of claiming the device to be assigned to the account.
+     * The time the device was claimed.
      */
     private final Date claimedAt;
 
@@ -34,7 +35,7 @@ public class DeviceEnrollment implements SdkModel {
     private final Date createdAt;
 
     /**
-     * The ID of the device in the Device Directory once it has been registered.
+     * The ID of the device in the Device Directory once it is registered.
      */
     private final String enrolledDeviceId;
 
@@ -45,8 +46,8 @@ public class DeviceEnrollment implements SdkModel {
     private String enrollmentIdentity;
 
     /**
-     * The enrollment claim expiration time. If the device does not connect to Device Management before the expiration,
-     * the claim is removed without a separate notice.
+     * The enrollment claim expiration time. If the device does not connect to Device Management before expiration, the
+     * claim is removed without separate notice.
      */
     private final Date expiresAt;
 
@@ -57,22 +58,25 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollment()} instead.
      * 
      * @param accountId
      *            ID.
      * @param claimedAt
-     *            The time of claiming the device to be assigned to the account.
+     *            The time the device was claimed.
      * @param createdAt
      *            The time of the enrollment identity creation.
      * @param enrolledDeviceId
-     *            The ID of the device in the Device Directory once it has been registered.
+     *            The ID of the device in the Device Directory once it is registered.
      * @param enrollmentIdentity
      *            Enrollment identity.
      * @param expiresAt
-     *            The enrollment claim expiration time. If the device does not connect to Device Management before the
-     *            expiration, the claim is removed without a separate notice.
+     *            The enrollment claim expiration time. If the device does not connect to Device Management before
+     *            expiration, the claim is removed without separate notice.
      * @param id
      *            Enrollment identity.
      */
@@ -91,6 +95,9 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on a similar object.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollment()} instead.
      * 
@@ -100,11 +107,11 @@ public class DeviceEnrollment implements SdkModel {
     @Internal
     public DeviceEnrollment(DeviceEnrollment deviceEnrollment) {
         this(deviceEnrollment == null ? (String) null : deviceEnrollment.accountId,
-             deviceEnrollment == null ? new java.util.Date() : deviceEnrollment.claimedAt,
-             deviceEnrollment == null ? new java.util.Date() : deviceEnrollment.createdAt,
+             deviceEnrollment == null ? new Date() : deviceEnrollment.claimedAt,
+             deviceEnrollment == null ? new Date() : deviceEnrollment.createdAt,
              deviceEnrollment == null ? (String) null : deviceEnrollment.enrolledDeviceId,
              deviceEnrollment == null ? (String) null : deviceEnrollment.enrollmentIdentity,
-             deviceEnrollment == null ? new java.util.Date() : deviceEnrollment.expiresAt,
+             deviceEnrollment == null ? new Date() : deviceEnrollment.expiresAt,
              deviceEnrollment == null ? (String) null : deviceEnrollment.id);
     }
 
@@ -112,13 +119,16 @@ public class DeviceEnrollment implements SdkModel {
      * Constructor.
      */
     public DeviceEnrollment() {
-        this((String) null, new java.util.Date(), new java.util.Date(), (String) null, (String) null,
-             new java.util.Date(), (String) null);
+        this((String) null, new Date(), new Date(), (String) null, (String) null, new Date(), (String) null);
     }
 
     /**
      * Constructor.
-     * 
+     *
+     * <p>
+     * Constructor based on object identifier.
+     * <p>
+     *
      * @param id
      *            Enrollment identity.
      */
@@ -129,20 +139,23 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Internal constructor.
+     *
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEnrollment()} instead.
      * 
      * @param accountId
      *            ID.
      * @param claimedAt
-     *            The time of claiming the device to be assigned to the account.
+     *            The time the device was claimed.
      * @param createdAt
      *            The time of the enrollment identity creation.
      * @param enrolledDeviceId
-     *            The ID of the device in the Device Directory once it has been registered.
+     *            The ID of the device in the Device Directory once it is registered.
      * @param expiresAt
-     *            The enrollment claim expiration time. If the device does not connect to Device Management before the
-     *            expiration, the claim is removed without a separate notice.
+     *            The enrollment claim expiration time. If the device does not connect to Device Management before
+     *            expiration, the claim is removed without separate notice.
      */
     @Internal
     public DeviceEnrollment(String accountId, Date claimedAt, Date createdAt, String enrolledDeviceId, Date expiresAt) {
@@ -159,7 +172,7 @@ public class DeviceEnrollment implements SdkModel {
     }
 
     /**
-     * Gets the time of claiming the device to be assigned to the account.
+     * Gets the time the device was claimed.
      * 
      * @return claimedAt
      */
@@ -177,7 +190,7 @@ public class DeviceEnrollment implements SdkModel {
     }
 
     /**
-     * Gets the id of the device in the device directory once it has been registered.
+     * Gets the id of the device in the device directory once it is registered.
      * 
      * @return enrolledDeviceId
      */
@@ -196,10 +209,9 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Sets enrollment identity.
+     *
      * <p>
-     * null
-     * <p>
-     * Note: the value has to match {@code /^A-[A-Za-z0-9:]{95}$/} to be valid
+     * Note: the length of the string has to match {@code /^A-[A-Za-z0-9:]{95}$/} to be valid
      * 
      * @param enrollmentIdentity
      *            Enrollment identity.
@@ -216,13 +228,12 @@ public class DeviceEnrollment implements SdkModel {
      */
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isEnrollmentIdentityValid() {
-        return enrollmentIdentity != null
-               && (enrollmentIdentity == null || enrollmentIdentity.matches("^A-[A-Za-z0-9:]{95}$"));
+        return enrollmentIdentity != null && (enrollmentIdentity.matches("^A-[A-Za-z0-9:]{95}$"));
     }
 
     /**
-     * Gets the enrollment claim expiration time. if the device does not connect to device management before the
-     * expiration, the claim is removed without a separate notice.
+     * Gets the enrollment claim expiration time. if the device does not connect to device management before expiration,
+     * the claim is removed without separate notice.
      * 
      * @return expiresAt
      */
@@ -242,10 +253,9 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Sets enrollment identity.
+     *
      * <p>
-     * null
-     * <p>
-     * Note: the value has to match {@code /^[A-Za-z0-9]{32}/} to be valid
+     * Note: the length of the string has to match {@code /^[A-Za-z0-9]{32}/} to be valid
      * 
      * @param id
      *            Enrollment identity.
@@ -257,10 +267,11 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Sets enrollment identity.
+     *
      * <p>
      * Similar to {@link #setId(String)}
      * <p>
-     * Note: the value has to match {@code /^[A-Za-z0-9]{32}/} to be valid
+     * Note: the length of the string has to match {@code /^[A-Za-z0-9]{32}/} to be valid
      * 
      * @param deviceEnrollmentId
      *            Enrollment identity.
@@ -281,7 +292,23 @@ public class DeviceEnrollment implements SdkModel {
     }
 
     /**
+     * Returns a string representation of the object.
+     *
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "DeviceEnrollment [accountId=" + accountId + ", claimedAt=" + claimedAt + ", createdAt=" + createdAt
+               + ", enrolledDeviceId=" + enrolledDeviceId + ", enrollmentIdentity=" + enrollmentIdentity
+               + ", expiresAt=" + expiresAt + ", id=" + id + "]";
+    }
+
+    /**
      * Calculates the hash code of this instance based on field values.
+     *
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -303,6 +330,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
+     *
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -316,6 +344,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
+     *
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -391,21 +420,8 @@ public class DeviceEnrollment implements SdkModel {
     }
 
     /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "DeviceEnrollment [accountId=" + accountId + ", claimedAt=" + claimedAt + ", createdAt=" + createdAt
-               + ", enrolledDeviceId=" + enrolledDeviceId + ", enrollmentIdentity=" + enrollmentIdentity
-               + ", expiresAt=" + expiresAt + ", id=" + id + "]";
-    }
-
-    /**
      * Checks whether the model is valid or not.
+     *
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -418,6 +434,7 @@ public class DeviceEnrollment implements SdkModel {
 
     /**
      * Clones this instance.
+     *
      * <p>
      * 
      * @see java.lang.Object#clone()

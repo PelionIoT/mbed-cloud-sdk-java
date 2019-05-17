@@ -26,9 +26,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This object represents a user in requests towards Device Management.
+ * Represents a user in requests towards Device Management.
  */
-@ApiModel(description = "This object represents a user in requests towards Device Management.")
+@ApiModel(description = "Represents a user in requests towards Device Management.")
 
 public class UserUpdateReq implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -61,9 +61,10 @@ public class UserUpdateReq implements Serializable {
     private String phoneNumber = null;
 
     /**
-     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process.
-     * INVITED means that the user has not accepted the invitation request. RESET means that the password must be
-     * changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     * The status of the user. ENROLLING indicates that the user is in the middle of the enrollment process. INVITED
+     * means that the user has not accepted the invitation request. RESET means that the password must be changed
+     * immediately. INACTIVE users are locked out and not permitted to use the system. Can be changed by the Aggregator
+     * Admin only.
      */
     @JsonAdapter(StatusEnum.Adapter.class)
     public enum StatusEnum {
@@ -127,11 +128,11 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * Address, not longer than 100 characters.
+     * Address.
      * 
      * @return address
      **/
-    @ApiModelProperty(value = "Address, not longer than 100 characters.")
+    @ApiModelProperty(value = "Address.")
     public String getAddress() {
         return address;
     }
@@ -146,11 +147,11 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * The email address, not longer than 254 characters.
+     * The email address. Not allowed to update other user&#39;s email address.
      * 
      * @return email
      **/
-    @ApiModelProperty(value = "The email address, not longer than 254 characters.")
+    @ApiModelProperty(value = "The email address. Not allowed to update other user's email address.")
     public String getEmail() {
         return email;
     }
@@ -165,11 +166,11 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * The full name of the user, not longer than 100 characters.
+     * The full name of the user.
      * 
      * @return fullName
      **/
-    @ApiModelProperty(value = "The full name of the user, not longer than 100 characters.")
+    @ApiModelProperty(value = "The full name of the user.")
     public String getFullName() {
         return fullName;
     }
@@ -192,11 +193,11 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * A list of group IDs this user belongs to.
+     * A list of group IDs this user belongs to. Can be updated by the Account Admin only.
      * 
      * @return groups
      **/
-    @ApiModelProperty(value = "A list of group IDs this user belongs to.")
+    @ApiModelProperty(value = "A list of group IDs this user belongs to. Can be updated by the Account Admin only.")
     public List<String> getGroups() {
         return groups;
     }
@@ -211,11 +212,11 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * A flag indicating that the General Terms and Conditions has been accepted.
+     * A flag indicating that the user has accepted General Terms and Conditions.
      * 
      * @return isGtcAccepted
      **/
-    @ApiModelProperty(value = "A flag indicating that the General Terms and Conditions has been accepted.")
+    @ApiModelProperty(value = "A flag indicating that the user has accepted General Terms and Conditions.")
     public Boolean isIsGtcAccepted() {
         return isGtcAccepted;
     }
@@ -230,11 +231,11 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * A flag indicating that receiving marketing information has been accepted.
+     * A flag indicating that the user has consented to receive marketing information.
      * 
      * @return isMarketingAccepted
      **/
-    @ApiModelProperty(value = "A flag indicating that receiving marketing information has been accepted.")
+    @ApiModelProperty(value = "A flag indicating that the user has consented to receive marketing information.")
     public Boolean isIsMarketingAccepted() {
         return isMarketingAccepted;
     }
@@ -249,11 +250,11 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
+     * A flag indicating whether mandatory two-factor authentication (TOTP) is enabled.
      * 
      * @return isTotpEnabled
      **/
-    @ApiModelProperty(value = "A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.")
+    @ApiModelProperty(value = "A flag indicating whether mandatory two-factor authentication (TOTP) is enabled.")
     public Boolean isIsTotpEnabled() {
         return isTotpEnabled;
     }
@@ -276,13 +277,13 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * A list of login profiles for the user. Specified as the identity providers the user should be associated with.
-     * Only the ID attribute of the login profile should be set in the request object. The list cannot be empty. A limit
-     * of 100 profiles.
+     * &#39;A list of login profiles for the user, specified as identity providers associated with the user. Only the ID
+     * attribute of the login profile should be set in the request object. The list cannot be empty. Only an account
+     * admin may update login profiles.&#39;
      * 
      * @return loginProfiles
      **/
-    @ApiModelProperty(value = "A list of login profiles for the user. Specified as the identity providers the user should be associated with. Only the ID attribute of the login profile should be set in the request object. The list cannot be empty. A limit of 100 profiles.")
+    @ApiModelProperty(value = "'A list of login profiles for the user, specified as identity providers associated with the user. Only the ID attribute of the login profile should be set in the request object. The list cannot be empty. Only an account admin may update login profiles.'")
     public List<LoginProfile> getLoginProfiles() {
         return loginProfiles;
     }
@@ -297,11 +298,11 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * Phone number, not longer than 100 characters.
+     * Phone number.
      * 
      * @return phoneNumber
      **/
-    @ApiModelProperty(value = "Phone number, not longer than 100 characters.")
+    @ApiModelProperty(value = "Phone number.")
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -316,14 +317,15 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process.
-     * INVITED means that the user has not accepted the invitation request. RESET means that the password must be
-     * changed immediately. INACTIVE users are locked out and not permitted to use the system.
+     * The status of the user. ENROLLING indicates that the user is in the middle of the enrollment process. INVITED
+     * means that the user has not accepted the invitation request. RESET means that the password must be changed
+     * immediately. INACTIVE users are locked out and not permitted to use the system. Can be changed by the Aggregator
+     * Admin only.
      * 
      * @return status
      **/
     @ApiModelProperty(example = "ACTIVE",
-                      value = "The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.")
+                      value = "The status of the user. ENROLLING indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system. Can be changed by the Aggregator Admin only.")
     public StatusEnum getStatus() {
         return status;
     }
@@ -338,12 +340,11 @@ public class UserUpdateReq implements Serializable {
     }
 
     /**
-     * A username containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than
-     * 30 character long.
+     * A username.
      * 
      * @return username
      **/
-    @ApiModelProperty(value = "A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
+    @ApiModelProperty(value = "A username.")
     public String getUsername() {
         return username;
     }

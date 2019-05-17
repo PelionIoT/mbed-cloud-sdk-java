@@ -62,15 +62,15 @@ public class Endpoint implements Serializable {
     }
 
     /**
-     * Determines whether the device is in queue mode. &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Queue mode&lt;/b&gt;&lt;br/&gt;
-     * When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages
-     * are queued and delivered when the device wakes up and connects to Device Management Connect itself. You can also
-     * use the queue mode when the device is behind a NAT and cannot be reached directly by Device Management Connect.
+     * Determines whether the device is in queue mode. **Queue mode** When an endpoint is in queue mode, messages sent
+     * to the endpoint do not wake up the physical device. The messages are queued and delivered when the device wakes
+     * up and connects to Device Management Connect. You can also use the queue mode when the device is behind an NAT
+     * and cannot be reached directly by Device Management Connect.
      * 
      * @return q
      **/
     @ApiModelProperty(example = "false",
-                      value = "Determines whether the device is in queue mode. <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued and delivered when the device wakes up and connects to Device Management Connect itself. You can also use the queue mode when the device is behind a NAT and cannot be reached directly by Device Management Connect. ")
+                      value = "Determines whether the device is in queue mode.  **Queue mode**  When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued and delivered when the device wakes up and connects to Device Management Connect. You can also use the queue mode when the device is behind an NAT and cannot be reached directly by Device Management Connect.")
     public Boolean isQ() {
         return q;
     }

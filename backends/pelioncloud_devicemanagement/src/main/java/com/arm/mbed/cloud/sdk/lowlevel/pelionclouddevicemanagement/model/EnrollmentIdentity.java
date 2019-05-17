@@ -127,11 +127,11 @@ public class EnrollmentIdentity implements Serializable {
     }
 
     /**
-     * The time of claiming the device to be assigned to the account.
+     * The time the device was claimed.
      * 
      * @return claimedAt
      **/
-    @ApiModelProperty(required = true, value = "The time of claiming the device to be assigned to the account.")
+    @ApiModelProperty(required = true, value = "The time the device was claimed.")
     public DateTime getClaimedAt() {
         return claimedAt;
     }
@@ -165,12 +165,12 @@ public class EnrollmentIdentity implements Serializable {
     }
 
     /**
-     * The ID of the device in the Device Directory once it has been registered.
+     * The ID of the device in the Device Directory once it is registered.
      * 
      * @return enrolledDeviceId
      **/
     @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true,
-                      value = "The ID of the device in the Device Directory once it has been registered.")
+                      value = "The ID of the device in the Device Directory once it is registered.")
     public String getEnrolledDeviceId() {
         return enrolledDeviceId;
     }
@@ -224,13 +224,13 @@ public class EnrollmentIdentity implements Serializable {
     }
 
     /**
-     * The enrollment claim expiration time. If the device does not connect to Device Management before the expiration,
-     * the claim is removed without a separate notice
+     * The enrollment claim expiration time. If the device does not connect to Device Management before expiration, the
+     * claim is removed without separate notice.
      * 
      * @return expiresAt
      **/
     @ApiModelProperty(required = true,
-                      value = "The enrollment claim expiration time. If the device does not connect to Device Management before the expiration, the claim is removed without a separate notice")
+                      value = "The enrollment claim expiration time. If the device does not connect to Device Management before expiration, the claim is removed without separate notice.")
     public DateTime getExpiresAt() {
         return expiresAt;
     }

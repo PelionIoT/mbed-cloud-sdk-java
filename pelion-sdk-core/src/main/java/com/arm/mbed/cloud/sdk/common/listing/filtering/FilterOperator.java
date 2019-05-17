@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.common.listing.filtering;
 
+import java.util.EnumSet;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
@@ -8,7 +10,7 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 public enum FilterOperator implements SdkEnum {
 
     NOT_EQUAL("not equal to", FilterMarshaller.SUFFIX_SEPARATOR + "neq", "$neq"),
-    EQUAL("equal to", null, "$eq"),
+    EQUAL("equal to", FilterMarshaller.SUFFIX_SEPARATOR + "eq", "$eq"),
     GREATER_THAN("greater than", FilterMarshaller.SUFFIX_SEPARATOR + "gte", "$gte"),
     LESS_THAN("less than", FilterMarshaller.SUFFIX_SEPARATOR + "lte", "$lte"),
     LIKE("like", FilterMarshaller.SUFFIX_SEPARATOR + "like", "$like"),
@@ -19,6 +21,9 @@ public enum FilterOperator implements SdkEnum {
     private final String suffix;
     private final String string;
     private final String symbol;
+    private static final EnumSet<FilterOperator> SINGLE_VALUE_FILTERS = EnumSet.of(NOT_EQUAL, EQUAL, GREATER_THAN,
+                                                                                   LESS_THAN, LIKE);
+    private static final EnumSet<FilterOperator> MULTIPLE_VALUES_FILTERS = EnumSet.of(IN, NOT_IN);
 
     private FilterOperator(String string, String suffix, String symbol) {
         this.suffix = suffix;
@@ -153,6 +158,24 @@ public enum FilterOperator implements SdkEnum {
             }
         }
         return getDefault();
+    }
+
+    /**
+     * States whether this operator is used in combination with a single value
+     * 
+     * @return True if only one value can be used with this operator; False otherwise.
+     */
+    public boolean isSingleValueOperator() {
+        return SINGLE_VALUE_FILTERS.contains(this);
+    }
+
+    /**
+     * States whether this operator is used in combination with multiple values
+     * 
+     * @return True if multiple values can be used with this operator; False otherwise.
+     */
+    public boolean isMultipleValuesOperator() {
+        return MULTIPLE_VALUES_FILTERS.contains(this);
     }
 
     /**

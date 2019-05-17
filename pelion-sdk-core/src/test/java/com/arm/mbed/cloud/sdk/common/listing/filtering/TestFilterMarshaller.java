@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -14,6 +15,8 @@ import java.util.TimeZone;
 
 import org.junit.Test;
 
+import com.arm.mbed.cloud.sdk.common.SdkModel;
+
 public class TestFilterMarshaller {
     @Test
     public void testEncodeFilter() {
@@ -22,8 +25,8 @@ public class TestFilterMarshaller {
         filter = new Filter("foo", FilterOperator.GREATER_THAN, "bar");
         assertEquals("foo__gte=bar", new FilterMarshaller(null).encodeFilter(filter, "foo"));
         filter = new Filter("foo", FilterOperator.EQUAL, "bar");
-        assertEquals("foo=bar", new FilterMarshaller(null).encodeFilter(filter, "foo"));
-        assertEquals("test_1=bar", new FilterMarshaller(null).encodeFilter(filter, "test_1"));
+        assertEquals("foo__eq=bar", new FilterMarshaller(null).encodeFilter(filter, "foo"));
+        assertEquals("test_1__eq=bar", new FilterMarshaller(null).encodeFilter(filter, "test_1"));
     }
 
     @Test
@@ -31,15 +34,20 @@ public class TestFilterMarshaller {
         Filters filters = new Filters();
         filters.add(new CustomFilter("foo", FilterOperator.GREATER_THAN, "bar"));
         filters.add(new Filter("key", FilterOperator.EQUAL, "value"));
-        assertEquals("custom_attributes__foo__gte=bar&key=value", new FilterMarshaller(null).encode(filters));
+        assertEquals("custom_attributes__foo__gte=bar&key__eq=value", new FilterMarshaller(null).encode(filters));
         Map<String, String> mapping = new HashMap<>(1);
         mapping.put("foo", "test_1");
         mapping.put("key", "test_2");
-        assertEquals("custom_attributes__test_1__gte=bar&test_2=value", new FilterMarshaller(mapping).encode(filters));
+        assertEquals("custom_attributes__test_1__gte=bar&test_2__eq=value",
+                     new FilterMarshaller(mapping).encode(filters));
         filters = new Filters();
         filters.add(new CustomFilter("fooBar", FilterOperator.GREATER_THAN, "top"));
         filters.add(new Filter("key", FilterOperator.EQUAL, "value"));
-        assertEquals("custom_attributes__foo_bar__gte=top&key=value", new FilterMarshaller(null).encode(filters));
+        assertEquals("custom_attributes__foo_bar__gte=top&key__eq=value", new FilterMarshaller(null).encode(filters));
+        filters.add(new Filter("keys", FilterOperator.IN, Arrays.asList(new ModelTest("id1"), new ModelTest("id2"))));
+        filters.add(new Filter("otherKeys", FilterOperator.NOT_IN, Arrays.asList("id1", "id2")));
+        assertEquals("custom_attributes__foo_bar__gte=top&key__eq=value&keys__in=id1,id2&other_keys__nin=id1,id2",
+                     new FilterMarshaller(null).encode(filters));
         // TODO add more test cases
     }
 
@@ -239,7 +247,7 @@ public class TestFilterMarshaller {
     @Test
     public void testEncodeAndParseFiltersWithNumericValues() {
         // test: numerical values
-        String encodedFilter = "serial_number=10";
+        String encodedFilter = "serial_number__eq=10";
         Filters filters = new Filters();
         filters.add(new Filter("serialNumber", FilterOperator.EQUAL, "10"));
         assertEquals(encodedFilter, new FilterMarshaller(null).encode(filters));
@@ -248,7 +256,7 @@ public class TestFilterMarshaller {
         assertEquals(filters, newfilters);
         assertEquals(encodedFilter, new FilterMarshaller(null).encode(newfilters));
         // test: negative numerical values
-        encodedFilter = "firmware_checksum=-1";
+        encodedFilter = "firmware_checksum__eq=-1";
         filters = new Filters();
         filters.add(new Filter("firmwareChecksum", FilterOperator.EQUAL, "-1"));
         assertEquals(encodedFilter, new FilterMarshaller(null).encode(filters));
@@ -256,6 +264,42 @@ public class TestFilterMarshaller {
         newfilters = FilterMarshaller.fromJson(filterJson);
         assertEquals(filters, newfilters);
         assertEquals(encodedFilter, new FilterMarshaller(null).encode(newfilters));
+    }
+
+    private static class ModelTest implements SdkModel {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 4357358777733316229L;
+        private String id;
+
+        public ModelTest(String id) {
+            super();
+            this.id = id;
+        }
+
+        @Override
+        public boolean isValid() {
+            return true;
+        }
+
+        @Override
+        public String getId() {
+            return id;
+        }
+
+        @Override
+        public void setId(String id) {
+            this.id = id;
+
+        }
+
+        @Override
+        public ModelTest clone() {
+            return null;
+        }
+
     }
 
 }

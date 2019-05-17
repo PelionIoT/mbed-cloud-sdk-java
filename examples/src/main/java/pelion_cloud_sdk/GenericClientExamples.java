@@ -4,7 +4,7 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
-import com.arm.mbed.cloud.sdk.Sdk;
+import com.arm.mbed.cloud.Sdk;
 import com.arm.mbed.cloud.sdk.accounts.model.User;
 import com.arm.mbed.cloud.sdk.common.CloudRequest;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;

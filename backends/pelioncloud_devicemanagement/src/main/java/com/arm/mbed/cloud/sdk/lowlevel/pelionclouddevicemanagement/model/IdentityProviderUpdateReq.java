@@ -24,9 +24,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * This object is used for updating existing federated identity provider module.
+ * Update existing federated identity provider module.
  */
-@ApiModel(description = "This object is used for updating existing federated identity provider module.")
+@ApiModel(description = "Update existing federated identity provider module.")
 
 public class IdentityProviderUpdateReq implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -144,11 +144,11 @@ public class IdentityProviderUpdateReq implements Serializable {
     }
 
     /**
-     * Description for the identity provider, not longer than 500 characters.
+     * Description for the identity provider.
      * 
      * @return description
      **/
-    @ApiModelProperty(value = "Description for the identity provider, not longer than 500 characters.")
+    @ApiModelProperty(value = "Description for the identity provider.")
     public String getDescription() {
         return description;
     }
@@ -163,11 +163,11 @@ public class IdentityProviderUpdateReq implements Serializable {
     }
 
     /**
-     * Name of the identity provider, not longer than 100 characters.
+     * Name of the identity provider.
      * 
      * @return name
      **/
-    @ApiModelProperty(required = true, value = "Name of the identity provider, not longer than 100 characters.")
+    @ApiModelProperty(required = true, value = "Name of the identity provider.")
     public String getName() {
         return name;
     }
