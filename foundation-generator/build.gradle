@@ -20,7 +20,7 @@ plugins {
     // Apply the application plugin to add support for building an application
     id 'application'
     id "com.diffplug.gradle.spotless" version "3.16.0"
-    id "org.hidetake.swagger.generator" version '2.16.0'
+    id "org.hidetake.swagger.generator" version '2.18.1'
 }
 apply plugin: 'walkmod'
 

@@ -57,7 +57,7 @@ public class TestTrustedCertificateListOptions {
             assertTrue(option.hasFilters(TrustedCertificateListOptions.TAG_FILTER_BY_VALID));
             assertTrue(option.hasFilter(TrustedCertificateListOptions.TAG_FILTER_BY_VALID, FilterOperator.EQUAL));
             assertNotNull(option.getValidFilters());
-            assertEquals(Boolean.FALSE,
+            assertEquals(Boolean.TRUE,
                          ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_VALID,
                                                                     Boolean.class, option));
             assertTrue(option.hasFilters(TrustedCertificateListOptions.TAG_FILTER_BY_NAME));

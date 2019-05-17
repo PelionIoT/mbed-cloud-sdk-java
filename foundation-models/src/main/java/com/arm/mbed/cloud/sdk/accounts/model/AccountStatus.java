@@ -141,6 +141,8 @@ public enum AccountStatus implements SdkEnum {
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     * @param <T>
+     *            type of an sdk enum
      * @param obj1
      *            a account status.
      * @param obj2

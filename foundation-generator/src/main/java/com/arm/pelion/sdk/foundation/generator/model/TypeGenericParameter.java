@@ -1,6 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.TypeVariableName;
 
 public class TypeGenericParameter extends TypeParameter {
@@ -47,6 +48,11 @@ public class TypeGenericParameter extends TypeParameter {
         } else {
             setTypeName(TypeVariableName.get("T", getTypeName()));
         }
+    }
+
+    @Override
+    public String getJavadocDescription() {
+        return "@param <T> type of " + Utils.generateDocumentationString(getShortName(), false);
     }
 
     /*

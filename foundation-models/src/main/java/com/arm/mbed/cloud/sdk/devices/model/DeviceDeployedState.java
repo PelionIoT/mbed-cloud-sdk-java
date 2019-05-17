@@ -137,6 +137,8 @@ public enum DeviceDeployedState implements SdkEnum {
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     * @param <T>
+     *            type of an sdk enum
      * @param obj1
      *            a device deployed state.
      * @param obj2

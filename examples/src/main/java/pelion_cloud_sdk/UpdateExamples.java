@@ -26,6 +26,14 @@ import utils.AbstractExample;
 import utils.Configuration;
 import utils.Example;
 
+/**
+ * 
+ * Update Campaign examples.
+ * 
+ * @deprecated See {@link UseCaseExamples} to learn how to use the foundation SDK.
+ *
+ */
+@Deprecated
 public class UpdateExamples extends AbstractExample {
     /**
      * Lists the first 5 update campaigns.
