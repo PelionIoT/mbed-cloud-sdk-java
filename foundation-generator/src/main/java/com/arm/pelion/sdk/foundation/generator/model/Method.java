@@ -448,6 +448,8 @@ public class Method extends AbstractSdkArtifact {
                 if (parameter.getType().isGeneric()) {
                     if (!definedTypes.containsKey(parameter.getType())) {
                         specificationBuilder.addTypeVariable((TypeVariableName) parameter.getType().getTypeName());
+                        specificationBuilder.addJavadoc(parameter.getType().getJavadocDescription()
+                                                        + System.lineSeparator());
                         definedTypes.put(parameter.getType(), Boolean.TRUE);
                     }
                 }
@@ -464,6 +466,7 @@ public class Method extends AbstractSdkArtifact {
             if (returnType.isGeneric()) {
                 if (!definedTypes.containsKey(returnType)) {
                     specificationBuilder.addTypeVariable((TypeVariableName) returnType.getTypeName());
+                    specificationBuilder.addJavadoc(returnType.getJavadocDescription() + System.lineSeparator());
                 }
             }
             if (returnType.hasClass()) {

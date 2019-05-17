@@ -75,7 +75,8 @@ public class MethodTranslator {
             return null;
         }
         String description = String.join(System.lineSeparator(), descriptions);
-        description = description.replace(System.lineSeparator() + "null", "").replace("<", "[").replace(">", "]");
+        description = description.replace(System.lineSeparator() + "null", "").replace("<", "[").replace(">", "]")
+                                 .replace("&", "&amp;");
         final int maxLength = 200;
         String lines[] = description.split("\\r?\\n");
         final StringBuilder builder = new StringBuilder();

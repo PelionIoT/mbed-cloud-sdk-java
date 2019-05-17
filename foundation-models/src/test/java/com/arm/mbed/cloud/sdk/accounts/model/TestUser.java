@@ -89,7 +89,7 @@ public class TestUser {
                                     true, false, true, -2, null, null, "ac45fedc-f2b0-4d57-a2b2-77d464a617e5", -88,
                                     "35a5f138-1bef-4bcc-9437-6728c46254401e8c17a9-2de8-4fca-98bc-428a88bfb6bf1e1eba36-aa8e-4322-99d0-0f6b1873d176",
                                     UserStatus.getDefault(), null, new Date(1558003279588L),
-                                    "lg`É?Nm-5?+!î?–æ¤‰a4n\u0006Gp.<pV4/ì‡—V<^oQ&G0]<[\\\\?n3ji3^rï¦?1\fSâ¨¬L>-\u0013<Y4`naho$$");
+                                    "lg`ï¿½?Nm-5?+!ï¿½?ï¿½æ¤‰a4n\u0006Gp.<pV4/ì‡—V<^oQ&G0]<[\\\\?n3ji3^rï¿½?1\fSâ¨¬L>-\u0013<Y4`naho$$");
         assertFalse(userInvalid.isValid());
     }
 

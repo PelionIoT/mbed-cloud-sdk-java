@@ -3,7 +3,6 @@ package com.arm.mbed.cloud.sdk.common.dao;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 /**
@@ -67,8 +66,6 @@ public interface ModelDao<T extends SdkModel> extends CloudDao {
      * Gets the underlying Model Object (POJO) containing the data or a new instance if it was not initially set.
      *
      * @return the data model or a new instance.
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
      */
     @NonNull
     T getModelOrNew();

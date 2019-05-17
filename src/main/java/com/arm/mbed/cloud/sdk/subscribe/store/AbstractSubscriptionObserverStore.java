@@ -159,7 +159,7 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
         }
         try {
             emitterStore.handleNotification(channelId, (T) message.getValue(), message.getException());
-        } catch (ClassCastException exception) {
+        } catch (@SuppressWarnings("unused") ClassCastException exception) {
             // Nothing to do;
         }
     }
@@ -186,7 +186,7 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
         }
         try {
             emitterStore.handleNotification((T) message.getValue(), message.getException());
-        } catch (ClassCastException exception) {
+        } catch (@SuppressWarnings("unused") ClassCastException exception) {
             // Nothing to do;
         }
     }

@@ -102,7 +102,7 @@ public class ModelListOption extends Model {
 
     private void addFilterDocumentation() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Note:").append(Utils.generateNewDocumentationLine());
+        builder.append("Note:");
         builder.append("<ul>").append("<li>").append(System.lineSeparator());
         builder.append("Filters:").append(Utils.generateNewDocumentationLine());
         builder.append("The list can be filtered server-side on some of the fields of ")
@@ -228,7 +228,6 @@ public class ModelListOption extends Model {
                                                                     .filter(f -> !f.isUnknownValue())
                                                                     .collect(Collectors.toList());
         final StringBuilder builder = new StringBuilder();
-        builder.append(Utils.generateNewDocumentationLine());
         builder.append("<table style=\"border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0\" summary=\"Available filters\">")
                .append(System.lineSeparator());
         builder.append("<caption>Server-side filters</caption>").append(System.lineSeparator());
@@ -243,8 +242,8 @@ public class ModelListOption extends Model {
         builder.append("<tr>").append(System.lineSeparator());
 
         for (FilterOperator op : availableFilterOperators) {
-            builder.append("<td style=\"background-color:#dae8fc;text-align:center;\" width=\"")
-                   .append(70 / availableFilterOperators.size()).append("%\">").append(op.getString()).append("</td>")
+            builder.append("<td style=\"background-color:#dae8fc;text-align:center;width:")
+                   .append(70 / availableFilterOperators.size()).append("%;\">").append(op.getString()).append("</td>")
                    .append(System.lineSeparator());
         }
         builder.append("</tr>").append(System.lineSeparator());

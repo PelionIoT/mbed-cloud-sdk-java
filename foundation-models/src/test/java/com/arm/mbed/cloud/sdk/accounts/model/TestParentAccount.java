@@ -67,7 +67,7 @@ public class TestParentAccount {
         ParentAccount parentaccount = new ParentAccount("2be01.abffd@b2302.me", "8d0bfeb0-2a90-4b37-8ab9-3588180e2390",
                                                         "ebb6e571ba299e09d8e8859accae6efa");
         assertTrue(parentaccount.isValid());
-        ParentAccount parentaccountInvalid = new ParentAccount("箪<Ⲣ￴摠쑕Ẻ专>ﾢ쿛￤ἹŴ껜!秫㨓艈稞\u0019￩৭✋Ɖ�?\u001b\b斴竒粥#\u0015\u001c-�?嶖脪籦ꬾጫ放\u001e�?±简筴>ቅ￦#ƕﾞȎ듛>�?!玸8\u0010�?Ⅶ",
+        ParentAccount parentaccountInvalid = new ParentAccount("箪<Ⲣ￴摠쑕Ẻ专>ﾢ쿛￤ἹŴ껜!秫㨓艈稞\u0019￩৭✋Ɖ�?\u001b\b斴竒粥#\u0015\u001c-�?嶖脪籦ꬾጫ放\u001e�?±简筴>ቅ￦#ƕﾞȎ듛>�?!玸8\u0010�?Ⅶ",
                                                                "07c10c3f-e834-41c5-8201-62741b9d16b4d226a7ef-73d8-4c89-a7dd-8512efdb271ad24c54ec-6af0-4510-9b78-15799be33c52",
                                                                "\u000143兲ᥢ3& ][[枠34P\u0006[43=44V44覠뺔ຫ&\b㘒\u001e\u001f餆S.4:F\t333!?3,!4Wᰓ(3O\u0004綱骾B3\u0012");
         assertFalse(parentaccountInvalid.isValid());

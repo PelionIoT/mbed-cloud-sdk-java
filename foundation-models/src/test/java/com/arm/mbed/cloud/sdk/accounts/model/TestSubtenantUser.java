@@ -104,7 +104,7 @@ public class TestSubtenantUser {
                                                                "f1b25857-cfe5-431b-8f75-1187c1cd28a2e7e40ae8-7c22-4ef0-9246-a3938e1e72c9d85f6c34-488c-418a-8af2-99d294940ea7",
                                                                SubtenantUserStatus.getDefault(), null,
                                                                new Date(1558003278744L),
-                                                               "lg`É?Nm-5?+!î?–æ¤‰a4n\u0006Gp.<pV4/ì‡—V<^oQ&G0]<[\\\\?n3ji3^rï¦?1\fSâ¨¬L>-\u0013<Y4`naho$$");
+                                                               "lg`ï¿½?Nm-5?+!ï¿½?ï¿½æ¤‰a4n\u0006Gp.<pV4/ì‡—V<^oQ&G0]<[\\\\?n3ji3^rï¿½?1\fSâ¨¬L>-\u0013<Y4`naho$$");
         assertFalse(subtenantuserInvalid.isValid());
     }
 
