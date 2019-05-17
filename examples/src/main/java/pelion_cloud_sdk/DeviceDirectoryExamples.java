@@ -25,6 +25,14 @@ import utils.AbstractExample;
 import utils.Configuration;
 import utils.Example;
 
+/**
+ * 
+ * Device Management examples.
+ * 
+ * @deprecated See {@link UseCaseExamples} to learn how to use the foundation SDK.
+ *
+ */
+@Deprecated
 public class DeviceDirectoryExamples extends AbstractExample {
     /**
      * Creates, updates and deletes a device.

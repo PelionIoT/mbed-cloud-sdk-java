@@ -143,6 +143,8 @@ public enum DeviceState implements SdkEnum {
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     * @param <T>
+     *            type of an sdk enum
      * @param obj1
      *            a device state.
      * @param obj2

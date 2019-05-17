@@ -137,6 +137,8 @@ public enum AccountMfaStatus implements SdkEnum {
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     * @param <T>
+     *            type of an sdk enum
      * @param obj1
      *            a account mfa status.
      * @param obj2

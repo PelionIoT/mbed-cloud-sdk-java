@@ -54,7 +54,7 @@ public class NotificationEmitter<T extends NotificationMessageValue> {
                 if (!emitter.isCancelled()) {
                     emitter.onComplete();
                 }
-            } catch (Exception exception) {
+            } catch (@SuppressWarnings("unused") Exception exception) {
                 // Nothing to do
             }
         }

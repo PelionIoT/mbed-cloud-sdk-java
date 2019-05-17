@@ -15,15 +15,12 @@ import java.util.List;
  * Options to use when listing accounts.
  * <p>
  * Note:
- * <p>
  * <ul>
  * <li>Filters:
  * <p>
  * The list can be filtered server-side on some of the fields of an account.
  * <p>
  * The following filters are currently supported:
- *
- * <p>
  * <table style="border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0" summary="Available
  * filters">
  * <caption>Server-side filters</caption>
@@ -33,13 +30,13 @@ import java.util.List;
  * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" colspan="7">Filters</th>
  * </tr>
  * <tr>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">not equal to</td>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">equal to</td>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">greater than</td>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">less than</td>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">like</td>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">in</td>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">not in</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">not equal to</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">equal to</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">greater than</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">less than</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">like</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">in</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">not in</td>
  * </tr>
  * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">status</td>
@@ -221,6 +218,8 @@ public class AccountListOptions extends ListOptions {
      * 
      * @param filterByTier
      *            filter value.
+     * @param <T>
+     *            type of an account list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -257,6 +256,8 @@ public class AccountListOptions extends ListOptions {
      * 
      * @param filterByStatus
      *            filter value.
+     * @param <T>
+     *            type of an account list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -306,6 +307,8 @@ public class AccountListOptions extends ListOptions {
      * 
      * @param filterByStatus
      *            filter value.
+     * @param <T>
+     *            type of an account list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -322,6 +325,8 @@ public class AccountListOptions extends ListOptions {
      * 
      * @param filterByStatus
      *            filter value.
+     * @param <T>
+     *            type of an account list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -339,6 +344,8 @@ public class AccountListOptions extends ListOptions {
      * 
      * @param filterByStatus
      *            filter value.
+     * @param <T>
+     *            type of an account list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -388,6 +395,8 @@ public class AccountListOptions extends ListOptions {
      * 
      * @param filterByStatus
      *            filter value.
+     * @param <T>
+     *            type of an account list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -405,6 +414,8 @@ public class AccountListOptions extends ListOptions {
      * 
      * @param filterByStatus
      *            filter value.
+     * @param <T>
+     *            type of an account list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -422,6 +433,8 @@ public class AccountListOptions extends ListOptions {
      * 
      * @param filterByStatus
      *            filter value.
+     * @param <T>
+     *            type of an account list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -457,6 +470,8 @@ public class AccountListOptions extends ListOptions {
      * 
      * @param filterByEndMarket
      *            filter value.
+     * @param <T>
+     *            type of an account list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -492,6 +507,8 @@ public class AccountListOptions extends ListOptions {
      * 
      * @param filterByCountry
      *            filter value.
+     * @param <T>
+     *            type of an account list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")

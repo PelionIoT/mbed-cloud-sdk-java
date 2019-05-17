@@ -137,6 +137,8 @@ public enum SubtenantApiKeyStatus implements SdkEnum {
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     * @param <T>
+     *            type of an sdk enum
      * @param obj1
      *            a subtenant api key status.
      * @param obj2

@@ -1,6 +1,5 @@
 # Pelion Cloud SDK for Java
 
-![Status](https://img.shields.io/badge/status-beta-orange.svg)
 
 The Pelion Device Management SDK (formerly known as Mbed Cloud SDK) provides a simplified interface to the [Pelion Device Management APIs](https://www.mbed.com/en/platform/cloud/) by exposing functionality using conventions and paradigms familiar to Java developers.
 
@@ -24,7 +23,7 @@ They can therefore be retrieved and included into your project using the package
 
 For example, if using Gradle, add the following compile dependency to build.gradle:
 ```java
-compile 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y'
+implementation 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:x.y.z'
 ```
 Current artefacts are not fully tailored for Android but can be used as is on this mobile platform. However, the ``oltu`` dependency will have to be excluded to remove any compilation issue (e.g. ``Error converting bytecode to dex:\nCause: com.android.dex.DexException: Multiple dex files define Lorg/apache/oltu/oauth2/common/domain/credentials/Credentials``.
 To do so, import the SDK in the gradle file, as follows:
@@ -40,18 +39,15 @@ These instructions can also be found in the [official documentation](https://clo
 2. Import the SDK to your project using one of the packages listed above.
 3. Create a configuration object:
     ```java
-        String logLevel = "BODY"; //Defines the logging level of HTTP communications. See CallLogLevel for more information.
         String apiKey = "<apikey>"; //API key to use for contacting Pelion Cloud.
-        ConnectionOptions config = new ConnectionOptions(apiKey);
-        config.setClientLogLevel(CallLogLevel.getLevel(logLevel));
+        ConnectionOptions config =  ConnectionOptions.newConfiguration(apiKey);
+        config.setClientLogLevel(CallLogLevel.BODY);//Defines the logging level of HTTP communications. See CallLogLevel for more information.
     ```
 4. You are ready to go.
     ```java
-        DeviceDirectory deviceApi = new DeviceDirectory(config);
-        try {
-            System.out.println(deviceApi.listDevices(null));
-        } catch (MbedCloudException e) {
-            // TODO Auto-generated catch block
+        try (Sdk sdk = Sdk.createSdk(config); DeviceListDao dao = sdk.foundation().getDeviceListDao()) {
+            dao.list().forEach(System.out::println);
+        } catch (MbedCloudException | IOException e) {
             e.printStackTrace();
         }
     ```
