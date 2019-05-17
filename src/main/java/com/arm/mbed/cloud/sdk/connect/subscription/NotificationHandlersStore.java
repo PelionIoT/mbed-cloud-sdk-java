@@ -537,7 +537,7 @@ public class NotificationHandlersStore implements Closeable {
 
                 @Override
                 public Call<Void> call() {
-                    return endpoint.getWebsocket().deleteWebsocket();
+                    return endpoint.getNotifications().deleteWebsocket();
                 }
             }, false);
         }
@@ -581,7 +581,7 @@ public class NotificationHandlersStore implements Closeable {
 
                     @Override
                     public Call<WebsocketChannel> call() {
-                        return endpoint.getWebsocket().registerWebsocket();
+                        return endpoint.getNotifications().registerWebsocket();
                     }
                 });
                 return true;
@@ -598,7 +598,7 @@ public class NotificationHandlersStore implements Closeable {
 
                     @Override
                     public Call<WebsocketChannel> call() {
-                        return endpoint.getWebsocket().getWebsocket();
+                        return endpoint.getNotifications().getWebsocket();
                     }
                 });
                 return true;
