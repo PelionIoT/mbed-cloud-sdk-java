@@ -31,7 +31,7 @@ public class TestCampaignStatisticsSummaryStatus {
             campaignstatisticssummarystatus = CampaignStatisticsSummaryStatus.getValue("INFO");
             assertNotNull(campaignstatisticssummarystatus);
             assertFalse(campaignstatisticssummarystatus.isDefault());
-            campaignstatisticssummarystatus = CampaignStatisticsSummaryStatus.getValue("d292a5ec-bd30-4f1f-835b-cfd1a5bbb794");
+            campaignstatisticssummarystatus = CampaignStatisticsSummaryStatus.getValue("7f5fb62e-118e-49f7-a55d-9734fe874611");
             assertNotNull(campaignstatisticssummarystatus);
             assertTrue(campaignstatisticssummarystatus.isDefault());
         } catch (Exception exception) {
