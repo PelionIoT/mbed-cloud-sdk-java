@@ -6,6 +6,20 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+2.3.1 (2019-05-17)
+==================
+
+### Bugfixes
+
+- Device enrolment report download was improved (#160519)
+
+- Reduced javadoc warnings (#1605192)
+
+### Misc
+
+- #1605193
+
+
 2.3.0 (2019-05-16)
 ==================
 
