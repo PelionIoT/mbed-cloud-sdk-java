@@ -23,10 +23,10 @@ public class TestSubtenantUserListOptions {
     @Test
     public void testClone() {
         try {
-            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(-75),
-                                                                                              Long.valueOf(94),
+            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(-109),
+                                                                                              Long.valueOf(-50),
                                                                                               Order.getDefault(),
-                                                                                              "90369104-0a29-47a3-9fd0-cf151f0d4c3b",
+                                                                                              "56b4febc-4a69-4ae1-b669-01aba326103e",
                                                                                               null, null);
             SubtenantUserListOptions subtenantuserlistoptions2 = subtenantuserlistoptions1.clone();
             assertNotNull(subtenantuserlistoptions1);
@@ -55,15 +55,8 @@ public class TestSubtenantUserListOptions {
                                                                                                       SubtenantUserStatus.getDefault(),
                                                                                                       SubtenantUserStatus.getDefault(),
                                                                                                       SubtenantUserStatus.getDefault()))
-                                                                            .notInStatuses(Arrays.asList(SubtenantUserStatus.getDefault(),
-                                                                                                         SubtenantUserStatus.getDefault(),
-                                                                                                         SubtenantUserStatus.getDefault(),
-                                                                                                         SubtenantUserStatus.getDefault(),
-                                                                                                         SubtenantUserStatus.getDefault(),
-                                                                                                         SubtenantUserStatus.getDefault(),
-                                                                                                         SubtenantUserStatus.getDefault(),
-                                                                                                         SubtenantUserStatus.getDefault()))
-                                                                            .equalToEmail("5e601.2e5e0@ba6cb.fr");
+                                                                            .notInStatuses(Arrays.asList(SubtenantUserStatus.getDefault()))
+                                                                            .equalToEmail("7d508.65d77@12386.fr");
             assertTrue(option.hasFilters());
             // Cannot test Filter [field=loginProfiles, spec field=loginProfiles, tag=TAG_FILTER_BY_LOGIN_PROFILES,
             // operator=equal to, type=List<LoginProfile>, isVerified=true] because the field is a list and the filter
@@ -85,16 +78,13 @@ public class TestSubtenantUserListOptions {
             assertTrue(option.hasFilters(SubtenantUserListOptions.TAG_FILTER_BY_STATUS));
             assertTrue(option.hasFilter(SubtenantUserListOptions.TAG_FILTER_BY_STATUS, FilterOperator.NOT_IN));
             assertNotNull(option.getStatusFilters());
-            assertEquals(Arrays.asList(SubtenantUserStatus.getDefault(), SubtenantUserStatus.getDefault(),
-                                       SubtenantUserStatus.getDefault(), SubtenantUserStatus.getDefault(),
-                                       SubtenantUserStatus.getDefault(), SubtenantUserStatus.getDefault(),
-                                       SubtenantUserStatus.getDefault(), SubtenantUserStatus.getDefault()),
+            assertEquals(Arrays.asList(SubtenantUserStatus.getDefault()),
                          ListOptionsEncoder.encodeSingleNotInFilter(SubtenantUserListOptions.TAG_FILTER_BY_STATUS,
                                                                     List.class, option));
             assertTrue(option.hasFilters(SubtenantUserListOptions.TAG_FILTER_BY_EMAIL));
             assertTrue(option.hasFilter(SubtenantUserListOptions.TAG_FILTER_BY_EMAIL, FilterOperator.EQUAL));
             assertNotNull(option.getEmailFilters());
-            assertEquals("5e601.2e5e0@ba6cb.fr",
+            assertEquals("7d508.65d77@12386.fr",
                          ListOptionsEncoder.encodeSingleEqualFilter(SubtenantUserListOptions.TAG_FILTER_BY_EMAIL,
                                                                     String.class, option));
         } catch (Exception exception) {
@@ -109,15 +99,15 @@ public class TestSubtenantUserListOptions {
     @Test
     public void testHashCode() {
         try {
-            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(-14),
-                                                                                              Long.valueOf(76),
+            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(-2),
+                                                                                              Long.valueOf(-55),
                                                                                               Order.getDefault(),
-                                                                                              "0a9f28c7-7820-488e-ab7f-394c48315622",
+                                                                                              "217b6a5f-e32c-42b2-b030-b97cda7f0a67",
                                                                                               null, null);
-            SubtenantUserListOptions subtenantuserlistoptions2 = new SubtenantUserListOptions(Integer.valueOf(-14),
-                                                                                              Long.valueOf(76),
+            SubtenantUserListOptions subtenantuserlistoptions2 = new SubtenantUserListOptions(Integer.valueOf(-2),
+                                                                                              Long.valueOf(-55),
                                                                                               Order.getDefault(),
-                                                                                              "0a9f28c7-7820-488e-ab7f-394c48315622",
+                                                                                              "217b6a5f-e32c-42b2-b030-b97cda7f0a67",
                                                                                               null, null);
             assertNotNull(subtenantuserlistoptions1);
             assertNotNull(subtenantuserlistoptions2);
@@ -140,20 +130,20 @@ public class TestSubtenantUserListOptions {
     @Test
     public void testEquals() {
         try {
-            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(115),
-                                                                                              Long.valueOf(64),
+            SubtenantUserListOptions subtenantuserlistoptions1 = new SubtenantUserListOptions(Integer.valueOf(82),
+                                                                                              Long.valueOf(-19),
                                                                                               Order.getDefault(),
-                                                                                              "08ac68b0-3a48-4f11-a812-01040e1cc471",
+                                                                                              "bbb9f5df-6e0c-4e68-a65f-6a79425a6fb4",
                                                                                               null, null);
-            SubtenantUserListOptions subtenantuserlistoptions2 = new SubtenantUserListOptions(Integer.valueOf(115),
-                                                                                              Long.valueOf(64),
+            SubtenantUserListOptions subtenantuserlistoptions2 = new SubtenantUserListOptions(Integer.valueOf(82),
+                                                                                              Long.valueOf(-19),
                                                                                               Order.getDefault(),
-                                                                                              "08ac68b0-3a48-4f11-a812-01040e1cc471",
+                                                                                              "bbb9f5df-6e0c-4e68-a65f-6a79425a6fb4",
                                                                                               null, null);
-            SubtenantUserListOptions subtenantuserlistoptions3 = new SubtenantUserListOptions(Integer.valueOf(-118),
-                                                                                              Long.valueOf(54),
+            SubtenantUserListOptions subtenantuserlistoptions3 = new SubtenantUserListOptions(Integer.valueOf(-17),
+                                                                                              Long.valueOf(-88),
                                                                                               Order.getDefault(),
-                                                                                              "93ab4b21-3165-4fb3-85d7-32260316c953",
+                                                                                              "140c719a-d770-4cda-bd35-1f247c54cd8d",
                                                                                               null, null);
             assertNotNull(subtenantuserlistoptions1);
             assertNotNull(subtenantuserlistoptions2);
