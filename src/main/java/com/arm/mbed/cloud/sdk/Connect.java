@@ -284,7 +284,6 @@ public class Connect extends AbstractModule {
 
     /**
      * Shuts down all daemon services.
-     * <p>
      */
     @API
     @Daemon(task = "Notification pull", shutdown = true)

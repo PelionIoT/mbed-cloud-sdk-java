@@ -146,6 +146,8 @@ public enum CampaignDeviceMetadataDeploymentState implements SdkEnum {
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     * @param <T>
+     *            type of an sdk enum
      * @param obj1
      *            a campaign device metadata deployment state.
      * @param obj2

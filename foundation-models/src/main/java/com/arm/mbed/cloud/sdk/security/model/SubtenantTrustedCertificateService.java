@@ -138,6 +138,8 @@ public enum SubtenantTrustedCertificateService implements SdkEnum {
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     * @param <T>
+     *            type of an sdk enum
      * @param obj1
      *            a subtenant trusted certificate service.
      * @param obj2

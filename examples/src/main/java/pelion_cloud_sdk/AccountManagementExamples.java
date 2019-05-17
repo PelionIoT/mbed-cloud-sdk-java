@@ -19,6 +19,14 @@ import utils.AbstractExample;
 import utils.Configuration;
 import utils.Example;
 
+/**
+ * 
+ * Account Management examples.
+ * 
+ * @deprecated See {@link UseCaseExamples} to learn how to use the foundation SDK.
+ *
+ */
+@Deprecated
 public class AccountManagementExamples extends AbstractExample {
     /**
      * Gets details of the account associated with this API key.

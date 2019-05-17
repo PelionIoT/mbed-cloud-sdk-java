@@ -142,6 +142,8 @@ public enum CampaignStatisticsSummaryStatus implements SdkEnum {
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     * @param <T>
+     *            type of an sdk enum
      * @param obj1
      *            a campaign statistics summary status.
      * @param obj2

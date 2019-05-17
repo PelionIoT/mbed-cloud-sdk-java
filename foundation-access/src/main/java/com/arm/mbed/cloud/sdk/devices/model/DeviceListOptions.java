@@ -16,15 +16,12 @@ import java.util.List;
  * Options to use when listing devices.
  * <p>
  * Note:
- * <p>
  * <ul>
  * <li>Filters:
  * <p>
  * The list can be filtered server-side on some of the fields of a device.
  * <p>
  * The following filters are currently supported:
- *
- * <p>
  * <table style="border: 2px solid navy; width:100%; border-collapse:collapse;border-spacing:0" summary="Available
  * filters">
  * <caption>Server-side filters</caption>
@@ -34,13 +31,13 @@ import java.util.List;
  * <th style="background-color:#cbcefb;border-color:inherit;text-align:center" colspan="7">Filters</th>
  * </tr>
  * <tr>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">not equal to</td>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">equal to</td>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">greater than</td>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">less than</td>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">like</td>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">in</td>
- * <td style="background-color:#dae8fc;text-align:center;" width="10%">not in</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">not equal to</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">equal to</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">greater than</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">less than</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">like</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">in</td>
+ * <td style="background-color:#dae8fc;text-align:center;width:10%;">not in</td>
  * </tr>
  * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">deviceClass</td>
@@ -630,6 +627,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByAutoUpdate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -656,6 +655,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByAutoUpdate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -715,6 +716,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrapExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -732,6 +735,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrapExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -749,6 +754,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrapExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -799,6 +806,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrapExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -816,6 +825,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrapExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -833,6 +844,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrapExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -860,6 +873,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrapExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -887,6 +902,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrapExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -945,6 +962,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCreatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -961,6 +980,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCreatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -977,6 +998,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCreatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1026,6 +1049,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCreatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1043,6 +1068,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCreatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1060,6 +1087,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCreatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1087,6 +1116,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCreatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1114,6 +1145,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCreatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1149,6 +1182,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifest
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1175,6 +1210,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifest
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1224,6 +1261,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifest
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1240,6 +1279,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifest
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1256,6 +1297,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifest
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1305,6 +1348,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifest
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1321,6 +1366,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifest
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1337,6 +1384,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifest
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1372,6 +1421,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointType
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1398,6 +1449,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointType
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1447,6 +1500,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointType
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1464,6 +1519,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointType
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1480,6 +1537,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointType
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1529,6 +1588,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointType
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1546,6 +1607,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointType
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1562,6 +1625,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointType
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1597,6 +1662,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceKey
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1623,6 +1690,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceKey
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1672,6 +1741,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceKey
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1688,6 +1759,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceKey
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1704,6 +1777,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceKey
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1753,6 +1828,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceKey
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1770,6 +1847,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceKey
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1786,6 +1865,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceKey
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1822,6 +1903,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByFirmwareChecksum
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1849,6 +1932,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByFirmwareChecksum
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1898,6 +1983,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByFirmwareChecksum
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1915,6 +2002,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByFirmwareChecksum
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1931,6 +2020,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByFirmwareChecksum
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1980,6 +2071,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByFirmwareChecksum
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -1997,6 +2090,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByFirmwareChecksum
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2014,6 +2109,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByFirmwareChecksum
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2050,6 +2147,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2077,6 +2176,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2126,6 +2227,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2142,6 +2245,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2159,6 +2264,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2208,6 +2315,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2224,6 +2333,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2241,6 +2352,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2277,6 +2390,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceExecutionMode
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2304,6 +2419,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceExecutionMode
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2353,6 +2470,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceExecutionMode
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2370,6 +2489,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceExecutionMode
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2387,6 +2508,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceExecutionMode
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2437,6 +2560,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceExecutionMode
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2454,6 +2579,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceExecutionMode
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2471,6 +2598,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceExecutionMode
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2506,6 +2635,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByAccountId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2532,6 +2663,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByAccountId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2581,6 +2714,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByAccountId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2597,6 +2732,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByAccountId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2613,6 +2750,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByAccountId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2662,6 +2801,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByAccountId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2679,6 +2820,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByAccountId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2695,6 +2838,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByAccountId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2730,6 +2875,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanismUrl
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2756,6 +2903,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanismUrl
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2805,6 +2954,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanismUrl
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2822,6 +2973,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanismUrl
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2838,6 +2991,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanismUrl
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2887,6 +3042,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanismUrl
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2904,6 +3061,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanismUrl
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2920,6 +3079,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanismUrl
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2955,6 +3116,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByVendorId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -2981,6 +3144,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByVendorId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3030,6 +3195,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByVendorId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3046,6 +3213,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByVendorId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3062,6 +3231,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByVendorId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3111,6 +3282,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByVendorId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3127,6 +3300,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByVendorId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3143,6 +3318,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByVendorId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3178,6 +3355,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceClass
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3204,6 +3383,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceClass
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3253,6 +3434,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceClass
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3269,6 +3452,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceClass
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3285,6 +3470,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceClass
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3334,6 +3521,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceClass
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3351,6 +3540,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceClass
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3367,6 +3558,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeviceClass
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3402,6 +3595,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByHostGateway
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3428,6 +3623,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByHostGateway
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3477,6 +3674,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByHostGateway
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3493,6 +3692,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByHostGateway
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3509,6 +3710,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByHostGateway
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3558,6 +3761,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByHostGateway
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3575,6 +3780,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByHostGateway
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3591,6 +3798,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByHostGateway
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3650,6 +3859,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrappedTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3667,6 +3878,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrappedTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3684,6 +3897,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrappedTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3734,6 +3949,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrappedTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3751,6 +3968,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrappedTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3768,6 +3987,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrappedTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3795,6 +4016,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrappedTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3822,6 +4045,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByBootstrappedTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3857,6 +4082,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterBySerialNumber
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3883,6 +4110,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterBySerialNumber
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3932,6 +4161,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterBySerialNumber
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3949,6 +4180,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterBySerialNumber
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -3965,6 +4198,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterBySerialNumber
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4014,6 +4249,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterBySerialNumber
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4031,6 +4268,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterBySerialNumber
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4047,6 +4286,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterBySerialNumber
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4082,6 +4323,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterById
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4108,6 +4351,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterById
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4157,6 +4402,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterById
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4173,6 +4420,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterById
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4189,6 +4438,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterById
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4238,6 +4489,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterById
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4254,6 +4507,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterById
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4270,6 +4525,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterById
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4329,6 +4586,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByConnectorExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4346,6 +4605,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByConnectorExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4363,6 +4624,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByConnectorExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4413,6 +4676,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByConnectorExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4430,6 +4695,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByConnectorExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4447,6 +4714,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByConnectorExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4474,6 +4743,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByConnectorExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4501,6 +4772,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByConnectorExpirationDate
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4536,6 +4809,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCaId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4562,6 +4837,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCaId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4611,6 +4888,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCaId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4627,6 +4906,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCaId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4643,6 +4924,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCaId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4692,6 +4975,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCaId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4708,6 +4993,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCaId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4724,6 +5011,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByCaId
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4783,6 +5072,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEnrolmentListTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4800,6 +5091,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEnrolmentListTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4817,6 +5110,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEnrolmentListTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4867,6 +5162,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEnrolmentListTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4884,6 +5181,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEnrolmentListTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4901,6 +5200,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEnrolmentListTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4928,6 +5229,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEnrolmentListTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4955,6 +5258,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEnrolmentListTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -4990,6 +5295,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDescription
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5016,6 +5323,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDescription
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5065,6 +5374,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDescription
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5081,6 +5392,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDescription
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5097,6 +5410,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDescription
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5146,6 +5461,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDescription
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5163,6 +5480,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDescription
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5179,6 +5498,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDescription
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5214,6 +5535,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployment
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5240,6 +5563,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployment
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5289,6 +5614,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployment
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5305,6 +5632,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployment
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5321,6 +5650,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployment
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5370,6 +5701,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployment
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5387,6 +5720,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployment
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5403,6 +5738,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployment
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5439,6 +5776,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanism
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5466,6 +5805,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanism
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5515,6 +5856,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanism
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5531,6 +5874,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanism
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5548,6 +5893,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanism
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5597,6 +5944,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanism
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5614,6 +5963,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanism
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5631,6 +5982,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByMechanism
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5667,6 +6020,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployedState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5694,6 +6049,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployedState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5743,6 +6100,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployedState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5760,6 +6119,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployedState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5777,6 +6138,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployedState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5826,6 +6189,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployedState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5843,6 +6208,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployedState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5860,6 +6227,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByDeployedState
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5918,6 +6287,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByUpdatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5934,6 +6305,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByUpdatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5950,6 +6323,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByUpdatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -5999,6 +6374,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByUpdatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6016,6 +6393,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByUpdatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6033,6 +6412,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByUpdatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6060,6 +6441,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByUpdatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6087,6 +6470,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByUpdatedAt
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6122,6 +6507,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6148,6 +6535,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6197,6 +6586,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6213,6 +6604,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6229,6 +6622,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6278,6 +6673,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6294,6 +6691,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6310,6 +6709,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6368,6 +6769,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifestTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6385,6 +6788,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifestTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6402,6 +6807,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifestTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6452,6 +6859,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifestTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6469,6 +6878,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifestTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6486,6 +6897,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifestTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6513,6 +6926,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifestTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6540,6 +6955,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByManifestTimestamp
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6575,6 +6992,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6601,6 +7020,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6650,6 +7071,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6667,6 +7090,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6683,6 +7108,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6732,6 +7159,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6749,6 +7178,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")
@@ -6765,6 +7196,8 @@ public class DeviceListOptions extends ListOptions {
      * 
      * @param filterByEndpointName
      *            filter value.
+     * @param <T>
+     *            type of a device list options
      * @return These list options
      */
     @SuppressWarnings("unchecked")

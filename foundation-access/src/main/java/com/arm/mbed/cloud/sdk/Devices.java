@@ -662,7 +662,7 @@ public class Devices extends AbstractModule {
      * (trusted_certificate). Returned list can be filtered by endpoint name. Trusted certificate ID filter is required.
      *
      * **Example usage:** ``` curl -X GET -H 'Authorization: Bearer [valid access token]' \
-     * https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate_id__eq={cert-id}&endpoint_name__eq={endpoint_name}
+     * https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate_id__eq={cert-id}&amp;endpoint_name__eq={endpoint_name}
      * ```
      *
      * @param options

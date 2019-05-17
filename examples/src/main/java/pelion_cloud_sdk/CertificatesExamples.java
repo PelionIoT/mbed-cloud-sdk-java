@@ -16,6 +16,14 @@ import utils.AbstractExample;
 import utils.Configuration;
 import utils.Example;
 
+/**
+ * 
+ * Certificate Management examples.
+ * 
+ * @deprecated See {@link UseCaseExamples} to learn how to use the foundation SDK.
+ *
+ */
+@Deprecated
 public class CertificatesExamples extends AbstractExample {
     /**
      * Creates, updates and deletes a developer certificate.

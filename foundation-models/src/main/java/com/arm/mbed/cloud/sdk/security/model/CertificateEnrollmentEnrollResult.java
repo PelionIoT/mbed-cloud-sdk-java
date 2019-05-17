@@ -138,6 +138,8 @@ public enum CertificateEnrollmentEnrollResult implements SdkEnum {
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     * @param <T>
+     *            type of an sdk enum
      * @param obj1
      *            a certificate enrollment enroll result.
      * @param obj2

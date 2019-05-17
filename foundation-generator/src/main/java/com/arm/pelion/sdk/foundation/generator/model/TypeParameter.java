@@ -614,4 +614,8 @@ public class TypeParameter implements Artifact {
         return new TypeParameter(importPath == null ? null : importPath.clone(), clazz, typeName, type, format);
     }
 
+    public String getJavadocDescription() {
+        return null;
+    }
+
 }

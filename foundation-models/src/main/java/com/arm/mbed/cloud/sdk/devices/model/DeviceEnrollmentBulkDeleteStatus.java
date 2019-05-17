@@ -140,6 +140,8 @@ public enum DeviceEnrollmentBulkDeleteStatus implements SdkEnum {
      * <p>
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     * @param <T>
+     *            type of an sdk enum
      * @param obj1
      *            a device enrollment bulk delete status.
      * @param obj2
