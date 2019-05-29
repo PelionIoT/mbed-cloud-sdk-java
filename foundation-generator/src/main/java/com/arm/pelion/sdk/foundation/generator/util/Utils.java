@@ -140,7 +140,8 @@ public class Utils {
                     text = generateModelNameAsText(modelName.trim().substring(0, processedName.length() - 1) + "ies");
                 }
             } else {
-                if (!WORD_NON_PLURAL_EXCEPTIONS.stream().anyMatch(w -> processedName.endsWith(w))) {
+                if (!WORD_NON_PLURAL_EXCEPTIONS.stream()
+                                               .anyMatch(w -> processedName != null && processedName.endsWith(w))) {
                     text += "s";
                 }
             }
