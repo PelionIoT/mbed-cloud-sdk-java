@@ -421,7 +421,7 @@ configurations {
 dependencies {
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
     api 'org.slf4j:slf4j-api:1.7.7'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.14.1'
     compile project(':support-annotations')
     compile project(':lwm2m')
     compile project(':foundation-core')
@@ -431,12 +431,12 @@ dependencies {
     compile project(':backends:pelioncloud_devicemanagement')
 
     compile 'io.reactivex.rxjava2:rxjava:2.1.6'
-    compile 'joda-time:joda-time:2.9.9'
+    compile 'joda-time:joda-time:2.10.2'
     compile 'com.jcabi:jcabi-manifests:1.1'
     compile 'io.github.cdimascio:java-dotenv:3.1.1'
-    testCompile 'io.vertx:vertx-web:3.5.0'
+    testCompile 'io.vertx:vertx-web:3.7.0'
     testCompile 'org.reflections:reflections:0.9.10'
-    testCompile 'org.slf4j:slf4j-simple:1.7.7'
+    testCompile 'org.slf4j:slf4j-simple:1.7.26'
     testCompile 'com.squareup.okhttp:mockwebserver:2.7.5'
     testCompile  'com.github.dtmo.jfiglet:jfiglet:1.0.0'
     testCompile 'ru.vyarus:generics-resolver:3.0.0'
