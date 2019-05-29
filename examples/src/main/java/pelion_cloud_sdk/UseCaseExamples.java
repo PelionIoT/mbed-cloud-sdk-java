@@ -391,6 +391,8 @@ public class UseCaseExamples extends AbstractExample {
             myCampaignDao.start();
             // Determine the phase of the campaign
             myCampaignDao.read();
+            // Print all device metadata related to this campaign
+            myCampaignDao.allDeviceMetadata(null).all().forEach(System.out::println);
             // end of example
             myCampaignDao.close();
         } catch (MbedCloudException | IOException exception) {
