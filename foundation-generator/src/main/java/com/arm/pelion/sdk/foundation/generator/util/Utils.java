@@ -23,9 +23,12 @@ public class Utils {
     private static final String UNDERSCORE = "_";
     public static final String SERIALISATION_UUID = "serialVersionUID";
     private static final List<String> VOWELS = Arrays.asList("a", "e", "i", "o", "u");
-    private static final List<String> WORD_EXCEPTIONS = Arrays.asList("user");// TODO to extend
-    private static final List<String> WORD_OPPOSITE_EXCEPTIONS = Arrays.asList("sdk");// TODO to extend
-    private static final List<String> WORD_PLURAL_EXCEPTIONS = Arrays.asList("status");// TODO to extend
+    private static final List<String> WORD_EXCEPTIONS = Arrays.asList("user");// TODO extend if need be
+    private static final List<String> WORD_OPPOSITE_EXCEPTIONS = Arrays.asList("sdk");// TODO extend if need be
+    private static final List<String> WORD_PLURAL_EXCEPTIONS = Arrays.asList("status");// TODO extend if need be
+    private static final List<String> WORD_NON_PLURAL_EXCEPTIONS = Arrays.asList("data", "advice", "sheep");// TODO
+                                                                                                            // extend if
+                                                                                                            // need be
 
     public static <T extends MergeableArtifact> T merge(T artifact1, T artifact2) {
         if (artifact1 == null) {
@@ -137,7 +140,9 @@ public class Utils {
                     text = generateModelNameAsText(modelName.trim().substring(0, processedName.length() - 1) + "ies");
                 }
             } else {
-                text += "s";
+                if (!WORD_NON_PLURAL_EXCEPTIONS.stream().anyMatch(w -> w.equals(processedName))) {
+                    text += "s";
+                }
             }
         } else {
             if (WORD_PLURAL_EXCEPTIONS.stream().anyMatch(w -> w.equals(processedName))) {

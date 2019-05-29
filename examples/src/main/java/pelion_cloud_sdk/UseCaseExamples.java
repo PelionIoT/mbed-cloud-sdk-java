@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.stream.StreamSupport;
 
 import com.arm.mbed.cloud.Sdk;
@@ -29,7 +31,13 @@ import com.arm.mbed.cloud.sdk.devices.model.DeviceDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDenialListOptions;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceState;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifest;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListDao;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignDao;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig;
 import com.arm.mbed.cloud.sdk.security.model.TrustedCertificate;
 import com.arm.mbed.cloud.sdk.security.model.TrustedCertificateDao;
@@ -342,6 +350,49 @@ public class UseCaseExamples extends AbstractExample {
             myCertificateDao.read();
             assertEquals(originalStatus, myCertificateDao.getModel().getStatus());
             myCertificateDao.close();
+        } catch (MbedCloudException | IOException exception) {
+            // TODO do something with the exception
+            exception.printStackTrace();
+
+            fail(exception.getMessage());
+
+        }
+    }
+
+    /**
+     * Creates and starts a firmware update campaign
+     */
+    @Example
+    public void launchUpdateCampaign() {
+        try (Sdk sdk = Sdk.createSdk(Configuration.get());
+             FirmwareManifestListDao manifestDao = sdk.foundation().getFirmwareManifestListDao()) {
+            // Find a production manifest
+            FirmwareManifest manifestOfInterest = manifestDao.list(new FirmwareManifestListOptions().maxResults(2))
+                                                             .first();
+            assertNotNull(manifestOfInterest);
+            String myManifestId = manifestOfInterest.getId();
+            // an example: firmware update campaign launch
+            UpdateCampaignDao myCampaignDao = sdk.foundation().getUpdateCampaignDao();
+            // Define an update campaign
+            UpdateCampaign newCampaign = new UpdateCampaign();
+            newCampaign.setName("campaign - " + (new Date().toString()));
+            newCampaign.setDescription("Update campaign for prior 2019 devices");
+            newCampaign.setRootManifestId(myManifestId);
+            // All devices created before the 1st of January 2019 will have their firmware replaced by the one defined
+            // in the manifest
+            newCampaign.setDeviceFiltersHelper(new DeviceListOptions().lessThanCreatedAt(new GregorianCalendar(2019, 0,
+                                                                                                               1).getTime())
+                                                                      .getFilter());
+            // Create the campaign
+            myCampaignDao.create(newCampaign);
+            // Determine the phase of the campaign
+            myCampaignDao.read();
+            // Start the campaign
+            myCampaignDao.start();
+            // Determine the phase of the campaign
+            myCampaignDao.read();
+            // end of example
+            myCampaignDao.close();
         } catch (MbedCloudException | IOException exception) {
             // TODO do something with the exception
             exception.printStackTrace();
