@@ -181,7 +181,7 @@ public class DeviceUpdate extends AbstractModule {
     }
 
     /**
-     * Creates a {@link Paginator} for the list of campaign device metadatas matching filter options.
+     * Creates a {@link Paginator} for the list of campaign device metadata matching filter options.
      *
      * <p>
      * Similar to
@@ -191,7 +191,7 @@ public class DeviceUpdate extends AbstractModule {
      *            list options.
      * @param updateCampaign
      *            an update campaign.
-     * @return paginator over the list of campaign device metadatas
+     * @return paginator over the list of campaign device metadata
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -222,7 +222,7 @@ public class DeviceUpdate extends AbstractModule {
     }
 
     /**
-     * Creates a {@link Paginator} for the list of campaign device metadatas matching filter options.
+     * Creates a {@link Paginator} for the list of campaign device metadata matching filter options.
      *
      * <p>
      * Gets an iterator over all update campaigns matching filter options.
@@ -231,7 +231,7 @@ public class DeviceUpdate extends AbstractModule {
      *            The update campaign ID. The update campaign ID
      * @param options
      *            list options.
-     * @return paginator over the list of campaign device metadatas
+     * @return paginator over the list of campaign device metadata
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -804,7 +804,7 @@ public class DeviceUpdate extends AbstractModule {
      *            list options.
      * @param updateCampaign
      *            an update campaign.
-     * @return the list of campaign device metadatas corresponding to filter options (One page).
+     * @return the list of campaign device metadata corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -828,7 +828,7 @@ public class DeviceUpdate extends AbstractModule {
      *            The update campaign ID. The update campaign ID
      * @param options
      *            list options.
-     * @return the list of campaign device metadatas corresponding to filter options (One page).
+     * @return the list of campaign device metadata corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */

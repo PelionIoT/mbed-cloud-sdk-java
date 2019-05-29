@@ -11,7 +11,7 @@
 <h2 id="prerequisites">Prerequisites</h2>
 
 <ul>
-<li>Java  1.7+   <b>tested with <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Oracle JRE</a></b></li>
+<li>Java > 1.7   <em>tested with <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Oracle JRE</a></em></li>
 </ul>
 
 <h2 id="logging">Logging</h2>
@@ -22,56 +22,92 @@
 
 <h2 id="distribution">Distribution</h2>
 
-<p>In order to best meet your requirements, Java SDK is packaged in 3 different ways:</p>
-feme
+<p>In order to best meet your requirements, Java SDK is packaged in three different ways:</p>
+
 <ul>
-<li>Individual Jars which can be retrieved using a package manager of your choice (i.e. Gradle, Maven or Ivy).</li>
+<li>Individual Jars</li>
 
 <li>Distribution ZIP. See related <a href="https://docs.gradle.org/current/userguide/javaLibraryDistribution_plugin.html">gradle plugin</a> for more details.</li>
 
 <li>A <a href="https://github.com/johnrengelman/shadow">fat jar</a> comprising the SDK and all its dependencies.</li>
 </ul>
 
+<h2 id="gettingstarted">Getting started</h2>
+
+<p><a href="https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/_latestVersion"> <img src="https://api.bintray.com/packages/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/images/download.svg" alt="Download" /> </a></p>
+
+<p>Artefacts listed above are published on <a href="https://bintray.com/armmbed/mbed-cloud-sdk">JCenter</a> and <a href="https://mvnrepository.com/artifact/com.arm.mbed.cloud.sdk/mbed-cloud-sdk">Maven Central</a>.
+They can therefore be retrieved and included into your project using the package manager of your choice. To do so, please follow the instructions present on one of these artefact repositories (<a href="https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/">Bintray page of the project</a>).</p>
+
+<p>For example, if using Gradle, add the following compile dependency to build.gradle:</p>
+
+<pre><code class="java language-java">implementation 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:x.y.z'
+</code></pre>
+
+<p>Current artefacts are not fully tailored for Android but can be used as is on this mobile platform. However, the <code>oltu</code> dependency will have to be excluded to remove any compilation issue (e.g. <code>Error converting bytecode to dex:\nCause: com.android.dex.DexException: Multiple dex files define Lorg/apache/oltu/oauth2/common/domain/credentials/Credentials</code>.
+To do so, import the SDK in the gradle file, as follows:</p>
+
+<pre><code class="java language-java">implementation( 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:x.y.z' ){
+    // Excluding a particular transitive dependency:
+    exclude group: 'org.apache.oltu.oauth2'
+}
+</code></pre>
+
 <h2 id="usage">Usage</h2>
 
-<p>These instructions can also be found in the <a href="https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html">official documentation</a>:</p>
+<p>These instructions can also be found in the <a href="https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-java/">official documentation</a>:</p>
 
 <ol>
-<li>Create an API key on <a href="https://portal.mbedcloud.com/">Pelion Cloud Portal</a>.</li>
+<li>Create an API key on <a href="https://portal.mbedcloud.com/">Pelion Device Management Portal</a>.</li>
+
+<li>Import the SDK to your project using one of the packages listed above.</li>
 
 <li>Create a configuration object:
-<code>java
-    String logLevel = "BODY"; //Defines the logging level of HTTP communications. See CallLogLevel for more information.
+<code>
     String apiKey = "&lt;apikey&gt;"; //API key to use for contacting Pelion Cloud.
-    ConnectionOptions config = new ConnectionOptions(apiKey);
-    config.setClientLogLevel(CallLogLevel.getLevel(logLevel));
+    ConnectionOptions config =  ConnectionOptions.newConfiguration(apiKey);
+    config.setClientLogLevel(CallLogLevel.BODY);//Defines the logging level of HTTP communications. See CallLogLevel for more information.
 </code></li>
 
-<li>Import SDK using one of the packages listed above and you are ready to go.
-<code>java
-    DeviceDirectory deviceApi = new DeviceDirectory(config);
-    try {
-        System.out.println(deviceApi.listDevices(null));
-    } catch (MbedCloudException e) {
-        // TODO Auto-generated catch block
+<li>You are ready to go.
+<code>
+    try (Sdk sdk = Sdk.createSdk(config); DeviceListDao dao = sdk.foundation().getDeviceListDao()) {
+        dao.list().forEach(System.out::println);
+    } catch (MbedCloudException | IOException e) {
         e.printStackTrace();
     }
 </code></li>
 </ol>
 
+<h2 id="versioning">Versioning</h2>
+
+<p>The SDK version scheme follows <a href="https://semver.org/">Semantic versioning</a></p>
+
+<p><code>&lt;SDK major&gt;.&lt;SDK minor&gt;.&lt;SDK bugFix&gt;</code></p>
+
 <h2 id="documentationandexamples">Documentation and examples</h2>
 
-<p>See the full documentation and API reference (i.e. javadoc) at https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-java/.
-For usage examples, please have a look at the <a href="https://armmbed.github.io/mbed-cloud-sdk-java/examples/">example project</a>.</p>
+<p>The SDK guide and examples are available on <a href="https://armmbed.github.io/mbed-cloud-sdk-documentation/#introduction">GitHub</a></p>
+
+<p>The documentation contains many examples covering various Use Cases that you may have. In each case you can compare the Java implementation with alternatives in languages
+supported by the other Pelion Device Management SDKs.</p>
+
+<p>See API reference (i.e. javadoc) at https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-java/.</p>
+
+<p>For specific Java usage examples, please have a look at the <a href="examples/README.md">example project</a>.</p>
+
+<h2 id="contributing">Contributing</h2>
+
+<p>The Pelion Device Management SDK for Java is open source and we would like your help. There is a brief guide on how to get started in <a href="CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
 
 <h2 id="project">Project</h2>
 
 <ul>
 <li>All code inside <em>*.internal.*</em> packages or annotated as <strong>@Internal</strong> is considered private API and should not be relied upon at all.</li>
 
-<li>Classes annotated as <strong>@Module</strong> contain all Arm Pelion Cloud APIs</li>
+<li>Classes annotated as <strong>@Module</strong> contain all Arm Pelion Device Management REST APIs</li>
 
-<li>Methods annotated as <strong>@API</strong> are the functions which can be used to interact with Pelion Cloud.</li>
+<li>Methods annotated as <strong>@API</strong> are low-level functions which can be used to interact with Pelion Cloud. However, it is advised to use DAOs instead.</li>
 
 <li>APIs, objects or methods annotated as <strong>@Deprecated</strong> are supported until the next major release and will be removed later on. It is highly recommended to stop using them.</li>
 
@@ -80,7 +116,9 @@ For usage examples, please have a look at the <a href="https://armmbed.github.io
 
 <h2 id="licence">Licence</h2>
 
-<p>Pelion Cloud SDK for Java is free-to-use and licensed under the <strong>Apache License
-2.0</strong>. See LICENCE file for more information.</p>
+<p><a href="https://opensource.org/licenses/Apache-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License" /></a></p>
+
+<p>Pelion Device Management SDK for Java is free-to-use and licensed under the <strong>Apache License
+2.0</strong>. See <a href="LICENCE">LICENCE</a> file for more information.</p>
   </BODY>
 </HTML>

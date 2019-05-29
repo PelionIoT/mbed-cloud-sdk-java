@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import java.util.List;
 
 /**
- * Options to use when listing campaign device metadatas.
+ * Options to use when listing campaign device metadata.
  * <p>
  * Note:
  * <ul>
@@ -41,7 +41,7 @@ import java.util.List;
  * </li>
  * </ul>
  */
-@Preamble(description = "Options to use when listing campaign device metadatas.")
+@Preamble(description = "Options to use when listing campaign device metadata.")
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class CampaignDeviceMetadataListOptions extends ListOptions {
     /**
