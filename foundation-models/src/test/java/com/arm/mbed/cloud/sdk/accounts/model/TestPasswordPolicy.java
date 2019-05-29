@@ -69,9 +69,9 @@ public class TestPasswordPolicy {
     @Test
     public void testEquals() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy(37);
-            PasswordPolicy passwordpolicy2 = new PasswordPolicy(37);
-            PasswordPolicy passwordpolicy3 = new PasswordPolicy(8);
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy(62);
+            PasswordPolicy passwordpolicy2 = new PasswordPolicy(62);
+            PasswordPolicy passwordpolicy3 = new PasswordPolicy(12);
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
             assertNotNull(passwordpolicy3);
