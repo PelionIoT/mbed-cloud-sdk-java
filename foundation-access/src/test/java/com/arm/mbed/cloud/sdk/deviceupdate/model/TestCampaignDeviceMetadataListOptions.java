@@ -19,10 +19,10 @@ public class TestCampaignDeviceMetadataListOptions {
     @Test
     public void testClone() {
         try {
-            CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions1 = new CampaignDeviceMetadataListOptions(Integer.valueOf(53),
-                                                                                                                         Long.valueOf(-25),
+            CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions1 = new CampaignDeviceMetadataListOptions(Integer.valueOf(-4),
+                                                                                                                         Long.valueOf(-104),
                                                                                                                          Order.getDefault(),
-                                                                                                                         "b2cd6ee2-c8b0-4468-b796-8af296882420",
+                                                                                                                         "6887cd9c-1188-4f20-a66a-56d16b03bbed",
                                                                                                                          null,
                                                                                                                          null);
             CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions2 = campaigndevicemetadatalistoptions1.clone();
@@ -42,16 +42,16 @@ public class TestCampaignDeviceMetadataListOptions {
     @Test
     public void testHashCode() {
         try {
-            CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions1 = new CampaignDeviceMetadataListOptions(Integer.valueOf(119),
-                                                                                                                         Long.valueOf(36),
+            CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions1 = new CampaignDeviceMetadataListOptions(Integer.valueOf(-33),
+                                                                                                                         Long.valueOf(79),
                                                                                                                          Order.getDefault(),
-                                                                                                                         "0cba74fe-b8ff-4d69-b091-eec7e8841771",
+                                                                                                                         "4a47c530-36f8-4df6-888f-3039c1c6be14",
                                                                                                                          null,
                                                                                                                          null);
-            CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions2 = new CampaignDeviceMetadataListOptions(Integer.valueOf(119),
-                                                                                                                         Long.valueOf(36),
+            CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions2 = new CampaignDeviceMetadataListOptions(Integer.valueOf(-33),
+                                                                                                                         Long.valueOf(79),
                                                                                                                          Order.getDefault(),
-                                                                                                                         "0cba74fe-b8ff-4d69-b091-eec7e8841771",
+                                                                                                                         "4a47c530-36f8-4df6-888f-3039c1c6be14",
                                                                                                                          null,
                                                                                                                          null);
             assertNotNull(campaigndevicemetadatalistoptions1);
@@ -75,22 +75,22 @@ public class TestCampaignDeviceMetadataListOptions {
     @Test
     public void testEquals() {
         try {
-            CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions1 = new CampaignDeviceMetadataListOptions(Integer.valueOf(9),
-                                                                                                                         Long.valueOf(-119),
+            CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions1 = new CampaignDeviceMetadataListOptions(Integer.valueOf(81),
+                                                                                                                         Long.valueOf(27),
                                                                                                                          Order.getDefault(),
-                                                                                                                         "608d777a-b5c2-49fa-b8ec-e3356e304501",
+                                                                                                                         "be1024a8-cfbf-4b5c-a1b9-50aaf38f46b1",
                                                                                                                          null,
                                                                                                                          null);
-            CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions2 = new CampaignDeviceMetadataListOptions(Integer.valueOf(9),
-                                                                                                                         Long.valueOf(-119),
+            CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions2 = new CampaignDeviceMetadataListOptions(Integer.valueOf(81),
+                                                                                                                         Long.valueOf(27),
                                                                                                                          Order.getDefault(),
-                                                                                                                         "608d777a-b5c2-49fa-b8ec-e3356e304501",
+                                                                                                                         "be1024a8-cfbf-4b5c-a1b9-50aaf38f46b1",
                                                                                                                          null,
                                                                                                                          null);
-            CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions3 = new CampaignDeviceMetadataListOptions(Integer.valueOf(110),
-                                                                                                                         Long.valueOf(100),
+            CampaignDeviceMetadataListOptions campaigndevicemetadatalistoptions3 = new CampaignDeviceMetadataListOptions(Integer.valueOf(14),
+                                                                                                                         Long.valueOf(32),
                                                                                                                          Order.getDefault(),
-                                                                                                                         "0605c694-de8e-4a95-92ac-7d38a633034c",
+                                                                                                                         "879bd59c-9ff7-432a-ad05-c09c94725e6e",
                                                                                                                          null,
                                                                                                                          null);
             assertNotNull(campaigndevicemetadatalistoptions1);

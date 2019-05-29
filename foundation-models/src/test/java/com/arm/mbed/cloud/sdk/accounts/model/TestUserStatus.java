@@ -30,7 +30,7 @@ public class TestUserStatus {
             userstatus = UserStatus.getValue("ENROLLING");
             assertNotNull(userstatus);
             assertFalse(userstatus.isDefault());
-            userstatus = UserStatus.getValue("b0a5afc2-981d-4464-a2ca-d72ee7d3c871");
+            userstatus = UserStatus.getValue("d112afe0-494e-46b3-b230-8b09e159eebb");
             assertNotNull(userstatus);
             assertTrue(userstatus.isDefault());
         } catch (Exception exception) {
