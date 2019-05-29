@@ -21,10 +21,10 @@ public class TestDeviceEnrollmentDenialListOptions {
     @Test
     public void testClone() {
         try {
-            DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions1 = new DeviceEnrollmentDenialListOptions(Integer.valueOf(-16),
-                                                                                                                         Long.valueOf(61),
+            DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions1 = new DeviceEnrollmentDenialListOptions(Integer.valueOf(-111),
+                                                                                                                         Long.valueOf(-29),
                                                                                                                          Order.getDefault(),
-                                                                                                                         "814f9583-3434-4b8f-8315-ac3abca8ef0a",
+                                                                                                                         "1b134867-efd4-4edd-8f8a-20df2842b20e",
                                                                                                                          null,
                                                                                                                          null);
             DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions2 = deviceenrollmentdeniallistoptions1.clone();
@@ -44,21 +44,21 @@ public class TestDeviceEnrollmentDenialListOptions {
     @Test
     public void testFilters() {
         try {
-            DeviceEnrollmentDenialListOptions option = new DeviceEnrollmentDenialListOptions().equalToEndpointName("b9904b21-f502-4b26-b12a-ddade4c5ae6b")
-                                                                                              .equalToTrustedCertificateId("54bbb6b8-fbd1-4d81-9de2-5af51887f283");
+            DeviceEnrollmentDenialListOptions option = new DeviceEnrollmentDenialListOptions().equalToEndpointName("5aff45a9-9a33-4f4c-b473-2ccad78ca8fe")
+                                                                                              .equalToTrustedCertificateId("8807fe1d-8e5d-4280-968d-9d1cbd00fe40");
             assertTrue(option.hasFilters());
             assertTrue(option.hasFilters(DeviceEnrollmentDenialListOptions.TAG_FILTER_BY_ENDPOINT_NAME));
             assertTrue(option.hasFilter(DeviceEnrollmentDenialListOptions.TAG_FILTER_BY_ENDPOINT_NAME,
                                         FilterOperator.EQUAL));
             assertNotNull(option.getEndpointNameFilters());
-            assertEquals("b9904b21-f502-4b26-b12a-ddade4c5ae6b",
+            assertEquals("5aff45a9-9a33-4f4c-b473-2ccad78ca8fe",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceEnrollmentDenialListOptions.TAG_FILTER_BY_ENDPOINT_NAME,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceEnrollmentDenialListOptions.TAG_FILTER_BY_TRUSTED_CERTIFICATE_ID));
             assertTrue(option.hasFilter(DeviceEnrollmentDenialListOptions.TAG_FILTER_BY_TRUSTED_CERTIFICATE_ID,
                                         FilterOperator.EQUAL));
             assertNotNull(option.getTrustedCertificateIdFilters());
-            assertEquals("54bbb6b8-fbd1-4d81-9de2-5af51887f283",
+            assertEquals("8807fe1d-8e5d-4280-968d-9d1cbd00fe40",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceEnrollmentDenialListOptions.TAG_FILTER_BY_TRUSTED_CERTIFICATE_ID,
                                                                     String.class, option));
         } catch (Exception exception) {
@@ -73,16 +73,16 @@ public class TestDeviceEnrollmentDenialListOptions {
     @Test
     public void testHashCode() {
         try {
-            DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions1 = new DeviceEnrollmentDenialListOptions(Integer.valueOf(-31),
-                                                                                                                         Long.valueOf(-126),
+            DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions1 = new DeviceEnrollmentDenialListOptions(Integer.valueOf(-6),
+                                                                                                                         Long.valueOf(105),
                                                                                                                          Order.getDefault(),
-                                                                                                                         "f82a7fce-bbd5-4cfc-9bdb-0d584be0cb57",
+                                                                                                                         "f03eefc6-29c2-46ed-8836-ddbefba8997f",
                                                                                                                          null,
                                                                                                                          null);
-            DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions2 = new DeviceEnrollmentDenialListOptions(Integer.valueOf(-31),
-                                                                                                                         Long.valueOf(-126),
+            DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions2 = new DeviceEnrollmentDenialListOptions(Integer.valueOf(-6),
+                                                                                                                         Long.valueOf(105),
                                                                                                                          Order.getDefault(),
-                                                                                                                         "f82a7fce-bbd5-4cfc-9bdb-0d584be0cb57",
+                                                                                                                         "f03eefc6-29c2-46ed-8836-ddbefba8997f",
                                                                                                                          null,
                                                                                                                          null);
             assertNotNull(deviceenrollmentdeniallistoptions1);
@@ -106,22 +106,22 @@ public class TestDeviceEnrollmentDenialListOptions {
     @Test
     public void testEquals() {
         try {
-            DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions1 = new DeviceEnrollmentDenialListOptions(Integer.valueOf(22),
-                                                                                                                         Long.valueOf(-10),
+            DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions1 = new DeviceEnrollmentDenialListOptions(Integer.valueOf(71),
+                                                                                                                         Long.valueOf(60),
                                                                                                                          Order.getDefault(),
-                                                                                                                         "fed03dc7-d41d-4a51-a0f8-ddf3c022cf04",
+                                                                                                                         "a59d6efb-2506-43fb-9370-012d267c8e8e",
                                                                                                                          null,
                                                                                                                          null);
-            DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions2 = new DeviceEnrollmentDenialListOptions(Integer.valueOf(22),
-                                                                                                                         Long.valueOf(-10),
+            DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions2 = new DeviceEnrollmentDenialListOptions(Integer.valueOf(71),
+                                                                                                                         Long.valueOf(60),
                                                                                                                          Order.getDefault(),
-                                                                                                                         "fed03dc7-d41d-4a51-a0f8-ddf3c022cf04",
+                                                                                                                         "a59d6efb-2506-43fb-9370-012d267c8e8e",
                                                                                                                          null,
                                                                                                                          null);
-            DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions3 = new DeviceEnrollmentDenialListOptions(Integer.valueOf(37),
-                                                                                                                         Long.valueOf(-108),
+            DeviceEnrollmentDenialListOptions deviceenrollmentdeniallistoptions3 = new DeviceEnrollmentDenialListOptions(Integer.valueOf(86),
+                                                                                                                         Long.valueOf(-52),
                                                                                                                          Order.getDefault(),
-                                                                                                                         "c34fda34-9336-485b-945d-99d0ee2e1d00",
+                                                                                                                         "152d634b-f973-4128-973b-36ed7595fc49",
                                                                                                                          null,
                                                                                                                          null);
             assertNotNull(deviceenrollmentdeniallistoptions1);

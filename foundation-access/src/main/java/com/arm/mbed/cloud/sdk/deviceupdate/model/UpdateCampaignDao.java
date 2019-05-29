@@ -72,7 +72,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
     }
 
     /**
-     * Creates a {@link Paginator} for the list of campaign device metadatas matching filter options.
+     * Creates a {@link Paginator} for the list of campaign device metadata matching filter options.
      *
      * <p>
      * Note: uses internal data model
@@ -82,7 +82,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
      * 
      * @param options
      *            list options.
-     * @return paginator over the list of campaign device metadatas
+     * @return paginator over the list of campaign device metadata
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -92,7 +92,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
     }
 
     /**
-     * Creates a {@link Paginator} for the list of campaign device metadatas matching filter options.
+     * Creates a {@link Paginator} for the list of campaign device metadata matching filter options.
      *
      * <p>
      * Similar to
@@ -102,7 +102,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
      *            list options.
      * @param updateCampaign
      *            an update campaign.
-     * @return paginator over the list of campaign device metadatas
+     * @return paginator over the list of campaign device metadata
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -113,7 +113,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
     }
 
     /**
-     * Creates a {@link Paginator} for the list of campaign device metadatas matching filter options.
+     * Creates a {@link Paginator} for the list of campaign device metadata matching filter options.
      *
      * <p>
      * Similar to
@@ -123,7 +123,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
      *            The update campaign ID. The update campaign ID
      * @param options
      *            list options.
-     * @return paginator over the list of campaign device metadatas
+     * @return paginator over the list of campaign device metadata
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -299,7 +299,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
      * 
      * @param options
      *            list options.
-     * @return the list of campaign device metadatas corresponding to filter options (One page).
+     * @return the list of campaign device metadata corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -319,7 +319,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
      *            list options.
      * @param updateCampaign
      *            an update campaign.
-     * @return the list of campaign device metadatas corresponding to filter options (One page).
+     * @return the list of campaign device metadata corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -340,7 +340,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
      *            The update campaign ID. The update campaign ID
      * @param options
      *            list options.
-     * @return the list of campaign device metadatas corresponding to filter options (One page).
+     * @return the list of campaign device metadata corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
