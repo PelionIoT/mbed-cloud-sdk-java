@@ -15,13 +15,13 @@ import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 
 /**
- * Data Access Object (DAO) for campaign device metadatas.
+ * Data Access Object (DAO) for campaign device metadata.
  * <p>
  * 
  * @see <a href="http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm">Core J2EE Patterns - Data Access
  *      Object</a>
  */
-@Preamble(description = "Data Access Object (DAO) for campaign device metadatas.")
+@Preamble(description = "Data Access Object (DAO) for campaign device metadata.")
 public abstract class AbstractCampaignDeviceMetadataDao extends AbstractModelDao<CampaignDeviceMetadata>
                                                         implements ReadDao<CampaignDeviceMetadata> {
     /**

@@ -47,7 +47,7 @@ compileJava {
 javadoc {
     exclude '**/utils/**'
     destinationDir = file("${project(':mbed-cloud-sdk-java').projectDir}/docs/${rootProject.name}")
-    title = "Arm Mbed Cloud SDK Examples"
+    title = "Arm Pelion Device Management SDK Examples"
     options.overview = "src/main/javadoc/overview.html"
     // Add --allow-script-in-comments if available (since 1.8.0_121) see related issue https://github.com/gradle/gradle/issues/1393
     try {
@@ -115,7 +115,7 @@ allprojects {
 }
 subprojects {
     tasks.whenTaskAdded { task ->
-        if (task.name == 'javadoc' || task.name == 'checkstyleMain' || task.name == 'findbugsMain' || task.name == 'pmdMain') {
+        if (task.name == 'javadoc' || task.name == 'checkstyleMain' || task.name == 'findbugsMain' || task.name == 'pmdMain' || task.name == 'spotlessApply' || task.name == 'spotlessJava') {
             task.enabled = false
         }
         if (project.hasProperty('UpdateArtifactList')) {

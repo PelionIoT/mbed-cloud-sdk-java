@@ -1,8 +1,8 @@
-# Arm Mbed Cloud SDK for Java - Examples
+# Pelion Device Management SDK for Java - Examples
 
-This java project presents several examples of how the SDK can be used to interact with Mbed Cloud.
+This java project presents several examples of how the SDK can be used to interact with Pelion Cloud.
 It is based on JUnit framework and can be run as is from the command line or from your favourite IDE (e.g. [eclipse](https://www.eclipse.org/) or [IntelliJ](https://www.jetbrains.com/idea/)).
-It will require however that **`MBED_CLOUD_API_KEY`** environment variable is set using a valid Mbed Cloud API key (Use [Mbed Cloud Portal](https://portal.mbedcloud.com/) to get one if not already the case).
+It will require however that **`MBED_CLOUD_API_KEY`** environment variable is set using a valid Pelion Cloud API key (Use [Pelion Device Management Portal](https://portal.mbedcloud.com/) to get one if not already the case).
 The level of logging of HTTP communications can also be set using **`HTTP_LOG_LEVEL`** variable (see CallLogLevel for more information about valid values).
 
 ## Prerequisites
@@ -20,7 +20,7 @@ The level of logging of HTTP communications can also be set using **`HTTP_LOG_LE
 ## Project
 All example code can be found in src/main/java/mbed_cloud_sdk or can be browsed [online](https://armmbed.github.io/mbed-cloud-sdk-java/examples).
 Every example is annotated with **@Example** and can be run independently or as a full suite.
-These examples are designed to give developers a headstart with developing with the Mbed Cloud SDK for Java.
+These examples are designed to give developers a headstart with developing with the Pelion Device Management SDK for Java.
 
 
 ## Building and Testing

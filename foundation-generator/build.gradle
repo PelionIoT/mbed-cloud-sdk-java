@@ -46,7 +46,7 @@ dependencies {
     implementation 'com.github.dtmo.jfiglet:jfiglet:1.0.0'
     implementation 'com.github.mifmif:generex:1.0.+'
     implementation 'org.reflections:reflections:0.9.+'
-    implementation 'org.slf4j:slf4j-simple:1.7.7'
+    implementation 'org.slf4j:slf4j-simple:1.7.26'
     implementation 'junit:junit:4.+'
     implementation project(':pelion-sdk-core')
     // Backends
