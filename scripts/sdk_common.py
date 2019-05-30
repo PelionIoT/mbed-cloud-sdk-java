@@ -1106,7 +1106,7 @@ class Config(GitAction):
                 if image and re.match(tagged_image_pattern, image):
                     self.testrunner_image = image
                 else:
-                    tag_to_use = self.get_branch_name()
+                    tag_to_use = self.get_branch_name().replace('/', '-')
                     if self.is_master_branch():
                         tag_to_use = Config.BETA_TESTRUNNER_TAG if self.is_from_private() else Config.RELEASE_TESTRUNNER_TAG
                     self.testrunner_image = self._determine_testrunner_docker_image(
