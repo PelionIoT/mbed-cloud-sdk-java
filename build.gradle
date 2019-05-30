@@ -435,7 +435,7 @@ dependencies {
     compile 'com.jcabi:jcabi-manifests:1.1'
     compile 'io.github.cdimascio:java-dotenv:3.1.1'
     testCompile 'io.vertx:vertx-web:3.7.0'
-    testCompile 'org.reflections:reflections:0.9.10'
+    testCompile 'org.reflections:reflections:0.9.11'
     testCompile 'org.slf4j:slf4j-simple:1.7.26'
     testCompile 'com.squareup.okhttp:mockwebserver:2.7.5'
     testCompile  'com.github.dtmo.jfiglet:jfiglet:1.0.0'
