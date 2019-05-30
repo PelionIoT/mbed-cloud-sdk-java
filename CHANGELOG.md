@@ -6,6 +6,14 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+2.3.2 (2019-05-29)
+==================
+
+### Bugfixes
+
+- Updated dependencies to fix security issues (#1)
+
+
 2.3.1 (2019-05-17)
 ==================
 
