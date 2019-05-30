@@ -443,7 +443,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     coverage 'org.jacoco:org.jacoco.agent:0.7.9:runtime@jar'
     coverage 'org.jacoco:org.jacoco.cli:0.8.1:nodeps@jar'
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.7.1'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.9.0'
 }
 
 def setJavadocOptions = { options, toProject ->
