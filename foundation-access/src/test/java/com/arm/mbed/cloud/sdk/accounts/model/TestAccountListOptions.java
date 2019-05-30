@@ -23,9 +23,9 @@ public class TestAccountListOptions {
     @Test
     public void testClone() {
         try {
-            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(-77), Long.valueOf(96),
+            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(-46), Long.valueOf(61),
                                                                             Order.getDefault(),
-                                                                            "7683e45e-a745-426a-b6e0-ad9c9535d855",
+                                                                            "fd4b584f-466d-471d-9c58-41138852fe3e",
                                                                             null, null);
             AccountListOptions accountlistoptions2 = accountlistoptions1.clone();
             assertNotNull(accountlistoptions1);
@@ -44,21 +44,18 @@ public class TestAccountListOptions {
     @Test
     public void testFilters() {
         try {
-            AccountListOptions option = new AccountListOptions().equalToTier("95893c9b-c252-4295-a746-03c29999b454")
+            AccountListOptions option = new AccountListOptions().equalToTier("82d0af92-25fc-4feb-a05b-9b94848220bb")
                                                                 .equalToStatus(AccountStatus.getDefault())
-                                                                .inStatuses(Arrays.asList(AccountStatus.getDefault(),
-                                                                                          AccountStatus.getDefault()))
+                                                                .inStatuses(Arrays.asList(AccountStatus.getDefault()))
                                                                 .notInStatuses(Arrays.asList(AccountStatus.getDefault(),
-                                                                                             AccountStatus.getDefault(),
-                                                                                             AccountStatus.getDefault(),
                                                                                              AccountStatus.getDefault()))
-                                                                .equalToEndMarket("d7133e0c-622b-4ee1-a7e0-032e829a24eb")
-                                                                .likeCountry("5b2c11f7-ff87-49ce-8cad-f6cdc56c3021");
+                                                                .equalToEndMarket("7f1637d9-08c0-4d3f-9a5d-8953f582729c")
+                                                                .likeCountry("d291eb69-5bab-4b38-a369-3bc76ba7375b");
             assertTrue(option.hasFilters());
             assertTrue(option.hasFilters(AccountListOptions.TAG_FILTER_BY_TIER));
             assertTrue(option.hasFilter(AccountListOptions.TAG_FILTER_BY_TIER, FilterOperator.EQUAL));
             assertNotNull(option.getTierFilters());
-            assertEquals("95893c9b-c252-4295-a746-03c29999b454",
+            assertEquals("82d0af92-25fc-4feb-a05b-9b94848220bb",
                          ListOptionsEncoder.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_TIER, String.class,
                                                                     option));
             assertTrue(option.hasFilters(AccountListOptions.TAG_FILTER_BY_STATUS));
@@ -70,26 +67,25 @@ public class TestAccountListOptions {
             assertTrue(option.hasFilters(AccountListOptions.TAG_FILTER_BY_STATUS));
             assertTrue(option.hasFilter(AccountListOptions.TAG_FILTER_BY_STATUS, FilterOperator.IN));
             assertNotNull(option.getStatusFilters());
-            assertEquals(Arrays.asList(AccountStatus.getDefault(), AccountStatus.getDefault()),
+            assertEquals(Arrays.asList(AccountStatus.getDefault()),
                          ListOptionsEncoder.encodeSingleInFilter(AccountListOptions.TAG_FILTER_BY_STATUS, List.class,
                                                                  option));
             assertTrue(option.hasFilters(AccountListOptions.TAG_FILTER_BY_STATUS));
             assertTrue(option.hasFilter(AccountListOptions.TAG_FILTER_BY_STATUS, FilterOperator.NOT_IN));
             assertNotNull(option.getStatusFilters());
-            assertEquals(Arrays.asList(AccountStatus.getDefault(), AccountStatus.getDefault(),
-                                       AccountStatus.getDefault(), AccountStatus.getDefault()),
+            assertEquals(Arrays.asList(AccountStatus.getDefault(), AccountStatus.getDefault()),
                          ListOptionsEncoder.encodeSingleNotInFilter(AccountListOptions.TAG_FILTER_BY_STATUS, List.class,
                                                                     option));
             assertTrue(option.hasFilters(AccountListOptions.TAG_FILTER_BY_END_MARKET));
             assertTrue(option.hasFilter(AccountListOptions.TAG_FILTER_BY_END_MARKET, FilterOperator.EQUAL));
             assertNotNull(option.getEndMarketFilters());
-            assertEquals("d7133e0c-622b-4ee1-a7e0-032e829a24eb",
+            assertEquals("7f1637d9-08c0-4d3f-9a5d-8953f582729c",
                          ListOptionsEncoder.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_END_MARKET,
                                                                     String.class, option));
             assertTrue(option.hasFilters(AccountListOptions.TAG_FILTER_BY_COUNTRY));
             assertTrue(option.hasFilter(AccountListOptions.TAG_FILTER_BY_COUNTRY, FilterOperator.LIKE));
             assertNotNull(option.getCountryFilters());
-            assertEquals("5b2c11f7-ff87-49ce-8cad-f6cdc56c3021",
+            assertEquals("d291eb69-5bab-4b38-a369-3bc76ba7375b",
                          ListOptionsEncoder.encodeSingleLikeFilter(AccountListOptions.TAG_FILTER_BY_COUNTRY,
                                                                    String.class, option));
         } catch (Exception exception) {
@@ -104,13 +100,13 @@ public class TestAccountListOptions {
     @Test
     public void testHashCode() {
         try {
-            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(-20), Long.valueOf(-123),
+            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(-25), Long.valueOf(74),
                                                                             Order.getDefault(),
-                                                                            "e1f4c835-28c4-4e6c-b757-2c894df399c7",
+                                                                            "1605bb1a-d90a-48ba-8d89-accbb190abce",
                                                                             null, null);
-            AccountListOptions accountlistoptions2 = new AccountListOptions(Integer.valueOf(-20), Long.valueOf(-123),
+            AccountListOptions accountlistoptions2 = new AccountListOptions(Integer.valueOf(-25), Long.valueOf(74),
                                                                             Order.getDefault(),
-                                                                            "e1f4c835-28c4-4e6c-b757-2c894df399c7",
+                                                                            "1605bb1a-d90a-48ba-8d89-accbb190abce",
                                                                             null, null);
             assertNotNull(accountlistoptions1);
             assertNotNull(accountlistoptions2);
@@ -133,17 +129,17 @@ public class TestAccountListOptions {
     @Test
     public void testEquals() {
         try {
-            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(-26), Long.valueOf(-55),
+            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(49), Long.valueOf(19),
                                                                             Order.getDefault(),
-                                                                            "1163841d-7693-4e40-b4e0-6a1d069bc98e",
+                                                                            "f695006b-bf50-4823-bb8b-849947e5e292",
                                                                             null, null);
-            AccountListOptions accountlistoptions2 = new AccountListOptions(Integer.valueOf(-26), Long.valueOf(-55),
+            AccountListOptions accountlistoptions2 = new AccountListOptions(Integer.valueOf(49), Long.valueOf(19),
                                                                             Order.getDefault(),
-                                                                            "1163841d-7693-4e40-b4e0-6a1d069bc98e",
+                                                                            "f695006b-bf50-4823-bb8b-849947e5e292",
                                                                             null, null);
-            AccountListOptions accountlistoptions3 = new AccountListOptions(Integer.valueOf(-56), Long.valueOf(-108),
+            AccountListOptions accountlistoptions3 = new AccountListOptions(Integer.valueOf(6), Long.valueOf(-127),
                                                                             Order.getDefault(),
-                                                                            "1ba302a2-0ddc-43a5-a4e2-f945f47e5f8e",
+                                                                            "89139428-8910-44f0-b31a-325975dd0124",
                                                                             null, null);
             assertNotNull(accountlistoptions1);
             assertNotNull(accountlistoptions2);
