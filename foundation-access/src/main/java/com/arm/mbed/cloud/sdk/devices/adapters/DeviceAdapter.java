@@ -14,6 +14,7 @@ import com.arm.mbed.cloud.sdk.devices.model.DeviceState;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPutRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroupManipulation;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DevicePage;
 import java.util.List;
 
@@ -33,48 +34,20 @@ public final class DeviceAdapter {
     }
 
     /**
-     * Maps a device data into a device.
+     * Maps a device into a device group manipulation.
      * 
      * @param toBeMapped
-     *            a device data.
-     * @return mapped a device
+     *            a device.
+     * @return mapped a device group manipulation
      */
     @Internal
-    public static Device map(DeviceData toBeMapped) {
+    public static DeviceGroupManipulation map(Device toBeMapped) {
         if (toBeMapped == null) {
             return null;
         }
-        final Device device = new Device(toBeMapped.getAccountId(),
-                                         TranslationUtils.toDate(toBeMapped.getBootstrappedTimestamp()),
-                                         TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                         translateToDeviceDeployedState(toBeMapped.getDeployedState()),
-                                         toBeMapped.getEndpointName(),
-                                         TranslationUtils.toDate(toBeMapped.getEnrolmentListTimestamp()),
-                                         toBeMapped.getFirmwareChecksum(),
-                                         TranslationUtils.toDate(toBeMapped.getManifestTimestamp()),
-                                         TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        device.setAutoUpdate(TranslationUtils.toBool(toBeMapped.isAutoUpdate()));
-        device.setBootstrapExpirationDate(TranslationUtils.toDate(toBeMapped.getBootstrapExpirationDate()));
-        device.setCaId(toBeMapped.getCaId());
-        device.setConnectorExpirationDate(TranslationUtils.toDate(toBeMapped.getConnectorExpirationDate()));
-        device.setCustomAttributes(toBeMapped.getCustomAttributes());
-        device.setDeployment(toBeMapped.getDeployment());
-        device.setDescription(toBeMapped.getDescription());
-        device.setDeviceClass(toBeMapped.getDeviceClass());
-        device.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
-        device.setDeviceKey(toBeMapped.getDeviceKey());
-        device.setEndpointType(toBeMapped.getEndpointType());
-        device.setHostGateway(toBeMapped.getHostGateway());
-        device.setId(toBeMapped.getId());
-        device.setIssuerFingerprint(toBeMapped.getIssuerFingerprint());
-        device.setManifest(toBeMapped.getManifest());
-        device.setMechanism(translateToDeviceMechanism(toBeMapped.getMechanism()));
-        device.setMechanismUrl(toBeMapped.getMechanismUrl());
-        device.setName(toBeMapped.getName());
-        device.setSerialNumber(toBeMapped.getSerialNumber());
-        device.setState(translateToDeviceState(toBeMapped.getState()));
-        device.setVendorId(toBeMapped.getVendorId());
-        return device;
+        final DeviceGroupManipulation deviceGroupManipulation = new DeviceGroupManipulation();
+        // No field equivalent to deviceId in DeviceGroupManipulation was found in Device
+        return deviceGroupManipulation;
     }
 
     /**

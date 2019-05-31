@@ -28,6 +28,8 @@ import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDenialListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEventsDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListDao;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceGroupDao;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceListDao;
 import com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignDeviceMetadataDao;
 import com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsDao;
@@ -472,6 +474,30 @@ public class DaoFactory implements Cloneable {
     @SuppressWarnings("resource")
     public DeviceEventsListDao getDeviceEventsListDao() throws MbedCloudException {
         return new DeviceEventsListDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a device group dao.
+     * 
+     * @return a device group dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public DeviceGroupDao getDeviceGroupDao() throws MbedCloudException {
+        return new DeviceGroupDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a device group list dao.
+     * 
+     * @return a device group list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public DeviceGroupListDao getDeviceGroupListDao() throws MbedCloudException {
+        return new DeviceGroupListDao().configureAndGet(context);
     }
 
     /**

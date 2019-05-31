@@ -839,7 +839,135 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // DevicePage response = api.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter);
+        String accountIdEq = null;
+        String accountIdNeq = null;
+        String accountIdIn = null;
+        String accountIdNin = null;
+        Boolean autoUpdateEq = null;
+        Boolean autoUpdateNeq = null;
+        String bootstrapExpirationDateIn = null;
+        String bootstrapExpirationDateNin = null;
+        LocalDate bootstrapExpirationDateLte = null;
+        LocalDate bootstrapExpirationDateGte = null;
+        String bootstrappedTimestampIn = null;
+        String bootstrappedTimestampNin = null;
+        DateTime bootstrappedTimestampLte = null;
+        DateTime bootstrappedTimestampGte = null;
+        String caIdEq = null;
+        String caIdNeq = null;
+        String caIdIn = null;
+        String caIdNin = null;
+        String connectorExpirationDateIn = null;
+        String connectorExpirationDateNin = null;
+        LocalDate connectorExpirationDateLte = null;
+        LocalDate connectorExpirationDateGte = null;
+        String createdAtIn = null;
+        String createdAtNin = null;
+        DateTime createdAtLte = null;
+        DateTime createdAtGte = null;
+        String deployedStateEq = null;
+        String deployedStateNeq = null;
+        String deployedStateIn = null;
+        String deployedStateNin = null;
+        String deploymentEq = null;
+        String deploymentNeq = null;
+        String deploymentIn = null;
+        String deploymentNin = null;
+        String descriptionEq = null;
+        String descriptionNeq = null;
+        String descriptionIn = null;
+        String descriptionNin = null;
+        String deviceClassEq = null;
+        String deviceClassNeq = null;
+        String deviceClassIn = null;
+        String deviceClassNin = null;
+        Integer deviceExecutionModeEq = null;
+        Integer deviceExecutionModeNeq = null;
+        String deviceExecutionModeIn = null;
+        String deviceExecutionModeNin = null;
+        String deviceKeyEq = null;
+        String deviceKeyNeq = null;
+        String deviceKeyIn = null;
+        String deviceKeyNin = null;
+        String endpointNameEq = null;
+        String endpointNameNeq = null;
+        String endpointNameIn = null;
+        String endpointNameNin = null;
+        String endpointTypeEq = null;
+        String endpointTypeNeq = null;
+        String endpointTypeIn = null;
+        String endpointTypeNin = null;
+        String enrolmentListTimestampIn = null;
+        String enrolmentListTimestampNin = null;
+        DateTime enrolmentListTimestampLte = null;
+        DateTime enrolmentListTimestampGte = null;
+        String firmwareChecksumEq = null;
+        String firmwareChecksumNeq = null;
+        String firmwareChecksumIn = null;
+        String firmwareChecksumNin = null;
+        String hostGatewayEq = null;
+        String hostGatewayNeq = null;
+        String hostGatewayIn = null;
+        String hostGatewayNin = null;
+        String idEq = null;
+        String idNeq = null;
+        String idIn = null;
+        String idNin = null;
+        String manifestEq = null;
+        String manifestNeq = null;
+        String manifestIn = null;
+        String manifestNin = null;
+        String manifestTimestampIn = null;
+        String manifestTimestampNin = null;
+        DateTime manifestTimestampLte = null;
+        DateTime manifestTimestampGte = null;
+        String mechanismEq = null;
+        String mechanismNeq = null;
+        String mechanismIn = null;
+        String mechanismNin = null;
+        String mechanismUrlEq = null;
+        String mechanismUrlNeq = null;
+        String mechanismUrlIn = null;
+        String mechanismUrlNin = null;
+        String nameEq = null;
+        String nameNeq = null;
+        String nameIn = null;
+        String nameNin = null;
+        String serialNumberEq = null;
+        String serialNumberNeq = null;
+        String serialNumberIn = null;
+        String serialNumberNin = null;
+        String stateEq = null;
+        String stateNeq = null;
+        String stateIn = null;
+        String stateNin = null;
+        String updatedAtIn = null;
+        String updatedAtNin = null;
+        DateTime updatedAtLte = null;
+        DateTime updatedAtGte = null;
+        String vendorIdEq = null;
+        String vendorIdNeq = null;
+        String vendorIdIn = null;
+        String vendorIdNin = null;
+        // DevicePage response = api.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter,
+        // accountIdEq, accountIdNeq, accountIdIn, accountIdNin, autoUpdateEq, autoUpdateNeq, bootstrapExpirationDateIn,
+        // bootstrapExpirationDateNin, bootstrapExpirationDateLte, bootstrapExpirationDateGte, bootstrappedTimestampIn,
+        // bootstrappedTimestampNin, bootstrappedTimestampLte, bootstrappedTimestampGte, caIdEq, caIdNeq, caIdIn,
+        // caIdNin, connectorExpirationDateIn, connectorExpirationDateNin, connectorExpirationDateLte,
+        // connectorExpirationDateGte, createdAtIn, createdAtNin, createdAtLte, createdAtGte, deployedStateEq,
+        // deployedStateNeq, deployedStateIn, deployedStateNin, deploymentEq, deploymentNeq, deploymentIn,
+        // deploymentNin, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, deviceClassEq, deviceClassNeq,
+        // deviceClassIn, deviceClassNin, deviceExecutionModeEq, deviceExecutionModeNeq, deviceExecutionModeIn,
+        // deviceExecutionModeNin, deviceKeyEq, deviceKeyNeq, deviceKeyIn, deviceKeyNin, endpointNameEq,
+        // endpointNameNeq, endpointNameIn, endpointNameNin, endpointTypeEq, endpointTypeNeq, endpointTypeIn,
+        // endpointTypeNin, enrolmentListTimestampIn, enrolmentListTimestampNin, enrolmentListTimestampLte,
+        // enrolmentListTimestampGte, firmwareChecksumEq, firmwareChecksumNeq, firmwareChecksumIn, firmwareChecksumNin,
+        // hostGatewayEq, hostGatewayNeq, hostGatewayIn, hostGatewayNin, idEq, idNeq, idIn, idNin, manifestEq,
+        // manifestNeq, manifestIn, manifestNin, manifestTimestampIn, manifestTimestampNin, manifestTimestampLte,
+        // manifestTimestampGte, mechanismEq, mechanismNeq, mechanismIn, mechanismNin, mechanismUrlEq, mechanismUrlNeq,
+        // mechanismUrlIn, mechanismUrlNin, nameEq, nameNeq, nameIn, nameNin, serialNumberEq, serialNumberNeq,
+        // serialNumberIn, serialNumberNin, stateEq, stateNeq, stateIn, stateNin, updatedAtIn, updatedAtNin,
+        // updatedAtLte, updatedAtGte, vendorIdEq, vendorIdNeq, vendorIdIn, vendorIdNin);
 
         // TODO: test validations
     }
