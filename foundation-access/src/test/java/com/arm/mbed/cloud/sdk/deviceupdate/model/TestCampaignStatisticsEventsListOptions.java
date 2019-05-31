@@ -19,10 +19,10 @@ public class TestCampaignStatisticsEventsListOptions {
     @Test
     public void testClone() {
         try {
-            CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions1 = new CampaignStatisticsEventsListOptions(Integer.valueOf(102),
-                                                                                                                               Long.valueOf(-75),
+            CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions1 = new CampaignStatisticsEventsListOptions(Integer.valueOf(-104),
+                                                                                                                               Long.valueOf(85),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "2f1e91ad-7e63-4a69-9db5-2da2a27a8839",
+                                                                                                                               "04ece316-466d-4297-bb41-c5ad3a9a3d2c",
                                                                                                                                null,
                                                                                                                                null);
             CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions2 = campaignstatisticseventslistoptions1.clone();
@@ -42,16 +42,16 @@ public class TestCampaignStatisticsEventsListOptions {
     @Test
     public void testHashCode() {
         try {
-            CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions1 = new CampaignStatisticsEventsListOptions(Integer.valueOf(29),
-                                                                                                                               Long.valueOf(-78),
+            CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions1 = new CampaignStatisticsEventsListOptions(Integer.valueOf(69),
+                                                                                                                               Long.valueOf(102),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "00e8bbac-260a-4369-a9cc-710aca170bfa",
+                                                                                                                               "4577a63d-4ff1-456c-97c1-940f70171aa6",
                                                                                                                                null,
                                                                                                                                null);
-            CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions2 = new CampaignStatisticsEventsListOptions(Integer.valueOf(29),
-                                                                                                                               Long.valueOf(-78),
+            CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions2 = new CampaignStatisticsEventsListOptions(Integer.valueOf(69),
+                                                                                                                               Long.valueOf(102),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "00e8bbac-260a-4369-a9cc-710aca170bfa",
+                                                                                                                               "4577a63d-4ff1-456c-97c1-940f70171aa6",
                                                                                                                                null,
                                                                                                                                null);
             assertNotNull(campaignstatisticseventslistoptions1);
@@ -76,22 +76,22 @@ public class TestCampaignStatisticsEventsListOptions {
     @Test
     public void testEquals() {
         try {
-            CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions1 = new CampaignStatisticsEventsListOptions(Integer.valueOf(-82),
-                                                                                                                               Long.valueOf(-49),
+            CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions1 = new CampaignStatisticsEventsListOptions(Integer.valueOf(126),
+                                                                                                                               Long.valueOf(71),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "7ee21439-3071-4343-bda5-3a4db8aceec3",
+                                                                                                                               "958a451b-93fd-4ca5-8a6e-8e383e4c0e9f",
                                                                                                                                null,
                                                                                                                                null);
-            CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions2 = new CampaignStatisticsEventsListOptions(Integer.valueOf(-82),
-                                                                                                                               Long.valueOf(-49),
+            CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions2 = new CampaignStatisticsEventsListOptions(Integer.valueOf(126),
+                                                                                                                               Long.valueOf(71),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "7ee21439-3071-4343-bda5-3a4db8aceec3",
+                                                                                                                               "958a451b-93fd-4ca5-8a6e-8e383e4c0e9f",
                                                                                                                                null,
                                                                                                                                null);
-            CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions3 = new CampaignStatisticsEventsListOptions(Integer.valueOf(-16),
-                                                                                                                               Long.valueOf(75),
+            CampaignStatisticsEventsListOptions campaignstatisticseventslistoptions3 = new CampaignStatisticsEventsListOptions(Integer.valueOf(92),
+                                                                                                                               Long.valueOf(54),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "b6951aff-4637-4a56-a126-3760fad96001",
+                                                                                                                               "d110d16e-b7bf-4536-a747-87140a439d4f",
                                                                                                                                null,
                                                                                                                                null);
             assertNotNull(campaignstatisticseventslistoptions1);
