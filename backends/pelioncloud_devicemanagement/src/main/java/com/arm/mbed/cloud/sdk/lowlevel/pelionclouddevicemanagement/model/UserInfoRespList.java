@@ -1,6 +1,6 @@
 /*
- * Mbed Cloud API
- * The full Mbed Cloud API
+ * Pelion Device Management API
+ * Pelion Device Management API build from the publicly defined API definitions.
  *
  * OpenAPI spec version: 3
  * 

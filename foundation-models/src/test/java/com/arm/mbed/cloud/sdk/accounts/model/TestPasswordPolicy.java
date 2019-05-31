@@ -36,8 +36,8 @@ public class TestPasswordPolicy {
     @Test
     public void testHashCode() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy(8);
-            PasswordPolicy passwordpolicy2 = new PasswordPolicy(8);
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy(104);
+            PasswordPolicy passwordpolicy2 = new PasswordPolicy(104);
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
             assertNotSame(passwordpolicy2, passwordpolicy1);
@@ -69,9 +69,9 @@ public class TestPasswordPolicy {
     @Test
     public void testEquals() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy(37);
-            PasswordPolicy passwordpolicy2 = new PasswordPolicy(37);
-            PasswordPolicy passwordpolicy3 = new PasswordPolicy(8);
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy(80);
+            PasswordPolicy passwordpolicy2 = new PasswordPolicy(80);
+            PasswordPolicy passwordpolicy3 = new PasswordPolicy(119);
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
             assertNotNull(passwordpolicy3);

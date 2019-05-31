@@ -21,10 +21,10 @@ public class TestSubtenantApiKeyListOptions {
     @Test
     public void testClone() {
         try {
-            SubtenantApiKeyListOptions subtenantapikeylistoptions1 = new SubtenantApiKeyListOptions(Integer.valueOf(-31),
-                                                                                                    Long.valueOf(116),
+            SubtenantApiKeyListOptions subtenantapikeylistoptions1 = new SubtenantApiKeyListOptions(Integer.valueOf(-51),
+                                                                                                    Long.valueOf(2),
                                                                                                     Order.getDefault(),
-                                                                                                    "0695c178-0eda-43cd-8f1c-1f4e74fed5b5",
+                                                                                                    "a51d2f39-2c3e-4805-87eb-2abf3fe1a785",
                                                                                                     null, null);
             SubtenantApiKeyListOptions subtenantapikeylistoptions2 = subtenantapikeylistoptions1.clone();
             assertNotNull(subtenantapikeylistoptions1);
@@ -43,19 +43,19 @@ public class TestSubtenantApiKeyListOptions {
     @Test
     public void testFilters() {
         try {
-            SubtenantApiKeyListOptions option = new SubtenantApiKeyListOptions().equalToOwner("eca4b362-054f-4a2b-aeb5-ccfa0ba848ea")
-                                                                                .equalToKey("656d9387-9317-4eb6-bb3c-134960b27d98");
+            SubtenantApiKeyListOptions option = new SubtenantApiKeyListOptions().equalToOwner("64afc50e-b41f-474b-902b-45ec2bb96f6b")
+                                                                                .equalToKey("7ffba558-54b1-497c-83e2-05325f368394");
             assertTrue(option.hasFilters());
             assertTrue(option.hasFilters(SubtenantApiKeyListOptions.TAG_FILTER_BY_OWNER));
             assertTrue(option.hasFilter(SubtenantApiKeyListOptions.TAG_FILTER_BY_OWNER, FilterOperator.EQUAL));
             assertNotNull(option.getOwnerFilters());
-            assertEquals("eca4b362-054f-4a2b-aeb5-ccfa0ba848ea",
+            assertEquals("64afc50e-b41f-474b-902b-45ec2bb96f6b",
                          ListOptionsEncoder.encodeSingleEqualFilter(SubtenantApiKeyListOptions.TAG_FILTER_BY_OWNER,
                                                                     String.class, option));
             assertTrue(option.hasFilters(SubtenantApiKeyListOptions.TAG_FILTER_BY_KEY));
             assertTrue(option.hasFilter(SubtenantApiKeyListOptions.TAG_FILTER_BY_KEY, FilterOperator.EQUAL));
             assertNotNull(option.getKeyFilters());
-            assertEquals("656d9387-9317-4eb6-bb3c-134960b27d98",
+            assertEquals("7ffba558-54b1-497c-83e2-05325f368394",
                          ListOptionsEncoder.encodeSingleEqualFilter(SubtenantApiKeyListOptions.TAG_FILTER_BY_KEY,
                                                                     String.class, option));
         } catch (Exception exception) {
@@ -70,15 +70,15 @@ public class TestSubtenantApiKeyListOptions {
     @Test
     public void testHashCode() {
         try {
-            SubtenantApiKeyListOptions subtenantapikeylistoptions1 = new SubtenantApiKeyListOptions(Integer.valueOf(39),
-                                                                                                    Long.valueOf(-109),
+            SubtenantApiKeyListOptions subtenantapikeylistoptions1 = new SubtenantApiKeyListOptions(Integer.valueOf(89),
+                                                                                                    Long.valueOf(77),
                                                                                                     Order.getDefault(),
-                                                                                                    "1cde782a-e816-4a00-b238-ca975e659453",
+                                                                                                    "d3d3a3f8-b93c-48c3-8e8e-602cff4b1aaa",
                                                                                                     null, null);
-            SubtenantApiKeyListOptions subtenantapikeylistoptions2 = new SubtenantApiKeyListOptions(Integer.valueOf(39),
-                                                                                                    Long.valueOf(-109),
+            SubtenantApiKeyListOptions subtenantapikeylistoptions2 = new SubtenantApiKeyListOptions(Integer.valueOf(89),
+                                                                                                    Long.valueOf(77),
                                                                                                     Order.getDefault(),
-                                                                                                    "1cde782a-e816-4a00-b238-ca975e659453",
+                                                                                                    "d3d3a3f8-b93c-48c3-8e8e-602cff4b1aaa",
                                                                                                     null, null);
             assertNotNull(subtenantapikeylistoptions1);
             assertNotNull(subtenantapikeylistoptions2);
@@ -101,20 +101,20 @@ public class TestSubtenantApiKeyListOptions {
     @Test
     public void testEquals() {
         try {
-            SubtenantApiKeyListOptions subtenantapikeylistoptions1 = new SubtenantApiKeyListOptions(Integer.valueOf(94),
-                                                                                                    Long.valueOf(57),
+            SubtenantApiKeyListOptions subtenantapikeylistoptions1 = new SubtenantApiKeyListOptions(Integer.valueOf(-108),
+                                                                                                    Long.valueOf(60),
                                                                                                     Order.getDefault(),
-                                                                                                    "fe8646c3-f443-485c-850f-466b94faf791",
+                                                                                                    "664a9655-a951-425b-8fa4-36687e120dec",
                                                                                                     null, null);
-            SubtenantApiKeyListOptions subtenantapikeylistoptions2 = new SubtenantApiKeyListOptions(Integer.valueOf(94),
-                                                                                                    Long.valueOf(57),
+            SubtenantApiKeyListOptions subtenantapikeylistoptions2 = new SubtenantApiKeyListOptions(Integer.valueOf(-108),
+                                                                                                    Long.valueOf(60),
                                                                                                     Order.getDefault(),
-                                                                                                    "fe8646c3-f443-485c-850f-466b94faf791",
+                                                                                                    "664a9655-a951-425b-8fa4-36687e120dec",
                                                                                                     null, null);
-            SubtenantApiKeyListOptions subtenantapikeylistoptions3 = new SubtenantApiKeyListOptions(Integer.valueOf(124),
-                                                                                                    Long.valueOf(-30),
+            SubtenantApiKeyListOptions subtenantapikeylistoptions3 = new SubtenantApiKeyListOptions(Integer.valueOf(-79),
+                                                                                                    Long.valueOf(58),
                                                                                                     Order.getDefault(),
-                                                                                                    "ae73bdfd-fcb1-4808-92c5-3f6b9348859a",
+                                                                                                    "a9bc68dc-70ea-4bb4-9fea-8dc7a3ed59b3",
                                                                                                     null, null);
             assertNotNull(subtenantapikeylistoptions1);
             assertNotNull(subtenantapikeylistoptions2);
