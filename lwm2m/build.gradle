@@ -38,7 +38,7 @@ repositories {
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.slf4j:slf4j-api:1.7.26'
-    api 'commons-codec:commons-codec:1.9'
+    api 'commons-codec:commons-codec:1.12'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
