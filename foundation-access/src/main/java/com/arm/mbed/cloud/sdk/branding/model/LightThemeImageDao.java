@@ -86,10 +86,14 @@ public class LightThemeImageDao extends AbstractLightThemeImageDao {
 
     /**
      * Executes create.
+     * <p>
+     * UNSUPPORTED
      * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
+     * @throws NotImplementedException
+     *             unsupported method
      */
     @Override
     @NotImplemented
@@ -100,12 +104,17 @@ public class LightThemeImageDao extends AbstractLightThemeImageDao {
 
     /**
      * Executes create.
+     * <p>
+     * UNSUPPORTED
      * 
      * @param modelToCreate
      *            an sdk model.
+     * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
+     * @throws NotImplementedException
+     *             unsupported method
      */
     @Override
     @NotImplemented
@@ -118,35 +127,26 @@ public class LightThemeImageDao extends AbstractLightThemeImageDao {
      * Executes delete.
      *
      * @param id
-     *            a string.
+     *            the image Id.
      * @throws MbedCloudException
-     *             if an error occurs during the process.
-     * @throws java.lang.UnsupportedOperationException
      *             if an error occurs during the process.
      */
     @Override
-    @NotImplemented
-    public void delete(String id) throws MbedCloudException, UnsupportedOperationException, NotImplementedException {
-        // TODO Auto-generated method stub.;
-        throw new NotImplementedException();
+    public void delete(String id) throws MbedCloudException {
+        delete(LightThemeImageReference.getValue(id));
     }
 
     /**
      * Executes read.
      *
      * @param id
-     *            a string.
-     * @return something
+     *            the image Id.
+     * @return the corresponding image.
      * @throws MbedCloudException
-     *             if an error occurs during the process.
-     * @throws java.lang.UnsupportedOperationException
      *             if an error occurs during the process.
      */
     @Override
-    @NotImplemented
-    public LightThemeImage read(String id) throws MbedCloudException, UnsupportedOperationException,
-                                           NotImplementedException {
-        // TODO Auto-generated method stub.;
-        throw new NotImplementedException();
+    public LightThemeImage read(String id) throws MbedCloudException {
+        return read(LightThemeImageReference.getValue(id));
     }
 }

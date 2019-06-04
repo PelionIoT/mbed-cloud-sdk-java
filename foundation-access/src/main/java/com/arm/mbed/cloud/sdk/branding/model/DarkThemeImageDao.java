@@ -86,31 +86,37 @@ public class DarkThemeImageDao extends AbstractDarkThemeImageDao {
 
     /**
      * Executes create.
+     * <p>
+     * UNSUPPORTED
      * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
+     * @throws NotImplementedException
+     *             unsupported method
      */
     @Override
     @NotImplemented
     public DarkThemeImage create() throws MbedCloudException, NotImplementedException {
-        // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
 
     /**
      * Executes create.
+     * <p>
+     * UNSUPPORTED
      * 
      * @param modelToCreate
      *            an sdk model.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
+     * @throws NotImplementedException
+     *             unsupported method
      */
     @Override
     @NotImplemented
     public DarkThemeImage create(DarkThemeImage modelToCreate) throws MbedCloudException, NotImplementedException {
-        // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
 
@@ -118,35 +124,26 @@ public class DarkThemeImageDao extends AbstractDarkThemeImageDao {
      * Executes delete.
      *
      * @param id
-     *            a string.
+     *            the image Id.
      * @throws MbedCloudException
-     *             if an error occurs during the process.
-     * @throws java.lang.UnsupportedOperationException
      *             if an error occurs during the process.
      */
     @Override
-    @NotImplemented
-    public void delete(String id) throws MbedCloudException, UnsupportedOperationException, NotImplementedException {
-        // TODO Auto-generated method stub.;
-        throw new NotImplementedException();
+    public void delete(String id) throws MbedCloudException {
+        delete(DarkThemeImageReference.getValue(id));
     }
 
     /**
      * Executes read.
      *
      * @param id
-     *            a string.
-     * @return something
+     *            the image Id.
+     * @return the corresponding image.
      * @throws MbedCloudException
-     *             if an error occurs during the process.
-     * @throws java.lang.UnsupportedOperationException
      *             if an error occurs during the process.
      */
     @Override
-    @NotImplemented
-    public DarkThemeImage read(String id) throws MbedCloudException, UnsupportedOperationException,
-                                          NotImplementedException {
-        // TODO Auto-generated method stub.;
-        throw new NotImplementedException();
+    public DarkThemeImage read(String id) throws MbedCloudException {
+        return read(DarkThemeImageReference.getValue(id));
     }
 }

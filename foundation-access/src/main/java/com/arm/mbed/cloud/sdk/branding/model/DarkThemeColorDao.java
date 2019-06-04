@@ -86,7 +86,7 @@ public class DarkThemeColorDao extends AbstractDarkThemeColorDao {
      * Executes delete.
      *
      * @param id
-     *            a string.
+     *            the color Id.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -99,7 +99,7 @@ public class DarkThemeColorDao extends AbstractDarkThemeColorDao {
      * Executes read.
      *
      * @param id
-     *            a string.
+     *            the color Id.
      * @return the corresponding colour.
      * @throws MbedCloudException
      *             if an error occurs during the process.
