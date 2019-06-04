@@ -487,10 +487,15 @@ public class ValueGenerator {
             // FIXME Hack to avoid the stack overflow
             final String transformRegex = regex.replace("\\w", "[a-zA-Z1-9_]").replaceAll("(\\[.*)\\[(.*)\\](.*\\])",
                                                                                           "$1$2$3");
-            final Generex generex = new Generex(transformRegex);
-            final String randomString = generex.random();
-            generatedStringStore.put(regex, randomString);
-            return randomString;
+            try {
+                final Generex generex = new Generex(transformRegex);
+
+                final String randomString = generex.random();
+                generatedStringStore.put(regex, randomString);
+                return randomString;
+            } catch (IllegalArgumentException exception) {
+                throw new IllegalArgumentException("Problem with regex: " + transformRegex, exception);
+            }
         }
     }
 

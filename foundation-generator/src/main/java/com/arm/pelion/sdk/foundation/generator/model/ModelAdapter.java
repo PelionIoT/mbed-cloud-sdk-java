@@ -364,6 +364,21 @@ public class ModelAdapter extends Model {
             }
         }
 
+        private static String generateMappingMethodForOther(String fullName) {
+            if (fullName == null) {
+                return null;
+            }
+            return Utils.combineNames(false, FUNCTION_NAME_MAP, "to", fullName.replace(".", "_"));
+        }
+
+        public static String generateMappingMethodForOther(Model to) {
+            return generateMappingMethodForOther(to == null ? null : to.getFullName());
+        }
+
+        public static String generateMappingMethodForOther(TypeParameter toType) {
+            return generateMappingMethodForOther(toType == null ? null : toType.getFullyQualifiedName());
+        }
+
         @SuppressWarnings("incomplete-switch")
         private void addBasicMappingMethods(ModelAdapter adapter, Model from, Model to, Renames renames,
                                             final TypeParameter fromType, boolean addReverseGetMapper) {
@@ -378,6 +393,9 @@ public class ModelAdapter extends Model {
                     break;
                 case UPDATE:
                     functionName = isFromModel ? FUNCTION_NAME_MAP_UPDATE : FUNCTION_NAME_MAP;
+                    break;
+                case OTHER:
+                    functionName = generateMappingMethodForOther(to);
                     break;
             }
             final MethodMapper mapping = new MethodMapper(functionName, action, true, isFromModel ? from : to,

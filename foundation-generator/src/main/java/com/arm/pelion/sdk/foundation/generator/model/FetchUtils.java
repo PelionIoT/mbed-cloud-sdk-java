@@ -8,7 +8,7 @@ public class FetchUtils {
 
     // This is to ensure that if group id is null or incorrect the correct model is fetched
     public static Model getLatestModelDefinition(Model model, ModelAdapterFetcher fetcher) {
-        if (fetcher == null) {
+        if (fetcher == null || model == null) {
             return model;
         }
         try {

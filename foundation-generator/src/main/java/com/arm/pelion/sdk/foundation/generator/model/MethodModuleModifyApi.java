@@ -32,7 +32,8 @@ public class MethodModuleModifyApi extends MethodModuleCloudApi {
                                       boolean isExternalParameter,
                                       List<Parameter> unusedParameters) throws TranslationException {
         if (type.isLowLevelModel()) {
-            dealWithModifiedModel(this, type, isForCreation, parameterName, builder, callElements, unusedParameters);
+            dealWithModifiedModel(this, type, isForCreation, false, parameterName, builder, callElements,
+                                  unusedParameters);
         } else {
             super.translateParameter(parameterName, initialParameterName, type, fromType, builder, callElements,
                                      isExternalParameter, unusedParameters);
@@ -40,20 +41,27 @@ public class MethodModuleModifyApi extends MethodModuleCloudApi {
     }
 
     public static void dealWithModifiedModel(MethodModuleCloudApi method, TypeParameter type, boolean isForCreation,
-                                             String parameterName, StringBuilder builder, List<Object> callElements,
+                                             boolean isOther, String parameterName, StringBuilder builder,
+                                             List<Object> callElements,
                                              List<Parameter> unusedParameters) throws TranslationException {
-        translateModifiedModel(method.getAdapter(method.currentModel), isForCreation, parameterName, builder,
-                               callElements);
+        translateModifiedModel(method.getAdapter(method.currentModel), type, isForCreation, isOther, parameterName,
+                               builder, callElements);
         if (!unusedParameters.isEmpty()) {
             method.addUnusedParametersToBodyParameter(type, unusedParameters, builder, callElements);
         }
     }
 
-    private static void translateModifiedModel(Object adapter, boolean isForCreation, String parameterName,
-                                               StringBuilder builder, List<Object> callElements) {
+    private static void translateModifiedModel(Object adapter, TypeParameter type, boolean isForCreation,
+                                               boolean isOther, String parameterName, StringBuilder builder,
+                                               List<Object> callElements) {
         builder.append("$T.$L($L)");
         callElements.add(adapter);
-        callElements.add(isForCreation ? ModelAdapter.FUNCTION_NAME_MAP_ADD : ModelAdapter.FUNCTION_NAME_MAP_UPDATE);
+        if (isOther) {
+            callElements.add(ModelAdapter.Conversion.generateMappingMethodForOther(type));
+        } else {
+            callElements.add(isForCreation ? ModelAdapter.FUNCTION_NAME_MAP_ADD
+                                           : ModelAdapter.FUNCTION_NAME_MAP_UPDATE);
+        }
         callElements.add(parameterName);
     }
 }
