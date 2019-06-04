@@ -6,6 +6,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantUserInterfaceConfigurationColorsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantUserInterfaceConfigurationImagesApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.UserInterfaceConfigurationColorsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.UserInterfaceConfigurationImagesApi;
@@ -23,16 +24,22 @@ public class BrandingEndpoints extends AbstractEndpoints {
     private final UserInterfaceConfigurationColorsApi userInterfaceConfigurationColorsApi;
 
     /**
-     * Low level endpoints for tenant user interface configuration images apis.
-     */
-    @Internal
-    private final TenantUserInterfaceConfigurationImagesApi tenantUserInterfaceConfigurationImagesApi;
-
-    /**
      * Low level endpoints for user interface configuration images apis.
      */
     @Internal
     private final UserInterfaceConfigurationImagesApi userInterfaceConfigurationImagesApi;
+
+    /**
+     * Low level endpoints for tenant user interface configuration colors apis.
+     */
+    @Internal
+    private final TenantUserInterfaceConfigurationColorsApi tenantUserInterfaceConfigurationColorsApi;
+
+    /**
+     * Low level endpoints for tenant user interface configuration images apis.
+     */
+    @Internal
+    private final TenantUserInterfaceConfigurationImagesApi tenantUserInterfaceConfigurationImagesApi;
 
     /**
      * Constructor.
@@ -43,18 +50,9 @@ public class BrandingEndpoints extends AbstractEndpoints {
     public BrandingEndpoints(ServiceRegistry services) {
         super(services);
         this.userInterfaceConfigurationColorsApi = initialiseService(UserInterfaceConfigurationColorsApi.class);
-        this.tenantUserInterfaceConfigurationImagesApi = initialiseService(TenantUserInterfaceConfigurationImagesApi.class);
         this.userInterfaceConfigurationImagesApi = initialiseService(UserInterfaceConfigurationImagesApi.class);
-    }
-
-    /**
-     * Gets low level endpoints for tenant user interface configuration images apis.
-     * 
-     * @return tenantUserInterfaceConfigurationImagesApi
-     */
-    @Internal
-    public TenantUserInterfaceConfigurationImagesApi getTenantUserInterfaceConfigurationImagesApi() {
-        return tenantUserInterfaceConfigurationImagesApi;
+        this.tenantUserInterfaceConfigurationColorsApi = initialiseService(TenantUserInterfaceConfigurationColorsApi.class);
+        this.tenantUserInterfaceConfigurationImagesApi = initialiseService(TenantUserInterfaceConfigurationImagesApi.class);
     }
 
     /**
@@ -75,6 +73,26 @@ public class BrandingEndpoints extends AbstractEndpoints {
     @Internal
     public UserInterfaceConfigurationColorsApi getUserInterfaceConfigurationColorsApi() {
         return userInterfaceConfigurationColorsApi;
+    }
+
+    /**
+     * Gets low level endpoints for tenant user interface configuration colors apis.
+     * 
+     * @return tenantUserInterfaceConfigurationColorsApi
+     */
+    @Internal
+    public TenantUserInterfaceConfigurationColorsApi getTenantUserInterfaceConfigurationColorsApi() {
+        return tenantUserInterfaceConfigurationColorsApi;
+    }
+
+    /**
+     * Gets low level endpoints for tenant user interface configuration images apis.
+     * 
+     * @return tenantUserInterfaceConfigurationImagesApi
+     */
+    @Internal
+    public TenantUserInterfaceConfigurationImagesApi getTenantUserInterfaceConfigurationImagesApi() {
+        return tenantUserInterfaceConfigurationImagesApi;
     }
 
     /**

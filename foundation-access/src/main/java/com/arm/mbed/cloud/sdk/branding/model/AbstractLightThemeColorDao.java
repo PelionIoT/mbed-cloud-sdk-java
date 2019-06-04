@@ -82,13 +82,12 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.branding.model.LightThemeColorDao#delete(com.arm.mbed.cloud.sdk.branding.model.LightThemeColor)}
      * 
-     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
-    public LightThemeColor delete() throws MbedCloudException {
-        return delete(getModel());
+    public void delete() throws MbedCloudException {
+        delete(getModel());
     }
 
     /**
@@ -100,12 +99,11 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
      * 
      * @param reference
      *            Color name.
-     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public LightThemeColor delete(@NonNull LightThemeColorReference reference) throws MbedCloudException {
-        return setAndGetModel(((Branding) getModuleOrThrow()).deleteLightThemeColor(reference));
+    public void delete(@NonNull LightThemeColorReference reference) throws MbedCloudException {
+        ((Branding) getModuleOrThrow()).deleteLightThemeColor(reference);
     }
 
     /**
@@ -117,13 +115,12 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
      * 
      * @param lightThemeColor
      *            a light theme color.
-     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
-    public LightThemeColor delete(@NonNull LightThemeColor lightThemeColor) throws MbedCloudException {
-        return setAndGetModel(((Branding) getModuleOrThrow()).deleteLightThemeColor(lightThemeColor));
+    public void delete(@NonNull LightThemeColor lightThemeColor) throws MbedCloudException {
+        ((Branding) getModuleOrThrow()).deleteLightThemeColor(lightThemeColor);
     }
 
     /**

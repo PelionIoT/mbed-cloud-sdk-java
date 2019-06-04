@@ -21,10 +21,10 @@ public class TestTrustedCertificateListOptions {
     @Test
     public void testClone() {
         try {
-            TrustedCertificateListOptions trustedcertificatelistoptions1 = new TrustedCertificateListOptions(Integer.valueOf(-122),
-                                                                                                             Long.valueOf(73),
+            TrustedCertificateListOptions trustedcertificatelistoptions1 = new TrustedCertificateListOptions(Integer.valueOf(38),
+                                                                                                             Long.valueOf(-70),
                                                                                                              Order.getDefault(),
-                                                                                                             "55701b13-a997-47d6-9ad7-a005e7219b73",
+                                                                                                             "6ac1f271-829b-4556-a902-35a85532c2cd",
                                                                                                              null,
                                                                                                              null);
             TrustedCertificateListOptions trustedcertificatelistoptions2 = trustedcertificatelistoptions1.clone();
@@ -45,14 +45,14 @@ public class TestTrustedCertificateListOptions {
     public void testFilters() {
         try {
             TrustedCertificateListOptions option = new TrustedCertificateListOptions().equalToValid(Boolean.TRUE)
-                                                                                      .equalToName("da55f9b9-e7e1-4124-ba9f-9d7cbf251223")
+                                                                                      .equalToName("d4136631-c9a1-43a3-836f-37602bdb7c0b")
                                                                                       .equalToStatus(TrustedCertificateStatus.getDefault())
-                                                                                      .equalToDeviceExecutionMode(Integer.valueOf(41))
-                                                                                      .notEqualToDeviceExecutionMode(Integer.valueOf(98))
-                                                                                      .likeIssuer("66c62762-3f69-4afe-99bd-daef97d7cdbd")
+                                                                                      .equalToDeviceExecutionMode(Integer.valueOf(-111))
+                                                                                      .notEqualToDeviceExecutionMode(Integer.valueOf(-49))
+                                                                                      .likeIssuer("1c5f549c-653e-4e49-b892-ec35133598ad")
                                                                                       .equalToService(TrustedCertificateService.getDefault())
-                                                                                      .likeSubject("9261cfed-83c5-403a-97f1-7478355f9dd9")
-                                                                                      .equalToEnrollmentMode(Boolean.TRUE);
+                                                                                      .likeSubject("40d38010-8e28-49ed-8dfd-c2d3714e210f")
+                                                                                      .equalToEnrollmentMode(Boolean.FALSE);
             assertTrue(option.hasFilters());
             assertTrue(option.hasFilters(TrustedCertificateListOptions.TAG_FILTER_BY_VALID));
             assertTrue(option.hasFilter(TrustedCertificateListOptions.TAG_FILTER_BY_VALID, FilterOperator.EQUAL));
@@ -63,7 +63,7 @@ public class TestTrustedCertificateListOptions {
             assertTrue(option.hasFilters(TrustedCertificateListOptions.TAG_FILTER_BY_NAME));
             assertTrue(option.hasFilter(TrustedCertificateListOptions.TAG_FILTER_BY_NAME, FilterOperator.EQUAL));
             assertNotNull(option.getNameFilters());
-            assertEquals("da55f9b9-e7e1-4124-ba9f-9d7cbf251223",
+            assertEquals("d4136631-c9a1-43a3-836f-37602bdb7c0b",
                          ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_NAME,
                                                                     String.class, option));
             assertTrue(option.hasFilters(TrustedCertificateListOptions.TAG_FILTER_BY_STATUS));
@@ -76,20 +76,20 @@ public class TestTrustedCertificateListOptions {
             assertTrue(option.hasFilter(TrustedCertificateListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
                                         FilterOperator.EQUAL));
             assertNotNull(option.getDeviceExecutionModeFilters());
-            assertEquals(Integer.valueOf(41),
+            assertEquals(Integer.valueOf(-111),
                          ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
                                                                     Integer.class, option));
             assertTrue(option.hasFilters(TrustedCertificateListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE));
             assertTrue(option.hasFilter(TrustedCertificateListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
                                         FilterOperator.NOT_EQUAL));
             assertNotNull(option.getDeviceExecutionModeFilters());
-            assertEquals(Integer.valueOf(98),
+            assertEquals(Integer.valueOf(-49),
                          ListOptionsEncoder.encodeSingleNotEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
                                                                        Integer.class, option));
             assertTrue(option.hasFilters(TrustedCertificateListOptions.TAG_FILTER_BY_ISSUER));
             assertTrue(option.hasFilter(TrustedCertificateListOptions.TAG_FILTER_BY_ISSUER, FilterOperator.LIKE));
             assertNotNull(option.getIssuerFilters());
-            assertEquals("66c62762-3f69-4afe-99bd-daef97d7cdbd",
+            assertEquals("1c5f549c-653e-4e49-b892-ec35133598ad",
                          ListOptionsEncoder.encodeSingleLikeFilter(TrustedCertificateListOptions.TAG_FILTER_BY_ISSUER,
                                                                    String.class, option));
             assertTrue(option.hasFilters(TrustedCertificateListOptions.TAG_FILTER_BY_SERVICE));
@@ -101,14 +101,14 @@ public class TestTrustedCertificateListOptions {
             assertTrue(option.hasFilters(TrustedCertificateListOptions.TAG_FILTER_BY_SUBJECT));
             assertTrue(option.hasFilter(TrustedCertificateListOptions.TAG_FILTER_BY_SUBJECT, FilterOperator.LIKE));
             assertNotNull(option.getSubjectFilters());
-            assertEquals("9261cfed-83c5-403a-97f1-7478355f9dd9",
+            assertEquals("40d38010-8e28-49ed-8dfd-c2d3714e210f",
                          ListOptionsEncoder.encodeSingleLikeFilter(TrustedCertificateListOptions.TAG_FILTER_BY_SUBJECT,
                                                                    String.class, option));
             assertTrue(option.hasFilters(TrustedCertificateListOptions.TAG_FILTER_BY_ENROLLMENT_MODE));
             assertTrue(option.hasFilter(TrustedCertificateListOptions.TAG_FILTER_BY_ENROLLMENT_MODE,
                                         FilterOperator.EQUAL));
             assertNotNull(option.getEnrollmentModeFilters());
-            assertEquals(Boolean.TRUE,
+            assertEquals(Boolean.FALSE,
                          ListOptionsEncoder.encodeSingleEqualFilter(TrustedCertificateListOptions.TAG_FILTER_BY_ENROLLMENT_MODE,
                                                                     Boolean.class, option));
         } catch (Exception exception) {
@@ -123,16 +123,16 @@ public class TestTrustedCertificateListOptions {
     @Test
     public void testHashCode() {
         try {
-            TrustedCertificateListOptions trustedcertificatelistoptions1 = new TrustedCertificateListOptions(Integer.valueOf(15),
-                                                                                                             Long.valueOf(118),
+            TrustedCertificateListOptions trustedcertificatelistoptions1 = new TrustedCertificateListOptions(Integer.valueOf(98),
+                                                                                                             Long.valueOf(-5),
                                                                                                              Order.getDefault(),
-                                                                                                             "84ce846b-7a70-4bed-8e0a-dd4b08ed40b1",
+                                                                                                             "45fde581-72ac-4349-9b05-f8ec8568e3e9",
                                                                                                              null,
                                                                                                              null);
-            TrustedCertificateListOptions trustedcertificatelistoptions2 = new TrustedCertificateListOptions(Integer.valueOf(15),
-                                                                                                             Long.valueOf(118),
+            TrustedCertificateListOptions trustedcertificatelistoptions2 = new TrustedCertificateListOptions(Integer.valueOf(98),
+                                                                                                             Long.valueOf(-5),
                                                                                                              Order.getDefault(),
-                                                                                                             "84ce846b-7a70-4bed-8e0a-dd4b08ed40b1",
+                                                                                                             "45fde581-72ac-4349-9b05-f8ec8568e3e9",
                                                                                                              null,
                                                                                                              null);
             assertNotNull(trustedcertificatelistoptions1);
@@ -156,22 +156,22 @@ public class TestTrustedCertificateListOptions {
     @Test
     public void testEquals() {
         try {
-            TrustedCertificateListOptions trustedcertificatelistoptions1 = new TrustedCertificateListOptions(Integer.valueOf(-119),
-                                                                                                             Long.valueOf(116),
+            TrustedCertificateListOptions trustedcertificatelistoptions1 = new TrustedCertificateListOptions(Integer.valueOf(-48),
+                                                                                                             Long.valueOf(28),
                                                                                                              Order.getDefault(),
-                                                                                                             "5b693f36-1d2f-4fd4-bf6d-788a1e69bd29",
+                                                                                                             "9c3d64e1-0a6c-4307-bb25-b1ff6793d227",
                                                                                                              null,
                                                                                                              null);
-            TrustedCertificateListOptions trustedcertificatelistoptions2 = new TrustedCertificateListOptions(Integer.valueOf(-119),
-                                                                                                             Long.valueOf(116),
+            TrustedCertificateListOptions trustedcertificatelistoptions2 = new TrustedCertificateListOptions(Integer.valueOf(-48),
+                                                                                                             Long.valueOf(28),
                                                                                                              Order.getDefault(),
-                                                                                                             "5b693f36-1d2f-4fd4-bf6d-788a1e69bd29",
+                                                                                                             "9c3d64e1-0a6c-4307-bb25-b1ff6793d227",
                                                                                                              null,
                                                                                                              null);
-            TrustedCertificateListOptions trustedcertificatelistoptions3 = new TrustedCertificateListOptions(Integer.valueOf(49),
-                                                                                                             Long.valueOf(-90),
+            TrustedCertificateListOptions trustedcertificatelistoptions3 = new TrustedCertificateListOptions(Integer.valueOf(109),
+                                                                                                             Long.valueOf(-31),
                                                                                                              Order.getDefault(),
-                                                                                                             "0d7f51db-af2c-4167-9c72-4f96c9fd6e1d",
+                                                                                                             "d486cf38-c5af-4a03-94d2-5c9976daa5b5",
                                                                                                              null,
                                                                                                              null);
             assertNotNull(trustedcertificatelistoptions1);

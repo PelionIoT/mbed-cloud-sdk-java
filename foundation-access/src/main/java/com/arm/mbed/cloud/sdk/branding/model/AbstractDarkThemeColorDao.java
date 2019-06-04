@@ -82,13 +82,12 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.branding.model.DarkThemeColorDao#delete(com.arm.mbed.cloud.sdk.branding.model.DarkThemeColor)}
      * 
-     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
-    public DarkThemeColor delete() throws MbedCloudException {
-        return delete(getModel());
+    public void delete() throws MbedCloudException {
+        delete(getModel());
     }
 
     /**
@@ -100,12 +99,11 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
      * 
      * @param reference
      *            Color name.
-     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public DarkThemeColor delete(@NonNull DarkThemeColorReference reference) throws MbedCloudException {
-        return setAndGetModel(((Branding) getModuleOrThrow()).deleteDarkThemeColor(reference));
+    public void delete(@NonNull DarkThemeColorReference reference) throws MbedCloudException {
+        ((Branding) getModuleOrThrow()).deleteDarkThemeColor(reference);
     }
 
     /**
@@ -117,13 +115,12 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
      * 
      * @param darkThemeColor
      *            a dark theme color.
-     * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @Override
-    public DarkThemeColor delete(@NonNull DarkThemeColor darkThemeColor) throws MbedCloudException {
-        return setAndGetModel(((Branding) getModuleOrThrow()).deleteDarkThemeColor(darkThemeColor));
+    public void delete(@NonNull DarkThemeColor darkThemeColor) throws MbedCloudException {
+        ((Branding) getModuleOrThrow()).deleteDarkThemeColor(darkThemeColor);
     }
 
     /**
