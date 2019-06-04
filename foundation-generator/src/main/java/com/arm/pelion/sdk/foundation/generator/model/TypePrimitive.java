@@ -27,6 +27,8 @@ public class TypePrimitive {
                 return boolean.class;
             case "file":
                 return DataFile.class;
+            case "void":
+                return void.class;
             case "object":
                 return Object.class;
             case "filter":

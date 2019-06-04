@@ -116,7 +116,7 @@ public class ArtifactsTranslator {
             }
             if (!m.getReturnInformation().doesReturnItSelf()) {
                 if (CommonTranslator.isVoidType(m.getReturnInformation().getReturnType())) {
-                    returnModel = null;
+                    returnModel = new Model(Void.class);
                 } else if (CommonTranslator.isPrimitiveType(m.getReturnInformation().getReturnType())) {
                     logger.logError("Cannot generate adapter for " + m.getKey() + "/" + m.getId(),
                                     new IllegalArgumentException("Primitive return type is currently not supported"));
@@ -161,7 +161,20 @@ public class ArtifactsTranslator {
                                                        + m.getId() + "] was not found in the backends");
             }
             if (method.hasFromModels()) {
-                addReverseAdapterMethod(model, adapter, m, methodRenames, method);
+                if (m.isListMethod() || m.hasPaginatedResponse()) {
+                    // TODO shout, not handled
+                    throw new FoundationGeneratorException("The generator does not handle list method with model parameter such as "
+                                                           + m);
+                }
+                for (LowLevelAPIMethodArgument arg : method.getFromModels()) {
+                    try {
+                        adapter.addMethodAdapter(MethodTranslator.determineMethodAction(m), model,
+                                                 new Model(arg.determineClass()), false, false, methodRenames, null,
+                                                 null);
+                    } catch (ClassNotFoundException exception) {
+                        throw new FoundationGeneratorException("Failed generating adapter for " + model, exception);
+                    }
+                }
             }
             if (!m.getReturnInformation().doesReturnItSelf()) {
                 // This specifies that a different entity is returned. A mapping method to the corresponding adapter
@@ -203,24 +216,6 @@ public class ArtifactsTranslator {
             }
         }
         return adapter;
-    }
-
-    private static void addReverseAdapterMethod(Model model, ModelAdapter adapter, final Method m,
-                                                final Renames methodRenames,
-                                                final LowLevelAPIMethod method) throws FoundationGeneratorException {
-        if (m.isListMethod() || m.hasPaginatedResponse()) {
-            // TODO shout, not handled
-            throw new FoundationGeneratorException("The generator does not handle list method with model parameter such as "
-                                                   + m);
-        }
-        for (LowLevelAPIMethodArgument arg : method.getFromModels()) {
-            try {
-                adapter.addMethodAdapter(MethodTranslator.determineMethodAction(m), model,
-                                         new Model(arg.determineClass()), false, false, methodRenames, null, null);
-            } catch (ClassNotFoundException exception) {
-                throw new FoundationGeneratorException("Failed generating adapter for " + model, exception);
-            }
-        }
     }
 
     private static Renames translateRenames(List<Mapping> mapping) {
