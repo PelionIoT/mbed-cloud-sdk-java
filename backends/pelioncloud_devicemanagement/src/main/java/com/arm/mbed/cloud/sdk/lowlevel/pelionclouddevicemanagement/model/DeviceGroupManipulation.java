@@ -37,7 +37,7 @@ public class DeviceGroupManipulation implements Serializable {
      * 
      * @return deviceId
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", value = "")
+    @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "")
     public String getDeviceId() {
         return deviceId;
     }

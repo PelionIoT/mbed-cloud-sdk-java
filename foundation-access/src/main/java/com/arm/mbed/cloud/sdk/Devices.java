@@ -253,7 +253,10 @@ public class Devices extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi().groupMembersAdd(finalId, finalDeviceGroup.deviceId(finalDeviceId));
+                return endpoints.getDefaultApi()
+                                .groupMembersAdd(finalId,
+                                                 DeviceGroupAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(finalDeviceGroup)
+                                                                   .deviceId(finalDeviceId));
             }
         }, true);
     }
@@ -286,7 +289,9 @@ public class Devices extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi().groupMembersAdd(finalDeviceGroupId, finalDevice);
+                return endpoints.getDefaultApi()
+                                .groupMembersAdd(finalDeviceGroupId,
+                                                 DeviceAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(finalDevice));
             }
         }, true);
     }
@@ -2258,7 +2263,10 @@ public class Devices extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi().groupMembersRemove(finalId, finalDeviceGroup.deviceId(finalDeviceId));
+                return endpoints.getDefaultApi()
+                                .groupMembersRemove(finalId,
+                                                    DeviceGroupAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(finalDeviceGroup)
+                                                                      .deviceId(finalDeviceId));
             }
         }, true);
     }
@@ -2291,7 +2299,9 @@ public class Devices extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi().groupMembersRemove(finalDeviceGroupId, finalDevice);
+                return endpoints.getDefaultApi()
+                                .groupMembersRemove(finalDeviceGroupId,
+                                                    DeviceAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(finalDevice));
             }
         }, true);
     }

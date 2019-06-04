@@ -32,6 +32,29 @@ public final class TrustedCertificateAdapter {
     }
 
     /**
+     * Maps a trusted certificate into a trusted certificate req.
+     * 
+     * @param toBeMapped
+     *            a trusted certificate.
+     * @return mapped a trusted certificate req
+     */
+    @Internal
+    public static TrustedCertificateReq reverseMapAddRequest(TrustedCertificate toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final TrustedCertificateReq trustedCertificateReq = new TrustedCertificateReq();
+        trustedCertificateReq.setCertificate(toBeMapped.getCertificate());
+        trustedCertificateReq.setDescription(toBeMapped.getDescription());
+        trustedCertificateReq.setEnrollmentMode(Boolean.valueOf(toBeMapped.isEnrollmentMode()));
+        trustedCertificateReq.setName(toBeMapped.getName());
+        trustedCertificateReq.setService(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqServiceenum(toBeMapped.getService()));
+        // No field equivalent to signature in TrustedCertificateReq was found in TrustedCertificate
+        trustedCertificateReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqStatusenum(toBeMapped.getStatus()));
+        return trustedCertificateReq;
+    }
+
+    /**
      * Maps a trusted certificate resp into a trusted certificate.
      * 
      * @param toBeMapped
@@ -84,29 +107,6 @@ public final class TrustedCertificateAdapter {
                 return TrustedCertificateAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps a trusted certificate into a trusted certificate req.
-     * 
-     * @param toBeMapped
-     *            a trusted certificate.
-     * @return mapped a trusted certificate req
-     */
-    @Internal
-    public static TrustedCertificateReq reverseMapAddRequest(TrustedCertificate toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final TrustedCertificateReq trustedCertificateReq = new TrustedCertificateReq();
-        trustedCertificateReq.setCertificate(toBeMapped.getCertificate());
-        trustedCertificateReq.setDescription(toBeMapped.getDescription());
-        trustedCertificateReq.setEnrollmentMode(Boolean.valueOf(toBeMapped.isEnrollmentMode()));
-        trustedCertificateReq.setName(toBeMapped.getName());
-        trustedCertificateReq.setService(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqServiceenum(toBeMapped.getService()));
-        // No field equivalent to signature in TrustedCertificateReq was found in TrustedCertificate
-        trustedCertificateReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelTrustedcertificatereqStatusenum(toBeMapped.getStatus()));
-        return trustedCertificateReq;
     }
 
     /**

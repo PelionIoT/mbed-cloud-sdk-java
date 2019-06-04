@@ -30,7 +30,7 @@ public class TestCampaignStatisticsId {
             campaignstatisticsid = CampaignStatisticsId.getValue("info");
             assertNotNull(campaignstatisticsid);
             assertFalse(campaignstatisticsid.isDefault());
-            campaignstatisticsid = CampaignStatisticsId.getValue("8ceebfa9-a27d-4a0c-90bc-18337330d5f1");
+            campaignstatisticsid = CampaignStatisticsId.getValue("d28dfda3-2809-4a17-b6e8-b8b33b0d54fe");
             assertNotNull(campaignstatisticsid);
             assertTrue(campaignstatisticsid.isDefault());
         } catch (Exception exception) {

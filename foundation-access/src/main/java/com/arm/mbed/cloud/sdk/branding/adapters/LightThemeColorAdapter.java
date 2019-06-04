@@ -29,46 +29,6 @@ public final class LightThemeColorAdapter {
     }
 
     /**
-     * Maps a branding color into a light theme color.
-     * 
-     * @param toBeMapped
-     *            a branding color.
-     * @return mapped a light theme color
-     */
-    @Internal
-    public static LightThemeColor map(BrandingColor toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final LightThemeColor lightThemeColor = new LightThemeColor(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        lightThemeColor.setColor(toBeMapped.getColor());
-        lightThemeColor.setReference(translateToLightThemeColorReference(toBeMapped.getReference()));
-        return lightThemeColor;
-    }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<BrandingColor, LightThemeColor> getMapper() {
-        return new GenericAdapter.Mapper<BrandingColor, LightThemeColor>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public LightThemeColor map(BrandingColor toBeMapped) {
-                return LightThemeColorAdapter.map(toBeMapped);
-            }
-        };
-    }
-
-    /**
      * Maps a branding color list into a light theme color.
      * 
      * @param toBeMapped
@@ -170,6 +130,46 @@ public final class LightThemeColorAdapter {
             @Override
             public ListResponse<LightThemeColor> map(BrandingColorList toBeMapped) {
                 return LightThemeColorAdapter.mapList(toBeMapped);
+            }
+        };
+    }
+
+    /**
+     * Maps a branding color into a light theme color.
+     * 
+     * @param toBeMapped
+     *            a branding color.
+     * @return mapped a light theme color
+     */
+    @Internal
+    public static LightThemeColor map(BrandingColor toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final LightThemeColor lightThemeColor = new LightThemeColor(TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
+        lightThemeColor.setColor(toBeMapped.getColor());
+        lightThemeColor.setReference(translateToLightThemeColorReference(toBeMapped.getReference()));
+        return lightThemeColor;
+    }
+
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper
+     */
+    @Internal
+    public static GenericAdapter.Mapper<BrandingColor, LightThemeColor> getMapper() {
+        return new GenericAdapter.Mapper<BrandingColor, LightThemeColor>() {
+            /**
+             * Maps.
+             * 
+             * @param toBeMapped
+             *            model to be mapped.
+             * @return a mapped object
+             */
+            @Override
+            public LightThemeColor map(BrandingColor toBeMapped) {
+                return LightThemeColorAdapter.map(toBeMapped);
             }
         };
     }

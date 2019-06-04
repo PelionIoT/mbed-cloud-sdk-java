@@ -31,6 +31,26 @@ public final class SubtenantApiKeyAdapter {
     }
 
     /**
+     * Maps a subtenant api key into an api key info req.
+     * 
+     * @param toBeMapped
+     *            a subtenant api key.
+     * @return mapped an api key info req
+     */
+    @Internal
+    public static ApiKeyInfoReq reverseMapAddRequest(SubtenantApiKey toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final ApiKeyInfoReq apiKeyInfoReq = new ApiKeyInfoReq();
+        // No field equivalent to groups in ApiKeyInfoReq was found in SubtenantApiKey
+        apiKeyInfoReq.setName(toBeMapped.getName());
+        apiKeyInfoReq.setOwner(toBeMapped.getOwner());
+        apiKeyInfoReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelApikeyinforeqStatusenum(toBeMapped.getStatus()));
+        return apiKeyInfoReq;
+    }
+
+    /**
      * Maps an api key info resp into a subtenant api key.
      * 
      * @param toBeMapped
@@ -75,26 +95,6 @@ public final class SubtenantApiKeyAdapter {
                 return SubtenantApiKeyAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps a subtenant api key into an api key info req.
-     * 
-     * @param toBeMapped
-     *            a subtenant api key.
-     * @return mapped an api key info req
-     */
-    @Internal
-    public static ApiKeyInfoReq reverseMapAddRequest(SubtenantApiKey toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final ApiKeyInfoReq apiKeyInfoReq = new ApiKeyInfoReq();
-        // No field equivalent to groups in ApiKeyInfoReq was found in SubtenantApiKey
-        apiKeyInfoReq.setName(toBeMapped.getName());
-        apiKeyInfoReq.setOwner(toBeMapped.getOwner());
-        apiKeyInfoReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelApikeyinforeqStatusenum(toBeMapped.getStatus()));
-        return apiKeyInfoReq;
     }
 
     /**

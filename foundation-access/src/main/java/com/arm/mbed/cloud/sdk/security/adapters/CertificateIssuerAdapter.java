@@ -31,6 +31,27 @@ public final class CertificateIssuerAdapter {
     }
 
     /**
+     * Maps a certificate issuer into a certificate issuer request.
+     * 
+     * @param toBeMapped
+     *            a certificate issuer.
+     * @return mapped a certificate issuer request
+     */
+    @Internal
+    public static CertificateIssuerRequest reverseMapAddRequest(CertificateIssuer toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final CertificateIssuerRequest certificateIssuerRequest = new CertificateIssuerRequest();
+        certificateIssuerRequest.setDescription(toBeMapped.getDescription());
+        certificateIssuerRequest.setIssuerAttributes(toBeMapped.getIssuerAttributes());
+        // No field equivalent to issuerCredentials in CertificateIssuerRequest was found in CertificateIssuer
+        certificateIssuerRequest.setIssuerType(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelCertificateissuerrequestIssuertypeenum(toBeMapped.getIssuerType()));
+        certificateIssuerRequest.setName(toBeMapped.getName());
+        return certificateIssuerRequest;
+    }
+
+    /**
      * Maps a certificate issuer info into a certificate issuer.
      * 
      * @param toBeMapped
@@ -71,27 +92,6 @@ public final class CertificateIssuerAdapter {
                 return CertificateIssuerAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps a certificate issuer into a certificate issuer request.
-     * 
-     * @param toBeMapped
-     *            a certificate issuer.
-     * @return mapped a certificate issuer request
-     */
-    @Internal
-    public static CertificateIssuerRequest reverseMapAddRequest(CertificateIssuer toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final CertificateIssuerRequest certificateIssuerRequest = new CertificateIssuerRequest();
-        certificateIssuerRequest.setDescription(toBeMapped.getDescription());
-        certificateIssuerRequest.setIssuerAttributes(toBeMapped.getIssuerAttributes());
-        // No field equivalent to issuerCredentials in CertificateIssuerRequest was found in CertificateIssuer
-        certificateIssuerRequest.setIssuerType(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelCertificateissuerrequestIssuertypeenum(toBeMapped.getIssuerType()));
-        certificateIssuerRequest.setName(toBeMapped.getName());
-        return certificateIssuerRequest;
     }
 
     /**
@@ -225,29 +225,6 @@ public final class CertificateIssuerAdapter {
      * Maps the enum value.
      * 
      * @param toBeMapped
-     *            an issuer type enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static CertificateIssuerType
-              translateToCertificateIssuerType(CertificateIssuerInfo.IssuerTypeEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return CertificateIssuerType.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case GLOBAL_SIGN:
-                return CertificateIssuerType.GLOBAL_SIGN;
-            case CFSSL_AUTH:
-                return CertificateIssuerType.CFSSL_AUTH;
-            default:
-                return CertificateIssuerType.getUnknownEnum();
-        }
-    }
-
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
      *            a certificate issuer type.
      * @return mapped enum value
      */
@@ -264,6 +241,29 @@ public final class CertificateIssuerAdapter {
                 return CertificateIssuerRequest.IssuerTypeEnum.CFSSL_AUTH;
             default:
                 return null;
+        }
+    }
+
+    /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
+     *            an issuer type enum.
+     * @return mapped enum value
+     */
+    @Internal
+    protected static CertificateIssuerType
+              translateToCertificateIssuerType(CertificateIssuerInfo.IssuerTypeEnum toBeMapped) {
+        if (toBeMapped == null) {
+            return CertificateIssuerType.getUnknownEnum();
+        }
+        switch (toBeMapped) {
+            case GLOBAL_SIGN:
+                return CertificateIssuerType.GLOBAL_SIGN;
+            case CFSSL_AUTH:
+                return CertificateIssuerType.CFSSL_AUTH;
+            default:
+                return CertificateIssuerType.getUnknownEnum();
         }
     }
 }

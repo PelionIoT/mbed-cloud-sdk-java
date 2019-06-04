@@ -5,6 +5,7 @@ package com.arm.mbed.cloud.sdk.devices.adapters;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceGroup;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroupManipulation;
@@ -36,13 +37,56 @@ public final class DeviceGroupAdapter {
      * @return mapped a device group manipulation
      */
     @Internal
-    public static DeviceGroupManipulation map(DeviceGroup toBeMapped) {
+    public static DeviceGroupManipulation
+           mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(DeviceGroup toBeMapped) {
         if (toBeMapped == null) {
             return null;
         }
         final DeviceGroupManipulation deviceGroupManipulation = new DeviceGroupManipulation();
         // No field equivalent to deviceId in DeviceGroupManipulation was found in DeviceGroup
         return deviceGroupManipulation;
+    }
+
+    /**
+     * Maps a device group into a group.
+     * 
+     * @param toBeMapped
+     *            a device group.
+     * @return mapped a group
+     */
+    @Internal
+    public static Group reverseMapAddRequest(DeviceGroup toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final Group group = new Group();
+        group.setCustomAttributes(toBeMapped.getCustomAttributes());
+        group.setDescription(toBeMapped.getDescription());
+        group.setName(toBeMapped.getName());
+        return group;
+    }
+
+    /**
+     * Maps a device group into a device group.
+     * 
+     * @param toBeMapped
+     *            a device group.
+     * @return mapped a device group
+     */
+    @Internal
+    public static DeviceGroup
+           map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroup toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final DeviceGroup deviceGroup = new DeviceGroup(TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                        TranslationUtils.toInt(toBeMapped.getDevicesCount()),
+                                                        TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
+        deviceGroup.setCustomAttributes(toBeMapped.getCustomAttributes());
+        deviceGroup.setDescription(toBeMapped.getDescription());
+        deviceGroup.setId(toBeMapped.getId());
+        deviceGroup.setName(toBeMapped.getName());
+        return deviceGroup;
     }
 
     /**
@@ -69,25 +113,6 @@ public final class DeviceGroupAdapter {
                 return DeviceGroupAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps a device group into a group.
-     * 
-     * @param toBeMapped
-     *            a device group.
-     * @return mapped a group
-     */
-    @Internal
-    public static Group reverseMapAddRequest(DeviceGroup toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final Group group = new Group();
-        group.setCustomAttributes(toBeMapped.getCustomAttributes());
-        group.setDescription(toBeMapped.getDescription());
-        group.setName(toBeMapped.getName());
-        return group;
     }
 
     /**

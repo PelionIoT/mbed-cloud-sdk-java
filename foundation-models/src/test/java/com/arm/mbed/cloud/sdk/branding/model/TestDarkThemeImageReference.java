@@ -31,7 +31,7 @@ public class TestDarkThemeImageReference {
             darkthemeimagereference = DarkThemeImageReference.getValue("brand_logo_landscape");
             assertNotNull(darkthemeimagereference);
             assertFalse(darkthemeimagereference.isDefault());
-            darkthemeimagereference = DarkThemeImageReference.getValue("be0feb16-9a72-4519-bcdf-17d6c186056f");
+            darkthemeimagereference = DarkThemeImageReference.getValue("b008353b-8dac-468e-9402-bc7c230af39f");
             assertNotNull(darkthemeimagereference);
             assertTrue(darkthemeimagereference.isDefault());
         } catch (Exception exception) {
