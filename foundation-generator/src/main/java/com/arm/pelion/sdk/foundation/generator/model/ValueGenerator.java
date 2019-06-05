@@ -163,6 +163,10 @@ public class ValueGenerator {
             values.addToFormat(DEFAULT_VALUE);
             return;
         }
+        if (field.getType().isEnum() && field.isRequired()) {
+            values.addToFormat(DEFAULT_VALUE);
+            return;
+        }
         if (field.getType().isString() && field.hasValidation() && field.getValidation().hasPattern()) {
             final String validationPattern = Utils.transformRegexBackFromValidString(Utils.applyPatternReverseHack(field.getValidation()
                                                                                                                         .getPattern()
