@@ -182,6 +182,7 @@ public final class LightThemeImageAdapter {
      * @return mapped enum value
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     protected static LightThemeImageReference
               translateToLightThemeImageReference(BrandingImage.ReferenceEnum toBeMapped) {
         if (toBeMapped == null) {

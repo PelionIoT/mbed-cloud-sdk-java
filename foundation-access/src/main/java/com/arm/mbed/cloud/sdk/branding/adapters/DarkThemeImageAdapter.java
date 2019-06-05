@@ -182,6 +182,7 @@ public final class DarkThemeImageAdapter {
      * @return mapped enum value
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     protected static DarkThemeImageReference
               translateToDarkThemeImageReference(BrandingImage.ReferenceEnum toBeMapped) {
         if (toBeMapped == null) {

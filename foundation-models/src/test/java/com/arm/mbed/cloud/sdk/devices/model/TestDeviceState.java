@@ -30,7 +30,7 @@ public class TestDeviceState {
             devicestate = DeviceState.getValue("cloud_enrolling");
             assertNotNull(devicestate);
             assertFalse(devicestate.isDefault());
-            devicestate = DeviceState.getValue("0501a70c-f863-4787-9551-391a068ecff4");
+            devicestate = DeviceState.getValue("5e9ecb26-34e0-4ee7-bd77-a2f3a49d1b2f");
             assertNotNull(devicestate);
             assertTrue(devicestate.isDefault());
         } catch (Exception exception) {

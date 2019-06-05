@@ -94,6 +94,7 @@ public final class SubtenantLightThemeColorAdapter {
      * @return mapped enum value
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     protected static SubtenantLightThemeColorReference
               translateToSubtenantLightThemeColorReference(BrandingColor.ReferenceEnum toBeMapped) {
         if (toBeMapped == null) {
@@ -251,6 +252,7 @@ public final class SubtenantLightThemeColorAdapter {
      * @return mapped enum value
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     protected static BrandingColor.ReferenceEnum
               translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelBrandingcolorReferenceenum(SubtenantLightThemeColorReference toBeMapped) {
         if (toBeMapped == null) {

@@ -20,8 +20,8 @@ public class TestSubtenantLightThemeImage {
     public void testClone() {
         try {
             SubtenantLightThemeImage subtenantlightthemeimage1 = new SubtenantLightThemeImage(SubtenantLightThemeImageReference.getDefault(),
-                                                                                              "71ad602b-50ac-43fd-8481-31131c604404",
-                                                                                              new Date(1559752145000L));
+                                                                                              "0e415378-44f2-4313-83f6-09f0e25623e5",
+                                                                                              new Date(1559754638797L));
             SubtenantLightThemeImage subtenantlightthemeimage2 = subtenantlightthemeimage1.clone();
             assertNotNull(subtenantlightthemeimage1);
             assertNotNull(subtenantlightthemeimage2);
@@ -40,11 +40,11 @@ public class TestSubtenantLightThemeImage {
     public void testHashCode() {
         try {
             SubtenantLightThemeImage subtenantlightthemeimage1 = new SubtenantLightThemeImage(SubtenantLightThemeImageReference.getDefault(),
-                                                                                              "65b19062-36ac-4fa5-9034-8881a3126efc",
-                                                                                              new Date(1559752146917L));
+                                                                                              "503fe232-47a0-4a4a-a1a5-923db0b3bc21",
+                                                                                              new Date(1559754640899L));
             SubtenantLightThemeImage subtenantlightthemeimage2 = new SubtenantLightThemeImage(SubtenantLightThemeImageReference.getDefault(),
-                                                                                              "65b19062-36ac-4fa5-9034-8881a3126efc",
-                                                                                              new Date(1559752146917L));
+                                                                                              "503fe232-47a0-4a4a-a1a5-923db0b3bc21",
+                                                                                              new Date(1559754640899L));
             assertNotNull(subtenantlightthemeimage1);
             assertNotNull(subtenantlightthemeimage2);
             assertNotSame(subtenantlightthemeimage2, subtenantlightthemeimage1);
@@ -66,12 +66,12 @@ public class TestSubtenantLightThemeImage {
     @Test
     public void testIsValid() {
         SubtenantLightThemeImage subtenantlightthemeimage = new SubtenantLightThemeImage(SubtenantLightThemeImageReference.getDefault(),
-                                                                                         "1f636ea7-6907-4d80-907b-1e36937ce371",
-                                                                                         new Date(1559752147711L));
+                                                                                         "4cc210d6-ff58-4f2d-9ebb-8e77e7f22783",
+                                                                                         new Date(1559754638226L));
         assertTrue(subtenantlightthemeimage.isValid());
-        SubtenantLightThemeImage subtenantlightthemeimageInvalid = new SubtenantLightThemeImage(SubtenantLightThemeImageReference.getDefault(),
-                                                                                                "f4f796cd-5b76-4a5e-b7a1-eab5510cef9e",
-                                                                                                new Date(1559752150564L));
+        SubtenantLightThemeImage subtenantlightthemeimageInvalid = new SubtenantLightThemeImage(null,
+                                                                                                "7b9da326-c9f5-4d84-bfb9-c5c0a6089804",
+                                                                                                new Date(1559754642409L));
         assertFalse(subtenantlightthemeimageInvalid.isValid());
     }
 
@@ -83,14 +83,14 @@ public class TestSubtenantLightThemeImage {
     public void testEquals() {
         try {
             SubtenantLightThemeImage subtenantlightthemeimage1 = new SubtenantLightThemeImage(SubtenantLightThemeImageReference.getDefault(),
-                                                                                              "da0f55c5-de0f-4634-bad6-9285cb1d3ade",
-                                                                                              new Date(1559752146027L));
+                                                                                              "a83590cc-f44b-4bd2-a73f-e993b7a2f829",
+                                                                                              new Date(1559754644719L));
             SubtenantLightThemeImage subtenantlightthemeimage2 = new SubtenantLightThemeImage(SubtenantLightThemeImageReference.getDefault(),
-                                                                                              "da0f55c5-de0f-4634-bad6-9285cb1d3ade",
-                                                                                              new Date(1559752146027L));
+                                                                                              "a83590cc-f44b-4bd2-a73f-e993b7a2f829",
+                                                                                              new Date(1559754644719L));
             SubtenantLightThemeImage subtenantlightthemeimage3 = new SubtenantLightThemeImage(SubtenantLightThemeImageReference.getDefault(),
-                                                                                              "b24cdea8-bd4a-4463-9ef6-85f671b5ab08",
-                                                                                              new Date(1559752147807L));
+                                                                                              "42ec94bc-03ef-483c-8898-b0747e6a4998",
+                                                                                              new Date(1559754644471L));
             assertNotNull(subtenantlightthemeimage1);
             assertNotNull(subtenantlightthemeimage2);
             assertNotNull(subtenantlightthemeimage3);

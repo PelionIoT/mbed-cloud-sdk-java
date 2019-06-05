@@ -200,6 +200,7 @@ public final class DarkThemeColorAdapter {
      * @return mapped enum value
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     protected static DarkThemeColorReference
               translateToDarkThemeColorReference(BrandingColor.ReferenceEnum toBeMapped) {
         if (toBeMapped == null) {
@@ -251,6 +252,7 @@ public final class DarkThemeColorAdapter {
      * @return mapped enum value
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     protected static BrandingColor.ReferenceEnum
               translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelBrandingcolorReferenceenum(DarkThemeColorReference toBeMapped) {
         if (toBeMapped == null) {

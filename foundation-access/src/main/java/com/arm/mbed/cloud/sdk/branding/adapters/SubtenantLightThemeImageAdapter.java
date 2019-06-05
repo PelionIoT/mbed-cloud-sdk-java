@@ -73,6 +73,7 @@ public final class SubtenantLightThemeImageAdapter {
      * @return mapped enum value
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     protected static SubtenantLightThemeImageReference
               translateToSubtenantLightThemeImageReference(BrandingImage.ReferenceEnum toBeMapped) {
         if (toBeMapped == null) {

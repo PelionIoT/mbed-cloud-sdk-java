@@ -19,12 +19,12 @@ public class TestUserInvitation {
     @Test
     public void testClone() {
         try {
-            UserInvitation userinvitation1 = new UserInvitation("8f790df8b03da9b1dd914e7ecab2ad3f",
-                                                                new Date(1559752144308L), "67aca.6957d@8401f.fr",
-                                                                new Date(1559752145495L),
-                                                                "8f790df8b03da9b1dd914e7ecab2ad3f", null,
-                                                                new Date(1559752148644L),
-                                                                "8f790df8b03da9b1dd914e7ecab2ad3f");
+            UserInvitation userinvitation1 = new UserInvitation("71fdba82137d3d88b328e27f0b30ef6d",
+                                                                new Date(1559754644159L), "f5761.3af1a@c3dfd.fr",
+                                                                new Date(1559754638503L),
+                                                                "71fdba82137d3d88b328e27f0b30ef6d", null,
+                                                                new Date(1559754641549L),
+                                                                "71fdba82137d3d88b328e27f0b30ef6d");
             UserInvitation userinvitation2 = userinvitation1.clone();
             assertNotNull(userinvitation1);
             assertNotNull(userinvitation2);
@@ -42,18 +42,18 @@ public class TestUserInvitation {
     @Test
     public void testHashCode() {
         try {
-            UserInvitation userinvitation1 = new UserInvitation("8f790df8b03da9b1dd914e7ecab2ad3f",
-                                                                new Date(1559752151329L), "31c78.425cc@b5429.me",
-                                                                new Date(1559752145180L),
-                                                                "8f790df8b03da9b1dd914e7ecab2ad3f", null,
-                                                                new Date(1559752152926L),
-                                                                "8f790df8b03da9b1dd914e7ecab2ad3f");
-            UserInvitation userinvitation2 = new UserInvitation("8f790df8b03da9b1dd914e7ecab2ad3f",
-                                                                new Date(1559752151329L), "31c78.425cc@b5429.me",
-                                                                new Date(1559752145180L),
-                                                                "8f790df8b03da9b1dd914e7ecab2ad3f", null,
-                                                                new Date(1559752152926L),
-                                                                "8f790df8b03da9b1dd914e7ecab2ad3f");
+            UserInvitation userinvitation1 = new UserInvitation("71fdba82137d3d88b328e27f0b30ef6d",
+                                                                new Date(1559754640363L), "eca92.256b0@96b3b.me",
+                                                                new Date(1559754637754L),
+                                                                "71fdba82137d3d88b328e27f0b30ef6d", null,
+                                                                new Date(1559754641506L),
+                                                                "71fdba82137d3d88b328e27f0b30ef6d");
+            UserInvitation userinvitation2 = new UserInvitation("71fdba82137d3d88b328e27f0b30ef6d",
+                                                                new Date(1559754640363L), "eca92.256b0@96b3b.me",
+                                                                new Date(1559754637754L),
+                                                                "71fdba82137d3d88b328e27f0b30ef6d", null,
+                                                                new Date(1559754641506L),
+                                                                "71fdba82137d3d88b328e27f0b30ef6d");
             assertNotNull(userinvitation1);
             assertNotNull(userinvitation2);
             assertNotSame(userinvitation2, userinvitation1);
@@ -74,18 +74,18 @@ public class TestUserInvitation {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        UserInvitation userinvitation = new UserInvitation("8f790df8b03da9b1dd914e7ecab2ad3f", new Date(1559752146894L),
-                                                           "ff44b.3d447@8c8b8.me", new Date(1559752146804L),
-                                                           "8f790df8b03da9b1dd914e7ecab2ad3f", null,
-                                                           new Date(1559752145483L),
-                                                           "8f790df8b03da9b1dd914e7ecab2ad3f");
+        UserInvitation userinvitation = new UserInvitation("71fdba82137d3d88b328e27f0b30ef6d", new Date(1559754640617L),
+                                                           "9c39a.0493b@73af8.me", new Date(1559754644191L),
+                                                           "71fdba82137d3d88b328e27f0b30ef6d", null,
+                                                           new Date(1559754640376L),
+                                                           "71fdba82137d3d88b328e27f0b30ef6d");
         assertTrue(userinvitation.isValid());
-        UserInvitation userinvitationInvalid = new UserInvitation("/\u000e䋯65\u000e䯯\u0005<师66'\u0016)ᾉ5爀疸\u0019䚖\u001e6赫65\u0014%\b\u0005�?�-\u001e5\u0011V\\\\�?�555\u0012\u0012]#56X褳WO?5\b\u001b僤\u000e6\u0007V册粸X",
-                                                                  new Date(1559752146669L), null,
-                                                                  new Date(1559752148867L),
-                                                                  "/\u000e䋯65\u000e䯯\u0005<师66'\u0016)ᾉ5爀疸\u0019䚖\u001e6赫65\u0014%\b\u0005�?�-\u001e5\u0011V\\\\�?�555\u0012\u0012]#56X褳WO?5\b\u001b僤\u000e6\u0007V册粸X",
-                                                                  null, new Date(1559752150290L),
-                                                                  "/\u000e䋯65\u000e䯯\u0005<师66'\u0016)ᾉ5爀疸\u0019䚖\u001e6赫65\u0014%\b\u0005�?�-\u001e5\u0011V\\\\�?�555\u0012\u0012]#56X褳WO?5\b\u001b僤\u000e6\u0007V册粸X");
+        UserInvitation userinvitationInvalid = new UserInvitation(";\u000b\u0007屨&\u0007H_c5Y\u0005툵44㗑\u00165cc)4c∳녔cc4\u000f뉢4힚54棞4c뀇c\bcঌ5�?�?F\tጷTcc鎻댮\u0013$$c:c\u0017F-\u0018",
+                                                                  new Date(1559754635549L), null,
+                                                                  new Date(1559754636831L),
+                                                                  ";\u000b\u0007屨&\u0007H_c5Y\u0005툵44㗑\u00165cc)4c∳녔cc4\u000f뉢4힚54棞4c뀇c\bcঌ5�?�?F\tጷTcc鎻댮\u0013$$c:c\u0017F-\u0018",
+                                                                  null, new Date(1559754636290L),
+                                                                  ";\u000b\u0007屨&\u0007H_c5Y\u0005툵44㗑\u00165cc)4c∳녔cc4\u000f뉢4힚54棞4c뀇c\bcঌ5�?�?F\tጷTcc鎻댮\u0013$$c:c\u0017F-\u0018");
         assertFalse(userinvitationInvalid.isValid());
     }
 
@@ -96,24 +96,24 @@ public class TestUserInvitation {
     @Test
     public void testEquals() {
         try {
-            UserInvitation userinvitation1 = new UserInvitation("8f790df8b03da9b1dd914e7ecab2ad3f",
-                                                                new Date(1559752151991L), "79674.82533@9b80e.me",
-                                                                new Date(1559752143842L),
-                                                                "8f790df8b03da9b1dd914e7ecab2ad3f", null,
-                                                                new Date(1559752151195L),
-                                                                "8f790df8b03da9b1dd914e7ecab2ad3f");
-            UserInvitation userinvitation2 = new UserInvitation("8f790df8b03da9b1dd914e7ecab2ad3f",
-                                                                new Date(1559752151991L), "79674.82533@9b80e.me",
-                                                                new Date(1559752143842L),
-                                                                "8f790df8b03da9b1dd914e7ecab2ad3f", null,
-                                                                new Date(1559752151195L),
-                                                                "8f790df8b03da9b1dd914e7ecab2ad3f");
-            UserInvitation userinvitation3 = new UserInvitation("8f790df8b03da9b1dd914e7ecab2ad3f",
-                                                                new Date(1559752152216L), "738eb.23c61@93d5b.fr",
-                                                                new Date(1559752144453L),
-                                                                "8f790df8b03da9b1dd914e7ecab2ad3f", null,
-                                                                new Date(1559752145189L),
-                                                                "8f790df8b03da9b1dd914e7ecab2ad3f");
+            UserInvitation userinvitation1 = new UserInvitation("71fdba82137d3d88b328e27f0b30ef6d",
+                                                                new Date(1559754636752L), "a9941.7e465@ec54e.me",
+                                                                new Date(1559754639714L),
+                                                                "71fdba82137d3d88b328e27f0b30ef6d", null,
+                                                                new Date(1559754643808L),
+                                                                "71fdba82137d3d88b328e27f0b30ef6d");
+            UserInvitation userinvitation2 = new UserInvitation("71fdba82137d3d88b328e27f0b30ef6d",
+                                                                new Date(1559754636752L), "a9941.7e465@ec54e.me",
+                                                                new Date(1559754639714L),
+                                                                "71fdba82137d3d88b328e27f0b30ef6d", null,
+                                                                new Date(1559754643808L),
+                                                                "71fdba82137d3d88b328e27f0b30ef6d");
+            UserInvitation userinvitation3 = new UserInvitation("71fdba82137d3d88b328e27f0b30ef6d",
+                                                                new Date(1559754638553L), "5cb40.dc576@18707.me",
+                                                                new Date(1559754635557L),
+                                                                "71fdba82137d3d88b328e27f0b30ef6d", null,
+                                                                new Date(1559754642705L),
+                                                                "71fdba82137d3d88b328e27f0b30ef6d");
             assertNotNull(userinvitation1);
             assertNotNull(userinvitation2);
             assertNotNull(userinvitation3);

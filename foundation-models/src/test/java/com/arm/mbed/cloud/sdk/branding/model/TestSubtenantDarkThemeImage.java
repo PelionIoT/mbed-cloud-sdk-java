@@ -20,8 +20,8 @@ public class TestSubtenantDarkThemeImage {
     public void testClone() {
         try {
             SubtenantDarkThemeImage subtenantdarkthemeimage1 = new SubtenantDarkThemeImage(SubtenantDarkThemeImageReference.getDefault(),
-                                                                                           "a825a8f7-9dbc-4b1b-a932-87c1551b8aeb",
-                                                                                           new Date(1559752150570L));
+                                                                                           "df84f195-74a8-4c26-b160-a592fe697849",
+                                                                                           new Date(1559754637152L));
             SubtenantDarkThemeImage subtenantdarkthemeimage2 = subtenantdarkthemeimage1.clone();
             assertNotNull(subtenantdarkthemeimage1);
             assertNotNull(subtenantdarkthemeimage2);
@@ -40,11 +40,11 @@ public class TestSubtenantDarkThemeImage {
     public void testHashCode() {
         try {
             SubtenantDarkThemeImage subtenantdarkthemeimage1 = new SubtenantDarkThemeImage(SubtenantDarkThemeImageReference.getDefault(),
-                                                                                           "d978f087-4790-4b01-8f6c-71b84e321fc2",
-                                                                                           new Date(1559752148530L));
+                                                                                           "25c2aa52-0dbc-4ae8-aec0-6615913e0d47",
+                                                                                           new Date(1559754640221L));
             SubtenantDarkThemeImage subtenantdarkthemeimage2 = new SubtenantDarkThemeImage(SubtenantDarkThemeImageReference.getDefault(),
-                                                                                           "d978f087-4790-4b01-8f6c-71b84e321fc2",
-                                                                                           new Date(1559752148530L));
+                                                                                           "25c2aa52-0dbc-4ae8-aec0-6615913e0d47",
+                                                                                           new Date(1559754640221L));
             assertNotNull(subtenantdarkthemeimage1);
             assertNotNull(subtenantdarkthemeimage2);
             assertNotSame(subtenantdarkthemeimage2, subtenantdarkthemeimage1);
@@ -66,12 +66,12 @@ public class TestSubtenantDarkThemeImage {
     @Test
     public void testIsValid() {
         SubtenantDarkThemeImage subtenantdarkthemeimage = new SubtenantDarkThemeImage(SubtenantDarkThemeImageReference.getDefault(),
-                                                                                      "40ff55c0-1e0e-4f10-8999-3afd8e211551",
-                                                                                      new Date(1559752147204L));
+                                                                                      "cee402d0-1100-4cb7-8846-4f8ccb23ed9e",
+                                                                                      new Date(1559754642726L));
         assertTrue(subtenantdarkthemeimage.isValid());
-        SubtenantDarkThemeImage subtenantdarkthemeimageInvalid = new SubtenantDarkThemeImage(SubtenantDarkThemeImageReference.getDefault(),
-                                                                                             "b3bde85d-d348-4460-b0a4-31bff7da3b10",
-                                                                                             new Date(1559752145815L));
+        SubtenantDarkThemeImage subtenantdarkthemeimageInvalid = new SubtenantDarkThemeImage(null,
+                                                                                             "36835245-ab66-4bfa-861f-f349d7c841a8",
+                                                                                             new Date(1559754637019L));
         assertFalse(subtenantdarkthemeimageInvalid.isValid());
     }
 
@@ -83,14 +83,14 @@ public class TestSubtenantDarkThemeImage {
     public void testEquals() {
         try {
             SubtenantDarkThemeImage subtenantdarkthemeimage1 = new SubtenantDarkThemeImage(SubtenantDarkThemeImageReference.getDefault(),
-                                                                                           "68f23af4-e004-4007-aa53-f233e5e1927d",
-                                                                                           new Date(1559752150886L));
+                                                                                           "28f2afca-29ae-4f77-9153-72a8faa48538",
+                                                                                           new Date(1559754635406L));
             SubtenantDarkThemeImage subtenantdarkthemeimage2 = new SubtenantDarkThemeImage(SubtenantDarkThemeImageReference.getDefault(),
-                                                                                           "68f23af4-e004-4007-aa53-f233e5e1927d",
-                                                                                           new Date(1559752150886L));
+                                                                                           "28f2afca-29ae-4f77-9153-72a8faa48538",
+                                                                                           new Date(1559754635406L));
             SubtenantDarkThemeImage subtenantdarkthemeimage3 = new SubtenantDarkThemeImage(SubtenantDarkThemeImageReference.getDefault(),
-                                                                                           "3525c0e5-43e3-4ea0-947f-77bdfa63475e",
-                                                                                           new Date(1559752151512L));
+                                                                                           "9dde1a0a-d543-4297-8b8d-08927e9e1d13",
+                                                                                           new Date(1559754639129L));
             assertNotNull(subtenantdarkthemeimage1);
             assertNotNull(subtenantdarkthemeimage2);
             assertNotNull(subtenantdarkthemeimage3);
