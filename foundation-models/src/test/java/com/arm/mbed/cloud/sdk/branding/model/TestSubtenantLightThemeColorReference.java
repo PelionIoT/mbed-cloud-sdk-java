@@ -31,7 +31,7 @@ public class TestSubtenantLightThemeColorReference {
             subtenantlightthemecolorreference = SubtenantLightThemeColorReference.getValue("canvas_background_font_color");
             assertNotNull(subtenantlightthemecolorreference);
             assertFalse(subtenantlightthemecolorreference.isDefault());
-            subtenantlightthemecolorreference = SubtenantLightThemeColorReference.getValue("a437e405-2acd-49a7-baa8-9f0ed25f52ce");
+            subtenantlightthemecolorreference = SubtenantLightThemeColorReference.getValue("f726d174-7ee3-4438-bec6-8e003197d1e5");
             assertNotNull(subtenantlightthemecolorreference);
             assertTrue(subtenantlightthemecolorreference.isDefault());
         } catch (Exception exception) {

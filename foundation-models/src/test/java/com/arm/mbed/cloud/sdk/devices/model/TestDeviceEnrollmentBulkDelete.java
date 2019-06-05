@@ -19,16 +19,16 @@ public class TestDeviceEnrollmentBulkDelete {
     @Test
     public void testClone() {
         try {
-            DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete1 = new DeviceEnrollmentBulkDelete("8a13fd35-d080-4d35-9476-6109565616ef",
-                                                                                                    new Date(1559758612378L),
-                                                                                                    new Date(1559758612794L),
-                                                                                                    50,
-                                                                                                    "56ff4db3-fe0e-48ef-bb2a-0f9237fbb1bc",
-                                                                                                    "66ee7ce5-38ba-4d03-af8e-87dd08c330ca",
-                                                                                                    "w3Tu3vLLf7t0OI94ss9KCo18rS4Fg4aN",
-                                                                                                    54,
+            DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete1 = new DeviceEnrollmentBulkDelete("91d86c22-0c34-49b2-a2c4-7d66367e2b4f",
+                                                                                                    new Date(1559762573274L),
+                                                                                                    new Date(1559762579800L),
+                                                                                                    -34,
+                                                                                                    "56002fa7-d1ef-4709-9704-b23de9572ba9",
+                                                                                                    "5ee0c349-127f-41e4-9710-77e227e40e6b",
+                                                                                                    "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                                    -11,
                                                                                                     DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                    88);
+                                                                                                    -117);
             DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete2 = deviceenrollmentbulkdelete1.clone();
             assertNotNull(deviceenrollmentbulkdelete1);
             assertNotNull(deviceenrollmentbulkdelete2);
@@ -46,26 +46,26 @@ public class TestDeviceEnrollmentBulkDelete {
     @Test
     public void testHashCode() {
         try {
-            DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete1 = new DeviceEnrollmentBulkDelete("d139a473-80ae-4bdb-ba59-e4cc9693031c",
-                                                                                                    new Date(1559758613006L),
-                                                                                                    new Date(1559758612645L),
-                                                                                                    70,
-                                                                                                    "a76ec128-890a-4fee-9653-8714eb30c045",
-                                                                                                    "23ee69be-470d-4e30-80bb-8e4a8966f1e5",
-                                                                                                    "w3Tu3vLLf7t0OI94ss9KCo18rS4Fg4aN",
-                                                                                                    52,
+            DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete1 = new DeviceEnrollmentBulkDelete("af1a306a-5de5-4aeb-8dd2-5908f13c5dc6",
+                                                                                                    new Date(1559762573637L),
+                                                                                                    new Date(1559762580254L),
+                                                                                                    80,
+                                                                                                    "f94af6d5-e27a-4b7d-8a39-d9a888b88f8d",
+                                                                                                    "43735ccf-00ff-419e-9db7-43a840d917c3",
+                                                                                                    "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                                    120,
                                                                                                     DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                    11);
-            DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete2 = new DeviceEnrollmentBulkDelete("d139a473-80ae-4bdb-ba59-e4cc9693031c",
-                                                                                                    new Date(1559758613006L),
-                                                                                                    new Date(1559758612645L),
-                                                                                                    70,
-                                                                                                    "a76ec128-890a-4fee-9653-8714eb30c045",
-                                                                                                    "23ee69be-470d-4e30-80bb-8e4a8966f1e5",
-                                                                                                    "w3Tu3vLLf7t0OI94ss9KCo18rS4Fg4aN",
-                                                                                                    52,
+                                                                                                    -84);
+            DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete2 = new DeviceEnrollmentBulkDelete("af1a306a-5de5-4aeb-8dd2-5908f13c5dc6",
+                                                                                                    new Date(1559762573637L),
+                                                                                                    new Date(1559762580254L),
+                                                                                                    80,
+                                                                                                    "f94af6d5-e27a-4b7d-8a39-d9a888b88f8d",
+                                                                                                    "43735ccf-00ff-419e-9db7-43a840d917c3",
+                                                                                                    "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                                    120,
                                                                                                     DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                    11);
+                                                                                                    -84);
             assertNotNull(deviceenrollmentbulkdelete1);
             assertNotNull(deviceenrollmentbulkdelete2);
             assertNotSame(deviceenrollmentbulkdelete2, deviceenrollmentbulkdelete1);
@@ -86,27 +86,27 @@ public class TestDeviceEnrollmentBulkDelete {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete = new DeviceEnrollmentBulkDelete("b0db4d72-1d3b-44cb-ace2-c4c0cd096460",
-                                                                                               new Date(1559758604814L),
-                                                                                               new Date(1559758603686L),
-                                                                                               126,
-                                                                                               "9f5706c1-23f7-41f5-9740-29353ada24cc",
-                                                                                               "8a04dfaa-412e-4d9c-88d3-ab68c7c29317",
-                                                                                               "w3Tu3vLLf7t0OI94ss9KCo18rS4Fg4aN",
-                                                                                               85,
+        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete = new DeviceEnrollmentBulkDelete("718c59ad-b289-429c-a020-2786a10635be",
+                                                                                               new Date(1559762575090L),
+                                                                                               new Date(1559762574562L),
+                                                                                               54,
+                                                                                               "0848170c-dfe8-4570-98ae-6684bf2266d3",
+                                                                                               "61d87905-90c0-40d5-ba12-8f4f93fe4596",
+                                                                                               "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                               -15,
                                                                                                DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                               29);
+                                                                                               28);
         assertTrue(deviceenrollmentbulkdelete.isValid());
-        DeviceEnrollmentBulkDelete deviceenrollmentbulkdeleteInvalid = new DeviceEnrollmentBulkDelete("34e64fe9-9f07-44ad-8272-b912d8c3e624",
-                                                                                                      new Date(1559758607866L),
-                                                                                                      new Date(1559758609113L),
-                                                                                                      -63,
-                                                                                                      "b6bcc6a1-1eb7-47fd-9cff-c8177ed78e7b",
-                                                                                                      "fd6a9dc8-d87e-45e1-a1cb-d57607c80b23",
-                                                                                                      "c\u000fMe6\u00076`QAp\u000e)jJ2qpp2?2[RJMdpeDeqRn2pEMMJ\u0015J'E/JGUJHM=J_A&GB!dJQM",
-                                                                                                      71,
+        DeviceEnrollmentBulkDelete deviceenrollmentbulkdeleteInvalid = new DeviceEnrollmentBulkDelete("9b92497f-3a5a-494f-ae39-8572244678f5",
+                                                                                                      new Date(1559762572683L),
+                                                                                                      new Date(1559762577085L),
+                                                                                                      45,
+                                                                                                      "6869149c-144a-4d8e-b4b3-1242e431b4ce",
+                                                                                                      "c731ed7c-ccce-468f-b4ef-f2918ddfb95c",
+                                                                                                      "t7K7(di)?_d6KSQwvF`D4l匶it]7X7Tt\u0014t6\\\\y\\\\∣tKF\u000544KXEKExt`En[?Eh4Qxfp",
+                                                                                                      -70,
                                                                                                       DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                      6);
+                                                                                                      102);
         assertFalse(deviceenrollmentbulkdeleteInvalid.isValid());
     }
 
@@ -117,36 +117,36 @@ public class TestDeviceEnrollmentBulkDelete {
     @Test
     public void testEquals() {
         try {
-            DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete1 = new DeviceEnrollmentBulkDelete("0b2edc79-7ab5-4959-b68b-98992ac380c3",
-                                                                                                    new Date(1559758609360L),
-                                                                                                    new Date(1559758603131L),
-                                                                                                    118,
-                                                                                                    "57e0b0c7-ddcd-45d8-b05c-2347a4a66685",
-                                                                                                    "2702c137-2fc7-47c4-8f92-2c590ccf4d2f",
-                                                                                                    "w3Tu3vLLf7t0OI94ss9KCo18rS4Fg4aN",
-                                                                                                    55,
+            DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete1 = new DeviceEnrollmentBulkDelete("58bbe555-fe8c-43a6-9e67-aa13ebcf0b2f",
+                                                                                                    new Date(1559762576592L),
+                                                                                                    new Date(1559762575547L),
+                                                                                                    3,
+                                                                                                    "cff8a2d8-6317-4322-986d-c4ecd3891e10",
+                                                                                                    "c889625b-f3dd-4be5-ad61-271bb01e0906",
+                                                                                                    "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                                    -29,
                                                                                                     DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                    -119);
-            DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete2 = new DeviceEnrollmentBulkDelete("0b2edc79-7ab5-4959-b68b-98992ac380c3",
-                                                                                                    new Date(1559758609360L),
-                                                                                                    new Date(1559758603131L),
-                                                                                                    118,
-                                                                                                    "57e0b0c7-ddcd-45d8-b05c-2347a4a66685",
-                                                                                                    "2702c137-2fc7-47c4-8f92-2c590ccf4d2f",
-                                                                                                    "w3Tu3vLLf7t0OI94ss9KCo18rS4Fg4aN",
-                                                                                                    55,
+                                                                                                    20);
+            DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete2 = new DeviceEnrollmentBulkDelete("58bbe555-fe8c-43a6-9e67-aa13ebcf0b2f",
+                                                                                                    new Date(1559762576592L),
+                                                                                                    new Date(1559762575547L),
+                                                                                                    3,
+                                                                                                    "cff8a2d8-6317-4322-986d-c4ecd3891e10",
+                                                                                                    "c889625b-f3dd-4be5-ad61-271bb01e0906",
+                                                                                                    "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                                    -29,
                                                                                                     DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                    -119);
-            DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete3 = new DeviceEnrollmentBulkDelete("9c1594eb-fda9-4b90-9551-57636df489ca",
-                                                                                                    new Date(1559758604937L),
-                                                                                                    new Date(1559758609573L),
-                                                                                                    89,
-                                                                                                    "2f709975-168a-4af5-b45e-9accf1587971",
-                                                                                                    "33446526-8d17-4695-9530-00e5c9d77a0b",
-                                                                                                    "w3Tu3vLLf7t0OI94ss9KCo18rS4Fg4aN",
-                                                                                                    -6,
+                                                                                                    20);
+            DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete3 = new DeviceEnrollmentBulkDelete("c207e3ed-88c3-480f-83a7-7a6ccf7b1ce7",
+                                                                                                    new Date(1559762575226L),
+                                                                                                    new Date(1559762578517L),
+                                                                                                    1,
+                                                                                                    "9dd01a7c-cb6d-478a-b619-575b8ee520d8",
+                                                                                                    "ed633ad9-e2e8-40d7-8ecd-2b19e97476dc",
+                                                                                                    "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                                    36,
                                                                                                     DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                    -39);
+                                                                                                    50);
             assertNotNull(deviceenrollmentbulkdelete1);
             assertNotNull(deviceenrollmentbulkdelete2);
             assertNotNull(deviceenrollmentbulkdelete3);

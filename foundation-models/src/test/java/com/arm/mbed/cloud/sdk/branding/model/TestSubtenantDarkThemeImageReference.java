@@ -31,7 +31,7 @@ public class TestSubtenantDarkThemeImageReference {
             subtenantdarkthemeimagereference = SubtenantDarkThemeImageReference.getValue("brand_logo_landscape");
             assertNotNull(subtenantdarkthemeimagereference);
             assertFalse(subtenantdarkthemeimagereference.isDefault());
-            subtenantdarkthemeimagereference = SubtenantDarkThemeImageReference.getValue("8034499e-d4c4-4dfe-95fb-939e504d2952");
+            subtenantdarkthemeimagereference = SubtenantDarkThemeImageReference.getValue("d3c4bdc5-be10-48cf-ab77-d5fe90915139");
             assertNotNull(subtenantdarkthemeimagereference);
             assertTrue(subtenantdarkthemeimagereference.isDefault());
         } catch (Exception exception) {
