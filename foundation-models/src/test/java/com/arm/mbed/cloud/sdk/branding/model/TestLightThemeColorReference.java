@@ -31,7 +31,7 @@ public class TestLightThemeColorReference {
             lightthemecolorreference = LightThemeColorReference.getValue("canvas_background_font_color");
             assertNotNull(lightthemecolorreference);
             assertFalse(lightthemecolorreference.isDefault());
-            lightthemecolorreference = LightThemeColorReference.getValue("e5ff5613-0798-452e-ac07-de9582ad8293");
+            lightthemecolorreference = LightThemeColorReference.getValue("a8a12a10-781a-4946-9df0-b67e94535a8f");
             assertNotNull(lightthemecolorreference);
             assertTrue(lightthemecolorreference.isDefault());
         } catch (Exception exception) {

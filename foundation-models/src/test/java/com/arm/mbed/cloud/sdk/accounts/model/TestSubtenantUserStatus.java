@@ -30,7 +30,7 @@ public class TestSubtenantUserStatus {
             subtenantuserstatus = SubtenantUserStatus.getValue("ENROLLING");
             assertNotNull(subtenantuserstatus);
             assertFalse(subtenantuserstatus.isDefault());
-            subtenantuserstatus = SubtenantUserStatus.getValue("671a45f3-8a81-4dde-a1ec-8c3cec308ee7");
+            subtenantuserstatus = SubtenantUserStatus.getValue("9ea9fc54-d3a8-4d57-9802-61a0427f6a83");
             assertNotNull(subtenantuserstatus);
             assertTrue(subtenantuserstatus.isDefault());
         } catch (Exception exception) {

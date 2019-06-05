@@ -19,9 +19,9 @@ public class TestSubtenantDarkThemeColor {
     @Test
     public void testClone() {
         try {
-            SubtenantDarkThemeColor subtenantdarkthemecolor1 = new SubtenantDarkThemeColor("6972a4ac-dabf-46f1-95da-4182b99a18ba",
+            SubtenantDarkThemeColor subtenantdarkthemecolor1 = new SubtenantDarkThemeColor("0223df0f-b082-41bf-a2fa-17c9e5ef8f62",
                                                                                            SubtenantDarkThemeColorReference.getDefault(),
-                                                                                           new Date(1559746953158L));
+                                                                                           new Date(1559747932296L));
             SubtenantDarkThemeColor subtenantdarkthemecolor2 = subtenantdarkthemecolor1.clone();
             assertNotNull(subtenantdarkthemecolor1);
             assertNotNull(subtenantdarkthemecolor2);
@@ -39,12 +39,12 @@ public class TestSubtenantDarkThemeColor {
     @Test
     public void testHashCode() {
         try {
-            SubtenantDarkThemeColor subtenantdarkthemecolor1 = new SubtenantDarkThemeColor("8f671761-4077-47cf-8407-42704ea03eb4",
+            SubtenantDarkThemeColor subtenantdarkthemecolor1 = new SubtenantDarkThemeColor("9f63954d-e2b3-4abb-b00b-87f861f8e547",
                                                                                            SubtenantDarkThemeColorReference.getDefault(),
-                                                                                           new Date(1559746951049L));
-            SubtenantDarkThemeColor subtenantdarkthemecolor2 = new SubtenantDarkThemeColor("8f671761-4077-47cf-8407-42704ea03eb4",
+                                                                                           new Date(1559747925752L));
+            SubtenantDarkThemeColor subtenantdarkthemecolor2 = new SubtenantDarkThemeColor("9f63954d-e2b3-4abb-b00b-87f861f8e547",
                                                                                            SubtenantDarkThemeColorReference.getDefault(),
-                                                                                           new Date(1559746951049L));
+                                                                                           new Date(1559747925752L));
             assertNotNull(subtenantdarkthemecolor1);
             assertNotNull(subtenantdarkthemecolor2);
             assertNotSame(subtenantdarkthemecolor2, subtenantdarkthemecolor1);
@@ -65,13 +65,13 @@ public class TestSubtenantDarkThemeColor {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        SubtenantDarkThemeColor subtenantdarkthemecolor = new SubtenantDarkThemeColor("9a4aa371-0d5a-434a-ad1b-08ab6b12fd81",
+        SubtenantDarkThemeColor subtenantdarkthemecolor = new SubtenantDarkThemeColor("fab30448-3691-4ea4-ad9e-988335d6c368",
                                                                                       SubtenantDarkThemeColorReference.getDefault(),
-                                                                                      new Date(1559746949307L));
+                                                                                      new Date(1559747931902L));
         assertTrue(subtenantdarkthemecolor.isValid());
-        SubtenantDarkThemeColor subtenantdarkthemecolorInvalid = new SubtenantDarkThemeColor("b589ec57-f7dc-464e-8c04-a95710a66f92",
+        SubtenantDarkThemeColor subtenantdarkthemecolorInvalid = new SubtenantDarkThemeColor("c5e6fff9-2c30-4179-9909-86ede6d1319b",
                                                                                              SubtenantDarkThemeColorReference.getDefault(),
-                                                                                             new Date(1559746951104L));
+                                                                                             new Date(1559747927367L));
         assertFalse(subtenantdarkthemecolorInvalid.isValid());
     }
 
@@ -82,15 +82,15 @@ public class TestSubtenantDarkThemeColor {
     @Test
     public void testEquals() {
         try {
-            SubtenantDarkThemeColor subtenantdarkthemecolor1 = new SubtenantDarkThemeColor("fcbccfd8-9c27-4dbd-91d2-b8be7dd8ce23",
+            SubtenantDarkThemeColor subtenantdarkthemecolor1 = new SubtenantDarkThemeColor("0403d608-d85a-46af-bcd4-f7928f1dec52",
                                                                                            SubtenantDarkThemeColorReference.getDefault(),
-                                                                                           new Date(1559746949517L));
-            SubtenantDarkThemeColor subtenantdarkthemecolor2 = new SubtenantDarkThemeColor("fcbccfd8-9c27-4dbd-91d2-b8be7dd8ce23",
+                                                                                           new Date(1559747928489L));
+            SubtenantDarkThemeColor subtenantdarkthemecolor2 = new SubtenantDarkThemeColor("0403d608-d85a-46af-bcd4-f7928f1dec52",
                                                                                            SubtenantDarkThemeColorReference.getDefault(),
-                                                                                           new Date(1559746949517L));
-            SubtenantDarkThemeColor subtenantdarkthemecolor3 = new SubtenantDarkThemeColor("29979c0e-7869-4db8-bbd7-745ca3b0f92a",
+                                                                                           new Date(1559747928489L));
+            SubtenantDarkThemeColor subtenantdarkthemecolor3 = new SubtenantDarkThemeColor("58b404d1-046a-4da6-896d-5bfb6ff05f04",
                                                                                            SubtenantDarkThemeColorReference.getDefault(),
-                                                                                           new Date(1559746954888L));
+                                                                                           new Date(1559747930317L));
             assertNotNull(subtenantdarkthemecolor1);
             assertNotNull(subtenantdarkthemecolor2);
             assertNotNull(subtenantdarkthemecolor3);

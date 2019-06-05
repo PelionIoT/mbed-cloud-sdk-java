@@ -31,7 +31,7 @@ public class TestDeviceEnrollmentBulkDeleteStatus {
             deviceenrollmentbulkdeletestatus = DeviceEnrollmentBulkDeleteStatus.getValue("new");
             assertNotNull(deviceenrollmentbulkdeletestatus);
             assertFalse(deviceenrollmentbulkdeletestatus.isDefault());
-            deviceenrollmentbulkdeletestatus = DeviceEnrollmentBulkDeleteStatus.getValue("54a327f3-f7f5-4aa8-8d44-5bef7553086d");
+            deviceenrollmentbulkdeletestatus = DeviceEnrollmentBulkDeleteStatus.getValue("1234634f-0c3f-4fd3-990b-4d0142118959");
             assertNotNull(deviceenrollmentbulkdeletestatus);
             assertTrue(deviceenrollmentbulkdeletestatus.isDefault());
         } catch (Exception exception) {

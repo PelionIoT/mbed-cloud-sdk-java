@@ -19,9 +19,9 @@ public class TestSubtenantLightThemeColor {
     @Test
     public void testClone() {
         try {
-            SubtenantLightThemeColor subtenantlightthemecolor1 = new SubtenantLightThemeColor("95f260a5-4742-4f2b-84ce-662a9848cebf",
+            SubtenantLightThemeColor subtenantlightthemecolor1 = new SubtenantLightThemeColor("e9aeb992-437e-47e4-9c54-b0e7555a3bf4",
                                                                                               SubtenantLightThemeColorReference.getDefault(),
-                                                                                              new Date(1559746951778L));
+                                                                                              new Date(1559747928468L));
             SubtenantLightThemeColor subtenantlightthemecolor2 = subtenantlightthemecolor1.clone();
             assertNotNull(subtenantlightthemecolor1);
             assertNotNull(subtenantlightthemecolor2);
@@ -39,12 +39,12 @@ public class TestSubtenantLightThemeColor {
     @Test
     public void testHashCode() {
         try {
-            SubtenantLightThemeColor subtenantlightthemecolor1 = new SubtenantLightThemeColor("9702dee3-506f-4290-af75-2e4f1d901e3f",
+            SubtenantLightThemeColor subtenantlightthemecolor1 = new SubtenantLightThemeColor("850f5393-a00e-46fb-87d2-0b46080aa7fa",
                                                                                               SubtenantLightThemeColorReference.getDefault(),
-                                                                                              new Date(1559746952950L));
-            SubtenantLightThemeColor subtenantlightthemecolor2 = new SubtenantLightThemeColor("9702dee3-506f-4290-af75-2e4f1d901e3f",
+                                                                                              new Date(1559747934620L));
+            SubtenantLightThemeColor subtenantlightthemecolor2 = new SubtenantLightThemeColor("850f5393-a00e-46fb-87d2-0b46080aa7fa",
                                                                                               SubtenantLightThemeColorReference.getDefault(),
-                                                                                              new Date(1559746952950L));
+                                                                                              new Date(1559747934620L));
             assertNotNull(subtenantlightthemecolor1);
             assertNotNull(subtenantlightthemecolor2);
             assertNotSame(subtenantlightthemecolor2, subtenantlightthemecolor1);
@@ -65,13 +65,13 @@ public class TestSubtenantLightThemeColor {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        SubtenantLightThemeColor subtenantlightthemecolor = new SubtenantLightThemeColor("6592fd1d-f9ec-4847-bc9d-c1af585d7dfd",
+        SubtenantLightThemeColor subtenantlightthemecolor = new SubtenantLightThemeColor("33bffbc2-d3fa-44ad-b98c-e276b64f0ce4",
                                                                                          SubtenantLightThemeColorReference.getDefault(),
-                                                                                         new Date(1559746947286L));
+                                                                                         new Date(1559747927620L));
         assertTrue(subtenantlightthemecolor.isValid());
-        SubtenantLightThemeColor subtenantlightthemecolorInvalid = new SubtenantLightThemeColor("74a1680a-2ab7-4b32-866c-66968255c4e3",
+        SubtenantLightThemeColor subtenantlightthemecolorInvalid = new SubtenantLightThemeColor("1034bbb8-2766-450f-91e3-92f00f6b882d",
                                                                                                 SubtenantLightThemeColorReference.getDefault(),
-                                                                                                new Date(1559746955726L));
+                                                                                                new Date(1559747926098L));
         assertFalse(subtenantlightthemecolorInvalid.isValid());
     }
 
@@ -82,15 +82,15 @@ public class TestSubtenantLightThemeColor {
     @Test
     public void testEquals() {
         try {
-            SubtenantLightThemeColor subtenantlightthemecolor1 = new SubtenantLightThemeColor("d5a3b664-d495-428a-a13f-3f7bd1ec28b2",
+            SubtenantLightThemeColor subtenantlightthemecolor1 = new SubtenantLightThemeColor("a1a8c4e9-f034-4a2c-9468-2cd34db6bb2d",
                                                                                               SubtenantLightThemeColorReference.getDefault(),
-                                                                                              new Date(1559746953563L));
-            SubtenantLightThemeColor subtenantlightthemecolor2 = new SubtenantLightThemeColor("d5a3b664-d495-428a-a13f-3f7bd1ec28b2",
+                                                                                              new Date(1559747928329L));
+            SubtenantLightThemeColor subtenantlightthemecolor2 = new SubtenantLightThemeColor("a1a8c4e9-f034-4a2c-9468-2cd34db6bb2d",
                                                                                               SubtenantLightThemeColorReference.getDefault(),
-                                                                                              new Date(1559746953563L));
-            SubtenantLightThemeColor subtenantlightthemecolor3 = new SubtenantLightThemeColor("f85d5876-4eb9-45d6-add9-166a46226d0f",
+                                                                                              new Date(1559747928329L));
+            SubtenantLightThemeColor subtenantlightthemecolor3 = new SubtenantLightThemeColor("f3cc5037-ef9a-4d81-9f8c-7548ce20de14",
                                                                                               SubtenantLightThemeColorReference.getDefault(),
-                                                                                              new Date(1559746953627L));
+                                                                                              new Date(1559747930313L));
             assertNotNull(subtenantlightthemecolor1);
             assertNotNull(subtenantlightthemecolor2);
             assertNotNull(subtenantlightthemecolor3);

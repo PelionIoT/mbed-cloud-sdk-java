@@ -30,7 +30,7 @@ public class TestAccountReference {
             accountreference = AccountReference.getValue("brand_logo_landscape");
             assertNotNull(accountreference);
             assertFalse(accountreference.isDefault());
-            accountreference = AccountReference.getValue("a8c69cdc-ae65-4982-a48b-8a14197f87d7");
+            accountreference = AccountReference.getValue("94ced64a-d294-4e1c-a4d6-4c32feb76507");
             assertNotNull(accountreference);
             assertTrue(accountreference.isDefault());
         } catch (Exception exception) {
