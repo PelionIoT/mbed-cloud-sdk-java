@@ -30,16 +30,12 @@ import com.arm.mbed.cloud.sdk.branding.model.LightThemeImage;
 import com.arm.mbed.cloud.sdk.branding.model.LightThemeImageListOptions;
 import com.arm.mbed.cloud.sdk.branding.model.LightThemeImageReference;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColor;
-import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorListOptions;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorReference;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImage;
-import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageListOptions;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageReference;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColor;
-import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorListOptions;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorReference;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage;
-import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageReference;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
@@ -186,295 +182,6 @@ public class Branding extends AbstractModule {
     @Override
     public Branding clone() {
         return new Branding(this);
-    }
-
-    /**
-     * Adds a dark theme image.
-     *
-     * <p>
-     * Similar to
-     * {@link #createDarkThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageReference)}
-     * 
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param darkThemeImage
-     *            a dark theme image.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public DarkThemeImage createDarkThemeImage(@NonNull DataFile image,
-                                               @NonNull DarkThemeImage darkThemeImage) throws MbedCloudException {
-        checkNotNull(image, TAG_IMAGE);
-        checkNotNull(darkThemeImage, TAG_DARK_THEME_IMAGE);
-        checkModelValidity(image, TAG_IMAGE);
-        checkModelValidity(darkThemeImage, TAG_DARK_THEME_IMAGE);
-        return createDarkThemeImage(image, darkThemeImage.getReference());
-    }
-
-    /**
-     * Adds a dark theme image.
-     *
-     * <p>
-     * Upload a new account branding image as form data in the dark theme in PNG or JPEG format.
-     *
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param reference
-     *            Name of the image.
-     * @return an added dark theme image
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public DarkThemeImage createDarkThemeImage(@NonNull DataFile image,
-                                               @NonNull DarkThemeImageReference reference) throws MbedCloudException {
-        checkNotNull(image, TAG_IMAGE);
-        checkNotNull(reference, TAG_REFERENCE);
-        checkModelValidity(image, TAG_IMAGE);
-        final DataFile finalImage = image;
-        final DarkThemeImageReference finalReference = reference;
-        return CloudCaller.call(this, "createDarkThemeImage()", DarkThemeImageAdapter.getMapper(),
-                                new CloudRequest.CloudCall<BrandingImage>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<BrandingImage> call() {
-                                        return endpoints.getUserInterfaceConfigurationImagesApi()
-                                                        .uploadDarkImageMultipart(finalReference == null ? null
-                                                                                                         : finalReference.getString(),
-                                                                                  DataFileAdapter.reverseMap("image",
-                                                                                                             finalImage));
-                                    }
-                                }, true);
-    }
-
-    /**
-     * Adds a light theme image.
-     *
-     * <p>
-     * Similar to
-     * {@link #createLightThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.LightThemeImageReference)}
-     * 
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param lightThemeImage
-     *            a light theme image.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public LightThemeImage createLightThemeImage(@NonNull DataFile image,
-                                                 @NonNull LightThemeImage lightThemeImage) throws MbedCloudException {
-        checkNotNull(image, TAG_IMAGE);
-        checkNotNull(lightThemeImage, TAG_LIGHT_THEME_IMAGE);
-        checkModelValidity(image, TAG_IMAGE);
-        checkModelValidity(lightThemeImage, TAG_LIGHT_THEME_IMAGE);
-        return createLightThemeImage(image, lightThemeImage.getReference());
-    }
-
-    /**
-     * Adds a light theme image.
-     *
-     * <p>
-     * Upload a new account branding image as form data in the light theme in PNG or JPEG format.
-     *
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param reference
-     *            Name of the image.
-     * @return an added light theme image
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public LightThemeImage
-           createLightThemeImage(@NonNull DataFile image,
-                                 @NonNull LightThemeImageReference reference) throws MbedCloudException {
-        checkNotNull(image, TAG_IMAGE);
-        checkNotNull(reference, TAG_REFERENCE);
-        checkModelValidity(image, TAG_IMAGE);
-        final DataFile finalImage = image;
-        final LightThemeImageReference finalReference = reference;
-        return CloudCaller.call(this, "createLightThemeImage()", LightThemeImageAdapter.getMapper(),
-                                new CloudRequest.CloudCall<BrandingImage>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<BrandingImage> call() {
-                                        return endpoints.getUserInterfaceConfigurationImagesApi()
-                                                        .uploadLightImageMultipart(finalReference == null ? null
-                                                                                                          : finalReference.getString(),
-                                                                                   DataFileAdapter.reverseMap("image",
-                                                                                                              finalImage));
-                                    }
-                                }, true);
-    }
-
-    /**
-     * Adds a subtenant dark theme image.
-     *
-     * <p>
-     * Similar to
-     * {@link #createSubtenantDarkThemeImage(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageReference)}
-     * 
-     * @param accountId
-     *            Account ID.
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param subtenantDarkThemeImage
-     *            a subtenant dark theme image.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public SubtenantDarkThemeImage
-           createSubtenantDarkThemeImage(@NonNull String accountId, @NonNull DataFile image,
-                                         @NonNull SubtenantDarkThemeImage subtenantDarkThemeImage) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        checkNotNull(image, TAG_IMAGE);
-        checkNotNull(subtenantDarkThemeImage, TAG_SUBTENANT_DARK_THEME_IMAGE);
-        checkModelValidity(image, TAG_IMAGE);
-        checkModelValidity(subtenantDarkThemeImage, TAG_SUBTENANT_DARK_THEME_IMAGE);
-        return createSubtenantDarkThemeImage(accountId, image, subtenantDarkThemeImage.getReference());
-    }
-
-    /**
-     * Adds a subtenant dark theme image.
-     *
-     * <p>
-     * Upload a new account dark theme branding image as form data in PNG or JPEG format.
-     *
-     * @param accountId
-     *            Account ID.
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param reference
-     *            Name of the image.
-     * @return an added subtenant dark theme image
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public SubtenantDarkThemeImage
-           createSubtenantDarkThemeImage(@NonNull String accountId, @NonNull DataFile image,
-                                         @NonNull SubtenantDarkThemeImageReference reference) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        checkNotNull(image, TAG_IMAGE);
-        checkNotNull(reference, TAG_REFERENCE);
-        checkModelValidity(image, TAG_IMAGE);
-        final String finalAccountId = accountId;
-        final DataFile finalImage = image;
-        final SubtenantDarkThemeImageReference finalReference = reference;
-        return CloudCaller.call(this, "createSubtenantDarkThemeImage()", SubtenantDarkThemeImageAdapter.getMapper(),
-                                new CloudRequest.CloudCall<BrandingImage>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<BrandingImage> call() {
-                                        return endpoints.getTenantUserInterfaceConfigurationImagesApi()
-                                                        .uploadAccountDarkImageMultipart(finalAccountId,
-                                                                                         finalReference == null ? null
-                                                                                                                : finalReference.getString(),
-                                                                                         DataFileAdapter.reverseMap("image",
-                                                                                                                    finalImage));
-                                    }
-                                }, true);
-    }
-
-    /**
-     * Adds a subtenant light theme image.
-     *
-     * <p>
-     * Similar to
-     * {@link #createSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageReference)}
-     * 
-     * @param accountId
-     *            Account ID.
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param subtenantLightThemeImage
-     *            a subtenant light theme image.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public SubtenantLightThemeImage
-           createSubtenantLightThemeImage(@NonNull String accountId, @NonNull DataFile image,
-                                          @NonNull SubtenantLightThemeImage subtenantLightThemeImage) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        checkNotNull(image, TAG_IMAGE);
-        checkNotNull(subtenantLightThemeImage, TAG_SUBTENANT_LIGHT_THEME_IMAGE);
-        checkModelValidity(image, TAG_IMAGE);
-        checkModelValidity(subtenantLightThemeImage, TAG_SUBTENANT_LIGHT_THEME_IMAGE);
-        return createSubtenantLightThemeImage(accountId, image, subtenantLightThemeImage.getReference());
-    }
-
-    /**
-     * Adds a subtenant light theme image.
-     *
-     * <p>
-     * Upload a new account branding image as form data in PNG or JPEG format.
-     *
-     * @param accountId
-     *            Account ID.
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param reference
-     *            Name of the image.
-     * @return an added subtenant light theme image
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public SubtenantLightThemeImage
-           createSubtenantLightThemeImage(@NonNull String accountId, @NonNull DataFile image,
-                                          @NonNull SubtenantLightThemeImageReference reference) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        checkNotNull(image, TAG_IMAGE);
-        checkNotNull(reference, TAG_REFERENCE);
-        checkModelValidity(image, TAG_IMAGE);
-        final String finalAccountId = accountId;
-        final DataFile finalImage = image;
-        final SubtenantLightThemeImageReference finalReference = reference;
-        return CloudCaller.call(this, "createSubtenantLightThemeImage()", SubtenantLightThemeImageAdapter.getMapper(),
-                                new CloudRequest.CloudCall<BrandingImage>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<BrandingImage> call() {
-                                        return endpoints.getTenantUserInterfaceConfigurationImagesApi()
-                                                        .uploadAccountLightImageMultipart(finalAccountId,
-                                                                                          finalReference == null ? null
-                                                                                                                 : finalReference.getString(),
-                                                                                          DataFileAdapter.reverseMap("image",
-                                                                                                                     finalImage));
-                                    }
-                                }, true);
     }
 
     /**
@@ -1083,168 +790,6 @@ public class Branding extends AbstractModule {
     }
 
     /**
-     * Creates a {@link Paginator} for the list of subtenant dark theme colors matching filter options.
-     *
-     * <p>
-     * Gets an iterator over all subtenant dark theme colors matching filter options.
-     * 
-     * @param accountId
-     *            Account ID.
-     * @param options
-     *            list options.
-     * @return paginator over the list of subtenant dark theme colors
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public Paginator<SubtenantDarkThemeColor>
-           listAllSubtenantDarkThemeColors(@NonNull String accountId,
-                                           @Nullable SubtenantDarkThemeColorListOptions options) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        final String finalAccountId = accountId;
-        final SubtenantDarkThemeColorListOptions finalOptions = (options == null) ? new SubtenantDarkThemeColorListOptions()
-                                                                                  : options;
-        return new Paginator<SubtenantDarkThemeColor>(finalOptions, new PageRequester<SubtenantDarkThemeColor>() {
-            /**
-             * Makes one page request.
-             * 
-             * @param options
-             *            a list options.
-             * @return Corresponding page requester
-             * @throws MbedCloudException
-             *             if an error occurs during the process.
-             */
-            @Override
-            public ListResponse<SubtenantDarkThemeColor> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listSubtenantDarkThemeColors(finalAccountId, (SubtenantDarkThemeColorListOptions) options);
-            }
-        });
-    }
-
-    /**
-     * Creates a {@link Paginator} for the list of subtenant dark theme images matching filter options.
-     *
-     * <p>
-     * Gets an iterator over all subtenant dark theme images matching filter options.
-     * 
-     * @param accountId
-     *            Account ID.
-     * @param options
-     *            list options.
-     * @return paginator over the list of subtenant dark theme images
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public Paginator<SubtenantDarkThemeImage>
-           listAllSubtenantDarkThemeImages(@NonNull String accountId,
-                                           @Nullable SubtenantDarkThemeImageListOptions options) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        final String finalAccountId = accountId;
-        final SubtenantDarkThemeImageListOptions finalOptions = (options == null) ? new SubtenantDarkThemeImageListOptions()
-                                                                                  : options;
-        return new Paginator<SubtenantDarkThemeImage>(finalOptions, new PageRequester<SubtenantDarkThemeImage>() {
-            /**
-             * Makes one page request.
-             * 
-             * @param options
-             *            a list options.
-             * @return Corresponding page requester
-             * @throws MbedCloudException
-             *             if an error occurs during the process.
-             */
-            @Override
-            public ListResponse<SubtenantDarkThemeImage> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listSubtenantDarkThemeImages(finalAccountId, (SubtenantDarkThemeImageListOptions) options);
-            }
-        });
-    }
-
-    /**
-     * Creates a {@link Paginator} for the list of subtenant light theme colors matching filter options.
-     *
-     * <p>
-     * Gets an iterator over all subtenant light theme colors matching filter options.
-     * 
-     * @param accountId
-     *            Account ID.
-     * @param options
-     *            list options.
-     * @return paginator over the list of subtenant light theme colors
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public Paginator<SubtenantLightThemeColor>
-           listAllSubtenantLightThemeColors(@NonNull String accountId,
-                                            @Nullable SubtenantLightThemeColorListOptions options) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        final String finalAccountId = accountId;
-        final SubtenantLightThemeColorListOptions finalOptions = (options == null) ? new SubtenantLightThemeColorListOptions()
-                                                                                   : options;
-        return new Paginator<SubtenantLightThemeColor>(finalOptions, new PageRequester<SubtenantLightThemeColor>() {
-            /**
-             * Makes one page request.
-             * 
-             * @param options
-             *            a list options.
-             * @return Corresponding page requester
-             * @throws MbedCloudException
-             *             if an error occurs during the process.
-             */
-            @Override
-            public ListResponse<SubtenantLightThemeColor>
-                   requestNewPage(ListOptions options) throws MbedCloudException {
-                return listSubtenantLightThemeColors(finalAccountId, (SubtenantLightThemeColorListOptions) options);
-            }
-        });
-    }
-
-    /**
-     * Creates a {@link Paginator} for the list of subtenant light theme images matching filter options.
-     *
-     * <p>
-     * Gets an iterator over all subtenant light theme images matching filter options.
-     * 
-     * @param accountId
-     *            Account ID.
-     * @param options
-     *            list options.
-     * @return paginator over the list of subtenant light theme images
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public Paginator<SubtenantLightThemeImage>
-           listAllSubtenantLightThemeImages(@NonNull String accountId,
-                                            @Nullable SubtenantLightThemeImageListOptions options) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        final String finalAccountId = accountId;
-        final SubtenantLightThemeImageListOptions finalOptions = (options == null) ? new SubtenantLightThemeImageListOptions()
-                                                                                   : options;
-        return new Paginator<SubtenantLightThemeImage>(finalOptions, new PageRequester<SubtenantLightThemeImage>() {
-            /**
-             * Makes one page request.
-             * 
-             * @param options
-             *            a list options.
-             * @return Corresponding page requester
-             * @throws MbedCloudException
-             *             if an error occurs during the process.
-             */
-            @Override
-            public ListResponse<SubtenantLightThemeImage>
-                   requestNewPage(ListOptions options) throws MbedCloudException {
-                return listSubtenantLightThemeImages(finalAccountId, (SubtenantLightThemeImageListOptions) options);
-            }
-        });
-    }
-
-    /**
      * Lists dark theme colors matching filter options.
      *
      * <p>
@@ -1377,172 +922,6 @@ public class Branding extends AbstractModule {
                                     public Call<BrandingImageList> call() {
                                         return endpoints.getUserInterfaceConfigurationImagesApi()
                                                         .getAllLightImageData();
-                                    }
-                                });
-    }
-
-    /**
-     * Lists subtenant dark theme colors matching filter options.
-     *
-     * <p>
-     * Retrieve dark theme branding colors for an account.
-     *
-     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark \
-     * -H 'Authorization: Bearer [api_key]' ```
-     *
-     * @param accountId
-     *            Account ID.
-     * @param options
-     *            list options.
-     * @return the list of subtenant dark theme colors corresponding to filter options (One page).
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public ListResponse<SubtenantDarkThemeColor>
-           listSubtenantDarkThemeColors(@NonNull String accountId,
-                                        @Nullable SubtenantDarkThemeColorListOptions options) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        final String finalAccountId = accountId;
-        final SubtenantDarkThemeColorListOptions finalOptions = (options == null) ? new SubtenantDarkThemeColorListOptions()
-                                                                                  : options;
-        return CloudCaller.call(this, "listSubtenantDarkThemeColors()", SubtenantDarkThemeColorAdapter.getListMapper(),
-                                new CloudRequest.CloudCall<BrandingColorList>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<BrandingColorList> call() {
-                                        return endpoints.getTenantUserInterfaceConfigurationColorsApi()
-                                                        .getAccountDarkColors(finalAccountId);
-                                    }
-                                });
-    }
-
-    /**
-     * Lists subtenant dark theme images matching filter options.
-     *
-     * <p>
-     * Retrieve the metadata of all dark theme branding images.
-     *
-     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark \
-     * -H 'Authorization: Bearer [api_key]' ```
-     *
-     * @param accountId
-     *            Account ID.
-     * @param options
-     *            list options.
-     * @return the list of subtenant dark theme images corresponding to filter options (One page).
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public ListResponse<SubtenantDarkThemeImage>
-           listSubtenantDarkThemeImages(@NonNull String accountId,
-                                        @Nullable SubtenantDarkThemeImageListOptions options) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        final String finalAccountId = accountId;
-        final SubtenantDarkThemeImageListOptions finalOptions = (options == null) ? new SubtenantDarkThemeImageListOptions()
-                                                                                  : options;
-        return CloudCaller.call(this, "listSubtenantDarkThemeImages()", SubtenantDarkThemeImageAdapter.getListMapper(),
-                                new CloudRequest.CloudCall<BrandingImageList>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<BrandingImageList> call() {
-                                        return endpoints.getTenantUserInterfaceConfigurationImagesApi()
-                                                        .getAllAccountDarkImageData(finalAccountId);
-                                    }
-                                });
-    }
-
-    /**
-     * Lists subtenant light theme colors matching filter options.
-     *
-     * <p>
-     * Retrieve light theme branding colors for an account.
-     *
-     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light \
-     * -H 'Authorization: Bearer [api_key]' ```
-     *
-     * @param accountId
-     *            Account ID.
-     * @param options
-     *            list options.
-     * @return the list of subtenant light theme colors corresponding to filter options (One page).
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public ListResponse<SubtenantLightThemeColor>
-           listSubtenantLightThemeColors(@NonNull String accountId,
-                                         @Nullable SubtenantLightThemeColorListOptions options) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        final String finalAccountId = accountId;
-        final SubtenantLightThemeColorListOptions finalOptions = (options == null) ? new SubtenantLightThemeColorListOptions()
-                                                                                   : options;
-        return CloudCaller.call(this, "listSubtenantLightThemeColors()",
-                                SubtenantLightThemeColorAdapter.getListMapper(),
-                                new CloudRequest.CloudCall<BrandingColorList>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<BrandingColorList> call() {
-                                        return endpoints.getTenantUserInterfaceConfigurationColorsApi()
-                                                        .getAccountLightColors(finalAccountId);
-                                    }
-                                });
-    }
-
-    /**
-     * Lists subtenant light theme images matching filter options.
-     *
-     * <p>
-     * Retrieve the metadata of all light theme branding images.
-     *
-     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light \
-     * -H 'Authorization: Bearer [api_key]' ```
-     *
-     * @param accountId
-     *            Account ID.
-     * @param options
-     *            list options.
-     * @return the list of subtenant light theme images corresponding to filter options (One page).
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public ListResponse<SubtenantLightThemeImage>
-           listSubtenantLightThemeImages(@NonNull String accountId,
-                                         @Nullable SubtenantLightThemeImageListOptions options) throws MbedCloudException {
-        checkNotNull(accountId, TAG_ACCOUNT_ID);
-        final String finalAccountId = accountId;
-        final SubtenantLightThemeImageListOptions finalOptions = (options == null) ? new SubtenantLightThemeImageListOptions()
-                                                                                   : options;
-        return CloudCaller.call(this, "listSubtenantLightThemeImages()",
-                                SubtenantLightThemeImageAdapter.getListMapper(),
-                                new CloudRequest.CloudCall<BrandingImageList>() {
-                                    /**
-                                     * Makes the low level call to the Cloud.
-                                     * 
-                                     * @return Corresponding Retrofit2 Call object
-                                     */
-                                    @Override
-                                    public Call<BrandingImageList> call() {
-                                        return endpoints.getTenantUserInterfaceConfigurationImagesApi()
-                                                        .getAllAccountLightImageData(finalAccountId);
                                     }
                                 });
     }
@@ -2108,6 +1487,73 @@ public class Branding extends AbstractModule {
     }
 
     /**
+     * Modifies a dark theme image.
+     *
+     * <p>
+     * Similar to
+     * {@link #updateDarkThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageReference)}
+     * 
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param darkThemeImage
+     *            a dark theme image.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public DarkThemeImage updateDarkThemeImage(@NonNull DataFile image,
+                                               @NonNull DarkThemeImage darkThemeImage) throws MbedCloudException {
+        checkNotNull(image, TAG_IMAGE);
+        checkNotNull(darkThemeImage, TAG_DARK_THEME_IMAGE);
+        checkModelValidity(image, TAG_IMAGE);
+        checkModelValidity(darkThemeImage, TAG_DARK_THEME_IMAGE);
+        return updateDarkThemeImage(image, darkThemeImage.getReference());
+    }
+
+    /**
+     * Modifies a dark theme image.
+     *
+     * <p>
+     * Upload a new account branding image as form data in the dark theme in PNG or JPEG format.
+     *
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param reference
+     *            Name of the image.
+     * @return an updated dark theme image
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public DarkThemeImage updateDarkThemeImage(@NonNull DataFile image,
+                                               @NonNull DarkThemeImageReference reference) throws MbedCloudException {
+        checkNotNull(image, TAG_IMAGE);
+        checkNotNull(reference, TAG_REFERENCE);
+        checkModelValidity(image, TAG_IMAGE);
+        final DataFile finalImage = image;
+        final DarkThemeImageReference finalReference = reference;
+        return CloudCaller.call(this, "updateDarkThemeImage()", DarkThemeImageAdapter.getMapper(),
+                                new CloudRequest.CloudCall<BrandingImage>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<BrandingImage> call() {
+                                        return endpoints.getUserInterfaceConfigurationImagesApi()
+                                                        .uploadDarkImageMultipart(finalReference == null ? null
+                                                                                                         : finalReference.getString(),
+                                                                                  DataFileAdapter.reverseMap("image",
+                                                                                                             finalImage));
+                                    }
+                                }, true);
+    }
+
+    /**
      * Modifies a light theme color.
      *
      * <p>
@@ -2167,6 +1613,74 @@ public class Branding extends AbstractModule {
                                                         .setLightColor(finalReference == null ? null
                                                                                               : finalReference.getString(),
                                                                        LightThemeColorAdapter.reverseMapUpdateRequest(finalLightThemeColor));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Modifies a light theme image.
+     *
+     * <p>
+     * Similar to
+     * {@link #updateLightThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.LightThemeImageReference)}
+     * 
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param lightThemeImage
+     *            a light theme image.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public LightThemeImage updateLightThemeImage(@NonNull DataFile image,
+                                                 @NonNull LightThemeImage lightThemeImage) throws MbedCloudException {
+        checkNotNull(image, TAG_IMAGE);
+        checkNotNull(lightThemeImage, TAG_LIGHT_THEME_IMAGE);
+        checkModelValidity(image, TAG_IMAGE);
+        checkModelValidity(lightThemeImage, TAG_LIGHT_THEME_IMAGE);
+        return updateLightThemeImage(image, lightThemeImage.getReference());
+    }
+
+    /**
+     * Modifies a light theme image.
+     *
+     * <p>
+     * Upload a new account branding image as form data in the light theme in PNG or JPEG format.
+     *
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param reference
+     *            Name of the image.
+     * @return an updated light theme image
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public LightThemeImage
+           updateLightThemeImage(@NonNull DataFile image,
+                                 @NonNull LightThemeImageReference reference) throws MbedCloudException {
+        checkNotNull(image, TAG_IMAGE);
+        checkNotNull(reference, TAG_REFERENCE);
+        checkModelValidity(image, TAG_IMAGE);
+        final DataFile finalImage = image;
+        final LightThemeImageReference finalReference = reference;
+        return CloudCaller.call(this, "updateLightThemeImage()", LightThemeImageAdapter.getMapper(),
+                                new CloudRequest.CloudCall<BrandingImage>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<BrandingImage> call() {
+                                        return endpoints.getUserInterfaceConfigurationImagesApi()
+                                                        .uploadLightImageMultipart(finalReference == null ? null
+                                                                                                          : finalReference.getString(),
+                                                                                   DataFileAdapter.reverseMap("image",
+                                                                                                              finalImage));
                                     }
                                 }, true);
     }
@@ -2249,6 +1763,83 @@ public class Branding extends AbstractModule {
     }
 
     /**
+     * Modifies a subtenant dark theme image.
+     *
+     * <p>
+     * Similar to
+     * {@link #updateSubtenantDarkThemeImage(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageReference)}
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param subtenantDarkThemeImage
+     *            a subtenant dark theme image.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantDarkThemeImage
+           updateSubtenantDarkThemeImage(@NonNull String accountId, @NonNull DataFile image,
+                                         @NonNull SubtenantDarkThemeImage subtenantDarkThemeImage) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(image, TAG_IMAGE);
+        checkNotNull(subtenantDarkThemeImage, TAG_SUBTENANT_DARK_THEME_IMAGE);
+        checkModelValidity(image, TAG_IMAGE);
+        checkModelValidity(subtenantDarkThemeImage, TAG_SUBTENANT_DARK_THEME_IMAGE);
+        return updateSubtenantDarkThemeImage(accountId, image, subtenantDarkThemeImage.getReference());
+    }
+
+    /**
+     * Modifies a subtenant dark theme image.
+     *
+     * <p>
+     * Upload a new account dark theme branding image as form data in PNG or JPEG format.
+     *
+     * @param accountId
+     *            Account ID.
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param reference
+     *            Name of the image.
+     * @return an updated subtenant dark theme image
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantDarkThemeImage
+           updateSubtenantDarkThemeImage(@NonNull String accountId, @NonNull DataFile image,
+                                         @NonNull SubtenantDarkThemeImageReference reference) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(image, TAG_IMAGE);
+        checkNotNull(reference, TAG_REFERENCE);
+        checkModelValidity(image, TAG_IMAGE);
+        final String finalAccountId = accountId;
+        final DataFile finalImage = image;
+        final SubtenantDarkThemeImageReference finalReference = reference;
+        return CloudCaller.call(this, "updateSubtenantDarkThemeImage()", SubtenantDarkThemeImageAdapter.getMapper(),
+                                new CloudRequest.CloudCall<BrandingImage>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<BrandingImage> call() {
+                                        return endpoints.getTenantUserInterfaceConfigurationImagesApi()
+                                                        .uploadAccountDarkImageMultipart(finalAccountId,
+                                                                                         finalReference == null ? null
+                                                                                                                : finalReference.getString(),
+                                                                                         DataFileAdapter.reverseMap("image",
+                                                                                                                    finalImage));
+                                    }
+                                }, true);
+    }
+
+    /**
      * Modifies a subtenant light theme color.
      *
      * <p>
@@ -2322,6 +1913,83 @@ public class Branding extends AbstractModule {
                                                                               finalReference == null ? null
                                                                                                      : finalReference.getString(),
                                                                               SubtenantLightThemeColorAdapter.reverseMapUpdateRequest(finalSubtenantLightThemeColor));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Modifies a subtenant light theme image.
+     *
+     * <p>
+     * Similar to
+     * {@link #updateSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageReference)}
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param subtenantLightThemeImage
+     *            a subtenant light theme image.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantLightThemeImage
+           updateSubtenantLightThemeImage(@NonNull String accountId, @NonNull DataFile image,
+                                          @NonNull SubtenantLightThemeImage subtenantLightThemeImage) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(image, TAG_IMAGE);
+        checkNotNull(subtenantLightThemeImage, TAG_SUBTENANT_LIGHT_THEME_IMAGE);
+        checkModelValidity(image, TAG_IMAGE);
+        checkModelValidity(subtenantLightThemeImage, TAG_SUBTENANT_LIGHT_THEME_IMAGE);
+        return updateSubtenantLightThemeImage(accountId, image, subtenantLightThemeImage.getReference());
+    }
+
+    /**
+     * Modifies a subtenant light theme image.
+     *
+     * <p>
+     * Upload a new account branding image as form data in PNG or JPEG format.
+     *
+     * @param accountId
+     *            Account ID.
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param reference
+     *            Name of the image.
+     * @return an updated subtenant light theme image
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantLightThemeImage
+           updateSubtenantLightThemeImage(@NonNull String accountId, @NonNull DataFile image,
+                                          @NonNull SubtenantLightThemeImageReference reference) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(image, TAG_IMAGE);
+        checkNotNull(reference, TAG_REFERENCE);
+        checkModelValidity(image, TAG_IMAGE);
+        final String finalAccountId = accountId;
+        final DataFile finalImage = image;
+        final SubtenantLightThemeImageReference finalReference = reference;
+        return CloudCaller.call(this, "updateSubtenantLightThemeImage()", SubtenantLightThemeImageAdapter.getMapper(),
+                                new CloudRequest.CloudCall<BrandingImage>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<BrandingImage> call() {
+                                        return endpoints.getTenantUserInterfaceConfigurationImagesApi()
+                                                        .uploadAccountLightImageMultipart(finalAccountId,
+                                                                                          finalReference == null ? null
+                                                                                                                 : finalReference.getString(),
+                                                                                          DataFileAdapter.reverseMap("image",
+                                                                                                                     finalImage));
                                     }
                                 }, true);
     }

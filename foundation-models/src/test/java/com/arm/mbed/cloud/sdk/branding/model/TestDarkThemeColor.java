@@ -19,9 +19,9 @@ public class TestDarkThemeColor {
     @Test
     public void testClone() {
         try {
-            DarkThemeColor darkthemecolor1 = new DarkThemeColor("06bb9ada-ed86-41b8-aaed-480846ff515b",
+            DarkThemeColor darkthemecolor1 = new DarkThemeColor("c837f6e5-db3a-42ec-9ecd-567c4a54b184",
                                                                 DarkThemeColorReference.getDefault(),
-                                                                new Date(1559662785545L));
+                                                                new Date(1559745296532L));
             DarkThemeColor darkthemecolor2 = darkthemecolor1.clone();
             assertNotNull(darkthemecolor1);
             assertNotNull(darkthemecolor2);
@@ -39,12 +39,12 @@ public class TestDarkThemeColor {
     @Test
     public void testHashCode() {
         try {
-            DarkThemeColor darkthemecolor1 = new DarkThemeColor("9047fe1a-5af8-4d8a-9ae0-735ae55a0f88",
+            DarkThemeColor darkthemecolor1 = new DarkThemeColor("2b286f1a-7c6a-457c-9207-ef8fe71f74e0",
                                                                 DarkThemeColorReference.getDefault(),
-                                                                new Date(1559662785814L));
-            DarkThemeColor darkthemecolor2 = new DarkThemeColor("9047fe1a-5af8-4d8a-9ae0-735ae55a0f88",
+                                                                new Date(1559745303197L));
+            DarkThemeColor darkthemecolor2 = new DarkThemeColor("2b286f1a-7c6a-457c-9207-ef8fe71f74e0",
                                                                 DarkThemeColorReference.getDefault(),
-                                                                new Date(1559662785814L));
+                                                                new Date(1559745303197L));
             assertNotNull(darkthemecolor1);
             assertNotNull(darkthemecolor2);
             assertNotSame(darkthemecolor2, darkthemecolor1);
@@ -65,13 +65,13 @@ public class TestDarkThemeColor {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        DarkThemeColor darkthemecolor = new DarkThemeColor("08cd45a1-acf8-49ec-9d1e-659c595f9f52",
+        DarkThemeColor darkthemecolor = new DarkThemeColor("476bb587-ea03-4940-9f1d-1bcbf628711d",
                                                            DarkThemeColorReference.getDefault(),
-                                                           new Date(1559662785476L));
+                                                           new Date(1559745301100L));
         assertTrue(darkthemecolor.isValid());
-        DarkThemeColor darkthemecolorInvalid = new DarkThemeColor("56d6f706-ca8e-43fd-8c97-5bfa4523549c",
+        DarkThemeColor darkthemecolorInvalid = new DarkThemeColor("109f6e86-8d30-4523-a6ae-60fb73399a51",
                                                                   DarkThemeColorReference.getDefault(),
-                                                                  new Date(1559662784790L));
+                                                                  new Date(1559745302280L));
         assertFalse(darkthemecolorInvalid.isValid());
     }
 
@@ -82,15 +82,15 @@ public class TestDarkThemeColor {
     @Test
     public void testEquals() {
         try {
-            DarkThemeColor darkthemecolor1 = new DarkThemeColor("1e0b7041-b545-4edb-a843-c2504849ceb3",
+            DarkThemeColor darkthemecolor1 = new DarkThemeColor("007f7f65-4dcd-4e21-a44f-7ffb855fb8e2",
                                                                 DarkThemeColorReference.getDefault(),
-                                                                new Date(1559662778045L));
-            DarkThemeColor darkthemecolor2 = new DarkThemeColor("1e0b7041-b545-4edb-a843-c2504849ceb3",
+                                                                new Date(1559745302786L));
+            DarkThemeColor darkthemecolor2 = new DarkThemeColor("007f7f65-4dcd-4e21-a44f-7ffb855fb8e2",
                                                                 DarkThemeColorReference.getDefault(),
-                                                                new Date(1559662778045L));
-            DarkThemeColor darkthemecolor3 = new DarkThemeColor("203c6907-44cc-416b-87e7-d278b190376d",
+                                                                new Date(1559745302786L));
+            DarkThemeColor darkthemecolor3 = new DarkThemeColor("f43edb1c-5ad6-47af-8dfb-cfe212b2cd2e",
                                                                 DarkThemeColorReference.getDefault(),
-                                                                new Date(1559662776917L));
+                                                                new Date(1559745298290L));
             assertNotNull(darkthemecolor1);
             assertNotNull(darkthemecolor2);
             assertNotNull(darkthemecolor3);

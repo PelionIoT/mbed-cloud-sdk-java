@@ -1559,10 +1559,6 @@ public interface DefaultApi {
      *            in filter for the \&quot;name\&quot; field (optional)
      * @param nameNin
      *            nin filter for the \&quot;name\&quot; field (optional)
-     * @param customAttributesEq
-     *            eq filter for the \&quot;custom_attributes\&quot; field (optional)
-     * @param customAttributesNeq
-     *            neq filter for the \&quot;custom_attributes\&quot; field (optional)
      * @param createdAtIn
      *            in filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtNin
@@ -1596,8 +1592,6 @@ public interface DefaultApi {
                   @retrofit2.http.Query("devices_count__gte") Integer devicesCountGte,
                   @retrofit2.http.Query("name__eq") String nameEq, @retrofit2.http.Query("name__neq") String nameNeq,
                   @retrofit2.http.Query("name__in") String nameIn, @retrofit2.http.Query("name__nin") String nameNin,
-                  @retrofit2.http.Query("custom_attributes__eq") String customAttributesEq,
-                  @retrofit2.http.Query("custom_attributes__neq") String customAttributesNeq,
                   @retrofit2.http.Query("created_at__in") String createdAtIn,
                   @retrofit2.http.Query("created_at__nin") String createdAtNin,
                   @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,

@@ -2261,7 +2261,7 @@ Name | Type | Description  | Notes
 
 <a name="groupList"></a>
 # **groupList**
-> DeviceGroupPage groupList(limit, order, after, include, filter, idEq, idNeq, idIn, idNin, devicesCountEq, devicesCountNeq, devicesCountIn, devicesCountNin, devicesCountLte, devicesCountGte, nameEq, nameNeq, nameIn, nameNin, customAttributesEq, customAttributesNeq, createdAtIn, createdAtNin, createdAtLte, createdAtGte, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte)
+> DeviceGroupPage groupList(limit, order, after, include, filter, idEq, idNeq, idIn, idNin, devicesCountEq, devicesCountNeq, devicesCountIn, devicesCountNin, devicesCountLte, devicesCountGte, nameEq, nameNeq, nameIn, nameNin, createdAtIn, createdAtNin, createdAtLte, createdAtGte, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte)
 
 List all groups.
 
@@ -2304,8 +2304,6 @@ String nameEq = "nameEq_example"; // String | eq filter for the \"name\" field
 String nameNeq = "nameNeq_example"; // String | neq filter for the \"name\" field
 String nameIn = "nameIn_example"; // String | in filter for the \"name\" field
 String nameNin = "nameNin_example"; // String | nin filter for the \"name\" field
-String customAttributesEq = "customAttributesEq_example"; // String | eq filter for the \"custom_attributes\" field
-String customAttributesNeq = "customAttributesNeq_example"; // String | neq filter for the \"custom_attributes\" field
 String createdAtIn = "createdAtIn_example"; // String | in filter for the \"created_at\" field
 String createdAtNin = "createdAtNin_example"; // String | nin filter for the \"created_at\" field
 DateTime createdAtLte = new DateTime(); // DateTime | lte filter for the \"created_at\" field
@@ -2315,7 +2313,7 @@ String updatedAtNin = "updatedAtNin_example"; // String | nin filter for the \"u
 DateTime updatedAtLte = new DateTime(); // DateTime | lte filter for the \"updated_at\" field
 DateTime updatedAtGte = new DateTime(); // DateTime | gte filter for the \"updated_at\" field
 try {
-    DeviceGroupPage result = apiInstance.groupList(limit, order, after, include, filter, idEq, idNeq, idIn, idNin, devicesCountEq, devicesCountNeq, devicesCountIn, devicesCountNin, devicesCountLte, devicesCountGte, nameEq, nameNeq, nameIn, nameNin, customAttributesEq, customAttributesNeq, createdAtIn, createdAtNin, createdAtLte, createdAtGte, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte);
+    DeviceGroupPage result = apiInstance.groupList(limit, order, after, include, filter, idEq, idNeq, idIn, idNin, devicesCountEq, devicesCountNeq, devicesCountIn, devicesCountNin, devicesCountLte, devicesCountGte, nameEq, nameNeq, nameIn, nameNin, createdAtIn, createdAtNin, createdAtLte, createdAtGte, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#groupList");
@@ -2346,8 +2344,6 @@ Name | Type | Description  | Notes
  **nameNeq** | **String**| neq filter for the \&quot;name\&quot; field | [optional]
  **nameIn** | **String**| in filter for the \&quot;name\&quot; field | [optional]
  **nameNin** | **String**| nin filter for the \&quot;name\&quot; field | [optional]
- **customAttributesEq** | **String**| eq filter for the \&quot;custom_attributes\&quot; field | [optional]
- **customAttributesNeq** | **String**| neq filter for the \&quot;custom_attributes\&quot; field | [optional]
  **createdAtIn** | **String**| in filter for the \&quot;created_at\&quot; field | [optional]
  **createdAtNin** | **String**| nin filter for the \&quot;created_at\&quot; field | [optional]
  **createdAtLte** | **DateTime**| lte filter for the \&quot;created_at\&quot; field | [optional]

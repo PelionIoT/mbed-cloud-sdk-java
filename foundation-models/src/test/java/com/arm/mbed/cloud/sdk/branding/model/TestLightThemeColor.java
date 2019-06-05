@@ -19,9 +19,9 @@ public class TestLightThemeColor {
     @Test
     public void testClone() {
         try {
-            LightThemeColor lightthemecolor1 = new LightThemeColor("01653d8f-dffd-44d8-a6d1-159026776868",
+            LightThemeColor lightthemecolor1 = new LightThemeColor("5c2ff99e-ecad-43b9-8c87-0c7775ee4ad9",
                                                                    LightThemeColorReference.getDefault(),
-                                                                   new Date(1559662783971L));
+                                                                   new Date(1559745297946L));
             LightThemeColor lightthemecolor2 = lightthemecolor1.clone();
             assertNotNull(lightthemecolor1);
             assertNotNull(lightthemecolor2);
@@ -39,12 +39,12 @@ public class TestLightThemeColor {
     @Test
     public void testHashCode() {
         try {
-            LightThemeColor lightthemecolor1 = new LightThemeColor("79311ec2-769d-4b20-8904-b73f68de1fa9",
+            LightThemeColor lightthemecolor1 = new LightThemeColor("ff11cfa5-43f4-4f78-bfdb-0e23fc18d878",
                                                                    LightThemeColorReference.getDefault(),
-                                                                   new Date(1559662783274L));
-            LightThemeColor lightthemecolor2 = new LightThemeColor("79311ec2-769d-4b20-8904-b73f68de1fa9",
+                                                                   new Date(1559745294740L));
+            LightThemeColor lightthemecolor2 = new LightThemeColor("ff11cfa5-43f4-4f78-bfdb-0e23fc18d878",
                                                                    LightThemeColorReference.getDefault(),
-                                                                   new Date(1559662783274L));
+                                                                   new Date(1559745294740L));
             assertNotNull(lightthemecolor1);
             assertNotNull(lightthemecolor2);
             assertNotSame(lightthemecolor2, lightthemecolor1);
@@ -65,13 +65,13 @@ public class TestLightThemeColor {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        LightThemeColor lightthemecolor = new LightThemeColor("64cb0bfd-cfd2-44c6-a518-27c41e0bbac5",
+        LightThemeColor lightthemecolor = new LightThemeColor("78d3571c-99f3-4527-8915-b6840fdb0ea4",
                                                               LightThemeColorReference.getDefault(),
-                                                              new Date(1559662782155L));
+                                                              new Date(1559745302209L));
         assertTrue(lightthemecolor.isValid());
-        LightThemeColor lightthemecolorInvalid = new LightThemeColor("146a409c-334f-4db3-842e-040a6f243b21",
+        LightThemeColor lightthemecolorInvalid = new LightThemeColor("c4361aa2-45fb-487b-9033-becf5b56cac6",
                                                                      LightThemeColorReference.getDefault(),
-                                                                     new Date(1559662778289L));
+                                                                     new Date(1559745296836L));
         assertFalse(lightthemecolorInvalid.isValid());
     }
 
@@ -82,15 +82,15 @@ public class TestLightThemeColor {
     @Test
     public void testEquals() {
         try {
-            LightThemeColor lightthemecolor1 = new LightThemeColor("6064c694-1762-4e5a-b443-afda5c50783f",
+            LightThemeColor lightthemecolor1 = new LightThemeColor("32e3fd32-d57f-4742-b16a-95629eabab25",
                                                                    LightThemeColorReference.getDefault(),
-                                                                   new Date(1559662785279L));
-            LightThemeColor lightthemecolor2 = new LightThemeColor("6064c694-1762-4e5a-b443-afda5c50783f",
+                                                                   new Date(1559745301276L));
+            LightThemeColor lightthemecolor2 = new LightThemeColor("32e3fd32-d57f-4742-b16a-95629eabab25",
                                                                    LightThemeColorReference.getDefault(),
-                                                                   new Date(1559662785279L));
-            LightThemeColor lightthemecolor3 = new LightThemeColor("3139cb10-bdd8-4481-ab22-2011aa3aa3a1",
+                                                                   new Date(1559745301276L));
+            LightThemeColor lightthemecolor3 = new LightThemeColor("a78d5f9f-fb17-44f6-8e13-0978d9ab22a2",
                                                                    LightThemeColorReference.getDefault(),
-                                                                   new Date(1559662780164L));
+                                                                   new Date(1559745299282L));
             assertNotNull(lightthemecolor1);
             assertNotNull(lightthemecolor2);
             assertNotNull(lightthemecolor3);

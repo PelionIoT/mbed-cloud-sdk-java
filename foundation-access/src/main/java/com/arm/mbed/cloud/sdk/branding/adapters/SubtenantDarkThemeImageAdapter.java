@@ -69,6 +69,99 @@ public final class SubtenantDarkThemeImageAdapter {
     }
 
     /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
+     *            a reference enum.
+     * @return mapped enum value
+     */
+    @Internal
+    protected static SubtenantDarkThemeImageReference
+              translateToSubtenantDarkThemeImageReference(BrandingImage.ReferenceEnum toBeMapped) {
+        if (toBeMapped == null) {
+            return SubtenantDarkThemeImageReference.getUnknownEnum();
+        }
+        switch (toBeMapped) {
+            case BRAND_LOGO_PORTRAIT:
+                return SubtenantDarkThemeImageReference.BRAND_LOGO_PORTRAIT;
+            case BRAND_LOGO_SQUARE:
+                return SubtenantDarkThemeImageReference.BRAND_LOGO_SQUARE;
+            case BRAND_LOGO_LANDSCAPE:
+                return SubtenantDarkThemeImageReference.BRAND_LOGO_LANDSCAPE;
+            case BRAND_LOGO_EMAIL:
+                return SubtenantDarkThemeImageReference.BRAND_LOGO_EMAIL;
+            case DESKTOP_BACKGROUND_LANDSCAPE:
+                return SubtenantDarkThemeImageReference.DESKTOP_BACKGROUND_LANDSCAPE;
+            case DESKTOP_BACKGROUND_SQUARE:
+                return SubtenantDarkThemeImageReference.DESKTOP_BACKGROUND_SQUARE;
+            case DESKTOP_BACKGROUND_PORTRAIT:
+                return SubtenantDarkThemeImageReference.DESKTOP_BACKGROUND_PORTRAIT;
+            case CAROUSEL_IMAGE_PORTRAIT_0:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_0;
+            case CAROUSEL_IMAGE_PORTRAIT_1:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_1;
+            case CAROUSEL_IMAGE_PORTRAIT_2:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_2;
+            case CAROUSEL_IMAGE_PORTRAIT_3:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_3;
+            case CAROUSEL_IMAGE_PORTRAIT_4:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_4;
+            case CAROUSEL_IMAGE_PORTRAIT_5:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_5;
+            case CAROUSEL_IMAGE_PORTRAIT_6:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_6;
+            case CAROUSEL_IMAGE_PORTRAIT_7:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_7;
+            case CAROUSEL_IMAGE_PORTRAIT_8:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_8;
+            case CAROUSEL_IMAGE_PORTRAIT_9:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_9;
+            case CAROUSEL_IMAGE_SQUARE_0:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_0;
+            case CAROUSEL_IMAGE_SQUARE_1:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_1;
+            case CAROUSEL_IMAGE_SQUARE_2:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_2;
+            case CAROUSEL_IMAGE_SQUARE_3:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_3;
+            case CAROUSEL_IMAGE_SQUARE_4:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_4;
+            case CAROUSEL_IMAGE_SQUARE_5:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_5;
+            case CAROUSEL_IMAGE_SQUARE_6:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_6;
+            case CAROUSEL_IMAGE_SQUARE_7:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_7;
+            case CAROUSEL_IMAGE_SQUARE_8:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_8;
+            case CAROUSEL_IMAGE_SQUARE_9:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_9;
+            case CAROUSEL_IMAGE_LANDSCAPE_0:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_0;
+            case CAROUSEL_IMAGE_LANDSCAPE_1:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_1;
+            case CAROUSEL_IMAGE_LANDSCAPE_2:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_2;
+            case CAROUSEL_IMAGE_LANDSCAPE_3:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_3;
+            case CAROUSEL_IMAGE_LANDSCAPE_4:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_4;
+            case CAROUSEL_IMAGE_LANDSCAPE_5:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_5;
+            case CAROUSEL_IMAGE_LANDSCAPE_6:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_6;
+            case CAROUSEL_IMAGE_LANDSCAPE_7:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_7;
+            case CAROUSEL_IMAGE_LANDSCAPE_8:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_8;
+            case CAROUSEL_IMAGE_LANDSCAPE_9:
+                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_9;
+            default:
+                return SubtenantDarkThemeImageReference.getUnknownEnum();
+        }
+    }
+
+    /**
      * Maps a branding image list into a subtenant dark theme image.
      * 
      * @param toBeMapped
@@ -172,98 +265,5 @@ public final class SubtenantDarkThemeImageAdapter {
                 return SubtenantDarkThemeImageAdapter.mapList(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a reference enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static SubtenantDarkThemeImageReference
-              translateToSubtenantDarkThemeImageReference(BrandingImage.ReferenceEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return SubtenantDarkThemeImageReference.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case BRAND_LOGO_PORTRAIT:
-                return SubtenantDarkThemeImageReference.BRAND_LOGO_PORTRAIT;
-            case BRAND_LOGO_SQUARE:
-                return SubtenantDarkThemeImageReference.BRAND_LOGO_SQUARE;
-            case BRAND_LOGO_LANDSCAPE:
-                return SubtenantDarkThemeImageReference.BRAND_LOGO_LANDSCAPE;
-            case BRAND_LOGO_EMAIL:
-                return SubtenantDarkThemeImageReference.BRAND_LOGO_EMAIL;
-            case DESKTOP_BACKGROUND_LANDSCAPE:
-                return SubtenantDarkThemeImageReference.DESKTOP_BACKGROUND_LANDSCAPE;
-            case DESKTOP_BACKGROUND_SQUARE:
-                return SubtenantDarkThemeImageReference.DESKTOP_BACKGROUND_SQUARE;
-            case DESKTOP_BACKGROUND_PORTRAIT:
-                return SubtenantDarkThemeImageReference.DESKTOP_BACKGROUND_PORTRAIT;
-            case CAROUSEL_IMAGE_PORTRAIT_0:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_0;
-            case CAROUSEL_IMAGE_PORTRAIT_1:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_1;
-            case CAROUSEL_IMAGE_PORTRAIT_2:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_2;
-            case CAROUSEL_IMAGE_PORTRAIT_3:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_3;
-            case CAROUSEL_IMAGE_PORTRAIT_4:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_4;
-            case CAROUSEL_IMAGE_PORTRAIT_5:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_5;
-            case CAROUSEL_IMAGE_PORTRAIT_6:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_6;
-            case CAROUSEL_IMAGE_PORTRAIT_7:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_7;
-            case CAROUSEL_IMAGE_PORTRAIT_8:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_8;
-            case CAROUSEL_IMAGE_PORTRAIT_9:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_PORTRAIT_9;
-            case CAROUSEL_IMAGE_SQUARE_0:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_0;
-            case CAROUSEL_IMAGE_SQUARE_1:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_1;
-            case CAROUSEL_IMAGE_SQUARE_2:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_2;
-            case CAROUSEL_IMAGE_SQUARE_3:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_3;
-            case CAROUSEL_IMAGE_SQUARE_4:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_4;
-            case CAROUSEL_IMAGE_SQUARE_5:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_5;
-            case CAROUSEL_IMAGE_SQUARE_6:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_6;
-            case CAROUSEL_IMAGE_SQUARE_7:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_7;
-            case CAROUSEL_IMAGE_SQUARE_8:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_8;
-            case CAROUSEL_IMAGE_SQUARE_9:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_SQUARE_9;
-            case CAROUSEL_IMAGE_LANDSCAPE_0:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_0;
-            case CAROUSEL_IMAGE_LANDSCAPE_1:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_1;
-            case CAROUSEL_IMAGE_LANDSCAPE_2:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_2;
-            case CAROUSEL_IMAGE_LANDSCAPE_3:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_3;
-            case CAROUSEL_IMAGE_LANDSCAPE_4:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_4;
-            case CAROUSEL_IMAGE_LANDSCAPE_5:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_5;
-            case CAROUSEL_IMAGE_LANDSCAPE_6:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_6;
-            case CAROUSEL_IMAGE_LANDSCAPE_7:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_7;
-            case CAROUSEL_IMAGE_LANDSCAPE_8:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_8;
-            case CAROUSEL_IMAGE_LANDSCAPE_9:
-                return SubtenantDarkThemeImageReference.CAROUSEL_IMAGE_LANDSCAPE_9;
-            default:
-                return SubtenantDarkThemeImageReference.getUnknownEnum();
-        }
     }
 }

@@ -12,9 +12,9 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
 import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
 import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
+import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
 import com.arm.mbed.cloud.sdk.common.model.DataFile;
 
 /**
@@ -26,7 +26,7 @@ import com.arm.mbed.cloud.sdk.common.model.DataFile;
  */
 @Preamble(description = "Data Access Object (DAO) for dark theme images.")
 public abstract class AbstractDarkThemeImageDao extends AbstractModelDao<DarkThemeImage>
-                                                implements CreateDao<DarkThemeImage>, DeleteDao<DarkThemeImage>,
+                                                implements UpdateDao<DarkThemeImage>, DeleteDao<DarkThemeImage>,
                                                 ReadDao<DarkThemeImage> {
     /**
      * Constructor.
@@ -72,65 +72,6 @@ public abstract class AbstractDarkThemeImageDao extends AbstractModelDao<DarkThe
      */
     public AbstractDarkThemeImageDao(SdkContext sdkContext) throws MbedCloudException {
         super(sdkContext);
-    }
-
-    /**
-     * Adds a dark theme image.
-     *
-     * <p>
-     * Note: uses internal data model
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageDao#create(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.DarkThemeImage)}
-     * 
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    public DarkThemeImage create(@NonNull DataFile image) throws MbedCloudException {
-        return create(image, getModel());
-    }
-
-    /**
-     * Adds a dark theme image.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Branding#createDarkThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.DarkThemeImage)}
-     * 
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param darkThemeImage
-     *            a dark theme image.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    public DarkThemeImage create(@NonNull DataFile image,
-                                 @NonNull DarkThemeImage darkThemeImage) throws MbedCloudException {
-        return setAndGetModel(((Branding) getModuleOrThrow()).createDarkThemeImage(image, darkThemeImage));
-    }
-
-    /**
-     * Adds a dark theme image.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Branding#createDarkThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageReference)}
-     * 
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param reference
-     *            Name of the image.
-     * @return an added dark theme image
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    public DarkThemeImage create(@NonNull DataFile image,
-                                 @NonNull DarkThemeImageReference reference) throws MbedCloudException {
-        return setAndGetModel(((Branding) getModuleOrThrow()).createDarkThemeImage(image, reference));
     }
 
     /**
@@ -283,5 +224,64 @@ public abstract class AbstractDarkThemeImageDao extends AbstractModelDao<DarkThe
      */
     public DarkThemeImage read(@NonNull DarkThemeImage darkThemeImage) throws MbedCloudException {
         return setAndGetModel(((Branding) getModuleOrThrow()).readDarkThemeImage(darkThemeImage));
+    }
+
+    /**
+     * Modifies a dark theme image.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageDao#update(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.DarkThemeImage)}
+     * 
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DarkThemeImage update(@NonNull DataFile image) throws MbedCloudException {
+        return update(image, getModel());
+    }
+
+    /**
+     * Modifies a dark theme image.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Branding#updateDarkThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.DarkThemeImage)}
+     * 
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param darkThemeImage
+     *            a dark theme image.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DarkThemeImage update(@NonNull DataFile image,
+                                 @NonNull DarkThemeImage darkThemeImage) throws MbedCloudException {
+        return setAndGetModel(((Branding) getModuleOrThrow()).updateDarkThemeImage(image, darkThemeImage));
+    }
+
+    /**
+     * Modifies a dark theme image.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Branding#updateDarkThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageReference)}
+     * 
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param reference
+     *            Name of the image.
+     * @return an updated dark theme image
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public DarkThemeImage update(@NonNull DataFile image,
+                                 @NonNull DarkThemeImageReference reference) throws MbedCloudException {
+        return setAndGetModel(((Branding) getModuleOrThrow()).updateDarkThemeImage(image, reference));
     }
 }

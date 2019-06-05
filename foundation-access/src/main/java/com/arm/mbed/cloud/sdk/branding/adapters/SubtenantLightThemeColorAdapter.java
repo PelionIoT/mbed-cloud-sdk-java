@@ -29,112 +29,6 @@ public final class SubtenantLightThemeColorAdapter {
     }
 
     /**
-     * Maps a branding color list into a subtenant light theme color.
-     * 
-     * @param toBeMapped
-     *            a branding color list.
-     * @return mapped list response
-     */
-    @Internal
-    public static ListResponse<SubtenantLightThemeColor> mapList(BrandingColorList toBeMapped) {
-        final BrandingColorList finalList = toBeMapped;
-        final GenericAdapter.RespList<BrandingColor> respList = new GenericAdapter.RespList<BrandingColor>() {
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getContinuationMarker.
-             * 
-             * @return something
-             */
-            @Override
-            public String getContinuationMarker() {
-                return null;
-            }
-
-            /**
-             * Executes getData.
-             * 
-             * @return something
-             */
-            @Override
-            public List<BrandingColor> getData() {
-                return (finalList == null) ? null : finalList.getData();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
-            }
-
-            /**
-             * Executes getLimit.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getLimit() {
-                return (finalList == null) ? null : finalList.getLimit();
-            }
-
-            /**
-             * Executes getOrder.
-             * 
-             * @return something
-             */
-            @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
-            }
-
-            /**
-             * Executes getTotalCount.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
-            }
-        };
-        return GenericAdapter.mapList(respList, SubtenantLightThemeColorAdapter.getMapper());
-    }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<BrandingColorList, ListResponse<SubtenantLightThemeColor>> getListMapper() {
-        return new GenericAdapter.Mapper<BrandingColorList, ListResponse<SubtenantLightThemeColor>>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public ListResponse<SubtenantLightThemeColor> map(BrandingColorList toBeMapped) {
-                return SubtenantLightThemeColorAdapter.mapList(toBeMapped);
-            }
-        };
-    }
-
-    /**
      * Maps a branding color into a subtenant light theme color.
      * 
      * @param toBeMapped
@@ -241,6 +135,112 @@ public final class SubtenantLightThemeColorAdapter {
             default:
                 return SubtenantLightThemeColorReference.getUnknownEnum();
         }
+    }
+
+    /**
+     * Maps a branding color list into a subtenant light theme color.
+     * 
+     * @param toBeMapped
+     *            a branding color list.
+     * @return mapped list response
+     */
+    @Internal
+    public static ListResponse<SubtenantLightThemeColor> mapList(BrandingColorList toBeMapped) {
+        final BrandingColorList finalList = toBeMapped;
+        final GenericAdapter.RespList<BrandingColor> respList = new GenericAdapter.RespList<BrandingColor>() {
+            /**
+             * Executes getAfter.
+             * 
+             * @return something
+             */
+            @Override
+            public String getAfter() {
+                return (finalList == null) ? null : finalList.getAfter();
+            }
+
+            /**
+             * Executes getContinuationMarker.
+             * 
+             * @return something
+             */
+            @Override
+            public String getContinuationMarker() {
+                return null;
+            }
+
+            /**
+             * Executes getData.
+             * 
+             * @return something
+             */
+            @Override
+            public List<BrandingColor> getData() {
+                return (finalList == null) ? null : finalList.getData();
+            }
+
+            /**
+             * Executes getHasMore.
+             * 
+             * @return something
+             */
+            @Override
+            public Boolean getHasMore() {
+                return (finalList == null) ? null : finalList.isHasMore();
+            }
+
+            /**
+             * Executes getLimit.
+             * 
+             * @return something
+             */
+            @Override
+            public Integer getLimit() {
+                return (finalList == null) ? null : finalList.getLimit();
+            }
+
+            /**
+             * Executes getOrder.
+             * 
+             * @return something
+             */
+            @Override
+            public String getOrder() {
+                return (finalList == null) ? null : finalList.getOrder().toString();
+            }
+
+            /**
+             * Executes getTotalCount.
+             * 
+             * @return something
+             */
+            @Override
+            public Integer getTotalCount() {
+                return (finalList == null) ? null : finalList.getTotalCount();
+            }
+        };
+        return GenericAdapter.mapList(respList, SubtenantLightThemeColorAdapter.getMapper());
+    }
+
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper
+     */
+    @Internal
+    public static GenericAdapter.Mapper<BrandingColorList, ListResponse<SubtenantLightThemeColor>> getListMapper() {
+        return new GenericAdapter.Mapper<BrandingColorList, ListResponse<SubtenantLightThemeColor>>() {
+            /**
+             * Maps.
+             * 
+             * @param toBeMapped
+             *            model to be mapped.
+             * @return a mapped object
+             */
+            @Override
+            public ListResponse<SubtenantLightThemeColor> map(BrandingColorList toBeMapped) {
+                return SubtenantLightThemeColorAdapter.mapList(toBeMapped);
+            }
+        };
     }
 
     /**

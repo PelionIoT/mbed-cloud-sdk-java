@@ -78,13 +78,14 @@ public final class AccountAdapter {
         if (toBeMapped == null) {
             return null;
         }
+        // No field equivalent to staticUri in Account was found in AccountInfo
         final Account account = new Account(toBeMapped.getAdminId(), toBeMapped.getAdminKey(),
                                             TranslationUtils.toDate(toBeMapped.getCreatedAt()),
                                             TranslationUtils.toDate(toBeMapped.getExpiration()), toBeMapped.getLimits(),
                                             ParentAccountAdapter.map(toBeMapped.getParentAccount()),
                                             toBeMapped.getParentId(),
                                             PolicyAdapter.mapSimpleList(toBeMapped.getPolicies()),
-                                            toBeMapped.getReason(), toBeMapped.getReferenceNote(),
+                                            toBeMapped.getReason(), toBeMapped.getReferenceNote(), (String) null,
                                             translateToAccountStatus(toBeMapped.getStatus()),
                                             toBeMapped.getTemplateId(), toBeMapped.getTier(),
                                             TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
@@ -115,6 +116,7 @@ public final class AccountAdapter {
         account.setPasswordRecoveryExpiration(TranslationUtils.toInt(toBeMapped.getPasswordRecoveryExpiration(), 1));
         account.setPhoneNumber(toBeMapped.getPhoneNumber());
         account.setPostalCode(toBeMapped.getPostalCode());
+        // No field equivalent to reference in Account was found in AccountInfo
         account.setSalesContact(toBeMapped.getSalesContact());
         account.setState(toBeMapped.getState());
         return account;

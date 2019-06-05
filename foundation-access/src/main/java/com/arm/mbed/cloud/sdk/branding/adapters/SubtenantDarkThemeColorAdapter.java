@@ -8,10 +8,7 @@ import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColor;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorReference;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColor;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColorList;
-import java.util.List;
 
 /**
  * Adapter for subtenant dark theme colors.
@@ -26,112 +23,6 @@ public final class SubtenantDarkThemeColorAdapter {
     private SubtenantDarkThemeColorAdapter() {
         super();
         // Nothing to do;
-    }
-
-    /**
-     * Maps a branding color list into a subtenant dark theme color.
-     * 
-     * @param toBeMapped
-     *            a branding color list.
-     * @return mapped list response
-     */
-    @Internal
-    public static ListResponse<SubtenantDarkThemeColor> mapList(BrandingColorList toBeMapped) {
-        final BrandingColorList finalList = toBeMapped;
-        final GenericAdapter.RespList<BrandingColor> respList = new GenericAdapter.RespList<BrandingColor>() {
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getContinuationMarker.
-             * 
-             * @return something
-             */
-            @Override
-            public String getContinuationMarker() {
-                return null;
-            }
-
-            /**
-             * Executes getData.
-             * 
-             * @return something
-             */
-            @Override
-            public List<BrandingColor> getData() {
-                return (finalList == null) ? null : finalList.getData();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
-            }
-
-            /**
-             * Executes getLimit.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getLimit() {
-                return (finalList == null) ? null : finalList.getLimit();
-            }
-
-            /**
-             * Executes getOrder.
-             * 
-             * @return something
-             */
-            @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
-            }
-
-            /**
-             * Executes getTotalCount.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
-            }
-        };
-        return GenericAdapter.mapList(respList, SubtenantDarkThemeColorAdapter.getMapper());
-    }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<BrandingColorList, ListResponse<SubtenantDarkThemeColor>> getListMapper() {
-        return new GenericAdapter.Mapper<BrandingColorList, ListResponse<SubtenantDarkThemeColor>>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public ListResponse<SubtenantDarkThemeColor> map(BrandingColorList toBeMapped) {
-                return SubtenantDarkThemeColorAdapter.mapList(toBeMapped);
-            }
-        };
     }
 
     /**

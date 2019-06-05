@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.accounts.adapters.UserAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.UserInvitationAdapter;
 import com.arm.mbed.cloud.sdk.accounts.model.Account;
 import com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions;
+import com.arm.mbed.cloud.sdk.accounts.model.AccountReference;
 import com.arm.mbed.cloud.sdk.accounts.model.AccountsEndpoints;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKey;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions;
@@ -31,6 +32,17 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.branding.adapters.SubtenantDarkThemeColorAdapter;
+import com.arm.mbed.cloud.sdk.branding.adapters.SubtenantDarkThemeImageAdapter;
+import com.arm.mbed.cloud.sdk.branding.adapters.SubtenantLightThemeColorAdapter;
+import com.arm.mbed.cloud.sdk.branding.adapters.SubtenantLightThemeImageAdapter;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColor;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorListOptions;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImage;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageListOptions;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColor;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorListOptions;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
@@ -47,6 +59,9 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Account
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfoList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColorList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImageList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRespList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoRespList;
@@ -90,6 +105,12 @@ public class Accounts extends AbstractModule {
      */
     @Internal
     private static final String TAG_ID = "id";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
+    private static final String TAG_REFERENCE = "reference";
 
     /**
      * Parameter name.
@@ -233,6 +254,251 @@ public class Accounts extends AbstractModule {
             @Override
             public ListResponse<SubtenantApiKey> requestNewPage(ListOptions options) throws MbedCloudException {
                 return apiKeys((SubtenantApiKeyListOptions) options, finalAccount);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant dark theme colors matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all accounts matching filter options.
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant dark theme colors
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantDarkThemeColor>
+           allDarkThemeBrandingColors(@NonNull String id,
+                                      @Nullable SubtenantDarkThemeColorListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final SubtenantDarkThemeColorListOptions finalOptions = (options == null) ? new SubtenantDarkThemeColorListOptions()
+                                                                                  : options;
+        return new Paginator<SubtenantDarkThemeColor>(finalOptions, new PageRequester<SubtenantDarkThemeColor>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantDarkThemeColor> requestNewPage(ListOptions options) throws MbedCloudException {
+                return darkThemeBrandingColors(finalId, (SubtenantDarkThemeColorListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant dark theme colors matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #darkThemeBrandingColors(com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return paginator over the list of subtenant dark theme colors
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantDarkThemeColor>
+           allDarkThemeBrandingColors(@Nullable SubtenantDarkThemeColorListOptions options,
+                                      @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        final SubtenantDarkThemeColorListOptions finalOptions = (options == null) ? new SubtenantDarkThemeColorListOptions()
+                                                                                  : options;
+        final Account finalAccount = account;
+        return new Paginator<SubtenantDarkThemeColor>(finalOptions, new PageRequester<SubtenantDarkThemeColor>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantDarkThemeColor> requestNewPage(ListOptions options) throws MbedCloudException {
+                return darkThemeBrandingColors((SubtenantDarkThemeColorListOptions) options, finalAccount);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant dark theme images matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all accounts matching filter options.
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant dark theme images
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantDarkThemeImage>
+           allDarkThemeBrandingImages(@NonNull String id,
+                                      @Nullable SubtenantDarkThemeImageListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final SubtenantDarkThemeImageListOptions finalOptions = (options == null) ? new SubtenantDarkThemeImageListOptions()
+                                                                                  : options;
+        return new Paginator<SubtenantDarkThemeImage>(finalOptions, new PageRequester<SubtenantDarkThemeImage>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantDarkThemeImage> requestNewPage(ListOptions options) throws MbedCloudException {
+                return darkThemeBrandingImages(finalId, (SubtenantDarkThemeImageListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant dark theme images matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #darkThemeBrandingImages(com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return paginator over the list of subtenant dark theme images
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantDarkThemeImage>
+           allDarkThemeBrandingImages(@Nullable SubtenantDarkThemeImageListOptions options,
+                                      @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        final SubtenantDarkThemeImageListOptions finalOptions = (options == null) ? new SubtenantDarkThemeImageListOptions()
+                                                                                  : options;
+        final Account finalAccount = account;
+        return new Paginator<SubtenantDarkThemeImage>(finalOptions, new PageRequester<SubtenantDarkThemeImage>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantDarkThemeImage> requestNewPage(ListOptions options) throws MbedCloudException {
+                return darkThemeBrandingImages((SubtenantDarkThemeImageListOptions) options, finalAccount);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant light theme colors matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all accounts matching filter options.
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant light theme colors
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantLightThemeColor>
+           allLightThemeBrandingColors(@NonNull String id,
+                                       @Nullable SubtenantLightThemeColorListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final SubtenantLightThemeColorListOptions finalOptions = (options == null) ? new SubtenantLightThemeColorListOptions()
+                                                                                   : options;
+        return new Paginator<SubtenantLightThemeColor>(finalOptions, new PageRequester<SubtenantLightThemeColor>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantLightThemeColor>
+                   requestNewPage(ListOptions options) throws MbedCloudException {
+                return lightThemeBrandingColors(finalId, (SubtenantLightThemeColorListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant light theme colors matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #lightThemeBrandingColors(com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return paginator over the list of subtenant light theme colors
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantLightThemeColor>
+           allLightThemeBrandingColors(@Nullable SubtenantLightThemeColorListOptions options,
+                                       @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        final SubtenantLightThemeColorListOptions finalOptions = (options == null) ? new SubtenantLightThemeColorListOptions()
+                                                                                   : options;
+        final Account finalAccount = account;
+        return new Paginator<SubtenantLightThemeColor>(finalOptions, new PageRequester<SubtenantLightThemeColor>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantLightThemeColor>
+                   requestNewPage(ListOptions options) throws MbedCloudException {
+                return lightThemeBrandingColors((SubtenantLightThemeColorListOptions) options, finalAccount);
             }
         });
     }
@@ -1141,6 +1407,142 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Get dark theme branding colors.
+     *
+     *
+     * <p>
+     * Retrieve dark theme branding colors for an account.
+     *
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark \
+     * -H 'Authorization: Bearer [api_key]' ``` This lists the dark theme banding colors of the subtenant account.
+     *
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return the list of subtenant dark theme colors corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantDarkThemeColor>
+           darkThemeBrandingColors(@NonNull String id,
+                                   @Nullable SubtenantDarkThemeColorListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final SubtenantDarkThemeColorListOptions finalOptions = (options == null) ? new SubtenantDarkThemeColorListOptions()
+                                                                                  : options;
+        return CloudCaller.call(this, "darkThemeBrandingColors()", SubtenantDarkThemeColorAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<BrandingColorList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<BrandingColorList> call() {
+                                        return endpoints.getTenantUserInterfaceConfigurationColorsApi()
+                                                        .getAccountDarkColors(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Get dark theme branding colors.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link #darkThemeBrandingColors(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return the list of subtenant dark theme colors corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantDarkThemeColor>
+           darkThemeBrandingColors(@Nullable SubtenantDarkThemeColorListOptions options,
+                                   @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        checkModelValidity(account, TAG_ACCOUNT);
+        return darkThemeBrandingColors(account.getId(), options);
+    }
+
+    /**
+     * Get metadata of all dark theme images.
+     *
+     *
+     * <p>
+     * Retrieve the metadata of all dark theme branding images.
+     *
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark \
+     * -H 'Authorization: Bearer [api_key]' ``` This lists the dark theme banding images of the subtenant account.
+     *
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return the list of subtenant dark theme images corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantDarkThemeImage>
+           darkThemeBrandingImages(@NonNull String id,
+                                   @Nullable SubtenantDarkThemeImageListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final SubtenantDarkThemeImageListOptions finalOptions = (options == null) ? new SubtenantDarkThemeImageListOptions()
+                                                                                  : options;
+        return CloudCaller.call(this, "darkThemeBrandingImages()", SubtenantDarkThemeImageAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<BrandingImageList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<BrandingImageList> call() {
+                                        return endpoints.getTenantUserInterfaceConfigurationImagesApi()
+                                                        .getAllAccountDarkImageData(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Get metadata of all dark theme images.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link #darkThemeBrandingImages(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return the list of subtenant dark theme images corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantDarkThemeImage>
+           darkThemeBrandingImages(@Nullable SubtenantDarkThemeImageListOptions options,
+                                   @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        checkModelValidity(account, TAG_ACCOUNT);
+        return darkThemeBrandingImages(account.getId(), options);
+    }
+
+    /**
      * Deletes an api key.
      *
      * <p>
@@ -1461,6 +1863,138 @@ public class Accounts extends AbstractModule {
     @Internal
     public String getModuleName() {
         return "Accounts";
+    }
+
+    /**
+     * Get light theme branding colors.
+     *
+     *
+     * <p>
+     * Retrieve light theme branding colors for an account.
+     *
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light \
+     * -H 'Authorization: Bearer [api_key]' ``` This lists the light theme banding colors of the subtenant account.
+     *
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return the list of subtenant light theme colors corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantLightThemeColor>
+           lightThemeBrandingColors(@NonNull String id,
+                                    @Nullable SubtenantLightThemeColorListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final SubtenantLightThemeColorListOptions finalOptions = (options == null) ? new SubtenantLightThemeColorListOptions()
+                                                                                   : options;
+        return CloudCaller.call(this, "lightThemeBrandingColors()", SubtenantLightThemeColorAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<BrandingColorList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<BrandingColorList> call() {
+                                        return endpoints.getTenantUserInterfaceConfigurationColorsApi()
+                                                        .getAccountLightColors(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Get light theme branding colors.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link #lightThemeBrandingColors(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return the list of subtenant light theme colors corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantLightThemeColor>
+           lightThemeBrandingColors(@Nullable SubtenantLightThemeColorListOptions options,
+                                    @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        checkModelValidity(account, TAG_ACCOUNT);
+        return lightThemeBrandingColors(account.getId(), options);
+    }
+
+    /**
+     * Get metadata of a light theme image.
+     *
+     *
+     * <p>
+     * Similar to {@link #lightThemeBrandingImages(String, com.arm.mbed.cloud.sdk.accounts.model.AccountReference)}
+     * 
+     * @param account
+     *            an account.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantLightThemeImage lightThemeBrandingImages(@NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return lightThemeBrandingImages(account.getId(), account.getReference());
+    }
+
+    /**
+     * Get metadata of a light theme image.
+     *
+     *
+     * <p>
+     * Retrieve metadata for one account light theme branding image.
+     *
+     * **Example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference} \ -H
+     * 'Authorization: Bearer [api_key]' ``` This lists the light theme banding images of the subtenant account.
+     *
+     * @param id
+     *            Account ID.
+     * @param reference
+     *            Name of the image.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantLightThemeImage
+           lightThemeBrandingImages(@NonNull String id, @NonNull AccountReference reference) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        checkNotNull(reference, TAG_REFERENCE);
+        final String finalId = id;
+        final AccountReference finalReference = reference;
+        return CloudCaller.call(this, "lightThemeBrandingImages()", SubtenantLightThemeImageAdapter.getMapper(),
+                                new CloudRequest.CloudCall<BrandingImage>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<BrandingImage> call() {
+                                        return endpoints.getTenantUserInterfaceConfigurationImagesApi()
+                                                        .getAccountLightImageData(finalId,
+                                                                                  finalReference == null ? null
+                                                                                                         : finalReference.getString());
+                                    }
+                                }, true);
     }
 
     /**

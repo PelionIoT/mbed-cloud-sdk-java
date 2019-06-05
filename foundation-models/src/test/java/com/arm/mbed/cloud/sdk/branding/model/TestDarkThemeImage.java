@@ -20,8 +20,8 @@ public class TestDarkThemeImage {
     public void testClone() {
         try {
             DarkThemeImage darkthemeimage1 = new DarkThemeImage(DarkThemeImageReference.getDefault(),
-                                                                "56599571-11b6-4640-bafa-4980fe824c8b",
-                                                                new Date(1559662782733L));
+                                                                "6a0b7b9a-64f8-478d-af7b-d74275fd1a0d",
+                                                                new Date(1559745295535L));
             DarkThemeImage darkthemeimage2 = darkthemeimage1.clone();
             assertNotNull(darkthemeimage1);
             assertNotNull(darkthemeimage2);
@@ -40,11 +40,11 @@ public class TestDarkThemeImage {
     public void testHashCode() {
         try {
             DarkThemeImage darkthemeimage1 = new DarkThemeImage(DarkThemeImageReference.getDefault(),
-                                                                "5761cdd6-e915-41e9-851e-38f1fb9272c6",
-                                                                new Date(1559662778654L));
+                                                                "66e5bc68-ae0b-437f-92b1-7457212e0c2b",
+                                                                new Date(1559745294377L));
             DarkThemeImage darkthemeimage2 = new DarkThemeImage(DarkThemeImageReference.getDefault(),
-                                                                "5761cdd6-e915-41e9-851e-38f1fb9272c6",
-                                                                new Date(1559662778654L));
+                                                                "66e5bc68-ae0b-437f-92b1-7457212e0c2b",
+                                                                new Date(1559745294377L));
             assertNotNull(darkthemeimage1);
             assertNotNull(darkthemeimage2);
             assertNotSame(darkthemeimage2, darkthemeimage1);
@@ -66,12 +66,12 @@ public class TestDarkThemeImage {
     @Test
     public void testIsValid() {
         DarkThemeImage darkthemeimage = new DarkThemeImage(DarkThemeImageReference.getDefault(),
-                                                           "8b77f826-5684-4189-95f0-a654b6cbedb6",
-                                                           new Date(1559662779780L));
+                                                           "dfcc49c9-a23b-43c9-b464-7cd414874600",
+                                                           new Date(1559745296973L));
         assertTrue(darkthemeimage.isValid());
         DarkThemeImage darkthemeimageInvalid = new DarkThemeImage(DarkThemeImageReference.getDefault(),
-                                                                  "3d42bd98-ea6d-4347-9517-2d9b6bb5e2e7",
-                                                                  new Date(1559662785864L));
+                                                                  "a03334c0-4705-4176-b9bc-031b46c48c48",
+                                                                  new Date(1559745302872L));
         assertFalse(darkthemeimageInvalid.isValid());
     }
 
@@ -83,14 +83,14 @@ public class TestDarkThemeImage {
     public void testEquals() {
         try {
             DarkThemeImage darkthemeimage1 = new DarkThemeImage(DarkThemeImageReference.getDefault(),
-                                                                "8dba3a1c-bc7e-4e14-a2d0-029be22f4d32",
-                                                                new Date(1559662783744L));
+                                                                "864ae2c7-48f4-4799-bee6-3b1ec3d5378f",
+                                                                new Date(1559745301170L));
             DarkThemeImage darkthemeimage2 = new DarkThemeImage(DarkThemeImageReference.getDefault(),
-                                                                "8dba3a1c-bc7e-4e14-a2d0-029be22f4d32",
-                                                                new Date(1559662783744L));
+                                                                "864ae2c7-48f4-4799-bee6-3b1ec3d5378f",
+                                                                new Date(1559745301170L));
             DarkThemeImage darkthemeimage3 = new DarkThemeImage(DarkThemeImageReference.getDefault(),
-                                                                "d8ba46bc-fc06-498f-b860-f66136315dd0",
-                                                                new Date(1559662777423L));
+                                                                "ae702ac2-a35d-4f42-af3f-17ce164c00b9",
+                                                                new Date(1559745294267L));
             assertNotNull(darkthemeimage1);
             assertNotNull(darkthemeimage2);
             assertNotNull(darkthemeimage3);

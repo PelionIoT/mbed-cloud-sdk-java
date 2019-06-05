@@ -8,10 +8,7 @@ import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageReference;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImage;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImageList;
-import java.util.List;
 
 /**
  * Adapter for subtenant light theme images.
@@ -64,112 +61,6 @@ public final class SubtenantLightThemeImageAdapter {
             @Override
             public SubtenantLightThemeImage map(BrandingImage toBeMapped) {
                 return SubtenantLightThemeImageAdapter.map(toBeMapped);
-            }
-        };
-    }
-
-    /**
-     * Maps a branding image list into a subtenant light theme image.
-     * 
-     * @param toBeMapped
-     *            a branding image list.
-     * @return mapped list response
-     */
-    @Internal
-    public static ListResponse<SubtenantLightThemeImage> mapList(BrandingImageList toBeMapped) {
-        final BrandingImageList finalList = toBeMapped;
-        final GenericAdapter.RespList<BrandingImage> respList = new GenericAdapter.RespList<BrandingImage>() {
-            /**
-             * Executes getAfter.
-             * 
-             * @return something
-             */
-            @Override
-            public String getAfter() {
-                return (finalList == null) ? null : finalList.getAfter();
-            }
-
-            /**
-             * Executes getContinuationMarker.
-             * 
-             * @return something
-             */
-            @Override
-            public String getContinuationMarker() {
-                return null;
-            }
-
-            /**
-             * Executes getData.
-             * 
-             * @return something
-             */
-            @Override
-            public List<BrandingImage> getData() {
-                return (finalList == null) ? null : finalList.getData();
-            }
-
-            /**
-             * Executes getHasMore.
-             * 
-             * @return something
-             */
-            @Override
-            public Boolean getHasMore() {
-                return (finalList == null) ? null : finalList.isHasMore();
-            }
-
-            /**
-             * Executes getLimit.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getLimit() {
-                return (finalList == null) ? null : finalList.getLimit();
-            }
-
-            /**
-             * Executes getOrder.
-             * 
-             * @return something
-             */
-            @Override
-            public String getOrder() {
-                return (finalList == null) ? null : finalList.getOrder().toString();
-            }
-
-            /**
-             * Executes getTotalCount.
-             * 
-             * @return something
-             */
-            @Override
-            public Integer getTotalCount() {
-                return (finalList == null) ? null : finalList.getTotalCount();
-            }
-        };
-        return GenericAdapter.mapList(respList, SubtenantLightThemeImageAdapter.getMapper());
-    }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<BrandingImageList, ListResponse<SubtenantLightThemeImage>> getListMapper() {
-        return new GenericAdapter.Mapper<BrandingImageList, ListResponse<SubtenantLightThemeImage>>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public ListResponse<SubtenantLightThemeImage> map(BrandingImageList toBeMapped) {
-                return SubtenantLightThemeImageAdapter.mapList(toBeMapped);
             }
         };
     }

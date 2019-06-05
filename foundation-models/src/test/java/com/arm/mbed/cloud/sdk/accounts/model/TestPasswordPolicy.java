@@ -18,7 +18,7 @@ public class TestPasswordPolicy {
     @Test
     public void testClone() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy(45);
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy(54);
             PasswordPolicy passwordpolicy2 = passwordpolicy1.clone();
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
@@ -69,9 +69,9 @@ public class TestPasswordPolicy {
     @Test
     public void testEquals() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy(8);
-            PasswordPolicy passwordpolicy2 = new PasswordPolicy(8);
-            PasswordPolicy passwordpolicy3 = new PasswordPolicy(97);
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy(63);
+            PasswordPolicy passwordpolicy2 = new PasswordPolicy(63);
+            PasswordPolicy passwordpolicy3 = new PasswordPolicy(8);
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
             assertNotNull(passwordpolicy3);

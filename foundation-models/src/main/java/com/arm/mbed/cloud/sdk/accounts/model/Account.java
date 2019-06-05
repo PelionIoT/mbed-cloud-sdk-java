@@ -203,6 +203,12 @@ public class Account implements SdkModel {
     private final String reason;
 
     /**
+     * Name of the image.
+     */
+    @Required
+    private AccountReference reference;
+
+    /**
      * A reference note for updating the status of the account.
      */
     private final String referenceNote;
@@ -216,6 +222,11 @@ public class Account implements SdkModel {
      * The state part of the postal address.
      */
     private String state;
+
+    /**
+     * The static link to the image.
+     */
+    private final String staticUri;
 
     /**
      * The status of the account.
@@ -234,7 +245,7 @@ public class Account implements SdkModel {
     private final String tier;
 
     /**
-     * Last update UTC time RFC3339.
+     * Last update time in UTC.
      */
     private final Date updatedAt;
 
@@ -325,12 +336,16 @@ public class Account implements SdkModel {
      *            The postal code part of the postal address.
      * @param reason
      *            A note with the reason for account status update.
+     * @param reference
+     *            Name of the image.
      * @param referenceNote
      *            A reference note for updating the status of the account.
      * @param salesContact
      *            Email address of the sales contact.
      * @param state
      *            The state part of the postal address.
+     * @param staticUri
+     *            The static link to the image.
      * @param status
      *            The status of the account.
      * @param templateId
@@ -339,7 +354,7 @@ public class Account implements SdkModel {
      *            The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other
      *            values are reserved for the future.
      * @param updatedAt
-     *            Last update UTC time RFC3339.
+     *            Last update time in UTC.
      * @param upgradedAt
      *            Time when upgraded to commercial account in UTC format RFC3339.
      */
@@ -353,9 +368,9 @@ public class Account implements SdkModel {
                    @DefaultValue("1") int idleTimeout, Map<String, String> limits, AccountMfaStatus mfaStatus,
                    List<String> notificationEmails, ParentAccount parentAccount, String parentId,
                    PasswordPolicy passwordPolicy, @DefaultValue("1") int passwordRecoveryExpiration, String phoneNumber,
-                   List<Policy> policies, String postalCode, String reason, String referenceNote, String salesContact,
-                   String state, AccountStatus status, String templateId, String tier, Date updatedAt,
-                   Date upgradedAt) {
+                   List<Policy> policies, String postalCode, String reason, AccountReference reference,
+                   String referenceNote, String salesContact, String state, String staticUri, AccountStatus status,
+                   String templateId, String tier, Date updatedAt, Date upgradedAt) {
         super();
         this.adminId = adminId;
         this.adminKey = adminKey;
@@ -367,6 +382,7 @@ public class Account implements SdkModel {
         this.policies = policies;
         this.reason = reason;
         this.referenceNote = referenceNote;
+        this.staticUri = staticUri;
         this.status = status;
         this.templateId = templateId;
         this.tier = tier;
@@ -398,6 +414,7 @@ public class Account implements SdkModel {
         setPasswordRecoveryExpiration(passwordRecoveryExpiration);
         setPhoneNumber(phoneNumber);
         setPostalCode(postalCode);
+        setReference(reference);
         setSalesContact(salesContact);
         setState(state);
     }
@@ -440,8 +457,10 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.phoneNumber,
              account == null ? (List<Policy>) null : account.policies,
              account == null ? (String) null : account.postalCode, account == null ? (String) null : account.reason,
+             account == null ? AccountReference.getDefault() : account.reference,
              account == null ? (String) null : account.referenceNote,
              account == null ? (String) null : account.salesContact, account == null ? (String) null : account.state,
+             account == null ? (String) null : account.staticUri,
              account == null ? AccountStatus.getDefault() : account.status,
              account == null ? (String) null : account.templateId, account == null ? (String) null : account.tier,
              account == null ? new Date() : account.updatedAt, account == null ? new Date() : account.upgradedAt);
@@ -456,8 +475,9 @@ public class Account implements SdkModel {
              (String) null, new Date(), (Map<String, String>) null, (String) null, (String) null, (String) null,
              (String) null, new Date(), 1, (String) null, 1, (Map<String, String>) null, AccountMfaStatus.getDefault(),
              (List<String>) null, (ParentAccount) null, (String) null, (PasswordPolicy) null, 1, (String) null,
-             (List<Policy>) null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             AccountStatus.getDefault(), (String) null, (String) null, new Date(), new Date());
+             (List<Policy>) null, (String) null, (String) null, AccountReference.getDefault(), (String) null,
+             (String) null, (String) null, (String) null, AccountStatus.getDefault(), (String) null, (String) null,
+             new Date(), new Date());
     }
 
     /**
@@ -503,6 +523,8 @@ public class Account implements SdkModel {
      *            A note with the reason for account status update.
      * @param referenceNote
      *            A reference note for updating the status of the account.
+     * @param staticUri
+     *            The static link to the image.
      * @param status
      *            The status of the account.
      * @param templateId
@@ -511,7 +533,7 @@ public class Account implements SdkModel {
      *            The tier level of the account; `0`: free tier, `1`: commercial account, `2`: partner tier. Other
      *            values are reserved for the future.
      * @param updatedAt
-     *            Last update UTC time RFC3339.
+     *            Last update time in UTC.
      * @param upgradedAt
      *            Time when upgraded to commercial account in UTC format RFC3339.
      */
@@ -519,14 +541,37 @@ public class Account implements SdkModel {
     @SuppressWarnings("PMD.CyclomaticComplexity")
     public Account(String adminId, String adminKey, Date createdAt, Date expiration, Map<String, String> limits,
                    ParentAccount parentAccount, String parentId, List<Policy> policies, String reason,
-                   String referenceNote, AccountStatus status, String templateId, String tier, Date updatedAt,
-                   Date upgradedAt) {
+                   String referenceNote, String staticUri, AccountStatus status, String templateId, String tier,
+                   Date updatedAt, Date upgradedAt) {
         this((String) null, (String) null, (String) null, (String) null, adminId, adminKey, (String) null,
              (String) null, (List<String>) null, (String) null, (String) null, (String) null, (String) null,
              (String) null, createdAt, (Map<String, String>) null, (String) null, (String) null, (String) null,
              (String) null, expiration, 1, (String) null, 1, limits, AccountMfaStatus.getDefault(), (List<String>) null,
              parentAccount, parentId, (PasswordPolicy) null, 1, (String) null, policies, (String) null, reason,
-             referenceNote, (String) null, (String) null, status, templateId, tier, updatedAt, upgradedAt);
+             AccountReference.getDefault(), referenceNote, (String) null, (String) null, staticUri, status, templateId,
+             tier, updatedAt, upgradedAt);
+    }
+
+    /**
+     * Constructor.
+     *
+     * <p>
+     * Constructor based on required fields.
+     * <p>
+     *
+     * @param endMarket
+     *            Account end market.
+     * @param reference
+     *            Name of the image.
+     */
+    public Account(String endMarket, AccountReference reference) {
+        this((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, (List<String>) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, new Date(), (Map<String, String>) null, (String) null, (String) null, (String) null,
+             endMarket, new Date(), 1, (String) null, 1, (Map<String, String>) null, AccountMfaStatus.getDefault(),
+             (List<String>) null, (ParentAccount) null, (String) null, (PasswordPolicy) null, 1, (String) null,
+             (List<Policy>) null, (String) null, (String) null, reference, (String) null, (String) null, (String) null,
+             (String) null, AccountStatus.getDefault(), (String) null, (String) null, new Date(), new Date());
     }
 
     /**
@@ -1394,6 +1439,51 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets name of the image.
+     * 
+     * @return reference
+     */
+    public AccountReference getReference() {
+        return reference;
+    }
+
+    /**
+     * Sets name of the image.
+     * 
+     * @param reference
+     *            Name of the image.
+     */
+    @Required
+    public void setReference(AccountReference reference) {
+        this.reference = reference;
+    }
+
+    /**
+     * Sets name of the image.
+     *
+     * <p>
+     * Similar to {@link #setReference(com.arm.mbed.cloud.sdk.accounts.model.AccountReference)}
+     * 
+     * @param reference
+     *            Name of the image.
+     */
+    @Internal
+    @Required
+    public void setReference(String reference) {
+        this.reference = AccountReference.getValue(reference);
+    }
+
+    /**
+     * Checks whether reference value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isReferenceValid() {
+        return reference != null;
+    }
+
+    /**
      * Gets a reference note for updating the status of the account.
      * 
      * @return referenceNote
@@ -1467,6 +1557,15 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets the static link to the image.
+     * 
+     * @return staticUri
+     */
+    public String getStaticUri() {
+        return staticUri;
+    }
+
+    /**
      * Gets the status of the account.
      * 
      * @return status
@@ -1495,7 +1594,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets last update utc time rfc3339.
+     * Gets last update time in utc.
      * 
      * @return updatedAt
      */
@@ -1533,9 +1632,10 @@ public class Account implements SdkModel {
                + ", notificationEmails=" + notificationEmails + ", parentAccount=" + parentAccount + ", parentId="
                + parentId + ", passwordPolicy=" + passwordPolicy + ", passwordRecoveryExpiration="
                + passwordRecoveryExpiration + ", phoneNumber=" + phoneNumber + ", policies=" + policies
-               + ", postalCode=" + postalCode + ", reason=" + reason + ", referenceNote=" + referenceNote
-               + ", salesContact=" + salesContact + ", state=" + state + ", status=" + status + ", templateId="
-               + templateId + ", tier=" + tier + ", updatedAt=" + updatedAt + ", upgradedAt=" + upgradedAt + "]";
+               + ", postalCode=" + postalCode + ", reason=" + reason + ", reference=" + reference + ", referenceNote="
+               + referenceNote + ", salesContact=" + salesContact + ", state=" + state + ", staticUri=" + staticUri
+               + ", status=" + status + ", templateId=" + templateId + ", tier=" + tier + ", updatedAt=" + updatedAt
+               + ", upgradedAt=" + upgradedAt + "]";
     }
 
     /**
@@ -1585,9 +1685,11 @@ public class Account implements SdkModel {
         result = prime * result + ((policies == null) ? 0 : policies.hashCode());
         result = prime * result + ((postalCode == null) ? 0 : postalCode.hashCode());
         result = prime * result + ((reason == null) ? 0 : reason.hashCode());
+        result = prime * result + ((reference == null) ? 0 : reference.hashCode());
         result = prime * result + ((referenceNote == null) ? 0 : referenceNote.hashCode());
         result = prime * result + ((salesContact == null) ? 0 : salesContact.hashCode());
         result = prime * result + ((state == null) ? 0 : state.hashCode());
+        result = prime * result + ((staticUri == null) ? 0 : staticUri.hashCode());
         result = prime * result + ((status == null) ? 0 : status.hashCode());
         result = prime * result + ((templateId == null) ? 0 : templateId.hashCode());
         result = prime * result + ((tier == null) ? 0 : tier.hashCode());
@@ -1865,6 +1967,9 @@ public class Account implements SdkModel {
         } else if (!reason.equals(other.reason)) {
             return false;
         }
+        if (reference != other.reference) {
+            return false;
+        }
         if (referenceNote == null) {
             if (other.referenceNote != null) {
                 return false;
@@ -1884,6 +1989,13 @@ public class Account implements SdkModel {
                 return false;
             }
         } else if (!state.equals(other.state)) {
+            return false;
+        }
+        if (staticUri == null) {
+            if (other.staticUri != null) {
+                return false;
+            }
+        } else if (!staticUri.equals(other.staticUri)) {
             return false;
         }
         if (status != other.status) {
@@ -1935,7 +2047,7 @@ public class Account implements SdkModel {
                && isCountryValid() && isDisplayNameValid() && isEmailValid() && isEndMarketValid()
                && isExpirationWarningThresholdValid() && isIdValid() && isIdleTimeoutValid()
                && isPasswordRecoveryExpirationValid() && isPhoneNumberValid() && isPostalCodeValid()
-               && isSalesContactValid() && isStateValid();
+               && isReferenceValid() && isSalesContactValid() && isStateValid();
     }
 
     /**

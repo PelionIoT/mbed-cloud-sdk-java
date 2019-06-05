@@ -29,46 +29,6 @@ public final class DarkThemeImageAdapter {
     }
 
     /**
-     * Maps a branding image into a dark theme image.
-     * 
-     * @param toBeMapped
-     *            a branding image.
-     * @return mapped a dark theme image
-     */
-    @Internal
-    public static DarkThemeImage map(BrandingImage toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final DarkThemeImage darkThemeImage = new DarkThemeImage(toBeMapped.getStaticUri(),
-                                                                 TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        darkThemeImage.setReference(translateToDarkThemeImageReference(toBeMapped.getReference()));
-        return darkThemeImage;
-    }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<BrandingImage, DarkThemeImage> getMapper() {
-        return new GenericAdapter.Mapper<BrandingImage, DarkThemeImage>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public DarkThemeImage map(BrandingImage toBeMapped) {
-                return DarkThemeImageAdapter.map(toBeMapped);
-            }
-        };
-    }
-
-    /**
      * Maps a branding image list into a dark theme image.
      * 
      * @param toBeMapped
@@ -170,6 +130,46 @@ public final class DarkThemeImageAdapter {
             @Override
             public ListResponse<DarkThemeImage> map(BrandingImageList toBeMapped) {
                 return DarkThemeImageAdapter.mapList(toBeMapped);
+            }
+        };
+    }
+
+    /**
+     * Maps a branding image into a dark theme image.
+     * 
+     * @param toBeMapped
+     *            a branding image.
+     * @return mapped a dark theme image
+     */
+    @Internal
+    public static DarkThemeImage map(BrandingImage toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final DarkThemeImage darkThemeImage = new DarkThemeImage(toBeMapped.getStaticUri(),
+                                                                 TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
+        darkThemeImage.setReference(translateToDarkThemeImageReference(toBeMapped.getReference()));
+        return darkThemeImage;
+    }
+
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper
+     */
+    @Internal
+    public static GenericAdapter.Mapper<BrandingImage, DarkThemeImage> getMapper() {
+        return new GenericAdapter.Mapper<BrandingImage, DarkThemeImage>() {
+            /**
+             * Maps.
+             * 
+             * @param toBeMapped
+             *            model to be mapped.
+             * @return a mapped object
+             */
+            @Override
+            public DarkThemeImage map(BrandingImage toBeMapped) {
+                return DarkThemeImageAdapter.map(toBeMapped);
             }
         };
     }

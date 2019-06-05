@@ -780,8 +780,6 @@ public class DefaultApiTest {
         String nameNeq = null;
         String nameIn = null;
         String nameNin = null;
-        String customAttributesEq = null;
-        String customAttributesNeq = null;
         String createdAtIn = null;
         String createdAtNin = null;
         DateTime createdAtLte = null;
@@ -792,8 +790,8 @@ public class DefaultApiTest {
         DateTime updatedAtGte = null;
         // DeviceGroupPage response = api.groupList(limit, order, after, include, filter, idEq, idNeq, idIn, idNin,
         // devicesCountEq, devicesCountNeq, devicesCountIn, devicesCountNin, devicesCountLte, devicesCountGte, nameEq,
-        // nameNeq, nameIn, nameNin, customAttributesEq, customAttributesNeq, createdAtIn, createdAtNin, createdAtLte,
-        // createdAtGte, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte);
+        // nameNeq, nameIn, nameNin, createdAtIn, createdAtNin, createdAtLte, createdAtGte, updatedAtIn, updatedAtNin,
+        // updatedAtLte, updatedAtGte);
 
         // TODO: test validations
     }

@@ -12,9 +12,9 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
 import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
 import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
+import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
 import com.arm.mbed.cloud.sdk.common.model.DataFile;
 
 /**
@@ -26,7 +26,7 @@ import com.arm.mbed.cloud.sdk.common.model.DataFile;
  */
 @Preamble(description = "Data Access Object (DAO) for subtenant light theme images.")
 public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelDao<SubtenantLightThemeImage>
-                                                          implements CreateDao<SubtenantLightThemeImage>,
+                                                          implements UpdateDao<SubtenantLightThemeImage>,
                                                           DeleteDao<SubtenantLightThemeImage>,
                                                           ReadDao<SubtenantLightThemeImage> {
     /**
@@ -73,76 +73,6 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
      */
     public AbstractSubtenantLightThemeImageDao(SdkContext sdkContext) throws MbedCloudException {
         super(sdkContext);
-    }
-
-    /**
-     * Adds a subtenant light theme image.
-     *
-     * <p>
-     * Note: uses internal data model
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageDao#create(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage)}
-     * 
-     * @param accountId
-     *            Account ID.
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    public SubtenantLightThemeImage create(@NonNull String accountId,
-                                           @NonNull DataFile image) throws MbedCloudException {
-        return create(accountId, image, getModel());
-    }
-
-    /**
-     * Adds a subtenant light theme image.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Branding#createSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage)}
-     * 
-     * @param accountId
-     *            Account ID.
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param subtenantLightThemeImage
-     *            a subtenant light theme image.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    public SubtenantLightThemeImage
-           create(@NonNull String accountId, @NonNull DataFile image,
-                  @NonNull SubtenantLightThemeImage subtenantLightThemeImage) throws MbedCloudException {
-        return setAndGetModel(((Branding) getModuleOrThrow()).createSubtenantLightThemeImage(accountId, image,
-                                                                                             subtenantLightThemeImage));
-    }
-
-    /**
-     * Adds a subtenant light theme image.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Branding#createSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageReference)}
-     * 
-     * @param accountId
-     *            Account ID.
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param reference
-     *            Name of the image.
-     * @return an added subtenant light theme image
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    public SubtenantLightThemeImage
-           create(@NonNull String accountId, @NonNull DataFile image,
-                  @NonNull SubtenantLightThemeImageReference reference) throws MbedCloudException {
-        return setAndGetModel(((Branding) getModuleOrThrow()).createSubtenantLightThemeImage(accountId, image,
-                                                                                             reference));
     }
 
     /**
@@ -313,5 +243,75 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
            read(@NonNull String accountId,
                 @NonNull SubtenantLightThemeImageReference reference) throws MbedCloudException {
         return setAndGetModel(((Branding) getModuleOrThrow()).readSubtenantLightThemeImage(accountId, reference));
+    }
+
+    /**
+     * Modifies a subtenant light theme image.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageDao#update(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage)}
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public SubtenantLightThemeImage update(@NonNull String accountId,
+                                           @NonNull DataFile image) throws MbedCloudException {
+        return update(accountId, image, getModel());
+    }
+
+    /**
+     * Modifies a subtenant light theme image.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Branding#updateSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage)}
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param subtenantLightThemeImage
+     *            a subtenant light theme image.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public SubtenantLightThemeImage
+           update(@NonNull String accountId, @NonNull DataFile image,
+                  @NonNull SubtenantLightThemeImage subtenantLightThemeImage) throws MbedCloudException {
+        return setAndGetModel(((Branding) getModuleOrThrow()).updateSubtenantLightThemeImage(accountId, image,
+                                                                                             subtenantLightThemeImage));
+    }
+
+    /**
+     * Modifies a subtenant light theme image.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Branding#updateSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageReference)}
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param reference
+     *            Name of the image.
+     * @return an updated subtenant light theme image
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public SubtenantLightThemeImage
+           update(@NonNull String accountId, @NonNull DataFile image,
+                  @NonNull SubtenantLightThemeImageReference reference) throws MbedCloudException {
+        return setAndGetModel(((Branding) getModuleOrThrow()).updateSubtenantLightThemeImage(accountId, image,
+                                                                                             reference));
     }
 }

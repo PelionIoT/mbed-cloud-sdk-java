@@ -29,46 +29,6 @@ public final class LightThemeImageAdapter {
     }
 
     /**
-     * Maps a branding image into a light theme image.
-     * 
-     * @param toBeMapped
-     *            a branding image.
-     * @return mapped a light theme image
-     */
-    @Internal
-    public static LightThemeImage map(BrandingImage toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final LightThemeImage lightThemeImage = new LightThemeImage(toBeMapped.getStaticUri(),
-                                                                    TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
-        lightThemeImage.setReference(translateToLightThemeImageReference(toBeMapped.getReference()));
-        return lightThemeImage;
-    }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<BrandingImage, LightThemeImage> getMapper() {
-        return new GenericAdapter.Mapper<BrandingImage, LightThemeImage>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public LightThemeImage map(BrandingImage toBeMapped) {
-                return LightThemeImageAdapter.map(toBeMapped);
-            }
-        };
-    }
-
-    /**
      * Maps a branding image list into a light theme image.
      * 
      * @param toBeMapped
@@ -170,6 +130,46 @@ public final class LightThemeImageAdapter {
             @Override
             public ListResponse<LightThemeImage> map(BrandingImageList toBeMapped) {
                 return LightThemeImageAdapter.mapList(toBeMapped);
+            }
+        };
+    }
+
+    /**
+     * Maps a branding image into a light theme image.
+     * 
+     * @param toBeMapped
+     *            a branding image.
+     * @return mapped a light theme image
+     */
+    @Internal
+    public static LightThemeImage map(BrandingImage toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final LightThemeImage lightThemeImage = new LightThemeImage(toBeMapped.getStaticUri(),
+                                                                    TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
+        lightThemeImage.setReference(translateToLightThemeImageReference(toBeMapped.getReference()));
+        return lightThemeImage;
+    }
+
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper
+     */
+    @Internal
+    public static GenericAdapter.Mapper<BrandingImage, LightThemeImage> getMapper() {
+        return new GenericAdapter.Mapper<BrandingImage, LightThemeImage>() {
+            /**
+             * Maps.
+             * 
+             * @param toBeMapped
+             *            model to be mapped.
+             * @return a mapped object
+             */
+            @Override
+            public LightThemeImage map(BrandingImage toBeMapped) {
+                return LightThemeImageAdapter.map(toBeMapped);
             }
         };
     }

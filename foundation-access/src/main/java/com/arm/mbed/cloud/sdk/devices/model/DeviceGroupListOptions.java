@@ -11,7 +11,6 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Options to use when listing device groups.
@@ -77,18 +76,6 @@ import java.util.Map;
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * </tr>
  * <tr>
- * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">customAttributes</td>
- * <td style=
- * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_CUSTOM_ATTRIBUTES</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * </tr>
- * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">createdAt</td>
  * <td style=
  * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_CREATED_AT</td>
@@ -123,11 +110,6 @@ public class DeviceGroupListOptions extends ListOptions {
      * Tag for filter by createdAt.
      */
     public static final String TAG_FILTER_BY_CREATED_AT = "createdAt";
-
-    /**
-     * Tag for filter by customAttributes.
-     */
-    public static final String TAG_FILTER_BY_CUSTOM_ATTRIBUTES = "customAttributes";
 
     /**
      * Tag for filter by devicesCount.
@@ -1256,74 +1238,6 @@ public class DeviceGroupListOptions extends ListOptions {
     @SuppressWarnings("unchecked")
     public <T extends DeviceGroupListOptions> T greaterThanCreatedAt(Date filterByCreatedAt) {
         addGreaterThanCreatedAtFilter(filterByCreatedAt);
-        return (T) this;
-    }
-
-    /**
-     * Gets all the filters defined on field {@code customAttributes}.
-     * 
-     * @return All the filters by {@code customAttributes}
-     */
-    public List<Filter> getCustomAttributesFilters() {
-        return fetchFilters(TAG_FILTER_BY_CUSTOM_ATTRIBUTES);
-    }
-
-    /**
-     * Sets "an equal to" filter by {@code customAttributes}.
-     * 
-     * @param filterByCustomAttributes
-     *            filter value.
-     */
-    public void addEqualToCustomAttributesFilter(Map<String, String> filterByCustomAttributes) {
-        addEqualFilter(TAG_FILTER_BY_CUSTOM_ATTRIBUTES, filterByCustomAttributes);
-    }
-
-    /**
-     * Sets "an equal to" filter by {@code customAttributes}.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addEqualToCustomAttributesFilter(java.util.Map)}
-     * 
-     * @param filterByCustomAttributes
-     *            filter value.
-     * @param <T>
-     *            type of a device group list options
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceGroupListOptions> T equalToCustomAttributes(Map<String, String> filterByCustomAttributes) {
-        addEqualToCustomAttributesFilter(filterByCustomAttributes);
-        return (T) this;
-    }
-
-    /**
-     * Sets "a not equal to" filter by {@code customAttributes}.
-     * 
-     * @param filterByCustomAttributes
-     *            filter value.
-     */
-    public void addNotEqualToCustomAttributesFilter(Map<String, String> filterByCustomAttributes) {
-        addNotEqualFilter(TAG_FILTER_BY_CUSTOM_ATTRIBUTES, filterByCustomAttributes);
-    }
-
-    /**
-     * Sets "a not equal to" filter by {@code customAttributes}.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotEqualToCustomAttributesFilter(java.util.Map)}
-     * 
-     * @param filterByCustomAttributes
-     *            filter value.
-     * @param <T>
-     *            type of a device group list options
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends DeviceGroupListOptions> T
-           notEqualToCustomAttributes(Map<String, String> filterByCustomAttributes) {
-        addNotEqualToCustomAttributesFilter(filterByCustomAttributes);
         return (T) this;
     }
 

@@ -12,9 +12,9 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.CreateDao;
 import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
 import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
+import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
 import com.arm.mbed.cloud.sdk.common.model.DataFile;
 
 /**
@@ -26,7 +26,7 @@ import com.arm.mbed.cloud.sdk.common.model.DataFile;
  */
 @Preamble(description = "Data Access Object (DAO) for light theme images.")
 public abstract class AbstractLightThemeImageDao extends AbstractModelDao<LightThemeImage>
-                                                 implements CreateDao<LightThemeImage>, DeleteDao<LightThemeImage>,
+                                                 implements UpdateDao<LightThemeImage>, DeleteDao<LightThemeImage>,
                                                  ReadDao<LightThemeImage> {
     /**
      * Constructor.
@@ -72,65 +72,6 @@ public abstract class AbstractLightThemeImageDao extends AbstractModelDao<LightT
      */
     public AbstractLightThemeImageDao(SdkContext sdkContext) throws MbedCloudException {
         super(sdkContext);
-    }
-
-    /**
-     * Adds a light theme image.
-     *
-     * <p>
-     * Note: uses internal data model
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.branding.model.LightThemeImageDao#create(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.LightThemeImage)}
-     * 
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    public LightThemeImage create(@NonNull DataFile image) throws MbedCloudException {
-        return create(image, getModel());
-    }
-
-    /**
-     * Adds a light theme image.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Branding#createLightThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.LightThemeImage)}
-     * 
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param lightThemeImage
-     *            a light theme image.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    public LightThemeImage create(@NonNull DataFile image,
-                                  @NonNull LightThemeImage lightThemeImage) throws MbedCloudException {
-        return setAndGetModel(((Branding) getModuleOrThrow()).createLightThemeImage(image, lightThemeImage));
-    }
-
-    /**
-     * Adds a light theme image.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Branding#createLightThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.LightThemeImageReference)}
-     * 
-     * @param image
-     *            The image in PNG or JPEG format as multipart form data.
-     * @param reference
-     *            Name of the image.
-     * @return an added light theme image
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    public LightThemeImage create(@NonNull DataFile image,
-                                  @NonNull LightThemeImageReference reference) throws MbedCloudException {
-        return setAndGetModel(((Branding) getModuleOrThrow()).createLightThemeImage(image, reference));
     }
 
     /**
@@ -283,5 +224,64 @@ public abstract class AbstractLightThemeImageDao extends AbstractModelDao<LightT
      */
     public LightThemeImage read(@NonNull LightThemeImage lightThemeImage) throws MbedCloudException {
         return setAndGetModel(((Branding) getModuleOrThrow()).readLightThemeImage(lightThemeImage));
+    }
+
+    /**
+     * Modifies a light theme image.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.branding.model.LightThemeImageDao#update(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.LightThemeImage)}
+     * 
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public LightThemeImage update(@NonNull DataFile image) throws MbedCloudException {
+        return update(image, getModel());
+    }
+
+    /**
+     * Modifies a light theme image.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Branding#updateLightThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.LightThemeImage)}
+     * 
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param lightThemeImage
+     *            a light theme image.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public LightThemeImage update(@NonNull DataFile image,
+                                  @NonNull LightThemeImage lightThemeImage) throws MbedCloudException {
+        return setAndGetModel(((Branding) getModuleOrThrow()).updateLightThemeImage(image, lightThemeImage));
+    }
+
+    /**
+     * Modifies a light theme image.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Branding#updateLightThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.LightThemeImageReference)}
+     * 
+     * @param image
+     *            The image in PNG or JPEG format as multipart form data.
+     * @param reference
+     *            Name of the image.
+     * @return an updated light theme image
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public LightThemeImage update(@NonNull DataFile image,
+                                  @NonNull LightThemeImageReference reference) throws MbedCloudException {
+        return setAndGetModel(((Branding) getModuleOrThrow()).updateLightThemeImage(image, reference));
     }
 }
