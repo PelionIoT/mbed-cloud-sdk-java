@@ -218,7 +218,8 @@ public class ModelAdapter extends Model {
         }
 
         public String getIdentifier() {
-            return action + ":" + to.getIdentifier() + "#" + from.getIdentifier();
+            return action + ":" + to.getIdentifier() + (toContent == null ? "" : "<" + toContent.getIdentifier() + ">")
+                   + "#" + from.getIdentifier() + (fromContent == null ? "" : "<" + fromContent.getIdentifier() + ">");
         }
 
         public Model getFrom() {
