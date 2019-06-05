@@ -85,7 +85,7 @@ public class LightThemeImageDao extends AbstractLightThemeImageDao {
     }
 
     /**
-     * Executes create.
+     * Executes update.
      * <p>
      * UNSUPPORTED
      * 
@@ -97,17 +97,17 @@ public class LightThemeImageDao extends AbstractLightThemeImageDao {
      */
     @Override
     @NotImplemented
-    public LightThemeImage create() throws MbedCloudException, NotImplementedException {
+    public LightThemeImage update() throws MbedCloudException, NotImplementedException {
         // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
 
     /**
-     * Executes create.
+     * Executes update.
      * <p>
      * UNSUPPORTED
      * 
-     * @param modelToCreate
+     * @param modelToUpdate
      *            an sdk model.
      * 
      * @return something
@@ -118,7 +118,7 @@ public class LightThemeImageDao extends AbstractLightThemeImageDao {
      */
     @Override
     @NotImplemented
-    public LightThemeImage create(LightThemeImage modelToCreate) throws MbedCloudException, NotImplementedException {
+    public LightThemeImage update(LightThemeImage modelToUpdate) throws MbedCloudException, NotImplementedException {
         // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }

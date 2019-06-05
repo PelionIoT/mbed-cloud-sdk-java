@@ -85,75 +85,90 @@ public class SubtenantLightThemeImageDao extends AbstractSubtenantLightThemeImag
     }
 
     /**
-     * Executes create.
+     * Executes update.
+     * <p>
+     * UNSUPPORTED
      * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
+     * @throws NotImplementedException
+     *             unsupported method
      */
     @Override
     @NotImplemented
-    public SubtenantLightThemeImage create() throws MbedCloudException, NotImplementedException {
-        // TODO Auto-generated method stub.;
+    public SubtenantLightThemeImage update() throws MbedCloudException, NotImplementedException {
         throw new NotImplementedException();
     }
 
     /**
-     * Executes create.
+     * Executes update.
+     * <p>
+     * UNSUPPORTED
      * 
-     * @param modelToCreate
+     * @param modelToUpdate
      *            an sdk model.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
+     * @throws NotImplementedException
+     *             unsupported method
      */
     @Override
     @NotImplemented
-    public SubtenantLightThemeImage create(SubtenantLightThemeImage modelToCreate) throws MbedCloudException,
+    public SubtenantLightThemeImage update(SubtenantLightThemeImage modelToUpdate) throws MbedCloudException,
                                                                                    NotImplementedException {
-        // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
 
     /**
      * Executes delete.
+     * <p>
+     * UNSUPPORTED
      * 
      * @throws MbedCloudException
      *             if an error occurs during the process.
+     * @throws NotImplementedException
+     *             unsupported method
      */
     @Override
     @NotImplemented
     public void delete() throws MbedCloudException, NotImplementedException {
-        // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
 
     /**
      * Executes delete.
+     * <p>
+     * UNSUPPORTED
      * 
      * @param modelToDelete
      *            an sdk model.
      * @throws MbedCloudException
      *             if an error occurs during the process.
+     * @throws NotImplementedException
+     *             unsupported method
      */
     @Override
     @NotImplemented
     public void delete(SubtenantLightThemeImage modelToDelete) throws MbedCloudException, NotImplementedException {
-        // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
 
     /**
      * Executes read.
+     * <p>
+     * UNSUPPORTED
      * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
+     * @throws NotImplementedException
+     *             unsupported method
      */
     @Override
     @NotImplemented
     public SubtenantLightThemeImage read() throws MbedCloudException, NotImplementedException {
-        // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
 }

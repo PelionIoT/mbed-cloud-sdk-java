@@ -85,7 +85,7 @@ public class DarkThemeImageDao extends AbstractDarkThemeImageDao {
     }
 
     /**
-     * Executes create.
+     * Executes update.
      * <p>
      * UNSUPPORTED
      * 
@@ -97,16 +97,16 @@ public class DarkThemeImageDao extends AbstractDarkThemeImageDao {
      */
     @Override
     @NotImplemented
-    public DarkThemeImage create() throws MbedCloudException, NotImplementedException {
+    public DarkThemeImage update() throws MbedCloudException, NotImplementedException {
         throw new NotImplementedException();
     }
 
     /**
-     * Executes create.
+     * Executes update.
      * <p>
      * UNSUPPORTED
      * 
-     * @param modelToCreate
+     * @param modelToUpdate
      *            an sdk model.
      * @return something
      * @throws MbedCloudException
@@ -116,7 +116,7 @@ public class DarkThemeImageDao extends AbstractDarkThemeImageDao {
      */
     @Override
     @NotImplemented
-    public DarkThemeImage create(DarkThemeImage modelToCreate) throws MbedCloudException, NotImplementedException {
+    public DarkThemeImage update(DarkThemeImage modelToUpdate) throws MbedCloudException, NotImplementedException {
         throw new NotImplementedException();
     }
 
