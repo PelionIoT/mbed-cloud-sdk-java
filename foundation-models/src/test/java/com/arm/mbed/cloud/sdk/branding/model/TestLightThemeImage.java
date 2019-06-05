@@ -20,8 +20,8 @@ public class TestLightThemeImage {
     public void testClone() {
         try {
             LightThemeImage lightthemeimage1 = new LightThemeImage(LightThemeImageReference.getDefault(),
-                                                                   "1e6d1b1d-b435-4f75-ade8-c41bcdf448e7",
-                                                                   new Date(1559745299355L));
+                                                                   "eb9a8885-6998-46b5-bec9-64c43713d64b",
+                                                                   new Date(1559746955620L));
             LightThemeImage lightthemeimage2 = lightthemeimage1.clone();
             assertNotNull(lightthemeimage1);
             assertNotNull(lightthemeimage2);
@@ -40,11 +40,11 @@ public class TestLightThemeImage {
     public void testHashCode() {
         try {
             LightThemeImage lightthemeimage1 = new LightThemeImage(LightThemeImageReference.getDefault(),
-                                                                   "acc97060-56cf-4f20-813e-7acbc2d70a29",
-                                                                   new Date(1559745299358L));
+                                                                   "fd7ebcea-0e51-4421-ab7a-79e33cdbd241",
+                                                                   new Date(1559746950896L));
             LightThemeImage lightthemeimage2 = new LightThemeImage(LightThemeImageReference.getDefault(),
-                                                                   "acc97060-56cf-4f20-813e-7acbc2d70a29",
-                                                                   new Date(1559745299358L));
+                                                                   "fd7ebcea-0e51-4421-ab7a-79e33cdbd241",
+                                                                   new Date(1559746950896L));
             assertNotNull(lightthemeimage1);
             assertNotNull(lightthemeimage2);
             assertNotSame(lightthemeimage2, lightthemeimage1);
@@ -66,12 +66,12 @@ public class TestLightThemeImage {
     @Test
     public void testIsValid() {
         LightThemeImage lightthemeimage = new LightThemeImage(LightThemeImageReference.getDefault(),
-                                                              "addd67e9-588a-447e-be3e-43a0aae75f16",
-                                                              new Date(1559745294258L));
+                                                              "fcfa5f00-2231-4ca7-98a4-f35b2ba4edcc",
+                                                              new Date(1559746955179L));
         assertTrue(lightthemeimage.isValid());
         LightThemeImage lightthemeimageInvalid = new LightThemeImage(LightThemeImageReference.getDefault(),
-                                                                     "1b114e69-437b-417a-bf34-8c32179574a1",
-                                                                     new Date(1559745295102L));
+                                                                     "8dbffde5-9236-4d43-9eb8-66dd7a7b1e3b",
+                                                                     new Date(1559746948184L));
         assertFalse(lightthemeimageInvalid.isValid());
     }
 
@@ -83,14 +83,14 @@ public class TestLightThemeImage {
     public void testEquals() {
         try {
             LightThemeImage lightthemeimage1 = new LightThemeImage(LightThemeImageReference.getDefault(),
-                                                                   "65112cdb-09e1-4b53-92e0-3ddb6cc0d9ae",
-                                                                   new Date(1559745294426L));
+                                                                   "21c65f46-a57f-4855-a735-fccb662d4f73",
+                                                                   new Date(1559746955142L));
             LightThemeImage lightthemeimage2 = new LightThemeImage(LightThemeImageReference.getDefault(),
-                                                                   "65112cdb-09e1-4b53-92e0-3ddb6cc0d9ae",
-                                                                   new Date(1559745294426L));
+                                                                   "21c65f46-a57f-4855-a735-fccb662d4f73",
+                                                                   new Date(1559746955142L));
             LightThemeImage lightthemeimage3 = new LightThemeImage(LightThemeImageReference.getDefault(),
-                                                                   "be7b05bf-06e3-408d-a09f-fc5373a0b8b1",
-                                                                   new Date(1559745297397L));
+                                                                   "07227fa8-4bc3-4ba1-8d19-3b37712bb1a3",
+                                                                   new Date(1559746949754L));
             assertNotNull(lightthemeimage1);
             assertNotNull(lightthemeimage2);
             assertNotNull(lightthemeimage3);

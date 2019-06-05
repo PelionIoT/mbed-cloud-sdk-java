@@ -18,7 +18,7 @@ public class TestPasswordPolicy {
     @Test
     public void testClone() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy(54);
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy(41);
             PasswordPolicy passwordpolicy2 = passwordpolicy1.clone();
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
@@ -36,8 +36,8 @@ public class TestPasswordPolicy {
     @Test
     public void testHashCode() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy(8);
-            PasswordPolicy passwordpolicy2 = new PasswordPolicy(8);
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy(96);
+            PasswordPolicy passwordpolicy2 = new PasswordPolicy(96);
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
             assertNotSame(passwordpolicy2, passwordpolicy1);
@@ -58,7 +58,7 @@ public class TestPasswordPolicy {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        PasswordPolicy passwordpolicy = new PasswordPolicy(8);
+        PasswordPolicy passwordpolicy = new PasswordPolicy(36);
         assertTrue(passwordpolicy.isValid());
     }
 
@@ -69,8 +69,8 @@ public class TestPasswordPolicy {
     @Test
     public void testEquals() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy(63);
-            PasswordPolicy passwordpolicy2 = new PasswordPolicy(63);
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy(88);
+            PasswordPolicy passwordpolicy2 = new PasswordPolicy(88);
             PasswordPolicy passwordpolicy3 = new PasswordPolicy(8);
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
