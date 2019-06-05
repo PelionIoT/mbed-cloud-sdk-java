@@ -11,7 +11,6 @@ import com.arm.mbed.cloud.sdk.accounts.adapters.UserAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.UserInvitationAdapter;
 import com.arm.mbed.cloud.sdk.accounts.model.Account;
 import com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions;
-import com.arm.mbed.cloud.sdk.accounts.model.AccountReference;
 import com.arm.mbed.cloud.sdk.accounts.model.AccountsEndpoints;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKey;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions;
@@ -43,6 +42,7 @@ import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageListOptions;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColor;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorListOptions;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
@@ -60,7 +60,6 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Account
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColorList;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImageList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRespList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp;
@@ -105,12 +104,6 @@ public class Accounts extends AbstractModule {
      */
     @Internal
     private static final String TAG_ID = "id";
-
-    /**
-     * Parameter name.
-     */
-    @Internal
-    private static final String TAG_REFERENCE = "reference";
 
     /**
      * Parameter name.
@@ -499,6 +492,89 @@ public class Accounts extends AbstractModule {
             public ListResponse<SubtenantLightThemeColor>
                    requestNewPage(ListOptions options) throws MbedCloudException {
                 return lightThemeBrandingColors((SubtenantLightThemeColorListOptions) options, finalAccount);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant light theme images matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all accounts matching filter options.
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant light theme images
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantLightThemeImage>
+           allLightThemeBrandingImages(@NonNull String id,
+                                       @Nullable SubtenantLightThemeImageListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final SubtenantLightThemeImageListOptions finalOptions = (options == null) ? new SubtenantLightThemeImageListOptions()
+                                                                                   : options;
+        return new Paginator<SubtenantLightThemeImage>(finalOptions, new PageRequester<SubtenantLightThemeImage>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantLightThemeImage>
+                   requestNewPage(ListOptions options) throws MbedCloudException {
+                return lightThemeBrandingImages(finalId, (SubtenantLightThemeImageListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant light theme images matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #lightThemeBrandingImages(com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return paginator over the list of subtenant light theme images
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantLightThemeImage>
+           allLightThemeBrandingImages(@Nullable SubtenantLightThemeImageListOptions options,
+                                       @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        final SubtenantLightThemeImageListOptions finalOptions = (options == null) ? new SubtenantLightThemeImageListOptions()
+                                                                                   : options;
+        final Account finalAccount = account;
+        return new Paginator<SubtenantLightThemeImage>(finalOptions, new PageRequester<SubtenantLightThemeImage>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantLightThemeImage>
+                   requestNewPage(ListOptions options) throws MbedCloudException {
+                return lightThemeBrandingImages((SubtenantLightThemeImageListOptions) options, finalAccount);
             }
         });
     }
@@ -1934,67 +2010,71 @@ public class Accounts extends AbstractModule {
     }
 
     /**
-     * Get metadata of a light theme image.
+     * Get metadata of all light theme images.
      *
      *
      * <p>
-     * Similar to {@link #lightThemeBrandingImages(String, com.arm.mbed.cloud.sdk.accounts.model.AccountReference)}
-     * 
-     * @param account
-     *            an account.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    @API
-    @Nullable
-    public SubtenantLightThemeImage lightThemeBrandingImages(@NonNull Account account) throws MbedCloudException {
-        checkNotNull(account, TAG_ACCOUNT);
-        return lightThemeBrandingImages(account.getId(), account.getReference());
-    }
-
-    /**
-     * Get metadata of a light theme image.
+     * Retrieve the metadata of all light theme branding images.
      *
-     *
-     * <p>
-     * Retrieve metadata for one account light theme branding image.
-     *
-     * **Example:** ``` curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference} \ -H
-     * 'Authorization: Bearer [api_key]' ``` This lists the light theme banding images of the subtenant account.
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light \
+     * -H 'Authorization: Bearer [api_key]' ``` This lists the light theme banding images of the subtenant account.
      *
      * @param id
      *            Account ID.
-     * @param reference
-     *            Name of the image.
-     * @return something
+     * @param options
+     *            list options.
+     * @return the list of subtenant light theme images corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
     @API
     @Nullable
-    public SubtenantLightThemeImage
-           lightThemeBrandingImages(@NonNull String id, @NonNull AccountReference reference) throws MbedCloudException {
+    public ListResponse<SubtenantLightThemeImage>
+           lightThemeBrandingImages(@NonNull String id,
+                                    @Nullable SubtenantLightThemeImageListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
-        checkNotNull(reference, TAG_REFERENCE);
         final String finalId = id;
-        final AccountReference finalReference = reference;
-        return CloudCaller.call(this, "lightThemeBrandingImages()", SubtenantLightThemeImageAdapter.getMapper(),
-                                new CloudRequest.CloudCall<BrandingImage>() {
+        final SubtenantLightThemeImageListOptions finalOptions = (options == null) ? new SubtenantLightThemeImageListOptions()
+                                                                                   : options;
+        return CloudCaller.call(this, "lightThemeBrandingImages()", SubtenantLightThemeImageAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<BrandingImageList>() {
                                     /**
                                      * Makes the low level call to the Cloud.
                                      * 
                                      * @return Corresponding Retrofit2 Call object
                                      */
                                     @Override
-                                    public Call<BrandingImage> call() {
+                                    public Call<BrandingImageList> call() {
                                         return endpoints.getTenantUserInterfaceConfigurationImagesApi()
-                                                        .getAccountLightImageData(finalId,
-                                                                                  finalReference == null ? null
-                                                                                                         : finalReference.getString());
+                                                        .getAllAccountLightImageData(finalId);
                                     }
-                                }, true);
+                                });
+    }
+
+    /**
+     * Get metadata of all light theme images.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link #lightThemeBrandingImages(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return the list of subtenant light theme images corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantLightThemeImage>
+           lightThemeBrandingImages(@Nullable SubtenantLightThemeImageListOptions options,
+                                    @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        checkModelValidity(account, TAG_ACCOUNT);
+        return lightThemeBrandingImages(account.getId(), options);
     }
 
     /**

@@ -19,10 +19,10 @@ public class TestSubtenantLightThemeImageListOptions {
     @Test
     public void testClone() {
         try {
-            SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions1 = new SubtenantLightThemeImageListOptions(Integer.valueOf(51),
-                                                                                                                               Long.valueOf(84),
+            SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions1 = new SubtenantLightThemeImageListOptions(Integer.valueOf(8),
+                                                                                                                               Long.valueOf(70),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "a13a8fe1-ff04-49cd-86aa-c0c995c10de6",
+                                                                                                                               "37f2c8fa-47e0-4471-bd9e-e3ca18e1787c",
                                                                                                                                null,
                                                                                                                                null);
             SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions2 = subtenantlightthemeimagelistoptions1.clone();
@@ -42,16 +42,16 @@ public class TestSubtenantLightThemeImageListOptions {
     @Test
     public void testHashCode() {
         try {
-            SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions1 = new SubtenantLightThemeImageListOptions(Integer.valueOf(105),
-                                                                                                                               Long.valueOf(55),
+            SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions1 = new SubtenantLightThemeImageListOptions(Integer.valueOf(106),
+                                                                                                                               Long.valueOf(66),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "2be8f929-7188-461a-8637-49deec4ef381",
+                                                                                                                               "add50f25-bb77-4b05-a8e2-42fe93a6863c",
                                                                                                                                null,
                                                                                                                                null);
-            SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions2 = new SubtenantLightThemeImageListOptions(Integer.valueOf(105),
-                                                                                                                               Long.valueOf(55),
+            SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions2 = new SubtenantLightThemeImageListOptions(Integer.valueOf(106),
+                                                                                                                               Long.valueOf(66),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "2be8f929-7188-461a-8637-49deec4ef381",
+                                                                                                                               "add50f25-bb77-4b05-a8e2-42fe93a6863c",
                                                                                                                                null,
                                                                                                                                null);
             assertNotNull(subtenantlightthemeimagelistoptions1);
@@ -76,22 +76,22 @@ public class TestSubtenantLightThemeImageListOptions {
     @Test
     public void testEquals() {
         try {
-            SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions1 = new SubtenantLightThemeImageListOptions(Integer.valueOf(13),
-                                                                                                                               Long.valueOf(5),
+            SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions1 = new SubtenantLightThemeImageListOptions(Integer.valueOf(-114),
+                                                                                                                               Long.valueOf(-9),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "51cecae9-6773-46b5-aff4-d3c1ee6f66b1",
+                                                                                                                               "14b49db8-396f-4e41-8259-353093ae0268",
                                                                                                                                null,
                                                                                                                                null);
-            SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions2 = new SubtenantLightThemeImageListOptions(Integer.valueOf(13),
-                                                                                                                               Long.valueOf(5),
+            SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions2 = new SubtenantLightThemeImageListOptions(Integer.valueOf(-114),
+                                                                                                                               Long.valueOf(-9),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "51cecae9-6773-46b5-aff4-d3c1ee6f66b1",
+                                                                                                                               "14b49db8-396f-4e41-8259-353093ae0268",
                                                                                                                                null,
                                                                                                                                null);
-            SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions3 = new SubtenantLightThemeImageListOptions(Integer.valueOf(46),
-                                                                                                                               Long.valueOf(-56),
+            SubtenantLightThemeImageListOptions subtenantlightthemeimagelistoptions3 = new SubtenantLightThemeImageListOptions(Integer.valueOf(67),
+                                                                                                                               Long.valueOf(100),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "1f5df3cb-a0c4-4cec-8b74-ccf39fa3a4bd",
+                                                                                                                               "02961783-2adf-4930-bd5a-1f47bc1a9f00",
                                                                                                                                null,
                                                                                                                                null);
             assertNotNull(subtenantlightthemeimagelistoptions1);

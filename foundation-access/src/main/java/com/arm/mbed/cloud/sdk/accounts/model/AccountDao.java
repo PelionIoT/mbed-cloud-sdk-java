@@ -15,6 +15,7 @@ import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageListOptions;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColor;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorListOptions;
 import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -328,6 +329,68 @@ public class AccountDao extends AbstractModelDao<Account>
            allLightThemeBrandingColors(@Nullable SubtenantLightThemeColorListOptions options,
                                        @NonNull Account account) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).allLightThemeBrandingColors(options, account);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant light theme images matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allLightThemeBrandingImages(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant light theme images
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantLightThemeImage>
+           allLightThemeBrandingImages(@NonNull String id,
+                                       @Nullable SubtenantLightThemeImageListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allLightThemeBrandingImages(id, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant light theme images matching filter options.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountDao#allLightThemeBrandingImages(com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant light theme images
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantLightThemeImage>
+           allLightThemeBrandingImages(@Nullable SubtenantLightThemeImageListOptions options) throws MbedCloudException {
+        return allLightThemeBrandingImages(options, getModel());
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant light theme images matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allLightThemeBrandingImages(com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return paginator over the list of subtenant light theme images
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantLightThemeImage>
+           allLightThemeBrandingImages(@Nullable SubtenantLightThemeImageListOptions options,
+                                       @NonNull Account account) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allLightThemeBrandingImages(options, account);
     }
 
     /**
@@ -1023,60 +1086,68 @@ public class AccountDao extends AbstractModelDao<Account>
     }
 
     /**
-     * Get metadata of a light theme image.
+     * Get metadata of all light theme images.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#lightThemeBrandingImages(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return the list of subtenant light theme images corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantLightThemeImage>
+           lightThemeBrandingImages(@NonNull String id,
+                                    @Nullable SubtenantLightThemeImageListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).lightThemeBrandingImages(id, options);
+    }
+
+    /**
+     * Get metadata of all light theme images.
      *
      *
      * <p>
      * Note: uses internal data model
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountDao#lightThemeBrandingImages(com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountDao#lightThemeBrandingImages(com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
-     * @return something
+     * @param options
+     *            list options.
+     * @return the list of subtenant light theme images corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public SubtenantLightThemeImage lightThemeBrandingImages() throws MbedCloudException {
-        return lightThemeBrandingImages(getModel());
+    public ListResponse<SubtenantLightThemeImage>
+           lightThemeBrandingImages(@Nullable SubtenantLightThemeImageListOptions options) throws MbedCloudException {
+        return lightThemeBrandingImages(options, getModel());
     }
 
     /**
-     * Get metadata of a light theme image.
+     * Get metadata of all light theme images.
      *
      *
      * <p>
      * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#lightThemeBrandingImages(com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * {@link com.arm.mbed.cloud.sdk.Accounts#lightThemeBrandingImages(com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
+     * @param options
+     *            list options.
      * @param account
      *            an account.
-     * @return something
+     * @return the list of subtenant light theme images corresponding to filter options (One page).
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    public SubtenantLightThemeImage lightThemeBrandingImages(@NonNull Account account) throws MbedCloudException {
-        return ((Accounts) getModuleOrThrow()).lightThemeBrandingImages(account);
-    }
-
-    /**
-     * Get metadata of a light theme image.
-     *
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Accounts#lightThemeBrandingImages(String, com.arm.mbed.cloud.sdk.accounts.model.AccountReference)}
-     * 
-     * @param id
-     *            Account ID.
-     * @param reference
-     *            Name of the image.
-     * @return something
-     * @throws MbedCloudException
-     *             if an error occurs during the process.
-     */
-    public SubtenantLightThemeImage
-           lightThemeBrandingImages(@NonNull String id, @NonNull AccountReference reference) throws MbedCloudException {
-        return ((Accounts) getModuleOrThrow()).lightThemeBrandingImages(id, reference);
+    public ListResponse<SubtenantLightThemeImage>
+           lightThemeBrandingImages(@Nullable SubtenantLightThemeImageListOptions options,
+                                    @NonNull Account account) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).lightThemeBrandingImages(options, account);
     }
 
     /**
