@@ -31,7 +31,7 @@ public class TestSubtenantLightThemeImageReference {
             subtenantlightthemeimagereference = SubtenantLightThemeImageReference.getValue("brand_logo_landscape");
             assertNotNull(subtenantlightthemeimagereference);
             assertFalse(subtenantlightthemeimagereference.isDefault());
-            subtenantlightthemeimagereference = SubtenantLightThemeImageReference.getValue("3333ab80-c6e0-49d1-b3df-1ce33019338c");
+            subtenantlightthemeimagereference = SubtenantLightThemeImageReference.getValue("44721d56-5c1e-4be9-b468-aa26898784c9");
             assertNotNull(subtenantlightthemeimagereference);
             assertTrue(subtenantlightthemeimagereference.isDefault());
         } catch (Exception exception) {
