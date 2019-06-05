@@ -19,11 +19,11 @@ public class TestDeviceGroup {
     @Test
     public void testClone() {
         try {
-            DeviceGroup devicegroup1 = new DeviceGroup(new Date(1559747933258L), null,
-                                                       "9aa05063-1f72-4f7b-9e41-f93031abb0db", 96,
-                                                       "bd879b7b-f548-414b-98d6-9f78d8d0c737",
-                                                       "1b784fbe-71d8-45ce-b5cf-50bb3250f302",
-                                                       new Date(1559747932361L));
+            DeviceGroup devicegroup1 = new DeviceGroup(new Date(1559752148522L), null,
+                                                       "62061213-903e-4fb6-a8f8-e5b33c9df638", 20,
+                                                       "e5b3f996-8570-4a79-8d51-b510af6ceecc",
+                                                       "0dcfad93-06c5-4aa6-8379-2291368d49d4",
+                                                       new Date(1559752144659L));
             DeviceGroup devicegroup2 = devicegroup1.clone();
             assertNotNull(devicegroup1);
             assertNotNull(devicegroup2);
@@ -41,16 +41,16 @@ public class TestDeviceGroup {
     @Test
     public void testHashCode() {
         try {
-            DeviceGroup devicegroup1 = new DeviceGroup(new Date(1559747933357L), null,
-                                                       "74320000-6386-4fdc-b7a3-9264aea789dc", -94,
-                                                       "f8f8b541-9f4d-4fa8-a055-54d6699929a0",
-                                                       "d24d4c6b-412a-4013-9104-7a4ba3e8ecdb",
-                                                       new Date(1559747925638L));
-            DeviceGroup devicegroup2 = new DeviceGroup(new Date(1559747933357L), null,
-                                                       "74320000-6386-4fdc-b7a3-9264aea789dc", -94,
-                                                       "f8f8b541-9f4d-4fa8-a055-54d6699929a0",
-                                                       "d24d4c6b-412a-4013-9104-7a4ba3e8ecdb",
-                                                       new Date(1559747925638L));
+            DeviceGroup devicegroup1 = new DeviceGroup(new Date(1559752153043L), null,
+                                                       "085d4a5c-398b-489e-9b90-26121920973c", 10,
+                                                       "0f98ebbd-80cd-490d-b929-bedb0a40c1d4",
+                                                       "1359b23f-99db-4310-86d1-ab0bb4cc6533",
+                                                       new Date(1559752149280L));
+            DeviceGroup devicegroup2 = new DeviceGroup(new Date(1559752153043L), null,
+                                                       "085d4a5c-398b-489e-9b90-26121920973c", 10,
+                                                       "0f98ebbd-80cd-490d-b929-bedb0a40c1d4",
+                                                       "1359b23f-99db-4310-86d1-ab0bb4cc6533",
+                                                       new Date(1559752149280L));
             assertNotNull(devicegroup1);
             assertNotNull(devicegroup2);
             assertNotSame(devicegroup2, devicegroup1);
@@ -71,16 +71,16 @@ public class TestDeviceGroup {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        DeviceGroup devicegroup = new DeviceGroup(new Date(1559747927746L), null,
-                                                  "e6807909-6e58-4b2c-9d7c-435e3df41240", -16,
-                                                  "be4b96e7-4987-415c-8d73-c1949d8ae84f",
-                                                  "79f13ace-6fec-475d-aa52-ceb4d93bfb49", new Date(1559747932210L));
+        DeviceGroup devicegroup = new DeviceGroup(new Date(1559752149045L), null,
+                                                  "5f47468c-934d-4e05-a750-96a6f1dd37c9", 10,
+                                                  "35e60474-46f8-4fa4-ada1-9d66fc030945",
+                                                  "cf57c921-274a-4f35-8e38-bd0acaffdf01", new Date(1559752147378L));
         assertTrue(devicegroup.isValid());
-        DeviceGroup devicegroupInvalid = new DeviceGroup(new Date(1559747930404L), null,
-                                                         "8540cb8d-ba0d-4bf3-8bcf-9fdc07a770afa5acf395-4d3c-463e-9ed8-0f63644d3e3742e6d9b9-4f7d-40f1-bdcd-c1fddf27e26d96f62275-8139-4fea-ad40-a472574cb55a0d4eea16-5d0b-4fc1-9861-97e63706a10a75d5f916-83ab-420f-980d-4cd249b28d87ed9ce5eb-081e-4fdc-853d-2977bcdc8ba589d9cddf-073e-4a60-8d93-ceb14741cc437cf451c0-b751-488c-911c-7818fcfb5a6b4dfe9c4d-dd3d-4a5d-b3fb-757baee4b07bc3b9fc5d-9eb8-4dfc-ab30-a1515ed042898ff1a515-dc86-4fd7-aad3-e3779ef289838f20463a-183e-4f63-bd70-06667acff4de2cf349f0-b05a-4bcc-9efb-46ce0efa08449c12319e-c627-4418-aad2-249ac90e06502b599898-8a8b-4200-afaf-7fd47cffd6ac60292afc-ef75-4bca-9bef-0433f80556f4441e25ca-ab82-4a59-9243-8b0bb9529fbc7620ad63-6901-49a9-88bc-7f92a9ac16b3233b22ab-4b82-4cf9-9f84-18c9e295381b6ad27ad2-5d03-4b50-9116-afb7eca673eba7385476-d10e-4031-b449-89760d2af3fc9e4f7c43-8aa6-48bd-8718-540285ed871401c15561-4ac8-4752-8cfa-330e7a3e0c6dca4d54ee-455a-4a14-a36c-d985ba274c3c46952dee-38fa-4d50-956a-de6d85a6dc85c19688fe-8921-4d89-bd9e-b9bd7ef91bea6c0b72e3-979f-418a-9697-aaac0611fe62fcc81cdb-5507-4680-b841-400ea1c45ff49ed92c34-f5f9-42af-aebe-3fd3cbdd2153d946e0a4-0763-4e33-a420-14fcc0637391c583cab6-a8e7-454c-89da-571c3d4c5193ff2c64f0-7680-43a9-9223-bed88eb1ae7d9a72755e-8d8d-4a5f-b060-2f57c59a86e749887498-a821-4055-baa7-9533c9ce24e534ef54b8-abad-4428-afed-c69eb0091b916e22281e-348d-45c6-a78a-6daee04db9de76a8cfa4-bb2c-4324-91a7-a8b66e9f2f45d7b7649d-b11b-41e5-83be-73205ab1ef39d831ff81-e0ec-4dd9-b7f8-48feac25efc52059096e-a04c-45c0-bd11-be4fb29d2b4f5c2de202-ce80-4be0-bc0d-61c16f3b8abe941f66b0-1b94-4291-99bd-a74286c3517c850e618e-65b2-44ea-90b3-023ff00354312a19100b-e853-4137-bd13-9b19e3acb8959d7b9807-7377-4ae9-bc69-8d9eea910d83fdbafd9f-f52c-469e-92e0-649e9ad9ef5818c12ce7-d36e-4efa-a06b-cbe29f1a136e8764321f-1515-4ade-8a23-bf85e68a986d67bf6d91-c120-4fc9-8c02-e495921322a72d867d5b-46e6-4cf2-a730-61e558a5924f35870ce9-b11d-44ca-87de-41c8a48e6cf0ed32646f-e1a0-4077-94b3-0787dce7f5521a75f488-9aad-405e-957c-0c889c9467afd511a88f-6bed-4e68-af60-3147b9b9b17e96522564-45c9-41aa-bf2d-3859ffefcf9f",
-                                                         -123, "282b1688-e0b7-47ca-ba23-0c6cdda51d9d",
-                                                         "b7cda8e4-1313-4e38-aad8-6bb9c40c7da673981f20-1cb5-4c49-9faa-d62e8f952ecab8440f32-3fcd-4352-a860-227e6a1b8675d2b61a4e-c3bc-4875-b7d7-74ab3cf44c4d",
-                                                         new Date(1559747931200L));
+        DeviceGroup devicegroupInvalid = new DeviceGroup(new Date(1559752143991L), null,
+                                                         "91fc5973-089e-47ac-a25e-03e9de0e69cd00167a21-9516-4ffa-865f-5c674e3a9c94b156354a-0ee9-4e06-8524-4f336d42f93f39360bb0-1ec3-41b8-a126-1f8bc2a3cf5d46ccf2fb-7b0b-4ea2-83a0-29fb732866670f9dd1b2-f242-491e-814b-6e7663c9565564a23f59-3c69-4140-a88e-d788ae7ae3023e4577d3-ed81-4add-9b60-3ae2355dbada0383d652-0946-4a94-9f46-fa3a2d322338462041e6-fc6d-46cc-8a09-1dc22f0aaaaa35a88414-e58f-4e75-9551-9dd5486df441baa8a932-073c-4920-8595-a0f4e9b31928caf8e3c1-0098-4706-a887-31b8a95c2264401d31af-6881-46d6-ba20-e0276b44bb6378720108-c328-45b3-a88a-32d32878b197702a9370-7e63-40eb-9bdc-f595ea4a142227f787a0-c6fc-4111-9c2a-360c255a6fcd17d5010e-bffd-4460-87d9-2c53fd7e02a741d5e4b4-17a7-446a-a723-01ad803ad63786faf84f-a159-4174-9324-a9ea8d5dd0cdf3f91588-bdd3-4052-a329-b3e54ce0277a8a78e867-b107-4ad1-bf87-265582e9d0ef5eb09803-feb7-49a9-bf6f-e37489d870732ea6894d-0877-47f1-b169-6092016f1b17681212b5-5d70-4c63-88ee-c6a10a731822b4fe9a5a-0bf5-44e3-abaf-f07768eaf96c380f8c25-2dfe-4be8-a305-34fad13a4aebd247574d-e164-48e2-a5f1-46e58f27096b3b033640-92bc-4fdc-903d-3ddd5eae11a219599fd9-dac7-4b9c-b96e-17a4997fd97829024f13-ef22-4a25-bb28-c2293710f503bdff43a1-9d20-47e5-8adb-196328b657d0060ee162-2349-434b-9d8d-8e1aafec573f8af4619a-fb16-45b8-b307-61bb2aa69572e37df762-aaf2-4a21-8418-991d1b5b3e1d45a02b8e-8a06-4500-a3cf-859e76dce053c0f0251e-fcda-4a73-8d0a-b5bb90c19ecdccfb3899-5b8f-4c38-9fd3-c0669c36a14cf3febd43-aafd-4506-935d-9062745eb199bdb4b52f-ae6d-4a92-9d3a-637ab909cb5b2777865a-0c53-497f-a7a0-9eb8f30b28c8a7dd5e24-7cb0-429a-9479-27efce8714fe6aba9b0e-1815-4e00-a746-2b22fc241d7c2f35b171-d2f2-4dba-aa1c-45cae3d0b59fcc282f1f-8f30-4200-b603-9f77b0dc64bfdc4e5b40-d35f-4eac-bc79-00ab648525e456965509-eae4-46c3-983a-a8d7f63a24c5385b93a1-11f0-4472-b1b5-b7e0bd89719b43e3aa12-fa06-4aae-ab7e-cdd53a3cb12958b0e9e9-9614-4fb8-a477-2f152df261a66bcb42f1-2b0f-4fe4-80bd-096e5ef6a60ecd743d7e-9f59-4b06-b27b-2d02573409bc4bb05b92-f225-41b8-9719-ff2c0b040f18dd1c43f8-8b94-4010-955c-9d5886293d240dcf1610-8a19-4c60-8017-57d132a59f34438380ae-9366-4367-9465-e68975abe674",
+                                                         72, "3534ac95-6342-4a8e-a40d-97a6c7f3f758",
+                                                         "42152f5e-40e6-44d7-a885-ba07a7afe464e6ad22cd-f4ca-4cc5-8709-198ab35596df93c242b3-23a3-4bbb-b929-6d4a10f047c11c374735-5086-4a22-9156-655d85a9b44e",
+                                                         new Date(1559752152715L));
         assertFalse(devicegroupInvalid.isValid());
     }
 
@@ -91,21 +91,21 @@ public class TestDeviceGroup {
     @Test
     public void testEquals() {
         try {
-            DeviceGroup devicegroup1 = new DeviceGroup(new Date(1559747929046L), null,
-                                                       "eb5ea4ce-4fce-4589-a754-3c2b31bc290d", 58,
-                                                       "dacf488d-b960-4f78-af14-891243032081",
-                                                       "38224a24-696f-4a81-adad-7f5ed8a48191",
-                                                       new Date(1559747926491L));
-            DeviceGroup devicegroup2 = new DeviceGroup(new Date(1559747929046L), null,
-                                                       "eb5ea4ce-4fce-4589-a754-3c2b31bc290d", 58,
-                                                       "dacf488d-b960-4f78-af14-891243032081",
-                                                       "38224a24-696f-4a81-adad-7f5ed8a48191",
-                                                       new Date(1559747926491L));
-            DeviceGroup devicegroup3 = new DeviceGroup(new Date(1559747926875L), null,
-                                                       "c0c23017-1f11-4c95-96d6-0474b27bd778", -115,
-                                                       "d959b5ac-1eb0-4791-b470-c13cf6bcd191",
-                                                       "238e8958-afff-4fa7-bb34-aba70dd407f5",
-                                                       new Date(1559747934199L));
+            DeviceGroup devicegroup1 = new DeviceGroup(new Date(1559752148999L), null,
+                                                       "1201d06e-17a5-404f-9a5b-ae11424d89e9", 38,
+                                                       "e8ba2d9e-0aec-4abb-aece-7fe0d9041766",
+                                                       "c301b4db-8d10-4279-8e55-bb6a62f9bc4c",
+                                                       new Date(1559752147198L));
+            DeviceGroup devicegroup2 = new DeviceGroup(new Date(1559752148999L), null,
+                                                       "1201d06e-17a5-404f-9a5b-ae11424d89e9", 38,
+                                                       "e8ba2d9e-0aec-4abb-aece-7fe0d9041766",
+                                                       "c301b4db-8d10-4279-8e55-bb6a62f9bc4c",
+                                                       new Date(1559752147198L));
+            DeviceGroup devicegroup3 = new DeviceGroup(new Date(1559752146908L), null,
+                                                       "d7bb5ebe-b4bf-45cb-b115-9c52166b1b06", -56,
+                                                       "27a1c478-fb61-42d2-84d7-50207505789b",
+                                                       "6ef970df-9555-44c8-a51a-dd9886f605fe",
+                                                       new Date(1559752146282L));
             assertNotNull(devicegroup1);
             assertNotNull(devicegroup2);
             assertNotNull(devicegroup3);
