@@ -20,12 +20,23 @@ import com.arm.mbed.cloud.sdk.common.SdkUtils;
 @Preamble(description = "Data file")
 public class DataFile implements SdkModel {
     private static final String CSV_EXTENSION = "csv";
+    private static final String TEXT_EXTENSION = "txt";
+    private static final String PNG_EXTENSION = "png";
+    private static final String JPEG_EXTENSION = "jpeg";
+    private static final String GIF_EXTENSION = "gif";
+    private static final String BMP_EXTENSION = "bmp";
     /**
      * Serialisation Id.
      */
     private static final long serialVersionUID = 2092096356697353992L;
     public static final String BINARY_FILE_MEDIA_TYPE = "application/octet-stream";
     public static final String CSV_FILE_MEDIA_TYPE = "application/vnd.ms-excel";
+    public static final String TEXT_FILE_MEDIA_TYPE = "text/plain";
+    public static final String GIF_IMAGE_FILE_MEDIA_TYPE = "image/gif";
+    public static final String PNG_IMAGE_FILE_MEDIA_TYPE = "image/png";
+    public static final String JPEG_IMAGE_FILE_MEDIA_TYPE = "image/jpeg";
+    public static final String BMP_IMAGE_FILE_MEDIA_TYPE = "image/bmp";
+
     @Required
     private String contentType;
     @Required
@@ -330,9 +341,23 @@ public class DataFile implements SdkModel {
             return BINARY_FILE_MEDIA_TYPE;
         }
         final String fileName = file.getName();
-        return SdkUtils.getFileExtension(fileName).toLowerCase(Locale.UK)
-                       .equals(CSV_EXTENSION) ? CSV_FILE_MEDIA_TYPE : BINARY_FILE_MEDIA_TYPE;
-
+        final String extension = SdkUtils.getFileExtension(fileName).toLowerCase(Locale.UK);
+        switch (extension) {
+            case CSV_EXTENSION:
+                return CSV_FILE_MEDIA_TYPE;
+            case TEXT_EXTENSION:
+                return TEXT_FILE_MEDIA_TYPE;
+            case GIF_EXTENSION:
+                return GIF_IMAGE_FILE_MEDIA_TYPE;
+            case PNG_EXTENSION:
+                return PNG_IMAGE_FILE_MEDIA_TYPE;
+            case JPEG_EXTENSION:
+                return JPEG_IMAGE_FILE_MEDIA_TYPE;
+            case BMP_EXTENSION:
+                return BMP_IMAGE_FILE_MEDIA_TYPE;
+            default:
+                return BINARY_FILE_MEDIA_TYPE;
+        }
     }
 
     @Override

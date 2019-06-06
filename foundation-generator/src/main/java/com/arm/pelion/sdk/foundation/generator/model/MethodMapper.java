@@ -121,7 +121,7 @@ public class MethodMapper extends Method {
                         final TypeParameter fromFieldType = fromField.getType();
                         fType.translate();
                         fromFieldType.translate();
-                        final String getterName = MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                        final String getterName = MethodGetter.getCorrespondingGetterMethodName(fromField.getName(),
                                                                                                 fType.isBoolean(),
                                                                                                 isFromLowLevel);
                         if (needsTranslation(fromFieldType, fType)) {
@@ -219,7 +219,7 @@ public class MethodMapper extends Method {
                 recordThatFieldWasNotFound(code, fromType, toType, toFieldName);
             } else {
                 final String setterName = MethodSetter.getCorrespondingSetterMethodName(toFieldName);
-                final String getterName = MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                final String getterName = MethodGetter.getCorrespondingGetterMethodName(fromField.getName(),
                                                                                         fType.isBoolean(),
                                                                                         isFromLowLevel);
                 if (needsTranslation(fromFieldType, fType)) {

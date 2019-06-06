@@ -115,13 +115,16 @@ public class ArtifactsTranslator {
                                                        + "] was not found in the backends");
             }
             if (!m.getReturnInformation().doesReturnItSelf()) {
-                if (CommonTranslator.isPrimitiveType(m.getReturnInformation().getReturnType())) {
+                if (CommonTranslator.isVoidType(m.getReturnInformation().getReturnType())) {
+                    returnModel = new Model(Void.class);
+                } else if (CommonTranslator.isPrimitiveType(m.getReturnInformation().getReturnType())) {
                     logger.logError("Cannot generate adapter for " + m.getKey() + "/" + m.getId(),
                                     new IllegalArgumentException("Primitive return type is currently not supported"));
                     continue;
+                } else {
+                    returnModel = CommonTranslator.fetchCorrespondingModel(config,
+                                                                           m.getReturnInformation().getReturnType());
                 }
-                returnModel = CommonTranslator.fetchCorrespondingModel(config,
-                                                                       m.getReturnInformation().getReturnType());
             }
             module.addCloudCall(MethodTranslator.translate(m, method, model, returnModel));
         }
@@ -157,12 +160,29 @@ public class ArtifactsTranslator {
                 throw new FoundationGeneratorException("Failed generating adapter for " + model + " as method ["
                                                        + m.getId() + "] was not found in the backends");
             }
-
+            if (method.hasFromModels()) {
+                if (m.isListMethod() || m.hasPaginatedResponse()) {
+                    // TODO shout, not handled
+                    throw new FoundationGeneratorException("The generator does not handle list method with model parameter such as "
+                                                           + m);
+                }
+                for (LowLevelAPIMethodArgument arg : method.getFromModels()) {
+                    try {
+                        adapter.addMethodAdapter(MethodTranslator.determineMethodAction(m), model,
+                                                 new Model(arg.determineClass()), false, false, methodRenames, null,
+                                                 null);
+                    } catch (ClassNotFoundException exception) {
+                        throw new FoundationGeneratorException("Failed generating adapter for " + model, exception);
+                    }
+                }
+            }
             if (!m.getReturnInformation().doesReturnItSelf()) {
                 // This specifies that a different entity is returned. A mapping method to the corresponding adapter
                 // needs to be added.
                 isExternal = true;
-                if (CommonTranslator.isPrimitiveType(m.getReturnInformation().getReturnType())) {
+                if (CommonTranslator.isVoidType(m.getReturnInformation().getReturnType())) {
+                    continue;
+                } else if (CommonTranslator.isPrimitiveType(m.getReturnInformation().getReturnType())) {
                     logger.logError("Cannot generate adapter for " + m.getKey() + "/" + m.getId(),
                                     new IllegalArgumentException("Primitive return type is currently not supported"));
                     continue;
@@ -193,25 +213,6 @@ public class ArtifactsTranslator {
                     }
 
                 }
-            }
-            if (method.hasFromModels()) {
-                if (m.isListMethod() || m.hasPaginatedResponse()) {
-                    // TODO shout, not handled
-                    throw new FoundationGeneratorException("The generator does not handle list method with model parameter such as "
-                                                           + m);
-                }
-                for (LowLevelAPIMethodArgument arg : method.getFromModels()) {
-                    try {
-                        adapter.addMethodAdapter(m.isCreateMethod() ? MethodAction.CREATE
-                                                                    : m.isUpdateMethod() ? MethodAction.UPDATE
-                                                                                         : MethodAction.READ,
-                                                 model, new Model(arg.determineClass()), false, false, methodRenames,
-                                                 null, null);
-                    } catch (ClassNotFoundException exception) {
-                        throw new FoundationGeneratorException("Failed generating adapter for " + model, exception);
-                    }
-                }
-
             }
         }
         return adapter;
