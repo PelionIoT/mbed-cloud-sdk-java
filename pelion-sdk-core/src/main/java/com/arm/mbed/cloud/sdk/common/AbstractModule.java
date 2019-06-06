@@ -48,6 +48,7 @@ public abstract class AbstractModule implements SdkContext {
         this.client = context == null ? null : context.getClient();
         this.serviceRegistry = context == null ? null : context.getServiceRegistry();
         this.logger = context == null ? null : context.getLogger();
+        shareNetworkLayer(context);
         metadataCache = new ApiMetadataCache();
     }
 
@@ -88,14 +89,14 @@ public abstract class AbstractModule implements SdkContext {
      * <p>
      * See {@link ApiClientWrapper#shareNetworkLayer(ApiClientWrapper)}
      * 
-     * @param anotherModule
-     *            another module instance.
+     * @param anotherContext
+     *            another context instance.
      */
-    public void shareNetworkLayer(AbstractModule anotherModule) {
-        if (client == null || anotherModule == null) {
+    public void shareNetworkLayer(SdkContext anotherContext) {
+        if (client == null || anotherContext == null) {
             return;
         }
-        client.shareNetworkLayer(anotherModule.getClient());
+        client.shareNetworkLayer(anotherContext.getClient());
     }
 
     /*

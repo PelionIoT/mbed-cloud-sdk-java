@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -29,6 +30,7 @@ import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.NotificationListener;
 import com.arm.mbed.cloud.sdk.common.SdkLogger;
+import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.WebsocketClient;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
@@ -56,8 +58,9 @@ public class NotificationHandlersStore implements Closeable {
     private final ExecutorService listeningThreads;
     private Future<?> listenerHandle;
     private final EndPoints endpoint;
-    private final ExecutorService customSubscriptionHandlingExecutor;
+    private final Scheduler customSubscriptionHandlingScheduler;
     private final SubscriptionObserversStore observerStore;
+    private static final TimePeriod TERMINATION_PERIOD = new TimePeriod(1);
 
     /**
      * Notification store constructor.
@@ -78,13 +81,13 @@ public class NotificationHandlersStore implements Closeable {
         this.endpoint = createNotificationPull(endpoint);
         this.module = module;
         listenerHandle = null;
-        customSubscriptionHandlingExecutor = subscriptionHandlingExecutor;
+        customSubscriptionHandlingScheduler = subscriptionHandlingExecutor == null ? Schedulers.computation()
+                                                                                   : Schedulers.from(subscriptionHandlingExecutor);
         final boolean unsubscribeOnExit = module == null ? false
                                                          : module.getConnectionOption() == null ? true
                                                                                                 : !module.getConnectionOption()
                                                                                                          .isSkipCleanup();
-        observerStore = new SubscriptionObserversStore((customSubscriptionHandlingExecutor == null) ? Schedulers.computation()
-                                                                                                    : Schedulers.from(customSubscriptionHandlingExecutor),
+        observerStore = new SubscriptionObserversStore(customSubscriptionHandlingScheduler,
                                                        new ResourceSubscriber(module, FirstValue.getDefault()),
                                                        new ResourceUnsubscriber(module, FirstValue.getDefault()),
                                                        unsubscribeOnExit ? new ResourceUnsubscriberAll(module,
@@ -155,8 +158,13 @@ public class NotificationHandlersStore implements Closeable {
      */
     public void shutdown() {
         logDebug("Shutting down notification listening thread");
-        if (listeningThreads != null) {
-            listeningThreads.shutdown();
+        listeningThreads.shutdown();
+        try {
+            if (!listeningThreads.awaitTermination(TERMINATION_PERIOD.getDuration(), TERMINATION_PERIOD.getUnit())) {
+                listeningThreads.shutdownNow();
+            }
+        } catch (@SuppressWarnings("unused") InterruptedException exception) {
+            listeningThreads.shutdownNow();
         }
         logDebug("Clearing notification handler store");
         try {
@@ -165,9 +173,9 @@ public class NotificationHandlersStore implements Closeable {
             logError("Failed clearing notification handler store", exception);
         }
         logDebug("Shutting down notification threads");
-        if (customSubscriptionHandlingExecutor != null) {
-            customSubscriptionHandlingExecutor.shutdown();
-        }
+        logDebug("Shutting down notification handling threads");
+        customSubscriptionHandlingScheduler.shutdown();
+
         // shutting down schedulers can have side effects
         // logDebug("Shutting down notification schedulers");
         // try {
@@ -626,6 +634,7 @@ public class NotificationHandlersStore implements Closeable {
         private void call(String functionName, CloudCall<?> caller) throws MbedCloudException {
             call(functionName, caller, true);
         }
+
     }
 
     private void clearStores() throws MbedCloudException {

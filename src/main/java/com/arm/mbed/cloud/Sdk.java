@@ -57,6 +57,7 @@ public class Sdk extends AbstractModule {
     public Sdk(ConnectionOptions options) {
         super(options, extendUserAgent());
         connectApi = new Connect(this);
+        this.shareNetworkLayer(connectApi);
         moduleFactory = new ModuleFactory(this, connectApi);
         daoFactory = new DaoFactory(this);
         genericClient = new GenericClient(this);
