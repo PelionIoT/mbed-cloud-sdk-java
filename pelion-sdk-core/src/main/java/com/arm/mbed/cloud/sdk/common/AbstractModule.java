@@ -48,7 +48,7 @@ public abstract class AbstractModule implements SdkContext {
         this.client = context == null ? null : context.getClient();
         this.serviceRegistry = context == null ? null : context.getServiceRegistry();
         this.logger = context == null ? null : context.getLogger();
-        shareNetworkLayer(context);
+        // shareNetworkLayer(context);
         metadataCache = new ApiMetadataCache();
     }
 
