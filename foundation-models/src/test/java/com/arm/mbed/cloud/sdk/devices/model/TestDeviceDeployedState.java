@@ -30,7 +30,7 @@ public class TestDeviceDeployedState {
             devicedeployedstate = DeviceDeployedState.getValue("production");
             assertNotNull(devicedeployedstate);
             assertFalse(devicedeployedstate.isDefault());
-            devicedeployedstate = DeviceDeployedState.getValue("39712eeb-5e4d-4a86-9bb2-dbe43b2aac58");
+            devicedeployedstate = DeviceDeployedState.getValue("7159e6fe-afaf-470a-b714-4e3718b13c32");
             assertNotNull(devicedeployedstate);
             assertTrue(devicedeployedstate.isDefault());
         } catch (Exception exception) {
