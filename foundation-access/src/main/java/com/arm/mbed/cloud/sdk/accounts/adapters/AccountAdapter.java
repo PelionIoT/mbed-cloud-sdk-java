@@ -32,6 +32,41 @@ public final class AccountAdapter {
     }
 
     /**
+     * Maps an account into an account creation req.
+     * 
+     * @param toBeMapped
+     *            an account.
+     * @return mapped an account creation req
+     */
+    @Internal
+    public static AccountCreationReq reverseMapAddRequest(Account toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final AccountCreationReq accountCreationReq = new AccountCreationReq();
+        accountCreationReq.setAddressLine1(toBeMapped.getAddressLine1());
+        accountCreationReq.setAddressLine2(toBeMapped.getAddressLine2());
+        accountCreationReq.setAdminEmail(toBeMapped.getAdminEmail());
+        accountCreationReq.setAdminFullName(toBeMapped.getAdminFullName());
+        accountCreationReq.setAdminName(toBeMapped.getAdminName());
+        accountCreationReq.setAdminPassword(toBeMapped.getAdminPassword());
+        accountCreationReq.setAliases(toBeMapped.getAliases());
+        accountCreationReq.setCity(toBeMapped.getCity());
+        accountCreationReq.setCompany(toBeMapped.getCompany());
+        accountCreationReq.setContact(toBeMapped.getContact());
+        accountCreationReq.setContractNumber(toBeMapped.getContractNumber());
+        accountCreationReq.setCountry(toBeMapped.getCountry());
+        accountCreationReq.setCustomerNumber(toBeMapped.getCustomerNumber());
+        accountCreationReq.setDisplayName(toBeMapped.getDisplayName());
+        accountCreationReq.setEmail(toBeMapped.getEmail());
+        accountCreationReq.setEndMarket(toBeMapped.getEndMarket());
+        accountCreationReq.setPhoneNumber(toBeMapped.getPhoneNumber());
+        accountCreationReq.setPostalCode(toBeMapped.getPostalCode());
+        accountCreationReq.setState(toBeMapped.getState());
+        return accountCreationReq;
+    }
+
+    /**
      * Maps an account info into an account.
      * 
      * @param toBeMapped
@@ -105,41 +140,6 @@ public final class AccountAdapter {
                 return AccountAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps an account into an account creation req.
-     * 
-     * @param toBeMapped
-     *            an account.
-     * @return mapped an account creation req
-     */
-    @Internal
-    public static AccountCreationReq reverseMapAddRequest(Account toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final AccountCreationReq accountCreationReq = new AccountCreationReq();
-        accountCreationReq.setAddressLine1(toBeMapped.getAddressLine1());
-        accountCreationReq.setAddressLine2(toBeMapped.getAddressLine2());
-        accountCreationReq.setAdminEmail(toBeMapped.getAdminEmail());
-        accountCreationReq.setAdminFullName(toBeMapped.getAdminFullName());
-        accountCreationReq.setAdminName(toBeMapped.getAdminName());
-        accountCreationReq.setAdminPassword(toBeMapped.getAdminPassword());
-        accountCreationReq.setAliases(toBeMapped.getAliases());
-        accountCreationReq.setCity(toBeMapped.getCity());
-        accountCreationReq.setCompany(toBeMapped.getCompany());
-        accountCreationReq.setContact(toBeMapped.getContact());
-        accountCreationReq.setContractNumber(toBeMapped.getContractNumber());
-        accountCreationReq.setCountry(toBeMapped.getCountry());
-        accountCreationReq.setCustomerNumber(toBeMapped.getCustomerNumber());
-        accountCreationReq.setDisplayName(toBeMapped.getDisplayName());
-        accountCreationReq.setEmail(toBeMapped.getEmail());
-        accountCreationReq.setEndMarket(toBeMapped.getEndMarket());
-        accountCreationReq.setPhoneNumber(toBeMapped.getPhoneNumber());
-        accountCreationReq.setPostalCode(toBeMapped.getPostalCode());
-        accountCreationReq.setState(toBeMapped.getState());
-        return accountCreationReq;
     }
 
     /**

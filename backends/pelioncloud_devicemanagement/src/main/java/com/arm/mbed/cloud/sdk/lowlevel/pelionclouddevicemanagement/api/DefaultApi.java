@@ -127,49 +127,49 @@ public interface DefaultApi {
      *            comma-separated:
      *            &#x60;event_type__in&#x3D;update.device.device-created,update.device.device-updated&#x60; (optional)
      * @param dateTimeIn
-     *            in filter for the date_time field (optional)
+     *            in filter for the \&quot;date_time\&quot; field (optional)
      * @param dateTimeNin
-     *            nin filter for the date_time field (optional)
+     *            nin filter for the \&quot;date_time\&quot; field (optional)
      * @param dateTimeLte
-     *            lte filter for the date_time field (optional)
+     *            lte filter for the \&quot;date_time\&quot; field (optional)
      * @param dateTimeGte
-     *            gte filter for the date_time field (optional)
+     *            gte filter for the \&quot;date_time\&quot; field (optional)
      * @param descriptionEq
-     *            eq filter for the description field (optional)
+     *            eq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNeq
-     *            neq filter for the description field (optional)
+     *            neq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionIn
-     *            in filter for the description field (optional)
+     *            in filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNin
-     *            nin filter for the description field (optional)
+     *            nin filter for the \&quot;description\&quot; field (optional)
      * @param idEq
-     *            eq filter for the id field (optional)
+     *            eq filter for the \&quot;id\&quot; field (optional)
      * @param idNeq
-     *            neq filter for the id field (optional)
+     *            neq filter for the \&quot;id\&quot; field (optional)
      * @param idIn
-     *            in filter for the id field (optional)
+     *            in filter for the \&quot;id\&quot; field (optional)
      * @param idNin
-     *            nin filter for the id field (optional)
+     *            nin filter for the \&quot;id\&quot; field (optional)
      * @param deviceIdEq
-     *            eq filter for the device_id field (optional)
+     *            eq filter for the \&quot;device_id\&quot; field (optional)
      * @param deviceIdNeq
-     *            neq filter for the device_id field (optional)
+     *            neq filter for the \&quot;device_id\&quot; field (optional)
      * @param deviceIdIn
-     *            in filter for the device_id field (optional)
+     *            in filter for the \&quot;device_id\&quot; field (optional)
      * @param deviceIdNin
-     *            nin filter for the device_id field (optional)
+     *            nin filter for the \&quot;device_id\&quot; field (optional)
      * @param eventTypeEq
-     *            eq filter for the event_type field (optional)
+     *            eq filter for the \&quot;event_type\&quot; field (optional)
      * @param eventTypeNeq
-     *            neq filter for the event_type field (optional)
+     *            neq filter for the \&quot;event_type\&quot; field (optional)
      * @param eventTypeIn
-     *            in filter for the event_type field (optional)
+     *            in filter for the \&quot;event_type\&quot; field (optional)
      * @param eventTypeNin
-     *            nin filter for the event_type field (optional)
+     *            nin filter for the \&quot;event_type\&quot; field (optional)
      * @param stateChangeEq
-     *            eq filter for the state_change field (optional)
+     *            eq filter for the \&quot;state_change\&quot; field (optional)
      * @param stateChangeNeq
-     *            neq filter for the state_change field (optional)
+     *            neq filter for the \&quot;state_change\&quot; field (optional)
      * @return Call&lt;DeviceEventPage&gt;
      */
     @GET("v3/device-events/")
@@ -306,225 +306,225 @@ public interface DefaultApi {
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;state__nin&#x3D;unenrolled,dergistered&#x60; (optional)
      * @param accountIdEq
-     *            eq filter for the account_id field (optional)
+     *            eq filter for the \&quot;account_id\&quot; field (optional)
      * @param accountIdNeq
-     *            neq filter for the account_id field (optional)
+     *            neq filter for the \&quot;account_id\&quot; field (optional)
      * @param accountIdIn
-     *            in filter for the account_id field (optional)
+     *            in filter for the \&quot;account_id\&quot; field (optional)
      * @param accountIdNin
-     *            nin filter for the account_id field (optional)
+     *            nin filter for the \&quot;account_id\&quot; field (optional)
      * @param autoUpdateEq
-     *            eq filter for the auto_update field (optional)
+     *            eq filter for the \&quot;auto_update\&quot; field (optional)
      * @param autoUpdateNeq
-     *            neq filter for the auto_update field (optional)
+     *            neq filter for the \&quot;auto_update\&quot; field (optional)
      * @param bootstrapExpirationDateIn
-     *            in filter for the bootstrap_expiration_date field (optional)
+     *            in filter for the \&quot;bootstrap_expiration_date\&quot; field (optional)
      * @param bootstrapExpirationDateNin
-     *            nin filter for the bootstrap_expiration_date field (optional)
+     *            nin filter for the \&quot;bootstrap_expiration_date\&quot; field (optional)
      * @param bootstrapExpirationDateLte
-     *            lte filter for the bootstrap_expiration_date field (optional)
+     *            lte filter for the \&quot;bootstrap_expiration_date\&quot; field (optional)
      * @param bootstrapExpirationDateGte
-     *            gte filter for the bootstrap_expiration_date field (optional)
+     *            gte filter for the \&quot;bootstrap_expiration_date\&quot; field (optional)
      * @param bootstrappedTimestampIn
-     *            in filter for the bootstrapped_timestamp field (optional)
+     *            in filter for the \&quot;bootstrapped_timestamp\&quot; field (optional)
      * @param bootstrappedTimestampNin
-     *            nin filter for the bootstrapped_timestamp field (optional)
+     *            nin filter for the \&quot;bootstrapped_timestamp\&quot; field (optional)
      * @param bootstrappedTimestampLte
-     *            lte filter for the bootstrapped_timestamp field (optional)
+     *            lte filter for the \&quot;bootstrapped_timestamp\&quot; field (optional)
      * @param bootstrappedTimestampGte
-     *            gte filter for the bootstrapped_timestamp field (optional)
+     *            gte filter for the \&quot;bootstrapped_timestamp\&quot; field (optional)
      * @param caIdEq
-     *            eq filter for the ca_id field (optional)
+     *            eq filter for the \&quot;ca_id\&quot; field (optional)
      * @param caIdNeq
-     *            neq filter for the ca_id field (optional)
+     *            neq filter for the \&quot;ca_id\&quot; field (optional)
      * @param caIdIn
-     *            in filter for the ca_id field (optional)
+     *            in filter for the \&quot;ca_id\&quot; field (optional)
      * @param caIdNin
-     *            nin filter for the ca_id field (optional)
+     *            nin filter for the \&quot;ca_id\&quot; field (optional)
      * @param connectorExpirationDateIn
-     *            in filter for the connector_expiration_date field (optional)
+     *            in filter for the \&quot;connector_expiration_date\&quot; field (optional)
      * @param connectorExpirationDateNin
-     *            nin filter for the connector_expiration_date field (optional)
+     *            nin filter for the \&quot;connector_expiration_date\&quot; field (optional)
      * @param connectorExpirationDateLte
-     *            lte filter for the connector_expiration_date field (optional)
+     *            lte filter for the \&quot;connector_expiration_date\&quot; field (optional)
      * @param connectorExpirationDateGte
-     *            gte filter for the connector_expiration_date field (optional)
+     *            gte filter for the \&quot;connector_expiration_date\&quot; field (optional)
      * @param createdAtIn
-     *            in filter for the created_at field (optional)
+     *            in filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtNin
-     *            nin filter for the created_at field (optional)
+     *            nin filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtLte
-     *            lte filter for the created_at field (optional)
+     *            lte filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtGte
-     *            gte filter for the created_at field (optional)
+     *            gte filter for the \&quot;created_at\&quot; field (optional)
      * @param deployedStateEq
-     *            eq filter for the deployed_state field (optional)
+     *            eq filter for the \&quot;deployed_state\&quot; field (optional)
      * @param deployedStateNeq
-     *            neq filter for the deployed_state field (optional)
+     *            neq filter for the \&quot;deployed_state\&quot; field (optional)
      * @param deployedStateIn
-     *            in filter for the deployed_state field (optional)
+     *            in filter for the \&quot;deployed_state\&quot; field (optional)
      * @param deployedStateNin
-     *            nin filter for the deployed_state field (optional)
+     *            nin filter for the \&quot;deployed_state\&quot; field (optional)
      * @param deploymentEq
-     *            eq filter for the deployment field (optional)
+     *            eq filter for the \&quot;deployment\&quot; field (optional)
      * @param deploymentNeq
-     *            neq filter for the deployment field (optional)
+     *            neq filter for the \&quot;deployment\&quot; field (optional)
      * @param deploymentIn
-     *            in filter for the deployment field (optional)
+     *            in filter for the \&quot;deployment\&quot; field (optional)
      * @param deploymentNin
-     *            nin filter for the deployment field (optional)
+     *            nin filter for the \&quot;deployment\&quot; field (optional)
      * @param descriptionEq
-     *            eq filter for the description field (optional)
+     *            eq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNeq
-     *            neq filter for the description field (optional)
+     *            neq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionIn
-     *            in filter for the description field (optional)
+     *            in filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNin
-     *            nin filter for the description field (optional)
+     *            nin filter for the \&quot;description\&quot; field (optional)
      * @param deviceClassEq
-     *            eq filter for the device_class field (optional)
+     *            eq filter for the \&quot;device_class\&quot; field (optional)
      * @param deviceClassNeq
-     *            neq filter for the device_class field (optional)
+     *            neq filter for the \&quot;device_class\&quot; field (optional)
      * @param deviceClassIn
-     *            in filter for the device_class field (optional)
+     *            in filter for the \&quot;device_class\&quot; field (optional)
      * @param deviceClassNin
-     *            nin filter for the device_class field (optional)
+     *            nin filter for the \&quot;device_class\&quot; field (optional)
      * @param deviceExecutionModeEq
-     *            eq filter for the device_execution_mode field (optional)
+     *            eq filter for the \&quot;device_execution_mode\&quot; field (optional)
      * @param deviceExecutionModeNeq
-     *            neq filter for the device_execution_mode field (optional)
+     *            neq filter for the \&quot;device_execution_mode\&quot; field (optional)
      * @param deviceExecutionModeIn
-     *            in filter for the device_execution_mode field (optional)
+     *            in filter for the \&quot;device_execution_mode\&quot; field (optional)
      * @param deviceExecutionModeNin
-     *            nin filter for the device_execution_mode field (optional)
+     *            nin filter for the \&quot;device_execution_mode\&quot; field (optional)
      * @param deviceKeyEq
-     *            eq filter for the device_key field (optional)
+     *            eq filter for the \&quot;device_key\&quot; field (optional)
      * @param deviceKeyNeq
-     *            neq filter for the device_key field (optional)
+     *            neq filter for the \&quot;device_key\&quot; field (optional)
      * @param deviceKeyIn
-     *            in filter for the device_key field (optional)
+     *            in filter for the \&quot;device_key\&quot; field (optional)
      * @param deviceKeyNin
-     *            nin filter for the device_key field (optional)
+     *            nin filter for the \&quot;device_key\&quot; field (optional)
      * @param endpointNameEq
-     *            eq filter for the endpoint_name field (optional)
+     *            eq filter for the \&quot;endpoint_name\&quot; field (optional)
      * @param endpointNameNeq
-     *            neq filter for the endpoint_name field (optional)
+     *            neq filter for the \&quot;endpoint_name\&quot; field (optional)
      * @param endpointNameIn
-     *            in filter for the endpoint_name field (optional)
+     *            in filter for the \&quot;endpoint_name\&quot; field (optional)
      * @param endpointNameNin
-     *            nin filter for the endpoint_name field (optional)
+     *            nin filter for the \&quot;endpoint_name\&quot; field (optional)
      * @param endpointTypeEq
-     *            eq filter for the endpoint_type field (optional)
+     *            eq filter for the \&quot;endpoint_type\&quot; field (optional)
      * @param endpointTypeNeq
-     *            neq filter for the endpoint_type field (optional)
+     *            neq filter for the \&quot;endpoint_type\&quot; field (optional)
      * @param endpointTypeIn
-     *            in filter for the endpoint_type field (optional)
+     *            in filter for the \&quot;endpoint_type\&quot; field (optional)
      * @param endpointTypeNin
-     *            nin filter for the endpoint_type field (optional)
+     *            nin filter for the \&quot;endpoint_type\&quot; field (optional)
      * @param enrolmentListTimestampIn
-     *            in filter for the enrolment_list_timestamp field (optional)
+     *            in filter for the \&quot;enrolment_list_timestamp\&quot; field (optional)
      * @param enrolmentListTimestampNin
-     *            nin filter for the enrolment_list_timestamp field (optional)
+     *            nin filter for the \&quot;enrolment_list_timestamp\&quot; field (optional)
      * @param enrolmentListTimestampLte
-     *            lte filter for the enrolment_list_timestamp field (optional)
+     *            lte filter for the \&quot;enrolment_list_timestamp\&quot; field (optional)
      * @param enrolmentListTimestampGte
-     *            gte filter for the enrolment_list_timestamp field (optional)
+     *            gte filter for the \&quot;enrolment_list_timestamp\&quot; field (optional)
      * @param firmwareChecksumEq
-     *            eq filter for the firmware_checksum field (optional)
+     *            eq filter for the \&quot;firmware_checksum\&quot; field (optional)
      * @param firmwareChecksumNeq
-     *            neq filter for the firmware_checksum field (optional)
+     *            neq filter for the \&quot;firmware_checksum\&quot; field (optional)
      * @param firmwareChecksumIn
-     *            in filter for the firmware_checksum field (optional)
+     *            in filter for the \&quot;firmware_checksum\&quot; field (optional)
      * @param firmwareChecksumNin
-     *            nin filter for the firmware_checksum field (optional)
+     *            nin filter for the \&quot;firmware_checksum\&quot; field (optional)
      * @param hostGatewayEq
-     *            eq filter for the host_gateway field (optional)
+     *            eq filter for the \&quot;host_gateway\&quot; field (optional)
      * @param hostGatewayNeq
-     *            neq filter for the host_gateway field (optional)
+     *            neq filter for the \&quot;host_gateway\&quot; field (optional)
      * @param hostGatewayIn
-     *            in filter for the host_gateway field (optional)
+     *            in filter for the \&quot;host_gateway\&quot; field (optional)
      * @param hostGatewayNin
-     *            nin filter for the host_gateway field (optional)
+     *            nin filter for the \&quot;host_gateway\&quot; field (optional)
      * @param idEq
-     *            eq filter for the id field (optional)
+     *            eq filter for the \&quot;id\&quot; field (optional)
      * @param idNeq
-     *            neq filter for the id field (optional)
+     *            neq filter for the \&quot;id\&quot; field (optional)
      * @param idIn
-     *            in filter for the id field (optional)
+     *            in filter for the \&quot;id\&quot; field (optional)
      * @param idNin
-     *            nin filter for the id field (optional)
+     *            nin filter for the \&quot;id\&quot; field (optional)
      * @param manifestEq
-     *            eq filter for the manifest field (optional)
+     *            eq filter for the \&quot;manifest\&quot; field (optional)
      * @param manifestNeq
-     *            neq filter for the manifest field (optional)
+     *            neq filter for the \&quot;manifest\&quot; field (optional)
      * @param manifestIn
-     *            in filter for the manifest field (optional)
+     *            in filter for the \&quot;manifest\&quot; field (optional)
      * @param manifestNin
-     *            nin filter for the manifest field (optional)
+     *            nin filter for the \&quot;manifest\&quot; field (optional)
      * @param manifestTimestampIn
-     *            in filter for the manifest_timestamp field (optional)
+     *            in filter for the \&quot;manifest_timestamp\&quot; field (optional)
      * @param manifestTimestampNin
-     *            nin filter for the manifest_timestamp field (optional)
+     *            nin filter for the \&quot;manifest_timestamp\&quot; field (optional)
      * @param manifestTimestampLte
-     *            lte filter for the manifest_timestamp field (optional)
+     *            lte filter for the \&quot;manifest_timestamp\&quot; field (optional)
      * @param manifestTimestampGte
-     *            gte filter for the manifest_timestamp field (optional)
+     *            gte filter for the \&quot;manifest_timestamp\&quot; field (optional)
      * @param mechanismEq
-     *            eq filter for the mechanism field (optional)
+     *            eq filter for the \&quot;mechanism\&quot; field (optional)
      * @param mechanismNeq
-     *            neq filter for the mechanism field (optional)
+     *            neq filter for the \&quot;mechanism\&quot; field (optional)
      * @param mechanismIn
-     *            in filter for the mechanism field (optional)
+     *            in filter for the \&quot;mechanism\&quot; field (optional)
      * @param mechanismNin
-     *            nin filter for the mechanism field (optional)
+     *            nin filter for the \&quot;mechanism\&quot; field (optional)
      * @param mechanismUrlEq
-     *            eq filter for the mechanism_url field (optional)
+     *            eq filter for the \&quot;mechanism_url\&quot; field (optional)
      * @param mechanismUrlNeq
-     *            neq filter for the mechanism_url field (optional)
+     *            neq filter for the \&quot;mechanism_url\&quot; field (optional)
      * @param mechanismUrlIn
-     *            in filter for the mechanism_url field (optional)
+     *            in filter for the \&quot;mechanism_url\&quot; field (optional)
      * @param mechanismUrlNin
-     *            nin filter for the mechanism_url field (optional)
+     *            nin filter for the \&quot;mechanism_url\&quot; field (optional)
      * @param nameEq
-     *            eq filter for the name field (optional)
+     *            eq filter for the \&quot;name\&quot; field (optional)
      * @param nameNeq
-     *            neq filter for the name field (optional)
+     *            neq filter for the \&quot;name\&quot; field (optional)
      * @param nameIn
-     *            in filter for the name field (optional)
+     *            in filter for the \&quot;name\&quot; field (optional)
      * @param nameNin
-     *            nin filter for the name field (optional)
+     *            nin filter for the \&quot;name\&quot; field (optional)
      * @param serialNumberEq
-     *            eq filter for the serial_number field (optional)
+     *            eq filter for the \&quot;serial_number\&quot; field (optional)
      * @param serialNumberNeq
-     *            neq filter for the serial_number field (optional)
+     *            neq filter for the \&quot;serial_number\&quot; field (optional)
      * @param serialNumberIn
-     *            in filter for the serial_number field (optional)
+     *            in filter for the \&quot;serial_number\&quot; field (optional)
      * @param serialNumberNin
-     *            nin filter for the serial_number field (optional)
+     *            nin filter for the \&quot;serial_number\&quot; field (optional)
      * @param stateEq
-     *            eq filter for the state field (optional)
+     *            eq filter for the \&quot;state\&quot; field (optional)
      * @param stateNeq
-     *            neq filter for the state field (optional)
+     *            neq filter for the \&quot;state\&quot; field (optional)
      * @param stateIn
-     *            in filter for the state field (optional)
+     *            in filter for the \&quot;state\&quot; field (optional)
      * @param stateNin
-     *            nin filter for the state field (optional)
+     *            nin filter for the \&quot;state\&quot; field (optional)
      * @param updatedAtIn
-     *            in filter for the updated_at field (optional)
+     *            in filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtNin
-     *            nin filter for the updated_at field (optional)
+     *            nin filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtLte
-     *            lte filter for the updated_at field (optional)
+     *            lte filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtGte
-     *            gte filter for the updated_at field (optional)
+     *            gte filter for the \&quot;updated_at\&quot; field (optional)
      * @param vendorIdEq
-     *            eq filter for the vendor_id field (optional)
+     *            eq filter for the \&quot;vendor_id\&quot; field (optional)
      * @param vendorIdNeq
-     *            neq filter for the vendor_id field (optional)
+     *            neq filter for the \&quot;vendor_id\&quot; field (optional)
      * @param vendorIdIn
-     *            in filter for the vendor_id field (optional)
+     *            in filter for the \&quot;vendor_id\&quot; field (optional)
      * @param vendorIdNin
-     *            nin filter for the vendor_id field (optional)
+     *            nin filter for the \&quot;vendor_id\&quot; field (optional)
      * @return Call&lt;DevicePage&gt;
      */
     @GET("v3/devices/")
@@ -695,53 +695,53 @@ public interface DefaultApi {
      *            comma-separated:
      *            &#x60;event_type__in&#x3D;update.device.device-created,update.device.device-updated&#x60; (optional)
      * @param dateTimeIn
-     *            in filter for the date_time field (optional)
+     *            in filter for the \&quot;date_time\&quot; field (optional)
      * @param dateTimeNin
-     *            nin filter for the date_time field (optional)
+     *            nin filter for the \&quot;date_time\&quot; field (optional)
      * @param dateTimeLte
-     *            lte filter for the date_time field (optional)
+     *            lte filter for the \&quot;date_time\&quot; field (optional)
      * @param dateTimeGte
-     *            gte filter for the date_time field (optional)
+     *            gte filter for the \&quot;date_time\&quot; field (optional)
      * @param descriptionEq
-     *            eq filter for the description field (optional)
+     *            eq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNeq
-     *            neq filter for the description field (optional)
+     *            neq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionIn
-     *            in filter for the description field (optional)
+     *            in filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNin
-     *            nin filter for the description field (optional)
+     *            nin filter for the \&quot;description\&quot; field (optional)
      * @param idEq
-     *            eq filter for the id field (optional)
+     *            eq filter for the \&quot;id\&quot; field (optional)
      * @param idNeq
-     *            neq filter for the id field (optional)
+     *            neq filter for the \&quot;id\&quot; field (optional)
      * @param idIn
-     *            in filter for the id field (optional)
+     *            in filter for the \&quot;id\&quot; field (optional)
      * @param idNin
-     *            nin filter for the id field (optional)
+     *            nin filter for the \&quot;id\&quot; field (optional)
      * @param deviceIdEq
-     *            eq filter for the device_id field (optional)
+     *            eq filter for the \&quot;device_id\&quot; field (optional)
      * @param deviceIdNeq
-     *            neq filter for the device_id field (optional)
+     *            neq filter for the \&quot;device_id\&quot; field (optional)
      * @param deviceIdIn
-     *            in filter for the device_id field (optional)
+     *            in filter for the \&quot;device_id\&quot; field (optional)
      * @param deviceIdNin
-     *            nin filter for the device_id field (optional)
+     *            nin filter for the \&quot;device_id\&quot; field (optional)
      * @param eventTypeEq
-     *            eq filter for the event_type field (optional)
+     *            eq filter for the \&quot;event_type\&quot; field (optional)
      * @param eventTypeNeq
-     *            neq filter for the event_type field (optional)
+     *            neq filter for the \&quot;event_type\&quot; field (optional)
      * @param eventTypeIn
-     *            in filter for the event_type field (optional)
+     *            in filter for the \&quot;event_type\&quot; field (optional)
      * @param eventTypeNin
-     *            nin filter for the event_type field (optional)
+     *            nin filter for the \&quot;event_type\&quot; field (optional)
      * @param stateChangeEq
-     *            eq filter for the state_change field (optional)
+     *            eq filter for the \&quot;state_change\&quot; field (optional)
      * @param stateChangeNeq
-     *            neq filter for the state_change field (optional)
+     *            neq filter for the \&quot;state_change\&quot; field (optional)
      * @param stateChangeIn
-     *            in filter for the state_change field (optional)
+     *            in filter for the \&quot;state_change\&quot; field (optional)
      * @param stateChangeNin
-     *            nin filter for the state_change field (optional)
+     *            nin filter for the \&quot;state_change\&quot; field (optional)
      * @return Call&lt;DeviceEventPage&gt;
      */
     @GET("v3/devicelog/")
@@ -858,45 +858,45 @@ public interface DefaultApi {
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__nin&#x3D;query1,query2&#x60; (optional)
      * @param createdAtIn
-     *            in filter for the created_at field (optional)
+     *            in filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtNin
-     *            nin filter for the created_at field (optional)
+     *            nin filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtLte
-     *            lte filter for the created_at field (optional)
+     *            lte filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtGte
-     *            gte filter for the created_at field (optional)
+     *            gte filter for the \&quot;created_at\&quot; field (optional)
      * @param idEq
-     *            eq filter for the id field (optional)
+     *            eq filter for the \&quot;id\&quot; field (optional)
      * @param idNeq
-     *            neq filter for the id field (optional)
+     *            neq filter for the \&quot;id\&quot; field (optional)
      * @param idIn
-     *            in filter for the id field (optional)
+     *            in filter for the \&quot;id\&quot; field (optional)
      * @param idNin
-     *            nin filter for the id field (optional)
+     *            nin filter for the \&quot;id\&quot; field (optional)
      * @param nameEq
-     *            eq filter for the name field (optional)
+     *            eq filter for the \&quot;name\&quot; field (optional)
      * @param nameNeq
-     *            neq filter for the name field (optional)
+     *            neq filter for the \&quot;name\&quot; field (optional)
      * @param nameIn
-     *            in filter for the name field (optional)
+     *            in filter for the \&quot;name\&quot; field (optional)
      * @param nameNin
-     *            nin filter for the name field (optional)
+     *            nin filter for the \&quot;name\&quot; field (optional)
      * @param queryEq
-     *            eq filter for the query field (optional)
+     *            eq filter for the \&quot;query\&quot; field (optional)
      * @param queryNeq
-     *            neq filter for the query field (optional)
+     *            neq filter for the \&quot;query\&quot; field (optional)
      * @param queryIn
-     *            in filter for the query field (optional)
+     *            in filter for the \&quot;query\&quot; field (optional)
      * @param queryNin
-     *            nin filter for the query field (optional)
+     *            nin filter for the \&quot;query\&quot; field (optional)
      * @param updatedAtIn
-     *            in filter for the updated_at field (optional)
+     *            in filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtNin
-     *            nin filter for the updated_at field (optional)
+     *            nin filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtLte
-     *            lte filter for the updated_at field (optional)
+     *            lte filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtGte
-     *            gte filter for the updated_at field (optional)
+     *            gte filter for the \&quot;updated_at\&quot; field (optional)
      * @return Call&lt;DeviceQueryPage&gt;
      */
     @GET("v3/device-queries/")
@@ -1048,69 +1048,69 @@ public interface DefaultApi {
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; (optional)
      * @param createdAtIn
-     *            in filter for the created_at field (optional)
+     *            in filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtNin
-     *            nin filter for the created_at field (optional)
+     *            nin filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtLte
-     *            lte filter for the created_at field (optional)
+     *            lte filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtGte
-     *            gte filter for the created_at field (optional)
+     *            gte filter for the \&quot;created_at\&quot; field (optional)
      * @param datafileEq
-     *            eq filter for the datafile field (optional)
+     *            eq filter for the \&quot;datafile\&quot; field (optional)
      * @param datafileNeq
-     *            neq filter for the datafile field (optional)
+     *            neq filter for the \&quot;datafile\&quot; field (optional)
      * @param datafileIn
-     *            in filter for the datafile field (optional)
+     *            in filter for the \&quot;datafile\&quot; field (optional)
      * @param datafileNin
-     *            nin filter for the datafile field (optional)
+     *            nin filter for the \&quot;datafile\&quot; field (optional)
      * @param datafileChecksumEq
-     *            eq filter for the datafile_checksum field (optional)
+     *            eq filter for the \&quot;datafile_checksum\&quot; field (optional)
      * @param datafileChecksumNeq
-     *            neq filter for the datafile_checksum field (optional)
+     *            neq filter for the \&quot;datafile_checksum\&quot; field (optional)
      * @param datafileChecksumIn
-     *            in filter for the datafile_checksum field (optional)
+     *            in filter for the \&quot;datafile_checksum\&quot; field (optional)
      * @param datafileChecksumNin
-     *            nin filter for the datafile_checksum field (optional)
+     *            nin filter for the \&quot;datafile_checksum\&quot; field (optional)
      * @param datafileSizeEq
-     *            eq filter for the datafile_size field (optional)
+     *            eq filter for the \&quot;datafile_size\&quot; field (optional)
      * @param datafileSizeNeq
-     *            neq filter for the datafile_size field (optional)
+     *            neq filter for the \&quot;datafile_size\&quot; field (optional)
      * @param datafileSizeIn
-     *            in filter for the datafile_size field (optional)
+     *            in filter for the \&quot;datafile_size\&quot; field (optional)
      * @param datafileSizeNin
-     *            nin filter for the datafile_size field (optional)
+     *            nin filter for the \&quot;datafile_size\&quot; field (optional)
      * @param descriptionEq
-     *            eq filter for the description field (optional)
+     *            eq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNeq
-     *            neq filter for the description field (optional)
+     *            neq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionIn
-     *            in filter for the description field (optional)
+     *            in filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNin
-     *            nin filter for the description field (optional)
+     *            nin filter for the \&quot;description\&quot; field (optional)
      * @param idEq
-     *            eq filter for the id field (optional)
+     *            eq filter for the \&quot;id\&quot; field (optional)
      * @param idNeq
-     *            neq filter for the id field (optional)
+     *            neq filter for the \&quot;id\&quot; field (optional)
      * @param idIn
-     *            in filter for the id field (optional)
+     *            in filter for the \&quot;id\&quot; field (optional)
      * @param idNin
-     *            nin filter for the id field (optional)
+     *            nin filter for the \&quot;id\&quot; field (optional)
      * @param nameEq
-     *            eq filter for the name field (optional)
+     *            eq filter for the \&quot;name\&quot; field (optional)
      * @param nameNeq
-     *            neq filter for the name field (optional)
+     *            neq filter for the \&quot;name\&quot; field (optional)
      * @param nameIn
-     *            in filter for the name field (optional)
+     *            in filter for the \&quot;name\&quot; field (optional)
      * @param nameNin
-     *            nin filter for the name field (optional)
+     *            nin filter for the \&quot;name\&quot; field (optional)
      * @param updatedAtIn
-     *            in filter for the updated_at field (optional)
+     *            in filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtNin
-     *            nin filter for the updated_at field (optional)
+     *            nin filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtLte
-     *            lte filter for the updated_at field (optional)
+     *            lte filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtGte
-     *            gte filter for the updated_at field (optional)
+     *            gte filter for the \&quot;updated_at\&quot; field (optional)
      * @return Call&lt;FirmwareImagePage&gt;
      */
     @GET("v3/firmware-images/")
@@ -1243,77 +1243,77 @@ public interface DefaultApi {
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__in&#x3D;fw-manifest1,fw-manifest2&#x60; (optional)
      * @param createdAtIn
-     *            in filter for the created_at field (optional)
+     *            in filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtNin
-     *            nin filter for the created_at field (optional)
+     *            nin filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtLte
-     *            lte filter for the created_at field (optional)
+     *            lte filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtGte
-     *            gte filter for the created_at field (optional)
+     *            gte filter for the \&quot;created_at\&quot; field (optional)
      * @param datafileEq
-     *            eq filter for the datafile field (optional)
+     *            eq filter for the \&quot;datafile\&quot; field (optional)
      * @param datafileNeq
-     *            neq filter for the datafile field (optional)
+     *            neq filter for the \&quot;datafile\&quot; field (optional)
      * @param datafileIn
-     *            in filter for the datafile field (optional)
+     *            in filter for the \&quot;datafile\&quot; field (optional)
      * @param datafileNin
-     *            nin filter for the datafile field (optional)
+     *            nin filter for the \&quot;datafile\&quot; field (optional)
      * @param datafileSizeEq
-     *            eq filter for the datafile_size field (optional)
+     *            eq filter for the \&quot;datafile_size\&quot; field (optional)
      * @param datafileSizeNeq
-     *            neq filter for the datafile_size field (optional)
+     *            neq filter for the \&quot;datafile_size\&quot; field (optional)
      * @param datafileSizeIn
-     *            in filter for the datafile_size field (optional)
+     *            in filter for the \&quot;datafile_size\&quot; field (optional)
      * @param datafileSizeNin
-     *            nin filter for the datafile_size field (optional)
+     *            nin filter for the \&quot;datafile_size\&quot; field (optional)
      * @param descriptionEq
-     *            eq filter for the description field (optional)
+     *            eq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNeq
-     *            neq filter for the description field (optional)
+     *            neq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionIn
-     *            in filter for the description field (optional)
+     *            in filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNin
-     *            nin filter for the description field (optional)
+     *            nin filter for the \&quot;description\&quot; field (optional)
      * @param deviceClassEq
-     *            eq filter for the device_class field (optional)
+     *            eq filter for the \&quot;device_class\&quot; field (optional)
      * @param deviceClassNeq
-     *            neq filter for the device_class field (optional)
+     *            neq filter for the \&quot;device_class\&quot; field (optional)
      * @param deviceClassIn
-     *            in filter for the device_class field (optional)
+     *            in filter for the \&quot;device_class\&quot; field (optional)
      * @param deviceClassNin
-     *            nin filter for the device_class field (optional)
+     *            nin filter for the \&quot;device_class\&quot; field (optional)
      * @param idEq
-     *            eq filter for the id field (optional)
+     *            eq filter for the \&quot;id\&quot; field (optional)
      * @param idNeq
-     *            neq filter for the id field (optional)
+     *            neq filter for the \&quot;id\&quot; field (optional)
      * @param idIn
-     *            in filter for the id field (optional)
+     *            in filter for the \&quot;id\&quot; field (optional)
      * @param idNin
-     *            nin filter for the id field (optional)
+     *            nin filter for the \&quot;id\&quot; field (optional)
      * @param nameEq
-     *            eq filter for the name field (optional)
+     *            eq filter for the \&quot;name\&quot; field (optional)
      * @param nameNeq
-     *            neq filter for the name field (optional)
+     *            neq filter for the \&quot;name\&quot; field (optional)
      * @param nameIn
-     *            in filter for the name field (optional)
+     *            in filter for the \&quot;name\&quot; field (optional)
      * @param nameNin
-     *            nin filter for the name field (optional)
+     *            nin filter for the \&quot;name\&quot; field (optional)
      * @param timestampIn
-     *            in filter for the timestamp field (optional)
+     *            in filter for the \&quot;timestamp\&quot; field (optional)
      * @param timestampNin
-     *            nin filter for the timestamp field (optional)
+     *            nin filter for the \&quot;timestamp\&quot; field (optional)
      * @param timestampLte
-     *            lte filter for the timestamp field (optional)
+     *            lte filter for the \&quot;timestamp\&quot; field (optional)
      * @param timestampGte
-     *            gte filter for the timestamp field (optional)
+     *            gte filter for the \&quot;timestamp\&quot; field (optional)
      * @param updatedAtIn
-     *            in filter for the updated_at field (optional)
+     *            in filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtNin
-     *            nin filter for the updated_at field (optional)
+     *            nin filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtLte
-     *            lte filter for the updated_at field (optional)
+     *            lte filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtGte
-     *            gte filter for the updated_at field (optional)
+     *            gte filter for the \&quot;updated_at\&quot; field (optional)
      * @return Call&lt;FirmwareManifestPage&gt;
      */
     @GET("v3/firmware-manifests/")
@@ -1404,7 +1404,7 @@ public interface DefaultApi {
      * currently authenticated commercial non-subtenant account. This is supplementary data for the billing report. The
      * raw billing data of the firmware updates for subtenant accounts are included in their aggregator&#39;s raw
      * billing data of the firmware updates. The endpoint returns the URL to download the gzipped CSV file. The first
-     * line is the header providing information on the firmware updates. For example, the ID of an firmware update.
+     * line is the header providing information on the firmware updates, for example, the ID of a firmware update.
      * **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month&#x3D;2018-07 \\ -H
      * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
@@ -1532,53 +1532,49 @@ public interface DefaultApi {
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__in&#x3D;group1,group2&#x60; (optional)
      * @param idEq
-     *            eq filter for the id field (optional)
+     *            eq filter for the \&quot;id\&quot; field (optional)
      * @param idNeq
-     *            neq filter for the id field (optional)
+     *            neq filter for the \&quot;id\&quot; field (optional)
      * @param idIn
-     *            in filter for the id field (optional)
+     *            in filter for the \&quot;id\&quot; field (optional)
      * @param idNin
-     *            nin filter for the id field (optional)
+     *            nin filter for the \&quot;id\&quot; field (optional)
      * @param devicesCountEq
-     *            eq filter for the devices_count field (optional)
+     *            eq filter for the \&quot;devices_count\&quot; field (optional)
      * @param devicesCountNeq
-     *            neq filter for the devices_count field (optional)
+     *            neq filter for the \&quot;devices_count\&quot; field (optional)
      * @param devicesCountIn
-     *            in filter for the devices_count field (optional)
+     *            in filter for the \&quot;devices_count\&quot; field (optional)
      * @param devicesCountNin
-     *            nin filter for the devices_count field (optional)
+     *            nin filter for the \&quot;devices_count\&quot; field (optional)
      * @param devicesCountLte
-     *            lte filter for the devices_count field (optional)
+     *            lte filter for the \&quot;devices_count\&quot; field (optional)
      * @param devicesCountGte
-     *            gte filter for the devices_count field (optional)
+     *            gte filter for the \&quot;devices_count\&quot; field (optional)
      * @param nameEq
-     *            eq filter for the name field (optional)
+     *            eq filter for the \&quot;name\&quot; field (optional)
      * @param nameNeq
-     *            neq filter for the name field (optional)
+     *            neq filter for the \&quot;name\&quot; field (optional)
      * @param nameIn
-     *            in filter for the name field (optional)
+     *            in filter for the \&quot;name\&quot; field (optional)
      * @param nameNin
-     *            nin filter for the name field (optional)
-     * @param customAttributesEq
-     *            eq filter for the custom_attributes field (optional)
-     * @param customAttributesNeq
-     *            neq filter for the custom_attributes field (optional)
+     *            nin filter for the \&quot;name\&quot; field (optional)
      * @param createdAtIn
-     *            in filter for the created_at field (optional)
+     *            in filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtNin
-     *            nin filter for the created_at field (optional)
+     *            nin filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtLte
-     *            lte filter for the created_at field (optional)
+     *            lte filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtGte
-     *            gte filter for the created_at field (optional)
+     *            gte filter for the \&quot;created_at\&quot; field (optional)
      * @param updatedAtIn
-     *            in filter for the updated_at field (optional)
+     *            in filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtNin
-     *            nin filter for the updated_at field (optional)
+     *            nin filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtLte
-     *            lte filter for the updated_at field (optional)
+     *            lte filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtGte
-     *            gte filter for the updated_at field (optional)
+     *            gte filter for the \&quot;updated_at\&quot; field (optional)
      * @return Call&lt;DeviceGroupPage&gt;
      */
     @GET("v3/device-groups/")
@@ -1596,8 +1592,6 @@ public interface DefaultApi {
                   @retrofit2.http.Query("devices_count__gte") Integer devicesCountGte,
                   @retrofit2.http.Query("name__eq") String nameEq, @retrofit2.http.Query("name__neq") String nameNeq,
                   @retrofit2.http.Query("name__in") String nameIn, @retrofit2.http.Query("name__nin") String nameNin,
-                  @retrofit2.http.Query("custom_attributes__eq") String customAttributesEq,
-                  @retrofit2.http.Query("custom_attributes__neq") String customAttributesNeq,
                   @retrofit2.http.Query("created_at__in") String createdAtIn,
                   @retrofit2.http.Query("created_at__nin") String createdAtNin,
                   @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
@@ -1731,6 +1725,226 @@ public interface DefaultApi {
      *            equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in:
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;state__nin&#x3D;unenrolled,dergistered&#x60; (optional)
+     * @param accountIdEq
+     *            eq filter for the \&quot;account_id\&quot; field (optional)
+     * @param accountIdNeq
+     *            neq filter for the \&quot;account_id\&quot; field (optional)
+     * @param accountIdIn
+     *            in filter for the \&quot;account_id\&quot; field (optional)
+     * @param accountIdNin
+     *            nin filter for the \&quot;account_id\&quot; field (optional)
+     * @param autoUpdateEq
+     *            eq filter for the \&quot;auto_update\&quot; field (optional)
+     * @param autoUpdateNeq
+     *            neq filter for the \&quot;auto_update\&quot; field (optional)
+     * @param bootstrapExpirationDateIn
+     *            in filter for the \&quot;bootstrap_expiration_date\&quot; field (optional)
+     * @param bootstrapExpirationDateNin
+     *            nin filter for the \&quot;bootstrap_expiration_date\&quot; field (optional)
+     * @param bootstrapExpirationDateLte
+     *            lte filter for the \&quot;bootstrap_expiration_date\&quot; field (optional)
+     * @param bootstrapExpirationDateGte
+     *            gte filter for the \&quot;bootstrap_expiration_date\&quot; field (optional)
+     * @param bootstrappedTimestampIn
+     *            in filter for the \&quot;bootstrapped_timestamp\&quot; field (optional)
+     * @param bootstrappedTimestampNin
+     *            nin filter for the \&quot;bootstrapped_timestamp\&quot; field (optional)
+     * @param bootstrappedTimestampLte
+     *            lte filter for the \&quot;bootstrapped_timestamp\&quot; field (optional)
+     * @param bootstrappedTimestampGte
+     *            gte filter for the \&quot;bootstrapped_timestamp\&quot; field (optional)
+     * @param caIdEq
+     *            eq filter for the \&quot;ca_id\&quot; field (optional)
+     * @param caIdNeq
+     *            neq filter for the \&quot;ca_id\&quot; field (optional)
+     * @param caIdIn
+     *            in filter for the \&quot;ca_id\&quot; field (optional)
+     * @param caIdNin
+     *            nin filter for the \&quot;ca_id\&quot; field (optional)
+     * @param connectorExpirationDateIn
+     *            in filter for the \&quot;connector_expiration_date\&quot; field (optional)
+     * @param connectorExpirationDateNin
+     *            nin filter for the \&quot;connector_expiration_date\&quot; field (optional)
+     * @param connectorExpirationDateLte
+     *            lte filter for the \&quot;connector_expiration_date\&quot; field (optional)
+     * @param connectorExpirationDateGte
+     *            gte filter for the \&quot;connector_expiration_date\&quot; field (optional)
+     * @param createdAtIn
+     *            in filter for the \&quot;created_at\&quot; field (optional)
+     * @param createdAtNin
+     *            nin filter for the \&quot;created_at\&quot; field (optional)
+     * @param createdAtLte
+     *            lte filter for the \&quot;created_at\&quot; field (optional)
+     * @param createdAtGte
+     *            gte filter for the \&quot;created_at\&quot; field (optional)
+     * @param deployedStateEq
+     *            eq filter for the \&quot;deployed_state\&quot; field (optional)
+     * @param deployedStateNeq
+     *            neq filter for the \&quot;deployed_state\&quot; field (optional)
+     * @param deployedStateIn
+     *            in filter for the \&quot;deployed_state\&quot; field (optional)
+     * @param deployedStateNin
+     *            nin filter for the \&quot;deployed_state\&quot; field (optional)
+     * @param deploymentEq
+     *            eq filter for the \&quot;deployment\&quot; field (optional)
+     * @param deploymentNeq
+     *            neq filter for the \&quot;deployment\&quot; field (optional)
+     * @param deploymentIn
+     *            in filter for the \&quot;deployment\&quot; field (optional)
+     * @param deploymentNin
+     *            nin filter for the \&quot;deployment\&quot; field (optional)
+     * @param descriptionEq
+     *            eq filter for the \&quot;description\&quot; field (optional)
+     * @param descriptionNeq
+     *            neq filter for the \&quot;description\&quot; field (optional)
+     * @param descriptionIn
+     *            in filter for the \&quot;description\&quot; field (optional)
+     * @param descriptionNin
+     *            nin filter for the \&quot;description\&quot; field (optional)
+     * @param deviceClassEq
+     *            eq filter for the \&quot;device_class\&quot; field (optional)
+     * @param deviceClassNeq
+     *            neq filter for the \&quot;device_class\&quot; field (optional)
+     * @param deviceClassIn
+     *            in filter for the \&quot;device_class\&quot; field (optional)
+     * @param deviceClassNin
+     *            nin filter for the \&quot;device_class\&quot; field (optional)
+     * @param deviceExecutionModeEq
+     *            eq filter for the \&quot;device_execution_mode\&quot; field (optional)
+     * @param deviceExecutionModeNeq
+     *            neq filter for the \&quot;device_execution_mode\&quot; field (optional)
+     * @param deviceExecutionModeIn
+     *            in filter for the \&quot;device_execution_mode\&quot; field (optional)
+     * @param deviceExecutionModeNin
+     *            nin filter for the \&quot;device_execution_mode\&quot; field (optional)
+     * @param deviceKeyEq
+     *            eq filter for the \&quot;device_key\&quot; field (optional)
+     * @param deviceKeyNeq
+     *            neq filter for the \&quot;device_key\&quot; field (optional)
+     * @param deviceKeyIn
+     *            in filter for the \&quot;device_key\&quot; field (optional)
+     * @param deviceKeyNin
+     *            nin filter for the \&quot;device_key\&quot; field (optional)
+     * @param endpointNameEq
+     *            eq filter for the \&quot;endpoint_name\&quot; field (optional)
+     * @param endpointNameNeq
+     *            neq filter for the \&quot;endpoint_name\&quot; field (optional)
+     * @param endpointNameIn
+     *            in filter for the \&quot;endpoint_name\&quot; field (optional)
+     * @param endpointNameNin
+     *            nin filter for the \&quot;endpoint_name\&quot; field (optional)
+     * @param endpointTypeEq
+     *            eq filter for the \&quot;endpoint_type\&quot; field (optional)
+     * @param endpointTypeNeq
+     *            neq filter for the \&quot;endpoint_type\&quot; field (optional)
+     * @param endpointTypeIn
+     *            in filter for the \&quot;endpoint_type\&quot; field (optional)
+     * @param endpointTypeNin
+     *            nin filter for the \&quot;endpoint_type\&quot; field (optional)
+     * @param enrolmentListTimestampIn
+     *            in filter for the \&quot;enrolment_list_timestamp\&quot; field (optional)
+     * @param enrolmentListTimestampNin
+     *            nin filter for the \&quot;enrolment_list_timestamp\&quot; field (optional)
+     * @param enrolmentListTimestampLte
+     *            lte filter for the \&quot;enrolment_list_timestamp\&quot; field (optional)
+     * @param enrolmentListTimestampGte
+     *            gte filter for the \&quot;enrolment_list_timestamp\&quot; field (optional)
+     * @param firmwareChecksumEq
+     *            eq filter for the \&quot;firmware_checksum\&quot; field (optional)
+     * @param firmwareChecksumNeq
+     *            neq filter for the \&quot;firmware_checksum\&quot; field (optional)
+     * @param firmwareChecksumIn
+     *            in filter for the \&quot;firmware_checksum\&quot; field (optional)
+     * @param firmwareChecksumNin
+     *            nin filter for the \&quot;firmware_checksum\&quot; field (optional)
+     * @param hostGatewayEq
+     *            eq filter for the \&quot;host_gateway\&quot; field (optional)
+     * @param hostGatewayNeq
+     *            neq filter for the \&quot;host_gateway\&quot; field (optional)
+     * @param hostGatewayIn
+     *            in filter for the \&quot;host_gateway\&quot; field (optional)
+     * @param hostGatewayNin
+     *            nin filter for the \&quot;host_gateway\&quot; field (optional)
+     * @param idEq
+     *            eq filter for the \&quot;id\&quot; field (optional)
+     * @param idNeq
+     *            neq filter for the \&quot;id\&quot; field (optional)
+     * @param idIn
+     *            in filter for the \&quot;id\&quot; field (optional)
+     * @param idNin
+     *            nin filter for the \&quot;id\&quot; field (optional)
+     * @param manifestEq
+     *            eq filter for the \&quot;manifest\&quot; field (optional)
+     * @param manifestNeq
+     *            neq filter for the \&quot;manifest\&quot; field (optional)
+     * @param manifestIn
+     *            in filter for the \&quot;manifest\&quot; field (optional)
+     * @param manifestNin
+     *            nin filter for the \&quot;manifest\&quot; field (optional)
+     * @param manifestTimestampIn
+     *            in filter for the \&quot;manifest_timestamp\&quot; field (optional)
+     * @param manifestTimestampNin
+     *            nin filter for the \&quot;manifest_timestamp\&quot; field (optional)
+     * @param manifestTimestampLte
+     *            lte filter for the \&quot;manifest_timestamp\&quot; field (optional)
+     * @param manifestTimestampGte
+     *            gte filter for the \&quot;manifest_timestamp\&quot; field (optional)
+     * @param mechanismEq
+     *            eq filter for the \&quot;mechanism\&quot; field (optional)
+     * @param mechanismNeq
+     *            neq filter for the \&quot;mechanism\&quot; field (optional)
+     * @param mechanismIn
+     *            in filter for the \&quot;mechanism\&quot; field (optional)
+     * @param mechanismNin
+     *            nin filter for the \&quot;mechanism\&quot; field (optional)
+     * @param mechanismUrlEq
+     *            eq filter for the \&quot;mechanism_url\&quot; field (optional)
+     * @param mechanismUrlNeq
+     *            neq filter for the \&quot;mechanism_url\&quot; field (optional)
+     * @param mechanismUrlIn
+     *            in filter for the \&quot;mechanism_url\&quot; field (optional)
+     * @param mechanismUrlNin
+     *            nin filter for the \&quot;mechanism_url\&quot; field (optional)
+     * @param nameEq
+     *            eq filter for the \&quot;name\&quot; field (optional)
+     * @param nameNeq
+     *            neq filter for the \&quot;name\&quot; field (optional)
+     * @param nameIn
+     *            in filter for the \&quot;name\&quot; field (optional)
+     * @param nameNin
+     *            nin filter for the \&quot;name\&quot; field (optional)
+     * @param serialNumberEq
+     *            eq filter for the \&quot;serial_number\&quot; field (optional)
+     * @param serialNumberNeq
+     *            neq filter for the \&quot;serial_number\&quot; field (optional)
+     * @param serialNumberIn
+     *            in filter for the \&quot;serial_number\&quot; field (optional)
+     * @param serialNumberNin
+     *            nin filter for the \&quot;serial_number\&quot; field (optional)
+     * @param stateEq
+     *            eq filter for the \&quot;state\&quot; field (optional)
+     * @param stateNeq
+     *            neq filter for the \&quot;state\&quot; field (optional)
+     * @param stateIn
+     *            in filter for the \&quot;state\&quot; field (optional)
+     * @param stateNin
+     *            nin filter for the \&quot;state\&quot; field (optional)
+     * @param updatedAtIn
+     *            in filter for the \&quot;updated_at\&quot; field (optional)
+     * @param updatedAtNin
+     *            nin filter for the \&quot;updated_at\&quot; field (optional)
+     * @param updatedAtLte
+     *            lte filter for the \&quot;updated_at\&quot; field (optional)
+     * @param updatedAtGte
+     *            gte filter for the \&quot;updated_at\&quot; field (optional)
+     * @param vendorIdEq
+     *            eq filter for the \&quot;vendor_id\&quot; field (optional)
+     * @param vendorIdNeq
+     *            neq filter for the \&quot;vendor_id\&quot; field (optional)
+     * @param vendorIdIn
+     *            in filter for the \&quot;vendor_id\&quot; field (optional)
+     * @param vendorIdNin
+     *            nin filter for the \&quot;vendor_id\&quot; field (optional)
      * @return Call&lt;DevicePage&gt;
      */
     @GET("v3/device-groups/{device-group-id}/devices/")
@@ -1739,7 +1953,115 @@ public interface DefaultApi {
                              @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order,
                              @retrofit2.http.Query("after") String after,
                              @retrofit2.http.Query("include") String include,
-                             @retrofit2.http.Query("filter") String filter);
+                             @retrofit2.http.Query("filter") String filter,
+                             @retrofit2.http.Query("account_id__eq") String accountIdEq,
+                             @retrofit2.http.Query("account_id__neq") String accountIdNeq,
+                             @retrofit2.http.Query("account_id__in") String accountIdIn,
+                             @retrofit2.http.Query("account_id__nin") String accountIdNin,
+                             @retrofit2.http.Query("auto_update__eq") Boolean autoUpdateEq,
+                             @retrofit2.http.Query("auto_update__neq") Boolean autoUpdateNeq,
+                             @retrofit2.http.Query("bootstrap_expiration_date__in") String bootstrapExpirationDateIn,
+                             @retrofit2.http.Query("bootstrap_expiration_date__nin") String bootstrapExpirationDateNin,
+                             @retrofit2.http.Query("bootstrap_expiration_date__lte") LocalDate bootstrapExpirationDateLte,
+                             @retrofit2.http.Query("bootstrap_expiration_date__gte") LocalDate bootstrapExpirationDateGte,
+                             @retrofit2.http.Query("bootstrapped_timestamp__in") String bootstrappedTimestampIn,
+                             @retrofit2.http.Query("bootstrapped_timestamp__nin") String bootstrappedTimestampNin,
+                             @retrofit2.http.Query("bootstrapped_timestamp__lte") DateTime bootstrappedTimestampLte,
+                             @retrofit2.http.Query("bootstrapped_timestamp__gte") DateTime bootstrappedTimestampGte,
+                             @retrofit2.http.Query("ca_id__eq") String caIdEq,
+                             @retrofit2.http.Query("ca_id__neq") String caIdNeq,
+                             @retrofit2.http.Query("ca_id__in") String caIdIn,
+                             @retrofit2.http.Query("ca_id__nin") String caIdNin,
+                             @retrofit2.http.Query("connector_expiration_date__in") String connectorExpirationDateIn,
+                             @retrofit2.http.Query("connector_expiration_date__nin") String connectorExpirationDateNin,
+                             @retrofit2.http.Query("connector_expiration_date__lte") LocalDate connectorExpirationDateLte,
+                             @retrofit2.http.Query("connector_expiration_date__gte") LocalDate connectorExpirationDateGte,
+                             @retrofit2.http.Query("created_at__in") String createdAtIn,
+                             @retrofit2.http.Query("created_at__nin") String createdAtNin,
+                             @retrofit2.http.Query("created_at__lte") DateTime createdAtLte,
+                             @retrofit2.http.Query("created_at__gte") DateTime createdAtGte,
+                             @retrofit2.http.Query("deployed_state__eq") String deployedStateEq,
+                             @retrofit2.http.Query("deployed_state__neq") String deployedStateNeq,
+                             @retrofit2.http.Query("deployed_state__in") String deployedStateIn,
+                             @retrofit2.http.Query("deployed_state__nin") String deployedStateNin,
+                             @retrofit2.http.Query("deployment__eq") String deploymentEq,
+                             @retrofit2.http.Query("deployment__neq") String deploymentNeq,
+                             @retrofit2.http.Query("deployment__in") String deploymentIn,
+                             @retrofit2.http.Query("deployment__nin") String deploymentNin,
+                             @retrofit2.http.Query("description__eq") String descriptionEq,
+                             @retrofit2.http.Query("description__neq") String descriptionNeq,
+                             @retrofit2.http.Query("description__in") String descriptionIn,
+                             @retrofit2.http.Query("description__nin") String descriptionNin,
+                             @retrofit2.http.Query("device_class__eq") String deviceClassEq,
+                             @retrofit2.http.Query("device_class__neq") String deviceClassNeq,
+                             @retrofit2.http.Query("device_class__in") String deviceClassIn,
+                             @retrofit2.http.Query("device_class__nin") String deviceClassNin,
+                             @retrofit2.http.Query("device_execution_mode__eq") Integer deviceExecutionModeEq,
+                             @retrofit2.http.Query("device_execution_mode__neq") Integer deviceExecutionModeNeq,
+                             @retrofit2.http.Query("device_execution_mode__in") String deviceExecutionModeIn,
+                             @retrofit2.http.Query("device_execution_mode__nin") String deviceExecutionModeNin,
+                             @retrofit2.http.Query("device_key__eq") String deviceKeyEq,
+                             @retrofit2.http.Query("device_key__neq") String deviceKeyNeq,
+                             @retrofit2.http.Query("device_key__in") String deviceKeyIn,
+                             @retrofit2.http.Query("device_key__nin") String deviceKeyNin,
+                             @retrofit2.http.Query("endpoint_name__eq") String endpointNameEq,
+                             @retrofit2.http.Query("endpoint_name__neq") String endpointNameNeq,
+                             @retrofit2.http.Query("endpoint_name__in") String endpointNameIn,
+                             @retrofit2.http.Query("endpoint_name__nin") String endpointNameNin,
+                             @retrofit2.http.Query("endpoint_type__eq") String endpointTypeEq,
+                             @retrofit2.http.Query("endpoint_type__neq") String endpointTypeNeq,
+                             @retrofit2.http.Query("endpoint_type__in") String endpointTypeIn,
+                             @retrofit2.http.Query("endpoint_type__nin") String endpointTypeNin,
+                             @retrofit2.http.Query("enrolment_list_timestamp__in") String enrolmentListTimestampIn,
+                             @retrofit2.http.Query("enrolment_list_timestamp__nin") String enrolmentListTimestampNin,
+                             @retrofit2.http.Query("enrolment_list_timestamp__lte") DateTime enrolmentListTimestampLte,
+                             @retrofit2.http.Query("enrolment_list_timestamp__gte") DateTime enrolmentListTimestampGte,
+                             @retrofit2.http.Query("firmware_checksum__eq") String firmwareChecksumEq,
+                             @retrofit2.http.Query("firmware_checksum__neq") String firmwareChecksumNeq,
+                             @retrofit2.http.Query("firmware_checksum__in") String firmwareChecksumIn,
+                             @retrofit2.http.Query("firmware_checksum__nin") String firmwareChecksumNin,
+                             @retrofit2.http.Query("host_gateway__eq") String hostGatewayEq,
+                             @retrofit2.http.Query("host_gateway__neq") String hostGatewayNeq,
+                             @retrofit2.http.Query("host_gateway__in") String hostGatewayIn,
+                             @retrofit2.http.Query("host_gateway__nin") String hostGatewayNin,
+                             @retrofit2.http.Query("id__eq") String idEq, @retrofit2.http.Query("id__neq") String idNeq,
+                             @retrofit2.http.Query("id__in") String idIn, @retrofit2.http.Query("id__nin") String idNin,
+                             @retrofit2.http.Query("manifest__eq") String manifestEq,
+                             @retrofit2.http.Query("manifest__neq") String manifestNeq,
+                             @retrofit2.http.Query("manifest__in") String manifestIn,
+                             @retrofit2.http.Query("manifest__nin") String manifestNin,
+                             @retrofit2.http.Query("manifest_timestamp__in") String manifestTimestampIn,
+                             @retrofit2.http.Query("manifest_timestamp__nin") String manifestTimestampNin,
+                             @retrofit2.http.Query("manifest_timestamp__lte") DateTime manifestTimestampLte,
+                             @retrofit2.http.Query("manifest_timestamp__gte") DateTime manifestTimestampGte,
+                             @retrofit2.http.Query("mechanism__eq") String mechanismEq,
+                             @retrofit2.http.Query("mechanism__neq") String mechanismNeq,
+                             @retrofit2.http.Query("mechanism__in") String mechanismIn,
+                             @retrofit2.http.Query("mechanism__nin") String mechanismNin,
+                             @retrofit2.http.Query("mechanism_url__eq") String mechanismUrlEq,
+                             @retrofit2.http.Query("mechanism_url__neq") String mechanismUrlNeq,
+                             @retrofit2.http.Query("mechanism_url__in") String mechanismUrlIn,
+                             @retrofit2.http.Query("mechanism_url__nin") String mechanismUrlNin,
+                             @retrofit2.http.Query("name__eq") String nameEq,
+                             @retrofit2.http.Query("name__neq") String nameNeq,
+                             @retrofit2.http.Query("name__in") String nameIn,
+                             @retrofit2.http.Query("name__nin") String nameNin,
+                             @retrofit2.http.Query("serial_number__eq") String serialNumberEq,
+                             @retrofit2.http.Query("serial_number__neq") String serialNumberNeq,
+                             @retrofit2.http.Query("serial_number__in") String serialNumberIn,
+                             @retrofit2.http.Query("serial_number__nin") String serialNumberNin,
+                             @retrofit2.http.Query("state__eq") String stateEq,
+                             @retrofit2.http.Query("state__neq") String stateNeq,
+                             @retrofit2.http.Query("state__in") String stateIn,
+                             @retrofit2.http.Query("state__nin") String stateNin,
+                             @retrofit2.http.Query("updated_at__in") String updatedAtIn,
+                             @retrofit2.http.Query("updated_at__nin") String updatedAtNin,
+                             @retrofit2.http.Query("updated_at__lte") DateTime updatedAtLte,
+                             @retrofit2.http.Query("updated_at__gte") DateTime updatedAtGte,
+                             @retrofit2.http.Query("vendor_id__eq") String vendorIdEq,
+                             @retrofit2.http.Query("vendor_id__neq") String vendorIdNeq,
+                             @retrofit2.http.Query("vendor_id__in") String vendorIdIn,
+                             @retrofit2.http.Query("vendor_id__nin") String vendorIdNin);
 
     /**
      * Get a group. Get a group.
@@ -1888,93 +2210,93 @@ public interface DefaultApi {
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; (optional)
      * @param createdAtIn
-     *            in filter for the created_at field (optional)
+     *            in filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtNin
-     *            nin filter for the created_at field (optional)
+     *            nin filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtLte
-     *            lte filter for the created_at field (optional)
+     *            lte filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtGte
-     *            gte filter for the created_at field (optional)
+     *            gte filter for the \&quot;created_at\&quot; field (optional)
      * @param descriptionEq
-     *            eq filter for the description field (optional)
+     *            eq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNeq
-     *            neq filter for the description field (optional)
+     *            neq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionIn
-     *            in filter for the description field (optional)
+     *            in filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNin
-     *            nin filter for the description field (optional)
+     *            nin filter for the \&quot;description\&quot; field (optional)
      * @param deviceFilterEq
-     *            eq filter for the device_filter field (optional)
+     *            eq filter for the \&quot;device_filter\&quot; field (optional)
      * @param deviceFilterNeq
-     *            neq filter for the device_filter field (optional)
+     *            neq filter for the \&quot;device_filter\&quot; field (optional)
      * @param deviceFilterIn
-     *            in filter for the device_filter field (optional)
+     *            in filter for the \&quot;device_filter\&quot; field (optional)
      * @param deviceFilterNin
-     *            nin filter for the device_filter field (optional)
+     *            nin filter for the \&quot;device_filter\&quot; field (optional)
      * @param finishedIn
-     *            in filter for the finished field (optional)
+     *            in filter for the \&quot;finished\&quot; field (optional)
      * @param finishedNin
-     *            nin filter for the finished field (optional)
+     *            nin filter for the \&quot;finished\&quot; field (optional)
      * @param finishedLte
-     *            lte filter for the finished field (optional)
+     *            lte filter for the \&quot;finished\&quot; field (optional)
      * @param finishedGte
-     *            gte filter for the finished field (optional)
+     *            gte filter for the \&quot;finished\&quot; field (optional)
      * @param idEq
-     *            eq filter for the id field (optional)
+     *            eq filter for the \&quot;id\&quot; field (optional)
      * @param idNeq
-     *            neq filter for the id field (optional)
+     *            neq filter for the \&quot;id\&quot; field (optional)
      * @param idIn
-     *            in filter for the id field (optional)
+     *            in filter for the \&quot;id\&quot; field (optional)
      * @param idNin
-     *            nin filter for the id field (optional)
+     *            nin filter for the \&quot;id\&quot; field (optional)
      * @param nameEq
-     *            eq filter for the name field (optional)
+     *            eq filter for the \&quot;name\&quot; field (optional)
      * @param nameNeq
-     *            neq filter for the name field (optional)
+     *            neq filter for the \&quot;name\&quot; field (optional)
      * @param nameIn
-     *            in filter for the name field (optional)
+     *            in filter for the \&quot;name\&quot; field (optional)
      * @param nameNin
-     *            nin filter for the name field (optional)
+     *            nin filter for the \&quot;name\&quot; field (optional)
      * @param rootManifestIdEq
-     *            eq filter for the root_manifest_id field (optional)
+     *            eq filter for the \&quot;root_manifest_id\&quot; field (optional)
      * @param rootManifestIdNeq
-     *            neq filter for the root_manifest_id field (optional)
+     *            neq filter for the \&quot;root_manifest_id\&quot; field (optional)
      * @param rootManifestIdIn
-     *            in filter for the root_manifest_id field (optional)
+     *            in filter for the \&quot;root_manifest_id\&quot; field (optional)
      * @param rootManifestIdNin
-     *            nin filter for the root_manifest_id field (optional)
+     *            nin filter for the \&quot;root_manifest_id\&quot; field (optional)
      * @param startedAtIn
-     *            in filter for the started_at field (optional)
+     *            in filter for the \&quot;started_at\&quot; field (optional)
      * @param startedAtNin
-     *            nin filter for the started_at field (optional)
+     *            nin filter for the \&quot;started_at\&quot; field (optional)
      * @param startedAtLte
-     *            lte filter for the started_at field (optional)
+     *            lte filter for the \&quot;started_at\&quot; field (optional)
      * @param startedAtGte
-     *            gte filter for the started_at field (optional)
+     *            gte filter for the \&quot;started_at\&quot; field (optional)
      * @param stateEq
-     *            eq filter for the state field (optional)
+     *            eq filter for the \&quot;state\&quot; field (optional)
      * @param stateNeq
-     *            neq filter for the state field (optional)
+     *            neq filter for the \&quot;state\&quot; field (optional)
      * @param stateIn
-     *            in filter for the state field (optional)
+     *            in filter for the \&quot;state\&quot; field (optional)
      * @param stateNin
-     *            nin filter for the state field (optional)
+     *            nin filter for the \&quot;state\&quot; field (optional)
      * @param updatedAtIn
-     *            in filter for the updated_at field (optional)
+     *            in filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtNin
-     *            nin filter for the updated_at field (optional)
+     *            nin filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtLte
-     *            lte filter for the updated_at field (optional)
+     *            lte filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtGte
-     *            gte filter for the updated_at field (optional)
+     *            gte filter for the \&quot;updated_at\&quot; field (optional)
      * @param whenIn
-     *            in filter for the when field (optional)
+     *            in filter for the \&quot;when\&quot; field (optional)
      * @param whenNin
-     *            nin filter for the when field (optional)
+     *            nin filter for the \&quot;when\&quot; field (optional)
      * @param whenLte
-     *            lte filter for the when field (optional)
+     *            lte filter for the \&quot;when\&quot; field (optional)
      * @param whenGte
-     *            gte filter for the when field (optional)
+     *            gte filter for the \&quot;when\&quot; field (optional)
      * @return Call&lt;UpdateCampaignPage&gt;
      */
     @GET("v3/update-campaigns/")
@@ -2217,49 +2539,49 @@ public interface DefaultApi {
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;status__in&#x3D;in_progress,success&#x60; (optional)
      * @param createdAtIn
-     *            in filter for the created_at field (optional)
+     *            in filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtNin
-     *            nin filter for the created_at field (optional)
+     *            nin filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtLte
-     *            lte filter for the created_at field (optional)
+     *            lte filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtGte
-     *            gte filter for the created_at field (optional)
+     *            gte filter for the \&quot;created_at\&quot; field (optional)
      * @param idEq
-     *            eq filter for the id field (optional)
+     *            eq filter for the \&quot;id\&quot; field (optional)
      * @param idNeq
-     *            neq filter for the id field (optional)
+     *            neq filter for the \&quot;id\&quot; field (optional)
      * @param idIn
-     *            in filter for the id field (optional)
+     *            in filter for the \&quot;id\&quot; field (optional)
      * @param idNin
-     *            nin filter for the id field (optional)
+     *            nin filter for the \&quot;id\&quot; field (optional)
      * @param updatedAtIn
-     *            in filter for the updated_at field (optional)
+     *            in filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtNin
-     *            nin filter for the updated_at field (optional)
+     *            nin filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtLte
-     *            lte filter for the updated_at field (optional)
+     *            lte filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtGte
-     *            gte filter for the updated_at field (optional)
+     *            gte filter for the \&quot;updated_at\&quot; field (optional)
      * @param hashEq
-     *            eq filter for the hash field (optional)
+     *            eq filter for the \&quot;hash\&quot; field (optional)
      * @param hashNeq
-     *            neq filter for the hash field (optional)
+     *            neq filter for the \&quot;hash\&quot; field (optional)
      * @param hashIn
-     *            in filter for the hash field (optional)
+     *            in filter for the \&quot;hash\&quot; field (optional)
      * @param hashNin
-     *            nin filter for the hash field (optional)
+     *            nin filter for the \&quot;hash\&quot; field (optional)
      * @param lengthEq
-     *            eq filter for the length field (optional)
+     *            eq filter for the \&quot;length\&quot; field (optional)
      * @param lengthNeq
-     *            neq filter for the length field (optional)
+     *            neq filter for the \&quot;length\&quot; field (optional)
      * @param lengthIn
-     *            in filter for the length field (optional)
+     *            in filter for the \&quot;length\&quot; field (optional)
      * @param lengthNin
-     *            nin filter for the length field (optional)
+     *            nin filter for the \&quot;length\&quot; field (optional)
      * @param lengthLte
-     *            lte filter for the length field (optional)
+     *            lte filter for the \&quot;length\&quot; field (optional)
      * @param lengthGte
-     *            gte filter for the length field (optional)
+     *            gte filter for the \&quot;length\&quot; field (optional)
      * @return Call&lt;UploadChunkInfoPage&gt;
      */
     @GET("v3/firmware-images/upload-jobs/{upload_job_id}/chunks")
@@ -2375,57 +2697,57 @@ public interface DefaultApi {
      *            &#x60;__nin&#x60; For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be
      *            comma-separated: &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; (optional)
      * @param updatedAtIn
-     *            in filter for the updated_at field (optional)
+     *            in filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtNin
-     *            nin filter for the updated_at field (optional)
+     *            nin filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtLte
-     *            lte filter for the updated_at field (optional)
+     *            lte filter for the \&quot;updated_at\&quot; field (optional)
      * @param updatedAtGte
-     *            gte filter for the updated_at field (optional)
+     *            gte filter for the \&quot;updated_at\&quot; field (optional)
      * @param nameEq
-     *            eq filter for the name field (optional)
+     *            eq filter for the \&quot;name\&quot; field (optional)
      * @param nameNeq
-     *            neq filter for the name field (optional)
+     *            neq filter for the \&quot;name\&quot; field (optional)
      * @param nameIn
-     *            in filter for the name field (optional)
+     *            in filter for the \&quot;name\&quot; field (optional)
      * @param nameNin
-     *            nin filter for the name field (optional)
+     *            nin filter for the \&quot;name\&quot; field (optional)
      * @param createdAtIn
-     *            in filter for the created_at field (optional)
+     *            in filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtNin
-     *            nin filter for the created_at field (optional)
+     *            nin filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtLte
-     *            lte filter for the created_at field (optional)
+     *            lte filter for the \&quot;created_at\&quot; field (optional)
      * @param createdAtGte
-     *            gte filter for the created_at field (optional)
+     *            gte filter for the \&quot;created_at\&quot; field (optional)
      * @param descriptionEq
-     *            eq filter for the description field (optional)
+     *            eq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNeq
-     *            neq filter for the description field (optional)
+     *            neq filter for the \&quot;description\&quot; field (optional)
      * @param descriptionIn
-     *            in filter for the description field (optional)
+     *            in filter for the \&quot;description\&quot; field (optional)
      * @param descriptionNin
-     *            nin filter for the description field (optional)
+     *            nin filter for the \&quot;description\&quot; field (optional)
      * @param idEq
-     *            eq filter for the id field (optional)
+     *            eq filter for the \&quot;id\&quot; field (optional)
      * @param idNeq
-     *            neq filter for the id field (optional)
+     *            neq filter for the \&quot;id\&quot; field (optional)
      * @param idIn
-     *            in filter for the id field (optional)
+     *            in filter for the \&quot;id\&quot; field (optional)
      * @param idNin
-     *            nin filter for the id field (optional)
+     *            nin filter for the \&quot;id\&quot; field (optional)
      * @param completeEq
-     *            eq filter for the complete field (optional)
+     *            eq filter for the \&quot;complete\&quot; field (optional)
      * @param completeNeq
-     *            neq filter for the complete field (optional)
+     *            neq filter for the \&quot;complete\&quot; field (optional)
      * @param statusEq
-     *            eq filter for the status field (optional)
+     *            eq filter for the \&quot;status\&quot; field (optional)
      * @param statusNeq
-     *            neq filter for the status field (optional)
+     *            neq filter for the \&quot;status\&quot; field (optional)
      * @param statusIn
-     *            in filter for the status field (optional)
+     *            in filter for the \&quot;status\&quot; field (optional)
      * @param statusNin
-     *            nin filter for the status field (optional)
+     *            nin filter for the \&quot;status\&quot; field (optional)
      * @return Call&lt;UploadJobPage&gt;
      */
     @GET("v3/firmware-images/upload-jobs")

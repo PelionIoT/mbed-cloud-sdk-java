@@ -18,9 +18,9 @@ public class TestPolicy {
     @Test
     public void testClone() {
         try {
-            Policy policy1 = new Policy("919efd2e-33d9-46cf-9ed8-dadb70e89eb4", true,
-                                        "20a198a8-b18a-4e10-88cf-f1c5d23bdad0", false,
-                                        "6d07b14a-5398-40b7-9f9f-0faf0c5436f9");
+            Policy policy1 = new Policy("ddabcadb-b804-47a0-b61a-e59434aa9ea6", true,
+                                        "b9a7bd94-5ed0-4e03-bdfd-0927a842d3e0", true,
+                                        "b43dfafe-e143-47d4-8d2f-6b01ae40b9ef");
             Policy policy2 = policy1.clone();
             assertNotNull(policy1);
             assertNotNull(policy2);
@@ -38,12 +38,12 @@ public class TestPolicy {
     @Test
     public void testHashCode() {
         try {
-            Policy policy1 = new Policy("26ca7a27-7fef-41f7-8f8c-5e37ab81ed00", true,
-                                        "6f0cd9ed-6318-4d94-a498-7186ea3d6468", true,
-                                        "c9421982-3953-40fe-9667-5543e56b0abe");
-            Policy policy2 = new Policy("26ca7a27-7fef-41f7-8f8c-5e37ab81ed00", true,
-                                        "6f0cd9ed-6318-4d94-a498-7186ea3d6468", true,
-                                        "c9421982-3953-40fe-9667-5543e56b0abe");
+            Policy policy1 = new Policy("1dc7a59a-330a-4ee2-a1d2-075d450243cd", false,
+                                        "6af051a9-cc42-4d06-870a-01a34176466f", true,
+                                        "80ad6439-ce3a-43f7-910e-117f84f3a269");
+            Policy policy2 = new Policy("1dc7a59a-330a-4ee2-a1d2-075d450243cd", false,
+                                        "6af051a9-cc42-4d06-870a-01a34176466f", true,
+                                        "80ad6439-ce3a-43f7-910e-117f84f3a269");
             assertNotNull(policy1);
             assertNotNull(policy2);
             assertNotSame(policy2, policy1);
@@ -64,9 +64,9 @@ public class TestPolicy {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        Policy policy = new Policy("b9549121-1d27-4df7-a7f0-e32d0814e639", false,
-                                   "587004ad-4657-4d72-a1f0-907e00f3fb19", false,
-                                   "85241ecc-23d4-48a3-a21b-aad9be3dc275");
+        Policy policy = new Policy("148b4d1d-0793-462f-bc0f-748ae0f04fbd", false,
+                                   "58e047e9-a1b9-43ce-9eb0-c7b7c2b9889b", true,
+                                   "4a120994-66ed-4c49-8c22-d24c46f69024");
         assertTrue(policy.isValid());
     }
 
@@ -77,15 +77,15 @@ public class TestPolicy {
     @Test
     public void testEquals() {
         try {
-            Policy policy1 = new Policy("7cebb0bf-22d0-4c17-a01f-d25170a427ca", true,
-                                        "beff3fbf-04ce-4237-9833-c737f4def5f9", false,
-                                        "fe95b635-db66-40bc-bf11-58296f7de8c8");
-            Policy policy2 = new Policy("7cebb0bf-22d0-4c17-a01f-d25170a427ca", true,
-                                        "beff3fbf-04ce-4237-9833-c737f4def5f9", false,
-                                        "fe95b635-db66-40bc-bf11-58296f7de8c8");
-            Policy policy3 = new Policy("c9c5cee6-cb66-4b04-980d-de29e17497ae", true,
-                                        "577e7b90-6135-483a-8fc6-c0fad91c7991", false,
-                                        "72348253-4445-4c72-a12e-fefa869febb7");
+            Policy policy1 = new Policy("e906e586-ede2-42ac-bc4b-8175af24401e", false,
+                                        "f1d97f80-afe0-49b3-851a-425460b1b296", false,
+                                        "8e7f8191-57ab-462a-a904-74f8cd2e8fa2");
+            Policy policy2 = new Policy("e906e586-ede2-42ac-bc4b-8175af24401e", false,
+                                        "f1d97f80-afe0-49b3-851a-425460b1b296", false,
+                                        "8e7f8191-57ab-462a-a904-74f8cd2e8fa2");
+            Policy policy3 = new Policy("e7ecba6d-21df-47fb-963c-3631f8027d83", false,
+                                        "5dfe4e82-cde2-4ff2-97cb-c5e635c7c4d8", false,
+                                        "22adf7a9-87fc-4ec9-a5ae-f936db907006");
             assertNotNull(policy1);
             assertNotNull(policy2);
             assertNotNull(policy3);

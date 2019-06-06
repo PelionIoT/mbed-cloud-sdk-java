@@ -13,9 +13,9 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Campaig
 import java.util.List;
 
 /**
- * Adapter for campaign device metadatas.
+ * Adapter for campaign device metadata.
  */
-@Preamble(description = "Adapter for campaign device metadatas.")
+@Preamble(description = "Adapter for campaign device metadata.")
 @Internal
 @SuppressWarnings("checkstyle:LineLength")
 public final class CampaignDeviceMetadataAdapter {

@@ -28,6 +28,7 @@ import com.arm.mbed.cloud.sdk.devices.adapters.DeviceEnrollmentBulkCreateAdapter
 import com.arm.mbed.cloud.sdk.devices.adapters.DeviceEnrollmentBulkDeleteAdapter;
 import com.arm.mbed.cloud.sdk.devices.adapters.DeviceEnrollmentDenialAdapter;
 import com.arm.mbed.cloud.sdk.devices.adapters.DeviceEventsAdapter;
+import com.arm.mbed.cloud.sdk.devices.adapters.DeviceGroupAdapter;
 import com.arm.mbed.cloud.sdk.devices.model.Device;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollment;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreate;
@@ -37,6 +38,8 @@ import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDenialListOptions;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentListOptions;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEvents;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListOptions;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceGroup;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devices.model.DevicesEndpoints;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BlackListedDeviceData;
@@ -45,6 +48,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DenialA
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroupPage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DevicePage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EnrollmentIdentities;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EnrollmentIdentity;
@@ -110,6 +114,18 @@ public class Devices extends AbstractModule {
      * Parameter name.
      */
     @Internal
+    private static final String TAG_DEVICE_GROUP = "deviceGroup";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
+    private static final String TAG_DEVICE_GROUP_ID = "deviceGroupId";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
     private static final String TAG_ENROLLMENT_IDENTITIES = "enrollmentIdentities";
 
     /**
@@ -117,6 +133,12 @@ public class Devices extends AbstractModule {
      */
     @Internal
     private static final String TAG_ENROLLMENT_IDENTITY = "enrollmentIdentity";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
+    private static final String TAG_GROUP = "group";
 
     /**
      * Parameter name.
@@ -161,6 +183,196 @@ public class Devices extends AbstractModule {
     public Devices(SdkContext context) {
         super(context);
         this.endpoints = new DevicesEndpoints(this.serviceRegistry);
+    }
+
+    /**
+     * Add a device to a group .
+     *
+     * <p>
+     * Similar to {@link #addDevice(String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
+     * 
+     * @param deviceGroup
+     *            a device group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void addDevice(@NonNull DeviceGroup deviceGroup) throws MbedCloudException {
+        checkNotNull(deviceGroup, TAG_DEVICE_GROUP);
+        addDevice((String) null, deviceGroup);
+    }
+
+    /**
+     * Add a device to a group .
+     *
+     * <p>
+     * Similar to {@link #addDevice(String, String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
+     * 
+     * @param deviceId
+     *            a string
+     * @param deviceGroup
+     *            a device group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void addDevice(@Nullable String deviceId, @NonNull DeviceGroup deviceGroup) throws MbedCloudException {
+        checkNotNull(deviceGroup, TAG_DEVICE_GROUP);
+        addDevice(deviceId, deviceGroup.getId(), deviceGroup);
+    }
+
+    /**
+     * Add a device to a group .
+     *
+     * <p>
+     * Add one device to a group.
+     *
+     * @param deviceId
+     *            a string
+     * @param id
+     *            The ID of the group.
+     * @param deviceGroup
+     *            a device group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void addDevice(@Nullable String deviceId, @NonNull String id,
+                          @NonNull DeviceGroup deviceGroup) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        checkNotNull(deviceGroup, TAG_DEVICE_GROUP);
+        checkModelValidity(deviceGroup, TAG_DEVICE_GROUP);
+        final String finalDeviceId = deviceId;
+        final String finalId = id;
+        final DeviceGroup finalDeviceGroup = deviceGroup;
+        CloudCaller.call(this, "addDevice()", null, new CloudRequest.CloudCall<Void>() {
+            /**
+             * Makes the low level call to the Cloud.
+             * 
+             * @return Corresponding Retrofit2 Call object
+             */
+            @Override
+            public Call<Void> call() {
+                return endpoints.getDefaultApi()
+                                .groupMembersAdd(finalId,
+                                                 DeviceGroupAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(finalDeviceGroup)
+                                                                   .deviceId(finalDeviceId));
+            }
+        }, true);
+    }
+
+    /**
+     * Add a device to a group .
+     *
+     * <p>
+     * Add one device to a group.
+     *
+     * @param deviceGroupId
+     *            The ID of the group.
+     * @param device
+     *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void addToGroup(@NonNull String deviceGroupId, @NonNull Device device) throws MbedCloudException {
+        checkNotNull(deviceGroupId, TAG_DEVICE_GROUP_ID);
+        checkNotNull(device, TAG_DEVICE);
+        checkModelValidity(device, TAG_DEVICE);
+        final String finalDeviceGroupId = deviceGroupId;
+        final Device finalDevice = device;
+        CloudCaller.call(this, "addToGroup()", null, new CloudRequest.CloudCall<Void>() {
+            /**
+             * Makes the low level call to the Cloud.
+             * 
+             * @return Corresponding Retrofit2 Call object
+             */
+            @Override
+            public Call<Void> call() {
+                return endpoints.getDefaultApi()
+                                .groupMembersAdd(finalDeviceGroupId,
+                                                 DeviceAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(finalDevice));
+            }
+        }, true);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of devices matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #devices(com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
+     * 
+     * @param options
+     *            list options.
+     * @param deviceGroup
+     *            a device group.
+     * @return paginator over the list of devices
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
+    @API
+    @Nullable
+    public Paginator<Device> allDevices(@Nullable DeviceListOptions options,
+                                        @NonNull DeviceGroup deviceGroup) throws MbedCloudException {
+        checkNotNull(deviceGroup, TAG_DEVICE_GROUP);
+        final DeviceListOptions finalOptions = (options == null) ? new DeviceListOptions() : options;
+        final DeviceGroup finalDeviceGroup = deviceGroup;
+        return new Paginator<Device>(finalOptions, new PageRequester<Device>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<Device> requestNewPage(ListOptions options) throws MbedCloudException {
+                return devices((DeviceListOptions) options, finalDeviceGroup);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of devices matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all device groups matching filter options.
+     * 
+     * @param id
+     *            a string
+     * @param options
+     *            list options.
+     * @return paginator over the list of devices
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
+    @API
+    @Nullable
+    public Paginator<Device> allDevices(@NonNull String id,
+                                        @Nullable DeviceListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final DeviceListOptions finalOptions = (options == null) ? new DeviceListOptions() : options;
+        return new Paginator<Device>(finalOptions, new PageRequester<Device>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<Device> requestNewPage(ListOptions options) throws MbedCloudException {
+                return devices(finalId, (DeviceListOptions) options);
+            }
+        });
     }
 
     /**
@@ -319,6 +531,40 @@ public class Devices extends AbstractModule {
                                         return endpoints.getPublicApiApi()
                                                         .createBulkDeviceEnrollment(DataFileAdapter.reverseMap("enrollment_identities",
                                                                                                                finalEnrollmentIdentities));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Adds a device group.
+     *
+     * <p>
+     * Create a group.
+     *
+     * @param group
+     *            a device group.
+     * @return an added device group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public DeviceGroup createDeviceGroup(@NonNull DeviceGroup group) throws MbedCloudException {
+        checkNotNull(group, TAG_GROUP);
+        checkModelValidity(group, TAG_GROUP);
+        final DeviceGroup finalGroup = group;
+        return CloudCaller.call(this, "createDeviceGroup()", DeviceGroupAdapter.getMapper(),
+                                new CloudRequest.CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroup>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroup>
+                                           call() {
+                                        return endpoints.getDefaultApi()
+                                                        .groupCreate(DeviceGroupAdapter.reverseMapAddRequest(finalGroup));
                                     }
                                 }, true);
     }
@@ -495,6 +741,354 @@ public class Devices extends AbstractModule {
     }
 
     /**
+     * Deletes a device group.
+     *
+     * <p>
+     * Similar to {@link #deleteDeviceGroup(String)}
+     * 
+     * @param deviceGroup
+     *            a device group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void deleteDeviceGroup(@NonNull DeviceGroup deviceGroup) throws MbedCloudException {
+        checkNotNull(deviceGroup, TAG_DEVICE_GROUP);
+        deleteDeviceGroup(deviceGroup.getId());
+    }
+
+    /**
+     * Deletes a device group.
+     *
+     * <p>
+     * Delete a group.
+     *
+     * @param id
+     *            The ID of the group. The ID of the group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void deleteDeviceGroup(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        CloudCaller.call(this, "deleteDeviceGroup()", null, new CloudRequest.CloudCall<Void>() {
+            /**
+             * Makes the low level call to the Cloud.
+             * 
+             * @return Corresponding Retrofit2 Call object
+             */
+            @Override
+            public Call<Void> call() {
+                return endpoints.getDefaultApi().groupDelete(finalId);
+            }
+        });
+    }
+
+    /**
+     * Get a page of devices .
+     *
+     * <p>
+     * Similar to {@link #devices(String, com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param deviceGroup
+     *            a device group.
+     * @return the list of devices corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
+    @API
+    @Nullable
+    public ListResponse<Device> devices(@Nullable DeviceListOptions options,
+                                        @NonNull DeviceGroup deviceGroup) throws MbedCloudException {
+        checkNotNull(deviceGroup, TAG_DEVICE_GROUP);
+        checkModelValidity(deviceGroup, TAG_DEVICE_GROUP);
+        return devices(deviceGroup.getId(), options);
+    }
+
+    /**
+     * Get a page of devices .
+     *
+     * <p>
+     * Get a page of devices.
+     *
+     * @param id
+     *            a string
+     * @param options
+     *            list options.
+     * @return the list of devices corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
+    @API
+    @Nullable
+    public ListResponse<Device> devices(@NonNull String id,
+                                        @Nullable DeviceListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final DeviceListOptions finalOptions = (options == null) ? new DeviceListOptions() : options;
+        return CloudCaller.call(this, "devices()", DeviceAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<DevicePage>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<DevicePage> call() {
+                                        return endpoints.getDefaultApi()
+                                                        .groupMembersRetrieve(finalId, finalOptions.getPageSize(),
+                                                                              finalOptions.getOrder().toString(),
+                                                                              finalOptions.getAfter(),
+                                                                              ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                              null,
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_AUTO_UPDATE,
+                                                                                                                         Boolean.class,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_AUTO_UPDATE,
+                                                                                                                            Boolean.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
+                                                                                                                            LocalDate.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
+                                                                                                                               LocalDate.class,
+                                                                                                                               finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP,
+                                                                                                                            DateTime.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP,
+                                                                                                                               DateTime.class,
+                                                                                                                               finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_CA_ID,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_CA_ID,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_CA_ID,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_CA_ID,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE,
+                                                                                                                            LocalDate.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE,
+                                                                                                                               LocalDate.class,
+                                                                                                                               finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                                            DateTime.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                                               DateTime.class,
+                                                                                                                               finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYED_STATE,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYED_STATE,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYED_STATE,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYED_STATE,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
+                                                                                                                         Integer.class,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
+                                                                                                                            Integer.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
+                                                                                                                            DateTime.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
+                                                                                                                               DateTime.class,
+                                                                                                                               finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_ID,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_ID,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_ID,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_ID,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP,
+                                                                                                                            DateTime.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP,
+                                                                                                                               DateTime.class,
+                                                                                                                               finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_NAME,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_NAME,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_NAME,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_NAME,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_STATE,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_STATE,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_STATE,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_STATE,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                                            DateTime.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                                               DateTime.class,
+                                                                                                                               finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID,
+                                                                                                                         finalOptions));
+                                    }
+                                });
+    }
+
+    /**
      * Gets module endpoints.
      * 
      * @return endpoints
@@ -616,6 +1210,41 @@ public class Devices extends AbstractModule {
             @Override
             public ListResponse<DeviceEvents> requestNewPage(ListOptions options) throws MbedCloudException {
                 return listDeviceEventss((DeviceEventsListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of device groups matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all device groups matching filter options.
+     * 
+     * @param options
+     *            list options.
+     * @return paginator over the list of device groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
+    @API
+    @Nullable
+    public Paginator<DeviceGroup>
+           listAllDeviceGroups(@Nullable DeviceGroupListOptions options) throws MbedCloudException {
+        final DeviceGroupListOptions finalOptions = (options == null) ? new DeviceGroupListOptions() : options;
+        return new Paginator<DeviceGroup>(finalOptions, new PageRequester<DeviceGroup>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<DeviceGroup> requestNewPage(ListOptions options) throws MbedCloudException {
+                return listDeviceGroups((DeviceGroupListOptions) options);
             }
         });
     }
@@ -820,6 +1449,94 @@ public class Devices extends AbstractModule {
                                                                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceEventsListOptions.TAG_FILTER_BY_STATE_CHANGE,
                                                                                                                        Boolean.class,
                                                                                                                        finalOptions));
+                                    }
+                                });
+    }
+
+    /**
+     * Lists device groups matching filter options.
+     *
+     * <p>
+     * List all groups.
+     *
+     * @param options
+     *            list options.
+     * @return the list of device groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
+    @API
+    @Nullable
+    public ListResponse<DeviceGroup>
+           listDeviceGroups(@Nullable DeviceGroupListOptions options) throws MbedCloudException {
+        final DeviceGroupListOptions finalOptions = (options == null) ? new DeviceGroupListOptions() : options;
+        return CloudCaller.call(this, "listDeviceGroups()", DeviceGroupAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<DeviceGroupPage>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<DeviceGroupPage> call() {
+                                        return endpoints.getDefaultApi()
+                                                        .groupList(finalOptions.getPageSize(),
+                                                                   finalOptions.getOrder().toString(),
+                                                                   finalOptions.getAfter(),
+                                                                   ListOptionsEncoder.encodeInclude(finalOptions), null,
+                                                                   ListOptionsEncoder.encodeSingleEqualFilter(DeviceGroupListOptions.TAG_FILTER_BY_ID,
+                                                                                                              finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceGroupListOptions.TAG_FILTER_BY_ID,
+                                                                                                                 finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleInFilter(DeviceGroupListOptions.TAG_FILTER_BY_ID,
+                                                                                                           finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleNotInFilter(DeviceGroupListOptions.TAG_FILTER_BY_ID,
+                                                                                                              finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleEqualFilter(DeviceGroupListOptions.TAG_FILTER_BY_DEVICES_COUNT,
+                                                                                                              Integer.class,
+                                                                                                              finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceGroupListOptions.TAG_FILTER_BY_DEVICES_COUNT,
+                                                                                                                 Integer.class,
+                                                                                                                 finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleInFilter(DeviceGroupListOptions.TAG_FILTER_BY_DEVICES_COUNT,
+                                                                                                           finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleNotInFilter(DeviceGroupListOptions.TAG_FILTER_BY_DEVICES_COUNT,
+                                                                                                              finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleLessThanFilter(DeviceGroupListOptions.TAG_FILTER_BY_DEVICES_COUNT,
+                                                                                                                 Integer.class,
+                                                                                                                 finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceGroupListOptions.TAG_FILTER_BY_DEVICES_COUNT,
+                                                                                                                    Integer.class,
+                                                                                                                    finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleEqualFilter(DeviceGroupListOptions.TAG_FILTER_BY_NAME,
+                                                                                                              finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceGroupListOptions.TAG_FILTER_BY_NAME,
+                                                                                                                 finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleInFilter(DeviceGroupListOptions.TAG_FILTER_BY_NAME,
+                                                                                                           finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleNotInFilter(DeviceGroupListOptions.TAG_FILTER_BY_NAME,
+                                                                                                              finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleInFilter(DeviceGroupListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                           finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleNotInFilter(DeviceGroupListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                              finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleLessThanFilter(DeviceGroupListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                                 DateTime.class,
+                                                                                                                 finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceGroupListOptions.TAG_FILTER_BY_CREATED_AT,
+                                                                                                                    DateTime.class,
+                                                                                                                    finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleInFilter(DeviceGroupListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                           finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleNotInFilter(DeviceGroupListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                              finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleLessThanFilter(DeviceGroupListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                                 DateTime.class,
+                                                                                                                 finalOptions),
+                                                                   ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceGroupListOptions.TAG_FILTER_BY_UPDATED_AT,
+                                                                                                                    DateTime.class,
+                                                                                                                    finalOptions));
                                     }
                                 });
     }
@@ -1424,6 +2141,168 @@ public class Devices extends AbstractModule {
     }
 
     /**
+     * Gets a device group.
+     *
+     * <p>
+     * Similar to {@link #readDeviceGroup(String)}
+     * 
+     * @param deviceGroup
+     *            a device group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public DeviceGroup readDeviceGroup(@NonNull DeviceGroup deviceGroup) throws MbedCloudException {
+        checkNotNull(deviceGroup, TAG_DEVICE_GROUP);
+        return readDeviceGroup(deviceGroup.getId());
+    }
+
+    /**
+     * Gets a device group.
+     *
+     * <p>
+     * Get a group.
+     *
+     * @param id
+     *            The group ID.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public DeviceGroup readDeviceGroup(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readDeviceGroup()", DeviceGroupAdapter.getMapper(),
+                                new CloudRequest.CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroup>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroup>
+                                           call() {
+                                        return endpoints.getDefaultApi().groupRetrieve(finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Remove a device from a group .
+     *
+     * <p>
+     * Similar to {@link #removeDevice(String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
+     * 
+     * @param deviceGroup
+     *            a device group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void removeDevice(@NonNull DeviceGroup deviceGroup) throws MbedCloudException {
+        checkNotNull(deviceGroup, TAG_DEVICE_GROUP);
+        removeDevice((String) null, deviceGroup);
+    }
+
+    /**
+     * Remove a device from a group .
+     *
+     * <p>
+     * Similar to {@link #removeDevice(String, String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
+     * 
+     * @param deviceId
+     *            a string
+     * @param deviceGroup
+     *            a device group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void removeDevice(@Nullable String deviceId, @NonNull DeviceGroup deviceGroup) throws MbedCloudException {
+        checkNotNull(deviceGroup, TAG_DEVICE_GROUP);
+        removeDevice(deviceId, deviceGroup.getId(), deviceGroup);
+    }
+
+    /**
+     * Remove a device from a group .
+     *
+     * <p>
+     * Remove one device from a group.
+     *
+     * @param deviceId
+     *            a string
+     * @param id
+     *            The ID of the group.
+     * @param deviceGroup
+     *            a device group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void removeDevice(@Nullable String deviceId, @NonNull String id,
+                             @NonNull DeviceGroup deviceGroup) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        checkNotNull(deviceGroup, TAG_DEVICE_GROUP);
+        checkModelValidity(deviceGroup, TAG_DEVICE_GROUP);
+        final String finalDeviceId = deviceId;
+        final String finalId = id;
+        final DeviceGroup finalDeviceGroup = deviceGroup;
+        CloudCaller.call(this, "removeDevice()", null, new CloudRequest.CloudCall<Void>() {
+            /**
+             * Makes the low level call to the Cloud.
+             * 
+             * @return Corresponding Retrofit2 Call object
+             */
+            @Override
+            public Call<Void> call() {
+                return endpoints.getDefaultApi()
+                                .groupMembersRemove(finalId,
+                                                    DeviceGroupAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(finalDeviceGroup)
+                                                                      .deviceId(finalDeviceId));
+            }
+        }, true);
+    }
+
+    /**
+     * Remove a device from a group .
+     *
+     * <p>
+     * Remove one device from a group.
+     *
+     * @param deviceGroupId
+     *            The ID of the group.
+     * @param device
+     *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void removeFromGroup(@NonNull String deviceGroupId, @NonNull Device device) throws MbedCloudException {
+        checkNotNull(deviceGroupId, TAG_DEVICE_GROUP_ID);
+        checkNotNull(device, TAG_DEVICE);
+        checkModelValidity(device, TAG_DEVICE);
+        final String finalDeviceGroupId = deviceGroupId;
+        final Device finalDevice = device;
+        CloudCaller.call(this, "removeFromGroup()", null, new CloudRequest.CloudCall<Void>() {
+            /**
+             * Makes the low level call to the Cloud.
+             * 
+             * @return Corresponding Retrofit2 Call object
+             */
+            @Override
+            public Call<Void> call() {
+                return endpoints.getDefaultApi()
+                                .groupMembersRemove(finalDeviceGroupId,
+                                                    DeviceAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(finalDevice));
+            }
+        }, true);
+    }
+
+    /**
      * Request certificate renewal.
      *
      *
@@ -1546,6 +2425,65 @@ public class Devices extends AbstractModule {
                                         return endpoints.getDefaultApi()
                                                         .deviceUpdate(finalId,
                                                                       DeviceAdapter.reverseMapUpdateRequest(finalDevice));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Modifies a device group.
+     *
+     * <p>
+     * Similar to {@link #updateDeviceGroup(String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
+     * 
+     * @param deviceGroup
+     *            a device group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public DeviceGroup updateDeviceGroup(@NonNull DeviceGroup deviceGroup) throws MbedCloudException {
+        checkNotNull(deviceGroup, TAG_DEVICE_GROUP);
+        checkModelValidity(deviceGroup, TAG_DEVICE_GROUP);
+        return updateDeviceGroup(deviceGroup.getId(), deviceGroup);
+    }
+
+    /**
+     * Modifies a device group.
+     *
+     * <p>
+     * Modify the attributes of a group.
+     *
+     * @param id
+     *            The group ID.
+     * @param group
+     *            a device group.
+     * @return an updated device group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public DeviceGroup updateDeviceGroup(@NonNull String id, @NonNull DeviceGroup group) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        checkNotNull(group, TAG_GROUP);
+        checkModelValidity(group, TAG_GROUP);
+        final String finalId = id;
+        final DeviceGroup finalGroup = group;
+        return CloudCaller.call(this, "updateDeviceGroup()", DeviceGroupAdapter.getMapper(),
+                                new CloudRequest.CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroup>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroup>
+                                           call() {
+                                        return endpoints.getDefaultApi()
+                                                        .groupUpdate(finalId,
+                                                                     DeviceGroupAdapter.reverseMapUpdateRequest(finalGroup));
                                     }
                                 }, true);
     }

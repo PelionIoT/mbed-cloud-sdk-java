@@ -15,6 +15,12 @@ public class TestDataFile {
     public void checkContentType() {
         DataFile file = new DataFile(new File("test.csv"));
         assertEquals(DataFile.CSV_FILE_MEDIA_TYPE, file.getContentType());
+        file = new DataFile(new File("test.txt"));
+        assertEquals(DataFile.TEXT_FILE_MEDIA_TYPE, file.getContentType());
+        file = new DataFile(new File("test.png"));
+        assertEquals(DataFile.PNG_IMAGE_FILE_MEDIA_TYPE, file.getContentType());
+        file = new DataFile(new File("test.jpeg"));
+        assertEquals(DataFile.JPEG_IMAGE_FILE_MEDIA_TYPE, file.getContentType());
         file = new DataFile(new File("test.csv.test"));
         assertEquals(DataFile.BINARY_FILE_MEDIA_TYPE, file.getContentType());
     }

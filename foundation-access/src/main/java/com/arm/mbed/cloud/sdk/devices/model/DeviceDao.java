@@ -70,6 +70,41 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     }
 
     /**
+     * Add a device to a group .
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceDao#addToGroup(String, com.arm.mbed.cloud.sdk.devices.model.Device)}
+     * 
+     * @param deviceGroupId
+     *            The ID of the group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public void addToGroup(@NonNull String deviceGroupId) throws MbedCloudException {
+        addToGroup(deviceGroupId, getModel());
+    }
+
+    /**
+     * Add a device to a group .
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Devices#addToGroup(String, com.arm.mbed.cloud.sdk.devices.model.Device)}
+     * 
+     * @param deviceGroupId
+     *            The ID of the group.
+     * @param device
+     *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public void addToGroup(@NonNull String deviceGroupId, @NonNull Device device) throws MbedCloudException {
+        ((Devices) getModuleOrThrow()).addToGroup(deviceGroupId, device);
+    }
+
+    /**
      * Clones this instance.
      *
      * <p>
@@ -270,6 +305,42 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     @Override
     public Device read(@NonNull String id) throws MbedCloudException {
         return setAndGetModel(((Devices) getModuleOrThrow()).readDevice(id));
+    }
+
+    /**
+     * Remove a device from a group .
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceDao#removeFromGroup(String, com.arm.mbed.cloud.sdk.devices.model.Device)}
+     * 
+     * @param deviceGroupId
+     *            The ID of the group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public void removeFromGroup(@NonNull String deviceGroupId) throws MbedCloudException {
+        removeFromGroup(deviceGroupId, getModel());
+    }
+
+    /**
+     * Remove a device from a group .
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Devices#removeFromGroup(String, com.arm.mbed.cloud.sdk.devices.model.Device)}
+     * 
+     * @param deviceGroupId
+     *            The ID of the group.
+     * @param device
+     *            a device.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public void removeFromGroup(@NonNull String deviceGroupId, @NonNull Device device) throws MbedCloudException {
+        ((Devices) getModuleOrThrow()).removeFromGroup(deviceGroupId, device);
     }
 
     /**

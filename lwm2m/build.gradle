@@ -11,8 +11,8 @@ buildscript {
   }
   dependencies {
     classpath "com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2"
-    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:latest.release"
-    classpath 'ru.vyarus:gradle-animalsniffer-plugin:1.4.0'
+    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4"
+    classpath 'ru.vyarus:gradle-animalsniffer-plugin:1.5.0'
   }
 }
 
@@ -37,8 +37,8 @@ repositories {
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.slf4j:slf4j-api:1.7.7'
-    api 'commons-codec:commons-codec:1.9'
+    api 'org.slf4j:slf4j-api:1.7.26'
+    api 'commons-codec:commons-codec:1.12'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

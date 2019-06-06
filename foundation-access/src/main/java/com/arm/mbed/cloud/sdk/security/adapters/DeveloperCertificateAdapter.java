@@ -26,6 +26,24 @@ public final class DeveloperCertificateAdapter {
     }
 
     /**
+     * Maps a developer certificate into a developer certificate request data.
+     * 
+     * @param toBeMapped
+     *            a developer certificate.
+     * @return mapped a developer certificate request data
+     */
+    @Internal
+    public static DeveloperCertificateRequestData reverseMapAddRequest(DeveloperCertificate toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final DeveloperCertificateRequestData developerCertificateRequestData = new DeveloperCertificateRequestData();
+        developerCertificateRequestData.setDescription(toBeMapped.getDescription());
+        developerCertificateRequestData.setName(toBeMapped.getName());
+        return developerCertificateRequestData;
+    }
+
+    /**
      * Maps a developer certificate response data into a developer certificate.
      * 
      * @param toBeMapped
@@ -68,23 +86,5 @@ public final class DeveloperCertificateAdapter {
                 return DeveloperCertificateAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps a developer certificate into a developer certificate request data.
-     * 
-     * @param toBeMapped
-     *            a developer certificate.
-     * @return mapped a developer certificate request data
-     */
-    @Internal
-    public static DeveloperCertificateRequestData reverseMapAddRequest(DeveloperCertificate toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final DeveloperCertificateRequestData developerCertificateRequestData = new DeveloperCertificateRequestData();
-        developerCertificateRequestData.setDescription(toBeMapped.getDescription());
-        developerCertificateRequestData.setName(toBeMapped.getName());
-        return developerCertificateRequestData;
     }
 }

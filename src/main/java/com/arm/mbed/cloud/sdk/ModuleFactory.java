@@ -160,6 +160,16 @@ public class ModuleFactory implements Cloneable {
     }
 
     /**
+     * Gets a branding.
+     * 
+     * @return a branding
+     */
+    @SuppressWarnings("resource")
+    public Branding getBranding() {
+        return new Branding(context);
+    }
+
+    /**
      * Gets connect.
      * 
      * @return connectModule

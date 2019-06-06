@@ -124,7 +124,12 @@ public class MethodModuleCloudApi extends MethodOverloaded {
 
     protected void determineReturnType(Model correspondingModel, Method lowLevelMethod) {
         // TODO override when "not aggregated method"
-        if (lowLevelMethod.hasReturn()) {
+        if (correspondingModel.toType().isPrimitiveOrWrapper()) {
+            final TypeParameter type = correspondingModel.toType();
+            if (!type.isVoid()) {
+                setReturnType(type);
+            }
+        } else if (lowLevelMethod.hasReturn()) {
             final TypeParameter type = lowLevelMethod.getReturnType();
             if (type.isLowLevelModel() || type.isLowLevelModel()) {
                 setReturnType(correspondingModel.toType());
