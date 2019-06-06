@@ -93,6 +93,19 @@ public class LightThemeImage extends AbstractLightThemeImage {
     }
 
     /**
+     * Executes setId.
+     * <p>
+     * Similar to {@link #setId(String)}
+     * 
+     * @param id
+     *            a string.
+     */
+    @Internal
+    public void setLightThemeImageId(String id) {
+        setId(id);
+    }
+
+    /**
      * Executes getId.
      * 
      * @return something

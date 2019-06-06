@@ -94,6 +94,19 @@ public class SubtenantLightThemeImage extends AbstractSubtenantLightThemeImage {
     }
 
     /**
+     * Executes setId.
+     * <p>
+     * Similar to {@link #setId(String)}
+     * 
+     * @param id
+     *            a string.
+     */
+    @Internal
+    public void setSubtenantLightThemeImageId(String id) {
+        setId(id);
+    }
+
+    /**
      * Executes getId.
      * 
      * @return something

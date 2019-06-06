@@ -92,6 +92,19 @@ public class SubtenantLightThemeColor extends AbstractSubtenantLightThemeColor {
     }
 
     /**
+     * Executes setId.
+     * <p>
+     * Similar to {@link #setId(String)}
+     * 
+     * @param id
+     *            a string.
+     */
+    @Internal
+    public void setSubtenantLightThemeColorId(String id) {
+        setId(id);
+    }
+
+    /**
      * Executes getId.
      * 
      * @return something

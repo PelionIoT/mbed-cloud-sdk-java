@@ -6,7 +6,6 @@ import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.NotImplementedException;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 /**
@@ -88,8 +87,21 @@ public class SubtenantDarkThemeColor extends AbstractSubtenantDarkThemeColor {
      *            a string.
      */
     @Override
-    public void setId(String id) throws NotImplementedException {
+    public void setId(String id) {
         setReference(id);
+    }
+
+    /**
+     * Executes setId.
+     * <p>
+     * Similar to {@link #setId(String)}
+     * 
+     * @param id
+     *            a string.
+     */
+    @Internal
+    public void setSubtenantDarkThemeColorId(String id) {
+        setId(id);
     }
 
     /**

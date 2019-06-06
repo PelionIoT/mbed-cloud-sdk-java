@@ -91,6 +91,19 @@ public class DarkThemeColor extends AbstractDarkThemeColor {
     }
 
     /**
+     * Executes setId.
+     * <p>
+     * Similar to {@link #setId(String)}
+     * 
+     * @param id
+     *            a string.
+     */
+    @Internal
+    public void setDarkThemeColorId(String id) {
+        setId(id);
+    }
+
+    /**
      * Executes getId.
      * 
      * @return something

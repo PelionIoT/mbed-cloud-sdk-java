@@ -93,6 +93,19 @@ public class DarkThemeImage extends AbstractDarkThemeImage {
     }
 
     /**
+     * Executes setId.
+     * <p>
+     * Similar to {@link #setId(String)}
+     * 
+     * @param id
+     *            a string.
+     */
+    @Internal
+    public void setDarkThemeImageId(String id) {
+        setId(id);
+    }
+
+    /**
      * Executes getId.
      * 
      * @return something
