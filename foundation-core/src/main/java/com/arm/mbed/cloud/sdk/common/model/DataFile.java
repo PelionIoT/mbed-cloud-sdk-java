@@ -23,6 +23,7 @@ public class DataFile implements SdkModel {
     private static final String TEXT_EXTENSION = "txt";
     private static final String PNG_EXTENSION = "png";
     private static final String JPEG_EXTENSION = "jpeg";
+    private static final String JPEG_EXTENSION2 = "jpg";
     private static final String GIF_EXTENSION = "gif";
     private static final String BMP_EXTENSION = "bmp";
     /**
@@ -352,6 +353,7 @@ public class DataFile implements SdkModel {
             case PNG_EXTENSION:
                 return PNG_IMAGE_FILE_MEDIA_TYPE;
             case JPEG_EXTENSION:
+            case JPEG_EXTENSION2:
                 return JPEG_IMAGE_FILE_MEDIA_TYPE;
             case BMP_EXTENSION:
                 return BMP_IMAGE_FILE_MEDIA_TYPE;
