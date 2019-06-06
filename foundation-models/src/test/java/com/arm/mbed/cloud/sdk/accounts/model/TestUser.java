@@ -19,12 +19,12 @@ public class TestUser {
     @Test
     public void testClone() {
         try {
-            User user1 = new User("dbffc04464ee5d492da2ca1837b00ec4", null, "795fe405-11ba-456b-b501-69d7e003f696",
-                                  new Date(1559147591918L), -19, null, "f155d.0a771@b8adc.fr", false,
-                                  "5244507c-a63c-4c83-ac29-3bb331ff03fa", "dbffc04464ee5d492da2ca1837b00ec4", true,
-                                  false, false, -116, null, null, "a8c374ba-45d8-4cd9-8a8b-c41afa6ae083", 113,
-                                  "fc3ac958-8e88-4492-a787-684cab153e8f", UserStatus.getDefault(), null,
-                                  new Date(1559147601241L), ",=5V");
+            User user1 = new User("a2460a11b07ab6ba3b25a51e92b72dc7", null, "756231f2-9f8b-4e56-b819-3220d417451d",
+                                  new Date(1559835554011L), -67, null, "d26ef.c9b1e@74ef5.me", true,
+                                  "00ceed91-9f8e-4860-8962-b1a58c9a4ce2", "a2460a11b07ab6ba3b25a51e92b72dc7", true,
+                                  false, true, -54, null, null, "a3d6e6dc-23e8-4b56-9fcd-1d9b2ef1194c", 7,
+                                  "f8b85413-da0b-4194-9f78-2955ac45d6a7", UserStatus.getDefault(), null,
+                                  new Date(1559835552655L), ",+,o-.");
             User user2 = user1.clone();
             assertNotNull(user1);
             assertNotNull(user2);
@@ -42,18 +42,18 @@ public class TestUser {
     @Test
     public void testHashCode() {
         try {
-            User user1 = new User("dbffc04464ee5d492da2ca1837b00ec4", null, "e0901583-38c3-46e3-8d99-d23a83783122",
-                                  new Date(1559147592578L), 48, null, "3e67f.a1c74@21a70.fr", false,
-                                  "340906bf-8a3d-4cc5-bc7d-b40e74cd2dd7", "dbffc04464ee5d492da2ca1837b00ec4", true,
-                                  true, true, 120, null, null, "d17b3823-63e3-4949-ad77-a1e88f7b625a", 86,
-                                  "e7e7f9d4-7f24-4717-9c8f-bd2d5b6bde03", UserStatus.getDefault(), null,
-                                  new Date(1559147594184L), ",=5V");
-            User user2 = new User("dbffc04464ee5d492da2ca1837b00ec4", null, "e0901583-38c3-46e3-8d99-d23a83783122",
-                                  new Date(1559147592578L), 48, null, "3e67f.a1c74@21a70.fr", false,
-                                  "340906bf-8a3d-4cc5-bc7d-b40e74cd2dd7", "dbffc04464ee5d492da2ca1837b00ec4", true,
-                                  true, true, 120, null, null, "d17b3823-63e3-4949-ad77-a1e88f7b625a", 86,
-                                  "e7e7f9d4-7f24-4717-9c8f-bd2d5b6bde03", UserStatus.getDefault(), null,
-                                  new Date(1559147594184L), ",=5V");
+            User user1 = new User("a2460a11b07ab6ba3b25a51e92b72dc7", null, "a81aa98a-1ed1-4167-8dab-eb4580674c73",
+                                  new Date(1559835553687L), -1, null, "bf26d.721d1@36636.fr", true,
+                                  "e1e8481d-4aab-4690-ba75-9d6990107d1d", "a2460a11b07ab6ba3b25a51e92b72dc7", true,
+                                  false, true, 79, null, null, "11971bda-c328-4894-9735-f121d259b959", 124,
+                                  "dacc41c9-7b09-49b3-ba33-4a8cd5408277", UserStatus.getDefault(), null,
+                                  new Date(1559835555610L), ",+,o-.");
+            User user2 = new User("a2460a11b07ab6ba3b25a51e92b72dc7", null, "a81aa98a-1ed1-4167-8dab-eb4580674c73",
+                                  new Date(1559835553687L), -1, null, "bf26d.721d1@36636.fr", true,
+                                  "e1e8481d-4aab-4690-ba75-9d6990107d1d", "a2460a11b07ab6ba3b25a51e92b72dc7", true,
+                                  false, true, 79, null, null, "11971bda-c328-4894-9735-f121d259b959", 124,
+                                  "dacc41c9-7b09-49b3-ba33-4a8cd5408277", UserStatus.getDefault(), null,
+                                  new Date(1559835555610L), ",+,o-.");
             assertNotNull(user1);
             assertNotNull(user2);
             assertNotSame(user2, user1);
@@ -74,22 +74,22 @@ public class TestUser {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        User user = new User("dbffc04464ee5d492da2ca1837b00ec4", null, "f159a239-988c-46c2-89c5-7f89a485ab4e",
-                             new Date(1559147595736L), 24, null, "95db1.a9262@7e8da.me", true,
-                             "57a76549-6b05-45a7-a4df-d19b245c2611", "dbffc04464ee5d492da2ca1837b00ec4", false, true,
-                             true, -106, null, null, "b34b4548-8329-40c8-9f10-6575116b99b4", 11,
-                             "1172ca48-9fd4-4090-af37-e697c28f485f", UserStatus.getDefault(), null,
-                             new Date(1559147600759L), ",=5V");
+        User user = new User("a2460a11b07ab6ba3b25a51e92b72dc7", null, "08f95d8c-353f-4c55-968a-24ba4c99c7e4",
+                             new Date(1559835551116L), -15, null, "7b5d7.f0dd5@262ff.me", true,
+                             "a5b071f4-0a4a-4913-af96-8efbda099d95", "a2460a11b07ab6ba3b25a51e92b72dc7", true, true,
+                             false, -91, null, null, "7b15ccf2-74b6-4e08-8349-0d7986ede953", -74,
+                             "cf33e88f-5962-4229-a5c5-d499d02f83e3", UserStatus.getDefault(), null,
+                             new Date(1559835553571L), ",+,o-.");
         assertTrue(user.isValid());
-        User userInvalid = new User("�?疣U\t憒�?鼘Y�?\u0002ᶣ\u000e\u0015髃\u0004Y㨃QᓒTNX)‖]천:\u0000�?\u0013宇/ᓗL檙C\u0005L^X.�?美\u0014⦌鸬\u0005닫ꧮ〢맕\u0011�?�%AH\u0014ౄ",
-                                    null, "644ffedf-705b-4431-9ebe-13f166e039e2", new Date(1559147593542L), -33, null,
+        User userInvalid = new User("8\u001aN8<8\u0014%G⠭888O蘔8U\u000f88888C88B\u001b�?I[\u0018W�?\u001c盙꺋鷷M8&\f\u0005)蜽88TGﾎ8A8$$B➠-8�?�8\u0002\u0002.R",
+                                    null, "64c92173-8b5a-4ee4-a9da-206ff779fe04", new Date(1559835558684L), -6, null,
                                     null, true,
-                                    "20b863c9-ef24-4811-bed6-5b99301970c48ada975e-96e2-4bcf-8eed-bc6a395acf682a222325-67fe-48ea-95c3-0e056de6fc6d",
-                                    "�?疣U\t憒�?鼘Y�?\u0002ᶣ\u000e\u0015髃\u0004Y㨃QᓒTNX)‖]천:\u0000�?\u0013宇/ᓗL檙C\u0005L^X.�?美\u0014⦌鸬\u0005닫ꧮ〢맕\u0011�?�%AH\u0014ౄ",
-                                    true, true, true, -8, null, null, "1cbcabca-29d0-4bda-8b53-7bf80e4033a5", 24,
-                                    "6c0267b8-4d43-4fcb-939d-393e12dcefbdee0ecc6b-b3a7-4a26-866d-04935e15f41304c09008-d943-4639-8985-93a3c3265ed7",
-                                    UserStatus.getDefault(), null, new Date(1559147591952L),
-                                    "\u0006BU7\u001cB@KŊ:6<D<?26;䄌8:7M䷃8\u0000ⅶG\t/-31케࢓3@G6R;꺬1\bR06\u0012726�?�92+颋-Q\u000e.\u0013");
+                                    "09bdbb3c-a955-4fa6-9fc2-e24b96d701d83c790fec-dbb2-453a-ba48-1147ac043be37d6dd315-f117-4674-b8cf-8b8d98274be0",
+                                    "8\u001aN8<8\u0014%G⠭888O蘔8U\u000f88888C88B\u001b�?I[\u0018W�?\u001c盙꺋鷷M8&\f\u0005)蜽88TGﾎ8A8$$B➠-8�?�8\u0002\u0002.R",
+                                    false, false, false, -119, null, null, "4300b5dc-8abe-4f0a-95f2-f3e3ed68e69b", -95,
+                                    "e1c9374f-4df9-424c-9a66-e2a748a0df4bc5384284-38e7-4165-b094-82e0c124ddec428ab380-8bc8-43b7-9df1-e7f3aa49914f",
+                                    UserStatus.getDefault(), null, new Date(1559835551220L),
+                                    "\u0003\u0014----Q땊뚞--k旧W'\u0003QK⧜U\u000e붶�?�-�??-S-�?F\u0013l$$-༺-膻--樫\u001a--P--⪅ _ᩜ\u0012U\u0013-\u0016>--n-\b");
         assertFalse(userInvalid.isValid());
     }
 
@@ -100,24 +100,24 @@ public class TestUser {
     @Test
     public void testEquals() {
         try {
-            User user1 = new User("dbffc04464ee5d492da2ca1837b00ec4", null, "433728f3-c88a-49cf-bd4c-7b88c0b816b0",
-                                  new Date(1559147593486L), -39, null, "2d694.1b4c9@86f05.me", false,
-                                  "6a252b4b-f131-4986-aa32-9d2556fada1c", "dbffc04464ee5d492da2ca1837b00ec4", false,
-                                  false, false, -81, null, null, "0ffe6471-bf23-4526-a5f9-dab11d29546c", -110,
-                                  "1eedaa8a-f997-491f-aa9e-322ef0360d9e", UserStatus.getDefault(), null,
-                                  new Date(1559147601347L), ",=5V");
-            User user2 = new User("dbffc04464ee5d492da2ca1837b00ec4", null, "433728f3-c88a-49cf-bd4c-7b88c0b816b0",
-                                  new Date(1559147593486L), -39, null, "2d694.1b4c9@86f05.me", false,
-                                  "6a252b4b-f131-4986-aa32-9d2556fada1c", "dbffc04464ee5d492da2ca1837b00ec4", false,
-                                  false, false, -81, null, null, "0ffe6471-bf23-4526-a5f9-dab11d29546c", -110,
-                                  "1eedaa8a-f997-491f-aa9e-322ef0360d9e", UserStatus.getDefault(), null,
-                                  new Date(1559147601347L), ",=5V");
-            User user3 = new User("dbffc04464ee5d492da2ca1837b00ec4", null, "fc415444-b3bc-471b-b5e0-f53d60e29577",
-                                  new Date(1559147596481L), 42, null, "51361.5798d@d7626.me", false,
-                                  "a9306433-46c3-459b-be20-26873adc654f", "dbffc04464ee5d492da2ca1837b00ec4", false,
-                                  false, false, -49, null, null, "4b715f74-5f26-49c0-a46b-b8ae6416709d", 50,
-                                  "d057ec49-8ac7-4db8-9ea5-39a743343629", UserStatus.getDefault(), null,
-                                  new Date(1559147596665L), ",=5V");
+            User user1 = new User("a2460a11b07ab6ba3b25a51e92b72dc7", null, "110a297d-fece-4a17-8dee-c0e45ad5535f",
+                                  new Date(1559835556922L), -1, null, "eeda2.66e19@99dea.fr", true,
+                                  "8481915d-1c0b-427a-b3f2-cb26e5235f28", "a2460a11b07ab6ba3b25a51e92b72dc7", false,
+                                  true, true, -47, null, null, "83295551-2d36-4e3a-b2b8-d050f2a541b7", -10,
+                                  "3a4edde1-3197-400c-a4d8-50d9501b79c8", UserStatus.getDefault(), null,
+                                  new Date(1559835550960L), ",+,o-.");
+            User user2 = new User("a2460a11b07ab6ba3b25a51e92b72dc7", null, "110a297d-fece-4a17-8dee-c0e45ad5535f",
+                                  new Date(1559835556922L), -1, null, "eeda2.66e19@99dea.fr", true,
+                                  "8481915d-1c0b-427a-b3f2-cb26e5235f28", "a2460a11b07ab6ba3b25a51e92b72dc7", false,
+                                  true, true, -47, null, null, "83295551-2d36-4e3a-b2b8-d050f2a541b7", -10,
+                                  "3a4edde1-3197-400c-a4d8-50d9501b79c8", UserStatus.getDefault(), null,
+                                  new Date(1559835550960L), ",+,o-.");
+            User user3 = new User("a2460a11b07ab6ba3b25a51e92b72dc7", null, "638a3622-4280-422f-a0bb-8f7f8c1c32a7",
+                                  new Date(1559835552053L), 4, null, "1134a.7891d@f98ac.fr", true,
+                                  "f4929d9a-4b70-4494-a952-f35dd754907d", "a2460a11b07ab6ba3b25a51e92b72dc7", false,
+                                  true, true, -19, null, null, "bf60106d-ca40-4b04-9f45-697b62305d46", -115,
+                                  "31bc6e5d-590d-4fb9-b29b-ef46ec7a8a06", UserStatus.getDefault(), null,
+                                  new Date(1559835558651L), ",+,o-.");
             assertNotNull(user1);
             assertNotNull(user2);
             assertNotNull(user3);

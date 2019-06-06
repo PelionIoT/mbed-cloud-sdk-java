@@ -386,11 +386,11 @@ public class UseCaseExamples extends AbstractExample {
             // Create the campaign
             myCampaignDao.create(newCampaign);
             // Determine the phase of the campaign
-            myCampaignDao.read();
+            System.out.println(myCampaignDao.read().getPhase());
             // Start the campaign
             myCampaignDao.start();
             // Determine the phase of the campaign
-            myCampaignDao.read();
+            System.out.println(myCampaignDao.read().getPhase());
             // Print all device metadata related to this campaign
             myCampaignDao.allDeviceMetadata(null).all().forEach(System.out::println);
             // end of example

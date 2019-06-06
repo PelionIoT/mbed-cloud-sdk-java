@@ -83,9 +83,8 @@ public class TestFileDownload {
             assertTrue(Arrays.asList("8854e10495f27a8c94eb1f8031328c16", "6c23c0f164d96c320203d97615bc2e66")
                              .contains(dest1.getMd5Checksum()));
             assertNotNull(dest1.getFileName());
-            System.out.println(dest1.getFile());
             assertTrue(dest1.getFileName().contains("txt"));
-            assertEquals(DataFile.BINARY_FILE_MEDIA_TYPE, dest1.getContentType());
+            assertEquals(DataFile.TEXT_FILE_MEDIA_TYPE, dest1.getContentType());
 
         } catch (MbedCloudException exception) {
             exception.printStackTrace();

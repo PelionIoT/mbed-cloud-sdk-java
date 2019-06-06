@@ -33,8 +33,8 @@ public class MethodModuleModifyApiUnself extends MethodModuleCloudApiUnself {
                                       boolean isExternalParameter,
                                       List<Parameter> unusedParameters) throws TranslationException {
         if (type.isLowLevelModel()) {
-            MethodModuleModifyApi.dealWithModifiedModel(this, type, isForCreation, parameterName, builder, callElements,
-                                                        unusedParameters);
+            MethodModuleModifyApi.dealWithModifiedModel(this, type, isForCreation, false, parameterName, builder,
+                                                        callElements, unusedParameters);
         } else {
             super.translateParameter(parameterName, initialParameterName, type, fromType, builder, callElements,
                                      isExternalParameter, unusedParameters);

@@ -30,6 +30,24 @@ public final class CertificateIssuerConfigAdapter {
     }
 
     /**
+     * Maps a certificate issuer config into a create certificate issuer config.
+     * 
+     * @param toBeMapped
+     *            a certificate issuer config.
+     * @return mapped a create certificate issuer config
+     */
+    @Internal
+    public static CreateCertificateIssuerConfig reverseMapAddRequest(CertificateIssuerConfig toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final CreateCertificateIssuerConfig createCertificateIssuerConfig = new CreateCertificateIssuerConfig();
+        createCertificateIssuerConfig.setCertificateIssuerId(toBeMapped.getCertificateIssuerId());
+        createCertificateIssuerConfig.setReference(toBeMapped.getReference());
+        return createCertificateIssuerConfig;
+    }
+
+    /**
      * Maps a certificate issuer config response into a certificate issuer config.
      * 
      * @param toBeMapped
@@ -69,24 +87,6 @@ public final class CertificateIssuerConfigAdapter {
                 return CertificateIssuerConfigAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps a certificate issuer config into a create certificate issuer config.
-     * 
-     * @param toBeMapped
-     *            a certificate issuer config.
-     * @return mapped a create certificate issuer config
-     */
-    @Internal
-    public static CreateCertificateIssuerConfig reverseMapAddRequest(CertificateIssuerConfig toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final CreateCertificateIssuerConfig createCertificateIssuerConfig = new CreateCertificateIssuerConfig();
-        createCertificateIssuerConfig.setCertificateIssuerId(toBeMapped.getCertificateIssuerId());
-        createCertificateIssuerConfig.setReference(toBeMapped.getReference());
-        return createCertificateIssuerConfig;
     }
 
     /**
