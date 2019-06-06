@@ -29,6 +29,29 @@ public final class UpdateCampaignAdapter {
     }
 
     /**
+     * Maps an update campaign into an update campaign post request.
+     * 
+     * @param toBeMapped
+     *            an update campaign.
+     * @return mapped an update campaign post request
+     */
+    @Internal
+    public static UpdateCampaignPostRequest reverseMapAddRequest(UpdateCampaign toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final UpdateCampaignPostRequest updateCampaignPostRequest = new UpdateCampaignPostRequest();
+        updateCampaignPostRequest.setDescription(toBeMapped.getDescription());
+        updateCampaignPostRequest.setDeviceFilter(toBeMapped.getDeviceFilter());
+        updateCampaignPostRequest.setName(toBeMapped.getName());
+        // No field equivalent to object in UpdateCampaignPostRequest was found in UpdateCampaign
+        updateCampaignPostRequest.setRootManifestId(toBeMapped.getRootManifestId());
+        // No field equivalent to state in UpdateCampaignPostRequest was found in UpdateCampaign
+        updateCampaignPostRequest.setWhen(TranslationUtils.toDateTime(toBeMapped.getWhen()));
+        return updateCampaignPostRequest;
+    }
+
+    /**
      * Maps an update campaign into an update campaign.
      * 
      * @param toBeMapped
@@ -83,29 +106,6 @@ public final class UpdateCampaignAdapter {
                 return UpdateCampaignAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps an update campaign into an update campaign post request.
-     * 
-     * @param toBeMapped
-     *            an update campaign.
-     * @return mapped an update campaign post request
-     */
-    @Internal
-    public static UpdateCampaignPostRequest reverseMapAddRequest(UpdateCampaign toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final UpdateCampaignPostRequest updateCampaignPostRequest = new UpdateCampaignPostRequest();
-        updateCampaignPostRequest.setDescription(toBeMapped.getDescription());
-        updateCampaignPostRequest.setDeviceFilter(toBeMapped.getDeviceFilter());
-        updateCampaignPostRequest.setName(toBeMapped.getName());
-        // No field equivalent to object in UpdateCampaignPostRequest was found in UpdateCampaign
-        updateCampaignPostRequest.setRootManifestId(toBeMapped.getRootManifestId());
-        // No field equivalent to state in UpdateCampaignPostRequest was found in UpdateCampaign
-        updateCampaignPostRequest.setWhen(TranslationUtils.toDateTime(toBeMapped.getWhen()));
-        return updateCampaignPostRequest;
     }
 
     /**

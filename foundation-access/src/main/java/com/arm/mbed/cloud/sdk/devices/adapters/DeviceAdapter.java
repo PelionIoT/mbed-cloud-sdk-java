@@ -14,6 +14,7 @@ import com.arm.mbed.cloud.sdk.devices.model.DeviceState;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPutRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroupManipulation;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DevicePage;
 import java.util.List;
 
@@ -30,6 +31,61 @@ public final class DeviceAdapter {
     private DeviceAdapter() {
         super();
         // Nothing to do;
+    }
+
+    /**
+     * Maps a device into a device group manipulation.
+     * 
+     * @param toBeMapped
+     *            a device.
+     * @return mapped a device group manipulation
+     */
+    @Internal
+    public static DeviceGroupManipulation
+           mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(Device toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final DeviceGroupManipulation deviceGroupManipulation = new DeviceGroupManipulation();
+        deviceGroupManipulation.setDeviceId(toBeMapped.getId());
+        return deviceGroupManipulation;
+    }
+
+    /**
+     * Maps a device into a device data post request.
+     * 
+     * @param toBeMapped
+     *            a device.
+     * @return mapped a device data post request
+     */
+    @Internal
+    public static DeviceDataPostRequest reverseMapAddRequest(Device toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final DeviceDataPostRequest deviceDataPostRequest = new DeviceDataPostRequest();
+        deviceDataPostRequest.setAutoUpdate(Boolean.valueOf(toBeMapped.isAutoUpdate()));
+        deviceDataPostRequest.setBootstrapExpirationDate(TranslationUtils.toLocalDate(toBeMapped.getBootstrapExpirationDate()));
+        deviceDataPostRequest.setCaId(toBeMapped.getCaId());
+        deviceDataPostRequest.setConnectorExpirationDate(TranslationUtils.toLocalDate(toBeMapped.getConnectorExpirationDate()));
+        deviceDataPostRequest.setCustomAttributes(toBeMapped.getCustomAttributes());
+        deviceDataPostRequest.setDeployment(toBeMapped.getDeployment());
+        deviceDataPostRequest.setDescription(toBeMapped.getDescription());
+        deviceDataPostRequest.setDeviceClass(toBeMapped.getDeviceClass());
+        deviceDataPostRequest.setDeviceExecutionMode(Integer.valueOf(toBeMapped.getDeviceExecutionMode()));
+        deviceDataPostRequest.setDeviceKey(toBeMapped.getDeviceKey());
+        deviceDataPostRequest.setEndpointName(toBeMapped.getEndpointName());
+        deviceDataPostRequest.setEndpointType(toBeMapped.getEndpointType());
+        deviceDataPostRequest.setHostGateway(toBeMapped.getHostGateway());
+        deviceDataPostRequest.setIssuerFingerprint(toBeMapped.getIssuerFingerprint());
+        deviceDataPostRequest.setManifest(toBeMapped.getManifest());
+        deviceDataPostRequest.setMechanism(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestMechanismenum(toBeMapped.getMechanism()));
+        deviceDataPostRequest.setMechanismUrl(toBeMapped.getMechanismUrl());
+        deviceDataPostRequest.setName(toBeMapped.getName());
+        deviceDataPostRequest.setSerialNumber(toBeMapped.getSerialNumber());
+        deviceDataPostRequest.setState(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestStateenum(toBeMapped.getState()));
+        deviceDataPostRequest.setVendorId(toBeMapped.getVendorId());
+        return deviceDataPostRequest;
     }
 
     /**
@@ -97,43 +153,6 @@ public final class DeviceAdapter {
                 return DeviceAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps a device into a device data post request.
-     * 
-     * @param toBeMapped
-     *            a device.
-     * @return mapped a device data post request
-     */
-    @Internal
-    public static DeviceDataPostRequest reverseMapAddRequest(Device toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final DeviceDataPostRequest deviceDataPostRequest = new DeviceDataPostRequest();
-        deviceDataPostRequest.setAutoUpdate(Boolean.valueOf(toBeMapped.isAutoUpdate()));
-        deviceDataPostRequest.setBootstrapExpirationDate(TranslationUtils.toLocalDate(toBeMapped.getBootstrapExpirationDate()));
-        deviceDataPostRequest.setCaId(toBeMapped.getCaId());
-        deviceDataPostRequest.setConnectorExpirationDate(TranslationUtils.toLocalDate(toBeMapped.getConnectorExpirationDate()));
-        deviceDataPostRequest.setCustomAttributes(toBeMapped.getCustomAttributes());
-        deviceDataPostRequest.setDeployment(toBeMapped.getDeployment());
-        deviceDataPostRequest.setDescription(toBeMapped.getDescription());
-        deviceDataPostRequest.setDeviceClass(toBeMapped.getDeviceClass());
-        deviceDataPostRequest.setDeviceExecutionMode(Integer.valueOf(toBeMapped.getDeviceExecutionMode()));
-        deviceDataPostRequest.setDeviceKey(toBeMapped.getDeviceKey());
-        deviceDataPostRequest.setEndpointName(toBeMapped.getEndpointName());
-        deviceDataPostRequest.setEndpointType(toBeMapped.getEndpointType());
-        deviceDataPostRequest.setHostGateway(toBeMapped.getHostGateway());
-        deviceDataPostRequest.setIssuerFingerprint(toBeMapped.getIssuerFingerprint());
-        deviceDataPostRequest.setManifest(toBeMapped.getManifest());
-        deviceDataPostRequest.setMechanism(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestMechanismenum(toBeMapped.getMechanism()));
-        deviceDataPostRequest.setMechanismUrl(toBeMapped.getMechanismUrl());
-        deviceDataPostRequest.setName(toBeMapped.getName());
-        deviceDataPostRequest.setSerialNumber(toBeMapped.getSerialNumber());
-        deviceDataPostRequest.setState(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestStateenum(toBeMapped.getState()));
-        deviceDataPostRequest.setVendorId(toBeMapped.getVendorId());
-        return deviceDataPostRequest;
     }
 
     /**
@@ -270,6 +289,58 @@ public final class DeviceAdapter {
      * Maps the enum value.
      * 
      * @param toBeMapped
+     *            a device mechanism.
+     * @return mapped enum value
+     */
+    @Internal
+    protected static DeviceDataPostRequest.MechanismEnum
+              translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestMechanismenum(DeviceMechanism toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        switch (toBeMapped) {
+            case CONNECTOR:
+                return DeviceDataPostRequest.MechanismEnum.CONNECTOR;
+            case DIRECT:
+                return DeviceDataPostRequest.MechanismEnum.DIRECT;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
+     *            a device state.
+     * @return mapped enum value
+     */
+    @Internal
+    protected static DeviceDataPostRequest.StateEnum
+              translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestStateenum(DeviceState toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        switch (toBeMapped) {
+            case UNENROLLED:
+                return DeviceDataPostRequest.StateEnum.UNENROLLED;
+            case CLOUD_ENROLLING:
+                return DeviceDataPostRequest.StateEnum.CLOUD_ENROLLING;
+            case BOOTSTRAPPED:
+                return DeviceDataPostRequest.StateEnum.BOOTSTRAPPED;
+            case REGISTERED:
+                return DeviceDataPostRequest.StateEnum.REGISTERED;
+            case DEREGISTERED:
+                return DeviceDataPostRequest.StateEnum.DEREGISTERED;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
      *            a deployed state enum.
      * @return mapped enum value
      */
@@ -335,58 +406,6 @@ public final class DeviceAdapter {
                 return DeviceState.DEREGISTERED;
             default:
                 return DeviceState.getUnknownEnum();
-        }
-    }
-
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a device mechanism.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static DeviceDataPostRequest.MechanismEnum
-              translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestMechanismenum(DeviceMechanism toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        switch (toBeMapped) {
-            case CONNECTOR:
-                return DeviceDataPostRequest.MechanismEnum.CONNECTOR;
-            case DIRECT:
-                return DeviceDataPostRequest.MechanismEnum.DIRECT;
-            default:
-                return null;
-        }
-    }
-
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a device state.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static DeviceDataPostRequest.StateEnum
-              translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDevicedatapostrequestStateenum(DeviceState toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        switch (toBeMapped) {
-            case UNENROLLED:
-                return DeviceDataPostRequest.StateEnum.UNENROLLED;
-            case CLOUD_ENROLLING:
-                return DeviceDataPostRequest.StateEnum.CLOUD_ENROLLING;
-            case BOOTSTRAPPED:
-                return DeviceDataPostRequest.StateEnum.BOOTSTRAPPED;
-            case REGISTERED:
-                return DeviceDataPostRequest.StateEnum.REGISTERED;
-            case DEREGISTERED:
-                return DeviceDataPostRequest.StateEnum.DEREGISTERED;
-            default:
-                return null;
         }
     }
 }

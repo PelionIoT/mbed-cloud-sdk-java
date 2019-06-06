@@ -15,6 +15,8 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAcc
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsUserInvitationsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsUsersApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantDeviceSecurityCertificatesApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantUserInterfaceConfigurationColorsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantUserInterfaceConfigurationImagesApi;
 
 /**
  * Endpoints for Accounts APIs module.
@@ -34,6 +36,18 @@ public class AccountsEndpoints extends AbstractEndpoints {
      */
     @Internal
     private final TenantAccountsAccountsApi tenantAccountsAccountsApi;
+
+    /**
+     * Low level endpoints for tenant user interface configuration colors apis.
+     */
+    @Internal
+    private final TenantUserInterfaceConfigurationColorsApi tenantUserInterfaceConfigurationColorsApi;
+
+    /**
+     * Low level endpoints for tenant user interface configuration images apis.
+     */
+    @Internal
+    private final TenantUserInterfaceConfigurationImagesApi tenantUserInterfaceConfigurationImagesApi;
 
     /**
      * Low level endpoints for account profile apis.
@@ -87,6 +101,8 @@ public class AccountsEndpoints extends AbstractEndpoints {
         super(services);
         this.tenantAccountsApiKeysApi = initialiseService(TenantAccountsApiKeysApi.class);
         this.tenantAccountsAccountsApi = initialiseService(TenantAccountsAccountsApi.class);
+        this.tenantUserInterfaceConfigurationColorsApi = initialiseService(TenantUserInterfaceConfigurationColorsApi.class);
+        this.tenantUserInterfaceConfigurationImagesApi = initialiseService(TenantUserInterfaceConfigurationImagesApi.class);
         this.accountProfileApi = initialiseService(AccountProfileApi.class);
         this.tenantDeviceSecurityCertificatesApi = initialiseService(TenantDeviceSecurityCertificatesApi.class);
         this.tenantAccountsUserInvitationsApi = initialiseService(TenantAccountsUserInvitationsApi.class);
@@ -164,6 +180,26 @@ public class AccountsEndpoints extends AbstractEndpoints {
     @Internal
     public TenantAccountsAccountsApi getTenantAccountsAccountsApi() {
         return tenantAccountsAccountsApi;
+    }
+
+    /**
+     * Gets low level endpoints for tenant user interface configuration colors apis.
+     * 
+     * @return tenantUserInterfaceConfigurationColorsApi
+     */
+    @Internal
+    public TenantUserInterfaceConfigurationColorsApi getTenantUserInterfaceConfigurationColorsApi() {
+        return tenantUserInterfaceConfigurationColorsApi;
+    }
+
+    /**
+     * Gets low level endpoints for tenant user interface configuration images apis.
+     * 
+     * @return tenantUserInterfaceConfigurationImagesApi
+     */
+    @Internal
+    public TenantUserInterfaceConfigurationImagesApi getTenantUserInterfaceConfigurationImagesApi() {
+        return tenantUserInterfaceConfigurationImagesApi;
     }
 
     /**

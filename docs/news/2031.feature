@@ -1,0 +1,1 @@
+Supports colour and image branding

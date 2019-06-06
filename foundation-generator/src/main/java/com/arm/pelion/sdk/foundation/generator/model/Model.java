@@ -450,10 +450,15 @@ public class Model extends AbstractSdkArtifact {
         if (hasField) {
             return true;
         }
-        if (Field.isUsualIdentifier(identifier)) {
+        if (isIdentifierField(identifier)) {
             return hasIdentifierField();
         }
         return false;
+    }
+
+    private boolean isIdentifierField(String identifier) {
+        return identifier == null ? false : Field.isUsualIdentifier(identifier)
+                                            || generateEquivalentIdentifierName().equalsIgnoreCase(identifier.trim());
     }
 
     public boolean hasConstant(Field constant) {
@@ -475,7 +480,7 @@ public class Model extends AbstractSdkArtifact {
     public Field fetchField(String identifier) {
         if (hasField(identifier)) {
             final Field value = fields.get(identifier);
-            if (value == null && Field.isUsualIdentifier(identifier)) {
+            if (value == null && isIdentifierField(identifier)) {
                 return getIdentifierField();
             }
             return value;
@@ -871,7 +876,7 @@ public class Model extends AbstractSdkArtifact {
                     final Field equivalentF = f.clone();
                     Method equivalentGetter = null;
                     if (f.isUsualIdentifier()) {
-                        equivalentF.setName(Utils.combineNames(false, name, Field.IDENTIFIER_NAME));// model name + id
+                        equivalentF.setName(generateEquivalentIdentifierName());// model name + id
                         // e.g. ApiKeyId
                     } else {
                         equivalentF.setName(Field.IDENTIFIER_NAME);// Have a setId/getId methods
@@ -929,6 +934,10 @@ public class Model extends AbstractSdkArtifact {
         if (hasFieldsNeedingValidation()) {
             setIgnoreLiteralDuplicate(true);
         }
+    }
+
+    private String generateEquivalentIdentifierName() {
+        return Utils.combineNames(false, name, Field.IDENTIFIER_NAME);
     }
 
     public void addNoIdentifierGetterAndSetter() {

@@ -19,16 +19,16 @@ public class TestDeviceEnrollmentBulkCreate {
     @Test
     public void testClone() {
         try {
-            DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("2ac2d98a-2f8c-40fe-8835-038f8a081d0f",
-                                                                                                    new Date(1559148832253L),
-                                                                                                    new Date(1559148831012L),
-                                                                                                    -48,
-                                                                                                    "15162c66-9e32-4f77-9bf8-283c6dea80cb",
-                                                                                                    "3590be93-0cf4-43e7-9e34-b00d9c1f09df",
-                                                                                                    "OZR8oB7Kq01Hb11bB81qiHSGXZix3CpW",
-                                                                                                    102,
+            DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("7d7b4e94-fc1a-41f2-bb7e-67a6d96872f5",
+                                                                                                    new Date(1559762574383L),
+                                                                                                    new Date(1559762575833L),
+                                                                                                    -6,
+                                                                                                    "5c4ae7c5-c60f-4c21-aa8e-79810fdeb543",
+                                                                                                    "5df1887f-4435-421d-b69a-5fe803b95d18",
+                                                                                                    "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                                    -80,
                                                                                                     DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                    -64);
+                                                                                                    29);
             DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = deviceenrollmentbulkcreate1.clone();
             assertNotNull(deviceenrollmentbulkcreate1);
             assertNotNull(deviceenrollmentbulkcreate2);
@@ -46,26 +46,26 @@ public class TestDeviceEnrollmentBulkCreate {
     @Test
     public void testHashCode() {
         try {
-            DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("879e59b1-88e0-4006-b004-bd7326bb84fc",
-                                                                                                    new Date(1559148831802L),
-                                                                                                    new Date(1559148829676L),
-                                                                                                    -31,
-                                                                                                    "2499827d-71a5-426a-b492-232c82843b8e",
-                                                                                                    "fa347de5-2d8a-4d2b-b3dd-cab07dd56611",
-                                                                                                    "OZR8oB7Kq01Hb11bB81qiHSGXZix3CpW",
-                                                                                                    114,
+            DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("ef14cada-aeca-4388-9c62-456d834709f3",
+                                                                                                    new Date(1559762573183L),
+                                                                                                    new Date(1559762581256L),
+                                                                                                    9,
+                                                                                                    "09788e12-f7d1-4b2a-89e6-999382215bd7",
+                                                                                                    "28005c3f-db18-4143-ab68-b78793f439f7",
+                                                                                                    "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                                    125,
                                                                                                     DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                    75);
-            DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = new DeviceEnrollmentBulkCreate("879e59b1-88e0-4006-b004-bd7326bb84fc",
-                                                                                                    new Date(1559148831802L),
-                                                                                                    new Date(1559148829676L),
-                                                                                                    -31,
-                                                                                                    "2499827d-71a5-426a-b492-232c82843b8e",
-                                                                                                    "fa347de5-2d8a-4d2b-b3dd-cab07dd56611",
-                                                                                                    "OZR8oB7Kq01Hb11bB81qiHSGXZix3CpW",
-                                                                                                    114,
+                                                                                                    -101);
+            DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = new DeviceEnrollmentBulkCreate("ef14cada-aeca-4388-9c62-456d834709f3",
+                                                                                                    new Date(1559762573183L),
+                                                                                                    new Date(1559762581256L),
+                                                                                                    9,
+                                                                                                    "09788e12-f7d1-4b2a-89e6-999382215bd7",
+                                                                                                    "28005c3f-db18-4143-ab68-b78793f439f7",
+                                                                                                    "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                                    125,
                                                                                                     DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                    75);
+                                                                                                    -101);
             assertNotNull(deviceenrollmentbulkcreate1);
             assertNotNull(deviceenrollmentbulkcreate2);
             assertNotSame(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
@@ -86,27 +86,27 @@ public class TestDeviceEnrollmentBulkCreate {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate = new DeviceEnrollmentBulkCreate("b7ea5785-d20a-4c72-b9cb-7619b66818fe",
-                                                                                               new Date(1559148825699L),
-                                                                                               new Date(1559148829138L),
-                                                                                               -6,
-                                                                                               "d4d248cd-9738-4c7b-b3ca-bd863c70e3a8",
-                                                                                               "ca5561de-170d-49aa-8301-789e280fbf67",
-                                                                                               "OZR8oB7Kq01Hb11bB81qiHSGXZix3CpW",
-                                                                                               -86,
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate = new DeviceEnrollmentBulkCreate("64e42494-0cd3-4420-bea2-ffdd941dfa78",
+                                                                                               new Date(1559762573942L),
+                                                                                               new Date(1559762581193L),
+                                                                                               -49,
+                                                                                               "d78baec5-eca8-4ed7-95ed-7ef1b409ddce",
+                                                                                               "d075f7c3-128b-4d37-9eed-027e5ba9e0d2",
+                                                                                               "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                               -22,
                                                                                                DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                               10);
+                                                                                               -16);
         assertTrue(deviceenrollmentbulkcreate.isValid());
-        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreateInvalid = new DeviceEnrollmentBulkCreate("2937e51c-1eb6-4bf7-9a79-2fae6c8b1e2c",
-                                                                                                      new Date(1559148834965L),
-                                                                                                      new Date(1559148831995L),
-                                                                                                      -43,
-                                                                                                      "51c88e1f-eded-4eb9-a009-84fa5d8ec45c",
-                                                                                                      "c4af8084-a53a-4e92-9241-11b61f3b71d7",
-                                                                                                      "c5tE&LP릂\u000f^EacDneNaᇴh\u001aPE?車IQrE2F^vlw,^MU4a2NQ2D`;T#v?c\u0002N邸Y\u0001JUQuuI",
-                                                                                                      21,
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreateInvalid = new DeviceEnrollmentBulkCreate("ded7ce93-1bfe-4b2b-af35-8198f57ffabe",
+                                                                                                      new Date(1559762582291L),
+                                                                                                      new Date(1559762580537L),
+                                                                                                      25,
+                                                                                                      "da76d456-5d2b-4625-8358-60dd4a585262",
+                                                                                                      "338a2253-c78f-48c4-8a32-969bd99ca44a",
+                                                                                                      "t7K7(di)?_d6KSQwvF`D4l匶it]7X7Tt\u0014t6\\\\y\\\\∣tKF\u000544KXEKExt`En[?Eh4Qxfp",
+                                                                                                      -58,
                                                                                                       DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                      107);
+                                                                                                      -97);
         assertFalse(deviceenrollmentbulkcreateInvalid.isValid());
     }
 
@@ -117,36 +117,36 @@ public class TestDeviceEnrollmentBulkCreate {
     @Test
     public void testEquals() {
         try {
-            DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("c751c068-fa24-46c1-8c68-97183433abce",
-                                                                                                    new Date(1559148833562L),
-                                                                                                    new Date(1559148828812L),
-                                                                                                    12,
-                                                                                                    "cd574bd6-1c7d-44de-bff5-f7ed954c02cd",
-                                                                                                    "e0d81f19-aaae-4490-9343-9a982aba07ac",
-                                                                                                    "OZR8oB7Kq01Hb11bB81qiHSGXZix3CpW",
-                                                                                                    -48,
+            DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("9ec77d7a-77c1-46d7-a50e-34e016c520a9",
+                                                                                                    new Date(1559762575589L),
+                                                                                                    new Date(1559762581214L),
+                                                                                                    -57,
+                                                                                                    "f70afef8-0bb4-4bfc-8362-8e2af264c06b",
+                                                                                                    "285ef9b9-05e5-4b7a-b1f8-04c94de751e5",
+                                                                                                    "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                                    64,
                                                                                                     DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                    -105);
-            DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = new DeviceEnrollmentBulkCreate("c751c068-fa24-46c1-8c68-97183433abce",
-                                                                                                    new Date(1559148833562L),
-                                                                                                    new Date(1559148828812L),
-                                                                                                    12,
-                                                                                                    "cd574bd6-1c7d-44de-bff5-f7ed954c02cd",
-                                                                                                    "e0d81f19-aaae-4490-9343-9a982aba07ac",
-                                                                                                    "OZR8oB7Kq01Hb11bB81qiHSGXZix3CpW",
-                                                                                                    -48,
+                                                                                                    -29);
+            DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = new DeviceEnrollmentBulkCreate("9ec77d7a-77c1-46d7-a50e-34e016c520a9",
+                                                                                                    new Date(1559762575589L),
+                                                                                                    new Date(1559762581214L),
+                                                                                                    -57,
+                                                                                                    "f70afef8-0bb4-4bfc-8362-8e2af264c06b",
+                                                                                                    "285ef9b9-05e5-4b7a-b1f8-04c94de751e5",
+                                                                                                    "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                                    64,
                                                                                                     DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                    -105);
-            DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate3 = new DeviceEnrollmentBulkCreate("d2bfc9fd-1070-4751-a463-9a352db50db9",
-                                                                                                    new Date(1559148835269L),
-                                                                                                    new Date(1559148828993L),
-                                                                                                    87,
-                                                                                                    "380c9bbb-3149-41bb-b415-c097b6ebecc5",
-                                                                                                    "7b9028ae-0053-481c-a43f-e4ba16a077b3",
-                                                                                                    "OZR8oB7Kq01Hb11bB81qiHSGXZix3CpW",
-                                                                                                    23,
+                                                                                                    -29);
+            DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate3 = new DeviceEnrollmentBulkCreate("895a084f-8337-418e-ad83-ad4ebc2adc3f",
+                                                                                                    new Date(1559762580785L),
+                                                                                                    new Date(1559762575306L),
+                                                                                                    7,
+                                                                                                    "aedcab5b-3801-49aa-aa28-555c313aeefd",
+                                                                                                    "c26fd055-687b-429a-8e89-e33b782dba8e",
+                                                                                                    "1N20YZukP835BgzZYH8LOPUJsj8kWaIM",
+                                                                                                    -121,
                                                                                                     DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                    -67);
+                                                                                                    87);
             assertNotNull(deviceenrollmentbulkcreate1);
             assertNotNull(deviceenrollmentbulkcreate2);
             assertNotNull(deviceenrollmentbulkcreate3);

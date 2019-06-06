@@ -31,6 +31,32 @@ public final class SubtenantUserAdapter {
     }
 
     /**
+     * Maps a subtenant user into a user info req.
+     * 
+     * @param toBeMapped
+     *            a subtenant user.
+     * @return mapped a user info req
+     */
+    @Internal
+    public static UserInfoReq reverseMapAddRequest(SubtenantUser toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final UserInfoReq userInfoReq = new UserInfoReq();
+        userInfoReq.setAddress(toBeMapped.getAddress());
+        userInfoReq.setEmail(toBeMapped.getEmail());
+        userInfoReq.setFullName(toBeMapped.getFullName());
+        // No field equivalent to groups in UserInfoReq was found in SubtenantUser
+        userInfoReq.setIsGtcAccepted(Boolean.valueOf(toBeMapped.isGtcAccepted()));
+        userInfoReq.setIsMarketingAccepted(Boolean.valueOf(toBeMapped.isMarketingAccepted()));
+        userInfoReq.setLoginProfiles(LoginProfileAdapter.reverseMapAddSimpleList(toBeMapped.getLoginProfiles()));
+        userInfoReq.setPassword(toBeMapped.getPassword());
+        userInfoReq.setPhoneNumber(toBeMapped.getPhoneNumber());
+        userInfoReq.setUsername(toBeMapped.getUsername());
+        return userInfoReq;
+    }
+
+    /**
      * Maps a user info resp into a subtenant user.
      * 
      * @param toBeMapped
@@ -88,32 +114,6 @@ public final class SubtenantUserAdapter {
                 return SubtenantUserAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps a subtenant user into a user info req.
-     * 
-     * @param toBeMapped
-     *            a subtenant user.
-     * @return mapped a user info req
-     */
-    @Internal
-    public static UserInfoReq reverseMapAddRequest(SubtenantUser toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final UserInfoReq userInfoReq = new UserInfoReq();
-        userInfoReq.setAddress(toBeMapped.getAddress());
-        userInfoReq.setEmail(toBeMapped.getEmail());
-        userInfoReq.setFullName(toBeMapped.getFullName());
-        // No field equivalent to groups in UserInfoReq was found in SubtenantUser
-        userInfoReq.setIsGtcAccepted(Boolean.valueOf(toBeMapped.isGtcAccepted()));
-        userInfoReq.setIsMarketingAccepted(Boolean.valueOf(toBeMapped.isMarketingAccepted()));
-        userInfoReq.setLoginProfiles(LoginProfileAdapter.reverseMapAddSimpleList(toBeMapped.getLoginProfiles()));
-        userInfoReq.setPassword(toBeMapped.getPassword());
-        userInfoReq.setPhoneNumber(toBeMapped.getPhoneNumber());
-        userInfoReq.setUsername(toBeMapped.getUsername());
-        return userInfoReq;
     }
 
     /**

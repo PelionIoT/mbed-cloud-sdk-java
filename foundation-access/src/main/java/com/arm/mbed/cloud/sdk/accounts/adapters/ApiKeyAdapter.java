@@ -31,6 +31,26 @@ public final class ApiKeyAdapter {
     }
 
     /**
+     * Maps an api key into an api key info req.
+     * 
+     * @param toBeMapped
+     *            an api key.
+     * @return mapped an api key info req
+     */
+    @Internal
+    public static ApiKeyInfoReq reverseMapAddRequest(ApiKey toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final ApiKeyInfoReq apiKeyInfoReq = new ApiKeyInfoReq();
+        // No field equivalent to groups in ApiKeyInfoReq was found in ApiKey
+        apiKeyInfoReq.setName(toBeMapped.getName());
+        apiKeyInfoReq.setOwner(toBeMapped.getOwner());
+        apiKeyInfoReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelApikeyinforeqStatusenum(toBeMapped.getStatus()));
+        return apiKeyInfoReq;
+    }
+
+    /**
      * Maps an api key info resp into an api key.
      * 
      * @param toBeMapped
@@ -73,26 +93,6 @@ public final class ApiKeyAdapter {
                 return ApiKeyAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps an api key into an api key info req.
-     * 
-     * @param toBeMapped
-     *            an api key.
-     * @return mapped an api key info req
-     */
-    @Internal
-    public static ApiKeyInfoReq reverseMapAddRequest(ApiKey toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final ApiKeyInfoReq apiKeyInfoReq = new ApiKeyInfoReq();
-        // No field equivalent to groups in ApiKeyInfoReq was found in ApiKey
-        apiKeyInfoReq.setName(toBeMapped.getName());
-        apiKeyInfoReq.setOwner(toBeMapped.getOwner());
-        apiKeyInfoReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelApikeyinforeqStatusenum(toBeMapped.getStatus()));
-        return apiKeyInfoReq;
     }
 
     /**
@@ -225,28 +225,6 @@ public final class ApiKeyAdapter {
      * Maps the enum value.
      * 
      * @param toBeMapped
-     *            a status enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static ApiKeyStatus translateToApiKeyStatus(ApiKeyInfoResp.StatusEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return ApiKeyStatus.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case ACTIVE:
-                return ApiKeyStatus.ACTIVE;
-            case INACTIVE:
-                return ApiKeyStatus.INACTIVE;
-            default:
-                return ApiKeyStatus.getUnknownEnum();
-        }
-    }
-
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
      *            an api key status.
      * @return mapped enum value
      */
@@ -263,6 +241,28 @@ public final class ApiKeyAdapter {
                 return ApiKeyInfoReq.StatusEnum.INACTIVE;
             default:
                 return null;
+        }
+    }
+
+    /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
+     *            a status enum.
+     * @return mapped enum value
+     */
+    @Internal
+    protected static ApiKeyStatus translateToApiKeyStatus(ApiKeyInfoResp.StatusEnum toBeMapped) {
+        if (toBeMapped == null) {
+            return ApiKeyStatus.getUnknownEnum();
+        }
+        switch (toBeMapped) {
+            case ACTIVE:
+                return ApiKeyStatus.ACTIVE;
+            case INACTIVE:
+                return ApiKeyStatus.INACTIVE;
+            default:
+                return ApiKeyStatus.getUnknownEnum();
         }
     }
 

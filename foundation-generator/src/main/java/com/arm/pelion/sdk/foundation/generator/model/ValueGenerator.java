@@ -163,6 +163,10 @@ public class ValueGenerator {
             values.addToFormat(DEFAULT_VALUE);
             return;
         }
+        if (field.getType().isEnum() && field.isRequired()) {
+            values.addToFormat(DEFAULT_VALUE);
+            return;
+        }
         if (field.getType().isString() && field.hasValidation() && field.getValidation().hasPattern()) {
             final String validationPattern = Utils.transformRegexBackFromValidString(Utils.applyPatternReverseHack(field.getValidation()
                                                                                                                         .getPattern()
@@ -487,10 +491,15 @@ public class ValueGenerator {
             // FIXME Hack to avoid the stack overflow
             final String transformRegex = regex.replace("\\w", "[a-zA-Z1-9_]").replaceAll("(\\[.*)\\[(.*)\\](.*\\])",
                                                                                           "$1$2$3");
-            final Generex generex = new Generex(transformRegex);
-            final String randomString = generex.random();
-            generatedStringStore.put(regex, randomString);
-            return randomString;
+            try {
+                final Generex generex = new Generex(transformRegex);
+
+                final String randomString = generex.random();
+                generatedStringStore.put(regex, randomString);
+                return randomString;
+            } catch (IllegalArgumentException exception) {
+                throw new IllegalArgumentException("Problem with regex: " + transformRegex, exception);
+            }
         }
     }
 

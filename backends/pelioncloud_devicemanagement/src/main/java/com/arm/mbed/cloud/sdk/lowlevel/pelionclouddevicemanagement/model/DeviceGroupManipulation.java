@@ -1,6 +1,6 @@
 /*
- * Mbed Cloud API
- * The full Mbed Cloud API
+ * Pelion Device Management API
+ * Pelion Device Management API build from the publicly defined API definitions.
  *
  * OpenAPI spec version: 3
  * 
@@ -37,7 +37,7 @@ public class DeviceGroupManipulation implements Serializable {
      * 
      * @return deviceId
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", value = "")
+    @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "")
     public String getDeviceId() {
         return deviceId;
     }

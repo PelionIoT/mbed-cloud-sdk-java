@@ -1,6 +1,6 @@
 /*
- * Mbed Cloud API
- * The full Mbed Cloud API
+ * Pelion Device Management API
+ * Pelion Device Management API build from the publicly defined API definitions.
  *
  * OpenAPI spec version: 3
  * 
@@ -39,6 +39,9 @@ public class ReportBillingData implements Serializable {
 
     @SerializedName("period_start")
     private DateTime periodStart = null;
+
+    @SerializedName("sda_tokens")
+    private Long sdaTokens = null;
 
     public ReportBillingData activeDevices(Long activeDevices) {
         this.activeDevices = activeDevices;
@@ -138,6 +141,25 @@ public class ReportBillingData implements Serializable {
         this.periodStart = periodStart;
     }
 
+    public ReportBillingData sdaTokens(Long sdaTokens) {
+        this.sdaTokens = sdaTokens;
+        return this;
+    }
+
+    /**
+     * Get sdaTokens minimum: 0
+     * 
+     * @return sdaTokens
+     **/
+    @ApiModelProperty(required = true, value = "")
+    public Long getSdaTokens() {
+        return sdaTokens;
+    }
+
+    public void setSdaTokens(Long sdaTokens) {
+        this.sdaTokens = sdaTokens;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -151,12 +173,13 @@ public class ReportBillingData implements Serializable {
                && Objects.equals(this.firmwareUpdates, reportBillingData.firmwareUpdates)
                && Objects.equals(this.generated, reportBillingData.generated)
                && Objects.equals(this.periodEnd, reportBillingData.periodEnd)
-               && Objects.equals(this.periodStart, reportBillingData.periodStart);
+               && Objects.equals(this.periodStart, reportBillingData.periodStart)
+               && Objects.equals(this.sdaTokens, reportBillingData.sdaTokens);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(activeDevices, firmwareUpdates, generated, periodEnd, periodStart);
+        return Objects.hash(activeDevices, firmwareUpdates, generated, periodEnd, periodStart, sdaTokens);
     }
 
     @Override
@@ -169,6 +192,7 @@ public class ReportBillingData implements Serializable {
         sb.append("    generated: ").append(toIndentedString(generated)).append("\n");
         sb.append("    periodEnd: ").append(toIndentedString(periodEnd)).append("\n");
         sb.append("    periodStart: ").append(toIndentedString(periodStart)).append("\n");
+        sb.append("    sdaTokens: ").append(toIndentedString(sdaTokens)).append("\n");
         sb.append("}");
         return sb.toString();
     }
