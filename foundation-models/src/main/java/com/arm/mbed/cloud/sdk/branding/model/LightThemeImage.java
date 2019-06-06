@@ -175,6 +175,12 @@ public class LightThemeImage extends AbstractLightThemeImage {
         return true;
     }
 
+    @SuppressWarnings("PMD.UselessOverridingMethod")
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     /**
      * Checks whether the model is valid or not.
      *

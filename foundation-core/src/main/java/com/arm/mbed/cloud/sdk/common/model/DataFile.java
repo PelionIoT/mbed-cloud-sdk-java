@@ -355,8 +355,9 @@ public class DataFile implements SdkModel {
                 return JPEG_IMAGE_FILE_MEDIA_TYPE;
             case BMP_EXTENSION:
                 return BMP_IMAGE_FILE_MEDIA_TYPE;
+            default:
+                return BINARY_FILE_MEDIA_TYPE;
         }
-        return BINARY_FILE_MEDIA_TYPE;
     }
 
     @Override
