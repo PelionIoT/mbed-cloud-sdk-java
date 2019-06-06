@@ -4,12 +4,15 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -55,8 +58,9 @@ public class NotificationHandlersStore implements Closeable {
     private final ExecutorService pullThreads;
     private Future<?> pullHandle;
     private final EndPoints endpoint;
-    private final ExecutorService customSubscriptionHandlingExecutor;
+    private final Scheduler customSubscriptionHandlingScheduler;
     private final SubscriptionObserversStore observerStore;
+    private static final TimePeriod TERMINATION_PERIOD = new TimePeriod(1);
 
     /**
      * Notification store constructor.
@@ -73,22 +77,39 @@ public class NotificationHandlersStore implements Closeable {
     public NotificationHandlersStore(AbstractModule module, ExecutorService pullingThread,
                                      ExecutorService subscriptionHandlingExecutor, EndPoints endpoint) {
         super();
-        this.pullThreads = pullingThread;
+        pullHandle = null;
+        this.pullThreads = pullingThread == null ? createDefaultDaemonThreadPool() : pullingThread;
         this.endpoint = createNotificationPull(endpoint);
         this.module = module;
-        pullHandle = null;
-        customSubscriptionHandlingExecutor = subscriptionHandlingExecutor;
+        customSubscriptionHandlingScheduler = subscriptionHandlingExecutor == null ? Schedulers.computation()
+                                                                                   : Schedulers.from(subscriptionHandlingExecutor);
         final boolean unsubscribeOnExit = module == null ? false
                                                          : module.getConnectionOption() == null ? true
                                                                                                 : !module.getConnectionOption()
                                                                                                          .isSkipCleanup();
-        observerStore = new SubscriptionObserversStore((customSubscriptionHandlingExecutor == null) ? Schedulers.computation()
-                                                                                                    : Schedulers.from(customSubscriptionHandlingExecutor),
+        observerStore = new SubscriptionObserversStore(customSubscriptionHandlingScheduler,
                                                        new ResourceSubscriber(module, FirstValue.getDefault()),
                                                        new ResourceUnsubscriber(module, FirstValue.getDefault()),
                                                        unsubscribeOnExit ? new ResourceUnsubscriberAll(module,
                                                                                                        FirstValue.getDefault())
                                                                          : null);
+    }
+
+    /**
+     * Creates a default thread pool in case none was specified.
+     *
+     * @return thread pool
+     */
+    private static ScheduledExecutorService createDefaultDaemonThreadPool() {
+        return Executors.newScheduledThreadPool(1, new ThreadFactory() {
+
+            @Override
+            public Thread newThread(Runnable runable) {
+                final Thread thread = new Thread(runable);
+                thread.setDaemon(true);
+                return thread;
+            }
+        });
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
@@ -162,9 +183,14 @@ public class NotificationHandlersStore implements Closeable {
      * Shuts down the store and the thread pool it uses.
      */
     public void shutdown() {
-        logDebug("Shutting down polling thread");
-        if (pullThreads != null) {
-            pullThreads.shutdown();
+        logDebug("Shutting down notification listening thread");
+        pullThreads.shutdown();
+        try {
+            if (!pullThreads.awaitTermination(TERMINATION_PERIOD.getDuration(), TERMINATION_PERIOD.getUnit())) {
+                pullThreads.shutdownNow();
+            }
+        } catch (@SuppressWarnings("unused") InterruptedException exception) {
+            pullThreads.shutdownNow();
         }
         logDebug("Clearing notification handler store");
         try {
@@ -173,9 +199,9 @@ public class NotificationHandlersStore implements Closeable {
             logError("Failed clearing notification handler store", exception);
         }
         logDebug("Shutting down notification threads");
-        if (customSubscriptionHandlingExecutor != null) {
-            customSubscriptionHandlingExecutor.shutdown();
-        }
+        logDebug("Shutting down notification handling threads");
+        customSubscriptionHandlingScheduler.shutdown();
+
         // shutting down schedulers can have side effects
         // logDebug("Shutting down notification schedulers");
         // try {

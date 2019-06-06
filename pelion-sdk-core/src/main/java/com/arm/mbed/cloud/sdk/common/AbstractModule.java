@@ -88,14 +88,14 @@ public abstract class AbstractModule implements SdkContext {
      * <p>
      * See {@link ApiClientWrapper#shareNetworkLayer(ApiClientWrapper)}
      * 
-     * @param anotherModule
+     * @param anotherContext
      *            another module instance.
      */
-    public void shareNetworkLayer(AbstractModule anotherModule) {
-        if (client == null || anotherModule == null) {
+    public void shareNetworkLayer(SdkContext anotherContext) {
+        if (client == null || anotherContext == null) {
             return;
         }
-        client.shareNetworkLayer(anotherModule.getClient());
+        client.shareNetworkLayer(anotherContext.getClient());
     }
 
     /*
