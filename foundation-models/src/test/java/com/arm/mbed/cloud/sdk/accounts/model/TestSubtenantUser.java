@@ -19,15 +19,16 @@ public class TestSubtenantUser {
     @Test
     public void testClone() {
         try {
-            SubtenantUser subtenantuser1 = new SubtenantUser("4adee5e374fd8e0cf4a09b2e4c7a53cc", null,
-                                                             "1ec7ef0f-0e45-42f2-ba62-e9283f6eb033",
-                                                             new Date(1559762577495L), 14, null, "723ca.3665b@3b7fc.fr",
-                                                             true, "39bf3e0a-548e-4674-9b0a-b3a5c1de99b3",
-                                                             "4adee5e374fd8e0cf4a09b2e4c7a53cc", true, false, true, 3,
-                                                             null, null, "5dad862d-68ba-422c-b89a-6460ee5680b8", 41,
-                                                             "428c5a72-e01d-4df4-bcb8-f23ad843ef33",
+            SubtenantUser subtenantuser1 = new SubtenantUser("50c4d27a9ffc08ee2efd6a9c2bd4a4d8", null,
+                                                             "bdd3e24c-3037-4d46-a326-c9c7a5fe3e16",
+                                                             new Date(1559833513842L), -127, null,
+                                                             "d1c9e.67508@ddee3.me", false,
+                                                             "3780dee9-fc5a-4113-b478-14c7fbce67b6",
+                                                             "50c4d27a9ffc08ee2efd6a9c2bd4a4d8", false, true, true, 58,
+                                                             null, null, "e04603cb-376b-4f9c-9494-0deb1e7d72df", 5,
+                                                             "70579f56-2206-40ec-8c8f-05e86031f515",
                                                              SubtenantUserStatus.getDefault(), null,
-                                                             new Date(1559762580580L), "p6,_5S9.-");
+                                                             new Date(1559833512901L), "H_5F76n");
             SubtenantUser subtenantuser2 = subtenantuser1.clone();
             assertNotNull(subtenantuser1);
             assertNotNull(subtenantuser2);
@@ -45,24 +46,26 @@ public class TestSubtenantUser {
     @Test
     public void testHashCode() {
         try {
-            SubtenantUser subtenantuser1 = new SubtenantUser("4adee5e374fd8e0cf4a09b2e4c7a53cc", null,
-                                                             "e2b9a132-c89c-4bc7-bf74-5c53dc440e36",
-                                                             new Date(1559762581681L), 62, null, "f5c38.7f962@964e4.fr",
-                                                             false, "8bbf8f2a-5921-423d-a4c3-44b4fc9dedc4",
-                                                             "4adee5e374fd8e0cf4a09b2e4c7a53cc", true, false, false,
-                                                             -112, null, null, "57609161-2868-4c50-a717-d2b0b7e5d706",
-                                                             36, "676496af-2e6f-49cb-8dfe-8ba0beaec088",
+            SubtenantUser subtenantuser1 = new SubtenantUser("50c4d27a9ffc08ee2efd6a9c2bd4a4d8", null,
+                                                             "35366bc6-2154-4039-963c-fe0b7c165a5c",
+                                                             new Date(1559833511952L), -85, null,
+                                                             "65baa.eed02@824bc.fr", true,
+                                                             "6ad03c3f-6e8a-4e3d-93e6-0d2aa832809d",
+                                                             "50c4d27a9ffc08ee2efd6a9c2bd4a4d8", false, false, false,
+                                                             -101, null, null, "147e9871-7fd7-4477-9c5a-a1aac3dc6079",
+                                                             -55, "a2c84872-7038-47d3-ae77-02857f7bcc37",
                                                              SubtenantUserStatus.getDefault(), null,
-                                                             new Date(1559762580396L), "p6,_5S9.-");
-            SubtenantUser subtenantuser2 = new SubtenantUser("4adee5e374fd8e0cf4a09b2e4c7a53cc", null,
-                                                             "e2b9a132-c89c-4bc7-bf74-5c53dc440e36",
-                                                             new Date(1559762581681L), 62, null, "f5c38.7f962@964e4.fr",
-                                                             false, "8bbf8f2a-5921-423d-a4c3-44b4fc9dedc4",
-                                                             "4adee5e374fd8e0cf4a09b2e4c7a53cc", true, false, false,
-                                                             -112, null, null, "57609161-2868-4c50-a717-d2b0b7e5d706",
-                                                             36, "676496af-2e6f-49cb-8dfe-8ba0beaec088",
+                                                             new Date(1559833514510L), "H_5F76n");
+            SubtenantUser subtenantuser2 = new SubtenantUser("50c4d27a9ffc08ee2efd6a9c2bd4a4d8", null,
+                                                             "35366bc6-2154-4039-963c-fe0b7c165a5c",
+                                                             new Date(1559833511952L), -85, null,
+                                                             "65baa.eed02@824bc.fr", true,
+                                                             "6ad03c3f-6e8a-4e3d-93e6-0d2aa832809d",
+                                                             "50c4d27a9ffc08ee2efd6a9c2bd4a4d8", false, false, false,
+                                                             -101, null, null, "147e9871-7fd7-4477-9c5a-a1aac3dc6079",
+                                                             -55, "a2c84872-7038-47d3-ae77-02857f7bcc37",
                                                              SubtenantUserStatus.getDefault(), null,
-                                                             new Date(1559762580396L), "p6,_5S9.-");
+                                                             new Date(1559833514510L), "H_5F76n");
             assertNotNull(subtenantuser1);
             assertNotNull(subtenantuser2);
             assertNotSame(subtenantuser2, subtenantuser1);
@@ -83,26 +86,26 @@ public class TestSubtenantUser {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        SubtenantUser subtenantuser = new SubtenantUser("4adee5e374fd8e0cf4a09b2e4c7a53cc", null,
-                                                        "5944f299-44f9-4e32-8004-956cc2593151",
-                                                        new Date(1559762577075L), -89, null, "e3aa7.7adcb@973c6.fr",
-                                                        false, "2439cb1d-493d-4052-8b4a-72370890d971",
-                                                        "4adee5e374fd8e0cf4a09b2e4c7a53cc", false, true, true, -90,
-                                                        null, null, "6bf399c0-6651-4f0d-9c44-f687028d6947", 62,
-                                                        "39d4ad1f-c3f2-41db-aa25-42336f90e125",
+        SubtenantUser subtenantuser = new SubtenantUser("50c4d27a9ffc08ee2efd6a9c2bd4a4d8", null,
+                                                        "b3b57624-14ab-4df1-bcd4-2a510d5cc019",
+                                                        new Date(1559833508792L), 74, null, "6151a.a703e@eedde.me",
+                                                        false, "6950bab1-f26e-43ab-91c3-4956d981dbe6",
+                                                        "50c4d27a9ffc08ee2efd6a9c2bd4a4d8", false, false, true, -125,
+                                                        null, null, "cb6688e6-64f8-43d7-9888-8bebb04aa031", -7,
+                                                        "848a7eae-f6a8-45bf-88d4-be0a1acaa63c",
                                                         SubtenantUserStatus.getDefault(), null,
-                                                        new Date(1559762576437L), "p6,_5S9.-");
+                                                        new Date(1559833507696L), "H_5F76n");
         assertTrue(subtenantuser.isValid());
-        SubtenantUser subtenantuserInvalid = new SubtenantUser(null, null, "1bb56e12-6fef-496e-8cd4-33104103918a",
-                                                               new Date(1559762580159L), -12, null, null, true,
-                                                               "3212f29f-4321-464a-bbba-4cb92556e2fec8ba47dc-9070-4104-ba3f-5f2451eae1c99c8a8ec7-9b3a-491f-9191-80d0b3202877",
-                                                               "Nᄞ1FS1?1Z6I6ꨲ661P#꘲觊毚J؟1䚑\u000211⹥1NF\u0005<6俈166AX1@G6\u0001K6#+-典6칷\u000566핚1(1_1\t",
-                                                               false, true, true, 21, null, null,
-                                                               "b5d7ee53-48f6-4d8c-8f2d-ac7a1e3750b6", -40,
-                                                               "646d8444-7fff-4cc7-8314-0853cf96ddd6bce373b3-2e38-4143-a230-9c9ffe4313c86d6287eb-1dc3-4395-9f45-2fa5c4db4c3a",
+        SubtenantUser subtenantuserInvalid = new SubtenantUser(null, null, "e042910e-59d2-4c4f-85b4-56791376c724",
+                                                               new Date(1559833510277L), 3, null, null, false,
+                                                               "0cb71b25-de90-4dbc-b3a5-50b53d78fcd24f5285f0-84e6-41a4-833a-28849f400454a4e72202-b4f6-41fb-9cc6-13a287a2c748",
+                                                               "13Z3@뜼D,RḪ3估羙P3�?-�?31%ಪD痪�?_\u0003ꪯ\u001f૽1W媉绥[3<\u0007�?�浙11\u00061313#\u0016113_�?C3酩31濘U111",
+                                                               true, false, true, -50, null, null,
+                                                               "362e0d85-e45f-46a9-a556-d8303e79f6a2", 117,
+                                                               "2b28debb-f30c-4a55-8a50-4cb0bdf5d652847eb055-b95a-40fe-9e9f-b173bf1eaa2d1147729a-d681-43b9-ba51-5498bcb87a3e",
                                                                SubtenantUserStatus.getDefault(), null,
-                                                               new Date(1559762577861L),
-                                                               "\u001d-j74QHV7U磥n-\u001b\u0004\u00188A\u00018-L7\u0005;/]\u001b8i8\u0003Y-\u000eC-4-7\u001f4\fi-]\u000e7!17\u0010爂\\\\�?�8\u001a/>�?�3Y]i");
+                                                               new Date(1559833508479L),
+                                                               "@\u001eE璜G\fGGC'\fSGe\u0006>\u0012[魄e\u000bV䥪/YT䀓GbkG`DXel8Q\u001c�?�h8g^쿄G0EG�?裯谕술봶GaC핎8Gg\fai");
         assertFalse(subtenantuserInvalid.isValid());
     }
 
@@ -113,35 +116,33 @@ public class TestSubtenantUser {
     @Test
     public void testEquals() {
         try {
-            SubtenantUser subtenantuser1 = new SubtenantUser("4adee5e374fd8e0cf4a09b2e4c7a53cc", null,
-                                                             "ba1d1e22-5d7f-4e77-8323-cd5d5395a929",
-                                                             new Date(1559762575338L), -76, null,
-                                                             "6b2e0.e7796@26c4f.fr", true,
-                                                             "15a7c0cc-69a7-4a0e-af3e-49d7269aa7bd",
-                                                             "4adee5e374fd8e0cf4a09b2e4c7a53cc", false, false, true,
-                                                             -72, null, null, "491d6f14-d638-4f66-8d7f-89a6143d9b2c",
-                                                             98, "d50a2c41-20aa-4f85-8338-0cbb3f873d99",
+            SubtenantUser subtenantuser1 = new SubtenantUser("50c4d27a9ffc08ee2efd6a9c2bd4a4d8", null,
+                                                             "4174c105-8fb6-4b2f-94d9-5f2bfa66db21",
+                                                             new Date(1559833514181L), -1, null, "52fcb.f1b09@ecf9f.me",
+                                                             true, "f8798982-f7c3-4f9a-990c-dc425dcf65a7",
+                                                             "50c4d27a9ffc08ee2efd6a9c2bd4a4d8", true, false, true, 60,
+                                                             null, null, "549214f8-e950-49d0-ae62-9df3fdea549e", 81,
+                                                             "aa3bf430-93d8-4e50-a0f4-8c20f6aaff8b",
                                                              SubtenantUserStatus.getDefault(), null,
-                                                             new Date(1559762575547L), "p6,_5S9.-");
-            SubtenantUser subtenantuser2 = new SubtenantUser("4adee5e374fd8e0cf4a09b2e4c7a53cc", null,
-                                                             "ba1d1e22-5d7f-4e77-8323-cd5d5395a929",
-                                                             new Date(1559762575338L), -76, null,
-                                                             "6b2e0.e7796@26c4f.fr", true,
-                                                             "15a7c0cc-69a7-4a0e-af3e-49d7269aa7bd",
-                                                             "4adee5e374fd8e0cf4a09b2e4c7a53cc", false, false, true,
-                                                             -72, null, null, "491d6f14-d638-4f66-8d7f-89a6143d9b2c",
-                                                             98, "d50a2c41-20aa-4f85-8338-0cbb3f873d99",
+                                                             new Date(1559833512786L), "H_5F76n");
+            SubtenantUser subtenantuser2 = new SubtenantUser("50c4d27a9ffc08ee2efd6a9c2bd4a4d8", null,
+                                                             "4174c105-8fb6-4b2f-94d9-5f2bfa66db21",
+                                                             new Date(1559833514181L), -1, null, "52fcb.f1b09@ecf9f.me",
+                                                             true, "f8798982-f7c3-4f9a-990c-dc425dcf65a7",
+                                                             "50c4d27a9ffc08ee2efd6a9c2bd4a4d8", true, false, true, 60,
+                                                             null, null, "549214f8-e950-49d0-ae62-9df3fdea549e", 81,
+                                                             "aa3bf430-93d8-4e50-a0f4-8c20f6aaff8b",
                                                              SubtenantUserStatus.getDefault(), null,
-                                                             new Date(1559762575547L), "p6,_5S9.-");
-            SubtenantUser subtenantuser3 = new SubtenantUser("4adee5e374fd8e0cf4a09b2e4c7a53cc", null,
-                                                             "a3fe77b0-8772-4ab5-9eea-3fec28606178",
-                                                             new Date(1559762572966L), 75, null, "a2039.66891@e6b22.fr",
-                                                             true, "93ff3fc0-8474-43e4-9248-2a7a2d87a5a3",
-                                                             "4adee5e374fd8e0cf4a09b2e4c7a53cc", false, false, true, 68,
-                                                             null, null, "e76362ee-dcca-4b04-9b68-a8cdd376fc31", 46,
-                                                             "a7278f2c-d24f-4854-ad2c-5de59ec5efc1",
+                                                             new Date(1559833512786L), "H_5F76n");
+            SubtenantUser subtenantuser3 = new SubtenantUser("50c4d27a9ffc08ee2efd6a9c2bd4a4d8", null,
+                                                             "b6df54a8-1070-4078-9e75-d09d2a456e70",
+                                                             new Date(1559833510678L), 6, null, "4707c.66c37@5ef81.fr",
+                                                             true, "22a48ce5-ceba-4972-a129-6b1047e09b7c",
+                                                             "50c4d27a9ffc08ee2efd6a9c2bd4a4d8", true, false, true, 115,
+                                                             null, null, "9a7d53a4-d3c6-47ec-b917-732f4116bcb1", -12,
+                                                             "1b3ebc5c-ad2d-4848-93e0-a9a16c149def",
                                                              SubtenantUserStatus.getDefault(), null,
-                                                             new Date(1559762575179L), "p6,_5S9.-");
+                                                             new Date(1559833507509L), "H_5F76n");
             assertNotNull(subtenantuser1);
             assertNotNull(subtenantuser2);
             assertNotNull(subtenantuser3);

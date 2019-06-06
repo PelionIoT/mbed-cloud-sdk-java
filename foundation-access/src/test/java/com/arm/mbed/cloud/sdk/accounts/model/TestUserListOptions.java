@@ -23,9 +23,9 @@ public class TestUserListOptions {
     @Test
     public void testClone() {
         try {
-            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-92), Long.valueOf(97),
+            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-92), Long.valueOf(1),
                                                                    Order.getDefault(),
-                                                                   "3a6f4c9a-0c3c-430a-9289-c24732d0c020", null, null);
+                                                                   "d586faa4-2872-4b0f-9bb3-f31284b54190", null, null);
             UserListOptions userlistoptions2 = userlistoptions1.clone();
             assertNotNull(userlistoptions1);
             assertNotNull(userlistoptions2);
@@ -48,16 +48,15 @@ public class TestUserListOptions {
             // only accepts single values
             UserListOptions option = new UserListOptions().equalToStatus(UserStatus.getDefault())
                                                           .inStatuses(Arrays.asList(UserStatus.getDefault(),
+                                                                                    UserStatus.getDefault(),
+                                                                                    UserStatus.getDefault(),
+                                                                                    UserStatus.getDefault(),
                                                                                     UserStatus.getDefault()))
                                                           .notInStatuses(Arrays.asList(UserStatus.getDefault(),
                                                                                        UserStatus.getDefault(),
                                                                                        UserStatus.getDefault(),
-                                                                                       UserStatus.getDefault(),
-                                                                                       UserStatus.getDefault(),
-                                                                                       UserStatus.getDefault(),
-                                                                                       UserStatus.getDefault(),
                                                                                        UserStatus.getDefault()))
-                                                          .equalToEmail("b7662.14d98@fe33f.fr");
+                                                          .equalToEmail("9c5b2.418fd@26079.me");
             assertTrue(option.hasFilters());
             // Cannot test Filter [field=loginProfiles, spec field=loginProfiles, tag=TAG_FILTER_BY_LOGIN_PROFILES,
             // operator=equal to, type=List<LoginProfile>, isVerified=true] because the field is a list and the filter
@@ -71,21 +70,21 @@ public class TestUserListOptions {
             assertTrue(option.hasFilters(UserListOptions.TAG_FILTER_BY_STATUS));
             assertTrue(option.hasFilter(UserListOptions.TAG_FILTER_BY_STATUS, FilterOperator.IN));
             assertNotNull(option.getStatusFilters());
-            assertEquals(Arrays.asList(UserStatus.getDefault(), UserStatus.getDefault()),
+            assertEquals(Arrays.asList(UserStatus.getDefault(), UserStatus.getDefault(), UserStatus.getDefault(),
+                                       UserStatus.getDefault(), UserStatus.getDefault()),
                          ListOptionsEncoder.encodeSingleInFilter(UserListOptions.TAG_FILTER_BY_STATUS, List.class,
                                                                  option));
             assertTrue(option.hasFilters(UserListOptions.TAG_FILTER_BY_STATUS));
             assertTrue(option.hasFilter(UserListOptions.TAG_FILTER_BY_STATUS, FilterOperator.NOT_IN));
             assertNotNull(option.getStatusFilters());
             assertEquals(Arrays.asList(UserStatus.getDefault(), UserStatus.getDefault(), UserStatus.getDefault(),
-                                       UserStatus.getDefault(), UserStatus.getDefault(), UserStatus.getDefault(),
-                                       UserStatus.getDefault(), UserStatus.getDefault()),
+                                       UserStatus.getDefault()),
                          ListOptionsEncoder.encodeSingleNotInFilter(UserListOptions.TAG_FILTER_BY_STATUS, List.class,
                                                                     option));
             assertTrue(option.hasFilters(UserListOptions.TAG_FILTER_BY_EMAIL));
             assertTrue(option.hasFilter(UserListOptions.TAG_FILTER_BY_EMAIL, FilterOperator.EQUAL));
             assertNotNull(option.getEmailFilters());
-            assertEquals("b7662.14d98@fe33f.fr",
+            assertEquals("9c5b2.418fd@26079.me",
                          ListOptionsEncoder.encodeSingleEqualFilter(UserListOptions.TAG_FILTER_BY_EMAIL, String.class,
                                                                     option));
         } catch (Exception exception) {
@@ -100,12 +99,12 @@ public class TestUserListOptions {
     @Test
     public void testHashCode() {
         try {
-            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-112), Long.valueOf(-62),
+            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-89), Long.valueOf(-15),
                                                                    Order.getDefault(),
-                                                                   "0941b6b8-133e-4b1c-b01a-56b9b69163b9", null, null);
-            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-112), Long.valueOf(-62),
+                                                                   "9bb70309-18ac-4be3-97ed-5076e87c6846", null, null);
+            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-89), Long.valueOf(-15),
                                                                    Order.getDefault(),
-                                                                   "0941b6b8-133e-4b1c-b01a-56b9b69163b9", null, null);
+                                                                   "9bb70309-18ac-4be3-97ed-5076e87c6846", null, null);
             assertNotNull(userlistoptions1);
             assertNotNull(userlistoptions2);
             assertNotSame(userlistoptions2, userlistoptions1);
@@ -127,15 +126,15 @@ public class TestUserListOptions {
     @Test
     public void testEquals() {
         try {
-            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(-71), Long.valueOf(-68),
+            UserListOptions userlistoptions1 = new UserListOptions(Integer.valueOf(8), Long.valueOf(-86),
                                                                    Order.getDefault(),
-                                                                   "7377d290-6bfc-4b70-bfd4-82f09a972c3e", null, null);
-            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(-71), Long.valueOf(-68),
+                                                                   "28147027-4b33-4b8f-b6da-86e064315e8f", null, null);
+            UserListOptions userlistoptions2 = new UserListOptions(Integer.valueOf(8), Long.valueOf(-86),
                                                                    Order.getDefault(),
-                                                                   "7377d290-6bfc-4b70-bfd4-82f09a972c3e", null, null);
-            UserListOptions userlistoptions3 = new UserListOptions(Integer.valueOf(-124), Long.valueOf(54),
+                                                                   "28147027-4b33-4b8f-b6da-86e064315e8f", null, null);
+            UserListOptions userlistoptions3 = new UserListOptions(Integer.valueOf(86), Long.valueOf(124),
                                                                    Order.getDefault(),
-                                                                   "62007c24-8422-4cfc-b277-9535e8932485", null, null);
+                                                                   "e96e6888-009d-4e4b-8208-187544d7916f", null, null);
             assertNotNull(userlistoptions1);
             assertNotNull(userlistoptions2);
             assertNotNull(userlistoptions3);

@@ -18,8 +18,8 @@ public class TestLoginProfile {
     @Test
     public void testClone() {
         try {
-            LoginProfile loginprofile1 = new LoginProfile("f263cb6e-1f76-4439-90c1-72576aa0400b",
-                                                          "bfed1e58-4d4e-4c7d-9607-7bced8b2969b");
+            LoginProfile loginprofile1 = new LoginProfile("eef28c47-3e6f-4821-8212-9a4278420189",
+                                                          "f445b7f7-a81f-49b4-b086-f49cf22bb967");
             LoginProfile loginprofile2 = loginprofile1.clone();
             assertNotNull(loginprofile1);
             assertNotNull(loginprofile2);
@@ -37,10 +37,10 @@ public class TestLoginProfile {
     @Test
     public void testHashCode() {
         try {
-            LoginProfile loginprofile1 = new LoginProfile("da2af556-0241-4154-acc1-26682cfb811e",
-                                                          "16b842df-9544-4f8e-8da2-ae5f3931864e");
-            LoginProfile loginprofile2 = new LoginProfile("da2af556-0241-4154-acc1-26682cfb811e",
-                                                          "16b842df-9544-4f8e-8da2-ae5f3931864e");
+            LoginProfile loginprofile1 = new LoginProfile("2cd61312-1287-4dd9-a846-8e101907ef87",
+                                                          "8272b403-dddf-4dbb-8c14-657945e4e69e");
+            LoginProfile loginprofile2 = new LoginProfile("2cd61312-1287-4dd9-a846-8e101907ef87",
+                                                          "8272b403-dddf-4dbb-8c14-657945e4e69e");
             assertNotNull(loginprofile1);
             assertNotNull(loginprofile2);
             assertNotSame(loginprofile2, loginprofile1);
@@ -61,8 +61,8 @@ public class TestLoginProfile {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        LoginProfile loginprofile = new LoginProfile("78d345b0-2ed1-434c-8ec7-0d923f6f4a82",
-                                                     "46c788ad-2cfb-4023-a154-b1dd373f815f");
+        LoginProfile loginprofile = new LoginProfile("0eea704d-b06d-4c10-ae45-8c3b61d7f93b",
+                                                     "8b8a89f3-a617-4f4b-aa1c-7350647dc5d0");
         assertTrue(loginprofile.isValid());
     }
 
@@ -73,12 +73,12 @@ public class TestLoginProfile {
     @Test
     public void testEquals() {
         try {
-            LoginProfile loginprofile1 = new LoginProfile("5bd62bb7-1b51-4df4-8b14-ebac9e31682e",
-                                                          "f95ea2e4-b5fd-4d91-b8cc-5a754ae7fa6c");
-            LoginProfile loginprofile2 = new LoginProfile("5bd62bb7-1b51-4df4-8b14-ebac9e31682e",
-                                                          "f95ea2e4-b5fd-4d91-b8cc-5a754ae7fa6c");
-            LoginProfile loginprofile3 = new LoginProfile("2f09511b-c1f9-456c-8de4-2da075cf13e8",
-                                                          "d31814a0-135a-48ec-88f8-32ddbaf96083");
+            LoginProfile loginprofile1 = new LoginProfile("b15a987f-3ca9-4d01-a5a4-e1fdc312381e",
+                                                          "9446b175-6414-4b3a-a0ee-a574d2316e8f");
+            LoginProfile loginprofile2 = new LoginProfile("b15a987f-3ca9-4d01-a5a4-e1fdc312381e",
+                                                          "9446b175-6414-4b3a-a0ee-a574d2316e8f");
+            LoginProfile loginprofile3 = new LoginProfile("190ad0c7-aff9-4947-9d08-70cb39fe8367",
+                                                          "1c910080-cdff-40a6-9342-15fcdd52ca33");
             assertNotNull(loginprofile1);
             assertNotNull(loginprofile2);
             assertNotNull(loginprofile3);
