@@ -4,7 +4,7 @@ import os
 
 
 # Block in charge of fetching SDK test runner (Docker container)
-class SDKTestRunnerFetcher(sdk_common.BuildStep):
+class SDKTestRunnerFetcher(sdk_common.BuildStepUsingAWS):
     def __init__(self, logger=None):
         super(SDKTestRunnerFetcher, self).__init__('SDK test runner fetch', logger)
         self.image_to_fetch = str(self.common_config.get_config().get_testrunner_docker_image())
@@ -24,13 +24,7 @@ class SDKTestRunnerFetcher(sdk_common.BuildStep):
         self.print_title()
         try:
             self.log_info("Logging to docker images repository")
-            command = "aws ecr get-login"
-            result = self.execute_command_output(command)
-            if not result or not ("Login Succeeded" in result):
-                command = "aws ecr get-login --no-include-email"
-                result = self.execute_command_output(command)
-            if not result or not ("Login Succeeded" in result):
-                raise Exception('Login Error', result)
+            self.login()
             self.log_info("Fetching SDK test runner:")
             self.log_info("[%s]" % self.image_to_fetch)
             return_code = self.pull_image(self.image_to_fetch, self.image_to_fetch)
