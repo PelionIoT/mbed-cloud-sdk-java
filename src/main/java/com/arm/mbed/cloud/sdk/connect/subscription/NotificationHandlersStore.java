@@ -370,8 +370,8 @@ public class NotificationHandlersStore implements Closeable {
         }
 
         public void shutdown() {
-            rxScheduler.shutdown();
-            if (executor != null) {
+            if (hasExecutor()) {
+                rxScheduler.shutdown();
                 executor.shutdown();
                 try {
                     if (!executor.awaitTermination(TERMINATION_PERIOD.getDuration(), TERMINATION_PERIOD.getUnit())) {
