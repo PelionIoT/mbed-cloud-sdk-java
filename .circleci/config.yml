@@ -218,7 +218,7 @@ jobs:
         no_output_timeout:  1h
     - run:
         name: Storing test server image
-        command: ${SCRIPTS_DIR}/sdk.py push_testserver
+        command: python3 ${SCRIPTS_DIR}/sdk.py push_testserver
         no_output_timeout:  1h
     - run: python3 ${SCRIPTS_DIR}/sdk.py notify
     - <<: *store_logs
