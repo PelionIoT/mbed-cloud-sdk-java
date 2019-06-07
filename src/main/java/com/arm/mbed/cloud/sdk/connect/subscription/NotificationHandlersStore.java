@@ -55,12 +55,11 @@ import retrofit2.Call;
 public class NotificationHandlersStore implements Closeable {
 
     private final AbstractModule module;
-    private final ExecutorService listeningThreads;
     private Future<?> listenerHandle;
     private final EndPoints endpoint;
-    private final Scheduler customSubscriptionHandlingScheduler;
+    private final SchedulerManager listeningThreads;
+    private final SchedulerManager customSubscriptionHandlingScheduler;
     private final SubscriptionObserversStore observerStore;
-    private static final TimePeriod TERMINATION_PERIOD = new TimePeriod(1);
 
     /**
      * Notification store constructor.
@@ -77,17 +76,17 @@ public class NotificationHandlersStore implements Closeable {
     public NotificationHandlersStore(AbstractModule module, ExecutorService listeningThread,
                                      ExecutorService subscriptionHandlingExecutor, EndPoints endpoint) {
         super();
-        this.listeningThreads = listeningThread == null ? createDefaultDaemonThreadPool() : listeningThread;
+        this.listeningThreads = new SchedulerManager(listeningThread == null ? createDefaultDaemonThreadPool()
+                                                                             : listeningThread);
         this.endpoint = createNotificationPull(endpoint);
         this.module = module;
+        customSubscriptionHandlingScheduler = new SchedulerManager(subscriptionHandlingExecutor);
         listenerHandle = null;
-        customSubscriptionHandlingScheduler = subscriptionHandlingExecutor == null ? Schedulers.computation()
-                                                                                   : Schedulers.from(subscriptionHandlingExecutor);
         final boolean unsubscribeOnExit = module == null ? false
                                                          : module.getConnectionOption() == null ? true
                                                                                                 : !module.getConnectionOption()
                                                                                                          .isSkipCleanup();
-        observerStore = new SubscriptionObserversStore(customSubscriptionHandlingScheduler,
+        observerStore = new SubscriptionObserversStore(customSubscriptionHandlingScheduler.getScheduler(),
                                                        new ResourceSubscriber(module, FirstValue.getDefault()),
                                                        new ResourceUnsubscriber(module, FirstValue.getDefault()),
                                                        unsubscribeOnExit ? new ResourceUnsubscriberAll(module,
@@ -159,13 +158,6 @@ public class NotificationHandlersStore implements Closeable {
     public void shutdown() {
         logDebug("Shutting down notification listening thread");
         listeningThreads.shutdown();
-        try {
-            if (!listeningThreads.awaitTermination(TERMINATION_PERIOD.getDuration(), TERMINATION_PERIOD.getUnit())) {
-                listeningThreads.shutdownNow();
-            }
-        } catch (@SuppressWarnings("unused") InterruptedException exception) {
-            listeningThreads.shutdownNow();
-        }
         logDebug("Clearing notification handler store");
         try {
             clearStores();
@@ -359,6 +351,53 @@ public class NotificationHandlersStore implements Closeable {
                 }
             }
         };
+    }
+
+    /**
+     * 
+     * Facility to manage executor services.
+     *
+     */
+    private static class SchedulerManager {
+        private final ExecutorService executor;
+        private final Scheduler rxScheduler;
+        private static final TimePeriod TERMINATION_PERIOD = new TimePeriod(1);
+
+        public SchedulerManager(ExecutorService executor) {
+            super();
+            this.executor = executor;
+            this.rxScheduler = executor == null ? Schedulers.computation() : Schedulers.from(executor);
+        }
+
+        public void shutdown() {
+            rxScheduler.shutdown();
+            if (executor != null) {
+                executor.shutdown();
+                try {
+                    if (!executor.awaitTermination(TERMINATION_PERIOD.getDuration(), TERMINATION_PERIOD.getUnit())) {
+                        executor.shutdownNow();
+                    }
+                } catch (@SuppressWarnings("unused") InterruptedException exception) {
+                    executor.shutdownNow();
+                }
+            }
+        }
+
+        public boolean hasExecutor() {
+            return executor != null;
+        }
+
+        public ExecutorService getExecutor() {
+            return executor;
+        }
+
+        public Future<?> submit(Runnable runnable) {
+            return hasExecutor() && runnable != null ? getExecutor().submit(runnable) : null;
+        }
+
+        public Scheduler getScheduler() {
+            return rxScheduler;
+        }
     }
 
     /**

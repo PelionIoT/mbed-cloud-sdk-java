@@ -3,34 +3,35 @@
 import sys
 
 import sdk_build
+import sdk_build_test_server
+import sdk_build_test_server_image
+import sdk_cache_docker_image
+import sdk_check_dependencies
 import sdk_clean
 import sdk_deploy
 import sdk_distribution_config
+import sdk_documentation
 import sdk_fetch_coverage_tools
+import sdk_fetch_foundation_generator_info
 import sdk_fetch_test_runner
-import sdk_report_code_coverage
+import sdk_gather_code_coverage_files
+import sdk_generate_foundation
+import sdk_generate_quality_summary
 import sdk_help
 import sdk_launch_test_server
 import sdk_licensing
 import sdk_logger
-import sdk_build_test_server
-import sdk_version
-import sdk_generate_quality_summary
-import sdk_run_integration_tests
-import sdk_unit_tests
-import sdk_static_analysis
-import sdk_run_examples
 import sdk_news_and_tags
+import sdk_notify
+import sdk_push_test_server
+import sdk_report_code_coverage
+import sdk_run_examples
+import sdk_run_integration_tests
+import sdk_static_analysis
+import sdk_unit_tests
+import sdk_version
 import sdk_versioning
 import sdk_versioning_release
-import sdk_check_dependencies
-import sdk_documentation
-import sdk_cache_docker_image
-import sdk_build_test_server_image
-import sdk_gather_code_coverage_files
-import sdk_notify
-import sdk_generate_foundation
-import sdk_fetch_foundation_generator_info
 
 
 # Entry point for executing SDK build steps
@@ -51,6 +52,7 @@ class SDKBuild:
                       'launch_test_server': sdk_launch_test_server.SDKTestServerLauncher(self.logger),
                       'run_integration_tests': sdk_run_integration_tests.SDKIntegrationTestRunner(self.logger),
                       'fetch_test_runner': sdk_fetch_test_runner.SDKTestRunnerFetcher(self.logger),
+                      'push_testserver': sdk_push_test_server.SDKTestServerPusher(self.logger),
                       'fetch_code_coverage_tools': sdk_fetch_coverage_tools.SDKCoverageToolsFetcher(self.logger),
                       'gather_code_coverage_files': sdk_gather_code_coverage_files.SDKCoverageFileGatherer(self.logger),
                       'report_code_coverage': sdk_report_code_coverage.SDKCoverageReporter(self.logger),
