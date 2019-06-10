@@ -21,9 +21,9 @@ public class TestApiKeyListOptions {
     @Test
     public void testClone() {
         try {
-            ApiKeyListOptions apikeylistoptions1 = new ApiKeyListOptions(Integer.valueOf(-16), Long.valueOf(-100),
+            ApiKeyListOptions apikeylistoptions1 = new ApiKeyListOptions(Integer.valueOf(12), Long.valueOf(38),
                                                                          Order.getDefault(),
-                                                                         "2ddbde19-9140-49b5-acf7-52da7c5ee684", null,
+                                                                         "00808965-549d-4854-bb40-1087035773e8", null,
                                                                          null);
             ApiKeyListOptions apikeylistoptions2 = apikeylistoptions1.clone();
             assertNotNull(apikeylistoptions1);
@@ -42,19 +42,19 @@ public class TestApiKeyListOptions {
     @Test
     public void testFilters() {
         try {
-            ApiKeyListOptions option = new ApiKeyListOptions().equalToOwner("83b5dd59-2bf3-4674-88fa-a5e96425fb82")
-                                                              .equalToKey("a0c25635-d3ef-4da3-a220-b7a830f22ebc");
+            ApiKeyListOptions option = new ApiKeyListOptions().equalToOwner("88a7f783-9d1a-4951-aac4-5007c9d3537f")
+                                                              .equalToKey("ddd763b8-32d8-49d6-bf8e-e02dc7b19de7");
             assertTrue(option.hasFilters());
             assertTrue(option.hasFilters(ApiKeyListOptions.TAG_FILTER_BY_OWNER));
             assertTrue(option.hasFilter(ApiKeyListOptions.TAG_FILTER_BY_OWNER, FilterOperator.EQUAL));
             assertNotNull(option.getOwnerFilters());
-            assertEquals("83b5dd59-2bf3-4674-88fa-a5e96425fb82",
+            assertEquals("88a7f783-9d1a-4951-aac4-5007c9d3537f",
                          ListOptionsEncoder.encodeSingleEqualFilter(ApiKeyListOptions.TAG_FILTER_BY_OWNER, String.class,
                                                                     option));
             assertTrue(option.hasFilters(ApiKeyListOptions.TAG_FILTER_BY_KEY));
             assertTrue(option.hasFilter(ApiKeyListOptions.TAG_FILTER_BY_KEY, FilterOperator.EQUAL));
             assertNotNull(option.getKeyFilters());
-            assertEquals("a0c25635-d3ef-4da3-a220-b7a830f22ebc",
+            assertEquals("ddd763b8-32d8-49d6-bf8e-e02dc7b19de7",
                          ListOptionsEncoder.encodeSingleEqualFilter(ApiKeyListOptions.TAG_FILTER_BY_KEY, String.class,
                                                                     option));
         } catch (Exception exception) {
@@ -69,13 +69,13 @@ public class TestApiKeyListOptions {
     @Test
     public void testHashCode() {
         try {
-            ApiKeyListOptions apikeylistoptions1 = new ApiKeyListOptions(Integer.valueOf(55), Long.valueOf(91),
+            ApiKeyListOptions apikeylistoptions1 = new ApiKeyListOptions(Integer.valueOf(-64), Long.valueOf(5),
                                                                          Order.getDefault(),
-                                                                         "40fdc85d-1d69-42d0-ac7b-ee42b82d0a19", null,
+                                                                         "28bd0c96-8599-4515-8f8b-9405ef09fb7c", null,
                                                                          null);
-            ApiKeyListOptions apikeylistoptions2 = new ApiKeyListOptions(Integer.valueOf(55), Long.valueOf(91),
+            ApiKeyListOptions apikeylistoptions2 = new ApiKeyListOptions(Integer.valueOf(-64), Long.valueOf(5),
                                                                          Order.getDefault(),
-                                                                         "40fdc85d-1d69-42d0-ac7b-ee42b82d0a19", null,
+                                                                         "28bd0c96-8599-4515-8f8b-9405ef09fb7c", null,
                                                                          null);
             assertNotNull(apikeylistoptions1);
             assertNotNull(apikeylistoptions2);
@@ -98,17 +98,17 @@ public class TestApiKeyListOptions {
     @Test
     public void testEquals() {
         try {
-            ApiKeyListOptions apikeylistoptions1 = new ApiKeyListOptions(Integer.valueOf(-96), Long.valueOf(49),
+            ApiKeyListOptions apikeylistoptions1 = new ApiKeyListOptions(Integer.valueOf(80), Long.valueOf(119),
                                                                          Order.getDefault(),
-                                                                         "15f1a208-279d-483e-bef6-0b492e7f8431", null,
+                                                                         "cada9e7c-07c2-4cee-982c-29ac6d6fab0c", null,
                                                                          null);
-            ApiKeyListOptions apikeylistoptions2 = new ApiKeyListOptions(Integer.valueOf(-96), Long.valueOf(49),
+            ApiKeyListOptions apikeylistoptions2 = new ApiKeyListOptions(Integer.valueOf(80), Long.valueOf(119),
                                                                          Order.getDefault(),
-                                                                         "15f1a208-279d-483e-bef6-0b492e7f8431", null,
+                                                                         "cada9e7c-07c2-4cee-982c-29ac6d6fab0c", null,
                                                                          null);
-            ApiKeyListOptions apikeylistoptions3 = new ApiKeyListOptions(Integer.valueOf(54), Long.valueOf(77),
+            ApiKeyListOptions apikeylistoptions3 = new ApiKeyListOptions(Integer.valueOf(63), Long.valueOf(-2),
                                                                          Order.getDefault(),
-                                                                         "fb798dba-1ad6-4817-8b47-25c6a472a854", null,
+                                                                         "4bf44676-84ce-4a34-b793-daabf2b60693", null,
                                                                          null);
             assertNotNull(apikeylistoptions1);
             assertNotNull(apikeylistoptions2);

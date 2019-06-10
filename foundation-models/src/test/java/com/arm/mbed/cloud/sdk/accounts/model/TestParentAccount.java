@@ -18,9 +18,9 @@ public class TestParentAccount {
     @Test
     public void testClone() {
         try {
-            ParentAccount parentaccount1 = new ParentAccount("197c4.28ad9@47b02.me",
-                                                             "ba01af21-0434-4610-a29a-b21a95a89642",
-                                                             "a2460a11b07ab6ba3b25a51e92b72dc7");
+            ParentAccount parentaccount1 = new ParentAccount("5766f.47643@36894.fr",
+                                                             "38d9200b-31bc-4586-86cd-2d00a06dc88d",
+                                                             "c34cec003db8abf16d4cdeddb5aa7f88");
             ParentAccount parentaccount2 = parentaccount1.clone();
             assertNotNull(parentaccount1);
             assertNotNull(parentaccount2);
@@ -38,12 +38,12 @@ public class TestParentAccount {
     @Test
     public void testHashCode() {
         try {
-            ParentAccount parentaccount1 = new ParentAccount("86243.36535@decea.me",
-                                                             "08f154b9-e842-45ab-95dd-767334bb8fba",
-                                                             "a2460a11b07ab6ba3b25a51e92b72dc7");
-            ParentAccount parentaccount2 = new ParentAccount("86243.36535@decea.me",
-                                                             "08f154b9-e842-45ab-95dd-767334bb8fba",
-                                                             "a2460a11b07ab6ba3b25a51e92b72dc7");
+            ParentAccount parentaccount1 = new ParentAccount("83139.a8828@a2972.fr",
+                                                             "7e3a433a-2710-4d9c-8471-00f07fb3a2de",
+                                                             "c34cec003db8abf16d4cdeddb5aa7f88");
+            ParentAccount parentaccount2 = new ParentAccount("83139.a8828@a2972.fr",
+                                                             "7e3a433a-2710-4d9c-8471-00f07fb3a2de",
+                                                             "c34cec003db8abf16d4cdeddb5aa7f88");
             assertNotNull(parentaccount1);
             assertNotNull(parentaccount2);
             assertNotSame(parentaccount2, parentaccount1);
@@ -64,12 +64,12 @@ public class TestParentAccount {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        ParentAccount parentaccount = new ParentAccount("f1811.128bb@f2ebe.me", "83be4203-1972-438c-bc09-65ec7fc5434f",
-                                                        "a2460a11b07ab6ba3b25a51e92b72dc7");
+        ParentAccount parentaccount = new ParentAccount("fe10a.24e3d@3bfff.fr", "b92c90e7-c8f7-4b7b-8dac-8b6459e27036",
+                                                        "c34cec003db8abf16d4cdeddb5aa7f88");
         assertTrue(parentaccount.isValid());
-        ParentAccount parentaccountInvalid = new ParentAccount("ࡤ¥>\u000e\u000b>ᡗ녫龀馗\u0015쮗䬧쾠�?<ৰử엦굜甇₸&\u00155ܪ菱>╩漺鋨該>å�?�ኼ譾�?\u0005寻\u0001*번*>\u0015ܻ\u001e�?�\u0014⾊+)ã༟?7悠묀&",
-                                                               "5d2dd1df-1106-4de6-b06d-d6462072f6b7933eb8b1-14bd-474f-923e-8504fbd52f042911ac31-448b-451d-8c1c-e99dd2d47ede",
-                                                               "8\u001aN8<8\u0014%G⠭888O蘔8U\u000f88888C88B\u001b�?I[\u0018W�?\u001c盙꺋鷷M8&\f\u0005)蜽88TGﾎ8A8$$B➠-8�?�8\u0002\u0002.R");
+        ParentAccount parentaccountInvalid = new ParentAccount("�?㳓Ꙃ\u001c㯀?쯷�?\u0011�?�\u0018!਴>\u0017꿴ᕉ旋�?\u0006䂑㜹䑺ᔲꎧ暠\u0012>丼尻옘ꞷ\u001b媾ＲꞘ\u0003�?�㧽ꆡ㗃�?�??>\u00144?\u0016�?�焳䡮�?렷䤖�?�>䱞\u0018誫蠅桇>",
+                                                               "db10bc63-3f44-4c3a-b056-936af24fafce09ed2f11-7006-44b4-a0d0-f1005a7077364782903b-d51e-4855-9215-8d92a428fe0a",
+                                                               "W\u0010甛2奾W.\u001b/2\u0013\u001c\u0010292⸪\u0019\u00182K㣩䢊-(?淫2⠮#Q\\\\A2㮪\\\\Nᥪ,2\u0004�?㕢㋠P22S2WMV\u0007>,J2J�?�");
         assertFalse(parentaccountInvalid.isValid());
     }
 
@@ -80,15 +80,15 @@ public class TestParentAccount {
     @Test
     public void testEquals() {
         try {
-            ParentAccount parentaccount1 = new ParentAccount("5f953.f0b69@f186b.me",
-                                                             "62a9b4c0-4342-4199-a803-874635fb4a98",
-                                                             "a2460a11b07ab6ba3b25a51e92b72dc7");
-            ParentAccount parentaccount2 = new ParentAccount("5f953.f0b69@f186b.me",
-                                                             "62a9b4c0-4342-4199-a803-874635fb4a98",
-                                                             "a2460a11b07ab6ba3b25a51e92b72dc7");
-            ParentAccount parentaccount3 = new ParentAccount("9b74e.1f4dc@780b0.me",
-                                                             "4e4f565e-0e2d-4b86-aaf7-5bf04b9faaa9",
-                                                             "a2460a11b07ab6ba3b25a51e92b72dc7");
+            ParentAccount parentaccount1 = new ParentAccount("fef3d.6a346@6e74e.fr",
+                                                             "096a9fcc-3c51-4873-a003-2cf24e0e9a02",
+                                                             "c34cec003db8abf16d4cdeddb5aa7f88");
+            ParentAccount parentaccount2 = new ParentAccount("fef3d.6a346@6e74e.fr",
+                                                             "096a9fcc-3c51-4873-a003-2cf24e0e9a02",
+                                                             "c34cec003db8abf16d4cdeddb5aa7f88");
+            ParentAccount parentaccount3 = new ParentAccount("bd392.02bff@a5fb5.me",
+                                                             "0f45cddf-5caf-49b3-8d00-c15fdcf1ecde",
+                                                             "c34cec003db8abf16d4cdeddb5aa7f88");
             assertNotNull(parentaccount1);
             assertNotNull(parentaccount2);
             assertNotNull(parentaccount3);
