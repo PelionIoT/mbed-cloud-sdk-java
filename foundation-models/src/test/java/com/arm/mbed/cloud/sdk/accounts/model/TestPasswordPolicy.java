@@ -18,7 +18,7 @@ public class TestPasswordPolicy {
     @Test
     public void testClone() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy(96);
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy(63);
             PasswordPolicy passwordpolicy2 = passwordpolicy1.clone();
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
@@ -36,8 +36,8 @@ public class TestPasswordPolicy {
     @Test
     public void testHashCode() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy(97);
-            PasswordPolicy passwordpolicy2 = new PasswordPolicy(97);
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy(69);
+            PasswordPolicy passwordpolicy2 = new PasswordPolicy(69);
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
             assertNotSame(passwordpolicy2, passwordpolicy1);
@@ -58,7 +58,7 @@ public class TestPasswordPolicy {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        PasswordPolicy passwordpolicy = new PasswordPolicy(8);
+        PasswordPolicy passwordpolicy = new PasswordPolicy(31);
         assertTrue(passwordpolicy.isValid());
     }
 
@@ -69,20 +69,16 @@ public class TestPasswordPolicy {
     @Test
     public void testEquals() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy(69);
-            PasswordPolicy passwordpolicy2 = new PasswordPolicy(69);
-            PasswordPolicy passwordpolicy3 = new PasswordPolicy(43);
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy(8);
+            PasswordPolicy passwordpolicy2 = new PasswordPolicy(8);
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
-            assertNotNull(passwordpolicy3);
             assertNotSame(passwordpolicy2, passwordpolicy1);
-            assertNotSame(passwordpolicy3, passwordpolicy1);
             assertEquals(passwordpolicy2, passwordpolicy1);
             assertEquals(passwordpolicy2, passwordpolicy1);
             assertEquals(passwordpolicy1, passwordpolicy2);
             assertEquals(passwordpolicy1, passwordpolicy1);
             assertFalse(passwordpolicy1.equals(null));
-            assertNotEquals(passwordpolicy3, passwordpolicy1);
         } catch (Exception exception) {
             fail(exception.getMessage());
         }

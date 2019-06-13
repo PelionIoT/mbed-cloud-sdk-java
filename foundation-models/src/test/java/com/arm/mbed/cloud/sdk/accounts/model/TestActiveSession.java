@@ -19,11 +19,11 @@ public class TestActiveSession {
     @Test
     public void testClone() {
         try {
-            ActiveSession activesession1 = new ActiveSession("c34cec003db8abf16d4cdeddb5aa7f88",
-                                                             "a7df75ad-19bf-4b92-9157-26ccf018b577",
-                                                             new Date(1560172167086L),
-                                                             "65186b70-dbb6-4b14-9c04-b78e85e46a8e",
-                                                             "2aa585c2-e024-431d-b706-9bec2f6cb6d9");
+            ActiveSession activesession1 = new ActiveSession("f45208d7fb27c60aa6f7980ca7e43569",
+                                                             "de67281b-ef74-4465-a7fa-926d4d14781d",
+                                                             new Date(1560440633561L),
+                                                             "0a5b7cdd-8dd4-445d-ab32-dd1448f48c19",
+                                                             "fdcccf32-0b09-4089-8a71-dddddb632209");
             ActiveSession activesession2 = activesession1.clone();
             assertNotNull(activesession1);
             assertNotNull(activesession2);
@@ -41,16 +41,16 @@ public class TestActiveSession {
     @Test
     public void testHashCode() {
         try {
-            ActiveSession activesession1 = new ActiveSession("c34cec003db8abf16d4cdeddb5aa7f88",
-                                                             "2e41e717-bfe1-4330-b21c-da6fad3825de",
-                                                             new Date(1560172163835L),
-                                                             "bef8e16c-06f4-4024-b64d-fa134223901f",
-                                                             "377441b3-3cf0-4ff1-a73e-dbc9e7ecb81b");
-            ActiveSession activesession2 = new ActiveSession("c34cec003db8abf16d4cdeddb5aa7f88",
-                                                             "2e41e717-bfe1-4330-b21c-da6fad3825de",
-                                                             new Date(1560172163835L),
-                                                             "bef8e16c-06f4-4024-b64d-fa134223901f",
-                                                             "377441b3-3cf0-4ff1-a73e-dbc9e7ecb81b");
+            ActiveSession activesession1 = new ActiveSession("f45208d7fb27c60aa6f7980ca7e43569",
+                                                             "4f69f3fb-bd2d-4df2-986b-4cd1b14caac4",
+                                                             new Date(1560440626257L),
+                                                             "2a2e1844-0b49-43c3-bf42-2fc13075cb27",
+                                                             "d45009db-98d3-4be3-a71d-16235cf539a4");
+            ActiveSession activesession2 = new ActiveSession("f45208d7fb27c60aa6f7980ca7e43569",
+                                                             "4f69f3fb-bd2d-4df2-986b-4cd1b14caac4",
+                                                             new Date(1560440626257L),
+                                                             "2a2e1844-0b49-43c3-bf42-2fc13075cb27",
+                                                             "d45009db-98d3-4be3-a71d-16235cf539a4");
             assertNotNull(activesession1);
             assertNotNull(activesession2);
             assertNotSame(activesession2, activesession1);
@@ -71,11 +71,11 @@ public class TestActiveSession {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        ActiveSession activesession = new ActiveSession("c34cec003db8abf16d4cdeddb5aa7f88",
-                                                        "c92cf746-e3c7-4be6-a6d2-081e9ccf5319",
-                                                        new Date(1560172164017L),
-                                                        "d9dded4f-bb08-421e-b6ce-dcdf29dca989",
-                                                        "bc9f9872-5cba-470a-b514-f5df96db9431");
+        ActiveSession activesession = new ActiveSession("f45208d7fb27c60aa6f7980ca7e43569",
+                                                        "744840e1-bd0c-4955-bad4-e40f92998db1",
+                                                        new Date(1560440627220L),
+                                                        "cb98a524-8109-4eed-a3ae-6d610ba7a9a9",
+                                                        "47ffcc31-8f5a-4c00-a253-f070e5945368");
         assertTrue(activesession.isValid());
     }
 
@@ -86,21 +86,21 @@ public class TestActiveSession {
     @Test
     public void testEquals() {
         try {
-            ActiveSession activesession1 = new ActiveSession("c34cec003db8abf16d4cdeddb5aa7f88",
-                                                             "55b67b26-5a49-48a3-acc6-b6c9d89ea6ec",
-                                                             new Date(1560172167939L),
-                                                             "5bccd733-4493-4181-910a-2a76eea58837",
-                                                             "c9a41474-e24c-4bb5-b8c4-5f70b93bb4fc");
-            ActiveSession activesession2 = new ActiveSession("c34cec003db8abf16d4cdeddb5aa7f88",
-                                                             "55b67b26-5a49-48a3-acc6-b6c9d89ea6ec",
-                                                             new Date(1560172167939L),
-                                                             "5bccd733-4493-4181-910a-2a76eea58837",
-                                                             "c9a41474-e24c-4bb5-b8c4-5f70b93bb4fc");
-            ActiveSession activesession3 = new ActiveSession("c34cec003db8abf16d4cdeddb5aa7f88",
-                                                             "04d4de93-22df-4097-aa5a-78a66a1b663f",
-                                                             new Date(1560172168444L),
-                                                             "7d21cc10-2df3-4115-bdd7-38c976a0a807",
-                                                             "f32e944a-7293-436a-818a-ccb28a8b2f1f");
+            ActiveSession activesession1 = new ActiveSession("f45208d7fb27c60aa6f7980ca7e43569",
+                                                             "f90ab1a8-f864-47b7-b281-388c9cfbd22e",
+                                                             new Date(1560440627407L),
+                                                             "d272e31b-0c2f-4478-8388-cbdedefbce6a",
+                                                             "f5200520-12a6-4d2d-b1d8-6e66fcc195e9");
+            ActiveSession activesession2 = new ActiveSession("f45208d7fb27c60aa6f7980ca7e43569",
+                                                             "f90ab1a8-f864-47b7-b281-388c9cfbd22e",
+                                                             new Date(1560440627407L),
+                                                             "d272e31b-0c2f-4478-8388-cbdedefbce6a",
+                                                             "f5200520-12a6-4d2d-b1d8-6e66fcc195e9");
+            ActiveSession activesession3 = new ActiveSession("f45208d7fb27c60aa6f7980ca7e43569",
+                                                             "ff677e7a-7786-48b1-abeb-4595f4f4c6f5",
+                                                             new Date(1560440629185L),
+                                                             "c246c322-7254-4fcb-9e52-8a24f1e06e96",
+                                                             "2d82543a-a554-45ec-b5aa-8db21a6adba4");
             assertNotNull(activesession1);
             assertNotNull(activesession2);
             assertNotNull(activesession3);
