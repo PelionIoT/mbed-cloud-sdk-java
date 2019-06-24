@@ -21,7 +21,7 @@ buildscript {
         classpath 'gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.14.0'
         classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:2.0.0"
         classpath 'org.walkmod:gradle-walkmod-plugin:0.0.3'
-        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.23.0'
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.23.1'
     }
 }
 
@@ -430,7 +430,7 @@ dependencies {
     compile project(':foundation-access')
     compile project(':backends:pelioncloud_devicemanagement')
 
-    compile 'io.reactivex.rxjava2:rxjava:2.2.9'
+    compile 'io.reactivex.rxjava2:rxjava:2.2.10'
     compile 'joda-time:joda-time:2.10.2'
     compile 'com.jcabi:jcabi-manifests:1.1'
     compile 'io.github.cdimascio:java-dotenv:5.1.0'

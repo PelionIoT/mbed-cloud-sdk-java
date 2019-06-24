@@ -1,5 +1,7 @@
 package pelion_cloud_sdk;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.net.URL;
@@ -119,36 +121,54 @@ public class ConnectExamples extends AbstractExample {
      */
     @Example
     public void setResourceValue() {
-        // writable resource path to set a value to
-        String resourcePath = "/5001/0/1";
+        // an example: get and set a resource value
         try (Sdk sdk = Sdk.createSdk(Configuration.get()); DeviceListDao dao = sdk.foundation().getDeviceListDao()) {
+            // Use the Foundation interface to find a device.
             Paginator<Device> deviceIterator = dao.list(new DeviceListOptions().equalToState(DeviceState.REGISTERED)
-                                                                               .maxResults(10));
+                                                                               .maxResults(1));
+            // cloak
             if (!deviceIterator.hasNext()) {
                 fail("No endpoints registered. Aborting.");
             }
+            // uncloak
             Device device = deviceIterator.first();
+            // cloak
             log("Device", device);
-
-            Resource resourceToConsider = sdk.lowLevelRest().getConnectModule().getResource(device, resourcePath);
-            if (resourceToConsider == null) {
+            // uncloak
+            // Find an observable resource
+            List<Resource> observableResources = sdk.lowLevelRest().getConnectModule().listObservableResources(device);
+            // cloak
+            assertNotNull(observableResources);
+            assertFalse(observableResources.isEmpty());
+            // uncloak
+            Resource resource = observableResources.get(0);
+            // cloak
+            if (resource == null) {
                 fail("The resource of interest does not exist on this device");
             }
-            log("Resource of interest", resourceToConsider);
+            log("Resource of interest", resource);
+            // uncloak
             // Getting resource value
-            Object value = sdk.lowLevelRest().getConnectModule().getResourceValue(resourceToConsider,
-                                                                                  new TimePeriod(10));
+            // cloak
+            Object value = sdk.lowLevelRest().getConnectModule().getResourceValue(resource, new TimePeriod(10));
             log("Current resource value", value);
-            // Setting a new resource value
-            sdk.lowLevelRest().getConnectModule().setResourceValue(resourceToConsider, "10", new TimePeriod(10));
-            // Getting the modified resource value
-            value = sdk.lowLevelRest().getConnectModule().getResourceValue(resourceToConsider, new TimePeriod(10));
+            // uncloak
+            // Set a resource value
+            sdk.lowLevelRest().getConnectModule().setResourceValue(resource, "12", new TimePeriod(10));
+            // Get a resource value
+            value = sdk.lowLevelRest().getConnectModule().getResourceValue(resource, new TimePeriod(10));
+            // cloak
             log("Newly set resource value", value);
-            // Stopping potential daemons running
+            // uncloak
+            System.out.println("Device " + device.getId() + ", path " + resource.getPath() + ", current value: "
+                               + value);
         } catch (Exception e) {
             e.printStackTrace();
+            // cloak
             fail(e.getMessage());
+            // uncloak
         }
+        // end of example
     }
 
     /**
@@ -253,25 +273,28 @@ public class ConnectExamples extends AbstractExample {
 
     @Example
     public void subscribeToResourceValueChanges() {
+        // an example: subscribe to resource values
         try (Sdk sdk = Sdk.createSdk(Configuration.get())) {
-            // Creating an Observer listening to resource value changes for devices whose ids start with 016 and
-            // resource paths starting with /3/0/.
+            // Configure a subscription to receive resource value changes on all devices.
             // For more information about backpressure strategies, please have a look at related documentation:
             // https://github.com/ReactiveX/RxJava/wiki/Backpressure
             // For more information about First Value strategies, have a look at
             // com.arm.mbed.cloud.sdk.subscribe.model.FirstValue
-            ResourceValueObserver observer = sdk.subscribe(SubscriptionFilterOptions.newFilter().likeDevice("016%")
-                                                                                    .likeResourcePath("/3/0/%"),
+            ResourceValueObserver observer = sdk.subscribe(SubscriptionFilterOptions.newFilter().likeDevice("%"),
                                                            BackpressureStrategy.BUFFER, FirstValue.ON_VALUE_UPDATE);
-            // Printing resource value notification when they happen.
+            // Print the subscription notifications received
             observer.flow().subscribe(System.out::println);
+            // cloak
             // Listening to resource value changes for 2 minutes.
             Thread.sleep(120000);
-
+            // uncloak
         } catch (Exception e) {
             e.printStackTrace();
+            // cloak
             fail(e.getMessage());
+            // uncloak
         }
+        // end of example
     }
 
     /**
