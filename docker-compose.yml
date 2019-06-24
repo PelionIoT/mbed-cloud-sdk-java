@@ -16,7 +16,9 @@ testrunner:
     #build: tests/mbed-cloud-sdk-testrunner 
     image: ${TESTRUNNER_DOCKER_IMAGE}
     environment: 
-      - TEST_SERVER_URL=http://sdk_test_server:5000 
+      - TEST_SERVER_URL=http://sdk_test_server:5000
+      - MBED_CLOUD_SDK_HOST=${MBED_CLOUD_SDK_HOST}
+      - MBED_CLOUD_SDK_API_KEY=${MBED_CLOUD_SDK_API_KEY}
       #folder on test server to get test files from 
       - TEST_FIXTURES_DIR=/testserver/test_fixtures 
     links: 
