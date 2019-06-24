@@ -19,10 +19,10 @@ public class TestSubtenantDarkThemeColorListOptions {
     @Test
     public void testClone() {
         try {
-            SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions1 = new SubtenantDarkThemeColorListOptions(Integer.valueOf(-108),
-                                                                                                                            Long.valueOf(-53),
+            SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions1 = new SubtenantDarkThemeColorListOptions(Integer.valueOf(-89),
+                                                                                                                            Long.valueOf(-47),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "059bbda8-095f-416e-ba21-0cb294e816ae",
+                                                                                                                            "d775a74f-2c46-48aa-b0b3-eced63585c3a",
                                                                                                                             null,
                                                                                                                             null);
             SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions2 = subtenantdarkthemecolorlistoptions1.clone();
@@ -42,16 +42,16 @@ public class TestSubtenantDarkThemeColorListOptions {
     @Test
     public void testHashCode() {
         try {
-            SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions1 = new SubtenantDarkThemeColorListOptions(Integer.valueOf(68),
-                                                                                                                            Long.valueOf(110),
+            SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions1 = new SubtenantDarkThemeColorListOptions(Integer.valueOf(101),
+                                                                                                                            Long.valueOf(-57),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "fe3b5af5-3e53-401d-904f-972d7fbd3c25",
+                                                                                                                            "30b05fe1-bd9e-428b-97d9-0c9ef151384e",
                                                                                                                             null,
                                                                                                                             null);
-            SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions2 = new SubtenantDarkThemeColorListOptions(Integer.valueOf(68),
-                                                                                                                            Long.valueOf(110),
+            SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions2 = new SubtenantDarkThemeColorListOptions(Integer.valueOf(101),
+                                                                                                                            Long.valueOf(-57),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "fe3b5af5-3e53-401d-904f-972d7fbd3c25",
+                                                                                                                            "30b05fe1-bd9e-428b-97d9-0c9ef151384e",
                                                                                                                             null,
                                                                                                                             null);
             assertNotNull(subtenantdarkthemecolorlistoptions1);
@@ -76,22 +76,22 @@ public class TestSubtenantDarkThemeColorListOptions {
     @Test
     public void testEquals() {
         try {
-            SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions1 = new SubtenantDarkThemeColorListOptions(Integer.valueOf(-81),
-                                                                                                                            Long.valueOf(69),
+            SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions1 = new SubtenantDarkThemeColorListOptions(Integer.valueOf(-60),
+                                                                                                                            Long.valueOf(-53),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "7cebc6e1-5659-4705-8abf-7d29c6e42414",
+                                                                                                                            "9d8645dc-df55-4357-92b8-a4d182fbf793",
                                                                                                                             null,
                                                                                                                             null);
-            SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions2 = new SubtenantDarkThemeColorListOptions(Integer.valueOf(-81),
-                                                                                                                            Long.valueOf(69),
+            SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions2 = new SubtenantDarkThemeColorListOptions(Integer.valueOf(-60),
+                                                                                                                            Long.valueOf(-53),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "7cebc6e1-5659-4705-8abf-7d29c6e42414",
+                                                                                                                            "9d8645dc-df55-4357-92b8-a4d182fbf793",
                                                                                                                             null,
                                                                                                                             null);
-            SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions3 = new SubtenantDarkThemeColorListOptions(Integer.valueOf(-63),
-                                                                                                                            Long.valueOf(113),
+            SubtenantDarkThemeColorListOptions subtenantdarkthemecolorlistoptions3 = new SubtenantDarkThemeColorListOptions(Integer.valueOf(-22),
+                                                                                                                            Long.valueOf(-75),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "3e198747-f2da-4ae1-8026-7f2a9fbb90e1",
+                                                                                                                            "72989969-738b-4a6d-ad55-d309d0ff6eb7",
                                                                                                                             null,
                                                                                                                             null);
             assertNotNull(subtenantdarkthemecolorlistoptions1);

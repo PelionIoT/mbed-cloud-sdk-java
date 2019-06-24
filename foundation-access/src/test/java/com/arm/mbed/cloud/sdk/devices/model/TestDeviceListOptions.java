@@ -24,9 +24,9 @@ public class TestDeviceListOptions {
     @Test
     public void testClone() {
         try {
-            DeviceListOptions devicelistoptions1 = new DeviceListOptions(Integer.valueOf(-98), Long.valueOf(-39),
+            DeviceListOptions devicelistoptions1 = new DeviceListOptions(Integer.valueOf(69), Long.valueOf(-117),
                                                                          Order.getDefault(),
-                                                                         "5718c858-af6f-442d-a2c1-28c39237146b", null,
+                                                                         "6d845423-5917-4eac-8b3f-4540a5716886", null,
                                                                          null);
             DeviceListOptions devicelistoptions2 = devicelistoptions1.clone();
             assertNotNull(devicelistoptions1);
@@ -46,330 +46,328 @@ public class TestDeviceListOptions {
     public void testFilters() {
         try {
             DeviceListOptions option = new DeviceListOptions().equalToAutoUpdate(Boolean.TRUE)
-                                                              .notEqualToAutoUpdate(Boolean.FALSE)
-                                                              .inBootstrapExpirationDates(Arrays.asList(new Date(1559835559520L),
-                                                                                                        new Date(1559835553374L),
-                                                                                                        new Date(1559835560310L),
-                                                                                                        new Date(1559835557368L)))
-                                                              .notInBootstrapExpirationDates(Arrays.asList(new Date(1559835560550L),
-                                                                                                           new Date(1559835561079L),
-                                                                                                           new Date(1559835556760L)))
-                                                              .lessThanBootstrapExpirationDate(new Date(1559835555883L))
-                                                              .greaterThanBootstrapExpirationDate(new Date(1559835561879L))
-                                                              .inCreatedAts(Arrays.asList(new Date(1559835555579L),
-                                                                                          new Date(1559835556604L),
-                                                                                          new Date(1559835558811L),
-                                                                                          new Date(1559835560897L),
-                                                                                          new Date(1559835559506L),
-                                                                                          new Date(1559835562599L),
-                                                                                          new Date(1559835562768L),
-                                                                                          new Date(1559835555687L),
-                                                                                          new Date(1559835561720L)))
-                                                              .notInCreatedAts(Arrays.asList(new Date(1559835560358L),
-                                                                                             new Date(1559835559163L),
-                                                                                             new Date(1559835559812L),
-                                                                                             new Date(1559835558883L),
-                                                                                             new Date(1559835557448L),
-                                                                                             new Date(1559835555109L),
-                                                                                             new Date(1559835552965L),
-                                                                                             new Date(1559835560694L)))
-                                                              .lessThanCreatedAt(new Date(1559835554250L))
-                                                              .greaterThanCreatedAt(new Date(1559835556988L))
-                                                              .equalToManifest("fd252463-fb11-4faf-bdd6-5cef3131af7b")
-                                                              .notEqualToManifest("ceb6ae64-0293-4cd5-aa6e-5a41a4771dac")
-                                                              .inManifests(Arrays.asList("8ace80b3-5dc4-468a-9950-4f8e9f454e21",
-                                                                                         "8484ad4e-c7e9-4a33-aaf6-59ed182b4e17",
-                                                                                         "819ba888-1396-402e-b346-d712534cb4d5"))
-                                                              .notInManifests(Arrays.asList("f7590565-1b96-45be-b5ab-d66391f8394b",
-                                                                                            "761312c7-1526-47da-a1fd-520fd8a36d7f",
-                                                                                            "e79754ac-b395-496a-9b32-2436953e2b30"))
-                                                              .equalToEndpointType("da974998-9b60-4e28-9dec-ce127ac132ea")
-                                                              .notEqualToEndpointType("0a2c600e-7d7f-476b-b09e-f36b6294150a")
-                                                              .inEndpointTypes(Arrays.asList("ae364461-51c0-4d82-a31e-a23e5068a94c",
-                                                                                             "17bcac41-bef9-4c7f-903c-bd0809c84bed",
-                                                                                             "b74b7319-9f4e-40dc-9af2-79ef84ebb65d",
-                                                                                             "b5e028a5-2550-4d1d-8343-e4c5e22222c4"))
-                                                              .notInEndpointTypes(Arrays.asList("28902741-1979-4af4-8c06-8da0c8fe9ec6",
-                                                                                                "27707b00-8c9f-4395-99be-196f2e0df57b",
-                                                                                                "0015c806-40a4-4c82-a470-b02506625beb",
-                                                                                                "c66b5080-47bb-4a9d-8676-0423f8f3dc31",
-                                                                                                "f15ef273-1411-454c-a24d-c374b2d988f3",
-                                                                                                "d4f4d700-8a46-4bc8-a10d-54448d62cf12"))
-                                                              .equalToDeviceKey("bcb0ff2a-32ac-476d-8848-e3bfa2db3639")
-                                                              .notEqualToDeviceKey("d87cc766-dd3a-4581-a453-79878e6b8555")
-                                                              .inDeviceKeys(Arrays.asList("17ecf9b5-db47-4ae2-862c-b7120b7fc9d0",
-                                                                                          "47a43695-7837-4c87-9950-de07b290c07a",
-                                                                                          "cc926baf-2cd7-416d-b275-938ef909fc2b",
-                                                                                          "a4f630e7-1bc9-4993-ae5c-713f0ea3ef1e"))
-                                                              .notInDeviceKeys(Arrays.asList("a7558c1f-72e9-4903-9dca-936ed6521e7d"))
-                                                              .equalToFirmwareChecksum("d211841f-166e-4bb7-be42-0ade363f5fbe")
-                                                              .notEqualToFirmwareChecksum("c13df541-4b3f-4e9a-bcf6-74bf830de96e")
-                                                              .inFirmwareChecksums(Arrays.asList("f1956bc4-c1d8-4753-876f-145cc5a93ff2",
-                                                                                                 "c227c40f-b2f2-45ed-b014-67563b930ff4",
-                                                                                                 "3413e1d3-744d-4c09-a13e-0194ecff8fa3",
-                                                                                                 "558afdd3-cc24-41b1-9df7-094c6f3a60ec",
-                                                                                                 "0fe460e7-2527-4f98-a4d3-7f26172f0f7c",
-                                                                                                 "4ca6fc42-9419-4f1e-91ec-b4965ef5219c",
-                                                                                                 "5112b698-1a1f-44d2-b36e-7a1a876e8932",
-                                                                                                 "2247f91a-4a27-479a-81a6-3a2fd94a3bcf"))
-                                                              .notInFirmwareChecksums(Arrays.asList("c7b54a3b-38eb-4555-9153-934dc39ab25e",
-                                                                                                    "4504a13b-0dba-4108-b12a-93ffbc4958f5",
-                                                                                                    "ab817647-bb37-4046-a4b4-dd67a6837ffe",
-                                                                                                    "704fc70d-d4aa-4a4b-a699-97cdae26f7d0",
-                                                                                                    "5ee47768-1914-4e0d-8baa-99c03b59d505",
-                                                                                                    "44947bf5-28d9-4a5e-a92a-b8bf4a617b54"))
+                                                              .notEqualToAutoUpdate(Boolean.TRUE)
+                                                              .inBootstrapExpirationDates(Arrays.asList(new Date(1561379513913L),
+                                                                                                        new Date(1561379520917L),
+                                                                                                        new Date(1561379514737L),
+                                                                                                        new Date(1561379518818L),
+                                                                                                        new Date(1561379513564L),
+                                                                                                        new Date(1561379516704L),
+                                                                                                        new Date(1561379515426L),
+                                                                                                        new Date(1561379522860L)))
+                                                              .notInBootstrapExpirationDates(Arrays.asList(new Date(1561379520974L),
+                                                                                                           new Date(1561379518159L),
+                                                                                                           new Date(1561379519409L),
+                                                                                                           new Date(1561379519434L),
+                                                                                                           new Date(1561379517167L),
+                                                                                                           new Date(1561379517764L),
+                                                                                                           new Date(1561379522958L),
+                                                                                                           new Date(1561379520563L),
+                                                                                                           new Date(1561379522211L)))
+                                                              .lessThanBootstrapExpirationDate(new Date(1561379522754L))
+                                                              .greaterThanBootstrapExpirationDate(new Date(1561379521221L))
+                                                              .inCreatedAts(Arrays.asList(new Date(1561379517644L)))
+                                                              .notInCreatedAts(Arrays.asList(new Date(1561379516718L),
+                                                                                             new Date(1561379517474L),
+                                                                                             new Date(1561379514060L),
+                                                                                             new Date(1561379516412L)))
+                                                              .lessThanCreatedAt(new Date(1561379519815L))
+                                                              .greaterThanCreatedAt(new Date(1561379513940L))
+                                                              .equalToManifest("be9a7abb-c3a6-4b46-81a3-a51fffe50022")
+                                                              .notEqualToManifest("41321566-b7ef-481e-9978-1bdc19739fff")
+                                                              .inManifests(Arrays.asList("f549489f-98c8-4df3-981e-4ba8e2aa17fa",
+                                                                                         "2402745f-b35a-483d-9725-c22feb403da5",
+                                                                                         "d6df7486-8d7c-4fe2-9bf8-316f9e3f397e",
+                                                                                         "0fe61cdb-c623-4365-8b0e-6f923e788921",
+                                                                                         "ac48ef61-bfba-4cbf-a578-63c9aefb891f"))
+                                                              .notInManifests(Arrays.asList("58c70b55-7fbc-44fc-ad09-b5efc985fb37",
+                                                                                            "065494c8-3310-4406-ac8c-6582ce02207c",
+                                                                                            "15d8f789-5894-4f8f-8072-8f4cc50e8ab9",
+                                                                                            "55dd746a-e1b3-47d2-b3d2-1af1dca5245e",
+                                                                                            "8e56c15a-3eb1-4d7b-9d41-4f2f8908956a",
+                                                                                            "18ebc59c-97fa-45cc-8a3a-620adc8131d8",
+                                                                                            "adc3d67a-b46a-48f7-8b0a-4b9c71fcb6b2"))
+                                                              .equalToEndpointType("bb0c7930-d5f4-45bd-82f7-1cf2a35b2080")
+                                                              .notEqualToEndpointType("120f6ae9-f45f-49d8-98f5-d11aff28472f")
+                                                              .inEndpointTypes(Arrays.asList("091d972e-2242-450d-ab32-e46c7be8d96f",
+                                                                                             "e832d0c4-e841-4c6d-9c1b-2bece72242e8",
+                                                                                             "b4d69e41-0ff9-47b1-b63a-594fae3428c9",
+                                                                                             "61ccf456-e8fe-4ffc-bfc8-33d961c57e6a"))
+                                                              .notInEndpointTypes(Arrays.asList("bdfa9fd4-7c6f-43b3-a22a-7616cf8ec5a6",
+                                                                                                "0edaed9b-5396-4c79-b19f-d1bc75e037a9",
+                                                                                                "ef4212d0-548d-4f06-b62e-5db9ddda615e",
+                                                                                                "f9be0666-c82a-4d67-856b-c48986966611",
+                                                                                                "db2be6fe-4686-4c16-af53-07f199ba391d",
+                                                                                                "3d5a0117-a635-4c7a-ae55-7e427227c429"))
+                                                              .equalToDeviceKey("fcc2f4a1-943f-45f1-90e5-ac85e99eb164")
+                                                              .notEqualToDeviceKey("887e78d3-6f40-450e-b8a5-9f6e168c034c")
+                                                              .inDeviceKeys(Arrays.asList("1fdf6aab-280e-460f-a357-5ae04c87a3f6",
+                                                                                          "9f81d090-cee5-4dc5-b2e8-039e997665a0",
+                                                                                          "78a71506-94fc-468b-9bea-a8e15f16fb47",
+                                                                                          "a26c0deb-69f2-474c-9a37-aed5d4851659",
+                                                                                          "1c517363-52b5-404d-95e6-aac2744b8655"))
+                                                              .notInDeviceKeys(Arrays.asList("d8a0a0f1-efb9-4684-8d42-148ea3e254f3",
+                                                                                             "0fa41c12-5b09-47a6-8064-68fc357603fb",
+                                                                                             "e34c5408-9316-4ba3-b4b6-17853feff95a",
+                                                                                             "edd190fc-ba16-480f-92b6-f652a68e703c",
+                                                                                             "861dc2f0-1ab8-46c9-9365-612e89c78456"))
+                                                              .equalToFirmwareChecksum("8480ad1c-c489-4ef8-89be-5fb2c1eb2331")
+                                                              .notEqualToFirmwareChecksum("ad97d613-6355-4dc6-93d2-1bd5cd697918")
+                                                              .inFirmwareChecksums(Arrays.asList("bce56e47-bc86-4d9c-b3d3-b972c0d683d4",
+                                                                                                 "dbd50f02-fff9-4083-ab6c-ed3b96845251",
+                                                                                                 "906ee284-3366-4370-963a-cc4613067f08",
+                                                                                                 "aa835243-b72a-45a5-8215-ca241d37d398",
+                                                                                                 "6f838ca1-c0d1-4ac3-957e-86d0fb7b0220",
+                                                                                                 "0898901d-eb61-4ded-8cc8-ace1f986d7d6"))
+                                                              .notInFirmwareChecksums(Arrays.asList("908a29e3-6351-44e9-ae7f-c972390944ae",
+                                                                                                    "e6b00c0f-cbf4-452f-b1cf-e87ebc4390ec",
+                                                                                                    "e0fb5593-cae9-4d99-897f-b3b0dd7547e5",
+                                                                                                    "80344caf-abf3-4947-b36d-199e843b09b8",
+                                                                                                    "beebafee-d262-40b4-affc-d42ef7c4dcda"))
                                                               .equalToState(DeviceState.getDefault())
                                                               .notEqualToState(DeviceState.getDefault())
                                                               .inStates(Arrays.asList(DeviceState.getDefault(),
                                                                                       DeviceState.getDefault(),
                                                                                       DeviceState.getDefault(),
                                                                                       DeviceState.getDefault(),
+                                                                                      DeviceState.getDefault(),
+                                                                                      DeviceState.getDefault(),
+                                                                                      DeviceState.getDefault(),
+                                                                                      DeviceState.getDefault(),
                                                                                       DeviceState.getDefault()))
                                                               .notInStates(Arrays.asList(DeviceState.getDefault(),
                                                                                          DeviceState.getDefault(),
-                                                                                         DeviceState.getDefault(),
-                                                                                         DeviceState.getDefault(),
-                                                                                         DeviceState.getDefault(),
-                                                                                         DeviceState.getDefault(),
                                                                                          DeviceState.getDefault()))
-                                                              .equalToDeviceExecutionMode(Integer.valueOf(-41))
-                                                              .notEqualToDeviceExecutionMode(Integer.valueOf(-102))
-                                                              .inDeviceExecutionModes(Arrays.asList(Integer.valueOf(88),
-                                                                                                    Integer.valueOf(-96),
-                                                                                                    Integer.valueOf(-26)))
-                                                              .notInDeviceExecutionModes(Arrays.asList(Integer.valueOf(88),
-                                                                                                       Integer.valueOf(-10)))
-                                                              .equalToAccountId("5576bbed-df37-44c0-b439-23dfe98666f2")
-                                                              .notEqualToAccountId("0b406c71-a9ad-4ec4-9180-5d410a5166c7")
-                                                              .inAccountIds(Arrays.asList("b579e5ca-6560-4049-9c96-a60524f6165b",
-                                                                                          "c1682ba1-336e-4a8b-ac49-7d42501ef5cd",
-                                                                                          "a72899d1-ed32-4edd-910d-86ec37290c58",
-                                                                                          "ecd7507b-9d8e-4270-b11a-a9f03c968c62",
-                                                                                          "8df06dcf-6e1c-4427-9547-afd00b86620e",
-                                                                                          "bf298d30-0150-45eb-bb5c-3379cd9c2ea2",
-                                                                                          "ffaefab4-fdd5-4e19-812a-b100a05713a6",
-                                                                                          "db4752e8-004f-4bb0-8d74-1e64c55aed8f"))
-                                                              .notInAccountIds(Arrays.asList("b2557dde-2f32-4058-9dd0-aec1ba5e07a6",
-                                                                                             "af12009c-db8e-4199-9e58-cc75e7fa16b2",
-                                                                                             "a187fc3a-46f8-40da-9968-cf35837c3c5f",
-                                                                                             "f9f949d4-fc56-4cb9-9ce9-0f2f13226cf4",
-                                                                                             "f15ae037-5158-4bc5-a970-d6c6277cc611",
-                                                                                             "817e6c72-c91d-4ddd-92b3-aaf2ffcb5523"))
-                                                              .equalToMechanismUrl("9b56ce3f-576d-4781-bd85-2c91eec55257")
-                                                              .notEqualToMechanismUrl("2cd25cc1-b50d-43e5-9409-0c811b75c996")
-                                                              .inMechanismUrls(Arrays.asList("0e7432f2-f76e-4e9c-a053-a3397997131c",
-                                                                                             "1a895422-9ca6-428c-8247-2f0e9e333deb",
-                                                                                             "e032d88e-3477-4ce6-a70f-a79c7b4aead8",
-                                                                                             "41adb500-2a03-435e-b4e3-1d86e438d3fc",
-                                                                                             "89a85913-5319-4894-bb8e-e004872d3c78"))
-                                                              .notInMechanismUrls(Arrays.asList("93a8f670-5b5b-4ce4-af41-bdff0316c714",
-                                                                                                "b8657610-f782-46e5-a12b-f79e950a9abb",
-                                                                                                "6327002e-d4fc-4ef0-ae20-05619b93d6e8"))
-                                                              .equalToVendorId("df42375a-cfd4-4229-9a7f-6f92b54aa8c6")
-                                                              .notEqualToVendorId("dac6eb11-b2c0-4fbc-a44b-94beae5f2c27")
-                                                              .inVendorIds(Arrays.asList("8d9b4b08-24f3-4828-8953-da54f5af910a",
-                                                                                         "f3e92e53-3d80-4d91-a447-789874edef5e",
-                                                                                         "0f6528f3-f9f6-4034-af3d-7e35c9c5cdeb",
-                                                                                         "db04fd44-c6e4-4da9-acbb-779b3ef1931a",
-                                                                                         "58c34dd0-84ba-4acf-91b0-a484e3fc5e63",
-                                                                                         "65e6d891-b19d-4192-bcb5-5c679ce98179",
-                                                                                         "63a09931-b66e-4e27-af9b-339568be3d55",
-                                                                                         "aaf1a26c-4012-49bd-a5ff-4b07190bd43d"))
-                                                              .notInVendorIds(Arrays.asList("c9222b7f-99a5-452d-aa8e-9a6ee25d8030",
-                                                                                            "9ca6246a-f4f3-490c-a42b-96736e92aa45",
-                                                                                            "14a1c998-3ccc-4c63-86d0-6cc789e6feef",
-                                                                                            "2d946ae7-78a7-4755-963d-033635d12a0e",
-                                                                                            "f9605c46-e39f-42b1-b96f-20b0fbd7d991",
-                                                                                            "9908e710-c84b-4d37-bb86-18be7aa20669",
-                                                                                            "27671b5f-96c9-48cc-9899-97557f482d61",
-                                                                                            "48010a0e-2364-4a7b-9244-40768424c585",
-                                                                                            "ebfa41c5-9b12-42bb-88a9-bfdd6ddaac40"))
-                                                              .equalToDeviceClass("52452d93-463a-4293-82dc-99832ebb8756")
-                                                              .notEqualToDeviceClass("cbba194c-e951-4465-bca2-8752af5ea18c")
-                                                              .inDeviceClass(Arrays.asList("b5b96324-4bf6-46c0-bada-5e9426609a71",
-                                                                                           "30f6395a-1ca9-440d-bf4f-034252d601fe",
-                                                                                           "91c3ebc5-5d19-437b-9cd8-d072d2c12686",
-                                                                                           "b600e0db-15ab-42ed-a015-dd335c49d52b"))
-                                                              .notInDeviceClass(Arrays.asList("ed8425d3-0338-4616-b9a1-c83a53bfd254",
-                                                                                              "2045a370-f104-483b-af68-6f50e6154cef"))
-                                                              .equalToHostGateway("68b970fa-fa1c-4daa-a2f4-289b79d648b3")
-                                                              .notEqualToHostGateway("25922be8-3cbe-4dc6-9098-fede31971da0")
-                                                              .inHostGateways(Arrays.asList("13a46606-c44a-453b-ab15-973bad076ace",
-                                                                                            "256a40e5-a6b9-4543-acd0-befe50489a90",
-                                                                                            "fc1bc90d-5d07-4a36-9316-d1ac626b2d70",
-                                                                                            "5f5a857e-4a19-428a-96fb-f4b213fd133a",
-                                                                                            "309716f6-989c-4998-9f9c-4328b5aaf121",
-                                                                                            "19ff11f4-a92a-4b0a-b635-6662f90928ed",
-                                                                                            "9cd77d61-8831-4fbd-961e-1a374ad9ad2f",
-                                                                                            "a66cf7d9-d7e5-4225-9431-da35114fb401"))
-                                                              .notInHostGateways(Arrays.asList("4747a307-f23c-4499-90d6-870b3addf237",
-                                                                                               "dea05794-2225-4cb8-b0f0-3600324d7529",
-                                                                                               "69928a5c-73cf-4e1c-a00e-ce8be49903ca",
-                                                                                               "e1674fad-821e-40d6-a0d8-9fec8a00d7e0",
-                                                                                               "fc6d6b03-629d-4e09-b023-94d6133e72ee",
-                                                                                               "f907e066-226a-4c68-9d81-f822ef3ad83b"))
-                                                              .inBootstrappedTimestamps(Arrays.asList(new Date(1559835555596L)))
-                                                              .notInBootstrappedTimestamps(Arrays.asList(new Date(1559835554428L),
-                                                                                                         new Date(1559835556306L),
-                                                                                                         new Date(1559835559714L),
-                                                                                                         new Date(1559835557074L)))
-                                                              .lessThanBootstrappedTimestamp(new Date(1559835561808L))
-                                                              .greaterThanBootstrappedTimestamp(new Date(1559835553437L))
-                                                              .equalToSerialNumber("fbf5e0e6-3324-4b04-a5a6-0d77014eb963")
-                                                              .notEqualToSerialNumber("873cef0a-f594-4599-b5e3-238a67a9256a")
-                                                              .inSerialNumbers(Arrays.asList("dd85e504-69f7-4e80-8099-f2f2a100879c",
-                                                                                             "745241a5-8111-4966-b862-e0c35b295220",
-                                                                                             "0da5a6aa-7a44-483d-962b-fe83f20fee61",
-                                                                                             "eb0df5f8-05f7-4752-b591-a7e00c7352b6",
-                                                                                             "04461fc3-64a4-4e68-ba19-031e10a4a804",
-                                                                                             "1f779db0-2847-495f-817e-bd1596340dbf",
-                                                                                             "5f673fb4-affb-46fb-baa1-f53d27abf82d"))
-                                                              .notInSerialNumbers(Arrays.asList("0b2c3730-c798-4be3-93ac-d63293c4bb70",
-                                                                                                "764205cb-e41d-4f68-93ea-2810efcbb8b3",
-                                                                                                "27ad3b39-711e-4858-aeec-e9fd2ed319e3",
-                                                                                                "c8070471-b7d3-4542-8e87-9b37403fef07",
-                                                                                                "3118dca3-3f97-44fb-919f-46b46773c235",
-                                                                                                "a40dd654-0eac-4321-b52a-5af43ca85655",
-                                                                                                "d625143b-8c57-445b-a803-4f8a1e8fc1f8"))
-                                                              .equalToId("40e291f5-59be-445c-a7ba-12e641edce12")
-                                                              .notEqualToId("1416521a-4c60-42d9-a2dc-0e815e0168bb")
-                                                              .inIds(Arrays.asList("a462ca2c-3dac-4315-8cfb-b2327ec19068",
-                                                                                   "999dc9ba-9c1b-46f4-8865-5ed3636ec298",
-                                                                                   "8f061e11-23c2-40c7-ab6e-379729eaf916"))
-                                                              .notInIds(Arrays.asList("04ae391a-542f-4044-af00-4997683bd466",
-                                                                                      "f1ead3b6-277f-4ee5-b0c5-62b5f01cb659",
-                                                                                      "c67c56ac-5212-4ef7-98d9-de73e548b8f6"))
-                                                              .inConnectorExpirationDates(Arrays.asList(new Date(1559835554923L),
-                                                                                                        new Date(1559835560156L),
-                                                                                                        new Date(1559835561759L),
-                                                                                                        new Date(1559835559577L),
-                                                                                                        new Date(1559835561277L),
-                                                                                                        new Date(1559835560003L)))
-                                                              .notInConnectorExpirationDates(Arrays.asList(new Date(1559835554697L),
-                                                                                                           new Date(1559835561019L),
-                                                                                                           new Date(1559835560452L),
-                                                                                                           new Date(1559835555213L),
-                                                                                                           new Date(1559835553187L),
-                                                                                                           new Date(1559835561778L),
-                                                                                                           new Date(1559835558754L),
-                                                                                                           new Date(1559835555985L),
-                                                                                                           new Date(1559835561844L)))
-                                                              .lessThanConnectorExpirationDate(new Date(1559835556232L))
-                                                              .greaterThanConnectorExpirationDate(new Date(1559835557143L))
-                                                              .equalToCaId("0109cf0d-e229-4ffb-a2f6-14915b39c34f")
-                                                              .notEqualToCaId("6617c292-22ca-4c76-b4c2-8604b36014af")
-                                                              .inCaIds(Arrays.asList("dd021540-0b44-4f73-bbfe-969c5e2827dc",
-                                                                                     "c86ed340-3087-4523-9d31-c48d134e655f",
-                                                                                     "2d7af127-e58c-425d-9d03-20082ea02ebf",
-                                                                                     "63fd41c0-5985-4077-917d-d76bbc828489",
-                                                                                     "f8f4a3b8-8a46-467c-a196-dc8163915623",
-                                                                                     "bb90a25e-7ca3-461e-8281-dede044298ae",
-                                                                                     "89bf5597-e7e2-436c-a4fd-ba24a4cef140",
-                                                                                     "2c795ad2-97b0-4333-a30c-e990ada493aa"))
-                                                              .notInCaIds(Arrays.asList("bab41e48-1811-451d-ae2a-8b5390246c66",
-                                                                                        "f3f82cc0-ab78-4222-b097-23be1c8a8793",
-                                                                                        "d15ab6f9-a8a3-490b-87af-3496889e70ef",
-                                                                                        "24ca0e04-6457-46bc-a00f-f3977a90a539",
-                                                                                        "d5ed694c-4da2-4391-9086-c2eed449daaa",
-                                                                                        "9416908b-5406-42f4-b244-394d28205c36",
-                                                                                        "5920bef6-98e0-48a2-83ed-2577d83d671b",
-                                                                                        "12401506-6d60-4a4d-9e78-6d8b6c22865f"))
-                                                              .inEnrolmentListTimestamps(Arrays.asList(new Date(1559835562005L),
-                                                                                                       new Date(1559835554900L),
-                                                                                                       new Date(1559835559767L),
-                                                                                                       new Date(1559835562528L),
-                                                                                                       new Date(1559835558538L),
-                                                                                                       new Date(1559835561133L),
-                                                                                                       new Date(1559835559724L),
-                                                                                                       new Date(1559835562815L),
-                                                                                                       new Date(1559835553680L)))
-                                                              .notInEnrolmentListTimestamps(Arrays.asList(new Date(1559835554211L),
-                                                                                                          new Date(1559835560883L),
-                                                                                                          new Date(1559835562617L),
-                                                                                                          new Date(1559835554189L),
-                                                                                                          new Date(1559835558957L)))
-                                                              .lessThanEnrolmentListTimestamp(new Date(1559835558764L))
-                                                              .greaterThanEnrolmentListTimestamp(new Date(1559835555798L))
-                                                              .equalToDescription("0713ddc9-4dee-4eea-875c-fe615142ebe5")
-                                                              .notEqualToDescription("63413751-566a-47b1-836c-60424b7fed06")
-                                                              .inDescriptions(Arrays.asList("2c5663df-2903-4e73-a430-43847da2e983",
-                                                                                            "9a4f9853-cbcc-4960-a470-bee1cf553950"))
-                                                              .notInDescriptions(Arrays.asList("05613f5c-d4e0-42d9-95fb-2ed87b899fb8",
-                                                                                               "06715d47-93f9-422c-a422-693d2703f599",
-                                                                                               "87d9f7bb-86d7-4dc1-88cb-7a9977250083",
-                                                                                               "3909648c-2996-4cc3-ba77-9a0fa6c15de1"))
-                                                              .equalToDeployment("9edd3f12-4ef0-4832-b6da-ac9b1fd2518c")
-                                                              .notEqualToDeployment("88631267-0de8-4281-bdf8-f3d79ce78ebd")
-                                                              .inDeployments(Arrays.asList("a97fea8f-d4f2-4f6f-8e02-e4ee3c026530",
-                                                                                           "fd7560d5-95eb-4d5c-98fd-ef66ae9674fc",
-                                                                                           "ead9a184-b711-44c2-9553-266f239c7b19",
-                                                                                           "b65de122-2eee-41ca-be0f-4d21ce476e03"))
-                                                              .notInDeployments(Arrays.asList("caee9c82-4ef7-4c66-8916-9f996eebd043",
-                                                                                              "ec66bd31-b04d-4c61-af7d-d9d2fc354730"))
+                                                              .equalToDeviceExecutionMode(Integer.valueOf(101))
+                                                              .notEqualToDeviceExecutionMode(Integer.valueOf(-21))
+                                                              .inDeviceExecutionModes(Arrays.asList(Integer.valueOf(2),
+                                                                                                    Integer.valueOf(-119),
+                                                                                                    Integer.valueOf(104),
+                                                                                                    Integer.valueOf(1),
+                                                                                                    Integer.valueOf(-51),
+                                                                                                    Integer.valueOf(-124),
+                                                                                                    Integer.valueOf(56)))
+                                                              .notInDeviceExecutionModes(Arrays.asList(Integer.valueOf(-84),
+                                                                                                       Integer.valueOf(-28),
+                                                                                                       Integer.valueOf(-85),
+                                                                                                       Integer.valueOf(24),
+                                                                                                       Integer.valueOf(-128),
+                                                                                                       Integer.valueOf(-57),
+                                                                                                       Integer.valueOf(-22),
+                                                                                                       Integer.valueOf(54)))
+                                                              .equalToAccountId("ed215680-9ba6-497c-a9b7-4da8421170d8")
+                                                              .notEqualToAccountId("35101d4d-9d28-49d0-a9f9-d24f353c2f97")
+                                                              .inAccountIds(Arrays.asList("db93dc41-a2ca-4ae8-9d86-c96ab98feb52",
+                                                                                          "14b5eb1a-4318-4333-9ac7-6f2269717d5d",
+                                                                                          "e981abe9-2d62-46fb-b272-d9d355f25054",
+                                                                                          "2f143984-babf-499e-8872-ef74b56c2e46",
+                                                                                          "a397b8be-8ebc-4a25-9761-7facc892d97c",
+                                                                                          "6eb58b7b-e301-487c-b281-6827dbc6c4ed"))
+                                                              .notInAccountIds(Arrays.asList("75ca625c-8296-4035-98bc-e35ae7686ff3"))
+                                                              .equalToMechanismUrl("08f4d896-7234-4dee-b83f-5b68f5edaf36")
+                                                              .notEqualToMechanismUrl("ddd75b2c-adba-4a8f-81ea-b2b3cd422c6c")
+                                                              .inMechanismUrls(Arrays.asList("94f6ea23-07fe-46de-9cc9-9652cd8e18af",
+                                                                                             "47f3c3a1-a272-45a2-aefe-7d3194bcb00d",
+                                                                                             "920c3056-eada-4d3d-a1a6-455fa9d980bc",
+                                                                                             "54783a71-de19-4d33-b607-25f6e8029a18",
+                                                                                             "4fa28a1b-be95-41d7-b511-8f97065a2485",
+                                                                                             "e63502e2-7d5a-420a-abbc-52f8025669bc",
+                                                                                             "6b6d8185-9bbe-4b42-bc92-62cacfc3ca78"))
+                                                              .notInMechanismUrls(Arrays.asList("09e796cc-75fe-4bc2-93ce-58562a9a5adc",
+                                                                                                "af7c8bbb-a622-4ba5-8f49-ce6c2e1cd4b6",
+                                                                                                "1bb473ab-874e-4bf8-af7f-bd59f7703250",
+                                                                                                "f27f5b82-c720-457a-9635-b75cd26012d2",
+                                                                                                "9abdb3f8-eacf-485a-8a15-d81ff323a611",
+                                                                                                "9e155414-486b-40f2-a6ca-c2898b7a3ff3",
+                                                                                                "221d39c7-92f6-434b-af5a-0063bac91c4f"))
+                                                              .equalToVendorId("8740f658-6078-44e8-b11d-c22a2a32a5fd")
+                                                              .notEqualToVendorId("6caf7216-d89e-459f-b2b9-e9df5b198ea8")
+                                                              .inVendorIds(Arrays.asList("dc559751-952b-47c6-93ef-333af4d3c1e7",
+                                                                                         "cfd23c0b-bfaf-4529-b477-64a85077d10f",
+                                                                                         "db68e5ff-7b30-4644-a163-252cf1521c65",
+                                                                                         "ffb4ded8-1d40-44bc-ae37-dd925c0aea16"))
+                                                              .notInVendorIds(Arrays.asList("7592976b-3fc5-4c80-9f62-3b0ae7187ab6",
+                                                                                            "f0b1bd12-9118-4e19-84cc-82e396daaa79",
+                                                                                            "d3aaa1f3-e484-4a80-917c-18271fddce88",
+                                                                                            "d8d8d81a-6d1c-4edf-a0c1-24f48e58d144",
+                                                                                            "ff39a27d-77b6-41ac-b887-8e9a6306b691",
+                                                                                            "3770df1e-81cf-4fb2-803c-0c379c421420",
+                                                                                            "81ab7238-c8ab-4465-a40c-3199acff2c73",
+                                                                                            "edd4b6ee-8694-4a41-90b2-2ce51a379cef"))
+                                                              .equalToDeviceClass("a3018f13-77ec-43c3-baa0-65d7210ba2b4")
+                                                              .notEqualToDeviceClass("afcae8e3-ecb7-4188-89ca-4e88ded4ded1")
+                                                              .inDeviceClass(Arrays.asList("724df588-9916-49c1-a904-e4eab2834804",
+                                                                                           "31fa7fbf-6076-4f06-986d-ef7d4718f6e8",
+                                                                                           "9634fed2-077a-4334-963d-42a20360684d",
+                                                                                           "78f8fc11-d2b2-483f-a39d-7d8d804fbf9c",
+                                                                                           "23ec6687-678c-4880-8eba-6ba5e1d896c1",
+                                                                                           "abb3d27b-010b-4fbc-a8e3-ac56226e40bf",
+                                                                                           "66e54c0a-821b-48ce-9fba-12ee4d03289c"))
+                                                              .notInDeviceClass(Arrays.asList("1285864a-8410-45f6-804c-a43c3b0cbc57"))
+                                                              .equalToHostGateway("10d34aaa-daa7-47f2-beed-3c5231caac63")
+                                                              .notEqualToHostGateway("87f7a9fa-07ed-4a92-9c38-668173d4f3f1")
+                                                              .inHostGateways(Arrays.asList("b1935419-1ac3-4d55-8010-d4af30bf2a3d",
+                                                                                            "2ce820d5-a3c1-41ab-871a-8bcf15556f8d"))
+                                                              .notInHostGateways(Arrays.asList("c6e5a2eb-1087-4fcd-af01-01c387ec15ae",
+                                                                                               "7bb34cdb-e2a8-4311-b2eb-06754b9fa580",
+                                                                                               "286c7587-806b-4f45-a0b2-42a812c63e32",
+                                                                                               "76d9ae66-637e-4b05-a89b-879d3bbdce2c"))
+                                                              .inBootstrappedTimestamps(Arrays.asList(new Date(1561379514996L),
+                                                                                                      new Date(1561379514197L)))
+                                                              .notInBootstrappedTimestamps(Arrays.asList(new Date(1561379517438L),
+                                                                                                         new Date(1561379519562L),
+                                                                                                         new Date(1561379517304L),
+                                                                                                         new Date(1561379516193L),
+                                                                                                         new Date(1561379520928L)))
+                                                              .lessThanBootstrappedTimestamp(new Date(1561379518238L))
+                                                              .greaterThanBootstrappedTimestamp(new Date(1561379515480L))
+                                                              .equalToSerialNumber("70d36786-620c-4d58-ba69-737f2e2f9e19")
+                                                              .notEqualToSerialNumber("798639f9-d88f-4346-8cfe-b1f0a3114957")
+                                                              .inSerialNumbers(Arrays.asList("0f8b663b-c656-4d7d-9c6e-ed05d86918e0",
+                                                                                             "eacb7d3c-036e-4ec1-82f1-da7b7c2086b8"))
+                                                              .notInSerialNumbers(Arrays.asList("c2b4abcc-a358-47c7-9423-054aa6b70d62",
+                                                                                                "94ce7ac6-a3f4-47f2-bfa4-d301c733db53",
+                                                                                                "f697e03f-c7b9-4c21-9f9c-90fb19e2f74c"))
+                                                              .equalToId("d209bdc5-17e7-4546-8a86-2fcbf430d49c")
+                                                              .notEqualToId("8317663f-723c-4775-b33f-3a5da0987f2c")
+                                                              .inIds(Arrays.asList("fb65d8f2-869f-48a8-93c1-01849cb762b0",
+                                                                                   "9ba4d499-19ff-4097-8a3c-c7cf27000e8f",
+                                                                                   "fbf93810-250f-43b3-bd7d-aacab65f568c",
+                                                                                   "76b803ef-f7bf-4154-9c0a-40c8c932d78e",
+                                                                                   "c6720d4b-4f7c-48e6-88c7-b76ff8fd64df",
+                                                                                   "379cb011-4fe3-4e3c-8c50-6ac12e15f290",
+                                                                                   "270b5e5f-d9c9-44d2-8c0a-5d47030d12ec",
+                                                                                   "01b1404d-942b-4eed-b6b8-78398ac34503"))
+                                                              .notInIds(Arrays.asList("a75b38ca-4d3b-4bbb-96c7-b9b50b073246",
+                                                                                      "8b33a1a6-6822-4faf-8be5-0bd64f4445ae",
+                                                                                      "a4baac7c-ee9a-457a-99ce-08f8d6012060"))
+                                                              .inConnectorExpirationDates(Arrays.asList(new Date(1561379520498L),
+                                                                                                        new Date(1561379518532L),
+                                                                                                        new Date(1561379515161L),
+                                                                                                        new Date(1561379514161L)))
+                                                              .notInConnectorExpirationDates(Arrays.asList(new Date(1561379515934L),
+                                                                                                           new Date(1561379522024L),
+                                                                                                           new Date(1561379522943L),
+                                                                                                           new Date(1561379518116L),
+                                                                                                           new Date(1561379514978L),
+                                                                                                           new Date(1561379515395L),
+                                                                                                           new Date(1561379515365L)))
+                                                              .lessThanConnectorExpirationDate(new Date(1561379517168L))
+                                                              .greaterThanConnectorExpirationDate(new Date(1561379517830L))
+                                                              .equalToCaId("290f1a93-58d7-4ce7-8688-71d084e95e40")
+                                                              .notEqualToCaId("31917830-e601-43aa-b086-54ffdf8471c6")
+                                                              .inCaIds(Arrays.asList("f4b96531-31ce-4b46-8e40-058c5ae70bc7",
+                                                                                     "cf6ca887-a084-45e5-a46f-7b5a0da1a28d",
+                                                                                     "f12d2050-3f58-48c2-902e-9d08deccd39d",
+                                                                                     "016d351a-77a1-43e3-9c07-128980c648a7"))
+                                                              .notInCaIds(Arrays.asList("c054a3cc-64c9-4bbe-96b7-d0d2f3c803b3",
+                                                                                        "081f5092-f177-4ef5-a21b-7a3d0039b413",
+                                                                                        "b1cab919-fd82-433e-a78a-455603243e1b",
+                                                                                        "e1163d1d-56bf-4f81-b5da-4ac35c45980b",
+                                                                                        "36201081-eb02-4925-8517-8b6f4bb61fd6"))
+                                                              .inEnrolmentListTimestamps(Arrays.asList(new Date(1561379521209L),
+                                                                                                       new Date(1561379519032L),
+                                                                                                       new Date(1561379514425L)))
+                                                              .notInEnrolmentListTimestamps(Arrays.asList(new Date(1561379518791L),
+                                                                                                          new Date(1561379514956L)))
+                                                              .lessThanEnrolmentListTimestamp(new Date(1561379516624L))
+                                                              .greaterThanEnrolmentListTimestamp(new Date(1561379522233L))
+                                                              .equalToDescription("9ff251fd-7dce-4bb4-a3f8-2d5097c18519")
+                                                              .notEqualToDescription("b922795f-ec88-49d0-b252-19aa72bbae1b")
+                                                              .inDescriptions(Arrays.asList("45b0d2f4-95fb-42ea-a8d0-d153d88a34ad",
+                                                                                            "8fd8d898-3fe0-4cb3-9297-98feef5ee423",
+                                                                                            "749e0c14-519e-454e-be0c-3bce8e599bd6",
+                                                                                            "b7cb258a-ef34-49d6-b66b-3f7f1996ca15",
+                                                                                            "cd4e4be7-445b-44ba-b1fc-c3b67dcf2e2b"))
+                                                              .notInDescriptions(Arrays.asList("6a136839-a039-4658-a925-c51b0ab88415",
+                                                                                               "a6eeeb33-6f62-4dd2-ba3f-22ff014551d6",
+                                                                                               "38b9cac1-f9d2-47c3-9ccf-bb1302e61167",
+                                                                                               "c882e951-21ad-4e76-acb8-41c5ec41286f",
+                                                                                               "71986298-cbb8-404a-8477-c61551667b57",
+                                                                                               "9dac4d16-9d68-40bc-a251-1b72eca74d91",
+                                                                                               "de77f98d-abaf-4504-8a2f-f54bf1a73734",
+                                                                                               "57616736-d6a8-4bdf-9779-4ce96bcd6a8d",
+                                                                                               "2f8eb8ad-2f01-4fc3-a51c-116bdf09d2b9"))
+                                                              .equalToDeployment("33777c87-b847-4d27-8cfc-fa1a2069eb26")
+                                                              .notEqualToDeployment("92555a18-be8d-420d-9396-6191239ab6d8")
+                                                              .inDeployments(Arrays.asList("79339a68-a667-4646-844a-fdddac1a6832",
+                                                                                           "b6a3531f-1e08-402a-83f1-e7be58871dce",
+                                                                                           "8a7f81cd-1481-4059-84ae-765610f0bb3d",
+                                                                                           "dc4a3a2d-beff-4cef-8ce4-d311bf07dbe1",
+                                                                                           "cb537a92-d117-4101-8537-da6a5e2fef9d",
+                                                                                           "911cca3c-ac5e-4385-bdb0-99e3068839e7",
+                                                                                           "b97206f9-90b9-4267-aa81-1c8ac901c144",
+                                                                                           "7a80c74f-7534-4a5c-9b83-77be9483bcca"))
+                                                              .notInDeployments(Arrays.asList("bc61df6c-f1b7-4d21-b4cc-47d711ea2c53",
+                                                                                              "09c03eaf-27d8-495e-8af1-dcf03a6f3100",
+                                                                                              "44b3c455-8b1c-42b1-b1fe-89b2c66308d7",
+                                                                                              "b90a62a2-6058-4186-ae63-73cb8e072984",
+                                                                                              "d747edc4-61b7-47d0-ad1e-f224a700c4f8"))
                                                               .equalToMechanism(DeviceMechanism.getDefault())
                                                               .notEqualToMechanism(DeviceMechanism.getDefault())
                                                               .inMechanisms(Arrays.asList(DeviceMechanism.getDefault(),
                                                                                           DeviceMechanism.getDefault(),
                                                                                           DeviceMechanism.getDefault(),
-                                                                                          DeviceMechanism.getDefault(),
-                                                                                          DeviceMechanism.getDefault(),
-                                                                                          DeviceMechanism.getDefault(),
                                                                                           DeviceMechanism.getDefault()))
-                                                              .notInMechanisms(Arrays.asList(DeviceMechanism.getDefault(),
-                                                                                             DeviceMechanism.getDefault()))
+                                                              .notInMechanisms(Arrays.asList(DeviceMechanism.getDefault()))
                                                               .equalToDeployedState(DeviceDeployedState.getDefault())
                                                               .notEqualToDeployedState(DeviceDeployedState.getDefault())
                                                               .inDeployedStates(Arrays.asList(DeviceDeployedState.getDefault(),
                                                                                               DeviceDeployedState.getDefault(),
+                                                                                              DeviceDeployedState.getDefault(),
+                                                                                              DeviceDeployedState.getDefault(),
+                                                                                              DeviceDeployedState.getDefault(),
+                                                                                              DeviceDeployedState.getDefault(),
                                                                                               DeviceDeployedState.getDefault()))
                                                               .notInDeployedStates(Arrays.asList(DeviceDeployedState.getDefault(),
                                                                                                  DeviceDeployedState.getDefault(),
-                                                                                                 DeviceDeployedState.getDefault(),
-                                                                                                 DeviceDeployedState.getDefault(),
-                                                                                                 DeviceDeployedState.getDefault(),
                                                                                                  DeviceDeployedState.getDefault()))
-                                                              .inUpdatedAts(Arrays.asList(new Date(1559835553944L),
-                                                                                          new Date(1559835562525L),
-                                                                                          new Date(1559835556077L),
-                                                                                          new Date(1559835562041L)))
-                                                              .notInUpdatedAts(Arrays.asList(new Date(1559835556206L),
-                                                                                             new Date(1559835560494L),
-                                                                                             new Date(1559835556617L),
-                                                                                             new Date(1559835559979L),
-                                                                                             new Date(1559835554510L),
-                                                                                             new Date(1559835553276L),
-                                                                                             new Date(1559835556252L),
-                                                                                             new Date(1559835558495L),
-                                                                                             new Date(1559835555836L)))
-                                                              .lessThanUpdatedAt(new Date(1559835558007L))
-                                                              .greaterThanUpdatedAt(new Date(1559835561560L))
-                                                              .equalToName("376b90fe-da45-4b3d-ba3d-9b3b37313c49")
-                                                              .notEqualToName("fefbf298-41ef-400b-9e23-e9add989b850")
-                                                              .inNames(Arrays.asList("e85b1ece-e92d-4cfd-be41-2fe04f430aaf",
-                                                                                     "98d79055-0875-4ed0-a0dd-fd95f1648b88"))
-                                                              .notInNames(Arrays.asList("b91ade27-03dc-4148-baa7-abe28039cfff"))
-                                                              .inManifestTimestamps(Arrays.asList(new Date(1559835559833L),
-                                                                                                  new Date(1559835562849L)))
-                                                              .notInManifestTimestamps(Arrays.asList(new Date(1559835560972L),
-                                                                                                     new Date(1559835558443L),
-                                                                                                     new Date(1559835554680L),
-                                                                                                     new Date(1559835557252L),
-                                                                                                     new Date(1559835553743L),
-                                                                                                     new Date(1559835560791L)))
-                                                              .lessThanManifestTimestamp(new Date(1559835556663L))
-                                                              .greaterThanManifestTimestamp(new Date(1559835552936L))
-                                                              .equalToEndpointName("99109bb8-fbeb-44fd-9034-09770124c635")
-                                                              .notEqualToEndpointName("deca8c17-4ee1-4052-981a-c065791a2c6d")
-                                                              .inEndpointNames(Arrays.asList("d72a09ed-9519-44e9-9041-712464336e58",
-                                                                                             "9acdfb93-9fa2-4eb0-80e8-936c03a5488d",
-                                                                                             "be20bad1-23ef-4f94-a3e7-d79a6c150ec7",
-                                                                                             "aefd019f-a47c-4ecb-9e8e-eb1ab189eaa2",
-                                                                                             "9789690a-032e-400c-89f1-0f46b15cc7fa",
-                                                                                             "43eee6ff-c739-4c9f-b653-176ebbfbfe9d",
-                                                                                             "d68a8111-7c9b-416e-9c7c-de7a39c3670a"))
-                                                              .notInEndpointNames(Arrays.asList("bcd0142e-d288-4426-a2d7-de707889c1c6",
-                                                                                                "ab240f9f-a659-4cac-b33f-63aecba113cb",
-                                                                                                "33a6aac3-08ca-4abb-b301-74f23d55df3d"));
+                                                              .inUpdatedAts(Arrays.asList(new Date(1561379516400L),
+                                                                                          new Date(1561379521754L),
+                                                                                          new Date(1561379514939L),
+                                                                                          new Date(1561379514072L),
+                                                                                          new Date(1561379523247L),
+                                                                                          new Date(1561379519097L),
+                                                                                          new Date(1561379513998L),
+                                                                                          new Date(1561379519111L)))
+                                                              .notInUpdatedAts(Arrays.asList(new Date(1561379522801L),
+                                                                                             new Date(1561379519237L),
+                                                                                             new Date(1561379516126L)))
+                                                              .lessThanUpdatedAt(new Date(1561379514098L))
+                                                              .greaterThanUpdatedAt(new Date(1561379520476L))
+                                                              .equalToName("c81c1955-46b1-45d1-a282-327e2af0694a")
+                                                              .notEqualToName("dd4abb0c-7fa8-4345-b685-915ba21101f7")
+                                                              .inNames(Arrays.asList("c98e4ed6-de93-4860-85cb-057a72ff42b7",
+                                                                                     "afa4e574-765f-4760-8479-b4d56b0b7693",
+                                                                                     "a8c9b1d3-73de-48a5-9f3e-5ecfa064b7b8",
+                                                                                     "1693bf5f-3138-4c29-9a71-c3f15ce37ce9",
+                                                                                     "5553a615-e5a7-4c37-b3c6-9d7a3c019763",
+                                                                                     "d8ff7224-e3a9-4c54-988e-5ff0ae5676f7",
+                                                                                     "261d3d0f-f3b1-48fd-b76c-53fb8180648e",
+                                                                                     "e85a94e5-66b5-4f4f-a43a-43b23ddd759a",
+                                                                                     "6fe5fab1-0554-4e87-abb3-6c065c1adfb4"))
+                                                              .notInNames(Arrays.asList("35b86e9d-78cb-40e2-8218-bb32348ab597",
+                                                                                        "440937e4-6408-439e-9185-54f7294fa4b3"))
+                                                              .inManifestTimestamps(Arrays.asList(new Date(1561379516225L),
+                                                                                                  new Date(1561379516824L),
+                                                                                                  new Date(1561379522868L),
+                                                                                                  new Date(1561379514543L),
+                                                                                                  new Date(1561379521365L),
+                                                                                                  new Date(1561379521965L),
+                                                                                                  new Date(1561379520362L),
+                                                                                                  new Date(1561379523335L)))
+                                                              .notInManifestTimestamps(Arrays.asList(new Date(1561379522042L),
+                                                                                                     new Date(1561379516022L)))
+                                                              .lessThanManifestTimestamp(new Date(1561379514937L))
+                                                              .greaterThanManifestTimestamp(new Date(1561379521216L))
+                                                              .equalToEndpointName("d8abb880-4a44-4ae6-bef8-8f8e9ea57de7")
+                                                              .notEqualToEndpointName("b57e26a6-1092-4113-aa57-373a1a390b78")
+                                                              .inEndpointNames(Arrays.asList("005c084a-01bd-44e5-a275-01d2d03d9b69",
+                                                                                             "68792d23-5a40-4d31-955b-e3d2e65f6612",
+                                                                                             "ce97d17c-f5d3-4094-b157-5808708c6b9f",
+                                                                                             "8d4409b1-e93c-4dfa-b467-9c86aa35d856"))
+                                                              .notInEndpointNames(Arrays.asList("de39cb11-887a-45fc-b780-e68d040a939c",
+                                                                                                "6202c9fe-bae4-4a71-a174-108c208baac9"));
             assertTrue(option.hasFilters());
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_AUTO_UPDATE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_AUTO_UPDATE, FilterOperator.EQUAL));
@@ -380,170 +378,175 @@ public class TestDeviceListOptions {
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_AUTO_UPDATE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_AUTO_UPDATE, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getAutoUpdateFilters());
-            assertEquals(Boolean.FALSE,
+            assertEquals(Boolean.TRUE,
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_AUTO_UPDATE,
                                                                        Boolean.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE, FilterOperator.IN));
             assertNotNull(option.getBootstrapExpirationDateFilters());
-            assertEquals(Arrays.asList(new Date(1559835559520L), new Date(1559835553374L), new Date(1559835560310L),
-                                       new Date(1559835557368L)),
+            assertEquals(Arrays.asList(new Date(1561379513913L), new Date(1561379520917L), new Date(1561379514737L),
+                                       new Date(1561379518818L), new Date(1561379513564L), new Date(1561379516704L),
+                                       new Date(1561379515426L), new Date(1561379522860L)),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
                                         FilterOperator.NOT_IN));
             assertNotNull(option.getBootstrapExpirationDateFilters());
-            assertEquals(Arrays.asList(new Date(1559835560550L), new Date(1559835561079L), new Date(1559835556760L)),
+            assertEquals(Arrays.asList(new Date(1561379520974L), new Date(1561379518159L), new Date(1561379519409L),
+                                       new Date(1561379519434L), new Date(1561379517167L), new Date(1561379517764L),
+                                       new Date(1561379522958L), new Date(1561379520563L), new Date(1561379522211L)),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
                                         FilterOperator.LESS_THAN));
             assertNotNull(option.getBootstrapExpirationDateFilters());
-            assertEquals(new Date(1559835555883L),
+            assertEquals(new Date(1561379522754L),
                          ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
                                                                        Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
                                         FilterOperator.GREATER_THAN));
             assertNotNull(option.getBootstrapExpirationDateFilters());
-            assertEquals(new Date(1559835561879L),
+            assertEquals(new Date(1561379521221L),
                          ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAP_EXPIRATION_DATE,
                                                                           Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_CREATED_AT));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT, FilterOperator.IN));
             assertNotNull(option.getCreatedAtFilters());
-            assertEquals(Arrays.asList(new Date(1559835555579L), new Date(1559835556604L), new Date(1559835558811L),
-                                       new Date(1559835560897L), new Date(1559835559506L), new Date(1559835562599L),
-                                       new Date(1559835562768L), new Date(1559835555687L), new Date(1559835561720L)),
+            assertEquals(Arrays.asList(new Date(1561379517644L)),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT, List.class,
                                                                  option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_CREATED_AT));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT, FilterOperator.NOT_IN));
             assertNotNull(option.getCreatedAtFilters());
-            assertEquals(Arrays.asList(new Date(1559835560358L), new Date(1559835559163L), new Date(1559835559812L),
-                                       new Date(1559835558883L), new Date(1559835557448L), new Date(1559835555109L),
-                                       new Date(1559835552965L), new Date(1559835560694L)),
+            assertEquals(Arrays.asList(new Date(1561379516718L), new Date(1561379517474L), new Date(1561379514060L),
+                                       new Date(1561379516412L)),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_CREATED_AT));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT, FilterOperator.LESS_THAN));
             assertNotNull(option.getCreatedAtFilters());
-            assertEquals(new Date(1559835554250L),
+            assertEquals(new Date(1561379519815L),
                          ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT,
                                                                        Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_CREATED_AT));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT, FilterOperator.GREATER_THAN));
             assertNotNull(option.getCreatedAtFilters());
-            assertEquals(new Date(1559835556988L),
+            assertEquals(new Date(1561379513940L),
                          ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_CREATED_AT,
                                                                           Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MANIFEST));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST, FilterOperator.EQUAL));
             assertNotNull(option.getManifestFilters());
-            assertEquals("fd252463-fb11-4faf-bdd6-5cef3131af7b",
+            assertEquals("be9a7abb-c3a6-4b46-81a3-a51fffe50022",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MANIFEST));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getManifestFilters());
-            assertEquals("ceb6ae64-0293-4cd5-aa6e-5a41a4771dac",
+            assertEquals("41321566-b7ef-481e-9978-1bdc19739fff",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MANIFEST));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST, FilterOperator.IN));
             assertNotNull(option.getManifestFilters());
-            assertEquals(Arrays.asList("8ace80b3-5dc4-468a-9950-4f8e9f454e21", "8484ad4e-c7e9-4a33-aaf6-59ed182b4e17",
-                                       "819ba888-1396-402e-b346-d712534cb4d5"),
+            assertEquals(Arrays.asList("f549489f-98c8-4df3-981e-4ba8e2aa17fa", "2402745f-b35a-483d-9725-c22feb403da5",
+                                       "d6df7486-8d7c-4fe2-9bf8-316f9e3f397e", "0fe61cdb-c623-4365-8b0e-6f923e788921",
+                                       "ac48ef61-bfba-4cbf-a578-63c9aefb891f"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST, List.class,
                                                                  option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MANIFEST));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST, FilterOperator.NOT_IN));
             assertNotNull(option.getManifestFilters());
-            assertEquals(Arrays.asList("f7590565-1b96-45be-b5ab-d66391f8394b", "761312c7-1526-47da-a1fd-520fd8a36d7f",
-                                       "e79754ac-b395-496a-9b32-2436953e2b30"),
+            assertEquals(Arrays.asList("58c70b55-7fbc-44fc-ad09-b5efc985fb37", "065494c8-3310-4406-ac8c-6582ce02207c",
+                                       "15d8f789-5894-4f8f-8072-8f4cc50e8ab9", "55dd746a-e1b3-47d2-b3d2-1af1dca5245e",
+                                       "8e56c15a-3eb1-4d7b-9d41-4f2f8908956a", "18ebc59c-97fa-45cc-8a3a-620adc8131d8",
+                                       "adc3d67a-b46a-48f7-8b0a-4b9c71fcb6b2"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE, FilterOperator.EQUAL));
             assertNotNull(option.getEndpointTypeFilters());
-            assertEquals("da974998-9b60-4e28-9dec-ce127ac132ea",
+            assertEquals("bb0c7930-d5f4-45bd-82f7-1cf2a35b2080",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getEndpointTypeFilters());
-            assertEquals("0a2c600e-7d7f-476b-b09e-f36b6294150a",
+            assertEquals("120f6ae9-f45f-49d8-98f5-d11aff28472f",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE, FilterOperator.IN));
             assertNotNull(option.getEndpointTypeFilters());
-            assertEquals(Arrays.asList("ae364461-51c0-4d82-a31e-a23e5068a94c", "17bcac41-bef9-4c7f-903c-bd0809c84bed",
-                                       "b74b7319-9f4e-40dc-9af2-79ef84ebb65d", "b5e028a5-2550-4d1d-8343-e4c5e22222c4"),
+            assertEquals(Arrays.asList("091d972e-2242-450d-ab32-e46c7be8d96f", "e832d0c4-e841-4c6d-9c1b-2bece72242e8",
+                                       "b4d69e41-0ff9-47b1-b63a-594fae3428c9", "61ccf456-e8fe-4ffc-bfc8-33d961c57e6a"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE, FilterOperator.NOT_IN));
             assertNotNull(option.getEndpointTypeFilters());
-            assertEquals(Arrays.asList("28902741-1979-4af4-8c06-8da0c8fe9ec6", "27707b00-8c9f-4395-99be-196f2e0df57b",
-                                       "0015c806-40a4-4c82-a470-b02506625beb", "c66b5080-47bb-4a9d-8676-0423f8f3dc31",
-                                       "f15ef273-1411-454c-a24d-c374b2d988f3", "d4f4d700-8a46-4bc8-a10d-54448d62cf12"),
+            assertEquals(Arrays.asList("bdfa9fd4-7c6f-43b3-a22a-7616cf8ec5a6", "0edaed9b-5396-4c79-b19f-d1bc75e037a9",
+                                       "ef4212d0-548d-4f06-b62e-5db9ddda615e", "f9be0666-c82a-4d67-856b-c48986966611",
+                                       "db2be6fe-4686-4c16-af53-07f199ba391d", "3d5a0117-a635-4c7a-ae55-7e427227c429"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_TYPE,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY, FilterOperator.EQUAL));
             assertNotNull(option.getDeviceKeyFilters());
-            assertEquals("bcb0ff2a-32ac-476d-8848-e3bfa2db3639",
+            assertEquals("fcc2f4a1-943f-45f1-90e5-ac85e99eb164",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getDeviceKeyFilters());
-            assertEquals("d87cc766-dd3a-4581-a453-79878e6b8555",
+            assertEquals("887e78d3-6f40-450e-b8a5-9f6e168c034c",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY, FilterOperator.IN));
             assertNotNull(option.getDeviceKeyFilters());
-            assertEquals(Arrays.asList("17ecf9b5-db47-4ae2-862c-b7120b7fc9d0", "47a43695-7837-4c87-9950-de07b290c07a",
-                                       "cc926baf-2cd7-416d-b275-938ef909fc2b", "a4f630e7-1bc9-4993-ae5c-713f0ea3ef1e"),
+            assertEquals(Arrays.asList("1fdf6aab-280e-460f-a357-5ae04c87a3f6", "9f81d090-cee5-4dc5-b2e8-039e997665a0",
+                                       "78a71506-94fc-468b-9bea-a8e15f16fb47", "a26c0deb-69f2-474c-9a37-aed5d4851659",
+                                       "1c517363-52b5-404d-95e6-aac2744b8655"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY, List.class,
                                                                  option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY, FilterOperator.NOT_IN));
             assertNotNull(option.getDeviceKeyFilters());
-            assertEquals(Arrays.asList("a7558c1f-72e9-4903-9dca-936ed6521e7d"),
+            assertEquals(Arrays.asList("d8a0a0f1-efb9-4684-8d42-148ea3e254f3", "0fa41c12-5b09-47a6-8064-68fc357603fb",
+                                       "e34c5408-9316-4ba3-b4b6-17853feff95a", "edd190fc-ba16-480f-92b6-f652a68e703c",
+                                       "861dc2f0-1ab8-46c9-9365-612e89c78456"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_KEY,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM, FilterOperator.EQUAL));
             assertNotNull(option.getFirmwareChecksumFilters());
-            assertEquals("d211841f-166e-4bb7-be42-0ade363f5fbe",
+            assertEquals("8480ad1c-c489-4ef8-89be-5fb2c1eb2331",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getFirmwareChecksumFilters());
-            assertEquals("c13df541-4b3f-4e9a-bcf6-74bf830de96e",
+            assertEquals("ad97d613-6355-4dc6-93d2-1bd5cd697918",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM, FilterOperator.IN));
             assertNotNull(option.getFirmwareChecksumFilters());
-            assertEquals(Arrays.asList("f1956bc4-c1d8-4753-876f-145cc5a93ff2", "c227c40f-b2f2-45ed-b014-67563b930ff4",
-                                       "3413e1d3-744d-4c09-a13e-0194ecff8fa3", "558afdd3-cc24-41b1-9df7-094c6f3a60ec",
-                                       "0fe460e7-2527-4f98-a4d3-7f26172f0f7c", "4ca6fc42-9419-4f1e-91ec-b4965ef5219c",
-                                       "5112b698-1a1f-44d2-b36e-7a1a876e8932", "2247f91a-4a27-479a-81a6-3a2fd94a3bcf"),
+            assertEquals(Arrays.asList("bce56e47-bc86-4d9c-b3d3-b972c0d683d4", "dbd50f02-fff9-4083-ab6c-ed3b96845251",
+                                       "906ee284-3366-4370-963a-cc4613067f08", "aa835243-b72a-45a5-8215-ca241d37d398",
+                                       "6f838ca1-c0d1-4ac3-957e-86d0fb7b0220", "0898901d-eb61-4ded-8cc8-ace1f986d7d6"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM, FilterOperator.NOT_IN));
             assertNotNull(option.getFirmwareChecksumFilters());
-            assertEquals(Arrays.asList("c7b54a3b-38eb-4555-9153-934dc39ab25e", "4504a13b-0dba-4108-b12a-93ffbc4958f5",
-                                       "ab817647-bb37-4046-a4b4-dd67a6837ffe", "704fc70d-d4aa-4a4b-a699-97cdae26f7d0",
-                                       "5ee47768-1914-4e0d-8baa-99c03b59d505", "44947bf5-28d9-4a5e-a92a-b8bf4a617b54"),
+            assertEquals(Arrays.asList("908a29e3-6351-44e9-ae7f-c972390944ae", "e6b00c0f-cbf4-452f-b1cf-e87ebc4390ec",
+                                       "e0fb5593-cae9-4d99-897f-b3b0dd7547e5", "80344caf-abf3-4947-b36d-199e843b09b8",
+                                       "beebafee-d262-40b4-affc-d42ef7c4dcda"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_FIRMWARE_CHECKSUM,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_STATE));
@@ -562,404 +565,402 @@ public class TestDeviceListOptions {
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_STATE, FilterOperator.IN));
             assertNotNull(option.getStateFilters());
             assertEquals(Arrays.asList(DeviceState.getDefault(), DeviceState.getDefault(), DeviceState.getDefault(),
-                                       DeviceState.getDefault(), DeviceState.getDefault()),
+                                       DeviceState.getDefault(), DeviceState.getDefault(), DeviceState.getDefault(),
+                                       DeviceState.getDefault(), DeviceState.getDefault(), DeviceState.getDefault()),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_STATE, List.class,
                                                                  option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_STATE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_STATE, FilterOperator.NOT_IN));
             assertNotNull(option.getStateFilters());
-            assertEquals(Arrays.asList(DeviceState.getDefault(), DeviceState.getDefault(), DeviceState.getDefault(),
-                                       DeviceState.getDefault(), DeviceState.getDefault(), DeviceState.getDefault(),
-                                       DeviceState.getDefault()),
+            assertEquals(Arrays.asList(DeviceState.getDefault(), DeviceState.getDefault(), DeviceState.getDefault()),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_STATE, List.class,
                                                                     option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE, FilterOperator.EQUAL));
             assertNotNull(option.getDeviceExecutionModeFilters());
-            assertEquals(Integer.valueOf(-41),
+            assertEquals(Integer.valueOf(101),
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
                                                                     Integer.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
                                         FilterOperator.NOT_EQUAL));
             assertNotNull(option.getDeviceExecutionModeFilters());
-            assertEquals(Integer.valueOf(-102),
+            assertEquals(Integer.valueOf(-21),
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
                                                                        Integer.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE, FilterOperator.IN));
             assertNotNull(option.getDeviceExecutionModeFilters());
-            assertEquals(Arrays.asList(Integer.valueOf(88), Integer.valueOf(-96), Integer.valueOf(-26)),
+            assertEquals(Arrays.asList(Integer.valueOf(2), Integer.valueOf(-119), Integer.valueOf(104),
+                                       Integer.valueOf(1), Integer.valueOf(-51), Integer.valueOf(-124),
+                                       Integer.valueOf(56)),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE, FilterOperator.NOT_IN));
             assertNotNull(option.getDeviceExecutionModeFilters());
-            assertEquals(Arrays.asList(Integer.valueOf(88), Integer.valueOf(-10)),
+            assertEquals(Arrays.asList(Integer.valueOf(-84), Integer.valueOf(-28), Integer.valueOf(-85),
+                                       Integer.valueOf(24), Integer.valueOf(-128), Integer.valueOf(-57),
+                                       Integer.valueOf(-22), Integer.valueOf(54)),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_EXECUTION_MODE,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID, FilterOperator.EQUAL));
             assertNotNull(option.getAccountIdFilters());
-            assertEquals("5576bbed-df37-44c0-b439-23dfe98666f2",
+            assertEquals("ed215680-9ba6-497c-a9b7-4da8421170d8",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getAccountIdFilters());
-            assertEquals("0b406c71-a9ad-4ec4-9180-5d410a5166c7",
+            assertEquals("35101d4d-9d28-49d0-a9f9-d24f353c2f97",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID, FilterOperator.IN));
             assertNotNull(option.getAccountIdFilters());
-            assertEquals(Arrays.asList("b579e5ca-6560-4049-9c96-a60524f6165b", "c1682ba1-336e-4a8b-ac49-7d42501ef5cd",
-                                       "a72899d1-ed32-4edd-910d-86ec37290c58", "ecd7507b-9d8e-4270-b11a-a9f03c968c62",
-                                       "8df06dcf-6e1c-4427-9547-afd00b86620e", "bf298d30-0150-45eb-bb5c-3379cd9c2ea2",
-                                       "ffaefab4-fdd5-4e19-812a-b100a05713a6", "db4752e8-004f-4bb0-8d74-1e64c55aed8f"),
+            assertEquals(Arrays.asList("db93dc41-a2ca-4ae8-9d86-c96ab98feb52", "14b5eb1a-4318-4333-9ac7-6f2269717d5d",
+                                       "e981abe9-2d62-46fb-b272-d9d355f25054", "2f143984-babf-499e-8872-ef74b56c2e46",
+                                       "a397b8be-8ebc-4a25-9761-7facc892d97c", "6eb58b7b-e301-487c-b281-6827dbc6c4ed"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID, List.class,
                                                                  option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID, FilterOperator.NOT_IN));
             assertNotNull(option.getAccountIdFilters());
-            assertEquals(Arrays.asList("b2557dde-2f32-4058-9dd0-aec1ba5e07a6", "af12009c-db8e-4199-9e58-cc75e7fa16b2",
-                                       "a187fc3a-46f8-40da-9968-cf35837c3c5f", "f9f949d4-fc56-4cb9-9ce9-0f2f13226cf4",
-                                       "f15ae037-5158-4bc5-a970-d6c6277cc611", "817e6c72-c91d-4ddd-92b3-aaf2ffcb5523"),
+            assertEquals(Arrays.asList("75ca625c-8296-4035-98bc-e35ae7686ff3"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL, FilterOperator.EQUAL));
             assertNotNull(option.getMechanismUrlFilters());
-            assertEquals("9b56ce3f-576d-4781-bd85-2c91eec55257",
+            assertEquals("08f4d896-7234-4dee-b83f-5b68f5edaf36",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getMechanismUrlFilters());
-            assertEquals("2cd25cc1-b50d-43e5-9409-0c811b75c996",
+            assertEquals("ddd75b2c-adba-4a8f-81ea-b2b3cd422c6c",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL, FilterOperator.IN));
             assertNotNull(option.getMechanismUrlFilters());
-            assertEquals(Arrays.asList("0e7432f2-f76e-4e9c-a053-a3397997131c", "1a895422-9ca6-428c-8247-2f0e9e333deb",
-                                       "e032d88e-3477-4ce6-a70f-a79c7b4aead8", "41adb500-2a03-435e-b4e3-1d86e438d3fc",
-                                       "89a85913-5319-4894-bb8e-e004872d3c78"),
+            assertEquals(Arrays.asList("94f6ea23-07fe-46de-9cc9-9652cd8e18af", "47f3c3a1-a272-45a2-aefe-7d3194bcb00d",
+                                       "920c3056-eada-4d3d-a1a6-455fa9d980bc", "54783a71-de19-4d33-b607-25f6e8029a18",
+                                       "4fa28a1b-be95-41d7-b511-8f97065a2485", "e63502e2-7d5a-420a-abbc-52f8025669bc",
+                                       "6b6d8185-9bbe-4b42-bc92-62cacfc3ca78"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL, FilterOperator.NOT_IN));
             assertNotNull(option.getMechanismUrlFilters());
-            assertEquals(Arrays.asList("93a8f670-5b5b-4ce4-af41-bdff0316c714", "b8657610-f782-46e5-a12b-f79e950a9abb",
-                                       "6327002e-d4fc-4ef0-ae20-05619b93d6e8"),
+            assertEquals(Arrays.asList("09e796cc-75fe-4bc2-93ce-58562a9a5adc", "af7c8bbb-a622-4ba5-8f49-ce6c2e1cd4b6",
+                                       "1bb473ab-874e-4bf8-af7f-bd59f7703250", "f27f5b82-c720-457a-9635-b75cd26012d2",
+                                       "9abdb3f8-eacf-485a-8a15-d81ff323a611", "9e155414-486b-40f2-a6ca-c2898b7a3ff3",
+                                       "221d39c7-92f6-434b-af5a-0063bac91c4f"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM_URL,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID, FilterOperator.EQUAL));
             assertNotNull(option.getVendorIdFilters());
-            assertEquals("df42375a-cfd4-4229-9a7f-6f92b54aa8c6",
+            assertEquals("8740f658-6078-44e8-b11d-c22a2a32a5fd",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getVendorIdFilters());
-            assertEquals("dac6eb11-b2c0-4fbc-a44b-94beae5f2c27",
+            assertEquals("6caf7216-d89e-459f-b2b9-e9df5b198ea8",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID, FilterOperator.IN));
             assertNotNull(option.getVendorIdFilters());
-            assertEquals(Arrays.asList("8d9b4b08-24f3-4828-8953-da54f5af910a", "f3e92e53-3d80-4d91-a447-789874edef5e",
-                                       "0f6528f3-f9f6-4034-af3d-7e35c9c5cdeb", "db04fd44-c6e4-4da9-acbb-779b3ef1931a",
-                                       "58c34dd0-84ba-4acf-91b0-a484e3fc5e63", "65e6d891-b19d-4192-bcb5-5c679ce98179",
-                                       "63a09931-b66e-4e27-af9b-339568be3d55", "aaf1a26c-4012-49bd-a5ff-4b07190bd43d"),
+            assertEquals(Arrays.asList("dc559751-952b-47c6-93ef-333af4d3c1e7", "cfd23c0b-bfaf-4529-b477-64a85077d10f",
+                                       "db68e5ff-7b30-4644-a163-252cf1521c65", "ffb4ded8-1d40-44bc-ae37-dd925c0aea16"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID, List.class,
                                                                  option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID, FilterOperator.NOT_IN));
             assertNotNull(option.getVendorIdFilters());
-            assertEquals(Arrays.asList("c9222b7f-99a5-452d-aa8e-9a6ee25d8030", "9ca6246a-f4f3-490c-a42b-96736e92aa45",
-                                       "14a1c998-3ccc-4c63-86d0-6cc789e6feef", "2d946ae7-78a7-4755-963d-033635d12a0e",
-                                       "f9605c46-e39f-42b1-b96f-20b0fbd7d991", "9908e710-c84b-4d37-bb86-18be7aa20669",
-                                       "27671b5f-96c9-48cc-9899-97557f482d61", "48010a0e-2364-4a7b-9244-40768424c585",
-                                       "ebfa41c5-9b12-42bb-88a9-bfdd6ddaac40"),
+            assertEquals(Arrays.asList("7592976b-3fc5-4c80-9f62-3b0ae7187ab6", "f0b1bd12-9118-4e19-84cc-82e396daaa79",
+                                       "d3aaa1f3-e484-4a80-917c-18271fddce88", "d8d8d81a-6d1c-4edf-a0c1-24f48e58d144",
+                                       "ff39a27d-77b6-41ac-b887-8e9a6306b691", "3770df1e-81cf-4fb2-803c-0c379c421420",
+                                       "81ab7238-c8ab-4465-a40c-3199acff2c73", "edd4b6ee-8694-4a41-90b2-2ce51a379cef"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_VENDOR_ID,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS, FilterOperator.EQUAL));
             assertNotNull(option.getDeviceClassFilters());
-            assertEquals("52452d93-463a-4293-82dc-99832ebb8756",
+            assertEquals("a3018f13-77ec-43c3-baa0-65d7210ba2b4",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getDeviceClassFilters());
-            assertEquals("cbba194c-e951-4465-bca2-8752af5ea18c",
+            assertEquals("afcae8e3-ecb7-4188-89ca-4e88ded4ded1",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS, FilterOperator.IN));
             assertNotNull(option.getDeviceClassFilters());
-            assertEquals(Arrays.asList("b5b96324-4bf6-46c0-bada-5e9426609a71", "30f6395a-1ca9-440d-bf4f-034252d601fe",
-                                       "91c3ebc5-5d19-437b-9cd8-d072d2c12686", "b600e0db-15ab-42ed-a015-dd335c49d52b"),
+            assertEquals(Arrays.asList("724df588-9916-49c1-a904-e4eab2834804", "31fa7fbf-6076-4f06-986d-ef7d4718f6e8",
+                                       "9634fed2-077a-4334-963d-42a20360684d", "78f8fc11-d2b2-483f-a39d-7d8d804fbf9c",
+                                       "23ec6687-678c-4880-8eba-6ba5e1d896c1", "abb3d27b-010b-4fbc-a8e3-ac56226e40bf",
+                                       "66e54c0a-821b-48ce-9fba-12ee4d03289c"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS, FilterOperator.NOT_IN));
             assertNotNull(option.getDeviceClassFilters());
-            assertEquals(Arrays.asList("ed8425d3-0338-4616-b9a1-c83a53bfd254", "2045a370-f104-483b-af68-6f50e6154cef"),
+            assertEquals(Arrays.asList("1285864a-8410-45f6-804c-a43c3b0cbc57"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_DEVICE_CLASS,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY, FilterOperator.EQUAL));
             assertNotNull(option.getHostGatewayFilters());
-            assertEquals("68b970fa-fa1c-4daa-a2f4-289b79d648b3",
+            assertEquals("10d34aaa-daa7-47f2-beed-3c5231caac63",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getHostGatewayFilters());
-            assertEquals("25922be8-3cbe-4dc6-9098-fede31971da0",
+            assertEquals("87f7a9fa-07ed-4a92-9c38-668173d4f3f1",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY, FilterOperator.IN));
             assertNotNull(option.getHostGatewayFilters());
-            assertEquals(Arrays.asList("13a46606-c44a-453b-ab15-973bad076ace", "256a40e5-a6b9-4543-acd0-befe50489a90",
-                                       "fc1bc90d-5d07-4a36-9316-d1ac626b2d70", "5f5a857e-4a19-428a-96fb-f4b213fd133a",
-                                       "309716f6-989c-4998-9f9c-4328b5aaf121", "19ff11f4-a92a-4b0a-b635-6662f90928ed",
-                                       "9cd77d61-8831-4fbd-961e-1a374ad9ad2f", "a66cf7d9-d7e5-4225-9431-da35114fb401"),
+            assertEquals(Arrays.asList("b1935419-1ac3-4d55-8010-d4af30bf2a3d", "2ce820d5-a3c1-41ab-871a-8bcf15556f8d"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY, FilterOperator.NOT_IN));
             assertNotNull(option.getHostGatewayFilters());
-            assertEquals(Arrays.asList("4747a307-f23c-4499-90d6-870b3addf237", "dea05794-2225-4cb8-b0f0-3600324d7529",
-                                       "69928a5c-73cf-4e1c-a00e-ce8be49903ca", "e1674fad-821e-40d6-a0d8-9fec8a00d7e0",
-                                       "fc6d6b03-629d-4e09-b023-94d6133e72ee", "f907e066-226a-4c68-9d81-f822ef3ad83b"),
+            assertEquals(Arrays.asList("c6e5a2eb-1087-4fcd-af01-01c387ec15ae", "7bb34cdb-e2a8-4311-b2eb-06754b9fa580",
+                                       "286c7587-806b-4f45-a0b2-42a812c63e32", "76d9ae66-637e-4b05-a89b-879d3bbdce2c"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_HOST_GATEWAY,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP, FilterOperator.IN));
             assertNotNull(option.getBootstrappedTimestampFilters());
-            assertEquals(Arrays.asList(new Date(1559835555596L)),
+            assertEquals(Arrays.asList(new Date(1561379514996L), new Date(1561379514197L)),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP, FilterOperator.NOT_IN));
             assertNotNull(option.getBootstrappedTimestampFilters());
-            assertEquals(Arrays.asList(new Date(1559835554428L), new Date(1559835556306L), new Date(1559835559714L),
-                                       new Date(1559835557074L)),
+            assertEquals(Arrays.asList(new Date(1561379517438L), new Date(1561379519562L), new Date(1561379517304L),
+                                       new Date(1561379516193L), new Date(1561379520928L)),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP,
                                         FilterOperator.LESS_THAN));
             assertNotNull(option.getBootstrappedTimestampFilters());
-            assertEquals(new Date(1559835561808L),
+            assertEquals(new Date(1561379518238L),
                          ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP,
                                                                        Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP,
                                         FilterOperator.GREATER_THAN));
             assertNotNull(option.getBootstrappedTimestampFilters());
-            assertEquals(new Date(1559835553437L),
+            assertEquals(new Date(1561379515480L),
                          ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_BOOTSTRAPPED_TIMESTAMP,
                                                                           Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER, FilterOperator.EQUAL));
             assertNotNull(option.getSerialNumberFilters());
-            assertEquals("fbf5e0e6-3324-4b04-a5a6-0d77014eb963",
+            assertEquals("70d36786-620c-4d58-ba69-737f2e2f9e19",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getSerialNumberFilters());
-            assertEquals("873cef0a-f594-4599-b5e3-238a67a9256a",
+            assertEquals("798639f9-d88f-4346-8cfe-b1f0a3114957",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER, FilterOperator.IN));
             assertNotNull(option.getSerialNumberFilters());
-            assertEquals(Arrays.asList("dd85e504-69f7-4e80-8099-f2f2a100879c", "745241a5-8111-4966-b862-e0c35b295220",
-                                       "0da5a6aa-7a44-483d-962b-fe83f20fee61", "eb0df5f8-05f7-4752-b591-a7e00c7352b6",
-                                       "04461fc3-64a4-4e68-ba19-031e10a4a804", "1f779db0-2847-495f-817e-bd1596340dbf",
-                                       "5f673fb4-affb-46fb-baa1-f53d27abf82d"),
+            assertEquals(Arrays.asList("0f8b663b-c656-4d7d-9c6e-ed05d86918e0", "eacb7d3c-036e-4ec1-82f1-da7b7c2086b8"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER, FilterOperator.NOT_IN));
             assertNotNull(option.getSerialNumberFilters());
-            assertEquals(Arrays.asList("0b2c3730-c798-4be3-93ac-d63293c4bb70", "764205cb-e41d-4f68-93ea-2810efcbb8b3",
-                                       "27ad3b39-711e-4858-aeec-e9fd2ed319e3", "c8070471-b7d3-4542-8e87-9b37403fef07",
-                                       "3118dca3-3f97-44fb-919f-46b46773c235", "a40dd654-0eac-4321-b52a-5af43ca85655",
-                                       "d625143b-8c57-445b-a803-4f8a1e8fc1f8"),
+            assertEquals(Arrays.asList("c2b4abcc-a358-47c7-9423-054aa6b70d62", "94ce7ac6-a3f4-47f2-bfa4-d301c733db53",
+                                       "f697e03f-c7b9-4c21-9f9c-90fb19e2f74c"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_SERIAL_NUMBER,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ID, FilterOperator.EQUAL));
             assertNotNull(option.getIdFilters());
-            assertEquals("40e291f5-59be-445c-a7ba-12e641edce12",
+            assertEquals("d209bdc5-17e7-4546-8a86-2fcbf430d49c",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_ID, String.class,
                                                                     option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ID, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getIdFilters());
-            assertEquals("1416521a-4c60-42d9-a2dc-0e815e0168bb",
+            assertEquals("8317663f-723c-4775-b33f-3a5da0987f2c",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_ID, String.class,
                                                                        option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ID, FilterOperator.IN));
             assertNotNull(option.getIdFilters());
-            assertEquals(Arrays.asList("a462ca2c-3dac-4315-8cfb-b2327ec19068", "999dc9ba-9c1b-46f4-8865-5ed3636ec298",
-                                       "8f061e11-23c2-40c7-ab6e-379729eaf916"),
+            assertEquals(Arrays.asList("fb65d8f2-869f-48a8-93c1-01849cb762b0", "9ba4d499-19ff-4097-8a3c-c7cf27000e8f",
+                                       "fbf93810-250f-43b3-bd7d-aacab65f568c", "76b803ef-f7bf-4154-9c0a-40c8c932d78e",
+                                       "c6720d4b-4f7c-48e6-88c7-b76ff8fd64df", "379cb011-4fe3-4e3c-8c50-6ac12e15f290",
+                                       "270b5e5f-d9c9-44d2-8c0a-5d47030d12ec", "01b1404d-942b-4eed-b6b8-78398ac34503"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_ID, List.class,
                                                                  option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ID, FilterOperator.NOT_IN));
             assertNotNull(option.getIdFilters());
-            assertEquals(Arrays.asList("04ae391a-542f-4044-af00-4997683bd466", "f1ead3b6-277f-4ee5-b0c5-62b5f01cb659",
-                                       "c67c56ac-5212-4ef7-98d9-de73e548b8f6"),
+            assertEquals(Arrays.asList("a75b38ca-4d3b-4bbb-96c7-b9b50b073246", "8b33a1a6-6822-4faf-8be5-0bd64f4445ae",
+                                       "a4baac7c-ee9a-457a-99ce-08f8d6012060"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_ID, List.class,
                                                                     option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE, FilterOperator.IN));
             assertNotNull(option.getConnectorExpirationDateFilters());
-            assertEquals(Arrays.asList(new Date(1559835554923L), new Date(1559835560156L), new Date(1559835561759L),
-                                       new Date(1559835559577L), new Date(1559835561277L), new Date(1559835560003L)),
+            assertEquals(Arrays.asList(new Date(1561379520498L), new Date(1561379518532L), new Date(1561379515161L),
+                                       new Date(1561379514161L)),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE,
                                         FilterOperator.NOT_IN));
             assertNotNull(option.getConnectorExpirationDateFilters());
-            assertEquals(Arrays.asList(new Date(1559835554697L), new Date(1559835561019L), new Date(1559835560452L),
-                                       new Date(1559835555213L), new Date(1559835553187L), new Date(1559835561778L),
-                                       new Date(1559835558754L), new Date(1559835555985L), new Date(1559835561844L)),
+            assertEquals(Arrays.asList(new Date(1561379515934L), new Date(1561379522024L), new Date(1561379522943L),
+                                       new Date(1561379518116L), new Date(1561379514978L), new Date(1561379515395L),
+                                       new Date(1561379515365L)),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE,
                                         FilterOperator.LESS_THAN));
             assertNotNull(option.getConnectorExpirationDateFilters());
-            assertEquals(new Date(1559835556232L),
+            assertEquals(new Date(1561379517168L),
                          ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE,
                                                                        Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE,
                                         FilterOperator.GREATER_THAN));
             assertNotNull(option.getConnectorExpirationDateFilters());
-            assertEquals(new Date(1559835557143L),
+            assertEquals(new Date(1561379517830L),
                          ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_CONNECTOR_EXPIRATION_DATE,
                                                                           Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_CA_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_CA_ID, FilterOperator.EQUAL));
             assertNotNull(option.getCaIdFilters());
-            assertEquals("0109cf0d-e229-4ffb-a2f6-14915b39c34f",
+            assertEquals("290f1a93-58d7-4ce7-8688-71d084e95e40",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_CA_ID, String.class,
                                                                     option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_CA_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_CA_ID, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getCaIdFilters());
-            assertEquals("6617c292-22ca-4c76-b4c2-8604b36014af",
+            assertEquals("31917830-e601-43aa-b086-54ffdf8471c6",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_CA_ID,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_CA_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_CA_ID, FilterOperator.IN));
             assertNotNull(option.getCaIdFilters());
-            assertEquals(Arrays.asList("dd021540-0b44-4f73-bbfe-969c5e2827dc", "c86ed340-3087-4523-9d31-c48d134e655f",
-                                       "2d7af127-e58c-425d-9d03-20082ea02ebf", "63fd41c0-5985-4077-917d-d76bbc828489",
-                                       "f8f4a3b8-8a46-467c-a196-dc8163915623", "bb90a25e-7ca3-461e-8281-dede044298ae",
-                                       "89bf5597-e7e2-436c-a4fd-ba24a4cef140", "2c795ad2-97b0-4333-a30c-e990ada493aa"),
+            assertEquals(Arrays.asList("f4b96531-31ce-4b46-8e40-058c5ae70bc7", "cf6ca887-a084-45e5-a46f-7b5a0da1a28d",
+                                       "f12d2050-3f58-48c2-902e-9d08deccd39d", "016d351a-77a1-43e3-9c07-128980c648a7"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_CA_ID, List.class,
                                                                  option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_CA_ID));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_CA_ID, FilterOperator.NOT_IN));
             assertNotNull(option.getCaIdFilters());
-            assertEquals(Arrays.asList("bab41e48-1811-451d-ae2a-8b5390246c66", "f3f82cc0-ab78-4222-b097-23be1c8a8793",
-                                       "d15ab6f9-a8a3-490b-87af-3496889e70ef", "24ca0e04-6457-46bc-a00f-f3977a90a539",
-                                       "d5ed694c-4da2-4391-9086-c2eed449daaa", "9416908b-5406-42f4-b244-394d28205c36",
-                                       "5920bef6-98e0-48a2-83ed-2577d83d671b", "12401506-6d60-4a4d-9e78-6d8b6c22865f"),
+            assertEquals(Arrays.asList("c054a3cc-64c9-4bbe-96b7-d0d2f3c803b3", "081f5092-f177-4ef5-a21b-7a3d0039b413",
+                                       "b1cab919-fd82-433e-a78a-455603243e1b", "e1163d1d-56bf-4f81-b5da-4ac35c45980b",
+                                       "36201081-eb02-4925-8517-8b6f4bb61fd6"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_CA_ID, List.class,
                                                                     option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP, FilterOperator.IN));
             assertNotNull(option.getEnrolmentListTimestampFilters());
-            assertEquals(Arrays.asList(new Date(1559835562005L), new Date(1559835554900L), new Date(1559835559767L),
-                                       new Date(1559835562528L), new Date(1559835558538L), new Date(1559835561133L),
-                                       new Date(1559835559724L), new Date(1559835562815L), new Date(1559835553680L)),
+            assertEquals(Arrays.asList(new Date(1561379521209L), new Date(1561379519032L), new Date(1561379514425L)),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
                                         FilterOperator.NOT_IN));
             assertNotNull(option.getEnrolmentListTimestampFilters());
-            assertEquals(Arrays.asList(new Date(1559835554211L), new Date(1559835560883L), new Date(1559835562617L),
-                                       new Date(1559835554189L), new Date(1559835558957L)),
+            assertEquals(Arrays.asList(new Date(1561379518791L), new Date(1561379514956L)),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
                                         FilterOperator.LESS_THAN));
             assertNotNull(option.getEnrolmentListTimestampFilters());
-            assertEquals(new Date(1559835558764L),
+            assertEquals(new Date(1561379516624L),
                          ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
                                                                        Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
                                         FilterOperator.GREATER_THAN));
             assertNotNull(option.getEnrolmentListTimestampFilters());
-            assertEquals(new Date(1559835555798L),
+            assertEquals(new Date(1561379522233L),
                          ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_ENROLMENT_LIST_TIMESTAMP,
                                                                           Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION, FilterOperator.EQUAL));
             assertNotNull(option.getDescriptionFilters());
-            assertEquals("0713ddc9-4dee-4eea-875c-fe615142ebe5",
+            assertEquals("9ff251fd-7dce-4bb4-a3f8-2d5097c18519",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getDescriptionFilters());
-            assertEquals("63413751-566a-47b1-836c-60424b7fed06",
+            assertEquals("b922795f-ec88-49d0-b252-19aa72bbae1b",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION, FilterOperator.IN));
             assertNotNull(option.getDescriptionFilters());
-            assertEquals(Arrays.asList("2c5663df-2903-4e73-a430-43847da2e983", "9a4f9853-cbcc-4960-a470-bee1cf553950"),
+            assertEquals(Arrays.asList("45b0d2f4-95fb-42ea-a8d0-d153d88a34ad", "8fd8d898-3fe0-4cb3-9297-98feef5ee423",
+                                       "749e0c14-519e-454e-be0c-3bce8e599bd6", "b7cb258a-ef34-49d6-b66b-3f7f1996ca15",
+                                       "cd4e4be7-445b-44ba-b1fc-c3b67dcf2e2b"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION, FilterOperator.NOT_IN));
             assertNotNull(option.getDescriptionFilters());
-            assertEquals(Arrays.asList("05613f5c-d4e0-42d9-95fb-2ed87b899fb8", "06715d47-93f9-422c-a422-693d2703f599",
-                                       "87d9f7bb-86d7-4dc1-88cb-7a9977250083", "3909648c-2996-4cc3-ba77-9a0fa6c15de1"),
+            assertEquals(Arrays.asList("6a136839-a039-4658-a925-c51b0ab88415", "a6eeeb33-6f62-4dd2-ba3f-22ff014551d6",
+                                       "38b9cac1-f9d2-47c3-9ccf-bb1302e61167", "c882e951-21ad-4e76-acb8-41c5ec41286f",
+                                       "71986298-cbb8-404a-8477-c61551667b57", "9dac4d16-9d68-40bc-a251-1b72eca74d91",
+                                       "de77f98d-abaf-4504-8a2f-f54bf1a73734", "57616736-d6a8-4bdf-9779-4ce96bcd6a8d",
+                                       "2f8eb8ad-2f01-4fc3-a51c-116bdf09d2b9"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_DESCRIPTION,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT, FilterOperator.EQUAL));
             assertNotNull(option.getDeploymentFilters());
-            assertEquals("9edd3f12-4ef0-4832-b6da-ac9b1fd2518c",
+            assertEquals("33777c87-b847-4d27-8cfc-fa1a2069eb26",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getDeploymentFilters());
-            assertEquals("88631267-0de8-4281-bdf8-f3d79ce78ebd",
+            assertEquals("92555a18-be8d-420d-9396-6191239ab6d8",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT, FilterOperator.IN));
             assertNotNull(option.getDeploymentFilters());
-            assertEquals(Arrays.asList("a97fea8f-d4f2-4f6f-8e02-e4ee3c026530", "fd7560d5-95eb-4d5c-98fd-ef66ae9674fc",
-                                       "ead9a184-b711-44c2-9553-266f239c7b19", "b65de122-2eee-41ca-be0f-4d21ce476e03"),
+            assertEquals(Arrays.asList("79339a68-a667-4646-844a-fdddac1a6832", "b6a3531f-1e08-402a-83f1-e7be58871dce",
+                                       "8a7f81cd-1481-4059-84ae-765610f0bb3d", "dc4a3a2d-beff-4cef-8ce4-d311bf07dbe1",
+                                       "cb537a92-d117-4101-8537-da6a5e2fef9d", "911cca3c-ac5e-4385-bdb0-99e3068839e7",
+                                       "b97206f9-90b9-4267-aa81-1c8ac901c144", "7a80c74f-7534-4a5c-9b83-77be9483bcca"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT, List.class,
                                                                  option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT, FilterOperator.NOT_IN));
             assertNotNull(option.getDeploymentFilters());
-            assertEquals(Arrays.asList("caee9c82-4ef7-4c66-8916-9f996eebd043", "ec66bd31-b04d-4c61-af7d-d9d2fc354730"),
+            assertEquals(Arrays.asList("bc61df6c-f1b7-4d21-b4cc-47d711ea2c53", "09c03eaf-27d8-495e-8af1-dcf03a6f3100",
+                                       "44b3c455-8b1c-42b1-b1fe-89b2c66308d7", "b90a62a2-6058-4186-ae63-73cb8e072984",
+                                       "d747edc4-61b7-47d0-ad1e-f224a700c4f8"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYMENT,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MECHANISM));
@@ -978,15 +979,13 @@ public class TestDeviceListOptions {
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM, FilterOperator.IN));
             assertNotNull(option.getMechanismFilters());
             assertEquals(Arrays.asList(DeviceMechanism.getDefault(), DeviceMechanism.getDefault(),
-                                       DeviceMechanism.getDefault(), DeviceMechanism.getDefault(),
-                                       DeviceMechanism.getDefault(), DeviceMechanism.getDefault(),
-                                       DeviceMechanism.getDefault()),
+                                       DeviceMechanism.getDefault(), DeviceMechanism.getDefault()),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM, List.class,
                                                                  option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MECHANISM));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM, FilterOperator.NOT_IN));
             assertNotNull(option.getMechanismFilters());
-            assertEquals(Arrays.asList(DeviceMechanism.getDefault(), DeviceMechanism.getDefault()),
+            assertEquals(Arrays.asList(DeviceMechanism.getDefault()),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_MECHANISM,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_DEPLOYED_STATE));
@@ -1005,6 +1004,8 @@ public class TestDeviceListOptions {
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYED_STATE, FilterOperator.IN));
             assertNotNull(option.getDeployedStateFilters());
             assertEquals(Arrays.asList(DeviceDeployedState.getDefault(), DeviceDeployedState.getDefault(),
+                                       DeviceDeployedState.getDefault(), DeviceDeployedState.getDefault(),
+                                       DeviceDeployedState.getDefault(), DeviceDeployedState.getDefault(),
                                        DeviceDeployedState.getDefault()),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYED_STATE,
                                                                  List.class, option));
@@ -1012,113 +1013,113 @@ public class TestDeviceListOptions {
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYED_STATE, FilterOperator.NOT_IN));
             assertNotNull(option.getDeployedStateFilters());
             assertEquals(Arrays.asList(DeviceDeployedState.getDefault(), DeviceDeployedState.getDefault(),
-                                       DeviceDeployedState.getDefault(), DeviceDeployedState.getDefault(),
-                                       DeviceDeployedState.getDefault(), DeviceDeployedState.getDefault()),
+                                       DeviceDeployedState.getDefault()),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_DEPLOYED_STATE,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT, FilterOperator.IN));
             assertNotNull(option.getUpdatedAtFilters());
-            assertEquals(Arrays.asList(new Date(1559835553944L), new Date(1559835562525L), new Date(1559835556077L),
-                                       new Date(1559835562041L)),
+            assertEquals(Arrays.asList(new Date(1561379516400L), new Date(1561379521754L), new Date(1561379514939L),
+                                       new Date(1561379514072L), new Date(1561379523247L), new Date(1561379519097L),
+                                       new Date(1561379513998L), new Date(1561379519111L)),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT, List.class,
                                                                  option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT, FilterOperator.NOT_IN));
             assertNotNull(option.getUpdatedAtFilters());
-            assertEquals(Arrays.asList(new Date(1559835556206L), new Date(1559835560494L), new Date(1559835556617L),
-                                       new Date(1559835559979L), new Date(1559835554510L), new Date(1559835553276L),
-                                       new Date(1559835556252L), new Date(1559835558495L), new Date(1559835555836L)),
+            assertEquals(Arrays.asList(new Date(1561379522801L), new Date(1561379519237L), new Date(1561379516126L)),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT, FilterOperator.LESS_THAN));
             assertNotNull(option.getUpdatedAtFilters());
-            assertEquals(new Date(1559835558007L),
+            assertEquals(new Date(1561379514098L),
                          ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT,
                                                                        Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT, FilterOperator.GREATER_THAN));
             assertNotNull(option.getUpdatedAtFilters());
-            assertEquals(new Date(1559835561560L),
+            assertEquals(new Date(1561379520476L),
                          ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_UPDATED_AT,
                                                                           Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_NAME));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_NAME, FilterOperator.EQUAL));
             assertNotNull(option.getNameFilters());
-            assertEquals("376b90fe-da45-4b3d-ba3d-9b3b37313c49",
+            assertEquals("c81c1955-46b1-45d1-a282-327e2af0694a",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_NAME, String.class,
                                                                     option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_NAME));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_NAME, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getNameFilters());
-            assertEquals("fefbf298-41ef-400b-9e23-e9add989b850",
+            assertEquals("dd4abb0c-7fa8-4345-b685-915ba21101f7",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_NAME,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_NAME));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_NAME, FilterOperator.IN));
             assertNotNull(option.getNameFilters());
-            assertEquals(Arrays.asList("e85b1ece-e92d-4cfd-be41-2fe04f430aaf", "98d79055-0875-4ed0-a0dd-fd95f1648b88"),
+            assertEquals(Arrays.asList("c98e4ed6-de93-4860-85cb-057a72ff42b7", "afa4e574-765f-4760-8479-b4d56b0b7693",
+                                       "a8c9b1d3-73de-48a5-9f3e-5ecfa064b7b8", "1693bf5f-3138-4c29-9a71-c3f15ce37ce9",
+                                       "5553a615-e5a7-4c37-b3c6-9d7a3c019763", "d8ff7224-e3a9-4c54-988e-5ff0ae5676f7",
+                                       "261d3d0f-f3b1-48fd-b76c-53fb8180648e", "e85a94e5-66b5-4f4f-a43a-43b23ddd759a",
+                                       "6fe5fab1-0554-4e87-abb3-6c065c1adfb4"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_NAME, List.class,
                                                                  option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_NAME));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_NAME, FilterOperator.NOT_IN));
             assertNotNull(option.getNameFilters());
-            assertEquals(Arrays.asList("b91ade27-03dc-4148-baa7-abe28039cfff"),
+            assertEquals(Arrays.asList("35b86e9d-78cb-40e2-8218-bb32348ab597", "440937e4-6408-439e-9185-54f7294fa4b3"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_NAME, List.class,
                                                                     option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP, FilterOperator.IN));
             assertNotNull(option.getManifestTimestampFilters());
-            assertEquals(Arrays.asList(new Date(1559835559833L), new Date(1559835562849L)),
+            assertEquals(Arrays.asList(new Date(1561379516225L), new Date(1561379516824L), new Date(1561379522868L),
+                                       new Date(1561379514543L), new Date(1561379521365L), new Date(1561379521965L),
+                                       new Date(1561379520362L), new Date(1561379523335L)),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP, FilterOperator.NOT_IN));
             assertNotNull(option.getManifestTimestampFilters());
-            assertEquals(Arrays.asList(new Date(1559835560972L), new Date(1559835558443L), new Date(1559835554680L),
-                                       new Date(1559835557252L), new Date(1559835553743L), new Date(1559835560791L)),
+            assertEquals(Arrays.asList(new Date(1561379522042L), new Date(1561379516022L)),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP,
                                                                     List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP, FilterOperator.LESS_THAN));
             assertNotNull(option.getManifestTimestampFilters());
-            assertEquals(new Date(1559835556663L),
+            assertEquals(new Date(1561379514937L),
                          ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP,
                                                                        Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP,
                                         FilterOperator.GREATER_THAN));
             assertNotNull(option.getManifestTimestampFilters());
-            assertEquals(new Date(1559835552936L),
+            assertEquals(new Date(1561379521216L),
                          ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_MANIFEST_TIMESTAMP,
                                                                           Date.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME, FilterOperator.EQUAL));
             assertNotNull(option.getEndpointNameFilters());
-            assertEquals("99109bb8-fbeb-44fd-9034-09770124c635",
+            assertEquals("d8abb880-4a44-4ae6-bef8-8f8e9ea57de7",
                          ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME,
                                                                     String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME, FilterOperator.NOT_EQUAL));
             assertNotNull(option.getEndpointNameFilters());
-            assertEquals("deca8c17-4ee1-4052-981a-c065791a2c6d",
+            assertEquals("b57e26a6-1092-4113-aa57-373a1a390b78",
                          ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME,
                                                                        String.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME, FilterOperator.IN));
             assertNotNull(option.getEndpointNameFilters());
-            assertEquals(Arrays.asList("d72a09ed-9519-44e9-9041-712464336e58", "9acdfb93-9fa2-4eb0-80e8-936c03a5488d",
-                                       "be20bad1-23ef-4f94-a3e7-d79a6c150ec7", "aefd019f-a47c-4ecb-9e8e-eb1ab189eaa2",
-                                       "9789690a-032e-400c-89f1-0f46b15cc7fa", "43eee6ff-c739-4c9f-b653-176ebbfbfe9d",
-                                       "d68a8111-7c9b-416e-9c7c-de7a39c3670a"),
+            assertEquals(Arrays.asList("005c084a-01bd-44e5-a275-01d2d03d9b69", "68792d23-5a40-4d31-955b-e3d2e65f6612",
+                                       "ce97d17c-f5d3-4094-b157-5808708c6b9f", "8d4409b1-e93c-4dfa-b467-9c86aa35d856"),
                          ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME,
                                                                  List.class, option));
             assertTrue(option.hasFilters(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME));
             assertTrue(option.hasFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME, FilterOperator.NOT_IN));
             assertNotNull(option.getEndpointNameFilters());
-            assertEquals(Arrays.asList("bcd0142e-d288-4426-a2d7-de707889c1c6", "ab240f9f-a659-4cac-b33f-63aecba113cb",
-                                       "33a6aac3-08ca-4abb-b301-74f23d55df3d"),
+            assertEquals(Arrays.asList("de39cb11-887a-45fc-b780-e68d040a939c", "6202c9fe-bae4-4a71-a174-108c208baac9"),
                          ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_ENDPOINT_NAME,
                                                                     List.class, option));
         } catch (Exception exception) {
@@ -1133,13 +1134,13 @@ public class TestDeviceListOptions {
     @Test
     public void testHashCode() {
         try {
-            DeviceListOptions devicelistoptions1 = new DeviceListOptions(Integer.valueOf(-107), Long.valueOf(-8),
+            DeviceListOptions devicelistoptions1 = new DeviceListOptions(Integer.valueOf(-80), Long.valueOf(-17),
                                                                          Order.getDefault(),
-                                                                         "1ed92659-bae4-4a78-9baa-f1a9635527a2", null,
+                                                                         "e9cd139b-d8a2-4fd6-8515-54f01e4899bd", null,
                                                                          null);
-            DeviceListOptions devicelistoptions2 = new DeviceListOptions(Integer.valueOf(-107), Long.valueOf(-8),
+            DeviceListOptions devicelistoptions2 = new DeviceListOptions(Integer.valueOf(-80), Long.valueOf(-17),
                                                                          Order.getDefault(),
-                                                                         "1ed92659-bae4-4a78-9baa-f1a9635527a2", null,
+                                                                         "e9cd139b-d8a2-4fd6-8515-54f01e4899bd", null,
                                                                          null);
             assertNotNull(devicelistoptions1);
             assertNotNull(devicelistoptions2);
@@ -1162,17 +1163,17 @@ public class TestDeviceListOptions {
     @Test
     public void testEquals() {
         try {
-            DeviceListOptions devicelistoptions1 = new DeviceListOptions(Integer.valueOf(-124), Long.valueOf(-81),
+            DeviceListOptions devicelistoptions1 = new DeviceListOptions(Integer.valueOf(1), Long.valueOf(89),
                                                                          Order.getDefault(),
-                                                                         "ac20c5b3-cbe3-4b7d-8edb-7385afcf37c9", null,
+                                                                         "1a708521-5238-4442-8d0d-af438de7e016", null,
                                                                          null);
-            DeviceListOptions devicelistoptions2 = new DeviceListOptions(Integer.valueOf(-124), Long.valueOf(-81),
+            DeviceListOptions devicelistoptions2 = new DeviceListOptions(Integer.valueOf(1), Long.valueOf(89),
                                                                          Order.getDefault(),
-                                                                         "ac20c5b3-cbe3-4b7d-8edb-7385afcf37c9", null,
+                                                                         "1a708521-5238-4442-8d0d-af438de7e016", null,
                                                                          null);
-            DeviceListOptions devicelistoptions3 = new DeviceListOptions(Integer.valueOf(88), Long.valueOf(-76),
+            DeviceListOptions devicelistoptions3 = new DeviceListOptions(Integer.valueOf(17), Long.valueOf(-18),
                                                                          Order.getDefault(),
-                                                                         "c4a8c528-f9b9-4cef-8b80-309bb9dc5515", null,
+                                                                         "ea3eb8d4-39d0-4c92-98a3-7df0468b1c7a", null,
                                                                          null);
             assertNotNull(devicelistoptions1);
             assertNotNull(devicelistoptions2);
