@@ -31,7 +31,7 @@ public class TestLightThemeImageReference {
             lightthemeimagereference = LightThemeImageReference.getValue("brand_logo_landscape");
             assertNotNull(lightthemeimagereference);
             assertFalse(lightthemeimagereference.isDefault());
-            lightthemeimagereference = LightThemeImageReference.getValue("69bbbb49-b09f-4c67-8bd7-ceed25dc2f79");
+            lightthemeimagereference = LightThemeImageReference.getValue("60a75fb1-1b37-4e25-abfb-3929f4f194a6");
             assertNotNull(lightthemeimagereference);
             assertTrue(lightthemeimagereference.isDefault());
         } catch (Exception exception) {
