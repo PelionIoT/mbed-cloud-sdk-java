@@ -6,6 +6,20 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+2.4.0 (2019-06-07)
+==================
+
+### Features
+
+- Supports device groups (#1374)
+
+- Supports colour and image branding (#2031)
+
+### Bugfixes
+
+- Updated dependencies to fix security issues (#1)
+
+
 2.3.2 (2019-05-29)
 ==================
 

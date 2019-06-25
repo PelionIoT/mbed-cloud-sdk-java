@@ -19,14 +19,14 @@ public class TestCampaignStatisticsEvents {
     @Test
     public void testClone() {
         try {
-            CampaignStatisticsEvents campaignstatisticsevents1 = new CampaignStatisticsEvents("fe434600-2f57-42e6-bdf7-2b5b16598aa0",
-                                                                                              -104,
-                                                                                              new Date(1559835557468L),
-                                                                                              "06ac221e-d063-4a68-ae9e-486615ad27fe",
-                                                                                              "c7c22bbb-4fab-4a41-b817-b90070c29dda",
-                                                                                              "383ba8f6-9da7-444a-8c0e-1c152d24d119",
-                                                                                              "7c2c49ca-5bf7-4fdc-8d59-823fbefdfe17",
-                                                                                              "2b42c2b7-e89b-4f0d-ae42-3c46ff8a23db");
+            CampaignStatisticsEvents campaignstatisticsevents1 = new CampaignStatisticsEvents("3df6ae55-906b-4d32-bb2d-6d6abf6e92af",
+                                                                                              102,
+                                                                                              new Date(1561383444051L),
+                                                                                              "7224c183-114b-40fa-9720-3750cc9f06f8",
+                                                                                              "f9b56eeb-a429-45f3-b3bd-9c9201d0190f",
+                                                                                              "b84e740a-60d6-4962-974d-fa401524b80d",
+                                                                                              "470c79fa-dd89-43e1-b5fb-4717debcc0ed",
+                                                                                              "4e9fb3ef-b12f-4081-89e4-e53e613125b2");
             CampaignStatisticsEvents campaignstatisticsevents2 = campaignstatisticsevents1.clone();
             assertNotNull(campaignstatisticsevents1);
             assertNotNull(campaignstatisticsevents2);
@@ -44,22 +44,22 @@ public class TestCampaignStatisticsEvents {
     @Test
     public void testHashCode() {
         try {
-            CampaignStatisticsEvents campaignstatisticsevents1 = new CampaignStatisticsEvents("9c24f5c1-1c1a-4887-ae22-08db7ae400ab",
-                                                                                              9,
-                                                                                              new Date(1559835559695L),
-                                                                                              "261e54e3-6928-43ca-bd71-ca38569b3fca",
-                                                                                              "ef3ec7e4-230a-4a7d-aee9-0aa2f94f9429",
-                                                                                              "53b94d18-6e71-4e37-bb01-26e4d69d27c9",
-                                                                                              "a872dea0-0e3f-49c6-b2fa-6b05fdc1b57d",
-                                                                                              "4119b2ad-ad85-4eb1-8acf-bd4a9ad35e68");
-            CampaignStatisticsEvents campaignstatisticsevents2 = new CampaignStatisticsEvents("9c24f5c1-1c1a-4887-ae22-08db7ae400ab",
-                                                                                              9,
-                                                                                              new Date(1559835559695L),
-                                                                                              "261e54e3-6928-43ca-bd71-ca38569b3fca",
-                                                                                              "ef3ec7e4-230a-4a7d-aee9-0aa2f94f9429",
-                                                                                              "53b94d18-6e71-4e37-bb01-26e4d69d27c9",
-                                                                                              "a872dea0-0e3f-49c6-b2fa-6b05fdc1b57d",
-                                                                                              "4119b2ad-ad85-4eb1-8acf-bd4a9ad35e68");
+            CampaignStatisticsEvents campaignstatisticsevents1 = new CampaignStatisticsEvents("fd6b5e96-8b94-4972-a5a9-00b21941f442",
+                                                                                              -122,
+                                                                                              new Date(1561383446697L),
+                                                                                              "ce624a53-99b6-44a2-bdac-6fe137bc3b1a",
+                                                                                              "1d5290db-3850-46c9-8dc9-88e827a76d06",
+                                                                                              "6cf6617a-da0e-412e-bf88-8f7f7ee948c1",
+                                                                                              "2a1bc381-6b9c-4ec3-8787-fcac419cbdc0",
+                                                                                              "93f19b51-3894-4edd-8374-c50cdbed0c6a");
+            CampaignStatisticsEvents campaignstatisticsevents2 = new CampaignStatisticsEvents("fd6b5e96-8b94-4972-a5a9-00b21941f442",
+                                                                                              -122,
+                                                                                              new Date(1561383446697L),
+                                                                                              "ce624a53-99b6-44a2-bdac-6fe137bc3b1a",
+                                                                                              "1d5290db-3850-46c9-8dc9-88e827a76d06",
+                                                                                              "6cf6617a-da0e-412e-bf88-8f7f7ee948c1",
+                                                                                              "2a1bc381-6b9c-4ec3-8787-fcac419cbdc0",
+                                                                                              "93f19b51-3894-4edd-8374-c50cdbed0c6a");
             assertNotNull(campaignstatisticsevents1);
             assertNotNull(campaignstatisticsevents2);
             assertNotSame(campaignstatisticsevents2, campaignstatisticsevents1);
@@ -80,20 +80,20 @@ public class TestCampaignStatisticsEvents {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        CampaignStatisticsEvents campaignstatisticsevents = new CampaignStatisticsEvents("260f1c75-f570-4229-ab5b-9466fe31cc72",
-                                                                                         -43, new Date(1559835558996L),
-                                                                                         "8379a2c1-db36-43c6-9494-ad2f8b23cb06",
-                                                                                         "0eeed23d-75b1-4acd-a503-fe17abaf5e59",
-                                                                                         "ea168e82-93f0-48b1-b212-1b80667bf807",
-                                                                                         "4d6739e9-9873-4438-ba8b-e534670d2f44",
-                                                                                         "3bf18335-7b40-4ab8-9d2c-c2ffe94acc1c");
+        CampaignStatisticsEvents campaignstatisticsevents = new CampaignStatisticsEvents("3b85e4e7-5668-4df1-8b80-67adf0c716a9",
+                                                                                         -99, new Date(1561383441652L),
+                                                                                         "3507e082-0ac9-43ba-845b-f2fccffa3f36",
+                                                                                         "7fc9ea2e-fdec-420d-aaee-bf263a6942d8",
+                                                                                         "8d1eb31a-5251-4455-90f6-c69160cbefec",
+                                                                                         "14be9eb6-2a14-4922-b2c8-a96c591995e9",
+                                                                                         "3d27dd94-999c-44f1-afa5-20a74500969c");
         assertTrue(campaignstatisticsevents.isValid());
-        CampaignStatisticsEvents campaignstatisticseventsInvalid = new CampaignStatisticsEvents(null, 109,
-                                                                                                new Date(1559835555179L),
-                                                                                                "64c2c01e-c019-4ce0-8598-d65c01f3b518",
-                                                                                                "e31741a7-dfed-4975-8e50-e7036c75edc0",
-                                                                                                "4a570143-470b-4fb1-8c15-fba16d44ea59",
-                                                                                                "238811b8-38c7-4a6f-a10d-b001d6b68a2e",
+        CampaignStatisticsEvents campaignstatisticseventsInvalid = new CampaignStatisticsEvents(null, -47,
+                                                                                                new Date(1561383443993L),
+                                                                                                "9f938b0a-f567-407b-96ad-644bbc5df2de",
+                                                                                                "229ecaa3-4d3c-4d40-9107-dcf7aded8b9d",
+                                                                                                "188f43d6-846d-4f31-9795-3ac02395db71",
+                                                                                                "5785f974-3997-4fed-a80c-f273b2eb36de",
                                                                                                 null);
         assertFalse(campaignstatisticseventsInvalid.isValid());
     }
@@ -105,30 +105,30 @@ public class TestCampaignStatisticsEvents {
     @Test
     public void testEquals() {
         try {
-            CampaignStatisticsEvents campaignstatisticsevents1 = new CampaignStatisticsEvents("74367348-e55c-4513-82c0-09373dc37a8b",
-                                                                                              68,
-                                                                                              new Date(1559835552869L),
-                                                                                              "922e99e5-fc34-4f60-b9ee-dce8ef086068",
-                                                                                              "83f16377-04ca-45b9-bbbe-dcdcf5f970a2",
-                                                                                              "744109f0-5b7b-4247-a0e9-b66482a6b8a1",
-                                                                                              "14cb8c46-9fcd-4395-9e98-199dddbee518",
-                                                                                              "5ed0f6b4-5b86-4601-8a1d-86ca680210b5");
-            CampaignStatisticsEvents campaignstatisticsevents2 = new CampaignStatisticsEvents("74367348-e55c-4513-82c0-09373dc37a8b",
-                                                                                              68,
-                                                                                              new Date(1559835552869L),
-                                                                                              "922e99e5-fc34-4f60-b9ee-dce8ef086068",
-                                                                                              "83f16377-04ca-45b9-bbbe-dcdcf5f970a2",
-                                                                                              "744109f0-5b7b-4247-a0e9-b66482a6b8a1",
-                                                                                              "14cb8c46-9fcd-4395-9e98-199dddbee518",
-                                                                                              "5ed0f6b4-5b86-4601-8a1d-86ca680210b5");
-            CampaignStatisticsEvents campaignstatisticsevents3 = new CampaignStatisticsEvents("054ebc83-6341-4097-89d0-80caf7dac882",
-                                                                                              -25,
-                                                                                              new Date(1559835550831L),
-                                                                                              "45fb38df-9278-44c7-93b5-500729831186",
-                                                                                              "d6a843c7-df40-4ae6-b5bd-3f3331de2408",
-                                                                                              "55a9206d-a22d-40fe-9adb-848913ddd981",
-                                                                                              "79aae358-a061-4fa0-adf7-fc6662d17311",
-                                                                                              "9961a8d6-40ac-4d51-a350-1046872fd900");
+            CampaignStatisticsEvents campaignstatisticsevents1 = new CampaignStatisticsEvents("8102f770-f484-41c0-8a58-7bc9f37e680c",
+                                                                                              -44,
+                                                                                              new Date(1561383448963L),
+                                                                                              "83709841-67d8-4f1b-ade1-b4def843d1eb",
+                                                                                              "a3145d1d-a56d-491e-a459-3ae79c99c7bc",
+                                                                                              "2e161db5-f623-4f4f-a741-237a3e3c6d5b",
+                                                                                              "a291749f-f6bc-4fa9-b169-9ab0083e15a1",
+                                                                                              "7eae2a26-f140-4675-baf7-a1c82769db3b");
+            CampaignStatisticsEvents campaignstatisticsevents2 = new CampaignStatisticsEvents("8102f770-f484-41c0-8a58-7bc9f37e680c",
+                                                                                              -44,
+                                                                                              new Date(1561383448963L),
+                                                                                              "83709841-67d8-4f1b-ade1-b4def843d1eb",
+                                                                                              "a3145d1d-a56d-491e-a459-3ae79c99c7bc",
+                                                                                              "2e161db5-f623-4f4f-a741-237a3e3c6d5b",
+                                                                                              "a291749f-f6bc-4fa9-b169-9ab0083e15a1",
+                                                                                              "7eae2a26-f140-4675-baf7-a1c82769db3b");
+            CampaignStatisticsEvents campaignstatisticsevents3 = new CampaignStatisticsEvents("bb127448-fff9-4bea-b8cc-916d0c000263",
+                                                                                              -42,
+                                                                                              new Date(1561383447451L),
+                                                                                              "9beb8011-368b-4064-ac2f-e257aa712d23",
+                                                                                              "12ba4f49-3158-4e72-a749-baf8f6f2c8a0",
+                                                                                              "feda95f8-5b48-46e4-8330-bd3f9864b941",
+                                                                                              "422ab815-cb71-482d-9b73-9f6ba348dcc4",
+                                                                                              "4c089ae1-30d7-4e82-94e4-1aa5166d9bb1");
             assertNotNull(campaignstatisticsevents1);
             assertNotNull(campaignstatisticsevents2);
             assertNotNull(campaignstatisticsevents3);

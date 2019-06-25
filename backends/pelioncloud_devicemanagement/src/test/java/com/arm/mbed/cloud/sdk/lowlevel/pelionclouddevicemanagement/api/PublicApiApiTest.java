@@ -129,8 +129,8 @@ public class PublicApiApiTest {
      *
      * To free a device from your account, delete the enrollment claim. To bypass the device ownership, you need to
      * delete the enrollment and factory reset the device. For more information, see [Transferring ownership using
-     * First-to-Claim](../docs/current/connecting/device-ownership-first-to-claim-by-enrollment-list.html). &lt;br&gt;
-     * **Example:** &#x60;&#x60;&#x60; curl -X DELETE \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\
+     * First-to-Claim](../connecting/device-ownership-first-to-claim-by-enrollment-list.html). &lt;br&gt; **Example:**
+     * &#x60;&#x60;&#x60; curl -X DELETE \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} &#x60;&#x60;&#x60;
      */
     @Test
