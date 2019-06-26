@@ -443,6 +443,7 @@ public class TestCloudCaller {
     }
 
     public static TestApiService createTestApiClient(String baseUrl) {
+        @SuppressWarnings("resource")
         ApiClientWrapper clientWrapper = new ApiClientWrapper(new ConnectionOptions("test").host(baseUrl));
         TestApiService testService = clientWrapper.createService(TestApiService.class);
         return testService;

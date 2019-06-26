@@ -48,7 +48,6 @@ public abstract class AbstractModule implements SdkContext {
         this.client = context == null ? null : context.getClient();
         this.serviceRegistry = context == null ? null : context.getServiceRegistry();
         this.logger = context == null ? null : context.getLogger();
-        // shareNetworkLayer(context);
         metadataCache = new ApiMetadataCache();
     }
 
@@ -60,6 +59,7 @@ public abstract class AbstractModule implements SdkContext {
      * @param userAgentExtension
      *            extension list for the user agent: module name - module version
      */
+    @SuppressWarnings("resource")
     public AbstractModule(ConnectionOptions options, Map<String, String> userAgentExtension) {
         this(new ApiClientWrapper(options, userAgentExtension));
     }

@@ -57,7 +57,6 @@ public class Sdk extends AbstractModule {
     public Sdk(ConnectionOptions options) {
         super(options, extendUserAgent());
         connectApi = new Connect(this);
-        // this.shareNetworkLayer(connectApi);
         moduleFactory = new ModuleFactory(this, connectApi);
         daoFactory = new DaoFactory(this);
         genericClient = new GenericClient(this);
@@ -372,6 +371,7 @@ public class Sdk extends AbstractModule {
     @Daemon(shutdown = true)
     public void quit() {
         connectApi.close();
+        client.close();
     }
 
     /**

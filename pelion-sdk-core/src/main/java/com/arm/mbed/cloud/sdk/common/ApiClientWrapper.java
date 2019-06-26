@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.LinkedHashMap;
@@ -21,7 +22,7 @@ import retrofit2.Converter;
 
 @Preamble(description = "Client wrapper")
 @Internal
-public class ApiClientWrapper implements Cloneable {
+public class ApiClientWrapper implements Cloneable, Closeable {
     private static final String DEFAULT_AUTH_NAME = "Bearer";
     private final UserAgent userAgent;
     protected final ApiClient client;
@@ -29,6 +30,7 @@ public class ApiClientWrapper implements Cloneable {
 
     public static final String USER_AGENT_HEADER = "User-Agent";
     public static final String AUTHORISATION_HEADER = "Authorization";
+    private static final TimePeriod TERMINATION_PERIOD = new TimePeriod(1);
 
     /**
      * Cloud client constructor.
@@ -469,6 +471,21 @@ public class ApiClientWrapper implements Cloneable {
             return userAgent.getUserAgentString();
         }
 
+    }
+
+    @Override
+    public void close() {
+        okhttp3.Dispatcher dispatcher = client.getOkBuilder().build().dispatcher();
+        dispatcher.cancelAll();
+        dispatcher.executorService().shutdown();
+        try {
+            if (!dispatcher.executorService().awaitTermination(TERMINATION_PERIOD.getDuration(),
+                                                               TERMINATION_PERIOD.getUnit())) {
+                dispatcher.executorService().shutdownNow();
+            }
+        } catch (@SuppressWarnings("unused") InterruptedException exception) {
+            dispatcher.executorService().shutdownNow();
+        }
     }
 
 }

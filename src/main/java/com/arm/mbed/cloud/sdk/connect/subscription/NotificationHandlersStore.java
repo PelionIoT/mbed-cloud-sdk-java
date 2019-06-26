@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -54,12 +53,19 @@ import retrofit2.Call;
 @Internal
 public class NotificationHandlersStore implements Closeable {
 
+    private static final int NOTIFICATION_LISTENING_THREADS = 1;
+    private static final int NOTIFICATION_PROCESSING_THREADS;
+    private static final int MAX_THREADS = 100;
     private final AbstractModule module;
     private Future<?> listenerHandle;
     private final EndPoints endpoint;
     private final SchedulerManager listeningThreads;
     private final SchedulerManager customSubscriptionHandlingScheduler;
     private final SubscriptionObserversStore observerStore;
+
+    static {
+        NOTIFICATION_PROCESSING_THREADS = Math.min(Runtime.getRuntime().availableProcessors(), MAX_THREADS) - 1;
+    }
 
     /**
      * Notification store constructor.
@@ -76,11 +82,12 @@ public class NotificationHandlersStore implements Closeable {
     public NotificationHandlersStore(AbstractModule module, ExecutorService listeningThread,
                                      ExecutorService subscriptionHandlingExecutor, EndPoints endpoint) {
         super();
-        this.listeningThreads = new SchedulerManager(listeningThread == null ? createDefaultDaemonThreadPool()
+        this.listeningThreads = new SchedulerManager(listeningThread == null ? createDefaultDaemonThreadPool(NOTIFICATION_LISTENING_THREADS)
                                                                              : listeningThread);
         this.endpoint = createNotificationPull(endpoint);
         this.module = module;
-        customSubscriptionHandlingScheduler = new SchedulerManager(subscriptionHandlingExecutor);
+        customSubscriptionHandlingScheduler = new SchedulerManager(subscriptionHandlingExecutor == null ? createDefaultDaemonThreadPool(NOTIFICATION_PROCESSING_THREADS)
+                                                                                                        : subscriptionHandlingExecutor);
         listenerHandle = null;
         final boolean unsubscribeOnExit = module == null ? false
                                                          : module.getConnectionOption() == null ? true
@@ -96,11 +103,14 @@ public class NotificationHandlersStore implements Closeable {
 
     /**
      * Creates a default thread pool in case none was specified.
+     * 
+     * @param threadNumber
+     *            number of threads of the pool
      *
      * @return thread pool
      */
-    private static ScheduledExecutorService createDefaultDaemonThreadPool() {
-        return Executors.newScheduledThreadPool(1, new ThreadFactory() {
+    private static ExecutorService createDefaultDaemonThreadPool(int threadNumber) {
+        return Executors.newFixedThreadPool(threadNumber, new ThreadFactory() {
 
             @Override
             public Thread newThread(Runnable runable) {
@@ -446,7 +456,7 @@ public class NotificationHandlersStore implements Closeable {
                                                                                        @Override
                                                                                        public void
                                                                                               execute(Integer code) {
-                                                                                           status.set(WebsocketClient.StatusCode.getStatus(code));
+                                                                                           status.getAndSet(WebsocketClient.StatusCode.getStatus(code));
                                                                                        }
                                                                                    }, null),
                                                           module.getLogger());
@@ -454,17 +464,17 @@ public class NotificationHandlersStore implements Closeable {
 
         @Override
         public void close() {
-            needsToStop.set(true);
+            needsToStop.getAndSet(true);
             if (isEnded()) {
                 return;
             }
-            currentState.set(State.DELETE_CHANNEL);
+            currentState.getAndSet(State.DELETE_CHANNEL);
             runStateMachine();
         }
 
         public void start() {
-            needsToStop.set(false);
-            currentState.set(State.START);
+            needsToStop.getAndSet(false);
+            currentState.getAndSet(State.START);
             runStateMachine();
         }
 
@@ -475,78 +485,78 @@ public class NotificationHandlersStore implements Closeable {
                     switch (currentState.get()) {
                         case CLEAR_ALL_CHANNELS:
                             clearAllChannels();
-                            currentState.set(State.REGISTER_CHANNEL);
+                            currentState.getAndSet(State.REGISTER_CHANNEL);
                             break;
                         case CLOSE_SOCKET:
                             closeSocket();
-                            currentState.set(State.END);
+                            currentState.getAndSet(State.END);
                             break;
                         case DELETE_CHANNEL:
                             deleteWebsocketChannel();
-                            currentState.set(State.CLOSE_SOCKET);
+                            currentState.getAndSet(State.CLOSE_SOCKET);
                             break;
                         case CHECK_CLOSURE_STATUS:
                             switch (status.get()) {
                                 case ABNORMAL_CLOSURE:
-                                    currentState.set(State.LISTEN_TO_NOTIFICATIONS);
+                                    currentState.getAndSet(State.LISTEN_TO_NOTIFICATIONS);
                                     break;
                                 case NORMAL_CLOSURE:
-                                    currentState.set(State.DELETE_CHANNEL);
+                                    currentState.getAndSet(State.DELETE_CHANNEL);
                                     break;
                                 case GOING_AWAY:
                                 case SERVER_INTERNAL_ERROR:
-                                    currentState.set(State.REGISTER_CHANNEL);
+                                    currentState.getAndSet(State.REGISTER_CHANNEL);
                                     break;
                                 case POLICY_VIOLATION:
                                 case UNKNOWN:
                                 default:
-                                    currentState.set(State.LOG_ERROR);
+                                    currentState.getAndSet(State.LOG_ERROR);
                                     break;
                             }
                             break;
                         case GET_CHANNEL:
                             if (checkWebsocketChannel()) {
-                                currentState.set(State.LISTEN_TO_NOTIFICATIONS);
+                                currentState.getAndSet(State.LISTEN_TO_NOTIFICATIONS);
                             } else {
-                                currentState.set(State.REGISTER_CHANNEL);
+                                currentState.getAndSet(State.REGISTER_CHANNEL);
                             }
                             break;
                         case LISTEN_TO_NOTIFICATIONS:
                             runWebsocket();
                             if (needsToStop.get()) {
-                                currentState.set(State.DELETE_CHANNEL);
+                                currentState.getAndSet(State.DELETE_CHANNEL);
                             } else {
-                                currentState.set(State.CHECK_CLOSURE_STATUS);
+                                currentState.getAndSet(State.CHECK_CLOSURE_STATUS);
                             }
                             break;
                         case LOG_ERROR:
                             logErrorBeforeShutdown();
-                            currentState.set(State.DELETE_CHANNEL);
+                            currentState.getAndSet(State.DELETE_CHANNEL);
                             break;
                         case REGISTER_CHANNEL:
                             if (registerWebsocketChannel()) {
-                                currentState.set(State.GET_CHANNEL);
+                                currentState.getAndSet(State.GET_CHANNEL);
                             } else {
                                 final ConnectionOptions opt = module.getConnectionOption();
                                 if (opt != null && opt.isForceClear()) {
-                                    currentState.set(State.CLEAR_ALL_CHANNELS);
+                                    currentState.getAndSet(State.CLEAR_ALL_CHANNELS);
                                 } else {
-                                    currentState.set(State.LOG_ERROR);
+                                    currentState.getAndSet(State.LOG_ERROR);
                                 }
                             }
                             break;
                         case START:
-                            currentState.set(State.REGISTER_CHANNEL);
+                            currentState.getAndSet(State.REGISTER_CHANNEL);
                             break;
                         case END:
                         default:
-                            currentState.set(State.END);
+                            currentState.getAndSet(State.END);
                             break;
                     }
                 } catch (InterruptedException exception) {
                     logger.logWarn("The websocket communication was interrupted", exception);
-                    currentState.set(State.DELETE_CHANNEL);
-                    needsToStop.set(true);
+                    currentState.getAndSet(State.DELETE_CHANNEL);
+                    needsToStop.getAndSet(true);
                 }
             }
         }
