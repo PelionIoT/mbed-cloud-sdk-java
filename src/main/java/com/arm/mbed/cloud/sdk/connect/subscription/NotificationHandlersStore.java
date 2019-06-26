@@ -54,6 +54,7 @@ import retrofit2.Call;
 public class NotificationHandlersStore implements Closeable {
 
     private static final int NOTIFICATION_LISTENING_THREADS = 1;
+    @SuppressWarnings("unused")
     private static final int NOTIFICATION_PROCESSING_THREADS;
     private static final int MAX_THREADS = 100;
     private final AbstractModule module;
@@ -86,8 +87,10 @@ public class NotificationHandlersStore implements Closeable {
                                                                              : listeningThread);
         this.endpoint = createNotificationPull(endpoint);
         this.module = module;
-        customSubscriptionHandlingScheduler = new SchedulerManager(subscriptionHandlingExecutor == null ? createDefaultDaemonThreadPool(NOTIFICATION_PROCESSING_THREADS)
-                                                                                                        : subscriptionHandlingExecutor);
+        customSubscriptionHandlingScheduler = new SchedulerManager(subscriptionHandlingExecutor);// new
+        // SchedulerManager(subscriptionHandlingExecutor == null ?
+        // createDefaultDaemonThreadPool(NOTIFICATION_PROCESSING_THREADS)) using RxJava computing scheduler instead
+
         listenerHandle = null;
         final boolean unsubscribeOnExit = module == null ? false
                                                          : module.getConnectionOption() == null ? true
