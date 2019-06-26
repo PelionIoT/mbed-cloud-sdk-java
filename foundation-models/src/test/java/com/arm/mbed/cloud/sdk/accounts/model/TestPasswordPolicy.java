@@ -58,7 +58,7 @@ public class TestPasswordPolicy {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        PasswordPolicy passwordpolicy = new PasswordPolicy(75);
+        PasswordPolicy passwordpolicy = new PasswordPolicy(23);
         assertTrue(passwordpolicy.isValid());
     }
 
@@ -69,8 +69,8 @@ public class TestPasswordPolicy {
     @Test
     public void testEquals() {
         try {
-            PasswordPolicy passwordpolicy1 = new PasswordPolicy(106);
-            PasswordPolicy passwordpolicy2 = new PasswordPolicy(106);
+            PasswordPolicy passwordpolicy1 = new PasswordPolicy(122);
+            PasswordPolicy passwordpolicy2 = new PasswordPolicy(122);
             PasswordPolicy passwordpolicy3 = new PasswordPolicy(8);
             assertNotNull(passwordpolicy1);
             assertNotNull(passwordpolicy2);
