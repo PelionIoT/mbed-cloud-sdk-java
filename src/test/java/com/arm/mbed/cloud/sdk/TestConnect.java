@@ -453,14 +453,13 @@ public class TestConnect {
                 connect.stopNotifications();
                 connect.stopNotifications();
                 assertFalse(connect.handlersStore.isNotificationListenerActive());
-            } catch (MbedCloudException exception) {
+            } catch (MbedCloudException | InterruptedException exception) {
                 exception.printStackTrace();
                 fail(exception.getMessage());
             }
             server.shutdown();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            fail(e.getMessage());
         }
     }
 
@@ -483,14 +482,13 @@ public class TestConnect {
                 assertTrue(connect.handlersStore.isNotificationListenerActive());
                 connect.stopNotifications();
                 assertFalse(connect.handlersStore.isNotificationListenerActive());
-            } catch (MbedCloudException exception) {
+            } catch (MbedCloudException | InterruptedException exception) {
                 exception.printStackTrace();
                 fail(exception.getMessage());
             }
             server.shutdown();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            fail(e.getMessage());
         }
     }
 
