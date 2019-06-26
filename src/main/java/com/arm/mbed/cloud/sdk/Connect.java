@@ -262,14 +262,26 @@ public class Connect extends AbstractModule {
         });
     }
 
+    private void deleteWebsocketChannel() throws MbedCloudException {
+        CloudCaller.call(this, "clearWebsocketNotificationChannel()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getNotifications().deleteWebsocket();
+            }
+        });
+    }
+
     /**
      * Shuts down all daemon services.
      */
     @API
-    @Daemon(task = "Notification pull", shutdown = true)
+    @Daemon(task = "Notification listening", shutdown = true)
     public void shutdownConnectService() {
         logger.logInfo(getModuleName() + ": shutdownConnectService()");
         handlersStore.shutdown();
+        deviceDirectory.close();
+        client.close();
     }
 
     @Override
@@ -2597,6 +2609,11 @@ public class Connect extends AbstractModule {
         } catch (MbedCloudException exception) {
             logger.logWarn("Clearing long polling channel", exception);
         }
+        try {
+            deleteWebsocketChannel();
+        } catch (MbedCloudException exception) {
+            logger.logWarn("Clearing websocket channel", exception);
+        }
     }
 
     /**
@@ -2675,7 +2692,7 @@ public class Connect extends AbstractModule {
     }
 
     private Connect setDeliveryMethod(DeliveryMethod deliveryMethod2) {
-        deliveryMethod.set(deliveryMethod2);
+        deliveryMethod.getAndSet(deliveryMethod2);
         return this;
     }
 

@@ -1,1 +1,0 @@
-Supports device groups

@@ -31,7 +31,7 @@ import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
 public class TestConnect {
 
-    private static final int NUMBER_OF_CLEAR_CHANNEL_REQUEST = 2; // FIXME set to 3 when websocket is available
+    private static final int NUMBER_OF_CLEAR_CHANNEL_REQUEST = 3;
     private static final String WEBHOOK_ENDPOINT_PATH = "v2/notification/callback";
     private static final String PRESUBSCRIPTION_ENDPOINT_PATH = "v2/subscriptions";
 
@@ -453,14 +453,13 @@ public class TestConnect {
                 connect.stopNotifications();
                 connect.stopNotifications();
                 assertFalse(connect.handlersStore.isNotificationListenerActive());
-            } catch (MbedCloudException exception) {
+            } catch (MbedCloudException | InterruptedException exception) {
                 exception.printStackTrace();
                 fail(exception.getMessage());
             }
             server.shutdown();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            fail(e.getMessage());
         }
     }
 
@@ -483,14 +482,13 @@ public class TestConnect {
                 assertTrue(connect.handlersStore.isNotificationListenerActive());
                 connect.stopNotifications();
                 assertFalse(connect.handlersStore.isNotificationListenerActive());
-            } catch (MbedCloudException exception) {
+            } catch (MbedCloudException | InterruptedException exception) {
                 exception.printStackTrace();
                 fail(exception.getMessage());
             }
             server.shutdown();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            fail(e.getMessage());
         }
     }
 
@@ -523,14 +521,13 @@ public class TestConnect {
                 assertTrue(connect.handlersStore.isNotificationListenerActive());
                 connect.stopNotifications();
                 assertFalse(connect.handlersStore.isNotificationListenerActive());
-            } catch (MbedCloudException exception) {
+            } catch (MbedCloudException | InterruptedException exception) {
                 exception.printStackTrace();
                 fail(exception.getMessage());
             }
             server.shutdown();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            fail(e.getMessage());
         }
     }
 

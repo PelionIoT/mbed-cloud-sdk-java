@@ -19,10 +19,10 @@ public class TestApiKey {
     @Test
     public void testClone() {
         try {
-            ApiKey apikey1 = new ApiKey("a2460a11b07ab6ba3b25a51e92b72dc7", new Date(1559835552563L), 8,
-                                        "a2460a11b07ab6ba3b25a51e92b72dc7", "ae840f28-e6a4-4664-a30c-b9c469ae592e", 2,
-                                        "e21feec1-7313-46d9-9059-bcb62a88307c", "a2460a11b07ab6ba3b25a51e92b72dc7",
-                                        ApiKeyStatus.getDefault(), new Date(1559835551151L));
+            ApiKey apikey1 = new ApiKey("fc91ece4c663c84ce50ea8058379fe26", new Date(1561477833678L), 37,
+                                        "fc91ece4c663c84ce50ea8058379fe26", "f7dfdd75-ffe7-48ea-a9b3-394405c7691f", 4,
+                                        "d030d737-358f-4a79-936b-7c7339d2e90a", "fc91ece4c663c84ce50ea8058379fe26",
+                                        ApiKeyStatus.getDefault(), new Date(1561477832742L));
             ApiKey apikey2 = apikey1.clone();
             assertNotNull(apikey1);
             assertNotNull(apikey2);
@@ -40,14 +40,14 @@ public class TestApiKey {
     @Test
     public void testHashCode() {
         try {
-            ApiKey apikey1 = new ApiKey("a2460a11b07ab6ba3b25a51e92b72dc7", new Date(1559835552531L), -113,
-                                        "a2460a11b07ab6ba3b25a51e92b72dc7", "96caaccc-7f2f-41c7-b946-e392f4cae097", -72,
-                                        "2272feeb-dd31-4888-b3ec-4343638ce861", "a2460a11b07ab6ba3b25a51e92b72dc7",
-                                        ApiKeyStatus.getDefault(), new Date(1559835552547L));
-            ApiKey apikey2 = new ApiKey("a2460a11b07ab6ba3b25a51e92b72dc7", new Date(1559835552531L), -113,
-                                        "a2460a11b07ab6ba3b25a51e92b72dc7", "96caaccc-7f2f-41c7-b946-e392f4cae097", -72,
-                                        "2272feeb-dd31-4888-b3ec-4343638ce861", "a2460a11b07ab6ba3b25a51e92b72dc7",
-                                        ApiKeyStatus.getDefault(), new Date(1559835552547L));
+            ApiKey apikey1 = new ApiKey("fc91ece4c663c84ce50ea8058379fe26", new Date(1561477835254L), 9,
+                                        "fc91ece4c663c84ce50ea8058379fe26", "20f57f42-c4f9-45d5-899c-13f672421f11", -33,
+                                        "61bb908f-59f1-4d34-b605-878445a9030e", "fc91ece4c663c84ce50ea8058379fe26",
+                                        ApiKeyStatus.getDefault(), new Date(1561477833478L));
+            ApiKey apikey2 = new ApiKey("fc91ece4c663c84ce50ea8058379fe26", new Date(1561477835254L), 9,
+                                        "fc91ece4c663c84ce50ea8058379fe26", "20f57f42-c4f9-45d5-899c-13f672421f11", -33,
+                                        "61bb908f-59f1-4d34-b605-878445a9030e", "fc91ece4c663c84ce50ea8058379fe26",
+                                        ApiKeyStatus.getDefault(), new Date(1561477833478L));
             assertNotNull(apikey1);
             assertNotNull(apikey2);
             assertNotSame(apikey2, apikey1);
@@ -68,17 +68,17 @@ public class TestApiKey {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        ApiKey apikey = new ApiKey("a2460a11b07ab6ba3b25a51e92b72dc7", new Date(1559835557372L), 48,
-                                   "a2460a11b07ab6ba3b25a51e92b72dc7", "d73d8e81-0bef-4a2a-88b7-d9efa8694f48", 22,
-                                   "f22f9377-3c6b-4783-810c-c4cf6ae1e9cd", "a2460a11b07ab6ba3b25a51e92b72dc7",
-                                   ApiKeyStatus.getDefault(), new Date(1559835557364L));
+        ApiKey apikey = new ApiKey("fc91ece4c663c84ce50ea8058379fe26", new Date(1561477841797L), -45,
+                                   "fc91ece4c663c84ce50ea8058379fe26", "9f38abf9-e42c-4602-acb9-48e5bb86604e", 96,
+                                   "ebe6475c-4c7a-4779-a87c-150b54fff39e", "fc91ece4c663c84ce50ea8058379fe26",
+                                   ApiKeyStatus.getDefault(), new Date(1561477834742L));
         assertTrue(apikey.isValid());
-        ApiKey apikeyInvalid = new ApiKey("8\u001aN8<8\u0014%G⠭888O蘔8U\u000f88888C88B\u001b�?I[\u0018W�?\u001c盙꺋鷷M8&\f\u0005)蜽88TGﾎ8A8$$B➠-8�?�8\u0002\u0002.R",
-                                          new Date(1559835556276L), 82,
-                                          "8\u001aN8<8\u0014%G⠭888O蘔8U\u000f88888C88B\u001b�?I[\u0018W�?\u001c盙꺋鷷M8&\f\u0005)蜽88TGﾎ8A8$$B➠-8�?�8\u0002\u0002.R",
-                                          "112ed7e4-3684-4ffa-9047-d5ec11df596d", 54, null,
-                                          "8\u001aN8<8\u0014%G⠭888O蘔8U\u000f88888C88B\u001b�?I[\u0018W�?\u001c盙꺋鷷M8&\f\u0005)蜽88TGﾎ8A8$$B➠-8�?�8\u0002\u0002.R",
-                                          ApiKeyStatus.getDefault(), new Date(1559835551718L));
+        ApiKey apikeyInvalid = new ApiKey("\u001ed玿Z쒤㸃▦&'d\\\\d=/\u0001b]b冑쟄ddbbb@\u0019dd_:bd\u0014G,dd+\\\\dbbbE`涮b\u0013粔AUbbbK襊\bO>db",
+                                          new Date(1561477838203L), -17,
+                                          "\u001ed玿Z쒤㸃▦&'d\\\\d=/\u0001b]b冑쟄ddbbb@\u0019dd_:bd\u0014G,dd+\\\\dbbbE`涮b\u0013粔AUbbbK襊\bO>db",
+                                          "df762247-aed3-46bb-8e29-bd25e84c9c30", 41, null,
+                                          "\u001ed玿Z쒤㸃▦&'d\\\\d=/\u0001b]b冑쟄ddbbb@\u0019dd_:bd\u0014G,dd+\\\\dbbbE`涮b\u0013粔AUbbbK襊\bO>db",
+                                          ApiKeyStatus.getDefault(), new Date(1561477838577L));
         assertFalse(apikeyInvalid.isValid());
     }
 
@@ -89,19 +89,20 @@ public class TestApiKey {
     @Test
     public void testEquals() {
         try {
-            ApiKey apikey1 = new ApiKey("a2460a11b07ab6ba3b25a51e92b72dc7", new Date(1559835559905L), -82,
-                                        "a2460a11b07ab6ba3b25a51e92b72dc7", "44493874-9151-4184-a032-f604f75c5267", 109,
-                                        "9505b020-26f5-4bf1-ba8c-71c2a72b00fe", "a2460a11b07ab6ba3b25a51e92b72dc7",
-                                        ApiKeyStatus.getDefault(), new Date(1559835557761L));
-            ApiKey apikey2 = new ApiKey("a2460a11b07ab6ba3b25a51e92b72dc7", new Date(1559835559905L), -82,
-                                        "a2460a11b07ab6ba3b25a51e92b72dc7", "44493874-9151-4184-a032-f604f75c5267", 109,
-                                        "9505b020-26f5-4bf1-ba8c-71c2a72b00fe", "a2460a11b07ab6ba3b25a51e92b72dc7",
-                                        ApiKeyStatus.getDefault(), new Date(1559835557761L));
-            ApiKey apikey3 = new ApiKey("a2460a11b07ab6ba3b25a51e92b72dc7", new Date(1559835551605L), 40,
-                                        "a2460a11b07ab6ba3b25a51e92b72dc7", "76b2b8ba-eb84-401e-8dab-bbcaac54f65e",
-                                        -103, "9029c991-1992-4134-91fd-617ee31536a9",
-                                        "a2460a11b07ab6ba3b25a51e92b72dc7", ApiKeyStatus.getDefault(),
-                                        new Date(1559835558320L));
+            ApiKey apikey1 = new ApiKey("fc91ece4c663c84ce50ea8058379fe26", new Date(1561477841089L), -83,
+                                        "fc91ece4c663c84ce50ea8058379fe26", "3d2fd975-5187-4b05-8073-603f52a05714",
+                                        -107, "f99b05b9-a3b0-4780-834a-98911d586d57",
+                                        "fc91ece4c663c84ce50ea8058379fe26", ApiKeyStatus.getDefault(),
+                                        new Date(1561477832957L));
+            ApiKey apikey2 = new ApiKey("fc91ece4c663c84ce50ea8058379fe26", new Date(1561477841089L), -83,
+                                        "fc91ece4c663c84ce50ea8058379fe26", "3d2fd975-5187-4b05-8073-603f52a05714",
+                                        -107, "f99b05b9-a3b0-4780-834a-98911d586d57",
+                                        "fc91ece4c663c84ce50ea8058379fe26", ApiKeyStatus.getDefault(),
+                                        new Date(1561477832957L));
+            ApiKey apikey3 = new ApiKey("fc91ece4c663c84ce50ea8058379fe26", new Date(1561477840933L), -9,
+                                        "fc91ece4c663c84ce50ea8058379fe26", "1bd8d931-07cf-40a5-9052-bfcc60e4c413", 27,
+                                        "ebadc2c5-01a8-471f-b277-9112bae8aedd", "fc91ece4c663c84ce50ea8058379fe26",
+                                        ApiKeyStatus.getDefault(), new Date(1561477841861L));
             assertNotNull(apikey1);
             assertNotNull(apikey2);
             assertNotNull(apikey3);

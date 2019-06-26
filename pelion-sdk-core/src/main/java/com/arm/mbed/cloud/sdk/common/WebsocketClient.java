@@ -157,7 +157,7 @@ public class WebsocketClient implements Closeable {
      *             if errors happen during client setup.
      */
     public void start() throws MbedCloudException {
-        needsToClose.set(false);
+        needsToClose.getAndSet(false);
         if (isWorking.get() || wsClient.get() != null) {
             return;
         }
@@ -170,7 +170,7 @@ public class WebsocketClient implements Closeable {
                                                                    .addHeader(HEADER_SECURITY, headerBuilder.toString())
                                                                    .build();
             final WebSocket socket = client.getOkBuilder().build().newWebSocket(connectionRequest, listener);
-            wsClient.set(socket);
+            wsClient.getAndSet(socket);
             while (!isRunning() && !needsToClose.get() && retries > 0) {
                 pause();
                 retries--;
@@ -190,7 +190,7 @@ public class WebsocketClient implements Closeable {
      * Force closes the connection.
      */
     private void forceClose() {
-        needsToClose.set(true);
+        needsToClose.getAndSet(true);
         if (!isRunning()) {
             return;
         }
@@ -199,8 +199,8 @@ public class WebsocketClient implements Closeable {
         if (ws != null) {
             ws.cancel();
         }
-        isWorking.set(false);
-        wsClient.set(null);
+        isWorking.getAndSet(false);
+        wsClient.getAndSet(null);
     }
 
     /**
@@ -208,7 +208,7 @@ public class WebsocketClient implements Closeable {
      */
     private void requestClose() {
         logger.logInfo("Closing the websocket client");
-        needsToClose.set(true);
+        needsToClose.getAndSet(true);
         if (!isRunning()) {
             return;
         }
@@ -300,7 +300,7 @@ public class WebsocketClient implements Closeable {
             @Override
             public void execute(Integer arg) {
                 notificationListener.getOnOpenCallback().execute(arg);
-                isWorking.set(true);
+                isWorking.getAndSet(true);
                 resume();
             }
         };
@@ -309,9 +309,9 @@ public class WebsocketClient implements Closeable {
             @Override
             public void execute(Integer arg) {
                 notificationListener.logInfo("Closing - Status: " + StatusCode.getStatus(arg));
-                needsToClose.set(true);
-                isWorking.set(false);
-                wsClient.set(null);
+                needsToClose.getAndSet(true);
+                isWorking.getAndSet(false);
+                wsClient.getAndSet(null);
                 notificationListener.getOnClosingCallback().execute(arg);
                 resume();
             }
@@ -324,7 +324,7 @@ public class WebsocketClient implements Closeable {
                 if (isRunning()) {
                     requestClosure(StatusCode.PROTOCOL_ERROR);
                 } else {
-                    needsToClose.set(true);
+                    needsToClose.getAndSet(true);
                 }
                 if (arg instanceof EOFException) {
                     resume();

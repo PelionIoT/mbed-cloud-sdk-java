@@ -371,6 +371,7 @@ public class Sdk extends AbstractModule {
     @Daemon(shutdown = true)
     public void quit() {
         connectApi.close();
+        client.close();
     }
 
     /**

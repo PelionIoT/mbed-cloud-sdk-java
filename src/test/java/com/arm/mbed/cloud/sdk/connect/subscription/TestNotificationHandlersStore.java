@@ -45,6 +45,7 @@ import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
 public class TestNotificationHandlersStore {
 
+    @SuppressWarnings("boxing")
     @Test
     public void testNotifyNotificationMessage() {
         Future<?> handle = null;
@@ -131,6 +132,7 @@ public class TestNotificationHandlersStore {
         return array;
     }
 
+    @SuppressWarnings("boxing")
     @Test
     public void testNotifyNotificationMessageWithSubscriptionActions() {
         Future<?> handle = null;
@@ -151,8 +153,8 @@ public class TestNotificationHandlersStore {
         }
         HttpUrl baseUrl = server.url("");
         ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).logLevel(CallLogLevel.BODY);
-        Connect connect = new Connect(opt);
-        try (NotificationHandlersStore store = new NotificationHandlersStore(connect, null, executor, null)) {
+        try (Connect connect = new Connect(opt);
+             NotificationHandlersStore store = new NotificationHandlersStore(connect, null, executor, null)) {
 
             List<Integer> receivedNotificationsUsingCallbacks = new LinkedList<>();
             List<Throwable> receivedErrorsUsingCallbacks = new LinkedList<>();
@@ -246,6 +248,7 @@ public class TestNotificationHandlersStore {
                                                                                               .equalDeviceState(DeviceState.REGISTRATION_UPDATE),
                                                                 BackpressureStrategy.BUFFER);
             // Generating notifications
+            @SuppressWarnings("boxing")
             List<NotificationMessage> notifications = Stream.iterate(0, n -> n + 1).limit(32).map(i -> {
                 NotificationMessage message = new NotificationMessage();
                 EndpointData data = new EndpointData();

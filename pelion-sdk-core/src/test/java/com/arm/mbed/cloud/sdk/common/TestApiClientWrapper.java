@@ -49,6 +49,7 @@ public class TestApiClientWrapper {
             assertNotNull(request.getHeader("User-Agent"));
             assertTrue(request.getHeader("User-Agent").contains(ApiClientWrapper.UserAgent.MBED_CLOUD_SDK_IDENTIFIER));
             server.shutdown();
+            clientWrapper.close();
         } catch (IOException | InterruptedException e) {
             fail(e.getMessage());
         }
@@ -91,6 +92,8 @@ public class TestApiClientWrapper {
             assertNotNull(request.getHeader("User-Agent"));
             assertTrue(request.getHeader("User-Agent").contains(ApiClientWrapper.UserAgent.MBED_CLOUD_SDK_IDENTIFIER));
             server.shutdown();
+            clientWrapper.close();
+            clientWrapperClone.close();
         } catch (IOException | InterruptedException e) {
             fail(e.getMessage());
         }
@@ -99,11 +102,10 @@ public class TestApiClientWrapper {
     @Test
     public void testFailingWebsocket() {
         String randomAddress = "http://random.host.test";
-        ApiClientWrapper clientWrapper = new ApiClientWrapper(ConnectionOptions.newConfiguration("test",
-                                                                                                 randomAddress));
-
         SdkLogger logger = SdkLogger.getLogger();
-        try (WebsocketClient ws = clientWrapper.getNewWebsocketClient("some_test",
+        try (ApiClientWrapper clientWrapper = new ApiClientWrapper(ConnectionOptions.newConfiguration("test",
+                                                                                                      randomAddress));
+             WebsocketClient ws = clientWrapper.getNewWebsocketClient("some_test",
                                                                       new NotificationListener(logger, null, null, null,
                                                                                                new Callback<Throwable>() {
 
@@ -135,10 +137,11 @@ public class TestApiClientWrapper {
     @Test
     public void testWorkingWebsocket() {
         String echoWsUrl = "http://echo.websocket.org";
-        ApiClientWrapper clientWrapper = new ApiClientWrapper(ConnectionOptions.newConfiguration("test", echoWsUrl));
-
         SdkLogger logger = SdkLogger.getLogger();
-        try (WebsocketClient ws = clientWrapper.getNewWebsocketClient("",
+
+        try (ApiClientWrapper clientWrapper = new ApiClientWrapper(ConnectionOptions.newConfiguration("test",
+                                                                                                      echoWsUrl));
+             WebsocketClient ws = clientWrapper.getNewWebsocketClient("",
                                                                       new NotificationListener(logger, null, null, null,
                                                                                                new Callback<Throwable>() {
 

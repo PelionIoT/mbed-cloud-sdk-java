@@ -427,6 +427,21 @@ class BuildStep(GitAction):
         return path
 
 
+class BuildStepUsingAWS(BuildStep):
+    def __init__(self, name, logger):
+        super(BuildStepUsingAWS, self).__init__(name, logger)
+
+    def login(self):
+        self.log_info("Logging to AWS")
+        command = "aws ecr get-login"
+        result = self.execute_command_output(command)
+        if not result or not ("Login Succeeded" in result):
+            command = "aws ecr get-login --no-include-email"
+            result = self.execute_command_output(command)
+        if not result or not ("Login Succeeded" in result):
+            raise Exception('Login Error', result)
+
+
 class BuildStepUsingGradle(BuildStep):
     def __init__(self, name, logger, dir=None):
         super(BuildStepUsingGradle, self).__init__(name, logger)
@@ -755,10 +770,11 @@ class CommonConfig:
 
 # SDK distribution configuration
 class Config(GitAction):
-    DEFAULT_TESTRUNNER_TAG = "latest"
-    BETA_TESTRUNNER_TAG = "beta"
-    RELEASE_TESTRUNNER_TAG = "master"
+    DEFAULT_TAG = "latest"
+    BETA_TAG = "beta"
+    MASTER_TAG = "master"
     MASTER_BRANCH = "master"
+    API_CONTRACT_CHANGE_BRANCH = "api-contract/staging"
 
     def __init__(self):
         super(Config, self).__init__("Release Configuration")
@@ -776,6 +792,7 @@ class Config(GitAction):
         self.artifactory_url = None
         self.artifactory_host = None
         self.testrunner_image = None
+        self.testserver_images = None
         self.testrunner_untagged_image = None
         self.origin_url = None
         self.code_coverage = None
@@ -972,6 +989,10 @@ class Config(GitAction):
         branch_name = self.get_branch_name()
         return branch_name and branch_name.lower().strip() == Config.MASTER_BRANCH
 
+    def is_api_contract_branch(self):
+        branch_name = self.get_branch_name()
+        return branch_name and branch_name.lower().strip() == Config.API_CONTRACT_CHANGE_BRANCH
+
     def get_version(self):
         if not self.version:
             self.log_debug("Determining SDK version")
@@ -985,7 +1006,8 @@ class Config(GitAction):
                     if re.match(snapshot_version, tmp_version):
                         self.version = tmp_version
                     else:
-                        self.version = tmp_version + "_" + branch_name.lower().strip().replace("-", "_")
+                        self.version = tmp_version + "_" + branch_name.lower().strip().replace("-", "_").replace("/",
+                                                                                                                 "_")
                         if self.is_from_private():
                             self.version += "_private"
                 else:
@@ -996,7 +1018,7 @@ class Config(GitAction):
                     self.is_release = True
                 else:
                     if self.is_from_private():
-                        self.version += "_private"
+                        self.version += "_" + Config.BETA_TAG
         return self.version
 
     def get_cached_testrunner_filename(self):
@@ -1088,7 +1110,7 @@ class Config(GitAction):
 
     def get_default_testrunner_docker_image(self):
         return self._determine_testrunner_docker_image(
-            self.get_testrunner_untagged_docker_image(), Config.DEFAULT_TESTRUNNER_TAG)
+            self.get_testrunner_untagged_docker_image(), Config.DEFAULT_TAG)
 
     def get_testrunner_docker_image(self):
         if not self.testrunner_image:
@@ -1108,10 +1130,28 @@ class Config(GitAction):
                 else:
                     tag_to_use = self.get_branch_name().replace('/', '-')
                     if self.is_master_branch():
-                        tag_to_use = Config.BETA_TESTRUNNER_TAG if self.is_from_private() else Config.RELEASE_TESTRUNNER_TAG
+                        tag_to_use = Config.BETA_TAG if self.is_from_private() else Config.MASTER_TAG
                     self.testrunner_image = self._determine_testrunner_docker_image(
                         self.get_testrunner_untagged_docker_image(), tag_to_use)
         return self.testrunner_image
+
+    def get_testserver_docker_images(self):
+        if not self.testserver_images:
+            self.testserver_images = []
+            testrunner_image = self.get_testrunner_docker_image()
+            if testrunner_image:
+                image_base_name = 'mbed/sdk-testserver-java'
+                ecr_info = testrunner_image
+                if testrunner_image.find('/') > 0:
+                    ecr_info = testrunner_image[:testrunner_image.find('/')]
+                if self.is_master_branch() or self.is_api_contract_branch():
+                    self.testserver_images.append('%s/%s:%s' % (ecr_info, image_base_name, self.get_version()))
+                if self.is_master_branch():
+                    self.testserver_images.append('%s/%s:%s' % (
+                        ecr_info, image_base_name, Config.BETA_TAG if self.is_from_private() else Config.MASTER_TAG))
+                if self.is_for_release():
+                    self.testserver_images.append('%s/%s:%s' % (ecr_info, image_base_name, Config.DEFAULT_TAG))
+        return self.testserver_images
 
     def _determine_testrunner_docker_image(self, container_path, testrunner_hash):
         if container_path and testrunner_hash:

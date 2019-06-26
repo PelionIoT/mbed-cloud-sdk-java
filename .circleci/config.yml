@@ -216,6 +216,10 @@ jobs:
         name: Deploying the SDK to Artifactory and beyond
         command: docker run --rm --network container:artifactory sdk_test_server python3 -u scripts/sdk.py deploy
         no_output_timeout:  1h
+    - run:
+        name: Storing test server image
+        command: python3 ${SCRIPTS_DIR}/sdk.py push_testserver
+        no_output_timeout:  1h
     - run: python3 ${SCRIPTS_DIR}/sdk.py notify
     - <<: *store_logs
     - <<: *store_artifact_file
