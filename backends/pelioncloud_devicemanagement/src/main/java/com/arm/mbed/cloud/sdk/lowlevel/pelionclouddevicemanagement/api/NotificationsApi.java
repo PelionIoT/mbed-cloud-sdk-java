@@ -34,7 +34,7 @@ public interface NotificationsApi {
      * @param origin
      *            Originating host of the request. (required)
      * @param secWebSocketVersion
-     *            WebSocket version. must be 13. (required)
+     *            WebSocket version. Must be 13. (required)
      * @param secWebSocketKey
      *            The value of this header field must be a nonce consisting of a randomly selected 16-byte value that
      *            has been base64-encoded (see Section 4 of [RFC4648]). The nonce must be selected randomly for each

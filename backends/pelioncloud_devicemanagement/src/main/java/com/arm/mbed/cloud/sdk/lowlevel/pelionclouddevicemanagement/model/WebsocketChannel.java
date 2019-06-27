@@ -29,7 +29,7 @@ import java.io.Serializable;
 public class WebsocketChannel implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @SerializedName("queueSize")
+    @SerializedName("queue_size")
     private Integer queueSize = null;
 
     /**

@@ -45,7 +45,7 @@ NotificationsApi apiInstance = new NotificationsApi();
 String connection = "Upgrade"; // String | 
 String upgrade = "websocket"; // String | 
 String origin = "origin_example"; // String | Originating host of the request.
-Integer secWebSocketVersion = 13; // Integer | WebSocket version. must be 13.
+Integer secWebSocketVersion = 13; // Integer | WebSocket version. Must be 13.
 String secWebSocketKey = "secWebSocketKey_example"; // String | The value of this header field must be a nonce consisting of a randomly selected 16-byte value that has been base64-encoded (see Section 4 of [RFC4648]). The nonce must be selected randomly for each connection.
 String secWebSocketProtocol = "secWebSocketProtocol_example"; // String | API key or user token must be present in the `Sec-WebSocket-Protocol` header **if Authorization header cannot be provided**: `Sec-WebSocket-Protocol:\"wss,pelion_ak_{api_key}\"`. Refer to the notification service documentation for examples.
 try {
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
  **connection** | **String**|  | [default to Upgrade]
  **upgrade** | **String**|  | [default to websocket]
  **origin** | **String**| Originating host of the request. |
- **secWebSocketVersion** | **Integer**| WebSocket version. must be 13. | [default to 13]
+ **secWebSocketVersion** | **Integer**| WebSocket version. Must be 13. | [default to 13]
  **secWebSocketKey** | **String**| The value of this header field must be a nonce consisting of a randomly selected 16-byte value that has been base64-encoded (see Section 4 of [RFC4648]). The nonce must be selected randomly for each connection. |
  **secWebSocketProtocol** | **String**| API key or user token must be present in the &#x60;Sec-WebSocket-Protocol&#x60; header **if Authorization header cannot be provided**: &#x60;Sec-WebSocket-Protocol:\&quot;wss,pelion_ak_{api_key}\&quot;&#x60;. Refer to the notification service documentation for examples. | [optional]
 
