@@ -15,17 +15,20 @@ public interface NotificationsApi {
      * (PREVIEW) Open the websocket. (PREVIEW) A websocket channel can have only one active connection at a time. If a
      * websocket connection for a channel exists and a new connection to the same channel is made, the connection is
      * accepted and the older connection is closed. Once the socket has been opened, it may be closed with one of the
-     * following status codes. | Code | Description | |------|-------------| |**1000**|Socket closed by the client.|
-     * |**1001**|Going away. Set when another socket was opened on the used channel, or if the channel was deleted with
-     * a REST call, or if the server is shutting down.| |**1006**|Abnormal loss of connection. This code is never set by
-     * the service.| |**1008**|Policy violation. Set when the API key is missing or invalid.| |**1011**|Unexpected
-     * condition. Socket is closed with this status at an attempt to open a socket to an unexisting channel (without a
-     * prior REST PUT). This code is also used to indicate closing socket for any other unexpected condition in the
-     * server.| **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect \\ -H \&quot;Authorization:Bearer
-     * {apikey}\&quot; \\ -H \&quot;Connection:upgrade\&quot; \\ -H \&quot;Upgrade:websocket\&quot; \\ -H
-     * \&quot;Sec-WebSocket-Version: 13\&quot; \\ -H \&quot;Sec-WebSocket-Key: {base64nonce}\&quot; \\ -N -I
-     * &#x60;&#x60;&#x60;
+     * following status codes. &lt;table&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;Code&lt;/th&gt;
+     * &lt;th&gt;Description&lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt;
+     * &lt;td&gt;&lt;b&gt;1000&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Socket closed by the client.&lt;/td&gt; &lt;/tr&gt;
+     * &lt;tr&gt; &lt;td&gt;&lt;b&gt;1001&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Going away. Set when another socket opens on
+     * the used channel, the channel is deleted with a REST call, or the server is shutting down.&lt;/td&gt; &lt;/tr&gt;
+     * &lt;tr&gt; &lt;td&gt;&lt;b&gt;1008&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Policy violation. Set when the API key is
+     * missing or invalid.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;b&gt;1011&lt;/b&gt;&lt;/td&gt;
+     * &lt;td&gt;Unexpected condition. Socket is closed with this status at an attempt to open a socket to a nonexistent
+     * channel (without a prior PUT request). This code is also used to indicate closing socket for any other unexpected
+     * condition in the server.&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; **Example:** &#x60;&#x60;&#x60;
+     * curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect \\ -H
+     * \&quot;Authorization:Bearer {apikey}\&quot; \\ -H \&quot;Connection:upgrade\&quot; \\ -H
+     * \&quot;Upgrade:websocket\&quot; \\ -H \&quot;Sec-WebSocket-Version: 13\&quot; \\ -H \&quot;Sec-WebSocket-Key:
+     * {base64nonce}\&quot; \\ -N -I &#x60;&#x60;&#x60;
      * 
      * @param connection
      *            (required)

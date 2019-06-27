@@ -30,7 +30,7 @@ public class TestSubtenantApiKeyStatus {
             subtenantapikeystatus = SubtenantApiKeyStatus.getValue("INACTIVE");
             assertNotNull(subtenantapikeystatus);
             assertFalse(subtenantapikeystatus.isDefault());
-            subtenantapikeystatus = SubtenantApiKeyStatus.getValue("fdbbecbd-4ac9-43ed-a9b7-a0aa6efac73e");
+            subtenantapikeystatus = SubtenantApiKeyStatus.getValue("84ac93e8-f6d4-4b91-8d84-65ee3e1df688");
             assertNotNull(subtenantapikeystatus);
             assertTrue(subtenantapikeystatus.isDefault());
         } catch (Exception exception) {

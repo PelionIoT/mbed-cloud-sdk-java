@@ -19,10 +19,10 @@ public class TestDeviceEnrollmentListOptions {
     @Test
     public void testClone() {
         try {
-            DeviceEnrollmentListOptions deviceenrollmentlistoptions1 = new DeviceEnrollmentListOptions(Integer.valueOf(110),
-                                                                                                       Long.valueOf(65),
+            DeviceEnrollmentListOptions deviceenrollmentlistoptions1 = new DeviceEnrollmentListOptions(Integer.valueOf(-63),
+                                                                                                       Long.valueOf(-114),
                                                                                                        Order.getDefault(),
-                                                                                                       "15f3da6c-581e-4a30-baa8-98f1f8e9cede",
+                                                                                                       "cdeb2482-2adc-4c92-a051-e129344c9c2a",
                                                                                                        null, null);
             DeviceEnrollmentListOptions deviceenrollmentlistoptions2 = deviceenrollmentlistoptions1.clone();
             assertNotNull(deviceenrollmentlistoptions1);
@@ -41,15 +41,15 @@ public class TestDeviceEnrollmentListOptions {
     @Test
     public void testHashCode() {
         try {
-            DeviceEnrollmentListOptions deviceenrollmentlistoptions1 = new DeviceEnrollmentListOptions(Integer.valueOf(73),
-                                                                                                       Long.valueOf(57),
+            DeviceEnrollmentListOptions deviceenrollmentlistoptions1 = new DeviceEnrollmentListOptions(Integer.valueOf(-116),
+                                                                                                       Long.valueOf(118),
                                                                                                        Order.getDefault(),
-                                                                                                       "cd12328b-02db-4ef4-9a2e-cd769a6ed146",
+                                                                                                       "8b06c203-0c09-4864-9107-796050f438f9",
                                                                                                        null, null);
-            DeviceEnrollmentListOptions deviceenrollmentlistoptions2 = new DeviceEnrollmentListOptions(Integer.valueOf(73),
-                                                                                                       Long.valueOf(57),
+            DeviceEnrollmentListOptions deviceenrollmentlistoptions2 = new DeviceEnrollmentListOptions(Integer.valueOf(-116),
+                                                                                                       Long.valueOf(118),
                                                                                                        Order.getDefault(),
-                                                                                                       "cd12328b-02db-4ef4-9a2e-cd769a6ed146",
+                                                                                                       "8b06c203-0c09-4864-9107-796050f438f9",
                                                                                                        null, null);
             assertNotNull(deviceenrollmentlistoptions1);
             assertNotNull(deviceenrollmentlistoptions2);
@@ -72,20 +72,20 @@ public class TestDeviceEnrollmentListOptions {
     @Test
     public void testEquals() {
         try {
-            DeviceEnrollmentListOptions deviceenrollmentlistoptions1 = new DeviceEnrollmentListOptions(Integer.valueOf(-109),
-                                                                                                       Long.valueOf(-62),
+            DeviceEnrollmentListOptions deviceenrollmentlistoptions1 = new DeviceEnrollmentListOptions(Integer.valueOf(-40),
+                                                                                                       Long.valueOf(-17),
                                                                                                        Order.getDefault(),
-                                                                                                       "cc484111-0eaa-4182-ad5a-650579454bb4",
+                                                                                                       "cd4ec5a6-158b-4ab3-86ae-579fbe6c69b0",
                                                                                                        null, null);
-            DeviceEnrollmentListOptions deviceenrollmentlistoptions2 = new DeviceEnrollmentListOptions(Integer.valueOf(-109),
-                                                                                                       Long.valueOf(-62),
+            DeviceEnrollmentListOptions deviceenrollmentlistoptions2 = new DeviceEnrollmentListOptions(Integer.valueOf(-40),
+                                                                                                       Long.valueOf(-17),
                                                                                                        Order.getDefault(),
-                                                                                                       "cc484111-0eaa-4182-ad5a-650579454bb4",
+                                                                                                       "cd4ec5a6-158b-4ab3-86ae-579fbe6c69b0",
                                                                                                        null, null);
-            DeviceEnrollmentListOptions deviceenrollmentlistoptions3 = new DeviceEnrollmentListOptions(Integer.valueOf(6),
-                                                                                                       Long.valueOf(-56),
+            DeviceEnrollmentListOptions deviceenrollmentlistoptions3 = new DeviceEnrollmentListOptions(Integer.valueOf(50),
+                                                                                                       Long.valueOf(-29),
                                                                                                        Order.getDefault(),
-                                                                                                       "a4cbc476-f947-4f0e-962c-dc2b2a572324",
+                                                                                                       "52dea5df-b83a-40d9-a55d-9e380f045f1f",
                                                                                                        null, null);
             assertNotNull(deviceenrollmentlistoptions1);
             assertNotNull(deviceenrollmentlistoptions2);
