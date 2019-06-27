@@ -47,10 +47,10 @@ public class TestModelDao {
     @Test
     public void testMultithreadingModelManagement() {
         try (ModelDaoTest dao = new ModelDaoTest()) {
-            String id = "AN ID";
-            String value1 = "value1";
-            String value2 = "value2";
-            String value3 = "value3";
+            final String id = "AN ID";
+            final String value1 = "value1";
+            final String value2 = "value2";
+            final String value3 = "value3";
             assertNull(dao.getModel());
             Thread t0 = new Thread(new Runnable() {
 
@@ -104,7 +104,7 @@ public class TestModelDao {
             assertEquals(value3, dao.getModel().getValue3());
             assertEquals(value3, dao.getId());
 
-            AtomicBoolean failure = new AtomicBoolean(false);
+            final AtomicBoolean failure = new AtomicBoolean(false);
             Thread t12 = new Thread(new Runnable() {
 
                 @Override
@@ -113,7 +113,7 @@ public class TestModelDao {
                     test1.setValue1(value1);
                     ModelTest returnedModel = dao.setAndGetModel(test1);
                     if (returnedModel == null || !returnedModel.equals(test1)) {
-                        failure.set(true);
+                        failure.getAndSet(true);
                     }
                 }
             });
@@ -125,7 +125,7 @@ public class TestModelDao {
                     test2.setValue2(value2);
                     ModelTest returnedModel = dao.setAndGetModel(test2);
                     if (returnedModel == null || !returnedModel.equals(test2)) {
-                        failure.set(true);
+                        failure.getAndSet(true);
                     }
                 }
             });
@@ -137,7 +137,7 @@ public class TestModelDao {
                     test3.setValue3(value3);
                     ModelTest returnedModel = dao.setAndGetModel(test3);
                     if (returnedModel == null || !returnedModel.equals(test3)) {
-                        failure.set(true);
+                        failure.getAndSet(true);
                     }
                 }
             });

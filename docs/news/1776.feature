@@ -1,0 +1,1 @@
+Modified the notification listener to use a websocket connection rather than long polling.

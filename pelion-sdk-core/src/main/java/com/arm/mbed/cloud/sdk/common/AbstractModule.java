@@ -59,6 +59,7 @@ public abstract class AbstractModule implements SdkContext {
      * @param userAgentExtension
      *            extension list for the user agent: module name - module version
      */
+    @SuppressWarnings("resource")
     public AbstractModule(ConnectionOptions options, Map<String, String> userAgentExtension) {
         this(new ApiClientWrapper(options, userAgentExtension));
     }
@@ -89,7 +90,7 @@ public abstract class AbstractModule implements SdkContext {
      * See {@link ApiClientWrapper#shareNetworkLayer(ApiClientWrapper)}
      * 
      * @param anotherContext
-     *            another module instance.
+     *            another context instance.
      */
     public void shareNetworkLayer(SdkContext anotherContext) {
         if (client == null || anotherContext == null) {

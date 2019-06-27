@@ -15,6 +15,8 @@ import okio.ByteString;
 @Preamble(description = "Websocket notification listener")
 @Internal
 public class NotificationListener extends WebSocketListener {
+    private static final String NOTIFICATION_LOG_PREFIX = "Notification - ";
+
     private final SdkLogger logger;
 
     private final Callback<String> onNotificationCallBack;
@@ -42,7 +44,7 @@ public class NotificationListener extends WebSocketListener {
                                 Callback<Integer> onOpenCallBack, Callback<Integer> onClosingCallBack,
                                 Callback<Throwable> onErrorCallback) {
         super();
-        this.logger = logger;
+        this.logger = logger == null ? SdkLogger.getLogger() : logger;
         this.onNotificationCallBack = onNotificationCallBack == null ? new Callback<String>() {
 
             @Override
@@ -76,12 +78,21 @@ public class NotificationListener extends WebSocketListener {
         } : onErrorCallback;
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param logger
+     *            a logger
+     */
     public NotificationListener(SdkLogger logger) {
         this(logger, null, null, null, null);
     }
 
+    /**
+     * Constructor.
+     */
     public NotificationListener() {
-        this(new SdkLogger());
+        this(SdkLogger.getLogger());
     }
 
     private void defaultMessage(Object value) {
@@ -96,48 +107,109 @@ public class NotificationListener extends WebSocketListener {
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
-        logInfo("Receiving [" + webSocket.toString() + "]: " + text);
+        logDebug("Receiving: " + text);
         onNotificationCallBack.execute(text);
     }
 
     @Override
     public void onMessage(WebSocket webSocket, ByteString bytes) {
         final String text = bytes == null ? null : bytes.utf8();
-        logInfo("Receiving bytes [" + webSocket.toString() + "]: " + text);
+        logDebug("Receiving bytes: " + text);
         onNotificationCallBack.execute(text);
     }
 
     @Override
     public void onClosing(WebSocket webSocket, int code, @Nullable String reason) {
-        logInfo("Closing [" + webSocket.toString() + "]: " + code + ". Reason: " + reason);
+        logInfo("Closing: " + code + ". Reason: " + reason);
         webSocket.close(NORMAL_CLOSURE_STATUS, reason);
         onClosingCallBack.execute(Integer.valueOf(code));
     }
 
     @Override
     public void onFailure(WebSocket webSocket, Throwable cause, Response response) {
-        logError("Error [" + webSocket.toString() + "]: " + cause.getMessage());
+        logError("Error: " + cause.getMessage());
         onErrorCallback.execute(cause);
     }
 
-    private void logInfo(String string) {
-        if (logger == null) {
-            return;
-        }
-        logger.logInfo(generateLoggingMessageMetadata(string));
+    /**
+     * Logs information message.
+     * 
+     * @param message
+     *            message to log.
+     */
+    public void logInfo(String message) {
+        logger.logInfo(generateLoggingMessageMetadata(message));
     }
 
-    private void logError(String string) {
-        if (logger == null) {
-            return;
-        }
-        logger.logError(string);
+    /**
+     * Logs error message.
+     * 
+     * @param message
+     *            message to log.
+     */
+    public void logError(String message) {
+        logger.logError(generateLoggingMessageMetadata(message));
+    }
+
+    /**
+     * Logs debug message.
+     * 
+     * @param message
+     *            message to log.
+     */
+    public void logDebug(String message) {
+        logger.logDebug(generateLoggingMessageMetadata(message));
     }
 
     private String generateLoggingMessageMetadata(String string) {
         final StringBuilder builder = new StringBuilder(30);
-        builder.append("Notification - ").append(string);
+        builder.append(NOTIFICATION_LOG_PREFIX).append(string);
         return builder.toString();
+    }
+
+    /**
+     * Gets corresponding logger.
+     * 
+     * @return the logger
+     */
+    public SdkLogger getLogger() {
+        return logger;
+    }
+
+    /**
+     * Gets the onNotification callback
+     * 
+     * @return corresponding callback.
+     */
+    public Callback<String> getOnNotificationCallback() {
+        return onNotificationCallBack;
+    }
+
+    /**
+     * Gets the onOpen callback
+     * 
+     * @return corresponding callback.
+     */
+    public Callback<Integer> getOnOpenCallback() {
+        return onOpenCallBack;
+    }
+
+    /**
+     * Gets the onClosing callback
+     * 
+     * @return corresponding callback.
+     */
+    public Callback<Integer> getOnClosingCallback() {
+        return onClosingCallBack;
+    }
+
+    /**
+     * Gets the onError callback
+     * 
+     * @return corresponding callback.
+     */
+    public Callback<Throwable> getOnErrorCallback() {
+        return onErrorCallback;
     }
 
 }

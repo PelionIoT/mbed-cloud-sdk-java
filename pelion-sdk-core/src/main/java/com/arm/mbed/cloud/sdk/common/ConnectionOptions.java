@@ -208,6 +208,17 @@ public class ConnectionOptions implements Cloneable, Serializable {
     }
 
     /**
+     * Gets Pelion Cloud Host URL to use.
+     * 
+     * @return the host URL.
+     * @throws MalformedURLException
+     *             if exception arises.
+     */
+    public URL getHostUrl() throws MalformedURLException {
+        return new URL(getHost());
+    }
+
+    /**
      * Sets the Arm Pelion Cloud Host to contact.
      *
      * @param host
