@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.connect.subscription;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,7 +25,6 @@ import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.NotificationListener;
@@ -39,10 +39,11 @@ import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationCallback;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
-import com.arm.mbed.cloud.sdk.subscribe.adapters.AsynchronousResponseNotificationAdapter;
-import com.arm.mbed.cloud.sdk.subscribe.adapters.DeviceStateNotificationAdapter;
-import com.arm.mbed.cloud.sdk.subscribe.adapters.ResourceValueNotificationAdapter;
+import com.arm.mbed.cloud.sdk.subscribe.adapters.AllNotificationsAdapter;
+import com.arm.mbed.cloud.sdk.subscribe.model.AllNotifications;
+import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseNotification;
 import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
+import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateNotification;
 import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueNotification;
 import com.arm.mbed.cloud.sdk.subscribe.store.SubscriptionObserversStore;
@@ -694,37 +695,37 @@ public class NotificationHandlersStore implements Closeable {
     }
 
     private void emitNotification(NotificationMessage data) {
-        if (data == null) {
+        final AllNotifications allNotification = AllNotificationsAdapter.mapNotificationMessage(data);
+        if (allNotification == null) {
             return;
         }
-        handleAsynchronousResponse(data);
-        handleResourceValueChanges(data);
-        handleDeviceStateChanges(data);
+        handleAllNotification(allNotification);
+        handleAsynchronousResponse(allNotification.getAsynchronousResponseNotifications());
+        handleResourceValueChanges(allNotification.getResourceValueNotifications());
+        handleDeviceStateChanges(allNotification.getDeviceStateNotifications());
     }
 
-    private void handleDeviceStateChanges(NotificationMessage notificationMessage) {
-        handleNotification(SubscriptionType.DEVICE_STATE_CHANGE, notificationMessage,
-                           DeviceStateNotificationAdapter.getNotificationMessageMapper());
+    private void handleAllNotification(AllNotifications notifications) {
+        List<AllNotifications> list = new ArrayList<>(1);
+        list.add(notifications.clone());
+        handleNotification(SubscriptionType.ALL, list);
     }
 
-    private void handleResourceValueChanges(NotificationMessage notificationMessage) {
-        handleNotification(SubscriptionType.NOTIFICATION, notificationMessage,
-                           ResourceValueNotificationAdapter.getNotificationMessageMapper());
+    private void handleDeviceStateChanges(List<DeviceStateNotification> notifications) {
+        handleNotification(SubscriptionType.DEVICE_STATE_CHANGE, notifications);
     }
 
-    private void handleAsynchronousResponse(NotificationMessage notificationMessage) {
-        handleNotification(SubscriptionType.ASYNCHRONOUS_RESPONSE, notificationMessage,
-                           AsynchronousResponseNotificationAdapter.getNotificationMessageMapper());
+    private void handleResourceValueChanges(List<ResourceValueNotification> notifications) {
+        handleNotification(SubscriptionType.NOTIFICATION, notifications);
     }
 
-    private <T extends NotificationMessageValue> void handleNotification(SubscriptionType type,
-                                                                         NotificationMessage message,
-                                                                         Mapper<NotificationMessage, List<T>> mapper) {
-        if (message == null || mapper == null || type == null) {
-            return;
-        }
-        final List<T> notifications = mapper.map(message);
-        if (notifications == null) {
+    private void handleAsynchronousResponse(List<AsynchronousResponseNotification> notifications) {
+        handleNotification(SubscriptionType.ASYNCHRONOUS_RESPONSE, notifications);
+    }
+
+    private <T extends NotificationMessageValue> void handleNotification(SubscriptionType type, List<T> notifications) {
+
+        if (notifications == null || type == null) {
             return;
         }
         for (final T notification : notifications) {
