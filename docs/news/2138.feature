@@ -1,0 +1,1 @@
+Added a way to control the notification system directly from the SDK entry point.

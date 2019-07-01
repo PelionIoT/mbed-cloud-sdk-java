@@ -53,8 +53,10 @@ import com.arm.mbed.cloud.sdk.connect.model.MetricsPeriodListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsStartEndListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
+import com.arm.mbed.cloud.sdk.connect.model.ResourceDao;
 import com.arm.mbed.cloud.sdk.connect.model.Subscription;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
+import com.arm.mbed.cloud.sdk.connect.model.WebhookDao;
 import com.arm.mbed.cloud.sdk.connect.subscription.NotificationHandlersStore;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceAction;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceActionParameters;
@@ -69,6 +71,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceR
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.SuccessfulResponse;
+import com.arm.mbed.cloud.sdk.notify.CloudNotificationManager;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
@@ -528,9 +531,9 @@ public class Connect extends AbstractModule {
     }
 
     /**
-     * Gets the subscribe module.
+     * Gets the subscribe manager.
      *
-     * @return subscribe module.
+     * @return subscribe manager.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
@@ -2709,5 +2712,84 @@ public class Connect extends AbstractModule {
                                          isClient ? DeliveryMethod.CLIENT_INITIATED : DeliveryMethod.SERVER_INITIATED);
             logger.logInfo("Setting notification delivery method to [" + deliveryMethod.get() + "]");
         }
+    }
+
+    /**
+     * Gets the notification manager.
+     *
+     * @return subscribe manager.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public CloudNotificationManager notifications() throws MbedCloudException {
+        return new NotificationManager(this);
+    }
+
+    /**
+     * 
+     * Implementation of the notification manager.
+     *
+     */
+    private static class NotificationManager implements CloudNotificationManager {
+        private final Connect api;
+        private final WebhookDao webhookDao;
+
+        /**
+         * Constructor.
+         * 
+         * @param api
+         *            connect API.
+         * @throws MbedCloudException
+         *             if a problem occurred during request processing.
+         */
+        public NotificationManager(Connect api) throws MbedCloudException {
+            super();
+            this.api = api;
+            webhookDao = new WebhookDao(api);
+        }
+
+        @Override
+        public void notify(NotificationMessage data) {
+            api.notify(data);
+        }
+
+        @Override
+        public void notify(String dataAsJson) {
+            api.notify(dataAsJson);
+
+        }
+
+        @Override
+        public void start() throws MbedCloudException {
+            api.startNotifications();
+        }
+
+        @Override
+        public void stop() throws MbedCloudException {
+            api.stopNotifications();
+
+        }
+
+        @Override
+        public WebhookDao webhook() {
+            return webhookDao;
+        }
+
+    }
+
+    /**
+     * Gets a resource entity.
+     * 
+     * @param resource
+     *            resource of interest.
+     * @return the corresponding resource entity.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    public ResourceDao resource(Resource resource) throws MbedCloudException {
+        final ResourceDao dao = new ResourceDao(this);
+        dao.setModel(resource);
+        return dao;
     }
 }
