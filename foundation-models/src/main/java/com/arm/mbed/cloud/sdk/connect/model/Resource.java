@@ -27,7 +27,7 @@ public class Resource implements SdkModel {
     /**
      * Resource's type.
      */
-    private final String type;
+    private final String resourceType;
     /**
      * The content type of the resource.
      */
@@ -62,12 +62,12 @@ public class Resource implements SdkModel {
      *            interface description
      */
     @Internal
-    public Resource(String deviceId, String path, String type, String contentType, boolean observable,
+    public Resource(String deviceId, String path, String resourceType, String contentType, boolean observable,
                     String interfaceDescription) {
         super();
         setDeviceId(deviceId);
         setPath(path);
-        this.type = type;
+        this.resourceType = resourceType;
         this.contentType = contentType;
         this.observable = observable;
         this.interfaceDescription = interfaceDescription;
@@ -260,10 +260,21 @@ public class Resource implements SdkModel {
     /**
      * Gets type.
      *
+     * @deprecated use {@link #getResourceType()} instead
      * @return the type
      */
+    @Deprecated
     public String getType() {
-        return type;
+        return resourceType;
+    }
+
+    /**
+     * Gets type.
+     *
+     * @return the type
+     */
+    public String getResourceType() {
+        return resourceType;
     }
 
     /**
@@ -305,7 +316,7 @@ public class Resource implements SdkModel {
      */
     @Override
     public Resource clone() {
-        return new Resource(deviceId, path, type, contentType, observable, interfaceDescription);
+        return new Resource(deviceId, path, resourceType, contentType, observable, interfaceDescription);
     }
 
     /**
@@ -373,8 +384,8 @@ public class Resource implements SdkModel {
      */
     @Override
     public String toString() {
-        return "Resource [deviceId=" + deviceId + ", path=" + path + ", type=" + type + ", contentType=" + contentType
-               + ", interfaceDescription=" + interfaceDescription + ", observable=" + observable + "]";
+        return "Resource [deviceId=" + deviceId + ", path=" + path + ", resourceType=" + resourceType + ", contentType="
+               + contentType + ", interfaceDescription=" + interfaceDescription + ", observable=" + observable + "]";
     }
 
 }

@@ -34,7 +34,8 @@ public final class DeviceStateNotificationAdapter {
         if (endpointData == null) {
             return null;
         }
-        final DeviceStateNotification notification = new DeviceStateNotification(state, endpointData.getEp());
+        final DeviceStateNotification notification = new DeviceStateNotification(state, endpointData.getEp(),
+                                                                                 endpointData.getOriginalEp());
         notification.setDeviceType(endpointData.getEpt());
         notification.setResources(ResourceAdapter.mapResourceDataList(endpointData.getEp(),
                                                                       endpointData.getResources()));
@@ -55,7 +56,7 @@ public final class DeviceStateNotificationAdapter {
         if (deviceId == null) {
             return null;
         }
-        final DeviceStateNotification notification = new DeviceStateNotification(state, deviceId);
+        final DeviceStateNotification notification = new DeviceStateNotification(state, deviceId, null);
 
         return notification;
     }

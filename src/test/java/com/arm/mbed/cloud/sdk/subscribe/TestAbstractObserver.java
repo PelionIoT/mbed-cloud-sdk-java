@@ -338,10 +338,10 @@ public class TestAbstractObserver {
 
                 private int i = 0;
 
+                @SuppressWarnings({ "unchecked", "boxing", "rawtypes" })
                 @Override
                 public void run() {
                     if (i < messages.size()) {
-                        @SuppressWarnings({ "unchecked", "boxing", "rawtypes" })
                         NotificationMessage<NotificationTestMessageValue> notification = null;
                         if (i < 52) {
                             notification = new NotificationMessage(new NotificationTestMessageValue(messages.get(i)),

@@ -305,7 +305,7 @@ public class TestNotificationHandlersStore {
             // Observer only cares about changes related to devices like 016%33e and REGISTRATION_UPDATE state
             receivedNotifications.forEach(n -> {
                 assertEquals("0161661e9ce10000000000010010033e", n.getDeviceId());
-                assertEquals(DeviceState.REGISTRATION_UPDATE, n.getState());
+                assertEquals(DeviceState.REGISTRATION_UPDATE, n.getEvent());
             });
         } catch (Exception e) {
             e.printStackTrace();
