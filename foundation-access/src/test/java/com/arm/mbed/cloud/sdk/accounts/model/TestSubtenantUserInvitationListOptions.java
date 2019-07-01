@@ -19,10 +19,10 @@ public class TestSubtenantUserInvitationListOptions {
     @Test
     public void testClone() {
         try {
-            SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions1 = new SubtenantUserInvitationListOptions(Integer.valueOf(-15),
-                                                                                                                            Long.valueOf(-61),
+            SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions1 = new SubtenantUserInvitationListOptions(Integer.valueOf(21),
+                                                                                                                            Long.valueOf(-47),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "d3534365-bba2-4f2c-8d1f-4cd4d0a471d0",
+                                                                                                                            "f63c810f-207a-4083-9df6-14cfc860f660",
                                                                                                                             null,
                                                                                                                             null);
             SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions2 = subtenantuserinvitationlistoptions1.clone();
@@ -62,16 +62,16 @@ public class TestSubtenantUserInvitationListOptions {
     @Test
     public void testHashCode() {
         try {
-            SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions1 = new SubtenantUserInvitationListOptions(Integer.valueOf(41),
-                                                                                                                            Long.valueOf(-104),
+            SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions1 = new SubtenantUserInvitationListOptions(Integer.valueOf(24),
+                                                                                                                            Long.valueOf(0),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "68d4eb23-ebb5-4ea7-8162-9a3532ce5b9c",
+                                                                                                                            "064ceada-bd09-4dfc-ada7-03b011648684",
                                                                                                                             null,
                                                                                                                             null);
-            SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions2 = new SubtenantUserInvitationListOptions(Integer.valueOf(41),
-                                                                                                                            Long.valueOf(-104),
+            SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions2 = new SubtenantUserInvitationListOptions(Integer.valueOf(24),
+                                                                                                                            Long.valueOf(0),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "68d4eb23-ebb5-4ea7-8162-9a3532ce5b9c",
+                                                                                                                            "064ceada-bd09-4dfc-ada7-03b011648684",
                                                                                                                             null,
                                                                                                                             null);
             assertNotNull(subtenantuserinvitationlistoptions1);
@@ -96,22 +96,22 @@ public class TestSubtenantUserInvitationListOptions {
     @Test
     public void testEquals() {
         try {
-            SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions1 = new SubtenantUserInvitationListOptions(Integer.valueOf(-72),
-                                                                                                                            Long.valueOf(-97),
+            SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions1 = new SubtenantUserInvitationListOptions(Integer.valueOf(-38),
+                                                                                                                            Long.valueOf(3),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "03e27587-3316-4f37-a78d-33a058e797a2",
+                                                                                                                            "01226626-485e-473f-a227-bbf12e66b62c",
                                                                                                                             null,
                                                                                                                             null);
-            SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions2 = new SubtenantUserInvitationListOptions(Integer.valueOf(-72),
-                                                                                                                            Long.valueOf(-97),
+            SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions2 = new SubtenantUserInvitationListOptions(Integer.valueOf(-38),
+                                                                                                                            Long.valueOf(3),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "03e27587-3316-4f37-a78d-33a058e797a2",
+                                                                                                                            "01226626-485e-473f-a227-bbf12e66b62c",
                                                                                                                             null,
                                                                                                                             null);
-            SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions3 = new SubtenantUserInvitationListOptions(Integer.valueOf(83),
-                                                                                                                            Long.valueOf(-81),
+            SubtenantUserInvitationListOptions subtenantuserinvitationlistoptions3 = new SubtenantUserInvitationListOptions(Integer.valueOf(-93),
+                                                                                                                            Long.valueOf(105),
                                                                                                                             Order.getDefault(),
-                                                                                                                            "34e5447b-13ab-4d1c-b488-a8eb6c30f81c",
+                                                                                                                            "1f4131cf-89a9-4a29-a08a-4ac15b098cef",
                                                                                                                             null,
                                                                                                                             null);
             assertNotNull(subtenantuserinvitationlistoptions1);

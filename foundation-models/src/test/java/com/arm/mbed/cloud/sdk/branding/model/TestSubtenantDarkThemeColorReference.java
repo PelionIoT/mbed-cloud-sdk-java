@@ -31,7 +31,7 @@ public class TestSubtenantDarkThemeColorReference {
             subtenantdarkthemecolorreference = SubtenantDarkThemeColorReference.getValue("canvas_background_font_color");
             assertNotNull(subtenantdarkthemecolorreference);
             assertFalse(subtenantdarkthemecolorreference.isDefault());
-            subtenantdarkthemecolorreference = SubtenantDarkThemeColorReference.getValue("4f7ca42e-76fb-4fe6-b295-38d96cb813c3");
+            subtenantdarkthemecolorreference = SubtenantDarkThemeColorReference.getValue("e9188a5e-c237-4145-a65d-d19d9359a812");
             assertNotNull(subtenantdarkthemecolorreference);
             assertTrue(subtenantdarkthemecolorreference.isDefault());
         } catch (Exception exception) {

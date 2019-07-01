@@ -19,13 +19,13 @@ public class TestFirmwareImage {
     @Test
     public void testClone() {
         try {
-            FirmwareImage firmwareimage1 = new FirmwareImage(new Date(1561632937338L),
-                                                             "1a35df12-1d1d-4c9a-84fd-7b51668e8c0b", 24,
-                                                             "79af8612-e566-416c-95d4-0dc15949508b",
-                                                             "d2bd17a5-8ba1-4017-9462-3e4c9f92a052",
-                                                             "f75fb30e-acf3-4cb3-b433-94f930b95002",
-                                                             "716f1a2a-cb98-4e85-b9dd-0bfc2e9e66c4",
-                                                             new Date(1561632942556L));
+            FirmwareImage firmwareimage1 = new FirmwareImage(new Date(1561989474703L),
+                                                             "a9c91367-64ed-46de-a68a-b7910c1755ff", 98,
+                                                             "f6bd5ec1-a2e3-4d3d-bb52-3ebe926f2085",
+                                                             "aba36921-1be7-446d-b54f-0399cb410d83",
+                                                             "e33fdce1-61a3-447b-a0a6-3529ca250bff",
+                                                             "9bb69520-d7c8-4951-a68a-31e8b3de461c",
+                                                             new Date(1561989472897L));
             FirmwareImage firmwareimage2 = firmwareimage1.clone();
             assertNotNull(firmwareimage1);
             assertNotNull(firmwareimage2);
@@ -43,20 +43,20 @@ public class TestFirmwareImage {
     @Test
     public void testHashCode() {
         try {
-            FirmwareImage firmwareimage1 = new FirmwareImage(new Date(1561632937043L),
-                                                             "7f33b426-c5c0-422a-9d38-92a4d186c800", 60,
-                                                             "8b095303-56f9-4111-8bed-23e293e6dd7f",
-                                                             "43ac0013-7a63-4b50-aaa7-e0f2cd005e43",
-                                                             "74690650-91a7-4a4b-910b-49bba676a722",
-                                                             "167a6d59-0873-460d-94a3-9e239b0e8a52",
-                                                             new Date(1561632934946L));
-            FirmwareImage firmwareimage2 = new FirmwareImage(new Date(1561632937043L),
-                                                             "7f33b426-c5c0-422a-9d38-92a4d186c800", 60,
-                                                             "8b095303-56f9-4111-8bed-23e293e6dd7f",
-                                                             "43ac0013-7a63-4b50-aaa7-e0f2cd005e43",
-                                                             "74690650-91a7-4a4b-910b-49bba676a722",
-                                                             "167a6d59-0873-460d-94a3-9e239b0e8a52",
-                                                             new Date(1561632934946L));
+            FirmwareImage firmwareimage1 = new FirmwareImage(new Date(1561989475635L),
+                                                             "67632143-7f9d-45a6-be6c-9afbcfd21adb", -22,
+                                                             "8cb6ea45-f254-4d03-b7ec-d5804876b853",
+                                                             "28f02d87-c6fb-41bc-834f-c71435a2f71c",
+                                                             "d64ab162-1a35-44be-a89a-813e27f00966",
+                                                             "076ba26b-52d6-4d87-9d00-9b59b8e395db",
+                                                             new Date(1561989475716L));
+            FirmwareImage firmwareimage2 = new FirmwareImage(new Date(1561989475635L),
+                                                             "67632143-7f9d-45a6-be6c-9afbcfd21adb", -22,
+                                                             "8cb6ea45-f254-4d03-b7ec-d5804876b853",
+                                                             "28f02d87-c6fb-41bc-834f-c71435a2f71c",
+                                                             "d64ab162-1a35-44be-a89a-813e27f00966",
+                                                             "076ba26b-52d6-4d87-9d00-9b59b8e395db",
+                                                             new Date(1561989475716L));
             assertNotNull(firmwareimage1);
             assertNotNull(firmwareimage2);
             assertNotSame(firmwareimage2, firmwareimage1);
@@ -77,21 +77,21 @@ public class TestFirmwareImage {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        FirmwareImage firmwareimage = new FirmwareImage(new Date(1561632941921L),
-                                                        "5156814c-a26b-4239-8bc4-95852f49ed56", 43,
-                                                        "51cfdc48-defa-4d74-9141-9a425dc6e89a",
-                                                        "39220666-cbea-4c49-9b24-d68c7dc2c6d4",
-                                                        "82278a39-0daa-4083-a758-fbc15872c6fc",
-                                                        "43ddf9df-d63b-447f-ac97-76c59f738aba",
-                                                        new Date(1561632940668L));
+        FirmwareImage firmwareimage = new FirmwareImage(new Date(1561989474948L),
+                                                        "da3b3062-00b9-44aa-b37e-0aee2dfa1d41", 3,
+                                                        "3cb44ca8-1ed1-4c15-b368-1b47fc54014f",
+                                                        "ec60fc23-db08-456f-81de-af2de4d3eceb",
+                                                        "07e15146-a846-4c46-9ff3-3247f9a4751b",
+                                                        "7a698582-0816-4f32-acf7-87a65199032b",
+                                                        new Date(1561989474706L));
         assertTrue(firmwareimage.isValid());
-        FirmwareImage firmwareimageInvalid = new FirmwareImage(new Date(1561632941134L),
-                                                               "a57c0b3d-13e3-4b34-b1b5-5fdfc3b375cd", 6,
-                                                               "ee512414-3c81-4e59-82a9-4cd682b1771e",
-                                                               "f45090fb-0b5e-40d7-8c08-1583bc1dbc4410063f94-724e-4041-affd-2aaec32930191e6a24b7-74f5-4a56-b52f-d61a9ce7fb71caf100fe-78ca-4aa3-9079-72a988be2cc736662872-0837-4a54-bfab-f86a3d2f38b9720b3ffd-0ca8-416b-813f-81c0052cc0578e5c0759-18c5-4d34-b7e8-1f535b7b3cc21f2edc15-ea99-43bb-ab83-6e7155eb342da86c8a5d-ac65-4864-aa7b-5563f456aa832478ef9c-fb6f-4303-99fc-89b6d379675af945afb1-4f3a-4d9c-bc64-d6a23170ccd7bb384e71-6b41-4a16-82a7-7524d178e69f395205f4-e38c-4f42-9ba4-5f39ae9a8ce860c73490-bc15-495a-9a9c-3f2a86fa8c8742318b2d-9c26-45d1-98c1-ebd0a4be4532aba1a274-2c00-4d14-b771-27ce771a5e435ad8b2e9-0a32-44f4-a1de-67a0e7229d0539f93123-e3c4-4220-918a-a0439f6a69c22b79124e-70af-4f65-aca4-a404fe35136256837243-9a31-4615-b0ed-3262da926a97fdaab663-2dca-4ae2-9d2b-4fab8a40a6b8405a08af-7f6d-4ec8-af46-12163420804a9a0bd86e-923c-490d-9b6b-a90de28eb888bb337aa2-cb1d-46a8-aad3-7cad476a6cb6b352eeec-5f28-49f3-9369-3c36398e80245fbae00a-c831-4108-9148-b6d7aa9fe424af1d29cf-ee53-4e4d-8903-c05a0011d496f275af9e-3fc0-4420-b4e3-8af3392f7e817de8173c-4be0-4109-b0db-45a3688dc0f539883019-1061-4599-bd2b-b3948d975a9c0d5f85f3-5010-46a8-bde4-2f80cecd2ca9fb76c551-764c-4a07-aec3-5545d34f60834e577f6e-47f8-46f3-9ef0-f4ce1d54a16221afebbc-2058-4609-8eac-0285549799685dc8ec7f-cc91-437a-a52e-4c5d0e5870df9d8eb732-7dc2-46a1-acb9-c89688ccaecd8acf9ab9-b276-4491-b0ad-609085d6b864a30302bb-176c-47db-9521-15c1433e58fd59724706-9ad8-42cf-a194-e89c5763ac4c1467510e-f432-4cde-b6c4-a748326f7d86ee2cc465-9461-4c80-9492-10ac7c5bfbbc3c0937d9-c6dc-4bdd-b83d-6c1448c71931edd40d95-84eb-45ed-91f8-9de18834823044d2d6fd-2da4-47c9-bf62-1b0bfdad32c3687eefe7-80a8-4a2b-a1a9-42d3cdd5a1e2474cc300-a5d5-4d7c-a429-9ea77269a122cf245590-4c9c-4766-bfa0-ca513f1a643e6c7dbfb3-d886-4c57-89ca-a9eaf31fce95e0898ca1-1161-43ca-8d26-75be769272ccd0323fba-a6c3-4698-be45-308658bd16c1949ff17d-52ab-4a9b-a9c3-447566543e5e1fb0aed1-8b9b-4cc2-9cf4-8953a13a6af8a06c9a52-93f1-4ea1-8f20-dc5cca87790a39875370-a865-4afe-a18e-f95764746cffff9c5f94-35b2-440b-bb37-570bf399dff6275b83e3-fd40-48d3-be1c-2097ef7d3c00",
-                                                               "52fb382c-5151-4f2c-9a2b-b3829ded2535",
-                                                               "d0dae7f6-169e-42f1-88eb-45dff27591cb4896bfed-0cc6-454d-ab96-4b18fb93cdae536c5c22-4fa9-4e22-bcf9-014c18761d9a03e427a7-3a94-4836-92e3-3721a1561bc1",
-                                                               new Date(1561632937682L));
+        FirmwareImage firmwareimageInvalid = new FirmwareImage(new Date(1561989471946L),
+                                                               "de0c86f5-e148-41e2-a208-ff0acc3fb9b9", 89,
+                                                               "b69cf0d4-9054-43cc-aa63-d9c818a4fd07",
+                                                               "0807dbae-7039-4744-9c36-1f28f32055bac98137fd-33d3-4d2e-9fbd-5be59e440bb9d364e4ef-3b68-41b6-bcab-cf35ad503dc9fd9758b9-ac5f-4c1c-8eda-b6d88e8cdb6d17237689-1aa6-4e0c-ba4b-149532a13a1018b0bc94-19ce-46c1-a26a-6d6b307f70c2d2fb6203-d93b-4123-b3d2-b7d5252dccb6332c6b70-17f5-4427-a624-65bb3af3b1816c25e9af-aee0-4af7-b1f5-08dbd37937e24be13c6e-b79e-4be1-9de8-197cef61979d99973f63-9672-4742-a048-025e5d90330278133efc-cbe2-45fa-bfb2-96c227a0cd819c4e1614-5b17-45e1-be84-5f63329d6f6f273b28fd-6607-4209-8e7e-0228f98a3d9029256fa7-bce3-467a-8f7f-c5173fef0be00e21dabb-000c-4d88-8b9f-a5291c71a64fc10961ac-4f2f-45df-9326-2d275f2dbd8233b827e6-64e3-43b8-915e-62077b57edf0e7f66a9d-a082-4f1d-8d1b-4f2b236a71ac26e8de95-830c-4e88-9ee7-fe188bad5b336fbcee00-56ee-48b2-a1d6-b0485a70005741276733-9e2f-472a-a7e6-19305aeefc0b03ed188b-d010-496a-8358-059e19ed82d4fd4d5191-cd51-4454-92c0-49e7ace04d8b0851a31b-3445-4e84-a4dd-e261a88ce2e0d2b2c5ce-8469-4c17-b275-ef8866b3da1a4b28ae98-519c-43a0-a251-66e4b0adc86d49568a4c-edb9-463a-b438-3cc0e19f311acb4b300c-ae85-46c4-9dc6-c6048774211918289e69-2bd5-463f-8359-3115481995e82b7e1afc-b122-47dc-8293-9cdfd87ba5589dbed12d-5108-4c3d-ae8a-2e0403ae3d5322cd3470-a110-4e93-bf99-29bc32a9550610a818a3-ff21-4b46-9522-8e84c39d5a9e13451046-f2ce-4a4e-96e0-c5f1d5859e6b4448d371-d609-4481-8290-85fb458bebb55156e130-c5a0-4926-8865-43592e6b3429a9524141-c4ad-421e-82a1-bd98056135220bf20881-000a-44ec-9cb9-f9d42cf0b79935aea5ff-4df9-4047-8fc0-e8621ccafa4955ff0fea-2fac-4fa6-b487-4400fc166828f9886357-ae2b-4446-927c-ffc319c6f31a50e58ba1-5213-45e1-a466-499162519bd5c31353d7-56db-4814-a8d8-308e02fafb8a6af9550c-221c-4a88-a236-7d3e111bd6215cffb1f0-f9c5-4110-97af-54fe0702e47afe566b71-da2d-4052-bb21-d1222aeaa3299c8c27e7-ee24-4290-a4a8-d03dccf1ad1f2a2dc576-a617-430d-b3bf-126d370aebfe0b910f8d-8cbc-4012-b484-8f89cfaf83e06b3b89fc-ae55-4f64-a3b5-477e1defd54433cde487-e551-4f86-b576-50f1602b410926e2ae2b-9dfc-48af-9b95-bd87bb6b22ffb5050535-da84-4924-8299-57fa90c528e7793f16fa-82aa-473d-95c8-743c019ab99a2e457594-8925-4dd1-9f0f-acf30d294c64",
+                                                               "3c6dd218-8194-4883-992f-41e75f0aa940",
+                                                               "a4f5d166-b435-410f-bf7a-ae716ac5b088a3b6eae8-f721-4a1f-8229-95ba2e57ce93a0c21cc4-8856-4ce5-95e4-4a00bb5a3fac883cd0cd-6967-42ce-bcfc-9f19655d7dc3",
+                                                               new Date(1561989470551L));
         assertFalse(firmwareimageInvalid.isValid());
     }
 
@@ -102,27 +102,27 @@ public class TestFirmwareImage {
     @Test
     public void testEquals() {
         try {
-            FirmwareImage firmwareimage1 = new FirmwareImage(new Date(1561632933461L),
-                                                             "456ee86c-1d37-410a-94cd-e06349a4d091", -32,
-                                                             "97bdbe35-f285-4381-9205-206a9bee28f5",
-                                                             "8e0f5ae9-c906-4c76-9638-dd1f39c3927f",
-                                                             "bba324da-f819-44e1-933d-3badcc60c115",
-                                                             "542c8c12-25e9-41b7-af4b-e0998961b003",
-                                                             new Date(1561632939319L));
-            FirmwareImage firmwareimage2 = new FirmwareImage(new Date(1561632933461L),
-                                                             "456ee86c-1d37-410a-94cd-e06349a4d091", -32,
-                                                             "97bdbe35-f285-4381-9205-206a9bee28f5",
-                                                             "8e0f5ae9-c906-4c76-9638-dd1f39c3927f",
-                                                             "bba324da-f819-44e1-933d-3badcc60c115",
-                                                             "542c8c12-25e9-41b7-af4b-e0998961b003",
-                                                             new Date(1561632939319L));
-            FirmwareImage firmwareimage3 = new FirmwareImage(new Date(1561632934156L),
-                                                             "f331885c-03b2-439e-afec-abe1c510851f", -65,
-                                                             "6f0f633f-82b9-499f-8651-74b16bbc0e25",
-                                                             "b6e0228c-2dd6-4619-a86f-9d12e15be36a",
-                                                             "5c612f32-a2d4-4174-8975-8c025c334f8d",
-                                                             "7083f382-753b-440b-9326-3b59fbf99784",
-                                                             new Date(1561632941054L));
+            FirmwareImage firmwareimage1 = new FirmwareImage(new Date(1561989470459L),
+                                                             "952ae587-5618-4a5e-a1cb-d00bf6304a8a", -59,
+                                                             "73a9558c-9305-4254-a050-8890d100340b",
+                                                             "46d19139-4c53-4c0b-9abf-71889542f44d",
+                                                             "cba5f1eb-be13-437d-a328-d3f07fe15af1",
+                                                             "371946f0-3235-4b31-b25d-5fdbc042e897",
+                                                             new Date(1561989471717L));
+            FirmwareImage firmwareimage2 = new FirmwareImage(new Date(1561989470459L),
+                                                             "952ae587-5618-4a5e-a1cb-d00bf6304a8a", -59,
+                                                             "73a9558c-9305-4254-a050-8890d100340b",
+                                                             "46d19139-4c53-4c0b-9abf-71889542f44d",
+                                                             "cba5f1eb-be13-437d-a328-d3f07fe15af1",
+                                                             "371946f0-3235-4b31-b25d-5fdbc042e897",
+                                                             new Date(1561989471717L));
+            FirmwareImage firmwareimage3 = new FirmwareImage(new Date(1561989470886L),
+                                                             "fcc309b5-37c0-4a0f-86c3-61969e003c98", -75,
+                                                             "dd3f8869-811a-436e-8c78-eba389bfa746",
+                                                             "fdce757f-6cb0-469b-a84d-b1c97fd27813",
+                                                             "a0c185da-bcba-41fc-b4a4-ecf7f0a1df13",
+                                                             "1325bf36-e3db-44cc-b5b1-748855bdafe1",
+                                                             new Date(1561989473469L));
             assertNotNull(firmwareimage1);
             assertNotNull(firmwareimage2);
             assertNotNull(firmwareimage3);

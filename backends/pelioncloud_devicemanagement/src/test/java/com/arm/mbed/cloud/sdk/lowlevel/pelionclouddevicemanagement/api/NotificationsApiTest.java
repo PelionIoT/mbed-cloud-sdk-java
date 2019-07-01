@@ -170,24 +170,24 @@ public class NotificationsApiTest {
     /**
      * Register a callback URL.
      *
-     * Register a URL to which the server should deliver notifications of the subscribed resource changes. To push
-     * notifications, you must place subscriptions. The maximum length of the URL, header keys, and values, all
-     * combined, is 400 characters. Notifications are delivered as PUT requests to the HTTP server, defined by the
-     * client with a subscription server message. The given URL should be accessible and respond to the PUT request with
-     * a response code of 200 or 204. Device Management Connect tests the callback URL with an empty payload when the
-     * URL is registered. Callback implementation does not support URL redirection. For more information on notification
-     * messages, see [NotificationMessage](#NotificationMessage). **Optional headers in a callback message:** You can
-     * set optional headers to a callback in a **Webhook** object. Device Management Connect includes the header and key
-     * pairs in the notification messages send them to callback URL. The callback URLs and headers are API key-specific.
-     * One possible use for additional headers is checking the origin of a PUT request, as well as distinguishing the
-     * application (API key) to which the notification belongs. **Note**: Only one callback URL per API key can be
-     * active. If you register a new URL while another one is active, it replaces the active one. There can be only one
-     * notification channel at a time. If another type of channel is already present, you need to delete it before
-     * setting the callback URL. **Expiration of a callback URL:** A callback can expire when Device Management cannot
-     * deliver a notification due to a connection timeout or an error response (4xx or 5xx). After each delivery
-     * failure, Device Management sets an exponential back off time and makes a retry attempt after that. The first
-     * retry delay is 1 second, then 2s, 4s, 8s, up to maximum delay of two minutes. The callback URL is removed if all
-     * retries fail within 24 hours. More about [notification sending
+     * Register a URL to which the server delivers notifications of changes to the subscribed resource. To push
+     * notifications, you must first place subscriptions. The maximum length of the URL, header keys, and values, all
+     * combined, is 400 characters. Notifications are delivered as PUT requests to the HTTP server, which the client
+     * defines with a subscription server message. The given URL must be accessible, and respond to the PUT request with
+     * a response code of 200 or 204. Device Management Connect tests the callback URL with an empty JSON payload
+     * &#x60;{}&#x60; when the URL is registered. Callback implementation does not support URL redirection. For more
+     * information on notification messages, see [NotificationMessage](#NotificationMessage). **Optional headers in a
+     * callback message:** You can set optional headers to a callback in a **Webhook** object. Device Management Connect
+     * includes the header and key pairs in the notification messages send them to callback URL. The callback URLs and
+     * headers are API key-specific. One possible use for additional headers is checking the origin of a PUT request, as
+     * well as distinguishing the application (API key) to which the notification belongs. **Note**: Only one callback
+     * URL per API key can be active. If you register a new URL while another one is active, it replaces the active one.
+     * There can be only one notification channel at a time. If another type of channel is already present, you need to
+     * delete it before setting the callback URL. **Expiration of a callback URL:** A callback can expire when Device
+     * Management cannot deliver a notification due to a connection timeout or an error response (4xx or 5xx). After
+     * each delivery failure, Device Management sets an exponential back off time and makes a retry attempt after that.
+     * The first retry delay is 1 second, then 2s, 4s, 8s, up to maximum delay of two minutes. The callback URL is
+     * removed if all retries fail within 24 hours. More about [notification sending
      * logic](../integrate-web-app/event-notification.html#notification-sending-logic). **Supported callback URL
      * protocols:** Currently, only HTTP and HTTPS protocols are supported. **HTTPS callback URLs:** When delivering a
      * notification to an HTTPS based callback URL, Device Management Connect presents a valid client certificate to

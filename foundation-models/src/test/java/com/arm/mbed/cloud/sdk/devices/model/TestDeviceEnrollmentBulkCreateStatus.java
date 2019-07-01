@@ -31,7 +31,7 @@ public class TestDeviceEnrollmentBulkCreateStatus {
             deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue("new");
             assertNotNull(deviceenrollmentbulkcreatestatus);
             assertFalse(deviceenrollmentbulkcreatestatus.isDefault());
-            deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue("6cd5e525-25b5-4ccb-915f-984b48d3fa1f");
+            deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue("826119f6-4f2f-4826-a2b5-d5e8afdc4ea0");
             assertNotNull(deviceenrollmentbulkcreatestatus);
             assertTrue(deviceenrollmentbulkcreatestatus.isDefault());
         } catch (Exception exception) {
