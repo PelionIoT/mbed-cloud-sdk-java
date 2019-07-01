@@ -706,7 +706,7 @@ public class NotificationHandlersStore implements Closeable {
     }
 
     private void handleAllNotification(AllNotifications notifications) {
-        List<AllNotifications> list = new ArrayList<>(1);
+        final List<AllNotifications> list = new ArrayList<>(1);
         list.add(notifications.clone());
         handleNotification(SubscriptionType.ALL, list);
     }

@@ -25,6 +25,14 @@ import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 public class ResourceSubscriber extends AbstractSubscriptionAction {
     private DeviceListDao listDao;
 
+    /**
+     * Constructor.
+     * 
+     * @param module
+     *            connect module
+     * @param mode
+     *            value fetching mode
+     */
     public ResourceSubscriber(AbstractModule module, FirstValue mode) {
         super(module, mode);
         try {

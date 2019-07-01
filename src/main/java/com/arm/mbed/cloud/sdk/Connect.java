@@ -2696,7 +2696,14 @@ public class Connect extends AbstractModule {
         return this;
     }
 
-    private void setDeliveryMethod(boolean isClient) {
+    /**
+     * Sets the delivery method of notifications.
+     * 
+     * @param isClient
+     *            if True, a client-initiated connection is established. Otherwise, a server-initiated connection is
+     *            expected.
+     */
+    public void setDeliveryMethod(boolean isClient) {
         if (deliveryMethod.get() == DeliveryMethod.UNDEFINED) {
             deliveryMethod.compareAndSet(DeliveryMethod.UNDEFINED,
                                          isClient ? DeliveryMethod.CLIENT_INITIATED : DeliveryMethod.SERVER_INITIATED);
