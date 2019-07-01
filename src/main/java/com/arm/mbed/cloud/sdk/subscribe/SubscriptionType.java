@@ -15,6 +15,9 @@ public enum SubscriptionType {
     /**
      * Subscription to Cloud asynchronous responses such as sensor current value.
      */
-    ASYNCHRONOUS_RESPONSE
-
+    ASYNCHRONOUS_RESPONSE,
+    /**
+     * Subscription to all notifications from the Cloud.
+     */
+    ALL
 }

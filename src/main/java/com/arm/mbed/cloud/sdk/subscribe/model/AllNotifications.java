@@ -1,0 +1,199 @@
+package com.arm.mbed.cloud.sdk.subscribe.model;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
+
+@Preamble(description = "Java bean describing a Pelion notification")
+public class AllNotifications extends NotificationWithPayload {
+    /**
+     * Serialisation Id.
+     */
+    private static final long serialVersionUID = 6449359435771334198L;
+
+    private List<ResourceValueNotification> resourceValueNotifications;
+    private List<AsynchronousResponseNotification> asynchronousResponseNotifications;
+    private List<DeviceStateNotification> deviceStateNotifications;
+
+    /**
+     * Constructor.
+     * 
+     * @param resourceValueNotifications
+     *            list of notifications.
+     * @param asynchronousResponseNotifications
+     *            list of notifications.
+     * @param deviceStateNotifications
+     *            list of notifications.
+     */
+    public AllNotifications(List<ResourceValueNotification> resourceValueNotifications,
+                            List<AsynchronousResponseNotification> asynchronousResponseNotifications,
+                            List<DeviceStateNotification> deviceStateNotifications) {
+        super();
+        this.resourceValueNotifications = resourceValueNotifications;
+        this.asynchronousResponseNotifications = asynchronousResponseNotifications;
+        this.deviceStateNotifications = deviceStateNotifications;
+    }
+
+    /**
+     * Constructor.
+     */
+    public AllNotifications() {
+        this(null, null, null);
+    }
+
+    /**
+     * States whether there are resource value notifications or not.
+     * 
+     * @return true if there are. False otherwise.
+     */
+    public boolean hasResourceValueNotifications() {
+        return resourceValueNotifications != null && !resourceValueNotifications.isEmpty();
+    }
+
+    /**
+     * Gets the resource value notifications.
+     * 
+     * @return corresponding notification list.
+     */
+    public List<ResourceValueNotification> getResourceValueNotifications() {
+        return resourceValueNotifications;
+    }
+
+    /**
+     * Sets the resource value notifications.
+     * 
+     * @param resourceValueNotifications
+     *            notification list to set.
+     */
+    public void setResourceValueNotifications(List<ResourceValueNotification> resourceValueNotifications) {
+        this.resourceValueNotifications = resourceValueNotifications;
+    }
+
+    /**
+     * States whether there are asynchronous response notifications or not.
+     * 
+     * @return true if there are. False otherwise.
+     */
+    public boolean hasAsynchronousResponseNotifications() {
+        return asynchronousResponseNotifications != null && !asynchronousResponseNotifications.isEmpty();
+    }
+
+    /**
+     * Gets the asynchronous response notifications.
+     * 
+     * @return corresponding notification list.
+     */
+    public List<AsynchronousResponseNotification> getAsynchronousResponseNotifications() {
+        return asynchronousResponseNotifications;
+    }
+
+    /**
+     * Sets the asynchronous response notifications.
+     * 
+     * @param asynchronousResponseNotifications
+     *            notification list to set.
+     */
+    public void
+           setAsynchronousResponseNotifications(List<AsynchronousResponseNotification> asynchronousResponseNotifications) {
+        this.asynchronousResponseNotifications = asynchronousResponseNotifications;
+    }
+
+    /**
+     * States whether there are device state notifications or not.
+     * 
+     * @return true if there are. False otherwise.
+     */
+    public boolean hasDeviceStateNotifications() {
+        return deviceStateNotifications != null && !deviceStateNotifications.isEmpty();
+    }
+
+    /**
+     * Gets the device state notifications.
+     * 
+     * @return corresponding notification list.
+     */
+    public List<DeviceStateNotification> getDeviceStateNotifications() {
+        return deviceStateNotifications;
+    }
+
+    /**
+     * Sets the device state notifications.
+     * 
+     * @param deviceStateNotifications
+     *            notification list to set.
+     */
+    public void setDeviceStateNotifications(List<DeviceStateNotification> deviceStateNotifications) {
+        this.deviceStateNotifications = deviceStateNotifications;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(asynchronousResponseNotifications, deviceStateNotifications, resourceValueNotifications);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (!(obj instanceof AllNotifications)) {
+            return false;
+        }
+        final AllNotifications other = (AllNotifications) obj;
+        return Objects.equals(asynchronousResponseNotifications, other.asynchronousResponseNotifications)
+               && Objects.equals(deviceStateNotifications, other.deviceStateNotifications)
+               && Objects.equals(resourceValueNotifications, other.resourceValueNotifications);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * com.arm.mbed.cloud.sdk.subscribe.model.NotificationWithPayload#setObject(com.arm.mbed.cloud.sdk.subscribe.model.
+     * NotificationWithPayload)
+     */
+    @Override
+    public <T extends NotificationWithPayload> void setObject(T other) {
+        super.setObject(other);
+        setAsynchronousResponseNotifications(null);
+        setDeviceStateNotifications(null);
+        setResourceValueNotifications(null);
+        if (other instanceof AllNotifications) {
+            final AllNotifications castOther = (AllNotifications) other;
+            if (castOther.hasAsynchronousResponseNotifications()) {
+                setAsynchronousResponseNotifications(new LinkedList<>(castOther.getAsynchronousResponseNotifications()));
+            }
+            if (castOther.hasDeviceStateNotifications()) {
+                setDeviceStateNotifications(new LinkedList<>(castOther.getDeviceStateNotifications()));
+            }
+            if (castOther.hasResourceValueNotifications()) {
+                setResourceValueNotifications(new LinkedList<>(castOther.getResourceValueNotifications()));
+            }
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public AllNotifications clone() {
+        final AllNotifications clone = new AllNotifications();
+        clone.setObject(this);
+        return clone;
+    }
+
+    @Override
+    public String toString() {
+        return "AllNotifications [resourceValueNotifications=" + resourceValueNotifications
+               + ", asynchronousResponseNotifications=" + asynchronousResponseNotifications
+               + ", deviceStateNotifications=" + deviceStateNotifications + "]";
+    }
+
+}

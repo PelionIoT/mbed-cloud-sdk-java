@@ -27,6 +27,7 @@ import com.arm.mbed.cloud.sdk.connect.subscription.ResourceValueType;
 import com.arm.mbed.cloud.sdk.foundation.DaoFactory;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
+import com.arm.mbed.cloud.sdk.subscribe.model.AllNotificationsObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
@@ -137,6 +138,21 @@ public class Sdk extends AbstractModule {
     @API
     public CloudSubscriptionManager subscribe() throws MbedCloudException {
         return connectApi.subscribe();
+    }
+
+    /**
+     * Subscribes to all notifications from Pelion Cloud.
+     * 
+     * 
+     * @return a registered observer which listens to all notifications from Pelion.
+     *
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
+    @API
+    @Nullable
+    public AllNotificationsObserver subscribe(@NonNull BackpressureStrategy strategy) throws MbedCloudException {
+        return subscribe().allNotifications(strategy);
     }
 
     /**

@@ -10,11 +10,15 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
 
+import io.reactivex.BackpressureStrategy;
+
+import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.DeliveryMethod;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
@@ -23,6 +27,8 @@ import com.arm.mbed.cloud.sdk.connect.adapters.PresubscriptionAdapter;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
+import com.arm.mbed.cloud.sdk.subscribe.model.AllNotifications;
+import com.arm.mbed.cloud.sdk.subscribe.model.DeviceState;
 import com.google.gson.Gson;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.mockwebserver.MockResponse;
@@ -738,6 +744,41 @@ public class TestConnect {
             array.add(presubscription);
         }
         return array;
+    }
+
+    @Test
+    public void testNotify() {
+
+        ConnectionOptions opt = ConnectionOptions.newConfiguration("apikey", "").skipCleanup().autostartDaemon(false)
+                                                 .logLevel(CallLogLevel.BODY);
+        final List<AllNotifications> notifications = new LinkedList<>();
+        try (Connect connect = new Connect(opt)) {
+            connect.setDeliveryMethod(false);
+            connect.subscribe().allNotifications(BackpressureStrategy.BUFFER).flow()
+                   .subscribe(n -> notifications.add(n));
+            assertFalse(connect.handlersStore.isNotificationListenerActive());
+            String messageString = "{\"notifications\":[{\"path\":\"/3200/0/5501\",\"payload\":\"Q2hhbmdlIG1lIQ\u003d\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyB2YWx1ZSAy\",\"ep\":\"015f4ac587f500000000000100100249\"}"
+                                   + ",{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyBhbm90aGVyIHZhbHVl\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyB3aWxsIGJlIG15IGxhc3Qgbm90aWZpY2F0aW9uIGJlY2F1c2UgSSBhbSB3aWxsaW5nIHRvIGdvIGJhY2sgdG8gc2xlZXA\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}],\"de-registrations\":[\"015f3850a657000000000001001002ab\",\"015f3850a65700000000000100144545\"]}";
+            connect.notify(messageString);
+            Thread.sleep(100);
+            assertFalse(connect.handlersStore.isNotificationListenerActive());
+            assertFalse(notifications.isEmpty());
+            assertEquals(1, notifications.size());
+            AllNotifications receivedNotification = notifications.get(0);
+            assertTrue(receivedNotification.hasResourceValueNotifications());
+            assertEquals(4, receivedNotification.getResourceValueNotifications().size());
+            receivedNotification.getResourceValueNotifications()
+                                .forEach(rn -> assertEquals("/3200/0/5501", rn.getResource().getPath()));
+            assertTrue(receivedNotification.hasDeviceStateNotifications());
+            assertEquals(2, receivedNotification.getDeviceStateNotifications().size());
+            receivedNotification.getDeviceStateNotifications()
+                                .forEach(dn -> assertEquals(DeviceState.DEREGISTRATION, dn.getState()));
+            assertFalse(receivedNotification.hasAsynchronousResponseNotifications());
+        } catch (MbedCloudException | InterruptedException exception) {
+            exception.printStackTrace();
+            fail(exception.getMessage());
+        }
+
     }
 
 }
