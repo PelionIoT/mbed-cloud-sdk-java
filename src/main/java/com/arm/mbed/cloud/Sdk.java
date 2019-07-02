@@ -143,6 +143,8 @@ public class Sdk extends AbstractModule {
     /**
      * Subscribes to all notifications from Pelion Cloud.
      * 
+     * @param strategy
+     *            backpressure strategy to apply to underlying communication channel. @see {@link BackpressureStrategy}
      * 
      * @return a registered observer which listens to all notifications from Pelion.
      *

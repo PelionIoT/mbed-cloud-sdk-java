@@ -95,6 +95,7 @@ public final class TimePeriod implements Cloneable, Serializable {
      *
      * @param duration
      *            in seconds.
+     * @return a new time period.
      */
     public static TimePeriod newTimePeriod(long duration) {
         return new TimePeriod(duration);
@@ -107,6 +108,7 @@ public final class TimePeriod implements Cloneable, Serializable {
      *
      * @param value
      *            string representing the time period @see {@link #fromString(String)} for more information.
+     * @return a new time period
      *
      */
     public static TimePeriod newTimePeriod(String value) {
