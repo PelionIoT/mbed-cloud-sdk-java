@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.connect.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
@@ -144,6 +145,26 @@ public class Subscription implements SdkModel {
     @Override
     public void setId(String id) {
         setDeviceId(id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(deviceId, resourcePaths);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Subscription)) {
+            return false;
+        }
+        final Subscription other = (Subscription) obj;
+        return Objects.equals(deviceId, other.deviceId) && Objects.equals(resourcePaths, other.resourcePaths);
     }
 
 }

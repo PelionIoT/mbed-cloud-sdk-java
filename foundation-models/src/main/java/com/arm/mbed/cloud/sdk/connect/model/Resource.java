@@ -356,7 +356,7 @@ public class Resource implements SdkModel {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Resource)) {
             return false;
         }
         final Resource other = (Resource) obj;
