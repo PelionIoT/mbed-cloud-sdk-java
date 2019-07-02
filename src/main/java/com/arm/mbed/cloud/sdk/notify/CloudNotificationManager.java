@@ -19,7 +19,7 @@ public interface CloudNotificationManager {
      *            The notification data to inject
      */
 
-    public void notify(@Nullable NotificationMessage data);
+    void notify(@Nullable NotificationMessage data);
 
     /**
      * Allows notifications expressed as a JSON string to be injected into the notifications system.
@@ -29,7 +29,7 @@ public interface CloudNotificationManager {
      *            The notification data to inject as JSON String.
      */
     @API
-    public void notify(@Nullable String dataAsJson);
+    void notify(@Nullable String dataAsJson);
 
     /**
      * Starts notification pull.
@@ -41,7 +41,7 @@ public interface CloudNotificationManager {
      * @throws MbedCloudException
      *             if a problem occurred during the process.
      */
-    public void start() throws MbedCloudException;
+    void start() throws MbedCloudException;
 
     /**
      * Stops notification pull.
@@ -50,12 +50,12 @@ public interface CloudNotificationManager {
      * @throws MbedCloudException
      *             if a problem occurred during the process.
      */
-    public void stop() throws MbedCloudException;
+    void stop() throws MbedCloudException;
 
     /**
      * Gets the webhook entity.
      * 
      * @return the webhook DAO.
      */
-    public WebhookDao webhook();
+    WebhookDao webhook();
 }

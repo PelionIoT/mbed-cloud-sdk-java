@@ -131,18 +131,6 @@ public class Sdk extends AbstractModule {
     }
 
     /**
-     * Gets the subscription manager.
-     *
-     * @return the subscription manager.
-     * @throws MbedCloudException
-     *             if a problem occurs during the process.
-     */
-    @API
-    public CloudSubscriptionManager subscribe() throws MbedCloudException {
-        return connectApi.subscribe();
-    }
-
-    /**
      * Gets the notification manager.
      * 
      * @return the notification manager.
@@ -169,8 +157,22 @@ public class Sdk extends AbstractModule {
     }
 
     /**
+     * Gets the subscription manager.
+     *
+     * @return the subscription manager.
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
+    @API
+    public CloudSubscriptionManager subscribe() throws MbedCloudException {
+        return connectApi.subscribe();
+    }
+
+    /**
      * Subscribes to all notifications from Pelion Cloud.
      * 
+     * @param strategy
+     *            backpressure strategy to apply to underlying communication channel. @see {@link BackpressureStrategy}
      * 
      * @return a registered observer which listens to all notifications from Pelion.
      *

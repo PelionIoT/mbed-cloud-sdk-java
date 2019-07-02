@@ -153,9 +153,26 @@ public class DeviceStateNotification implements NotificationMessageValue {
             return false;
         }
         final DeviceStateNotification other = (DeviceStateNotification) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
         return Objects.equals(deviceId, other.deviceId) && Objects.equals(deviceType, other.deviceType)
                && Objects.equals(endpointName, other.endpointName) && event == other.event
                && Objects.equals(resources, other.resources);
+    }
+
+    /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    protected boolean canEqual(Object other) {
+        return other instanceof DeviceStateNotification;
     }
 
     /*

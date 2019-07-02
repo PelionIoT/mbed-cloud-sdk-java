@@ -95,9 +95,6 @@ public class WebhookDao extends AbstractModelDao<Webhook>
      *
      * <p>
      * Note: uses internal data model
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Connect.model.WebhookDao#delete(com.arm.mbed.cloud.sdk.Connect.model.Webhook)}
      * 
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -105,6 +102,16 @@ public class WebhookDao extends AbstractModelDao<Webhook>
     @Override
     public void delete() throws MbedCloudException {
         ((Connect) getModuleOrThrow()).deleteWebhook();
+    }
+
+    @Override
+    public void delete(String id) throws MbedCloudException, UnsupportedOperationException {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public void delete(Webhook modelToDelete) throws MbedCloudException, UnsupportedOperationException {
+        throw new NotImplementedException();
     }
 
     /**
@@ -162,11 +169,8 @@ public class WebhookDao extends AbstractModelDao<Webhook>
      *
      * <p>
      * Note: uses internal data model
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Connect.model.WebhookDao#read(com.arm.mbed.cloud.sdk.Connect.model.Webhook)}
      * 
-     * @return something
+     * @return the webhook set up.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -175,16 +179,18 @@ public class WebhookDao extends AbstractModelDao<Webhook>
         return setAndGetModel(((Connect) getModuleOrThrow()).getWebhook());
     }
 
+    @Override
+    public Webhook read(String id) throws MbedCloudException, UnsupportedOperationException {
+        throw new NotImplementedException();
+    }
+
     /**
      * Modifies the webhook.
      *
      * <p>
      * Note: uses internal data model
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.Connect.model.WebhookDao#update(com.arm.mbed.cloud.sdk.Connect.model.Webhook)}
      * 
-     * @return something
+     * @return the updated webhook.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -196,12 +202,9 @@ public class WebhookDao extends AbstractModelDao<Webhook>
     /**
      * Modifies the webhook.
      *
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.Connect#updateWebhook(com.arm.mbed.cloud.sdk.Connect.model.Webhook)}
-     * 
      * @param webhook
      *            the webhook.
-     * @return something
+     * @return the updated webhook.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -209,21 +212,6 @@ public class WebhookDao extends AbstractModelDao<Webhook>
     public Webhook update(@NonNull Webhook webhook) throws MbedCloudException {
         ((Connect) getModuleOrThrow()).updateWebhook(webhook);
         return setAndGetModel(webhook);
-    }
-
-    @Override
-    public void delete(String id) throws MbedCloudException, UnsupportedOperationException {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public void delete(Webhook modelToDelete) throws MbedCloudException, UnsupportedOperationException {
-        throw new NotImplementedException();
-    }
-
-    @Override
-    public Webhook read(String id) throws MbedCloudException, UnsupportedOperationException {
-        throw new NotImplementedException();
     }
 
 }

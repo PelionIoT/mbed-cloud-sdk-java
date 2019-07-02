@@ -52,8 +52,8 @@ public class Resource implements SdkModel {
      *            device id
      * @param path
      *            path
-     * @param type
-     *            type
+     * @param resourceType
+     *            type of the resource
      * @param contentType
      *            content type
      * @param observable
@@ -82,14 +82,14 @@ public class Resource implements SdkModel {
      *            device id
      * @param path
      *            path
-     * @param type
-     *            type
+     * @param resourceType
+     *            type of the resource
      * @param contentType
      *            content type
      */
     @Internal
-    public Resource(String deviceId, String path, String type, String contentType) {
-        this(deviceId, path, type, contentType, false, null);
+    public Resource(String deviceId, String path, String resourceType, String contentType) {
+        this(deviceId, path, resourceType, contentType, false, null);
     }
 
     /**
@@ -356,7 +356,7 @@ public class Resource implements SdkModel {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Resource)) {
             return false;
         }
         final Resource other = (Resource) obj;
