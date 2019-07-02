@@ -135,7 +135,7 @@ public class ResourceDao extends AbstractModelDao<Resource> {
     @Override
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
-        return new Connect(context);
+        return context;
     }
 
     /**
