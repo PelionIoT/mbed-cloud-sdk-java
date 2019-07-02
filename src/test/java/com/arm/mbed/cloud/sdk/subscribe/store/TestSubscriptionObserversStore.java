@@ -76,10 +76,12 @@ public class TestSubscriptionObserversStore {
                 return (i % 2 == 0)
                                     ? new DeviceStateNotification((i % 5 == 0) ? DeviceState.REGISTRATION_UPDATE
                                                                                : DeviceState.EXPIRED_REGISTRATION,
-                                                                  "0161661e9ce10000000000010010033e")
+                                                                  "0161661e9ce10000000000010010033e",
+                                                                  "an endpoint name")
                                     : new DeviceStateNotification((i % 5 == 0) ? DeviceState.REGISTRATION_UPDATE
                                                                                : DeviceState.REGISTRATION,
-                                                                  "0161661edbab000000000001001002b7");
+                                                                  "0161661edbab000000000001001002b7",
+                                                                  "an endpoint name");
             }).collect(Collectors.toList());
 
             obs2.addCallback(new NotificationCallback<>(new Callback<DeviceStateNotification>() {
@@ -113,14 +115,14 @@ public class TestSubscriptionObserversStore {
             DeviceStateNotification receivedNotificationForObs1 = future.get(2, TimeUnit.SECONDS);
             assertNotNull(receivedNotificationForObs1);
             assertEquals("0161661e9ce10000000000010010033e", receivedNotificationForObs1.getDeviceId());
-            assertEquals(DeviceState.REGISTRATION_UPDATE, receivedNotificationForObs1.getState());
+            assertEquals(DeviceState.REGISTRATION_UPDATE, receivedNotificationForObs1.getEvent());
             assertFalse(receivedNotifications.isEmpty());
             // odd Multiples of 5 between 0 and 102: 10
             assertEquals(10, receivedNotifications.size());
             // Observer 2 only cares about changes related to devices like 016%2b7 and REGISTRATION_UPDATE state
             receivedNotifications.forEach(n -> {
                 assertEquals("0161661edbab000000000001001002b7", n.getDeviceId());
-                assertEquals(DeviceState.REGISTRATION_UPDATE, n.getState());
+                assertEquals(DeviceState.REGISTRATION_UPDATE, n.getEvent());
             });
             // Observer obs1 should have been unsubscribed after the value had been received whereas obs2 should be
             // still on.
@@ -303,7 +305,7 @@ public class TestSubscriptionObserversStore {
             List<DeviceStateNotification> stateNotifications = Stream.iterate(0, n -> n + 1)
                                                                      .limit(numberOfNotifications).map(i -> {
                                                                          return (i
-                                                                                 % 2 == 0) ? new DeviceStateNotification((i % 5 == 0) ? DeviceState.REGISTRATION_UPDATE : DeviceState.EXPIRED_REGISTRATION, "0161661e9ce10000000000010010033e") : new DeviceStateNotification((i % 5 == 0) ? DeviceState.REGISTRATION_UPDATE : DeviceState.REGISTRATION, "0161661edbab000000000001001002b7");
+                                                                                 % 2 == 0) ? new DeviceStateNotification((i % 5 == 0) ? DeviceState.REGISTRATION_UPDATE : DeviceState.EXPIRED_REGISTRATION, "0161661e9ce10000000000010010033e", "an endpoint name") : new DeviceStateNotification((i % 5 == 0) ? DeviceState.REGISTRATION_UPDATE : DeviceState.REGISTRATION, "0161661edbab000000000001001002b7", "another endpoint name");
                                                                      }).collect(Collectors.toList());
 
             AllNotifications notification = new AllNotifications(valueNotifications, null, stateNotifications);

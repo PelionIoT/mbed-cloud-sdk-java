@@ -148,11 +148,6 @@ public class NotificationWithPayload implements NotificationMessageValue {
         return getPayload();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -163,11 +158,6 @@ public class NotificationWithPayload implements NotificationMessageValue {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -176,10 +166,13 @@ public class NotificationWithPayload implements NotificationMessageValue {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof NotificationWithPayload)) {
             return false;
         }
         final NotificationWithPayload other = (NotificationWithPayload) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
         if (contentType == null) {
             if (other.contentType != null) {
                 return false;
@@ -202,6 +195,20 @@ public class NotificationWithPayload implements NotificationMessageValue {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    protected boolean canEqual(Object other) {
+        return other instanceof NotificationWithPayload;
     }
 
     /**

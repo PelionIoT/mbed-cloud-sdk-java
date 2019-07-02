@@ -2,12 +2,12 @@ package com.arm.mbed.cloud.sdk.subscribe.model;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 
 @Preamble(description = "Java bean describing a Pelion notification")
-public class AllNotifications extends NotificationWithPayload {
+public class AllNotifications implements NotificationMessageValue {
     /**
      * Serialisation Id.
      */
@@ -130,7 +130,13 @@ public class AllNotifications extends NotificationWithPayload {
 
     @Override
     public int hashCode() {
-        return Objects.hash(asynchronousResponseNotifications, deviceStateNotifications, resourceValueNotifications);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                 + ((asynchronousResponseNotifications == null) ? 0 : asynchronousResponseNotifications.hashCode());
+        result = prime * result + ((deviceStateNotifications == null) ? 0 : deviceStateNotifications.hashCode());
+        result = prime * result + ((resourceValueNotifications == null) ? 0 : resourceValueNotifications.hashCode());
+        return result;
     }
 
     @Override
@@ -138,43 +144,52 @@ public class AllNotifications extends NotificationWithPayload {
         if (this == obj) {
             return true;
         }
-        if (!super.equals(obj)) {
+        if (obj == null) {
             return false;
         }
         if (!(obj instanceof AllNotifications)) {
             return false;
         }
         final AllNotifications other = (AllNotifications) obj;
-        return Objects.equals(asynchronousResponseNotifications, other.asynchronousResponseNotifications)
-               && Objects.equals(deviceStateNotifications, other.deviceStateNotifications)
-               && Objects.equals(resourceValueNotifications, other.resourceValueNotifications);
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        if (asynchronousResponseNotifications == null) {
+            if (other.asynchronousResponseNotifications != null) {
+                return false;
+            }
+        } else if (!asynchronousResponseNotifications.equals(other.asynchronousResponseNotifications)) {
+            return false;
+        }
+        if (deviceStateNotifications == null) {
+            if (other.deviceStateNotifications != null) {
+                return false;
+            }
+        } else if (!deviceStateNotifications.equals(other.deviceStateNotifications)) {
+            return false;
+        }
+        if (resourceValueNotifications == null) {
+            if (other.resourceValueNotifications != null) {
+                return false;
+            }
+        } else if (!resourceValueNotifications.equals(other.resourceValueNotifications)) {
+            return false;
+        }
+        return true;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Method to ensure {@link #equals(Object)} is correct.
      *
-     * @see
-     * com.arm.mbed.cloud.sdk.subscribe.model.NotificationWithPayload#setObject(com.arm.mbed.cloud.sdk.subscribe.model.
-     * NotificationWithPayload)
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
      */
-    @Override
-    public <T extends NotificationWithPayload> void setObject(T other) {
-        super.setObject(other);
-        setAsynchronousResponseNotifications(null);
-        setDeviceStateNotifications(null);
-        setResourceValueNotifications(null);
-        if (other instanceof AllNotifications) {
-            final AllNotifications castOther = (AllNotifications) other;
-            if (castOther.hasAsynchronousResponseNotifications()) {
-                setAsynchronousResponseNotifications(new LinkedList<>(castOther.getAsynchronousResponseNotifications()));
-            }
-            if (castOther.hasDeviceStateNotifications()) {
-                setDeviceStateNotifications(new LinkedList<>(castOther.getDeviceStateNotifications()));
-            }
-            if (castOther.hasResourceValueNotifications()) {
-                setResourceValueNotifications(new LinkedList<>(castOther.getResourceValueNotifications()));
-            }
-        }
+    protected boolean canEqual(Object other) {
+        return other instanceof AllNotifications;
     }
 
     /*
@@ -185,7 +200,15 @@ public class AllNotifications extends NotificationWithPayload {
     @Override
     public AllNotifications clone() {
         final AllNotifications clone = new AllNotifications();
-        clone.setObject(this);
+        if (hasAsynchronousResponseNotifications()) {
+            clone.setAsynchronousResponseNotifications(new LinkedList<>(getAsynchronousResponseNotifications()));
+        }
+        if (hasDeviceStateNotifications()) {
+            clone.setDeviceStateNotifications(new LinkedList<>(getDeviceStateNotifications()));
+        }
+        if (hasResourceValueNotifications()) {
+            clone.setResourceValueNotifications(new LinkedList<>(getResourceValueNotifications()));
+        }
         return clone;
     }
 
@@ -194,6 +217,11 @@ public class AllNotifications extends NotificationWithPayload {
         return "AllNotifications [resourceValueNotifications=" + resourceValueNotifications
                + ", asynchronousResponseNotifications=" + asynchronousResponseNotifications
                + ", deviceStateNotifications=" + deviceStateNotifications + "]";
+    }
+
+    @Override
+    public Object getRawValue() {
+        return this;
     }
 
 }

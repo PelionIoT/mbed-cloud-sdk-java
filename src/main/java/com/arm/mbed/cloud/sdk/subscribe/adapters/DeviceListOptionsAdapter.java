@@ -34,8 +34,8 @@ public final class DeviceListOptionsAdapter {
                                                                             FilterOperator.EQUAL));
         }
         if (filters.hasFilter(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.NOT_EQUAL)) {
-            listOptions.equalToId((String) filters.fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER,
-                                                                            FilterOperator.NOT_EQUAL));
+            listOptions.notEqualToId((String) filters.fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER,
+                                                                               FilterOperator.NOT_EQUAL));
         }
         // TODO do other filters when implemented
 

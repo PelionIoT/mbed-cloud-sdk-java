@@ -48,7 +48,7 @@ public final class ResourceActionAdapter {
         final DeviceRequest request = new DeviceRequest();
         try {
             request.setPayloadB64(params.marshall());
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
 
             return null;
         }
@@ -72,7 +72,7 @@ public final class ResourceActionAdapter {
         final DeviceRequest request = new DeviceRequest();
         try {
             request.setPayloadB64(params.marshall());
-        } catch (MbedCloudException exception) {
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
 
             return null;
         }
