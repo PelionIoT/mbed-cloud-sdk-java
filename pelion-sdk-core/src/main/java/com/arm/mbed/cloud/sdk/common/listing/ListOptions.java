@@ -349,9 +349,27 @@ public class ListOptions extends FilterOptions {
     }
 
     /**
+     * Includes an include field.
+     *
+     * @param includeField
+     *            include field to append.
+     *            <p>
+     *            Note: Similar to {@link #addTotalCountInclude()}
+     *
+     * @param <T>
+     *            this type
+     * @return this
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends ListOptions> T include(IncludeField includeField) {
+        addInclude(includeField);
+        return (T) this;
+    }
+
+    /**
      * Includes 'total count' field so that the total number of records appears in the response.
      * <p>
-     * Note: Similar to {@link #addTotalCountInclude()}
+     * Note: Similar to {@link }
      *
      * @param <T>
      *            this type

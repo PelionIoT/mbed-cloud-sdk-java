@@ -161,7 +161,7 @@ public class WebhookDao extends AbstractModelDao<Webhook>
     @Override
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
-        return new Connect(context);
+        return context;
     }
 
     /**
