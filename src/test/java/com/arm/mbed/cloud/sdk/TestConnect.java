@@ -772,7 +772,7 @@ public class TestConnect {
             assertTrue(receivedNotification.hasDeviceStateNotifications());
             assertEquals(2, receivedNotification.getDeviceStateNotifications().size());
             receivedNotification.getDeviceStateNotifications()
-                                .forEach(dn -> assertEquals(DeviceState.DEREGISTRATION, dn.getState()));
+                                .forEach(dn -> assertEquals(DeviceState.DEREGISTRATION, dn.getEvent()));
             assertFalse(receivedNotification.hasAsynchronousResponseNotifications());
         } catch (MbedCloudException | InterruptedException exception) {
             exception.printStackTrace();

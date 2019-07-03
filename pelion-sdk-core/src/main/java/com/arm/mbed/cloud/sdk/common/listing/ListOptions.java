@@ -350,12 +350,12 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Includes an include field.
-     *
+     * <p>
+     * Note: Similar to {@link #addInclude(IncludeField)}
+     * 
      * @param includeField
      *            include field to append.
-     *            <p>
-     *            Note: Similar to {@link #addTotalCountInclude()}
-     *
+     * 
      * @param <T>
      *            this type
      * @return this
