@@ -75,8 +75,6 @@ public class SdkExamples extends AbstractExample {
             Thread.sleep(120000); // TODO do some actual work in your application
             // Removing all subscriptions registered server side
             sdk.unsubscribeAll();
-            // Stopping the SDK when no longer needed.
-            sdk.quit();
             // end of example
 
         } catch (Exception e) {
@@ -116,10 +114,7 @@ public class SdkExamples extends AbstractExample {
             sdk.subscribe().notify(SubscriptionType.NOTIFICATION,
                                    new ResourceValueNotification("016546546465", "/3/0/5").payload("TEST"));
             // uncloak
-            // Stopping the SDK when no longer needed.
-            sdk.quit();
             // end of example
-
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -153,12 +148,9 @@ public class SdkExamples extends AbstractExample {
             assertTrue(sdk.subscribe().hasObservers());
             // Notifying a device change
             sdk.subscribe().notify(SubscriptionType.DEVICE_STATE_CHANGE,
-                                   new DeviceStateNotification(DeviceState.REGISTRATION, "A RANDOM DEVICE ID"));
+                                   new DeviceStateNotification(DeviceState.REGISTRATION, "A RANDOM DEVICE ID", null));
             // uncloak
-            // Stopping the SDK.
-            sdk.stop();
             // end of example
-
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
