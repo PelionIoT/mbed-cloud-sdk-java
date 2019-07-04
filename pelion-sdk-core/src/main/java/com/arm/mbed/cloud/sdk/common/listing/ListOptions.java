@@ -369,7 +369,7 @@ public class ListOptions extends FilterOptions {
     /**
      * Includes 'total count' field so that the total number of records appears in the response.
      * <p>
-     * Note: Similar to {@link }
+     * Note: Similar to {@link #addTotalCountInclude()}
      *
      * @param <T>
      *            this type
