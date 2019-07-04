@@ -214,4 +214,13 @@ public class WebhookDao extends AbstractModelDao<Webhook>
         return setAndGetModel(webhook);
     }
 
+    /**
+     * Enforces that the notification system uses a webhook.
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public void useWebhook() throws MbedCloudException {
+        ((Connect) getModuleOrThrow()).setDeliveryMethod(false);
+    }
 }
