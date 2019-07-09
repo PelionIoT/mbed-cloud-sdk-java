@@ -39,6 +39,16 @@ public class Policy implements SdkModel {
     private final boolean inherited;
 
     /**
+     * An ID indicating where this policy is inherited from.
+     */
+    private final String inheritedFrom;
+
+    /**
+     * Indicates the type of entity this policy is inherited from.
+     */
+    private final PolicyInheritedType inheritedType;
+
+    /**
      * Resource that is protected by this policy.
      */
     private final String resource;
@@ -59,16 +69,23 @@ public class Policy implements SdkModel {
      *            Feature name corresponding to this policy.
      * @param inherited
      *            Flag indicating whether this feature is inherited or overwritten specifically.
+     * @param inheritedFrom
+     *            An ID indicating where this policy is inherited from.
+     * @param inheritedType
+     *            Indicates the type of entity this policy is inherited from.
      * @param resource
      *            Resource that is protected by this policy.
      */
     @Internal
-    public Policy(String action, boolean allow, String feature, boolean inherited, String resource) {
+    public Policy(String action, boolean allow, String feature, boolean inherited, String inheritedFrom,
+                  PolicyInheritedType inheritedType, String resource) {
         super();
         this.action = action;
         this.allow = allow;
         this.feature = feature;
         this.inherited = inherited;
+        this.inheritedFrom = inheritedFrom;
+        this.inheritedType = inheritedType;
         this.resource = resource;
     }
 
@@ -87,6 +104,8 @@ public class Policy implements SdkModel {
     public Policy(Policy policy) {
         this(policy == null ? (String) null : policy.action, policy != null && policy.allow,
              policy == null ? (String) null : policy.feature, policy != null && policy.inherited,
+             policy == null ? (String) null : policy.inheritedFrom,
+             policy == null ? PolicyInheritedType.getDefault() : policy.inheritedType,
              policy == null ? (String) null : policy.resource);
     }
 
@@ -94,7 +113,8 @@ public class Policy implements SdkModel {
      * Constructor.
      */
     public Policy() {
-        this((String) null, false, (String) null, false, (String) null);
+        this((String) null, false, (String) null, false, (String) null, PolicyInheritedType.getDefault(),
+             (String) null);
     }
 
     /**
@@ -161,6 +181,24 @@ public class Policy implements SdkModel {
     }
 
     /**
+     * Gets an id indicating where this policy is inherited from.
+     * 
+     * @return inheritedFrom
+     */
+    public String getInheritedFrom() {
+        return inheritedFrom;
+    }
+
+    /**
+     * Gets indicates the type of entity this policy is inherited from.
+     * 
+     * @return inheritedType
+     */
+    public PolicyInheritedType getInheritedType() {
+        return inheritedType;
+    }
+
+    /**
      * Gets resource that is protected by this policy.
      * 
      * @return resource
@@ -180,7 +218,8 @@ public class Policy implements SdkModel {
     @Override
     public String toString() {
         return "Policy [action=" + action + ", allow=" + allow + ", feature=" + feature + ", inherited=" + inherited
-               + ", resource=" + resource + "]";
+               + ", inheritedFrom=" + inheritedFrom + ", inheritedType=" + inheritedType + ", resource=" + resource
+               + "]";
     }
 
     /**
@@ -199,6 +238,8 @@ public class Policy implements SdkModel {
         result = prime * result + Objects.hashCode(Boolean.valueOf(allow));
         result = prime * result + ((feature == null) ? 0 : feature.hashCode());
         result = prime * result + Objects.hashCode(Boolean.valueOf(inherited));
+        result = prime * result + ((inheritedFrom == null) ? 0 : inheritedFrom.hashCode());
+        result = prime * result + ((inheritedType == null) ? 0 : inheritedType.hashCode());
         result = prime * result + ((resource == null) ? 0 : resource.hashCode());
         return result;
     }
@@ -260,6 +301,16 @@ public class Policy implements SdkModel {
             return false;
         }
         if (inherited != other.inherited) {
+            return false;
+        }
+        if (inheritedFrom == null) {
+            if (other.inheritedFrom != null) {
+                return false;
+            }
+        } else if (!inheritedFrom.equals(other.inheritedFrom)) {
+            return false;
+        }
+        if (inheritedType != other.inheritedType) {
             return false;
         }
         if (resource == null) {

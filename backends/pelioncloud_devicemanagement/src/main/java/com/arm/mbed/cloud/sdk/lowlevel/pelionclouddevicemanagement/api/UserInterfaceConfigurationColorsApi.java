@@ -92,10 +92,10 @@ public interface UserInterfaceConfigurationColorsApi {
      * 
      * @param reference
      *            The name of the branding color. (required)
-     * @return Call&lt;BrandingColor&gt;
+     * @return Call&lt;Void&gt;
      */
     @DELETE("v3/branding-colors/dark/{reference}")
-    Call<BrandingColor> resetDarkColor(@retrofit2.http.Path(value = "reference", encoded = true) String reference);
+    Call<Void> resetDarkColor(@retrofit2.http.Path(value = "reference", encoded = true) String reference);
 
     /**
      * Reset branding color to default. Resets the branding color to its light theme default. **Example:**
@@ -104,10 +104,10 @@ public interface UserInterfaceConfigurationColorsApi {
      * 
      * @param reference
      *            The name of the branding color. (required)
-     * @return Call&lt;BrandingColor&gt;
+     * @return Call&lt;Void&gt;
      */
     @DELETE("v3/branding-colors/light/{reference}")
-    Call<BrandingColor> resetLightColor(@retrofit2.http.Path(value = "reference", encoded = true) String reference);
+    Call<Void> resetLightColor(@retrofit2.http.Path(value = "reference", encoded = true) String reference);
 
     /**
      * Updates a dark theme branding color. Update a dark theme branding color. **Example:** &#x60;&#x60;&#x60; curl -X

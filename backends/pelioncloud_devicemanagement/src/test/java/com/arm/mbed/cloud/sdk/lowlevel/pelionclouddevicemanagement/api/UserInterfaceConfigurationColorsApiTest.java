@@ -119,7 +119,7 @@ public class UserInterfaceConfigurationColorsApiTest {
     @Test
     public void resetDarkColorTest() {
         String reference = null;
-        // BrandingColor response = api.resetDarkColor(reference);
+        // Void response = api.resetDarkColor(reference);
 
         // TODO: test validations
     }
@@ -134,7 +134,7 @@ public class UserInterfaceConfigurationColorsApiTest {
     @Test
     public void resetLightColorTest() {
         String reference = null;
-        // BrandingColor response = api.resetLightColor(reference);
+        // Void response = api.resetLightColor(reference);
 
         // TODO: test validations
     }

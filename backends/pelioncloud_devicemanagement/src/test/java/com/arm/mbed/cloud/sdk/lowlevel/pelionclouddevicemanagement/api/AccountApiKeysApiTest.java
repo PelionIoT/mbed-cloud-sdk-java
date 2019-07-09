@@ -207,6 +207,22 @@ public class AccountApiKeysApiTest {
     }
 
     /**
+     * Reset the secret key.
+     *
+     * Reset the secret key of the API key. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/reset-secret \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void resetSecretTest() {
+        String apikeyId = null;
+        ApiKeyUpdateReq body = null;
+        // ApiKeyInfoResp response = api.resetSecret(apikeyId, body);
+
+        // TODO: test validations
+    }
+
+    /**
      * Update API key details.
      *
      * Update API key details. **Example:** &#x60;curl -X PUT

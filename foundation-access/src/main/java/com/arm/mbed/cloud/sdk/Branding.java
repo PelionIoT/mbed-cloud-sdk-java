@@ -211,7 +211,7 @@ public class Branding extends AbstractModule {
      * 'Authorization: Bearer [api_key]' ```
      *
      * @param reference
-     *            Color name.
+     *            The name of the branding color.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -219,14 +219,14 @@ public class Branding extends AbstractModule {
     public void deleteDarkThemeColor(@NonNull DarkThemeColorReference reference) throws MbedCloudException {
         checkNotNull(reference, TAG_REFERENCE);
         final DarkThemeColorReference finalReference = reference;
-        CloudCaller.call(this, "deleteDarkThemeColor()", null, new CloudRequest.CloudCall<BrandingColor>() {
+        CloudCaller.call(this, "deleteDarkThemeColor()", null, new CloudRequest.CloudCall<Void>() {
             /**
              * Makes the low level call to the Cloud.
              * 
              * @return Corresponding Retrofit2 Call object
              */
             @Override
-            public Call<BrandingColor> call() {
+            public Call<Void> call() {
                 return endpoints.getUserInterfaceConfigurationColorsApi()
                                 .resetDarkColor(finalReference == null ? null : finalReference.getString());
             }
@@ -309,7 +309,7 @@ public class Branding extends AbstractModule {
      * 'Authorization: Bearer [api_key]' ```
      *
      * @param reference
-     *            Color name.
+     *            The name of the branding color.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -317,14 +317,14 @@ public class Branding extends AbstractModule {
     public void deleteLightThemeColor(@NonNull LightThemeColorReference reference) throws MbedCloudException {
         checkNotNull(reference, TAG_REFERENCE);
         final LightThemeColorReference finalReference = reference;
-        CloudCaller.call(this, "deleteLightThemeColor()", null, new CloudRequest.CloudCall<BrandingColor>() {
+        CloudCaller.call(this, "deleteLightThemeColor()", null, new CloudRequest.CloudCall<Void>() {
             /**
              * Makes the low level call to the Cloud.
              * 
              * @return Corresponding Retrofit2 Call object
              */
             @Override
-            public Call<BrandingColor> call() {
+            public Call<Void> call() {
                 return endpoints.getUserInterfaceConfigurationColorsApi()
                                 .resetLightColor(finalReference == null ? null : finalReference.getString());
             }
@@ -416,7 +416,7 @@ public class Branding extends AbstractModule {
      * @param accountId
      *            Account ID.
      * @param reference
-     *            Color name.
+     *            The name of the branding color.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -428,14 +428,14 @@ public class Branding extends AbstractModule {
         checkNotNull(reference, TAG_REFERENCE);
         final String finalAccountId = accountId;
         final SubtenantDarkThemeColorReference finalReference = reference;
-        CloudCaller.call(this, "deleteSubtenantDarkThemeColor()", null, new CloudRequest.CloudCall<BrandingColor>() {
+        CloudCaller.call(this, "deleteSubtenantDarkThemeColor()", null, new CloudRequest.CloudCall<Void>() {
             /**
              * Makes the low level call to the Cloud.
              * 
              * @return Corresponding Retrofit2 Call object
              */
             @Override
-            public Call<BrandingColor> call() {
+            public Call<Void> call() {
                 return endpoints.getTenantUserInterfaceConfigurationColorsApi()
                                 .resetAccountDarkColor(finalAccountId,
                                                        finalReference == null ? null : finalReference.getString());
@@ -542,7 +542,7 @@ public class Branding extends AbstractModule {
      * @param accountId
      *            Account ID.
      * @param reference
-     *            Color name.
+     *            The name of the branding color.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -554,14 +554,14 @@ public class Branding extends AbstractModule {
         checkNotNull(reference, TAG_REFERENCE);
         final String finalAccountId = accountId;
         final SubtenantLightThemeColorReference finalReference = reference;
-        CloudCaller.call(this, "deleteSubtenantLightThemeColor()", null, new CloudRequest.CloudCall<BrandingColor>() {
+        CloudCaller.call(this, "deleteSubtenantLightThemeColor()", null, new CloudRequest.CloudCall<Void>() {
             /**
              * Makes the low level call to the Cloud.
              * 
              * @return Corresponding Retrofit2 Call object
              */
             @Override
-            public Call<BrandingColor> call() {
+            public Call<Void> call() {
                 return endpoints.getTenantUserInterfaceConfigurationColorsApi()
                                 .resetAccountLightColor(finalAccountId,
                                                         finalReference == null ? null : finalReference.getString());

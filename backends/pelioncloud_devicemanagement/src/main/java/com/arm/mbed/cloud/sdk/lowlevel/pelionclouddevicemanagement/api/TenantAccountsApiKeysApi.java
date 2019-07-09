@@ -178,12 +178,15 @@ public interface TenantAccountsApiKeysApi {
      *            Account ID. (required)
      * @param apikeyId
      *            The ID of the API key to reset. (required)
+     * @param body
+     *            New API key attributes to be stored. (optional)
      * @return Call&lt;ApiKeyInfoResp&gt;
      */
     @POST("v3/accounts/{account_id}/api-keys/{apikey_id}/reset-secret")
     Call<ApiKeyInfoResp>
         resetAccountApiKeySecret(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                                 @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId);
+                                 @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId,
+                                 @retrofit2.http.Body ApiKeyUpdateReq body);
 
     /**
      * Update API key details. Update API key details. **Example:** &#x60;&#x60;&#x60; curl -X PUT

@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 <a name="createAccountIdentityProvider"></a>
 # **createAccountIdentityProvider**
-> IdentityProviderInfo createAccountIdentityProvider(accountId, body)
+> IdentityProviderInfo createAccountIdentityProvider(accountId, body, discovery)
 
 Create a new identity provider.
 
@@ -41,8 +41,9 @@ Bearer.setApiKey("YOUR API KEY");
 TenantAccountsIdentityProvidersApi apiInstance = new TenantAccountsIdentityProvidersApi();
 String accountId = "accountId_example"; // String | Account ID.
 IdentityProviderCreationReq body = new IdentityProviderCreationReq(); // IdentityProviderCreationReq | Details of the identity provider to create.
+Boolean discovery = true; // Boolean | Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint * jwks_uri * keys
 try {
-    IdentityProviderInfo result = apiInstance.createAccountIdentityProvider(accountId, body);
+    IdentityProviderInfo result = apiInstance.createAccountIdentityProvider(accountId, body, discovery);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TenantAccountsIdentityProvidersApi#createAccountIdentityProvider");
@@ -56,6 +57,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| Account ID. |
  **body** | [**IdentityProviderCreationReq**](IdentityProviderCreationReq.md)| Details of the identity provider to create. |
+ **discovery** | **Boolean**| Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint * jwks_uri * keys | [optional]
 
 ### Return type
 
@@ -365,7 +367,7 @@ Name | Type | Description  | Notes
 
 <a name="updateAccountIdentityProvider"></a>
 # **updateAccountIdentityProvider**
-> IdentityProviderInfo updateAccountIdentityProvider(accountId, identityProviderId, body)
+> IdentityProviderInfo updateAccountIdentityProvider(accountId, identityProviderId, body, discovery)
 
 Update an existing identity provider.
 
@@ -392,8 +394,9 @@ TenantAccountsIdentityProvidersApi apiInstance = new TenantAccountsIdentityProvi
 String accountId = "accountId_example"; // String | Account ID.
 String identityProviderId = "identityProviderId_example"; // String | The ID of the identity provider to update.
 IdentityProviderUpdateReq body = new IdentityProviderUpdateReq(); // IdentityProviderUpdateReq | Details of the identity provider to update.
+Boolean discovery = true; // Boolean | Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint * jwks_uri * keys
 try {
-    IdentityProviderInfo result = apiInstance.updateAccountIdentityProvider(accountId, identityProviderId, body);
+    IdentityProviderInfo result = apiInstance.updateAccountIdentityProvider(accountId, identityProviderId, body, discovery);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TenantAccountsIdentityProvidersApi#updateAccountIdentityProvider");
@@ -408,6 +411,7 @@ Name | Type | Description  | Notes
  **accountId** | **String**| Account ID. |
  **identityProviderId** | **String**| The ID of the identity provider to update. |
  **body** | [**IdentityProviderUpdateReq**](IdentityProviderUpdateReq.md)| Details of the identity provider to update. |
+ **discovery** | **Boolean**| Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint * jwks_uri * keys | [optional]
 
 ### Return type
 

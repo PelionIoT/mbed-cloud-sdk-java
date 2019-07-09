@@ -161,7 +161,8 @@ public class TenantAccountsApiKeysApiTest {
     public void resetAccountApiKeySecretTest() {
         String accountId = null;
         String apikeyId = null;
-        // ApiKeyInfoResp response = api.resetAccountApiKeySecret(accountId, apikeyId);
+        ApiKeyUpdateReq body = null;
+        // ApiKeyInfoResp response = api.resetAccountApiKeySecret(accountId, apikeyId, body);
 
         // TODO: test validations
     }

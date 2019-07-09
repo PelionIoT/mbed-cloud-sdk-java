@@ -115,12 +115,11 @@ public interface TenantUserInterfaceConfigurationColorsApi {
      *            Account ID. (required)
      * @param reference
      *            The name of the branding color. (required)
-     * @return Call&lt;BrandingColor&gt;
+     * @return Call&lt;Void&gt;
      */
     @DELETE("v3/accounts/{account_id}/branding-colors/dark/{reference}")
-    Call<BrandingColor>
-        resetAccountDarkColor(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                              @retrofit2.http.Path(value = "reference", encoded = true) String reference);
+    Call<Void> resetAccountDarkColor(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                                     @retrofit2.http.Path(value = "reference", encoded = true) String reference);
 
     /**
      * Reset branding color to default. Resets the branding color of a tenant account to its light theme default.
@@ -132,12 +131,11 @@ public interface TenantUserInterfaceConfigurationColorsApi {
      *            Account ID. (required)
      * @param reference
      *            The name of the branding color. (required)
-     * @return Call&lt;BrandingColor&gt;
+     * @return Call&lt;Void&gt;
      */
     @DELETE("v3/accounts/{account_id}/branding-colors/light/{reference}")
-    Call<BrandingColor>
-        resetAccountLightColor(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                               @retrofit2.http.Path(value = "reference", encoded = true) String reference);
+    Call<Void> resetAccountLightColor(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                                      @retrofit2.http.Path(value = "reference", encoded = true) String reference);
 
     /**
      * Updates a dark theme branding color. Update a dark theme branding color of a tenant account. **Example:**

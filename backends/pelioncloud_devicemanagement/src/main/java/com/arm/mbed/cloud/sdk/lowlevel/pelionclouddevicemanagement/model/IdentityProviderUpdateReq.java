@@ -37,6 +37,9 @@ public class IdentityProviderUpdateReq implements Serializable {
     @SerializedName("name")
     private String name = null;
 
+    @SerializedName("oidc_attributes")
+    private OIDCInfo oidcAttributes = null;
+
     @SerializedName("saml2_attributes")
     private SAML2Req saml2Attributes = null;
 
@@ -176,6 +179,25 @@ public class IdentityProviderUpdateReq implements Serializable {
         this.name = name;
     }
 
+    public IdentityProviderUpdateReq oidcAttributes(OIDCInfo oidcAttributes) {
+        this.oidcAttributes = oidcAttributes;
+        return this;
+    }
+
+    /**
+     * OIDC specific attributes.
+     * 
+     * @return oidcAttributes
+     **/
+    @ApiModelProperty(value = "OIDC specific attributes.")
+    public OIDCInfo getOidcAttributes() {
+        return oidcAttributes;
+    }
+
+    public void setOidcAttributes(OIDCInfo oidcAttributes) {
+        this.oidcAttributes = oidcAttributes;
+    }
+
     public IdentityProviderUpdateReq saml2Attributes(SAML2Req saml2Attributes) {
         this.saml2Attributes = saml2Attributes;
         return this;
@@ -244,6 +266,7 @@ public class IdentityProviderUpdateReq implements Serializable {
         IdentityProviderUpdateReq identityProviderUpdateReq = (IdentityProviderUpdateReq) o;
         return Objects.equals(this.description, identityProviderUpdateReq.description)
                && Objects.equals(this.name, identityProviderUpdateReq.name)
+               && Objects.equals(this.oidcAttributes, identityProviderUpdateReq.oidcAttributes)
                && Objects.equals(this.saml2Attributes, identityProviderUpdateReq.saml2Attributes)
                && Objects.equals(this.status, identityProviderUpdateReq.status)
                && Objects.equals(this.type, identityProviderUpdateReq.type);
@@ -251,7 +274,7 @@ public class IdentityProviderUpdateReq implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, name, saml2Attributes, status, type);
+        return Objects.hash(description, name, oidcAttributes, saml2Attributes, status, type);
     }
 
     @Override
@@ -261,6 +284,7 @@ public class IdentityProviderUpdateReq implements Serializable {
 
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("    oidcAttributes: ").append(toIndentedString(oidcAttributes)).append("\n");
         sb.append("    saml2Attributes: ").append(toIndentedString(saml2Attributes)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");

@@ -13,9 +13,14 @@
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -37,6 +42,61 @@ public class FeaturePolicy implements Serializable {
 
     @SerializedName("inherited")
     private Boolean inherited = null;
+
+    @SerializedName("inherited_from")
+    private String inheritedFrom = null;
+
+    /**
+     * Indicates the type of entity this policy is inherited from.
+     */
+    @JsonAdapter(InheritedTypeEnum.Adapter.class)
+    public enum InheritedTypeEnum {
+        ACCOUNT("account"),
+
+        TEMPLATE("template"),
+
+        TIER_TEMPLATE("tier_template");
+
+        private String value;
+
+        InheritedTypeEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static InheritedTypeEnum fromValue(String text) {
+            for (InheritedTypeEnum b : InheritedTypeEnum.values()) {
+                if (String.valueOf(b.value).equals(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        public static class Adapter extends TypeAdapter<InheritedTypeEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final InheritedTypeEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public InheritedTypeEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return InheritedTypeEnum.fromValue(String.valueOf(value));
+            }
+        }
+    }
+
+    @SerializedName("inherited_type")
+    private InheritedTypeEnum inheritedType = null;
 
     @SerializedName("resource")
     private String resource = null;
@@ -98,11 +158,6 @@ public class FeaturePolicy implements Serializable {
         this.feature = feature;
     }
 
-    public FeaturePolicy inherited(Boolean inherited) {
-        this.inherited = inherited;
-        return this;
-    }
-
     /**
      * Flag indicating whether this feature is inherited or overwritten specifically.
      * 
@@ -114,8 +169,25 @@ public class FeaturePolicy implements Serializable {
         return inherited;
     }
 
-    public void setInherited(Boolean inherited) {
-        this.inherited = inherited;
+    /**
+     * An ID indicating where this policy is inherited from.
+     * 
+     * @return inheritedFrom
+     **/
+    @ApiModelProperty(example = "016ada3ec2d46665bf66e32e00000000",
+                      value = "An ID indicating where this policy is inherited from.")
+    public String getInheritedFrom() {
+        return inheritedFrom;
+    }
+
+    /**
+     * Indicates the type of entity this policy is inherited from.
+     * 
+     * @return inheritedType
+     **/
+    @ApiModelProperty(example = "account", value = "Indicates the type of entity this policy is inherited from.")
+    public InheritedTypeEnum getInheritedType() {
+        return inheritedType;
     }
 
     public FeaturePolicy resource(String resource) {
@@ -149,12 +221,14 @@ public class FeaturePolicy implements Serializable {
         return Objects.equals(this.action, featurePolicy.action) && Objects.equals(this.allow, featurePolicy.allow)
                && Objects.equals(this.feature, featurePolicy.feature)
                && Objects.equals(this.inherited, featurePolicy.inherited)
+               && Objects.equals(this.inheritedFrom, featurePolicy.inheritedFrom)
+               && Objects.equals(this.inheritedType, featurePolicy.inheritedType)
                && Objects.equals(this.resource, featurePolicy.resource);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(action, allow, feature, inherited, resource);
+        return Objects.hash(action, allow, feature, inherited, inheritedFrom, inheritedType, resource);
     }
 
     @Override
@@ -166,6 +240,8 @@ public class FeaturePolicy implements Serializable {
         sb.append("    allow: ").append(toIndentedString(allow)).append("\n");
         sb.append("    feature: ").append(toIndentedString(feature)).append("\n");
         sb.append("    inherited: ").append(toIndentedString(inherited)).append("\n");
+        sb.append("    inheritedFrom: ").append(toIndentedString(inheritedFrom)).append("\n");
+        sb.append("    inheritedType: ").append(toIndentedString(inheritedType)).append("\n");
         sb.append("    resource: ").append(toIndentedString(resource)).append("\n");
         sb.append("}");
         return sb.toString();

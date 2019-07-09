@@ -19,13 +19,18 @@ public interface TenantAccountsIdentityProvidersApi {
      *            Account ID. (required)
      * @param body
      *            Details of the identity provider to create. (required)
+     * @param discovery
+     *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
+     *            mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint *
+     *            userinfo_endpoint * revocation_endpoint * jwks_uri * keys (optional)
      * @return Call&lt;IdentityProviderInfo&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @POST("v3/accounts/{account_id}/identity-providers")
     Call<IdentityProviderInfo>
         createAccountIdentityProvider(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                                      @retrofit2.http.Body IdentityProviderCreationReq body);
+                                      @retrofit2.http.Body IdentityProviderCreationReq body,
+                                      @retrofit2.http.Query("discovery") Boolean discovery);
 
     /**
      * Delete an identity provider by ID. Delete an identity provider by ID.
@@ -126,6 +131,10 @@ public interface TenantAccountsIdentityProvidersApi {
      *            The ID of the identity provider to update. (required)
      * @param body
      *            Details of the identity provider to update. (required)
+     * @param discovery
+     *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
+     *            mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint *
+     *            userinfo_endpoint * revocation_endpoint * jwks_uri * keys (optional)
      * @return Call&lt;IdentityProviderInfo&gt;
      */
     @Headers({ "Content-Type:application/json" })
@@ -134,6 +143,7 @@ public interface TenantAccountsIdentityProvidersApi {
         updateAccountIdentityProvider(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
                                       @retrofit2.http.Path(value = "identity_provider_id",
                                                            encoded = true) String identityProviderId,
-                                      @retrofit2.http.Body IdentityProviderUpdateReq body);
+                                      @retrofit2.http.Body IdentityProviderUpdateReq body,
+                                      @retrofit2.http.Query("discovery") Boolean discovery);
 
 }

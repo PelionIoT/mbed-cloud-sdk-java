@@ -27,7 +27,8 @@ public class AccountIdentityProvidersApiTest {
     @Test
     public void createIdentityProviderTest() {
         IdentityProviderCreationReq body = null;
-        // IdentityProviderInfo response = api.createIdentityProvider(body);
+        Boolean discovery = null;
+        // IdentityProviderInfo response = api.createIdentityProvider(body, discovery);
 
         // TODO: test validations
     }
@@ -110,7 +111,8 @@ public class AccountIdentityProvidersApiTest {
     public void updateIdentityProviderTest() {
         String identityProviderId = null;
         IdentityProviderUpdateReq body = null;
-        // IdentityProviderInfo response = api.updateIdentityProvider(identityProviderId, body);
+        Boolean discovery = null;
+        // IdentityProviderInfo response = api.updateIdentityProvider(identityProviderId, body, discovery);
 
         // TODO: test validations
     }

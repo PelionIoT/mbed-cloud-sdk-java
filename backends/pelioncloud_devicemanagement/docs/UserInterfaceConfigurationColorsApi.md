@@ -340,7 +340,7 @@ This endpoint does not need any parameter.
 
 <a name="resetDarkColor"></a>
 # **resetDarkColor**
-> BrandingColor resetDarkColor(reference)
+> Void resetDarkColor(reference)
 
 Reset branding color to default.
 
@@ -366,7 +366,7 @@ Bearer.setApiKey("YOUR API KEY");
 UserInterfaceConfigurationColorsApi apiInstance = new UserInterfaceConfigurationColorsApi();
 String reference = "reference_example"; // String | The name of the branding color.
 try {
-    BrandingColor result = apiInstance.resetDarkColor(reference);
+    Void result = apiInstance.resetDarkColor(reference);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling UserInterfaceConfigurationColorsApi#resetDarkColor");
@@ -382,7 +382,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BrandingColor**](BrandingColor.md)
+[**Void**](.md)
 
 ### Authorization
 
@@ -395,7 +395,7 @@ Name | Type | Description  | Notes
 
 <a name="resetLightColor"></a>
 # **resetLightColor**
-> BrandingColor resetLightColor(reference)
+> Void resetLightColor(reference)
 
 Reset branding color to default.
 
@@ -421,7 +421,7 @@ Bearer.setApiKey("YOUR API KEY");
 UserInterfaceConfigurationColorsApi apiInstance = new UserInterfaceConfigurationColorsApi();
 String reference = "reference_example"; // String | The name of the branding color.
 try {
-    BrandingColor result = apiInstance.resetLightColor(reference);
+    Void result = apiInstance.resetLightColor(reference);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling UserInterfaceConfigurationColorsApi#resetLightColor");
@@ -437,7 +437,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BrandingColor**](BrandingColor.md)
+[**Void**](.md)
 
 ### Authorization
 

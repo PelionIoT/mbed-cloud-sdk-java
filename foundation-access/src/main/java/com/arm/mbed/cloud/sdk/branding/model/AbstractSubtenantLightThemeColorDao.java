@@ -122,7 +122,7 @@ public abstract class AbstractSubtenantLightThemeColorDao extends AbstractModelD
      * @param accountId
      *            Account ID.
      * @param reference
-     *            Color name.
+     *            The name of the branding color.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */

@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 
 Get dark theme branding color.
 
-Retrieve the requested dark theme branding color.   **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Retrieve the requested dark theme branding color.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -356,7 +356,7 @@ Name | Type | Description  | Notes
 
 <a name="resetAccountDarkColor"></a>
 # **resetAccountDarkColor**
-> BrandingColor resetAccountDarkColor(accountId, reference)
+> Void resetAccountDarkColor(accountId, reference)
 
 Reset branding color to default.
 
@@ -383,7 +383,7 @@ TenantUserInterfaceConfigurationColorsApi apiInstance = new TenantUserInterfaceC
 String accountId = "accountId_example"; // String | Account ID.
 String reference = "reference_example"; // String | The name of the branding color.
 try {
-    BrandingColor result = apiInstance.resetAccountDarkColor(accountId, reference);
+    Void result = apiInstance.resetAccountDarkColor(accountId, reference);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TenantUserInterfaceConfigurationColorsApi#resetAccountDarkColor");
@@ -400,7 +400,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BrandingColor**](BrandingColor.md)
+[**Void**](.md)
 
 ### Authorization
 
@@ -413,7 +413,7 @@ Name | Type | Description  | Notes
 
 <a name="resetAccountLightColor"></a>
 # **resetAccountLightColor**
-> BrandingColor resetAccountLightColor(accountId, reference)
+> Void resetAccountLightColor(accountId, reference)
 
 Reset branding color to default.
 
@@ -440,7 +440,7 @@ TenantUserInterfaceConfigurationColorsApi apiInstance = new TenantUserInterfaceC
 String accountId = "accountId_example"; // String | Account ID.
 String reference = "reference_example"; // String | The name of the branding color.
 try {
-    BrandingColor result = apiInstance.resetAccountLightColor(accountId, reference);
+    Void result = apiInstance.resetAccountLightColor(accountId, reference);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TenantUserInterfaceConfigurationColorsApi#resetAccountLightColor");
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BrandingColor**](BrandingColor.md)
+[**Void**](.md)
 
 ### Authorization
 

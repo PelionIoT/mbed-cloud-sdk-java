@@ -28,7 +28,8 @@ public class TenantAccountsIdentityProvidersApiTest {
     public void createAccountIdentityProviderTest() {
         String accountId = null;
         IdentityProviderCreationReq body = null;
-        // IdentityProviderInfo response = api.createAccountIdentityProvider(accountId, body);
+        Boolean discovery = null;
+        // IdentityProviderInfo response = api.createAccountIdentityProvider(accountId, body, discovery);
 
         // TODO: test validations
     }
@@ -117,7 +118,9 @@ public class TenantAccountsIdentityProvidersApiTest {
         String accountId = null;
         String identityProviderId = null;
         IdentityProviderUpdateReq body = null;
-        // IdentityProviderInfo response = api.updateAccountIdentityProvider(accountId, identityProviderId, body);
+        Boolean discovery = null;
+        // IdentityProviderInfo response = api.updateAccountIdentityProvider(accountId, identityProviderId, body,
+        // discovery);
 
         // TODO: test validations
     }

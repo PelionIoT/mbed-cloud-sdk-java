@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 <a name="createIdentityProvider"></a>
 # **createIdentityProvider**
-> IdentityProviderInfo createIdentityProvider(body)
+> IdentityProviderInfo createIdentityProvider(body, discovery)
 
 Create a new identity provider.
 
@@ -40,8 +40,9 @@ Bearer.setApiKey("YOUR API KEY");
 
 AccountIdentityProvidersApi apiInstance = new AccountIdentityProvidersApi();
 IdentityProviderCreationReq body = new IdentityProviderCreationReq(); // IdentityProviderCreationReq | Details of the identity provider to create.
+Boolean discovery = true; // Boolean | Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint * jwks_uri * keys
 try {
-    IdentityProviderInfo result = apiInstance.createIdentityProvider(body);
+    IdentityProviderInfo result = apiInstance.createIdentityProvider(body, discovery);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountIdentityProvidersApi#createIdentityProvider");
@@ -54,6 +55,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**IdentityProviderCreationReq**](IdentityProviderCreationReq.md)| Details of the identity provider to create. |
+ **discovery** | **Boolean**| Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint * jwks_uri * keys | [optional]
 
 ### Return type
 
@@ -353,7 +355,7 @@ Name | Type | Description  | Notes
 
 <a name="updateIdentityProvider"></a>
 # **updateIdentityProvider**
-> IdentityProviderInfo updateIdentityProvider(identityProviderId, body)
+> IdentityProviderInfo updateIdentityProvider(identityProviderId, body, discovery)
 
 Update an existing identity provider.
 
@@ -379,8 +381,9 @@ Bearer.setApiKey("YOUR API KEY");
 AccountIdentityProvidersApi apiInstance = new AccountIdentityProvidersApi();
 String identityProviderId = "identityProviderId_example"; // String | The ID of the identity provider to update.
 IdentityProviderUpdateReq body = new IdentityProviderUpdateReq(); // IdentityProviderUpdateReq | Details of the identity provider to update.
+Boolean discovery = true; // Boolean | Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint * jwks_uri * keys
 try {
-    IdentityProviderInfo result = apiInstance.updateIdentityProvider(identityProviderId, body);
+    IdentityProviderInfo result = apiInstance.updateIdentityProvider(identityProviderId, body, discovery);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountIdentityProvidersApi#updateIdentityProvider");
@@ -394,6 +397,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **identityProviderId** | **String**| The ID of the identity provider to update. |
  **body** | [**IdentityProviderUpdateReq**](IdentityProviderUpdateReq.md)| Details of the identity provider to update. |
+ **discovery** | **Boolean**| Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint * jwks_uri * keys | [optional]
 
 ### Return type
 
