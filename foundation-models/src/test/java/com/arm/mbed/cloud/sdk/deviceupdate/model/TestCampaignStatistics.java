@@ -19,8 +19,8 @@ public class TestCampaignStatistics {
     @Test
     public void testClone() {
         try {
-            CampaignStatistics campaignstatistics1 = new CampaignStatistics("2b4075a8-2dd3-4b93-bbaf-26ee81dbdb73", -3,
-                                                                            new Date(1561989475075L),
+            CampaignStatistics campaignstatistics1 = new CampaignStatistics("7398e3c9-5a18-4328-ab4b-fd0f9655990d",
+                                                                            -104, new Date(1562657750395L),
                                                                             CampaignStatisticsId.getDefault(),
                                                                             CampaignStatisticsSummaryStatus.getDefault());
             CampaignStatistics campaignstatistics2 = campaignstatistics1.clone();
@@ -40,12 +40,12 @@ public class TestCampaignStatistics {
     @Test
     public void testHashCode() {
         try {
-            CampaignStatistics campaignstatistics1 = new CampaignStatistics("37d97257-a3ae-4c0a-a2fd-0af06521d3d2", -55,
-                                                                            new Date(1561989475222L),
+            CampaignStatistics campaignstatistics1 = new CampaignStatistics("69e44188-c0aa-42ac-9426-1567c6ec6a28",
+                                                                            -119, new Date(1562657746401L),
                                                                             CampaignStatisticsId.getDefault(),
                                                                             CampaignStatisticsSummaryStatus.getDefault());
-            CampaignStatistics campaignstatistics2 = new CampaignStatistics("37d97257-a3ae-4c0a-a2fd-0af06521d3d2", -55,
-                                                                            new Date(1561989475222L),
+            CampaignStatistics campaignstatistics2 = new CampaignStatistics("69e44188-c0aa-42ac-9426-1567c6ec6a28",
+                                                                            -119, new Date(1562657746401L),
                                                                             CampaignStatisticsId.getDefault(),
                                                                             CampaignStatisticsSummaryStatus.getDefault());
             assertNotNull(campaignstatistics1);
@@ -68,12 +68,12 @@ public class TestCampaignStatistics {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        CampaignStatistics campaignstatistics = new CampaignStatistics("4df887f2-7d3f-41f6-8d8e-5aa9c578ca1b", 120,
-                                                                       new Date(1561989471660L),
+        CampaignStatistics campaignstatistics = new CampaignStatistics("de7e5b33-dd13-4569-a214-04b29ecdaf20", -43,
+                                                                       new Date(1562657744262L),
                                                                        CampaignStatisticsId.getDefault(),
                                                                        CampaignStatisticsSummaryStatus.getDefault());
         assertTrue(campaignstatistics.isValid());
-        CampaignStatistics campaignstatisticsInvalid = new CampaignStatistics(null, -69, new Date(1561989473457L),
+        CampaignStatistics campaignstatisticsInvalid = new CampaignStatistics(null, 70, new Date(1562657742591L),
                                                                               CampaignStatisticsId.getDefault(),
                                                                               CampaignStatisticsSummaryStatus.getDefault());
         assertFalse(campaignstatisticsInvalid.isValid());
@@ -86,16 +86,16 @@ public class TestCampaignStatistics {
     @Test
     public void testEquals() {
         try {
-            CampaignStatistics campaignstatistics1 = new CampaignStatistics("91924ae9-d41a-4f86-a88d-56145ca2fdcf", 109,
-                                                                            new Date(1561989473690L),
+            CampaignStatistics campaignstatistics1 = new CampaignStatistics("87332955-aaa0-4ae5-8975-65edbb23cb07", -69,
+                                                                            new Date(1562657749868L),
                                                                             CampaignStatisticsId.getDefault(),
                                                                             CampaignStatisticsSummaryStatus.getDefault());
-            CampaignStatistics campaignstatistics2 = new CampaignStatistics("91924ae9-d41a-4f86-a88d-56145ca2fdcf", 109,
-                                                                            new Date(1561989473690L),
+            CampaignStatistics campaignstatistics2 = new CampaignStatistics("87332955-aaa0-4ae5-8975-65edbb23cb07", -69,
+                                                                            new Date(1562657749868L),
                                                                             CampaignStatisticsId.getDefault(),
                                                                             CampaignStatisticsSummaryStatus.getDefault());
-            CampaignStatistics campaignstatistics3 = new CampaignStatistics("d72853fa-d37b-41dc-9ad1-b18542e9f119", 13,
-                                                                            new Date(1561989477726L),
+            CampaignStatistics campaignstatistics3 = new CampaignStatistics("b8add7cf-7275-4872-b4f0-bab088689efd",
+                                                                            -125, new Date(1562657749395L),
                                                                             CampaignStatisticsId.getDefault(),
                                                                             CampaignStatisticsSummaryStatus.getDefault());
             assertNotNull(campaignstatistics1);
