@@ -19,10 +19,10 @@ public class TestCampaignStatisticsListOptions {
     @Test
     public void testClone() {
         try {
-            CampaignStatisticsListOptions campaignstatisticslistoptions1 = new CampaignStatisticsListOptions(Integer.valueOf(70),
-                                                                                                             Long.valueOf(-125),
+            CampaignStatisticsListOptions campaignstatisticslistoptions1 = new CampaignStatisticsListOptions(Integer.valueOf(-99),
+                                                                                                             Long.valueOf(-94),
                                                                                                              Order.getDefault(),
-                                                                                                             "27bb21e7-b0f0-43c2-93e2-001c82750dfa",
+                                                                                                             "e5b6fddf-6800-491a-8b3a-cabe7e75f1af",
                                                                                                              null,
                                                                                                              null);
             CampaignStatisticsListOptions campaignstatisticslistoptions2 = campaignstatisticslistoptions1.clone();
@@ -42,16 +42,16 @@ public class TestCampaignStatisticsListOptions {
     @Test
     public void testHashCode() {
         try {
-            CampaignStatisticsListOptions campaignstatisticslistoptions1 = new CampaignStatisticsListOptions(Integer.valueOf(-25),
-                                                                                                             Long.valueOf(70),
+            CampaignStatisticsListOptions campaignstatisticslistoptions1 = new CampaignStatisticsListOptions(Integer.valueOf(90),
+                                                                                                             Long.valueOf(-98),
                                                                                                              Order.getDefault(),
-                                                                                                             "cc222e87-c5f0-4bba-8f4f-c0f195925740",
+                                                                                                             "8151cb96-c6e3-42f4-9a4d-73cf7b29bfb1",
                                                                                                              null,
                                                                                                              null);
-            CampaignStatisticsListOptions campaignstatisticslistoptions2 = new CampaignStatisticsListOptions(Integer.valueOf(-25),
-                                                                                                             Long.valueOf(70),
+            CampaignStatisticsListOptions campaignstatisticslistoptions2 = new CampaignStatisticsListOptions(Integer.valueOf(90),
+                                                                                                             Long.valueOf(-98),
                                                                                                              Order.getDefault(),
-                                                                                                             "cc222e87-c5f0-4bba-8f4f-c0f195925740",
+                                                                                                             "8151cb96-c6e3-42f4-9a4d-73cf7b29bfb1",
                                                                                                              null,
                                                                                                              null);
             assertNotNull(campaignstatisticslistoptions1);
@@ -75,22 +75,22 @@ public class TestCampaignStatisticsListOptions {
     @Test
     public void testEquals() {
         try {
-            CampaignStatisticsListOptions campaignstatisticslistoptions1 = new CampaignStatisticsListOptions(Integer.valueOf(-16),
-                                                                                                             Long.valueOf(-6),
+            CampaignStatisticsListOptions campaignstatisticslistoptions1 = new CampaignStatisticsListOptions(Integer.valueOf(100),
+                                                                                                             Long.valueOf(7),
                                                                                                              Order.getDefault(),
-                                                                                                             "b626e90d-4285-4f43-af36-6f285a44ef51",
+                                                                                                             "08ba88b3-377a-4f25-a5c8-90cdcabc75c6",
                                                                                                              null,
                                                                                                              null);
-            CampaignStatisticsListOptions campaignstatisticslistoptions2 = new CampaignStatisticsListOptions(Integer.valueOf(-16),
-                                                                                                             Long.valueOf(-6),
+            CampaignStatisticsListOptions campaignstatisticslistoptions2 = new CampaignStatisticsListOptions(Integer.valueOf(100),
+                                                                                                             Long.valueOf(7),
                                                                                                              Order.getDefault(),
-                                                                                                             "b626e90d-4285-4f43-af36-6f285a44ef51",
+                                                                                                             "08ba88b3-377a-4f25-a5c8-90cdcabc75c6",
                                                                                                              null,
                                                                                                              null);
-            CampaignStatisticsListOptions campaignstatisticslistoptions3 = new CampaignStatisticsListOptions(Integer.valueOf(44),
-                                                                                                             Long.valueOf(-76),
+            CampaignStatisticsListOptions campaignstatisticslistoptions3 = new CampaignStatisticsListOptions(Integer.valueOf(20),
+                                                                                                             Long.valueOf(63),
                                                                                                              Order.getDefault(),
-                                                                                                             "c279977f-eb55-4a7e-8d4d-e2484a50acc3",
+                                                                                                             "ca0755fc-cf9f-4ac8-af87-45f56419afe7",
                                                                                                              null,
                                                                                                              null);
             assertNotNull(campaignstatisticslistoptions1);

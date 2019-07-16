@@ -19,10 +19,10 @@ public class TestCertificateIssuerListOptions {
     @Test
     public void testClone() {
         try {
-            CertificateIssuerListOptions certificateissuerlistoptions1 = new CertificateIssuerListOptions(Integer.valueOf(61),
-                                                                                                          Long.valueOf(-24),
+            CertificateIssuerListOptions certificateissuerlistoptions1 = new CertificateIssuerListOptions(Integer.valueOf(-26),
+                                                                                                          Long.valueOf(-25),
                                                                                                           Order.getDefault(),
-                                                                                                          "12728cd8-f165-4da7-b8b9-93218a1e46f4",
+                                                                                                          "c9851448-8442-433b-a607-4062b57c39a1",
                                                                                                           null, null);
             CertificateIssuerListOptions certificateissuerlistoptions2 = certificateissuerlistoptions1.clone();
             assertNotNull(certificateissuerlistoptions1);
@@ -41,15 +41,15 @@ public class TestCertificateIssuerListOptions {
     @Test
     public void testHashCode() {
         try {
-            CertificateIssuerListOptions certificateissuerlistoptions1 = new CertificateIssuerListOptions(Integer.valueOf(-96),
-                                                                                                          Long.valueOf(14),
+            CertificateIssuerListOptions certificateissuerlistoptions1 = new CertificateIssuerListOptions(Integer.valueOf(92),
+                                                                                                          Long.valueOf(-42),
                                                                                                           Order.getDefault(),
-                                                                                                          "813cb7ac-314c-4365-8cc6-ed12bfe164a7",
+                                                                                                          "468c048b-ab07-48da-a037-49b1b9af44e0",
                                                                                                           null, null);
-            CertificateIssuerListOptions certificateissuerlistoptions2 = new CertificateIssuerListOptions(Integer.valueOf(-96),
-                                                                                                          Long.valueOf(14),
+            CertificateIssuerListOptions certificateissuerlistoptions2 = new CertificateIssuerListOptions(Integer.valueOf(92),
+                                                                                                          Long.valueOf(-42),
                                                                                                           Order.getDefault(),
-                                                                                                          "813cb7ac-314c-4365-8cc6-ed12bfe164a7",
+                                                                                                          "468c048b-ab07-48da-a037-49b1b9af44e0",
                                                                                                           null, null);
             assertNotNull(certificateissuerlistoptions1);
             assertNotNull(certificateissuerlistoptions2);
@@ -72,20 +72,20 @@ public class TestCertificateIssuerListOptions {
     @Test
     public void testEquals() {
         try {
-            CertificateIssuerListOptions certificateissuerlistoptions1 = new CertificateIssuerListOptions(Integer.valueOf(-46),
-                                                                                                          Long.valueOf(-53),
+            CertificateIssuerListOptions certificateissuerlistoptions1 = new CertificateIssuerListOptions(Integer.valueOf(-74),
+                                                                                                          Long.valueOf(-37),
                                                                                                           Order.getDefault(),
-                                                                                                          "242a203d-a31d-4eb4-a088-ac48d3d7fee5",
+                                                                                                          "cecb8c51-2f4a-4791-a857-856104b43645",
                                                                                                           null, null);
-            CertificateIssuerListOptions certificateissuerlistoptions2 = new CertificateIssuerListOptions(Integer.valueOf(-46),
-                                                                                                          Long.valueOf(-53),
+            CertificateIssuerListOptions certificateissuerlistoptions2 = new CertificateIssuerListOptions(Integer.valueOf(-74),
+                                                                                                          Long.valueOf(-37),
                                                                                                           Order.getDefault(),
-                                                                                                          "242a203d-a31d-4eb4-a088-ac48d3d7fee5",
+                                                                                                          "cecb8c51-2f4a-4791-a857-856104b43645",
                                                                                                           null, null);
-            CertificateIssuerListOptions certificateissuerlistoptions3 = new CertificateIssuerListOptions(Integer.valueOf(54),
-                                                                                                          Long.valueOf(89),
+            CertificateIssuerListOptions certificateissuerlistoptions3 = new CertificateIssuerListOptions(Integer.valueOf(58),
+                                                                                                          Long.valueOf(29),
                                                                                                           Order.getDefault(),
-                                                                                                          "1a4f5b8b-db2c-4d68-84a3-c0772fee3fc3",
+                                                                                                          "9c75b17c-51f5-41d7-b1c1-e7b39dd40b5b",
                                                                                                           null, null);
             assertNotNull(certificateissuerlistoptions1);
             assertNotNull(certificateissuerlistoptions2);

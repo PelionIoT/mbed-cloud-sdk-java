@@ -19,16 +19,16 @@ public class TestCampaignDeviceMetadata {
     @Test
     public void testClone() {
         try {
-            CampaignDeviceMetadata campaigndevicemetadata1 = new CampaignDeviceMetadata("be1c4034-ef9f-4b3f-a6da-565c930d0033",
-                                                                                        new Date(1562663762861L),
+            CampaignDeviceMetadata campaigndevicemetadata1 = new CampaignDeviceMetadata("8cf8f44c-ca0b-4504-84a1-2eba31bb749f",
+                                                                                        new Date(1563275990657L),
                                                                                         CampaignDeviceMetadataDeploymentState.getDefault(),
-                                                                                        "84c35ab2-1865-4f97-9ec0-346f44213d72",
-                                                                                        "d0bb4b7e-2664-4c19-8699-61dbefd38d10",
-                                                                                        "14e388c4-adc1-4676-8d1d-f7e245d03d50",
-                                                                                        "547bdc40-332d-4205-992f-97a5141b8ed4",
-                                                                                        "f98ea22e-bf1c-48a3-a509-00d3e970379d",
-                                                                                        "baf63f12-79f3-4477-aaca-1a2a849c68f2",
-                                                                                        new Date(1562663757015L));
+                                                                                        "e4ad94da-1e3c-4f51-b993-b2538701edbc",
+                                                                                        "2159ead8-c1d4-4f74-9f9f-a7c9fa5d3bb7",
+                                                                                        "5b8589a6-1156-4c68-a9ff-3a1d665e429b",
+                                                                                        "4b46d812-f288-47eb-b789-19ffdfd4f288",
+                                                                                        "5b2b02bd-3a8c-43bc-b7d8-ee0baaed8209",
+                                                                                        "1c482eec-f77a-44c0-9d57-ff7077423463",
+                                                                                        new Date(1563275991000L));
             CampaignDeviceMetadata campaigndevicemetadata2 = campaigndevicemetadata1.clone();
             assertNotNull(campaigndevicemetadata1);
             assertNotNull(campaigndevicemetadata2);
@@ -46,26 +46,26 @@ public class TestCampaignDeviceMetadata {
     @Test
     public void testHashCode() {
         try {
-            CampaignDeviceMetadata campaigndevicemetadata1 = new CampaignDeviceMetadata("37ce9606-3a18-47a5-b09a-227409a0383f",
-                                                                                        new Date(1562663761517L),
+            CampaignDeviceMetadata campaigndevicemetadata1 = new CampaignDeviceMetadata("17486ac9-8aca-4ef5-a1e7-f2750e7a191a",
+                                                                                        new Date(1563275992112L),
                                                                                         CampaignDeviceMetadataDeploymentState.getDefault(),
-                                                                                        "f3ded077-b865-4936-a51f-e1573ae289df",
-                                                                                        "55234132-9c15-4d55-9531-e3656aa34231",
-                                                                                        "0664408e-e023-4397-8e28-71697006665e",
-                                                                                        "f4dc747d-43f4-4173-ae3f-47d7fc9e050b",
-                                                                                        "8b88e25c-755a-4678-8f7d-1530ae2067b0",
-                                                                                        "ef6533ae-19a5-47d3-b5e5-33e202433c05",
-                                                                                        new Date(1562663757302L));
-            CampaignDeviceMetadata campaigndevicemetadata2 = new CampaignDeviceMetadata("37ce9606-3a18-47a5-b09a-227409a0383f",
-                                                                                        new Date(1562663761517L),
+                                                                                        "ab6f46ad-466e-445f-b776-c648715e5ef5",
+                                                                                        "38b7bea2-621a-4ce9-a0f8-85383de158b8",
+                                                                                        "c6be73ff-3b66-4156-9275-19ce998fec13",
+                                                                                        "36386144-a011-47b3-be83-bb33dfca0051",
+                                                                                        "4a342a51-7507-4f22-9bc1-b316b9548fe0",
+                                                                                        "c003da2a-e92f-4529-9089-8959839d3a5d",
+                                                                                        new Date(1563275986637L));
+            CampaignDeviceMetadata campaigndevicemetadata2 = new CampaignDeviceMetadata("17486ac9-8aca-4ef5-a1e7-f2750e7a191a",
+                                                                                        new Date(1563275992112L),
                                                                                         CampaignDeviceMetadataDeploymentState.getDefault(),
-                                                                                        "f3ded077-b865-4936-a51f-e1573ae289df",
-                                                                                        "55234132-9c15-4d55-9531-e3656aa34231",
-                                                                                        "0664408e-e023-4397-8e28-71697006665e",
-                                                                                        "f4dc747d-43f4-4173-ae3f-47d7fc9e050b",
-                                                                                        "8b88e25c-755a-4678-8f7d-1530ae2067b0",
-                                                                                        "ef6533ae-19a5-47d3-b5e5-33e202433c05",
-                                                                                        new Date(1562663757302L));
+                                                                                        "ab6f46ad-466e-445f-b776-c648715e5ef5",
+                                                                                        "38b7bea2-621a-4ce9-a0f8-85383de158b8",
+                                                                                        "c6be73ff-3b66-4156-9275-19ce998fec13",
+                                                                                        "36386144-a011-47b3-be83-bb33dfca0051",
+                                                                                        "4a342a51-7507-4f22-9bc1-b316b9548fe0",
+                                                                                        "c003da2a-e92f-4529-9089-8959839d3a5d",
+                                                                                        new Date(1563275986637L));
             assertNotNull(campaigndevicemetadata1);
             assertNotNull(campaigndevicemetadata2);
             assertNotSame(campaigndevicemetadata2, campaigndevicemetadata1);
@@ -86,27 +86,27 @@ public class TestCampaignDeviceMetadata {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        CampaignDeviceMetadata campaigndevicemetadata = new CampaignDeviceMetadata("f9631ec4-acb3-40c5-aab2-9b2e66610029",
-                                                                                   new Date(1562663764816L),
+        CampaignDeviceMetadata campaigndevicemetadata = new CampaignDeviceMetadata("e0bd2d44-bbc0-49b6-adf9-ab2294313d9a",
+                                                                                   new Date(1563275987860L),
                                                                                    CampaignDeviceMetadataDeploymentState.getDefault(),
-                                                                                   "503c3b08-998e-4baf-9371-c0244ef8148f",
-                                                                                   "183e7bb9-96ce-4bc6-a2a4-d0a049b90322",
-                                                                                   "faac82dd-67c9-40e6-81fd-0c9fb1c251b8",
-                                                                                   "d7f83c18-df1d-4cb5-b3b8-5d2caf224700",
-                                                                                   "eafa25b1-a7b0-461e-9b23-b8b71f22d2ac",
-                                                                                   "789bda9e-a796-44ff-8712-3089635de2d6",
-                                                                                   new Date(1562663760771L));
+                                                                                   "a2b50adc-775e-43b0-b165-dabe4ee85ae6",
+                                                                                   "969b3738-13f4-4cb5-b532-3fc1a2e31bd5",
+                                                                                   "86f9eb7b-52d3-48b5-bd63-83c1755d5bd3",
+                                                                                   "ceaa7a3c-2b6b-480c-94b4-10f0a759761d",
+                                                                                   "3bf4d92a-de97-40da-ba68-c955f84bc38b",
+                                                                                   "6d2b3ea3-b34a-4418-9e14-50541ae68fd1",
+                                                                                   new Date(1563275990867L));
         assertTrue(campaigndevicemetadata.isValid());
         CampaignDeviceMetadata campaigndevicemetadataInvalid = new CampaignDeviceMetadata(null,
-                                                                                          new Date(1562663765039L),
+                                                                                          new Date(1563275987325L),
                                                                                           CampaignDeviceMetadataDeploymentState.getDefault(),
-                                                                                          "20e569a1-34ae-42a8-a091-1963e8040c47f2050efe-9173-463a-a145-5ad06d2893695f6b0d20-fa8f-45fd-8a83-428d431f989a3fa21b20-8390-4928-a889-be42a9684013e1f26358-a298-42bb-9e1d-ce164513488e5839aa57-4eb9-4cac-8018-36d6dd1d0654531b12c0-dae0-4d4c-b357-9f5dc0f971edd5326715-b32f-4176-b3ee-a74783ccdc2fd9c59a8d-82e8-45c3-b49e-e5fdab9ef4253d8726af-62b0-47af-8485-55e35143581fd67787ff-f7d8-45ce-a943-c997ff044199c76b3f75-808e-4520-82a6-ba563e807688e6e41eda-ccad-4418-9f38-7dfef3cded1e8831415b-3eef-494b-a727-572125a52af95898c286-b535-4c52-b010-5e2cf811610db28a0be9-156b-4f62-b083-47d9bd622b1c91e0648c-69c7-4210-a714-4454df4f16614077dcae-2ab0-4702-a5ef-90b4c039ad900e32e7ce-8917-40fd-b4a6-0285bd8400e28ca1cd67-5ee4-4d49-9efd-cc5f67ebe2e97c80958d-61b5-44a3-b9a7-d63c4ea15352a2e1d24c-bad6-4860-b1e8-498876b153888cbf0ff3-d4ad-4b3c-aecf-67ec769a5c9c0a0dec81-db3a-44e5-9197-9361a9e1ad801a3062d8-f7ad-4f3a-b4a8-273eb2aa9f9c11655c78-80d6-42a9-86e9-385c1b186d0a52039ae2-7712-4fc4-8cad-04d52470f7020a8a898a-11a9-421f-a297-7cbce2ac94e71c1d9a45-0690-4feb-8c13-7457dcdc2d968a405a2e-0cb1-4dcd-821f-fa108f231187cd68cf71-e166-4843-9055-a0e48cc683241c03f737-8b3e-4fba-b4b1-2ae5b40df391e56f4005-93a8-489d-81fa-34f949bbb3b2254e2921-3f4d-46d8-8128-55fe82065f44b1252370-3732-4b55-8d91-774643ed654fa455d27b-1320-4251-b668-e0eb7a7c12573abf15b6-c5c3-4bd3-9ee3-2ed25c3c64b4adbd04a5-6144-4ec2-a85d-831de8f65ae3ca2f8c96-1df4-4716-a876-e2f0692ea22297b8cfac-24dd-4213-946f-74189236e86aa778e8fc-2234-4143-8a24-a79565c0cf5108d28f71-adfd-4a3d-bd05-0e73cf7f9c35c058a926-d622-4d9f-ac3f-eeaf18a5cca999f8e969-6eda-4f56-954a-e4512604f67044733019-c4ab-4fad-b4ab-88a2429b6fdfa2eb2a7c-bb5e-4835-b2ad-bc59f53acf91241b3240-1f88-4449-81a1-817eb253b8a4c4e67c36-4dab-4c2b-b193-b9caab2f7b82dffd983b-0b97-4dc1-acd0-084441e0e73481cf59f3-b2a1-4fa1-875b-1056d8bb9c9504d8a9bb-bcc9-4f06-8eb4-de88450ca2a8030549fc-2386-44d7-8a95-86fdb2c77c445183ae61-ec72-4b29-bb06-a8b1e1d7cbe757571ccd-fea2-4643-b095-ff41dce499effac37e5c-6a7e-42fe-8d1d-f03202f816069895daf5-696f-4a42-b228-2024c17d2dc8",
-                                                                                          "b85e752f-a5ea-4436-861a-2db1a2017eba",
-                                                                                          "52fa9091-4667-4a29-b90a-5d6f99f642e6",
-                                                                                          "7cc0fc82-bd13-40de-9acc-7e4cc6ebb05a",
-                                                                                          "3ceeba34-4c84-41d5-a8d4-e3a7a4deb52d",
-                                                                                          "4e02fa35-5590-47f3-9e40-97ab176cb0ca28a0cc44-c650-4ac3-ba00-2c239c3d97024d478fc2-81c6-4924-a5b6-441737d4bf5c4c20befb-7aeb-4b2a-b627-637dfb24ee5a",
-                                                                                          new Date(1562663765336L));
+                                                                                          "4c390599-a73b-4a9c-99fc-c97a313b8cead510d308-8c3b-47c1-be99-483532279f8978e65a15-ce42-4d9b-94b1-56bb30d5654b88528649-093d-470d-895e-2926bcec70216a61cf6f-244d-4924-9580-715355271fd081731907-c61a-49a3-bd99-a51b3a6876e2cf639bad-e1de-4d34-b062-b8294c135989da20ee00-11fb-460b-b2eb-f54b9c029ce3efb8b40b-d87c-47ee-be08-d4f0938f622d0ddc4176-19b9-4aa7-bd52-9fe8a19e7c5f3ce0f8f5-b599-49f8-9ce1-bf0e7b2c8a9a45adf585-d845-4aaa-9203-99641bd2cd1818a7b6bd-fd85-48a4-886f-f7c83997dabf161e5667-2ba5-4c38-85af-73b179483ef8e0a3b16c-a475-4fd0-b13e-d9629885524429862ffe-b2f7-480c-a5fe-ab5afb588021003b2a86-28b4-4402-a524-e1f61c51ad4fcfc3f035-e90a-4f97-8d12-9e258ae7f9719d5ca933-7bec-486d-b32f-23f142081400e4fa24ca-d63e-430f-9114-54570bfefd22f2c20e45-e767-4e6e-b701-a5bff5be5f3d3c0448e0-845f-4df9-9b99-a0a433b67f2212398ee6-d437-4af6-8afa-7c88f832d8b006985b96-284c-4cd0-bd5e-cf7bac4880ce4b916af3-3464-4dc8-b202-661ef42785381099353d-79b8-4072-94f4-38ea4c2faa97bfa8c6c2-3116-479d-bf1c-065650df414b6311a843-5ea7-4c7b-9099-5558f5f7af23abf1190c-4c61-44ba-baae-a0b4611a5f709de10b41-1b68-4dd7-b6f0-ec758c617f4b8995a8bf-5340-4695-bef5-ed10265f8a061232f411-1855-4844-8df7-72d136fef0037d7f5e62-36af-4899-8113-a2b36df6a9b42e38d7f7-ccc9-4e44-8924-592eef10c7ab9e09f977-87f5-4dab-aa1c-dd4d2546cb51c04ca96b-f7d4-467b-b8de-c84e5f67a07ec9b4f4f6-6572-4a6e-85f8-f68037e869759d25a195-d18a-4eee-acd8-29f9d8bcf873d84bf105-4a7a-4387-90c4-2b44f5c5a10d9c3ae1ff-2ec2-4c5b-ba69-a0151175cf98326f1d38-ee8e-49ab-95a1-a996dcb255c804c25c71-af5a-4a6a-9a30-20acbdc8db03c124d95e-bc7c-433f-b46d-7f0971101a35d1beb974-49ab-4111-9148-56e29e59118da5dc1256-ac37-4046-9375-3b99ac158e9a458f1a6d-b27e-4baf-9b47-760fb35ca6722e01ed6b-ae62-445c-acee-9307412f209982a3e09e-21fc-42c9-b2ff-8f5433749b4784006284-a09f-422b-8bd2-9390837b431128bc6a39-e321-4fc9-a27e-0d9286f4722e06ce5957-d750-4998-a711-62117ac05a49f0611cd7-9166-478a-9cf8-a7c507718d106eb1b729-a84c-484c-9419-ff0bee4215df48902d9a-ad3e-4d5a-a49c-15ff414b98af7bef17c7-a7b4-405f-a21f-75324c9c6b67a053f0e7-e3f9-4574-9787-1e63e3c37e5a",
+                                                                                          "767c6337-05b2-4884-9419-036c5a04b69c",
+                                                                                          "33cd0ef3-a62a-4852-a41e-1ab9b2164acb",
+                                                                                          "43a85d10-9e91-411e-9aa8-6712e9992eb6",
+                                                                                          "7bf9b995-5eb4-4c34-b025-655c6c60d6c3",
+                                                                                          "7d7b8258-ea58-4ac2-8883-becd9d2f9b33c5377fa9-281a-4529-81cf-caf2c0cdd4f6999bdf1f-266b-4f3f-8f65-853e0fc5227631149955-4fcb-465d-9c28-0000696a8bbd",
+                                                                                          new Date(1563275986195L));
         assertFalse(campaigndevicemetadataInvalid.isValid());
     }
 
@@ -117,36 +117,36 @@ public class TestCampaignDeviceMetadata {
     @Test
     public void testEquals() {
         try {
-            CampaignDeviceMetadata campaigndevicemetadata1 = new CampaignDeviceMetadata("1093bec7-4c89-4322-8179-c8d5e2ba352f",
-                                                                                        new Date(1562663756020L),
+            CampaignDeviceMetadata campaigndevicemetadata1 = new CampaignDeviceMetadata("b138200c-591d-4506-a5d6-2c0e03bb6779",
+                                                                                        new Date(1563275990298L),
                                                                                         CampaignDeviceMetadataDeploymentState.getDefault(),
-                                                                                        "e2a3b000-0a7c-49c9-bbba-668002ed7e0d",
-                                                                                        "f1091f0e-97ab-4489-b94b-2994f2db6488",
-                                                                                        "cb83dbba-361f-4238-99e6-4ad6b6de4225",
-                                                                                        "a92452b1-9d37-4441-9a62-890fd194b3e7",
-                                                                                        "f9605f1f-0c4b-44db-8c4c-5ce29212741a",
-                                                                                        "907e63ef-df40-470d-963f-ad77176163e9",
-                                                                                        new Date(1562663762684L));
-            CampaignDeviceMetadata campaigndevicemetadata2 = new CampaignDeviceMetadata("1093bec7-4c89-4322-8179-c8d5e2ba352f",
-                                                                                        new Date(1562663756020L),
+                                                                                        "a645d069-680e-4d08-b167-95496679ecbb",
+                                                                                        "e0bd04d2-7ab3-49d9-a218-4d5ebb0280a1",
+                                                                                        "9564df07-5448-4117-af1f-f21e9e608d61",
+                                                                                        "f1c9cf46-dde6-4b58-a6de-a5980b056c7d",
+                                                                                        "e5bd87d0-087d-4500-acf1-a67607140df9",
+                                                                                        "03b64135-af24-4c91-b8e7-ccb836828956",
+                                                                                        new Date(1563275984638L));
+            CampaignDeviceMetadata campaigndevicemetadata2 = new CampaignDeviceMetadata("b138200c-591d-4506-a5d6-2c0e03bb6779",
+                                                                                        new Date(1563275990298L),
                                                                                         CampaignDeviceMetadataDeploymentState.getDefault(),
-                                                                                        "e2a3b000-0a7c-49c9-bbba-668002ed7e0d",
-                                                                                        "f1091f0e-97ab-4489-b94b-2994f2db6488",
-                                                                                        "cb83dbba-361f-4238-99e6-4ad6b6de4225",
-                                                                                        "a92452b1-9d37-4441-9a62-890fd194b3e7",
-                                                                                        "f9605f1f-0c4b-44db-8c4c-5ce29212741a",
-                                                                                        "907e63ef-df40-470d-963f-ad77176163e9",
-                                                                                        new Date(1562663762684L));
-            CampaignDeviceMetadata campaigndevicemetadata3 = new CampaignDeviceMetadata("94a552f1-09a7-4975-9322-aa74c554c4a3",
-                                                                                        new Date(1562663762791L),
+                                                                                        "a645d069-680e-4d08-b167-95496679ecbb",
+                                                                                        "e0bd04d2-7ab3-49d9-a218-4d5ebb0280a1",
+                                                                                        "9564df07-5448-4117-af1f-f21e9e608d61",
+                                                                                        "f1c9cf46-dde6-4b58-a6de-a5980b056c7d",
+                                                                                        "e5bd87d0-087d-4500-acf1-a67607140df9",
+                                                                                        "03b64135-af24-4c91-b8e7-ccb836828956",
+                                                                                        new Date(1563275984638L));
+            CampaignDeviceMetadata campaigndevicemetadata3 = new CampaignDeviceMetadata("f93689fd-d0ad-4671-9d57-f63160378b03",
+                                                                                        new Date(1563275991910L),
                                                                                         CampaignDeviceMetadataDeploymentState.getDefault(),
-                                                                                        "505e8d40-c619-4230-9869-faeef21cf85e",
-                                                                                        "a2e5ea08-e901-4098-b38e-b0aca5b866a3",
-                                                                                        "90337e0b-a547-420b-a741-ec0df6a3eb48",
-                                                                                        "e4f7d415-e1f4-443d-8790-60bd6bd5fc85",
-                                                                                        "2ed828d4-c7ca-4d4c-92e8-0efa2a639daf",
-                                                                                        "ce73b5cb-713d-4779-9663-069ac1cea701",
-                                                                                        new Date(1562663761557L));
+                                                                                        "7c0c78b6-7995-4931-a976-62c03f7e35de",
+                                                                                        "04298ffd-d791-471b-b1ef-4c45c32c58f0",
+                                                                                        "cd5b79c3-88b6-430f-8b12-c912b1c471c7",
+                                                                                        "46d4e236-0386-40d8-b0c2-1be2a04a0dc9",
+                                                                                        "882ebd8c-a1a9-4a11-9f14-63ee6750712c",
+                                                                                        "41dfa1f5-0677-4d0c-aa5f-3940f282011e",
+                                                                                        new Date(1563275986970L));
             assertNotNull(campaigndevicemetadata1);
             assertNotNull(campaigndevicemetadata2);
             assertNotNull(campaigndevicemetadata3);
