@@ -2484,7 +2484,7 @@ public interface DefaultApi {
     @Headers({ "Content-Type:binary/octet-stream" })
     @POST("v3/firmware-images/upload-jobs/{upload_job_id}/chunks")
     Call<UploadChunkInfo>
-        uploadJobChunkCreate(@retrofit2.http.Header("Content-MD5") String contentMD5,
+        uploadJobChunkCreate(@retrofit2.http.Header("Content-MD5") byte[] contentMD5,
                              @retrofit2.http.Header("Content-Length") Integer contentLength,
                              @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId,
                              @retrofit2.http.Body byte[] chunk);

@@ -3844,7 +3844,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-String contentMD5 = "contentMD5_example"; // String | The base64-encoded binary digest of the body (chunk data).
+byte[] contentMD5 = B; // byte[] | The base64-encoded binary digest of the body (chunk data).
 Integer contentLength = 56; // Integer | 
 String uploadJobId = "uploadJobId_example"; // String | Upload job ID
 byte[] chunk = BINARY_DATA_HERE; // byte[] | Chunk
@@ -3861,7 +3861,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contentMD5** | **String**| The base64-encoded binary digest of the body (chunk data). |
+ **contentMD5** | **byte[]**| The base64-encoded binary digest of the body (chunk data). |
  **contentLength** | **Integer**|  |
  **uploadJobId** | **String**| Upload job ID |
  **chunk** | **byte[]**| Chunk | [optional]

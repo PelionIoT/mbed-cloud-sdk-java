@@ -1264,7 +1264,7 @@ public class DefaultApiTest {
      */
     @Test
     public void uploadJobChunkCreateTest() {
-        String contentMD5 = null;
+        byte[] contentMD5 = null;
         Integer contentLength = null;
         String uploadJobId = null;
         byte[] chunk = null;

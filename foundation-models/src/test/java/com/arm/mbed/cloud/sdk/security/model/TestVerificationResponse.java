@@ -18,7 +18,7 @@ public class TestVerificationResponse {
     @Test
     public void testClone() {
         try {
-            VerificationResponse verificationresponse1 = new VerificationResponse("2181c424-41fe-4d99-85d4-e843b17e19e7",
+            VerificationResponse verificationresponse1 = new VerificationResponse("b6b6eee3-b9e8-476a-823a-a309758babc5",
                                                                                   true);
             VerificationResponse verificationresponse2 = verificationresponse1.clone();
             assertNotNull(verificationresponse1);
@@ -37,9 +37,9 @@ public class TestVerificationResponse {
     @Test
     public void testHashCode() {
         try {
-            VerificationResponse verificationresponse1 = new VerificationResponse("8a73d855-b455-41b9-b7d5-c39e5a7f37d8",
+            VerificationResponse verificationresponse1 = new VerificationResponse("5bc38375-fd7b-4a3c-8acd-ea68e626a86a",
                                                                                   true);
-            VerificationResponse verificationresponse2 = new VerificationResponse("8a73d855-b455-41b9-b7d5-c39e5a7f37d8",
+            VerificationResponse verificationresponse2 = new VerificationResponse("5bc38375-fd7b-4a3c-8acd-ea68e626a86a",
                                                                                   true);
             assertNotNull(verificationresponse1);
             assertNotNull(verificationresponse2);
@@ -61,8 +61,8 @@ public class TestVerificationResponse {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        VerificationResponse verificationresponse = new VerificationResponse("fe66387f-87d3-4a31-abeb-7409559e5378",
-                                                                             true);
+        VerificationResponse verificationresponse = new VerificationResponse("cc5c332d-eccb-413a-83a4-c756f9fa649c",
+                                                                             false);
         assertTrue(verificationresponse.isValid());
     }
 
@@ -73,12 +73,12 @@ public class TestVerificationResponse {
     @Test
     public void testEquals() {
         try {
-            VerificationResponse verificationresponse1 = new VerificationResponse("2ae235d5-e5cf-4800-be8b-039d79a04b7a",
-                                                                                  false);
-            VerificationResponse verificationresponse2 = new VerificationResponse("2ae235d5-e5cf-4800-be8b-039d79a04b7a",
-                                                                                  false);
-            VerificationResponse verificationresponse3 = new VerificationResponse("db4599f5-e495-4e28-a5d1-2442f1dfbcc2",
-                                                                                  false);
+            VerificationResponse verificationresponse1 = new VerificationResponse("82fd7de8-98a5-4687-bbea-073020111a9f",
+                                                                                  true);
+            VerificationResponse verificationresponse2 = new VerificationResponse("82fd7de8-98a5-4687-bbea-073020111a9f",
+                                                                                  true);
+            VerificationResponse verificationresponse3 = new VerificationResponse("c420bceb-a571-4031-8ad6-a779cd671cc9",
+                                                                                  true);
             assertNotNull(verificationresponse1);
             assertNotNull(verificationresponse2);
             assertNotNull(verificationresponse3);
