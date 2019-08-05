@@ -30,7 +30,7 @@ public class TestAccountStatus {
             accountstatus = AccountStatus.getValue("ENROLLING");
             assertNotNull(accountstatus);
             assertFalse(accountstatus.isDefault());
-            accountstatus = AccountStatus.getValue("48812f39-4106-40fa-994d-b1eec85c41e5");
+            accountstatus = AccountStatus.getValue("532866ef-9cf0-4d19-b373-d7bc9cc52465");
             assertNotNull(accountstatus);
             assertTrue(accountstatus.isDefault());
         } catch (Exception exception) {

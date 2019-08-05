@@ -18,10 +18,10 @@ public class TestPolicy {
     @Test
     public void testClone() {
         try {
-            Policy policy1 = new Policy("24b233d9-7c4d-4df7-a292-68a28f66fbdb", true,
-                                        "278cc0bf-da3b-4183-9d49-76dfe964bc1d", true,
-                                        "d59604e858bddb5f6cc558017117112a", PolicyInheritedType.getDefault(),
-                                        "7508c629-4e98-4b04-9a18-e4eb1817d2ef");
+            Policy policy1 = new Policy("bac686cd-0106-4098-b377-0134f0911f48", true,
+                                        "c82b3a29-0fbc-45c2-a1c4-34ef4292c39d", true,
+                                        "403affc6fd3080e7dab854be02c43523", PolicyInheritedType.getDefault(),
+                                        "a43dfd68-c900-4577-a971-f2346faefa02");
             Policy policy2 = policy1.clone();
             assertNotNull(policy1);
             assertNotNull(policy2);
@@ -39,14 +39,14 @@ public class TestPolicy {
     @Test
     public void testHashCode() {
         try {
-            Policy policy1 = new Policy("ad357562-0947-45dd-9724-6c865a65830e", true,
-                                        "c7c3a90c-83b4-4fa2-ac1b-9d0eceeb3ef6", true,
-                                        "d59604e858bddb5f6cc558017117112a", PolicyInheritedType.getDefault(),
-                                        "13a04a69-df4c-4fc2-b47c-07ef2ed7c5f7");
-            Policy policy2 = new Policy("ad357562-0947-45dd-9724-6c865a65830e", true,
-                                        "c7c3a90c-83b4-4fa2-ac1b-9d0eceeb3ef6", true,
-                                        "d59604e858bddb5f6cc558017117112a", PolicyInheritedType.getDefault(),
-                                        "13a04a69-df4c-4fc2-b47c-07ef2ed7c5f7");
+            Policy policy1 = new Policy("9402576d-4ca8-4eba-a4c9-3fb27a86e303", true,
+                                        "3b60547e-299f-4cdb-92a1-b4e469c5aae6", false,
+                                        "403affc6fd3080e7dab854be02c43523", PolicyInheritedType.getDefault(),
+                                        "136b8df1-6c44-4f75-9c04-73274cefb517");
+            Policy policy2 = new Policy("9402576d-4ca8-4eba-a4c9-3fb27a86e303", true,
+                                        "3b60547e-299f-4cdb-92a1-b4e469c5aae6", false,
+                                        "403affc6fd3080e7dab854be02c43523", PolicyInheritedType.getDefault(),
+                                        "136b8df1-6c44-4f75-9c04-73274cefb517");
             assertNotNull(policy1);
             assertNotNull(policy2);
             assertNotSame(policy2, policy1);
@@ -67,9 +67,9 @@ public class TestPolicy {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        Policy policy = new Policy("ca828f29-f2d7-4fa0-94e1-4f0857b393fb", true, "825676a1-c79a-4b47-b07a-50a17d8da6c0",
-                                   true, "d59604e858bddb5f6cc558017117112a", PolicyInheritedType.getDefault(),
-                                   "5616c714-1112-4612-9717-20c20cc0696d");
+        Policy policy = new Policy("5c69a89e-1ec9-4c0a-ad17-32a655a3094f", true, "ae50df37-70e7-4389-9f43-26d3450dc168",
+                                   true, "403affc6fd3080e7dab854be02c43523", PolicyInheritedType.getDefault(),
+                                   "e172cf8a-7f30-4c47-ae48-8898b33d7cf9");
         assertTrue(policy.isValid());
     }
 
@@ -80,18 +80,18 @@ public class TestPolicy {
     @Test
     public void testEquals() {
         try {
-            Policy policy1 = new Policy("b4528783-d8fb-474b-9264-8d919ed54ece", true,
-                                        "5ae78397-7c96-49e9-b8fa-27705f8a477a", true,
-                                        "d59604e858bddb5f6cc558017117112a", PolicyInheritedType.getDefault(),
-                                        "52f530f1-7e97-4915-af9c-3fef4c8d24d4");
-            Policy policy2 = new Policy("b4528783-d8fb-474b-9264-8d919ed54ece", true,
-                                        "5ae78397-7c96-49e9-b8fa-27705f8a477a", true,
-                                        "d59604e858bddb5f6cc558017117112a", PolicyInheritedType.getDefault(),
-                                        "52f530f1-7e97-4915-af9c-3fef4c8d24d4");
-            Policy policy3 = new Policy("ae162930-b1a8-4da5-b3f6-943cd1af71e0", true,
-                                        "3a55bfd8-2a68-4c68-89f6-61db7c72da1c", true,
-                                        "d59604e858bddb5f6cc558017117112a", PolicyInheritedType.getDefault(),
-                                        "df850851-a739-458c-838e-0ae898eb5ebf");
+            Policy policy1 = new Policy("efdaa817-4b2a-4a83-9f2f-cd1ab154f9ab", false,
+                                        "9fa4dd08-da1b-4dad-bd6e-db545bd7f8fd", true,
+                                        "403affc6fd3080e7dab854be02c43523", PolicyInheritedType.getDefault(),
+                                        "914372e9-6bfa-4081-9be4-df13d4b97c5d");
+            Policy policy2 = new Policy("efdaa817-4b2a-4a83-9f2f-cd1ab154f9ab", false,
+                                        "9fa4dd08-da1b-4dad-bd6e-db545bd7f8fd", true,
+                                        "403affc6fd3080e7dab854be02c43523", PolicyInheritedType.getDefault(),
+                                        "914372e9-6bfa-4081-9be4-df13d4b97c5d");
+            Policy policy3 = new Policy("3bd86ff6-c03e-4049-b2de-47c7d5690765", false,
+                                        "0ac1233b-4a17-4378-94a3-644ab3f59a4c", true,
+                                        "403affc6fd3080e7dab854be02c43523", PolicyInheritedType.getDefault(),
+                                        "cae0da49-ccc0-4876-b16d-4f582373d574");
             assertNotNull(policy1);
             assertNotNull(policy2);
             assertNotNull(policy3);

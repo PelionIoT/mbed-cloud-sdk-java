@@ -23,9 +23,9 @@ public class TestAccountListOptions {
     @Test
     public void testClone() {
         try {
-            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(-2), Long.valueOf(81),
+            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(-110), Long.valueOf(54),
                                                                             Order.getDefault(),
-                                                                            "db8c24c9-8271-4d43-8a36-e01c7b71494f",
+                                                                            "fc8ce024-c7dc-4851-9f5a-c50f9b870b79",
                                                                             null, null);
             AccountListOptions accountlistoptions2 = accountlistoptions1.clone();
             assertNotNull(accountlistoptions1);
@@ -44,22 +44,22 @@ public class TestAccountListOptions {
     @Test
     public void testFilters() {
         try {
-            AccountListOptions option = new AccountListOptions().equalToTier("e547b090-1311-4849-bf62-9328ffc6abb1")
+            AccountListOptions option = new AccountListOptions().equalToTier("b3f7b98a-50ed-48da-9b72-d6e9ffbd2113")
                                                                 .equalToStatus(AccountStatus.getDefault())
                                                                 .inStatuses(Arrays.asList(AccountStatus.getDefault(),
+                                                                                          AccountStatus.getDefault(),
+                                                                                          AccountStatus.getDefault(),
+                                                                                          AccountStatus.getDefault(),
                                                                                           AccountStatus.getDefault()))
                                                                 .notInStatuses(Arrays.asList(AccountStatus.getDefault(),
-                                                                                             AccountStatus.getDefault(),
-                                                                                             AccountStatus.getDefault(),
-                                                                                             AccountStatus.getDefault(),
                                                                                              AccountStatus.getDefault()))
-                                                                .equalToEndMarket("2e47f82c-3bd5-4007-a5d8-44de445015bc")
-                                                                .likeCountry("fd7dfa2c-d882-454d-8c7c-bc119b37f748");
+                                                                .equalToEndMarket("bfe48e00-6590-400f-9546-cacf9067acb8")
+                                                                .likeCountry("d8d9f65f-13c7-4bb6-ab35-f20c4a7de9d6");
             assertTrue(option.hasFilters());
             assertTrue(option.hasFilters(AccountListOptions.TAG_FILTER_BY_TIER));
             assertTrue(option.hasFilter(AccountListOptions.TAG_FILTER_BY_TIER, FilterOperator.EQUAL));
             assertNotNull(option.getTierFilters());
-            assertEquals("e547b090-1311-4849-bf62-9328ffc6abb1",
+            assertEquals("b3f7b98a-50ed-48da-9b72-d6e9ffbd2113",
                          ListOptionsEncoder.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_TIER, String.class,
                                                                     option));
             assertTrue(option.hasFilters(AccountListOptions.TAG_FILTER_BY_STATUS));
@@ -71,27 +71,27 @@ public class TestAccountListOptions {
             assertTrue(option.hasFilters(AccountListOptions.TAG_FILTER_BY_STATUS));
             assertTrue(option.hasFilter(AccountListOptions.TAG_FILTER_BY_STATUS, FilterOperator.IN));
             assertNotNull(option.getStatusFilters());
-            assertEquals(Arrays.asList(AccountStatus.getDefault(), AccountStatus.getDefault()),
+            assertEquals(Arrays.asList(AccountStatus.getDefault(), AccountStatus.getDefault(),
+                                       AccountStatus.getDefault(), AccountStatus.getDefault(),
+                                       AccountStatus.getDefault()),
                          ListOptionsEncoder.encodeSingleInFilter(AccountListOptions.TAG_FILTER_BY_STATUS, List.class,
                                                                  option));
             assertTrue(option.hasFilters(AccountListOptions.TAG_FILTER_BY_STATUS));
             assertTrue(option.hasFilter(AccountListOptions.TAG_FILTER_BY_STATUS, FilterOperator.NOT_IN));
             assertNotNull(option.getStatusFilters());
-            assertEquals(Arrays.asList(AccountStatus.getDefault(), AccountStatus.getDefault(),
-                                       AccountStatus.getDefault(), AccountStatus.getDefault(),
-                                       AccountStatus.getDefault()),
+            assertEquals(Arrays.asList(AccountStatus.getDefault(), AccountStatus.getDefault()),
                          ListOptionsEncoder.encodeSingleNotInFilter(AccountListOptions.TAG_FILTER_BY_STATUS, List.class,
                                                                     option));
             assertTrue(option.hasFilters(AccountListOptions.TAG_FILTER_BY_END_MARKET));
             assertTrue(option.hasFilter(AccountListOptions.TAG_FILTER_BY_END_MARKET, FilterOperator.EQUAL));
             assertNotNull(option.getEndMarketFilters());
-            assertEquals("2e47f82c-3bd5-4007-a5d8-44de445015bc",
+            assertEquals("bfe48e00-6590-400f-9546-cacf9067acb8",
                          ListOptionsEncoder.encodeSingleEqualFilter(AccountListOptions.TAG_FILTER_BY_END_MARKET,
                                                                     String.class, option));
             assertTrue(option.hasFilters(AccountListOptions.TAG_FILTER_BY_COUNTRY));
             assertTrue(option.hasFilter(AccountListOptions.TAG_FILTER_BY_COUNTRY, FilterOperator.LIKE));
             assertNotNull(option.getCountryFilters());
-            assertEquals("fd7dfa2c-d882-454d-8c7c-bc119b37f748",
+            assertEquals("d8d9f65f-13c7-4bb6-ab35-f20c4a7de9d6",
                          ListOptionsEncoder.encodeSingleLikeFilter(AccountListOptions.TAG_FILTER_BY_COUNTRY,
                                                                    String.class, option));
         } catch (Exception exception) {
@@ -106,13 +106,13 @@ public class TestAccountListOptions {
     @Test
     public void testHashCode() {
         try {
-            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(-44), Long.valueOf(-103),
+            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(-40), Long.valueOf(108),
                                                                             Order.getDefault(),
-                                                                            "1cd02772-9489-45c1-9a2b-547fb7d23f8f",
+                                                                            "50e1d6ef-1270-45b3-838e-781f3af16170",
                                                                             null, null);
-            AccountListOptions accountlistoptions2 = new AccountListOptions(Integer.valueOf(-44), Long.valueOf(-103),
+            AccountListOptions accountlistoptions2 = new AccountListOptions(Integer.valueOf(-40), Long.valueOf(108),
                                                                             Order.getDefault(),
-                                                                            "1cd02772-9489-45c1-9a2b-547fb7d23f8f",
+                                                                            "50e1d6ef-1270-45b3-838e-781f3af16170",
                                                                             null, null);
             assertNotNull(accountlistoptions1);
             assertNotNull(accountlistoptions2);
@@ -135,17 +135,17 @@ public class TestAccountListOptions {
     @Test
     public void testEquals() {
         try {
-            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(18), Long.valueOf(-106),
+            AccountListOptions accountlistoptions1 = new AccountListOptions(Integer.valueOf(75), Long.valueOf(80),
                                                                             Order.getDefault(),
-                                                                            "d9ea9e8a-9c66-4198-8102-220a954cdafe",
+                                                                            "6dfc0ad8-fde5-400b-9da2-4674b68fe51a",
                                                                             null, null);
-            AccountListOptions accountlistoptions2 = new AccountListOptions(Integer.valueOf(18), Long.valueOf(-106),
+            AccountListOptions accountlistoptions2 = new AccountListOptions(Integer.valueOf(75), Long.valueOf(80),
                                                                             Order.getDefault(),
-                                                                            "d9ea9e8a-9c66-4198-8102-220a954cdafe",
+                                                                            "6dfc0ad8-fde5-400b-9da2-4674b68fe51a",
                                                                             null, null);
-            AccountListOptions accountlistoptions3 = new AccountListOptions(Integer.valueOf(-28), Long.valueOf(-45),
+            AccountListOptions accountlistoptions3 = new AccountListOptions(Integer.valueOf(-37), Long.valueOf(73),
                                                                             Order.getDefault(),
-                                                                            "08c3b09b-6289-4daa-92ce-ca051f0b402d",
+                                                                            "2657f658-8504-4024-b031-dd7a7762b65c",
                                                                             null, null);
             assertNotNull(accountlistoptions1);
             assertNotNull(accountlistoptions2);
