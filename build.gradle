@@ -421,7 +421,7 @@ configurations {
 dependencies {
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
     api 'org.slf4j:slf4j-api:1.7.26'
-    compile 'com.squareup.okhttp3:logging-interceptor:4.0.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:4.1.0'
     compile project(':support-annotations')
     compile project(':lwm2m')
     compile project(':foundation-core')
