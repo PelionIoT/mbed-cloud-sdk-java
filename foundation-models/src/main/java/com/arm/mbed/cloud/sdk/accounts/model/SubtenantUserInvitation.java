@@ -43,6 +43,11 @@ public class SubtenantUserInvitation implements SdkModel {
     private final Date expiration;
 
     /**
+     * A list of IDs of the groups the user is invited to.
+     */
+    private List<String> groups;
+
+    /**
      * The ID of the invitation.
      */
     private String id;
@@ -78,6 +83,8 @@ public class SubtenantUserInvitation implements SdkModel {
      *            Email address of the invited user.
      * @param expiration
      *            Invitation expiration as UTC time RFC3339.
+     * @param groups
+     *            A list of IDs of the groups the user is invited to.
      * @param id
      *            The ID of the invitation.
      * @param loginProfiles
@@ -90,8 +97,8 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public SubtenantUserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
-                                   List<LoginProfile> loginProfiles, Date updatedAt, String userId) {
+    public SubtenantUserInvitation(String accountId, Date createdAt, String email, Date expiration, List<String> groups,
+                                   String id, List<LoginProfile> loginProfiles, Date updatedAt, String userId) {
         super();
         this.createdAt = createdAt;
         this.expiration = expiration;
@@ -99,6 +106,7 @@ public class SubtenantUserInvitation implements SdkModel {
         this.userId = userId;
         setAccountId(accountId);
         setEmail(email);
+        setGroups(groups);
         setId(id);
         setLoginProfiles(loginProfiles);
     }
@@ -120,6 +128,7 @@ public class SubtenantUserInvitation implements SdkModel {
              subtenantUserInvitation == null ? new Date() : subtenantUserInvitation.createdAt,
              subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.email,
              subtenantUserInvitation == null ? new Date() : subtenantUserInvitation.expiration,
+             subtenantUserInvitation == null ? (List<String>) null : subtenantUserInvitation.groups,
              subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.id,
              subtenantUserInvitation == null ? (List<LoginProfile>) null : subtenantUserInvitation.loginProfiles,
              subtenantUserInvitation == null ? new Date() : subtenantUserInvitation.updatedAt,
@@ -130,8 +139,8 @@ public class SubtenantUserInvitation implements SdkModel {
      * Constructor.
      */
     public SubtenantUserInvitation() {
-        this((String) null, new Date(), (String) null, new Date(), (String) null, (List<LoginProfile>) null, new Date(),
-             (String) null);
+        this((String) null, new Date(), (String) null, new Date(), (List<String>) null, (String) null,
+             (List<LoginProfile>) null, new Date(), (String) null);
     }
 
     /**
@@ -168,8 +177,8 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     @Internal
     public SubtenantUserInvitation(Date createdAt, Date expiration, Date updatedAt, String userId) {
-        this((String) null, createdAt, (String) null, expiration, (String) null, (List<LoginProfile>) null, updatedAt,
-             userId);
+        this((String) null, createdAt, (String) null, expiration, (List<String>) null, (String) null,
+             (List<LoginProfile>) null, updatedAt, userId);
     }
 
     /**
@@ -185,8 +194,8 @@ public class SubtenantUserInvitation implements SdkModel {
      *            Email address of the invited user.
      */
     public SubtenantUserInvitation(String accountId, String email) {
-        this(accountId, new Date(), email, new Date(), (String) null, (List<LoginProfile>) null, new Date(),
-             (String) null);
+        this(accountId, new Date(), email, new Date(), (List<String>) null, (String) null, (List<LoginProfile>) null,
+             new Date(), (String) null);
     }
 
     /**
@@ -271,6 +280,25 @@ public class SubtenantUserInvitation implements SdkModel {
      */
     public Date getExpiration() {
         return expiration;
+    }
+
+    /**
+     * Gets a list of ids of the groups the user is invited to.
+     * 
+     * @return groups
+     */
+    public List<String> getGroups() {
+        return groups;
+    }
+
+    /**
+     * Sets a list of ids of the groups the user is invited to.
+     * 
+     * @param groups
+     *            A list of IDs of the groups the user is invited to.
+     */
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
     }
 
     /**
@@ -372,8 +400,8 @@ public class SubtenantUserInvitation implements SdkModel {
     @Override
     public String toString() {
         return "SubtenantUserInvitation [accountId=" + accountId + ", createdAt=" + createdAt + ", email=" + email
-               + ", expiration=" + expiration + ", id=" + id + ", loginProfiles=" + loginProfiles + ", updatedAt="
-               + updatedAt + ", userId=" + userId + "]";
+               + ", expiration=" + expiration + ", groups=" + groups + ", id=" + id + ", loginProfiles=" + loginProfiles
+               + ", updatedAt=" + updatedAt + ", userId=" + userId + "]";
     }
 
     /**
@@ -392,6 +420,7 @@ public class SubtenantUserInvitation implements SdkModel {
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((expiration == null) ? 0 : expiration.hashCode());
+        result = prime * result + ((groups == null) ? 0 : groups.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((loginProfiles == null) ? 0 : loginProfiles.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
@@ -465,6 +494,13 @@ public class SubtenantUserInvitation implements SdkModel {
                 return false;
             }
         } else if (!expiration.equals(other.expiration)) {
+            return false;
+        }
+        if (groups == null) {
+            if (other.groups != null) {
+                return false;
+            }
+        } else if (!groups.equals(other.groups)) {
             return false;
         }
         if (id == null) {

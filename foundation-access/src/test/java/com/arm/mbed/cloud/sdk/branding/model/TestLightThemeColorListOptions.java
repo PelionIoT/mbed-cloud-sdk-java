@@ -19,10 +19,10 @@ public class TestLightThemeColorListOptions {
     @Test
     public void testClone() {
         try {
-            LightThemeColorListOptions lightthemecolorlistoptions1 = new LightThemeColorListOptions(Integer.valueOf(-6),
-                                                                                                    Long.valueOf(93),
+            LightThemeColorListOptions lightthemecolorlistoptions1 = new LightThemeColorListOptions(Integer.valueOf(67),
+                                                                                                    Long.valueOf(-72),
                                                                                                     Order.getDefault(),
-                                                                                                    "52cab94e-8ff4-487a-8285-68995ad80a38",
+                                                                                                    "8050beeb-6754-4b36-abaa-0633d96325ae",
                                                                                                     null, null);
             LightThemeColorListOptions lightthemecolorlistoptions2 = lightthemecolorlistoptions1.clone();
             assertNotNull(lightthemecolorlistoptions1);
@@ -41,15 +41,15 @@ public class TestLightThemeColorListOptions {
     @Test
     public void testHashCode() {
         try {
-            LightThemeColorListOptions lightthemecolorlistoptions1 = new LightThemeColorListOptions(Integer.valueOf(-89),
-                                                                                                    Long.valueOf(-51),
+            LightThemeColorListOptions lightthemecolorlistoptions1 = new LightThemeColorListOptions(Integer.valueOf(6),
+                                                                                                    Long.valueOf(-18),
                                                                                                     Order.getDefault(),
-                                                                                                    "a1f2fa48-b810-4208-93af-77ef4234d1bf",
+                                                                                                    "ca579f11-379c-4dda-96de-9d15e7782051",
                                                                                                     null, null);
-            LightThemeColorListOptions lightthemecolorlistoptions2 = new LightThemeColorListOptions(Integer.valueOf(-89),
-                                                                                                    Long.valueOf(-51),
+            LightThemeColorListOptions lightthemecolorlistoptions2 = new LightThemeColorListOptions(Integer.valueOf(6),
+                                                                                                    Long.valueOf(-18),
                                                                                                     Order.getDefault(),
-                                                                                                    "a1f2fa48-b810-4208-93af-77ef4234d1bf",
+                                                                                                    "ca579f11-379c-4dda-96de-9d15e7782051",
                                                                                                     null, null);
             assertNotNull(lightthemecolorlistoptions1);
             assertNotNull(lightthemecolorlistoptions2);
@@ -72,20 +72,20 @@ public class TestLightThemeColorListOptions {
     @Test
     public void testEquals() {
         try {
-            LightThemeColorListOptions lightthemecolorlistoptions1 = new LightThemeColorListOptions(Integer.valueOf(-106),
-                                                                                                    Long.valueOf(-37),
+            LightThemeColorListOptions lightthemecolorlistoptions1 = new LightThemeColorListOptions(Integer.valueOf(125),
+                                                                                                    Long.valueOf(21),
                                                                                                     Order.getDefault(),
-                                                                                                    "23355a83-e29c-4fd3-8aa7-865a3578a11e",
+                                                                                                    "18495ea3-aa97-43c8-95f8-499092447c03",
                                                                                                     null, null);
-            LightThemeColorListOptions lightthemecolorlistoptions2 = new LightThemeColorListOptions(Integer.valueOf(-106),
-                                                                                                    Long.valueOf(-37),
+            LightThemeColorListOptions lightthemecolorlistoptions2 = new LightThemeColorListOptions(Integer.valueOf(125),
+                                                                                                    Long.valueOf(21),
                                                                                                     Order.getDefault(),
-                                                                                                    "23355a83-e29c-4fd3-8aa7-865a3578a11e",
+                                                                                                    "18495ea3-aa97-43c8-95f8-499092447c03",
                                                                                                     null, null);
-            LightThemeColorListOptions lightthemecolorlistoptions3 = new LightThemeColorListOptions(Integer.valueOf(-74),
-                                                                                                    Long.valueOf(77),
+            LightThemeColorListOptions lightthemecolorlistoptions3 = new LightThemeColorListOptions(Integer.valueOf(4),
+                                                                                                    Long.valueOf(-17),
                                                                                                     Order.getDefault(),
-                                                                                                    "57003163-4dd0-4f8b-a413-60a47cb02eb7",
+                                                                                                    "1d1f96e7-cd2a-4c28-abba-5fac39a2db63",
                                                                                                     null, null);
             assertNotNull(lightthemecolorlistoptions1);
             assertNotNull(lightthemecolorlistoptions2);

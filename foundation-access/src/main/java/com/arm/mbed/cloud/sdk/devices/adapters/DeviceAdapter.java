@@ -106,7 +106,7 @@ public final class DeviceAdapter {
                                          translateToDeviceDeployedState(toBeMapped.getDeployedState()),
                                          toBeMapped.getEndpointName(),
                                          TranslationUtils.toDate(toBeMapped.getEnrolmentListTimestamp()),
-                                         toBeMapped.getFirmwareChecksum(),
+                                         toBeMapped.getFirmwareChecksum(), toBeMapped.getGroups(),
                                          TranslationUtils.toDate(toBeMapped.getManifestTimestamp()),
                                          TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         device.setAutoUpdate(TranslationUtils.toBool(toBeMapped.isAutoUpdate()));

@@ -42,7 +42,7 @@ public final class UserInvitationAdapter {
         }
         final UserInvitationReq userInvitationReq = new UserInvitationReq();
         userInvitationReq.setEmail(toBeMapped.getEmail());
-        // No field equivalent to groups in UserInvitationReq was found in UserInvitation
+        userInvitationReq.setGroups(toBeMapped.getGroups());
         userInvitationReq.setLoginProfiles(LoginProfileAdapter.reverseMapAddSimpleList(toBeMapped.getLoginProfiles()));
         // No field equivalent to validForDays in UserInvitationReq was found in UserInvitation
         return userInvitationReq;
@@ -66,6 +66,7 @@ public final class UserInvitationAdapter {
                                                                  TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
                                                                  toBeMapped.getUserId());
         userInvitation.setEmail(toBeMapped.getEmail());
+        userInvitation.setGroups(toBeMapped.getGroups());
         userInvitation.setId(toBeMapped.getId());
         userInvitation.setLoginProfiles(LoginProfileAdapter.mapSimpleList(toBeMapped.getLoginProfiles()));
         return userInvitation;

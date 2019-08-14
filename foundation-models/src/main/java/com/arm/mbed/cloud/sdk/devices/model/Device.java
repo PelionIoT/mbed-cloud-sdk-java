@@ -6,6 +6,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -114,6 +115,11 @@ public class Device implements SdkModel {
     private final String firmwareChecksum;
 
     /**
+     * An array containing an ID of each group this device belongs to.
+     */
+    private final List<String> groups;
+
+    /**
      * The ID of the host gateway, if appropriate.
      */
     private String hostGateway;
@@ -220,6 +226,8 @@ public class Device implements SdkModel {
      *            The claim date/time.
      * @param firmwareChecksum
      *            The SHA256 checksum of the current firmware image.
+     * @param groups
+     *            An array containing an ID of each group this device belongs to.
      * @param hostGateway
      *            The ID of the host gateway, if appropriate.
      * @param id
@@ -251,10 +259,10 @@ public class Device implements SdkModel {
                   String caId, Date connectorExpirationDate, Date createdAt, Map<String, String> customAttributes,
                   DeviceDeployedState deployedState, String deployment, String description, String deviceClass,
                   int deviceExecutionMode, String deviceKey, String endpointName, String endpointType,
-                  Date enrolmentListTimestamp, String firmwareChecksum, String hostGateway, String id,
-                  String issuerFingerprint, String manifest, Date manifestTimestamp, DeviceMechanism mechanism,
-                  String mechanismUrl, String name, String serialNumber, DeviceState state, Date updatedAt,
-                  String vendorId) {
+                  Date enrolmentListTimestamp, String firmwareChecksum, List<String> groups, String hostGateway,
+                  String id, String issuerFingerprint, String manifest, Date manifestTimestamp,
+                  DeviceMechanism mechanism, String mechanismUrl, String name, String serialNumber, DeviceState state,
+                  Date updatedAt, String vendorId) {
         super();
         this.accountId = accountId;
         this.bootstrappedTimestamp = bootstrappedTimestamp;
@@ -263,6 +271,7 @@ public class Device implements SdkModel {
         this.endpointName = endpointName;
         this.enrolmentListTimestamp = enrolmentListTimestamp;
         this.firmwareChecksum = firmwareChecksum;
+        this.groups = groups;
         this.manifestTimestamp = manifestTimestamp;
         this.updatedAt = updatedAt;
         setAutoUpdate(autoUpdate);
@@ -314,8 +323,8 @@ public class Device implements SdkModel {
              device == null ? (String) null : device.endpointType,
              device == null ? new Date() : device.enrolmentListTimestamp,
              device == null ? (String) null : device.firmwareChecksum,
-             device == null ? (String) null : device.hostGateway, device == null ? (String) null : device.id,
-             device == null ? (String) null : device.issuerFingerprint,
+             device == null ? (List<String>) null : device.groups, device == null ? (String) null : device.hostGateway,
+             device == null ? (String) null : device.id, device == null ? (String) null : device.issuerFingerprint,
              device == null ? (String) null : device.manifest, device == null ? new Date() : device.manifestTimestamp,
              device == null ? DeviceMechanism.getDefault() : device.mechanism,
              device == null ? (String) null : device.mechanismUrl, device == null ? (String) null : device.name,
@@ -330,9 +339,9 @@ public class Device implements SdkModel {
     public Device() {
         this((String) null, false, new Date(), new Date(), (String) null, new Date(), new Date(),
              (Map<String, String>) null, DeviceDeployedState.getDefault(), (String) null, (String) null, (String) null,
-             0, (String) null, (String) null, (String) null, new Date(), (String) null, (String) null, (String) null,
-             (String) null, (String) null, new Date(), DeviceMechanism.getDefault(), (String) null, (String) null,
-             (String) null, DeviceState.getDefault(), new Date(), (String) null);
+             0, (String) null, (String) null, (String) null, new Date(), (String) null, (List<String>) null,
+             (String) null, (String) null, (String) null, (String) null, new Date(), DeviceMechanism.getDefault(),
+             (String) null, (String) null, (String) null, DeviceState.getDefault(), new Date(), (String) null);
     }
 
     /**
@@ -372,6 +381,8 @@ public class Device implements SdkModel {
      *            The claim date/time.
      * @param firmwareChecksum
      *            The SHA256 checksum of the current firmware image.
+     * @param groups
+     *            An array containing an ID of each group this device belongs to.
      * @param manifestTimestamp
      *            The timestamp of the current manifest version.
      * @param updatedAt
@@ -380,13 +391,13 @@ public class Device implements SdkModel {
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
     public Device(String accountId, Date bootstrappedTimestamp, Date createdAt, DeviceDeployedState deployedState,
-                  String endpointName, Date enrolmentListTimestamp, String firmwareChecksum, Date manifestTimestamp,
-                  Date updatedAt) {
+                  String endpointName, Date enrolmentListTimestamp, String firmwareChecksum, List<String> groups,
+                  Date manifestTimestamp, Date updatedAt) {
         this(accountId, false, new Date(), bootstrappedTimestamp, (String) null, new Date(), createdAt,
              (Map<String, String>) null, deployedState, (String) null, (String) null, (String) null, 0, (String) null,
-             endpointName, (String) null, enrolmentListTimestamp, firmwareChecksum, (String) null, (String) null,
-             (String) null, (String) null, manifestTimestamp, DeviceMechanism.getDefault(), (String) null,
-             (String) null, (String) null, DeviceState.getDefault(), updatedAt, (String) null);
+             endpointName, (String) null, enrolmentListTimestamp, firmwareChecksum, groups, (String) null,
+             (String) null, (String) null, (String) null, manifestTimestamp, DeviceMechanism.getDefault(),
+             (String) null, (String) null, (String) null, DeviceState.getDefault(), updatedAt, (String) null);
     }
 
     /**
@@ -749,6 +760,15 @@ public class Device implements SdkModel {
     }
 
     /**
+     * Gets an array containing an id of each group this device belongs to.
+     * 
+     * @return groups
+     */
+    public List<String> getGroups() {
+        return groups;
+    }
+
+    /**
      * Gets the id of the host gateway, if appropriate.
      * 
      * @return hostGateway
@@ -1043,10 +1063,11 @@ public class Device implements SdkModel {
                + deployment + ", description=" + description + ", deviceClass=" + deviceClass + ", deviceExecutionMode="
                + deviceExecutionMode + ", deviceKey=" + deviceKey + ", endpointName=" + endpointName + ", endpointType="
                + endpointType + ", enrolmentListTimestamp=" + enrolmentListTimestamp + ", firmwareChecksum="
-               + firmwareChecksum + ", hostGateway=" + hostGateway + ", id=" + id + ", issuerFingerprint="
-               + issuerFingerprint + ", manifest=" + manifest + ", manifestTimestamp=" + manifestTimestamp
-               + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + ", name=" + name + ", serialNumber="
-               + serialNumber + ", state=" + state + ", updatedAt=" + updatedAt + ", vendorId=" + vendorId + "]";
+               + firmwareChecksum + ", groups=" + groups + ", hostGateway=" + hostGateway + ", id=" + id
+               + ", issuerFingerprint=" + issuerFingerprint + ", manifest=" + manifest + ", manifestTimestamp="
+               + manifestTimestamp + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + ", name=" + name
+               + ", serialNumber=" + serialNumber + ", state=" + state + ", updatedAt=" + updatedAt + ", vendorId="
+               + vendorId + "]";
     }
 
     /**
@@ -1079,6 +1100,7 @@ public class Device implements SdkModel {
         result = prime * result + ((endpointType == null) ? 0 : endpointType.hashCode());
         result = prime * result + ((enrolmentListTimestamp == null) ? 0 : enrolmentListTimestamp.hashCode());
         result = prime * result + ((firmwareChecksum == null) ? 0 : firmwareChecksum.hashCode());
+        result = prime * result + ((groups == null) ? 0 : groups.hashCode());
         result = prime * result + ((hostGateway == null) ? 0 : hostGateway.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((issuerFingerprint == null) ? 0 : issuerFingerprint.hashCode());
@@ -1246,6 +1268,13 @@ public class Device implements SdkModel {
                 return false;
             }
         } else if (!firmwareChecksum.equals(other.firmwareChecksum)) {
+            return false;
+        }
+        if (groups == null) {
+            if (other.groups != null) {
+                return false;
+            }
+        } else if (!groups.equals(other.groups)) {
             return false;
         }
         if (hostGateway == null) {

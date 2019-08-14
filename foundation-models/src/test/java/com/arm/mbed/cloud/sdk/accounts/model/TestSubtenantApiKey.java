@@ -19,14 +19,14 @@ public class TestSubtenantApiKey {
     @Test
     public void testClone() {
         try {
-            SubtenantApiKey subtenantapikey1 = new SubtenantApiKey("403affc6fd3080e7dab854be02c43523",
-                                                                   new Date(1565006435111L), 118,
-                                                                   "403affc6fd3080e7dab854be02c43523",
-                                                                   "ca7234cb-f6d5-4a4b-a5af-fe689350a5d7", -33,
-                                                                   "599c2250-ada4-45f4-8df4-47077fcf8682",
-                                                                   "403affc6fd3080e7dab854be02c43523",
+            SubtenantApiKey subtenantapikey1 = new SubtenantApiKey("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                   new Date(1565779003576L), -61, null,
+                                                                   "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                   "b12f2768-a789-4fee-9ddb-94a7de0baee8", 46,
+                                                                   "4852d81a-9394-4bbf-a96e-63bdf3a57d6f",
+                                                                   "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
                                                                    SubtenantApiKeyStatus.getDefault(),
-                                                                   new Date(1565006432480L));
+                                                                   new Date(1565779005968L));
             SubtenantApiKey subtenantapikey2 = subtenantapikey1.clone();
             assertNotNull(subtenantapikey1);
             assertNotNull(subtenantapikey2);
@@ -44,22 +44,22 @@ public class TestSubtenantApiKey {
     @Test
     public void testHashCode() {
         try {
-            SubtenantApiKey subtenantapikey1 = new SubtenantApiKey("403affc6fd3080e7dab854be02c43523",
-                                                                   new Date(1565006429980L), 51,
-                                                                   "403affc6fd3080e7dab854be02c43523",
-                                                                   "0495ddbe-5b60-4d32-87f3-de05ae4ef1ba", -49,
-                                                                   "87d92d4c-ce69-439c-93a2-bb092471adc1",
-                                                                   "403affc6fd3080e7dab854be02c43523",
+            SubtenantApiKey subtenantapikey1 = new SubtenantApiKey("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                   new Date(1565779005692L), -108, null,
+                                                                   "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                   "8d1894a5-a506-481b-be75-6f5ff7a7343a", -46,
+                                                                   "6f683e16-a132-4670-905d-f2208ec3108b",
+                                                                   "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
                                                                    SubtenantApiKeyStatus.getDefault(),
-                                                                   new Date(1565006431285L));
-            SubtenantApiKey subtenantapikey2 = new SubtenantApiKey("403affc6fd3080e7dab854be02c43523",
-                                                                   new Date(1565006429980L), 51,
-                                                                   "403affc6fd3080e7dab854be02c43523",
-                                                                   "0495ddbe-5b60-4d32-87f3-de05ae4ef1ba", -49,
-                                                                   "87d92d4c-ce69-439c-93a2-bb092471adc1",
-                                                                   "403affc6fd3080e7dab854be02c43523",
+                                                                   new Date(1565779002317L));
+            SubtenantApiKey subtenantapikey2 = new SubtenantApiKey("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                   new Date(1565779005692L), -108, null,
+                                                                   "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                   "8d1894a5-a506-481b-be75-6f5ff7a7343a", -46,
+                                                                   "6f683e16-a132-4670-905d-f2208ec3108b",
+                                                                   "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
                                                                    SubtenantApiKeyStatus.getDefault(),
-                                                                   new Date(1565006431285L));
+                                                                   new Date(1565779002317L));
             assertNotNull(subtenantapikey1);
             assertNotNull(subtenantapikey2);
             assertNotSame(subtenantapikey2, subtenantapikey1);
@@ -80,21 +80,21 @@ public class TestSubtenantApiKey {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        SubtenantApiKey subtenantapikey = new SubtenantApiKey("403affc6fd3080e7dab854be02c43523",
-                                                              new Date(1565006437332L), 77,
-                                                              "403affc6fd3080e7dab854be02c43523",
-                                                              "ea7f706b-8042-43a6-8851-1275c4b7f80e", 2,
-                                                              "d4ad4d98-9d4d-4d5e-9c1c-32eb35a83ea8",
-                                                              "403affc6fd3080e7dab854be02c43523",
+        SubtenantApiKey subtenantapikey = new SubtenantApiKey("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                              new Date(1565779006741L), 20, null,
+                                                              "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                              "bb70f15b-18d0-41be-9f4e-cd7068b371d0", 75,
+                                                              "6ed9a26c-e3ab-4fee-9c76-734dae0b736a",
+                                                              "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
                                                               SubtenantApiKeyStatus.getDefault(),
-                                                              new Date(1565006436459L));
+                                                              new Date(1565778999721L));
         assertTrue(subtenantapikey.isValid());
-        SubtenantApiKey subtenantapikeyInvalid = new SubtenantApiKey(null, new Date(1565006435464L), -32,
-                                                                     "1L䆻1\u0017⥥1$$ₙ\u000fJ뾒S﷙鉉+1B1P1`횑;ꯈX/M1\u001f\u001a\u000e\u0018⛫\u00071７#觨11M.\u0011㜪1U1�?�輴\b1S餀%L1町\u0019",
-                                                                     "7d9d6458-b4a0-4c5f-b6d8-ef5a0057b5a4", 16, null,
-                                                                     "1L䆻1\u0017⥥1$$ₙ\u000fJ뾒S﷙鉉+1B1P1`횑;ꯈX/M1\u001f\u001a\u000e\u0018⛫\u00071７#觨11M.\u0011㜪1U1�?�輴\b1S餀%L1町\u0019",
+        SubtenantApiKey subtenantapikeyInvalid = new SubtenantApiKey(null, new Date(1565779005055L), 37, null,
+                                                                     "5\u001c2\\\\៿:363A*쬽X5দ﬋\u001b惼56Q53?^265\u001026 2\u0014663\u001a\u001852N$$Y555\u0011闊525X6㢬2护2/\u00036?]",
+                                                                     "db203617-65cc-4bb9-92db-88c64e8f180d", 58, null,
+                                                                     "5\u001c2\\\\៿:363A*쬽X5দ﬋\u001b惼56Q53?^265\u001026 2\u0014663\u001a\u001852N$$Y555\u0011闊525X6㢬2护2/\u00036?]",
                                                                      SubtenantApiKeyStatus.getDefault(),
-                                                                     new Date(1565006434830L));
+                                                                     new Date(1565778999121L));
         assertFalse(subtenantapikeyInvalid.isValid());
     }
 
@@ -105,30 +105,30 @@ public class TestSubtenantApiKey {
     @Test
     public void testEquals() {
         try {
-            SubtenantApiKey subtenantapikey1 = new SubtenantApiKey("403affc6fd3080e7dab854be02c43523",
-                                                                   new Date(1565006434646L), -74,
-                                                                   "403affc6fd3080e7dab854be02c43523",
-                                                                   "bfc0afad-96ce-436b-832e-e659de3d86da", -52,
-                                                                   "8c03631d-332b-4cc0-94d1-a7a3afc8274f",
-                                                                   "403affc6fd3080e7dab854be02c43523",
+            SubtenantApiKey subtenantapikey1 = new SubtenantApiKey("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                   new Date(1565778998882L), 112, null,
+                                                                   "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                   "84cce1eb-ccf2-469a-bff2-1c8b3a9b1931", -114,
+                                                                   "ea830fef-2b0b-436f-bbc8-d2c9d63a0118",
+                                                                   "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
                                                                    SubtenantApiKeyStatus.getDefault(),
-                                                                   new Date(1565006432608L));
-            SubtenantApiKey subtenantapikey2 = new SubtenantApiKey("403affc6fd3080e7dab854be02c43523",
-                                                                   new Date(1565006434646L), -74,
-                                                                   "403affc6fd3080e7dab854be02c43523",
-                                                                   "bfc0afad-96ce-436b-832e-e659de3d86da", -52,
-                                                                   "8c03631d-332b-4cc0-94d1-a7a3afc8274f",
-                                                                   "403affc6fd3080e7dab854be02c43523",
+                                                                   new Date(1565778999025L));
+            SubtenantApiKey subtenantapikey2 = new SubtenantApiKey("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                   new Date(1565778998882L), 112, null,
+                                                                   "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                   "84cce1eb-ccf2-469a-bff2-1c8b3a9b1931", -114,
+                                                                   "ea830fef-2b0b-436f-bbc8-d2c9d63a0118",
+                                                                   "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
                                                                    SubtenantApiKeyStatus.getDefault(),
-                                                                   new Date(1565006432608L));
-            SubtenantApiKey subtenantapikey3 = new SubtenantApiKey("403affc6fd3080e7dab854be02c43523",
-                                                                   new Date(1565006433778L), -41,
-                                                                   "403affc6fd3080e7dab854be02c43523",
-                                                                   "42624a7b-1bbe-47da-a23f-b7f8c17610b5", 112,
-                                                                   "79da4a84-099d-405f-a6c1-723d917c4d61",
-                                                                   "403affc6fd3080e7dab854be02c43523",
+                                                                   new Date(1565778999025L));
+            SubtenantApiKey subtenantapikey3 = new SubtenantApiKey("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                   new Date(1565779005451L), 55, null,
+                                                                   "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                   "865a1a3d-2cb5-4447-901c-f01c65a59989", -45,
+                                                                   "7b6b51d3-9e45-4305-9b75-3d7b0478988a",
+                                                                   "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
                                                                    SubtenantApiKeyStatus.getDefault(),
-                                                                   new Date(1565006430831L));
+                                                                   new Date(1565779005916L));
             assertNotNull(subtenantapikey1);
             assertNotNull(subtenantapikey2);
             assertNotNull(subtenantapikey3);

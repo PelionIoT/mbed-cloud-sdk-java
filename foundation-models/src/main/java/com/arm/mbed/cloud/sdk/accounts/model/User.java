@@ -69,6 +69,11 @@ public class User implements SdkModel {
     private String fullName;
 
     /**
+     * A list of IDs of the groups this user belongs to.
+     */
+    private List<String> groups;
+
+    /**
      * The ID of the user.
      */
     private String id;
@@ -168,6 +173,8 @@ public class User implements SdkModel {
      *            A flag indicating whether the user's email address has been verified or not.
      * @param fullName
      *            The full name of the user.
+     * @param groups
+     *            A list of IDs of the groups this user belongs to.
      * @param id
      *            The ID of the user.
      * @param isGtcAccepted
@@ -206,11 +213,11 @@ public class User implements SdkModel {
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
     public User(String accountId, List<ActiveSession> activeSessions, String address, Date createdAt, long creationTime,
-                Map<String, String> customFields, String email, boolean emailVerified, String fullName, String id,
-                boolean isGtcAccepted, boolean isMarketingAccepted, boolean isTotpEnabled, long lastLoginTime,
-                List<LoginHistory> loginHistory, List<LoginProfile> loginProfiles, String password,
-                long passwordChangedTime, String phoneNumber, UserStatus status, List<String> totpScratchCodes,
-                Date updatedAt, String username) {
+                Map<String, String> customFields, String email, boolean emailVerified, String fullName,
+                List<String> groups, String id, boolean isGtcAccepted, boolean isMarketingAccepted,
+                boolean isTotpEnabled, long lastLoginTime, List<LoginHistory> loginHistory,
+                List<LoginProfile> loginProfiles, String password, long passwordChangedTime, String phoneNumber,
+                UserStatus status, List<String> totpScratchCodes, Date updatedAt, String username) {
         super();
         this.accountId = accountId;
         this.activeSessions = activeSessions;
@@ -226,6 +233,7 @@ public class User implements SdkModel {
         setAddress(address);
         setEmail(email);
         setFullName(fullName);
+        setGroups(groups);
         setId(id);
         setIsGtcAccepted(isGtcAccepted);
         setIsMarketingAccepted(isMarketingAccepted);
@@ -255,10 +263,10 @@ public class User implements SdkModel {
              user == null ? (String) null : user.address, user == null ? new Date() : user.createdAt,
              user == null ? 0 : user.creationTime, user == null ? (Map<String, String>) null : user.customFields,
              user == null ? (String) null : user.email, user != null && user.emailVerified,
-             user == null ? (String) null : user.fullName, user == null ? (String) null : user.id,
-             user != null && user.isGtcAccepted, user != null && user.isMarketingAccepted,
-             user != null && user.isTotpEnabled, user == null ? 0 : user.lastLoginTime,
-             user == null ? (List<LoginHistory>) null : user.loginHistory,
+             user == null ? (String) null : user.fullName, user == null ? (List<String>) null : user.groups,
+             user == null ? (String) null : user.id, user != null && user.isGtcAccepted,
+             user != null && user.isMarketingAccepted, user != null && user.isTotpEnabled,
+             user == null ? 0 : user.lastLoginTime, user == null ? (List<LoginHistory>) null : user.loginHistory,
              user == null ? (List<LoginProfile>) null : user.loginProfiles,
              user == null ? (String) null : user.password, user == null ? 0 : user.passwordChangedTime,
              user == null ? (String) null : user.phoneNumber, user == null ? UserStatus.getDefault() : user.status,
@@ -271,9 +279,9 @@ public class User implements SdkModel {
      */
     public User() {
         this((String) null, (List<ActiveSession>) null, (String) null, new Date(), 0, (Map<String, String>) null,
-             (String) null, false, (String) null, (String) null, false, false, false, 0, (List<LoginHistory>) null,
-             (List<LoginProfile>) null, (String) null, 0, (String) null, UserStatus.getDefault(), (List<String>) null,
-             new Date(), (String) null);
+             (String) null, false, (String) null, (List<String>) null, (String) null, false, false, false, 0,
+             (List<LoginHistory>) null, (List<LoginProfile>) null, (String) null, 0, (String) null,
+             UserStatus.getDefault(), (List<String>) null, new Date(), (String) null);
     }
 
     /**
@@ -331,9 +339,9 @@ public class User implements SdkModel {
                 List<LoginHistory> loginHistory, long passwordChangedTime, List<String> totpScratchCodes,
                 Date updatedAt) {
         this(accountId, activeSessions, (String) null, createdAt, creationTime, customFields, (String) null,
-             emailVerified, (String) null, (String) null, false, false, false, lastLoginTime, loginHistory,
-             (List<LoginProfile>) null, (String) null, passwordChangedTime, (String) null, UserStatus.getDefault(),
-             totpScratchCodes, updatedAt, (String) null);
+             emailVerified, (String) null, (List<String>) null, (String) null, false, false, false, lastLoginTime,
+             loginHistory, (List<LoginProfile>) null, (String) null, passwordChangedTime, (String) null,
+             UserStatus.getDefault(), totpScratchCodes, updatedAt, (String) null);
     }
 
     /**
@@ -472,6 +480,25 @@ public class User implements SdkModel {
     @SuppressWarnings("PMD.UselessParentheses")
     public boolean isFullNameValid() {
         return (fullName == null || fullName.length() <= 100);
+    }
+
+    /**
+     * Gets a list of ids of the groups this user belongs to.
+     * 
+     * @return groups
+     */
+    public List<String> getGroups() {
+        return groups;
+    }
+
+    /**
+     * Sets a list of ids of the groups this user belongs to.
+     * 
+     * @param groups
+     *            A list of IDs of the groups this user belongs to.
+     */
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
     }
 
     /**
@@ -788,12 +815,12 @@ public class User implements SdkModel {
     public String toString() {
         return "User [accountId=" + accountId + ", activeSessions=" + activeSessions + ", address=" + address
                + ", createdAt=" + createdAt + ", creationTime=" + creationTime + ", customFields=" + customFields
-               + ", email=" + email + ", emailVerified=" + emailVerified + ", fullName=" + fullName + ", id=" + id
-               + ", isGtcAccepted=" + isGtcAccepted + ", isMarketingAccepted=" + isMarketingAccepted
-               + ", isTotpEnabled=" + isTotpEnabled + ", lastLoginTime=" + lastLoginTime + ", loginHistory="
-               + loginHistory + ", loginProfiles=" + loginProfiles + ", password=" + password + ", passwordChangedTime="
-               + passwordChangedTime + ", phoneNumber=" + phoneNumber + ", status=" + status + ", totpScratchCodes="
-               + totpScratchCodes + ", updatedAt=" + updatedAt + ", username=" + username + "]";
+               + ", email=" + email + ", emailVerified=" + emailVerified + ", fullName=" + fullName + ", groups="
+               + groups + ", id=" + id + ", isGtcAccepted=" + isGtcAccepted + ", isMarketingAccepted="
+               + isMarketingAccepted + ", isTotpEnabled=" + isTotpEnabled + ", lastLoginTime=" + lastLoginTime
+               + ", loginHistory=" + loginHistory + ", loginProfiles=" + loginProfiles + ", password=" + password
+               + ", passwordChangedTime=" + passwordChangedTime + ", phoneNumber=" + phoneNumber + ", status=" + status
+               + ", totpScratchCodes=" + totpScratchCodes + ", updatedAt=" + updatedAt + ", username=" + username + "]";
     }
 
     /**
@@ -817,6 +844,7 @@ public class User implements SdkModel {
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + Objects.hashCode(Boolean.valueOf(emailVerified));
         result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
+        result = prime * result + ((groups == null) ? 0 : groups.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + Objects.hashCode(Boolean.valueOf(isGtcAccepted));
         result = prime * result + Objects.hashCode(Boolean.valueOf(isMarketingAccepted));
@@ -927,6 +955,13 @@ public class User implements SdkModel {
                 return false;
             }
         } else if (!fullName.equals(other.fullName)) {
+            return false;
+        }
+        if (groups == null) {
+            if (other.groups != null) {
+                return false;
+            }
+        } else if (!groups.equals(other.groups)) {
             return false;
         }
         if (id == null) {

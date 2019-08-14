@@ -43,7 +43,7 @@ public final class ApiKeyAdapter {
             return null;
         }
         final ApiKeyInfoReq apiKeyInfoReq = new ApiKeyInfoReq();
-        // No field equivalent to groups in ApiKeyInfoReq was found in ApiKey
+        apiKeyInfoReq.setGroups(toBeMapped.getGroups());
         apiKeyInfoReq.setName(toBeMapped.getName());
         apiKeyInfoReq.setOwner(toBeMapped.getOwner());
         apiKeyInfoReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelApikeyinforeqStatusenum(toBeMapped.getStatus()));
@@ -66,6 +66,7 @@ public final class ApiKeyAdapter {
                                          TranslationUtils.toLong(toBeMapped.getCreationTime()), toBeMapped.getKey(),
                                          TranslationUtils.toLong(toBeMapped.getLastLoginTime()),
                                          TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
+        apiKey.setGroups(toBeMapped.getGroups());
         apiKey.setId(toBeMapped.getId());
         apiKey.setName(toBeMapped.getName());
         apiKey.setOwner(toBeMapped.getOwner());
@@ -214,7 +215,7 @@ public final class ApiKeyAdapter {
             return null;
         }
         final ApiKeyUpdateReq apiKeyUpdateReq = new ApiKeyUpdateReq();
-        // No field equivalent to groups in ApiKeyUpdateReq was found in ApiKey
+        apiKeyUpdateReq.setGroups(toBeMapped.getGroups());
         apiKeyUpdateReq.setName(toBeMapped.getName());
         apiKeyUpdateReq.setOwner(toBeMapped.getOwner());
         apiKeyUpdateReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelApikeyupdatereqStatusenum(toBeMapped.getStatus()));

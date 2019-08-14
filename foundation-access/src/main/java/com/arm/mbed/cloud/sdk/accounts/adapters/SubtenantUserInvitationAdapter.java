@@ -42,7 +42,7 @@ public final class SubtenantUserInvitationAdapter {
         }
         final UserInvitationReq userInvitationReq = new UserInvitationReq();
         userInvitationReq.setEmail(toBeMapped.getEmail());
-        // No field equivalent to groups in UserInvitationReq was found in SubtenantUserInvitation
+        userInvitationReq.setGroups(toBeMapped.getGroups());
         userInvitationReq.setLoginProfiles(LoginProfileAdapter.reverseMapAddSimpleList(toBeMapped.getLoginProfiles()));
         // No field equivalent to validForDays in UserInvitationReq was found in SubtenantUserInvitation
         return userInvitationReq;
@@ -66,6 +66,7 @@ public final class SubtenantUserInvitationAdapter {
                                                                                             toBeMapped.getUserId());
         subtenantUserInvitation.setAccountId(toBeMapped.getAccountId());
         subtenantUserInvitation.setEmail(toBeMapped.getEmail());
+        subtenantUserInvitation.setGroups(toBeMapped.getGroups());
         subtenantUserInvitation.setId(toBeMapped.getId());
         subtenantUserInvitation.setLoginProfiles(LoginProfileAdapter.mapSimpleList(toBeMapped.getLoginProfiles()));
         return subtenantUserInvitation;
