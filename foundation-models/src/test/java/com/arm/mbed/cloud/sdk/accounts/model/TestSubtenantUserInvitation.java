@@ -19,15 +19,15 @@ public class TestSubtenantUserInvitation {
     @Test
     public void testClone() {
         try {
-            SubtenantUserInvitation subtenantuserinvitation1 = new SubtenantUserInvitation("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                           new Date(1565779006340L),
-                                                                                           "180d9.352f0@3f788.me",
-                                                                                           new Date(1565779005797L),
+            SubtenantUserInvitation subtenantuserinvitation1 = new SubtenantUserInvitation("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                           new Date(1566477455544L),
+                                                                                           "5fefb.6b1d6@a8783.fr",
+                                                                                           new Date(1566477458561L),
                                                                                            null,
-                                                                                           "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                                           "7eac9c4e9c53774dafadb1ee4efb11c1",
                                                                                            null,
-                                                                                           new Date(1565779003278L),
-                                                                                           "fe0cdebdf4aaf1b7e7a0ef94984be8bf");
+                                                                                           new Date(1566477452930L),
+                                                                                           "7eac9c4e9c53774dafadb1ee4efb11c1");
             SubtenantUserInvitation subtenantuserinvitation2 = subtenantuserinvitation1.clone();
             assertNotNull(subtenantuserinvitation1);
             assertNotNull(subtenantuserinvitation2);
@@ -45,24 +45,24 @@ public class TestSubtenantUserInvitation {
     @Test
     public void testHashCode() {
         try {
-            SubtenantUserInvitation subtenantuserinvitation1 = new SubtenantUserInvitation("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                           new Date(1565779000362L),
-                                                                                           "9b58c.5119d@a9712.me",
-                                                                                           new Date(1565779005092L),
+            SubtenantUserInvitation subtenantuserinvitation1 = new SubtenantUserInvitation("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                           new Date(1566477455387L),
+                                                                                           "cc848.4140d@d83f8.me",
+                                                                                           new Date(1566477460984L),
                                                                                            null,
-                                                                                           "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                                           "7eac9c4e9c53774dafadb1ee4efb11c1",
                                                                                            null,
-                                                                                           new Date(1565779000539L),
-                                                                                           "fe0cdebdf4aaf1b7e7a0ef94984be8bf");
-            SubtenantUserInvitation subtenantuserinvitation2 = new SubtenantUserInvitation("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                           new Date(1565779000362L),
-                                                                                           "9b58c.5119d@a9712.me",
-                                                                                           new Date(1565779005092L),
+                                                                                           new Date(1566477454653L),
+                                                                                           "7eac9c4e9c53774dafadb1ee4efb11c1");
+            SubtenantUserInvitation subtenantuserinvitation2 = new SubtenantUserInvitation("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                           new Date(1566477455387L),
+                                                                                           "cc848.4140d@d83f8.me",
+                                                                                           new Date(1566477460984L),
                                                                                            null,
-                                                                                           "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                                           "7eac9c4e9c53774dafadb1ee4efb11c1",
                                                                                            null,
-                                                                                           new Date(1565779000539L),
-                                                                                           "fe0cdebdf4aaf1b7e7a0ef94984be8bf");
+                                                                                           new Date(1566477454653L),
+                                                                                           "7eac9c4e9c53774dafadb1ee4efb11c1");
             assertNotNull(subtenantuserinvitation1);
             assertNotNull(subtenantuserinvitation2);
             assertNotSame(subtenantuserinvitation2, subtenantuserinvitation1);
@@ -83,23 +83,23 @@ public class TestSubtenantUserInvitation {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        SubtenantUserInvitation subtenantuserinvitation = new SubtenantUserInvitation("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                      new Date(1565779001508L),
-                                                                                      "c9c94.87140@34549.fr",
-                                                                                      new Date(1565778998590L), null,
-                                                                                      "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                      null, new Date(1565779004117L),
-                                                                                      "fe0cdebdf4aaf1b7e7a0ef94984be8bf");
+        SubtenantUserInvitation subtenantuserinvitation = new SubtenantUserInvitation("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                      new Date(1566477459055L),
+                                                                                      "4cb51.464df@cce03.me",
+                                                                                      new Date(1566477461343L), null,
+                                                                                      "7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                      null, new Date(1566477457690L),
+                                                                                      "7eac9c4e9c53774dafadb1ee4efb11c1");
         assertTrue(subtenantuserinvitation.isValid());
         SubtenantUserInvitation subtenantuserinvitationInvalid = new SubtenantUserInvitation(null,
-                                                                                             new Date(1565778999510L),
+                                                                                             new Date(1566477460892L),
                                                                                              null,
-                                                                                             new Date(1565779006659L),
+                                                                                             new Date(1566477453189L),
                                                                                              null,
-                                                                                             "5\u001c2\\\\៿:363A*쬽X5দ﬋\u001b惼56Q53?^265\u001026 2\u0014663\u001a\u001852N$$Y555\u0011闊525X6㢬2护2/\u00036?]",
+                                                                                             "6\u00012\u001566�?22\u00168᠚⎆�?K/68_YB8628淕A2\u001f88-2\u0018.2ࣩ22Rጘ8\u001d\u000b2崾2_\u001c66ﮢ68626;\u0018L2ᕵ",
                                                                                              null,
-                                                                                             new Date(1565779001438L),
-                                                                                             "5\u001c2\\\\៿:363A*쬽X5দ﬋\u001b惼56Q53?^265\u001026 2\u0014663\u001a\u001852N$$Y555\u0011闊525X6㢬2护2/\u00036?]");
+                                                                                             new Date(1566477459635L),
+                                                                                             "6\u00012\u001566�?22\u00168᠚⎆�?K/68_YB8628淕A2\u001f88-2\u0018.2ࣩ22Rጘ8\u001d\u000b2崾2_\u001c66ﮢ68626;\u0018L2ᕵ");
         assertFalse(subtenantuserinvitationInvalid.isValid());
     }
 
@@ -110,33 +110,33 @@ public class TestSubtenantUserInvitation {
     @Test
     public void testEquals() {
         try {
-            SubtenantUserInvitation subtenantuserinvitation1 = new SubtenantUserInvitation("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                           new Date(1565778999036L),
-                                                                                           "29af7.84800@cf052.me",
-                                                                                           new Date(1565779003339L),
+            SubtenantUserInvitation subtenantuserinvitation1 = new SubtenantUserInvitation("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                           new Date(1566477457162L),
+                                                                                           "87a39.e1202@8ab33.fr",
+                                                                                           new Date(1566477459052L),
                                                                                            null,
-                                                                                           "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                                           "7eac9c4e9c53774dafadb1ee4efb11c1",
                                                                                            null,
-                                                                                           new Date(1565779004401L),
-                                                                                           "fe0cdebdf4aaf1b7e7a0ef94984be8bf");
-            SubtenantUserInvitation subtenantuserinvitation2 = new SubtenantUserInvitation("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                           new Date(1565778999036L),
-                                                                                           "29af7.84800@cf052.me",
-                                                                                           new Date(1565779003339L),
+                                                                                           new Date(1566477459177L),
+                                                                                           "7eac9c4e9c53774dafadb1ee4efb11c1");
+            SubtenantUserInvitation subtenantuserinvitation2 = new SubtenantUserInvitation("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                           new Date(1566477457162L),
+                                                                                           "87a39.e1202@8ab33.fr",
+                                                                                           new Date(1566477459052L),
                                                                                            null,
-                                                                                           "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                                           "7eac9c4e9c53774dafadb1ee4efb11c1",
                                                                                            null,
-                                                                                           new Date(1565779004401L),
-                                                                                           "fe0cdebdf4aaf1b7e7a0ef94984be8bf");
-            SubtenantUserInvitation subtenantuserinvitation3 = new SubtenantUserInvitation("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                           new Date(1565778999177L),
-                                                                                           "07c8d.918ce@b537d.fr",
-                                                                                           new Date(1565779003777L),
+                                                                                           new Date(1566477459177L),
+                                                                                           "7eac9c4e9c53774dafadb1ee4efb11c1");
+            SubtenantUserInvitation subtenantuserinvitation3 = new SubtenantUserInvitation("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                           new Date(1566477456962L),
+                                                                                           "1a14b.c0778@9bf0a.me",
+                                                                                           new Date(1566477461101L),
                                                                                            null,
-                                                                                           "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
+                                                                                           "7eac9c4e9c53774dafadb1ee4efb11c1",
                                                                                            null,
-                                                                                           new Date(1565779005968L),
-                                                                                           "fe0cdebdf4aaf1b7e7a0ef94984be8bf");
+                                                                                           new Date(1566477457945L),
+                                                                                           "7eac9c4e9c53774dafadb1ee4efb11c1");
             assertNotNull(subtenantuserinvitation1);
             assertNotNull(subtenantuserinvitation2);
             assertNotNull(subtenantuserinvitation3);

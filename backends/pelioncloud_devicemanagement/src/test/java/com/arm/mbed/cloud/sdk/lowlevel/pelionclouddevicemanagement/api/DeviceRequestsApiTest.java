@@ -43,8 +43,12 @@ public class DeviceRequestsApiTest {
      * discarded before the device regains the connectivity. See also /v2/endpoints/{device-id}/{resourcePath}. You can
      * write [Notification Rules](../connecting/resource-change-webapp.html#notification-rules) for a resource with PUT
      * command. Please see example of the payload below. &#x60;&#x60;&#x60; { \&quot;method\&quot;: \&quot;PUT\&quot;,
-     * \&quot;uri\&quot;: \&quot;/5/0/1?lt&#x3D;10&amp;gt&#x3D;60&amp;pmax&#x3D;120\&quot; } &#x60;&#x60;&#x60;
-     * &#x60;&#x60;&#x60; Example URIs: POST
+     * \&quot;uri\&quot;: \&quot;/5/0/1?lt&#x3D;10&amp;gt&#x3D;60&amp;pmax&#x3D;120\&quot; } &#x60;&#x60;&#x60; POST
+     * &#x60;method&#x60; can be used to either execute or create resource on a LWM2M supporting device. When creating a
+     * resource, &#x60;uri&#x60; must refer to an object, and &#x60;payload-b64&#x60; must be in LWM2M TLV format, as in
+     * the following example. &#x60;&#x60;&#x60; { \&quot;method\&quot;: \&quot;POST\&quot;, \&quot;uri\&quot;:
+     * \&quot;/123\&quot;, \&quot;content-type\&quot;: \&quot;application/vnd.oma.lwm2m+tlv\&quot;,
+     * \&quot;payload-b64\&quot;: \&quot;BwHFAnZhbHVl\&quot; } &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; Example URIs: POST
      * /v2/device-requests/015f2fa34d310000000000010030036c?async-id&#x3D;123e4567-e89b-12d3-a456-426655440000 POST
      * /v2/device-requests/015f2fa34d310000000000010030036c?async-id&#x3D;123e4567-e89b-12d3-a456-426655440000&amp;retry&#x3D;2&amp;expiry-seconds&#x3D;7200
      * Example payload to read value from resource /5/0/1: { \&quot;method\&quot;: \&quot;GET\&quot;, \&quot;uri\&quot;:
@@ -53,12 +57,14 @@ public class DeviceRequestsApiTest {
      * payload to write value \&quot;value1\&quot; to resource /5/0/1: { \&quot;method\&quot;: \&quot;PUT\&quot;,
      * \&quot;uri\&quot;: \&quot;/5/0/1%20?k1&#x3D;v1&amp;k2&#x3D;v2%22\&quot;, \&quot;accept\&quot;:
      * \&quot;text/plain\&quot;, \&quot;content-type\&quot;: \&quot;text/plain\&quot;, \&quot;payload-b64\&quot;:
-     * \&quot;dmFsdWUxCg&#x3D;&#x3D;\&quot; } Immediate response: 202 Accepted Examples of AsyncIDResponse, delivered
-     * via the notification channel: { \&quot;async-responses\&quot;: [ { \&quot;id\&quot;:
-     * \&quot;123e4567-e89b-12d3-a456-426655440000\&quot;, \&quot;status\&quot;: 200, \&quot;payload\&quot;:
-     * \&quot;dmFsdWUxCg&#x3D;&#x3D;\&quot;, \&quot;ct\&quot;: \&quot;text/plain\&quot;, \&quot;max-age\&quot;: 600 } ]
-     * } { \&quot;async-responses\&quot;: [ { \&quot;id\&quot;: \&quot;123e4567-e89b-12d3-a456-426655440000\&quot;,
-     * \&quot;status\&quot;: 504, \&quot;error\&quot;: \&quot;TIMEOUT\&quot; } ] } &#x60;&#x60;&#x60;
+     * \&quot;dmFsdWUxCg&#x3D;&#x3D;\&quot; } Example payload to execute LWM2M resource /123/1/1: {
+     * \&quot;method\&quot;: \&quot;POST\&quot;, \&quot;uri\&quot;: \&quot;/123/1/1\&quot; } Immediate response: 202
+     * Accepted Examples of AsyncIDResponse, delivered via the notification channel: { \&quot;async-responses\&quot;: [
+     * { \&quot;id\&quot;: \&quot;123e4567-e89b-12d3-a456-426655440000\&quot;, \&quot;status\&quot;: 200,
+     * \&quot;payload\&quot;: \&quot;dmFsdWUxCg&#x3D;&#x3D;\&quot;, \&quot;ct\&quot;: \&quot;text/plain\&quot;,
+     * \&quot;max-age\&quot;: 600 } ] } { \&quot;async-responses\&quot;: [ { \&quot;id\&quot;:
+     * \&quot;123e4567-e89b-12d3-a456-426655440000\&quot;, \&quot;status\&quot;: 504, \&quot;error\&quot;:
+     * \&quot;TIMEOUT\&quot; } ] } &#x60;&#x60;&#x60;
      */
     @Test
     public void createAsyncRequestTest() {

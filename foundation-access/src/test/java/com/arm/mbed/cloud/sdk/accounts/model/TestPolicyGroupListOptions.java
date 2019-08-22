@@ -19,10 +19,10 @@ public class TestPolicyGroupListOptions {
     @Test
     public void testClone() {
         try {
-            PolicyGroupListOptions policygrouplistoptions1 = new PolicyGroupListOptions(Integer.valueOf(-105),
-                                                                                        Long.valueOf(17),
+            PolicyGroupListOptions policygrouplistoptions1 = new PolicyGroupListOptions(Integer.valueOf(-24),
+                                                                                        Long.valueOf(-90),
                                                                                         Order.getDefault(),
-                                                                                        "d1e5a2a2-5e1e-460e-85f2-487bd6d93ec3",
+                                                                                        "70fc86d6-df29-4014-a795-5502ae4ca42f",
                                                                                         null, null);
             PolicyGroupListOptions policygrouplistoptions2 = policygrouplistoptions1.clone();
             assertNotNull(policygrouplistoptions1);
@@ -41,15 +41,15 @@ public class TestPolicyGroupListOptions {
     @Test
     public void testHashCode() {
         try {
-            PolicyGroupListOptions policygrouplistoptions1 = new PolicyGroupListOptions(Integer.valueOf(92),
-                                                                                        Long.valueOf(4),
+            PolicyGroupListOptions policygrouplistoptions1 = new PolicyGroupListOptions(Integer.valueOf(-28),
+                                                                                        Long.valueOf(74),
                                                                                         Order.getDefault(),
-                                                                                        "e0e740a7-d052-401d-b6d5-7c5e97951818",
+                                                                                        "b31220ee-c5f9-4330-9c06-6eeedd6f0cd1",
                                                                                         null, null);
-            PolicyGroupListOptions policygrouplistoptions2 = new PolicyGroupListOptions(Integer.valueOf(92),
-                                                                                        Long.valueOf(4),
+            PolicyGroupListOptions policygrouplistoptions2 = new PolicyGroupListOptions(Integer.valueOf(-28),
+                                                                                        Long.valueOf(74),
                                                                                         Order.getDefault(),
-                                                                                        "e0e740a7-d052-401d-b6d5-7c5e97951818",
+                                                                                        "b31220ee-c5f9-4330-9c06-6eeedd6f0cd1",
                                                                                         null, null);
             assertNotNull(policygrouplistoptions1);
             assertNotNull(policygrouplistoptions2);
@@ -72,20 +72,20 @@ public class TestPolicyGroupListOptions {
     @Test
     public void testEquals() {
         try {
-            PolicyGroupListOptions policygrouplistoptions1 = new PolicyGroupListOptions(Integer.valueOf(-95),
-                                                                                        Long.valueOf(-48),
+            PolicyGroupListOptions policygrouplistoptions1 = new PolicyGroupListOptions(Integer.valueOf(-52),
+                                                                                        Long.valueOf(-67),
                                                                                         Order.getDefault(),
-                                                                                        "c5a1c800-196f-4cb9-a5b6-a32289056c03",
+                                                                                        "a4fb6611-feae-4a2b-afe6-1c8221ba1508",
                                                                                         null, null);
-            PolicyGroupListOptions policygrouplistoptions2 = new PolicyGroupListOptions(Integer.valueOf(-95),
-                                                                                        Long.valueOf(-48),
+            PolicyGroupListOptions policygrouplistoptions2 = new PolicyGroupListOptions(Integer.valueOf(-52),
+                                                                                        Long.valueOf(-67),
                                                                                         Order.getDefault(),
-                                                                                        "c5a1c800-196f-4cb9-a5b6-a32289056c03",
+                                                                                        "a4fb6611-feae-4a2b-afe6-1c8221ba1508",
                                                                                         null, null);
-            PolicyGroupListOptions policygrouplistoptions3 = new PolicyGroupListOptions(Integer.valueOf(-7),
-                                                                                        Long.valueOf(-37),
+            PolicyGroupListOptions policygrouplistoptions3 = new PolicyGroupListOptions(Integer.valueOf(-88),
+                                                                                        Long.valueOf(93),
                                                                                         Order.getDefault(),
-                                                                                        "82a5a13d-51b0-48e6-ae5f-8381b86b199e",
+                                                                                        "431b8a2c-d382-4bb1-9c10-c4558e99d00b",
                                                                                         null, null);
             assertNotNull(policygrouplistoptions1);
             assertNotNull(policygrouplistoptions2);

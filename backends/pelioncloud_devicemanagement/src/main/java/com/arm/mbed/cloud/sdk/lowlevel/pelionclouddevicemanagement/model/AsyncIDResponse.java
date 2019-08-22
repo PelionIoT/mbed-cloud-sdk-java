@@ -147,22 +147,30 @@ public class AsyncIDResponse implements Serializable {
     }
 
     /**
-     * States whether sending a command to the device succeeded or failed.&lt;br/&gt; |Code|Description| |-|-| |**200**|
-     * Operation succeeded. The playload contains result of the operation from the device. | |**404**| Endpoint does not
-     * have requested resource. | |**412**| Precondition failed and operation was not executed. Device responded with
-     * 4.12 CoAP response code.| |**413**| Request entity is too large and could not be delivered to the device. |
-     * |**415**| Endpoint does not support media type. | |**429**| Expired request was removed from queue
-     * (REQUEST_EXPIRED), device requested deregistration (DEVICE_REMOVED_REGISTRATION), or device was suspended
-     * (DEVICE_BLOCKED). | |**502**| Request to the device failed and retry count exceeded. Last retry failed to
-     * establish TCP or TLS connection to endpoint. | |**503**| Request to the device failed and retry count exceeded.
-     * Last retry failed because endpoint is currently unavailable (NOT_CONNECTED). | |**504**| Request to the device
-     * failed and retry count exceeded. Last retry failed, as device did not respond in the time of protocol-specific
-     * retransmission logic (TIMEOUT). | &lt;br/&gt;
+     * States whether sending a command to the device succeeded or failed. &lt;table&gt; &lt;thead&gt; &lt;tr&gt;
+     * &lt;th&gt;Code&lt;/th&gt; &lt;th&gt;Description&lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt;
+     * &lt;td&gt;&lt;b&gt;200&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Operation succeeded. The playload contains result of the
+     * operation from the device.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;b&gt;404&lt;/b&gt;&lt;/td&gt;
+     * &lt;td&gt;Endpoint does not have requested resource.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     * &lt;td&gt;&lt;b&gt;412&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Precondition failed and operation was not executed. Device
+     * responded with 4.12 CoAP response code.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     * &lt;td&gt;&lt;b&gt;413&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Request entity is too large and could not be delivered to
+     * the device.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;b&gt;415&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Endpoint does
+     * not support media type.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;b&gt;429&lt;/b&gt;&lt;/td&gt;
+     * &lt;td&gt;Expired request was removed from queue (REQUEST_EXPIRED), device requested deregistration
+     * (DEVICE_REMOVED_REGISTRATION), or device was suspended (DEVICE_BLOCKED).&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     * &lt;td&gt;&lt;b&gt;502&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Request to the device failed and retry count exceeded. Last
+     * retry failed to establish TCP or TLS connection to endpoint.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     * &lt;td&gt;&lt;b&gt;503&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Request to the device failed and retry count exceeded. Last
+     * retry failed because endpoint is currently unavailable (NOT_CONNECTED).&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt;
+     * &lt;td&gt;&lt;b&gt;504&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Request to the device failed and retry count exceeded. Last
+     * retry failed, as device did not respond in the time of protocol-specific retransmission logic
+     * (TIMEOUT).&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt;
      * 
      * @return status
      **/
     @ApiModelProperty(example = "200",
-                      value = " States whether sending a command to the device succeeded or failed.<br/> |Code|Description| |-|-| |**200**| Operation succeeded. The playload contains result of the operation from the device. | |**404**| Endpoint does not have requested resource. | |**412**| Precondition failed and operation was not executed. Device responded with 4.12 CoAP response code.| |**413**| Request entity is too large and could not be delivered to the device. | |**415**| Endpoint does not support media type. | |**429**| Expired request was removed from queue (REQUEST_EXPIRED), device requested deregistration (DEVICE_REMOVED_REGISTRATION), or device was suspended (DEVICE_BLOCKED). | |**502**| Request to the device failed and retry count exceeded. Last retry failed to establish TCP or TLS connection to endpoint. | |**503**| Request to the device failed and retry count exceeded. Last retry failed because endpoint is currently unavailable (NOT_CONNECTED). | |**504**| Request to the device failed and retry count exceeded. Last retry failed, as device did not respond in the time of protocol-specific retransmission logic (TIMEOUT). | <br/> ")
+                      value = " States whether sending a command to the device succeeded or failed.  <table>   <thead>     <tr>       <th>Code</th>       <th>Description</th>     </tr>   </thead>   <tbody>     <tr>       <td><b>200</b></td>       <td>Operation succeeded. The playload contains result of the operation from the device.</td>     </tr>     <tr>       <td><b>404</b></td>       <td>Endpoint does not have requested resource.</td>     </tr>     <tr>       <td><b>412</b></td>       <td>Precondition failed and operation was not executed. Device responded with 4.12 CoAP response code.</td>     </tr>     <tr>       <td><b>413</b></td>       <td>Request entity is too large and could not be delivered to the device.</td>     </tr>     <tr>       <td><b>415</b></td>       <td>Endpoint does not support media type.</td>     </tr>     <tr>       <td><b>429</b></td>       <td>Expired request was removed from queue (REQUEST_EXPIRED), device requested deregistration (DEVICE_REMOVED_REGISTRATION), or device was suspended (DEVICE_BLOCKED).</td>     </tr>     <tr>       <td><b>502</b></td>       <td>Request to the device failed and retry count exceeded. Last retry failed to establish TCP or TLS connection to endpoint.</td>     </tr>     <tr>       <td><b>503</b></td>       <td>Request to the device failed and retry count exceeded. Last retry failed because endpoint is currently unavailable (NOT_CONNECTED).</td>     </tr>     <tr>       <td><b>504</b></td>       <td>Request to the device failed and retry count exceeded. Last retry failed, as device did not respond in the time of protocol-specific retransmission logic (TIMEOUT).</td>     </tr>   </tbody> </table> ")
     public Integer getStatus() {
         return status;
     }

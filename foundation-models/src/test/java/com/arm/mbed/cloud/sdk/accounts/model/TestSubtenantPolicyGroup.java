@@ -19,11 +19,11 @@ public class TestSubtenantPolicyGroup {
     @Test
     public void testClone() {
         try {
-            SubtenantPolicyGroup subtenantpolicygroup1 = new SubtenantPolicyGroup("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                  -9, new Date(1565779006858L),
-                                                                                  "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                  "5b700684-5dbd-4310-8ecd-021e039e8fb1",
-                                                                                  new Date(1565779002488L), -24);
+            SubtenantPolicyGroup subtenantpolicygroup1 = new SubtenantPolicyGroup("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                  84, new Date(1566477454982L),
+                                                                                  "7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                  "ad3d4c0c-a0cc-4b48-b441-e384a1fa0a9b",
+                                                                                  new Date(1566477452322L), -6);
             SubtenantPolicyGroup subtenantpolicygroup2 = subtenantpolicygroup1.clone();
             assertNotNull(subtenantpolicygroup1);
             assertNotNull(subtenantpolicygroup2);
@@ -41,16 +41,16 @@ public class TestSubtenantPolicyGroup {
     @Test
     public void testHashCode() {
         try {
-            SubtenantPolicyGroup subtenantpolicygroup1 = new SubtenantPolicyGroup("fe0cdebdf4aaf1b7e7a0ef94984be8bf", 0,
-                                                                                  new Date(1565779006011L),
-                                                                                  "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                  "2ed20561-9e8d-4d75-bbce-25b8261d2533",
-                                                                                  new Date(1565778998337L), -23);
-            SubtenantPolicyGroup subtenantpolicygroup2 = new SubtenantPolicyGroup("fe0cdebdf4aaf1b7e7a0ef94984be8bf", 0,
-                                                                                  new Date(1565779006011L),
-                                                                                  "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                  "2ed20561-9e8d-4d75-bbce-25b8261d2533",
-                                                                                  new Date(1565778998337L), -23);
+            SubtenantPolicyGroup subtenantpolicygroup1 = new SubtenantPolicyGroup("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                  53, new Date(1566477457349L),
+                                                                                  "7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                  "6df1bb94-cca6-423c-b545-80adaeb91086",
+                                                                                  new Date(1566477461168L), 2);
+            SubtenantPolicyGroup subtenantpolicygroup2 = new SubtenantPolicyGroup("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                  53, new Date(1566477457349L),
+                                                                                  "7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                  "6df1bb94-cca6-423c-b545-80adaeb91086",
+                                                                                  new Date(1566477461168L), 2);
             assertNotNull(subtenantpolicygroup1);
             assertNotNull(subtenantpolicygroup2);
             assertNotSame(subtenantpolicygroup2, subtenantpolicygroup1);
@@ -71,16 +71,16 @@ public class TestSubtenantPolicyGroup {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        SubtenantPolicyGroup subtenantpolicygroup = new SubtenantPolicyGroup("fe0cdebdf4aaf1b7e7a0ef94984be8bf", -66,
-                                                                             new Date(1565779001661L),
-                                                                             "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                             "4ba90c48-e8ed-4d96-b565-a294ab5a82b1",
-                                                                             new Date(1565779005038L), 97);
+        SubtenantPolicyGroup subtenantpolicygroup = new SubtenantPolicyGroup("7eac9c4e9c53774dafadb1ee4efb11c1", -123,
+                                                                             new Date(1566477459482L),
+                                                                             "7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                             "0bfd43af-8a70-4c6e-9e4c-142f05eeb0e8",
+                                                                             new Date(1566477460727L), -90);
         assertTrue(subtenantpolicygroup.isValid());
-        SubtenantPolicyGroup subtenantpolicygroupInvalid = new SubtenantPolicyGroup(null, -36, new Date(1565779003100L),
-                                                                                    "5\u001c2\\\\៿:363A*쬽X5দ﬋\u001b惼56Q53?^265\u001026 2\u0014663\u001a\u001852N$$Y555\u0011闊525X6㢬2护2/\u00036?]",
-                                                                                    "b9d10a3b-cc3b-4a74-a004-05ff4c21340b85037718-50c2-425a-bdb4-9960531d73d234747c4f-7284-4ed0-a6ff-bcfbcfdadac0",
-                                                                                    new Date(1565779006857L), -31);
+        SubtenantPolicyGroup subtenantpolicygroupInvalid = new SubtenantPolicyGroup(null, -99, new Date(1566477454136L),
+                                                                                    "6\u00012\u001566�?22\u00168᠚⎆�?K/68_YB8628淕A2\u001f88-2\u0018.2ࣩ22Rጘ8\u001d\u000b2崾2_\u001c66ﮢ68626;\u0018L2ᕵ",
+                                                                                    "9e876500-e89d-4e32-837f-e42ce77d447b3a1dc429-b887-4d25-a38c-a80fe6a387c5e1eea677-ee57-4eaf-b6b0-d460c6ec005b",
+                                                                                    new Date(1566477452280L), -71);
         assertFalse(subtenantpolicygroupInvalid.isValid());
     }
 
@@ -91,21 +91,21 @@ public class TestSubtenantPolicyGroup {
     @Test
     public void testEquals() {
         try {
-            SubtenantPolicyGroup subtenantpolicygroup1 = new SubtenantPolicyGroup("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                  32, new Date(1565778996865L),
-                                                                                  "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                  "f79df1ba-23dd-4f69-92cd-0b432abf135a",
-                                                                                  new Date(1565779004880L), 40);
-            SubtenantPolicyGroup subtenantpolicygroup2 = new SubtenantPolicyGroup("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                  32, new Date(1565778996865L),
-                                                                                  "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                  "f79df1ba-23dd-4f69-92cd-0b432abf135a",
-                                                                                  new Date(1565779004880L), 40);
-            SubtenantPolicyGroup subtenantpolicygroup3 = new SubtenantPolicyGroup("fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                  15, new Date(1565779004435L),
-                                                                                  "fe0cdebdf4aaf1b7e7a0ef94984be8bf",
-                                                                                  "aba3f7e4-3a7f-4639-ad89-cf8edcb53d66",
-                                                                                  new Date(1565779005602L), -77);
+            SubtenantPolicyGroup subtenantpolicygroup1 = new SubtenantPolicyGroup("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                  63, new Date(1566477452922L),
+                                                                                  "7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                  "e8254cfd-e28b-4464-86d6-681ee42198a4",
+                                                                                  new Date(1566477460947L), -116);
+            SubtenantPolicyGroup subtenantpolicygroup2 = new SubtenantPolicyGroup("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                  63, new Date(1566477452922L),
+                                                                                  "7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                  "e8254cfd-e28b-4464-86d6-681ee42198a4",
+                                                                                  new Date(1566477460947L), -116);
+            SubtenantPolicyGroup subtenantpolicygroup3 = new SubtenantPolicyGroup("7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                  -35, new Date(1566477462082L),
+                                                                                  "7eac9c4e9c53774dafadb1ee4efb11c1",
+                                                                                  "0e1c8996-f018-4356-a021-0c7e93b6498e",
+                                                                                  new Date(1566477461220L), 42);
             assertNotNull(subtenantpolicygroup1);
             assertNotNull(subtenantpolicygroup2);
             assertNotNull(subtenantpolicygroup3);
