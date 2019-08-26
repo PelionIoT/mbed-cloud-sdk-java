@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**assertionEndpoint** | **String** | URL of the service provider&#39;s assertion endpoint. |  [optional]
+**assertionEndpoint** | **String** | URL of the service provider&#39;s assertion endpoint. Leave this empty to use the default assertion endpoint. |  [optional]
 **idpEntityId** | **String** | Entity ID of the identity provider. |  [optional]
 **idpX509Certs** | **List&lt;String&gt;** | List of public X509 certificates of the identity provider in PEM format. |  [optional]
 **sloEndpoint** | **String** | URL of the identity provider&#39;s SLO endpoint. |  [optional]

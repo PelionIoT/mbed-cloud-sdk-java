@@ -55,11 +55,11 @@ public class SAML2Info implements Serializable {
     }
 
     /**
-     * URL of the service provider&#39;s assertion endpoint.
+     * URL of the service provider&#39;s assertion endpoint. Leave this empty to use the default assertion endpoint.
      * 
      * @return assertionEndpoint
      **/
-    @ApiModelProperty(value = "URL of the service provider's assertion endpoint.")
+    @ApiModelProperty(value = "URL of the service provider's assertion endpoint. Leave this empty to use the default assertion endpoint.")
     public String getAssertionEndpoint() {
         return assertionEndpoint;
     }

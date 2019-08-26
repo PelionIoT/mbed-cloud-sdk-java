@@ -123,6 +123,22 @@ public interface TenantAccountsIdentityProvidersApi {
                                        @retrofit2.http.Query("include") String include);
 
     /**
+     * Refreshes the OIDC signing keys. Refreshes an OIDC IdP&#39;s signing keys.
+     * 
+     * @param accountId
+     *            The ID of the account to be managed. (required)
+     * @param identityProviderId
+     *            The ID of the identity provider for which to refresh the signing keys. (required)
+     * @return Call&lt;IdentityProviderInfo&gt;
+     */
+    @Headers({ "Content-Type:application/json" })
+    @POST("v3/accounts/{account_id}/identity-providers/{identity_provider_id}/refresh-jwks")
+    Call<IdentityProviderInfo>
+        refreshAccountJwks(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                           @retrofit2.http.Path(value = "identity_provider_id",
+                                                encoded = true) String identityProviderId);
+
+    /**
      * Update an existing identity provider. Update an existing identity provider.
      * 
      * @param accountId

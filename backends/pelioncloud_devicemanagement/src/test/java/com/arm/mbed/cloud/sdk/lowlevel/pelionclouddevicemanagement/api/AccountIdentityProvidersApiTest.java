@@ -103,6 +103,19 @@ public class AccountIdentityProvidersApiTest {
     }
 
     /**
+     * Refreshes the OIDC signing keys.
+     *
+     * Refreshes an OIDC IdP&#39;s signing keys.
+     */
+    @Test
+    public void refreshJwksTest() {
+        String identityProviderId = null;
+        // IdentityProviderInfo response = api.refreshJwks(identityProviderId);
+
+        // TODO: test validations
+    }
+
+    /**
      * Update an existing identity provider.
      *
      * Update an existing identity provider.

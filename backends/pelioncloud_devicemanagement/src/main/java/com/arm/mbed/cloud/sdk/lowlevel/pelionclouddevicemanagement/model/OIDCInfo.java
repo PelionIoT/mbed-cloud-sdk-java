@@ -13,9 +13,14 @@
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -33,6 +38,9 @@ public class OIDCInfo implements Serializable {
 
     @SerializedName("auto_enrollment")
     private Boolean autoEnrollment = null;
+
+    @SerializedName("claim_mapping")
+    private OIDCClaimMapping claimMapping = null;
 
     @SerializedName("client_id")
     private String clientId = null;
@@ -58,8 +66,65 @@ public class OIDCInfo implements Serializable {
     @SerializedName("revocation_endpoint")
     private String revocationEndpoint = null;
 
+    @SerializedName("scopes")
+    private String scopes = null;
+
     @SerializedName("token_endpoint")
     private String tokenEndpoint = null;
+
+    /**
+     * One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the
+     * client must use the POST mode.
+     */
+    @JsonAdapter(TokenRequestModeEnum.Adapter.class)
+    public enum TokenRequestModeEnum {
+        POST("POST"),
+
+        GET("GET");
+
+        private String value;
+
+        TokenRequestModeEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static TokenRequestModeEnum fromValue(String text) {
+            for (TokenRequestModeEnum b : TokenRequestModeEnum.values()) {
+                if (String.valueOf(b.value).equals(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        public static class Adapter extends TypeAdapter<TokenRequestModeEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final TokenRequestModeEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public TokenRequestModeEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return TokenRequestModeEnum.fromValue(String.valueOf(value));
+            }
+        }
+    }
+
+    @SerializedName("token_request_mode")
+    private TokenRequestModeEnum tokenRequestMode = TokenRequestModeEnum.POST;
+
+    @SerializedName("token_response_path")
+    private String tokenResponsePath = null;
 
     @SerializedName("userinfo_endpoint")
     private String userinfoEndpoint = null;
@@ -100,6 +165,25 @@ public class OIDCInfo implements Serializable {
 
     public void setAutoEnrollment(Boolean autoEnrollment) {
         this.autoEnrollment = autoEnrollment;
+    }
+
+    public OIDCInfo claimMapping(OIDCClaimMapping claimMapping) {
+        this.claimMapping = claimMapping;
+        return this;
+    }
+
+    /**
+     * Mapping table for supporting custom OIDC claims.
+     * 
+     * @return claimMapping
+     **/
+    @ApiModelProperty(value = "Mapping table for supporting custom OIDC claims.")
+    public OIDCClaimMapping getClaimMapping() {
+        return claimMapping;
+    }
+
+    public void setClaimMapping(OIDCClaimMapping claimMapping) {
+        this.claimMapping = claimMapping;
     }
 
     public OIDCInfo clientId(String clientId) {
@@ -169,7 +253,7 @@ public class OIDCInfo implements Serializable {
      * 
      * @return issuer
      **/
-    @ApiModelProperty(value = "Issuer of the identity provider.")
+    @ApiModelProperty(required = true, value = "Issuer of the identity provider.")
     public String getIssuer() {
         return issuer;
     }
@@ -230,11 +314,12 @@ public class OIDCInfo implements Serializable {
     }
 
     /**
-     * The URI needed to authenticate and gain access to identity provider&#39;s API.
+     * The URI needed to authenticate and gain access to identity provider&#39;s API. Leave this empty to use the
+     * default redirect URI.
      * 
      * @return redirectUri
      **/
-    @ApiModelProperty(value = "The URI needed to authenticate and gain access to identity provider's API.")
+    @ApiModelProperty(value = "The URI needed to authenticate and gain access to identity provider's API. Leave this empty to use the default redirect URI.")
     public String getRedirectUri() {
         return redirectUri;
     }
@@ -262,6 +347,27 @@ public class OIDCInfo implements Serializable {
         this.revocationEndpoint = revocationEndpoint;
     }
 
+    public OIDCInfo scopes(String scopes) {
+        this.scopes = scopes;
+        return this;
+    }
+
+    /**
+     * Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default
+     * scopes are [&#39;openid profile email&#39;](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).
+     * 
+     * @return scopes
+     **/
+    @ApiModelProperty(example = "openid email",
+                      value = "Space-separated list of scopes sent in the authentication request. When not configured otherwise, the default scopes are ['openid profile email'](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims).")
+    public String getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(String scopes) {
+        this.scopes = scopes;
+    }
+
     public OIDCInfo tokenEndpoint(String tokenEndpoint) {
         this.tokenEndpoint = tokenEndpoint;
         return this;
@@ -279,6 +385,47 @@ public class OIDCInfo implements Serializable {
 
     public void setTokenEndpoint(String tokenEndpoint) {
         this.tokenEndpoint = tokenEndpoint;
+    }
+
+    public OIDCInfo tokenRequestMode(TokenRequestModeEnum tokenRequestMode) {
+        this.tokenRequestMode = tokenRequestMode;
+        return this;
+    }
+
+    /**
+     * One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the
+     * client must use the POST mode.
+     * 
+     * @return tokenRequestMode
+     **/
+    @ApiModelProperty(value = "One way to obtain the access token. Since the request results in the transmission of clear-text credentials, the client must use the POST mode.")
+    public TokenRequestModeEnum getTokenRequestMode() {
+        return tokenRequestMode;
+    }
+
+    public void setTokenRequestMode(TokenRequestModeEnum tokenRequestMode) {
+        this.tokenRequestMode = tokenRequestMode;
+    }
+
+    public OIDCInfo tokenResponsePath(String tokenResponsePath) {
+        this.tokenResponsePath = tokenResponsePath;
+        return this;
+    }
+
+    /**
+     * Path to the standard data in the token response. Levels in the JSON structure must be separated by &#39;.&#39;
+     * (dot) characters.
+     * 
+     * @return tokenResponsePath
+     **/
+    @ApiModelProperty(example = "oidc.data",
+                      value = "Path to the standard data in the token response. Levels in the JSON structure must be separated by '.' (dot) characters.")
+    public String getTokenResponsePath() {
+        return tokenResponsePath;
+    }
+
+    public void setTokenResponsePath(String tokenResponsePath) {
+        this.tokenResponsePath = tokenResponsePath;
     }
 
     public OIDCInfo userinfoEndpoint(String userinfoEndpoint) {
@@ -311,20 +458,25 @@ public class OIDCInfo implements Serializable {
         OIDCInfo oiDCInfo = (OIDCInfo) o;
         return Objects.equals(this.authorizationEndpoint, oiDCInfo.authorizationEndpoint)
                && Objects.equals(this.autoEnrollment, oiDCInfo.autoEnrollment)
+               && Objects.equals(this.claimMapping, oiDCInfo.claimMapping)
                && Objects.equals(this.clientId, oiDCInfo.clientId)
                && Objects.equals(this.clientSecret, oiDCInfo.clientSecret)
                && Objects.equals(this.endSessionEndpoint, oiDCInfo.endSessionEndpoint)
                && Objects.equals(this.issuer, oiDCInfo.issuer) && Objects.equals(this.jwksUri, oiDCInfo.jwksUri)
                && Objects.equals(this.keys, oiDCInfo.keys) && Objects.equals(this.redirectUri, oiDCInfo.redirectUri)
                && Objects.equals(this.revocationEndpoint, oiDCInfo.revocationEndpoint)
+               && Objects.equals(this.scopes, oiDCInfo.scopes)
                && Objects.equals(this.tokenEndpoint, oiDCInfo.tokenEndpoint)
+               && Objects.equals(this.tokenRequestMode, oiDCInfo.tokenRequestMode)
+               && Objects.equals(this.tokenResponsePath, oiDCInfo.tokenResponsePath)
                && Objects.equals(this.userinfoEndpoint, oiDCInfo.userinfoEndpoint);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(authorizationEndpoint, autoEnrollment, clientId, clientSecret, endSessionEndpoint, issuer,
-                            jwksUri, keys, redirectUri, revocationEndpoint, tokenEndpoint, userinfoEndpoint);
+        return Objects.hash(authorizationEndpoint, autoEnrollment, claimMapping, clientId, clientSecret,
+                            endSessionEndpoint, issuer, jwksUri, keys, redirectUri, revocationEndpoint, scopes,
+                            tokenEndpoint, tokenRequestMode, tokenResponsePath, userinfoEndpoint);
     }
 
     @Override
@@ -334,6 +486,7 @@ public class OIDCInfo implements Serializable {
 
         sb.append("    authorizationEndpoint: ").append(toIndentedString(authorizationEndpoint)).append("\n");
         sb.append("    autoEnrollment: ").append(toIndentedString(autoEnrollment)).append("\n");
+        sb.append("    claimMapping: ").append(toIndentedString(claimMapping)).append("\n");
         sb.append("    clientId: ").append(toIndentedString(clientId)).append("\n");
         sb.append("    clientSecret: ").append(toIndentedString(clientSecret)).append("\n");
         sb.append("    endSessionEndpoint: ").append(toIndentedString(endSessionEndpoint)).append("\n");
@@ -342,7 +495,10 @@ public class OIDCInfo implements Serializable {
         sb.append("    keys: ").append(toIndentedString(keys)).append("\n");
         sb.append("    redirectUri: ").append(toIndentedString(redirectUri)).append("\n");
         sb.append("    revocationEndpoint: ").append(toIndentedString(revocationEndpoint)).append("\n");
+        sb.append("    scopes: ").append(toIndentedString(scopes)).append("\n");
         sb.append("    tokenEndpoint: ").append(toIndentedString(tokenEndpoint)).append("\n");
+        sb.append("    tokenRequestMode: ").append(toIndentedString(tokenRequestMode)).append("\n");
+        sb.append("    tokenResponsePath: ").append(toIndentedString(tokenResponsePath)).append("\n");
         sb.append("    userinfoEndpoint: ").append(toIndentedString(userinfoEndpoint)).append("\n");
         sb.append("}");
         return sb.toString();

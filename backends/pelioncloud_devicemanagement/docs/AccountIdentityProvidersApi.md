@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**generateSpCertificate**](AccountIdentityProvidersApi.md#generateSpCertificate) | **POST** v3/identity-providers/{identity_provider_id}/generate-sp-certificate | Generate a new service provider certificate.
 [**getAllIdentityProviders**](AccountIdentityProvidersApi.md#getAllIdentityProviders) | **GET** v3/identity-providers | Get all identity providers.
 [**getIdentityProvider**](AccountIdentityProvidersApi.md#getIdentityProvider) | **GET** v3/identity-providers/{identity_provider_id} | Get identity provider by ID.
+[**refreshJwks**](AccountIdentityProvidersApi.md#refreshJwks) | **POST** v3/identity-providers/{identity_provider_id}/refresh-jwks | Refreshes the OIDC signing keys.
 [**updateIdentityProvider**](AccountIdentityProvidersApi.md#updateIdentityProvider) | **PUT** v3/identity-providers/{identity_provider_id} | Update an existing identity provider.
 
 
@@ -351,6 +352,61 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="refreshJwks"></a>
+# **refreshJwks**
+> IdentityProviderInfo refreshJwks(identityProviderId)
+
+Refreshes the OIDC signing keys.
+
+Refreshes an OIDC IdP&#39;s signing keys.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountIdentityProvidersApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountIdentityProvidersApi apiInstance = new AccountIdentityProvidersApi();
+String identityProviderId = "identityProviderId_example"; // String | The ID of the identity provider for which to refresh the signing keys.
+try {
+    IdentityProviderInfo result = apiInstance.refreshJwks(identityProviderId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountIdentityProvidersApi#refreshJwks");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **identityProviderId** | **String**| The ID of the identity provider for which to refresh the signing keys. |
+
+### Return type
+
+[**IdentityProviderInfo**](IdentityProviderInfo.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="updateIdentityProvider"></a>
