@@ -70,7 +70,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     }
 
     /**
-     * Add a device to a group .
+     * Add a device to a group.
+     *
      *
      * <p>
      * Note: uses internal data model
@@ -88,7 +89,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     }
 
     /**
-     * Add a device to a group .
+     * Add a device to a group.
+     *
      *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#addToGroup(String, com.arm.mbed.cloud.sdk.devices.model.Device)}
@@ -197,7 +199,7 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDevice(String)}
      * 
      * @param id
-     *            a string
+     *            The ID of the device.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -308,7 +310,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     }
 
     /**
-     * Remove a device from a group .
+     * Remove a device from a group.
+     *
      *
      * <p>
      * Note: uses internal data model
@@ -326,7 +329,8 @@ public class DeviceDao extends AbstractModelDao<Device> implements CrudDao<Devic
     }
 
     /**
-     * Remove a device from a group .
+     * Remove a device from a group.
+     *
      *
      * <p>
      * Similar to

@@ -49,13 +49,13 @@ public class Group1 implements Serializable {
     }
 
     /**
-     * Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are
-     * limited to 128 characters. Updating this field replaces existing contents.
+     * Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128
+     * characters. Updating this field replaces existing contents.
      * 
      * @return customAttributes
      **/
     @ApiModelProperty(example = "{\"key\":\"value\"}",
-                      value = "Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.")
+                      value = "Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128 characters. Updating this field replaces existing contents.")
     public Map<String, String> getCustomAttributes() {
         return customAttributes;
     }

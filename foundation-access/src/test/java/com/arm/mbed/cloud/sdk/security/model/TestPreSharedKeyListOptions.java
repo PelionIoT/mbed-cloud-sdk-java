@@ -19,10 +19,10 @@ public class TestPreSharedKeyListOptions {
     @Test
     public void testClone() {
         try {
-            PreSharedKeyListOptions presharedkeylistoptions1 = new PreSharedKeyListOptions(Integer.valueOf(-60),
-                                                                                           Long.valueOf(-117),
+            PreSharedKeyListOptions presharedkeylistoptions1 = new PreSharedKeyListOptions(Integer.valueOf(54),
+                                                                                           Long.valueOf(108),
                                                                                            Order.getDefault(),
-                                                                                           "cd20d730-c64d-4737-9e41-a24d93640e2e",
+                                                                                           "75e0cf43-6599-4b10-87ca-b2578911117f",
                                                                                            null, null);
             PreSharedKeyListOptions presharedkeylistoptions2 = presharedkeylistoptions1.clone();
             assertNotNull(presharedkeylistoptions1);
@@ -41,15 +41,15 @@ public class TestPreSharedKeyListOptions {
     @Test
     public void testHashCode() {
         try {
-            PreSharedKeyListOptions presharedkeylistoptions1 = new PreSharedKeyListOptions(Integer.valueOf(-124),
-                                                                                           Long.valueOf(-25),
+            PreSharedKeyListOptions presharedkeylistoptions1 = new PreSharedKeyListOptions(Integer.valueOf(103),
+                                                                                           Long.valueOf(24),
                                                                                            Order.getDefault(),
-                                                                                           "e2bba4bf-f6a7-491f-8ecd-d46e8c22901f",
+                                                                                           "0e2862b3-f1ad-450f-9ea6-18b429415143",
                                                                                            null, null);
-            PreSharedKeyListOptions presharedkeylistoptions2 = new PreSharedKeyListOptions(Integer.valueOf(-124),
-                                                                                           Long.valueOf(-25),
+            PreSharedKeyListOptions presharedkeylistoptions2 = new PreSharedKeyListOptions(Integer.valueOf(103),
+                                                                                           Long.valueOf(24),
                                                                                            Order.getDefault(),
-                                                                                           "e2bba4bf-f6a7-491f-8ecd-d46e8c22901f",
+                                                                                           "0e2862b3-f1ad-450f-9ea6-18b429415143",
                                                                                            null, null);
             assertNotNull(presharedkeylistoptions1);
             assertNotNull(presharedkeylistoptions2);
@@ -72,20 +72,20 @@ public class TestPreSharedKeyListOptions {
     @Test
     public void testEquals() {
         try {
-            PreSharedKeyListOptions presharedkeylistoptions1 = new PreSharedKeyListOptions(Integer.valueOf(-26),
-                                                                                           Long.valueOf(108),
+            PreSharedKeyListOptions presharedkeylistoptions1 = new PreSharedKeyListOptions(Integer.valueOf(-122),
+                                                                                           Long.valueOf(-59),
                                                                                            Order.getDefault(),
-                                                                                           "f0c59002-bd6e-438d-8bb2-1ee120a22f7d",
+                                                                                           "abbeb2d9-da91-4f5f-aea5-b1a29d7735b5",
                                                                                            null, null);
-            PreSharedKeyListOptions presharedkeylistoptions2 = new PreSharedKeyListOptions(Integer.valueOf(-26),
-                                                                                           Long.valueOf(108),
+            PreSharedKeyListOptions presharedkeylistoptions2 = new PreSharedKeyListOptions(Integer.valueOf(-122),
+                                                                                           Long.valueOf(-59),
                                                                                            Order.getDefault(),
-                                                                                           "f0c59002-bd6e-438d-8bb2-1ee120a22f7d",
+                                                                                           "abbeb2d9-da91-4f5f-aea5-b1a29d7735b5",
                                                                                            null, null);
-            PreSharedKeyListOptions presharedkeylistoptions3 = new PreSharedKeyListOptions(Integer.valueOf(20),
-                                                                                           Long.valueOf(11),
+            PreSharedKeyListOptions presharedkeylistoptions3 = new PreSharedKeyListOptions(Integer.valueOf(76),
+                                                                                           Long.valueOf(122),
                                                                                            Order.getDefault(),
-                                                                                           "dc61e6ee-8827-4662-8ccb-b66eec26cc5b",
+                                                                                           "7e215ec1-43d4-4c13-bc45-0045b512cdc6",
                                                                                            null, null);
             assertNotNull(presharedkeylistoptions1);
             assertNotNull(presharedkeylistoptions2);

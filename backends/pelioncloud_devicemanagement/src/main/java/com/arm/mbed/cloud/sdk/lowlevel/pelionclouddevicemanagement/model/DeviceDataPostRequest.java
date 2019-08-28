@@ -365,12 +365,16 @@ public class DeviceDataPostRequest implements Serializable {
     }
 
     /**
-     * The execution mode from the certificate of the device. Permitted values: - 0 - unspecified execution mode
-     * (default) - 1 - development devices - 5 - production devices
+     * The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted
+     * values: - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a
+     * certificate that is not identified as a developer or production certificate. - 1 - Development device. The device
+     * firmware uses a developer certificate to communicate with Device Management. - 5 - Production device. The device
+     * firmware uses a factory-generated certificate to communicate with Device Management.
      * 
      * @return deviceExecutionMode
      **/
-    @ApiModelProperty(value = "The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices")
+    @ApiModelProperty(example = "0",
+                      value = "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted values:   - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a certificate that is not identified as a developer or production certificate.   - 1 - Development device. The device firmware uses a developer certificate to communicate with Device Management.   - 5 - Production device. The device firmware uses a factory-generated certificate to communicate with Device Management.")
     public Integer getDeviceExecutionMode() {
         return deviceExecutionMode;
     }

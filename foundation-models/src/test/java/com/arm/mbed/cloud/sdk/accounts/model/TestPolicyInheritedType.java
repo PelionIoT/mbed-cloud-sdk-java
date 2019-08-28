@@ -30,7 +30,7 @@ public class TestPolicyInheritedType {
             policyinheritedtype = PolicyInheritedType.getValue("template");
             assertNotNull(policyinheritedtype);
             assertFalse(policyinheritedtype.isDefault());
-            policyinheritedtype = PolicyInheritedType.getValue("56e6fe08-669a-4cee-85cf-649bf7b33eb4");
+            policyinheritedtype = PolicyInheritedType.getValue("a2b8aa68-25cc-4c96-9ed6-602c2dac2200");
             assertNotNull(policyinheritedtype);
             assertTrue(policyinheritedtype.isDefault());
         } catch (Exception exception) {

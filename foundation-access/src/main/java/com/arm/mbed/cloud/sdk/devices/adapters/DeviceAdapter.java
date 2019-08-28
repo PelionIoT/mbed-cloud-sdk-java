@@ -9,6 +9,7 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.devices.model.Device;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceDeployedState;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceLifecycleStatus;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceMechanism;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceState;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
@@ -107,7 +108,16 @@ public final class DeviceAdapter {
                                          toBeMapped.getEndpointName(),
                                          TranslationUtils.toDate(toBeMapped.getEnrolmentListTimestamp()),
                                          toBeMapped.getFirmwareChecksum(), toBeMapped.getGroups(),
+                                         toBeMapped.getLastOperatorSuspendedCategory(),
+                                         toBeMapped.getLastOperatorSuspendedDescription(),
+                                         TranslationUtils.toDate(toBeMapped.getLastOperatorSuspendedUpdatedAt()),
+                                         toBeMapped.getLastSystemSuspendedCategory(),
+                                         toBeMapped.getLastSystemSuspendedDescription(),
+                                         TranslationUtils.toDate(toBeMapped.getLastSystemSuspendedUpdatedAt()),
+                                         translateToDeviceLifecycleStatus(toBeMapped.getLifecycleStatus()),
                                          TranslationUtils.toDate(toBeMapped.getManifestTimestamp()),
+                                         TranslationUtils.toBool(toBeMapped.isOperatorSuspended()),
+                                         TranslationUtils.toBool(toBeMapped.isSystemSuspended()),
                                          TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         device.setAutoUpdate(TranslationUtils.toBool(toBeMapped.isAutoUpdate()));
         device.setBootstrapExpirationDate(TranslationUtils.toDate(toBeMapped.getBootstrapExpirationDate()));
@@ -117,7 +127,7 @@ public final class DeviceAdapter {
         device.setDeployment(toBeMapped.getDeployment());
         device.setDescription(toBeMapped.getDescription());
         device.setDeviceClass(toBeMapped.getDeviceClass());
-        device.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode()));
+        device.setDeviceExecutionMode(TranslationUtils.toInt(toBeMapped.getDeviceExecutionMode(), 0));
         device.setDeviceKey(toBeMapped.getDeviceKey());
         device.setEndpointType(toBeMapped.getEndpointType());
         device.setHostGateway(toBeMapped.getHostGateway());
@@ -356,6 +366,28 @@ public final class DeviceAdapter {
                 return DeviceDeployedState.PRODUCTION;
             default:
                 return DeviceDeployedState.getUnknownEnum();
+        }
+    }
+
+    /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
+     *            a lifecycle status enum.
+     * @return mapped enum value
+     */
+    @Internal
+    protected static DeviceLifecycleStatus translateToDeviceLifecycleStatus(DeviceData.LifecycleStatusEnum toBeMapped) {
+        if (toBeMapped == null) {
+            return DeviceLifecycleStatus.getUnknownEnum();
+        }
+        switch (toBeMapped) {
+            case ENABLED:
+                return DeviceLifecycleStatus.ENABLED;
+            case BLOCKED:
+                return DeviceLifecycleStatus.BLOCKED;
+            default:
+                return DeviceLifecycleStatus.getUnknownEnum();
         }
     }
 

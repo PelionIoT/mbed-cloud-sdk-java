@@ -19,10 +19,10 @@ public class TestPolicyGroup {
     @Test
     public void testClone() {
         try {
-            PolicyGroup policygroup1 = new PolicyGroup("0f0fddcbb77d22b2ab801eb65dfbca42", -101,
-                                                       new Date(1566811765941L), "0f0fddcbb77d22b2ab801eb65dfbca42",
-                                                       "0a4b9b7c-a63f-41f2-8622-67e7f214da81", new Date(1566811766133L),
-                                                       -101);
+            PolicyGroup policygroup1 = new PolicyGroup("02c5996de8d57cd67670ecd25b819d1a", 73, new Date(1566995740392L),
+                                                       "02c5996de8d57cd67670ecd25b819d1a",
+                                                       "1b1972a5-133f-4c0b-908f-8972ffb98ee7", new Date(1566995741156L),
+                                                       -116);
             PolicyGroup policygroup2 = policygroup1.clone();
             assertNotNull(policygroup1);
             assertNotNull(policygroup2);
@@ -40,14 +40,14 @@ public class TestPolicyGroup {
     @Test
     public void testHashCode() {
         try {
-            PolicyGroup policygroup1 = new PolicyGroup("0f0fddcbb77d22b2ab801eb65dfbca42", 63, new Date(1566811759534L),
-                                                       "0f0fddcbb77d22b2ab801eb65dfbca42",
-                                                       "216a32ee-82ea-4c1a-8ba1-971f8ed59750", new Date(1566811759818L),
-                                                       -112);
-            PolicyGroup policygroup2 = new PolicyGroup("0f0fddcbb77d22b2ab801eb65dfbca42", 63, new Date(1566811759534L),
-                                                       "0f0fddcbb77d22b2ab801eb65dfbca42",
-                                                       "216a32ee-82ea-4c1a-8ba1-971f8ed59750", new Date(1566811759818L),
-                                                       -112);
+            PolicyGroup policygroup1 = new PolicyGroup("02c5996de8d57cd67670ecd25b819d1a", -68,
+                                                       new Date(1566995746594L), "02c5996de8d57cd67670ecd25b819d1a",
+                                                       "0e305291-d606-461b-9efd-f9ecbed9bb41", new Date(1566995746078L),
+                                                       25);
+            PolicyGroup policygroup2 = new PolicyGroup("02c5996de8d57cd67670ecd25b819d1a", -68,
+                                                       new Date(1566995746594L), "02c5996de8d57cd67670ecd25b819d1a",
+                                                       "0e305291-d606-461b-9efd-f9ecbed9bb41", new Date(1566995746078L),
+                                                       25);
             assertNotNull(policygroup1);
             assertNotNull(policygroup2);
             assertNotSame(policygroup2, policygroup1);
@@ -68,15 +68,16 @@ public class TestPolicyGroup {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        PolicyGroup policygroup = new PolicyGroup("0f0fddcbb77d22b2ab801eb65dfbca42", 98, new Date(1566811766133L),
-                                                  "0f0fddcbb77d22b2ab801eb65dfbca42",
-                                                  "deb5e9af-8310-4e54-a4d2-5adb1a4a4b2d", new Date(1566811760607L), 4);
+        PolicyGroup policygroup = new PolicyGroup("02c5996de8d57cd67670ecd25b819d1a", 3, new Date(1566995746011L),
+                                                  "02c5996de8d57cd67670ecd25b819d1a",
+                                                  "f90110d3-58b1-4e74-bec4-c78dffc48a78", new Date(1566995745883L),
+                                                  -14);
         assertTrue(policygroup.isValid());
-        PolicyGroup policygroupInvalid = new PolicyGroup("*馠\u0013+\u00123P�?�3䃹\u0017M3Q3□(\t3\u0012:夬\u001e^3D駛�?<姾\u000fͼ僻3333?3;I淑3[懯F哔Sꉈ\u0012\u00153ߌ!㲹\u00133\u00163婱3唵鑢",
-                                                         28, new Date(1566811766994L),
-                                                         "*馠\u0013+\u00123P�?�3䃹\u0017M3Q3□(\t3\u0012:夬\u001e^3D駛�?<姾\u000fͼ僻3333?3;I淑3[懯F哔Sꉈ\u0012\u00153ߌ!㲹\u00133\u00163婱3唵鑢",
-                                                         "6d5dd2e3-a2e5-498f-adf3-4786384cc3eb9b2fa1f2-9694-4392-bb3a-d9748363adb71eb9ffcd-45dd-496a-8dff-9b7f3f40242a",
-                                                         new Date(1566811767298L), 122);
+        PolicyGroup policygroupInvalid = new PolicyGroup("^>43Y<汓;H�?�443螋訌\b?4 .3ᔜ4\u001434\u0015�?�.㱫3\u001d43\u001aWT4Z뾕皦�?E\u000444,A뙾\u001f4�?�Wྶ\u0000]4`D3",
+                                                         -92, new Date(1566995744160L),
+                                                         "^>43Y<汓;H�?�443螋訌\b?4 .3ᔜ4\u001434\u0015�?�.㱫3\u001d43\u001aWT4Z뾕皦�?E\u000444,A뙾\u001f4�?�Wྶ\u0000]4`D3",
+                                                         "4d73210b-4232-4b66-8b6f-004fb7de50ccf696a5b5-ea81-44db-a57a-ee1a2ddc3dc6cecfca2f-6dcf-411b-ba47-77622279b3de",
+                                                         new Date(1566995741954L), 9);
         assertFalse(policygroupInvalid.isValid());
     }
 
@@ -87,18 +88,18 @@ public class TestPolicyGroup {
     @Test
     public void testEquals() {
         try {
-            PolicyGroup policygroup1 = new PolicyGroup("0f0fddcbb77d22b2ab801eb65dfbca42", 110,
-                                                       new Date(1566811763445L), "0f0fddcbb77d22b2ab801eb65dfbca42",
-                                                       "e5d4efd8-8c3a-49b4-aa52-a349941ab627", new Date(1566811759459L),
-                                                       42);
-            PolicyGroup policygroup2 = new PolicyGroup("0f0fddcbb77d22b2ab801eb65dfbca42", 110,
-                                                       new Date(1566811763445L), "0f0fddcbb77d22b2ab801eb65dfbca42",
-                                                       "e5d4efd8-8c3a-49b4-aa52-a349941ab627", new Date(1566811759459L),
-                                                       42);
-            PolicyGroup policygroup3 = new PolicyGroup("0f0fddcbb77d22b2ab801eb65dfbca42", -40,
-                                                       new Date(1566811760898L), "0f0fddcbb77d22b2ab801eb65dfbca42",
-                                                       "17cdc830-1da4-45a1-9dfe-9753bc2f336f", new Date(1566811766692L),
-                                                       -93);
+            PolicyGroup policygroup1 = new PolicyGroup("02c5996de8d57cd67670ecd25b819d1a", 104,
+                                                       new Date(1566995740455L), "02c5996de8d57cd67670ecd25b819d1a",
+                                                       "90fd0eb4-27f7-4d9b-8594-061b5a41e6a8", new Date(1566995741846L),
+                                                       88);
+            PolicyGroup policygroup2 = new PolicyGroup("02c5996de8d57cd67670ecd25b819d1a", 104,
+                                                       new Date(1566995740455L), "02c5996de8d57cd67670ecd25b819d1a",
+                                                       "90fd0eb4-27f7-4d9b-8594-061b5a41e6a8", new Date(1566995741846L),
+                                                       88);
+            PolicyGroup policygroup3 = new PolicyGroup("02c5996de8d57cd67670ecd25b819d1a", 58, new Date(1566995747174L),
+                                                       "02c5996de8d57cd67670ecd25b819d1a",
+                                                       "a2a84901-bb30-41fe-976a-e34be324836f", new Date(1566995747076L),
+                                                       -21);
             assertNotNull(policygroup1);
             assertNotNull(policygroup2);
             assertNotNull(policygroup3);
