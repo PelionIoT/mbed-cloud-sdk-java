@@ -19,11 +19,11 @@ public class TestCertificateIssuerConfig {
     @Test
     public void testClone() {
         try {
-            CertificateIssuerConfig certificateissuerconfig1 = new CertificateIssuerConfig("4e661622-ccda-4bff-b717-bb2a5e154452",
-                                                                                           new Date(1566995740672L),
-                                                                                           "b80875bb-8f43-4c5f-b6fe-fe7cbedb3491",
-                                                                                           "91436bb2-7f08-4e2f-8fda-e937106be1c0",
-                                                                                           new Date(1566995744379L));
+            CertificateIssuerConfig certificateissuerconfig1 = new CertificateIssuerConfig("c7affe7f-3446-465d-ad91-a8a855b30434",
+                                                                                           new Date(1567417601119L),
+                                                                                           "08bd95b3-2606-4566-8f04-09f56da7d488",
+                                                                                           "09ddfb7b-0106-41c3-afdf-c0e5b4f9bf2e",
+                                                                                           new Date(1567417600927L));
             CertificateIssuerConfig certificateissuerconfig2 = certificateissuerconfig1.clone();
             assertNotNull(certificateissuerconfig1);
             assertNotNull(certificateissuerconfig2);
@@ -41,16 +41,16 @@ public class TestCertificateIssuerConfig {
     @Test
     public void testHashCode() {
         try {
-            CertificateIssuerConfig certificateissuerconfig1 = new CertificateIssuerConfig("0e0d54ab-6498-49e6-8d7f-d77542ad6054",
-                                                                                           new Date(1566995745307L),
-                                                                                           "e943c04b-c993-480b-a253-bcff424fca98",
-                                                                                           "9ca76246-1db7-40bf-a90b-af4f3e7ba584",
-                                                                                           new Date(1566995744128L));
-            CertificateIssuerConfig certificateissuerconfig2 = new CertificateIssuerConfig("0e0d54ab-6498-49e6-8d7f-d77542ad6054",
-                                                                                           new Date(1566995745307L),
-                                                                                           "e943c04b-c993-480b-a253-bcff424fca98",
-                                                                                           "9ca76246-1db7-40bf-a90b-af4f3e7ba584",
-                                                                                           new Date(1566995744128L));
+            CertificateIssuerConfig certificateissuerconfig1 = new CertificateIssuerConfig("ed65ccd2-a62e-436b-b7a3-bc77eddfbbff",
+                                                                                           new Date(1567417602299L),
+                                                                                           "6d8b1c6e-fb36-44b3-b8c1-4682ce176381",
+                                                                                           "f4f90497-4931-4226-86a9-3113a92d9e26",
+                                                                                           new Date(1567417607537L));
+            CertificateIssuerConfig certificateissuerconfig2 = new CertificateIssuerConfig("ed65ccd2-a62e-436b-b7a3-bc77eddfbbff",
+                                                                                           new Date(1567417602299L),
+                                                                                           "6d8b1c6e-fb36-44b3-b8c1-4682ce176381",
+                                                                                           "f4f90497-4931-4226-86a9-3113a92d9e26",
+                                                                                           new Date(1567417607537L));
             assertNotNull(certificateissuerconfig1);
             assertNotNull(certificateissuerconfig2);
             assertNotSame(certificateissuerconfig2, certificateissuerconfig1);
@@ -71,17 +71,17 @@ public class TestCertificateIssuerConfig {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        CertificateIssuerConfig certificateissuerconfig = new CertificateIssuerConfig("7ee45a6a-9cba-49a8-b077-02bba28d5117",
-                                                                                      new Date(1566995744060L),
-                                                                                      "99ca5641-27b6-42d0-a919-27b8debc4374",
-                                                                                      "3c0d2287-d0f4-420b-ab75-c6a391617ab1",
-                                                                                      new Date(1566995749673L));
+        CertificateIssuerConfig certificateissuerconfig = new CertificateIssuerConfig("31cbcd12-31d7-403f-aa92-8016a625d802",
+                                                                                      new Date(1567417601462L),
+                                                                                      "ff31bf24-973a-4709-8635-a4075e6fd225",
+                                                                                      "369ace3c-61e9-4a62-879a-0c241c929cfa",
+                                                                                      new Date(1567417604610L));
         assertTrue(certificateissuerconfig.isValid());
         CertificateIssuerConfig certificateissuerconfigInvalid = new CertificateIssuerConfig(null,
-                                                                                             new Date(1566995748028L),
-                                                                                             "587aeb73-4ea6-4097-8904-700d3a6bc614",
+                                                                                             new Date(1567417602391L),
+                                                                                             "9ded8b9c-61cc-41cf-9b7c-ed44673b0a10",
                                                                                              null,
-                                                                                             new Date(1566995746488L));
+                                                                                             new Date(1567417604508L));
         assertFalse(certificateissuerconfigInvalid.isValid());
     }
 
@@ -92,21 +92,21 @@ public class TestCertificateIssuerConfig {
     @Test
     public void testEquals() {
         try {
-            CertificateIssuerConfig certificateissuerconfig1 = new CertificateIssuerConfig("f8559884-7a12-4ce1-aaaa-6103b86b733b",
-                                                                                           new Date(1566995743644L),
-                                                                                           "49c364b5-d65e-471c-9eaa-ba8f83831866",
-                                                                                           "b3a963cd-4081-438d-b0a2-78b527209d3b",
-                                                                                           new Date(1566995740170L));
-            CertificateIssuerConfig certificateissuerconfig2 = new CertificateIssuerConfig("f8559884-7a12-4ce1-aaaa-6103b86b733b",
-                                                                                           new Date(1566995743644L),
-                                                                                           "49c364b5-d65e-471c-9eaa-ba8f83831866",
-                                                                                           "b3a963cd-4081-438d-b0a2-78b527209d3b",
-                                                                                           new Date(1566995740170L));
-            CertificateIssuerConfig certificateissuerconfig3 = new CertificateIssuerConfig("6cb80573-4e9b-4cce-9935-54e5cd4a4ec2",
-                                                                                           new Date(1566995743279L),
-                                                                                           "fd108750-79cb-4fd7-a548-a4386b2b3a50",
-                                                                                           "34f560f8-b9d7-444d-a361-0c65b040bfc9",
-                                                                                           new Date(1566995744436L));
+            CertificateIssuerConfig certificateissuerconfig1 = new CertificateIssuerConfig("873d6355-b5e8-45ca-bfaa-56f8fc1cf03b",
+                                                                                           new Date(1567417607114L),
+                                                                                           "2b4873ed-4889-4f02-acd5-11c5e4e1652c",
+                                                                                           "be027f7c-d1f5-4a10-a4a3-86819123e3dc",
+                                                                                           new Date(1567417609610L));
+            CertificateIssuerConfig certificateissuerconfig2 = new CertificateIssuerConfig("873d6355-b5e8-45ca-bfaa-56f8fc1cf03b",
+                                                                                           new Date(1567417607114L),
+                                                                                           "2b4873ed-4889-4f02-acd5-11c5e4e1652c",
+                                                                                           "be027f7c-d1f5-4a10-a4a3-86819123e3dc",
+                                                                                           new Date(1567417609610L));
+            CertificateIssuerConfig certificateissuerconfig3 = new CertificateIssuerConfig("578dddb4-0ece-481e-a57e-d10aa26d20e4",
+                                                                                           new Date(1567417600453L),
+                                                                                           "a018d457-4811-4e31-b43a-8b60d2be3810",
+                                                                                           "d98d5f7e-597b-43f0-a1bd-0682c253bd10",
+                                                                                           new Date(1567417602609L));
             assertNotNull(certificateissuerconfig1);
             assertNotNull(certificateissuerconfig2);
             assertNotNull(certificateissuerconfig3);

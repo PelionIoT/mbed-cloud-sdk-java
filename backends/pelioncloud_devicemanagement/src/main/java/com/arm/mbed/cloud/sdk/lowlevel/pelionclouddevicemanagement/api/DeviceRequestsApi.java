@@ -30,9 +30,9 @@ public interface DeviceRequestsApi {
      * retries could be exhausted, for example, if the device periodically contacts the server and receives the request
      * from the queue, but then fails to respond back to the server. On the other hand, the device might lose its
      * network connectivity, and the requests in the queue might expire and get discarded before the device regains the
-     * connectivity. See also /v2/endpoints/{device-id}/{resourcePath}. You can write [Notification
-     * Rules](../connecting/resource-change-webapp.html#notification-rules) for a resource with PUT command. Please see
-     * example of the payload below. &#x60;&#x60;&#x60; { \&quot;method\&quot;: \&quot;PUT\&quot;, \&quot;uri\&quot;:
+     * connectivity. You can write [Notification Rules](../connecting/resource-change-webapp.html#notification-rules)
+     * for a resource with PUT command. Please see example of the payload below. &#x60;&#x60;&#x60; {
+     * \&quot;method\&quot;: \&quot;PUT\&quot;, \&quot;uri\&quot;:
      * \&quot;/5/0/1?lt&#x3D;10&amp;gt&#x3D;60&amp;pmax&#x3D;120\&quot; } &#x60;&#x60;&#x60; POST &#x60;method&#x60; can
      * be used to either execute or create resource on a LWM2M supporting device. When creating a resource,
      * &#x60;uri&#x60; must refer to an object, and &#x60;payload-b64&#x60; must be in LWM2M TLV format, as in the

@@ -19,11 +19,11 @@ public class TestDeviceEnrollmentDenial {
     @Test
     public void testClone() {
         try {
-            DeviceEnrollmentDenial deviceenrollmentdenial1 = new DeviceEnrollmentDenial("02c5996de8d57cd67670ecd25b819d1a",
-                                                                                        new Date(1566995740535L),
-                                                                                        "0a2124bf-6b7e-4d80-a87e-2b8b72edd4b6",
-                                                                                        "02c5996de8d57cd67670ecd25b819d1a",
-                                                                                        "02c5996de8d57cd67670ecd25b819d1a");
+            DeviceEnrollmentDenial deviceenrollmentdenial1 = new DeviceEnrollmentDenial("5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                        new Date(1567417601146L),
+                                                                                        "33488f0e-58ab-4c58-841e-bc8e3b3c2ba5",
+                                                                                        "5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                        "5aac302d4dc51de8d52d8348d01b06c5");
             DeviceEnrollmentDenial deviceenrollmentdenial2 = deviceenrollmentdenial1.clone();
             assertNotNull(deviceenrollmentdenial1);
             assertNotNull(deviceenrollmentdenial2);
@@ -41,16 +41,16 @@ public class TestDeviceEnrollmentDenial {
     @Test
     public void testHashCode() {
         try {
-            DeviceEnrollmentDenial deviceenrollmentdenial1 = new DeviceEnrollmentDenial("02c5996de8d57cd67670ecd25b819d1a",
-                                                                                        new Date(1566995748157L),
-                                                                                        "0fce56a9-3b9f-49d2-b4cf-b75be2c7580c",
-                                                                                        "02c5996de8d57cd67670ecd25b819d1a",
-                                                                                        "02c5996de8d57cd67670ecd25b819d1a");
-            DeviceEnrollmentDenial deviceenrollmentdenial2 = new DeviceEnrollmentDenial("02c5996de8d57cd67670ecd25b819d1a",
-                                                                                        new Date(1566995748157L),
-                                                                                        "0fce56a9-3b9f-49d2-b4cf-b75be2c7580c",
-                                                                                        "02c5996de8d57cd67670ecd25b819d1a",
-                                                                                        "02c5996de8d57cd67670ecd25b819d1a");
+            DeviceEnrollmentDenial deviceenrollmentdenial1 = new DeviceEnrollmentDenial("5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                        new Date(1567417604417L),
+                                                                                        "59561e14-215c-4007-b203-cfb5cdc051da",
+                                                                                        "5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                        "5aac302d4dc51de8d52d8348d01b06c5");
+            DeviceEnrollmentDenial deviceenrollmentdenial2 = new DeviceEnrollmentDenial("5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                        new Date(1567417604417L),
+                                                                                        "59561e14-215c-4007-b203-cfb5cdc051da",
+                                                                                        "5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                        "5aac302d4dc51de8d52d8348d01b06c5");
             assertNotNull(deviceenrollmentdenial1);
             assertNotNull(deviceenrollmentdenial2);
             assertNotSame(deviceenrollmentdenial2, deviceenrollmentdenial1);
@@ -71,17 +71,17 @@ public class TestDeviceEnrollmentDenial {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        DeviceEnrollmentDenial deviceenrollmentdenial = new DeviceEnrollmentDenial("02c5996de8d57cd67670ecd25b819d1a",
-                                                                                   new Date(1566995741510L),
-                                                                                   "396b2b0d-497d-437e-89ea-de8c64d5c6f2",
-                                                                                   "02c5996de8d57cd67670ecd25b819d1a",
-                                                                                   "02c5996de8d57cd67670ecd25b819d1a");
+        DeviceEnrollmentDenial deviceenrollmentdenial = new DeviceEnrollmentDenial("5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                   new Date(1567417610115L),
+                                                                                   "a02f00a8-734a-4b12-ae58-6741a16e62a7",
+                                                                                   "5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                   "5aac302d4dc51de8d52d8348d01b06c5");
         assertTrue(deviceenrollmentdenial.isValid());
-        DeviceEnrollmentDenial deviceenrollmentdenialInvalid = new DeviceEnrollmentDenial("^>43Y<汓;H�?�443螋訌\b?4 .3ᔜ4\u001434\u0015�?�.㱫3\u001d43\u001aWT4Z뾕皦�?E\u000444,A뙾\u001f4�?�Wྶ\u0000]4`D3",
-                                                                                          new Date(1566995741435L),
-                                                                                          "e9417f87-fbd7-4a1e-b0cf-e7beb7cbaea7",
-                                                                                          "^>43Y<汓;H�?�443螋訌\b?4 .3ᔜ4\u001434\u0015�?�.㱫3\u001d43\u001aWT4Z뾕皦�?E\u000444,A뙾\u001f4�?�Wྶ\u0000]4`D3",
-                                                                                          "^>43Y<汓;H�?�443螋訌\b?4 .3ᔜ4\u001434\u0015�?�.㱫3\u001d43\u001aWT4Z뾕皦�?E\u000444,A뙾\u001f4�?�Wྶ\u0000]4`D3");
+        DeviceEnrollmentDenial deviceenrollmentdenialInvalid = new DeviceEnrollmentDenial("@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019",
+                                                                                          new Date(1567417607219L),
+                                                                                          "558e0de5-9b97-4fdb-abf1-f7c63b21bb44",
+                                                                                          "@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019",
+                                                                                          "@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019");
         assertFalse(deviceenrollmentdenialInvalid.isValid());
     }
 
@@ -92,21 +92,21 @@ public class TestDeviceEnrollmentDenial {
     @Test
     public void testEquals() {
         try {
-            DeviceEnrollmentDenial deviceenrollmentdenial1 = new DeviceEnrollmentDenial("02c5996de8d57cd67670ecd25b819d1a",
-                                                                                        new Date(1566995745247L),
-                                                                                        "8384832a-a85e-43a1-b185-2dc9c3c71a1b",
-                                                                                        "02c5996de8d57cd67670ecd25b819d1a",
-                                                                                        "02c5996de8d57cd67670ecd25b819d1a");
-            DeviceEnrollmentDenial deviceenrollmentdenial2 = new DeviceEnrollmentDenial("02c5996de8d57cd67670ecd25b819d1a",
-                                                                                        new Date(1566995745247L),
-                                                                                        "8384832a-a85e-43a1-b185-2dc9c3c71a1b",
-                                                                                        "02c5996de8d57cd67670ecd25b819d1a",
-                                                                                        "02c5996de8d57cd67670ecd25b819d1a");
-            DeviceEnrollmentDenial deviceenrollmentdenial3 = new DeviceEnrollmentDenial("02c5996de8d57cd67670ecd25b819d1a",
-                                                                                        new Date(1566995749304L),
-                                                                                        "16686503-56eb-491a-870c-e168c7b0ed0a",
-                                                                                        "02c5996de8d57cd67670ecd25b819d1a",
-                                                                                        "02c5996de8d57cd67670ecd25b819d1a");
+            DeviceEnrollmentDenial deviceenrollmentdenial1 = new DeviceEnrollmentDenial("5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                        new Date(1567417609994L),
+                                                                                        "0aaa69a3-a35f-425c-9793-99f905fd5e14",
+                                                                                        "5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                        "5aac302d4dc51de8d52d8348d01b06c5");
+            DeviceEnrollmentDenial deviceenrollmentdenial2 = new DeviceEnrollmentDenial("5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                        new Date(1567417609994L),
+                                                                                        "0aaa69a3-a35f-425c-9793-99f905fd5e14",
+                                                                                        "5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                        "5aac302d4dc51de8d52d8348d01b06c5");
+            DeviceEnrollmentDenial deviceenrollmentdenial3 = new DeviceEnrollmentDenial("5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                        new Date(1567417604335L),
+                                                                                        "8ee2bbd4-1a0c-4024-aa12-91f48b0b4b25",
+                                                                                        "5aac302d4dc51de8d52d8348d01b06c5",
+                                                                                        "5aac302d4dc51de8d52d8348d01b06c5");
             assertNotNull(deviceenrollmentdenial1);
             assertNotNull(deviceenrollmentdenial2);
             assertNotNull(deviceenrollmentdenial3);

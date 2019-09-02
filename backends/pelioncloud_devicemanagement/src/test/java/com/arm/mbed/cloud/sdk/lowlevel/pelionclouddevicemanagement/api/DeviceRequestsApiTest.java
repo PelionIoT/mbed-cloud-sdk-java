@@ -40,13 +40,13 @@ public class DeviceRequestsApiTest {
      * sends an error in **AsyncIDResponse**. The retries could be exhausted, for example, if the device periodically
      * contacts the server and receives the request from the queue, but then fails to respond back to the server. On the
      * other hand, the device might lose its network connectivity, and the requests in the queue might expire and get
-     * discarded before the device regains the connectivity. See also /v2/endpoints/{device-id}/{resourcePath}. You can
-     * write [Notification Rules](../connecting/resource-change-webapp.html#notification-rules) for a resource with PUT
-     * command. Please see example of the payload below. &#x60;&#x60;&#x60; { \&quot;method\&quot;: \&quot;PUT\&quot;,
-     * \&quot;uri\&quot;: \&quot;/5/0/1?lt&#x3D;10&amp;gt&#x3D;60&amp;pmax&#x3D;120\&quot; } &#x60;&#x60;&#x60; POST
-     * &#x60;method&#x60; can be used to either execute or create resource on a LWM2M supporting device. When creating a
-     * resource, &#x60;uri&#x60; must refer to an object, and &#x60;payload-b64&#x60; must be in LWM2M TLV format, as in
-     * the following example. &#x60;&#x60;&#x60; { \&quot;method\&quot;: \&quot;POST\&quot;, \&quot;uri\&quot;:
+     * discarded before the device regains the connectivity. You can write [Notification
+     * Rules](../connecting/resource-change-webapp.html#notification-rules) for a resource with PUT command. Please see
+     * example of the payload below. &#x60;&#x60;&#x60; { \&quot;method\&quot;: \&quot;PUT\&quot;, \&quot;uri\&quot;:
+     * \&quot;/5/0/1?lt&#x3D;10&amp;gt&#x3D;60&amp;pmax&#x3D;120\&quot; } &#x60;&#x60;&#x60; POST &#x60;method&#x60; can
+     * be used to either execute or create resource on a LWM2M supporting device. When creating a resource,
+     * &#x60;uri&#x60; must refer to an object, and &#x60;payload-b64&#x60; must be in LWM2M TLV format, as in the
+     * following example. &#x60;&#x60;&#x60; { \&quot;method\&quot;: \&quot;POST\&quot;, \&quot;uri\&quot;:
      * \&quot;/123\&quot;, \&quot;content-type\&quot;: \&quot;application/vnd.oma.lwm2m+tlv\&quot;,
      * \&quot;payload-b64\&quot;: \&quot;BwHFAnZhbHVl\&quot; } &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; Example URIs: POST
      * /v2/device-requests/015f2fa34d310000000000010030036c?async-id&#x3D;123e4567-e89b-12d3-a456-426655440000 POST
