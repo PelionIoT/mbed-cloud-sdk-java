@@ -41,10 +41,12 @@ public class ResourceSubscriber extends AbstractSubscriptionAction {
             final Paginator<Device> iterator = module.listAllConnectedDevices(DeviceAdapter.mapSubscriptionOptions(filters));
             while (iterator.hasNext()) {
                 final List<Resource> resourcesToObserve = filters.getVerifiedResources(module.listObservableResources(iterator.next()));
-                module.addResourcesSubscription(resourcesToObserve);
-                if (mode == FirstValue.IMMEDIATELY) {
-                    for (final Resource resourceToObserve : resourcesToObserve) {
-                        requestCurrentResourceValue(resourceToObserve);
+                if (null != resourcesToObserve && !resourcesToObserve.isEmpty()) {
+                    module.addResourcesSubscription(resourcesToObserve);
+                    if (mode == FirstValue.IMMEDIATELY) {
+                        for (final Resource resourceToObserve : resourcesToObserve) {
+                            requestCurrentResourceValue(resourceToObserve);
+                        }
                     }
                 }
             }
