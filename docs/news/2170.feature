@@ -1,0 +1,1 @@
+Harmonised the naming in notification messages

@@ -335,7 +335,115 @@ public class TestCloudCaller {
         }
     }
 
+    /**
+     * Testing raw calls.
+     */
+    @Test
+    public void testCloudCallerWithRetries() {
+        try {
+            MockWebServer server = new MockWebServer();
+            String requestID = "01626653c64b0242ac12000700000000";
+            String bodyEtag = "2018-04-13T14:18:56.862996Z";
+            String errorBody1 = "{\"fields\": [{\"name\": \"policy\",\"message\": \"Access denied by policy [PSK agreement].\"}],\"object\": \"error\",\"code\": 403,\"type\": \"access_denied\",\"message\": \"Not authorized to execute the request.\",\"request_id\": \""
+                                + requestID + "\" }";
+            String correctBody = "This request was a success";
+            String correctBody2 = "{\"color\": \"black\",\"category\": \"hue\",\"type\": \"primary\",\"rgba\": [255,255,255,1],\"hex\": \"#000\", \"etag\": \""
+                                  + bodyEtag + "\"}";
+            String errorBody2 = "{\"object\": \"error\",\"code\": 404,\"type\": \"not_found\",\"message\": \"Not Found.\",\"request_id\": \"01626653c64b0242ac12dass000700000000\" }";
+            server.enqueue(new MockResponse().setBody(errorBody1).setResponseCode(403)
+                                             .setStatus("HTTP/1.1 403 Bad Request"));
+            server.enqueue(new MockResponse().setBody(errorBody1).setResponseCode(403)
+                                             .setStatus("HTTP/1.1 403 Bad Request"));
+            server.enqueue(new MockResponse().setBody(correctBody).setResponseCode(200)
+                                             .addHeader(CloudCaller.DATE_HEADER_LOWERCASE,
+                                                        "Tue, 17 Apr 2018 11:08:42 GMT")
+                                             .addHeader(CloudCaller.REQUEST_ID_HEADER_LOWERCASE, requestID));
+            server.enqueue(new MockResponse().setBody(correctBody2).setResponseCode(200)
+                                             .addHeader(CloudCaller.DATE_HEADER_LOWERCASE,
+                                                        "Tue, 13 Apr 2018 11:08:42 GMT")
+                                             .addHeader(CloudCaller.REQUEST_ID_HEADER_LOWERCASE, requestID));
+            server.enqueue(new MockResponse().setBody(errorBody2).setResponseCode(404)
+                                             .setStatus("HTTP/1.1 404 Not Found")
+                                             .addHeader(CloudCaller.REQUEST_ID_HEADER, requestID)
+                                             .addHeader(CloudCaller.DATE_HEADER, "Tue, 17 Apr 2018 11:08:42 GMT"));
+            server.enqueue(new MockResponse().setBody(errorBody2).setResponseCode(404)
+                                             .setStatus("HTTP/1.1 404 Not Found")
+                                             .addHeader(CloudCaller.REQUEST_ID_HEADER, requestID)
+                                             .addHeader(CloudCaller.DATE_HEADER, "Tue, 17 Apr 2018 11:09:01 GMT"));
+            server.start();
+            HttpUrl baseUrl = server.url("");
+            ConnectionOptions config = new ConnectionOptions("test", baseUrl.toString());
+            TestApi api = new TestApi(config);
+            // first call - valid response
+            try {
+                assertEquals(correctBody, api.callTestWithRetries(2));
+                ApiMetadata metadata = api.getLastApiMetadata();
+                assertNotNull(metadata);
+                assertNotNull(metadata.getUrl());
+                assertTrue(metadata.getUrl().toString().contains(TEST_ENDPOINT_PATH));
+                assertEquals("GET", metadata.getMethod());
+                assertEquals(200, metadata.getStatusCode());
+                assertNotNull(metadata.getDate());
+                Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+                calendar.set(2018, 3, 17, 11, 8, 42);
+                assertEquals(0, (calendar.getTime().getTime() - metadata.getDate().getTime()) / 1000);
+                assertNotNull(metadata.getObject());
+                assertEquals(requestID, metadata.getRequestId());
+                assertNull(metadata.getErrorMessage());
+            } catch (MbedCloudException e) {
+                fail(e.getMessage());
+                api.close();
+            }
+            // Third call - valid response
+            try {
+                BodyTest body = api.bodyCallTestWithRetries(0);
+                assertNotNull(body);
+                ApiMetadata metadata = api.getLastApiMetadata();
+                assertNotNull(metadata);
+                assertNotNull(metadata.getUrl());
+                assertTrue(metadata.getUrl().toString().contains(TEST_ENDPOINT_PATH));
+                assertEquals("GET", metadata.getMethod());
+                assertEquals(200, metadata.getStatusCode());
+                assertNotNull(metadata.getDate());
+                Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+                calendar.set(2018, 3, 13, 11, 8, 42);
+                assertEquals(0, (calendar.getTime().getTime() - metadata.getDate().getTime()) / 1000);
+                assertEquals(requestID, metadata.getRequestId());
+                assertEquals(bodyEtag, metadata.getEtag());
+                assertNull(metadata.getErrorMessage());
+            } catch (MbedCloudException e) {
+                fail(e.getMessage());
+                api.close();
+            }
+            // Fourth call - not found response
+            try {
+                assertEquals(null, api.callTestWithRetries(1));
+                ApiMetadata metadata = api.getLastApiMetadata();
+                assertNotNull(metadata);
+                assertNotNull(metadata.getUrl());
+                assertTrue(metadata.getUrl().toString().contains(TEST_ENDPOINT_PATH));
+                assertEquals("GET", metadata.getMethod());
+                assertEquals(404, metadata.getStatusCode());
+                assertNotNull(metadata.getDate());
+                Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+                calendar.set(2018, 3, 17, 11, 8, 42);
+                assertEquals(0, (calendar.getTime().getTime() - metadata.getDate().getTime()) / 1000);
+                assertNotNull(metadata.getObject());
+                assertEquals(requestID, metadata.getRequestId());
+                assertNotNull(metadata.getErrorMessage());
+            } catch (MbedCloudException e) {
+                fail(e.getMessage());
+                api.close();
+            }
+            server.shutdown();
+            api.close();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
     public static TestApiService createTestApiClient(String baseUrl) {
+        @SuppressWarnings("resource")
         ApiClientWrapper clientWrapper = new ApiClientWrapper(new ConnectionOptions("test").host(baseUrl));
         TestApiService testService = clientWrapper.createService(TestApiService.class);
         return testService;
@@ -359,6 +467,17 @@ public class TestCloudCaller {
         public TestApi(ConnectionOptions options) {
             super(options);
             testService = createTestApiClient(options.getHost());
+        }
+
+        public String callTestWithRetries(int retries) throws MbedCloudException {
+            return CloudCaller.call(this, CALL_TEST_METHOD_NAME, GenericAdapter.identityMapper(String.class),
+                                    new CloudCall<String>() {
+
+                                        @Override
+                                        public Call<String> call() {
+                                            return testService.getEndpointValue();
+                                        }
+                                    }, true, false, retries);
         }
 
         public String rawCallTest() throws MbedCloudException {
@@ -391,6 +510,17 @@ public class TestCloudCaller {
                                             return testService.getEndpointInterpretedValue();
                                         }
                                     });
+        }
+
+        public BodyTest bodyCallTestWithRetries(int retries) throws MbedCloudException {
+            return CloudCaller.call(this, CALL_TEST_METHOD_NAME, GenericAdapter.identityMapper(BodyTest.class),
+                                    new CloudCall<BodyTest>() {
+
+                                        @Override
+                                        public Call<BodyTest> call() {
+                                            return testService.getEndpointInterpretedValue();
+                                        }
+                                    }, true, false, retries);
         }
 
         @Override

@@ -13,8 +13,9 @@ import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.connect.adapters.PresubscriptionAdapter;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
-import com.arm.mbed.cloud.sdk.devicedirectory.adapters.DeviceAdapter;
-import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
+import com.arm.mbed.cloud.sdk.devices.model.Device;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceListDao;
+import com.arm.mbed.cloud.sdk.subscribe.adapters.DeviceListOptionsAdapter;
 import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseNotification;
 import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
@@ -22,9 +23,23 @@ import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
 @Preamble(description = "Object in charge of performing all necessary actions which need to take place when subscribing to a resource")
 public class ResourceSubscriber extends AbstractSubscriptionAction {
+    private DeviceListDao listDao;
 
+    /**
+     * Constructor.
+     * 
+     * @param module
+     *            connect module
+     * @param mode
+     *            value fetching mode
+     */
     public ResourceSubscriber(AbstractModule module, FirstValue mode) {
         super(module, mode);
+        try {
+            listDao = new DeviceListDao(module);
+        } catch (@SuppressWarnings("unused") MbedCloudException exception) {
+            listDao = null;
+        }
     }
 
     @Override
@@ -37,8 +52,11 @@ public class ResourceSubscriber extends AbstractSubscriptionAction {
         final List<Presubscription> correspondingPresubscriptions = PresubscriptionAdapter.mapSubscriptionFilter(filters);
         module.addSomePresubscriptions(correspondingPresubscriptions);
         // Subscribe to currently connected devices
+        if (listDao == null) {
+            return;
+        }
         if (mode == FirstValue.ON_VALUE_UPDATE || mode == FirstValue.IMMEDIATELY) {
-            final Paginator<Device> iterator = module.listAllConnectedDevices(DeviceAdapter.mapSubscriptionOptions(filters));
+            final Paginator<Device> iterator = listDao.paginator(DeviceListOptionsAdapter.mapSubscriptionOptions(filters));
             while (iterator.hasNext()) {
                 final List<Resource> resourcesToObserve = filters.getVerifiedResources(module.listObservableResources(iterator.next()));
                 if (null != resourcesToObserve && !resourcesToObserve.isEmpty()) {

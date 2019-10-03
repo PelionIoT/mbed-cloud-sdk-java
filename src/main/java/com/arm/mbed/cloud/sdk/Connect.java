@@ -4,10 +4,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.BackpressureStrategy;
@@ -56,8 +53,10 @@ import com.arm.mbed.cloud.sdk.connect.model.MetricsPeriodListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsStartEndListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
+import com.arm.mbed.cloud.sdk.connect.model.ResourceDao;
 import com.arm.mbed.cloud.sdk.connect.model.Subscription;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
+import com.arm.mbed.cloud.sdk.connect.model.WebhookDao;
 import com.arm.mbed.cloud.sdk.connect.subscription.NotificationHandlersStore;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceAction;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceActionParameters;
@@ -72,6 +71,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceR
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.SuccessfulResponse;
+import com.arm.mbed.cloud.sdk.notify.CloudNotificationManager;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
@@ -155,21 +155,19 @@ public class Connect extends AbstractModule {
      * @param notificationHandlingThreadPool
      *            Threads in charge of retrieving notifications for a specific resource. If null, a default thread pool
      *            will be created internally.
-     * @param notificationPullingThreadPool
+     * @param notificationListeningThreadPool
      *            Threads in charge of listening to notifications. The pool can either be a scheduled thread pool or a
      *            fixed thread pool depending on what best suits your system. If null, an internal timer will be created
      *            internally.
      */
     public Connect(@NonNull ConnectionOptions options, @Nullable ExecutorService notificationHandlingThreadPool,
-                   @Nullable ExecutorService notificationPullingThreadPool) {
+                   @Nullable ExecutorService notificationListeningThreadPool) {
         super(options);
         deliveryMethod = new AtomicReference<DeliveryMethod>(DeliveryMethod.UNDEFINED);
         endpoint = new EndPoints(this.serviceRegistry);
         deviceDirectory = new DeviceDirectory(options);
         deviceDirectory.shareNetworkLayer(this);
-        this.handlersStore = new NotificationHandlersStore(this,
-                                                           (notificationPullingThreadPool == null) ? createDefaultDaemonThreadPool()
-                                                                                                   : notificationPullingThreadPool,
+        this.handlersStore = new NotificationHandlersStore(this, notificationListeningThreadPool,
                                                            notificationHandlingThreadPool, endpoint);
 
     }
@@ -178,23 +176,6 @@ public class Connect extends AbstractModule {
     @Override
     public Connect clone() {
         return new Connect(this).setDeliveryMethod(deliveryMethod.get());
-    }
-
-    /**
-     * Creates a default thread pool in case none was specified.
-     *
-     * @return thread pool
-     */
-    private static ScheduledExecutorService createDefaultDaemonThreadPool() {
-        return Executors.newScheduledThreadPool(1, new ThreadFactory() {
-
-            @Override
-            public Thread newThread(Runnable runable) {
-                final Thread thread = new Thread(runable);
-                thread.setDaemon(true);
-                return thread;
-            }
-        });
     }
 
     /**
@@ -211,7 +192,7 @@ public class Connect extends AbstractModule {
     @Daemon(task = "Listen to notification", start = true)
     public void startNotifications() throws MbedCloudException {
         logger.logInfo(getModuleName() + ": startNotifications()");
-        if (handlersStore.isPullingActive()) {
+        if (handlersStore.isNotificationListenerActive()) {
             logger.logInfo("Notification listening daemon thread is already started");
             return;
         }
@@ -242,9 +223,11 @@ public class Connect extends AbstractModule {
         setDeliveryMethod(true);
         checkConfiguration(getConnectionOption());
         if (deliveryMethod.get() != DeliveryMethod.CLIENT_INITIATED) {
+            logger.logDebug("The SDK will not start automatically notification threads as its delivery method is "
+                            + deliveryMethod.get());
             return;
         }
-        if (!handlersStore.isPullingActive() && isAutostartDaemon()) {
+        if (!handlersStore.isNotificationListenerActive() && isAutostartDaemon()) {
             startNotifications();
         }
     }
@@ -257,7 +240,7 @@ public class Connect extends AbstractModule {
      *             if a problem occurred during the process.
      */
     @API
-    @Daemon(task = "Notification pull", stop = true)
+    @Daemon(task = "Notification listening", stop = true)
     public void stopNotifications() throws MbedCloudException {
         logger.logInfo(getModuleName() + ": stopNotifications()");
         if (deliveryMethod.get() == DeliveryMethod.CLIENT_INITIATED) {
@@ -282,14 +265,26 @@ public class Connect extends AbstractModule {
         });
     }
 
+    private void deleteWebsocketChannel() throws MbedCloudException {
+        CloudCaller.call(this, "clearWebsocketNotificationChannel()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getNotifications().deleteWebsocket();
+            }
+        });
+    }
+
     /**
      * Shuts down all daemon services.
      */
     @API
-    @Daemon(task = "Notification pull", shutdown = true)
+    @Daemon(task = "Notification listening", shutdown = true)
     public void shutdownConnectService() {
         logger.logInfo(getModuleName() + ": shutdownConnectService()");
         handlersStore.shutdown();
+        deviceDirectory.close();
+        client.close();
     }
 
     @Override
@@ -536,9 +531,9 @@ public class Connect extends AbstractModule {
     }
 
     /**
-     * Gets the subscribe module.
+     * Gets the subscribe manager.
      *
-     * @return subscribe module.
+     * @return subscribe manager.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
@@ -2152,20 +2147,24 @@ public class Connect extends AbstractModule {
 
     /**
      * Subscribes to a list of resources.
-     *
+     * <p>
+     * Note: in case a subscription fails, it will continue subscribing to the rest of the resources present in the
+     * list.
      *
      * @param resources
      *            resources to subscribe to.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
      */
     @API
-    public void addResourcesSubscription(@Nullable List<Resource> resources) throws MbedCloudException {
+    public void addResourcesSubscription(@Nullable List<Resource> resources) {
         if (resources == null) {
             return;
         }
         for (final Resource resource : resources) {
-            addResourceSubscription(resource);
+            try {
+                addResourceSubscription(resource);
+            } catch (MbedCloudException exception) {
+                logger.logError("Could not subscribe to resource: " + resource, exception);
+            }
         }
     }
 
@@ -2613,6 +2612,11 @@ public class Connect extends AbstractModule {
         } catch (MbedCloudException exception) {
             logger.logWarn("Clearing long polling channel", exception);
         }
+        try {
+            deleteWebsocketChannel();
+        } catch (MbedCloudException exception) {
+            logger.logWarn("Clearing websocket channel", exception);
+        }
     }
 
     /**
@@ -2691,15 +2695,101 @@ public class Connect extends AbstractModule {
     }
 
     private Connect setDeliveryMethod(DeliveryMethod deliveryMethod2) {
-        deliveryMethod.set(deliveryMethod2);
+        deliveryMethod.getAndSet(deliveryMethod2);
         return this;
     }
 
-    private void setDeliveryMethod(boolean isClient) {
+    /**
+     * Sets the delivery method of notifications.
+     * 
+     * @param isClient
+     *            if True, a client-initiated connection is established. Otherwise, a server-initiated connection is
+     *            expected.
+     */
+    public void setDeliveryMethod(boolean isClient) {
         if (deliveryMethod.get() == DeliveryMethod.UNDEFINED) {
             deliveryMethod.compareAndSet(DeliveryMethod.UNDEFINED,
                                          isClient ? DeliveryMethod.CLIENT_INITIATED : DeliveryMethod.SERVER_INITIATED);
             logger.logInfo("Setting notification delivery method to [" + deliveryMethod.get() + "]");
         }
+    }
+
+    /**
+     * Gets the notification manager.
+     *
+     * @return subscribe manager.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public CloudNotificationManager notifications() throws MbedCloudException {
+        return new NotificationManager(this);
+    }
+
+    /**
+     * 
+     * Implementation of the notification manager.
+     *
+     */
+    private static class NotificationManager implements CloudNotificationManager {
+        private final Connect api;
+        private final WebhookDao webhookDao;
+
+        /**
+         * Constructor.
+         * 
+         * @param api
+         *            connect API.
+         * @throws MbedCloudException
+         *             if a problem occurred during request processing.
+         */
+        public NotificationManager(Connect api) throws MbedCloudException {
+            super();
+            this.api = api;
+            webhookDao = new WebhookDao(api);
+        }
+
+        @Override
+        public void notify(NotificationMessage data) {
+            api.notify(data);
+        }
+
+        @Override
+        public void notify(String dataAsJson) {
+            api.notify(dataAsJson);
+
+        }
+
+        @Override
+        public void start() throws MbedCloudException {
+            api.startNotifications();
+        }
+
+        @Override
+        public void stop() throws MbedCloudException {
+            api.stopNotifications();
+
+        }
+
+        @Override
+        public WebhookDao webhook() {
+            return webhookDao;
+        }
+
+    }
+
+    /**
+     * Gets a resource entity.
+     * 
+     * @param resource
+     *            resource of interest.
+     * @return the corresponding resource entity.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    public ResourceDao resource(Resource resource) throws MbedCloudException {
+        final ResourceDao dao = new ResourceDao(this);
+        dao.setModel(resource);
+        return dao;
     }
 }

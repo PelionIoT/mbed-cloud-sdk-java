@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.connect.model;
 
+import java.util.Objects;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
@@ -106,6 +108,27 @@ public class Websocket implements SdkModel {
     @Override
     public boolean isValid() {
         return true;
+    }
+
+    @SuppressWarnings("boxing")
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, queueSize, status);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Websocket)) {
+            return false;
+        }
+        final Websocket other = (Websocket) obj;
+        return Objects.equals(id, other.id) && queueSize == other.queueSize && status == other.status;
     }
 
     @Override

@@ -28,6 +28,8 @@ public class TestTimePeriod {
         period.setDuration(15);
         period.setUnit(TimeUnit.DAYS);
         assertEquals("15d", period.toString());
+        assertEquals("15d", TimePeriod.newTimePeriod("15d").toString());
+        assertEquals("15s", TimePeriod.newTimePeriod(15).toString());
     }
 
     @Test

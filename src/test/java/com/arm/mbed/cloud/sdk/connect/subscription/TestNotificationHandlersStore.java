@@ -32,6 +32,8 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Notific
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ResourcesData;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationCallback;
+import com.arm.mbed.cloud.sdk.subscribe.model.AllNotifications;
+import com.arm.mbed.cloud.sdk.subscribe.model.AllNotificationsObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceState;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateNotification;
@@ -45,6 +47,7 @@ import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
 public class TestNotificationHandlersStore {
 
+    @SuppressWarnings("boxing")
     @Test
     public void testNotifyNotificationMessage() {
         Future<?> handle = null;
@@ -131,6 +134,7 @@ public class TestNotificationHandlersStore {
         return array;
     }
 
+    @SuppressWarnings("boxing")
     @Test
     public void testNotifyNotificationMessageWithSubscriptionActions() {
         Future<?> handle = null;
@@ -151,8 +155,8 @@ public class TestNotificationHandlersStore {
         }
         HttpUrl baseUrl = server.url("");
         ConnectionOptions opt = new ConnectionOptions("apikey").host(baseUrl.toString()).logLevel(CallLogLevel.BODY);
-        Connect connect = new Connect(opt);
-        try (NotificationHandlersStore store = new NotificationHandlersStore(connect, null, executor, null)) {
+        try (Connect connect = new Connect(opt);
+             NotificationHandlersStore store = new NotificationHandlersStore(connect, null, executor, null)) {
 
             List<Integer> receivedNotificationsUsingCallbacks = new LinkedList<>();
             List<Throwable> receivedErrorsUsingCallbacks = new LinkedList<>();
@@ -246,6 +250,7 @@ public class TestNotificationHandlersStore {
                                                                                               .equalDeviceState(DeviceState.REGISTRATION_UPDATE),
                                                                 BackpressureStrategy.BUFFER);
             // Generating notifications
+            @SuppressWarnings("boxing")
             List<NotificationMessage> notifications = Stream.iterate(0, n -> n + 1).limit(32).map(i -> {
                 NotificationMessage message = new NotificationMessage();
                 EndpointData data = new EndpointData();
@@ -300,7 +305,7 @@ public class TestNotificationHandlersStore {
             // Observer only cares about changes related to devices like 016%33e and REGISTRATION_UPDATE state
             receivedNotifications.forEach(n -> {
                 assertEquals("0161661e9ce10000000000010010033e", n.getDeviceId());
-                assertEquals(DeviceState.REGISTRATION_UPDATE, n.getState());
+                assertEquals(DeviceState.REGISTRATION_UPDATE, n.getEvent());
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -310,4 +315,85 @@ public class TestNotificationHandlersStore {
         assertTrue(handle.isCancelled());
     }
 
+    /**
+     * Tests subscriptions to all notifications
+     */
+    @Test
+    public void testAllNotifications() {
+        Future<?> handle = null;
+        List<AllNotifications> receivedNotifications = new LinkedList<>();
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        try (NotificationHandlersStore store = new NotificationHandlersStore(null, null, executor, null)) {
+
+            AllNotificationsObserver obs1 = store.getSubscriptionManager()
+                                                 .allNotifications(BackpressureStrategy.BUFFER);
+            int numberOfNotifications = 32;
+            // Generating notifications
+            @SuppressWarnings("boxing")
+            List<NotificationMessage> notifications = Stream.iterate(0, n -> n + 1).limit(numberOfNotifications)
+                                                            .map(i -> {
+                                                                NotificationMessage message = new NotificationMessage();
+                                                                EndpointData data = new EndpointData();
+                                                                if (i % 5 == 0) {
+                                                                    data.setEp("0161661e9ce10000000000010010033e");
+                                                                } else {
+                                                                    data.setEp("0161661edbab000000000001001002b7");
+                                                                }
+                                                                data.setEpt("random");
+                                                                data.setQ(false);
+                                                                data.setResources(Stream.iterate(0, n -> n + 1)
+                                                                                        .limit(50).map(v -> {
+                                                                                            final ResourcesData resource = new ResourcesData();
+                                                                                            resource.setPath("/" + v);
+                                                                                            resource.setObs(true);
+                                                                                            return resource;
+                                                                                        })
+                                                                                        .collect(Collectors.toList()));
+
+                                                                if (i % 2 == 0) {
+                                                                    message.addRegUpdatesItem(data);
+                                                                } else {
+                                                                    message.addRegistrationsItem(data);
+                                                                }
+                                                                return message;
+                                                            }).collect(Collectors.toList());
+
+            obs1.addCallback(new NotificationCallback<>(new Callback<AllNotifications>() {
+
+                @Override
+                public void execute(AllNotifications arg) {
+                    receivedNotifications.add(arg);
+                }
+            }, null));
+            int Interval = 300;
+            handle = executor.scheduleWithFixedDelay(new Runnable() {
+
+                private int i = 0;
+
+                @Override
+                public void run() {
+                    if (i < notifications.size()) {
+                        store.notify(notifications.get(i));
+                        i++;
+                    }
+                }
+            }, 0, Interval, TimeUnit.MILLISECONDS);
+            // Waiting for all notifications to be emitted
+            Thread.sleep((notifications.size() + 1) * Interval);
+
+            assertFalse(receivedNotifications.isEmpty());
+
+            assertEquals(numberOfNotifications, receivedNotifications.size());
+            receivedNotifications.forEach(n -> {
+                assertTrue(n.hasDeviceStateNotifications());
+                assertFalse(n.hasAsynchronousResponseNotifications());
+                assertFalse(n.hasResourceValueNotifications());
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+        assertNotNull(handle);
+        assertTrue(handle.isCancelled());
+    }
 }

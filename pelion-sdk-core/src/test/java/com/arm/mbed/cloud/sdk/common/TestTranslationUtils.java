@@ -7,6 +7,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeThat;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -54,28 +56,30 @@ public class TestTranslationUtils {
 
     @Test
     public void testDatetimeTranslation() {
+        assumeThat(Locale.getDefault(), is(Locale.UK));
         String timestamp = "1989-12-09T12:52:32+12:45";
         Date date = null;
         try {
             date = TranslationUtils.convertStringToDate(timestamp);
-            System.out.println(date);
         } catch (MbedCloudException exception) {
             fail(exception.getMessage());
         }
         assertEquals("1989-12-09T00:07:32.000Z", TranslationUtils.toUtcTimestamp(date));
     }
-    // Test only passing when run in the UK
-    // @Test
-    // public void testToDefaultTimestamp() {
-    // String timestamp = "11-Aug-2017 18:33:35";
-    // Calendar calendar = Calendar.getInstance(Locale.getDefault());
-    // calendar.set(2017, 7, 11, 18, 33, 35);
-    // calendar.set(Calendar.MILLISECOND, 0);
-    // assertEquals(timestamp, TranslationUtils.toDefaultTimestamp(calendar.getTime()));
-    // }
+
+    @Test
+    public void testToDefaultTimestamp() {
+        assumeThat(Locale.getDefault(), is(Locale.UK));
+        String timestamp = "11-Aug-2017 18:33:35";
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        calendar.set(2017, 7, 11, 18, 33, 35);
+        calendar.set(Calendar.MILLISECOND, 0);
+        assertEquals(timestamp, TranslationUtils.toDefaultTimestamp(calendar.getTime()));
+    }
 
     @Test
     public void testToRFC3339Timestamp() {
+        assumeThat(Locale.getDefault(), is(Locale.UK));
         String timestamp1 = "2017-08-11T18:33:35+0100";
         String timestamp2 = "2017-08-11T17:33:35+0000";
         String timestamp3 = "2017-08-11T17:33:35Z";
@@ -91,6 +95,7 @@ public class TestTranslationUtils {
 
     @Test
     public void testToRFC3339TimestampUsingJodaImplementation() {
+        assumeThat(Locale.getDefault(), is(Locale.UK));
         String timestamp = "2017-08-11T17:33:35.000Z";
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("CET"));
@@ -102,6 +107,7 @@ public class TestTranslationUtils {
 
     @Test
     public void testConvertTimestampStringDate() {
+        assumeThat(Locale.getDefault(), is(Locale.UK));
         String timestamp = "2017-08-11T19:33:35+0000";
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -116,6 +122,7 @@ public class TestTranslationUtils {
 
     @Test
     public void testConvertTimestampStringDateUsingJodaImplementation() {
+        assumeThat(Locale.getDefault(), is(Locale.UK));
         String timestamp = "2017-08-11T19:33:35Z";
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -199,6 +206,7 @@ public class TestTranslationUtils {
 
     @Test
     public void testAllDateManipulations() {
+        assumeThat(Locale.getDefault(), is(Locale.UK));
         String timestamp = "1971-12-08T01:04:45+12:45";
         String timestampInUtc = "1971-12-07T12:19:45.000Z";
         try {
@@ -215,6 +223,7 @@ public class TestTranslationUtils {
 
     @Test
     public void testConvertRFC3339TimestampStringDate() {
+        assumeThat(Locale.getDefault(), is(Locale.UK));
         String timestamp = "Fri, 11 Aug 2017 19:33:35 GMT"; // timestamp not following RFC
         Date now = new Date();
         Date date = TranslationUtils.convertRfc3339Timestamp(timestamp, now);
@@ -229,6 +238,7 @@ public class TestTranslationUtils {
 
     @Test
     public void testConvertTimestampStringDateFormatDate() {
+        assumeThat(Locale.getDefault(), is(Locale.UK));
         String timestamp = "Fri, 11 Aug 2017 19:33:35 GMT";
         Date now = new Date();
         Date date = TranslationUtils.convertTimestamp(timestamp, new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z"),
@@ -275,6 +285,7 @@ public class TestTranslationUtils {
 
     @Test
     public final void testConvertTimestampStringDateFormat() {
+        assumeThat(Locale.getDefault(), is(Locale.UK));
         String timestamp = "Fri, 11 Aug 2017 19:33:35 GMT";
         Date date = null;
         try {
@@ -291,6 +302,7 @@ public class TestTranslationUtils {
 
     @Test
     public void testToTimestamp() {
+        assumeThat(Locale.getDefault(), is(Locale.UK));
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
         calendar.set(2017, 7, 11, 19, 33, 35);

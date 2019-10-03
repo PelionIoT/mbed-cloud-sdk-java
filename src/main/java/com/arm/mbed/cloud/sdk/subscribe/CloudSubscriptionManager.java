@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
+import com.arm.mbed.cloud.sdk.subscribe.model.AllNotificationsObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
@@ -123,6 +124,16 @@ public interface CloudSubscriptionManager extends SubscriptionManager {
     AsynchronousResponseObserver asynchronousResponse(@Nullable String requestId, @Nullable Resource resource,
                                                       boolean notifyOtherObservers,
                                                       @NonNull @DefaultValue(DEFAULT_BACKPRESSURE_STRATEGY) BackpressureStrategy strategy);
+
+    /**
+     * Creates an observer {@link Observer } which listens to all notifications from the Cloud.
+     * 
+     * @param strategy
+     *            backpressure strategy to apply to underlying communication channel. @see {@link BackpressureStrategy}
+     * @return registered observer which listens to all notifications from the Cloud.
+     */
+    @Nullable
+    AllNotificationsObserver allNotifications(@NonNull @DefaultValue(DEFAULT_BACKPRESSURE_STRATEGY) BackpressureStrategy strategy);
     // TODO the following
     // @Nullable
     // Object currentResourceValue(...)
