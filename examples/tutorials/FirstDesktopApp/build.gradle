@@ -21,10 +21,10 @@ mainClassName = 'App'
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
-    //compile 'com.google.guava:guava:23.0'
-    //compile 'org.slf4j:slf4j-simple:1.7.25'
-    compile 'org.slf4j:slf4j-nop:1.7.25'
-    compile 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.2.8'
+    //implementation 'com.google.guava:guava:23.0'
+    //implementation 'org.slf4j:slf4j-simple:1.7.25'
+    implementation 'org.slf4j:slf4j-nop:1.7.25'
+    implementation 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:2.4.0'
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
