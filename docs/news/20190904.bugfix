@@ -1,0 +1,1 @@
+Fix NullPointException during subscribing to connected devices.
