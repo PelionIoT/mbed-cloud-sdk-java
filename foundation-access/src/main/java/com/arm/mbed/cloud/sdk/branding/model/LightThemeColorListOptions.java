@@ -112,14 +112,12 @@ public class LightThemeColorListOptions extends ListOptions {
      * 
      * @param after
      *            value.
-     * @param include
-     *            value.
      * @param filter
      *            value.
      */
     @Internal
-    public LightThemeColorListOptions(String after, List<IncludeField> include, Filters filter) {
-        this((Integer) null, (Long) null, Order.getDefault(), after, include, filter);
+    public LightThemeColorListOptions(String after, Filters filter) {
+        this((Integer) null, (Long) null, Order.getDefault(), after, (List<IncludeField>) null, filter);
     }
 
     /**
