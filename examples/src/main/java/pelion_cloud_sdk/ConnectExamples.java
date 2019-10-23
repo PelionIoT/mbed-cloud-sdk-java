@@ -19,7 +19,10 @@ import com.arm.mbed.cloud.sdk.connect.model.Metric;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsPeriodListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsStartEndListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
+import com.arm.mbed.cloud.sdk.connect.model.ResourceDao;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
+import com.arm.mbed.cloud.sdk.connect.model.WebhookDao;
+import com.arm.mbed.cloud.sdk.connect.subscription.ResourceValueType;
 import com.arm.mbed.cloud.sdk.devices.model.Device;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions;
@@ -108,8 +111,7 @@ public class ConnectExamples extends AbstractExample {
             }
             log("Resource of interest", resourceToConsider);
             // Getting resource value
-            Object value = sdk.lowLevelRest().getConnectModule().getResourceValue(resourceToConsider,
-                                                                                  new TimePeriod(10));
+            Object value = sdk.resource(resourceToConsider).read(new TimePeriod(10));
             log("Resource value", value);
         } catch (Exception e) {
             fail(e.getMessage());
@@ -148,20 +150,22 @@ public class ConnectExamples extends AbstractExample {
             }
             log("Resource of interest", resource);
             // uncloak
-            // Getting resource value
+            ResourceDao resourceDao = sdk.resource(resource);
             // cloak
-            Object value = sdk.lowLevelRest().getConnectModule().getResourceValue(resource, new TimePeriod(10));
+            // Getting resource value
+            Object value = resourceDao.read(new TimePeriod(10));
             log("Current resource value", value);
             // uncloak
             // Set a resource value
-            sdk.lowLevelRest().getConnectModule().setResourceValue(resource, "12", new TimePeriod(10));
+            resourceDao.update("12", ResourceValueType.STRING, new TimePeriod(10));
             // Get a resource value
-            value = sdk.lowLevelRest().getConnectModule().getResourceValue(resource, new TimePeriod(10));
+            value = resourceDao.read(new TimePeriod(10));
             // cloak
             log("Newly set resource value", value);
             // uncloak
             System.out.println("Device " + device.getId() + ", path " + resource.getPath() + ", current value: "
                                + value);
+            resourceDao.close();
         } catch (Exception e) {
             e.printStackTrace();
             // cloak
@@ -345,12 +349,13 @@ public class ConnectExamples extends AbstractExample {
     public void useServerInitiatedNotificationChannel() {
         // an example: using a webhook for handling notifications from Pelion Cloud
         // Ensure no daemon threads are started.
-        try (Sdk sdk = Sdk.createSdk(Configuration.get().autostartDaemon(false))) {
+        try (Sdk sdk = Sdk.createSdk(Configuration.get().autostartDaemon(false));
+             WebhookDao webhookDao = sdk.notifications().webhook()) {
             // Describing a webhook to use (i.e. a publicly available webserver accepting POST request).
             Webhook webhook = new Webhook(new URL("http://mbedcloudjavawebhooktest.requestcatcher.com/test"));
             log("Webhook", webhook);
-            // Registering the webhook to Pelion Cloud.
-            sdk.lowLevelRest().getConnectModule().updateWebhook(webhook);
+            // Registering the webhook to Pelion Cloud. ;
+            webhookDao.update(webhook);
             // Defining a resource to listen to
             String resourcePath = "/5002/0/1";
             log("Resource path of interest", resourcePath);
@@ -359,11 +364,11 @@ public class ConnectExamples extends AbstractExample {
                           BackpressureStrategy.MISSING)
                .flow().subscribe();
             // Ensuring the webhook has been correctly registered
-            log("Registered webhook", sdk.lowLevelRest().getConnectModule().getWebhook());
+            log("Registered webhook", webhookDao.read());
             // Waiting for notifications to be sent to the webhook.
             Thread.sleep(60000);// TODO do some actual work in your application
             // Unlink the webhook.
-            sdk.lowLevelRest().getConnectModule().deleteWebhook();
+            webhookDao.delete();
         } catch (Exception e) {
             fail(e.getMessage());
         }

@@ -22,6 +22,7 @@ import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
+import com.arm.mbed.cloud.sdk.subscribe.model.AllNotificationsObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
@@ -64,6 +65,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
                   new ResourceValueSubscriptionObserverStore(this.scheduler, getManagerReference()));
         store.put(SubscriptionType.ASYNCHRONOUS_RESPONSE,
                   new AsynchronousResponseSubscriptionObserverStore(this.scheduler, getManagerReference()));
+        store.put(SubscriptionType.ALL, new AllNotificationObserverStore(this.scheduler, getManagerReference()));
         this.resourceSubscriber = resourceSubscriber;
         this.resourceUnsubscriber = resourceUnsubscriber;
         this.resourceUnsubscriberAll = resourceUnsubscriberAll;
@@ -296,6 +298,11 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
     @Override
     public DeviceStateObserver deviceStateChanges(DeviceStateFilterOptions filter, BackpressureStrategy strategy) {
         return (DeviceStateObserver) createObserver(SubscriptionType.DEVICE_STATE_CHANGE, filter, strategy);
+    }
+
+    @Override
+    public AllNotificationsObserver allNotifications(BackpressureStrategy strategy) {
+        return (AllNotificationsObserver) createObserver(SubscriptionType.ALL, null, strategy);
     }
 
     /*

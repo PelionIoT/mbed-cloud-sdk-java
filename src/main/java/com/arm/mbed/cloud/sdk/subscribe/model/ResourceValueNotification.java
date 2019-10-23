@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.subscribe.model;
 
+import java.util.Objects;
+
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 
@@ -98,26 +100,11 @@ public class ResourceValueNotification extends NotificationWithPayload {
         return clone;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((deviceType == null) ? 0 : deviceType.hashCode());
-        result = prime * result + ((maxAge == null) ? 0 : maxAge.hashCode());
-        result = prime * result + ((resource == null) ? 0 : resource.hashCode());
-        return result;
+        return super.hashCode() + Objects.hash(deviceType, maxAge, resource);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -126,32 +113,30 @@ public class ResourceValueNotification extends NotificationWithPayload {
         if (!super.equals(obj)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof ResourceValueNotification)) {
             return false;
         }
         final ResourceValueNotification other = (ResourceValueNotification) obj;
-        if (deviceType == null) {
-            if (other.deviceType != null) {
-                return false;
-            }
-        } else if (!deviceType.equals(other.deviceType)) {
+        if (!other.canEqual(this)) {
             return false;
         }
-        if (maxAge == null) {
-            if (other.maxAge != null) {
-                return false;
-            }
-        } else if (!maxAge.equals(other.maxAge)) {
-            return false;
-        }
-        if (resource == null) {
-            if (other.resource != null) {
-                return false;
-            }
-        } else if (!resource.equals(other.resource)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(deviceType, other.deviceType) && Objects.equals(maxAge, other.maxAge)
+               && Objects.equals(resource, other.resource);
+    }
+
+    /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return other instanceof ResourceValueNotification;
     }
 
     /*

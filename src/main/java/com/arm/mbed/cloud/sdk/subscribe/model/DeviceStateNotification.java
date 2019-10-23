@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.subscribe.model;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
@@ -14,38 +15,53 @@ public class DeviceStateNotification implements NotificationMessageValue {
      * Serialisation Id.
      */
     private static final long serialVersionUID = 1638551463908650959L;
-    private final DeviceState state;
+    private final DeviceState event;
     private final String deviceId;
+    private final String endpointName;
     private String deviceType;
     private List<Resource> resources;
 
     /**
      * Constructor.
      *
-     * @param state
-     *            device state.
+     * @param event
+     *            device event.
      * @param deviceId
      *            device ID.
+     * @param endpointName
+     *            endpoint name
      */
-    public DeviceStateNotification(DeviceState state, String deviceId) {
+    public DeviceStateNotification(DeviceState event, String deviceId, String endpointName) {
         super();
-        this.state = state;
+        this.event = event;
         this.deviceId = deviceId;
+        this.endpointName = endpointName;
         deviceType = null;
         resources = null;
     }
 
     public DeviceStateNotification() {
-        this(DeviceState.UNKNOWN_ENUM, null);
+        this(DeviceState.UNKNOWN_ENUM, null, null);
     }
 
     /**
      * Gets device state.
      *
+     * @deprecated use {@link #getEvent()} instead.
      * @return the state
      */
+    @Deprecated
     public DeviceState getState() {
-        return state;
+        return event;
+    }
+
+    /**
+     * Gets device event.
+     *
+     * @return the event that happened (i.e. change of state)
+     */
+    public DeviceState getEvent() {
+        return event;
     }
 
     /**
@@ -55,6 +71,15 @@ public class DeviceStateNotification implements NotificationMessageValue {
      */
     public String getDeviceId() {
         return deviceId;
+    }
+
+    /**
+     * Gets the device endpoint name.
+     * 
+     * @return the endpoint name.
+     */
+    public String getEndpointName() {
+        return endpointName;
     }
 
     /**
@@ -111,27 +136,11 @@ public class DeviceStateNotification implements NotificationMessageValue {
         this.resources.add(resource);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((deviceId == null) ? 0 : deviceId.hashCode());
-        result = prime * result + ((deviceType == null) ? 0 : deviceType.hashCode());
-        result = prime * result + ((resources == null) ? 0 : resources.hashCode());
-        result = prime * result + ((state == null) ? 0 : state.hashCode());
-        return result;
+        return Objects.hash(deviceId, deviceType, endpointName, event, resources);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -140,35 +149,30 @@ public class DeviceStateNotification implements NotificationMessageValue {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof DeviceStateNotification)) {
             return false;
         }
         final DeviceStateNotification other = (DeviceStateNotification) obj;
-        if (deviceId == null) {
-            if (other.deviceId != null) {
-                return false;
-            }
-        } else if (!deviceId.equals(other.deviceId)) {
+        if (!other.canEqual(this)) {
             return false;
         }
-        if (deviceType == null) {
-            if (other.deviceType != null) {
-                return false;
-            }
-        } else if (!deviceType.equals(other.deviceType)) {
-            return false;
-        }
-        if (resources == null) {
-            if (other.resources != null) {
-                return false;
-            }
-        } else if (!resources.equals(other.resources)) {
-            return false;
-        }
-        if (state != other.state) {
-            return false;
-        }
-        return true;
+        return Objects.equals(deviceId, other.deviceId) && Objects.equals(deviceType, other.deviceType)
+               && Objects.equals(endpointName, other.endpointName) && event == other.event
+               && Objects.equals(resources, other.resources);
+    }
+
+    /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    protected boolean canEqual(Object other) {
+        return other instanceof DeviceStateNotification;
     }
 
     /*
@@ -178,7 +182,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
      */
     @Override
     public DeviceStateNotification clone() {
-        final DeviceStateNotification notification = new DeviceStateNotification(state, deviceId);
+        final DeviceStateNotification notification = new DeviceStateNotification(event, deviceId, endpointName);
         notification.setDeviceType(deviceType);
         notification.setResources((resources == null) ? null : new ArrayList<>(resources));
         return notification;
@@ -189,15 +193,10 @@ public class DeviceStateNotification implements NotificationMessageValue {
         return this;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
-        return "DeviceStateNotification [state=" + state + ", deviceId=" + deviceId + ", deviceType=" + deviceType
-               + ", resources=" + resources + "]";
+        return "DeviceStateNotification [event=" + event + ", deviceId=" + deviceId + ", endpointName=" + endpointName
+               + ", deviceType=" + deviceType + ", resources=" + resources + "]";
     }
 
 }
