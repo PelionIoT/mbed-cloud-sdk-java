@@ -530,8 +530,9 @@ workflows:
             - documentation
             - static_analysis
             - unit_tests
-            - run_production_integration_tests
-            - run_os2_integration_tests
+# Force deploy
+#             - run_production_integration_tests
+#             - run_os2_integration_tests
       - deploySDK:
           requires:
             - quality_report
