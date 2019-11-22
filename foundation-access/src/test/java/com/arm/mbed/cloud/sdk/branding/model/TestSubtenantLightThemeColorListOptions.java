@@ -19,10 +19,10 @@ public class TestSubtenantLightThemeColorListOptions {
     @Test
     public void testClone() {
         try {
-            SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions1 = new SubtenantLightThemeColorListOptions(Integer.valueOf(-40),
-                                                                                                                               Long.valueOf(-77),
+            SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions1 = new SubtenantLightThemeColorListOptions(Integer.valueOf(120),
+                                                                                                                               Long.valueOf(-37),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "6f3656ad-b117-41d7-896d-c66bd055560c",
+                                                                                                                               "b1dc813d-0f03-460d-ab59-40be5a65c6e7",
                                                                                                                                null,
                                                                                                                                null);
             SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions2 = subtenantlightthemecolorlistoptions1.clone();
@@ -42,16 +42,16 @@ public class TestSubtenantLightThemeColorListOptions {
     @Test
     public void testHashCode() {
         try {
-            SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions1 = new SubtenantLightThemeColorListOptions(Integer.valueOf(-88),
-                                                                                                                               Long.valueOf(33),
+            SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions1 = new SubtenantLightThemeColorListOptions(Integer.valueOf(16),
+                                                                                                                               Long.valueOf(-15),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "4d509a23-3c0a-4f88-9eed-62cdf4b32e38",
+                                                                                                                               "77419b24-93a2-4376-a47c-71ab9619c663",
                                                                                                                                null,
                                                                                                                                null);
-            SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions2 = new SubtenantLightThemeColorListOptions(Integer.valueOf(-88),
-                                                                                                                               Long.valueOf(33),
+            SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions2 = new SubtenantLightThemeColorListOptions(Integer.valueOf(16),
+                                                                                                                               Long.valueOf(-15),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "4d509a23-3c0a-4f88-9eed-62cdf4b32e38",
+                                                                                                                               "77419b24-93a2-4376-a47c-71ab9619c663",
                                                                                                                                null,
                                                                                                                                null);
             assertNotNull(subtenantlightthemecolorlistoptions1);
@@ -76,22 +76,22 @@ public class TestSubtenantLightThemeColorListOptions {
     @Test
     public void testEquals() {
         try {
-            SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions1 = new SubtenantLightThemeColorListOptions(Integer.valueOf(-23),
-                                                                                                                               Long.valueOf(-32),
+            SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions1 = new SubtenantLightThemeColorListOptions(Integer.valueOf(62),
+                                                                                                                               Long.valueOf(-69),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "3739cac9-4272-41cf-b813-ebfa529b7c61",
+                                                                                                                               "9e2ac9fa-49c7-45e8-bf01-a41a3621b2ac",
                                                                                                                                null,
                                                                                                                                null);
-            SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions2 = new SubtenantLightThemeColorListOptions(Integer.valueOf(-23),
-                                                                                                                               Long.valueOf(-32),
+            SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions2 = new SubtenantLightThemeColorListOptions(Integer.valueOf(62),
+                                                                                                                               Long.valueOf(-69),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "3739cac9-4272-41cf-b813-ebfa529b7c61",
+                                                                                                                               "9e2ac9fa-49c7-45e8-bf01-a41a3621b2ac",
                                                                                                                                null,
                                                                                                                                null);
-            SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions3 = new SubtenantLightThemeColorListOptions(Integer.valueOf(5),
-                                                                                                                               Long.valueOf(-5),
+            SubtenantLightThemeColorListOptions subtenantlightthemecolorlistoptions3 = new SubtenantLightThemeColorListOptions(Integer.valueOf(37),
+                                                                                                                               Long.valueOf(49),
                                                                                                                                Order.getDefault(),
-                                                                                                                               "0ee9ad68-9216-4ac3-b27d-678a12962e54",
+                                                                                                                               "4326ed7b-3fb6-46bf-9303-777ed4b4cc32",
                                                                                                                                null,
                                                                                                                                null);
             assertNotNull(subtenantlightthemecolorlistoptions1);

@@ -98,7 +98,7 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
      * {@link com.arm.mbed.cloud.sdk.Branding#deleteLightThemeColor(com.arm.mbed.cloud.sdk.branding.model.LightThemeColorReference)}
      * 
      * @param reference
-     *            Color name.
+     *            The name of the branding color.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */

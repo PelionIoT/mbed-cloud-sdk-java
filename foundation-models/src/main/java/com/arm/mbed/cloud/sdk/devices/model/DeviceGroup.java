@@ -26,8 +26,8 @@ public class DeviceGroup implements SdkModel {
     private final Date createdAt;
 
     /**
-     * Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are
-     * limited to 128 characters. Updating this field replaces existing contents.
+     * Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited to 128
+     * characters. Updating this field replaces existing contents.
      */
     private Map<String, String> customAttributes;
 
@@ -67,8 +67,8 @@ public class DeviceGroup implements SdkModel {
      * @param createdAt
      *            The time the campaign was created.
      * @param customAttributes
-     *            Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values
-     *            are limited to 128 characters. Updating this field replaces existing contents.
+     *            Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited
+     *            to 128 characters. Updating this field replaces existing contents.
      * @param description
      *            The description of the group.
      * @param devicesCount
@@ -167,8 +167,8 @@ public class DeviceGroup implements SdkModel {
     }
 
     /**
-     * Gets up to ten custom key-value attributes. note that keys cannot begin with a number. both keys and values are
-     * limited to 128 characters. updating this field replaces existing contents.
+     * Gets up to ten custom key-value attributes. keys cannot begin with a number. both key and value are limited to
+     * 128 characters. updating this field replaces existing contents.
      * 
      * @return customAttributes
      */
@@ -177,15 +177,15 @@ public class DeviceGroup implements SdkModel {
     }
 
     /**
-     * Sets up to ten custom key-value attributes. note that keys cannot begin with a number. both keys and values are
-     * limited to 128 characters. updating this field replaces existing contents.
+     * Sets up to ten custom key-value attributes. keys cannot begin with a number. both key and value are limited to
+     * 128 characters. updating this field replaces existing contents.
      *
      * <p>
      * Note: the number of elements has to be less than or equal to {@code 10} to be valid
      * 
      * @param customAttributes
-     *            Up to ten custom key-value attributes. Note that keys cannot begin with a number. Both keys and values
-     *            are limited to 128 characters. Updating this field replaces existing contents.
+     *            Up to ten custom key-value attributes. Keys cannot begin with a number. Both key and value are limited
+     *            to 128 characters. Updating this field replaces existing contents.
      */
     public void setCustomAttributes(Map<String, String> customAttributes) {
         this.customAttributes = customAttributes;

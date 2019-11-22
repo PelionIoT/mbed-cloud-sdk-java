@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**getMyApiKey**](AccountApiKeysApi.md#getMyApiKey) | **GET** v3/api-keys/me | Get API key details.
 [**removeApiKeyFromGroups**](AccountApiKeysApi.md#removeApiKeyFromGroups) | **DELETE** v3/api-keys/{apikey_id}/groups | Remove API key from groups.
 [**removeMyApiKeyFromGroups**](AccountApiKeysApi.md#removeMyApiKeyFromGroups) | **DELETE** v3/api-keys/me/groups | Remove API key from groups.
+[**resetSecret**](AccountApiKeysApi.md#resetSecret) | **POST** v3/api-keys/{apikey_id}/reset-secret | Reset the secret key.
 [**updateApiKey**](AccountApiKeysApi.md#updateApiKey) | **PUT** v3/api-keys/{apikey_id} | Update API key details.
 [**updateMyApiKey**](AccountApiKeysApi.md#updateMyApiKey) | **PUT** v3/api-keys/me | Update API key details.
 
@@ -646,6 +647,63 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="resetSecret"></a>
+# **resetSecret**
+> ApiKeyInfoResp resetSecret(apikeyId, body)
+
+Reset the secret key.
+
+Reset the secret key of the API key.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/reset-secret \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountApiKeysApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountApiKeysApi apiInstance = new AccountApiKeysApi();
+String apikeyId = "apikeyId_example"; // String | The ID of the API key to reset.
+ApiKeyUpdateReq body = new ApiKeyUpdateReq(); // ApiKeyUpdateReq | New API key attributes to be stored.
+try {
+    ApiKeyInfoResp result = apiInstance.resetSecret(apikeyId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountApiKeysApi#resetSecret");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apikeyId** | **String**| The ID of the API key to reset. |
+ **body** | [**ApiKeyUpdateReq**](ApiKeyUpdateReq.md)| New API key attributes to be stored. | [optional]
+
+### Return type
+
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 <a name="updateApiKey"></a>

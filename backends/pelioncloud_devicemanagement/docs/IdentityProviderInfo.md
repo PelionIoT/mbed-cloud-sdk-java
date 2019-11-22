@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **description** | **String** | Description for the identity provider. |  [optional]
 **etag** | **String** | API resource entity version. | 
 **id** | **String** | Entity ID. | 
+**isDefault** | **Boolean** | Flag indicating whether this is the global default identity provider. |  [optional]
 **name** | **String** | Name of the identity provider. | 
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;identity-provider&#39; | 
 **saml2Attributes** | [**SAML2Info**](SAML2Info.md) | SAML2 specific attributes. |  [optional]

@@ -5,6 +5,7 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 import com.arm.mbed.cloud.sdk.Accounts;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
@@ -12,6 +13,8 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 
 /**
  * Data Access Object (DAO) for api keys.
@@ -66,6 +69,65 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
      */
     public ApiKeyDao(SdkContext sdkContext) throws MbedCloudException {
         super(sdkContext);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of policy groups matching filter options.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyDao#allPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
+     * 
+     * @param options
+     *            list options.
+     * @return paginator over the list of policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<PolicyGroup> allPolicyGroups(@Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        return allPolicyGroups(options, getModel());
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
+     * 
+     * @param options
+     *            list options.
+     * @param apiKey
+     *            an api key.
+     * @return paginator over the list of policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<PolicyGroup> allPolicyGroups(@Nullable PolicyGroupListOptions options,
+                                                  @NonNull ApiKey apiKey) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allPolicyGroups(options, apiKey);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
+     * 
+     * @param id
+     *            The ID of the API key.
+     * @param options
+     *            list options.
+     * @return paginator over the list of policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<PolicyGroup> allPolicyGroups(@NonNull String id,
+                                                  @Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allPolicyGroups(id, options);
     }
 
     /**
@@ -233,6 +295,68 @@ public class ApiKeyDao extends AbstractModelDao<ApiKey> implements CrudDao<ApiKe
     @SuppressWarnings("PMD.ShortMethodName")
     public ApiKey me() throws MbedCloudException {
         return setAndGetModel(((Accounts) getModuleOrThrow()).myApiKey());
+    }
+
+    /**
+     * Get groups of the API key.
+     *
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.ApiKeyDao#policyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
+     * 
+     * @param options
+     *            list options.
+     * @return the list of policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<PolicyGroup> policyGroups(@Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        return policyGroups(options, getModel());
+    }
+
+    /**
+     * Get groups of the API key.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
+     * 
+     * @param options
+     *            list options.
+     * @param apiKey
+     *            an api key.
+     * @return the list of policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<PolicyGroup> policyGroups(@Nullable PolicyGroupListOptions options,
+                                                  @NonNull ApiKey apiKey) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).policyGroups(options, apiKey);
+    }
+
+    /**
+     * Get groups of the API key.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
+     * 
+     * @param id
+     *            The ID of the API key.
+     * @param options
+     *            list options.
+     * @return the list of policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<PolicyGroup> policyGroups(@NonNull String id,
+                                                  @Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).policyGroups(id, options);
     }
 
     /**

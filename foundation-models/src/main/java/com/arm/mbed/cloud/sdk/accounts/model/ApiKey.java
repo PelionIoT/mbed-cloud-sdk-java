@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -34,6 +35,11 @@ public class ApiKey implements SdkModel {
      * The timestamp of the API key creation in the storage, in milliseconds.
      */
     private final long creationTime;
+
+    /**
+     * A list of group IDs this API key belongs to.
+     */
+    private List<String> groups;
 
     /**
      * The ID of the API key.
@@ -85,6 +91,8 @@ public class ApiKey implements SdkModel {
      *            Creation UTC time RFC3339.
      * @param creationTime
      *            The timestamp of the API key creation in the storage, in milliseconds.
+     * @param groups
+     *            A list of group IDs this API key belongs to.
      * @param id
      *            The ID of the API key.
      * @param key
@@ -102,8 +110,8 @@ public class ApiKey implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public ApiKey(String accountId, Date createdAt, long creationTime, String id, String key, long lastLoginTime,
-                  String name, String owner, ApiKeyStatus status, Date updatedAt) {
+    public ApiKey(String accountId, Date createdAt, long creationTime, List<String> groups, String id, String key,
+                  long lastLoginTime, String name, String owner, ApiKeyStatus status, Date updatedAt) {
         super();
         this.accountId = accountId;
         this.createdAt = createdAt;
@@ -111,6 +119,7 @@ public class ApiKey implements SdkModel {
         this.key = key;
         this.lastLoginTime = lastLoginTime;
         this.updatedAt = updatedAt;
+        setGroups(groups);
         setId(id);
         setName(name);
         setOwner(owner);
@@ -131,10 +140,10 @@ public class ApiKey implements SdkModel {
     @Internal
     public ApiKey(ApiKey apiKey) {
         this(apiKey == null ? (String) null : apiKey.accountId, apiKey == null ? new Date() : apiKey.createdAt,
-             apiKey == null ? 0 : apiKey.creationTime, apiKey == null ? (String) null : apiKey.id,
-             apiKey == null ? (String) null : apiKey.key, apiKey == null ? 0 : apiKey.lastLoginTime,
-             apiKey == null ? (String) null : apiKey.name, apiKey == null ? (String) null : apiKey.owner,
-             apiKey == null ? ApiKeyStatus.getDefault() : apiKey.status,
+             apiKey == null ? 0 : apiKey.creationTime, apiKey == null ? (List<String>) null : apiKey.groups,
+             apiKey == null ? (String) null : apiKey.id, apiKey == null ? (String) null : apiKey.key,
+             apiKey == null ? 0 : apiKey.lastLoginTime, apiKey == null ? (String) null : apiKey.name,
+             apiKey == null ? (String) null : apiKey.owner, apiKey == null ? ApiKeyStatus.getDefault() : apiKey.status,
              apiKey == null ? new Date() : apiKey.updatedAt);
     }
 
@@ -142,8 +151,8 @@ public class ApiKey implements SdkModel {
      * Constructor.
      */
     public ApiKey() {
-        this((String) null, new Date(), 0, (String) null, (String) null, 0, (String) null, (String) null,
-             ApiKeyStatus.getDefault(), new Date());
+        this((String) null, new Date(), 0, (List<String>) null, (String) null, (String) null, 0, (String) null,
+             (String) null, ApiKeyStatus.getDefault(), new Date());
     }
 
     /**
@@ -184,8 +193,8 @@ public class ApiKey implements SdkModel {
      */
     @Internal
     public ApiKey(String accountId, Date createdAt, long creationTime, String key, long lastLoginTime, Date updatedAt) {
-        this(accountId, createdAt, creationTime, (String) null, key, lastLoginTime, (String) null, (String) null,
-             ApiKeyStatus.getDefault(), updatedAt);
+        this(accountId, createdAt, creationTime, (List<String>) null, (String) null, key, lastLoginTime, (String) null,
+             (String) null, ApiKeyStatus.getDefault(), updatedAt);
     }
 
     /**
@@ -213,6 +222,25 @@ public class ApiKey implements SdkModel {
      */
     public long getCreationTime() {
         return creationTime;
+    }
+
+    /**
+     * Gets a list of group ids this api key belongs to.
+     * 
+     * @return groups
+     */
+    public List<String> getGroups() {
+        return groups;
+    }
+
+    /**
+     * Sets a list of group ids this api key belongs to.
+     * 
+     * @param groups
+     *            A list of group IDs this API key belongs to.
+     */
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
     }
 
     /**
@@ -401,8 +429,8 @@ public class ApiKey implements SdkModel {
     @Override
     public String toString() {
         return "ApiKey [accountId=" + accountId + ", createdAt=" + createdAt + ", creationTime=" + creationTime
-               + ", id=" + id + ", key=" + key + ", lastLoginTime=" + lastLoginTime + ", name=" + name + ", owner="
-               + owner + ", status=" + status + ", updatedAt=" + updatedAt + "]";
+               + ", groups=" + groups + ", id=" + id + ", key=" + key + ", lastLoginTime=" + lastLoginTime + ", name="
+               + name + ", owner=" + owner + ", status=" + status + ", updatedAt=" + updatedAt + "]";
     }
 
     /**
@@ -420,6 +448,7 @@ public class ApiKey implements SdkModel {
         result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + Objects.hashCode(Long.valueOf(creationTime));
+        result = prime * result + ((groups == null) ? 0 : groups.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((key == null) ? 0 : key.hashCode());
         result = prime * result + Objects.hashCode(Long.valueOf(lastLoginTime));
@@ -485,6 +514,13 @@ public class ApiKey implements SdkModel {
             return false;
         }
         if (creationTime != other.creationTime) {
+            return false;
+        }
+        if (groups == null) {
+            if (other.groups != null) {
+                return false;
+            }
+        } else if (!groups.equals(other.groups)) {
             return false;
         }
         if (id == null) {

@@ -15,17 +15,20 @@ public interface NotificationsApi {
      * (PREVIEW) Open the websocket. (PREVIEW) A websocket channel can have only one active connection at a time. If a
      * websocket connection for a channel exists and a new connection to the same channel is made, the connection is
      * accepted and the older connection is closed. Once the socket has been opened, it may be closed with one of the
-     * following status codes. | Code | Description | |------|-------------| |**1000**|Socket closed by the client.|
-     * |**1001**|Going away. Set when another socket was opened on the used channel, or if the channel was deleted with
-     * a REST call, or if the server is shutting down.| |**1006**|Abnormal loss of connection. This code is never set by
-     * the service.| |**1008**|Policy violation. Set when the API key is missing or invalid.| |**1011**|Unexpected
-     * condition. Socket is closed with this status at an attempt to open a socket to an unexisting channel (without a
-     * prior REST PUT). This code is also used to indicate closing socket for any other unexpected condition in the
-     * server.| **Example:** &#x60;&#x60;&#x60; curl -X GET
-     * https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect \\ -H \&quot;Authorization:Bearer
-     * {apikey}\&quot; \\ -H \&quot;Connection:upgrade\&quot; \\ -H \&quot;Upgrade:websocket\&quot; \\ -H
-     * \&quot;Sec-WebSocket-Version: 13\&quot; \\ -H \&quot;Sec-WebSocket-Key: {base64nonce}\&quot; \\ -N -I
-     * &#x60;&#x60;&#x60;
+     * following status codes. &lt;table&gt; &lt;thead&gt; &lt;tr&gt; &lt;th&gt;Code&lt;/th&gt;
+     * &lt;th&gt;Description&lt;/th&gt; &lt;/tr&gt; &lt;/thead&gt; &lt;tbody&gt; &lt;tr&gt;
+     * &lt;td&gt;&lt;b&gt;1000&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Socket closed by the client.&lt;/td&gt; &lt;/tr&gt;
+     * &lt;tr&gt; &lt;td&gt;&lt;b&gt;1001&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Going away. Set when another socket opens on
+     * the used channel, the channel is deleted with a REST call, or the server is shutting down.&lt;/td&gt; &lt;/tr&gt;
+     * &lt;tr&gt; &lt;td&gt;&lt;b&gt;1008&lt;/b&gt;&lt;/td&gt; &lt;td&gt;Policy violation. Set when the API key is
+     * missing or invalid.&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&lt;b&gt;1011&lt;/b&gt;&lt;/td&gt;
+     * &lt;td&gt;Unexpected condition. Socket is closed with this status at an attempt to open a socket to a nonexistent
+     * channel (without a prior PUT request). This code is also used to indicate closing socket for any other unexpected
+     * condition in the server.&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; **Example:** &#x60;&#x60;&#x60;
+     * curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/websocket-connect \\ -H
+     * \&quot;Authorization:Bearer {apikey}\&quot; \\ -H \&quot;Connection:upgrade\&quot; \\ -H
+     * \&quot;Upgrade:websocket\&quot; \\ -H \&quot;Sec-WebSocket-Version: 13\&quot; \\ -H \&quot;Sec-WebSocket-Key:
+     * {base64nonce}\&quot; \\ -N -I &#x60;&#x60;&#x60;
      * 
      * @param connection
      *            (required)
@@ -34,7 +37,7 @@ public interface NotificationsApi {
      * @param origin
      *            Originating host of the request. (required)
      * @param secWebSocketVersion
-     *            WebSocket version. must be 13. (required)
+     *            WebSocket version. Must be 13. (required)
      * @param secWebSocketKey
      *            The value of this header field must be a nonce consisting of a randomly selected 16-byte value that
      *            has been base64-encoded (see Section 4 of [RFC4648]). The nonce must be selected randomly for each
@@ -144,24 +147,24 @@ public interface NotificationsApi {
     Call<NotificationMessage> longPollNotifications();
 
     /**
-     * Register a callback URL. Register a URL to which the server should deliver notifications of the subscribed
-     * resource changes. To push notifications, you must place subscriptions. The maximum length of the URL, header
-     * keys, and values, all combined, is 400 characters. Notifications are delivered as PUT requests to the HTTP
-     * server, defined by the client with a subscription server message. The given URL should be accessible and respond
-     * to the PUT request with a response code of 200 or 204. Device Management Connect tests the callback URL with an
-     * empty payload when the URL is registered. Callback implementation does not support URL redirection. For more
-     * information on notification messages, see [NotificationMessage](#NotificationMessage). **Optional headers in a
-     * callback message:** You can set optional headers to a callback in a **Webhook** object. Device Management Connect
-     * includes the header and key pairs in the notification messages send them to callback URL. The callback URLs and
-     * headers are API key-specific. One possible use for additional headers is checking the origin of a PUT request, as
-     * well as distinguishing the application (API key) to which the notification belongs. **Note**: Only one callback
-     * URL per API key can be active. If you register a new URL while another one is active, it replaces the active one.
-     * There can be only one notification channel at a time. If another type of channel is already present, you need to
-     * delete it before setting the callback URL. **Expiration of a callback URL:** A callback can expire when Device
-     * Management cannot deliver a notification due to a connection timeout or an error response (4xx or 5xx). After
-     * each delivery failure, Device Management sets an exponential back off time and makes a retry attempt after that.
-     * The first retry delay is 1 second, then 2s, 4s, 8s, up to maximum delay of two minutes. The callback URL is
-     * removed if all retries fail within 24 hours. More about [notification sending
+     * Register a callback URL. Register a URL to which the server delivers notifications of changes to the subscribed
+     * resource. To push notifications, you must first place subscriptions. The maximum length of the URL, header keys,
+     * and values, all combined, is 400 characters. Notifications are delivered as PUT requests to the HTTP server,
+     * which the client defines with a subscription server message. The given URL must be accessible, and respond to the
+     * PUT request with a response code of 200 or 204. Device Management Connect tests the callback URL with an empty
+     * JSON payload &#x60;{}&#x60; when the URL is registered. Callback implementation does not support URL redirection.
+     * For more information on notification messages, see [NotificationMessage](#NotificationMessage). **Optional
+     * headers in a callback message:** You can set optional headers to a callback in a **Webhook** object. Device
+     * Management Connect includes the header and key pairs in the notification messages send them to callback URL. The
+     * callback URLs and headers are API key-specific. One possible use for additional headers is checking the origin of
+     * a PUT request, as well as distinguishing the application (API key) to which the notification belongs. **Note**:
+     * Only one callback URL per API key can be active. If you register a new URL while another one is active, it
+     * replaces the active one. There can be only one notification channel at a time. If another type of channel is
+     * already present, you need to delete it before setting the callback URL. **Expiration of a callback URL:** A
+     * callback can expire when Device Management cannot deliver a notification due to a connection timeout or an error
+     * response (4xx or 5xx). After each delivery failure, Device Management sets an exponential back off time and makes
+     * a retry attempt after that. The first retry delay is 1 second, then 2s, 4s, 8s, up to maximum delay of two
+     * minutes. The callback URL is removed if all retries fail within 24 hours. More about [notification sending
      * logic](../integrate-web-app/event-notification.html#notification-sending-logic). **Supported callback URL
      * protocols:** Currently, only HTTP and HTTPS protocols are supported. **HTTPS callback URLs:** When delivering a
      * notification to an HTTPS based callback URL, Device Management Connect presents a valid client certificate to

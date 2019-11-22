@@ -90,6 +90,81 @@ public class AccountDao extends AbstractModelDao<Account>
      *
      * <p>
      * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param keyEq
+     *            a string
+     * @param ownerEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant api keys
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantApiKey>
+           allApiKeys(@NonNull String id, @Nullable String keyEq, @Nullable String ownerEq,
+                      @Nullable SubtenantApiKeyListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allApiKeys(id, keyEq, ownerEq, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountDao#allApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param keyEq
+     *            a string
+     * @param ownerEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant api keys
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantApiKey>
+           allApiKeys(@Nullable String keyEq, @Nullable String ownerEq,
+                      @Nullable SubtenantApiKeyListOptions options) throws MbedCloudException {
+        return allApiKeys(keyEq, ownerEq, options, getModel());
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param keyEq
+     *            a string
+     * @param ownerEq
+     *            a string
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return paginator over the list of subtenant api keys
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantApiKey> allApiKeys(@Nullable String keyEq, @Nullable String ownerEq,
+                                                 @Nullable SubtenantApiKeyListOptions options,
+                                                 @NonNull Account account) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allApiKeys(keyEq, ownerEq, options, account);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
+     *
+     * <p>
+     * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
      * 
      * @param id
@@ -597,6 +672,80 @@ public class AccountDao extends AbstractModelDao<Account>
      *
      * <p>
      * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param emailEq
+     *            a string
+     * @param loginProfilesEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant users
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantUser> allUsers(@NonNull String id, @Nullable String emailEq,
+                                             @Nullable String loginProfilesEq,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allUsers(id, emailEq, loginProfilesEq, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountDao#allUsers(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param emailEq
+     *            a string
+     * @param loginProfilesEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant users
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantUser> allUsers(@Nullable String emailEq, @Nullable String loginProfilesEq,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        return allUsers(emailEq, loginProfilesEq, options, getModel());
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param emailEq
+     *            a string
+     * @param loginProfilesEq
+     *            a string
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return paginator over the list of subtenant users
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantUser> allUsers(@Nullable String emailEq, @Nullable String loginProfilesEq,
+                                             @Nullable SubtenantUserListOptions options,
+                                             @NonNull Account account) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allUsers(emailEq, loginProfilesEq, options, account);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     *
+     * <p>
+     * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
      * 
      * @param id
@@ -649,6 +798,84 @@ public class AccountDao extends AbstractModelDao<Account>
     public Paginator<SubtenantUser> allUsers(@Nullable SubtenantUserListOptions options,
                                              @NonNull Account account) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).allUsers(options, account);
+    }
+
+    /**
+     * Get all API keys.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#apiKeys(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param keyEq
+     *            a string
+     * @param ownerEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return the list of subtenant api keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantApiKey>
+           apiKeys(@NonNull String id, @Nullable String keyEq, @Nullable String ownerEq,
+                   @Nullable SubtenantApiKeyListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).apiKeys(id, keyEq, ownerEq, options);
+    }
+
+    /**
+     * Get all API keys.
+     *
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountDao#apiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param keyEq
+     *            a string
+     * @param ownerEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return the list of subtenant api keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantApiKey>
+           apiKeys(@Nullable String keyEq, @Nullable String ownerEq,
+                   @Nullable SubtenantApiKeyListOptions options) throws MbedCloudException {
+        return apiKeys(keyEq, ownerEq, options, getModel());
+    }
+
+    /**
+     * Get all API keys.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#apiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param keyEq
+     *            a string
+     * @param ownerEq
+     *            a string
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return the list of subtenant api keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantApiKey> apiKeys(@Nullable String keyEq, @Nullable String ownerEq,
+                                                 @Nullable SubtenantApiKeyListOptions options,
+                                                 @NonNull Account account) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).apiKeys(keyEq, ownerEq, options, account);
     }
 
     /**
@@ -1578,6 +1805,83 @@ public class AccountDao extends AbstractModelDao<Account>
     public ListResponse<SubtenantUserInvitation> userInvitations(@Nullable SubtenantUserInvitationListOptions options,
                                                                  @NonNull Account account) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).userInvitations(options, account);
+    }
+
+    /**
+     * Get the details of all users.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#users(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param emailEq
+     *            a string
+     * @param loginProfilesEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return the list of subtenant users corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantUser> users(@NonNull String id, @Nullable String emailEq,
+                                             @Nullable String loginProfilesEq,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).users(id, emailEq, loginProfilesEq, options);
+    }
+
+    /**
+     * Get the details of all users.
+     *
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountDao#users(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param emailEq
+     *            a string
+     * @param loginProfilesEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return the list of subtenant users corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantUser> users(@Nullable String emailEq, @Nullable String loginProfilesEq,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        return users(emailEq, loginProfilesEq, options, getModel());
+    }
+
+    /**
+     * Get the details of all users.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#users(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param emailEq
+     *            a string
+     * @param loginProfilesEq
+     *            a string
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return the list of subtenant users corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantUser> users(@Nullable String emailEq, @Nullable String loginProfilesEq,
+                                             @Nullable SubtenantUserListOptions options,
+                                             @NonNull Account account) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).users(emailEq, loginProfilesEq, options, account);
     }
 
     /**

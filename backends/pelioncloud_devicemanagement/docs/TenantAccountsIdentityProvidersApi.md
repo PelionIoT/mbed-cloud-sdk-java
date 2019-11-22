@@ -10,12 +10,13 @@ Method | HTTP request | Description
 [**generateAccountSpCertificate**](TenantAccountsIdentityProvidersApi.md#generateAccountSpCertificate) | **POST** v3/accounts/{account_id}/identity-providers/{identity_provider_id}/generate-sp-certificate | Generate a new service provider certificate.
 [**getAccountIdentityProvider**](TenantAccountsIdentityProvidersApi.md#getAccountIdentityProvider) | **GET** v3/accounts/{account_id}/identity-providers/{identity_provider_id} | Retrieve identity provider by ID.
 [**getAllAccountIdentityProviders**](TenantAccountsIdentityProvidersApi.md#getAllAccountIdentityProviders) | **GET** v3/accounts/{account_id}/identity-providers | Get all identity providers.
+[**refreshAccountJwks**](TenantAccountsIdentityProvidersApi.md#refreshAccountJwks) | **POST** v3/accounts/{account_id}/identity-providers/{identity_provider_id}/refresh-jwks | Refreshes the OIDC signing keys.
 [**updateAccountIdentityProvider**](TenantAccountsIdentityProvidersApi.md#updateAccountIdentityProvider) | **PUT** v3/accounts/{account_id}/identity-providers/{identity_provider_id} | Update an existing identity provider.
 
 
 <a name="createAccountIdentityProvider"></a>
 # **createAccountIdentityProvider**
-> IdentityProviderInfo createAccountIdentityProvider(accountId, body)
+> IdentityProviderInfo createAccountIdentityProvider(accountId, body, discovery)
 
 Create a new identity provider.
 
@@ -41,8 +42,9 @@ Bearer.setApiKey("YOUR API KEY");
 TenantAccountsIdentityProvidersApi apiInstance = new TenantAccountsIdentityProvidersApi();
 String accountId = "accountId_example"; // String | Account ID.
 IdentityProviderCreationReq body = new IdentityProviderCreationReq(); // IdentityProviderCreationReq | Details of the identity provider to create.
+Boolean discovery = true; // Boolean | Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint * jwks_uri * keys
 try {
-    IdentityProviderInfo result = apiInstance.createAccountIdentityProvider(accountId, body);
+    IdentityProviderInfo result = apiInstance.createAccountIdentityProvider(accountId, body, discovery);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TenantAccountsIdentityProvidersApi#createAccountIdentityProvider");
@@ -56,6 +58,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| Account ID. |
  **body** | [**IdentityProviderCreationReq**](IdentityProviderCreationReq.md)| Details of the identity provider to create. |
+ **discovery** | **Boolean**| Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint * jwks_uri * keys | [optional]
 
 ### Return type
 
@@ -363,9 +366,66 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="refreshAccountJwks"></a>
+# **refreshAccountJwks**
+> IdentityProviderInfo refreshAccountJwks(accountId, identityProviderId)
+
+Refreshes the OIDC signing keys.
+
+Refreshes an OIDC IdP&#39;s signing keys.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsIdentityProvidersApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TenantAccountsIdentityProvidersApi apiInstance = new TenantAccountsIdentityProvidersApi();
+String accountId = "accountId_example"; // String | The ID of the account to be managed.
+String identityProviderId = "identityProviderId_example"; // String | The ID of the identity provider for which to refresh the signing keys.
+try {
+    IdentityProviderInfo result = apiInstance.refreshAccountJwks(accountId, identityProviderId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TenantAccountsIdentityProvidersApi#refreshAccountJwks");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| The ID of the account to be managed. |
+ **identityProviderId** | **String**| The ID of the identity provider for which to refresh the signing keys. |
+
+### Return type
+
+[**IdentityProviderInfo**](IdentityProviderInfo.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="updateAccountIdentityProvider"></a>
 # **updateAccountIdentityProvider**
-> IdentityProviderInfo updateAccountIdentityProvider(accountId, identityProviderId, body)
+> IdentityProviderInfo updateAccountIdentityProvider(accountId, identityProviderId, body, discovery)
 
 Update an existing identity provider.
 
@@ -392,8 +452,9 @@ TenantAccountsIdentityProvidersApi apiInstance = new TenantAccountsIdentityProvi
 String accountId = "accountId_example"; // String | Account ID.
 String identityProviderId = "identityProviderId_example"; // String | The ID of the identity provider to update.
 IdentityProviderUpdateReq body = new IdentityProviderUpdateReq(); // IdentityProviderUpdateReq | Details of the identity provider to update.
+Boolean discovery = true; // Boolean | Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint * jwks_uri * keys
 try {
-    IdentityProviderInfo result = apiInstance.updateAccountIdentityProvider(accountId, identityProviderId, body);
+    IdentityProviderInfo result = apiInstance.updateAccountIdentityProvider(accountId, identityProviderId, body, discovery);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TenantAccountsIdentityProvidersApi#updateAccountIdentityProvider");
@@ -408,6 +469,7 @@ Name | Type | Description  | Notes
  **accountId** | **String**| Account ID. |
  **identityProviderId** | **String**| The ID of the identity provider to update. |
  **body** | [**IdentityProviderUpdateReq**](IdentityProviderUpdateReq.md)| Details of the identity provider to update. |
+ **discovery** | **Boolean**| Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint * jwks_uri * keys | [optional]
 
 ### Return type
 

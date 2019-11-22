@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,8 +41,6 @@ import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
-import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
-import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.connect.adapters.MetricAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.PresubscriptionAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.ResourceAdapter;
@@ -62,11 +61,10 @@ import com.arm.mbed.cloud.sdk.connect.subscription.ResourceAction;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceActionParameters;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceValueType;
 import com.arm.mbed.cloud.sdk.connect.subscription.adapters.ResourceActionAdapter;
-import com.arm.mbed.cloud.sdk.devicedirectory.adapters.DeviceAdapter;
-import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
-import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceState;
 import com.arm.mbed.cloud.sdk.devices.model.Device;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceListDao;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceState;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
@@ -97,16 +95,13 @@ public class Connect extends AbstractModule {
     private static final String TAG_PRESUBSCRIPTION = "presubscription";
     private static final String TAG_ON_NOTIFICATION_CALLBACK = "on notification callback";
     private static final String TAG_WEBHOOK = "webhook";
-    private static final Filter CONNECTED_DEVICES_FILTER = new Filter("state", FilterOperator.EQUAL,
-                                                                      DeviceState.getIsConnectedState().getString());
     private static final String TAG_RESOURCE = "resource";
-    private static final String FALSE = "false";
     private static final String TAG_RESOURCE_PATH = "resource path";
     private static final String TAG_METRIC_OPTIONS = "Metric options";
     private static final String TAG_DEVICE_ID = "Device Id";
     private static final String TAG_DEVICE = "Device";
     private final EndPoints endpoint;
-    private final DeviceDirectory deviceDirectory;
+
     protected final NotificationHandlersStore handlersStore;
     protected final AtomicReference<DeliveryMethod> deliveryMethod;
     private final Object presubscriptionLock = new Object();
@@ -165,8 +160,6 @@ public class Connect extends AbstractModule {
         super(options);
         deliveryMethod = new AtomicReference<DeliveryMethod>(DeliveryMethod.UNDEFINED);
         endpoint = new EndPoints(this.serviceRegistry);
-        deviceDirectory = new DeviceDirectory(options);
-        deviceDirectory.shareNetworkLayer(this);
         this.handlersStore = new NotificationHandlersStore(this, notificationListeningThreadPool,
                                                            notificationHandlingThreadPool, endpoint);
 
@@ -283,7 +276,6 @@ public class Connect extends AbstractModule {
     public void shutdownConnectService() {
         logger.logInfo(getModuleName() + ": shutdownConnectService()");
         handlersStore.shutdown();
-        deviceDirectory.close();
         client.close();
     }
 
@@ -297,68 +289,6 @@ public class Connect extends AbstractModule {
             // Nothing to do
         }
         shutdownConnectService();
-    }
-
-    /**
-     * Lists connected devices (One page).
-     * <p>
-     * 
-     * @deprecated Use {@link DeviceListDao} instead
-     * @param options
-     *            filter options
-     * @return the list of connected devices (One page).
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable ListResponse<com.arm.mbed.cloud.sdk.devicedirectory.model.Device>
-           listConnectedDevices(DeviceListOptions options) throws MbedCloudException {
-        return deviceDirectory.listDevicesWithExtraFilters("listConnectedDevices()", options, CONNECTED_DEVICES_FILTER);
-    }
-
-    /**
-     * Gets an iterator over all connected devices according to filter options.
-     * <p>
-     * 
-     * @deprecated Use {@link DeviceListDao} instead
-     * @param options
-     *            filter options.
-     * @return paginator @see {@link Paginator} for the list of devices corresponding to filter options.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable Paginator<com.arm.mbed.cloud.sdk.devicedirectory.model.Device>
-           listAllConnectedDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
-        return new Paginator<>((options == null) ? new DeviceListOptions() : options,
-                               new PageRequester<com.arm.mbed.cloud.sdk.devicedirectory.model.Device>() {
-
-                                   @Override
-                                   public ListResponse<com.arm.mbed.cloud.sdk.devicedirectory.model.Device>
-                                          requestNewPage(ListOptions opt) throws MbedCloudException {
-                                       return listConnectedDevices((DeviceListOptions) opt);
-                                   }
-                               });
-    }
-
-    /**
-     * Lists device's resources.
-     * <p>
-     * 
-     * @deprecated use {@link #listResources(Device)} instead.
-     * @param device
-     *            Device.
-     * @return list of resources present on a device.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable List<Resource>
-           listResources(@NonNull com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) throws MbedCloudException {
-        return listResources(DeviceAdapter.mapToFoundation(device));
     }
 
     /**
@@ -391,26 +321,6 @@ public class Connect extends AbstractModule {
     /**
      * Lists device's observable resources.
      *
-     * @deprecated use {@link #listObservableResources(Device)} instead
-     * @see Resource#isObservable()
-     *      <p>
-     *
-     * @param device
-     *            Device.
-     * @return list of observable resources present on a device.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable List<Resource>
-           listObservableResources(@NonNull com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) throws MbedCloudException {
-        return listObservableResources(DeviceAdapter.mapToFoundation(device));
-    }
-
-    /**
-     * Lists device's observable resources.
-     *
      * @see Resource#isObservable()
      *      <p>
      *
@@ -433,27 +343,6 @@ public class Connect extends AbstractModule {
             }
         }
         return observableResources.isEmpty() ? null : observableResources;
-    }
-
-    /**
-     * Gets device's resource.
-     * <p>
-     * 
-     * @deprecated use {@link #getResource(Device, String)} instead.
-     *
-     * @param device
-     *            Device.
-     * @param resourcePath
-     *            Path of the resource to get
-     * @return resource present on the device.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable Resource getResource(@NonNull com.arm.mbed.cloud.sdk.devicedirectory.model.Device device,
-                                          @NonNull String resourcePath) throws MbedCloudException {
-        return getResource(DeviceAdapter.mapToFoundation(device), resourcePath);
     }
 
     /**
@@ -484,24 +373,6 @@ public class Connect extends AbstractModule {
             }
         }
         return null;
-    }
-
-    /**
-     * Lists a device's subscriptions.
-     * <p>
-     * 
-     * @deprecated use {@link #listDeviceSubscriptions(Device)} instead.
-     * @param device
-     *            Device.
-     * @return list of subscriptions
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable List<String>
-           listDeviceSubscriptions(@NonNull com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) throws MbedCloudException {
-        return listDeviceSubscriptions(DeviceAdapter.mapToFoundation(device));
     }
 
     /**
@@ -703,9 +574,10 @@ public class Connect extends AbstractModule {
 
                     @Override
                     public Call<Void> call() {
-                        return endpoint.getAsync().createAsyncRequest(finalArgs.getResource().getDeviceId(),
-                                                                      finalArgs.getAsyncId(),
-                                                                      finalMapper.map(finalArgs));
+                        return endpoint.getAsync()
+                                       .createAsyncRequest(finalArgs.getResource().getDeviceId(),
+                                                           finalArgs.getAsyncId(), finalMapper.map(finalArgs),
+                                                           finalArgs.getRetries(), finalArgs.getExpirySeconds());
                     }
                 });
 
@@ -762,62 +634,7 @@ public class Connect extends AbstractModule {
     /**
      * Gets a resource value for a given device id and resource path.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     Future<Object> futureLedPattern = connectApi.getResourceValueAsync(deviceId, resourcePath, false, false);
-     *     String ledPattern = (String)futureLedPattern.get();
-     *     System.out.println("LED pattern from device: " + ledPattern);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param deviceId
-     *            The name/id of the device.
-     * @param resourcePath
-     *            The resource path to get.
-     * @param cacheOnly
-     *            If true, the response will come only from the cache.
-     * @param noResponse
-     *            If true, Pelion Device Connector will not wait for a response.
-     * @return A Future from which it is possible to obtain resource value.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable Future<Object>
-           getResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath,
-                                 @DefaultValue(value = FALSE) boolean cacheOnly,
-                                 @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
-        return getResourceValueAsync(deviceId, resourcePath);
-    }
-
-    /**
-     * Gets a resource value for a given device id and resource path.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     Future<Object> futureLedPattern = connectApi.getResourceValueAsync(deviceId, resourcePath);
-     *     String ledPattern = (String)futureLedPattern.get();
-     *     System.out.println("LED pattern from device: " + ledPattern);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
+     * 
      * @param deviceId
      *            The name/id of the device.
      * @param resourcePath
@@ -837,66 +654,7 @@ public class Connect extends AbstractModule {
     /**
      * Gets a resource value for a given device id and resource path.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     Device device = new Device();
-     *     device.setId("015f4ac587f500000000000100100249");
-     *     String resourcePath = "/3201/0/5853";
-     *     Resource resource = connectApi.getResource(device, resourcePath);
-    
-     *     Future<Object> futureLedPattern = connectApi.getResourceValueAsync(resource, false, false);
-     *     String ledPattern = (String)futureLedPattern.get();
-     *     System.out.println("LED pattern from device: " + ledPattern);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param resource
-     *            The resource to get the value of.
-     * @param cacheOnly
-     *            If true, the response will come only from the cache.
-     * @param noResponse
-     *            If true, Pelion Device Connector will not wait for a response.
-     * @return A Future from which it is possible to obtain resource value.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable Future<Object>
-           getResourceValueAsync(@NonNull Resource resource, @DefaultValue(value = FALSE) boolean cacheOnly,
-                                 @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
-        return getResourceValueAsync(resource);
-
-    }
-
-    /**
-     * Gets a resource value for a given device id and resource path.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     Device device = new Device();
-     *     device.setId("015f4ac587f500000000000100100249");
-     *     String resourcePath = "/3201/0/5853";
-     *     Resource resource = connectApi.getResource(device, resourcePath);
-    
-     *     Future<Object> futureLedPattern = connectApi.getResourceValueAsync(resource);
-     *     String ledPattern = (String)futureLedPattern.get();
-     *     System.out.println("LED pattern from device: " + ledPattern);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
+     * 
      * @param resource
      *            The resource to get the value of.
      * @return A Future from which it is possible to obtain resource value.
@@ -909,49 +667,6 @@ public class Connect extends AbstractModule {
         checkModelValidity(resource, TAG_RESOURCE);
         return convertObserverToFuture(createCurrentResourceValueObserver(resource, BackpressureStrategy.BUFFER));
 
-    }
-
-    /**
-     * Gets a resource value for a given device id and resource path.
-     * <p>
-     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     String ledPattern = String.valueOf(connectApi.getResourceValue(deviceId, resourcePath, false, false, new TimePeriod(5)));
-     *     System.out.println("LED pattern from device: " + ledPattern);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param deviceId
-     *            The name/id of the device.
-     * @param resourcePath
-     *            The resource path to get.
-     * @param cacheOnly
-     *            If true, the response will come only from the cache.
-     * @param noResponse
-     *            If true, Pelion Device Connector will not wait for a response.
-     * @param timeout
-     *            Timeout for the request.
-     * @return resource value.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable Object getResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
-                                             @DefaultValue(value = FALSE) boolean cacheOnly,
-                                             @DefaultValue(value = FALSE) boolean noResponse,
-                                             @Nullable TimePeriod timeout) throws MbedCloudException {
-        return getResourceValue(deviceId, resourcePath, timeout);
     }
 
     /**
@@ -996,65 +711,6 @@ public class Connect extends AbstractModule {
      * Gets a resource value for a given device id and resource path.
      * <p>
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     Resource resource = new Resource(deviceId, resourcePath);
-     *     String ledPattern = String.valueOf(connectApi.getResourceValue(resource, false, false, new TimePeriod(5)));
-     *     System.out.println("LED pattern from device: " + ledPattern);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param resource
-     *            The resource to get the value of.
-     * @param cacheOnly
-     *            If true, the response will come only from the cache.
-     * @param noResponse
-     *            If true, Pelion Device Connector will not wait for a response.
-     * @param timeout
-     *            Timeout for the request.
-     * @return resource value.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable Object getResourceValue(@NonNull Resource resource, @DefaultValue(value = FALSE) boolean cacheOnly,
-                                             @DefaultValue(value = FALSE) boolean noResponse,
-                                             @Nullable TimePeriod timeout) throws MbedCloudException {
-        return getResourceValue(resource, timeout);
-
-    }
-
-    /**
-     * Gets a resource value for a given device id and resource path.
-     * <p>
-     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     Resource resource = new Resource(deviceId, resourcePath);
-     *     String ledPattern = String.valueOf(connectApi.getResourceValue(resource, new TimePeriod(5)));
-     *     System.out.println("LED pattern from device: " + ledPattern);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
      *
      * @param resource
      *            The resource path to get the value of.
@@ -1086,47 +742,6 @@ public class Connect extends AbstractModule {
 
     /**
      * Sets the value of a resource.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     String resourceValue = "500:500:500";
-     *
-     *     Future<Object> futureLedPattern = connectApi.setResourceValueAsync(deviceId, resourcePath, resourceValue, false);
-     *     String setValue = (String)futureLedPattern.get();
-     *     assert setValue == resourceValue;
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param deviceId
-     *            The name/id of the device.
-     * @param resourcePath
-     *            The resource path to get.
-     * @param resourceValue
-     *            value to set.
-     * @param noResponse
-     *            If true, Pelion Device Connector will not wait for a response.
-     * @return A Future from which it is possible to set the value.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable Future<Object>
-           setResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath, @Nullable String resourceValue,
-                                 @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
-        return setResourceValueAsync(deviceId, resourcePath, resourceValue, ResourceValueType.STRING);
-    }
-
-    /**
-     * Sets the value of a resource.
      * 
      * @param deviceId
      *            The name/id of the device.
@@ -1151,46 +766,6 @@ public class Connect extends AbstractModule {
 
     /**
      * Sets the value of a resource.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     String resourceValue = "500:500:500";
-     *     Resource resource = new Resource(deviceId, resourcePath);
-     *     Future<Object> futureLedPattern = connectApi.setResourceValueAsync(resource, resourceValue, false);
-     *     String setValue = (String)futureLedPattern.get();
-     *     assert setValue == resourceValue;
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param resource
-     *            The resource to set the value of.
-     * @param resourceValue
-     *            value to set.
-     * @param noResponse
-     *            If true, Pelion Cloud will not wait for a response.
-     * 
-     * @return A Future from which it is possible to set the value.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @Deprecated
-    @API
-    public @Nullable Future<Object>
-           setResourceValueAsync(@NonNull Resource resource, @Nullable String resourceValue,
-                                 @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
-        return setResourceValueAsync(resource, resourceValue, ResourceValueType.STRING);
-    }
-
-    /**
-     * Sets the value of a resource.
      * 
      * @param resource
      *            The resource to set the value of.
@@ -1211,52 +786,6 @@ public class Connect extends AbstractModule {
         checkNotNull(valueType, TAG_VALUE_TYPE);
         return convertObserverToFuture(createSetResourceValueObserver(resource, BackpressureStrategy.BUFFER,
                                                                       resourceValue, valueType));
-    }
-
-    /**
-     * Sets the value of a resource.
-     * <p>
-     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     String resourceValue = "500:500:500";
-     *
-     *     Object resultObject = connectApi.setResourceValue(deviceId, resourcePath, resourceValue, false, new TimePeriod(5));
-     *     String setValue = (String)resultObject;
-     *     assert setValue == resourceValue;
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param deviceId
-     *            The name/id of the device.
-     * @param resourcePath
-     *            The resource path to get.
-     * @param resourceValue
-     *            value to set.
-     * @param noResponse
-     *            If true, Pelion Device Connector will not wait for a response.
-     * @param timeout
-     *            Timeout for the request.
-     * @return The value of the new resource.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable Object setResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
-                                             @Nullable String resourceValue,
-                                             @DefaultValue(value = FALSE) boolean noResponse,
-                                             @Nullable TimePeriod timeout) throws MbedCloudException {
-        return setResourceValue(deviceId, resourcePath, resourceValue, ResourceValueType.STRING, timeout);
     }
 
     /**
@@ -1316,50 +845,6 @@ public class Connect extends AbstractModule {
      * Sets the value of a resource.
      * <p>
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     Resource resource = new Resource(deviceId, resourcePath);
-     *     String resourceValue = "500:500:500";
-     *
-     *     Object resultObject = connectApi.setResourceValue(resource, resourceValue, new TimePeriod(5));
-     *     String setValue = (String)resultObject;
-     *     assert setValue == resourceValue;
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param resource
-     *            The resource to set the value of.
-     * @param resourceValue
-     *            value to set.
-     * @param noResponse
-     *            If true, Pelion Device Connector will not wait for a response.
-     * @param timeout
-     *            Timeout for the request.
-     * @return The value of the new resource.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @Deprecated
-    @API
-    public @Nullable Object setResourceValue(@NonNull Resource resource, @Nullable String resourceValue,
-                                             @DefaultValue(value = FALSE) boolean noResponse,
-                                             @Nullable TimePeriod timeout) throws MbedCloudException {
-        return setResourceValue(resource, resourceValue, ResourceValueType.STRING, timeout);
-    }
-
-    /**
-     * Sets the value of a resource.
-     * <p>
-     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * 
      * @param resource
      *            The resource to set the value of.
@@ -1401,25 +886,7 @@ public class Connect extends AbstractModule {
      * <p>
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     Resource resource = new Resource(deviceId, resourcePath);
-     *     String resourceValue = "500:500:500";
-     *
-     *     Object resultObject = connectApi.setResourceValue(resource, resourceValue, new TimePeriod(5));
-     *     String setValue = (String)resultObject;
-     *     assert setValue == resourceValue;
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
+     * 
      * @param resource
      *            The resource to set the value of.
      * @param resourceValue
@@ -1434,89 +901,6 @@ public class Connect extends AbstractModule {
     public @Nullable Object setResourceValue(@NonNull Resource resource, @Nullable String resourceValue,
                                              @Nullable TimePeriod timeout) throws MbedCloudException {
         return setResourceValue(resource, resourceValue, ResourceValueType.STRING, timeout);
-    }
-
-    /**
-     * Executes a function on a resource.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     String functionName = null;
-     *
-     *     Future<Object> resultObject = connectApi.executeResourceAsync(deviceId, resourcePath, functionName, false);
-     *     String resultValue = (String)resultObject.get();
-     *     System.out.println("Result from the function executed: " + resultValue);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param deviceId
-     *            The name/id of the device.
-     * @param resourcePath
-     *            The resource path to get.
-     * @param functionName
-     *            The function to trigger.
-     * @param noResponse
-     *            If true, Pelion Device Connector will not wait for a response.
-     * @return A Future from which it is possible to get the value returned from the function executed on the resource.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @Deprecated
-    @API
-    public @Nullable Future<Object>
-           executeResourceAsync(@NonNull String deviceId, @NonNull String resourcePath, @Nullable String functionName,
-                                @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
-        checkNotNull(deviceId, TAG_DEVICE_ID);
-        checkNotNull(resourcePath, TAG_RESOURCE_PATH);
-        return executeResourceAsync(new Resource(deviceId, resourcePath), functionName);
-    }
-
-    /**
-     * Executes a function on a resource.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     Resource resource = new Resource(deviceId, resourcePath);
-     *     String functionName = null;
-     *
-     *     Future<Object> resultObject = connectApi.executeResourceAsync(resource, functionName, false);
-     *     String resultValue = (String)resultObject.get();
-     *     System.out.println("Result from the function executed: " + resultValue);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param resource
-     *            The resource to execute the function on.
-     * @param functionName
-     *            The function to trigger.
-     * @param noResponse
-     *            If true, Pelion Device Connector will not wait for a response.
-     * @return A Future from which it is possible to get the value returned from the function executed on the resource.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @Deprecated
-    @API
-    public @Nullable Future<Object>
-           executeResourceAsync(@NonNull Resource resource, @Nullable String functionName,
-                                @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
-        return executeResourceAsync(resource, functionName);
     }
 
     /**
@@ -1537,94 +921,6 @@ public class Connect extends AbstractModule {
         checkModelValidity(resource, TAG_RESOURCE);
         return convertObserverToFuture(createExecuteResourceValueObserver(resource, BackpressureStrategy.BUFFER,
                                                                           functionName, ResourceValueType.STRING));
-    }
-
-    /**
-     * Executes a function on a resource.
-     * <p>
-     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     String functionName = null;
-     *
-     *     Object resultObject = connectApi.executeResource(deviceId, resourcePath, functionName, false, new TimePeriod(5));
-     *     System.out.println("Result from the function executed: " + (String)resultObject);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param deviceId
-     *            The name/id of the device.
-     * @param resourcePath
-     *            The resource path to get.
-     * @param functionName
-     *            The function to trigger.
-     * @param noResponse
-     *            If true, Pelion Device Connector will not wait for a response.
-     * @param timeout
-     *            Timeout for the request.
-     * @return the value returned from the function executed on the resource.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @Deprecated
-    @API
-    public @Nullable Object executeResource(@NonNull String deviceId, @NonNull String resourcePath,
-                                            @Nullable String functionName,
-                                            @DefaultValue(value = FALSE) boolean noResponse,
-                                            @Nullable TimePeriod timeout) throws MbedCloudException {
-        return executeResource(new Resource(deviceId, resourcePath), functionName, timeout);
-    }
-
-    /**
-     * Executes a function on a resource.
-     * <p>
-     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     Resource resource = new Resource(deviceId, resourcePath);
-     *     String functionName = null;
-     *
-     *     Object resultObject = connectApi.executeResource(resource, functionName, false, new TimePeriod(5));
-     *     System.out.println("Result from the function executed: " + (String)resultObject);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param resource
-     *            The resource path to execute the function on.
-     * @param functionName
-     *            The function to trigger.
-     * @param noResponse
-     *            If true, Pelion Device Connector will not wait for a response.
-     * @param timeout
-     *            Timeout for the request.
-     * @return the value returned from the function executed on the resource.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public @Nullable Object executeResource(@NonNull Resource resource, @Nullable String functionName,
-                                            @DefaultValue(value = FALSE) boolean noResponse,
-                                            @Nullable TimePeriod timeout) throws MbedCloudException {
-        return executeResource(resource, functionName, timeout);
     }
 
     /**
@@ -1678,23 +974,6 @@ public class Connect extends AbstractModule {
     /**
      * Lists pre-subscription data.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     List<Presubscription> presubscriptions = connectApi.listPresubscriptions();
-     *     for (Presubscription presub : presubscriptions) {
-     *         System.out.println("Device (" + presub.getDeviceId() + ") has subscriptions to resources: ");
-     *         for (String resource : presub.getResourcePaths()) {
-     *             System.out.println(resource);
-     *         }
-     *     }
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
      *
      * @return the list of pre-subscription data.
      * @throws MbedCloudException
@@ -1709,31 +988,7 @@ public class Connect extends AbstractModule {
     /**
      * Updates all pre-subscription data.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *
-     *     Presubscription presub1 = new Presubscription();
-     *     presub1.setDeviceType("default");
-     *     List<String> resourceList1 = Arrays.asList("/3201/0/5850", "/3201/0/5853");
-     *     presub1.setResourcePaths(resourceList1);
-     *
-     *     Presubscription presub2 = new Presubscription();
-     *     presub2.setDeviceId(deviceId);
-     *     List<String> resourceList2 = Arrays.asList("/3200/0/5501");
-     *     presub2.setResourcePaths(resourceList2);
-     *
-     *     List<Presubscription> presubscriptions = Arrays.asList(presub1, presub2);
-     *     connectApi.updatePresubscriptions(presubscriptions);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
+     * 
      * @param presubscriptions
      *            The pre-subscription list to update.
      *            <p>
@@ -1966,11 +1221,15 @@ public class Connect extends AbstractModule {
         // The following is a workaround until there is a Pelion Cloud endpoint providing such an action.
         logger.logWarn("deleteSubscriptions() could be slow for large numbers of connected devices. "
                        + "If possible, explicitly delete subscriptions known to have been created.");
-        final Paginator<com.arm.mbed.cloud.sdk.devicedirectory.model.Device> connectedDevices = listAllConnectedDevices(null);
-        if (connectedDevices != null) {
-            for (final com.arm.mbed.cloud.sdk.devicedirectory.model.Device connectedDevice : connectedDevices) {
-                deleteDeviceSubscriptions(connectedDevice);
+        try (DeviceListDao dao = new DeviceListDao(this)) {
+            final Paginator<Device> connectedDevices = dao.list(new DeviceListOptions().equalToState(DeviceState.REGISTERED));
+            if (connectedDevices != null) {
+                for (final Device connectedDevice : connectedDevices) {
+                    deleteDeviceSubscriptions(connectedDevice);
+                }
             }
+        } catch (IOException exception) {
+            throw new MbedCloudException(exception);
         }
         // When such an endpoint is created, use some code similar to below.
         // CloudCaller.call(this, "deleteSubscriptions()", null, new CloudCall<Void>() {
@@ -1981,22 +1240,6 @@ public class Connect extends AbstractModule {
         // }
         // });
         // deregisterAllResourceSubscriptionObserversOrCallbacks();
-    }
-
-    /**
-     * Removes all subscriptions.
-     * <p>
-     * 
-     * @deprecated use {@link #deleteSubscriptions()} instead.
-     *
-     * 
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public void deleteSubscribers() throws MbedCloudException {
-        deleteSubscriptions();
     }
 
     /**
@@ -2016,36 +1259,20 @@ public class Connect extends AbstractModule {
         logger.logWarn("listSubscriptions() could be slow for large numbers of connected devices.");
         final List<Subscription> subscriptions = new LinkedList<>();
         // The following is a workaround until there is a Pelion Cloud endpoint providing such an action.
-        final Paginator<com.arm.mbed.cloud.sdk.devicedirectory.model.Device> connectedDevices = listAllConnectedDevices(null);
-        if (connectedDevices != null) {
-            for (final com.arm.mbed.cloud.sdk.devicedirectory.model.Device connectedDevice : connectedDevices) {
-                final List<String> deviceSubscriptions = listDeviceSubscriptions(connectedDevice);
-                if (deviceSubscriptions != null) {
-                    subscriptions.add(new Subscription(connectedDevice.getId(), deviceSubscriptions));
+        try (DeviceListDao dao = new DeviceListDao(this)) {
+            final Paginator<Device> connectedDevices = dao.list(new DeviceListOptions().equalToState(DeviceState.REGISTERED));
+            if (connectedDevices != null) {
+                for (final Device connectedDevice : connectedDevices) {
+                    final List<String> deviceSubscriptions = listDeviceSubscriptions(connectedDevice);
+                    if (deviceSubscriptions != null) {
+                        subscriptions.add(new Subscription(connectedDevice.getId(), deviceSubscriptions));
+                    }
                 }
             }
+            return subscriptions.isEmpty() ? null : subscriptions;
+        } catch (IOException exception) {
+            throw new MbedCloudException(exception);
         }
-        return subscriptions.isEmpty() ? null : subscriptions;
-    }
-
-    /**
-     * Deletes a device's subscriptions.
-     * <p>
-     * Note: this method will deregister all subscription callbacks or observers for this device if any.
-     * <p>
-     * 
-     * @deprecated use {@link #deleteDeviceSubscriptions(Device)} instead.
-     *
-     * @param device
-     *            Device to consider.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    @Deprecated
-    public void
-           deleteDeviceSubscriptions(@NonNull com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) throws MbedCloudException {
-        deleteDeviceSubscriptions(DeviceAdapter.mapToFoundation(device));
     }
 
     /**
@@ -2171,21 +1398,6 @@ public class Connect extends AbstractModule {
     /**
      * Subscribes to a resource.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3200/0/5501";
-     *     Resource buttonResource = new Resource(deviceId, resourcePath);
-     *
-     *     connectApi.addResourceSubscription(buttonResource);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
      *
      * @param resource
      *            resource to subscribe to.
@@ -2211,29 +1423,6 @@ public class Connect extends AbstractModule {
     /**
      * Subscribes to a resource and associates callbacks.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3200/0/5501";
-     *     Resource buttonResource = new Resource(deviceId, resourcePath);
-     *     Callback<Object> callback = new Callback<Object>() {
-     *
-     *         &#64;Override
-     *         public void execute(Object arg) {
-     *             System.out.println("Just received a notification from " + device.getId() + " regarding " + path
-     *                     + ": " + String.valueOf(arg));
-     *
-     *         }
-     *     };
-     *     connectApi.addResourceSubscription(resource,callback, null);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
      *
      * @param resource
      *            resource to subscribe to.
@@ -2256,18 +1445,6 @@ public class Connect extends AbstractModule {
      * <p>
      * Note: for more information about observers @see <a href="http://reactivex.io/">Reactive X</a> or
      * <a href="https://github.com/ReactiveX/RxJava">RxJava</a> *
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {
-     * {@code String resourcePath = "/3200/0/5501";
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     Resource resource = new Resource(deviceId, path);
-     *     connectApi.addResourceSubscription(resource, BackpressureStrategy.BUFFER)
-     *                   .subscribe(System.out::println);
-     * }
-     * </pre>
      *
      * @param resource
      *            resource to subscribe to.
@@ -2295,26 +1472,6 @@ public class Connect extends AbstractModule {
     /**
      * Registers a subscription callback for a resource.
      * <p>
-     * Example:
-     *
-     * <pre>
-     * {
-     * {@code String resourcePath = "/3200/0/5501";
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     Resource resource = new Resource(deviceId, path);
-     *     Callback<Object> callback = new Callback<Object>() {
-     *
-     *         &#64;Override
-     *         public void execute(Object arg) {
-     *             System.out.println("Just received a notification from " + device.getId() + " regarding " + path
-     *                     + ": " + String.valueOf(arg));
-     *
-     *         }
-     *     };
-     *     connectApi.registerResourceSubscriptionCallback(resource, callback, null);
-     *     connectApi.addResourceSubscription(resource);
-     * }
-     * </pre>
      *
      * @param resource
      *            resource to register the callback for.
@@ -2338,18 +1495,6 @@ public class Connect extends AbstractModule {
     /**
      * Deregisters the subscription callback of a resource.
      * <p>
-     * Example:
-     *
-     * <pre>
-     *
-     * {
-     *     &#64;code
-     *     String resourcePath = "/3200/0/5501";
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     Resource resource = new Resource(deviceId, path);
-     *     connectApi.deregisterResourceSubscriptionCallback(resource);
-     * }
-     * </pre>
      *
      * @param resource
      *            resource to consider.
@@ -2368,19 +1513,6 @@ public class Connect extends AbstractModule {
      * <p>
      * Note: for more information about observers @see <a href="http://reactivex.io/">Reactive X</a> or
      * <a href="https://github.com/ReactiveX/RxJava">RxJava</a> *
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {
-     * {@code String resourcePath = "/3200/0/5501";
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     Resource resource = new Resource(deviceId, path);
-     *     connectApi.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
-     *                   .subscribe(System.out::println);
-     *     connectApi.addResourceSubscription(resource);
-     * }
-     * </pre>
      *
      * @param resource
      *            resource to subscribe to.
@@ -2419,23 +1551,6 @@ public class Connect extends AbstractModule {
     /**
      * Deregisters all subscription observers or callbacks for a device.
      * <p>
-     * 
-     * @deprecated use {@link #deregisterAllResourceSubscriptionObserversOrCallbacks()}
-     * @param device
-     *            device to consider.
-     * @throws MbedCloudException
-     *             if an error occurred in the process.
-     */
-    @API
-    @Deprecated
-    public void
-           deregisterAllResourceSubscriptionObserversOrCallbacks(@NonNull com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) throws MbedCloudException {
-        deregisterAllResourceSubscriptionObserversOrCallbacks(DeviceAdapter.mapToFoundation(device));
-    }
-
-    /**
-     * Deregisters all subscription observers or callbacks for a device.
-     * <p>
      *
      * 
      * @param device
@@ -2453,15 +1568,6 @@ public class Connect extends AbstractModule {
 
     /**
      * Deregisters all subscription observers or callbacks.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     *
-     * {@code
-     *     connectApi.deregisterAllResourceSubscriptionObserversOrCallbacks();
-     * }
-     * </pre>
      */
     @API
     public void deregisterAllResourceSubscriptionObserversOrCallbacks() {
@@ -2473,22 +1579,6 @@ public class Connect extends AbstractModule {
      * <p>
      * Note: this method will deregister all subscription callbacks or observers for this resource if any.
      * <p>
-     *
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3200/0/5501";
-     *     Resource buttonResource = new Resource(deviceId, resourcePath);
-     *
-     *     connectApi.deleteResourceSubscription(buttonResource);
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
      *
      * @param resource
      *            resource to subscribe to.
@@ -2641,23 +1731,6 @@ public class Connect extends AbstractModule {
     public boolean isSkipCleanup() {
         final ConnectionOptions config = getConnectionOption();
         return config == null ? false : config.isSkipCleanup();
-    }
-
-    /**
-     * Sets whether any existing notification channel should be cleared before a new one is created.
-     * <p>
-     * Note: use {@link ConnectionOptions#setForceClear(boolean)} instead.
-     * 
-     * @param isForceClear
-     *            force clear mode on.
-     */
-    @Deprecated
-    public void setForceClear(boolean isForceClear) {
-        final ConnectionOptions config = getConnectionOption();
-        if (config == null) {
-            return;
-        }
-        config.setForceClear(true);
     }
 
     /**

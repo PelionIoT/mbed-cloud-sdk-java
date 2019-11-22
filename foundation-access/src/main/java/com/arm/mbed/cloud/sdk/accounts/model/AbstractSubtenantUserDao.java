@@ -15,6 +15,8 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 
 /**
  * Data Access Object (DAO) for subtenant users.
@@ -70,6 +72,70 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
      */
     public AbstractSubtenantUserDao(SdkContext sdkContext) throws MbedCloudException {
         super(sdkContext);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the user.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantPolicyGroup>
+           allPolicyGroups(@NonNull String accountId, @NonNull String id,
+                           @Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allPolicyGroups(accountId, id, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserDao#allPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
+     * 
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantPolicyGroup>
+           allPolicyGroups(@Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        return allPolicyGroups(options, getModel());
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
+     * 
+     * @param options
+     *            list options.
+     * @param subtenantUser
+     *            a subtenant user.
+     * @return paginator over the list of subtenant policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantPolicyGroup>
+           allPolicyGroups(@Nullable SubtenantPolicyGroupListOptions options,
+                           @NonNull SubtenantUser subtenantUser) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allPolicyGroups(options, subtenantUser);
     }
 
     /**
@@ -290,6 +356,73 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Accounts(context);
+    }
+
+    /**
+     * Get user's groups.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the user.
+     * @param options
+     *            list options.
+     * @return the list of subtenant policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantPolicyGroup>
+           policyGroups(@NonNull String accountId, @NonNull String id,
+                        @Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).policyGroups(accountId, id, options);
+    }
+
+    /**
+     * Get user's groups.
+     *
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserDao#policyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
+     * 
+     * @param options
+     *            list options.
+     * @return the list of subtenant policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantPolicyGroup>
+           policyGroups(@Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        return policyGroups(options, getModel());
+    }
+
+    /**
+     * Get user's groups.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
+     * 
+     * @param options
+     *            list options.
+     * @param subtenantUser
+     *            a subtenant user.
+     * @return the list of subtenant policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantPolicyGroup>
+           policyGroups(@Nullable SubtenantPolicyGroupListOptions options,
+                        @NonNull SubtenantUser subtenantUser) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).policyGroups(options, subtenantUser);
     }
 
     /**

@@ -42,6 +42,11 @@ public class UserInvitation implements SdkModel {
     private final Date expiration;
 
     /**
+     * A list of IDs of the groups the user is invited to.
+     */
+    private List<String> groups;
+
+    /**
      * The ID of the invitation.
      */
     private String id;
@@ -77,6 +82,8 @@ public class UserInvitation implements SdkModel {
      *            Email address of the invited user.
      * @param expiration
      *            Invitation expiration as UTC time RFC3339.
+     * @param groups
+     *            A list of IDs of the groups the user is invited to.
      * @param id
      *            The ID of the invitation.
      * @param loginProfiles
@@ -89,8 +96,8 @@ public class UserInvitation implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public UserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
-                          List<LoginProfile> loginProfiles, Date updatedAt, String userId) {
+    public UserInvitation(String accountId, Date createdAt, String email, Date expiration, List<String> groups,
+                          String id, List<LoginProfile> loginProfiles, Date updatedAt, String userId) {
         super();
         this.accountId = accountId;
         this.createdAt = createdAt;
@@ -98,6 +105,7 @@ public class UserInvitation implements SdkModel {
         this.updatedAt = updatedAt;
         this.userId = userId;
         setEmail(email);
+        setGroups(groups);
         setId(id);
         setLoginProfiles(loginProfiles);
     }
@@ -119,6 +127,7 @@ public class UserInvitation implements SdkModel {
              userInvitation == null ? new Date() : userInvitation.createdAt,
              userInvitation == null ? (String) null : userInvitation.email,
              userInvitation == null ? new Date() : userInvitation.expiration,
+             userInvitation == null ? (List<String>) null : userInvitation.groups,
              userInvitation == null ? (String) null : userInvitation.id,
              userInvitation == null ? (List<LoginProfile>) null : userInvitation.loginProfiles,
              userInvitation == null ? new Date() : userInvitation.updatedAt,
@@ -129,8 +138,8 @@ public class UserInvitation implements SdkModel {
      * Constructor.
      */
     public UserInvitation() {
-        this((String) null, new Date(), (String) null, new Date(), (String) null, (List<LoginProfile>) null, new Date(),
-             (String) null);
+        this((String) null, new Date(), (String) null, new Date(), (List<String>) null, (String) null,
+             (List<LoginProfile>) null, new Date(), (String) null);
     }
 
     /**
@@ -169,8 +178,8 @@ public class UserInvitation implements SdkModel {
      */
     @Internal
     public UserInvitation(String accountId, Date createdAt, Date expiration, Date updatedAt, String userId) {
-        this(accountId, createdAt, (String) null, expiration, (String) null, (List<LoginProfile>) null, updatedAt,
-             userId);
+        this(accountId, createdAt, (String) null, expiration, (List<String>) null, (String) null,
+             (List<LoginProfile>) null, updatedAt, userId);
     }
 
     /**
@@ -231,6 +240,25 @@ public class UserInvitation implements SdkModel {
      */
     public Date getExpiration() {
         return expiration;
+    }
+
+    /**
+     * Gets a list of ids of the groups the user is invited to.
+     * 
+     * @return groups
+     */
+    public List<String> getGroups() {
+        return groups;
+    }
+
+    /**
+     * Sets a list of ids of the groups the user is invited to.
+     * 
+     * @param groups
+     *            A list of IDs of the groups the user is invited to.
+     */
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
     }
 
     /**
@@ -332,8 +360,8 @@ public class UserInvitation implements SdkModel {
     @Override
     public String toString() {
         return "UserInvitation [accountId=" + accountId + ", createdAt=" + createdAt + ", email=" + email
-               + ", expiration=" + expiration + ", id=" + id + ", loginProfiles=" + loginProfiles + ", updatedAt="
-               + updatedAt + ", userId=" + userId + "]";
+               + ", expiration=" + expiration + ", groups=" + groups + ", id=" + id + ", loginProfiles=" + loginProfiles
+               + ", updatedAt=" + updatedAt + ", userId=" + userId + "]";
     }
 
     /**
@@ -352,6 +380,7 @@ public class UserInvitation implements SdkModel {
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((expiration == null) ? 0 : expiration.hashCode());
+        result = prime * result + ((groups == null) ? 0 : groups.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((loginProfiles == null) ? 0 : loginProfiles.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
@@ -425,6 +454,13 @@ public class UserInvitation implements SdkModel {
                 return false;
             }
         } else if (!expiration.equals(other.expiration)) {
+            return false;
+        }
+        if (groups == null) {
+            if (other.groups != null) {
+                return false;
+            }
+        } else if (!groups.equals(other.groups)) {
             return false;
         }
         if (id == null) {

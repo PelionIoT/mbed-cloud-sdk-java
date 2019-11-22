@@ -6,7 +6,9 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DefaultApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceDirectoryDevicesApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceDirectoryEventsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceDirectoryGroupsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceSecurityDeviceCertificateRenewalsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.EnrollmentDenialsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.PublicApiApi;
@@ -18,10 +20,16 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.PublicApi
 @Internal
 public class DevicesEndpoints extends AbstractEndpoints {
     /**
-     * Low level endpoints for default apis.
+     * Low level endpoints for device directory groups apis.
      */
     @Internal
-    private final DefaultApi defaultApi;
+    private final DeviceDirectoryGroupsApi deviceDirectoryGroupsApi;
+
+    /**
+     * Low level endpoints for device directory devices apis.
+     */
+    @Internal
+    private final DeviceDirectoryDevicesApi deviceDirectoryDevicesApi;
 
     /**
      * Low level endpoints for device security device certificate renewals apis.
@@ -42,6 +50,12 @@ public class DevicesEndpoints extends AbstractEndpoints {
     private final EnrollmentDenialsApi enrollmentDenialsApi;
 
     /**
+     * Low level endpoints for device directory events apis.
+     */
+    @Internal
+    private final DeviceDirectoryEventsApi deviceDirectoryEventsApi;
+
+    /**
      * Constructor.
      * 
      * @param services
@@ -49,10 +63,12 @@ public class DevicesEndpoints extends AbstractEndpoints {
      */
     public DevicesEndpoints(ServiceRegistry services) {
         super(services);
-        this.defaultApi = initialiseService(DefaultApi.class);
+        this.deviceDirectoryGroupsApi = initialiseService(DeviceDirectoryGroupsApi.class);
+        this.deviceDirectoryDevicesApi = initialiseService(DeviceDirectoryDevicesApi.class);
         this.deviceSecurityDeviceCertificateRenewalsApi = initialiseService(DeviceSecurityDeviceCertificateRenewalsApi.class);
         this.publicApiApi = initialiseService(PublicApiApi.class);
         this.enrollmentDenialsApi = initialiseService(EnrollmentDenialsApi.class);
+        this.deviceDirectoryEventsApi = initialiseService(DeviceDirectoryEventsApi.class);
     }
 
     /**
@@ -76,13 +92,33 @@ public class DevicesEndpoints extends AbstractEndpoints {
     }
 
     /**
-     * Gets low level endpoints for default apis.
+     * Gets low level endpoints for device directory events apis.
      * 
-     * @return defaultApi
+     * @return deviceDirectoryEventsApi
      */
     @Internal
-    public DefaultApi getDefaultApi() {
-        return defaultApi;
+    public DeviceDirectoryEventsApi getDeviceDirectoryEventsApi() {
+        return deviceDirectoryEventsApi;
+    }
+
+    /**
+     * Gets low level endpoints for device directory groups apis.
+     * 
+     * @return deviceDirectoryGroupsApi
+     */
+    @Internal
+    public DeviceDirectoryGroupsApi getDeviceDirectoryGroupsApi() {
+        return deviceDirectoryGroupsApi;
+    }
+
+    /**
+     * Gets low level endpoints for device directory devices apis.
+     * 
+     * @return deviceDirectoryDevicesApi
+     */
+    @Internal
+    public DeviceDirectoryDevicesApi getDeviceDirectoryDevicesApi() {
+        return deviceDirectoryDevicesApi;
     }
 
     /**

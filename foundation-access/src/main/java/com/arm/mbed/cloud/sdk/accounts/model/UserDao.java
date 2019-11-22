@@ -14,6 +14,8 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 
 /**
  * Data Access Object (DAO) for users.
@@ -68,6 +70,65 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
      */
     public UserDao(SdkContext sdkContext) throws MbedCloudException {
         super(sdkContext);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of policy groups matching filter options.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserDao#allPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * 
+     * @param options
+     *            list options.
+     * @return paginator over the list of policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<PolicyGroup> allPolicyGroups(@Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        return allPolicyGroups(options, getModel());
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * 
+     * @param options
+     *            list options.
+     * @param user
+     *            a user.
+     * @return paginator over the list of policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<PolicyGroup> allPolicyGroups(@Nullable PolicyGroupListOptions options,
+                                                  @NonNull User user) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allPolicyGroups(options, user);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
+     * 
+     * @param id
+     *            The ID of the user.
+     * @param options
+     *            list options.
+     * @return paginator over the list of policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<PolicyGroup> allPolicyGroups(@NonNull String id,
+                                                  @Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allPolicyGroups(id, options);
     }
 
     /**
@@ -257,6 +318,68 @@ public class UserDao extends AbstractModelDao<User> implements CrudDao<User> {
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Accounts(context);
+    }
+
+    /**
+     * Get groups of the user.
+     *
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.UserDao#policyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * 
+     * @param options
+     *            list options.
+     * @return the list of policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<PolicyGroup> policyGroups(@Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        return policyGroups(options, getModel());
+    }
+
+    /**
+     * Get groups of the user.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * 
+     * @param options
+     *            list options.
+     * @param user
+     *            a user.
+     * @return the list of policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<PolicyGroup> policyGroups(@Nullable PolicyGroupListOptions options,
+                                                  @NonNull User user) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).policyGroups(options, user);
+    }
+
+    /**
+     * Get groups of the user.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
+     * 
+     * @param id
+     *            The ID of the user.
+     * @param options
+     *            list options.
+     * @return the list of policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<PolicyGroup> policyGroups(@NonNull String id,
+                                                  @Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).policyGroups(id, options);
     }
 
     /**

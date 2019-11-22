@@ -4,7 +4,9 @@ package com.arm.mbed.cloud.sdk;
 
 import com.arm.mbed.cloud.sdk.accounts.adapters.AccountAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.ApiKeyAdapter;
+import com.arm.mbed.cloud.sdk.accounts.adapters.PolicyGroupAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.SubtenantApiKeyAdapter;
+import com.arm.mbed.cloud.sdk.accounts.adapters.SubtenantPolicyGroupAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.SubtenantUserAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.SubtenantUserInvitationAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.UserAdapter;
@@ -14,8 +16,12 @@ import com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions;
 import com.arm.mbed.cloud.sdk.accounts.model.AccountsEndpoints;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKey;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions;
+import com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup;
+import com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions;
+import com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup;
+import com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions;
@@ -61,6 +67,8 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyI
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColorList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImageList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummary;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummaryList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRespList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoRespList;
@@ -109,7 +117,19 @@ public class Accounts extends AbstractModule {
      * Parameter name.
      */
     @Internal
+    private static final String TAG_POLICY_GROUP = "policyGroup";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
     private static final String TAG_SUBTENANT_API_KEY = "subtenantApiKey";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
+    private static final String TAG_SUBTENANT_POLICY_GROUP = "subtenantPolicyGroup";
 
     /**
      * Parameter name.
@@ -175,6 +195,83 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Creates a {@link Paginator} for the list of api keys matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #apiKeys(com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @param options
+     *            list options.
+     * @param policyGroup
+     *            a policy group.
+     * @return paginator over the list of api keys
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<ApiKey> allApiKeys(@Nullable ApiKeyListOptions options,
+                                        @NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        checkNotNull(policyGroup, TAG_POLICY_GROUP);
+        final ApiKeyListOptions finalOptions = (options == null) ? new ApiKeyListOptions() : options;
+        final PolicyGroup finalPolicyGroup = policyGroup;
+        return new Paginator<ApiKey>(finalOptions, new PageRequester<ApiKey>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<ApiKey> requestNewPage(ListOptions options) throws MbedCloudException {
+                return apiKeys((ApiKeyListOptions) options, finalPolicyGroup);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of api keys matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all policy groups matching filter options.
+     * 
+     * @param id
+     *            The ID of the group.
+     * @param options
+     *            list options.
+     * @return paginator over the list of api keys
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<ApiKey> allApiKeys(@NonNull String id,
+                                        @Nullable ApiKeyListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final ApiKeyListOptions finalOptions = (options == null) ? new ApiKeyListOptions() : options;
+        return new Paginator<ApiKey>(finalOptions, new PageRequester<ApiKey>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<ApiKey> requestNewPage(ListOptions options) throws MbedCloudException {
+                return apiKeys(finalId, (ApiKeyListOptions) options);
+            }
+        });
+    }
+
+    /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
      *
      * <p>
@@ -182,6 +279,10 @@ public class Accounts extends AbstractModule {
      * 
      * @param id
      *            Account ID.
+     * @param keyEq
+     *            a string
+     * @param ownerEq
+     *            a string
      * @param options
      *            list options.
      * @return paginator over the list of subtenant api keys
@@ -191,8 +292,54 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public Paginator<SubtenantApiKey>
-           allApiKeys(@NonNull String id, @Nullable SubtenantApiKeyListOptions options) throws MbedCloudException {
+           allApiKeys(@NonNull String id, @Nullable String keyEq, @Nullable String ownerEq,
+                      @Nullable SubtenantApiKeyListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final String finalKeyEq = keyEq;
+        final String finalOwnerEq = ownerEq;
+        final SubtenantApiKeyListOptions finalOptions = (options == null) ? new SubtenantApiKeyListOptions() : options;
+        return new Paginator<SubtenantApiKey>(finalOptions, new PageRequester<SubtenantApiKey>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantApiKey> requestNewPage(ListOptions options) throws MbedCloudException {
+                return apiKeys(finalId, finalKeyEq, finalOwnerEq, (SubtenantApiKeyListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all subtenant policy groups matching filter options.
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the group to retrieve API keys for.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant api keys
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantApiKey>
+           allApiKeys(@NonNull String accountId, @NonNull String id,
+                      @Nullable SubtenantApiKeyListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
         final String finalId = id;
         final SubtenantApiKeyListOptions finalOptions = (options == null) ? new SubtenantApiKeyListOptions() : options;
         return new Paginator<SubtenantApiKey>(finalOptions, new PageRequester<SubtenantApiKey>() {
@@ -207,7 +354,7 @@ public class Accounts extends AbstractModule {
              */
             @Override
             public ListResponse<SubtenantApiKey> requestNewPage(ListOptions options) throws MbedCloudException {
-                return apiKeys(finalId, (SubtenantApiKeyListOptions) options);
+                return apiKeys(finalAccountId, finalId, (SubtenantApiKeyListOptions) options);
             }
         });
     }
@@ -217,8 +364,12 @@ public class Accounts extends AbstractModule {
      *
      * <p>
      * Similar to
-     * {@link #apiKeys(com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * {@link #apiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
+     * @param keyEq
+     *            a string
+     * @param ownerEq
+     *            a string
      * @param options
      *            list options.
      * @param account
@@ -229,9 +380,12 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public Paginator<SubtenantApiKey> allApiKeys(@Nullable SubtenantApiKeyListOptions options,
+    public Paginator<SubtenantApiKey> allApiKeys(@Nullable String keyEq, @Nullable String ownerEq,
+                                                 @Nullable SubtenantApiKeyListOptions options,
                                                  @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
+        final String finalKeyEq = keyEq;
+        final String finalOwnerEq = ownerEq;
         final SubtenantApiKeyListOptions finalOptions = (options == null) ? new SubtenantApiKeyListOptions() : options;
         final Account finalAccount = account;
         return new Paginator<SubtenantApiKey>(finalOptions, new PageRequester<SubtenantApiKey>() {
@@ -246,7 +400,93 @@ public class Accounts extends AbstractModule {
              */
             @Override
             public ListResponse<SubtenantApiKey> requestNewPage(ListOptions options) throws MbedCloudException {
-                return apiKeys((SubtenantApiKeyListOptions) options, finalAccount);
+                return apiKeys(finalKeyEq, finalOwnerEq, (SubtenantApiKeyListOptions) options, finalAccount);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #allApiKeys(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant api keys
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantApiKey>
+           allApiKeys(@NonNull String id, @Nullable SubtenantApiKeyListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        return allApiKeys(id, (String) null, (String) null, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #allApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return paginator over the list of subtenant api keys
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantApiKey> allApiKeys(@Nullable SubtenantApiKeyListOptions options,
+                                                 @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return allApiKeys((String) null, (String) null, options, account);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #apiKeys(com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param options
+     *            list options.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return paginator over the list of subtenant api keys
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantApiKey>
+           allApiKeys(@Nullable SubtenantApiKeyListOptions options,
+                      @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        final SubtenantApiKeyListOptions finalOptions = (options == null) ? new SubtenantApiKeyListOptions() : options;
+        final SubtenantPolicyGroup finalSubtenantPolicyGroup = subtenantPolicyGroup;
+        return new Paginator<SubtenantApiKey>(finalOptions, new PageRequester<SubtenantApiKey>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantApiKey> requestNewPage(ListOptions options) throws MbedCloudException {
+                return apiKeys((SubtenantApiKeyListOptions) options, finalSubtenantPolicyGroup);
             }
         });
     }
@@ -580,6 +820,248 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Creates a {@link Paginator} for the list of policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #policyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
+     * 
+     * @param options
+     *            list options.
+     * @param apiKey
+     *            an api key.
+     * @return paginator over the list of policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<PolicyGroup> allPolicyGroups(@Nullable PolicyGroupListOptions options,
+                                                  @NonNull ApiKey apiKey) throws MbedCloudException {
+        checkNotNull(apiKey, TAG_API_KEY);
+        final PolicyGroupListOptions finalOptions = (options == null) ? new PolicyGroupListOptions() : options;
+        final ApiKey finalApiKey = apiKey;
+        return new Paginator<PolicyGroup>(finalOptions, new PageRequester<PolicyGroup>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<PolicyGroup> requestNewPage(ListOptions options) throws MbedCloudException {
+                return policyGroups((PolicyGroupListOptions) options, finalApiKey);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #policyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.User)}
+     * 
+     * @param options
+     *            list options.
+     * @param user
+     *            a user.
+     * @return paginator over the list of policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<PolicyGroup> allPolicyGroups(@Nullable PolicyGroupListOptions options,
+                                                  @NonNull User user) throws MbedCloudException {
+        checkNotNull(user, TAG_USER);
+        final PolicyGroupListOptions finalOptions = (options == null) ? new PolicyGroupListOptions() : options;
+        final User finalUser = user;
+        return new Paginator<PolicyGroup>(finalOptions, new PageRequester<PolicyGroup>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<PolicyGroup> requestNewPage(ListOptions options) throws MbedCloudException {
+                return policyGroups((PolicyGroupListOptions) options, finalUser);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of policy groups matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all users matching filter options.
+     * 
+     * @param id
+     *            The ID of the user.
+     * @param options
+     *            list options.
+     * @return paginator over the list of policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<PolicyGroup> allPolicyGroups(@NonNull String id,
+                                                  @Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final PolicyGroupListOptions finalOptions = (options == null) ? new PolicyGroupListOptions() : options;
+        return new Paginator<PolicyGroup>(finalOptions, new PageRequester<PolicyGroup>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<PolicyGroup> requestNewPage(ListOptions options) throws MbedCloudException {
+                return policyGroups(finalId, (PolicyGroupListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all subtenant users matching filter options.
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the user.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantPolicyGroup>
+           allPolicyGroups(@NonNull String accountId, @NonNull String id,
+                           @Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        final SubtenantPolicyGroupListOptions finalOptions = (options == null) ? new SubtenantPolicyGroupListOptions()
+                                                                               : options;
+        return new Paginator<SubtenantPolicyGroup>(finalOptions, new PageRequester<SubtenantPolicyGroup>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantPolicyGroup> requestNewPage(ListOptions options) throws MbedCloudException {
+                return policyGroups(finalAccountId, finalId, (SubtenantPolicyGroupListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #policyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
+     * 
+     * @param options
+     *            list options.
+     * @param subtenantApiKey
+     *            a subtenant api key.
+     * @return paginator over the list of subtenant policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantPolicyGroup>
+           allPolicyGroups(@Nullable SubtenantPolicyGroupListOptions options,
+                           @NonNull SubtenantApiKey subtenantApiKey) throws MbedCloudException {
+        checkNotNull(subtenantApiKey, TAG_SUBTENANT_API_KEY);
+        final SubtenantPolicyGroupListOptions finalOptions = (options == null) ? new SubtenantPolicyGroupListOptions()
+                                                                               : options;
+        final SubtenantApiKey finalSubtenantApiKey = subtenantApiKey;
+        return new Paginator<SubtenantPolicyGroup>(finalOptions, new PageRequester<SubtenantPolicyGroup>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantPolicyGroup> requestNewPage(ListOptions options) throws MbedCloudException {
+                return policyGroups((SubtenantPolicyGroupListOptions) options, finalSubtenantApiKey);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #policyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
+     * 
+     * @param options
+     *            list options.
+     * @param subtenantUser
+     *            a subtenant user.
+     * @return paginator over the list of subtenant policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantPolicyGroup>
+           allPolicyGroups(@Nullable SubtenantPolicyGroupListOptions options,
+                           @NonNull SubtenantUser subtenantUser) throws MbedCloudException {
+        checkNotNull(subtenantUser, TAG_SUBTENANT_USER);
+        final SubtenantPolicyGroupListOptions finalOptions = (options == null) ? new SubtenantPolicyGroupListOptions()
+                                                                               : options;
+        final SubtenantUser finalSubtenantUser = subtenantUser;
+        return new Paginator<SubtenantPolicyGroup>(finalOptions, new PageRequester<SubtenantPolicyGroup>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantPolicyGroup> requestNewPage(ListOptions options) throws MbedCloudException {
+                return policyGroups((SubtenantPolicyGroupListOptions) options, finalSubtenantUser);
+            }
+        });
+    }
+
+    /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
      *
      * <p>
@@ -818,10 +1300,18 @@ public class Accounts extends AbstractModule {
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
      *
      * <p>
-     * Gets an iterator over all accounts matching filter options.
+     * Gets an iterator over all subtenant policy groups matching filter options.
      * 
-     * @param id
+     * @param accountId
      *            Account ID.
+     * @param id
+     *            The ID of the group to retrieve users for.
+     * @param statusEq
+     *            a string
+     * @param statusIn
+     *            a string
+     * @param statusNin
+     *            a string
      * @param options
      *            list options.
      * @return paginator over the list of subtenant users
@@ -830,9 +1320,154 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public Paginator<SubtenantUser> allUsers(@NonNull String id,
+    public Paginator<SubtenantUser> allUsers(@NonNull String accountId, @NonNull String id, @Nullable String statusEq,
+                                             @Nullable String statusIn, @Nullable String statusNin,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        final String finalStatusEq = statusEq;
+        final String finalStatusIn = statusIn;
+        final String finalStatusNin = statusNin;
+        final SubtenantUserListOptions finalOptions = (options == null) ? new SubtenantUserListOptions() : options;
+        return new Paginator<SubtenantUser>(finalOptions, new PageRequester<SubtenantUser>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantUser> requestNewPage(ListOptions options) throws MbedCloudException {
+                return users(finalAccountId, finalId, finalStatusEq, finalStatusIn, finalStatusNin,
+                             (SubtenantUserListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all accounts matching filter options.
+     * 
+     * @param id
+     *            Account ID.
+     * @param emailEq
+     *            a string
+     * @param loginProfilesEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant users
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantUser> allUsers(@NonNull String id, @Nullable String emailEq,
+                                             @Nullable String loginProfilesEq,
                                              @Nullable SubtenantUserListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final String finalEmailEq = emailEq;
+        final String finalLoginProfilesEq = loginProfilesEq;
+        final SubtenantUserListOptions finalOptions = (options == null) ? new SubtenantUserListOptions() : options;
+        return new Paginator<SubtenantUser>(finalOptions, new PageRequester<SubtenantUser>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantUser> requestNewPage(ListOptions options) throws MbedCloudException {
+                return users(finalId, finalEmailEq, finalLoginProfilesEq, (SubtenantUserListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #users(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param statusEq
+     *            a string
+     * @param statusIn
+     *            a string
+     * @param statusNin
+     *            a string
+     * @param options
+     *            list options.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return paginator over the list of subtenant users
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantUser>
+           allUsers(@Nullable String statusEq, @Nullable String statusIn, @Nullable String statusNin,
+                    @Nullable SubtenantUserListOptions options,
+                    @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        final String finalStatusEq = statusEq;
+        final String finalStatusIn = statusIn;
+        final String finalStatusNin = statusNin;
+        final SubtenantUserListOptions finalOptions = (options == null) ? new SubtenantUserListOptions() : options;
+        final SubtenantPolicyGroup finalSubtenantPolicyGroup = subtenantPolicyGroup;
+        return new Paginator<SubtenantUser>(finalOptions, new PageRequester<SubtenantUser>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantUser> requestNewPage(ListOptions options) throws MbedCloudException {
+                return users(finalStatusEq, finalStatusIn, finalStatusNin, (SubtenantUserListOptions) options,
+                             finalSubtenantPolicyGroup);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all subtenant policy groups matching filter options.
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the group to retrieve users for.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant users
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantUser> allUsers(@NonNull String accountId, @NonNull String id,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
         final String finalId = id;
         final SubtenantUserListOptions finalOptions = (options == null) ? new SubtenantUserListOptions() : options;
         return new Paginator<SubtenantUser>(finalOptions, new PageRequester<SubtenantUser>() {
@@ -847,7 +1482,7 @@ public class Accounts extends AbstractModule {
              */
             @Override
             public ListResponse<SubtenantUser> requestNewPage(ListOptions options) throws MbedCloudException {
-                return users(finalId, (SubtenantUserListOptions) options);
+                return users(finalAccountId, finalId, (SubtenantUserListOptions) options);
             }
         });
     }
@@ -857,8 +1492,12 @@ public class Accounts extends AbstractModule {
      *
      * <p>
      * Similar to
-     * {@link #users(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * {@link #users(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
+     * @param emailEq
+     *            a string
+     * @param loginProfilesEq
+     *            a string
      * @param options
      *            list options.
      * @param account
@@ -869,9 +1508,12 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public Paginator<SubtenantUser> allUsers(@Nullable SubtenantUserListOptions options,
+    public Paginator<SubtenantUser> allUsers(@Nullable String emailEq, @Nullable String loginProfilesEq,
+                                             @Nullable SubtenantUserListOptions options,
                                              @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
+        final String finalEmailEq = emailEq;
+        final String finalLoginProfilesEq = loginProfilesEq;
         final SubtenantUserListOptions finalOptions = (options == null) ? new SubtenantUserListOptions() : options;
         final Account finalAccount = account;
         return new Paginator<SubtenantUser>(finalOptions, new PageRequester<SubtenantUser>() {
@@ -886,9 +1528,238 @@ public class Accounts extends AbstractModule {
              */
             @Override
             public ListResponse<SubtenantUser> requestNewPage(ListOptions options) throws MbedCloudException {
-                return users((SubtenantUserListOptions) options, finalAccount);
+                return users(finalEmailEq, finalLoginProfilesEq, (SubtenantUserListOptions) options, finalAccount);
             }
         });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #allUsers(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant users
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantUser> allUsers(@NonNull String id,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        return allUsers(id, (String) null, (String) null, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of users matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all policy groups matching filter options.
+     * 
+     * @param id
+     *            The ID of the group.
+     * @param options
+     *            list options.
+     * @return paginator over the list of users
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<User> allUsers(@NonNull String id, @Nullable UserListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final UserListOptions finalOptions = (options == null) ? new UserListOptions() : options;
+        return new Paginator<User>(finalOptions, new PageRequester<User>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<User> requestNewPage(ListOptions options) throws MbedCloudException {
+                return users(finalId, (UserListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #allUsers(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
+     * 
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return paginator over the list of subtenant users
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantUser> allUsers(@Nullable SubtenantUserListOptions options,
+                                             @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        return allUsers((String) null, (String) null, options, account);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant users matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #users(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param options
+     *            list options.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return paginator over the list of subtenant users
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantUser>
+           allUsers(@Nullable SubtenantUserListOptions options,
+                    @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        final SubtenantUserListOptions finalOptions = (options == null) ? new SubtenantUserListOptions() : options;
+        final SubtenantPolicyGroup finalSubtenantPolicyGroup = subtenantPolicyGroup;
+        return new Paginator<SubtenantUser>(finalOptions, new PageRequester<SubtenantUser>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantUser> requestNewPage(ListOptions options) throws MbedCloudException {
+                return users((SubtenantUserListOptions) options, finalSubtenantPolicyGroup);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of users matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #users(com.arm.mbed.cloud.sdk.accounts.model.UserListOptions, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @param options
+     *            list options.
+     * @param policyGroup
+     *            a policy group.
+     * @return paginator over the list of users
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<User> allUsers(@Nullable UserListOptions options,
+                                    @NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        checkNotNull(policyGroup, TAG_POLICY_GROUP);
+        final UserListOptions finalOptions = (options == null) ? new UserListOptions() : options;
+        final PolicyGroup finalPolicyGroup = policyGroup;
+        return new Paginator<User>(finalOptions, new PageRequester<User>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<User> requestNewPage(ListOptions options) throws MbedCloudException {
+                return users((UserListOptions) options, finalPolicyGroup);
+            }
+        });
+    }
+
+    /**
+     * Get the API keys of a group.
+     *
+     *
+     * <p>
+     * Similar to {@link #apiKeys(String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param policyGroup
+     *            a policy group.
+     * @return the list of api keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<ApiKey> apiKeys(@Nullable ApiKeyListOptions options,
+                                        @NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        checkNotNull(policyGroup, TAG_POLICY_GROUP);
+        checkModelValidity(policyGroup, TAG_POLICY_GROUP);
+        return apiKeys(policyGroup.getId(), options);
+    }
+
+    /**
+     * Get the API keys of a group.
+     *
+     *
+     * <p>
+     * Manage policy groups.
+     *
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \ -H
+     * 'Authorization: Bearer [api_key]' ```
+     *
+     * @param id
+     *            The ID of the group.
+     * @param options
+     *            list options.
+     * @return the list of api keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<ApiKey> apiKeys(@NonNull String id,
+                                        @Nullable ApiKeyListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final ApiKeyListOptions finalOptions = (options == null) ? new ApiKeyListOptions() : options;
+        return CloudCaller.call(this, "apiKeys()", ApiKeyAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<ApiKeyInfoRespList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<ApiKeyInfoRespList> call() {
+                                        return endpoints.getAccountPolicyGroupsApi()
+                                                        .getApiKeysOfGroup(finalId, finalOptions.getPageSize(),
+                                                                           finalOptions.getAfter(),
+                                                                           finalOptions.getOrder().toString(),
+                                                                           ListOptionsEncoder.encodeInclude(finalOptions));
+                                    }
+                                });
     }
 
     /**
@@ -903,6 +1774,10 @@ public class Accounts extends AbstractModule {
      *
      * @param id
      *            Account ID.
+     * @param keyEq
+     *            a string
+     * @param ownerEq
+     *            a string
      * @param options
      *            list options.
      * @return the list of subtenant api keys corresponding to filter options (One page).
@@ -912,9 +1787,12 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public ListResponse<SubtenantApiKey>
-           apiKeys(@NonNull String id, @Nullable SubtenantApiKeyListOptions options) throws MbedCloudException {
+           apiKeys(@NonNull String id, @Nullable String keyEq, @Nullable String ownerEq,
+                   @Nullable SubtenantApiKeyListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
         final String finalId = id;
+        final String finalKeyEq = keyEq;
+        final String finalOwnerEq = ownerEq;
         final SubtenantApiKeyListOptions finalOptions = (options == null) ? new SubtenantApiKeyListOptions() : options;
         return CloudCaller.call(this, "apiKeys()", SubtenantApiKeyAdapter.getListMapper(),
                                 new CloudRequest.CloudCall<ApiKeyInfoRespList>() {
@@ -930,10 +1808,57 @@ public class Accounts extends AbstractModule {
                                                                               finalOptions.getAfter(),
                                                                               finalOptions.getOrder().toString(),
                                                                               ListOptionsEncoder.encodeInclude(finalOptions),
-                                                                              ListOptionsEncoder.encodeSingleEqualFilter(SubtenantApiKeyListOptions.TAG_FILTER_BY_KEY,
-                                                                                                                         finalOptions),
-                                                                              ListOptionsEncoder.encodeSingleEqualFilter(SubtenantApiKeyListOptions.TAG_FILTER_BY_OWNER,
-                                                                                                                         finalOptions));
+                                                                              finalKeyEq, finalOwnerEq);
+                                    }
+                                });
+    }
+
+    /**
+     * Get API keys of a group.
+     *
+     *
+     * <p>
+     * List the API keys of the group with details.
+     *
+     * **Example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys \ -H
+     * 'Authorization: Bearer [api_key]' ```
+     *
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the group to retrieve API keys for.
+     * @param options
+     *            list options.
+     * @return the list of subtenant api keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantApiKey>
+           apiKeys(@NonNull String accountId, @NonNull String id,
+                   @Nullable SubtenantApiKeyListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        final SubtenantApiKeyListOptions finalOptions = (options == null) ? new SubtenantApiKeyListOptions() : options;
+        return CloudCaller.call(this, "apiKeys()", SubtenantApiKeyAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<ApiKeyInfoRespList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<ApiKeyInfoRespList> call() {
+                                        return endpoints.getTenantAccountsPolicyGroupsApi()
+                                                        .getApiKeysOfAccountGroup(finalAccountId, finalId,
+                                                                                  finalOptions.getPageSize(),
+                                                                                  finalOptions.getAfter(),
+                                                                                  finalOptions.getOrder().toString(),
+                                                                                  ListOptionsEncoder.encodeInclude(finalOptions));
                                     }
                                 });
     }
@@ -943,7 +1868,62 @@ public class Accounts extends AbstractModule {
      *
      *
      * <p>
-     * Similar to {@link #apiKeys(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
+     * Similar to
+     * {@link #apiKeys(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
+     * 
+     * @param keyEq
+     *            a string
+     * @param ownerEq
+     *            a string
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return the list of subtenant api keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantApiKey> apiKeys(@Nullable String keyEq, @Nullable String ownerEq,
+                                                 @Nullable SubtenantApiKeyListOptions options,
+                                                 @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        checkModelValidity(account, TAG_ACCOUNT);
+        return apiKeys(account.getId(), keyEq, ownerEq, options);
+    }
+
+    /**
+     * Get all API keys.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link #apiKeys(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return the list of subtenant api keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantApiKey>
+           apiKeys(@NonNull String id, @Nullable SubtenantApiKeyListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        return apiKeys(id, (String) null, (String) null, options);
+    }
+
+    /**
+     * Get all API keys.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link #apiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param options
      *            list options.
@@ -958,8 +1938,32 @@ public class Accounts extends AbstractModule {
     public ListResponse<SubtenantApiKey> apiKeys(@Nullable SubtenantApiKeyListOptions options,
                                                  @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
-        checkModelValidity(account, TAG_ACCOUNT);
-        return apiKeys(account.getId(), options);
+        return apiKeys((String) null, (String) null, options, account);
+    }
+
+    /**
+     * Get API keys of a group.
+     *
+     *
+     * <p>
+     * Similar to {@link #apiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return the list of subtenant api keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantApiKey>
+           apiKeys(@Nullable SubtenantApiKeyListOptions options,
+                   @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        checkModelValidity(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        return apiKeys(subtenantPolicyGroup.getAccountId(), subtenantPolicyGroup.getId(), options);
     }
 
     /**
@@ -2229,7 +3233,7 @@ public class Accounts extends AbstractModule {
      * Creates a {@link Paginator} for the list of api keys matching filter options.
      *
      * <p>
-     * Gets an iterator over all api keys matching filter options.
+     * Similar to {@link #listAllApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
      * 
      * @param options
      *            list options.
@@ -2240,6 +3244,31 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public Paginator<ApiKey> listAllApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
+        return listAllApiKeys((String) null, (String) null, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of api keys matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all api keys matching filter options.
+     * 
+     * @param keyEq
+     *            a string
+     * @param ownerEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return paginator over the list of api keys
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<ApiKey> listAllApiKeys(@Nullable String keyEq, @Nullable String ownerEq,
+                                            @Nullable ApiKeyListOptions options) throws MbedCloudException {
+        final String finalKeyEq = keyEq;
+        final String finalOwnerEq = ownerEq;
         final ApiKeyListOptions finalOptions = (options == null) ? new ApiKeyListOptions() : options;
         return new Paginator<ApiKey>(finalOptions, new PageRequester<ApiKey>() {
             /**
@@ -2253,9 +3282,134 @@ public class Accounts extends AbstractModule {
              */
             @Override
             public ListResponse<ApiKey> requestNewPage(ListOptions options) throws MbedCloudException {
-                return listApiKeys((ApiKeyListOptions) options);
+                return listApiKeys(finalKeyEq, finalOwnerEq, (ApiKeyListOptions) options);
             }
         });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of policy groups matching filter options.
+     *
+     * <p>
+     * Similar to {@link #listAllPolicyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return paginator over the list of policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<PolicyGroup>
+           listAllPolicyGroups(@Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        return listAllPolicyGroups((String) null, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of policy groups matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all policy groups matching filter options.
+     * 
+     * @param nameEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return paginator over the list of policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<PolicyGroup>
+           listAllPolicyGroups(@Nullable String nameEq,
+                               @Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        final String finalNameEq = nameEq;
+        final PolicyGroupListOptions finalOptions = (options == null) ? new PolicyGroupListOptions() : options;
+        return new Paginator<PolicyGroup>(finalOptions, new PageRequester<PolicyGroup>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<PolicyGroup> requestNewPage(ListOptions options) throws MbedCloudException {
+                return listPolicyGroups(finalNameEq, (PolicyGroupListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Gets an iterator over all subtenant policy groups matching filter options.
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param nameEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantPolicyGroup>
+           listAllSubtenantPolicyGroups(@NonNull String accountId, @Nullable String nameEq,
+                                        @Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        final String finalAccountId = accountId;
+        final String finalNameEq = nameEq;
+        final SubtenantPolicyGroupListOptions finalOptions = (options == null) ? new SubtenantPolicyGroupListOptions()
+                                                                               : options;
+        return new Paginator<SubtenantPolicyGroup>(finalOptions, new PageRequester<SubtenantPolicyGroup>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantPolicyGroup> requestNewPage(ListOptions options) throws MbedCloudException {
+                return listSubtenantPolicyGroups(finalAccountId, finalNameEq,
+                                                 (SubtenantPolicyGroupListOptions) options);
+            }
+        });
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #listAllSubtenantPolicyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantPolicyGroup>
+           listAllSubtenantPolicyGroups(@NonNull String accountId,
+                                        @Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        return listAllSubtenantPolicyGroups(accountId, (String) null, options);
     }
 
     /**
@@ -2329,11 +3483,8 @@ public class Accounts extends AbstractModule {
      * Lists api keys matching filter options.
      *
      * <p>
-     * Retrieve API keys in an array, optionally filtered by the owner.
-     *
-     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys \ -H 'Authorization: Bearer
-     * [api_key]' ```
-     *
+     * Similar to {@link #listApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
+     * 
      * @param options
      *            list options.
      * @return the list of api keys corresponding to filter options (One page).
@@ -2343,6 +3494,34 @@ public class Accounts extends AbstractModule {
     @API
     @Nullable
     public ListResponse<ApiKey> listApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
+        return listApiKeys((String) null, (String) null, options);
+    }
+
+    /**
+     * Lists api keys matching filter options.
+     *
+     * <p>
+     * Retrieve API keys in an array, optionally filtered by the owner.
+     *
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys \ -H 'Authorization: Bearer
+     * [api_key]' ```
+     *
+     * @param keyEq
+     *            a string
+     * @param ownerEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return the list of api keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<ApiKey> listApiKeys(@Nullable String keyEq, @Nullable String ownerEq,
+                                            @Nullable ApiKeyListOptions options) throws MbedCloudException {
+        final String finalKeyEq = keyEq;
+        final String finalOwnerEq = ownerEq;
         final ApiKeyListOptions finalOptions = (options == null) ? new ApiKeyListOptions() : options;
         return CloudCaller.call(this, "listApiKeys()", ApiKeyAdapter.getListMapper(),
                                 new CloudRequest.CloudCall<ApiKeyInfoRespList>() {
@@ -2358,12 +3537,143 @@ public class Accounts extends AbstractModule {
                                                                        finalOptions.getAfter(),
                                                                        finalOptions.getOrder().toString(),
                                                                        ListOptionsEncoder.encodeInclude(finalOptions),
-                                                                       ListOptionsEncoder.encodeSingleEqualFilter(ApiKeyListOptions.TAG_FILTER_BY_KEY,
-                                                                                                                  finalOptions),
-                                                                       ListOptionsEncoder.encodeSingleEqualFilter(ApiKeyListOptions.TAG_FILTER_BY_OWNER,
-                                                                                                                  finalOptions));
+                                                                       finalKeyEq, finalOwnerEq);
                                     }
                                 });
+    }
+
+    /**
+     * Lists policy groups matching filter options.
+     *
+     * <p>
+     * Similar to {@link #listPolicyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @return the list of policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<PolicyGroup>
+           listPolicyGroups(@Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        return listPolicyGroups((String) null, options);
+    }
+
+    /**
+     * Lists policy groups matching filter options.
+     *
+     * <p>
+     * Retrieve all group information.
+     *
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups \ -H 'Authorization: Bearer
+     * [api_key]' ```
+     *
+     * @param nameEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return the list of policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<PolicyGroup>
+           listPolicyGroups(@Nullable String nameEq,
+                            @Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        final String finalNameEq = nameEq;
+        final PolicyGroupListOptions finalOptions = (options == null) ? new PolicyGroupListOptions() : options;
+        return CloudCaller.call(this, "listPolicyGroups()", PolicyGroupAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<GroupSummaryList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<GroupSummaryList> call() {
+                                        return endpoints.getAccountPolicyGroupsApi()
+                                                        .getAllGroups(finalOptions.getPageSize(),
+                                                                      finalOptions.getAfter(),
+                                                                      finalOptions.getOrder().toString(),
+                                                                      ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                      finalNameEq);
+                                    }
+                                });
+    }
+
+    /**
+     * Lists subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Retrieve all group information.
+     *
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups \ -H
+     * 'Authorization: Bearer [api_key]' ```
+     *
+     * @param accountId
+     *            Account ID.
+     * @param nameEq
+     *            a string
+     * @param options
+     *            list options.
+     * @return the list of subtenant policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantPolicyGroup>
+           listSubtenantPolicyGroups(@NonNull String accountId, @Nullable String nameEq,
+                                     @Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        final String finalAccountId = accountId;
+        final String finalNameEq = nameEq;
+        final SubtenantPolicyGroupListOptions finalOptions = (options == null) ? new SubtenantPolicyGroupListOptions()
+                                                                               : options;
+        return CloudCaller.call(this, "listSubtenantPolicyGroups()", SubtenantPolicyGroupAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<GroupSummaryList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<GroupSummaryList> call() {
+                                        return endpoints.getTenantAccountsPolicyGroupsApi()
+                                                        .getAllAccountGroups(finalAccountId, finalOptions.getPageSize(),
+                                                                             finalOptions.getAfter(),
+                                                                             finalOptions.getOrder().toString(),
+                                                                             ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                             finalNameEq);
+                                    }
+                                });
+    }
+
+    /**
+     * Lists subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link #listSubtenantPolicyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return the list of subtenant policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantPolicyGroup>
+           listSubtenantPolicyGroups(@NonNull String accountId,
+                                     @Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        return listSubtenantPolicyGroups(accountId, (String) null, options);
     }
 
     /**
@@ -2537,6 +3847,199 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Get groups of the API key.
+     *
+     *
+     * <p>
+     * Similar to {@link #policyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param apiKey
+     *            an api key.
+     * @return the list of policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<PolicyGroup> policyGroups(@Nullable PolicyGroupListOptions options,
+                                                  @NonNull ApiKey apiKey) throws MbedCloudException {
+        checkNotNull(apiKey, TAG_API_KEY);
+        checkModelValidity(apiKey, TAG_API_KEY);
+        return policyGroups(apiKey.getId(), options);
+    }
+
+    /**
+     * Get groups of the user.
+     *
+     *
+     * <p>
+     * Similar to {@link #policyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param user
+     *            a user.
+     * @return the list of policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<PolicyGroup> policyGroups(@Nullable PolicyGroupListOptions options,
+                                                  @NonNull User user) throws MbedCloudException {
+        checkNotNull(user, TAG_USER);
+        checkModelValidity(user, TAG_USER);
+        return policyGroups(user.getId(), options);
+    }
+
+    /**
+     * Get groups of the user.
+     *
+     *
+     * <p>
+     * Retrieve groups of the user.
+     *
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups \ -H 'Authorization:
+     * Bearer [api_key]' ```
+     *
+     * @param id
+     *            The ID of the user.
+     * @param options
+     *            list options.
+     * @return the list of policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<PolicyGroup> policyGroups(@NonNull String id,
+                                                  @Nullable PolicyGroupListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final PolicyGroupListOptions finalOptions = (options == null) ? new PolicyGroupListOptions() : options;
+        return CloudCaller.call(this, "policyGroups()", PolicyGroupAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<GroupSummaryList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<GroupSummaryList> call() {
+                                        return endpoints.getAccountUsersApi()
+                                                        .getGroupsOfUser(finalId, finalOptions.getPageSize(),
+                                                                         finalOptions.getAfter(),
+                                                                         finalOptions.getOrder().toString(),
+                                                                         ListOptionsEncoder.encodeInclude(finalOptions));
+                                    }
+                                });
+    }
+
+    /**
+     * Get user's groups.
+     *
+     *
+     * <p>
+     * Retrieve user's groups.
+     *
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups
+     * \ -H 'Authorization: Bearer [api_key]' ```
+     *
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the user.
+     * @param options
+     *            list options.
+     * @return the list of subtenant policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantPolicyGroup>
+           policyGroups(@NonNull String accountId, @NonNull String id,
+                        @Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        final SubtenantPolicyGroupListOptions finalOptions = (options == null) ? new SubtenantPolicyGroupListOptions()
+                                                                               : options;
+        return CloudCaller.call(this, "policyGroups()", SubtenantPolicyGroupAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<GroupSummaryList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<GroupSummaryList> call() {
+                                        return endpoints.getTenantAccountsUsersApi()
+                                                        .getGroupsOfAccountUser(finalAccountId, finalId,
+                                                                                finalOptions.getPageSize(),
+                                                                                finalOptions.getAfter(),
+                                                                                finalOptions.getOrder().toString(),
+                                                                                ListOptionsEncoder.encodeInclude(finalOptions));
+                                    }
+                                });
+    }
+
+    /**
+     * Get groups associated with the API key.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link #policyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param subtenantApiKey
+     *            a subtenant api key.
+     * @return the list of subtenant policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantPolicyGroup>
+           policyGroups(@Nullable SubtenantPolicyGroupListOptions options,
+                        @NonNull SubtenantApiKey subtenantApiKey) throws MbedCloudException {
+        checkNotNull(subtenantApiKey, TAG_SUBTENANT_API_KEY);
+        checkModelValidity(subtenantApiKey, TAG_SUBTENANT_API_KEY);
+        return policyGroups(subtenantApiKey.getAccountId(), subtenantApiKey.getId(), options);
+    }
+
+    /**
+     * Get user's groups.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link #policyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param subtenantUser
+     *            a subtenant user.
+     * @return the list of subtenant policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantPolicyGroup>
+           policyGroups(@Nullable SubtenantPolicyGroupListOptions options,
+                        @NonNull SubtenantUser subtenantUser) throws MbedCloudException {
+        checkNotNull(subtenantUser, TAG_SUBTENANT_USER);
+        checkModelValidity(subtenantUser, TAG_SUBTENANT_USER);
+        return policyGroups(subtenantUser.getAccountId(), subtenantUser.getId(), options);
+    }
+
+    /**
      * Gets an account.
      *
      * <p>
@@ -2696,6 +4199,59 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Gets a policy group.
+     *
+     * <p>
+     * Similar to {@link #readPolicyGroup(String)}
+     * 
+     * @param policyGroup
+     *            a policy group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public PolicyGroup readPolicyGroup(@NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        checkNotNull(policyGroup, TAG_POLICY_GROUP);
+        return readPolicyGroup(policyGroup.getId());
+    }
+
+    /**
+     * Gets a policy group.
+     *
+     * <p>
+     * Retrieve general information about a group.
+     *
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \ -H 'Authorization:
+     * Bearer [api_key]' ```
+     *
+     * @param id
+     *            The ID of the group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public PolicyGroup readPolicyGroup(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readPolicyGroup()", PolicyGroupAdapter.getMapper(),
+                                new CloudRequest.CloudCall<GroupSummary>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<GroupSummary> call() {
+                                        return endpoints.getAccountPolicyGroupsApi().getGroupSummary(finalId);
+                                    }
+                                });
+    }
+
+    /**
      * Gets a subtenant api key.
      *
      * <p>
@@ -2752,6 +4308,67 @@ public class Accounts extends AbstractModule {
     public SubtenantApiKey readSubtenantApiKey(@NonNull SubtenantApiKey subtenantApiKey) throws MbedCloudException {
         checkNotNull(subtenantApiKey, TAG_SUBTENANT_API_KEY);
         return readSubtenantApiKey(subtenantApiKey.getAccountId(), subtenantApiKey.getId());
+    }
+
+    /**
+     * Gets a subtenant policy group.
+     *
+     * <p>
+     * Retrieve general information about the group.
+     *
+     * **Example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id} \ -H 'Authorization: Bearer
+     * [api_key]' ```
+     *
+     * @param accountId
+     *            The ID of the account this group belongs to.
+     * @param id
+     *            The ID of the group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantPolicyGroup readSubtenantPolicyGroup(@NonNull String accountId,
+                                                         @NonNull String id) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        return CloudCaller.call(this, "readSubtenantPolicyGroup()", SubtenantPolicyGroupAdapter.getMapper(),
+                                new CloudRequest.CloudCall<GroupSummary>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<GroupSummary> call() {
+                                        return endpoints.getTenantAccountsPolicyGroupsApi()
+                                                        .getAccountGroupSummary(finalAccountId, finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a subtenant policy group.
+     *
+     * <p>
+     * Similar to {@link #readSubtenantPolicyGroup(String, String)}
+     * 
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantPolicyGroup
+           readSubtenantPolicyGroup(@NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        return readSubtenantPolicyGroup(subtenantPolicyGroup.getAccountId(), subtenantPolicyGroup.getId());
     }
 
     /**
@@ -3528,6 +5145,67 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Get users of a group.
+     *
+     *
+     * <p>
+     * List users of the group with details.
+     *
+     * **Example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users \ -H 'Authorization:
+     * Bearer [api_key]' ```
+     *
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the group to retrieve users for.
+     * @param statusEq
+     *            a string
+     * @param statusIn
+     *            a string
+     * @param statusNin
+     *            a string
+     * @param options
+     *            list options.
+     * @return the list of subtenant users corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantUser> users(@NonNull String accountId, @NonNull String id, @Nullable String statusEq,
+                                             @Nullable String statusIn, @Nullable String statusNin,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        final String finalStatusEq = statusEq;
+        final String finalStatusIn = statusIn;
+        final String finalStatusNin = statusNin;
+        final SubtenantUserListOptions finalOptions = (options == null) ? new SubtenantUserListOptions() : options;
+        return CloudCaller.call(this, "users()", SubtenantUserAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<UserInfoRespList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<UserInfoRespList> call() {
+                                        return endpoints.getTenantAccountsPolicyGroupsApi()
+                                                        .getUsersOfAccountGroup(finalAccountId, finalId,
+                                                                                finalOptions.getPageSize(),
+                                                                                finalOptions.getAfter(),
+                                                                                finalOptions.getOrder().toString(),
+                                                                                ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                                finalStatusEq, finalStatusIn,
+                                                                                finalStatusNin);
+                                    }
+                                });
+    }
+
+    /**
      * Get the details of all users.
      *
      *
@@ -3539,6 +5217,10 @@ public class Accounts extends AbstractModule {
      *
      * @param id
      *            Account ID.
+     * @param emailEq
+     *            a string
+     * @param loginProfilesEq
+     *            a string
      * @param options
      *            list options.
      * @return the list of subtenant users corresponding to filter options (One page).
@@ -3547,10 +5229,13 @@ public class Accounts extends AbstractModule {
      */
     @API
     @Nullable
-    public ListResponse<SubtenantUser> users(@NonNull String id,
+    public ListResponse<SubtenantUser> users(@NonNull String id, @Nullable String emailEq,
+                                             @Nullable String loginProfilesEq,
                                              @Nullable SubtenantUserListOptions options) throws MbedCloudException {
         checkNotNull(id, TAG_ID);
         final String finalId = id;
+        final String finalEmailEq = emailEq;
+        final String finalLoginProfilesEq = loginProfilesEq;
         final SubtenantUserListOptions finalOptions = (options == null) ? new SubtenantUserListOptions() : options;
         return CloudCaller.call(this, "users()", SubtenantUserAdapter.getListMapper(),
                                 new CloudRequest.CloudCall<UserInfoRespList>() {
@@ -3566,16 +5251,103 @@ public class Accounts extends AbstractModule {
                                                                             finalOptions.getAfter(),
                                                                             finalOptions.getOrder().toString(),
                                                                             ListOptionsEncoder.encodeInclude(finalOptions),
-                                                                            ListOptionsEncoder.encodeSingleEqualFilter(SubtenantUserListOptions.TAG_FILTER_BY_EMAIL,
-                                                                                                                       finalOptions),
+                                                                            finalEmailEq,
                                                                             ListOptionsEncoder.encodeSingleEqualFilter(SubtenantUserListOptions.TAG_FILTER_BY_STATUS,
                                                                                                                        finalOptions),
                                                                             ListOptionsEncoder.encodeSingleInFilter(SubtenantUserListOptions.TAG_FILTER_BY_STATUS,
                                                                                                                     finalOptions),
                                                                             ListOptionsEncoder.encodeSingleNotInFilter(SubtenantUserListOptions.TAG_FILTER_BY_STATUS,
                                                                                                                        finalOptions),
-                                                                            ListOptionsEncoder.encodeSingleEqualFilter(SubtenantUserListOptions.TAG_FILTER_BY_LOGIN_PROFILES,
-                                                                                                                       finalOptions));
+                                                                            finalLoginProfilesEq);
+                                    }
+                                });
+    }
+
+    /**
+     * Get users of a group.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link #users(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
+     * 
+     * @param statusEq
+     *            a string
+     * @param statusIn
+     *            a string
+     * @param statusNin
+     *            a string
+     * @param options
+     *            list options.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return the list of subtenant users corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantUser>
+           users(@Nullable String statusEq, @Nullable String statusIn, @Nullable String statusNin,
+                 @Nullable SubtenantUserListOptions options,
+                 @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        checkModelValidity(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        return users(subtenantPolicyGroup.getAccountId(), subtenantPolicyGroup.getId(), statusEq, statusIn, statusNin,
+                     options);
+    }
+
+    /**
+     * Get users of a group.
+     *
+     *
+     * <p>
+     * List users of the group with details.
+     *
+     * **Example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users \ -H 'Authorization:
+     * Bearer [api_key]' ```
+     *
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the group to retrieve users for.
+     * @param options
+     *            list options.
+     * @return the list of subtenant users corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantUser> users(@NonNull String accountId, @NonNull String id,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        final SubtenantUserListOptions finalOptions = (options == null) ? new SubtenantUserListOptions() : options;
+        return CloudCaller.call(this, "users()", SubtenantUserAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<UserInfoRespList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<UserInfoRespList> call() {
+                                        return endpoints.getTenantAccountsPolicyGroupsApi()
+                                                        .getUsersOfAccountGroup(finalAccountId, finalId,
+                                                                                finalOptions.getPageSize(),
+                                                                                finalOptions.getAfter(),
+                                                                                finalOptions.getOrder().toString(),
+                                                                                ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                                ListOptionsEncoder.encodeSingleEqualFilter(SubtenantUserListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                           finalOptions),
+                                                                                ListOptionsEncoder.encodeSingleInFilter(SubtenantUserListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                        finalOptions),
+                                                                                ListOptionsEncoder.encodeSingleNotInFilter(SubtenantUserListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                           finalOptions));
                                     }
                                 });
     }
@@ -3585,7 +5357,108 @@ public class Accounts extends AbstractModule {
      *
      *
      * <p>
-     * Similar to {@link #users(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
+     * Similar to {@link #users(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
+     * 
+     * @param emailEq
+     *            a string
+     * @param loginProfilesEq
+     *            a string
+     * @param options
+     *            list options.
+     * @param account
+     *            an account.
+     * @return the list of subtenant users corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantUser> users(@Nullable String emailEq, @Nullable String loginProfilesEq,
+                                             @Nullable SubtenantUserListOptions options,
+                                             @NonNull Account account) throws MbedCloudException {
+        checkNotNull(account, TAG_ACCOUNT);
+        checkModelValidity(account, TAG_ACCOUNT);
+        return users(account.getId(), emailEq, loginProfilesEq, options);
+    }
+
+    /**
+     * Get the details of all users.
+     *
+     *
+     * <p>
+     * Similar to {@link #users(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
+     * 
+     * @param id
+     *            Account ID.
+     * @param options
+     *            list options.
+     * @return the list of subtenant users corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantUser> users(@NonNull String id,
+                                             @Nullable SubtenantUserListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        return users(id, (String) null, (String) null, options);
+    }
+
+    /**
+     * Get users of a group.
+     *
+     *
+     * <p>
+     * Retrieve users of a group with details.
+     *
+     * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \ -H
+     * 'Authorization: Bearer [api_key]' ```
+     *
+     * @param id
+     *            The ID of the group.
+     * @param options
+     *            list options.
+     * @return the list of users corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<User> users(@NonNull String id, @Nullable UserListOptions options) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        final UserListOptions finalOptions = (options == null) ? new UserListOptions() : options;
+        return CloudCaller.call(this, "users()", UserAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<UserInfoRespList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<UserInfoRespList> call() {
+                                        return endpoints.getAccountPolicyGroupsApi()
+                                                        .getUsersOfGroup(finalId, finalOptions.getPageSize(),
+                                                                         finalOptions.getAfter(),
+                                                                         finalOptions.getOrder().toString(),
+                                                                         ListOptionsEncoder.encodeInclude(finalOptions),
+                                                                         ListOptionsEncoder.encodeSingleEqualFilter(UserListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                    finalOptions),
+                                                                         ListOptionsEncoder.encodeSingleInFilter(UserListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                 finalOptions),
+                                                                         ListOptionsEncoder.encodeSingleNotInFilter(UserListOptions.TAG_FILTER_BY_STATUS,
+                                                                                                                    finalOptions));
+                                    }
+                                });
+    }
+
+    /**
+     * Get the details of all users.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link #users(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param options
      *            list options.
@@ -3600,8 +5473,56 @@ public class Accounts extends AbstractModule {
     public ListResponse<SubtenantUser> users(@Nullable SubtenantUserListOptions options,
                                              @NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
-        checkModelValidity(account, TAG_ACCOUNT);
-        return users(account.getId(), options);
+        return users((String) null, (String) null, options, account);
+    }
+
+    /**
+     * Get users of a group.
+     *
+     *
+     * <p>
+     * Similar to {@link #users(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return the list of subtenant users corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantUser>
+           users(@Nullable SubtenantUserListOptions options,
+                 @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        checkModelValidity(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        return users(subtenantPolicyGroup.getAccountId(), subtenantPolicyGroup.getId(), options);
+    }
+
+    /**
+     * Get users of a group.
+     *
+     *
+     * <p>
+     * Similar to {@link #users(String, com.arm.mbed.cloud.sdk.accounts.model.UserListOptions)}
+     * 
+     * @param options
+     *            list options.
+     * @param policyGroup
+     *            a policy group.
+     * @return the list of users corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<User> users(@Nullable UserListOptions options,
+                                    @NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        checkNotNull(policyGroup, TAG_POLICY_GROUP);
+        checkModelValidity(policyGroup, TAG_POLICY_GROUP);
+        return users(policyGroup.getId(), options);
     }
 
     /**

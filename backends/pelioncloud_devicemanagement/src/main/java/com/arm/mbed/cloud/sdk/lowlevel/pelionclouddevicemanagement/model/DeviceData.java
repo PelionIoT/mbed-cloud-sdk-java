@@ -151,6 +151,74 @@ public class DeviceData implements Serializable {
     @SerializedName("issuer_fingerprint")
     private String issuerFingerprint = null;
 
+    @SerializedName("last_operator_suspended_category")
+    private String lastOperatorSuspendedCategory = null;
+
+    @SerializedName("last_operator_suspended_description")
+    private String lastOperatorSuspendedDescription = null;
+
+    @SerializedName("last_operator_suspended_updated_at")
+    private DateTime lastOperatorSuspendedUpdatedAt = null;
+
+    @SerializedName("last_system_suspended_category")
+    private String lastSystemSuspendedCategory = null;
+
+    @SerializedName("last_system_suspended_description")
+    private String lastSystemSuspendedDescription = null;
+
+    @SerializedName("last_system_suspended_updated_at")
+    private DateTime lastSystemSuspendedUpdatedAt = null;
+
+    /**
+     * The lifecycle status of the device.
+     */
+    @JsonAdapter(LifecycleStatusEnum.Adapter.class)
+    public enum LifecycleStatusEnum {
+        ENABLED("enabled"),
+
+        BLOCKED("blocked");
+
+        private String value;
+
+        LifecycleStatusEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static LifecycleStatusEnum fromValue(String text) {
+            for (LifecycleStatusEnum b : LifecycleStatusEnum.values()) {
+                if (String.valueOf(b.value).equals(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        public static class Adapter extends TypeAdapter<LifecycleStatusEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final LifecycleStatusEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public LifecycleStatusEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return LifecycleStatusEnum.fromValue(String.valueOf(value));
+            }
+        }
+    }
+
+    @SerializedName("lifecycle_status")
+    private LifecycleStatusEnum lifecycleStatus = null;
+
     @SerializedName("manifest")
     private String manifest = null;
 
@@ -216,6 +284,9 @@ public class DeviceData implements Serializable {
     @SerializedName("object")
     private String object = null;
 
+    @SerializedName("operator_suspended")
+    private Boolean operatorSuspended = null;
+
     @SerializedName("serial_number")
     private String serialNumber = null;
 
@@ -274,6 +345,9 @@ public class DeviceData implements Serializable {
 
     @SerializedName("state")
     private StateEnum state = null;
+
+    @SerializedName("system_suspended")
+    private Boolean systemSuspended = null;
 
     @SerializedName("updated_at")
     private DateTime updatedAt = null;
@@ -528,13 +602,15 @@ public class DeviceData implements Serializable {
 
     /**
      * The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted
-     * values: - 0 - unspecified execution mode (default if host_gateway invalid or not set) - 1 - development devices -
-     * 5 - production devices
+     * values: - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a
+     * certificate that is not identified as a developer or production certificate. - 1 - Development device. The device
+     * firmware uses a developer certificate to communicate with Device Management. - 5 - Production device. The device
+     * firmware uses a factory-generated certificate to communicate with Device Management.
      * 
      * @return deviceExecutionMode
      **/
     @ApiModelProperty(example = "0",
-                      value = "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted values:   - 0 - unspecified execution mode (default if host_gateway invalid or not set)   - 1 - development devices   - 5 - production devices")
+                      value = "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted values:   - 0 - Unspecified execution mode (default if host_gateway invalid or not set). The device firmware uses a certificate that is not identified as a developer or production certificate.   - 1 - Development device. The device firmware uses a developer certificate to communicate with Device Management.   - 5 - Production device. The device firmware uses a factory-generated certificate to communicate with Device Management.")
     public Integer getDeviceExecutionMode() {
         return deviceExecutionMode;
     }
@@ -737,6 +813,143 @@ public class DeviceData implements Serializable {
         this.issuerFingerprint = issuerFingerprint;
     }
 
+    public DeviceData lastOperatorSuspendedCategory(String lastOperatorSuspendedCategory) {
+        this.lastOperatorSuspendedCategory = lastOperatorSuspendedCategory;
+        return this;
+    }
+
+    /**
+     * The reference of the block category.
+     * 
+     * @return lastOperatorSuspendedCategory
+     **/
+    @ApiModelProperty(example = "maintenance", value = "The reference of the block category.")
+    public String getLastOperatorSuspendedCategory() {
+        return lastOperatorSuspendedCategory;
+    }
+
+    public void setLastOperatorSuspendedCategory(String lastOperatorSuspendedCategory) {
+        this.lastOperatorSuspendedCategory = lastOperatorSuspendedCategory;
+    }
+
+    public DeviceData lastOperatorSuspendedDescription(String lastOperatorSuspendedDescription) {
+        this.lastOperatorSuspendedDescription = lastOperatorSuspendedDescription;
+        return this;
+    }
+
+    /**
+     * The most recent description why the device was suspended or returned to service.
+     * 
+     * @return lastOperatorSuspendedDescription
+     **/
+    @ApiModelProperty(example = "Suspended for maintenance.",
+                      value = "The most recent description why the device was suspended or returned to service.")
+    public String getLastOperatorSuspendedDescription() {
+        return lastOperatorSuspendedDescription;
+    }
+
+    public void setLastOperatorSuspendedDescription(String lastOperatorSuspendedDescription) {
+        this.lastOperatorSuspendedDescription = lastOperatorSuspendedDescription;
+    }
+
+    public DeviceData lastOperatorSuspendedUpdatedAt(DateTime lastOperatorSuspendedUpdatedAt) {
+        this.lastOperatorSuspendedUpdatedAt = lastOperatorSuspendedUpdatedAt;
+        return this;
+    }
+
+    /**
+     * The timestamp of the most recent suspension activity.
+     * 
+     * @return lastOperatorSuspendedUpdatedAt
+     **/
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z",
+                      value = "The timestamp of the most recent suspension activity.")
+    public DateTime getLastOperatorSuspendedUpdatedAt() {
+        return lastOperatorSuspendedUpdatedAt;
+    }
+
+    public void setLastOperatorSuspendedUpdatedAt(DateTime lastOperatorSuspendedUpdatedAt) {
+        this.lastOperatorSuspendedUpdatedAt = lastOperatorSuspendedUpdatedAt;
+    }
+
+    public DeviceData lastSystemSuspendedCategory(String lastSystemSuspendedCategory) {
+        this.lastSystemSuspendedCategory = lastSystemSuspendedCategory;
+        return this;
+    }
+
+    /**
+     * The reference of the block category.
+     * 
+     * @return lastSystemSuspendedCategory
+     **/
+    @ApiModelProperty(example = "maintenance", value = "The reference of the block category.")
+    public String getLastSystemSuspendedCategory() {
+        return lastSystemSuspendedCategory;
+    }
+
+    public void setLastSystemSuspendedCategory(String lastSystemSuspendedCategory) {
+        this.lastSystemSuspendedCategory = lastSystemSuspendedCategory;
+    }
+
+    public DeviceData lastSystemSuspendedDescription(String lastSystemSuspendedDescription) {
+        this.lastSystemSuspendedDescription = lastSystemSuspendedDescription;
+        return this;
+    }
+
+    /**
+     * The most recent description of why the device was blocked or unblocked by the system.
+     * 
+     * @return lastSystemSuspendedDescription
+     **/
+    @ApiModelProperty(example = "A certificate in the device's certificate chain was blacklisted by the system.",
+                      value = "The most recent description of why the device was blocked or unblocked by the system.")
+    public String getLastSystemSuspendedDescription() {
+        return lastSystemSuspendedDescription;
+    }
+
+    public void setLastSystemSuspendedDescription(String lastSystemSuspendedDescription) {
+        this.lastSystemSuspendedDescription = lastSystemSuspendedDescription;
+    }
+
+    public DeviceData lastSystemSuspendedUpdatedAt(DateTime lastSystemSuspendedUpdatedAt) {
+        this.lastSystemSuspendedUpdatedAt = lastSystemSuspendedUpdatedAt;
+        return this;
+    }
+
+    /**
+     * The timestamp of the most recent system block activity.
+     * 
+     * @return lastSystemSuspendedUpdatedAt
+     **/
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z",
+                      value = "The timestamp of the most recent system block activity.")
+    public DateTime getLastSystemSuspendedUpdatedAt() {
+        return lastSystemSuspendedUpdatedAt;
+    }
+
+    public void setLastSystemSuspendedUpdatedAt(DateTime lastSystemSuspendedUpdatedAt) {
+        this.lastSystemSuspendedUpdatedAt = lastSystemSuspendedUpdatedAt;
+    }
+
+    public DeviceData lifecycleStatus(LifecycleStatusEnum lifecycleStatus) {
+        this.lifecycleStatus = lifecycleStatus;
+        return this;
+    }
+
+    /**
+     * The lifecycle status of the device.
+     * 
+     * @return lifecycleStatus
+     **/
+    @ApiModelProperty(example = "enabled", value = "The lifecycle status of the device.")
+    public LifecycleStatusEnum getLifecycleStatus() {
+        return lifecycleStatus;
+    }
+
+    public void setLifecycleStatus(LifecycleStatusEnum lifecycleStatus) {
+        this.lifecycleStatus = lifecycleStatus;
+    }
+
     public DeviceData manifest(String manifest) {
         this.manifest = manifest;
         return this;
@@ -851,6 +1064,25 @@ public class DeviceData implements Serializable {
         this.object = object;
     }
 
+    public DeviceData operatorSuspended(Boolean operatorSuspended) {
+        this.operatorSuspended = operatorSuspended;
+        return this;
+    }
+
+    /**
+     * Is the device suspended by the operator?
+     * 
+     * @return operatorSuspended
+     **/
+    @ApiModelProperty(value = "Is the device suspended by the operator?")
+    public Boolean isOperatorSuspended() {
+        return operatorSuspended;
+    }
+
+    public void setOperatorSuspended(Boolean operatorSuspended) {
+        this.operatorSuspended = operatorSuspended;
+    }
+
     public DeviceData serialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
         return this;
@@ -887,6 +1119,25 @@ public class DeviceData implements Serializable {
 
     public void setState(StateEnum state) {
         this.state = state;
+    }
+
+    public DeviceData systemSuspended(Boolean systemSuspended) {
+        this.systemSuspended = systemSuspended;
+        return this;
+    }
+
+    /**
+     * Is the device suspended by the system?
+     * 
+     * @return systemSuspended
+     **/
+    @ApiModelProperty(value = "Is the device suspended by the system?")
+    public Boolean isSystemSuspended() {
+        return systemSuspended;
+    }
+
+    public void setSystemSuspended(Boolean systemSuspended) {
+        this.systemSuspended = systemSuspended;
     }
 
     public DeviceData updatedAt(DateTime updatedAt) {
@@ -958,13 +1209,23 @@ public class DeviceData implements Serializable {
                && Objects.equals(this.groups, deviceData.groups)
                && Objects.equals(this.hostGateway, deviceData.hostGateway) && Objects.equals(this.id, deviceData.id)
                && Objects.equals(this.issuerFingerprint, deviceData.issuerFingerprint)
+               && Objects.equals(this.lastOperatorSuspendedCategory, deviceData.lastOperatorSuspendedCategory)
+               && Objects.equals(this.lastOperatorSuspendedDescription, deviceData.lastOperatorSuspendedDescription)
+               && Objects.equals(this.lastOperatorSuspendedUpdatedAt, deviceData.lastOperatorSuspendedUpdatedAt)
+               && Objects.equals(this.lastSystemSuspendedCategory, deviceData.lastSystemSuspendedCategory)
+               && Objects.equals(this.lastSystemSuspendedDescription, deviceData.lastSystemSuspendedDescription)
+               && Objects.equals(this.lastSystemSuspendedUpdatedAt, deviceData.lastSystemSuspendedUpdatedAt)
+               && Objects.equals(this.lifecycleStatus, deviceData.lifecycleStatus)
                && Objects.equals(this.manifest, deviceData.manifest)
                && Objects.equals(this.manifestTimestamp, deviceData.manifestTimestamp)
                && Objects.equals(this.mechanism, deviceData.mechanism)
                && Objects.equals(this.mechanismUrl, deviceData.mechanismUrl)
                && Objects.equals(this.name, deviceData.name) && Objects.equals(this.object, deviceData.object)
+               && Objects.equals(this.operatorSuspended, deviceData.operatorSuspended)
                && Objects.equals(this.serialNumber, deviceData.serialNumber)
-               && Objects.equals(this.state, deviceData.state) && Objects.equals(this.updatedAt, deviceData.updatedAt)
+               && Objects.equals(this.state, deviceData.state)
+               && Objects.equals(this.systemSuspended, deviceData.systemSuspended)
+               && Objects.equals(this.updatedAt, deviceData.updatedAt)
                && Objects.equals(this.vendorId, deviceData.vendorId);
     }
 
@@ -974,7 +1235,10 @@ public class DeviceData implements Serializable {
                             connectorExpirationDate, createdAt, customAttributes, deployedState, deployment,
                             description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType,
                             enrolmentListTimestamp, etag, firmwareChecksum, groups, hostGateway, id, issuerFingerprint,
-                            manifest, manifestTimestamp, mechanism, mechanismUrl, name, object, serialNumber, state,
+                            lastOperatorSuspendedCategory, lastOperatorSuspendedDescription,
+                            lastOperatorSuspendedUpdatedAt, lastSystemSuspendedCategory, lastSystemSuspendedDescription,
+                            lastSystemSuspendedUpdatedAt, lifecycleStatus, manifest, manifestTimestamp, mechanism,
+                            mechanismUrl, name, object, operatorSuspended, serialNumber, state, systemSuspended,
                             updatedAt, vendorId);
     }
 
@@ -1006,14 +1270,29 @@ public class DeviceData implements Serializable {
         sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    issuerFingerprint: ").append(toIndentedString(issuerFingerprint)).append("\n");
+        sb.append("    lastOperatorSuspendedCategory: ").append(toIndentedString(lastOperatorSuspendedCategory))
+          .append("\n");
+        sb.append("    lastOperatorSuspendedDescription: ").append(toIndentedString(lastOperatorSuspendedDescription))
+          .append("\n");
+        sb.append("    lastOperatorSuspendedUpdatedAt: ").append(toIndentedString(lastOperatorSuspendedUpdatedAt))
+          .append("\n");
+        sb.append("    lastSystemSuspendedCategory: ").append(toIndentedString(lastSystemSuspendedCategory))
+          .append("\n");
+        sb.append("    lastSystemSuspendedDescription: ").append(toIndentedString(lastSystemSuspendedDescription))
+          .append("\n");
+        sb.append("    lastSystemSuspendedUpdatedAt: ").append(toIndentedString(lastSystemSuspendedUpdatedAt))
+          .append("\n");
+        sb.append("    lifecycleStatus: ").append(toIndentedString(lifecycleStatus)).append("\n");
         sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
         sb.append("    manifestTimestamp: ").append(toIndentedString(manifestTimestamp)).append("\n");
         sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");
         sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    object: ").append(toIndentedString(object)).append("\n");
+        sb.append("    operatorSuspended: ").append(toIndentedString(operatorSuspended)).append("\n");
         sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");
         sb.append("    state: ").append(toIndentedString(state)).append("\n");
+        sb.append("    systemSuspended: ").append(toIndentedString(systemSuspended)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    vendorId: ").append(toIndentedString(vendorId)).append("\n");
         sb.append("}");

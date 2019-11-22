@@ -43,7 +43,7 @@ public final class SubtenantApiKeyAdapter {
             return null;
         }
         final ApiKeyInfoReq apiKeyInfoReq = new ApiKeyInfoReq();
-        // No field equivalent to groups in ApiKeyInfoReq was found in SubtenantApiKey
+        apiKeyInfoReq.setGroups(toBeMapped.getGroups());
         apiKeyInfoReq.setName(toBeMapped.getName());
         apiKeyInfoReq.setOwner(toBeMapped.getOwner());
         apiKeyInfoReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelApikeyinforeqStatusenum(toBeMapped.getStatus()));
@@ -68,6 +68,7 @@ public final class SubtenantApiKeyAdapter {
                                                                     TranslationUtils.toLong(toBeMapped.getLastLoginTime()),
                                                                     TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
         subtenantApiKey.setAccountId(toBeMapped.getAccountId());
+        subtenantApiKey.setGroups(toBeMapped.getGroups());
         subtenantApiKey.setId(toBeMapped.getId());
         subtenantApiKey.setName(toBeMapped.getName());
         subtenantApiKey.setOwner(toBeMapped.getOwner());
@@ -110,33 +111,11 @@ public final class SubtenantApiKeyAdapter {
             return null;
         }
         final ApiKeyUpdateReq apiKeyUpdateReq = new ApiKeyUpdateReq();
-        // No field equivalent to groups in ApiKeyUpdateReq was found in SubtenantApiKey
+        apiKeyUpdateReq.setGroups(toBeMapped.getGroups());
         apiKeyUpdateReq.setName(toBeMapped.getName());
         apiKeyUpdateReq.setOwner(toBeMapped.getOwner());
         apiKeyUpdateReq.setStatus(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelApikeyupdatereqStatusenum(toBeMapped.getStatus()));
         return apiKeyUpdateReq;
-    }
-
-    /**
-     * Maps the enum value.
-     * 
-     * @param toBeMapped
-     *            a status enum.
-     * @return mapped enum value
-     */
-    @Internal
-    protected static SubtenantApiKeyStatus translateToSubtenantApiKeyStatus(ApiKeyInfoResp.StatusEnum toBeMapped) {
-        if (toBeMapped == null) {
-            return SubtenantApiKeyStatus.getUnknownEnum();
-        }
-        switch (toBeMapped) {
-            case ACTIVE:
-                return SubtenantApiKeyStatus.ACTIVE;
-            case INACTIVE:
-                return SubtenantApiKeyStatus.INACTIVE;
-            default:
-                return SubtenantApiKeyStatus.getUnknownEnum();
-        }
     }
 
     /**
@@ -243,6 +222,28 @@ public final class SubtenantApiKeyAdapter {
                 return SubtenantApiKeyAdapter.mapList(toBeMapped);
             }
         };
+    }
+
+    /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
+     *            a status enum.
+     * @return mapped enum value
+     */
+    @Internal
+    protected static SubtenantApiKeyStatus translateToSubtenantApiKeyStatus(ApiKeyInfoResp.StatusEnum toBeMapped) {
+        if (toBeMapped == null) {
+            return SubtenantApiKeyStatus.getUnknownEnum();
+        }
+        switch (toBeMapped) {
+            case ACTIVE:
+                return SubtenantApiKeyStatus.ACTIVE;
+            case INACTIVE:
+                return SubtenantApiKeyStatus.INACTIVE;
+            default:
+                return SubtenantApiKeyStatus.getUnknownEnum();
+        }
     }
 
     /**

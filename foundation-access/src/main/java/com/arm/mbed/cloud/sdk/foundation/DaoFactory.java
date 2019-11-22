@@ -6,7 +6,11 @@ import com.arm.mbed.cloud.sdk.accounts.model.AccountDao;
 import com.arm.mbed.cloud.sdk.accounts.model.AccountListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyDao;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListDao;
+import com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupDao;
+import com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyDao;
+import com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupDao;
+import com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationDao;
 import com.arm.mbed.cloud.sdk.accounts.model.UserDao;
@@ -669,6 +673,30 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
+     * Gets a policy group dao.
+     * 
+     * @return a policy group dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public PolicyGroupDao getPolicyGroupDao() throws MbedCloudException {
+        return new PolicyGroupDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a policy group list dao.
+     * 
+     * @return a policy group list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public PolicyGroupListDao getPolicyGroupListDao() throws MbedCloudException {
+        return new PolicyGroupListDao().configureAndGet(context);
+    }
+
+    /**
      * Gets a pre shared key dao.
      * 
      * @return a pre shared key dao
@@ -762,6 +790,30 @@ public class DaoFactory implements Cloneable {
     @SuppressWarnings("resource")
     public SubtenantLightThemeImageDao getSubtenantLightThemeImageDao() throws MbedCloudException {
         return new SubtenantLightThemeImageDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a subtenant policy group dao.
+     * 
+     * @return a subtenant policy group dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public SubtenantPolicyGroupDao getSubtenantPolicyGroupDao() throws MbedCloudException {
+        return new SubtenantPolicyGroupDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a subtenant policy group list dao.
+     * 
+     * @return a subtenant policy group list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public SubtenantPolicyGroupListDao getSubtenantPolicyGroupListDao() throws MbedCloudException {
+        return new SubtenantPolicyGroupListDao().configureAndGet(context);
     }
 
     /**

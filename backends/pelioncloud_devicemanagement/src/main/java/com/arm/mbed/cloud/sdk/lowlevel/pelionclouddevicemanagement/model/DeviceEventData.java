@@ -261,11 +261,11 @@ public class DeviceEventData implements Serializable {
     }
 
     /**
-     * Generic description of the event
+     * Generic description of the event.
      * 
      * @return eventTypeDescription
      **/
-    @ApiModelProperty(example = "FAIL", value = "Generic description of the event")
+    @ApiModelProperty(example = "FAIL", value = "Generic description of the event.")
     public String getEventTypeDescription() {
         return eventTypeDescription;
     }

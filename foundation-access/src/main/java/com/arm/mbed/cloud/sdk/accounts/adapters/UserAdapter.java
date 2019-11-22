@@ -46,7 +46,7 @@ public final class UserAdapter {
         userInfoReq.setAddress(toBeMapped.getAddress());
         userInfoReq.setEmail(toBeMapped.getEmail());
         userInfoReq.setFullName(toBeMapped.getFullName());
-        // No field equivalent to groups in UserInfoReq was found in User
+        userInfoReq.setGroups(toBeMapped.getGroups());
         userInfoReq.setIsGtcAccepted(Boolean.valueOf(toBeMapped.isGtcAccepted()));
         userInfoReq.setIsMarketingAccepted(Boolean.valueOf(toBeMapped.isMarketingAccepted()));
         userInfoReq.setLoginProfiles(LoginProfileAdapter.reverseMapAddSimpleList(toBeMapped.getLoginProfiles()));
@@ -81,6 +81,7 @@ public final class UserAdapter {
         user.setAddress(toBeMapped.getAddress());
         user.setEmail(toBeMapped.getEmail());
         user.setFullName(toBeMapped.getFullName());
+        user.setGroups(toBeMapped.getGroups());
         user.setId(toBeMapped.getId());
         user.setIsGtcAccepted(TranslationUtils.toBool(toBeMapped.isIsGtcAccepted()));
         user.setIsMarketingAccepted(TranslationUtils.toBool(toBeMapped.isIsMarketingAccepted()));
@@ -237,7 +238,7 @@ public final class UserAdapter {
         userUpdateReq.setAddress(toBeMapped.getAddress());
         userUpdateReq.setEmail(toBeMapped.getEmail());
         userUpdateReq.setFullName(toBeMapped.getFullName());
-        // No field equivalent to groups in UserUpdateReq was found in User
+        userUpdateReq.setGroups(toBeMapped.getGroups());
         userUpdateReq.setIsGtcAccepted(Boolean.valueOf(toBeMapped.isGtcAccepted()));
         userUpdateReq.setIsMarketingAccepted(Boolean.valueOf(toBeMapped.isMarketingAccepted()));
         userUpdateReq.setIsTotpEnabled(Boolean.valueOf(toBeMapped.isTotpEnabled()));

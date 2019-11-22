@@ -16,6 +16,40 @@ public class ResourceActionParameters {
     private final Resource resource;
     private final Object value;
     private final ResourceValueType valueType;
+    private final Integer retries;
+    private final Integer expirySeconds;
+
+    /**
+     * Constructor.
+     * 
+     * @param asyncId
+     *            asynchronous response Id.
+     * @param resource
+     *            resource the action refers to.
+     * @param value
+     *            value of the resource to set or execute.
+     * @param valueType
+     *            type of the value.
+     * 
+     * @param retries
+     *            The count of retry transmissions of the request to the device, after initial transmission. For
+     *            example, retry of two means three delivery attempts in total. If retries are exhausted, the request is
+     *            discarded.
+     * @param expirySeconds
+     *            The time period during which the delivery is attempted, in seconds. If the device is not reachable
+     *            within this period, the request is discarded.
+     * 
+     */
+    public ResourceActionParameters(String asyncId, Resource resource, Object value, ResourceValueType valueType,
+                                    Integer retries, Integer expirySeconds) {
+        super();
+        this.asyncId = asyncId;
+        this.resource = resource;
+        this.value = value;
+        this.valueType = valueType;
+        this.retries = retries;
+        this.expirySeconds = expirySeconds;
+    }
 
     /**
      * Constructor.
@@ -30,11 +64,7 @@ public class ResourceActionParameters {
      *            type of the value.
      */
     public ResourceActionParameters(String asyncId, Resource resource, Object value, ResourceValueType valueType) {
-        super();
-        this.asyncId = asyncId;
-        this.resource = resource;
-        this.value = value;
-        this.valueType = valueType;
+        this(asyncId, resource, value, valueType, null, null);
     }
 
     public String getAsyncId() {
@@ -55,6 +85,14 @@ public class ResourceActionParameters {
 
     public ResourceValueType getValueType() {
         return valueType;
+    }
+
+    public Integer getRetries() {
+        return retries;
+    }
+
+    public Integer getExpirySeconds() {
+        return expirySeconds;
     }
 
     public String getResourcePath() {

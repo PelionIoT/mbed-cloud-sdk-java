@@ -45,6 +45,9 @@ public class IdentityProviderInfo implements Serializable {
     @SerializedName("id")
     private String id = null;
 
+    @SerializedName("is_default")
+    private Boolean isDefault = null;
+
     @SerializedName("name")
     private String name = null;
 
@@ -302,6 +305,16 @@ public class IdentityProviderInfo implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Flag indicating whether this is the global default identity provider.
+     * 
+     * @return isDefault
+     **/
+    @ApiModelProperty(value = "Flag indicating whether this is the global default identity provider.")
+    public Boolean isIsDefault() {
+        return isDefault;
+    }
+
     public IdentityProviderInfo name(String name) {
         this.name = name;
         return this;
@@ -430,6 +443,7 @@ public class IdentityProviderInfo implements Serializable {
                && Objects.equals(this.description, identityProviderInfo.description)
                && Objects.equals(this.etag, identityProviderInfo.etag)
                && Objects.equals(this.id, identityProviderInfo.id)
+               && Objects.equals(this.isDefault, identityProviderInfo.isDefault)
                && Objects.equals(this.name, identityProviderInfo.name)
                && Objects.equals(this.object, identityProviderInfo.object)
                && Objects.equals(this.saml2Attributes, identityProviderInfo.saml2Attributes)
@@ -440,8 +454,8 @@ public class IdentityProviderInfo implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, createdAt, description, etag, id, name, object, saml2Attributes, status, type,
-                            updatedAt);
+        return Objects.hash(accountId, createdAt, description, etag, id, isDefault, name, object, saml2Attributes,
+                            status, type, updatedAt);
     }
 
     @Override
@@ -454,6 +468,7 @@ public class IdentityProviderInfo implements Serializable {
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("    isDefault: ").append(toIndentedString(isDefault)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    object: ").append(toIndentedString(object)).append("\n");
         sb.append("    saml2Attributes: ").append(toIndentedString(saml2Attributes)).append("\n");

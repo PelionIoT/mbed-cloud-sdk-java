@@ -27,7 +27,7 @@ public class SAML2Req implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("entity_descriptor")
-    private String entityDescriptor = null;
+    private byte[] entityDescriptor = null;
 
     @SerializedName("idp_entity_id")
     private String idpEntityId = null;
@@ -44,23 +44,23 @@ public class SAML2Req implements Serializable {
     @SerializedName("sso_endpoint")
     private String ssoEndpoint = null;
 
-    public SAML2Req entityDescriptor(String entityDescriptor) {
+    public SAML2Req entityDescriptor(byte[] entityDescriptor) {
         this.entityDescriptor = entityDescriptor;
         return this;
     }
 
     /**
-     * Base64 encoded string representation of an XML file. Contains an entity descriptor document for the identity
-     * provider. Can be used as an alternative method to provide the identity provider&#39;s attributes.
+     * Contains an entity descriptor document for the identity provider. Can be used as an alternative method to provide
+     * the identity provider&#39;s attributes.
      * 
      * @return entityDescriptor
      **/
-    @ApiModelProperty(value = "Base64 encoded string representation of an XML file. Contains an entity descriptor document for the identity provider. Can be used as an alternative method to provide the identity provider's attributes.")
-    public String getEntityDescriptor() {
+    @ApiModelProperty(value = "Contains an entity descriptor document for the identity provider. Can be used as an alternative method to provide the identity provider's attributes.")
+    public byte[] getEntityDescriptor() {
         return entityDescriptor;
     }
 
-    public void setEntityDescriptor(String entityDescriptor) {
+    public void setEntityDescriptor(byte[] entityDescriptor) {
         this.entityDescriptor = entityDescriptor;
     }
 

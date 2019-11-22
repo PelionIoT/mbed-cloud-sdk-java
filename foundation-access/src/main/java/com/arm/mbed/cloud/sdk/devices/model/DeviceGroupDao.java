@@ -72,7 +72,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Add a device to a group .
+     * Add a device to a group.
+     *
      *
      * <p>
      * Note: uses internal data model
@@ -88,7 +89,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Add a device to a group .
+     * Add a device to a group.
+     *
      *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#addDevice(com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
@@ -103,7 +105,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Add a device to a group .
+     * Add a device to a group.
+     *
      *
      * <p>
      * Note: uses internal data model
@@ -121,7 +124,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Add a device to a group .
+     * Add a device to a group.
+     *
      *
      * <p>
      * Similar to
@@ -139,7 +143,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Add a device to a group .
+     * Add a device to a group.
+     *
      *
      * <p>
      * Note: uses internal data model
@@ -159,7 +164,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Add a device to a group .
+     * Add a device to a group.
+     *
      *
      * <p>
      * Similar to
@@ -333,7 +339,7 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#deleteDeviceGroup(String)}
      * 
      * @param id
-     *            The ID of the group. The ID of the group
+     *            The ID of the group.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -343,7 +349,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Get a page of devices .
+     * Get a page of devices.
+     *
      *
      * <p>
      * Note: uses internal data model
@@ -362,7 +369,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Get a page of devices .
+     * Get a page of devices.
+     *
      *
      * <p>
      * Similar to
@@ -382,7 +390,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Get a page of devices .
+     * Get a page of devices.
+     *
      *
      * <p>
      * Similar to
@@ -504,7 +513,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Remove a device from a group .
+     * Remove a device from a group.
+     *
      *
      * <p>
      * Note: uses internal data model
@@ -520,7 +530,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Remove a device from a group .
+     * Remove a device from a group.
+     *
      *
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#removeDevice(com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
@@ -535,7 +546,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Remove a device from a group .
+     * Remove a device from a group.
+     *
      *
      * <p>
      * Note: uses internal data model
@@ -553,7 +565,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Remove a device from a group .
+     * Remove a device from a group.
+     *
      *
      * <p>
      * Similar to
@@ -571,7 +584,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Remove a device from a group .
+     * Remove a device from a group.
+     *
      *
      * <p>
      * Note: uses internal data model
@@ -591,7 +605,8 @@ public class DeviceGroupDao extends AbstractModelDao<DeviceGroup> implements Cru
     }
 
     /**
-     * Remove a device from a group .
+     * Remove a device from a group.
+     *
      *
      * <p>
      * Similar to

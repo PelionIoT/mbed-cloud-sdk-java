@@ -186,7 +186,8 @@ public class Devices extends AbstractModule {
     }
 
     /**
-     * Add a device to a group .
+     * Add a device to a group.
+     *
      *
      * <p>
      * Similar to {@link #addDevice(String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
@@ -203,7 +204,8 @@ public class Devices extends AbstractModule {
     }
 
     /**
-     * Add a device to a group .
+     * Add a device to a group.
+     *
      *
      * <p>
      * Similar to {@link #addDevice(String, String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
@@ -222,7 +224,8 @@ public class Devices extends AbstractModule {
     }
 
     /**
-     * Add a device to a group .
+     * Add a device to a group.
+     *
      *
      * <p>
      * Add one device to a group.
@@ -253,7 +256,7 @@ public class Devices extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi()
+                return endpoints.getDeviceDirectoryGroupsApi()
                                 .groupMembersAdd(finalId,
                                                  DeviceGroupAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(finalDeviceGroup)
                                                                    .deviceId(finalDeviceId));
@@ -262,7 +265,8 @@ public class Devices extends AbstractModule {
     }
 
     /**
-     * Add a device to a group .
+     * Add a device to a group.
+     *
      *
      * <p>
      * Add one device to a group.
@@ -289,7 +293,7 @@ public class Devices extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi()
+                return endpoints.getDeviceDirectoryGroupsApi()
                                 .groupMembersAdd(finalDeviceGroupId,
                                                  DeviceAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(finalDevice));
             }
@@ -415,7 +419,7 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<DeviceData> call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceDirectoryDevicesApi()
                                                         .deviceCreate(DeviceAdapter.reverseMapAddRequest(finalDevice));
                                     }
                                 }, true);
@@ -563,7 +567,7 @@ public class Devices extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroup>
                                            call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceDirectoryGroupsApi()
                                                         .groupCreate(DeviceGroupAdapter.reverseMapAddRequest(finalGroup));
                                     }
                                 }, true);
@@ -590,11 +594,11 @@ public class Devices extends AbstractModule {
      * Deletes a device.
      *
      * <p>
-     * Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a
-     * production certicate will return a 400 response.
+     * Delete device. Only available for devices with a developer certificate. Attempting to delete a device with a
+     * production certicate returns a 400 response.
      *
      * @param id
-     *            a string
+     *            The ID of the device.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -610,7 +614,7 @@ public class Devices extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi().deviceDestroy(finalId);
+                return endpoints.getDeviceDirectoryDevicesApi().deviceDestroy(finalId);
             }
         });
     }
@@ -764,7 +768,7 @@ public class Devices extends AbstractModule {
      * Delete a group.
      *
      * @param id
-     *            The ID of the group. The ID of the group
+     *            The ID of the group.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -780,13 +784,14 @@ public class Devices extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi().groupDelete(finalId);
+                return endpoints.getDeviceDirectoryGroupsApi().groupDelete(finalId);
             }
         });
     }
 
     /**
-     * Get a page of devices .
+     * Get a page of devices.
+     *
      *
      * <p>
      * Similar to {@link #devices(String, com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions)}
@@ -810,7 +815,8 @@ public class Devices extends AbstractModule {
     }
 
     /**
-     * Get a page of devices .
+     * Get a page of devices.
+     *
      *
      * <p>
      * Get a page of devices.
@@ -840,12 +846,67 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<DevicePage> call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceDirectoryGroupsApi()
                                                         .groupMembersRetrieve(finalId, finalOptions.getPageSize(),
                                                                               finalOptions.getOrder().toString(),
                                                                               finalOptions.getAfter(),
                                                                               ListOptionsEncoder.encodeInclude(finalOptions),
-                                                                              null,
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_LIFECYCLE_STATUS,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_LIFECYCLE_STATUS,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_LIFECYCLE_STATUS,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_LIFECYCLE_STATUS,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_OPERATOR_SUSPENDED,
+                                                                                                                         Boolean.class,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_OPERATOR_SUSPENDED,
+                                                                                                                            Boolean.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT,
+                                                                                                                            DateTime.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT,
+                                                                                                                               DateTime.class,
+                                                                                                                               finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_SYSTEM_SUSPENDED,
+                                                                                                                         Boolean.class,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_SYSTEM_SUSPENDED,
+                                                                                                                            Boolean.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT,
+                                                                                                                      finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT,
+                                                                                                                         finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT,
+                                                                                                                            DateTime.class,
+                                                                                                                            finalOptions),
+                                                                              ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT,
+                                                                                                                               DateTime.class,
+                                                                                                                               finalOptions),
                                                                               ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID,
                                                                                                                          finalOptions),
                                                                               ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID,
@@ -1374,6 +1435,12 @@ public class Devices extends AbstractModule {
      * <p>
      * List all device events for an account.
      *
+     * **Example:** Following example gets device-events limiting returned results to max 5 events ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5 \ -H 'Authorization: Bearer [API key]' ``` or to get
+     * events for certain device filter based on device_id: ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=[device_id] \ -H 'Authorization: Bearer [API key]'
+     * ```
+     *
      * @param options
      *            list options.
      * @return the list of device events corresponding to filter options (One page).
@@ -1395,7 +1462,7 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<DeviceEventPage> call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceDirectoryEventsApi()
                                                         .deviceEventList(finalOptions.getPageSize(),
                                                                          finalOptions.getOrder().toString(),
                                                                          finalOptions.getAfter(),
@@ -1480,7 +1547,7 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<DeviceGroupPage> call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceDirectoryGroupsApi()
                                                         .groupList(finalOptions.getPageSize(),
                                                                    finalOptions.getOrder().toString(),
                                                                    finalOptions.getAfter(),
@@ -1547,6 +1614,10 @@ public class Devices extends AbstractModule {
      * <p>
      * List all devices.
      *
+     * **Example:** Following example filters devices according to state field and returns only devices in 'registered'
+     * state: ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices?filter=state%3Dregistered \ -H
+     * 'Authorization: Bearer [API key]' ```
+     *
      * @param options
      *            list options.
      * @return the list of devices corresponding to filter options (One page).
@@ -1567,12 +1638,67 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<DevicePage> call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceDirectoryDevicesApi()
                                                         .deviceList(finalOptions.getPageSize(),
                                                                     finalOptions.getOrder().toString(),
                                                                     finalOptions.getAfter(),
                                                                     ListOptionsEncoder.encodeInclude(finalOptions),
-                                                                    null,
+                                                                    ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_LIFECYCLE_STATUS,
+                                                                                                               finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_LIFECYCLE_STATUS,
+                                                                                                                  finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_LIFECYCLE_STATUS,
+                                                                                                            finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_LIFECYCLE_STATUS,
+                                                                                                               finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_OPERATOR_SUSPENDED,
+                                                                                                               Boolean.class,
+                                                                                                               finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_OPERATOR_SUSPENDED,
+                                                                                                                  Boolean.class,
+                                                                                                                  finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY,
+                                                                                                               finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY,
+                                                                                                                  finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY,
+                                                                                                            finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY,
+                                                                                                               finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT,
+                                                                                                            finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT,
+                                                                                                               finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT,
+                                                                                                                  DateTime.class,
+                                                                                                                  finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT,
+                                                                                                                     DateTime.class,
+                                                                                                                     finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_SYSTEM_SUSPENDED,
+                                                                                                               Boolean.class,
+                                                                                                               finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_SYSTEM_SUSPENDED,
+                                                                                                                  Boolean.class,
+                                                                                                                  finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY,
+                                                                                                               finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY,
+                                                                                                                  finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY,
+                                                                                                            finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY,
+                                                                                                               finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT,
+                                                                                                            finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleNotInFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT,
+                                                                                                               finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleLessThanFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT,
+                                                                                                                  DateTime.class,
+                                                                                                                  finalOptions),
+                                                                    ListOptionsEncoder.encodeSingleGreaterThanFilter(DeviceListOptions.TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT,
+                                                                                                                     DateTime.class,
+                                                                                                                     finalOptions),
                                                                     ListOptionsEncoder.encodeSingleEqualFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID,
                                                                                                                finalOptions),
                                                                     ListOptionsEncoder.encodeSingleNotEqualFilter(DeviceListOptions.TAG_FILTER_BY_ACCOUNT_ID,
@@ -1840,6 +1966,10 @@ public class Devices extends AbstractModule {
      * <p>
      * Retrieve information about a specific device.
      *
+     * **Example:** Following example must be updated with the device's ID to the URL. The id is from of
+     * "01667c6e992c00000000000100100370" ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/[device_ID] \
+     * -H 'Authorization: Bearer [API key]' ```
+     *
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
      * @return something
@@ -1860,7 +1990,7 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<DeviceData> call() {
-                                        return endpoints.getDefaultApi().deviceRetrieve(finalId);
+                                        return endpoints.getDeviceDirectoryDevicesApi().deviceRetrieve(finalId);
                                     }
                                 });
     }
@@ -2115,6 +2245,10 @@ public class Devices extends AbstractModule {
      * <p>
      * Retrieve a specific device event.
      *
+     * **Example:** To fetch a specific event you can use the 'id' field form the '/v3/device-events'. Form of
+     * '016c03d40a4e000000000001001003b4' ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/device-events/[device_event_id] \ -H 'Authorization: Bearer [API key]' ```
+     *
      * @param id
      *            a string
      * @return something
@@ -2135,7 +2269,7 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<DeviceEventData> call() {
-                                        return endpoints.getDefaultApi().deviceEventRetrieve(finalId);
+                                        return endpoints.getDeviceDirectoryEventsApi().deviceEventRetrieve(finalId);
                                     }
                                 });
     }
@@ -2186,13 +2320,14 @@ public class Devices extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroup>
                                            call() {
-                                        return endpoints.getDefaultApi().groupRetrieve(finalId);
+                                        return endpoints.getDeviceDirectoryGroupsApi().groupRetrieve(finalId);
                                     }
                                 });
     }
 
     /**
-     * Remove a device from a group .
+     * Remove a device from a group.
+     *
      *
      * <p>
      * Similar to {@link #removeDevice(String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
@@ -2209,7 +2344,8 @@ public class Devices extends AbstractModule {
     }
 
     /**
-     * Remove a device from a group .
+     * Remove a device from a group.
+     *
      *
      * <p>
      * Similar to {@link #removeDevice(String, String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
@@ -2228,7 +2364,8 @@ public class Devices extends AbstractModule {
     }
 
     /**
-     * Remove a device from a group .
+     * Remove a device from a group.
+     *
      *
      * <p>
      * Remove one device from a group.
@@ -2259,7 +2396,7 @@ public class Devices extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi()
+                return endpoints.getDeviceDirectoryGroupsApi()
                                 .groupMembersRemove(finalId,
                                                     DeviceGroupAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(finalDeviceGroup)
                                                                       .deviceId(finalDeviceId));
@@ -2268,7 +2405,8 @@ public class Devices extends AbstractModule {
     }
 
     /**
-     * Remove a device from a group .
+     * Remove a device from a group.
+     *
      *
      * <p>
      * Remove one device from a group.
@@ -2295,7 +2433,7 @@ public class Devices extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi()
+                return endpoints.getDeviceDirectoryGroupsApi()
                                 .groupMembersRemove(finalDeviceGroupId,
                                                     DeviceAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelDeviceGroupManipulation(finalDevice));
             }
@@ -2397,6 +2535,10 @@ public class Devices extends AbstractModule {
      * <p>
      * Update a specific device.
      *
+     * **Example:** Following example will update the specific devices description field to contain "Testing description
+     * field". ``` curl -X PUT https://api.us-east-1.mbedcloud.com/v3/devices/[device_ID] \ -H 'Authorization: Bearer
+     * [API key]' \ -H 'content-type: application/json' \ -d '{"description": "Testing description field"}' ```
+     *
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
      * @param device
@@ -2422,7 +2564,7 @@ public class Devices extends AbstractModule {
                                      */
                                     @Override
                                     public Call<DeviceData> call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceDirectoryDevicesApi()
                                                         .deviceUpdate(finalId,
                                                                       DeviceAdapter.reverseMapUpdateRequest(finalDevice));
                                     }
@@ -2481,7 +2623,7 @@ public class Devices extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroup>
                                            call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceDirectoryGroupsApi()
                                                         .groupUpdate(finalId,
                                                                      DeviceGroupAdapter.reverseMapUpdateRequest(finalGroup));
                                     }

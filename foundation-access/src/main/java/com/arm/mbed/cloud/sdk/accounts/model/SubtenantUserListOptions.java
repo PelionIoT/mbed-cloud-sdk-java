@@ -39,18 +39,6 @@ import java.util.List;
  * <td style="background-color:#dae8fc;text-align:center;width:10%;">not in</td>
  * </tr>
  * <tr>
- * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">loginProfiles</td>
- * <td style=
- * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_LOGIN_PROFILES</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * </tr>
- * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">status</td>
  * <td style=
  * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_STATUS</td>
@@ -62,18 +50,6 @@ import java.util.List;
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * </tr>
- * <tr>
- * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">email</td>
- * <td style=
- * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_EMAIL</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
- * </tr>
  * </table>
  * </li>
  * </ul>
@@ -81,16 +57,6 @@ import java.util.List;
 @Preamble(description = "Options to use when listing subtenant users.")
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class SubtenantUserListOptions extends ListOptions {
-    /**
-     * Tag for filter by email.
-     */
-    public static final String TAG_FILTER_BY_EMAIL = "email";
-
-    /**
-     * Tag for filter by loginProfiles.
-     */
-    public static final String TAG_FILTER_BY_LOGIN_PROFILES = "loginProfiles";
-
     /**
      * Tag for filter by status.
      */
@@ -170,44 +136,6 @@ public class SubtenantUserListOptions extends ListOptions {
     @Internal
     public SubtenantUserListOptions(String after, Filters filter) {
         this((Integer) null, (Long) null, Order.getDefault(), after, (List<IncludeField>) null, filter);
-    }
-
-    /**
-     * Gets all the filters defined on field {@code loginProfiles}.
-     * 
-     * @return All the filters by {@code loginProfiles}
-     */
-    public List<Filter> getLoginProfilesFilters() {
-        return fetchFilters(TAG_FILTER_BY_LOGIN_PROFILES);
-    }
-
-    /**
-     * Sets "an equal to" filter by {@code loginProfiles}.
-     * 
-     * @param filterByLoginProfiles
-     *            filter value.
-     */
-    public void addEqualToLoginProfilesFilter(List<LoginProfile> filterByLoginProfiles) {
-        addEqualFilter(TAG_FILTER_BY_LOGIN_PROFILES, filterByLoginProfiles);
-    }
-
-    /**
-     * Sets "an equal to" filter by {@code loginProfiles}.
-     *
-     * <p>
-     * Similar to
-     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions#addEqualToLoginProfilesFilter(java.util.List)}
-     * 
-     * @param filterByLoginProfiles
-     *            filter value.
-     * @param <T>
-     *            type of a subtenant user list options
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends SubtenantUserListOptions> T equalToLoginProfiles(List<LoginProfile> filterByLoginProfiles) {
-        addEqualToLoginProfilesFilter(filterByLoginProfiles);
-        return (T) this;
     }
 
     /**
@@ -423,43 +351,6 @@ public class SubtenantUserListOptions extends ListOptions {
     @SuppressWarnings("unchecked")
     public <T extends SubtenantUserListOptions> T notInStatuses(SubtenantUserStatus... filterByStatus) {
         addNotInStatusesFilter(filterByStatus);
-        return (T) this;
-    }
-
-    /**
-     * Gets all the filters defined on field {@code email}.
-     * 
-     * @return All the filters by {@code email}
-     */
-    public List<Filter> getEmailFilters() {
-        return fetchFilters(TAG_FILTER_BY_EMAIL);
-    }
-
-    /**
-     * Sets "an equal to" filter by {@code email}.
-     * 
-     * @param filterByEmail
-     *            filter value.
-     */
-    public void addEqualToEmailFilter(String filterByEmail) {
-        addEqualFilter(TAG_FILTER_BY_EMAIL, filterByEmail);
-    }
-
-    /**
-     * Sets "an equal to" filter by {@code email}.
-     *
-     * <p>
-     * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions#addEqualToEmailFilter(String)}
-     * 
-     * @param filterByEmail
-     *            filter value.
-     * @param <T>
-     *            type of a subtenant user list options
-     * @return These list options
-     */
-    @SuppressWarnings("unchecked")
-    public <T extends SubtenantUserListOptions> T equalToEmail(String filterByEmail) {
-        addEqualToEmailFilter(filterByEmail);
         return (T) this;
     }
 

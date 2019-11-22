@@ -438,7 +438,7 @@ Name | Type | Description  | Notes
 
 <a name="resetAccountApiKeySecret"></a>
 # **resetAccountApiKeySecret**
-> ApiKeyInfoResp resetAccountApiKeySecret(accountId, apikeyId)
+> ApiKeyInfoResp resetAccountApiKeySecret(accountId, apikeyId, body)
 
 Reset the secret key.
 
@@ -464,8 +464,9 @@ Bearer.setApiKey("YOUR API KEY");
 TenantAccountsApiKeysApi apiInstance = new TenantAccountsApiKeysApi();
 String accountId = "accountId_example"; // String | Account ID.
 String apikeyId = "apikeyId_example"; // String | The ID of the API key to reset.
+ApiKeyUpdateReq body = new ApiKeyUpdateReq(); // ApiKeyUpdateReq | New API key attributes to be stored.
 try {
-    ApiKeyInfoResp result = apiInstance.resetAccountApiKeySecret(accountId, apikeyId);
+    ApiKeyInfoResp result = apiInstance.resetAccountApiKeySecret(accountId, apikeyId, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling TenantAccountsApiKeysApi#resetAccountApiKeySecret");
@@ -479,6 +480,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| Account ID. |
  **apikeyId** | **String**| The ID of the API key to reset. |
+ **body** | [**ApiKeyUpdateReq**](ApiKeyUpdateReq.md)| New API key attributes to be stored. | [optional]
 
 ### Return type
 

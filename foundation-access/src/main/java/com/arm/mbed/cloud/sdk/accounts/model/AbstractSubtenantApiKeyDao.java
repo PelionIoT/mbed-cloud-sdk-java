@@ -6,6 +6,7 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 import com.arm.mbed.cloud.sdk.Accounts;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
@@ -13,6 +14,8 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 
 /**
  * Data Access Object (DAO) for subtenant api keys.
@@ -68,6 +71,70 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
      */
     public AbstractSubtenantApiKeyDao(SdkContext sdkContext) throws MbedCloudException {
         super(sdkContext);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the API key.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantPolicyGroup>
+           allPolicyGroups(@NonNull String accountId, @NonNull String id,
+                           @Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allPolicyGroups(accountId, id, options);
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyDao#allPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
+     * 
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantPolicyGroup>
+           allPolicyGroups(@Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        return allPolicyGroups(options, getModel());
+    }
+
+    /**
+     * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
+     * 
+     * @param options
+     *            list options.
+     * @param subtenantApiKey
+     *            a subtenant api key.
+     * @return paginator over the list of subtenant policy groups
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public Paginator<SubtenantPolicyGroup>
+           allPolicyGroups(@Nullable SubtenantPolicyGroupListOptions options,
+                           @NonNull SubtenantApiKey subtenantApiKey) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).allPolicyGroups(options, subtenantApiKey);
     }
 
     /**
@@ -244,6 +311,73 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
     @Internal
     protected SdkContext instantiateModule(SdkContext context) {
         return new Accounts(context);
+    }
+
+    /**
+     * Get groups associated with the API key.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the API key.
+     * @param options
+     *            list options.
+     * @return the list of subtenant policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantPolicyGroup>
+           policyGroups(@NonNull String accountId, @NonNull String id,
+                        @Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).policyGroups(accountId, id, options);
+    }
+
+    /**
+     * Get groups associated with the API key.
+     *
+     *
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyDao#policyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
+     * 
+     * @param options
+     *            list options.
+     * @return the list of subtenant policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantPolicyGroup>
+           policyGroups(@Nullable SubtenantPolicyGroupListOptions options) throws MbedCloudException {
+        return policyGroups(options, getModel());
+    }
+
+    /**
+     * Get groups associated with the API key.
+     *
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
+     * 
+     * @param options
+     *            list options.
+     * @param subtenantApiKey
+     *            a subtenant api key.
+     * @return the list of subtenant policy groups corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public ListResponse<SubtenantPolicyGroup>
+           policyGroups(@Nullable SubtenantPolicyGroupListOptions options,
+                        @NonNull SubtenantApiKey subtenantApiKey) throws MbedCloudException {
+        return ((Accounts) getModuleOrThrow()).policyGroups(options, subtenantApiKey);
     }
 
     /**

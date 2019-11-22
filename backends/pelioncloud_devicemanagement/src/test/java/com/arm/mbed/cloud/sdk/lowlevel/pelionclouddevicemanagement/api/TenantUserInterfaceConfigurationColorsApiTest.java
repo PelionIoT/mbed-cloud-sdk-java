@@ -126,7 +126,7 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     public void resetAccountDarkColorTest() {
         String accountId = null;
         String reference = null;
-        // BrandingColor response = api.resetAccountDarkColor(accountId, reference);
+        // Void response = api.resetAccountDarkColor(accountId, reference);
 
         // TODO: test validations
     }
@@ -142,7 +142,7 @@ public class TenantUserInterfaceConfigurationColorsApiTest {
     public void resetAccountLightColorTest() {
         String accountId = null;
         String reference = null;
-        // BrandingColor response = api.resetAccountLightColor(accountId, reference);
+        // Void response = api.resetAccountLightColor(accountId, reference);
 
         // TODO: test validations
     }

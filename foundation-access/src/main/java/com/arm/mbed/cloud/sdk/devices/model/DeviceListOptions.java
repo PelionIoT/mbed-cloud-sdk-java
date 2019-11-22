@@ -88,6 +88,19 @@ import java.util.List;
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * </tr>
  * <tr>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">lastOperatorSuspendedCategory</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * </tr>
+ * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">caId</td>
  * <td style=
  * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_CA_ID</td>
@@ -160,6 +173,18 @@ import java.util.List;
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * </tr>
  * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">systemSuspended</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_SYSTEM_SUSPENDED</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">state</td>
  * <td style=
  * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_STATE</td>
@@ -220,6 +245,19 @@ import java.util.List;
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * </tr>
  * <tr>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">lastOperatorSuspendedUpdatedAt</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * </tr>
+ * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">createdAt</td>
  * <td style=
  * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_CREATED_AT</td>
@@ -242,6 +280,19 @@ import java.util.List;
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">lastSystemSuspendedUpdatedAt</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * </tr>
  * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">id</td>
@@ -271,6 +322,18 @@ import java.util.List;
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">description</td>
  * <td style=
  * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_DESCRIPTION</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * </tr>
+ * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">lifecycleStatus</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_LIFECYCLE_STATUS</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
@@ -340,9 +403,34 @@ import java.util.List;
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * </tr>
  * <tr>
+ * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">operatorSuspended</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_OPERATOR_SUSPENDED</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * </tr>
+ * <tr>
  * <td style="border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">vendorId</td>
  * <td style=
  * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_VENDOR_ID</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
+ * </tr>
+ * <tr>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px">lastSystemSuspendedCategory</td>
+ * <td style=
+ * "border-color:inherit;text-align:left;padding-left:15px;padding-right:15px;font-weight:bold">TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold">&bull;</td>
  * <td style="border-color:inherit;text-align:center;font-weight:bold"></td>
@@ -478,6 +566,31 @@ public class DeviceListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_ID = "id";
 
     /**
+     * Tag for filter by lastOperatorSuspendedCategory.
+     */
+    public static final String TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY = "lastOperatorSuspendedCategory";
+
+    /**
+     * Tag for filter by lastOperatorSuspendedUpdatedAt.
+     */
+    public static final String TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT = "lastOperatorSuspendedUpdatedAt";
+
+    /**
+     * Tag for filter by lastSystemSuspendedCategory.
+     */
+    public static final String TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY = "lastSystemSuspendedCategory";
+
+    /**
+     * Tag for filter by lastSystemSuspendedUpdatedAt.
+     */
+    public static final String TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT = "lastSystemSuspendedUpdatedAt";
+
+    /**
+     * Tag for filter by lifecycleStatus.
+     */
+    public static final String TAG_FILTER_BY_LIFECYCLE_STATUS = "lifecycleStatus";
+
+    /**
      * Tag for filter by manifest.
      */
     public static final String TAG_FILTER_BY_MANIFEST = "manifest";
@@ -503,6 +616,11 @@ public class DeviceListOptions extends ListOptions {
     public static final String TAG_FILTER_BY_NAME = "name";
 
     /**
+     * Tag for filter by operatorSuspended.
+     */
+    public static final String TAG_FILTER_BY_OPERATOR_SUSPENDED = "operatorSuspended";
+
+    /**
      * Tag for filter by serialNumber.
      */
     public static final String TAG_FILTER_BY_SERIAL_NUMBER = "serialNumber";
@@ -511,6 +629,11 @@ public class DeviceListOptions extends ListOptions {
      * Tag for filter by state.
      */
     public static final String TAG_FILTER_BY_STATE = "state";
+
+    /**
+     * Tag for filter by systemSuspended.
+     */
+    public static final String TAG_FILTER_BY_SYSTEM_SUSPENDED = "systemSuspended";
 
     /**
      * Tag for filter by updatedAt.
@@ -2847,6 +2970,251 @@ public class DeviceListOptions extends ListOptions {
     }
 
     /**
+     * Gets all the filters defined on field {@code lifecycleStatus}.
+     * 
+     * @return All the filters by {@code lifecycleStatus}
+     */
+    public List<Filter> getLifecycleStatusFilters() {
+        return fetchFilters(TAG_FILTER_BY_LIFECYCLE_STATUS);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code lifecycleStatus}.
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     */
+    public void addEqualToLifecycleStatusFilter(DeviceLifecycleStatus filterByLifecycleStatus) {
+        addEqualFilter(TAG_FILTER_BY_LIFECYCLE_STATUS, filterByLifecycleStatus);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code lifecycleStatus}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addEqualToLifecycleStatusFilter(com.arm.mbed.cloud.sdk.devices.model.DeviceLifecycleStatus)}
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T equalToLifecycleStatus(DeviceLifecycleStatus filterByLifecycleStatus) {
+        addEqualToLifecycleStatusFilter(filterByLifecycleStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code lifecycleStatus}.
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     */
+    public void addNotEqualToLifecycleStatusFilter(DeviceLifecycleStatus filterByLifecycleStatus) {
+        addNotEqualFilter(TAG_FILTER_BY_LIFECYCLE_STATUS, filterByLifecycleStatus);
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code lifecycleStatus}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotEqualToLifecycleStatusFilter(com.arm.mbed.cloud.sdk.devices.model.DeviceLifecycleStatus)}
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T notEqualToLifecycleStatus(DeviceLifecycleStatus filterByLifecycleStatus) {
+        addNotEqualToLifecycleStatusFilter(filterByLifecycleStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lifecycleStatus}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     */
+    public void addInLifecycleStatusFilter(String filterByLifecycleStatus) {
+        addInFilter(TAG_FILTER_BY_LIFECYCLE_STATUS, filterByLifecycleStatus);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lifecycleStatus}.
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     */
+    public void addInLifecycleStatusFilter(List<DeviceLifecycleStatus> filterByLifecycleStatus) {
+        addInFilter(TAG_FILTER_BY_LIFECYCLE_STATUS, filterByLifecycleStatus);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lifecycleStatus}.
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     */
+    public void addInLifecycleStatusFilter(DeviceLifecycleStatus... filterByLifecycleStatus) {
+        addInFilter(TAG_FILTER_BY_LIFECYCLE_STATUS, filterByLifecycleStatus);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lifecycleStatus}.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLifecycleStatusFilter(String)}
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T inLifecycleStatus(String filterByLifecycleStatus) {
+        addInLifecycleStatusFilter(filterByLifecycleStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lifecycleStatus}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLifecycleStatusFilter(java.util.List)}
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T inLifecycleStatus(List<DeviceLifecycleStatus> filterByLifecycleStatus) {
+        addInLifecycleStatusFilter(filterByLifecycleStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lifecycleStatus}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLifecycleStatusFilter(com.arm.mbed.cloud.sdk.devices.model.DeviceLifecycleStatus[])}
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T inLifecycleStatus(DeviceLifecycleStatus... filterByLifecycleStatus) {
+        addInLifecycleStatusFilter(filterByLifecycleStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lifecycleStatus}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     */
+    public void addNotInLifecycleStatusFilter(String filterByLifecycleStatus) {
+        addNotInFilter(TAG_FILTER_BY_LIFECYCLE_STATUS, filterByLifecycleStatus);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lifecycleStatus}.
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     */
+    public void addNotInLifecycleStatusFilter(List<DeviceLifecycleStatus> filterByLifecycleStatus) {
+        addNotInFilter(TAG_FILTER_BY_LIFECYCLE_STATUS, filterByLifecycleStatus);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lifecycleStatus}.
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     */
+    public void addNotInLifecycleStatusFilter(DeviceLifecycleStatus... filterByLifecycleStatus) {
+        addNotInFilter(TAG_FILTER_BY_LIFECYCLE_STATUS, filterByLifecycleStatus);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lifecycleStatus}.
+     *
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLifecycleStatusFilter(String)}
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T notInLifecycleStatus(String filterByLifecycleStatus) {
+        addNotInLifecycleStatusFilter(filterByLifecycleStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lifecycleStatus}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLifecycleStatusFilter(java.util.List)}
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T notInLifecycleStatus(List<DeviceLifecycleStatus> filterByLifecycleStatus) {
+        addNotInLifecycleStatusFilter(filterByLifecycleStatus);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lifecycleStatus}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLifecycleStatusFilter(com.arm.mbed.cloud.sdk.devices.model.DeviceLifecycleStatus[])}
+     * 
+     * @param filterByLifecycleStatus
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T notInLifecycleStatus(DeviceLifecycleStatus... filterByLifecycleStatus) {
+        addNotInLifecycleStatusFilter(filterByLifecycleStatus);
+        return (T) this;
+    }
+
+    /**
      * Gets all the filters defined on field {@code mechanismUrl}.
      * 
      * @return All the filters by {@code mechanismUrl}
@@ -4054,6 +4422,327 @@ public class DeviceListOptions extends ListOptions {
     }
 
     /**
+     * Gets all the filters defined on field {@code systemSuspended}.
+     * 
+     * @return All the filters by {@code systemSuspended}
+     */
+    public List<Filter> getSystemSuspendedFilters() {
+        return fetchFilters(TAG_FILTER_BY_SYSTEM_SUSPENDED);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code systemSuspended}.
+     * 
+     * @param filterBySystemSuspended
+     *            filter value.
+     */
+    public void addEqualToSystemSuspendedFilter(boolean filterBySystemSuspended) {
+        addEqualFilter(TAG_FILTER_BY_SYSTEM_SUSPENDED, Boolean.valueOf(filterBySystemSuspended));
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code systemSuspended}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addEqualToSystemSuspendedFilter(boolean)}
+     * 
+     * @param filterBySystemSuspended
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T equalToSystemSuspended(boolean filterBySystemSuspended) {
+        addEqualToSystemSuspendedFilter(filterBySystemSuspended);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code systemSuspended}.
+     * 
+     * @param filterBySystemSuspended
+     *            filter value.
+     */
+    public void addNotEqualToSystemSuspendedFilter(boolean filterBySystemSuspended) {
+        addNotEqualFilter(TAG_FILTER_BY_SYSTEM_SUSPENDED, Boolean.valueOf(filterBySystemSuspended));
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code systemSuspended}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotEqualToSystemSuspendedFilter(boolean)}
+     * 
+     * @param filterBySystemSuspended
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T notEqualToSystemSuspended(boolean filterBySystemSuspended) {
+        addNotEqualToSystemSuspendedFilter(filterBySystemSuspended);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code lastSystemSuspendedCategory}.
+     * 
+     * @return All the filters by {@code lastSystemSuspendedCategory}
+     */
+    public List<Filter> getLastSystemSuspendedCategoryFilters() {
+        return fetchFilters(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code lastSystemSuspendedCategory}.
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     */
+    public void addEqualToLastSystemSuspendedCategoryFilter(String filterByLastSystemSuspendedCategory) {
+        addEqualFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY, filterByLastSystemSuspendedCategory);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code lastSystemSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addEqualToLastSystemSuspendedCategoryFilter(String)}
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           equalToLastSystemSuspendedCategory(String filterByLastSystemSuspendedCategory) {
+        addEqualToLastSystemSuspendedCategoryFilter(filterByLastSystemSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code lastSystemSuspendedCategory}.
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     */
+    public void addNotEqualToLastSystemSuspendedCategoryFilter(String filterByLastSystemSuspendedCategory) {
+        addNotEqualFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY, filterByLastSystemSuspendedCategory);
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code lastSystemSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotEqualToLastSystemSuspendedCategoryFilter(String)}
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notEqualToLastSystemSuspendedCategory(String filterByLastSystemSuspendedCategory) {
+        addNotEqualToLastSystemSuspendedCategoryFilter(filterByLastSystemSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastSystemSuspendedCategory}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     */
+    public void addInLastSystemSuspendedCategoriesFilter(String filterByLastSystemSuspendedCategory) {
+        addInFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY, filterByLastSystemSuspendedCategory);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastSystemSuspendedCategory}.
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     */
+    public void addInLastSystemSuspendedCategoriesFilter(List<String> filterByLastSystemSuspendedCategory) {
+        addInFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY, filterByLastSystemSuspendedCategory);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastSystemSuspendedCategory}.
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     */
+    public void addInLastSystemSuspendedCategoriesFilter(String... filterByLastSystemSuspendedCategory) {
+        addInFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY, filterByLastSystemSuspendedCategory);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastSystemSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLastSystemSuspendedCategoriesFilter(String)}
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T inLastSystemSuspendedCategories(String filterByLastSystemSuspendedCategory) {
+        addInLastSystemSuspendedCategoriesFilter(filterByLastSystemSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastSystemSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLastSystemSuspendedCategoriesFilter(java.util.List)}
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           inLastSystemSuspendedCategories(List<String> filterByLastSystemSuspendedCategory) {
+        addInLastSystemSuspendedCategoriesFilter(filterByLastSystemSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastSystemSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLastSystemSuspendedCategoriesFilter(String[])}
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           inLastSystemSuspendedCategories(String... filterByLastSystemSuspendedCategory) {
+        addInLastSystemSuspendedCategoriesFilter(filterByLastSystemSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastSystemSuspendedCategory}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     */
+    public void addNotInLastSystemSuspendedCategoriesFilter(String filterByLastSystemSuspendedCategory) {
+        addNotInFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY, filterByLastSystemSuspendedCategory);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastSystemSuspendedCategory}.
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     */
+    public void addNotInLastSystemSuspendedCategoriesFilter(List<String> filterByLastSystemSuspendedCategory) {
+        addNotInFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY, filterByLastSystemSuspendedCategory);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastSystemSuspendedCategory}.
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     */
+    public void addNotInLastSystemSuspendedCategoriesFilter(String... filterByLastSystemSuspendedCategory) {
+        addNotInFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_CATEGORY, filterByLastSystemSuspendedCategory);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastSystemSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLastSystemSuspendedCategoriesFilter(String)}
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notInLastSystemSuspendedCategories(String filterByLastSystemSuspendedCategory) {
+        addNotInLastSystemSuspendedCategoriesFilter(filterByLastSystemSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastSystemSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLastSystemSuspendedCategoriesFilter(java.util.List)}
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notInLastSystemSuspendedCategories(List<String> filterByLastSystemSuspendedCategory) {
+        addNotInLastSystemSuspendedCategoriesFilter(filterByLastSystemSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastSystemSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLastSystemSuspendedCategoriesFilter(String[])}
+     * 
+     * @param filterByLastSystemSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notInLastSystemSuspendedCategories(String... filterByLastSystemSuspendedCategory) {
+        addNotInLastSystemSuspendedCategoriesFilter(filterByLastSystemSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
      * Gets all the filters defined on field {@code serialNumber}.
      * 
      * @return All the filters by {@code serialNumber}
@@ -4781,6 +5470,261 @@ public class DeviceListOptions extends ListOptions {
     }
 
     /**
+     * Gets all the filters defined on field {@code lastOperatorSuspendedCategory}.
+     * 
+     * @return All the filters by {@code lastOperatorSuspendedCategory}
+     */
+    public List<Filter> getLastOperatorSuspendedCategoryFilters() {
+        return fetchFilters(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code lastOperatorSuspendedCategory}.
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     */
+    public void addEqualToLastOperatorSuspendedCategoryFilter(String filterByLastOperatorSuspendedCategory) {
+        addEqualFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY, filterByLastOperatorSuspendedCategory);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code lastOperatorSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addEqualToLastOperatorSuspendedCategoryFilter(String)}
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           equalToLastOperatorSuspendedCategory(String filterByLastOperatorSuspendedCategory) {
+        addEqualToLastOperatorSuspendedCategoryFilter(filterByLastOperatorSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code lastOperatorSuspendedCategory}.
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     */
+    public void addNotEqualToLastOperatorSuspendedCategoryFilter(String filterByLastOperatorSuspendedCategory) {
+        addNotEqualFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY, filterByLastOperatorSuspendedCategory);
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code lastOperatorSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotEqualToLastOperatorSuspendedCategoryFilter(String)}
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notEqualToLastOperatorSuspendedCategory(String filterByLastOperatorSuspendedCategory) {
+        addNotEqualToLastOperatorSuspendedCategoryFilter(filterByLastOperatorSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastOperatorSuspendedCategory}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     */
+    public void addInLastOperatorSuspendedCategoriesFilter(String filterByLastOperatorSuspendedCategory) {
+        addInFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY, filterByLastOperatorSuspendedCategory);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastOperatorSuspendedCategory}.
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     */
+    public void addInLastOperatorSuspendedCategoriesFilter(List<String> filterByLastOperatorSuspendedCategory) {
+        addInFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY, filterByLastOperatorSuspendedCategory);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastOperatorSuspendedCategory}.
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     */
+    public void addInLastOperatorSuspendedCategoriesFilter(String... filterByLastOperatorSuspendedCategory) {
+        addInFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY, filterByLastOperatorSuspendedCategory);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastOperatorSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLastOperatorSuspendedCategoriesFilter(String)}
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           inLastOperatorSuspendedCategories(String filterByLastOperatorSuspendedCategory) {
+        addInLastOperatorSuspendedCategoriesFilter(filterByLastOperatorSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastOperatorSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLastOperatorSuspendedCategoriesFilter(java.util.List)}
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           inLastOperatorSuspendedCategories(List<String> filterByLastOperatorSuspendedCategory) {
+        addInLastOperatorSuspendedCategoriesFilter(filterByLastOperatorSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastOperatorSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLastOperatorSuspendedCategoriesFilter(String[])}
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           inLastOperatorSuspendedCategories(String... filterByLastOperatorSuspendedCategory) {
+        addInLastOperatorSuspendedCategoriesFilter(filterByLastOperatorSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastOperatorSuspendedCategory}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     */
+    public void addNotInLastOperatorSuspendedCategoriesFilter(String filterByLastOperatorSuspendedCategory) {
+        addNotInFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY, filterByLastOperatorSuspendedCategory);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastOperatorSuspendedCategory}.
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     */
+    public void addNotInLastOperatorSuspendedCategoriesFilter(List<String> filterByLastOperatorSuspendedCategory) {
+        addNotInFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY, filterByLastOperatorSuspendedCategory);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastOperatorSuspendedCategory}.
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     */
+    public void addNotInLastOperatorSuspendedCategoriesFilter(String... filterByLastOperatorSuspendedCategory) {
+        addNotInFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_CATEGORY, filterByLastOperatorSuspendedCategory);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastOperatorSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLastOperatorSuspendedCategoriesFilter(String)}
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notInLastOperatorSuspendedCategories(String filterByLastOperatorSuspendedCategory) {
+        addNotInLastOperatorSuspendedCategoriesFilter(filterByLastOperatorSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastOperatorSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLastOperatorSuspendedCategoriesFilter(java.util.List)}
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notInLastOperatorSuspendedCategories(List<String> filterByLastOperatorSuspendedCategory) {
+        addNotInLastOperatorSuspendedCategoriesFilter(filterByLastOperatorSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastOperatorSuspendedCategory}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLastOperatorSuspendedCategoriesFilter(String[])}
+     * 
+     * @param filterByLastOperatorSuspendedCategory
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notInLastOperatorSuspendedCategories(String... filterByLastOperatorSuspendedCategory) {
+        addNotInLastOperatorSuspendedCategoriesFilter(filterByLastOperatorSuspendedCategory);
+        return (T) this;
+    }
+
+    /**
      * Gets all the filters defined on field {@code caId}.
      * 
      * @return All the filters by {@code caId}
@@ -5016,6 +5960,73 @@ public class DeviceListOptions extends ListOptions {
     @SuppressWarnings("unchecked")
     public <T extends DeviceListOptions> T notInCaIds(String... filterByCaId) {
         addNotInCaIdsFilter(filterByCaId);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code operatorSuspended}.
+     * 
+     * @return All the filters by {@code operatorSuspended}
+     */
+    public List<Filter> getOperatorSuspendedFilters() {
+        return fetchFilters(TAG_FILTER_BY_OPERATOR_SUSPENDED);
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code operatorSuspended}.
+     * 
+     * @param filterByOperatorSuspended
+     *            filter value.
+     */
+    public void addEqualToOperatorSuspendedFilter(boolean filterByOperatorSuspended) {
+        addEqualFilter(TAG_FILTER_BY_OPERATOR_SUSPENDED, Boolean.valueOf(filterByOperatorSuspended));
+    }
+
+    /**
+     * Sets "an equal to" filter by {@code operatorSuspended}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addEqualToOperatorSuspendedFilter(boolean)}
+     * 
+     * @param filterByOperatorSuspended
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T equalToOperatorSuspended(boolean filterByOperatorSuspended) {
+        addEqualToOperatorSuspendedFilter(filterByOperatorSuspended);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code operatorSuspended}.
+     * 
+     * @param filterByOperatorSuspended
+     *            filter value.
+     */
+    public void addNotEqualToOperatorSuspendedFilter(boolean filterByOperatorSuspended) {
+        addNotEqualFilter(TAG_FILTER_BY_OPERATOR_SUSPENDED, Boolean.valueOf(filterByOperatorSuspended));
+    }
+
+    /**
+     * Sets "a not equal to" filter by {@code operatorSuspended}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotEqualToOperatorSuspendedFilter(boolean)}
+     * 
+     * @param filterByOperatorSuspended
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T notEqualToOperatorSuspended(boolean filterByOperatorSuspended) {
+        addNotEqualToOperatorSuspendedFilter(filterByOperatorSuspended);
         return (T) this;
     }
 
@@ -5507,6 +6518,261 @@ public class DeviceListOptions extends ListOptions {
     }
 
     /**
+     * Gets all the filters defined on field {@code lastOperatorSuspendedUpdatedAt}.
+     * 
+     * @return All the filters by {@code lastOperatorSuspendedUpdatedAt}
+     */
+    public List<Filter> getLastOperatorSuspendedUpdatedAtFilters() {
+        return fetchFilters(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addInLastOperatorSuspendedUpdatedAtsFilter(String filterByLastOperatorSuspendedUpdatedAt) {
+        addInFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT, filterByLastOperatorSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addInLastOperatorSuspendedUpdatedAtsFilter(List<Date> filterByLastOperatorSuspendedUpdatedAt) {
+        addInFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT, filterByLastOperatorSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addInLastOperatorSuspendedUpdatedAtsFilter(Date... filterByLastOperatorSuspendedUpdatedAt) {
+        addInFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT, filterByLastOperatorSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLastOperatorSuspendedUpdatedAtsFilter(String)}
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           inLastOperatorSuspendedUpdatedAts(String filterByLastOperatorSuspendedUpdatedAt) {
+        addInLastOperatorSuspendedUpdatedAtsFilter(filterByLastOperatorSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLastOperatorSuspendedUpdatedAtsFilter(java.util.List)}
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           inLastOperatorSuspendedUpdatedAts(List<Date> filterByLastOperatorSuspendedUpdatedAt) {
+        addInLastOperatorSuspendedUpdatedAtsFilter(filterByLastOperatorSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLastOperatorSuspendedUpdatedAtsFilter(java.util.Date[])}
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           inLastOperatorSuspendedUpdatedAts(Date... filterByLastOperatorSuspendedUpdatedAt) {
+        addInLastOperatorSuspendedUpdatedAtsFilter(filterByLastOperatorSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addNotInLastOperatorSuspendedUpdatedAtsFilter(String filterByLastOperatorSuspendedUpdatedAt) {
+        addNotInFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT, filterByLastOperatorSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addNotInLastOperatorSuspendedUpdatedAtsFilter(List<Date> filterByLastOperatorSuspendedUpdatedAt) {
+        addNotInFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT, filterByLastOperatorSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addNotInLastOperatorSuspendedUpdatedAtsFilter(Date... filterByLastOperatorSuspendedUpdatedAt) {
+        addNotInFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT, filterByLastOperatorSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLastOperatorSuspendedUpdatedAtsFilter(String)}
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notInLastOperatorSuspendedUpdatedAts(String filterByLastOperatorSuspendedUpdatedAt) {
+        addNotInLastOperatorSuspendedUpdatedAtsFilter(filterByLastOperatorSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLastOperatorSuspendedUpdatedAtsFilter(java.util.List)}
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notInLastOperatorSuspendedUpdatedAts(List<Date> filterByLastOperatorSuspendedUpdatedAt) {
+        addNotInLastOperatorSuspendedUpdatedAtsFilter(filterByLastOperatorSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLastOperatorSuspendedUpdatedAtsFilter(java.util.Date[])}
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notInLastOperatorSuspendedUpdatedAts(Date... filterByLastOperatorSuspendedUpdatedAt) {
+        addNotInLastOperatorSuspendedUpdatedAtsFilter(filterByLastOperatorSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a less than" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addLessThanLastOperatorSuspendedUpdatedAtFilter(Date filterByLastOperatorSuspendedUpdatedAt) {
+        addLessThanFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT, filterByLastOperatorSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "a less than" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addLessThanLastOperatorSuspendedUpdatedAtFilter(java.util.Date)}
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           lessThanLastOperatorSuspendedUpdatedAt(Date filterByLastOperatorSuspendedUpdatedAt) {
+        addLessThanLastOperatorSuspendedUpdatedAtFilter(filterByLastOperatorSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a greater than" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addGreaterThanLastOperatorSuspendedUpdatedAtFilter(Date filterByLastOperatorSuspendedUpdatedAt) {
+        addGreaterThanFilter(TAG_FILTER_BY_LAST_OPERATOR_SUSPENDED_UPDATED_AT, filterByLastOperatorSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "a greater than" filter by {@code lastOperatorSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addGreaterThanLastOperatorSuspendedUpdatedAtFilter(java.util.Date)}
+     * 
+     * @param filterByLastOperatorSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           greaterThanLastOperatorSuspendedUpdatedAt(Date filterByLastOperatorSuspendedUpdatedAt) {
+        addGreaterThanLastOperatorSuspendedUpdatedAtFilter(filterByLastOperatorSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
      * Gets all the filters defined on field {@code deployment}.
      * 
      * @return All the filters by {@code deployment}
@@ -5987,6 +7253,261 @@ public class DeviceListOptions extends ListOptions {
     @SuppressWarnings("unchecked")
     public <T extends DeviceListOptions> T notInMechanisms(DeviceMechanism... filterByMechanism) {
         addNotInMechanismsFilter(filterByMechanism);
+        return (T) this;
+    }
+
+    /**
+     * Gets all the filters defined on field {@code lastSystemSuspendedUpdatedAt}.
+     * 
+     * @return All the filters by {@code lastSystemSuspendedUpdatedAt}
+     */
+    public List<Filter> getLastSystemSuspendedUpdatedAtFilters() {
+        return fetchFilters(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastSystemSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addInLastSystemSuspendedUpdatedAtsFilter(String filterByLastSystemSuspendedUpdatedAt) {
+        addInFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT, filterByLastSystemSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastSystemSuspendedUpdatedAt}.
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addInLastSystemSuspendedUpdatedAtsFilter(List<Date> filterByLastSystemSuspendedUpdatedAt) {
+        addInFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT, filterByLastSystemSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastSystemSuspendedUpdatedAt}.
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addInLastSystemSuspendedUpdatedAtsFilter(Date... filterByLastSystemSuspendedUpdatedAt) {
+        addInFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT, filterByLastSystemSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastSystemSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLastSystemSuspendedUpdatedAtsFilter(String)}
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           inLastSystemSuspendedUpdatedAts(String filterByLastSystemSuspendedUpdatedAt) {
+        addInLastSystemSuspendedUpdatedAtsFilter(filterByLastSystemSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastSystemSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLastSystemSuspendedUpdatedAtsFilter(java.util.List)}
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           inLastSystemSuspendedUpdatedAts(List<Date> filterByLastSystemSuspendedUpdatedAt) {
+        addInLastSystemSuspendedUpdatedAtsFilter(filterByLastSystemSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "an in" filter by {@code lastSystemSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addInLastSystemSuspendedUpdatedAtsFilter(java.util.Date[])}
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           inLastSystemSuspendedUpdatedAts(Date... filterByLastSystemSuspendedUpdatedAt) {
+        addInLastSystemSuspendedUpdatedAtsFilter(filterByLastSystemSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastSystemSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addNotInLastSystemSuspendedUpdatedAtsFilter(String filterByLastSystemSuspendedUpdatedAt) {
+        addNotInFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT, filterByLastSystemSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastSystemSuspendedUpdatedAt}.
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addNotInLastSystemSuspendedUpdatedAtsFilter(List<Date> filterByLastSystemSuspendedUpdatedAt) {
+        addNotInFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT, filterByLastSystemSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastSystemSuspendedUpdatedAt}.
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addNotInLastSystemSuspendedUpdatedAtsFilter(Date... filterByLastSystemSuspendedUpdatedAt) {
+        addNotInFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT, filterByLastSystemSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastSystemSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLastSystemSuspendedUpdatedAtsFilter(String)}
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notInLastSystemSuspendedUpdatedAts(String filterByLastSystemSuspendedUpdatedAt) {
+        addNotInLastSystemSuspendedUpdatedAtsFilter(filterByLastSystemSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastSystemSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLastSystemSuspendedUpdatedAtsFilter(java.util.List)}
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notInLastSystemSuspendedUpdatedAts(List<Date> filterByLastSystemSuspendedUpdatedAt) {
+        addNotInLastSystemSuspendedUpdatedAtsFilter(filterByLastSystemSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a not in" filter by {@code lastSystemSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addNotInLastSystemSuspendedUpdatedAtsFilter(java.util.Date[])}
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           notInLastSystemSuspendedUpdatedAts(Date... filterByLastSystemSuspendedUpdatedAt) {
+        addNotInLastSystemSuspendedUpdatedAtsFilter(filterByLastSystemSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a less than" filter by {@code lastSystemSuspendedUpdatedAt}.
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addLessThanLastSystemSuspendedUpdatedAtFilter(Date filterByLastSystemSuspendedUpdatedAt) {
+        addLessThanFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT, filterByLastSystemSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "a less than" filter by {@code lastSystemSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addLessThanLastSystemSuspendedUpdatedAtFilter(java.util.Date)}
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           lessThanLastSystemSuspendedUpdatedAt(Date filterByLastSystemSuspendedUpdatedAt) {
+        addLessThanLastSystemSuspendedUpdatedAtFilter(filterByLastSystemSuspendedUpdatedAt);
+        return (T) this;
+    }
+
+    /**
+     * Sets "a greater than" filter by {@code lastSystemSuspendedUpdatedAt}.
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     */
+    public void addGreaterThanLastSystemSuspendedUpdatedAtFilter(Date filterByLastSystemSuspendedUpdatedAt) {
+        addGreaterThanFilter(TAG_FILTER_BY_LAST_SYSTEM_SUSPENDED_UPDATED_AT, filterByLastSystemSuspendedUpdatedAt);
+    }
+
+    /**
+     * Sets "a greater than" filter by {@code lastSystemSuspendedUpdatedAt}.
+     *
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions#addGreaterThanLastSystemSuspendedUpdatedAtFilter(java.util.Date)}
+     * 
+     * @param filterByLastSystemSuspendedUpdatedAt
+     *            filter value.
+     * @param <T>
+     *            type of a device list options
+     * @return These list options
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends DeviceListOptions> T
+           greaterThanLastSystemSuspendedUpdatedAt(Date filterByLastSystemSuspendedUpdatedAt) {
+        addGreaterThanLastSystemSuspendedUpdatedAtFilter(filterByLastSystemSuspendedUpdatedAt);
         return (T) this;
     }
 

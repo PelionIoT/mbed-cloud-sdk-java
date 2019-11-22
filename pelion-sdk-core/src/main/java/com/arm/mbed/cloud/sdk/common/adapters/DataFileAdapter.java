@@ -43,7 +43,7 @@ public final class DataFileAdapter {
             return null;
         }
         final MediaType contentType = MediaType.parse(dataFile.getContentType());
-        final RequestBody body = RequestBody.create(contentType, dataFile.getFile());
+        final RequestBody body = RequestBody.create(dataFile.getFile(), contentType);
 
         return MultipartBody.Part.createFormData(partName, dataFile.getFileName(), body);
     }

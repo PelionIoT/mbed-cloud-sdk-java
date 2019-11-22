@@ -3,6 +3,7 @@
 package com.arm.mbed.cloud.sdk.accounts.adapters;
 
 import com.arm.mbed.cloud.sdk.accounts.model.Policy;
+import com.arm.mbed.cloud.sdk.accounts.model.PolicyInheritedType;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
@@ -39,6 +40,8 @@ public final class PolicyAdapter {
         }
         final Policy policy = new Policy(toBeMapped.getAction(), TranslationUtils.toBool(toBeMapped.isAllow()),
                                          toBeMapped.getFeature(), TranslationUtils.toBool(toBeMapped.isInherited()),
+                                         toBeMapped.getInheritedFrom(),
+                                         translateToPolicyInheritedType(toBeMapped.getInheritedType()),
                                          toBeMapped.getResource());
         return policy;
     }
@@ -63,6 +66,30 @@ public final class PolicyAdapter {
                 return PolicyAdapter.map(toBeMapped);
             }
         };
+    }
+
+    /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
+     *            an inherited type enum.
+     * @return mapped enum value
+     */
+    @Internal
+    protected static PolicyInheritedType translateToPolicyInheritedType(FeaturePolicy.InheritedTypeEnum toBeMapped) {
+        if (toBeMapped == null) {
+            return PolicyInheritedType.getUnknownEnum();
+        }
+        switch (toBeMapped) {
+            case ACCOUNT:
+                return PolicyInheritedType.ACCOUNT;
+            case TEMPLATE:
+                return PolicyInheritedType.TEMPLATE;
+            case TIER_TEMPLATE:
+                return PolicyInheritedType.TIER_TEMPLATE;
+            default:
+                return PolicyInheritedType.getUnknownEnum();
+        }
     }
 
     /**

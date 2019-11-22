@@ -202,6 +202,21 @@ public interface AccountApiKeysApi {
     Call<UpdatedResponse> removeMyApiKeyFromGroups(@retrofit2.http.Body List<String> body);
 
     /**
+     * Reset the secret key. Reset the secret key of the API key. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/reset-secret \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * 
+     * @param apikeyId
+     *            The ID of the API key to reset. (required)
+     * @param body
+     *            New API key attributes to be stored. (optional)
+     * @return Call&lt;ApiKeyInfoResp&gt;
+     */
+    @POST("v3/api-keys/{apikey_id}/reset-secret")
+    Call<ApiKeyInfoResp> resetSecret(@retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId,
+                                     @retrofit2.http.Body ApiKeyUpdateReq body);
+
+    /**
      * Update API key details. Update API key details. **Example:** &#x60;curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39;
      * \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39;

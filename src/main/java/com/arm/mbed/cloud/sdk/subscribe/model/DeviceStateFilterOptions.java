@@ -9,7 +9,6 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FiltersEvaluator;
-import com.arm.mbed.cloud.sdk.devicedirectory.adapters.DeviceAdapter;
 import com.arm.mbed.cloud.sdk.devices.model.Device;
 
 @Preamble(description = "Options to filter device state changes")
@@ -87,20 +86,6 @@ public class DeviceStateFilterOptions extends FilterOptions {
      * Adds an "Equal" filter related to a device.
      *
      * Similar to {@link #addEqualDeviceFilter(String)}
-     * 
-     * @deprecated use {@link #addEqualDeviceFilter(Device)} instead
-     * @param device
-     *            device to consider.
-     */
-    @Deprecated
-    public void addEqualDeviceFilter(@Nullable com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) {
-        addEqualDeviceFilter(DeviceAdapter.mapToFoundation(device));
-    }
-
-    /**
-     * Adds an "Equal" filter related to a device.
-     *
-     * Similar to {@link #addEqualDeviceFilter(String)}
      *
      * @param device
      *            device to consider.
@@ -128,22 +113,6 @@ public class DeviceStateFilterOptions extends FilterOptions {
      * Creates an "Equal" filter related to a device.
      *
      * Similar to {@link #addEqualDeviceFilter(Device)}
-     * 
-     * @deprecated use {@link #equalDevice(Device)} instead.
-     * @param device
-     *            device to consider.
-     * @return this filter
-     */
-    @Deprecated
-    public DeviceStateFilterOptions equalDevice(@Nullable com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) {
-        addEqualDeviceFilter(device);
-        return this;
-    }
-
-    /**
-     * Creates an "Equal" filter related to a device.
-     *
-     * Similar to {@link #addEqualDeviceFilter(Device)}
      *
      * @param device
      *            device to consider.
@@ -162,20 +131,6 @@ public class DeviceStateFilterOptions extends FilterOptions {
      */
     public void addNotEqualDeviceFilter(@Nullable String deviceId) {
         addNotEqualFilter(DEVICE_ID_FILTER, deviceId == null ? null : deviceId);
-    }
-
-    /**
-     * Adds a "Not equal" filter related to a device.
-     *
-     * Similar to {@link #addNotEqualDeviceFilter(String)}
-     * 
-     * @deprecated use {@link #addNotEqualDeviceFilter(Device)} instead.
-     * @param device
-     *            device to consider.
-     */
-    @Deprecated
-    public void addNotEqualDeviceFilter(@Nullable com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) {
-        addNotEqualDeviceFilter(DeviceAdapter.mapToFoundation(device));
     }
 
     /**
@@ -208,23 +163,6 @@ public class DeviceStateFilterOptions extends FilterOptions {
      * Creates a "Not equal" filter related to a device.
      *
      * Similar to {@link #addNotEqualDeviceFilter(Device)}
-     * 
-     * @deprecated use {@link #notEqualDevice(Device)} instead.
-     * @param device
-     *            device to consider.
-     * @return this filter
-     */
-    @Deprecated
-    public DeviceStateFilterOptions
-           notEqualDevice(@Nullable com.arm.mbed.cloud.sdk.devicedirectory.model.Device device) {
-        addNotEqualDeviceFilter(device);
-        return this;
-    }
-
-    /**
-     * Creates a "Not equal" filter related to a device.
-     *
-     * Similar to {@link #addNotEqualDeviceFilter(Device)}
      *
      * @param device
      *            device to consider.
@@ -243,30 +181,6 @@ public class DeviceStateFilterOptions extends FilterOptions {
      */
     public void addInDeviceIdsFilter(@NonNull List<String> deviceIds) {
         addInFilter(DEVICE_ID_FILTER, deviceIds);
-    }
-
-    @Deprecated
-    public void addInDeviceFilter(@NonNull List<String> deviceIds) {
-        addInDeviceIdsFilter(deviceIds);
-    }
-
-    /**
-     * Adds an "In" filter related to devices.
-     * 
-     * @deprecated use {@link #addInDeviceListFilter(List)} instead.
-     * @param devices
-     *            devices to consider.
-     */
-    @Deprecated
-    public void addInDevicesFilter(@NonNull List<com.arm.mbed.cloud.sdk.devicedirectory.model.Device> devices) {
-        if (devices == null) {
-            return;
-        }
-        final List<String> values = new LinkedList<>();
-        for (final com.arm.mbed.cloud.sdk.devicedirectory.model.Device device : devices) {
-            values.add(device.getId());
-        }
-        addInDeviceIdsFilter(values);
     }
 
     /**
@@ -316,23 +230,6 @@ public class DeviceStateFilterOptions extends FilterOptions {
     }
 
     /**
-     * Creates an "In" filter related to devices.
-     * <p>
-     * Similar to {@link #addInDevicesFilter(List)}
-     * 
-     * @deprecated use {@link #inDeviceList(List)} instead.
-     * @param devices
-     *            devices to consider.
-     * @return this filter
-     */
-    @Deprecated
-    public DeviceStateFilterOptions
-           inDevices(@NonNull List<com.arm.mbed.cloud.sdk.devicedirectory.model.Device> devices) {
-        addInDevicesFilter(devices);
-        return this;
-    }
-
-    /**
      * Creates an "In" filter related to device ids.
      *
      * @see #addInDevicesFilter(String)
@@ -349,7 +246,6 @@ public class DeviceStateFilterOptions extends FilterOptions {
     /**
      * Creates an "In" filter related to devices.
      * <p>
-     * Similar to {@link #addInDevicesFilter(List)}
      *
      * @param devices
      *            devices to consider.
@@ -360,11 +256,6 @@ public class DeviceStateFilterOptions extends FilterOptions {
         return this;
     }
 
-    @Deprecated
-    public void addNotInDeviceFilter(@NonNull List<String> deviceIds) {
-        addNotInDeviceIdsFilter(deviceIds);
-    }
-
     /**
      * Adds a "Not in" filter related to device ids.
      *
@@ -373,25 +264,6 @@ public class DeviceStateFilterOptions extends FilterOptions {
      */
     public void addNotInDeviceIdsFilter(@NonNull List<String> deviceIds) {
         addNotInFilter(DEVICE_ID_FILTER, deviceIds);
-    }
-
-    /**
-     * Adds a "Not in" filter related to devices.
-     * 
-     * @deprecated use {@link #addNotInDeviceListFilter(List)} instead.
-     * @param devices
-     *            devices to consider.
-     */
-    @Deprecated
-    public void addNotInDevicesFilter(@NonNull List<com.arm.mbed.cloud.sdk.devicedirectory.model.Device> devices) {
-        if (devices == null) {
-            return;
-        }
-        final List<String> values = new LinkedList<>();
-        for (final com.arm.mbed.cloud.sdk.devicedirectory.model.Device device : devices) {
-            values.add(device.getId());
-        }
-        addNotInDeviceIdsFilter(values);
     }
 
     /**
@@ -442,23 +314,6 @@ public class DeviceStateFilterOptions extends FilterOptions {
 
     /**
      * Creates a "Not in" filter related to devices.
-     * <p>
-     * Similar to {@link #addNotInDevicesFilter(List)}
-     * 
-     * @deprecated use {@link #notInDevices(List)}
-     * @param devices
-     *            devices to consider.
-     * @return this filter
-     */
-    @Deprecated
-    public DeviceStateFilterOptions
-           notInDevices(@NonNull List<com.arm.mbed.cloud.sdk.devicedirectory.model.Device> devices) {
-        addNotInDevicesFilter(devices);
-        return this;
-    }
-
-    /**
-     * Creates a "Not in" filter related to devices.
      *
      * @see #addNotInDevicesFilter(String)
      *
@@ -473,8 +328,6 @@ public class DeviceStateFilterOptions extends FilterOptions {
 
     /**
      * Creates a "Not in" filter related to devices.
-     * <p>
-     * Similar to {@link #addNotInDevicesFilter(List)}
      *
      * @param devices
      *            devices to consider.
