@@ -1,4 +1,4 @@
 towncrier
-pyautoversion=1.0.24
+pyautoversion==1.0.24
 PyYAML
 slackclient
