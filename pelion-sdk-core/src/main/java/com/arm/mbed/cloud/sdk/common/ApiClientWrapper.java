@@ -103,7 +103,7 @@ public class ApiClientWrapper implements Cloneable, Closeable {
                 break;
 
         }
-        interceptor.setLevel(logLevel);
+        interceptor.level(logLevel);
         this.connectionOptions.setClientLogLevel(level);
         this.client.getOkBuilder().addInterceptor(interceptor);
     }

@@ -107,20 +107,6 @@ public class Resource implements SdkModel {
     /**
      * Constructor.
      * 
-     * @deprecated use {@link #Resource(Device, String)} instead
-     * @param device
-     *            device.
-     * @param path
-     *            resource path.
-     */
-    @Deprecated
-    public Resource(com.arm.mbed.cloud.sdk.devicedirectory.model.Device device, String path) {
-        this((device == null) ? null : device.getId(), path);
-    }
-
-    /**
-     * Constructor.
-     * 
      * @param device
      *            device.
      * @param path
@@ -148,22 +134,6 @@ public class Resource implements SdkModel {
      */
     public static Resource newObservableResource(String deviceId, String path) {
         return new Resource(deviceId, path, null, null, true, null);
-    }
-
-    /**
-     * Creates an observable resource.
-     * 
-     * @deprecated use {@link #newObservableResource(Device, String)} instead.
-     * @param device
-     *            device .
-     * @param path
-     *            resource path.
-     * @return corresponding observable resource
-     */
-    @Deprecated
-    public static Resource newObservableResource(com.arm.mbed.cloud.sdk.devicedirectory.model.Device device,
-                                                 String path) {
-        return newObservableResource((device == null) ? null : device.getId(), path);
     }
 
     /**
