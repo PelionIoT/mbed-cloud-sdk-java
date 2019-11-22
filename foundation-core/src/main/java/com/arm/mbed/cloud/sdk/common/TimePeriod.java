@@ -89,6 +89,33 @@ public final class TimePeriod implements Cloneable, Serializable {
     }
 
     /**
+     * Defines a timeout in seconds.
+     * <p>
+     * Note: Similar to {@link #TimePeriod(long)}
+     *
+     * @param duration
+     *            in seconds.
+     * @return a new time period.
+     */
+    public static TimePeriod newTimePeriod(long duration) {
+        return new TimePeriod(duration);
+    }
+
+    /**
+     * Sets time period from a string.
+     * <p>
+     * Note: Similar to {@link #TimePeriod(String)}
+     *
+     * @param value
+     *            string representing the time period @see {@link #fromString(String)} for more information.
+     * @return a new time period
+     *
+     */
+    public static TimePeriod newTimePeriod(String value) {
+        return new TimePeriod(value);
+    }
+
+    /**
      * Gets the time unit in use.
      *
      * @see TimeUnit
@@ -351,6 +378,15 @@ public final class TimePeriod implements Cloneable, Serializable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Gets the value of the period in seconds.
+     * 
+     * @return number of seconds
+     */
+    public int toSeconds() {
+        return (int) getUnit().toSeconds(getDuration());
     }
 
 }

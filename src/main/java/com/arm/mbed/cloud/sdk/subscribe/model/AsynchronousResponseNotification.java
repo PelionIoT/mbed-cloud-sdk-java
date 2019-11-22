@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.subscribe.model;
 
+import java.util.Objects;
+
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Error;
@@ -112,25 +114,12 @@ public class AsynchronousResponseNotification extends NotificationWithPayload {
         return clone;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
+    @SuppressWarnings("boxing")
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + statusCode;
-        return result;
+        return super.hashCode() + Objects.hash(errorMessage, id, statusCode);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -139,21 +128,30 @@ public class AsynchronousResponseNotification extends NotificationWithPayload {
         if (!super.equals(obj)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof AsynchronousResponseNotification)) {
             return false;
         }
         final AsynchronousResponseNotification other = (AsynchronousResponseNotification) obj;
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
+        if (!other.canEqual(this)) {
             return false;
         }
-        if (statusCode != other.statusCode) {
-            return false;
-        }
-        return true;
+        return Objects.equals(errorMessage, other.errorMessage) && Objects.equals(id, other.id)
+               && statusCode == other.statusCode;
+    }
+
+    /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     *
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return other instanceof AsynchronousResponseNotification;
     }
 
     /*

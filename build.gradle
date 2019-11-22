@@ -441,6 +441,7 @@ dependencies {
     testCompile  'com.github.dtmo.jfiglet:jfiglet:1.0.0'
     testCompile 'ru.vyarus:generics-resolver:3.0.0'
     testImplementation 'junit:junit:4.12'
+    testImplementation 'nl.jqno.equalsverifier:equalsverifier:2.5.+'
     coverage 'org.jacoco:org.jacoco.agent:0.7.9:runtime@jar'
     coverage 'org.jacoco:org.jacoco.cli:0.8.1:nodeps@jar'
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.9.0'

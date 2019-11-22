@@ -530,6 +530,7 @@ workflows:
             - documentation
             - static_analysis
             - unit_tests
+            - build_test_server
             - run_production_integration_tests
             - run_os2_integration_tests
       - deploySDK:

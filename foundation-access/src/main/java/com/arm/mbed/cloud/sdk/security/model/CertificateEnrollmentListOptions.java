@@ -216,14 +216,12 @@ public class CertificateEnrollmentListOptions extends ListOptions {
      * 
      * @param after
      *            value.
-     * @param include
-     *            value.
      * @param filter
      *            value.
      */
     @Internal
-    public CertificateEnrollmentListOptions(String after, List<IncludeField> include, Filters filter) {
-        this((Integer) null, (Long) null, Order.getDefault(), after, include, filter);
+    public CertificateEnrollmentListOptions(String after, Filters filter) {
+        this((Integer) null, (Long) null, Order.getDefault(), after, (List<IncludeField>) null, filter);
     }
 
     /**
