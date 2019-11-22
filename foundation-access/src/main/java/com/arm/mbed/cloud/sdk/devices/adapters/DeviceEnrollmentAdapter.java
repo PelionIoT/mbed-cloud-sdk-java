@@ -29,6 +29,23 @@ public final class DeviceEnrollmentAdapter {
     }
 
     /**
+     * Maps a device enrollment into an enrollment id.
+     * 
+     * @param toBeMapped
+     *            a device enrollment.
+     * @return mapped an enrollment id
+     */
+    @Internal
+    public static EnrollmentId reverseMapAddRequest(DeviceEnrollment toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final EnrollmentId enrollmentId = new EnrollmentId();
+        enrollmentId.setEnrollmentIdentity(toBeMapped.getEnrollmentIdentity());
+        return enrollmentId;
+    }
+
+    /**
      * Maps an enrollment identity into a device enrollment.
      * 
      * @param toBeMapped
@@ -70,23 +87,6 @@ public final class DeviceEnrollmentAdapter {
                 return DeviceEnrollmentAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps a device enrollment into an enrollment id.
-     * 
-     * @param toBeMapped
-     *            a device enrollment.
-     * @return mapped an enrollment id
-     */
-    @Internal
-    public static EnrollmentId reverseMapAddRequest(DeviceEnrollment toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final EnrollmentId enrollmentId = new EnrollmentId();
-        enrollmentId.setEnrollmentIdentity(toBeMapped.getEnrollmentIdentity());
-        return enrollmentId;
     }
 
     /**

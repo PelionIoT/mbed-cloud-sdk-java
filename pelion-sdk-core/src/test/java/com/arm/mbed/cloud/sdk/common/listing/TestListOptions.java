@@ -29,8 +29,7 @@ public class TestListOptions {
         options.addInclude(null);
         assertEquals(null, ListOptionsEncoder.encodeInclude(options));
         options.addInclude(new IncludeField("fieldOne"));
-        options.addInclude(new IncludeField("fieldOne"));
-        options.addInclude(new IncludeField("FieldTwo"));
+        options.include(new IncludeField("fieldOne")).include(new IncludeField("FieldTwo"));
         options.includeTotalCount();
         assertEquals("field_one,field_two,total_count", ListOptionsEncoder.encodeInclude(options));
     }

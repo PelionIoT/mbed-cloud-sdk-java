@@ -16,6 +16,18 @@ import com.arm.mbed.cloud.sdk.accounts.model.UserListDao;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
+import com.arm.mbed.cloud.sdk.branding.model.DarkThemeColorDao;
+import com.arm.mbed.cloud.sdk.branding.model.DarkThemeColorListDao;
+import com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageDao;
+import com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageListDao;
+import com.arm.mbed.cloud.sdk.branding.model.LightThemeColorDao;
+import com.arm.mbed.cloud.sdk.branding.model.LightThemeColorListDao;
+import com.arm.mbed.cloud.sdk.branding.model.LightThemeImageDao;
+import com.arm.mbed.cloud.sdk.branding.model.LightThemeImageListDao;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorDao;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageDao;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorDao;
+import com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageDao;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.DaoProvider;
@@ -28,6 +40,8 @@ import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentDenialListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEventsDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceEventsListDao;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceGroupDao;
+import com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListDao;
 import com.arm.mbed.cloud.sdk.devices.model.DeviceListDao;
 import com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignDeviceMetadataDao;
 import com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsDao;
@@ -355,6 +369,54 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
+     * Gets a dark theme color dao.
+     * 
+     * @return a dark theme color dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public DarkThemeColorDao getDarkThemeColorDao() throws MbedCloudException {
+        return new DarkThemeColorDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a dark theme color list dao.
+     * 
+     * @return a dark theme color list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public DarkThemeColorListDao getDarkThemeColorListDao() throws MbedCloudException {
+        return new DarkThemeColorListDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a dark theme image dao.
+     * 
+     * @return a dark theme image dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public DarkThemeImageDao getDarkThemeImageDao() throws MbedCloudException {
+        return new DarkThemeImageDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a dark theme image list dao.
+     * 
+     * @return a dark theme image list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public DarkThemeImageListDao getDarkThemeImageListDao() throws MbedCloudException {
+        return new DarkThemeImageListDao().configureAndGet(context);
+    }
+
+    /**
      * Gets a developer certificate dao.
      * 
      * @return a developer certificate dao
@@ -475,6 +537,30 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
+     * Gets a device group dao.
+     * 
+     * @return a device group dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public DeviceGroupDao getDeviceGroupDao() throws MbedCloudException {
+        return new DeviceGroupDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a device group list dao.
+     * 
+     * @return a device group list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public DeviceGroupListDao getDeviceGroupListDao() throws MbedCloudException {
+        return new DeviceGroupListDao().configureAndGet(context);
+    }
+
+    /**
      * Gets a device list dao.
      * 
      * @return a device list dao
@@ -535,6 +621,54 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
+     * Gets a light theme color dao.
+     * 
+     * @return a light theme color dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public LightThemeColorDao getLightThemeColorDao() throws MbedCloudException {
+        return new LightThemeColorDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a light theme color list dao.
+     * 
+     * @return a light theme color list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public LightThemeColorListDao getLightThemeColorListDao() throws MbedCloudException {
+        return new LightThemeColorListDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a light theme image dao.
+     * 
+     * @return a light theme image dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public LightThemeImageDao getLightThemeImageDao() throws MbedCloudException {
+        return new LightThemeImageDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a light theme image list dao.
+     * 
+     * @return a light theme image list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public LightThemeImageListDao getLightThemeImageListDao() throws MbedCloudException {
+        return new LightThemeImageListDao().configureAndGet(context);
+    }
+
+    /**
      * Gets a pre shared key dao.
      * 
      * @return a pre shared key dao
@@ -580,6 +714,54 @@ public class DaoFactory implements Cloneable {
     @SuppressWarnings("resource")
     public SubtenantApiKeyDao getSubtenantApiKeyDao() throws MbedCloudException {
         return new SubtenantApiKeyDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a subtenant dark theme color dao.
+     * 
+     * @return a subtenant dark theme color dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public SubtenantDarkThemeColorDao getSubtenantDarkThemeColorDao() throws MbedCloudException {
+        return new SubtenantDarkThemeColorDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a subtenant dark theme image dao.
+     * 
+     * @return a subtenant dark theme image dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public SubtenantDarkThemeImageDao getSubtenantDarkThemeImageDao() throws MbedCloudException {
+        return new SubtenantDarkThemeImageDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a subtenant light theme color dao.
+     * 
+     * @return a subtenant light theme color dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public SubtenantLightThemeColorDao getSubtenantLightThemeColorDao() throws MbedCloudException {
+        return new SubtenantLightThemeColorDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a subtenant light theme image dao.
+     * 
+     * @return a subtenant light theme image dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public SubtenantLightThemeImageDao getSubtenantLightThemeImageDao() throws MbedCloudException {
+        return new SubtenantLightThemeImageDao().configureAndGet(context);
     }
 
     /**

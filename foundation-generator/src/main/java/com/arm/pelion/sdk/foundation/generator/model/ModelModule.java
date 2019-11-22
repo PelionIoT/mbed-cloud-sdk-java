@@ -265,7 +265,6 @@ public class ModelModule extends ModelMergeable {
             switch (action) {
 
                 case DELETE:
-                case OTHER:
                 case ME:
                 case READ:
                     method = returnModelToConsider == null ? new MethodModuleCloudApi(currentModelToConsider,
@@ -277,6 +276,28 @@ public class ModelModule extends ModelMergeable {
                                                                                       allParameters, parameterRenames,
                                                                                       lowLevelMethod, true)
                                                            : new MethodModuleCloudApiUnself(currentModelToConsider,
+                                                                                            returnModelToConsider,
+                                                                                            module.adapterFetcher,
+                                                                                            methodName, description,
+                                                                                            longDescription, isCustom,
+                                                                                            endpoints,
+                                                                                            ENDPOINTS_FIELD_NAME,
+                                                                                            lowLevelModule,
+                                                                                            methodParameters,
+                                                                                            allParameters,
+                                                                                            parameterRenames,
+                                                                                            lowLevelMethod, true);
+                    break;
+                case OTHER:
+                    method = returnModelToConsider == null ? new MethodModuleOtherApi(currentModelToConsider,
+                                                                                      module.adapterFetcher, methodName,
+                                                                                      description, longDescription,
+                                                                                      isCustom, endpoints,
+                                                                                      ENDPOINTS_FIELD_NAME,
+                                                                                      lowLevelModule, methodParameters,
+                                                                                      allParameters, parameterRenames,
+                                                                                      lowLevelMethod, true)
+                                                           : new MethodModuleOtherApiUnself(currentModelToConsider,
                                                                                             returnModelToConsider,
                                                                                             module.adapterFetcher,
                                                                                             methodName, description,

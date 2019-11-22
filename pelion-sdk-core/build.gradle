@@ -18,8 +18,8 @@ dependencies {
     api project(':backends:mbedcloud_common')
     api project(':foundation-core')
     api 'org.slf4j:slf4j-api:1.7.26'
-    api 'com.squareup.okhttp3:logging-interceptor:3.14.2'
-    api 'joda-time:joda-time:2.9.9'
+    api 'com.squareup.okhttp3:logging-interceptor:4.2.0'
+    api 'joda-time:joda-time:2.10.3'
     api 'com.jcabi:jcabi-manifests:1.1'
     api 'io.github.cdimascio:java-dotenv:5.1.0'
 

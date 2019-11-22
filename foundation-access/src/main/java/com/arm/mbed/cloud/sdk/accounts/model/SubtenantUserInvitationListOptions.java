@@ -130,14 +130,12 @@ public class SubtenantUserInvitationListOptions extends ListOptions {
      * 
      * @param after
      *            value.
-     * @param include
-     *            value.
      * @param filter
      *            value.
      */
     @Internal
-    public SubtenantUserInvitationListOptions(String after, List<IncludeField> include, Filters filter) {
-        this((Integer) null, (Long) null, Order.getDefault(), after, include, filter);
+    public SubtenantUserInvitationListOptions(String after, Filters filter) {
+        this((Integer) null, (Long) null, Order.getDefault(), after, (List<IncludeField>) null, filter);
     }
 
     /**

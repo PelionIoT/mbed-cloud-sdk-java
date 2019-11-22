@@ -63,10 +63,13 @@ public class CommonTranslator {
         if (returnType == null) {
             return false;
         }
-        return PRIMITIVE_TYPES.stream()
-                              .anyMatch(t -> t.trim().toLowerCase(Locale.UK)
-                                              .equals(returnType == null ? null
-                                                                         : returnType.trim().toLowerCase(Locale.UK)));
+        return isVoidType(returnType)
+               || PRIMITIVE_TYPES.stream().anyMatch(t -> t.trim().toLowerCase(Locale.UK)
+                                                          .equals(returnType.trim().toLowerCase(Locale.UK)));
+    }
+
+    public static boolean isVoidType(String returnType) {
+        return returnType == null ? false : "void".equals(returnType.trim().toLowerCase(Locale.UK));
     }
 
     public static Model fetchCorrespondingModel(Configuration config,

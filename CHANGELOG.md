@@ -6,6 +6,50 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+2.5.0 (2019-11-07)
+==================
+
+### Features
+
+- Modified the notification listener to use a websocket connection rather than long polling. (#1776)
+
+- Added a way to control the notification system directly from the SDK entry point. (#2138)
+
+- Added a way to get, set, execute resource values from the SDK entry point rather than through the Connect API (#2144)
+
+- Harmonised the naming in notification messages (#2170)
+
+- Added a master observer to listen to any notifications coming from the Cloud (#28062019)
+
+### Bugfixes
+
+- Updated dependencies to fix security issues (#1)
+
+- Fix NullPointException during subscribing to connected devices. (#20190904)
+
+### Improved Documentation
+
+- Modified FirstDesktopApp example so that it works with devices set up using Pelion Device Management IoT Connection Tutorial (#1)
+
+- Replace old Campaign update example with new one based on foundation interface (#1955)
+
+- Added examples for resource value and subscription. (#2163)
+
+
+2.4.0 (2019-06-07)
+==================
+
+### Features
+
+- Supports device groups (#1374)
+
+- Supports colour and image branding (#2031)
+
+### Bugfixes
+
+- Updated dependencies to fix security issues (#1)
+
+
 2.3.2 (2019-05-29)
 ==================
 

@@ -95,4 +95,12 @@ public class MethodMapperEnum extends Method {
         }
     }
 
+    @Override
+    protected void addStaticAnalysisAnnotations() {
+        if (fromTo.getEnumConstants() != null
+            && fromTo.getEnumConstants().length > StaticAnalysisUtils.FIELD_LIMIT_FOR_IGNORING_WARNINGS) {
+            annotationRegistry.ignoreCyclomaticComplexity();
+        }
+        super.addStaticAnalysisAnnotations();
+    }
 }

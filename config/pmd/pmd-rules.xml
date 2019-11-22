@@ -56,6 +56,12 @@
 	</rule>
 
 
+	
+	<rule ref="rulesets/java/design.xml/AvoidDeeplyNestedIfStmts">
+		<properties>
+			<property name="problemDepth" value="4" />
+		</properties>
+	</rule>
 
 	<rule ref="rulesets/java/design.xml">
 		<exclude name="AvoidSynchronizedAtMethodLevel" />

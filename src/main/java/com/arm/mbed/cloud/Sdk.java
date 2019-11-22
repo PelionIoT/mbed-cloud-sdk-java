@@ -23,10 +23,13 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.CloudDao;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
+import com.arm.mbed.cloud.sdk.connect.model.ResourceDao;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceValueType;
 import com.arm.mbed.cloud.sdk.foundation.DaoFactory;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.notify.CloudNotificationManager;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
+import com.arm.mbed.cloud.sdk.subscribe.model.AllNotificationsObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
@@ -128,15 +131,58 @@ public class Sdk extends AbstractModule {
     }
 
     /**
-     * Gets subscription manager.
+     * Gets the notification manager.
+     * 
+     * @return the notification manager.
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
+    @API
+    public CloudNotificationManager notifications() throws MbedCloudException {
+        return connectApi.notifications();
+    }
+
+    /**
+     * Gets the corresponding resource DAO.
+     * 
+     * @param resource
+     *            resource of interest.
+     * @return the corresponding entity.
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
+    @API
+    public ResourceDao resource(@NonNull Resource resource) throws MbedCloudException {
+        return connectApi.resource(resource);
+    }
+
+    /**
+     * Gets the subscription manager.
      *
-     * @return subscription manager.
+     * @return the subscription manager.
      * @throws MbedCloudException
      *             if a problem occurs during the process.
      */
     @API
     public CloudSubscriptionManager subscribe() throws MbedCloudException {
         return connectApi.subscribe();
+    }
+
+    /**
+     * Subscribes to all notifications from Pelion Cloud.
+     * 
+     * @param strategy
+     *            backpressure strategy to apply to underlying communication channel. @see {@link BackpressureStrategy}
+     * 
+     * @return a registered observer which listens to all notifications from Pelion.
+     *
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
+    @API
+    @Nullable
+    public AllNotificationsObserver subscribe(@NonNull BackpressureStrategy strategy) throws MbedCloudException {
+        return subscribe().allNotifications(strategy);
     }
 
     /**
@@ -371,6 +417,7 @@ public class Sdk extends AbstractModule {
     @Daemon(shutdown = true)
     public void quit() {
         connectApi.close();
+        client.close();
     }
 
     /**

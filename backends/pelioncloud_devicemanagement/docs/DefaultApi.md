@@ -1941,7 +1941,7 @@ Name | Type | Description  | Notes
 
 Get raw billing data of the firmware updates for the month.
 
-Fetch raw billing data for firmware updates for the currently authenticated commercial non-subtenant account. This is supplementary data for the billing report. The raw billing data of the firmware updates for subtenant accounts are included in their aggregator&#39;s raw billing data of the firmware updates. The endpoint returns the URL to download the gzipped CSV file. The first line is the header providing information on the firmware updates. For example, the ID of an firmware update.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month&#x3D;2018-07 \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+Fetch raw billing data for firmware updates for the currently authenticated commercial non-subtenant account. This is supplementary data for the billing report. The raw billing data of the firmware updates for subtenant accounts are included in their aggregator&#39;s raw billing data of the firmware updates.  The endpoint returns the URL to download the gzipped CSV file. The first line is the header providing information on the firmware updates, for example, the ID of a firmware update.  **Example:** &#x60;&#x60;&#x60; curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month&#x3D;2018-07 \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
 
 ### Example
 ```java
@@ -2261,7 +2261,7 @@ Name | Type | Description  | Notes
 
 <a name="groupList"></a>
 # **groupList**
-> DeviceGroupPage groupList(limit, order, after, include, filter, idEq, idNeq, idIn, idNin, devicesCountEq, devicesCountNeq, devicesCountIn, devicesCountNin, devicesCountLte, devicesCountGte, nameEq, nameNeq, nameIn, nameNin, customAttributesEq, customAttributesNeq, createdAtIn, createdAtNin, createdAtLte, createdAtGte, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte)
+> DeviceGroupPage groupList(limit, order, after, include, filter, idEq, idNeq, idIn, idNin, devicesCountEq, devicesCountNeq, devicesCountIn, devicesCountNin, devicesCountLte, devicesCountGte, nameEq, nameNeq, nameIn, nameNin, createdAtIn, createdAtNin, createdAtLte, createdAtGte, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte)
 
 List all groups.
 
@@ -2304,8 +2304,6 @@ String nameEq = "nameEq_example"; // String | eq filter for the \"name\" field
 String nameNeq = "nameNeq_example"; // String | neq filter for the \"name\" field
 String nameIn = "nameIn_example"; // String | in filter for the \"name\" field
 String nameNin = "nameNin_example"; // String | nin filter for the \"name\" field
-String customAttributesEq = "customAttributesEq_example"; // String | eq filter for the \"custom_attributes\" field
-String customAttributesNeq = "customAttributesNeq_example"; // String | neq filter for the \"custom_attributes\" field
 String createdAtIn = "createdAtIn_example"; // String | in filter for the \"created_at\" field
 String createdAtNin = "createdAtNin_example"; // String | nin filter for the \"created_at\" field
 DateTime createdAtLte = new DateTime(); // DateTime | lte filter for the \"created_at\" field
@@ -2315,7 +2313,7 @@ String updatedAtNin = "updatedAtNin_example"; // String | nin filter for the \"u
 DateTime updatedAtLte = new DateTime(); // DateTime | lte filter for the \"updated_at\" field
 DateTime updatedAtGte = new DateTime(); // DateTime | gte filter for the \"updated_at\" field
 try {
-    DeviceGroupPage result = apiInstance.groupList(limit, order, after, include, filter, idEq, idNeq, idIn, idNin, devicesCountEq, devicesCountNeq, devicesCountIn, devicesCountNin, devicesCountLte, devicesCountGte, nameEq, nameNeq, nameIn, nameNin, customAttributesEq, customAttributesNeq, createdAtIn, createdAtNin, createdAtLte, createdAtGte, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte);
+    DeviceGroupPage result = apiInstance.groupList(limit, order, after, include, filter, idEq, idNeq, idIn, idNin, devicesCountEq, devicesCountNeq, devicesCountIn, devicesCountNin, devicesCountLte, devicesCountGte, nameEq, nameNeq, nameIn, nameNin, createdAtIn, createdAtNin, createdAtLte, createdAtGte, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#groupList");
@@ -2346,8 +2344,6 @@ Name | Type | Description  | Notes
  **nameNeq** | **String**| neq filter for the \&quot;name\&quot; field | [optional]
  **nameIn** | **String**| in filter for the \&quot;name\&quot; field | [optional]
  **nameNin** | **String**| nin filter for the \&quot;name\&quot; field | [optional]
- **customAttributesEq** | **String**| eq filter for the \&quot;custom_attributes\&quot; field | [optional]
- **customAttributesNeq** | **String**| neq filter for the \&quot;custom_attributes\&quot; field | [optional]
  **createdAtIn** | **String**| in filter for the \&quot;created_at\&quot; field | [optional]
  **createdAtNin** | **String**| nin filter for the \&quot;created_at\&quot; field | [optional]
  **createdAtLte** | **DateTime**| lte filter for the \&quot;created_at\&quot; field | [optional]
@@ -2486,7 +2482,7 @@ Name | Type | Description  | Notes
 
 <a name="groupMembersRetrieve"></a>
 # **groupMembersRetrieve**
-> DevicePage groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter)
+> DevicePage groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter, accountIdEq, accountIdNeq, accountIdIn, accountIdNin, autoUpdateEq, autoUpdateNeq, bootstrapExpirationDateIn, bootstrapExpirationDateNin, bootstrapExpirationDateLte, bootstrapExpirationDateGte, bootstrappedTimestampIn, bootstrappedTimestampNin, bootstrappedTimestampLte, bootstrappedTimestampGte, caIdEq, caIdNeq, caIdIn, caIdNin, connectorExpirationDateIn, connectorExpirationDateNin, connectorExpirationDateLte, connectorExpirationDateGte, createdAtIn, createdAtNin, createdAtLte, createdAtGte, deployedStateEq, deployedStateNeq, deployedStateIn, deployedStateNin, deploymentEq, deploymentNeq, deploymentIn, deploymentNin, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, deviceClassEq, deviceClassNeq, deviceClassIn, deviceClassNin, deviceExecutionModeEq, deviceExecutionModeNeq, deviceExecutionModeIn, deviceExecutionModeNin, deviceKeyEq, deviceKeyNeq, deviceKeyIn, deviceKeyNin, endpointNameEq, endpointNameNeq, endpointNameIn, endpointNameNin, endpointTypeEq, endpointTypeNeq, endpointTypeIn, endpointTypeNin, enrolmentListTimestampIn, enrolmentListTimestampNin, enrolmentListTimestampLte, enrolmentListTimestampGte, firmwareChecksumEq, firmwareChecksumNeq, firmwareChecksumIn, firmwareChecksumNin, hostGatewayEq, hostGatewayNeq, hostGatewayIn, hostGatewayNin, idEq, idNeq, idIn, idNin, manifestEq, manifestNeq, manifestIn, manifestNin, manifestTimestampIn, manifestTimestampNin, manifestTimestampLte, manifestTimestampGte, mechanismEq, mechanismNeq, mechanismIn, mechanismNin, mechanismUrlEq, mechanismUrlNeq, mechanismUrlIn, mechanismUrlNin, nameEq, nameNeq, nameIn, nameNin, serialNumberEq, serialNumberNeq, serialNumberIn, serialNumberNin, stateEq, stateNeq, stateIn, stateNin, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte, vendorIdEq, vendorIdNeq, vendorIdIn, vendorIdNin)
 
 Get a page of devices
 
@@ -2516,8 +2512,118 @@ String order = "order_example"; // String | The order of the records based on cr
 String after = "after_example"; // String | The ID of The item after which to retrieve the next page.
 String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`.
 String filter = "filter_example"; // String | URL encoded query string parameter to filter returned data.        ##### Filtering  ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3```  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  <table>   <thead>     <tr>       <th>Field</th>       <th>= / __eq / __neq</th>       <th>__in /  __nin</th>       <th>__lte / __gte</th>     <tr>   <thead>   <tbody>     <tr>       <td>lifecycle_status</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>account_id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>auto_update</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>bootstrap_expiration_date</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>bootstrapped_timestamp</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>       </tr>     <tr>       <td>ca_id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>connector_expiration_date</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>created_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>custom_attributes</td>       <td>✓</td>       <td>&nbsp;</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>deployed_state</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>deployment</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>description</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>device_class</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>device_execution_mode</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>device_key</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>endpoint_name</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>endpoint_type</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>enrolment_list_timestamp</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>etag</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>firmware_checksum</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>host_gateway</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>manifest</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>manifest_timestamp</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>mechanism</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>mechanism_url</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>name</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>serial_number</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>state</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>     <tr>       <td>updated_at</td>       <td>✓</td>       <td>✓</td>       <td>✓</td>     </tr>     <tr>       <td>vendor_id</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>       </tr>     <tr>       <td>issuer_fingerprint</td>       <td>✓</td>       <td>✓</td>       <td>&nbsp;</td>     </tr>               </tbody> </table> &nbsp;  The examples below show the queries in *unencoded* form.  ###### By device properties (all properties are filterable):  ```state=[unenrolled|cloud_enrolling|bootstrapped|registered]``` ```device_class={value}```  ###### On date-time fields:  Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter. ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ###### On device custom attributes:  ```custom_attributes__{param}={value}``` ```custom_attributes__tag=TAG1```  ##### Multi-field example  ```state=bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded:  ```?filter=state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: `__eq` * non-equality: `__neq` * in : `__in` * not in: `__nin`  For `__in` and `__nin` filters list of parameters must be comma-separated: `state__nin=unenrolled,dergistered`
+String accountIdEq = "accountIdEq_example"; // String | eq filter for the \"account_id\" field
+String accountIdNeq = "accountIdNeq_example"; // String | neq filter for the \"account_id\" field
+String accountIdIn = "accountIdIn_example"; // String | in filter for the \"account_id\" field
+String accountIdNin = "accountIdNin_example"; // String | nin filter for the \"account_id\" field
+Boolean autoUpdateEq = true; // Boolean | eq filter for the \"auto_update\" field
+Boolean autoUpdateNeq = true; // Boolean | neq filter for the \"auto_update\" field
+String bootstrapExpirationDateIn = "bootstrapExpirationDateIn_example"; // String | in filter for the \"bootstrap_expiration_date\" field
+String bootstrapExpirationDateNin = "bootstrapExpirationDateNin_example"; // String | nin filter for the \"bootstrap_expiration_date\" field
+LocalDate bootstrapExpirationDateLte = new LocalDate(); // LocalDate | lte filter for the \"bootstrap_expiration_date\" field
+LocalDate bootstrapExpirationDateGte = new LocalDate(); // LocalDate | gte filter for the \"bootstrap_expiration_date\" field
+String bootstrappedTimestampIn = "bootstrappedTimestampIn_example"; // String | in filter for the \"bootstrapped_timestamp\" field
+String bootstrappedTimestampNin = "bootstrappedTimestampNin_example"; // String | nin filter for the \"bootstrapped_timestamp\" field
+DateTime bootstrappedTimestampLte = new DateTime(); // DateTime | lte filter for the \"bootstrapped_timestamp\" field
+DateTime bootstrappedTimestampGte = new DateTime(); // DateTime | gte filter for the \"bootstrapped_timestamp\" field
+String caIdEq = "caIdEq_example"; // String | eq filter for the \"ca_id\" field
+String caIdNeq = "caIdNeq_example"; // String | neq filter for the \"ca_id\" field
+String caIdIn = "caIdIn_example"; // String | in filter for the \"ca_id\" field
+String caIdNin = "caIdNin_example"; // String | nin filter for the \"ca_id\" field
+String connectorExpirationDateIn = "connectorExpirationDateIn_example"; // String | in filter for the \"connector_expiration_date\" field
+String connectorExpirationDateNin = "connectorExpirationDateNin_example"; // String | nin filter for the \"connector_expiration_date\" field
+LocalDate connectorExpirationDateLte = new LocalDate(); // LocalDate | lte filter for the \"connector_expiration_date\" field
+LocalDate connectorExpirationDateGte = new LocalDate(); // LocalDate | gte filter for the \"connector_expiration_date\" field
+String createdAtIn = "createdAtIn_example"; // String | in filter for the \"created_at\" field
+String createdAtNin = "createdAtNin_example"; // String | nin filter for the \"created_at\" field
+DateTime createdAtLte = new DateTime(); // DateTime | lte filter for the \"created_at\" field
+DateTime createdAtGte = new DateTime(); // DateTime | gte filter for the \"created_at\" field
+String deployedStateEq = "deployedStateEq_example"; // String | eq filter for the \"deployed_state\" field
+String deployedStateNeq = "deployedStateNeq_example"; // String | neq filter for the \"deployed_state\" field
+String deployedStateIn = "deployedStateIn_example"; // String | in filter for the \"deployed_state\" field
+String deployedStateNin = "deployedStateNin_example"; // String | nin filter for the \"deployed_state\" field
+String deploymentEq = "deploymentEq_example"; // String | eq filter for the \"deployment\" field
+String deploymentNeq = "deploymentNeq_example"; // String | neq filter for the \"deployment\" field
+String deploymentIn = "deploymentIn_example"; // String | in filter for the \"deployment\" field
+String deploymentNin = "deploymentNin_example"; // String | nin filter for the \"deployment\" field
+String descriptionEq = "descriptionEq_example"; // String | eq filter for the \"description\" field
+String descriptionNeq = "descriptionNeq_example"; // String | neq filter for the \"description\" field
+String descriptionIn = "descriptionIn_example"; // String | in filter for the \"description\" field
+String descriptionNin = "descriptionNin_example"; // String | nin filter for the \"description\" field
+String deviceClassEq = "deviceClassEq_example"; // String | eq filter for the \"device_class\" field
+String deviceClassNeq = "deviceClassNeq_example"; // String | neq filter for the \"device_class\" field
+String deviceClassIn = "deviceClassIn_example"; // String | in filter for the \"device_class\" field
+String deviceClassNin = "deviceClassNin_example"; // String | nin filter for the \"device_class\" field
+Integer deviceExecutionModeEq = 56; // Integer | eq filter for the \"device_execution_mode\" field
+Integer deviceExecutionModeNeq = 56; // Integer | neq filter for the \"device_execution_mode\" field
+String deviceExecutionModeIn = "deviceExecutionModeIn_example"; // String | in filter for the \"device_execution_mode\" field
+String deviceExecutionModeNin = "deviceExecutionModeNin_example"; // String | nin filter for the \"device_execution_mode\" field
+String deviceKeyEq = "deviceKeyEq_example"; // String | eq filter for the \"device_key\" field
+String deviceKeyNeq = "deviceKeyNeq_example"; // String | neq filter for the \"device_key\" field
+String deviceKeyIn = "deviceKeyIn_example"; // String | in filter for the \"device_key\" field
+String deviceKeyNin = "deviceKeyNin_example"; // String | nin filter for the \"device_key\" field
+String endpointNameEq = "endpointNameEq_example"; // String | eq filter for the \"endpoint_name\" field
+String endpointNameNeq = "endpointNameNeq_example"; // String | neq filter for the \"endpoint_name\" field
+String endpointNameIn = "endpointNameIn_example"; // String | in filter for the \"endpoint_name\" field
+String endpointNameNin = "endpointNameNin_example"; // String | nin filter for the \"endpoint_name\" field
+String endpointTypeEq = "endpointTypeEq_example"; // String | eq filter for the \"endpoint_type\" field
+String endpointTypeNeq = "endpointTypeNeq_example"; // String | neq filter for the \"endpoint_type\" field
+String endpointTypeIn = "endpointTypeIn_example"; // String | in filter for the \"endpoint_type\" field
+String endpointTypeNin = "endpointTypeNin_example"; // String | nin filter for the \"endpoint_type\" field
+String enrolmentListTimestampIn = "enrolmentListTimestampIn_example"; // String | in filter for the \"enrolment_list_timestamp\" field
+String enrolmentListTimestampNin = "enrolmentListTimestampNin_example"; // String | nin filter for the \"enrolment_list_timestamp\" field
+DateTime enrolmentListTimestampLte = new DateTime(); // DateTime | lte filter for the \"enrolment_list_timestamp\" field
+DateTime enrolmentListTimestampGte = new DateTime(); // DateTime | gte filter for the \"enrolment_list_timestamp\" field
+String firmwareChecksumEq = "firmwareChecksumEq_example"; // String | eq filter for the \"firmware_checksum\" field
+String firmwareChecksumNeq = "firmwareChecksumNeq_example"; // String | neq filter for the \"firmware_checksum\" field
+String firmwareChecksumIn = "firmwareChecksumIn_example"; // String | in filter for the \"firmware_checksum\" field
+String firmwareChecksumNin = "firmwareChecksumNin_example"; // String | nin filter for the \"firmware_checksum\" field
+String hostGatewayEq = "hostGatewayEq_example"; // String | eq filter for the \"host_gateway\" field
+String hostGatewayNeq = "hostGatewayNeq_example"; // String | neq filter for the \"host_gateway\" field
+String hostGatewayIn = "hostGatewayIn_example"; // String | in filter for the \"host_gateway\" field
+String hostGatewayNin = "hostGatewayNin_example"; // String | nin filter for the \"host_gateway\" field
+String idEq = "idEq_example"; // String | eq filter for the \"id\" field
+String idNeq = "idNeq_example"; // String | neq filter for the \"id\" field
+String idIn = "idIn_example"; // String | in filter for the \"id\" field
+String idNin = "idNin_example"; // String | nin filter for the \"id\" field
+String manifestEq = "manifestEq_example"; // String | eq filter for the \"manifest\" field
+String manifestNeq = "manifestNeq_example"; // String | neq filter for the \"manifest\" field
+String manifestIn = "manifestIn_example"; // String | in filter for the \"manifest\" field
+String manifestNin = "manifestNin_example"; // String | nin filter for the \"manifest\" field
+String manifestTimestampIn = "manifestTimestampIn_example"; // String | in filter for the \"manifest_timestamp\" field
+String manifestTimestampNin = "manifestTimestampNin_example"; // String | nin filter for the \"manifest_timestamp\" field
+DateTime manifestTimestampLte = new DateTime(); // DateTime | lte filter for the \"manifest_timestamp\" field
+DateTime manifestTimestampGte = new DateTime(); // DateTime | gte filter for the \"manifest_timestamp\" field
+String mechanismEq = "mechanismEq_example"; // String | eq filter for the \"mechanism\" field
+String mechanismNeq = "mechanismNeq_example"; // String | neq filter for the \"mechanism\" field
+String mechanismIn = "mechanismIn_example"; // String | in filter for the \"mechanism\" field
+String mechanismNin = "mechanismNin_example"; // String | nin filter for the \"mechanism\" field
+String mechanismUrlEq = "mechanismUrlEq_example"; // String | eq filter for the \"mechanism_url\" field
+String mechanismUrlNeq = "mechanismUrlNeq_example"; // String | neq filter for the \"mechanism_url\" field
+String mechanismUrlIn = "mechanismUrlIn_example"; // String | in filter for the \"mechanism_url\" field
+String mechanismUrlNin = "mechanismUrlNin_example"; // String | nin filter for the \"mechanism_url\" field
+String nameEq = "nameEq_example"; // String | eq filter for the \"name\" field
+String nameNeq = "nameNeq_example"; // String | neq filter for the \"name\" field
+String nameIn = "nameIn_example"; // String | in filter for the \"name\" field
+String nameNin = "nameNin_example"; // String | nin filter for the \"name\" field
+String serialNumberEq = "serialNumberEq_example"; // String | eq filter for the \"serial_number\" field
+String serialNumberNeq = "serialNumberNeq_example"; // String | neq filter for the \"serial_number\" field
+String serialNumberIn = "serialNumberIn_example"; // String | in filter for the \"serial_number\" field
+String serialNumberNin = "serialNumberNin_example"; // String | nin filter for the \"serial_number\" field
+String stateEq = "stateEq_example"; // String | eq filter for the \"state\" field
+String stateNeq = "stateNeq_example"; // String | neq filter for the \"state\" field
+String stateIn = "stateIn_example"; // String | in filter for the \"state\" field
+String stateNin = "stateNin_example"; // String | nin filter for the \"state\" field
+String updatedAtIn = "updatedAtIn_example"; // String | in filter for the \"updated_at\" field
+String updatedAtNin = "updatedAtNin_example"; // String | nin filter for the \"updated_at\" field
+DateTime updatedAtLte = new DateTime(); // DateTime | lte filter for the \"updated_at\" field
+DateTime updatedAtGte = new DateTime(); // DateTime | gte filter for the \"updated_at\" field
+String vendorIdEq = "vendorIdEq_example"; // String | eq filter for the \"vendor_id\" field
+String vendorIdNeq = "vendorIdNeq_example"; // String | neq filter for the \"vendor_id\" field
+String vendorIdIn = "vendorIdIn_example"; // String | in filter for the \"vendor_id\" field
+String vendorIdNin = "vendorIdNin_example"; // String | nin filter for the \"vendor_id\" field
 try {
-    DevicePage result = apiInstance.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter);
+    DevicePage result = apiInstance.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter, accountIdEq, accountIdNeq, accountIdIn, accountIdNin, autoUpdateEq, autoUpdateNeq, bootstrapExpirationDateIn, bootstrapExpirationDateNin, bootstrapExpirationDateLte, bootstrapExpirationDateGte, bootstrappedTimestampIn, bootstrappedTimestampNin, bootstrappedTimestampLte, bootstrappedTimestampGte, caIdEq, caIdNeq, caIdIn, caIdNin, connectorExpirationDateIn, connectorExpirationDateNin, connectorExpirationDateLte, connectorExpirationDateGte, createdAtIn, createdAtNin, createdAtLte, createdAtGte, deployedStateEq, deployedStateNeq, deployedStateIn, deployedStateNin, deploymentEq, deploymentNeq, deploymentIn, deploymentNin, descriptionEq, descriptionNeq, descriptionIn, descriptionNin, deviceClassEq, deviceClassNeq, deviceClassIn, deviceClassNin, deviceExecutionModeEq, deviceExecutionModeNeq, deviceExecutionModeIn, deviceExecutionModeNin, deviceKeyEq, deviceKeyNeq, deviceKeyIn, deviceKeyNin, endpointNameEq, endpointNameNeq, endpointNameIn, endpointNameNin, endpointTypeEq, endpointTypeNeq, endpointTypeIn, endpointTypeNin, enrolmentListTimestampIn, enrolmentListTimestampNin, enrolmentListTimestampLte, enrolmentListTimestampGte, firmwareChecksumEq, firmwareChecksumNeq, firmwareChecksumIn, firmwareChecksumNin, hostGatewayEq, hostGatewayNeq, hostGatewayIn, hostGatewayNin, idEq, idNeq, idIn, idNin, manifestEq, manifestNeq, manifestIn, manifestNin, manifestTimestampIn, manifestTimestampNin, manifestTimestampLte, manifestTimestampGte, mechanismEq, mechanismNeq, mechanismIn, mechanismNin, mechanismUrlEq, mechanismUrlNeq, mechanismUrlIn, mechanismUrlNin, nameEq, nameNeq, nameIn, nameNin, serialNumberEq, serialNumberNeq, serialNumberIn, serialNumberNin, stateEq, stateNeq, stateIn, stateNin, updatedAtIn, updatedAtNin, updatedAtLte, updatedAtGte, vendorIdEq, vendorIdNeq, vendorIdIn, vendorIdNin);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#groupMembersRetrieve");
@@ -2535,6 +2641,116 @@ Name | Type | Description  | Notes
  **after** | **String**| The ID of The item after which to retrieve the next page. | [optional]
  **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. | [optional]
  **filter** | **String**| URL encoded query string parameter to filter returned data.        ##### Filtering  &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60;  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  &lt;table&gt;   &lt;thead&gt;     &lt;tr&gt;       &lt;th&gt;Field&lt;/th&gt;       &lt;th&gt;&#x3D; / __eq / __neq&lt;/th&gt;       &lt;th&gt;__in /  __nin&lt;/th&gt;       &lt;th&gt;__lte / __gte&lt;/th&gt;     &lt;tr&gt;   &lt;thead&gt;   &lt;tbody&gt;     &lt;tr&gt;       &lt;td&gt;lifecycle_status&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;account_id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;auto_update&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;bootstrap_expiration_date&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;bootstrapped_timestamp&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;ca_id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;connector_expiration_date&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;created_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;custom_attributes&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;deployed_state&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;deployment&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;description&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;device_class&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;device_execution_mode&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;device_key&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;endpoint_name&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;endpoint_type&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;enrolment_list_timestamp&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;etag&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;firmware_checksum&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;host_gateway&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;manifest&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;manifest_timestamp&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;mechanism&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;mechanism_url&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;name&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;serial_number&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;state&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;updated_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;vendor_id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;       &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;issuer_fingerprint&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;               &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;  The examples below show the queries in *unencoded* form.  ###### By device properties (all properties are filterable):  &#x60;&#x60;&#x60;state&#x3D;[unenrolled|cloud_enrolling|bootstrapped|registered]&#x60;&#x60;&#x60; &#x60;&#x60;&#x60;device_class&#x3D;{value}&#x60;&#x60;&#x60;  ###### On date-time fields:  Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter. &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ###### On device custom attributes:  &#x60;&#x60;&#x60;custom_attributes__{param}&#x3D;{value}&#x60;&#x60;&#x60; &#x60;&#x60;&#x60;custom_attributes__tag&#x3D;TAG1&#x60;&#x60;&#x60;  ##### Multi-field example  &#x60;&#x60;&#x60;state&#x3D;bootstrapped&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;&#x60;&#x60;  Encoded:  &#x60;&#x60;&#x60;?filter&#x3D;state%3Dbootstrapped%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&#x60;&#x60;&#x60;  ##### Filtering with filter operators  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated: &#x60;state__nin&#x3D;unenrolled,dergistered&#x60; | [optional]
+ **accountIdEq** | **String**| eq filter for the \&quot;account_id\&quot; field | [optional]
+ **accountIdNeq** | **String**| neq filter for the \&quot;account_id\&quot; field | [optional]
+ **accountIdIn** | **String**| in filter for the \&quot;account_id\&quot; field | [optional]
+ **accountIdNin** | **String**| nin filter for the \&quot;account_id\&quot; field | [optional]
+ **autoUpdateEq** | **Boolean**| eq filter for the \&quot;auto_update\&quot; field | [optional]
+ **autoUpdateNeq** | **Boolean**| neq filter for the \&quot;auto_update\&quot; field | [optional]
+ **bootstrapExpirationDateIn** | **String**| in filter for the \&quot;bootstrap_expiration_date\&quot; field | [optional]
+ **bootstrapExpirationDateNin** | **String**| nin filter for the \&quot;bootstrap_expiration_date\&quot; field | [optional]
+ **bootstrapExpirationDateLte** | **LocalDate**| lte filter for the \&quot;bootstrap_expiration_date\&quot; field | [optional]
+ **bootstrapExpirationDateGte** | **LocalDate**| gte filter for the \&quot;bootstrap_expiration_date\&quot; field | [optional]
+ **bootstrappedTimestampIn** | **String**| in filter for the \&quot;bootstrapped_timestamp\&quot; field | [optional]
+ **bootstrappedTimestampNin** | **String**| nin filter for the \&quot;bootstrapped_timestamp\&quot; field | [optional]
+ **bootstrappedTimestampLte** | **DateTime**| lte filter for the \&quot;bootstrapped_timestamp\&quot; field | [optional]
+ **bootstrappedTimestampGte** | **DateTime**| gte filter for the \&quot;bootstrapped_timestamp\&quot; field | [optional]
+ **caIdEq** | **String**| eq filter for the \&quot;ca_id\&quot; field | [optional]
+ **caIdNeq** | **String**| neq filter for the \&quot;ca_id\&quot; field | [optional]
+ **caIdIn** | **String**| in filter for the \&quot;ca_id\&quot; field | [optional]
+ **caIdNin** | **String**| nin filter for the \&quot;ca_id\&quot; field | [optional]
+ **connectorExpirationDateIn** | **String**| in filter for the \&quot;connector_expiration_date\&quot; field | [optional]
+ **connectorExpirationDateNin** | **String**| nin filter for the \&quot;connector_expiration_date\&quot; field | [optional]
+ **connectorExpirationDateLte** | **LocalDate**| lte filter for the \&quot;connector_expiration_date\&quot; field | [optional]
+ **connectorExpirationDateGte** | **LocalDate**| gte filter for the \&quot;connector_expiration_date\&quot; field | [optional]
+ **createdAtIn** | **String**| in filter for the \&quot;created_at\&quot; field | [optional]
+ **createdAtNin** | **String**| nin filter for the \&quot;created_at\&quot; field | [optional]
+ **createdAtLte** | **DateTime**| lte filter for the \&quot;created_at\&quot; field | [optional]
+ **createdAtGte** | **DateTime**| gte filter for the \&quot;created_at\&quot; field | [optional]
+ **deployedStateEq** | **String**| eq filter for the \&quot;deployed_state\&quot; field | [optional]
+ **deployedStateNeq** | **String**| neq filter for the \&quot;deployed_state\&quot; field | [optional]
+ **deployedStateIn** | **String**| in filter for the \&quot;deployed_state\&quot; field | [optional]
+ **deployedStateNin** | **String**| nin filter for the \&quot;deployed_state\&quot; field | [optional]
+ **deploymentEq** | **String**| eq filter for the \&quot;deployment\&quot; field | [optional]
+ **deploymentNeq** | **String**| neq filter for the \&quot;deployment\&quot; field | [optional]
+ **deploymentIn** | **String**| in filter for the \&quot;deployment\&quot; field | [optional]
+ **deploymentNin** | **String**| nin filter for the \&quot;deployment\&quot; field | [optional]
+ **descriptionEq** | **String**| eq filter for the \&quot;description\&quot; field | [optional]
+ **descriptionNeq** | **String**| neq filter for the \&quot;description\&quot; field | [optional]
+ **descriptionIn** | **String**| in filter for the \&quot;description\&quot; field | [optional]
+ **descriptionNin** | **String**| nin filter for the \&quot;description\&quot; field | [optional]
+ **deviceClassEq** | **String**| eq filter for the \&quot;device_class\&quot; field | [optional]
+ **deviceClassNeq** | **String**| neq filter for the \&quot;device_class\&quot; field | [optional]
+ **deviceClassIn** | **String**| in filter for the \&quot;device_class\&quot; field | [optional]
+ **deviceClassNin** | **String**| nin filter for the \&quot;device_class\&quot; field | [optional]
+ **deviceExecutionModeEq** | **Integer**| eq filter for the \&quot;device_execution_mode\&quot; field | [optional]
+ **deviceExecutionModeNeq** | **Integer**| neq filter for the \&quot;device_execution_mode\&quot; field | [optional]
+ **deviceExecutionModeIn** | **String**| in filter for the \&quot;device_execution_mode\&quot; field | [optional]
+ **deviceExecutionModeNin** | **String**| nin filter for the \&quot;device_execution_mode\&quot; field | [optional]
+ **deviceKeyEq** | **String**| eq filter for the \&quot;device_key\&quot; field | [optional]
+ **deviceKeyNeq** | **String**| neq filter for the \&quot;device_key\&quot; field | [optional]
+ **deviceKeyIn** | **String**| in filter for the \&quot;device_key\&quot; field | [optional]
+ **deviceKeyNin** | **String**| nin filter for the \&quot;device_key\&quot; field | [optional]
+ **endpointNameEq** | **String**| eq filter for the \&quot;endpoint_name\&quot; field | [optional]
+ **endpointNameNeq** | **String**| neq filter for the \&quot;endpoint_name\&quot; field | [optional]
+ **endpointNameIn** | **String**| in filter for the \&quot;endpoint_name\&quot; field | [optional]
+ **endpointNameNin** | **String**| nin filter for the \&quot;endpoint_name\&quot; field | [optional]
+ **endpointTypeEq** | **String**| eq filter for the \&quot;endpoint_type\&quot; field | [optional]
+ **endpointTypeNeq** | **String**| neq filter for the \&quot;endpoint_type\&quot; field | [optional]
+ **endpointTypeIn** | **String**| in filter for the \&quot;endpoint_type\&quot; field | [optional]
+ **endpointTypeNin** | **String**| nin filter for the \&quot;endpoint_type\&quot; field | [optional]
+ **enrolmentListTimestampIn** | **String**| in filter for the \&quot;enrolment_list_timestamp\&quot; field | [optional]
+ **enrolmentListTimestampNin** | **String**| nin filter for the \&quot;enrolment_list_timestamp\&quot; field | [optional]
+ **enrolmentListTimestampLte** | **DateTime**| lte filter for the \&quot;enrolment_list_timestamp\&quot; field | [optional]
+ **enrolmentListTimestampGte** | **DateTime**| gte filter for the \&quot;enrolment_list_timestamp\&quot; field | [optional]
+ **firmwareChecksumEq** | **String**| eq filter for the \&quot;firmware_checksum\&quot; field | [optional]
+ **firmwareChecksumNeq** | **String**| neq filter for the \&quot;firmware_checksum\&quot; field | [optional]
+ **firmwareChecksumIn** | **String**| in filter for the \&quot;firmware_checksum\&quot; field | [optional]
+ **firmwareChecksumNin** | **String**| nin filter for the \&quot;firmware_checksum\&quot; field | [optional]
+ **hostGatewayEq** | **String**| eq filter for the \&quot;host_gateway\&quot; field | [optional]
+ **hostGatewayNeq** | **String**| neq filter for the \&quot;host_gateway\&quot; field | [optional]
+ **hostGatewayIn** | **String**| in filter for the \&quot;host_gateway\&quot; field | [optional]
+ **hostGatewayNin** | **String**| nin filter for the \&quot;host_gateway\&quot; field | [optional]
+ **idEq** | **String**| eq filter for the \&quot;id\&quot; field | [optional]
+ **idNeq** | **String**| neq filter for the \&quot;id\&quot; field | [optional]
+ **idIn** | **String**| in filter for the \&quot;id\&quot; field | [optional]
+ **idNin** | **String**| nin filter for the \&quot;id\&quot; field | [optional]
+ **manifestEq** | **String**| eq filter for the \&quot;manifest\&quot; field | [optional]
+ **manifestNeq** | **String**| neq filter for the \&quot;manifest\&quot; field | [optional]
+ **manifestIn** | **String**| in filter for the \&quot;manifest\&quot; field | [optional]
+ **manifestNin** | **String**| nin filter for the \&quot;manifest\&quot; field | [optional]
+ **manifestTimestampIn** | **String**| in filter for the \&quot;manifest_timestamp\&quot; field | [optional]
+ **manifestTimestampNin** | **String**| nin filter for the \&quot;manifest_timestamp\&quot; field | [optional]
+ **manifestTimestampLte** | **DateTime**| lte filter for the \&quot;manifest_timestamp\&quot; field | [optional]
+ **manifestTimestampGte** | **DateTime**| gte filter for the \&quot;manifest_timestamp\&quot; field | [optional]
+ **mechanismEq** | **String**| eq filter for the \&quot;mechanism\&quot; field | [optional]
+ **mechanismNeq** | **String**| neq filter for the \&quot;mechanism\&quot; field | [optional]
+ **mechanismIn** | **String**| in filter for the \&quot;mechanism\&quot; field | [optional]
+ **mechanismNin** | **String**| nin filter for the \&quot;mechanism\&quot; field | [optional]
+ **mechanismUrlEq** | **String**| eq filter for the \&quot;mechanism_url\&quot; field | [optional]
+ **mechanismUrlNeq** | **String**| neq filter for the \&quot;mechanism_url\&quot; field | [optional]
+ **mechanismUrlIn** | **String**| in filter for the \&quot;mechanism_url\&quot; field | [optional]
+ **mechanismUrlNin** | **String**| nin filter for the \&quot;mechanism_url\&quot; field | [optional]
+ **nameEq** | **String**| eq filter for the \&quot;name\&quot; field | [optional]
+ **nameNeq** | **String**| neq filter for the \&quot;name\&quot; field | [optional]
+ **nameIn** | **String**| in filter for the \&quot;name\&quot; field | [optional]
+ **nameNin** | **String**| nin filter for the \&quot;name\&quot; field | [optional]
+ **serialNumberEq** | **String**| eq filter for the \&quot;serial_number\&quot; field | [optional]
+ **serialNumberNeq** | **String**| neq filter for the \&quot;serial_number\&quot; field | [optional]
+ **serialNumberIn** | **String**| in filter for the \&quot;serial_number\&quot; field | [optional]
+ **serialNumberNin** | **String**| nin filter for the \&quot;serial_number\&quot; field | [optional]
+ **stateEq** | **String**| eq filter for the \&quot;state\&quot; field | [optional]
+ **stateNeq** | **String**| neq filter for the \&quot;state\&quot; field | [optional]
+ **stateIn** | **String**| in filter for the \&quot;state\&quot; field | [optional]
+ **stateNin** | **String**| nin filter for the \&quot;state\&quot; field | [optional]
+ **updatedAtIn** | **String**| in filter for the \&quot;updated_at\&quot; field | [optional]
+ **updatedAtNin** | **String**| nin filter for the \&quot;updated_at\&quot; field | [optional]
+ **updatedAtLte** | **DateTime**| lte filter for the \&quot;updated_at\&quot; field | [optional]
+ **updatedAtGte** | **DateTime**| gte filter for the \&quot;updated_at\&quot; field | [optional]
+ **vendorIdEq** | **String**| eq filter for the \&quot;vendor_id\&quot; field | [optional]
+ **vendorIdNeq** | **String**| neq filter for the \&quot;vendor_id\&quot; field | [optional]
+ **vendorIdIn** | **String**| in filter for the \&quot;vendor_id\&quot; field | [optional]
+ **vendorIdNin** | **String**| nin filter for the \&quot;vendor_id\&quot; field | [optional]
 
 ### Return type
 

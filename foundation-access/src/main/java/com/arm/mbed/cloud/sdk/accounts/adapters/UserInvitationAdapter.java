@@ -29,6 +29,26 @@ public final class UserInvitationAdapter {
     }
 
     /**
+     * Maps a user invitation into a user invitation req.
+     * 
+     * @param toBeMapped
+     *            a user invitation.
+     * @return mapped a user invitation req
+     */
+    @Internal
+    public static UserInvitationReq reverseMapAddRequest(UserInvitation toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final UserInvitationReq userInvitationReq = new UserInvitationReq();
+        userInvitationReq.setEmail(toBeMapped.getEmail());
+        // No field equivalent to groups in UserInvitationReq was found in UserInvitation
+        userInvitationReq.setLoginProfiles(LoginProfileAdapter.reverseMapAddSimpleList(toBeMapped.getLoginProfiles()));
+        // No field equivalent to validForDays in UserInvitationReq was found in UserInvitation
+        return userInvitationReq;
+    }
+
+    /**
      * Maps a user invitation resp into a user invitation.
      * 
      * @param toBeMapped
@@ -71,26 +91,6 @@ public final class UserInvitationAdapter {
                 return UserInvitationAdapter.map(toBeMapped);
             }
         };
-    }
-
-    /**
-     * Maps a user invitation into a user invitation req.
-     * 
-     * @param toBeMapped
-     *            a user invitation.
-     * @return mapped a user invitation req
-     */
-    @Internal
-    public static UserInvitationReq reverseMapAddRequest(UserInvitation toBeMapped) {
-        if (toBeMapped == null) {
-            return null;
-        }
-        final UserInvitationReq userInvitationReq = new UserInvitationReq();
-        userInvitationReq.setEmail(toBeMapped.getEmail());
-        // No field equivalent to groups in UserInvitationReq was found in UserInvitation
-        userInvitationReq.setLoginProfiles(LoginProfileAdapter.reverseMapAddSimpleList(toBeMapped.getLoginProfiles()));
-        // No field equivalent to validForDays in UserInvitationReq was found in UserInvitation
-        return userInvitationReq;
     }
 
     /**

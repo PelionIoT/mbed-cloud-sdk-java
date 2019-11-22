@@ -15,6 +15,7 @@ public class SdkMethodParameters extends HashMap<String, Object> {
 
     }
 
+    @SuppressWarnings("unused")
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -27,6 +28,7 @@ public class SdkMethodParameters extends HashMap<String, Object> {
         return true;
     }
 
+    @SuppressWarnings("boxing")
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode());

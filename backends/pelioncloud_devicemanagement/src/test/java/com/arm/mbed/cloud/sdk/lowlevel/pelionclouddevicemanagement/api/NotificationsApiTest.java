@@ -142,7 +142,7 @@ public class NotificationsApiTest {
      * In this case, notifications are delivered through HTTP long poll requests. The HTTP request is kept open until
      * one or more event notifications are delivered to the client, or the request times out (response code 204). In
      * both cases, the client should open a new polling connection after the previous one closes. Only a single long
-     * polling connection per API key can be ongoing at any given time. You must have a persistent connection
+     * polling connection per API key can be ongoing at any given time. We recommend using a persistent connection
      * (Connection keep-alive header in the request) to avoid excess TLS handshakes. The pull channel is implicitly
      * created by the first GET call to &#x60;/v2/notification/pull&#x60;. It refreshes on each GET call. If the channel
      * is not polled for a long time (10 minutes), it expires and is deleted. This means that no notifications will stay

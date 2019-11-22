@@ -125,6 +125,7 @@ public class TestModelDaoProvider {
             super();
         }
 
+        @SuppressWarnings("resource")
         @Override
         protected SdkContext instantiateModule(ConnectionOptions options) {
             return generateApiModule(new ApiClientWrapper(options));
@@ -204,6 +205,7 @@ public class TestModelDaoProvider {
             return null;
         }
 
+        @SuppressWarnings("resource")
         @Override
         protected SdkContext instantiateModule(ConnectionOptions options) {
             return ModelTestDao.generateApiModule(new ApiClientWrapper(options));
