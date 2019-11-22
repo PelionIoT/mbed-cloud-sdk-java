@@ -20,6 +20,7 @@ import nl.jqno.equalsverifier.Warning;
 
 public class TestFileDownload {
 
+    @SuppressWarnings("resource")
     @Test
     public void equalsContract() {
         EqualsVerifier.forClass(FileDownload.class).suppress(Warning.STRICT_INHERITANCE)
@@ -56,7 +57,7 @@ public class TestFileDownload {
             assertNotNull(dest1.getFileName());
             assertTrue(dest1.getFileName().contains("10MB"));
             assertEquals(DataFile.BINARY_FILE_MEDIA_TYPE, dest1.getContentType());
-
+            client.close();
         } catch (MalformedURLException | MbedCloudException exception) {
             exception.printStackTrace();
             fail(exception.getMessage());

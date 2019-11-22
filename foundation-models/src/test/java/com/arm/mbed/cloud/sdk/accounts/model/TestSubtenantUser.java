@@ -100,13 +100,13 @@ public class TestSubtenantUser {
                                                                new Date(1567417609256L), -105, null, null, false,
                                                                "76947ad6-a3dd-42e3-9cce-c49d54103ea62cc5250f-0e73-4fd5-80c6-20bca9c5c4a729fd37f2-ac1d-4e50-bf19-cafc97e10862",
                                                                null,
-                                                               "@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019",
+                                                               "@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019",
                                                                false, false, false, -30, null, null,
                                                                "d2fb0006-bb41-4757-95c8-b8c87e810fb3", 21,
                                                                "00c0d133-28ff-4f40-a90e-32be61745ca0ae9c11fa-408b-4a85-824d-d0fe56d2be6fb2822d6a-c3dc-43f6-91a9-08a4674f0a44",
                                                                SubtenantUserStatus.getDefault(), null,
                                                                new Date(1567417609892L),
-                                                               "N:-\u000b2?I6鋻`7`ﰵ?Zbᰨ;鯽\b%ﮢ`9Uﾓf䥘D<2-?�?䘴-`5IJ>/AC`>-A-25\u001eSLO㋴SP<Q+忪];");
+                                                               "N:-\u000b2?I6鋻`7`ﰵ?Zbᰨ;鯽\b%ﮢ`9Uﾓf䥘D<2-?�?䘴-`5IJ>/AC`>-A-25\u001eSLO㋴SP<Q+忪];");
         assertFalse(subtenantuserInvalid.isValid());
     }
 

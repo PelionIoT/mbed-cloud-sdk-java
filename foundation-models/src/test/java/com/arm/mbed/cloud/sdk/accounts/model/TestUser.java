@@ -81,16 +81,16 @@ public class TestUser {
                              "17f77dee-91bb-464e-9f0e-3556651c17f9", UserStatus.getDefault(), null,
                              new Date(1567417607492L), "R,_Bz_=a._8");
         assertTrue(user.isValid());
-        User userInvalid = new User("@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019",
+        User userInvalid = new User("@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019",
                                     null, "3b12040f-e5cf-40cd-8a1a-14df072e578f", new Date(1567417602250L), -72, null,
                                     null, false,
                                     "404166cc-8a59-4d09-939a-a7502cd02a99f342ca7c-e791-4564-a199-4b79d560939e6f6ef37b-d18c-499a-8c04-c25bec8722f9",
                                     null,
-                                    "@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019",
+                                    "@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019",
                                     false, true, true, 9, null, null, "55fa5291-2853-48f0-b059-03c9927ebb00", -9,
                                     "62461da5-28cb-4210-9ff6-da56d05077a0e2a679a7-5ce6-4efe-b3ff-9a159c274c38e1bbaef5-36c1-4829-a2e5-f22a41a25bac",
                                     UserStatus.getDefault(), null, new Date(1567417609128L),
-                                    "N:-\u000b2?I6鋻`7`ﰵ?Zbᰨ;鯽\b%ﮢ`9Uﾓf䥘D<2-?�?䘴-`5IJ>/AC`>-A-25\u001eSLO㋴SP<Q+忪];");
+                                    "N:-\u000b2?I6鋻`7`ﰵ?Zbᰨ;鯽\b%ﮢ`9Uﾓf䥘D<2-?�?䘴-`5IJ>/AC`>-A-25\u001eSLO㋴SP<Q+忪];");
         assertFalse(userInvalid.isValid());
     }
 

@@ -532,7 +532,7 @@ public class DeviceStateFilterOptions extends FilterOptions {
         if (notification == null) {
             return false;
         }
-        return evaluateDeviceId(notification.getDeviceId()) && evaluateDeviceState(notification.getState());
+        return evaluateDeviceId(notification.getDeviceId()) && evaluateDeviceState(notification.getEvent());
     }
 
     private boolean evaluateDeviceId(String deviceId) {

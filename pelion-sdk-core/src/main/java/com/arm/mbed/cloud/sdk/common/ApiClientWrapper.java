@@ -1,12 +1,15 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.io.Closeable;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.ApiClient;
@@ -19,7 +22,7 @@ import retrofit2.Converter;
 
 @Preamble(description = "Client wrapper")
 @Internal
-public class ApiClientWrapper implements Cloneable {
+public class ApiClientWrapper implements Cloneable, Closeable {
     private static final String DEFAULT_AUTH_NAME = "Bearer";
     private final UserAgent userAgent;
     protected final ApiClient client;
@@ -27,6 +30,7 @@ public class ApiClientWrapper implements Cloneable {
 
     public static final String USER_AGENT_HEADER = "User-Agent";
     public static final String AUTHORISATION_HEADER = "Authorization";
+    private static final TimePeriod TERMINATION_PERIOD = new TimePeriod(1);
 
     /**
      * Cloud client constructor.
@@ -168,6 +172,49 @@ public class ApiClientWrapper implements Cloneable {
         for (Converter.Factory factory : converters) {
             client.getAdapterBuilder().addConverterFactory(factory);
         }
+    }
+
+    /**
+     * Gets a new websocket client establishing a connection via the connection endpoint.
+     * 
+     * @param connectionEndpoint
+     *            endpoint to use to establish the connection
+     * @param listener
+     *            a notification listener
+     * @param logger
+     *            a logger
+     * @return a websocket client.
+     * @throws MbedCloudException
+     *             if an error arises
+     */
+    @Internal
+    public WebsocketClient getNewWebsocketClient(@NonNull String connectionEndpoint,
+                                                 @NonNull NotificationListener listener,
+                                                 SdkLogger logger) throws MbedCloudException {
+        ApiUtils.checkNotNull(logger, connectionEndpoint, "connectionEndpoint");
+        ApiUtils.checkNotNull(logger, listener, "listener");
+        return new WebsocketClient(client, connectionOptions, connectionEndpoint, listener, logger);
+    }
+
+    /**
+     * Pings the host to find if it is reachable.
+     * 
+     * @param timeout
+     *            ping timeout. If null, the default timeout is considered {@link TimePeriod#TimePeriod()}
+     * @return true if the host is reachable. False otherwise.
+     */
+    public boolean ping(@Nullable TimePeriod timeout) {
+
+        try {
+            final TimePeriod finalTimeout = timeout == null ? new TimePeriod() : timeout;
+            final InetAddress address = InetAddress.getByName(connectionOptions.getHostUrl().getHost());
+            if (address.isReachable(finalTimeout.toSeconds())) {
+                return true;
+            }
+        } catch (@SuppressWarnings("unused") IOException exception) {
+            // Nothing to do
+        }
+        return false;
     }
 
     /**
@@ -424,6 +471,21 @@ public class ApiClientWrapper implements Cloneable {
             return userAgent.getUserAgentString();
         }
 
+    }
+
+    @Override
+    public void close() {
+        okhttp3.Dispatcher dispatcher = client.getOkBuilder().build().dispatcher();
+        dispatcher.cancelAll();
+        dispatcher.executorService().shutdown();
+        try {
+            if (!dispatcher.executorService().awaitTermination(TERMINATION_PERIOD.getDuration(),
+                                                               TERMINATION_PERIOD.getUnit())) {
+                dispatcher.executorService().shutdownNow();
+            }
+        } catch (@SuppressWarnings("unused") InterruptedException exception) {
+            dispatcher.executorService().shutdownNow();
+        }
     }
 
 }

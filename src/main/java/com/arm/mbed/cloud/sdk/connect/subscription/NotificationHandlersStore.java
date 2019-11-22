@@ -2,14 +2,18 @@ package com.arm.mbed.cloud.sdk.connect.subscription;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -19,24 +23,27 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
-import com.arm.mbed.cloud.sdk.common.CloudCaller.CallFeedback;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
-import com.arm.mbed.cloud.sdk.common.GenericAdapter;
-import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
+import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.NotificationListener;
 import com.arm.mbed.cloud.sdk.common.SdkLogger;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
+import com.arm.mbed.cloud.sdk.common.WebsocketClient;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.WebsocketChannel;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationCallback;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
-import com.arm.mbed.cloud.sdk.subscribe.adapters.AsynchronousResponseNotificationAdapter;
-import com.arm.mbed.cloud.sdk.subscribe.adapters.DeviceStateNotificationAdapter;
-import com.arm.mbed.cloud.sdk.subscribe.adapters.ResourceValueNotificationAdapter;
+import com.arm.mbed.cloud.sdk.subscribe.adapters.AllNotificationsAdapter;
+import com.arm.mbed.cloud.sdk.subscribe.model.AllNotifications;
+import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseNotification;
 import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
+import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateNotification;
 import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueNotification;
 import com.arm.mbed.cloud.sdk.subscribe.store.SubscriptionObserversStore;
@@ -47,43 +54,50 @@ import retrofit2.Call;
 @Internal
 public class NotificationHandlersStore implements Closeable {
 
-    private static final int IDLE_TIME_BETWEEN_NOTIFICATION_PULL_CALLS = 50;
-
-    private static final TimePeriod REQUEST_TIMEOUT = new TimePeriod(50);
-
+    private static final int NOTIFICATION_LISTENING_THREADS = 1;
+    @SuppressWarnings("unused")
+    private static final int NOTIFICATION_PROCESSING_THREADS;
+    private static final int MAX_THREADS = 100;
     private final AbstractModule module;
-    private final ExecutorService pullThreads;
-    private Future<?> pullHandle;
+    private Future<?> listenerHandle;
     private final EndPoints endpoint;
-    private final ExecutorService customSubscriptionHandlingExecutor;
+    private final SchedulerManager listeningThreads;
+    private final SchedulerManager customSubscriptionHandlingScheduler;
     private final SubscriptionObserversStore observerStore;
+
+    static {
+        NOTIFICATION_PROCESSING_THREADS = Math.min(Runtime.getRuntime().availableProcessors(), MAX_THREADS) - 1;
+    }
 
     /**
      * Notification store constructor.
      *
      * @param module
      *            API module
-     * @param pullingThread
+     * @param listeningThread
      *            thread pool
      * @param endpoint
      *            endpoint
      * @param subscriptionHandlingExecutor
      *            subscription handling executor
      */
-    public NotificationHandlersStore(AbstractModule module, ExecutorService pullingThread,
+    public NotificationHandlersStore(AbstractModule module, ExecutorService listeningThread,
                                      ExecutorService subscriptionHandlingExecutor, EndPoints endpoint) {
         super();
-        this.pullThreads = pullingThread;
+        this.listeningThreads = new SchedulerManager(listeningThread == null ? createDefaultDaemonThreadPool(NOTIFICATION_LISTENING_THREADS)
+                                                                             : listeningThread);
         this.endpoint = createNotificationPull(endpoint);
         this.module = module;
-        pullHandle = null;
-        customSubscriptionHandlingExecutor = subscriptionHandlingExecutor;
+        customSubscriptionHandlingScheduler = new SchedulerManager(subscriptionHandlingExecutor);// new
+        // SchedulerManager(subscriptionHandlingExecutor == null ?
+        // createDefaultDaemonThreadPool(NOTIFICATION_PROCESSING_THREADS)) using RxJava computing scheduler instead
+
+        listenerHandle = null;
         final boolean unsubscribeOnExit = module == null ? false
                                                          : module.getConnectionOption() == null ? true
                                                                                                 : !module.getConnectionOption()
                                                                                                          .isSkipCleanup();
-        observerStore = new SubscriptionObserversStore((customSubscriptionHandlingExecutor == null) ? Schedulers.computation()
-                                                                                                    : Schedulers.from(customSubscriptionHandlingExecutor),
+        observerStore = new SubscriptionObserversStore(customSubscriptionHandlingScheduler.getScheduler(),
                                                        new ResourceSubscriber(module, FirstValue.getDefault()),
                                                        new ResourceUnsubscriber(module, FirstValue.getDefault()),
                                                        unsubscribeOnExit ? new ResourceUnsubscriberAll(module,
@@ -91,13 +105,31 @@ public class NotificationHandlersStore implements Closeable {
                                                                          : null);
     }
 
+    /**
+     * Creates a default thread pool in case none was specified.
+     * 
+     * @param threadNumber
+     *            number of threads of the pool
+     *
+     * @return thread pool
+     */
+    private static ExecutorService createDefaultDaemonThreadPool(int threadNumber) {
+        return Executors.newFixedThreadPool(threadNumber, new ThreadFactory() {
+
+            @Override
+            public Thread newThread(Runnable runable) {
+                final Thread thread = new Thread(runable);
+                thread.setDaemon(true);
+                return thread;
+            }
+        });
+    }
+
     private EndPoints createNotificationPull(EndPoints endpoint2) {
         if (endpoint2 == null) {
             return null;
         }
-        final EndPoints clone = endpoint2.clone();
-        clone.setRequestTimeout(REQUEST_TIMEOUT);
-        return clone;
+        return endpoint2.clone();
     }
 
     public CloudSubscriptionManager getSubscriptionManager() {
@@ -108,64 +140,38 @@ public class NotificationHandlersStore implements Closeable {
      * Starts notification listener.
      */
     public void startNotificationListener() {
-        if (isPullingActive()) {
-            logInfo("Notification pull is already working.");
+        if (isNotificationListenerActive()) {
+            logInfo("Notification listener is already working.");
             return;
         }
-        final Runnable pollingSingleAction = createPollingSingleAction();
-        pullHandle = null;
-        if (pullThreads instanceof ScheduledExecutorService) {
-            pullHandle = ((ScheduledExecutorService) pullThreads).scheduleWithFixedDelay(pollingSingleAction, 0,
-                                                                                         IDLE_TIME_BETWEEN_NOTIFICATION_PULL_CALLS,
-                                                                                         TimeUnit.MILLISECONDS);
-        } else {
-            pullHandle = pullThreads.submit(new Runnable() {
-
-                @Override
-                public void run() {
-                    while (true) {
-                        pollingSingleAction.run();
-                        try {
-                            // Sleeping between calls
-                            Thread.sleep(IDLE_TIME_BETWEEN_NOTIFICATION_PULL_CALLS);
-                        } catch (InterruptedException exception) {
-                            logPullError(exception);
-                        }
-                    }
-
-                }
-            });
-        }
-
+        listenerHandle = listeningThreads.submit(createNotificationListeningTask());
     }
 
     /**
      * Stops notification listener.
      */
     public void stopNotificationListener() {
-        if (pullHandle != null && !(pullHandle.isDone() || pullHandle.isCancelled())) {
-            pullHandle.cancel(true);
+        if (listenerHandle != null && !(listenerHandle.isDone() || listenerHandle.isCancelled())) {
+            listenerHandle.cancel(true);
         }
-        pullHandle = null;
+        listenerHandle = null;
     }
 
     /**
-     * States whether pulling is currently on going.
+     * States whether notification listener is currently running.
      *
-     * @return true if pulling is active. false otherwise.
+     * @return true if notification producer is active. false otherwise.
      */
-    public boolean isPullingActive() {
-        return pullHandle != null;
+    public boolean isNotificationListenerActive() {
+        return listenerHandle != null;
     }
 
     /**
      * Shuts down the store and the thread pool it uses.
      */
     public void shutdown() {
-        logDebug("Shutting down polling thread");
-        if (pullThreads != null) {
-            pullThreads.shutdown();
-        }
+        logDebug("Shutting down notification listening thread");
+        listeningThreads.shutdown();
         logDebug("Clearing notification handler store");
         try {
             clearStores();
@@ -173,9 +179,9 @@ public class NotificationHandlersStore implements Closeable {
             logError("Failed clearing notification handler store", exception);
         }
         logDebug("Shutting down notification threads");
-        if (customSubscriptionHandlingExecutor != null) {
-            customSubscriptionHandlingExecutor.shutdown();
-        }
+        logDebug("Shutting down notification handling threads");
+        customSubscriptionHandlingScheduler.shutdown();
+
         // shutting down schedulers can have side effects
         // logDebug("Shutting down notification schedulers");
         // try {
@@ -334,88 +340,352 @@ public class NotificationHandlersStore implements Closeable {
         emitNotification(data);
     }
 
-    private Runnable createPollingSingleAction() {
+    private Runnable createNotificationListeningTask() {
         return new Runnable() {
-            private final ExponentialBackoff backoffPolicy = new ExponentialBackoff(module.getLogger());
+            private final JsonSerialiser jsonSerialiser = new JsonSerialiser();
+
+            private NotificationMessage convert(String message) {
+                return message == null ? null : jsonSerialiser.fromJson(message, NotificationMessage.class);
+            }
 
             @Override
             public void run() {
-                try {
-                    final CallFeedback<NotificationMessage,
-                                       NotificationMessage> feedback = CloudCaller.callWithFeedback(module,
-                                                                                                    "NotificationPullGet()",
-                                                                                                    GenericAdapter.identityMapper(NotificationMessage.class),
-                                                                                                    new CloudCall<NotificationMessage>() {
+                try (WebSocketNotificationStateMachine machine = new WebSocketNotificationStateMachine(module, endpoint,
+                                                                                                       new Callback<String>() {
 
-                                                                                                        @Override
-                                                                                                        public Call<NotificationMessage>
-                                                                                                               call() {
-                                                                                                            return endpoint.getNotifications()
-                                                                                                                           .longPollNotifications();
-                                                                                                        }
-                                                                                                    }, false, true);
-                    final NotificationMessage notificationMessage = feedback.getResult();
-                    if (notificationMessage == null) {
-                        logInfo("Notification pull did not receive any notification during last call. Call information: "
-                                + feedback.getMetadata());
-                        return;
-                    }
-                    emitNotification(notificationMessage);
-                } catch (Exception exception) {
-                    backoffPolicy.backoff();
-                    logPullError(exception);
+                                                                                                           @Override
+                                                                                                           public void
+                                                                                                                  execute(String arg) {
+                                                                                                               emitNotification(convert(arg));
+                                                                                                           }
+                                                                                                       })) {
+                    machine.start();
+                } catch (MbedCloudException exception) {
+                    logError("An exception occurred while listening to notifications", exception);
                 }
             }
-
         };
     }
 
     /**
-     * BackOff that increases the back off period for each retry attempt using a randomization function that grows
-     * exponentially.
-     *
-     * @see https://developers.google.com/api-client-library/java/google-http-java-client/reference/1.20.0/com/google/api/client/util/ExponentialBackOff
+     * 
+     * Facility to manage executor services.
      *
      */
-    private static class ExponentialBackoff {
-        private static final double RANDOMISATION_FACTOR = 0.5d;
-        private static final double MULTIPLIER = 1.5d;
-        private volatile int callIndex;
-        private volatile double currentIntervalCentre;
-        private final SdkLogger logger;
+    private static class SchedulerManager {
+        private final ExecutorService executor;
+        private final Scheduler rxScheduler;
+        private static final TimePeriod TERMINATION_PERIOD = new TimePeriod(1);
 
-        public ExponentialBackoff(SdkLogger logger) {
+        public SchedulerManager(ExecutorService executor) {
             super();
-            reset();
-            this.logger = logger;
+            this.executor = executor;
+            this.rxScheduler = executor == null ? Schedulers.computation() : Schedulers.from(executor);
         }
 
-        public void reset() {
-            callIndex = 0;
-            currentIntervalCentre = 500;
+        public void shutdown() {
+            if (hasExecutor()) {
+                rxScheduler.shutdown();
+                executor.shutdown();
+                try {
+                    if (!executor.awaitTermination(TERMINATION_PERIOD.getDuration(), TERMINATION_PERIOD.getUnit())) {
+                        executor.shutdownNow();
+                    }
+                } catch (@SuppressWarnings("unused") InterruptedException exception) {
+                    executor.shutdownNow();
+                }
+            }
         }
 
-        public void backoff() {
-            if (callIndex == 0) {
-                callIndex++;
+        public boolean hasExecutor() {
+            return executor != null;
+        }
+
+        public ExecutorService getExecutor() {
+            return executor;
+        }
+
+        public Future<?> submit(Runnable runnable) {
+            return hasExecutor() && runnable != null ? getExecutor().submit(runnable) : null;
+        }
+
+        public Scheduler getScheduler() {
+            return rxScheduler;
+        }
+    }
+
+    /**
+     * Websocket notification state machine.
+     */
+    @Internal
+    private static class WebSocketNotificationStateMachine implements Closeable {
+
+        private static final String WEBSOCKET_CONNECTION_ENDPOINT = "v2/notification/websocket-connect";
+        private static final int RETRIES_NUMBER_PER_CALL = 2;
+        private final WebsocketClient ws;
+        private final AbstractModule module;
+        private final EndPoints endpoint;
+        private final SdkLogger logger;
+        private final AtomicReference<WebsocketClient.StatusCode> status;
+        private final AtomicReference<State> currentState;
+        private final AtomicBoolean needsToStop;
+
+        private enum State {
+            START,
+            END,
+            LISTEN_TO_NOTIFICATIONS,
+            GET_CHANNEL,
+            REGISTER_CHANNEL,
+            CHECK_CLOSURE_STATUS,
+            DELETE_CHANNEL,
+            CLEAR_ALL_CHANNELS,
+            CLOSE_SOCKET,
+            LOG_ERROR,
+        }
+
+        public WebSocketNotificationStateMachine(AbstractModule module, EndPoints endpoint,
+                                                 Callback<String> notificationEmitter) throws MbedCloudException {
+            super();
+            this.module = module;
+            this.endpoint = endpoint;
+            status = new AtomicReference<WebsocketClient.StatusCode>(WebsocketClient.StatusCode.UNKNOWN);
+            currentState = new AtomicReference<>(State.START);
+            needsToStop = new AtomicBoolean(false);
+            logger = module == null || module.getLogger() == null ? SdkLogger.getLogger() : module.getLogger();
+            ws = module.getClient().getNewWebsocketClient(WEBSOCKET_CONNECTION_ENDPOINT,
+                                                          new NotificationListener(module.getLogger(),
+                                                                                   notificationEmitter, null,
+                                                                                   new Callback<Integer>() {
+
+                                                                                       @Override
+                                                                                       public void
+                                                                                              execute(Integer code) {
+                                                                                           status.getAndSet(WebsocketClient.StatusCode.getStatus(code));
+                                                                                       }
+                                                                                   }, null),
+                                                          module.getLogger());
+        }
+
+        @Override
+        public void close() {
+            needsToStop.getAndSet(true);
+            if (isEnded()) {
                 return;
             }
-            if (callIndex > 10) {
-                // Start over.
-                reset();
+            currentState.getAndSet(State.DELETE_CHANNEL);
+            runStateMachine();
+        }
+
+        public void start() {
+            needsToStop.getAndSet(false);
+            currentState.getAndSet(State.START);
+            runStateMachine();
+        }
+
+        private void runStateMachine() {
+            while (!isEnded()) {
+                logger.logInfo("notification machine state: " + currentState.get());
+                try {
+                    switch (currentState.get()) {
+                        case CLEAR_ALL_CHANNELS:
+                            clearAllChannels();
+                            currentState.getAndSet(State.REGISTER_CHANNEL);
+                            break;
+                        case CLOSE_SOCKET:
+                            closeSocket();
+                            currentState.getAndSet(State.END);
+                            break;
+                        case DELETE_CHANNEL:
+                            deleteWebsocketChannel();
+                            currentState.getAndSet(State.CLOSE_SOCKET);
+                            break;
+                        case CHECK_CLOSURE_STATUS:
+                            switch (status.get()) {
+                                case ABNORMAL_CLOSURE:
+                                    currentState.getAndSet(State.LISTEN_TO_NOTIFICATIONS);
+                                    break;
+                                case NORMAL_CLOSURE:
+                                    currentState.getAndSet(State.DELETE_CHANNEL);
+                                    break;
+                                case GOING_AWAY:
+                                case SERVER_INTERNAL_ERROR:
+                                    currentState.getAndSet(State.REGISTER_CHANNEL);
+                                    break;
+                                case POLICY_VIOLATION:
+                                case UNKNOWN:
+                                default:
+                                    currentState.getAndSet(State.LOG_ERROR);
+                                    break;
+                            }
+                            break;
+                        case GET_CHANNEL:
+                            if (checkWebsocketChannel()) {
+                                currentState.getAndSet(State.LISTEN_TO_NOTIFICATIONS);
+                            } else {
+                                currentState.getAndSet(State.REGISTER_CHANNEL);
+                            }
+                            break;
+                        case LISTEN_TO_NOTIFICATIONS:
+                            runWebsocket();
+                            if (needsToStop.get()) {
+                                currentState.getAndSet(State.DELETE_CHANNEL);
+                            } else {
+                                currentState.getAndSet(State.CHECK_CLOSURE_STATUS);
+                            }
+                            break;
+                        case LOG_ERROR:
+                            logErrorBeforeShutdown();
+                            currentState.getAndSet(State.DELETE_CHANNEL);
+                            break;
+                        case REGISTER_CHANNEL:
+                            if (registerWebsocketChannel()) {
+                                currentState.getAndSet(State.GET_CHANNEL);
+                            } else {
+                                final ConnectionOptions opt = module.getConnectionOption();
+                                if (opt != null && opt.isForceClear()) {
+                                    currentState.getAndSet(State.CLEAR_ALL_CHANNELS);
+                                } else {
+                                    currentState.getAndSet(State.LOG_ERROR);
+                                }
+                            }
+                            break;
+                        case START:
+                            currentState.getAndSet(State.REGISTER_CHANNEL);
+                            break;
+                        case END:
+                        default:
+                            currentState.getAndSet(State.END);
+                            break;
+                    }
+                } catch (InterruptedException exception) {
+                    logger.logWarn("The websocket communication was interrupted", exception);
+                    currentState.getAndSet(State.DELETE_CHANNEL);
+                    needsToStop.getAndSet(true);
+                }
             }
-            final double delta = RANDOMISATION_FACTOR * currentIntervalCentre;
-            final double minInterval = currentIntervalCentre - delta;
-            final double maxInterval = currentIntervalCentre + delta;
-            currentIntervalCentre *= MULTIPLIER;
-            final long currentIdleTime = (long) (minInterval + Math.random() * (maxInterval - minInterval + 1));
-            logger.logInfo("Backoff policy: Waiting [" + currentIdleTime + " ms] before next call");
+        }
+
+        private boolean isEnded() {
+            return currentState.get() == State.END;
+        }
+
+        private boolean runWebsocket() throws InterruptedException {
+            logger.logDebug("Starting the websocket connection");
             try {
-                Thread.sleep(currentIdleTime);
-            } catch (InterruptedException exception) {
-                logger.logError("An error occurred during Notification pull", exception);
+                ws.start();
+                while (ws.isRunning() && !needsToStop.get()) {
+                    Thread.sleep(10);
+                }
+            } catch (MbedCloudException exception) {
+                logger.logError("An error occurred during websocket communication", exception);
             }
-            callIndex++;
+            return false;
+        }
+
+        private boolean deleteWebsocketChannel() {
+            logger.logDebug("Deleting the websocket channel.");
+            try {
+                callDeleteWebsocketChannel();
+                return true;
+            } catch (MbedCloudException exception) {
+                logger.logError("Could not delete websocket channel", exception);
+                return false;
+            }
+        }
+
+        private void callDeleteWebsocketChannel() throws MbedCloudException {
+            call("deleteWebsocketChannel()", new CloudCall<Void>() {
+
+                @Override
+                public Call<Void> call() {
+                    return endpoint.getNotifications().deleteWebsocket();
+                }
+            }, false);
+        }
+
+        private boolean clearAllChannels() {
+            logger.logDebug("Clearing all notification channels.");
+            try {
+                callDeleteWebsocketChannel();
+            } catch (MbedCloudException exception) {
+                logger.logError("Could not clear the websocket channel", exception);
+            }
+            try {
+                call("deleteWebhook()", new CloudCall<Void>() {
+
+                    @Override
+                    public Call<Void> call() {
+                        return endpoint.getNotifications().deregisterWebhook();
+                    }
+                }, false);
+            } catch (MbedCloudException exception) {
+                logger.logError("Could not delete the webhook", exception);
+            }
+            try {
+                call("deleteLongPollingChannel()", new CloudCall<Void>() {
+
+                    @Override
+                    public Call<Void> call() {
+                        return endpoint.getNotifications().deleteLongPollChannel();
+                    }
+                }, false);
+            } catch (MbedCloudException exception) {
+                logger.logError("Could not clear the long polling channel", exception);
+            }
+            return true;
+        }
+
+        private boolean registerWebsocketChannel() {
+            logger.logDebug("Registering the websocket.");
+            try {
+                call("registerWebsocketChannel()", new CloudCall<WebsocketChannel>() {
+
+                    @Override
+                    public Call<WebsocketChannel> call() {
+                        return endpoint.getNotifications().registerWebsocket();
+                    }
+                });
+                return true;
+            } catch (MbedCloudException exception) {
+                logger.logError("Could not register websocket channel", exception);
+                return false;
+            }
+        }
+
+        private boolean checkWebsocketChannel() {
+            logger.logDebug("Checking if the websocket is registered");
+            try {
+                call("getWebsocketChannel()", new CloudCall<WebsocketChannel>() {
+
+                    @Override
+                    public Call<WebsocketChannel> call() {
+                        return endpoint.getNotifications().getWebsocket();
+                    }
+                });
+                return true;
+            } catch (MbedCloudException exception) {
+                logger.logError("Could not get the current websocket channel", exception);
+                return false;
+            }
+        }
+
+        private boolean logErrorBeforeShutdown() {
+            logger.logError("An error happened in the notification channel. Closing.");
+            return true;
+        }
+
+        private boolean closeSocket() {
+            logger.logInfo("Closing websocket channel.");
+            ws.close();
+            return true;
+        }
+
+        private void call(String functionName, CloudCall<?> caller, boolean throwOn404) throws MbedCloudException {
+            CloudCaller.call(module, functionName, null, caller, false, throwOn404, RETRIES_NUMBER_PER_CALL);
+        }
+
+        private void call(String functionName, CloudCall<?> caller) throws MbedCloudException {
+            call(functionName, caller, true);
         }
 
     }
@@ -425,37 +695,37 @@ public class NotificationHandlersStore implements Closeable {
     }
 
     private void emitNotification(NotificationMessage data) {
-        if (data == null) {
+        final AllNotifications allNotification = AllNotificationsAdapter.mapNotificationMessage(data);
+        if (allNotification == null) {
             return;
         }
-        handleAsynchronousResponse(data);
-        handleResourceValueChanges(data);
-        handleDeviceStateChanges(data);
+        handleAllNotification(allNotification);
+        handleAsynchronousResponse(allNotification.getAsynchronousResponseNotifications());
+        handleResourceValueChanges(allNotification.getResourceValueNotifications());
+        handleDeviceStateChanges(allNotification.getDeviceStateNotifications());
     }
 
-    private void handleDeviceStateChanges(NotificationMessage notificationMessage) {
-        handleNotification(SubscriptionType.DEVICE_STATE_CHANGE, notificationMessage,
-                           DeviceStateNotificationAdapter.getNotificationMessageMapper());
+    private void handleAllNotification(AllNotifications notifications) {
+        final List<AllNotifications> list = new ArrayList<>(1);
+        list.add(notifications.clone());
+        handleNotification(SubscriptionType.ALL, list);
     }
 
-    private void handleResourceValueChanges(NotificationMessage notificationMessage) {
-        handleNotification(SubscriptionType.NOTIFICATION, notificationMessage,
-                           ResourceValueNotificationAdapter.getNotificationMessageMapper());
+    private void handleDeviceStateChanges(List<DeviceStateNotification> notifications) {
+        handleNotification(SubscriptionType.DEVICE_STATE_CHANGE, notifications);
     }
 
-    private void handleAsynchronousResponse(NotificationMessage notificationMessage) {
-        handleNotification(SubscriptionType.ASYNCHRONOUS_RESPONSE, notificationMessage,
-                           AsynchronousResponseNotificationAdapter.getNotificationMessageMapper());
+    private void handleResourceValueChanges(List<ResourceValueNotification> notifications) {
+        handleNotification(SubscriptionType.NOTIFICATION, notifications);
     }
 
-    private <T extends NotificationMessageValue> void handleNotification(SubscriptionType type,
-                                                                         NotificationMessage message,
-                                                                         Mapper<NotificationMessage, List<T>> mapper) {
-        if (message == null || mapper == null || type == null) {
-            return;
-        }
-        final List<T> notifications = mapper.map(message);
-        if (notifications == null) {
+    private void handleAsynchronousResponse(List<AsynchronousResponseNotification> notifications) {
+        handleNotification(SubscriptionType.ASYNCHRONOUS_RESPONSE, notifications);
+    }
+
+    private <T extends NotificationMessageValue> void handleNotification(SubscriptionType type, List<T> notifications) {
+
+        if (notifications == null || type == null) {
             return;
         }
         for (final T notification : notifications) {
@@ -469,10 +739,6 @@ public class NotificationHandlersStore implements Closeable {
 
     private void logNotificationError(Exception exception) {
         logError("An error occurred while handling notifications", exception);
-    }
-
-    private void logPullError(Exception exception) {
-        logError("An error occurred during Notification pull", exception);
     }
 
     @Override

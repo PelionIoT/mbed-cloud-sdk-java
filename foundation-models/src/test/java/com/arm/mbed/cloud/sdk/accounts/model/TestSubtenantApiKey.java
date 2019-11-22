@@ -90,9 +90,9 @@ public class TestSubtenantApiKey {
                                                               new Date(1567417607429L));
         assertTrue(subtenantapikey.isValid());
         SubtenantApiKey subtenantapikeyInvalid = new SubtenantApiKey(null, new Date(1567417601292L), -88, null,
-                                                                     "@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019",
+                                                                     "@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019",
                                                                      "5274fe03-e929-4f3c-978d-c39db4d49de1", -102, null,
-                                                                     "@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019",
+                                                                     "@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019",
                                                                      SubtenantApiKeyStatus.getDefault(),
                                                                      new Date(1567417608846L));
         assertFalse(subtenantapikeyInvalid.isValid());

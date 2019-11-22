@@ -67,9 +67,9 @@ public class TestParentAccount {
         ParentAccount parentaccount = new ParentAccount("9f197.09bb0@50b4a.me", "1f5558ff-eb23-4855-b9f8-3f84e06bc89c",
                                                         "5aac302d4dc51de8d52d8348d01b06c5");
         assertTrue(parentaccount.isValid());
-        ParentAccount parentaccountInvalid = new ParentAccount("\u001f䫪︕\u0000?﵈7�?�ﵨ;�?+鵻ⷹᾡ0>匼(\u0002쩺송7삙\u0000ﺨ-봅�?�箭盧�?戴릂>>￹알蚓譶#2잲\u001a뭞삚�?�骸\f颸怒靖킑ಠ�?嚪>缷מּ苋)",
+        ParentAccount parentaccountInvalid = new ParentAccount("\u001f䫪︕\u0000?﵈7�?�ﵨ;�?+鵻ⷹᾡ0>匼(\u0002쩺송7삙\u0000ﺨ-봅�?�箭盧�?戴릂>>￹알蚓譶#2잲\u001a뭞삚�?�骸\f颸怒靖킑ಠ�?嚪>缷מּ苋)",
                                                                "3356de06-a88d-4581-adf2-05844b11bb86232370ab-555c-43d1-a62c-428d2f3cfdf678bd74e6-c32e-4afd-9c89-b93b4d9ff837",
-                                                               "@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019");
+                                                               "@77_7\u0015�?�\u00037\u0002A⚻7\u000e_Z7LT7-;\u000377!<\u0004+Fﭸ7?\u000f_9B\u001b拨\u0011\u0014\u0014ᬾV\b7]>:7㚧졎\f\u0001\u0011`R)7滹\u0019");
         assertFalse(parentaccountInvalid.isValid());
     }
 
