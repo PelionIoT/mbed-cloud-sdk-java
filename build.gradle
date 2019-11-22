@@ -12,7 +12,7 @@ buildscript {
     }
     dependencies {
         classpath 'ru.vyarus:gradle-animalsniffer-plugin:1.5.0'
-        classpath 'com.github.jengelman.gradle.plugins:shadow:5.0.0'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.1.0'
         classpath 'com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2'
         classpath 'de.aaschmid:gradle-cpd-plugin:1.2'
         classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.9.7'
@@ -421,7 +421,7 @@ configurations {
 dependencies {
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
     api 'org.slf4j:slf4j-api:1.7.26'
-    compile 'com.squareup.okhttp3:logging-interceptor:4.0.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:4.2.0'
     compile project(':support-annotations')
     compile project(':lwm2m')
     compile project(':foundation-core')
