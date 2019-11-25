@@ -431,7 +431,7 @@ dependencies {
     compile project(':backends:pelioncloud_devicemanagement')
 
     compile 'io.reactivex.rxjava2:rxjava:2.2.10'
-    compile 'joda-time:joda-time:2.10.3'
+    compile 'joda-time:joda-time:2.10.5'
     compile 'com.jcabi:jcabi-manifests:1.1'
     compile 'io.github.cdimascio:java-dotenv:5.1.0'
     testCompile 'io.vertx:vertx-web:3.7.1'
