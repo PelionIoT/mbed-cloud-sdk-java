@@ -436,7 +436,7 @@ dependencies {
     compile 'io.github.cdimascio:java-dotenv:5.1.0'
     testCompile 'io.vertx:vertx-web:3.7.1'
     testCompile 'org.reflections:reflections:0.9.11'
-    testCompile 'org.slf4j:slf4j-simple:1.7.26'
+    testCompile 'org.slf4j:slf4j-simple:1.7.29'
     testCompile 'com.squareup.okhttp:mockwebserver:2.7.5'
     testCompile  'com.github.dtmo.jfiglet:jfiglet:1.0.0'
     testCompile 'ru.vyarus:generics-resolver:3.0.0'
