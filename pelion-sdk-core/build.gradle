@@ -17,7 +17,7 @@ dependencies {
     api project(':support-annotations')
     api project(':backends:mbedcloud_common')
     api project(':foundation-core')
-    api 'org.slf4j:slf4j-api:1.7.26'
+    api 'org.slf4j:slf4j-api:1.7.29'
     api 'com.squareup.okhttp3:logging-interceptor:4.2.0'
     api 'joda-time:joda-time:2.10.3'
     api 'com.jcabi:jcabi-manifests:1.1'
