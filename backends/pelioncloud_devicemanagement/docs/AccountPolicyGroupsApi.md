@@ -4,7 +4,11 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**addApiKeysToGroup**](AccountPolicyGroupsApi.md#addApiKeysToGroup) | **POST** v3/policy-groups/{group_id}/api-keys | Add API keys to the group.
+[**addListedApiKeysToGroup**](AccountPolicyGroupsApi.md#addListedApiKeysToGroup) | **POST** v3/policy-groups/{group_id}/api-keys/add | Add API Keys to the group.
+[**addListedUsersToGroup_**](AccountPolicyGroupsApi.md#addListedUsersToGroup_) | **POST** v3/policy-groups/{group_id}/users/add | Add users to the group.
 [**addSubjectsToGroup**](AccountPolicyGroupsApi.md#addSubjectsToGroup) | **POST** v3/policy-groups/{group_id} | Add members to a group.
+[**addUsersToGroup_**](AccountPolicyGroupsApi.md#addUsersToGroup_) | **POST** v3/policy-groups/{group_id}/users | Add users to the group.
 [**createGroup**](AccountPolicyGroupsApi.md#createGroup) | **POST** v3/policy-groups | Create a new group.
 [**deleteGroup**](AccountPolicyGroupsApi.md#deleteGroup) | **DELETE** v3/policy-groups/{group_id} | Delete a group.
 [**getAllGroups**](AccountPolicyGroupsApi.md#getAllGroups) | **GET** v3/policy-groups | Get all group information.
@@ -12,13 +16,186 @@ Method | HTTP request | Description
 [**getGroupSummary**](AccountPolicyGroupsApi.md#getGroupSummary) | **GET** v3/policy-groups/{group_id} | Get group information.
 [**getUsersOfGroup**](AccountPolicyGroupsApi.md#getUsersOfGroup) | **GET** v3/policy-groups/{group_id}/users | Get users of a group.
 [**removeApiKeysFromGroup**](AccountPolicyGroupsApi.md#removeApiKeysFromGroup) | **DELETE** v3/policy-groups/{group_id}/api-keys | Remove API keys from a group.
+[**removeListedApiKeysFromGroup**](AccountPolicyGroupsApi.md#removeListedApiKeysFromGroup) | **POST** v3/policy-groups/{group_id}/api-keys/remove | Remove API keys from a group.
+[**removeListedUsersFromGroup**](AccountPolicyGroupsApi.md#removeListedUsersFromGroup) | **POST** v3/policy-groups/{group_id}/users/remove | Remove users from a group.
 [**removeUsersFromGroup**](AccountPolicyGroupsApi.md#removeUsersFromGroup) | **DELETE** v3/policy-groups/{group_id}/users | Remove users from a group.
 [**updateGroupName**](AccountPolicyGroupsApi.md#updateGroupName) | **PUT** v3/policy-groups/{group_id} | Update the group name.
 
 
+<a name="addApiKeysToGroup"></a>
+# **addApiKeysToGroup**
+> GroupSummary addApiKeysToGroup(groupId, body)
+
+Add API keys to the group.
+
+Add API keys to the group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountPolicyGroupsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
+String groupId = "groupId_example"; // String | The ID of the group.
+SubjectList body = new SubjectList(); // SubjectList | A list of API keys to add to the group.
+try {
+    GroupSummary result = apiInstance.addApiKeysToGroup(groupId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountPolicyGroupsApi#addApiKeysToGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **String**| The ID of the group. |
+ **body** | [**SubjectList**](SubjectList.md)| A list of API keys to add to the group. |
+
+### Return type
+
+[**GroupSummary**](GroupSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="addListedApiKeysToGroup"></a>
+# **addListedApiKeysToGroup**
+> GroupSummary addListedApiKeysToGroup(groupId, body)
+
+Add API Keys to the group.
+
+Add API keys to the group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountPolicyGroupsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
+String groupId = "groupId_example"; // String | The ID of the group.
+SubjectList body = new SubjectList(); // SubjectList | A list of API keys to add to the group.
+try {
+    GroupSummary result = apiInstance.addListedApiKeysToGroup(groupId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountPolicyGroupsApi#addListedApiKeysToGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **String**| The ID of the group. |
+ **body** | [**SubjectList**](SubjectList.md)| A list of API keys to add to the group. |
+
+### Return type
+
+[**GroupSummary**](GroupSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="addListedUsersToGroup_"></a>
+# **addListedUsersToGroup_**
+> GroupSummary addListedUsersToGroup_(groupId, body)
+
+Add users to the group.
+
+Add users to the group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/add \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountPolicyGroupsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
+String groupId = "groupId_example"; // String | The ID of the group.
+SubjectList body = new SubjectList(); // SubjectList | A list of API keys to add to the group.
+try {
+    GroupSummary result = apiInstance.addListedUsersToGroup_(groupId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountPolicyGroupsApi#addListedUsersToGroup_");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **String**| The ID of the group. |
+ **body** | [**SubjectList**](SubjectList.md)| A list of API keys to add to the group. |
+
+### Return type
+
+[**GroupSummary**](GroupSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="addSubjectsToGroup"></a>
 # **addSubjectsToGroup**
-> UpdatedResponse addSubjectsToGroup(groupId, body)
+> GroupSummary addSubjectsToGroup(groupId, body)
 
 Add members to a group.
 
@@ -45,7 +222,7 @@ AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
 String groupId = "groupId_example"; // String | The ID of the group to update.
 SubjectList body = new SubjectList(); // SubjectList | A list of users and API keys to add to the group.
 try {
-    UpdatedResponse result = apiInstance.addSubjectsToGroup(groupId, body);
+    GroupSummary result = apiInstance.addSubjectsToGroup(groupId, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountPolicyGroupsApi#addSubjectsToGroup");
@@ -62,7 +239,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdatedResponse**](UpdatedResponse.md)
+[**GroupSummary**](GroupSummary.md)
 
 ### Authorization
 
@@ -71,6 +248,63 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="addUsersToGroup_"></a>
+# **addUsersToGroup_**
+> GroupSummary addUsersToGroup_(groupId, body)
+
+Add users to the group.
+
+Add users to the group.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountPolicyGroupsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
+String groupId = "groupId_example"; // String | The ID of the group.
+SubjectList body = new SubjectList(); // SubjectList | A list of API keys to add to the group.
+try {
+    GroupSummary result = apiInstance.addUsersToGroup_(groupId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountPolicyGroupsApi#addUsersToGroup_");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **String**| The ID of the group. |
+ **body** | [**SubjectList**](SubjectList.md)| A list of API keys to add to the group. |
+
+### Return type
+
+[**GroupSummary**](GroupSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 <a name="createGroup"></a>
@@ -435,7 +669,7 @@ Name | Type | Description  | Notes
 
 <a name="removeApiKeysFromGroup"></a>
 # **removeApiKeysFromGroup**
-> UpdatedResponse removeApiKeysFromGroup(groupId, body)
+> GroupSummary removeApiKeysFromGroup(groupId, body)
 
 Remove API keys from a group.
 
@@ -462,7 +696,7 @@ AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
 String groupId = "groupId_example"; // String | The ID of the group.
 SubjectList body = new SubjectList(); // SubjectList | A list of API keys to remove from the group.
 try {
-    UpdatedResponse result = apiInstance.removeApiKeysFromGroup(groupId, body);
+    GroupSummary result = apiInstance.removeApiKeysFromGroup(groupId, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountPolicyGroupsApi#removeApiKeysFromGroup");
@@ -479,7 +713,121 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdatedResponse**](UpdatedResponse.md)
+[**GroupSummary**](GroupSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="removeListedApiKeysFromGroup"></a>
+# **removeListedApiKeysFromGroup**
+> GroupSummary removeListedApiKeysFromGroup(groupId, body)
+
+Remove API keys from a group.
+
+Remove API keys from groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys/remove \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountPolicyGroupsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
+String groupId = "groupId_example"; // String | The ID of the group.
+SubjectList body = new SubjectList(); // SubjectList | A list of API keys to remove from the group.
+try {
+    GroupSummary result = apiInstance.removeListedApiKeysFromGroup(groupId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountPolicyGroupsApi#removeListedApiKeysFromGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **String**| The ID of the group. |
+ **body** | [**SubjectList**](SubjectList.md)| A list of API keys to remove from the group. |
+
+### Return type
+
+[**GroupSummary**](GroupSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="removeListedUsersFromGroup"></a>
+# **removeListedUsersFromGroup**
+> GroupSummary removeListedUsersFromGroup(groupId, body)
+
+Remove users from a group.
+
+Manage policy groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/remove \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountPolicyGroupsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
+String groupId = "groupId_example"; // String | The ID of the group.
+SubjectList body = new SubjectList(); // SubjectList | A list of users to remove from the group.
+try {
+    GroupSummary result = apiInstance.removeListedUsersFromGroup(groupId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountPolicyGroupsApi#removeListedUsersFromGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | **String**| The ID of the group. |
+ **body** | [**SubjectList**](SubjectList.md)| A list of users to remove from the group. |
+
+### Return type
+
+[**GroupSummary**](GroupSummary.md)
 
 ### Authorization
 
@@ -492,7 +840,7 @@ Name | Type | Description  | Notes
 
 <a name="removeUsersFromGroup"></a>
 # **removeUsersFromGroup**
-> UpdatedResponse removeUsersFromGroup(groupId, body)
+> GroupSummary removeUsersFromGroup(groupId, body)
 
 Remove users from a group.
 
@@ -519,7 +867,7 @@ AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
 String groupId = "groupId_example"; // String | The ID of the group.
 SubjectList body = new SubjectList(); // SubjectList | A list of users to remove from the group.
 try {
-    UpdatedResponse result = apiInstance.removeUsersFromGroup(groupId, body);
+    GroupSummary result = apiInstance.removeUsersFromGroup(groupId, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountPolicyGroupsApi#removeUsersFromGroup");
@@ -536,7 +884,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdatedResponse**](UpdatedResponse.md)
+[**GroupSummary**](GroupSummary.md)
 
 ### Authorization
 
@@ -549,7 +897,7 @@ Name | Type | Description  | Notes
 
 <a name="updateGroupName"></a>
 # **updateGroupName**
-> UpdatedResponse updateGroupName(groupId, body)
+> GroupSummary updateGroupName(groupId, body)
 
 Update the group name.
 
@@ -576,7 +924,7 @@ AccountPolicyGroupsApi apiInstance = new AccountPolicyGroupsApi();
 String groupId = "groupId_example"; // String | The ID of the group to update.
 GroupUpdateInfo body = new GroupUpdateInfo(); // GroupUpdateInfo | Details of the group to create.
 try {
-    UpdatedResponse result = apiInstance.updateGroupName(groupId, body);
+    GroupSummary result = apiInstance.updateGroupName(groupId, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountPolicyGroupsApi#updateGroupName");
@@ -593,7 +941,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdatedResponse**](UpdatedResponse.md)
+[**GroupSummary**](GroupSummary.md)
 
 ### Authorization
 

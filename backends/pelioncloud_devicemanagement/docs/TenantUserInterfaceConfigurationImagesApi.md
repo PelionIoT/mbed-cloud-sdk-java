@@ -6,6 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**clearAccountDarkImage**](TenantUserInterfaceConfigurationImagesApi.md#clearAccountDarkImage) | **POST** v3/accounts/{account_id}/branding-images/dark/{reference}/clear | Revert an image to dark theme default.
 [**clearAccountLightImage**](TenantUserInterfaceConfigurationImagesApi.md#clearAccountLightImage) | **POST** v3/accounts/{account_id}/branding-images/light/{reference}/clear | Revert an image to light theme default.
+[**deleteAllAccountDarkImages**](TenantUserInterfaceConfigurationImagesApi.md#deleteAllAccountDarkImages) | **DELETE** v3/accounts/{account_id}/branding-images/dark | Delete images in the dark theme.
+[**deleteAllAccountImages**](TenantUserInterfaceConfigurationImagesApi.md#deleteAllAccountImages) | **DELETE** v3/accounts/{account_id}/branding-images | Delete all images.
+[**deleteAllAccountLightImages**](TenantUserInterfaceConfigurationImagesApi.md#deleteAllAccountLightImages) | **DELETE** v3/accounts/{account_id}/branding-images/light | Delete images in the light theme.
 [**getAccountDarkImageData**](TenantUserInterfaceConfigurationImagesApi.md#getAccountDarkImageData) | **GET** v3/accounts/{account_id}/branding-images/dark/{reference} | Get metadata of a dark theme image.
 [**getAccountLightImageData**](TenantUserInterfaceConfigurationImagesApi.md#getAccountLightImageData) | **GET** v3/accounts/{account_id}/branding-images/light/{reference} | Get metadata of a light theme image.
 [**getAllAccountDarkImageData**](TenantUserInterfaceConfigurationImagesApi.md#getAllAccountDarkImageData) | **GET** v3/accounts/{account_id}/branding-images/dark | Get metadata of all dark theme images.
@@ -42,7 +45,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
-String accountId = "accountId_example"; // String | Account ID.
+String accountId = "accountId_example"; // String | The ID of the account.
 String reference = "reference_example"; // String | Name of the branding images (icon or picture).
 try {
     Void result = apiInstance.clearAccountDarkImage(accountId, reference);
@@ -57,7 +60,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
+ **accountId** | **String**| The ID of the account. |
  **reference** | **String**| Name of the branding images (icon or picture). | [enum: brand_logo_portrait, brand_logo_square, brand_logo_landscape, brand_logo_email, desktop_background_landscape, desktop_background_square, desktop_background_portrait, carousel_image_portrait_0, carousel_image_portrait_1, carousel_image_portrait_2, carousel_image_portrait_3, carousel_image_portrait_4, carousel_image_portrait_5, carousel_image_portrait_6, carousel_image_portrait_7, carousel_image_portrait_8, carousel_image_portrait_9, carousel_image_square_0, carousel_image_square_1, carousel_image_square_2, carousel_image_square_3, carousel_image_square_4, carousel_image_square_5, carousel_image_square_6, carousel_image_square_7, carousel_image_square_8, carousel_image_square_9, carousel_image_landscape_0, carousel_image_landscape_1, carousel_image_landscape_2, carousel_image_landscape_3, carousel_image_landscape_4, carousel_image_landscape_5, carousel_image_landscape_6, carousel_image_landscape_7, carousel_image_landscape_8, carousel_image_landscape_9]
 
 ### Return type
@@ -99,7 +102,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
-String accountId = "accountId_example"; // String | Account ID.
+String accountId = "accountId_example"; // String | The ID of the account.
 String reference = "reference_example"; // String | Name of the branding images (icon or picture).
 try {
     Void result = apiInstance.clearAccountLightImage(accountId, reference);
@@ -114,8 +117,173 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
+ **accountId** | **String**| The ID of the account. |
  **reference** | **String**| Name of the branding images (icon or picture). | [enum: brand_logo_portrait, brand_logo_square, brand_logo_landscape, brand_logo_email, desktop_background_landscape, desktop_background_square, desktop_background_portrait, carousel_image_portrait_0, carousel_image_portrait_1, carousel_image_portrait_2, carousel_image_portrait_3, carousel_image_portrait_4, carousel_image_portrait_5, carousel_image_portrait_6, carousel_image_portrait_7, carousel_image_portrait_8, carousel_image_portrait_9, carousel_image_square_0, carousel_image_square_1, carousel_image_square_2, carousel_image_square_3, carousel_image_square_4, carousel_image_square_5, carousel_image_square_6, carousel_image_square_7, carousel_image_square_8, carousel_image_square_9, carousel_image_landscape_0, carousel_image_landscape_1, carousel_image_landscape_2, carousel_image_landscape_3, carousel_image_landscape_4, carousel_image_landscape_5, carousel_image_landscape_6, carousel_image_landscape_7, carousel_image_landscape_8, carousel_image_landscape_9]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteAllAccountDarkImages"></a>
+# **deleteAllAccountDarkImages**
+> Void deleteAllAccountDarkImages(accountId)
+
+Delete images in the dark theme.
+
+Delete account dark theme branding images.  **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantUserInterfaceConfigurationImagesApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
+String accountId = "accountId_example"; // String | The ID of the account.
+try {
+    Void result = apiInstance.deleteAllAccountDarkImages(accountId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TenantUserInterfaceConfigurationImagesApi#deleteAllAccountDarkImages");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| The ID of the account. |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteAllAccountImages"></a>
+# **deleteAllAccountImages**
+> Void deleteAllAccountImages(accountId)
+
+Delete all images.
+
+Delete account branding images for all themes.  **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantUserInterfaceConfigurationImagesApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
+String accountId = "accountId_example"; // String | The ID of the account.
+try {
+    Void result = apiInstance.deleteAllAccountImages(accountId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TenantUserInterfaceConfigurationImagesApi#deleteAllAccountImages");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| The ID of the account. |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteAllAccountLightImages"></a>
+# **deleteAllAccountLightImages**
+> Void deleteAllAccountLightImages(accountId)
+
+Delete images in the light theme.
+
+Delete account light theme branding images.  **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantUserInterfaceConfigurationImagesApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
+String accountId = "accountId_example"; // String | The ID of the account.
+try {
+    Void result = apiInstance.deleteAllAccountLightImages(accountId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling TenantUserInterfaceConfigurationImagesApi#deleteAllAccountLightImages");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| The ID of the account. |
 
 ### Return type
 
@@ -156,7 +324,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
-String accountId = "accountId_example"; // String | Account ID.
+String accountId = "accountId_example"; // String | The ID of the account.
 String reference = "reference_example"; // String | Name of the branding images (icon or picture).
 try {
     BrandingImage result = apiInstance.getAccountDarkImageData(accountId, reference);
@@ -171,7 +339,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
+ **accountId** | **String**| The ID of the account. |
  **reference** | **String**| Name of the branding images (icon or picture). | [enum: brand_logo_portrait, brand_logo_square, brand_logo_landscape, brand_logo_email, desktop_background_landscape, desktop_background_square, desktop_background_portrait, carousel_image_portrait_0, carousel_image_portrait_1, carousel_image_portrait_2, carousel_image_portrait_3, carousel_image_portrait_4, carousel_image_portrait_5, carousel_image_portrait_6, carousel_image_portrait_7, carousel_image_portrait_8, carousel_image_portrait_9, carousel_image_square_0, carousel_image_square_1, carousel_image_square_2, carousel_image_square_3, carousel_image_square_4, carousel_image_square_5, carousel_image_square_6, carousel_image_square_7, carousel_image_square_8, carousel_image_square_9, carousel_image_landscape_0, carousel_image_landscape_1, carousel_image_landscape_2, carousel_image_landscape_3, carousel_image_landscape_4, carousel_image_landscape_5, carousel_image_landscape_6, carousel_image_landscape_7, carousel_image_landscape_8, carousel_image_landscape_9]
 
 ### Return type
@@ -213,7 +381,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
-String accountId = "accountId_example"; // String | Account ID.
+String accountId = "accountId_example"; // String | The ID of the account.
 String reference = "reference_example"; // String | Name of the branding images (icon or picture).
 try {
     BrandingImage result = apiInstance.getAccountLightImageData(accountId, reference);
@@ -228,7 +396,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
+ **accountId** | **String**| The ID of the account. |
  **reference** | **String**| Name of the branding images (icon or picture). | [enum: brand_logo_portrait, brand_logo_square, brand_logo_landscape, brand_logo_email, desktop_background_landscape, desktop_background_square, desktop_background_portrait, carousel_image_portrait_0, carousel_image_portrait_1, carousel_image_portrait_2, carousel_image_portrait_3, carousel_image_portrait_4, carousel_image_portrait_5, carousel_image_portrait_6, carousel_image_portrait_7, carousel_image_portrait_8, carousel_image_portrait_9, carousel_image_square_0, carousel_image_square_1, carousel_image_square_2, carousel_image_square_3, carousel_image_square_4, carousel_image_square_5, carousel_image_square_6, carousel_image_square_7, carousel_image_square_8, carousel_image_square_9, carousel_image_landscape_0, carousel_image_landscape_1, carousel_image_landscape_2, carousel_image_landscape_3, carousel_image_landscape_4, carousel_image_landscape_5, carousel_image_landscape_6, carousel_image_landscape_7, carousel_image_landscape_8, carousel_image_landscape_9]
 
 ### Return type
@@ -270,7 +438,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
-String accountId = "accountId_example"; // String | Account ID.
+String accountId = "accountId_example"; // String | The ID of the account.
 try {
     BrandingImageList result = apiInstance.getAllAccountDarkImageData(accountId);
     System.out.println(result);
@@ -284,7 +452,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
+ **accountId** | **String**| The ID of the account. |
 
 ### Return type
 
@@ -325,7 +493,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
-String accountId = "accountId_example"; // String | Account ID.
+String accountId = "accountId_example"; // String | The ID of the account.
 try {
     BrandingImageList result = apiInstance.getAllAccountLightImageData(accountId);
     System.out.println(result);
@@ -339,7 +507,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
+ **accountId** | **String**| The ID of the account. |
 
 ### Return type
 
@@ -380,7 +548,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
-String accountId = "accountId_example"; // String | Account ID.
+String accountId = "accountId_example"; // String | The ID of the account.
 String reference = "reference_example"; // String | Name of the branding images (icon or picture).
 String body = "body_example"; // String | The image in PNG or JPEG format.
 try {
@@ -396,7 +564,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
+ **accountId** | **String**| The ID of the account. |
  **reference** | **String**| Name of the branding images (icon or picture). | [enum: brand_logo_portrait, brand_logo_square, brand_logo_landscape, brand_logo_email, desktop_background_landscape, desktop_background_square, desktop_background_portrait, carousel_image_portrait_0, carousel_image_portrait_1, carousel_image_portrait_2, carousel_image_portrait_3, carousel_image_portrait_4, carousel_image_portrait_5, carousel_image_portrait_6, carousel_image_portrait_7, carousel_image_portrait_8, carousel_image_portrait_9, carousel_image_square_0, carousel_image_square_1, carousel_image_square_2, carousel_image_square_3, carousel_image_square_4, carousel_image_square_5, carousel_image_square_6, carousel_image_square_7, carousel_image_square_8, carousel_image_square_9, carousel_image_landscape_0, carousel_image_landscape_1, carousel_image_landscape_2, carousel_image_landscape_3, carousel_image_landscape_4, carousel_image_landscape_5, carousel_image_landscape_6, carousel_image_landscape_7, carousel_image_landscape_8, carousel_image_landscape_9]
  **body** | [**String**](String.md)| The image in PNG or JPEG format. |
 
@@ -439,7 +607,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
-String accountId = "accountId_example"; // String | Account ID.
+String accountId = "accountId_example"; // String | The ID of the account.
 String reference = "reference_example"; // String | Name of the branding images (icon or picture).
 File image = new File("/path/to/file.txt"); // File | The image in PNG or JPEG format as multipart form data.
 try {
@@ -455,7 +623,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
+ **accountId** | **String**| The ID of the account. |
  **reference** | **String**| Name of the branding images (icon or picture). | [enum: brand_logo_portrait, brand_logo_square, brand_logo_landscape, brand_logo_email, desktop_background_landscape, desktop_background_square, desktop_background_portrait, carousel_image_portrait_0, carousel_image_portrait_1, carousel_image_portrait_2, carousel_image_portrait_3, carousel_image_portrait_4, carousel_image_portrait_5, carousel_image_portrait_6, carousel_image_portrait_7, carousel_image_portrait_8, carousel_image_portrait_9, carousel_image_square_0, carousel_image_square_1, carousel_image_square_2, carousel_image_square_3, carousel_image_square_4, carousel_image_square_5, carousel_image_square_6, carousel_image_square_7, carousel_image_square_8, carousel_image_square_9, carousel_image_landscape_0, carousel_image_landscape_1, carousel_image_landscape_2, carousel_image_landscape_3, carousel_image_landscape_4, carousel_image_landscape_5, carousel_image_landscape_6, carousel_image_landscape_7, carousel_image_landscape_8, carousel_image_landscape_9]
  **image** | **File**| The image in PNG or JPEG format as multipart form data. |
 
@@ -498,7 +666,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
-String accountId = "accountId_example"; // String | Account ID.
+String accountId = "accountId_example"; // String | The ID of the account.
 String reference = "reference_example"; // String | Name of the branding images (icon or picture).
 String body = "body_example"; // String | The image in PNG or JPEG format.
 try {
@@ -514,7 +682,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
+ **accountId** | **String**| The ID of the account. |
  **reference** | **String**| Name of the branding images (icon or picture). | [enum: brand_logo_portrait, brand_logo_square, brand_logo_landscape, brand_logo_email, desktop_background_landscape, desktop_background_square, desktop_background_portrait, carousel_image_portrait_0, carousel_image_portrait_1, carousel_image_portrait_2, carousel_image_portrait_3, carousel_image_portrait_4, carousel_image_portrait_5, carousel_image_portrait_6, carousel_image_portrait_7, carousel_image_portrait_8, carousel_image_portrait_9, carousel_image_square_0, carousel_image_square_1, carousel_image_square_2, carousel_image_square_3, carousel_image_square_4, carousel_image_square_5, carousel_image_square_6, carousel_image_square_7, carousel_image_square_8, carousel_image_square_9, carousel_image_landscape_0, carousel_image_landscape_1, carousel_image_landscape_2, carousel_image_landscape_3, carousel_image_landscape_4, carousel_image_landscape_5, carousel_image_landscape_6, carousel_image_landscape_7, carousel_image_landscape_8, carousel_image_landscape_9]
  **body** | [**String**](String.md)| The image in PNG or JPEG format. |
 
@@ -557,7 +725,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 TenantUserInterfaceConfigurationImagesApi apiInstance = new TenantUserInterfaceConfigurationImagesApi();
-String accountId = "accountId_example"; // String | Account ID.
+String accountId = "accountId_example"; // String | The ID of the account.
 String reference = "reference_example"; // String | Name of the branding images (icon or picture).
 File image = new File("/path/to/file.txt"); // File | The image in PNG or JPEG format as multipart form data.
 try {
@@ -573,7 +741,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
+ **accountId** | **String**| The ID of the account. |
  **reference** | **String**| Name of the branding images (icon or picture). | [enum: brand_logo_portrait, brand_logo_square, brand_logo_landscape, brand_logo_email, desktop_background_landscape, desktop_background_square, desktop_background_portrait, carousel_image_portrait_0, carousel_image_portrait_1, carousel_image_portrait_2, carousel_image_portrait_3, carousel_image_portrait_4, carousel_image_portrait_5, carousel_image_portrait_6, carousel_image_portrait_7, carousel_image_portrait_8, carousel_image_portrait_9, carousel_image_square_0, carousel_image_square_1, carousel_image_square_2, carousel_image_square_3, carousel_image_square_4, carousel_image_square_5, carousel_image_square_6, carousel_image_square_7, carousel_image_square_8, carousel_image_square_9, carousel_image_landscape_0, carousel_image_landscape_1, carousel_image_landscape_2, carousel_image_landscape_3, carousel_image_landscape_4, carousel_image_landscape_5, carousel_image_landscape_6, carousel_image_landscape_7, carousel_image_landscape_8, carousel_image_landscape_9]
  **image** | **File**| The image in PNG or JPEG format as multipart form data. |
 

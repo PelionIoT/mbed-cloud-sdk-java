@@ -44,6 +44,9 @@ public class AccountUpdateRootReq implements Serializable {
     @SerializedName("aliases")
     private List<String> aliases = null;
 
+    @SerializedName("business_model")
+    private BusinessModel businessModel = null;
+
     @SerializedName("city")
     private String city = null;
 
@@ -216,6 +219,25 @@ public class AccountUpdateRootReq implements Serializable {
 
     public void setAliases(List<String> aliases) {
         this.aliases = aliases;
+    }
+
+    public AccountUpdateRootReq businessModel(BusinessModel businessModel) {
+        this.businessModel = businessModel;
+        return this;
+    }
+
+    /**
+     * Get businessModel
+     * 
+     * @return businessModel
+     **/
+    @ApiModelProperty(value = "")
+    public BusinessModel getBusinessModel() {
+        return businessModel;
+    }
+
+    public void setBusinessModel(BusinessModel businessModel) {
+        this.businessModel = businessModel;
     }
 
     public AccountUpdateRootReq city(String city) {
@@ -633,6 +655,7 @@ public class AccountUpdateRootReq implements Serializable {
         return Objects.equals(this.addressLine1, accountUpdateRootReq.addressLine1)
                && Objects.equals(this.addressLine2, accountUpdateRootReq.addressLine2)
                && Objects.equals(this.aliases, accountUpdateRootReq.aliases)
+               && Objects.equals(this.businessModel, accountUpdateRootReq.businessModel)
                && Objects.equals(this.city, accountUpdateRootReq.city)
                && Objects.equals(this.company, accountUpdateRootReq.company)
                && Objects.equals(this.contact, accountUpdateRootReq.contact)
@@ -657,10 +680,10 @@ public class AccountUpdateRootReq implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(addressLine1, addressLine2, aliases, city, company, contact, contractNumber, country,
-                            customFields, customerNumber, displayName, email, endMarket, expirationWarningThreshold,
-                            idleTimeout, mfaStatus, notificationEmails, passwordPolicy, passwordRecoveryExpiration,
-                            phoneNumber, postalCode, salesContact, state);
+        return Objects.hash(addressLine1, addressLine2, aliases, businessModel, city, company, contact, contractNumber,
+                            country, customFields, customerNumber, displayName, email, endMarket,
+                            expirationWarningThreshold, idleTimeout, mfaStatus, notificationEmails, passwordPolicy,
+                            passwordRecoveryExpiration, phoneNumber, postalCode, salesContact, state);
     }
 
     @Override
@@ -671,6 +694,7 @@ public class AccountUpdateRootReq implements Serializable {
         sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
         sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
         sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
+        sb.append("    businessModel: ").append(toIndentedString(businessModel)).append("\n");
         sb.append("    city: ").append(toIndentedString(city)).append("\n");
         sb.append("    company: ").append(toIndentedString(company)).append("\n");
         sb.append("    contact: ").append(toIndentedString(contact)).append("\n");

@@ -55,11 +55,11 @@ public class UploadChunkInfo implements Serializable {
     }
 
     /**
-     * The time the entity was created
+     * The time the entity was created.
      * 
      * @return createdAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the entity was created")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the entity was created.")
     public DateTime getCreatedAt() {
         return createdAt;
     }
@@ -74,11 +74,11 @@ public class UploadChunkInfo implements Serializable {
     }
 
     /**
-     * API resource entity version
+     * API resource entity version.
      * 
      * @return etag
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "API resource entity version")
+    @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "API resource entity version.")
     public String getEtag() {
         return etag;
     }
@@ -113,11 +113,11 @@ public class UploadChunkInfo implements Serializable {
     }
 
     /**
-     * The chunk number
+     * The chunk number.
      * 
      * @return id
      **/
-    @ApiModelProperty(example = "1", value = "The chunk number")
+    @ApiModelProperty(example = "1", value = "The chunk number.")
     public Integer getId() {
         return id;
     }
@@ -132,11 +132,11 @@ public class UploadChunkInfo implements Serializable {
     }
 
     /**
-     * The length of the chunk
+     * The length of the chunk.
      * 
      * @return length
      **/
-    @ApiModelProperty(example = "1234", value = "The length of the chunk")
+    @ApiModelProperty(example = "1234", value = "The length of the chunk.")
     public Integer getLength() {
         return length;
     }
@@ -151,11 +151,11 @@ public class UploadChunkInfo implements Serializable {
     }
 
     /**
-     * Entity name: always &#39;upload-info&#39;
+     * Entity name: always &#39;upload-info&#39;.
      * 
      * @return object
      **/
-    @ApiModelProperty(example = "upload-info", value = "Entity name: always 'upload-info'")
+    @ApiModelProperty(example = "upload-info", value = "Entity name: always 'upload-info'.")
     public String getObject() {
         return object;
     }
@@ -170,11 +170,11 @@ public class UploadChunkInfo implements Serializable {
     }
 
     /**
-     * The time the entity was updated
+     * The time the entity was updated.
      * 
      * @return updatedAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the entity was updated")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the entity was updated.")
     public DateTime getUpdatedAt() {
         return updatedAt;
     }

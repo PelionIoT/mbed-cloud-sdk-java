@@ -49,6 +49,9 @@ public class AccountCreationReq implements Serializable {
     @SerializedName("aliases")
     private List<String> aliases = null;
 
+    @SerializedName("business_model")
+    private BusinessModel businessModel = null;
+
     @SerializedName("city")
     private String city = null;
 
@@ -226,6 +229,25 @@ public class AccountCreationReq implements Serializable {
 
     public void setAliases(List<String> aliases) {
         this.aliases = aliases;
+    }
+
+    public AccountCreationReq businessModel(BusinessModel businessModel) {
+        this.businessModel = businessModel;
+        return this;
+    }
+
+    /**
+     * Get businessModel
+     * 
+     * @return businessModel
+     **/
+    @ApiModelProperty(value = "")
+    public BusinessModel getBusinessModel() {
+        return businessModel;
+    }
+
+    public void setBusinessModel(BusinessModel businessModel) {
+        this.businessModel = businessModel;
     }
 
     public AccountCreationReq city(String city) {
@@ -477,6 +499,7 @@ public class AccountCreationReq implements Serializable {
                && Objects.equals(this.adminName, accountCreationReq.adminName)
                && Objects.equals(this.adminPassword, accountCreationReq.adminPassword)
                && Objects.equals(this.aliases, accountCreationReq.aliases)
+               && Objects.equals(this.businessModel, accountCreationReq.businessModel)
                && Objects.equals(this.city, accountCreationReq.city)
                && Objects.equals(this.company, accountCreationReq.company)
                && Objects.equals(this.contact, accountCreationReq.contact)
@@ -494,8 +517,8 @@ public class AccountCreationReq implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(addressLine1, addressLine2, adminEmail, adminFullName, adminName, adminPassword, aliases,
-                            city, company, contact, contractNumber, country, customerNumber, displayName, email,
-                            endMarket, phoneNumber, postalCode, state);
+                            businessModel, city, company, contact, contractNumber, country, customerNumber, displayName,
+                            email, endMarket, phoneNumber, postalCode, state);
     }
 
     @Override
@@ -510,6 +533,7 @@ public class AccountCreationReq implements Serializable {
         sb.append("    adminName: ").append(toIndentedString(adminName)).append("\n");
         sb.append("    adminPassword: ").append(toIndentedString(adminPassword)).append("\n");
         sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
+        sb.append("    businessModel: ").append(toIndentedString(businessModel)).append("\n");
         sb.append("    city: ").append(toIndentedString(city)).append("\n");
         sb.append("    company: ").append(toIndentedString(company)).append("\n");
         sb.append("    contact: ").append(toIndentedString(contact)).append("\n");

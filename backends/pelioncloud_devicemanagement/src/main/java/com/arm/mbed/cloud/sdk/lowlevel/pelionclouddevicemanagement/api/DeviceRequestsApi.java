@@ -45,7 +45,7 @@ public interface DeviceRequestsApi {
      * \&quot;/5/0/1\&quot; } Example payload to set notification rules for resource /5/0/1: { \&quot;method\&quot;:
      * \&quot;PUT\&quot;, \&quot;uri\&quot;: \&quot;/5/0/1?lt&#x3D;10&amp;gt&#x3D;60&amp;pmax&#x3D;120\&quot; } Example
      * payload to write value \&quot;value1\&quot; to resource /5/0/1: { \&quot;method\&quot;: \&quot;PUT\&quot;,
-     * \&quot;uri\&quot;: \&quot;/5/0/1%20?k1&#x3D;v1&amp;k2&#x3D;v2%22\&quot;, \&quot;accept\&quot;:
+     * \&quot;uri\&quot;: \&quot;/5/0/1?k1&#x3D;v1&amp;k2&#x3D;v2\&quot;, \&quot;accept\&quot;:
      * \&quot;text/plain\&quot;, \&quot;content-type\&quot;: \&quot;text/plain\&quot;, \&quot;payload-b64\&quot;:
      * \&quot;dmFsdWUxCg&#x3D;&#x3D;\&quot; } Example payload to execute LWM2M resource /123/1/1: {
      * \&quot;method\&quot;: \&quot;POST\&quot;, \&quot;uri\&quot;: \&quot;/123/1/1\&quot; } Immediate response: 202

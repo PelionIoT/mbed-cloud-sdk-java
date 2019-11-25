@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **addressLine1** | **String** | Postal address line 1. Required for commercial accounts only. |  [optional]
 **addressLine2** | **String** | Postal address line 2. |  [optional]
 **aliases** | **List&lt;String&gt;** | An array of aliases. |  [optional]
+**businessModel** | [**BusinessModel**](BusinessModel.md) |  |  [optional]
 **city** | **String** | The city part of the postal address. Required for commercial accounts only. |  [optional]
 **company** | **String** | The name of the company. Required for commercial accounts only. |  [optional]
 **contact** | **String** | The name of the contact person for this account. Required for commercial accounts only. |  [optional]

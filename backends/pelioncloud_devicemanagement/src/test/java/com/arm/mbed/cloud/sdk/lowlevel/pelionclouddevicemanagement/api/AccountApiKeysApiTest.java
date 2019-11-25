@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyUpdateReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupIdList;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,7 +34,25 @@ public class AccountApiKeysApiTest {
     public void addApiKeyToGroupsTest() {
         String apikeyId = null;
         List<String> body = null;
-        // UpdatedResponse response = api.addApiKeyToGroups(apikeyId, body);
+        // ApiKeyInfoResp response = api.addApiKeyToGroups(apikeyId, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Add API key to a list of groups.
+     *
+     * Add API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups/add \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void addApiKeyToListedGroupsTest() {
+        String apikeyId = null;
+        GroupIdList body = null;
+        // ApiKeyInfoResp response = api.addApiKeyToListedGroups(apikeyId, body);
 
         // TODO: test validations
     }
@@ -50,7 +69,24 @@ public class AccountApiKeysApiTest {
     @Test
     public void addMyApiKeyToGroupsTest() {
         List<String> body = null;
-        // UpdatedResponse response = api.addMyApiKeyToGroups(body);
+        // ApiKeyInfoResp response = api.addMyApiKeyToGroups(body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Add API key to a list of groups.
+     *
+     * Add API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups/add/ \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void addMyApiKeyToListedGroupsTest() {
+        GroupIdList body = null;
+        // ApiKeyInfoResp response = api.addMyApiKeyToListedGroups(body);
 
         // TODO: test validations
     }
@@ -184,7 +220,42 @@ public class AccountApiKeysApiTest {
     public void removeApiKeyFromGroupsTest() {
         String apikeyId = null;
         List<String> body = null;
-        // UpdatedResponse response = api.removeApiKeyFromGroups(apikeyId, body);
+        // ApiKeyInfoResp response = api.removeApiKeyFromGroups(apikeyId, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Remove API key from groups.
+     *
+     * Remove API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups/remove \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void removeApiKeyFromListedGroupsTest() {
+        String apikeyId = null;
+        GroupIdList body = null;
+        // ApiKeyInfoResp response = api.removeApiKeyFromListedGroups(apikeyId, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Remove API key from groups.
+     *
+     * Remove API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups/remove \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void removeMyApiKeyFromListedGroupsTest() {
+        GroupIdList body = null;
+        // ApiKeyInfoResp response = api.removeMyApiKeyFromListedGroups(body);
 
         // TODO: test validations
     }
@@ -199,9 +270,9 @@ public class AccountApiKeysApiTest {
      * &#x60;&#x60;&#x60;
      */
     @Test
-    public void removeMyApiKeyFromGroupsTest() {
-        List<String> body = null;
-        // UpdatedResponse response = api.removeMyApiKeyFromGroups(body);
+    public void removeMyApiKeyListedGroupsTest() {
+        GroupIdList body = null;
+        // ApiKeyInfoResp response = api.removeMyApiKeyListedGroups(body);
 
         // TODO: test validations
     }

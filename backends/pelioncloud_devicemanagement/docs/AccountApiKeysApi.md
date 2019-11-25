@@ -5,7 +5,9 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addApiKeyToGroups**](AccountApiKeysApi.md#addApiKeyToGroups) | **POST** v3/api-keys/{apikey_id}/groups | Add API key to a list of groups.
+[**addApiKeyToListedGroups**](AccountApiKeysApi.md#addApiKeyToListedGroups) | **POST** v3/api-keys/{apikey_id}/groups/add | Add API key to a list of groups.
 [**addMyApiKeyToGroups**](AccountApiKeysApi.md#addMyApiKeyToGroups) | **POST** v3/api-keys/me/groups | Add API key to a list of groups.
+[**addMyApiKeyToListedGroups**](AccountApiKeysApi.md#addMyApiKeyToListedGroups) | **POST** v3/api-keys/me/groups/add | Add API key to a list of groups.
 [**createApiKey**](AccountApiKeysApi.md#createApiKey) | **POST** v3/api-keys | Create a new API key.
 [**deleteApiKey**](AccountApiKeysApi.md#deleteApiKey) | **DELETE** v3/api-keys/{apikey_id} | Delete API key.
 [**getAllApiKeys**](AccountApiKeysApi.md#getAllApiKeys) | **GET** v3/api-keys | Get all API keys.
@@ -14,7 +16,9 @@ Method | HTTP request | Description
 [**getGroupsOfMyApiKey**](AccountApiKeysApi.md#getGroupsOfMyApiKey) | **GET** v3/api-keys/me/groups | Get groups of the API key.
 [**getMyApiKey**](AccountApiKeysApi.md#getMyApiKey) | **GET** v3/api-keys/me | Get API key details.
 [**removeApiKeyFromGroups**](AccountApiKeysApi.md#removeApiKeyFromGroups) | **DELETE** v3/api-keys/{apikey_id}/groups | Remove API key from groups.
-[**removeMyApiKeyFromGroups**](AccountApiKeysApi.md#removeMyApiKeyFromGroups) | **DELETE** v3/api-keys/me/groups | Remove API key from groups.
+[**removeApiKeyFromListedGroups**](AccountApiKeysApi.md#removeApiKeyFromListedGroups) | **POST** v3/api-keys/{apikey_id}/groups/remove | Remove API key from groups.
+[**removeMyApiKeyFromListedGroups**](AccountApiKeysApi.md#removeMyApiKeyFromListedGroups) | **POST** v3/api-keys/me/groups/remove | Remove API key from groups.
+[**removeMyApiKeyListedGroups**](AccountApiKeysApi.md#removeMyApiKeyListedGroups) | **DELETE** v3/api-keys/me/groups | Remove API key from groups.
 [**resetSecret**](AccountApiKeysApi.md#resetSecret) | **POST** v3/api-keys/{apikey_id}/reset-secret | Reset the secret key.
 [**updateApiKey**](AccountApiKeysApi.md#updateApiKey) | **PUT** v3/api-keys/{apikey_id} | Update API key details.
 [**updateMyApiKey**](AccountApiKeysApi.md#updateMyApiKey) | **PUT** v3/api-keys/me | Update API key details.
@@ -22,7 +26,7 @@ Method | HTTP request | Description
 
 <a name="addApiKeyToGroups"></a>
 # **addApiKeyToGroups**
-> UpdatedResponse addApiKeyToGroups(apikeyId, body)
+> ApiKeyInfoResp addApiKeyToGroups(apikeyId, body)
 
 Add API key to a list of groups.
 
@@ -49,7 +53,7 @@ AccountApiKeysApi apiInstance = new AccountApiKeysApi();
 String apikeyId = "apikeyId_example"; // String | The ID of the API key to add to the group.
 List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to update.
 try {
-    UpdatedResponse result = apiInstance.addApiKeyToGroups(apikeyId, body);
+    ApiKeyInfoResp result = apiInstance.addApiKeyToGroups(apikeyId, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountApiKeysApi#addApiKeyToGroups");
@@ -66,7 +70,64 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdatedResponse**](UpdatedResponse.md)
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="addApiKeyToListedGroups"></a>
+# **addApiKeyToListedGroups**
+> ApiKeyInfoResp addApiKeyToListedGroups(apikeyId, body)
+
+Add API key to a list of groups.
+
+Add API key to groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups/add \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountApiKeysApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountApiKeysApi apiInstance = new AccountApiKeysApi();
+String apikeyId = "apikeyId_example"; // String | The ID of the API key to add to the group.
+GroupIdList body = new GroupIdList(); // GroupIdList | A list of IDs of the groups to update.
+try {
+    ApiKeyInfoResp result = apiInstance.addApiKeyToListedGroups(apikeyId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountApiKeysApi#addApiKeyToListedGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apikeyId** | **String**| The ID of the API key to add to the group. |
+ **body** | [**GroupIdList**](GroupIdList.md)| A list of IDs of the groups to update. |
+
+### Return type
+
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
 
 ### Authorization
 
@@ -79,7 +140,7 @@ Name | Type | Description  | Notes
 
 <a name="addMyApiKeyToGroups"></a>
 # **addMyApiKeyToGroups**
-> UpdatedResponse addMyApiKeyToGroups(body)
+> ApiKeyInfoResp addMyApiKeyToGroups(body)
 
 Add API key to a list of groups.
 
@@ -105,7 +166,7 @@ Bearer.setApiKey("YOUR API KEY");
 AccountApiKeysApi apiInstance = new AccountApiKeysApi();
 List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to update.
 try {
-    UpdatedResponse result = apiInstance.addMyApiKeyToGroups(body);
+    ApiKeyInfoResp result = apiInstance.addMyApiKeyToGroups(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountApiKeysApi#addMyApiKeyToGroups");
@@ -121,7 +182,62 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdatedResponse**](UpdatedResponse.md)
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="addMyApiKeyToListedGroups"></a>
+# **addMyApiKeyToListedGroups**
+> ApiKeyInfoResp addMyApiKeyToListedGroups(body)
+
+Add API key to a list of groups.
+
+Add API key to groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups/add/ \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountApiKeysApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountApiKeysApi apiInstance = new AccountApiKeysApi();
+GroupIdList body = new GroupIdList(); // GroupIdList | A list of IDs of the groups to update.
+try {
+    ApiKeyInfoResp result = apiInstance.addMyApiKeyToListedGroups(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountApiKeysApi#addMyApiKeyToListedGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**GroupIdList**](GroupIdList.md)| A list of IDs of the groups to update. |
+
+### Return type
+
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
 
 ### Authorization
 
@@ -539,7 +655,7 @@ This endpoint does not need any parameter.
 
 <a name="removeApiKeyFromGroups"></a>
 # **removeApiKeyFromGroups**
-> UpdatedResponse removeApiKeyFromGroups(apikeyId, body)
+> ApiKeyInfoResp removeApiKeyFromGroups(apikeyId, body)
 
 Remove API key from groups.
 
@@ -566,7 +682,7 @@ AccountApiKeysApi apiInstance = new AccountApiKeysApi();
 String apikeyId = "apikeyId_example"; // String | The ID of the API key to remove from the group.
 List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to update.
 try {
-    UpdatedResponse result = apiInstance.removeApiKeyFromGroups(apikeyId, body);
+    ApiKeyInfoResp result = apiInstance.removeApiKeyFromGroups(apikeyId, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountApiKeysApi#removeApiKeyFromGroups");
@@ -583,7 +699,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdatedResponse**](UpdatedResponse.md)
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
 
 ### Authorization
 
@@ -594,9 +710,121 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="removeMyApiKeyFromGroups"></a>
-# **removeMyApiKeyFromGroups**
-> UpdatedResponse removeMyApiKeyFromGroups(body)
+<a name="removeApiKeyFromListedGroups"></a>
+# **removeApiKeyFromListedGroups**
+> ApiKeyInfoResp removeApiKeyFromListedGroups(apikeyId, body)
+
+Remove API key from groups.
+
+Remove API key from groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups/remove \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountApiKeysApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountApiKeysApi apiInstance = new AccountApiKeysApi();
+String apikeyId = "apikeyId_example"; // String | The ID of the API key to remove from the group.
+GroupIdList body = new GroupIdList(); // GroupIdList | A list of IDs of the groups to update.
+try {
+    ApiKeyInfoResp result = apiInstance.removeApiKeyFromListedGroups(apikeyId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountApiKeysApi#removeApiKeyFromListedGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apikeyId** | **String**| The ID of the API key to remove from the group. |
+ **body** | [**GroupIdList**](GroupIdList.md)| A list of IDs of the groups to update. |
+
+### Return type
+
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="removeMyApiKeyFromListedGroups"></a>
+# **removeMyApiKeyFromListedGroups**
+> ApiKeyInfoResp removeMyApiKeyFromListedGroups(body)
+
+Remove API key from groups.
+
+Remove API key from groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups/remove \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountApiKeysApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountApiKeysApi apiInstance = new AccountApiKeysApi();
+GroupIdList body = new GroupIdList(); // GroupIdList | A list of IDs of groups to update.
+try {
+    ApiKeyInfoResp result = apiInstance.removeMyApiKeyFromListedGroups(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountApiKeysApi#removeMyApiKeyFromListedGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**GroupIdList**](GroupIdList.md)| A list of IDs of groups to update. |
+
+### Return type
+
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="removeMyApiKeyListedGroups"></a>
+# **removeMyApiKeyListedGroups**
+> ApiKeyInfoResp removeMyApiKeyListedGroups(body)
 
 Remove API key from groups.
 
@@ -620,12 +848,12 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 AccountApiKeysApi apiInstance = new AccountApiKeysApi();
-List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of groups to update.
+GroupIdList body = new GroupIdList(); // GroupIdList | A list of IDs of groups to update.
 try {
-    UpdatedResponse result = apiInstance.removeMyApiKeyFromGroups(body);
+    ApiKeyInfoResp result = apiInstance.removeMyApiKeyListedGroups(body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling AccountApiKeysApi#removeMyApiKeyFromGroups");
+    System.err.println("Exception when calling AccountApiKeysApi#removeMyApiKeyListedGroups");
     e.printStackTrace();
 }
 ```
@@ -634,11 +862,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **List&lt;String&gt;**| A list of IDs of groups to update. |
+ **body** | [**GroupIdList**](GroupIdList.md)| A list of IDs of groups to update. |
 
 ### Return type
 
-[**UpdatedResponse**](UpdatedResponse.md)
+[**ApiKeyInfoResp**](ApiKeyInfoResp.md)
 
 ### Authorization
 

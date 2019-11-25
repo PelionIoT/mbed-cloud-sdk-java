@@ -46,8 +46,8 @@ public interface TenantAccountsAccountsApi {
      * @param accountId
      *            The ID of the account to fetch. (required)
      * @param include
-     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.
-     *            (optional)
+     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts,
+     *            history. (optional)
      * @param properties
      *            Property name to return from account-specific properties. (optional)
      * @return Call&lt;AccountInfo&gt;
@@ -84,8 +84,8 @@ public interface TenantAccountsAccountsApi {
      * @param order
      *            Record order. Acceptable values: ASC, DESC. Default: ASC. (optional, default to ASC)
      * @param include
-     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.
-     *            (optional)
+     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts,
+     *            history. (optional)
      * @param format
      *            Format information for the query response. Supported: format&#x3D;breakdown. (optional)
      * @param properties

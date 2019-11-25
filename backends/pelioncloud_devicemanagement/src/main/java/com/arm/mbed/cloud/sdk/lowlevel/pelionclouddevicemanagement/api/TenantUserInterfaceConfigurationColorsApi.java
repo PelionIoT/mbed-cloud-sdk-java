@@ -19,7 +19,7 @@ public interface TenantUserInterfaceConfigurationColorsApi {
      * \&quot;primary\&quot;, \&quot;color\&quot;: \&quot;#f3f93e\&quot; }]&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param body
      *            List of branding colors. (required)
      * @return Call&lt;Void&gt;
@@ -37,7 +37,7 @@ public interface TenantUserInterfaceConfigurationColorsApi {
      * \&quot;primary\&quot;, \&quot;color\&quot;: \&quot;purple\&quot; }]&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param body
      *            List of branding colors. (required)
      * @return Call&lt;Void&gt;
@@ -48,12 +48,48 @@ public interface TenantUserInterfaceConfigurationColorsApi {
                                          @retrofit2.http.Body List<BrandingColor> body);
 
     /**
+     * Delete all colors. Delete account branding colors for all themes. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors -H &#39;Authorization: Bearer
+     * API_KEY&#39;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @return Call&lt;Void&gt;
+     */
+    @DELETE("v3/accounts/{account_id}/branding-colors")
+    Call<Void> deleteAllAccountColors(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
+
+    /**
+     * Delete colors in the dark theme. Delete account dark theme branding colors. **Example usage:** &#x60;curl -X
+     * DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark -H &#39;Authorization:
+     * Bearer API_KEY&#39;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @return Call&lt;Void&gt;
+     */
+    @DELETE("v3/accounts/{account_id}/branding-colors/dark")
+    Call<Void> deleteAllAccountDarkColors(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
+
+    /**
+     * Delete colors in the light theme. Delete account light theme branding colors. **Example usage:** &#x60;curl -X
+     * DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light -H &#39;Authorization:
+     * Bearer API_KEY&#39;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @return Call&lt;Void&gt;
+     */
+    @DELETE("v3/accounts/{account_id}/branding-colors/light")
+    Call<Void> deleteAllAccountLightColors(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
+
+    /**
      * Get dark theme branding color. Retrieve the requested dark theme branding color. **Example:** &#x60;&#x60;&#x60;
      * curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \\ -H
      * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            The name of the branding color. (required)
      * @return Call&lt;BrandingColor&gt;
@@ -68,7 +104,7 @@ public interface TenantUserInterfaceConfigurationColorsApi {
      * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @return Call&lt;BrandingColorList&gt;
      */
     @GET("v3/accounts/{account_id}/branding-colors/dark")
@@ -82,7 +118,7 @@ public interface TenantUserInterfaceConfigurationColorsApi {
      * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            The name of the branding color. (required)
      * @return Call&lt;BrandingColor&gt;
@@ -98,7 +134,7 @@ public interface TenantUserInterfaceConfigurationColorsApi {
      * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @return Call&lt;BrandingColorList&gt;
      */
     @GET("v3/accounts/{account_id}/branding-colors/light")
@@ -112,7 +148,7 @@ public interface TenantUserInterfaceConfigurationColorsApi {
      * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            The name of the branding color. (required)
      * @return Call&lt;Void&gt;
@@ -128,7 +164,7 @@ public interface TenantUserInterfaceConfigurationColorsApi {
      * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            The name of the branding color. (required)
      * @return Call&lt;Void&gt;
@@ -145,7 +181,7 @@ public interface TenantUserInterfaceConfigurationColorsApi {
      * \&quot;color\&quot;: \&quot;#f3f93e\&quot; }&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            The name of the branding color. (required)
      * @param body
@@ -166,7 +202,7 @@ public interface TenantUserInterfaceConfigurationColorsApi {
      * \&quot;color\&quot;: \&quot;purple\&quot; }&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            The name of the branding color. (required)
      * @param body

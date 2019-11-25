@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupIdList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserUpdateReq;
 import org.junit.Before;
@@ -34,7 +35,26 @@ public class TenantAccountsUsersApiTest {
         String accountId = null;
         String userId = null;
         List<String> body = null;
-        // UpdatedResponse response = api.addAccountUserToGroups(accountId, userId, body);
+        // UserInfoResp response = api.addAccountUserToGroups(accountId, userId, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Add user to a list of groups.
+     *
+     * Add a user to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups/add \\ -H &#39;Authorization:
+     * Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void addAccountUserToListedGroupsTest() {
+        String accountId = null;
+        String userId = null;
+        GroupIdList body = null;
+        // UserInfoResp response = api.addAccountUserToListedGroups(accountId, userId, body);
 
         // TODO: test validations
     }
@@ -149,7 +169,26 @@ public class TenantAccountsUsersApiTest {
         String accountId = null;
         String userId = null;
         List<String> body = null;
-        // UpdatedResponse response = api.removeAccountUserFromGroups(accountId, userId, body);
+        // UserInfoResp response = api.removeAccountUserFromGroups(accountId, userId, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Remove user from groups.
+     *
+     * Remove a user from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups/remove \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void removeAccountUserFromListedGroupsTest() {
+        String accountId = null;
+        String userId = null;
+        GroupIdList body = null;
+        // UserInfoResp response = api.removeAccountUserFromListedGroups(accountId, userId, body);
 
         // TODO: test validations
     }

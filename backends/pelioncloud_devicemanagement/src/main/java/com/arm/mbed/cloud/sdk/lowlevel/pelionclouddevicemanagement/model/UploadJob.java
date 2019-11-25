@@ -36,11 +36,11 @@ public class UploadJob implements Serializable {
     }
 
     /**
-     * Human-readable description
+     * Human-readable description.
      * 
      * @return description
      **/
-    @ApiModelProperty(example = "New Linux update for my devices", value = "Human-readable description")
+    @ApiModelProperty(example = "New Linux update for my devices", value = "Human-readable description.")
     public String getDescription() {
         return description;
     }
@@ -55,11 +55,11 @@ public class UploadJob implements Serializable {
     }
 
     /**
-     * Human-readable name
+     * Human-readable name.
      * 
      * @return name
      **/
-    @ApiModelProperty(example = "New Linux update", value = "Human-readable name")
+    @ApiModelProperty(example = "New Linux update", value = "Human-readable name.")
     public String getName() {
         return name;
     }

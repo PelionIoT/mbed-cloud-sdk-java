@@ -5,6 +5,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addUserToGroups**](AccountUsersApi.md#addUserToGroups) | **POST** v3/users/{user_id}/groups | Add user to a list of groups.
+[**addUserToListedGroups**](AccountUsersApi.md#addUserToListedGroups) | **POST** v3/users/{user_id}/groups/add | Add user to a list of groups.
 [**createUser**](AccountUsersApi.md#createUser) | **POST** v3/users | Create a new user.
 [**deleteUser**](AccountUsersApi.md#deleteUser) | **DELETE** v3/users/{user_id} | Delete a user.
 [**getAllUsers**](AccountUsersApi.md#getAllUsers) | **GET** v3/users | Get the details of all users.
@@ -12,13 +13,14 @@ Method | HTTP request | Description
 [**getMyUser**](AccountUsersApi.md#getMyUser) | **GET** v3/users/me | Details of the current user.
 [**getUser**](AccountUsersApi.md#getUser) | **GET** v3/users/{user_id} | Details of a user.
 [**removeUserFromGroups**](AccountUsersApi.md#removeUserFromGroups) | **DELETE** v3/users/{user_id}/groups | Remove user from groups.
+[**removeUserFromListedGroups**](AccountUsersApi.md#removeUserFromListedGroups) | **POST** v3/users/{user_id}/groups/remove | Remove user from groups.
 [**updateMyUser**](AccountUsersApi.md#updateMyUser) | **PUT** v3/users/me | Update user details.
 [**updateUser**](AccountUsersApi.md#updateUser) | **PUT** v3/users/{user_id} | Update user details.
 
 
 <a name="addUserToGroups"></a>
 # **addUserToGroups**
-> UpdatedResponse addUserToGroups(userId, body)
+> UserInfoResp addUserToGroups(userId, body)
 
 Add user to a list of groups.
 
@@ -45,7 +47,7 @@ AccountUsersApi apiInstance = new AccountUsersApi();
 String userId = "userId_example"; // String | The ID of the user to add to the group.
 List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to update.
 try {
-    UpdatedResponse result = apiInstance.addUserToGroups(userId, body);
+    UserInfoResp result = apiInstance.addUserToGroups(userId, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountUsersApi#addUserToGroups");
@@ -62,7 +64,64 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdatedResponse**](UpdatedResponse.md)
+[**UserInfoResp**](UserInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="addUserToListedGroups"></a>
+# **addUserToListedGroups**
+> UserInfoResp addUserToListedGroups(userId, body)
+
+Add user to a list of groups.
+
+Add user to groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups/add \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountUsersApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountUsersApi apiInstance = new AccountUsersApi();
+String userId = "userId_example"; // String | The ID of the user to add to the group.
+GroupIdList body = new GroupIdList(); // GroupIdList | A list of IDs of the groups to update.
+try {
+    UserInfoResp result = apiInstance.addUserToListedGroups(userId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountUsersApi#addUserToListedGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **String**| The ID of the user to add to the group. |
+ **body** | [**GroupIdList**](GroupIdList.md)| A list of IDs of the groups to update. |
+
+### Return type
+
+[**UserInfoResp**](UserInfoResp.md)
 
 ### Authorization
 
@@ -435,7 +494,7 @@ Name | Type | Description  | Notes
 
 <a name="removeUserFromGroups"></a>
 # **removeUserFromGroups**
-> UpdatedResponse removeUserFromGroups(userId, body)
+> UserInfoResp removeUserFromGroups(userId, body)
 
 Remove user from groups.
 
@@ -462,7 +521,7 @@ AccountUsersApi apiInstance = new AccountUsersApi();
 String userId = "userId_example"; // String | The ID of the user to remove from the group.
 List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to update.
 try {
-    UpdatedResponse result = apiInstance.removeUserFromGroups(userId, body);
+    UserInfoResp result = apiInstance.removeUserFromGroups(userId, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountUsersApi#removeUserFromGroups");
@@ -479,7 +538,64 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdatedResponse**](UpdatedResponse.md)
+[**UserInfoResp**](UserInfoResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="removeUserFromListedGroups"></a>
+# **removeUserFromListedGroups**
+> UserInfoResp removeUserFromListedGroups(userId, body)
+
+Remove user from groups.
+
+Remove user from groups.  **Example:** &#x60;&#x60;&#x60; curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups/remove \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39; &#x60;&#x60;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountUsersApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountUsersApi apiInstance = new AccountUsersApi();
+String userId = "userId_example"; // String | The ID of the user to remove from the group.
+GroupIdList body = new GroupIdList(); // GroupIdList | A list of IDs of the groups to update.
+try {
+    UserInfoResp result = apiInstance.removeUserFromListedGroups(userId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountUsersApi#removeUserFromListedGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **String**| The ID of the user to remove from the group. |
+ **body** | [**GroupIdList**](GroupIdList.md)| A list of IDs of the groups to update. |
+
+### Return type
+
+[**UserInfoResp**](UserInfoResp.md)
 
 ### Authorization
 

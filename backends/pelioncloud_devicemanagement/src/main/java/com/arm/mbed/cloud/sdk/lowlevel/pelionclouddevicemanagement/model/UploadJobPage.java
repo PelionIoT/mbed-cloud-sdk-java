@@ -47,7 +47,7 @@ public class UploadJobPage implements Serializable {
     private String object = null;
 
     /**
-     * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
+     * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC.
      */
     @JsonAdapter(OrderEnum.Adapter.class)
     public enum OrderEnum {
@@ -189,11 +189,11 @@ public class UploadJobPage implements Serializable {
     }
 
     /**
-     * Get object
+     * Entity name: always &#39;list&#39;.
      * 
      * @return object
      **/
-    @ApiModelProperty(example = "list", value = "")
+    @ApiModelProperty(value = "Entity name: always 'list'.")
     public String getObject() {
         return object;
     }
@@ -208,12 +208,12 @@ public class UploadJobPage implements Serializable {
     }
 
     /**
-     * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
+     * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC.
      * 
      * @return order
      **/
     @ApiModelProperty(example = "ASC",
-                      value = "The order of the records to return. Acceptable values: ASC, DESC. Default: ASC")
+                      value = "The order of the records to return. Acceptable values: ASC, DESC. Default: ASC.")
     public OrderEnum getOrder() {
         return order;
     }

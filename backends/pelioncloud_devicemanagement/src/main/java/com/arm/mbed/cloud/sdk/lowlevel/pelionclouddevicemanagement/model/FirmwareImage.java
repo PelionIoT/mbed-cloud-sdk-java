@@ -41,7 +41,7 @@ public class FirmwareImage implements Serializable {
     private String description = null;
 
     @SerializedName("etag")
-    private DateTime etag = null;
+    private String etag = null;
 
     @SerializedName("id")
     private String id = null;
@@ -61,12 +61,11 @@ public class FirmwareImage implements Serializable {
     }
 
     /**
-     * The time the object was created
+     * The time the entity was created.
      * 
      * @return createdAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true,
-                      value = "The time the object was created")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the entity was created.")
     public DateTime getCreatedAt() {
         return createdAt;
     }
@@ -85,7 +84,7 @@ public class FirmwareImage implements Serializable {
      * 
      * @return datafile
      **/
-    @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000", required = true,
+    @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000",
                       value = "The firmware image file URL")
     public String getDatafile() {
         return datafile;
@@ -101,12 +100,12 @@ public class FirmwareImage implements Serializable {
     }
 
     /**
-     * The checksum (sha256) generated for the datafile
+     * The checksum (sha256) generated for the datafile.
      * 
      * @return datafileChecksum
      **/
-    @ApiModelProperty(example = "0000000000000000000000000000000000000000000000000000000000000000", required = true,
-                      value = "The checksum (sha256) generated for the datafile")
+    @ApiModelProperty(example = "0000000000000000000000000000000000000000000000000000000000000000",
+                      value = "The checksum (sha256) generated for the datafile.")
     public String getDatafileChecksum() {
         return datafileChecksum;
     }
@@ -121,11 +120,11 @@ public class FirmwareImage implements Serializable {
     }
 
     /**
-     * The size of the datafile in bytes
+     * The size of the datafile in bytes.
      * 
      * @return datafileSize
      **/
-    @ApiModelProperty(value = "The size of the datafile in bytes")
+    @ApiModelProperty(value = "The size of the datafile in bytes.")
     public Long getDatafileSize() {
         return datafileSize;
     }
@@ -140,11 +139,11 @@ public class FirmwareImage implements Serializable {
     }
 
     /**
-     * The description of the object
+     * The description of the object.
      * 
      * @return description
      **/
-    @ApiModelProperty(example = "", required = true, value = "The description of the object")
+    @ApiModelProperty(example = "a description", value = "The description of the object.")
     public String getDescription() {
         return description;
     }
@@ -153,22 +152,22 @@ public class FirmwareImage implements Serializable {
         this.description = description;
     }
 
-    public FirmwareImage etag(DateTime etag) {
+    public FirmwareImage etag(String etag) {
         this.etag = etag;
         return this;
     }
 
     /**
-     * The entity instance signature
+     * API resource entity version.
      * 
      * @return etag
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The entity instance signature")
-    public DateTime getEtag() {
+    @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "API resource entity version.")
+    public String getEtag() {
         return etag;
     }
 
-    public void setEtag(DateTime etag) {
+    public void setEtag(String etag) {
         this.etag = etag;
     }
 
@@ -178,11 +177,11 @@ public class FirmwareImage implements Serializable {
     }
 
     /**
-     * The firmware image ID
+     * The firmware image ID.
      * 
      * @return id
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "The firmware image ID")
+    @ApiModelProperty(example = "00000000000000000000000000000000", value = "The firmware image ID.")
     public String getId() {
         return id;
     }
@@ -197,11 +196,11 @@ public class FirmwareImage implements Serializable {
     }
 
     /**
-     * The firmware image name
+     * The firmware image name.
      * 
      * @return name
      **/
-    @ApiModelProperty(example = "", required = true, value = "The firmware image name")
+    @ApiModelProperty(value = "The firmware image name.")
     public String getName() {
         return name;
     }
@@ -216,11 +215,11 @@ public class FirmwareImage implements Serializable {
     }
 
     /**
-     * The API resource entity
+     * Entity name: always &#39;firmware-image&#39;.
      * 
      * @return object
      **/
-    @ApiModelProperty(example = "firmware-image", required = true, value = "The API resource entity")
+    @ApiModelProperty(value = "Entity name: always 'firmware-image'.")
     public String getObject() {
         return object;
     }
@@ -235,12 +234,11 @@ public class FirmwareImage implements Serializable {
     }
 
     /**
-     * The time the object was updated
+     * The time the entity was updated.
      * 
      * @return updatedAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true,
-                      value = "The time the object was updated")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the entity was updated.")
     public DateTime getUpdatedAt() {
         return updatedAt;
     }

@@ -20,6 +20,54 @@ public class AccountPolicyGroupsApiTest {
     }
 
     /**
+     * Add API keys to the group.
+     *
+     * Add API keys to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void addApiKeysToGroupTest() {
+        String groupId = null;
+        SubjectList body = null;
+        // GroupSummary response = api.addApiKeysToGroup(groupId, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Add API Keys to the group.
+     *
+     * Add API keys to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void addListedApiKeysToGroupTest() {
+        String groupId = null;
+        SubjectList body = null;
+        // GroupSummary response = api.addListedApiKeysToGroup(groupId, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Add users to the group.
+     *
+     * Add users to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/add \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void addListedUsersToGroup_Test() {
+        String groupId = null;
+        SubjectList body = null;
+        // GroupSummary response = api.addListedUsersToGroup_(groupId, body);
+
+        // TODO: test validations
+    }
+
+    /**
      * Add members to a group.
      *
      * Add users and API keys to a group. **Example:** &#x60;&#x60;&#x60; curl -X POST
@@ -32,7 +80,23 @@ public class AccountPolicyGroupsApiTest {
     public void addSubjectsToGroupTest() {
         String groupId = null;
         SubjectList body = null;
-        // UpdatedResponse response = api.addSubjectsToGroup(groupId, body);
+        // GroupSummary response = api.addSubjectsToGroup(groupId, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Add users to the group.
+     *
+     * Add users to the group. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void addUsersToGroup_Test() {
+        String groupId = null;
+        SubjectList body = null;
+        // GroupSummary response = api.addUsersToGroup_(groupId, body);
 
         // TODO: test validations
     }
@@ -157,7 +221,43 @@ public class AccountPolicyGroupsApiTest {
     public void removeApiKeysFromGroupTest() {
         String groupId = null;
         SubjectList body = null;
-        // UpdatedResponse response = api.removeApiKeysFromGroup(groupId, body);
+        // GroupSummary response = api.removeApiKeysFromGroup(groupId, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Remove API keys from a group.
+     *
+     * Remove API keys from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys/remove \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void removeListedApiKeysFromGroupTest() {
+        String groupId = null;
+        SubjectList body = null;
+        // GroupSummary response = api.removeListedApiKeysFromGroup(groupId, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Remove users from a group.
+     *
+     * Manage policy groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users/remove \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void removeListedUsersFromGroupTest() {
+        String groupId = null;
+        SubjectList body = null;
+        // GroupSummary response = api.removeListedUsersFromGroup(groupId, body);
 
         // TODO: test validations
     }
@@ -175,7 +275,7 @@ public class AccountPolicyGroupsApiTest {
     public void removeUsersFromGroupTest() {
         String groupId = null;
         SubjectList body = null;
-        // UpdatedResponse response = api.removeUsersFromGroup(groupId, body);
+        // GroupSummary response = api.removeUsersFromGroup(groupId, body);
 
         // TODO: test validations
     }
@@ -192,7 +292,7 @@ public class AccountPolicyGroupsApiTest {
     public void updateGroupNameTest() {
         String groupId = null;
         GroupUpdateInfo body = null;
-        // UpdatedResponse response = api.updateGroupName(groupId, body);
+        // GroupSummary response = api.updateGroupName(groupId, body);
 
         // TODO: test validations
     }

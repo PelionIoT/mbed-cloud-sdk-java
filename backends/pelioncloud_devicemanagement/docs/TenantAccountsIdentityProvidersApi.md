@@ -329,7 +329,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 TenantAccountsIdentityProvidersApi apiInstance = new TenantAccountsIdentityProvidersApi();
-String accountId = "accountId_example"; // String | Account ID.
+String accountId = "accountId_example"; // String | The ID of the account.
 Integer limit = 50; // Integer | The number of results to return (2-1000). Default 50.
 String after = "after_example"; // String | The entity ID to fetch after the given one.
 String order = "ASC"; // String | Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC.
@@ -347,7 +347,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accountId** | **String**| Account ID. |
+ **accountId** | **String**| The ID of the account. |
  **limit** | **Integer**| The number of results to return (2-1000). Default 50. | [optional] [default to 50]
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
  **order** | **String**| Record order based on creation time. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]

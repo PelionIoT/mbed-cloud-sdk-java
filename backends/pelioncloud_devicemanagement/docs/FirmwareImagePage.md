@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **data** | [**List&lt;FirmwareImage&gt;**](FirmwareImage.md) |  |  [optional]
 **hasMore** | **Boolean** |  |  [optional]
 **limit** | **Integer** |  |  [optional]
-**object** | **String** |  |  [optional]
+**object** | **String** | Entity name: always &#39;list&#39;. |  [optional]
 **order** | [**OrderEnum**](#OrderEnum) | The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. |  [optional]
 **totalCount** | **Integer** |  |  [optional]
 

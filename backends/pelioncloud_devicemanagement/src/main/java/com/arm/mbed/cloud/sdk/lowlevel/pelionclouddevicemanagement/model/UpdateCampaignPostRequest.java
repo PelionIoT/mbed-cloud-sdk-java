@@ -20,7 +20,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import org.joda.time.DateTime;
+import java.math.BigDecimal;
 import java.io.Serializable;
 
 /**
@@ -30,33 +30,29 @@ import java.io.Serializable;
 public class UpdateCampaignPostRequest implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @SerializedName("description")
-    private String description = null;
+    @SerializedName("approval_required")
+    private Boolean approvalRequired = false;
 
-    @SerializedName("device_filter")
-    private String deviceFilter = null;
+    @SerializedName("autostop")
+    private Boolean autostop = true;
 
-    @SerializedName("name")
-    private String name = null;
-
-    @SerializedName("object")
-    private String object = null;
-
-    @SerializedName("root_manifest_id")
-    private String rootManifestId = null;
+    @SerializedName("autostop_success_percent")
+    private BigDecimal autostopSuccessPercent = null;
 
     /**
-     * DEPRECATED: The state of the campaign (use phase instead)
+     * How the campaign adds devices. A &#x60;one-shot&#x60; campaign does not add new devices after it has started. A
+     * &#x60;continuous&#x60; campaign means that devices may be added to the campaign after it has started. The default
+     * is &#x60;one-shot&#x60;.
      */
-    @JsonAdapter(StateEnum.Adapter.class)
-    public enum StateEnum {
-        DRAFT("draft"),
+    @JsonAdapter(CampaignStrategyEnum.Adapter.class)
+    public enum CampaignStrategyEnum {
+        ONE_SHOT("one-shot"),
 
-        SCHEDULED("scheduled");
+        CONTINUOUS("continuous");
 
         private String value;
 
-        StateEnum(String value) {
+        CampaignStrategyEnum(String value) {
             this.value = value;
         }
 
@@ -69,8 +65,8 @@ public class UpdateCampaignPostRequest implements Serializable {
             return String.valueOf(value);
         }
 
-        public static StateEnum fromValue(String text) {
-            for (StateEnum b : StateEnum.values()) {
+        public static CampaignStrategyEnum fromValue(String text) {
+            for (CampaignStrategyEnum b : CampaignStrategyEnum.values()) {
                 if (String.valueOf(b.value).equals(text)) {
                     return b;
                 }
@@ -78,25 +74,112 @@ public class UpdateCampaignPostRequest implements Serializable {
             return null;
         }
 
-        public static class Adapter extends TypeAdapter<StateEnum> {
+        public static class Adapter extends TypeAdapter<CampaignStrategyEnum> {
             @Override
-            public void write(final JsonWriter jsonWriter, final StateEnum enumeration) throws IOException {
+            public void write(final JsonWriter jsonWriter, final CampaignStrategyEnum enumeration) throws IOException {
                 jsonWriter.value(enumeration.getValue());
             }
 
             @Override
-            public StateEnum read(final JsonReader jsonReader) throws IOException {
+            public CampaignStrategyEnum read(final JsonReader jsonReader) throws IOException {
                 String value = jsonReader.nextString();
-                return StateEnum.fromValue(String.valueOf(value));
+                return CampaignStrategyEnum.fromValue(String.valueOf(value));
             }
         }
     }
 
-    @SerializedName("state")
-    private StateEnum state = null;
+    @SerializedName("campaign_strategy")
+    private CampaignStrategyEnum campaignStrategy = CampaignStrategyEnum.ONE_SHOT;
 
-    @SerializedName("when")
-    private DateTime when = null;
+    @SerializedName("description")
+    private String description = null;
+
+    @SerializedName("device_filter")
+    private String deviceFilter = null;
+
+    @SerializedName("name")
+    private String name = "default_object_name";
+
+    @SerializedName("root_manifest_id")
+    private String rootManifestId = null;
+
+    public UpdateCampaignPostRequest approvalRequired(Boolean approvalRequired) {
+        this.approvalRequired = approvalRequired;
+        return this;
+    }
+
+    /**
+     * Get approvalRequired
+     * 
+     * @return approvalRequired
+     **/
+    @ApiModelProperty(value = "")
+    public Boolean isApprovalRequired() {
+        return approvalRequired;
+    }
+
+    public void setApprovalRequired(Boolean approvalRequired) {
+        this.approvalRequired = approvalRequired;
+    }
+
+    public UpdateCampaignPostRequest autostop(Boolean autostop) {
+        this.autostop = autostop;
+        return this;
+    }
+
+    /**
+     * Get autostop
+     * 
+     * @return autostop
+     **/
+    @ApiModelProperty(value = "")
+    public Boolean isAutostop() {
+        return autostop;
+    }
+
+    public void setAutostop(Boolean autostop) {
+        this.autostop = autostop;
+    }
+
+    public UpdateCampaignPostRequest autostopSuccessPercent(BigDecimal autostopSuccessPercent) {
+        this.autostopSuccessPercent = autostopSuccessPercent;
+        return this;
+    }
+
+    /**
+     * Get autostopSuccessPercent
+     * 
+     * @return autostopSuccessPercent
+     **/
+    @ApiModelProperty(value = "")
+    public BigDecimal getAutostopSuccessPercent() {
+        return autostopSuccessPercent;
+    }
+
+    public void setAutostopSuccessPercent(BigDecimal autostopSuccessPercent) {
+        this.autostopSuccessPercent = autostopSuccessPercent;
+    }
+
+    public UpdateCampaignPostRequest campaignStrategy(CampaignStrategyEnum campaignStrategy) {
+        this.campaignStrategy = campaignStrategy;
+        return this;
+    }
+
+    /**
+     * How the campaign adds devices. A &#x60;one-shot&#x60; campaign does not add new devices after it has started. A
+     * &#x60;continuous&#x60; campaign means that devices may be added to the campaign after it has started. The default
+     * is &#x60;one-shot&#x60;.
+     * 
+     * @return campaignStrategy
+     **/
+    @ApiModelProperty(value = "How the campaign adds devices. A `one-shot` campaign does not add new devices after it has started. A `continuous` campaign means that devices may be added to the campaign after it has started. The default is `one-shot`.")
+    public CampaignStrategyEnum getCampaignStrategy() {
+        return campaignStrategy;
+    }
+
+    public void setCampaignStrategy(CampaignStrategyEnum campaignStrategy) {
+        this.campaignStrategy = campaignStrategy;
+    }
 
     public UpdateCampaignPostRequest description(String description) {
         this.description = description;
@@ -104,11 +187,11 @@ public class UpdateCampaignPostRequest implements Serializable {
     }
 
     /**
-     * An optional description of the campaign
+     * An optional description of the campaign.
      * 
      * @return description
      **/
-    @ApiModelProperty(example = "", value = "An optional description of the campaign")
+    @ApiModelProperty(example = "a description", value = "An optional description of the campaign.")
     public String getDescription() {
         return description;
     }
@@ -123,12 +206,12 @@ public class UpdateCampaignPostRequest implements Serializable {
     }
 
     /**
-     * The filter for the devices the campaign is targeting at
+     * The filter for the devices the campaign is targeted at.
      * 
      * @return deviceFilter
      **/
     @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", required = true,
-                      value = "The filter for the devices the campaign is targeting at")
+                      value = "The filter for the devices the campaign is targeted at.")
     public String getDeviceFilter() {
         return deviceFilter;
     }
@@ -143,36 +226,17 @@ public class UpdateCampaignPostRequest implements Serializable {
     }
 
     /**
-     * The name for this campaign
+     * The name for this campaign.
      * 
      * @return name
      **/
-    @ApiModelProperty(example = "campaign", value = "The name for this campaign")
+    @ApiModelProperty(value = "The name for this campaign.")
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public UpdateCampaignPostRequest object(String object) {
-        this.object = object;
-        return this;
-    }
-
-    /**
-     * The API resource entity
-     * 
-     * @return object
-     **/
-    @ApiModelProperty(example = "update-campaign", value = "The API resource entity")
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
     }
 
     public UpdateCampaignPostRequest rootManifestId(String rootManifestId) {
@@ -185,52 +249,13 @@ public class UpdateCampaignPostRequest implements Serializable {
      * 
      * @return rootManifestId
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", value = "")
+    @ApiModelProperty(example = "12345678901234567890123456789012", value = "")
     public String getRootManifestId() {
         return rootManifestId;
     }
 
     public void setRootManifestId(String rootManifestId) {
         this.rootManifestId = rootManifestId;
-    }
-
-    public UpdateCampaignPostRequest state(StateEnum state) {
-        this.state = state;
-        return this;
-    }
-
-    /**
-     * DEPRECATED: The state of the campaign (use phase instead)
-     * 
-     * @return state
-     **/
-    @ApiModelProperty(value = "DEPRECATED: The state of the campaign (use phase instead)")
-    public StateEnum getState() {
-        return state;
-    }
-
-    public void setState(StateEnum state) {
-        this.state = state;
-    }
-
-    public UpdateCampaignPostRequest when(DateTime when) {
-        this.when = when;
-        return this;
-    }
-
-    /**
-     * The scheduled start time for the update campaign. Not in use.
-     * 
-     * @return when
-     **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z",
-                      value = "The scheduled start time for the update campaign. Not in use.")
-    public DateTime getWhen() {
-        return when;
-    }
-
-    public void setWhen(DateTime when) {
-        this.when = when;
     }
 
     @Override
@@ -242,18 +267,20 @@ public class UpdateCampaignPostRequest implements Serializable {
             return false;
         }
         UpdateCampaignPostRequest updateCampaignPostRequest = (UpdateCampaignPostRequest) o;
-        return Objects.equals(this.description, updateCampaignPostRequest.description)
+        return Objects.equals(this.approvalRequired, updateCampaignPostRequest.approvalRequired)
+               && Objects.equals(this.autostop, updateCampaignPostRequest.autostop)
+               && Objects.equals(this.autostopSuccessPercent, updateCampaignPostRequest.autostopSuccessPercent)
+               && Objects.equals(this.campaignStrategy, updateCampaignPostRequest.campaignStrategy)
+               && Objects.equals(this.description, updateCampaignPostRequest.description)
                && Objects.equals(this.deviceFilter, updateCampaignPostRequest.deviceFilter)
                && Objects.equals(this.name, updateCampaignPostRequest.name)
-               && Objects.equals(this.object, updateCampaignPostRequest.object)
-               && Objects.equals(this.rootManifestId, updateCampaignPostRequest.rootManifestId)
-               && Objects.equals(this.state, updateCampaignPostRequest.state)
-               && Objects.equals(this.when, updateCampaignPostRequest.when);
+               && Objects.equals(this.rootManifestId, updateCampaignPostRequest.rootManifestId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, deviceFilter, name, object, rootManifestId, state, when);
+        return Objects.hash(approvalRequired, autostop, autostopSuccessPercent, campaignStrategy, description,
+                            deviceFilter, name, rootManifestId);
     }
 
     @Override
@@ -261,13 +288,14 @@ public class UpdateCampaignPostRequest implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("class UpdateCampaignPostRequest {\n");
 
+        sb.append("    approvalRequired: ").append(toIndentedString(approvalRequired)).append("\n");
+        sb.append("    autostop: ").append(toIndentedString(autostop)).append("\n");
+        sb.append("    autostopSuccessPercent: ").append(toIndentedString(autostopSuccessPercent)).append("\n");
+        sb.append("    campaignStrategy: ").append(toIndentedString(campaignStrategy)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    deviceFilter: ").append(toIndentedString(deviceFilter)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    object: ").append(toIndentedString(object)).append("\n");
         sb.append("    rootManifestId: ").append(toIndentedString(rootManifestId)).append("\n");
-        sb.append("    state: ").append(toIndentedString(state)).append("\n");
-        sb.append("    when: ").append(toIndentedString(when)).append("\n");
         sb.append("}");
         return sb.toString();
     }

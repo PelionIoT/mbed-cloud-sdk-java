@@ -37,7 +37,7 @@ public class CampaignDeviceMetadata implements Serializable {
     private DateTime createdAt = null;
 
     /**
-     * The state of the update campaign on the device
+     * The state of the update campaign on the device.
      */
     @JsonAdapter(DeploymentStateEnum.Adapter.class)
     public enum DeploymentStateEnum {
@@ -113,7 +113,7 @@ public class CampaignDeviceMetadata implements Serializable {
     private String mechanismUrl = null;
 
     @SerializedName("name")
-    private String name = null;
+    private String name = "default_object_name";
 
     @SerializedName("object")
     private String object = null;
@@ -127,11 +127,11 @@ public class CampaignDeviceMetadata implements Serializable {
     }
 
     /**
-     * The device&#39;s campaign ID
+     * The device&#39;s campaign ID.
      * 
      * @return campaign
      **/
-    @ApiModelProperty(example = "015bf72fccda00000000000100100280", value = "The device's campaign ID")
+    @ApiModelProperty(example = "015bf72fccda00000000000100100280", value = "The device's campaign ID.")
     public String getCampaign() {
         return campaign;
     }
@@ -146,11 +146,11 @@ public class CampaignDeviceMetadata implements Serializable {
     }
 
     /**
-     * The time the campaign was created
+     * The time the entity was created.
      * 
      * @return createdAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the campaign was created")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the entity was created.")
     public DateTime getCreatedAt() {
         return createdAt;
     }
@@ -165,11 +165,11 @@ public class CampaignDeviceMetadata implements Serializable {
     }
 
     /**
-     * The state of the update campaign on the device
+     * The state of the update campaign on the device.
      * 
      * @return deploymentState
      **/
-    @ApiModelProperty(value = "The state of the update campaign on the device")
+    @ApiModelProperty(value = "The state of the update campaign on the device.")
     public DeploymentStateEnum getDeploymentState() {
         return deploymentState;
     }
@@ -184,11 +184,11 @@ public class CampaignDeviceMetadata implements Serializable {
     }
 
     /**
-     * Description
+     * Description.
      * 
      * @return description
      **/
-    @ApiModelProperty(example = "", value = "Description")
+    @ApiModelProperty(example = "a description", value = "Description.")
     public String getDescription() {
         return description;
     }
@@ -203,11 +203,11 @@ public class CampaignDeviceMetadata implements Serializable {
     }
 
     /**
-     * The device ID
+     * The device ID.
      * 
      * @return deviceId
      **/
-    @ApiModelProperty(example = "015c2fec9bba0000000000010010036f", value = "The device ID")
+    @ApiModelProperty(example = "015c2fec9bba0000000000010010036f", value = "The device ID.")
     public String getDeviceId() {
         return deviceId;
     }
@@ -222,11 +222,11 @@ public class CampaignDeviceMetadata implements Serializable {
     }
 
     /**
-     * API resource entity version
+     * API resource entity version.
      * 
      * @return etag
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "API resource entity version")
+    @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "API resource entity version.")
     public String getEtag() {
         return etag;
     }
@@ -241,11 +241,11 @@ public class CampaignDeviceMetadata implements Serializable {
     }
 
     /**
-     * The metadata record ID
+     * The metadata record ID.
      * 
      * @return id
      **/
-    @ApiModelProperty(example = "015c3029f6f7000000000001001000c3", value = "The metadata record ID")
+    @ApiModelProperty(example = "015c3029f6f7000000000001001000c3", value = "The metadata record ID.")
     public String getId() {
         return id;
     }
@@ -260,11 +260,11 @@ public class CampaignDeviceMetadata implements Serializable {
     }
 
     /**
-     * How the firmware is delivered (connector or direct)
+     * How the firmware is delivered (connector or direct).
      * 
      * @return mechanism
      **/
-    @ApiModelProperty(example = "connector", value = "How the firmware is delivered (connector or direct)")
+    @ApiModelProperty(example = "connector", value = "How the firmware is delivered (connector or direct).")
     public String getMechanism() {
         return mechanism;
     }
@@ -279,11 +279,11 @@ public class CampaignDeviceMetadata implements Serializable {
     }
 
     /**
-     * The Device Management Connect URL
+     * The Device Management Connect URL.
      * 
      * @return mechanismUrl
      **/
-    @ApiModelProperty(example = "", value = "The Device Management Connect URL")
+    @ApiModelProperty(value = "The Device Management Connect URL.")
     public String getMechanismUrl() {
         return mechanismUrl;
     }
@@ -298,11 +298,11 @@ public class CampaignDeviceMetadata implements Serializable {
     }
 
     /**
-     * The record name
+     * The record name.
      * 
      * @return name
      **/
-    @ApiModelProperty(example = "default_object_name", value = "The record name")
+    @ApiModelProperty(value = "The record name.")
     public String getName() {
         return name;
     }
@@ -317,12 +317,11 @@ public class CampaignDeviceMetadata implements Serializable {
     }
 
     /**
-     * The entity name: always &#39;update-campaign-device-metadata&#39;
+     * The entity name: always &#39;update-campaign-device-metadata&#39;.
      * 
      * @return object
      **/
-    @ApiModelProperty(example = "update-campaign-device-metadata",
-                      value = "The entity name: always 'update-campaign-device-metadata'")
+    @ApiModelProperty(value = "The entity name: always 'update-campaign-device-metadata'.")
     public String getObject() {
         return object;
     }
@@ -337,12 +336,11 @@ public class CampaignDeviceMetadata implements Serializable {
     }
 
     /**
-     * The record was modified in the database format: date-time
+     * The time the entity was updated.
      * 
      * @return updatedAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:58.776736Z",
-                      value = "The record was modified in the database format: date-time")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the entity was updated.")
     public DateTime getUpdatedAt() {
         return updatedAt;
     }

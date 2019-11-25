@@ -18,7 +18,7 @@ public interface TenantUserInterfaceConfigurationImagesApi {
      * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            Name of the branding images (icon or picture). (required)
      * @return Call&lt;Void&gt;
@@ -34,7 +34,7 @@ public interface TenantUserInterfaceConfigurationImagesApi {
      * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            Name of the branding images (icon or picture). (required)
      * @return Call&lt;Void&gt;
@@ -44,13 +44,49 @@ public interface TenantUserInterfaceConfigurationImagesApi {
                                       @retrofit2.http.Path(value = "reference", encoded = true) String reference);
 
     /**
+     * Delete images in the dark theme. Delete account dark theme branding images. **Example usage:** &#x60;curl -X
+     * DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark -H &#39;Authorization:
+     * Bearer API_KEY&#39;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @return Call&lt;Void&gt;
+     */
+    @DELETE("v3/accounts/{account_id}/branding-images/dark")
+    Call<Void> deleteAllAccountDarkImages(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
+
+    /**
+     * Delete all images. Delete account branding images for all themes. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images -H &#39;Authorization: Bearer
+     * API_KEY&#39;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @return Call&lt;Void&gt;
+     */
+    @DELETE("v3/accounts/{account_id}/branding-images")
+    Call<Void> deleteAllAccountImages(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
+
+    /**
+     * Delete images in the light theme. Delete account light theme branding images. **Example usage:** &#x60;curl -X
+     * DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light -H &#39;Authorization:
+     * Bearer API_KEY&#39;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @return Call&lt;Void&gt;
+     */
+    @DELETE("v3/accounts/{account_id}/branding-images/light")
+    Call<Void> deleteAllAccountLightImages(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId);
+
+    /**
      * Get metadata of a dark theme image. Retrieve metadata of one account dark theme branding image. **Example:**
      * &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference} \\ -H
      * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            Name of the branding images (icon or picture). (required)
      * @return Call&lt;BrandingImage&gt;
@@ -67,7 +103,7 @@ public interface TenantUserInterfaceConfigurationImagesApi {
      * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            Name of the branding images (icon or picture). (required)
      * @return Call&lt;BrandingImage&gt;
@@ -83,7 +119,7 @@ public interface TenantUserInterfaceConfigurationImagesApi {
      * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @return Call&lt;BrandingImageList&gt;
      */
     @GET("v3/accounts/{account_id}/branding-images/dark")
@@ -96,7 +132,7 @@ public interface TenantUserInterfaceConfigurationImagesApi {
      * \\ -H &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @return Call&lt;BrandingImageList&gt;
      */
     @GET("v3/accounts/{account_id}/branding-images/light")
@@ -111,7 +147,7 @@ public interface TenantUserInterfaceConfigurationImagesApi {
      * &#39;@myimage.png&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            Name of the branding images (icon or picture). (required)
      * @param body
@@ -129,7 +165,7 @@ public interface TenantUserInterfaceConfigurationImagesApi {
      * Upload a dark theme image. Upload a new account dark theme branding image as form data in PNG or JPEG format.
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            Name of the branding images (icon or picture). (required)
      * @param image
@@ -151,7 +187,7 @@ public interface TenantUserInterfaceConfigurationImagesApi {
      * &#39;@myimage.png&#39; &#x60;&#x60;&#x60;
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            Name of the branding images (icon or picture). (required)
      * @param body
@@ -169,7 +205,7 @@ public interface TenantUserInterfaceConfigurationImagesApi {
      * Upload a light theme image. Upload a new account branding image as form data in PNG or JPEG format.
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param reference
      *            Name of the branding images (icon or picture). (required)
      * @param image

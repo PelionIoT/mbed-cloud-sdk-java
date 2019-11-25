@@ -29,6 +29,9 @@ public class Webhook implements Serializable {
     @SerializedName("headers")
     private Map<String, String> headers = null;
 
+    @SerializedName("serialization")
+    private Object serialization = null;
+
     @SerializedName("url")
     private String url = null;
 
@@ -60,6 +63,25 @@ public class Webhook implements Serializable {
         this.headers = headers;
     }
 
+    public Webhook serialization(Object serialization) {
+        this.serialization = serialization;
+        return this;
+    }
+
+    /**
+     * Serialization configuration for a channel.
+     * 
+     * @return serialization
+     **/
+    @ApiModelProperty(value = "Serialization configuration for a channel.")
+    public Object getSerialization() {
+        return serialization;
+    }
+
+    public void setSerialization(Object serialization) {
+        this.serialization = serialization;
+    }
+
     public Webhook url(String url) {
         this.url = url;
         return this;
@@ -89,12 +111,13 @@ public class Webhook implements Serializable {
             return false;
         }
         Webhook webhook = (Webhook) o;
-        return Objects.equals(this.headers, webhook.headers) && Objects.equals(this.url, webhook.url);
+        return Objects.equals(this.headers, webhook.headers)
+               && Objects.equals(this.serialization, webhook.serialization) && Objects.equals(this.url, webhook.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(headers, url);
+        return Objects.hash(headers, serialization, url);
     }
 
     @Override
@@ -103,6 +126,7 @@ public class Webhook implements Serializable {
         sb.append("class Webhook {\n");
 
         sb.append("    headers: ").append(toIndentedString(headers)).append("\n");
+        sb.append("    serialization: ").append(toIndentedString(serialization)).append("\n");
         sb.append("    url: ").append(toIndentedString(url)).append("\n");
         sb.append("}");
         return sb.toString();

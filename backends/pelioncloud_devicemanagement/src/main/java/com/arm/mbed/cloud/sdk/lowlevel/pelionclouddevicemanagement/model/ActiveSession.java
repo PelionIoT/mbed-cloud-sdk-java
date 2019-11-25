@@ -35,6 +35,9 @@ public class ActiveSession implements Serializable {
     @SerializedName("account_id")
     private String accountId = null;
 
+    @SerializedName("created_at")
+    private DateTime createdAt = null;
+
     @SerializedName("ip_address")
     private String ipAddress = null;
 
@@ -112,6 +115,25 @@ public class ActiveSession implements Serializable {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    public ActiveSession createdAt(DateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Creation UTC time RFC3339.
+     * 
+     * @return createdAt
+     **/
+    @ApiModelProperty(example = "2018-02-13T09:35:20Z", value = "Creation UTC time RFC3339.")
+    public DateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(DateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public ActiveSession ipAddress(String ipAddress) {
@@ -221,6 +243,7 @@ public class ActiveSession implements Serializable {
         }
         ActiveSession activeSession = (ActiveSession) o;
         return Objects.equals(this.accountId, activeSession.accountId)
+               && Objects.equals(this.createdAt, activeSession.createdAt)
                && Objects.equals(this.ipAddress, activeSession.ipAddress)
                && Objects.equals(this.loginTime, activeSession.loginTime)
                && Objects.equals(this.object, activeSession.object)
@@ -230,7 +253,7 @@ public class ActiveSession implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, ipAddress, loginTime, object, referenceToken, userAgent);
+        return Objects.hash(accountId, createdAt, ipAddress, loginTime, object, referenceToken, userAgent);
     }
 
     @Override
@@ -239,6 +262,7 @@ public class ActiveSession implements Serializable {
         sb.append("class ActiveSession {\n");
 
         sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
+        sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
         sb.append("    loginTime: ").append(toIndentedString(loginTime)).append("\n");
         sb.append("    object: ").append(toIndentedString(object)).append("\n");

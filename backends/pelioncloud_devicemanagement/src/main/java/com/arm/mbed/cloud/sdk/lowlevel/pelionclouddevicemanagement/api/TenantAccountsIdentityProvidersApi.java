@@ -101,7 +101,7 @@ public interface TenantAccountsIdentityProvidersApi {
      * Get all identity providers. Retrieve identity providers in an array.
      * 
      * @param accountId
-     *            Account ID. (required)
+     *            The ID of the account. (required)
      * @param limit
      *            The number of results to return (2-1000). Default 50. (optional, default to 50)
      * @param after

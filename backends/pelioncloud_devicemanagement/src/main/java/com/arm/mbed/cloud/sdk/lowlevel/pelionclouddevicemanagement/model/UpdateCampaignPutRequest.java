@@ -13,14 +13,9 @@
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
-import org.joda.time.DateTime;
+import java.math.BigDecimal;
 import java.io.Serializable;
 
 /**
@@ -29,6 +24,15 @@ import java.io.Serializable;
 
 public class UpdateCampaignPutRequest implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    @SerializedName("approval_required")
+    private Boolean approvalRequired = false;
+
+    @SerializedName("autostop")
+    private Boolean autostop = true;
+
+    @SerializedName("autostop_success_percent")
+    private BigDecimal autostopSuccessPercent = null;
 
     @SerializedName("description")
     private String description = null;
@@ -39,98 +43,65 @@ public class UpdateCampaignPutRequest implements Serializable {
     @SerializedName("name")
     private String name = null;
 
-    @SerializedName("object")
-    private String object = null;
-
     @SerializedName("root_manifest_id")
     private String rootManifestId = null;
 
-    /**
-     * DEPRECATED: The state of the campaign (use phase instead).
-     */
-    @JsonAdapter(StateEnum.Adapter.class)
-    public enum StateEnum {
-        DRAFT("draft"),
-
-        SCHEDULED("scheduled"),
-
-        ALLOCATINGQUOTA("allocatingquota"),
-
-        ALLOCATEDQUOTA("allocatedquota"),
-
-        QUOTAALLOCATIONFAILED("quotaallocationfailed"),
-
-        CHECKINGMANIFEST("checkingmanifest"),
-
-        CHECKEDMANIFEST("checkedmanifest"),
-
-        DEVICEFETCH("devicefetch"),
-
-        DEVICECOPY("devicecopy"),
-
-        DEVICECHECK("devicecheck"),
-
-        PUBLISHING("publishing"),
-
-        DEPLOYING("deploying"),
-
-        DEPLOYED("deployed"),
-
-        MANIFESTREMOVED("manifestremoved"),
-
-        EXPIRED("expired"),
-
-        STOPPING("stopping"),
-
-        AUTOSTOPPED("autostopped"),
-
-        USERSTOPPED("userstopped"),
-
-        CONFLICT("conflict");
-
-        private String value;
-
-        StateEnum(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static StateEnum fromValue(String text) {
-            for (StateEnum b : StateEnum.values()) {
-                if (String.valueOf(b.value).equals(text)) {
-                    return b;
-                }
-            }
-            return null;
-        }
-
-        public static class Adapter extends TypeAdapter<StateEnum> {
-            @Override
-            public void write(final JsonWriter jsonWriter, final StateEnum enumeration) throws IOException {
-                jsonWriter.value(enumeration.getValue());
-            }
-
-            @Override
-            public StateEnum read(final JsonReader jsonReader) throws IOException {
-                String value = jsonReader.nextString();
-                return StateEnum.fromValue(String.valueOf(value));
-            }
-        }
+    public UpdateCampaignPutRequest approvalRequired(Boolean approvalRequired) {
+        this.approvalRequired = approvalRequired;
+        return this;
     }
 
-    @SerializedName("state")
-    private StateEnum state = null;
+    /**
+     * Get approvalRequired
+     * 
+     * @return approvalRequired
+     **/
+    @ApiModelProperty(value = "")
+    public Boolean isApprovalRequired() {
+        return approvalRequired;
+    }
 
-    @SerializedName("when")
-    private DateTime when = null;
+    public void setApprovalRequired(Boolean approvalRequired) {
+        this.approvalRequired = approvalRequired;
+    }
+
+    public UpdateCampaignPutRequest autostop(Boolean autostop) {
+        this.autostop = autostop;
+        return this;
+    }
+
+    /**
+     * Get autostop
+     * 
+     * @return autostop
+     **/
+    @ApiModelProperty(value = "")
+    public Boolean isAutostop() {
+        return autostop;
+    }
+
+    public void setAutostop(Boolean autostop) {
+        this.autostop = autostop;
+    }
+
+    public UpdateCampaignPutRequest autostopSuccessPercent(BigDecimal autostopSuccessPercent) {
+        this.autostopSuccessPercent = autostopSuccessPercent;
+        return this;
+    }
+
+    /**
+     * Get autostopSuccessPercent
+     * 
+     * @return autostopSuccessPercent
+     **/
+    @ApiModelProperty(value = "")
+    public BigDecimal getAutostopSuccessPercent() {
+        return autostopSuccessPercent;
+    }
+
+    public void setAutostopSuccessPercent(BigDecimal autostopSuccessPercent) {
+        this.autostopSuccessPercent = autostopSuccessPercent;
+    }
 
     public UpdateCampaignPutRequest description(String description) {
         this.description = description;
@@ -138,11 +109,11 @@ public class UpdateCampaignPutRequest implements Serializable {
     }
 
     /**
-     * An optional description of the campaign
+     * An optional description of the campaign.
      * 
      * @return description
      **/
-    @ApiModelProperty(example = "", value = "An optional description of the campaign")
+    @ApiModelProperty(example = "", value = "An optional description of the campaign.")
     public String getDescription() {
         return description;
     }
@@ -157,12 +128,12 @@ public class UpdateCampaignPutRequest implements Serializable {
     }
 
     /**
-     * The filter for the devices the campaign is targeting at
+     * The filter for the devices the campaign is targeting at.
      * 
      * @return deviceFilter
      **/
     @ApiModelProperty(example = "id__eq=00000000000000000000000000000000",
-                      value = "The filter for the devices the campaign is targeting at")
+                      value = "The filter for the devices the campaign is targeting at.")
     public String getDeviceFilter() {
         return deviceFilter;
     }
@@ -177,36 +148,17 @@ public class UpdateCampaignPutRequest implements Serializable {
     }
 
     /**
-     * The campaign&#39;s name
+     * The campaign&#39;s name.
      * 
      * @return name
      **/
-    @ApiModelProperty(example = "campaign", value = "The campaign's name")
+    @ApiModelProperty(example = "campaign", value = "The campaign's name.")
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public UpdateCampaignPutRequest object(String object) {
-        this.object = object;
-        return this;
-    }
-
-    /**
-     * The API resource entity
-     * 
-     * @return object
-     **/
-    @ApiModelProperty(example = "update-campaign", value = "The API resource entity")
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
     }
 
     public UpdateCampaignPutRequest rootManifestId(String rootManifestId) {
@@ -228,45 +180,6 @@ public class UpdateCampaignPutRequest implements Serializable {
         this.rootManifestId = rootManifestId;
     }
 
-    public UpdateCampaignPutRequest state(StateEnum state) {
-        this.state = state;
-        return this;
-    }
-
-    /**
-     * DEPRECATED: The state of the campaign (use phase instead).
-     * 
-     * @return state
-     **/
-    @ApiModelProperty(value = "DEPRECATED: The state of the campaign (use phase instead).")
-    public StateEnum getState() {
-        return state;
-    }
-
-    public void setState(StateEnum state) {
-        this.state = state;
-    }
-
-    public UpdateCampaignPutRequest when(DateTime when) {
-        this.when = when;
-        return this;
-    }
-
-    /**
-     * The scheduled start time for the update campaign. Not in use.
-     * 
-     * @return when
-     **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z",
-                      value = "The scheduled start time for the update campaign. Not in use.")
-    public DateTime getWhen() {
-        return when;
-    }
-
-    public void setWhen(DateTime when) {
-        this.when = when;
-    }
-
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -276,18 +189,19 @@ public class UpdateCampaignPutRequest implements Serializable {
             return false;
         }
         UpdateCampaignPutRequest updateCampaignPutRequest = (UpdateCampaignPutRequest) o;
-        return Objects.equals(this.description, updateCampaignPutRequest.description)
+        return Objects.equals(this.approvalRequired, updateCampaignPutRequest.approvalRequired)
+               && Objects.equals(this.autostop, updateCampaignPutRequest.autostop)
+               && Objects.equals(this.autostopSuccessPercent, updateCampaignPutRequest.autostopSuccessPercent)
+               && Objects.equals(this.description, updateCampaignPutRequest.description)
                && Objects.equals(this.deviceFilter, updateCampaignPutRequest.deviceFilter)
                && Objects.equals(this.name, updateCampaignPutRequest.name)
-               && Objects.equals(this.object, updateCampaignPutRequest.object)
-               && Objects.equals(this.rootManifestId, updateCampaignPutRequest.rootManifestId)
-               && Objects.equals(this.state, updateCampaignPutRequest.state)
-               && Objects.equals(this.when, updateCampaignPutRequest.when);
+               && Objects.equals(this.rootManifestId, updateCampaignPutRequest.rootManifestId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(description, deviceFilter, name, object, rootManifestId, state, when);
+        return Objects.hash(approvalRequired, autostop, autostopSuccessPercent, description, deviceFilter, name,
+                            rootManifestId);
     }
 
     @Override
@@ -295,13 +209,13 @@ public class UpdateCampaignPutRequest implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("class UpdateCampaignPutRequest {\n");
 
+        sb.append("    approvalRequired: ").append(toIndentedString(approvalRequired)).append("\n");
+        sb.append("    autostop: ").append(toIndentedString(autostop)).append("\n");
+        sb.append("    autostopSuccessPercent: ").append(toIndentedString(autostopSuccessPercent)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    deviceFilter: ").append(toIndentedString(deviceFilter)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    object: ").append(toIndentedString(object)).append("\n");
         sb.append("    rootManifestId: ").append(toIndentedString(rootManifestId)).append("\n");
-        sb.append("    state: ").append(toIndentedString(state)).append("\n");
-        sb.append("    when: ").append(toIndentedString(when)).append("\n");
         sb.append("}");
         return sb.toString();
     }

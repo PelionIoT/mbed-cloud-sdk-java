@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **description** | **String** |  |  [optional]
 **eventType** | **String** |  |  [optional]
 **id** | **String** |  |  [optional]
-**object** | **String** |  |  [optional]
+**object** | **String** | Entity name: always &#39;event-type&#39;. |  [optional]
 **summaryStatus** | **String** |  |  [optional]
 **summaryStatusId** | **String** |  |  [optional]
 

@@ -7,6 +7,7 @@ import retrofit2.http.*;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ChannelMetadata;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.RegisterWebsocketChannel;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.WebsocketChannel;
 
@@ -169,13 +170,18 @@ public interface NotificationsApi {
      * protocols:** Currently, only HTTP and HTTPS protocols are supported. **HTTPS callback URLs:** When delivering a
      * notification to an HTTPS based callback URL, Device Management Connect presents a valid client certificate to
      * identify itself. The certificate is signed by a trusted certificate authorithy (GlobalSign) with a Common Name
-     * (CN) set to notifications.mbedcloud.com. **Example:** This example command shows how to set your callback URL and
-     * API key. It also sets an optional header authorization. When Device Management Connect calls your callback URL,
-     * the call contains the authorization header with the defined value. &#x60;&#x60;&#x60; curl -X PUT
-     * https://api.us-east-1.mbedcloud.com/v2/notification/callback \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{ \&quot;url\&quot;:
-     * \&quot;{callback-url}\&quot;, \&quot;headers\&quot;: {\&quot;authorization\&quot; :
-     * \&quot;f4b93d6e-4652-4874-82e4-41a3ced0cd56\&quot;} }&#39; &#x60;&#x60;&#x60;
+     * (CN) set to notifications.mbedcloud.com. **Configuration options:** The event notification channel provides
+     * configurations options defined in [Serialization config](#SerializationConfigObjectV2). **Example:** This example
+     * command shows how to set your callback URL and API key. It also sets an optional header authorization. When
+     * Device Management Connect calls your callback URL, the call contains the authorization header with the defined
+     * value. &#x60;&#x60;&#x60; curl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/callback \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d &#39;{
+     * \&quot;url\&quot;: \&quot;{callback-url}\&quot;, \&quot;headers\&quot;: {\&quot;authorization\&quot;:
+     * \&quot;f4b93d6e-4652-4874-82e4-41a3ced0cd56\&quot;}, \&quot;serialization\&quot;: {\&quot;type\&quot;:
+     * \&quot;v2\&quot;, \&quot;max_chunk_size\&quot;: \&quot;100\&quot;, \&quot;cfg\&quot;:
+     * {\&quot;deregistrations_as_object\&quot;: \&quot;true\&quot;, \&quot;include_uid\&quot;: \&quot;true\&quot;,
+     * \&quot;include_timestamp\&quot;: \&quot;true\&quot;, \&quot;include_original_ep\&quot;: \&quot;true\&quot; } }
+     * }&#39; &#x60;&#x60;&#x60;
      * 
      * @param webhook
      *            A JSON object that contains the optional headers and URL where notifications are sent. (required)
@@ -198,14 +204,19 @@ public interface NotificationsApi {
      * connection or time between successive websocket connections is less than 24 hours, the channel is considered
      * active, notifications are stored in its internal queue and delivered when a websocket connection is active. A
      * channel can be also deleted explicitly with a DELETE call. More about [notification sending
-     * logic](../integrate-web-app/event-notification.html#notification-sending-logic). **Example:** &#x60;&#x60;&#x60;
-     * curl -X PUT https://api.us-east-1.mbedcloud.com/v2/notification/websocket \\ -H &#39;Authorization: Bearer
-     * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * logic](../integrate-web-app/event-notification.html#notification-sending-logic). **Configuration options:** The
+     * event notification channel provides configurations options defined in [Serialization
+     * config](#SerializationConfigObjectV2) **Example:** &#x60;&#x60;&#x60; curl -X PUT
+     * https://api.us-east-1.mbedcloud.com/v2/notification/websocket \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; -d &#39;{ \&quot;serialization\&quot;: {\&quot;type\&quot;: \&quot;v2\&quot;,
+     * \&quot;max_chunk_size\&quot;: \&quot;100\&quot;, \&quot;cfg\&quot;: {\&quot;deregistrations_as_object\&quot;:
+     * \&quot;true\&quot;, \&quot;include_uid\&quot;: \&quot;true\&quot;, \&quot;include_timestamp\&quot;:
+     * \&quot;true\&quot;, \&quot;include_original_ep\&quot;: \&quot;true\&quot; } } } &#x60;&#x60;&#x60;
      * 
-     * @return Call&lt;WebsocketChannel&gt;
+     * @return Call&lt;RegisterWebsocketChannel&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @PUT("v2/notification/websocket")
-    Call<WebsocketChannel> registerWebsocket();
+    Call<RegisterWebsocketChannel> registerWebsocket();
 
 }

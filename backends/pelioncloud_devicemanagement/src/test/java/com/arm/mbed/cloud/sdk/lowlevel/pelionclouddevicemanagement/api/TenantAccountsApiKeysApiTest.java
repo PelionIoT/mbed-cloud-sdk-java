@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyUpdateReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupIdList;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,7 +35,26 @@ public class TenantAccountsApiKeysApiTest {
         String accountId = null;
         String apikeyId = null;
         List<String> body = null;
-        // UpdatedResponse response = api.addAccountApiKeyToGroups(accountId, apikeyId, body);
+        // ApiKeyInfoResp response = api.addAccountApiKeyToGroups(accountId, apikeyId, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Add API key to a list of groups.
+     *
+     * Add an API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/add \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void addAccountApiKeyToListedGroupsTest() {
+        String accountId = null;
+        String apikeyId = null;
+        GroupIdList body = null;
+        // ApiKeyInfoResp response = api.addAccountApiKeyToListedGroups(accountId, apikeyId, body);
 
         // TODO: test validations
     }
@@ -145,7 +165,26 @@ public class TenantAccountsApiKeysApiTest {
         String accountId = null;
         String apikeyId = null;
         List<String> body = null;
-        // UpdatedResponse response = api.removeAccountApiKeyFromGroups(accountId, apikeyId, body);
+        // ApiKeyInfoResp response = api.removeAccountApiKeyFromGroups(accountId, apikeyId, body);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Remove API key from groups.
+     *
+     * Remove an API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}/groups/remove \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     */
+    @Test
+    public void removeAccountApiKeyFromListedGroupsTest() {
+        String accountId = null;
+        String apikeyId = null;
+        GroupIdList body = null;
+        // ApiKeyInfoResp response = api.removeAccountApiKeyFromListedGroups(accountId, apikeyId, body);
 
         // TODO: test validations
     }

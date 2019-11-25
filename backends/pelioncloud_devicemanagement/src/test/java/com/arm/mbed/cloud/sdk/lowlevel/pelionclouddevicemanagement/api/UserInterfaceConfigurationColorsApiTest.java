@@ -52,6 +52,45 @@ public class UserInterfaceConfigurationColorsApiTest {
     }
 
     /**
+     * Delete all colors.
+     *
+     * Delete account branding colors for all themes. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/branding-colors -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     */
+    @Test
+    public void deleteAllColorsTest() {
+        // Void response = api.deleteAllColors();
+
+        // TODO: test validations
+    }
+
+    /**
+     * Delete colors in the dark theme.
+     *
+     * Delete account dark theme branding colors. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     */
+    @Test
+    public void deleteAllDarkColorsTest() {
+        // Void response = api.deleteAllDarkColors();
+
+        // TODO: test validations
+    }
+
+    /**
+     * Delete colors in the light theme.
+     *
+     * Delete account light theme branding colors. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/branding-colors/light -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     */
+    @Test
+    public void deleteAllLightColorsTest() {
+        // Void response = api.deleteAllLightColors();
+
+        // TODO: test validations
+    }
+
+    /**
      * Get dark theme branding color.
      *
      * Retrieve the requested dark theme branding color. **Example:** &#x60;&#x60;&#x60; curl -X GET

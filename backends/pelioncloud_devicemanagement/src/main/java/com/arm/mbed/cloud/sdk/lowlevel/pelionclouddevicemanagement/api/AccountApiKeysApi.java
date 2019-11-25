@@ -9,8 +9,8 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyI
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyUpdateReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupIdList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummaryList;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdatedResponse;
 
 import java.util.List;
 
@@ -26,12 +26,31 @@ public interface AccountApiKeysApi {
      *            The ID of the API key to add to the group. (required)
      * @param body
      *            A list of IDs of the groups to update. (required)
-     * @return Call&lt;UpdatedResponse&gt;
+     * @return Call&lt;ApiKeyInfoResp&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @POST("v3/api-keys/{apikey_id}/groups")
-    Call<UpdatedResponse> addApiKeyToGroups(@retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId,
-                                            @retrofit2.http.Body List<String> body);
+    Call<ApiKeyInfoResp> addApiKeyToGroups(@retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId,
+                                           @retrofit2.http.Body List<String> body);
+
+    /**
+     * Add API key to a list of groups. Add API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups/add \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     * 
+     * @param apikeyId
+     *            The ID of the API key to add to the group. (required)
+     * @param body
+     *            A list of IDs of the groups to update. (required)
+     * @return Call&lt;ApiKeyInfoResp&gt;
+     */
+    @Headers({ "Content-Type:application/json" })
+    @POST("v3/api-keys/{apikey_id}/groups/add")
+    Call<ApiKeyInfoResp>
+        addApiKeyToListedGroups(@retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId,
+                                @retrofit2.http.Body GroupIdList body);
 
     /**
      * Add API key to a list of groups. Add API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
@@ -42,11 +61,26 @@ public interface AccountApiKeysApi {
      * 
      * @param body
      *            A list of IDs of the groups to update. (required)
-     * @return Call&lt;UpdatedResponse&gt;
+     * @return Call&lt;ApiKeyInfoResp&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @POST("v3/api-keys/me/groups")
-    Call<UpdatedResponse> addMyApiKeyToGroups(@retrofit2.http.Body List<String> body);
+    Call<ApiKeyInfoResp> addMyApiKeyToGroups(@retrofit2.http.Body List<String> body);
+
+    /**
+     * Add API key to a list of groups. Add API key to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups/add/ \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     * 
+     * @param body
+     *            A list of IDs of the groups to update. (required)
+     * @return Call&lt;ApiKeyInfoResp&gt;
+     */
+    @Headers({ "Content-Type:application/json" })
+    @POST("v3/api-keys/me/groups/add")
+    Call<ApiKeyInfoResp> addMyApiKeyToListedGroups(@retrofit2.http.Body GroupIdList body);
 
     /**
      * Create a new API key. Create a new API key. **Example:** &#x60;&#x60;&#x60; curl -X POST
@@ -178,13 +212,47 @@ public interface AccountApiKeysApi {
      *            The ID of the API key to remove from the group. (required)
      * @param body
      *            A list of IDs of the groups to update. (required)
-     * @return Call&lt;UpdatedResponse&gt;
+     * @return Call&lt;ApiKeyInfoResp&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @DELETE("v3/api-keys/{apikey_id}/groups")
-    Call<UpdatedResponse>
+    Call<ApiKeyInfoResp>
         removeApiKeyFromGroups(@retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId,
                                @retrofit2.http.Body List<String> body);
+
+    /**
+     * Remove API key from groups. Remove API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id}/groups/remove \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     * 
+     * @param apikeyId
+     *            The ID of the API key to remove from the group. (required)
+     * @param body
+     *            A list of IDs of the groups to update. (required)
+     * @return Call&lt;ApiKeyInfoResp&gt;
+     */
+    @Headers({ "Content-Type:application/json" })
+    @POST("v3/api-keys/{apikey_id}/groups/remove")
+    Call<ApiKeyInfoResp>
+        removeApiKeyFromListedGroups(@retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId,
+                                     @retrofit2.http.Body GroupIdList body);
+
+    /**
+     * Remove API key from groups. Remove API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups/remove \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     * 
+     * @param body
+     *            A list of IDs of groups to update. (required)
+     * @return Call&lt;ApiKeyInfoResp&gt;
+     */
+    @Headers({ "Content-Type:application/json" })
+    @POST("v3/api-keys/me/groups/remove")
+    Call<ApiKeyInfoResp> removeMyApiKeyFromListedGroups(@retrofit2.http.Body GroupIdList body);
 
     /**
      * Remove API key from groups. Remove API key from groups. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
@@ -195,11 +263,11 @@ public interface AccountApiKeysApi {
      * 
      * @param body
      *            A list of IDs of groups to update. (required)
-     * @return Call&lt;UpdatedResponse&gt;
+     * @return Call&lt;ApiKeyInfoResp&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @DELETE("v3/api-keys/me/groups")
-    Call<UpdatedResponse> removeMyApiKeyFromGroups(@retrofit2.http.Body List<String> body);
+    Call<ApiKeyInfoResp> removeMyApiKeyListedGroups(@retrofit2.http.Body GroupIdList body);
 
     /**
      * Reset the secret key. Reset the secret key of the API key. **Example:** &#x60;&#x60;&#x60; curl -X POST

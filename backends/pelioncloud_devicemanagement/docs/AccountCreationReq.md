@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **adminName** | **String** | The username of the admin user to create. |  [optional]
 **adminPassword** | **String** | The password when creating a new user. Generated when not present in the request. |  [optional]
 **aliases** | **List&lt;String&gt;** | An array of aliases. |  [optional]
+**businessModel** | [**BusinessModel**](BusinessModel.md) |  |  [optional]
 **city** | **String** | The city part of the postal address. Required for commercial accounts only. |  [optional]
 **company** | **String** | The name of the company. Required for commercial accounts only. |  [optional]
 **contact** | **String** | The name of the contact person for this account. Required for commercial accounts only. |  [optional]

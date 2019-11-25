@@ -6,6 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**bulkSetDarkColors**](UserInterfaceConfigurationColorsApi.md#bulkSetDarkColors) | **PUT** v3/branding-colors/dark | Updates an array of dark theme branding colors.
 [**bulkSetLightColors**](UserInterfaceConfigurationColorsApi.md#bulkSetLightColors) | **PUT** v3/branding-colors/light | Updates an array of light theme branding colors.
+[**deleteAllColors**](UserInterfaceConfigurationColorsApi.md#deleteAllColors) | **DELETE** v3/branding-colors | Delete all colors.
+[**deleteAllDarkColors**](UserInterfaceConfigurationColorsApi.md#deleteAllDarkColors) | **DELETE** v3/branding-colors/dark | Delete colors in the dark theme.
+[**deleteAllLightColors**](UserInterfaceConfigurationColorsApi.md#deleteAllLightColors) | **DELETE** v3/branding-colors/light | Delete colors in the light theme.
 [**getDarkColor**](UserInterfaceConfigurationColorsApi.md#getDarkColor) | **GET** v3/branding-colors/dark/{reference} | Get dark theme branding color.
 [**getDarkColors**](UserInterfaceConfigurationColorsApi.md#getDarkColors) | **GET** v3/branding-colors/dark | Get dark theme branding colors.
 [**getLightColor**](UserInterfaceConfigurationColorsApi.md#getLightColor) | **GET** v3/branding-colors/light/{reference} | Get light theme branding color.
@@ -124,6 +127,159 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="deleteAllColors"></a>
+# **deleteAllColors**
+> Void deleteAllColors()
+
+Delete all colors.
+
+Delete account branding colors for all themes.  **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.UserInterfaceConfigurationColorsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+UserInterfaceConfigurationColorsApi apiInstance = new UserInterfaceConfigurationColorsApi();
+try {
+    Void result = apiInstance.deleteAllColors();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserInterfaceConfigurationColorsApi#deleteAllColors");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteAllDarkColors"></a>
+# **deleteAllDarkColors**
+> Void deleteAllDarkColors()
+
+Delete colors in the dark theme.
+
+Delete account dark theme branding colors.  **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.UserInterfaceConfigurationColorsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+UserInterfaceConfigurationColorsApi apiInstance = new UserInterfaceConfigurationColorsApi();
+try {
+    Void result = apiInstance.deleteAllDarkColors();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserInterfaceConfigurationColorsApi#deleteAllDarkColors");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteAllLightColors"></a>
+# **deleteAllLightColors**
+> Void deleteAllLightColors()
+
+Delete colors in the light theme.
+
+Delete account light theme branding colors.  **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/light -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiException;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.Configuration;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth.*;
+//import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.UserInterfaceConfigurationColorsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+UserInterfaceConfigurationColorsApi apiInstance = new UserInterfaceConfigurationColorsApi();
+try {
+    Void result = apiInstance.deleteAllLightColors();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling UserInterfaceConfigurationColorsApi#deleteAllLightColors");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 <a name="getDarkColor"></a>

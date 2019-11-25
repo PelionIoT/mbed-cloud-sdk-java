@@ -36,6 +36,35 @@ public interface UserInterfaceConfigurationImagesApi {
     Call<Void> clearLightImage(@retrofit2.http.Path(value = "reference", encoded = true) String reference);
 
     /**
+     * Delete images in the dark theme. Delete account dark theme branding images. **Example usage:** &#x60;curl -X
+     * DELETE https://api.us-east-1.mbedcloud.com/v3/branding-images/dark -H &#39;Authorization: Bearer
+     * API_KEY&#39;&#x60;
+     * 
+     * @return Call&lt;Void&gt;
+     */
+    @DELETE("v3/branding-images/dark")
+    Call<Void> deleteAllDarkImages();
+
+    /**
+     * Delete all images. Delete account branding images for all themes. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/branding-images -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * 
+     * @return Call&lt;Void&gt;
+     */
+    @DELETE("v3/branding-images")
+    Call<Void> deleteAllImages();
+
+    /**
+     * Delete images in the light theme. Delete account light theme branding images. **Example usage:** &#x60;curl -X
+     * DELETE https://api.us-east-1.mbedcloud.com/v3/branding-images/light -H &#39;Authorization: Bearer
+     * API_KEY&#39;&#x60;
+     * 
+     * @return Call&lt;Void&gt;
+     */
+    @DELETE("v3/branding-images/light")
+    Call<Void> deleteAllLightImages();
+
+    /**
      * Get metadata of all dark theme images. Retrieve metadata for all dark theme branding images. **Example:**
      * &#x60;curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/dark \\ -H &#39;Authorization: Bearer
      * &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;

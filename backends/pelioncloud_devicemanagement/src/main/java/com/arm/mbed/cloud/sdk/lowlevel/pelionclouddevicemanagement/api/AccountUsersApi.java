@@ -5,8 +5,8 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.CollectionFor
 import retrofit2.Call;
 import retrofit2.http.*;
 
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupIdList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummaryList;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdatedResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoRespList;
@@ -26,12 +26,30 @@ public interface AccountUsersApi {
      *            The ID of the user to add to the group. (required)
      * @param body
      *            A list of IDs of the groups to update. (required)
-     * @return Call&lt;UpdatedResponse&gt;
+     * @return Call&lt;UserInfoResp&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @POST("v3/users/{user_id}/groups")
-    Call<UpdatedResponse> addUserToGroups(@retrofit2.http.Path(value = "user_id", encoded = true) String userId,
-                                          @retrofit2.http.Body List<String> body);
+    Call<UserInfoResp> addUserToGroups(@retrofit2.http.Path(value = "user_id", encoded = true) String userId,
+                                       @retrofit2.http.Body List<String> body);
+
+    /**
+     * Add user to a list of groups. Add user to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups/add \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     * 
+     * @param userId
+     *            The ID of the user to add to the group. (required)
+     * @param body
+     *            A list of IDs of the groups to update. (required)
+     * @return Call&lt;UserInfoResp&gt;
+     */
+    @Headers({ "Content-Type:application/json" })
+    @POST("v3/users/{user_id}/groups/add")
+    Call<UserInfoResp> addUserToListedGroups(@retrofit2.http.Path(value = "user_id", encoded = true) String userId,
+                                             @retrofit2.http.Body GroupIdList body);
 
     /**
      * Create a new user. Create or invite a new user to the account. Only email address is used; other attributes are
@@ -162,12 +180,30 @@ public interface AccountUsersApi {
      *            The ID of the user to remove from the group. (required)
      * @param body
      *            A list of IDs of the groups to update. (required)
-     * @return Call&lt;UpdatedResponse&gt;
+     * @return Call&lt;UserInfoResp&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @DELETE("v3/users/{user_id}/groups")
-    Call<UpdatedResponse> removeUserFromGroups(@retrofit2.http.Path(value = "user_id", encoded = true) String userId,
-                                               @retrofit2.http.Body List<String> body);
+    Call<UserInfoResp> removeUserFromGroups(@retrofit2.http.Path(value = "user_id", encoded = true) String userId,
+                                            @retrofit2.http.Body List<String> body);
+
+    /**
+     * Remove user from groups. Remove user from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups/remove \\ -H &#39;Authorization: Bearer
+     * &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;[\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]&#39;
+     * &#x60;&#x60;&#x60;
+     * 
+     * @param userId
+     *            The ID of the user to remove from the group. (required)
+     * @param body
+     *            A list of IDs of the groups to update. (required)
+     * @return Call&lt;UserInfoResp&gt;
+     */
+    @Headers({ "Content-Type:application/json" })
+    @POST("v3/users/{user_id}/groups/remove")
+    Call<UserInfoResp> removeUserFromListedGroups(@retrofit2.http.Path(value = "user_id", encoded = true) String userId,
+                                                  @retrofit2.http.Body GroupIdList body);
 
     /**
      * Update user details. Update user details. **Example:** &#x60;&#x60;&#x60; curl -X PUT

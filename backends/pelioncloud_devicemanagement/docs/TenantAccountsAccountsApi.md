@@ -94,7 +94,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 TenantAccountsAccountsApi apiInstance = new TenantAccountsAccountsApi();
 String accountId = "accountId_example"; // String | The ID of the account to fetch.
-String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.
+String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts, history.
 String properties = "properties_example"; // String | Property name to return from account-specific properties.
 try {
     AccountInfo result = apiInstance.getAccountInfo(accountId, include, properties);
@@ -110,7 +110,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| The ID of the account to fetch. |
- **include** | **String**| Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts. | [optional]
+ **include** | **String**| Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts, history. | [optional]
  **properties** | **String**| Property name to return from account-specific properties. | [optional]
 
 ### Return type
@@ -162,7 +162,7 @@ String countryLike = "countryLike_example"; // String | An optional filter for a
 Integer limit = 1000; // Integer | The number of results to return (2-1000). Default 1000.
 String after = "after_example"; // String | The entity ID to fetch after the given one.
 String order = "ASC"; // String | Record order. Acceptable values: ASC, DESC. Default: ASC.
-String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.
+String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts, history.
 String format = "format_example"; // String | Format information for the query response. Supported: format=breakdown.
 String properties = "properties_example"; // String | Property name returned from account-specific properties.
 try {
@@ -188,7 +188,7 @@ Name | Type | Description  | Notes
  **limit** | **Integer**| The number of results to return (2-1000). Default 1000. | [optional] [default to 1000]
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
  **order** | **String**| Record order. Acceptable values: ASC, DESC. Default: ASC. | [optional] [default to ASC]
- **include** | **String**| Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts. | [optional]
+ **include** | **String**| Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts, history. | [optional]
  **format** | **String**| Format information for the query response. Supported: format&#x3D;breakdown. | [optional]
  **properties** | **String**| Property name returned from account-specific properties. | [optional]
 

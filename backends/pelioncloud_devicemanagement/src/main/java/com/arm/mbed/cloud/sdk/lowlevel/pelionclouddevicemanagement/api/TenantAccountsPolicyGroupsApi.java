@@ -11,10 +11,66 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSu
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummaryList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupUpdateInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.SubjectList;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdatedResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoRespList;
 
 public interface TenantAccountsPolicyGroupsApi {
+    /**
+     * Add API keys to Account group. Add API keys to account groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @param groupId
+     *            The ID of the group to retrieve API keys for. (required)
+     * @param body
+     *            A list of API keys to add to the group. (required)
+     * @return Call&lt;ApiKeyInfoRespList&gt;
+     */
+    @POST("v3/accounts/{account_id}/policy-groups/{group_id}/api-keys")
+    Call<ApiKeyInfoRespList>
+        addApiKeysToAccountGroup(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                                 @retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
+                                 @retrofit2.http.Body SubjectList body);
+
+    /**
+     * Add API keys to account group. Add API keys to account groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys/add \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @param groupId
+     *            The ID of the group to retrieve API keys for. (required)
+     * @param body
+     *            A list of API keys to add to the group. (required)
+     * @return Call&lt;ApiKeyInfoRespList&gt;
+     */
+    @POST("v3/accounts/{account_id}/policy-groups/{group_id}/api-keys/add")
+    Call<ApiKeyInfoRespList>
+        addListedApiKeysToAccountGroup(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                                       @retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
+                                       @retrofit2.http.Body SubjectList body);
+
+    /**
+     * Add users to account group. Add users to account group. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users/add \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @param groupId
+     *            The ID of the group to retrieve API keys for. (required)
+     * @param body
+     *            A list of API keys to add to the group. (required)
+     * @return Call&lt;ApiKeyInfoRespList&gt;
+     */
+    @POST("v3/accounts/{account_id}/policy-groups/{group_id}/users/add")
+    Call<ApiKeyInfoRespList>
+        addListedUsersToAccountGroup(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                                     @retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
+                                     @retrofit2.http.Body SubjectList body);
+
     /**
      * Add members to a group. Add users and API keys to groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id} \\ -H &#39;Authorization:
@@ -28,14 +84,33 @@ public interface TenantAccountsPolicyGroupsApi {
      *            The ID of the group to update. (required)
      * @param body
      *            A list of users and API keys to add to the group. (required)
-     * @return Call&lt;UpdatedResponse&gt;
+     * @return Call&lt;GroupSummary&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @POST("v3/accounts/{account_id}/policy-groups/{group_id}")
-    Call<UpdatedResponse>
+    Call<GroupSummary>
         addSubjectsToAccountGroup(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
                                   @retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
                                   @retrofit2.http.Body SubjectList body);
+
+    /**
+     * Add users to account group. Add users to account group. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @param groupId
+     *            The ID of the group to retrieve API keys for. (required)
+     * @param body
+     *            A list of API keys to add to the group. (required)
+     * @return Call&lt;ApiKeyInfoRespList&gt;
+     */
+    @POST("v3/accounts/{account_id}/policy-groups/{group_id}/users")
+    Call<ApiKeyInfoRespList>
+        addUsersToAccountGroup(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                               @retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
+                               @retrofit2.http.Body SubjectList body);
 
     /**
      * Create a new group. Create a new group. **Example:** &#x60;&#x60;&#x60; curl -X POST
@@ -143,7 +218,7 @@ public interface TenantAccountsPolicyGroupsApi {
                                  @retrofit2.http.Query("include") String include);
 
     /**
-     * Get users of a group. List users of the group with details. **Example:** &#x60;&#x60;&#x60; curl -X GET
+     * Get users of a group. List a group&#39;s users, with details. **Example:** &#x60;&#x60;&#x60; curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users \\ -H
      * &#39;Authorization: Bearer &lt;api_key&gt;&#39; &#x60;&#x60;&#x60;
      * 
@@ -193,14 +268,60 @@ public interface TenantAccountsPolicyGroupsApi {
      *            The ID of the group to remove API keys from. (required)
      * @param body
      *            A list of API keys to remove from the group. (required)
-     * @return Call&lt;UpdatedResponse&gt;
+     * @return Call&lt;GroupSummary&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @DELETE("v3/accounts/{account_id}/policy-groups/{group_id}/api-keys")
-    Call<UpdatedResponse>
+    Call<GroupSummary>
         removeApiKeysFromAccountGroup(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
                                       @retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
                                       @retrofit2.http.Body SubjectList body);
+
+    /**
+     * Remove API keys from a group. Remove API keys from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys/remove \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;{\&quot;apikeys\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]}&#39;
+     * &#x60;&#x60;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @param groupId
+     *            The ID of the group to remove API keys from. (required)
+     * @param body
+     *            A list of API keys to remove from the group. (required)
+     * @return Call&lt;GroupSummary&gt;
+     */
+    @Headers({ "Content-Type:application/json" })
+    @POST("v3/accounts/{account_id}/policy-groups/{group_id}/api-keys/remove")
+    Call<GroupSummary>
+        removeListedApiKeysFromAccountGroup(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                                            @retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
+                                            @retrofit2.http.Body SubjectList body);
+
+    /**
+     * Remove users from a group. Remove users from groups. **Example:** &#x60;&#x60;&#x60; curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users \\ -H
+     * &#39;Authorization: Bearer &lt;api_key&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ -d
+     * &#39;{\&quot;users\&quot;:
+     * [\&quot;0162056a9a1586f30242590700000000\&quot;,\&quot;0117056a9a1586f30242590700000000\&quot;]}&#39;
+     * &#x60;&#x60;&#x60;
+     * 
+     * @param accountId
+     *            The ID of the account. (required)
+     * @param groupId
+     *            The ID of the group to remove users from. (required)
+     * @param body
+     *            A list of users to remove from the group. (required)
+     * @return Call&lt;GroupSummary&gt;
+     */
+    @Headers({ "Content-Type:application/json" })
+    @POST("v3/accounts/{account_id}/policy-groups/{group_id}/users/remove")
+    Call<GroupSummary>
+        removeListedUsersFromAccountGroup(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
+                                          @retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
+                                          @retrofit2.http.Body SubjectList body);
 
     /**
      * Remove users from a group. Remove users from groups. **Example:** &#x60;&#x60;&#x60; curl -X DELETE
@@ -216,11 +337,11 @@ public interface TenantAccountsPolicyGroupsApi {
      *            The ID of the group to remove users from. (required)
      * @param body
      *            A list of users to remove from the group. (required)
-     * @return Call&lt;UpdatedResponse&gt;
+     * @return Call&lt;GroupSummary&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @DELETE("v3/accounts/{account_id}/policy-groups/{group_id}/users")
-    Call<UpdatedResponse>
+    Call<GroupSummary>
         removeUsersFromAccountGroup(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
                                     @retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
                                     @retrofit2.http.Body SubjectList body);
@@ -237,11 +358,11 @@ public interface TenantAccountsPolicyGroupsApi {
      *            The ID of the group to update. (required)
      * @param body
      *            Details of the group to create. (required)
-     * @return Call&lt;UpdatedResponse&gt;
+     * @return Call&lt;GroupSummary&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @PUT("v3/accounts/{account_id}/policy-groups/{group_id}")
-    Call<UpdatedResponse>
+    Call<GroupSummary>
         updateAccountGroupName(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
                                @retrofit2.http.Path(value = "group_id", encoded = true) String groupId,
                                @retrofit2.http.Body GroupUpdateInfo body);

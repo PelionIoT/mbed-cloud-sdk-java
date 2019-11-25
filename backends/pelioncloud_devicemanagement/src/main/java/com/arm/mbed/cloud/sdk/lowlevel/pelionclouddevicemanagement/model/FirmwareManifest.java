@@ -41,7 +41,7 @@ public class FirmwareManifest implements Serializable {
     private String deviceClass = null;
 
     @SerializedName("etag")
-    private DateTime etag = null;
+    private String etag = null;
 
     @SerializedName("id")
     private String id = null;
@@ -67,12 +67,11 @@ public class FirmwareManifest implements Serializable {
     }
 
     /**
-     * The time the object was created
+     * The time the entity was created.
      * 
      * @return createdAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true,
-                      value = "The time the object was created")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the entity was created.")
     public DateTime getCreatedAt() {
         return createdAt;
     }
@@ -91,7 +90,7 @@ public class FirmwareManifest implements Serializable {
      * 
      * @return datafile
      **/
-    @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000", required = true,
+    @ApiModelProperty(example = "http://example.com/12345678901234567890123456789012",
                       value = "The URL of the firmware manifest binary")
     public String getDatafile() {
         return datafile;
@@ -126,11 +125,11 @@ public class FirmwareManifest implements Serializable {
     }
 
     /**
-     * The description of the firmware manifest
+     * The description of the firmware manifest.
      * 
      * @return description
      **/
-    @ApiModelProperty(example = "", required = true, value = "The description of the firmware manifest")
+    @ApiModelProperty(example = "", value = "The description of the firmware manifest.")
     public String getDescription() {
         return description;
     }
@@ -145,12 +144,11 @@ public class FirmwareManifest implements Serializable {
     }
 
     /**
-     * The class of the device
+     * The class of the device.
      * 
      * @return deviceClass
      **/
-    @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", required = true,
-                      value = "The class of the device")
+    @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The class of the device.")
     public String getDeviceClass() {
         return deviceClass;
     }
@@ -159,22 +157,22 @@ public class FirmwareManifest implements Serializable {
         this.deviceClass = deviceClass;
     }
 
-    public FirmwareManifest etag(DateTime etag) {
+    public FirmwareManifest etag(String etag) {
         this.etag = etag;
         return this;
     }
 
     /**
-     * The entity instance signature
+     * API resource entity version.
      * 
      * @return etag
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The entity instance signature")
-    public DateTime getEtag() {
+    @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "API resource entity version.")
+    public String getEtag() {
         return etag;
     }
 
-    public void setEtag(DateTime etag) {
+    public void setEtag(String etag) {
         this.etag = etag;
     }
 
@@ -184,11 +182,11 @@ public class FirmwareManifest implements Serializable {
     }
 
     /**
-     * The firmware manifest ID
+     * The firmware manifest ID.
      * 
      * @return id
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "The firmware manifest ID")
+    @ApiModelProperty(example = "12345678901234567890123456789012", value = "The firmware manifest ID.")
     public String getId() {
         return id;
     }
@@ -203,11 +201,11 @@ public class FirmwareManifest implements Serializable {
     }
 
     /**
-     * The key table of pre-shared keys for devices
+     * The key table of pre-shared keys for devices.
      * 
      * @return keyTable
      **/
-    @ApiModelProperty(example = "http://example.com", value = "The key table of pre-shared keys for devices")
+    @ApiModelProperty(example = "http://example.com", value = "The key table of pre-shared keys for devices.")
     public String getKeyTable() {
         return keyTable;
     }
@@ -222,11 +220,11 @@ public class FirmwareManifest implements Serializable {
     }
 
     /**
-     * The name of the object
+     * The name of the object.
      * 
      * @return name
      **/
-    @ApiModelProperty(example = "", required = true, value = "The name of the object")
+    @ApiModelProperty(example = "default_object_name", value = "The name of the object.")
     public String getName() {
         return name;
     }
@@ -241,11 +239,11 @@ public class FirmwareManifest implements Serializable {
     }
 
     /**
-     * The API resource entity
+     * Entity name: always &#39;firmware-manifest&#39;.
      * 
      * @return object
      **/
-    @ApiModelProperty(example = "firmware-manifest", required = true, value = "The API resource entity")
+    @ApiModelProperty(value = "Entity name: always 'firmware-manifest'.")
     public String getObject() {
         return object;
     }
@@ -260,12 +258,11 @@ public class FirmwareManifest implements Serializable {
     }
 
     /**
-     * The firmware manifest version as a timestamp
+     * The firmware manifest version as a timestamp.
      * 
      * @return timestamp
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true,
-                      value = "The firmware manifest version as a timestamp")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The firmware manifest version as a timestamp.")
     public DateTime getTimestamp() {
         return timestamp;
     }
@@ -280,12 +277,11 @@ public class FirmwareManifest implements Serializable {
     }
 
     /**
-     * The time the object was updated
+     * The time the entity was updated.
      * 
      * @return updatedAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true,
-                      value = "The time the object was updated")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the entity was updated.")
     public DateTime getUpdatedAt() {
         return updatedAt;
     }

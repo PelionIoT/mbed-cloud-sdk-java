@@ -30,8 +30,75 @@ import java.io.Serializable;
 public class UpdateCampaign implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @SerializedName("active_at")
+    private DateTime activeAt = null;
+
+    @SerializedName("approval_required")
+    private Boolean approvalRequired = null;
+
+    @SerializedName("archived_at")
+    private DateTime archivedAt = null;
+
+    @SerializedName("autostop")
+    private Boolean autostop = null;
+
     @SerializedName("autostop_reason")
     private String autostopReason = null;
+
+    @SerializedName("autostop_success_percent")
+    private Double autostopSuccessPercent = null;
+
+    /**
+     * How the campaign adds devices. A &#x60;one-shot&#x60; campaign does not add new devices after it has started. A
+     * &#x60;continuous&#x60; campaign means that devices may be added to the campaign after it has started. The default
+     * is &#x60;one-shot&#x60;.
+     */
+    @JsonAdapter(CampaignStrategyEnum.Adapter.class)
+    public enum CampaignStrategyEnum {
+        ONE_SHOT("one-shot"),
+
+        CONTINUOUS("continuous");
+
+        private String value;
+
+        CampaignStrategyEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static CampaignStrategyEnum fromValue(String text) {
+            for (CampaignStrategyEnum b : CampaignStrategyEnum.values()) {
+                if (String.valueOf(b.value).equals(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        public static class Adapter extends TypeAdapter<CampaignStrategyEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final CampaignStrategyEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public CampaignStrategyEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return CampaignStrategyEnum.fromValue(String.valueOf(value));
+            }
+        }
+    }
+
+    @SerializedName("campaign_strategy")
+    private CampaignStrategyEnum campaignStrategy = CampaignStrategyEnum.ONE_SHOT;
 
     @SerializedName("created_at")
     private DateTime createdAt = null;
@@ -57,8 +124,69 @@ public class UpdateCampaign implements Serializable {
     @SerializedName("object")
     private String object = null;
 
+    /**
+     * The phase of the campaign.
+     */
+    @JsonAdapter(PhaseEnum.Adapter.class)
+    public enum PhaseEnum {
+        DRAFT("draft"),
+
+        AWAITING_APPROVAL("awaiting_approval"),
+
+        TIMED("timed"),
+
+        STARTING("starting"),
+
+        ACTIVE("active"),
+
+        STOPPING("stopping"),
+
+        STOPPED("stopped"),
+
+        DELETED("deleted"),
+
+        ARCHIVED("archived");
+
+        private String value;
+
+        PhaseEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static PhaseEnum fromValue(String text) {
+            for (PhaseEnum b : PhaseEnum.values()) {
+                if (String.valueOf(b.value).equals(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        public static class Adapter extends TypeAdapter<PhaseEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final PhaseEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public PhaseEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return PhaseEnum.fromValue(String.valueOf(value));
+            }
+        }
+    }
+
     @SerializedName("phase")
-    private String phase = null;
+    private PhaseEnum phase = null;
 
     @SerializedName("root_manifest_id")
     private String rootManifestId = null;
@@ -69,8 +197,11 @@ public class UpdateCampaign implements Serializable {
     @SerializedName("started_at")
     private DateTime startedAt = null;
 
+    @SerializedName("starting_at")
+    private DateTime startingAt = null;
+
     /**
-     * DEPRECATED: The state of the campaign (use phase instead).
+     * The state of the campaign.
      */
     @JsonAdapter(StateEnum.Adapter.class)
     public enum StateEnum {
@@ -153,11 +284,95 @@ public class UpdateCampaign implements Serializable {
     @SerializedName("state")
     private StateEnum state = null;
 
+    @SerializedName("stopped_at")
+    private DateTime stoppedAt = null;
+
+    @SerializedName("stopping_at")
+    private DateTime stoppingAt = null;
+
     @SerializedName("updated_at")
     private DateTime updatedAt = null;
 
     @SerializedName("when")
     private DateTime when = null;
+
+    public UpdateCampaign activeAt(DateTime activeAt) {
+        this.activeAt = activeAt;
+        return this;
+    }
+
+    /**
+     * The time the campaign entered the active state.
+     * 
+     * @return activeAt
+     **/
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z",
+                      value = "The time the campaign entered the active state.")
+    public DateTime getActiveAt() {
+        return activeAt;
+    }
+
+    public void setActiveAt(DateTime activeAt) {
+        this.activeAt = activeAt;
+    }
+
+    public UpdateCampaign approvalRequired(Boolean approvalRequired) {
+        this.approvalRequired = approvalRequired;
+        return this;
+    }
+
+    /**
+     * Flag indicating whether approval is needed to start the campaign.
+     * 
+     * @return approvalRequired
+     **/
+    @ApiModelProperty(example = "false", value = "Flag indicating whether approval is needed to start the campaign.")
+    public Boolean isApprovalRequired() {
+        return approvalRequired;
+    }
+
+    public void setApprovalRequired(Boolean approvalRequired) {
+        this.approvalRequired = approvalRequired;
+    }
+
+    public UpdateCampaign archivedAt(DateTime archivedAt) {
+        this.archivedAt = archivedAt;
+        return this;
+    }
+
+    /**
+     * The time the campaign was archived.
+     * 
+     * @return archivedAt
+     **/
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the campaign was archived.")
+    public DateTime getArchivedAt() {
+        return archivedAt;
+    }
+
+    public void setArchivedAt(DateTime archivedAt) {
+        this.archivedAt = archivedAt;
+    }
+
+    public UpdateCampaign autostop(Boolean autostop) {
+        this.autostop = autostop;
+        return this;
+    }
+
+    /**
+     * Flag indicating whether the campaign should be auto-stopped on reaching a threshold.
+     * 
+     * @return autostop
+     **/
+    @ApiModelProperty(example = "false",
+                      value = "Flag indicating whether the campaign should be auto-stopped on reaching a threshold.")
+    public Boolean isAutostop() {
+        return autostop;
+    }
+
+    public void setAutostop(Boolean autostop) {
+        this.autostop = autostop;
+    }
 
     public UpdateCampaign autostopReason(String autostopReason) {
         this.autostopReason = autostopReason;
@@ -179,17 +394,57 @@ public class UpdateCampaign implements Serializable {
         this.autostopReason = autostopReason;
     }
 
+    public UpdateCampaign autostopSuccessPercent(Double autostopSuccessPercent) {
+        this.autostopSuccessPercent = autostopSuccessPercent;
+        return this;
+    }
+
+    /**
+     * Percent of successful device updates to auto stop the campaign.
+     * 
+     * @return autostopSuccessPercent
+     **/
+    @ApiModelProperty(example = "85.0", value = "Percent of successful device updates to auto stop the campaign.")
+    public Double getAutostopSuccessPercent() {
+        return autostopSuccessPercent;
+    }
+
+    public void setAutostopSuccessPercent(Double autostopSuccessPercent) {
+        this.autostopSuccessPercent = autostopSuccessPercent;
+    }
+
+    public UpdateCampaign campaignStrategy(CampaignStrategyEnum campaignStrategy) {
+        this.campaignStrategy = campaignStrategy;
+        return this;
+    }
+
+    /**
+     * How the campaign adds devices. A &#x60;one-shot&#x60; campaign does not add new devices after it has started. A
+     * &#x60;continuous&#x60; campaign means that devices may be added to the campaign after it has started. The default
+     * is &#x60;one-shot&#x60;.
+     * 
+     * @return campaignStrategy
+     **/
+    @ApiModelProperty(value = "How the campaign adds devices. A `one-shot` campaign does not add new devices after it has started. A `continuous` campaign means that devices may be added to the campaign after it has started. The default is `one-shot`.")
+    public CampaignStrategyEnum getCampaignStrategy() {
+        return campaignStrategy;
+    }
+
+    public void setCampaignStrategy(CampaignStrategyEnum campaignStrategy) {
+        this.campaignStrategy = campaignStrategy;
+    }
+
     public UpdateCampaign createdAt(DateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }
 
     /**
-     * The time the update campaign was created
+     * The time the entity was created.
      * 
      * @return createdAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the update campaign was created")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the entity was created.")
     public DateTime getCreatedAt() {
         return createdAt;
     }
@@ -204,11 +459,12 @@ public class UpdateCampaign implements Serializable {
     }
 
     /**
-     * An optional description of the campaign
+     * An optional description of the campaign.
      * 
      * @return description
      **/
-    @ApiModelProperty(example = "", value = "An optional description of the campaign")
+    @ApiModelProperty(example = "This campaign updates Class XX devices to version 1.34",
+                      value = "An optional description of the campaign.")
     public String getDescription() {
         return description;
     }
@@ -223,12 +479,12 @@ public class UpdateCampaign implements Serializable {
     }
 
     /**
-     * The filter for the devices the campaign is targeting at
+     * The filter for the devices the campaign is targeting at.
      * 
      * @return deviceFilter
      **/
     @ApiModelProperty(example = "id__eq=00000000000000000000000000000000",
-                      value = "The filter for the devices the campaign is targeting at")
+                      value = "The filter for the devices the campaign is targeting at.")
     public String getDeviceFilter() {
         return deviceFilter;
     }
@@ -243,11 +499,11 @@ public class UpdateCampaign implements Serializable {
     }
 
     /**
-     * The entity instance signature
+     * API resource entity version.
      * 
      * @return etag
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "The entity instance signature")
+    @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "API resource entity version.")
     public String getEtag() {
         return etag;
     }
@@ -262,11 +518,11 @@ public class UpdateCampaign implements Serializable {
     }
 
     /**
-     * The campaign finish timestamp
+     * The time the campaign finished.
      * 
      * @return finished
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The campaign finish timestamp")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the campaign finished.")
     public DateTime getFinished() {
         return finished;
     }
@@ -281,11 +537,11 @@ public class UpdateCampaign implements Serializable {
     }
 
     /**
-     * The campaign ID
+     * The campaign ID.
      * 
      * @return id
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", value = "The campaign ID")
+    @ApiModelProperty(example = "00000000000000000000000000000000", value = "The campaign ID.")
     public String getId() {
         return id;
     }
@@ -300,11 +556,11 @@ public class UpdateCampaign implements Serializable {
     }
 
     /**
-     * The campaign name
+     * The campaign name.
      * 
      * @return name
      **/
-    @ApiModelProperty(example = "campaign", value = "The campaign name")
+    @ApiModelProperty(example = "campaign", value = "The campaign name.")
     public String getName() {
         return name;
     }
@@ -319,11 +575,11 @@ public class UpdateCampaign implements Serializable {
     }
 
     /**
-     * The API resource entity
+     * Entity name: always &#39;update-campaign&#39;.
      * 
      * @return object
      **/
-    @ApiModelProperty(example = "update-campaign", value = "The API resource entity")
+    @ApiModelProperty(value = "Entity name: always 'update-campaign'.")
     public String getObject() {
         return object;
     }
@@ -332,14 +588,23 @@ public class UpdateCampaign implements Serializable {
         this.object = object;
     }
 
+    public UpdateCampaign phase(PhaseEnum phase) {
+        this.phase = phase;
+        return this;
+    }
+
     /**
-     * The current phase of the campaign.
+     * The phase of the campaign.
      * 
      * @return phase
      **/
-    @ApiModelProperty(value = "The current phase of the campaign.")
-    public String getPhase() {
+    @ApiModelProperty(value = "The phase of the campaign.")
+    public PhaseEnum getPhase() {
         return phase;
+    }
+
+    public void setPhase(PhaseEnum phase) {
+        this.phase = phase;
     }
 
     public UpdateCampaign rootManifestId(String rootManifestId) {
@@ -348,11 +613,12 @@ public class UpdateCampaign implements Serializable {
     }
 
     /**
-     * Get rootManifestId
+     * The ID of the manifest that will be sent to the device as part of the campaign.
      * 
      * @return rootManifestId
      **/
-    @ApiModelProperty(example = "00000000000000000000000000000000", value = "")
+    @ApiModelProperty(example = "00000000000000000000000000000000",
+                      value = "The ID of the manifest that will be sent to the device as part of the campaign.")
     public String getRootManifestId() {
         return rootManifestId;
     }
@@ -367,11 +633,12 @@ public class UpdateCampaign implements Serializable {
     }
 
     /**
-     * Get rootManifestUrl
+     * The URL for the manifest that will be sent to the device as part of the campaign.
      * 
      * @return rootManifestUrl
      **/
-    @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000", value = "")
+    @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000",
+                      value = "The URL for the manifest that will be sent to the device as part of the campaign.")
     public String getRootManifestUrl() {
         return rootManifestUrl;
     }
@@ -386,11 +653,11 @@ public class UpdateCampaign implements Serializable {
     }
 
     /**
-     * Get startedAt
+     * The time the campaign was started.
      * 
      * @return startedAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the campaign was started.")
     public DateTime getStartedAt() {
         return startedAt;
     }
@@ -399,17 +666,36 @@ public class UpdateCampaign implements Serializable {
         this.startedAt = startedAt;
     }
 
+    public UpdateCampaign startingAt(DateTime startingAt) {
+        this.startingAt = startingAt;
+        return this;
+    }
+
+    /**
+     * The time the campaign will be started.
+     * 
+     * @return startingAt
+     **/
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the campaign will be started.")
+    public DateTime getStartingAt() {
+        return startingAt;
+    }
+
+    public void setStartingAt(DateTime startingAt) {
+        this.startingAt = startingAt;
+    }
+
     public UpdateCampaign state(StateEnum state) {
         this.state = state;
         return this;
     }
 
     /**
-     * DEPRECATED: The state of the campaign (use phase instead).
+     * The state of the campaign.
      * 
      * @return state
      **/
-    @ApiModelProperty(value = "DEPRECATED: The state of the campaign (use phase instead).")
+    @ApiModelProperty(value = "The state of the campaign.")
     public StateEnum getState() {
         return state;
     }
@@ -418,17 +704,55 @@ public class UpdateCampaign implements Serializable {
         this.state = state;
     }
 
+    public UpdateCampaign stoppedAt(DateTime stoppedAt) {
+        this.stoppedAt = stoppedAt;
+        return this;
+    }
+
+    /**
+     * The time the campaign was stopped.
+     * 
+     * @return stoppedAt
+     **/
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the campaign was stopped.")
+    public DateTime getStoppedAt() {
+        return stoppedAt;
+    }
+
+    public void setStoppedAt(DateTime stoppedAt) {
+        this.stoppedAt = stoppedAt;
+    }
+
+    public UpdateCampaign stoppingAt(DateTime stoppingAt) {
+        this.stoppingAt = stoppingAt;
+        return this;
+    }
+
+    /**
+     * The time the campaign will be stopped.
+     * 
+     * @return stoppingAt
+     **/
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the campaign will be stopped.")
+    public DateTime getStoppingAt() {
+        return stoppingAt;
+    }
+
+    public void setStoppingAt(DateTime stoppingAt) {
+        this.stoppingAt = stoppingAt;
+    }
+
     public UpdateCampaign updatedAt(DateTime updatedAt) {
         this.updatedAt = updatedAt;
         return this;
     }
 
     /**
-     * The time the object was updated
+     * The time the entity was updated.
      * 
      * @return updatedAt
      **/
-    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the object was updated")
+    @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the entity was updated.")
     public DateTime getUpdatedAt() {
         return updatedAt;
     }
@@ -467,7 +791,13 @@ public class UpdateCampaign implements Serializable {
             return false;
         }
         UpdateCampaign updateCampaign = (UpdateCampaign) o;
-        return Objects.equals(this.autostopReason, updateCampaign.autostopReason)
+        return Objects.equals(this.activeAt, updateCampaign.activeAt)
+               && Objects.equals(this.approvalRequired, updateCampaign.approvalRequired)
+               && Objects.equals(this.archivedAt, updateCampaign.archivedAt)
+               && Objects.equals(this.autostop, updateCampaign.autostop)
+               && Objects.equals(this.autostopReason, updateCampaign.autostopReason)
+               && Objects.equals(this.autostopSuccessPercent, updateCampaign.autostopSuccessPercent)
+               && Objects.equals(this.campaignStrategy, updateCampaign.campaignStrategy)
                && Objects.equals(this.createdAt, updateCampaign.createdAt)
                && Objects.equals(this.description, updateCampaign.description)
                && Objects.equals(this.deviceFilter, updateCampaign.deviceFilter)
@@ -478,15 +808,20 @@ public class UpdateCampaign implements Serializable {
                && Objects.equals(this.rootManifestId, updateCampaign.rootManifestId)
                && Objects.equals(this.rootManifestUrl, updateCampaign.rootManifestUrl)
                && Objects.equals(this.startedAt, updateCampaign.startedAt)
+               && Objects.equals(this.startingAt, updateCampaign.startingAt)
                && Objects.equals(this.state, updateCampaign.state)
+               && Objects.equals(this.stoppedAt, updateCampaign.stoppedAt)
+               && Objects.equals(this.stoppingAt, updateCampaign.stoppingAt)
                && Objects.equals(this.updatedAt, updateCampaign.updatedAt)
                && Objects.equals(this.when, updateCampaign.when);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(autostopReason, createdAt, description, deviceFilter, etag, finished, id, name, object,
-                            phase, rootManifestId, rootManifestUrl, startedAt, state, updatedAt, when);
+        return Objects.hash(activeAt, approvalRequired, archivedAt, autostop, autostopReason, autostopSuccessPercent,
+                            campaignStrategy, createdAt, description, deviceFilter, etag, finished, id, name, object,
+                            phase, rootManifestId, rootManifestUrl, startedAt, startingAt, state, stoppedAt, stoppingAt,
+                            updatedAt, when);
     }
 
     @Override
@@ -494,7 +829,13 @@ public class UpdateCampaign implements Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("class UpdateCampaign {\n");
 
+        sb.append("    activeAt: ").append(toIndentedString(activeAt)).append("\n");
+        sb.append("    approvalRequired: ").append(toIndentedString(approvalRequired)).append("\n");
+        sb.append("    archivedAt: ").append(toIndentedString(archivedAt)).append("\n");
+        sb.append("    autostop: ").append(toIndentedString(autostop)).append("\n");
         sb.append("    autostopReason: ").append(toIndentedString(autostopReason)).append("\n");
+        sb.append("    autostopSuccessPercent: ").append(toIndentedString(autostopSuccessPercent)).append("\n");
+        sb.append("    campaignStrategy: ").append(toIndentedString(campaignStrategy)).append("\n");
         sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    deviceFilter: ").append(toIndentedString(deviceFilter)).append("\n");
@@ -507,7 +848,10 @@ public class UpdateCampaign implements Serializable {
         sb.append("    rootManifestId: ").append(toIndentedString(rootManifestId)).append("\n");
         sb.append("    rootManifestUrl: ").append(toIndentedString(rootManifestUrl)).append("\n");
         sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
+        sb.append("    startingAt: ").append(toIndentedString(startingAt)).append("\n");
         sb.append("    state: ").append(toIndentedString(state)).append("\n");
+        sb.append("    stoppedAt: ").append(toIndentedString(stoppedAt)).append("\n");
+        sb.append("    stoppingAt: ").append(toIndentedString(stoppingAt)).append("\n");
         sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
         sb.append("    when: ").append(toIndentedString(when)).append("\n");
         sb.append("}");

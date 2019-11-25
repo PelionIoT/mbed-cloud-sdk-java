@@ -32,6 +32,9 @@ public class WebsocketChannel implements Serializable {
     @SerializedName("queue_size")
     private Integer queueSize = null;
 
+    @SerializedName("serialization")
+    private Object serialization = null;
+
     /**
      * Channel status is &#39;connected&#39; when the channel has an active WebSocket bound to it. The state is
      * &#39;disconnected&#39; when either the channel or the WebSocket bound to it is closed.
@@ -102,6 +105,25 @@ public class WebsocketChannel implements Serializable {
         this.queueSize = queueSize;
     }
 
+    public WebsocketChannel serialization(Object serialization) {
+        this.serialization = serialization;
+        return this;
+    }
+
+    /**
+     * Serialization configuration for a channel.
+     * 
+     * @return serialization
+     **/
+    @ApiModelProperty(value = "Serialization configuration for a channel.")
+    public Object getSerialization() {
+        return serialization;
+    }
+
+    public void setSerialization(Object serialization) {
+        this.serialization = serialization;
+    }
+
     public WebsocketChannel status(StatusEnum status) {
         this.status = status;
         return this;
@@ -133,12 +155,13 @@ public class WebsocketChannel implements Serializable {
         }
         WebsocketChannel websocketChannel = (WebsocketChannel) o;
         return Objects.equals(this.queueSize, websocketChannel.queueSize)
+               && Objects.equals(this.serialization, websocketChannel.serialization)
                && Objects.equals(this.status, websocketChannel.status);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(queueSize, status);
+        return Objects.hash(queueSize, serialization, status);
     }
 
     @Override
@@ -147,6 +170,7 @@ public class WebsocketChannel implements Serializable {
         sb.append("class WebsocketChannel {\n");
 
         sb.append("    queueSize: ").append(toIndentedString(queueSize)).append("\n");
+        sb.append("    serialization: ").append(toIndentedString(serialization)).append("\n");
         sb.append("    status: ").append(toIndentedString(status)).append("\n");
         sb.append("}");
         return sb.toString();

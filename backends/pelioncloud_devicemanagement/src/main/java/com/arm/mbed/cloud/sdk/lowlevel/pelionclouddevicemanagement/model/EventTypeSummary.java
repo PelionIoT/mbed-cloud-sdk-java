@@ -40,7 +40,7 @@ public class EventTypeSummary implements Serializable {
     private DateTime createdAt = null;
 
     /**
-     * ID of the event type description
+     * ID of the event type description.
      */
     @JsonAdapter(IdEnum.Adapter.class)
     public enum IdEnum {
@@ -213,11 +213,11 @@ public class EventTypeSummary implements Serializable {
     }
 
     /**
-     * ID of the event type description
+     * ID of the event type description.
      * 
      * @return id
      **/
-    @ApiModelProperty(example = "fail", value = "ID of the event type description")
+    @ApiModelProperty(example = "fail", value = "ID of the event type description.")
     public IdEnum getId() {
         return id;
     }
@@ -232,11 +232,11 @@ public class EventTypeSummary implements Serializable {
     }
 
     /**
-     * Get object
+     * Entity name: always &#39;summary_status&#39;.
      * 
      * @return object
      **/
-    @ApiModelProperty(example = "summary_status", value = "")
+    @ApiModelProperty(value = "Entity name: always 'summary_status'.")
     public String getObject() {
         return object;
     }

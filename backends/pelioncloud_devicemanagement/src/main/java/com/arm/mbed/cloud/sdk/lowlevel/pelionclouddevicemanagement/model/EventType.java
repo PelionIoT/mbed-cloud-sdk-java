@@ -172,11 +172,11 @@ public class EventType implements Serializable {
     }
 
     /**
-     * Get object
+     * Entity name: always &#39;event-type&#39;.
      * 
      * @return object
      **/
-    @ApiModelProperty(example = "event-type", value = "")
+    @ApiModelProperty(value = "Entity name: always 'event-type'.")
     public String getObject() {
         return object;
     }

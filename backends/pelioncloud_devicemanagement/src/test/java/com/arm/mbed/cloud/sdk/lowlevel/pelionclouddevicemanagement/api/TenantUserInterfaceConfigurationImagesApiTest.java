@@ -50,6 +50,51 @@ public class TenantUserInterfaceConfigurationImagesApiTest {
     }
 
     /**
+     * Delete images in the dark theme.
+     *
+     * Delete account dark theme branding images. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark -H &#39;Authorization: Bearer
+     * API_KEY&#39;&#x60;
+     */
+    @Test
+    public void deleteAllAccountDarkImagesTest() {
+        String accountId = null;
+        // Void response = api.deleteAllAccountDarkImages(accountId);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Delete all images.
+     *
+     * Delete account branding images for all themes. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images -H &#39;Authorization: Bearer
+     * API_KEY&#39;&#x60;
+     */
+    @Test
+    public void deleteAllAccountImagesTest() {
+        String accountId = null;
+        // Void response = api.deleteAllAccountImages(accountId);
+
+        // TODO: test validations
+    }
+
+    /**
+     * Delete images in the light theme.
+     *
+     * Delete account light theme branding images. **Example usage:** &#x60;curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light -H &#39;Authorization: Bearer
+     * API_KEY&#39;&#x60;
+     */
+    @Test
+    public void deleteAllAccountLightImagesTest() {
+        String accountId = null;
+        // Void response = api.deleteAllAccountLightImages(accountId);
+
+        // TODO: test validations
+    }
+
+    /**
      * Get metadata of a dark theme image.
      *
      * Retrieve metadata of one account dark theme branding image. **Example:** &#x60;&#x60;&#x60; curl -X GET

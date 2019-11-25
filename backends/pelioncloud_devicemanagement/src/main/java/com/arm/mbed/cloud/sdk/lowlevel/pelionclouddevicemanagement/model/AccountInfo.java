@@ -63,6 +63,12 @@ public class AccountInfo implements Serializable {
     @SerializedName("aliases")
     private List<String> aliases = null;
 
+    @SerializedName("business_model")
+    private BusinessModel businessModel = null;
+
+    @SerializedName("business_model_history")
+    private List<BusinessModelHistory> businessModelHistory = null;
+
     @SerializedName("city")
     private String city = null;
 
@@ -110,6 +116,9 @@ public class AccountInfo implements Serializable {
 
     @SerializedName("idle_timeout")
     private Integer idleTimeout = null;
+
+    @SerializedName("limitations")
+    private List<AccountLimitation> limitations = null;
 
     @SerializedName("limits")
     private Map<String, String> limits = null;
@@ -401,12 +410,12 @@ public class AccountInfo implements Serializable {
     }
 
     /**
-     * The ID of the admin user created for this account.
+     * The ID of the admin user created for this account. Present only in the response for the account creation.
      * 
      * @return adminId
      **/
     @ApiModelProperty(example = "01619571e2e89242ac12000600000000",
-                      value = "The ID of the admin user created for this account.")
+                      value = "The ID of the admin user created for this account. Present only in the response for the account creation.")
     public String getAdminId() {
         return adminId;
     }
@@ -491,6 +500,52 @@ public class AccountInfo implements Serializable {
 
     public void setAliases(List<String> aliases) {
         this.aliases = aliases;
+    }
+
+    public AccountInfo businessModel(BusinessModel businessModel) {
+        this.businessModel = businessModel;
+        return this;
+    }
+
+    /**
+     * Get businessModel
+     * 
+     * @return businessModel
+     **/
+    @ApiModelProperty(value = "")
+    public BusinessModel getBusinessModel() {
+        return businessModel;
+    }
+
+    public void setBusinessModel(BusinessModel businessModel) {
+        this.businessModel = businessModel;
+    }
+
+    public AccountInfo businessModelHistory(List<BusinessModelHistory> businessModelHistory) {
+        this.businessModelHistory = businessModelHistory;
+        return this;
+    }
+
+    public AccountInfo addBusinessModelHistoryItem(BusinessModelHistory businessModelHistoryItem) {
+        if (this.businessModelHistory == null) {
+            this.businessModelHistory = new ArrayList<BusinessModelHistory>();
+        }
+        this.businessModelHistory.add(businessModelHistoryItem);
+        return this;
+    }
+
+    /**
+     * Business model history for this account.
+     * 
+     * @return businessModelHistory
+     **/
+    @ApiModelProperty(value = "Business model history for this account.")
+    public List<BusinessModelHistory> getBusinessModelHistory() {
+        return businessModelHistory;
+    }
+
+    public void setBusinessModelHistory(List<BusinessModelHistory> businessModelHistory) {
+        this.businessModelHistory = businessModelHistory;
     }
 
     public AccountInfo city(String city) {
@@ -804,6 +859,33 @@ public class AccountInfo implements Serializable {
 
     public void setIdleTimeout(Integer idleTimeout) {
         this.idleTimeout = idleTimeout;
+    }
+
+    public AccountInfo limitations(List<AccountLimitation> limitations) {
+        this.limitations = limitations;
+        return this;
+    }
+
+    public AccountInfo addLimitationsItem(AccountLimitation limitationsItem) {
+        if (this.limitations == null) {
+            this.limitations = new ArrayList<AccountLimitation>();
+        }
+        this.limitations.add(limitationsItem);
+        return this;
+    }
+
+    /**
+     * List of account limitation objects.
+     * 
+     * @return limitations
+     **/
+    @ApiModelProperty(value = "List of account limitation objects.")
+    public List<AccountLimitation> getLimitations() {
+        return limitations;
+    }
+
+    public void setLimitations(List<AccountLimitation> limitations) {
+        this.limitations = limitations;
     }
 
     public AccountInfo limits(Map<String, String> limits) {
@@ -1257,8 +1339,11 @@ public class AccountInfo implements Serializable {
                && Objects.equals(this.adminKey, accountInfo.adminKey)
                && Objects.equals(this.adminName, accountInfo.adminName)
                && Objects.equals(this.adminPassword, accountInfo.adminPassword)
-               && Objects.equals(this.aliases, accountInfo.aliases) && Objects.equals(this.city, accountInfo.city)
-               && Objects.equals(this.company, accountInfo.company) && Objects.equals(this.contact, accountInfo.contact)
+               && Objects.equals(this.aliases, accountInfo.aliases)
+               && Objects.equals(this.businessModel, accountInfo.businessModel)
+               && Objects.equals(this.businessModelHistory, accountInfo.businessModelHistory)
+               && Objects.equals(this.city, accountInfo.city) && Objects.equals(this.company, accountInfo.company)
+               && Objects.equals(this.contact, accountInfo.contact)
                && Objects.equals(this.contractNumber, accountInfo.contractNumber)
                && Objects.equals(this.country, accountInfo.country)
                && Objects.equals(this.createdAt, accountInfo.createdAt)
@@ -1269,6 +1354,7 @@ public class AccountInfo implements Serializable {
                && Objects.equals(this.etag, accountInfo.etag) && Objects.equals(this.expiration, accountInfo.expiration)
                && Objects.equals(this.expirationWarningThreshold, accountInfo.expirationWarningThreshold)
                && Objects.equals(this.id, accountInfo.id) && Objects.equals(this.idleTimeout, accountInfo.idleTimeout)
+               && Objects.equals(this.limitations, accountInfo.limitations)
                && Objects.equals(this.limits, accountInfo.limits)
                && Objects.equals(this.mfaStatus, accountInfo.mfaStatus)
                && Objects.equals(this.notificationEmails, accountInfo.notificationEmails)
@@ -1293,12 +1379,12 @@ public class AccountInfo implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(addressLine1, addressLine2, adminEmail, adminFullName, adminId, adminKey, adminName,
-                            adminPassword, aliases, city, company, contact, contractNumber, country, createdAt,
-                            customFields, customerNumber, displayName, email, endMarket, etag, expiration,
-                            expirationWarningThreshold, id, idleTimeout, limits, mfaStatus, notificationEmails, object,
-                            parentAccount, parentId, passwordPolicy, passwordRecoveryExpiration, phoneNumber, policies,
-                            postalCode, reason, referenceNote, salesContact, state, status, subAccounts, templateId,
-                            tier, updatedAt, upgradedAt);
+                            adminPassword, aliases, businessModel, businessModelHistory, city, company, contact,
+                            contractNumber, country, createdAt, customFields, customerNumber, displayName, email,
+                            endMarket, etag, expiration, expirationWarningThreshold, id, idleTimeout, limitations,
+                            limits, mfaStatus, notificationEmails, object, parentAccount, parentId, passwordPolicy,
+                            passwordRecoveryExpiration, phoneNumber, policies, postalCode, reason, referenceNote,
+                            salesContact, state, status, subAccounts, templateId, tier, updatedAt, upgradedAt);
     }
 
     @Override
@@ -1315,6 +1401,8 @@ public class AccountInfo implements Serializable {
         sb.append("    adminName: ").append(toIndentedString(adminName)).append("\n");
         sb.append("    adminPassword: ").append(toIndentedString(adminPassword)).append("\n");
         sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
+        sb.append("    businessModel: ").append(toIndentedString(businessModel)).append("\n");
+        sb.append("    businessModelHistory: ").append(toIndentedString(businessModelHistory)).append("\n");
         sb.append("    city: ").append(toIndentedString(city)).append("\n");
         sb.append("    company: ").append(toIndentedString(company)).append("\n");
         sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
@@ -1331,6 +1419,7 @@ public class AccountInfo implements Serializable {
         sb.append("    expirationWarningThreshold: ").append(toIndentedString(expirationWarningThreshold)).append("\n");
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
+        sb.append("    limitations: ").append(toIndentedString(limitations)).append("\n");
         sb.append("    limits: ").append(toIndentedString(limits)).append("\n");
         sb.append("    mfaStatus: ").append(toIndentedString(mfaStatus)).append("\n");
         sb.append("    notificationEmails: ").append(toIndentedString(notificationEmails)).append("\n");

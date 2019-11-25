@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **data** | [**List&lt;UploadJob&gt;**](UploadJob.md) |  |  [optional]
 **hasMore** | **Boolean** |  |  [optional]
 **limit** | **Integer** |  |  [optional]
-**object** | **String** |  |  [optional]
-**order** | [**OrderEnum**](#OrderEnum) | The order of the records to return. Acceptable values: ASC, DESC. Default: ASC |  [optional]
+**object** | **String** | Entity name: always &#39;list&#39;. |  [optional]
+**order** | [**OrderEnum**](#OrderEnum) | The order of the records to return. Acceptable values: ASC, DESC. Default: ASC. |  [optional]
 **totalCount** | **Integer** |  |  [optional]
 
 
