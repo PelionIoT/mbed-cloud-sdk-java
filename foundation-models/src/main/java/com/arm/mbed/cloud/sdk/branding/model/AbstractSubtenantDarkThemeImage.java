@@ -35,7 +35,7 @@ public abstract class AbstractSubtenantDarkThemeImage implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -59,7 +59,7 @@ public abstract class AbstractSubtenantDarkThemeImage implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -85,7 +85,7 @@ public abstract class AbstractSubtenantDarkThemeImage implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -122,7 +122,7 @@ public abstract class AbstractSubtenantDarkThemeImage implements SdkModel {
 
     /**
      * Sets name of the image.
-     *
+     * 
      * <p>
      * Similar to {@link #setReference(com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageReference)}
      * 
@@ -154,7 +154,7 @@ public abstract class AbstractSubtenantDarkThemeImage implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -168,7 +168,7 @@ public abstract class AbstractSubtenantDarkThemeImage implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -186,7 +186,7 @@ public abstract class AbstractSubtenantDarkThemeImage implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -200,7 +200,7 @@ public abstract class AbstractSubtenantDarkThemeImage implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -245,7 +245,7 @@ public abstract class AbstractSubtenantDarkThemeImage implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -258,7 +258,7 @@ public abstract class AbstractSubtenantDarkThemeImage implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

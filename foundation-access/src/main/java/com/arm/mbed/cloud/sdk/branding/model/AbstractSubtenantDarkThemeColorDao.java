@@ -76,7 +76,7 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
 
     /**
      * Deletes a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -84,7 +84,7 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
      * {@link com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorDao#delete(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColor)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -95,13 +95,13 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
 
     /**
      * Deletes a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#deleteSubtenantDarkThemeColor(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColor)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantDarkThemeColor
      *            a subtenant dark theme color.
      * @throws MbedCloudException
@@ -114,13 +114,13 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
 
     /**
      * Deletes a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#deleteSubtenantDarkThemeColor(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            The name of the branding color.
      * @throws MbedCloudException
@@ -183,7 +183,7 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
 
     /**
      * Gets a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -191,7 +191,7 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
      * {@link com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorDao#read(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColor)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -203,13 +203,13 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
 
     /**
      * Gets a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#readSubtenantDarkThemeColor(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColor)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantDarkThemeColor
      *            a subtenant dark theme color.
      * @return something
@@ -225,13 +225,13 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
 
     /**
      * Gets a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#readSubtenantDarkThemeColor(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Color name.
      * @return something
@@ -245,7 +245,7 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
 
     /**
      * Modifies a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -253,7 +253,7 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
      * {@link com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorDao#update(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColor)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -264,13 +264,13 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
 
     /**
      * Modifies a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#updateSubtenantDarkThemeColor(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColor)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantDarkThemeColor
      *            a subtenant dark theme color.
      * @return something
@@ -286,7 +286,7 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
 
     /**
      * Modifies a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -294,7 +294,7 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
      * {@link com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorDao#update(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorReference, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColor)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Color name.
      * @return an updated subtenant dark theme color
@@ -309,13 +309,13 @@ public abstract class AbstractSubtenantDarkThemeColorDao extends AbstractModelDa
 
     /**
      * Modifies a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#updateSubtenantDarkThemeColor(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorReference, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColor)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Color name.
      * @param subtenantDarkThemeColor

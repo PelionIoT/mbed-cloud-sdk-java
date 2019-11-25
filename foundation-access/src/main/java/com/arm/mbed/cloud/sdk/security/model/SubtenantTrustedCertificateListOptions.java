@@ -183,7 +183,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -216,7 +216,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -241,7 +241,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -278,7 +278,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code valid}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions#addEqualToValidFilter(boolean)}
@@ -316,7 +316,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions#addEqualToNameFilter(String)}
@@ -354,7 +354,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions#addEqualToStatusFilter(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateStatus)}
@@ -393,7 +393,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code deviceExecutionMode}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions#addEqualToDeviceExecutionModeFilter(int)}
@@ -423,7 +423,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code deviceExecutionMode}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions#addNotEqualToDeviceExecutionModeFilter(int)}
@@ -462,7 +462,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "a like" filter by {@code issuer}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions#addLikeIssuerFilter(String)}
@@ -500,7 +500,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code service}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions#addEqualToServiceFilter(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateService)}
@@ -539,7 +539,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "a like" filter by {@code subject}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions#addLikeSubjectFilter(String)}
@@ -577,7 +577,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code enrollmentMode}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions#addEqualToEnrollmentModeFilter(boolean)}
@@ -596,7 +596,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -612,7 +612,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -627,7 +627,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -642,7 +642,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -673,7 +673,7 @@ public class SubtenantTrustedCertificateListOptions extends ListOptions {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()

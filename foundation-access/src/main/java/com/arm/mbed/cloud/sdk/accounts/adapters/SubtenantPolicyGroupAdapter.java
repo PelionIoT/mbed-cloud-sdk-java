@@ -8,8 +8,10 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupUpdateInfo;
 import java.util.List;
 
 /**
@@ -25,6 +27,68 @@ public final class SubtenantPolicyGroupAdapter {
     private SubtenantPolicyGroupAdapter() {
         super();
         // Nothing to do;
+    }
+
+    /**
+     * Maps a subtenant policy group into a group creation info.
+     * 
+     * @param toBeMapped
+     *            a subtenant policy group.
+     * @return mapped a group creation info
+     */
+    @Internal
+    public static GroupCreationInfo reverseMapAddRequest(SubtenantPolicyGroup toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final GroupCreationInfo groupCreationInfo = new GroupCreationInfo();
+        // No field equivalent to members in GroupCreationInfo was found in SubtenantPolicyGroup
+        groupCreationInfo.setName(toBeMapped.getName());
+        return groupCreationInfo;
+    }
+
+    /**
+     * Maps a group summary into a subtenant policy group.
+     * 
+     * @param toBeMapped
+     *            a group summary.
+     * @return mapped a subtenant policy group
+     */
+    @Internal
+    public static SubtenantPolicyGroup map(GroupSummary toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final SubtenantPolicyGroup subtenantPolicyGroup = new SubtenantPolicyGroup(TranslationUtils.toInt(toBeMapped.getApikeyCount()),
+                                                                                   TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                                                   TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
+                                                                                   TranslationUtils.toInt(toBeMapped.getUserCount()));
+        subtenantPolicyGroup.setAccountId(toBeMapped.getAccountId());
+        subtenantPolicyGroup.setId(toBeMapped.getId());
+        subtenantPolicyGroup.setName(toBeMapped.getName());
+        return subtenantPolicyGroup;
+    }
+
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper
+     */
+    @Internal
+    public static GenericAdapter.Mapper<GroupSummary, SubtenantPolicyGroup> getMapper() {
+        return new GenericAdapter.Mapper<GroupSummary, SubtenantPolicyGroup>() {
+            /**
+             * Maps.
+             * 
+             * @param toBeMapped
+             *            model to be mapped.
+             * @return a mapped object
+             */
+            @Override
+            public SubtenantPolicyGroup map(GroupSummary toBeMapped) {
+                return SubtenantPolicyGroupAdapter.map(toBeMapped);
+            }
+        };
     }
 
     /**
@@ -134,46 +198,19 @@ public final class SubtenantPolicyGroupAdapter {
     }
 
     /**
-     * Maps a group summary into a subtenant policy group.
+     * Maps a subtenant policy group into a group update info.
      * 
      * @param toBeMapped
-     *            a group summary.
-     * @return mapped a subtenant policy group
+     *            a subtenant policy group.
+     * @return mapped a group update info
      */
     @Internal
-    public static SubtenantPolicyGroup map(GroupSummary toBeMapped) {
+    public static GroupUpdateInfo reverseMapUpdateRequest(SubtenantPolicyGroup toBeMapped) {
         if (toBeMapped == null) {
             return null;
         }
-        final SubtenantPolicyGroup subtenantPolicyGroup = new SubtenantPolicyGroup(TranslationUtils.toInt(toBeMapped.getApikeyCount()),
-                                                                                   TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                                                                   toBeMapped.getName(),
-                                                                                   TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
-                                                                                   TranslationUtils.toInt(toBeMapped.getUserCount()));
-        subtenantPolicyGroup.setAccountId(toBeMapped.getAccountId());
-        subtenantPolicyGroup.setId(toBeMapped.getId());
-        return subtenantPolicyGroup;
-    }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<GroupSummary, SubtenantPolicyGroup> getMapper() {
-        return new GenericAdapter.Mapper<GroupSummary, SubtenantPolicyGroup>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public SubtenantPolicyGroup map(GroupSummary toBeMapped) {
-                return SubtenantPolicyGroupAdapter.map(toBeMapped);
-            }
-        };
+        final GroupUpdateInfo groupUpdateInfo = new GroupUpdateInfo();
+        groupUpdateInfo.setName(toBeMapped.getName());
+        return groupUpdateInfo;
     }
 }

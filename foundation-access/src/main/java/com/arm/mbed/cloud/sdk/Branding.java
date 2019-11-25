@@ -173,7 +173,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -186,7 +186,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a dark theme color.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteDarkThemeColor(com.arm.mbed.cloud.sdk.branding.model.DarkThemeColorReference)}
      * 
@@ -203,13 +203,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a dark theme color.
-     *
+     * 
      * <p>
      * Resets the branding color to its dark theme default.
-     *
+     * 
      * **Example:** ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param reference
      *            The name of the branding color.
      * @throws MbedCloudException
@@ -235,7 +235,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a dark theme image.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteDarkThemeImage(com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageReference)}
      * 
@@ -252,13 +252,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a dark theme image.
-     *
+     * 
      * <p>
      * Revert an account branding image to dark theme default.
-     *
+     * 
      * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference}/clear \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param reference
      *            Name of the branding images (icon or picture).
      * @throws MbedCloudException
@@ -284,7 +284,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a light theme color.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteLightThemeColor(com.arm.mbed.cloud.sdk.branding.model.LightThemeColorReference)}
      * 
@@ -301,13 +301,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a light theme color.
-     *
+     * 
      * <p>
      * Resets the branding color to its light theme default.
-     *
+     * 
      * **Example:** ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param reference
      *            The name of the branding color.
      * @throws MbedCloudException
@@ -333,7 +333,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a light theme image.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteLightThemeImage(com.arm.mbed.cloud.sdk.branding.model.LightThemeImageReference)}
      * 
@@ -350,13 +350,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a light theme image.
-     *
+     * 
      * <p>
      * Revert an account branding image to light theme default.
-     *
+     * 
      * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference}/clear \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param reference
      *            Name of the branding images (icon or picture).
      * @throws MbedCloudException
@@ -382,13 +382,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #deleteSubtenantDarkThemeColor(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantDarkThemeColor
      *            a subtenant dark theme color.
      * @throws MbedCloudException
@@ -405,16 +405,16 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Resets the branding color of a tenant account to its dark theme default.
-     *
+     * 
      * **Example:** ``` curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            The name of the branding color.
      * @throws MbedCloudException
@@ -445,13 +445,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a subtenant dark theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #deleteSubtenantDarkThemeImage(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantDarkThemeImage
      *            a subtenant dark theme image.
      * @throws MbedCloudException
@@ -468,16 +468,16 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a subtenant dark theme image.
-     *
+     * 
      * <p>
      * Revert an account branding image to dark theme default.
-     *
+     * 
      * **Example:** ``` curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference}/clear \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Name of the branding images (icon or picture).
      * @throws MbedCloudException
@@ -508,13 +508,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a subtenant light theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #deleteSubtenantLightThemeColor(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantLightThemeColor
      *            a subtenant light theme color.
      * @throws MbedCloudException
@@ -531,16 +531,16 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a subtenant light theme color.
-     *
+     * 
      * <p>
      * Resets the branding color of a tenant account to its light theme default.
-     *
+     * 
      * **Example:** ``` curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            The name of the branding color.
      * @throws MbedCloudException
@@ -571,13 +571,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a subtenant light theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #deleteSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantLightThemeImage
      *            a subtenant light theme image.
      * @throws MbedCloudException
@@ -594,16 +594,16 @@ public class Branding extends AbstractModule {
 
     /**
      * Deletes a subtenant light theme image.
-     *
+     * 
      * <p>
      * Revert an account branding image to light theme default.
-     *
+     * 
      * **Example:** ```curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference}/clear \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Name of the branding images (icon or picture).
      * @throws MbedCloudException
@@ -655,7 +655,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of dark theme colors matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all dark theme colors matching filter options.
      * 
@@ -689,7 +689,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of dark theme images matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all dark theme images matching filter options.
      * 
@@ -723,7 +723,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of light theme colors matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all light theme colors matching filter options.
      * 
@@ -757,7 +757,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of light theme images matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all light theme images matching filter options.
      * 
@@ -791,13 +791,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Lists dark theme colors matching filter options.
-     *
+     * 
      * <p>
      * Retrieve the dark theme branding colors.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of dark theme colors corresponding to filter options (One page).
@@ -825,13 +825,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Lists dark theme images matching filter options.
-     *
+     * 
      * <p>
      * Retrieve metadata for all dark theme branding images.
-     *
+     * 
      * **Example:** `curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/dark \ -H 'Authorization: Bearer
      * [api_key]' ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of dark theme images corresponding to filter options (One page).
@@ -859,13 +859,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Lists light theme colors matching filter options.
-     *
+     * 
      * <p>
      * Retrieve the light theme branding colors.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/light \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of light theme colors corresponding to filter options (One page).
@@ -893,13 +893,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Lists light theme images matching filter options.
-     *
+     * 
      * <p>
      * Retrieve the metadata of all light theme branding images.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/light \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of light theme images corresponding to filter options (One page).
@@ -928,7 +928,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a dark theme color.
-     *
+     * 
      * <p>
      * Similar to {@link #readDarkThemeColor(com.arm.mbed.cloud.sdk.branding.model.DarkThemeColorReference)}
      * 
@@ -947,13 +947,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a dark theme color.
-     *
+     * 
      * <p>
      * Retrieve the requested dark theme branding color.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/{reference} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param reference
      *            Color name.
      * @return something
@@ -983,7 +983,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a dark theme image.
-     *
+     * 
      * <p>
      * Similar to {@link #readDarkThemeImage(com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageReference)}
      * 
@@ -1002,13 +1002,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a dark theme image.
-     *
+     * 
      * <p>
      * Retrieve metadata for one account dark theme branding image.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/dark/{reference} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param reference
      *            Name of the image.
      * @return something
@@ -1038,7 +1038,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a light theme color.
-     *
+     * 
      * <p>
      * Similar to {@link #readLightThemeColor(com.arm.mbed.cloud.sdk.branding.model.LightThemeColorReference)}
      * 
@@ -1057,13 +1057,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a light theme color.
-     *
+     * 
      * <p>
      * Retrieve the requested light theme branding color.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/{reference} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param reference
      *            Color name.
      * @return something
@@ -1093,7 +1093,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a light theme image.
-     *
+     * 
      * <p>
      * Similar to {@link #readLightThemeImage(com.arm.mbed.cloud.sdk.branding.model.LightThemeImageReference)}
      * 
@@ -1112,13 +1112,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a light theme image.
-     *
+     * 
      * <p>
      * Retrieve metadata for one account light theme branding image.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/branding-images/light/{reference} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param reference
      *            Name of the image.
      * @return something
@@ -1148,13 +1148,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #readSubtenantDarkThemeColor(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantDarkThemeColor
      *            a subtenant dark theme color.
      * @return something
@@ -1173,16 +1173,16 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Retrieve the requested dark theme branding color.
-     *
+     * 
      * **Example:** ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark/{reference} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Color name.
      * @return something
@@ -1217,13 +1217,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a subtenant dark theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #readSubtenantDarkThemeImage(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantDarkThemeImage
      *            a subtenant dark theme image.
      * @return something
@@ -1242,16 +1242,16 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a subtenant dark theme image.
-     *
+     * 
      * <p>
      * Retrieve metadata of one account dark theme branding image.
-     *
+     * 
      * **Example:** ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark/{reference} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Name of the image.
      * @return something
@@ -1286,13 +1286,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a subtenant light theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #readSubtenantLightThemeColor(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantLightThemeColor
      *            a subtenant light theme color.
      * @return something
@@ -1311,16 +1311,16 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a subtenant light theme color.
-     *
+     * 
      * <p>
      * Retrieve the requested light theme branding color.
-     *
+     * 
      * **Example:** ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light/{reference} -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Color name.
      * @return something
@@ -1355,13 +1355,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a subtenant light theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #readSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantLightThemeImage
      *            a subtenant light theme image.
      * @return something
@@ -1380,16 +1380,16 @@ public class Branding extends AbstractModule {
 
     /**
      * Gets a subtenant light theme image.
-     *
+     * 
      * <p>
      * Retrieve metadata for one account light theme branding image.
-     *
+     * 
      * **Example:** ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light/{reference} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Name of the image.
      * @return something
@@ -1424,7 +1424,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateDarkThemeColor(com.arm.mbed.cloud.sdk.branding.model.DarkThemeColorReference, com.arm.mbed.cloud.sdk.branding.model.DarkThemeColor)}
@@ -1445,13 +1445,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a dark theme color.
-     *
+     * 
      * <p>
      * Update a dark theme branding color.
-     *
+     * 
      * **Example:** ``` curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/dark/primary \ -H
      * 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \ -d '{ "color": "#f3f93e" }' ```
-     *
+     * 
      * @param reference
      *            Color name.
      * @param darkThemeColor
@@ -1488,7 +1488,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a dark theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateDarkThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageReference)}
@@ -1514,10 +1514,10 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a dark theme image.
-     *
+     * 
      * <p>
      * Upload a new account branding image as form data in the dark theme in PNG or JPEG format.
-     *
+     * 
      * @param image
      *            The image in PNG or JPEG format as multipart form data.
      * @param reference
@@ -1555,7 +1555,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a light theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateLightThemeColor(com.arm.mbed.cloud.sdk.branding.model.LightThemeColorReference, com.arm.mbed.cloud.sdk.branding.model.LightThemeColor)}
@@ -1576,13 +1576,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a light theme color.
-     *
+     * 
      * <p>
      * Update light theme branding color.
-     *
+     * 
      * **Example:** ``` curl -X PUT https://api.us-east-1.mbedcloud.com/v3/branding-colors/light/primary \ -H
      * 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \ -d '{ "color": "purple" }' ```
-     *
+     * 
      * @param reference
      *            Color name.
      * @param lightThemeColor
@@ -1619,7 +1619,7 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a light theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateLightThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.LightThemeImageReference)}
@@ -1645,10 +1645,10 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a light theme image.
-     *
+     * 
      * <p>
      * Upload a new account branding image as form data in the light theme in PNG or JPEG format.
-     *
+     * 
      * @param image
      *            The image in PNG or JPEG format as multipart form data.
      * @param reference
@@ -1687,13 +1687,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateSubtenantDarkThemeColor(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorReference, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColor)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantDarkThemeColor
      *            a subtenant dark theme color.
      * @return something
@@ -1714,16 +1714,16 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a subtenant dark theme color.
-     *
+     * 
      * <p>
      * Update a dark theme branding color of a tenant account.
-     *
+     * 
      * **Example:** ``` curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/dark/primary \ -H 'Authorization:
      * Bearer [api_key]' \ -H 'content-type: application/json' \ -d '{ "color": "#f3f93e" }' ```
-     *
+     * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Color name.
      * @param subtenantDarkThemeColor
@@ -1764,13 +1764,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a subtenant dark theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateSubtenantDarkThemeImage(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param image
      *            The image in PNG or JPEG format as multipart form data.
      * @param subtenantDarkThemeImage
@@ -1794,12 +1794,12 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a subtenant dark theme image.
-     *
+     * 
      * <p>
      * Upload a new account dark theme branding image as form data in PNG or JPEG format.
-     *
+     * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param image
      *            The image in PNG or JPEG format as multipart form data.
      * @param reference
@@ -1841,13 +1841,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a subtenant light theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateSubtenantLightThemeColor(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorReference, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColor)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantLightThemeColor
      *            a subtenant light theme color.
      * @return something
@@ -1868,16 +1868,16 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a subtenant light theme color.
-     *
+     * 
      * <p>
      * Update a light theme branding color of a tenant account.
-     *
+     * 
      * **Example:** ``` curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id)/branding-colors/light/primary \ -H 'Authorization:
      * Bearer [api_key]' \ -H 'content-type: application/json' \ -d '{ "color": "purple" }' ```
-     *
+     * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Color name.
      * @param subtenantLightThemeColor
@@ -1919,13 +1919,13 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a subtenant light theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param image
      *            The image in PNG or JPEG format as multipart form data.
      * @param subtenantLightThemeImage
@@ -1949,12 +1949,12 @@ public class Branding extends AbstractModule {
 
     /**
      * Modifies a subtenant light theme image.
-     *
+     * 
      * <p>
      * Upload a new account branding image as form data in PNG or JPEG format.
-     *
+     * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param image
      *            The image in PNG or JPEG format as multipart form data.
      * @param reference

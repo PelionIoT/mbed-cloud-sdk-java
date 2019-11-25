@@ -71,7 +71,7 @@ public class DarkThemeColorListDao extends AbstractModelListDao<DarkThemeColor, 
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -166,7 +166,7 @@ public class DarkThemeColorListDao extends AbstractModelListDao<DarkThemeColor, 
 
     /**
      * Lists dark theme colors matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#listDarkThemeColors(com.arm.mbed.cloud.sdk.branding.model.DarkThemeColorListOptions)}

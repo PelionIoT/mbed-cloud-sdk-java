@@ -58,7 +58,7 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -95,7 +95,7 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -123,11 +123,11 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on object identifier.
      * <p>
-     *
+     * 
      * @param id
      *            The group ID.
      */
@@ -138,7 +138,7 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -179,7 +179,7 @@ public class DeviceGroup implements SdkModel {
     /**
      * Sets up to ten custom key-value attributes. keys cannot begin with a number. both key and value are limited to
      * 128 characters. updating this field replaces existing contents.
-     *
+     * 
      * <p>
      * Note: the number of elements has to be less than or equal to {@code 10} to be valid
      * 
@@ -212,7 +212,7 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Sets the description of the group.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 2000} to be valid
      * 
@@ -265,7 +265,7 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Sets the group id.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -288,7 +288,7 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Sets name of the group.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 128} to be valid
      * 
@@ -320,7 +320,7 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -335,7 +335,7 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -357,7 +357,7 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -371,7 +371,7 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -444,7 +444,7 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -457,7 +457,7 @@ public class DeviceGroup implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

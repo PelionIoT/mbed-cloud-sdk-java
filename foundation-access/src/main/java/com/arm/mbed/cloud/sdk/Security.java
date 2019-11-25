@@ -201,7 +201,7 @@ public class Security extends AbstractModule {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -214,12 +214,12 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a certificate issuer.
-     *
+     * 
      * <p>
      * Create a certificate issuer. The maximum number of issuers is limited to 20 per account. Multiple certificate
      * issuers of the same issuer type can be created, provided they have a different name. This allows verification of
      * the certificate issuer configuration before activating it. [br] **Example usage:**
-     *
+     * 
      * ``` curl -X POST \ -H 'authorization: Bearer [valid access token]' \ -H 'content-type:
      * application/json;charset=UTF-8' \ https://api.us-east-1.mbedcloud.com/v3/certificate-issuers \ -d '{
      * "issuer_type": "GLOBAL_SIGN", "name": "GS Issuer", "description": "Sample GlobalSign certificate issuer",
@@ -242,12 +242,12 @@ public class Security extends AbstractModule {
      * cHeqg24x6lY/wXU1RBcWaTa0AQUwoGm2m\nIQCPfIqOEv/QC2HpO7SVCYkl65KwR0oTd1AzYxdxEq3xHQbh69EL0FGZPVxVCPI+\nhEAyifKy1/tm3l91Rf/kGpHY7nIQKCXH49tmFwix8gke2nZJmRgX7/zAdMOAKeKH\nAaIl4nQtv14EbaasMgnn9qgaDYnWzaReE
      * ob2QlQ/WYlTor61+KFpGtcf9jAkgudT\n2op+4CF7wT2+aTXdtkVWfmv++iB8GnlqZdxLvyG1cTYjjYHVFbMSWQnxzQqiE2ms\nQgp+byjWCumpsWTMdTO+d9NkDOo80vDpaRxEgebmhJ0MbX+eFjBgVg==\n-----END
      * RSA PRIVATE KEY-----", "passphrase": "helloworld" } }' ```
-     *
+     * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
-     *
+     * 
      * @param certificateIssuerRequest
      *            a certificate issuer.
      * @return an added certificate issuer
@@ -282,14 +282,14 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a certificate issuer config.
-     *
+     * 
      * <p>
      * Configure the certificate issuer to be used when creating the device custom certificates. [br] **Example usage:**
-     *
+     * 
      * ``` curl -X POST \ -H 'authorization: [valid access token]' \ -H 'content-type: application/json;charset=UTF-8' \
      * https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \ -d '{ "reference": "customer.dlms",
      * "certificate_issuer_id": "01621a36719d507b9d48a91b00000000" }' ```
-     *
+     * 
      * @param createCertificateIssuerConfig
      *            a certificate issuer config.
      * @return an added certificate issuer config
@@ -320,18 +320,18 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a developer certificate.
-     *
+     * 
      * <p>
      * Create a developer certificate (a certificate that can be flashed to multiple devices to connect to the bootstrap
      * server).
-     *
+     * 
      * **Note:** The number of developer certificates allowed per account is limited. Please see [Using your own
      * certificate authority](../provisioning-process/using-CA.html).
-     *
+     * 
      * **Example:** ``` curl -X POST http://api.us-east-1.mbedcloud.com/v3/developer-certificates \ -H "Authorization:
      * Bearer [api_key]" \ -H "content-type: application/json" \ -d { "name": "[certificate_name]", "description":
      * "[certificate_description]" } ```
-     *
+     * 
      * @param developerCertificate
      *            a developer certificate.
      * @return an added developer certificate
@@ -362,17 +362,17 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a pre shared key.
-     *
+     * 
      * <p>
      * Upload a PSK for an endpoint to allow it to bootstrap. The existing key cannot be overwritten, but needs to be
      * deleted first in the case of re-setting a PSK for an endpoint.
-     *
+     * 
      * **Note**: The PSK APIs are available only to accounts that have this feature enabled.
-     *
+     * 
      * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \ -H "Authorization:
      * Bearer [api_key]" \ -H "content-type: application/json" \ -d '{ "endpoint_name": "my-endpoint-0001",
      * "secret_hex": "4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a" }' ```
-     *
+     * 
      * @param secretHex
      *            The secret of the PSK in hexadecimal. It is not case sensitive; 4a is same as 4A, and it is allowed
      *            with or without 0x in the beginning. The minimum length of the secret is 128 bits and maximum 256
@@ -407,15 +407,15 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Upload new trusted certificates.
-     *
+     * 
      * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates \
      * -H 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \ -d {"name": "myCert1",
      * "description": "very important cert", "certificate": "certificate_data", "service": "lwm2m"} ``` Signature is not
      * used by the SDK as it is a deprecated field.
-     *
+     * 
      * @param accountId
      *            The ID of the account.
      * @param subtenantTrustedCertificate
@@ -453,7 +453,7 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #createSubtenantTrustedCertificate(String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
@@ -476,15 +476,15 @@ public class Security extends AbstractModule {
 
     /**
      * Adds a trusted certificate.
-     *
+     * 
      * <p>
      * Upload new trusted certificates.
-     *
+     * 
      * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/trusted-certificates \ -H 'Authorization:
      * Bearer [api_key]' \ -H 'content-type: application/json' \ -d {"name": "myCert1", "description": "very important
      * cert", "certificate": "certificate_data", "service": "lwm2m"} ``` Signature is not used by the SDK as it is a
      * deprecated field.
-     *
+     * 
      * @param trustedCertificate
      *            a trusted certificate.
      * @return an added trusted certificate
@@ -515,7 +515,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a certificate issuer.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteCertificateIssuer(String)}
      * 
@@ -532,17 +532,17 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a certificate issuer.
-     *
+     * 
      * <p>
      * Delete a certificate issuer by ID. [br] **Example usage:**
-     *
+     * 
      * ``` curl -X DELETE \ -H 'authorization: [valid access token]' \
      * https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/0162155dc77d507b9d48a91b00000000 ```
-     *
+     * 
      * @param id
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer. An active certificate issuer may not be deleted.
-     *
+     * 
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -565,7 +565,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a certificate issuer config.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteCertificateIssuerConfig(String)}
      * 
@@ -583,14 +583,14 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a certificate issuer config.
-     *
+     * 
      * <p>
      * Delete the configured certificate issuer configuration. You can only delete the configurations of custom
      * certificates.
-     *
+     * 
      * @param id
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -613,7 +613,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a developer certificate.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteDeveloperCertificate(String)}
      * 
@@ -631,13 +631,13 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a developer certificate.
-     *
+     * 
      * <p>
      * Delete a trusted certificate.
-     *
+     * 
      * **Example:** ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            The ID of the trusted certificate to delete.
      * @throws MbedCloudException
@@ -662,7 +662,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a pre shared key.
-     *
+     * 
      * <p>
      * Similar to {@link #deletePreSharedKey(String)}
      * 
@@ -676,7 +676,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a pre shared key.
-     *
+     * 
      * <p>
      * Similar to {@link #deletePreSharedKey(String)}
      * 
@@ -693,15 +693,15 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a pre shared key.
-     *
+     * 
      * <p>
      * Remove a PSK.
-     *
+     * 
      * **Example:**
-     *
+     * 
      * ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 \ -H
      * "Authorization: Bearer [api_key]" ```
-     *
+     * 
      * @param endpointName
      *            a string
      * @throws MbedCloudException
@@ -725,14 +725,14 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Delete the trusted certificate.
-     *
+     * 
      * **Example:** ``` curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -763,7 +763,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteSubtenantTrustedCertificate(String, String)}
      * 
@@ -782,13 +782,13 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a trusted certificate.
-     *
+     * 
      * <p>
      * Delete a trusted certificate.
-     *
+     * 
      * **Example:** ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            The ID of the trusted certificate to delete.
      * @throws MbedCloudException
@@ -813,7 +813,7 @@ public class Security extends AbstractModule {
 
     /**
      * Deletes a trusted certificate.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteTrustedCertificate(String)}
      * 
@@ -830,14 +830,14 @@ public class Security extends AbstractModule {
 
     /**
      * Fetch bootstrap server credentials.
-     *
-     *
+     * 
+     * 
      * <p>
      * Return bootstrap server credentials for client to connect to bootstrap server.
-     *
+     * 
      * **Example:** ``` curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap \ -H
      * "Authorization: Bearer [api_key]" ```
-     *
+     * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -862,12 +862,12 @@ public class Security extends AbstractModule {
 
     /**
      * Get certificate issuer configuration.
-     *
-     *
+     * 
+     * 
      * <p>
      * Provides the configured certificate issuer to be used when creating device certificates for LwM2M
      * communication.[br]
-     *
+     * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -892,15 +892,15 @@ public class Security extends AbstractModule {
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
-     *
+     * 
+     * 
      * <p>
      * Return an existing developer certificate (a certificate that can be flashed to multiple devices to connect to
      * bootstrap server).
-     *
+     * 
      * **Example:** ``` curl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID \ -H
      * "Authorization: Bearer [api_key]" ```
-     *
+     * 
      * @param id
      *            ID that uniquely identifies the developer certificate.
      * @return something
@@ -929,8 +929,8 @@ public class Security extends AbstractModule {
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #getDeveloperCertificateInfo(String)}
      * 
@@ -950,8 +950,8 @@ public class Security extends AbstractModule {
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #getDeveloperCertificateInfo(String)}
      * 
@@ -981,14 +981,14 @@ public class Security extends AbstractModule {
 
     /**
      * Fetch LwM2M server credentials.
-     *
-     *
+     * 
+     * 
      * <p>
      * Return LwM2M server credentials for client to connect to LwM2M server.
-     *
+     * 
      * **Example:** ``` curl -X GET http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m \ -H "Authorization:
      * Bearer [api_key]" ```
-     *
+     * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -1024,8 +1024,8 @@ public class Security extends AbstractModule {
 
     /**
      * Get trusted certificate by ID.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #getTrustedCertificateInfo(String)}
      * 
@@ -1045,14 +1045,14 @@ public class Security extends AbstractModule {
 
     /**
      * Get trusted certificate by ID.
-     *
-     *
+     * 
+     * 
      * <p>
      * Retrieve a trusted certificate by ID.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            Entity ID.
      * @return something
@@ -1080,7 +1080,7 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of certificate enrollments matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all certificate enrollments matching filter options.
      * 
@@ -1116,7 +1116,7 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of certificate issuer configs matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all certificate issuer configs matching filter options.
      * 
@@ -1151,7 +1151,7 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of certificate issuers matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all certificate issuers matching filter options.
      * 
@@ -1186,7 +1186,7 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of pre shared keys matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all pre shared keys matching filter options.
      * 
@@ -1220,7 +1220,7 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all trusted certificates matching filter options.
      * 
@@ -1263,7 +1263,7 @@ public class Security extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #listAllTrustedCertificates(Integer, String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions)}
@@ -1284,19 +1284,19 @@ public class Security extends AbstractModule {
 
     /**
      * Lists certificate enrollments matching filter options.
-     *
+     * 
      * <p>
      * Get certificate enrollments list, optionally filtered.
-     *
+     * 
      * **Examples:**
-     *
+     * 
      * ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments \ -H 'Authorization: Bearer
      * [api_key]' ```
-     *
+     * 
      * ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments?device_id__eq=01612df56f3b0a580a010fc700000000 \
      * -H 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of certificate enrollments corresponding to filter options (One page).
@@ -1354,17 +1354,17 @@ public class Security extends AbstractModule {
 
     /**
      * Lists certificate issuer configs matching filter options.
-     *
+     * 
      * <p>
      * Get certificate issuer configurations, optionally filtered by reference. [br] **Example usage:**
-     *
+     * 
      * ``` curl \ -H 'authorization: [valid access token]' \ -H 'content-type: application/json;charset=UTF-8' \
      * https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \ ``` ``` curl \ -H 'authorization:
      * [valid access token]' \ -H 'content-type: application/json;charset=UTF-8' \
      * https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq=dlms \ ``` Note: This
      * endpoint does not implement pagination and therefore, list control parameters such as `limit` or `after` will be
      * ignored by the system.
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of certificate issuer configs corresponding to filter options (One page).
@@ -1399,11 +1399,11 @@ public class Security extends AbstractModule {
 
     /**
      * Lists certificate issuers matching filter options.
-     *
+     * 
      * <p>
      * Note: This endpoint does not implement pagination and therefore, list control parameters such as `limit` or
      * `after` will be ignored by the system.
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of certificate issuers corresponding to filter options (One page).
@@ -1436,15 +1436,15 @@ public class Security extends AbstractModule {
 
     /**
      * Lists pre shared keys matching filter options.
-     *
+     * 
      * <p>
      * Retrieve pre-shared keys (PSKs) with pagination. Default page size of 50 entries.
-     *
+     * 
      * **Example:**
-     *
+     * 
      * ``` curl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \ -H "Authorization: Bearer [api_key]"
      * ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of pre shared keys corresponding to filter options (One page).
@@ -1474,13 +1474,13 @@ public class Security extends AbstractModule {
 
     /**
      * Lists trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Retrieve trusted certificates in an array.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param expireEq
      *            an integer
      * @param ownerEq
@@ -1545,7 +1545,7 @@ public class Security extends AbstractModule {
 
     /**
      * Lists trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #listTrustedCertificates(Integer, String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions)}
@@ -1566,7 +1566,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate enrollment.
-     *
+     * 
      * <p>
      * Similar to {@link #readCertificateEnrollment(String)}
      * 
@@ -1586,15 +1586,15 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate enrollment.
-     *
+     * 
      * <p>
      * Get a certificate enrollment by ID.
-     *
+     * 
      * **Example:**
-     *
+     * 
      * ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/certificate-enrollments/01612df56f3b0a580a010fc700000000 \
      * -H 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            The certificate enrollment ID.
      * @return something
@@ -1624,7 +1624,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate issuer.
-     *
+     * 
      * <p>
      * Similar to {@link #readCertificateIssuer(String)}
      * 
@@ -1644,10 +1644,10 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate issuer.
-     *
+     * 
      * <p>
      * (No description provided)
-     *
+     * 
      * @param id
      *            The ID of the certificate issuer.
      * @return something
@@ -1675,7 +1675,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate issuer config.
-     *
+     * 
      * <p>
      * Similar to {@link #readCertificateIssuerConfig(String)}
      * 
@@ -1695,13 +1695,13 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a certificate issuer config.
-     *
+     * 
      * <p>
      * Provides the configured certificate issuer.
-     *
+     * 
      * @param id
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -1728,7 +1728,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a developer certificate.
-     *
+     * 
      * <p>
      * Similar to {@link #readDeveloperCertificate(String)}
      * 
@@ -1748,14 +1748,14 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a developer certificate.
-     *
+     * 
      * <p>
      * Return an existing developer certificate (a certificate that can be flashed to multiple devices to connect to
      * bootstrap server).
-     *
+     * 
      * **Example:** ``` curl -X GET http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID \ -H
      * "Authorization: Bearer [api_key]" ```
-     *
+     * 
      * @param id
      *            ID that uniquely identifies the developer certificate.
      * @return something
@@ -1784,7 +1784,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a pre shared key.
-     *
+     * 
      * <p>
      * Similar to {@link #readPreSharedKey(String)}
      * 
@@ -1800,7 +1800,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a pre shared key.
-     *
+     * 
      * <p>
      * Similar to {@link #readPreSharedKey(String)}
      * 
@@ -1819,15 +1819,15 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a pre shared key.
-     *
+     * 
      * <p>
      * Check if a PSK for an endpoint exists or not. The response does not contain the secret itself.
-     *
+     * 
      * **Example:**
-     *
+     * 
      * ``` curl -X GET https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 \ -H "Authorization:
      * Bearer [api_key]" ```
-     *
+     * 
      * @param endpointName
      *            The unique endpoint identifier that this PSK applies to. 16-64
      *            [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
@@ -1855,14 +1855,14 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Retrieve a trusted certificate by ID.
-     *
+     * 
      * **Example:** ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            The ID of the account.
      * @param id
@@ -1897,7 +1897,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Similar to {@link #readSubtenantTrustedCertificate(String, String)}
      * 
@@ -1918,13 +1918,13 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a trusted certificate.
-     *
+     * 
      * <p>
      * Retrieve a trusted certificate by ID.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            Entity ID.
      * @return something
@@ -1952,7 +1952,7 @@ public class Security extends AbstractModule {
 
     /**
      * Gets a trusted certificate.
-     *
+     * 
      * <p>
      * Similar to {@link #readTrustedCertificate(String)}
      * 
@@ -1972,7 +1972,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateCertificateIssuer(java.util.Map, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
@@ -1993,7 +1993,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateCertificateIssuer(java.util.Map, String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
@@ -2002,7 +2002,7 @@ public class Security extends AbstractModule {
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
-     *
+     * 
      * @param certificateIssuer
      *            a certificate issuer.
      * @return something
@@ -2021,19 +2021,19 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer.
-     *
+     * 
      * <p>
      * Update a certificate issuer. [br] **Example usage:**
-     *
+     * 
      * ``` curl -X PUT \ -H 'authorization: [valid access token]' \ -H 'content-type: application/json;charset=UTF-8' \
      * https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621560be51507b9d48a91b00000000 \ -d '{
      * "description": "Sample GlobalSign certificate issuer - updated.", "name": "GlobalSign Issuer" }' ```
-     *
+     * 
      * @param issuerCredentials
      *            The credentials required for connecting to the certificate issuer. When the issuer_type is
      *            GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see
      *            definition of CfsslAuthCredentials.
-     *
+     * 
      * @param id
      *            The ID of the certificate issuer.
      * @param certificateIssuerUpdateRequest
@@ -2072,7 +2072,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateCertificateIssuer(java.util.Map, String, com.arm.mbed.cloud.sdk.security.model.CertificateIssuer)}
@@ -2097,7 +2097,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer config.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateCertificateIssuerConfig(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig, String)}
@@ -2119,15 +2119,15 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a certificate issuer config.
-     *
+     * 
      * <p>
      * Update the configured certificate issuer configuration.
-     *
+     * 
      * @param certificateIssuerConfigRequest
      *            a certificate issuer config.
      * @param id
      *            The ID of the certificate issuer configuration.
-     *
+     * 
      * @return an updated certificate issuer config
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -2160,15 +2160,15 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Update existing trusted certificates.
-     *
+     * 
      * **Example:** ``` curl -X PUT
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates/{cert_id} \ -H 'Authorization:
      * Bearer [api_key]' \ -H 'content-type: application/json' \ -d {"description": "very important cert"} ``` Signature
      * is not used by the SDK as it is a deprecated field.
-     *
+     * 
      * @param accountId
      *            The ID of the account.
      * @param id
@@ -2210,7 +2210,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #updateSubtenantTrustedCertificate(String, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
@@ -2233,14 +2233,14 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a trusted certificate.
-     *
+     * 
      * <p>
      * Update existing trusted certificates.
-     *
+     * 
      * **Example:** ``` curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert_id} \ -H
      * 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \ -d {"description": "very important
      * cert"} ``` Signature is not used by the SDK as it is a deprecated field.
-     *
+     * 
      * @param id
      *            Entity ID.
      * @param trustedCertificate
@@ -2277,7 +2277,7 @@ public class Security extends AbstractModule {
 
     /**
      * Modifies a trusted certificate.
-     *
+     * 
      * <p>
      * Similar to {@link #updateTrustedCertificate(String, com.arm.mbed.cloud.sdk.security.model.TrustedCertificate)}
      * 
@@ -2298,8 +2298,8 @@ public class Security extends AbstractModule {
 
     /**
      * Verify certificate issuer.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #verify(String)}
      * 
@@ -2318,21 +2318,21 @@ public class Security extends AbstractModule {
 
     /**
      * Verify certificate issuer.
-     *
-     *
+     * 
+     * 
      * <p>
      * A utility API that can be used to validate the user configuration before activating a certificate issuer.
      * Verifies that the certificate issuer is accessible and can be used to generate certificates by Device Management.
      * [br] **Note:** The API requests the 3rd party CA to sign a test certificate. For some 3rd party CAs, this
      * operation may make use of the account quota. [br] **Example usage:**
-     *
+     * 
      * ``` curl -X POST \ -H 'authorization: [valid access token]' \ -H 'content-type: application/json;charset=UTF-8' \
      * https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify ```
-     *
+     * 
      * @param id
      *            Certificate issuer ID. <br>
      *            The ID of the certificate issuer.
-     *
+     * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.

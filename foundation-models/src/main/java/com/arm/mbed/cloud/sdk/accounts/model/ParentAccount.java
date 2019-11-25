@@ -34,7 +34,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -57,7 +57,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -82,11 +82,11 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on object identifier.
      * <p>
-     *
+     * 
      * @param id
      *            The ID of the parent account.
      */
@@ -97,7 +97,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -143,7 +143,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Sets the id of the parent account.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
@@ -157,7 +157,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Sets the id of the parent account.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * <p>
@@ -183,7 +183,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -196,7 +196,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -214,7 +214,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -228,7 +228,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -277,7 +277,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -290,7 +290,7 @@ public class ParentAccount implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

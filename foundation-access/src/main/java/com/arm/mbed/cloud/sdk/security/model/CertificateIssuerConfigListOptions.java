@@ -64,7 +64,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -97,7 +97,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -122,7 +122,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -159,7 +159,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code reference}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions#addEqualToReferenceFilter(String)}
@@ -178,7 +178,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -194,7 +194,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -209,7 +209,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -224,7 +224,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -255,7 +255,7 @@ public class CertificateIssuerConfigListOptions extends ListOptions {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()

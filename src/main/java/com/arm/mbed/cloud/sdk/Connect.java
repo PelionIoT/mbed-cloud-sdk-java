@@ -292,6 +292,49 @@ public class Connect extends AbstractModule {
     }
 
     /**
+     * Lists connected devices (One page).
+     * <p>
+     * 
+     * @deprecated Use {@link DeviceListDao} instead
+     * @param options
+     *            filter options
+     * @return the list of connected devices (One page).
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    @Deprecated
+    public @Nullable ListResponse<Device> listConnectedDevices(DeviceListOptions options) throws MbedCloudException {
+        try (DeviceListDao dao = new DeviceListDao(this)) {
+            return dao.onePage(new DeviceListOptions().equalToState(DeviceState.REGISTERED));
+        } catch (IOException exception) {
+            throw new MbedCloudException(exception);
+        }
+    }
+
+    /**
+     * Gets an iterator over all connected devices according to filter options.
+     * <p>
+     * 
+     * @deprecated Use {@link DeviceListDao} instead
+     * @param options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of devices corresponding to filter options.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    @Deprecated
+    public @Nullable Paginator<Device>
+           listAllConnectedDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
+        try (DeviceListDao dao = new DeviceListDao(this)) {
+            return dao.paginator(new DeviceListOptions().equalToState(DeviceState.REGISTERED));
+        } catch (IOException exception) {
+            throw new MbedCloudException(exception);
+        }
+    }
+
+    /**
      * Lists device's resources.
      * <p>
      *

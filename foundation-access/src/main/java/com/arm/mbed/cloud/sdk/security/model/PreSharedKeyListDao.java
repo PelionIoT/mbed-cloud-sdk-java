@@ -71,7 +71,7 @@ public class PreSharedKeyListDao extends AbstractModelListDao<PreSharedKey, PreS
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -166,7 +166,7 @@ public class PreSharedKeyListDao extends AbstractModelListDao<PreSharedKey, PreS
 
     /**
      * Lists pre shared keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#listPreSharedKeys(com.arm.mbed.cloud.sdk.security.model.PreSharedKeyListOptions)}

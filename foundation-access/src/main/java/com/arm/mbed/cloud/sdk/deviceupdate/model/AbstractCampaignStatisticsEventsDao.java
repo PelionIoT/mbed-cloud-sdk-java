@@ -122,7 +122,7 @@ public abstract class AbstractCampaignStatisticsEventsDao extends AbstractModelD
 
     /**
      * Gets a campaign statistics events.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -140,7 +140,7 @@ public abstract class AbstractCampaignStatisticsEventsDao extends AbstractModelD
 
     /**
      * Gets a campaign statistics events.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#readCampaignStatisticsEvents(com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsEvents)}
@@ -158,7 +158,7 @@ public abstract class AbstractCampaignStatisticsEventsDao extends AbstractModelD
 
     /**
      * Gets a campaign statistics events.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.DeviceUpdate#readCampaignStatisticsEvents(String, String, String)}
      * 

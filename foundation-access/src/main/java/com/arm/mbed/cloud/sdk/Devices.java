@@ -187,8 +187,8 @@ public class Devices extends AbstractModule {
 
     /**
      * Add a device to a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #addDevice(String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
      * 
@@ -205,8 +205,8 @@ public class Devices extends AbstractModule {
 
     /**
      * Add a device to a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #addDevice(String, String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
      * 
@@ -225,11 +225,11 @@ public class Devices extends AbstractModule {
 
     /**
      * Add a device to a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Add one device to a group.
-     *
+     * 
      * @param deviceId
      *            a string
      * @param id
@@ -266,11 +266,11 @@ public class Devices extends AbstractModule {
 
     /**
      * Add a device to a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Add one device to a group.
-     *
+     * 
      * @param deviceGroupId
      *            The ID of the group.
      * @param device
@@ -302,7 +302,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of devices matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #devices(com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
@@ -342,7 +342,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of devices matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all device groups matching filter options.
      * 
@@ -381,7 +381,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -394,10 +394,10 @@ public class Devices extends AbstractModule {
 
     /**
      * Adds a device.
-     *
+     * 
      * <p>
      * Create a new device.
-     *
+     * 
      * @param device
      *            a device.
      * @return an added device
@@ -427,13 +427,13 @@ public class Devices extends AbstractModule {
 
     /**
      * Adds a device enrollment.
-     *
+     * 
      * <p>
      * When the device connects to the bootstrap server and provides the enrollment ID, it is assigned to your account.
      * [br] **Example:** ``` curl -X POST \ -H 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments \ -d '{"enrollment_identity":
      * "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5"}' ```
-     *
+     * 
      * @param enrollmentIdentity
      *            a device enrollment.
      * @return an added device enrollment
@@ -464,14 +464,14 @@ public class Devices extends AbstractModule {
 
     /**
      * Adds a device enrollment bulk create.
-     *
+     * 
      * <p>
      * With bulk upload, you can upload a `CSV` file containing a number of enrollment IDs.
-     *
+     * 
      * **Example:** ``` curl -X POST \ -H 'Authorization: Bearer [api_key]' \ -F
      * 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads
-     *
+     * 
      * ``` **To ensure your CSV file is valid:** 1. The first line of the file (header) is ignored. 1. Each line can
      * contain comma-separated values, where the first value is the Enrollment ID. Everything after the first comma is
      * ignored. 1. Valid enrollments begin with A followed by a - and 95 characters (examples below). 1. One enrollment
@@ -480,8 +480,8 @@ public class Devices extends AbstractModule {
      * characters (Unicode U+0000 - U+0020) are removed from the identity before validation. 1. Empty identities are
      * ignored. 1. Valid enrollment identities may be enclosed within quotation marks. Whitespace inside quotation marks
      * is not trimmed and will cause validation to fail. Empty quotation marks are also invalid. 1. Use UTF-8 encoding.
-     *
-     *
+     * 
+     * 
      * **A valid enrollment file:** ``` "Examples of valid identites, notes"
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12",
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12"
@@ -491,9 +491,9 @@ public class Devices extends AbstractModule {
      * Whitespace is trimmed before validation.
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12" , Whitespace
      * around quotation marks is also trimmed.
-     *
+     * 
      * ```
-     *
+     * 
      * **A file containing invalid identities:** ```
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12", First line
      * is ignored. A_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,
@@ -502,13 +502,13 @@ public class Devices extends AbstractModule {
      * identity. "", Empty quotation marks are an invalid identity "
      * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 ", Whitespace
      * inside quotation marks is not trimmed, causing an error.
-     *
+     * 
      * ```
-     *
+     * 
      * **An empty file:** ``` "Examples of blank lines that are ignored"
-     *
+     * 
      * ,, , This is also considered a blank line. ```
-     *
+     * 
      * @param enrollmentIdentities
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10 MB.
      * @return an added device enrollment bulk create
@@ -541,10 +541,10 @@ public class Devices extends AbstractModule {
 
     /**
      * Adds a device group.
-     *
+     * 
      * <p>
      * Create a group.
-     *
+     * 
      * @param group
      *            a device group.
      * @return an added device group
@@ -575,7 +575,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteDevice(String)}
      * 
@@ -592,11 +592,11 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device.
-     *
+     * 
      * <p>
      * Delete device. Only available for devices with a developer certificate. Attempting to delete a device with a
      * production certicate returns a 400 response.
-     *
+     * 
      * @param id
      *            The ID of the device.
      * @throws MbedCloudException
@@ -621,7 +621,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device enrollment.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteDeviceEnrollment(String)}
      * 
@@ -638,14 +638,14 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device enrollment.
-     *
+     * 
      * <p>
      * To free a device from your account, delete the enrollment claim. To bypass the device ownership, you need to
      * delete the enrollment and factory reset the device. For more information, see [Transferring ownership using
      * First-to-Claim](../connecting/device-ownership-first-to-claim-by-enrollment-list.html). [br] **Example:** ```
      * curl -X DELETE \ -H 'Authorization: Bearer [api_key]' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ```
-     *
+     * 
      * @param id
      *            Enrollment identity.
      * @throws MbedCloudException
@@ -670,14 +670,14 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device enrollment bulk delete.
-     *
+     * 
      * <p>
      * With bulk delete, you can upload a `CSV` file containing a number of enrollment IDs to delete.
-     *
+     * 
      * **Example:** ``` curl -X POST \ -H 'Authorization: Bearer [api_key]' \ -F
      * 'enrollment_identities=@/path/to/enrollments/enrollments.csv' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes
-     *
+     * 
      * ``` **To ensure your CSV file is valid:** 1. The first line of the file (header) is ignored. 1. Each line can
      * contain comma-separated values, where the first value is the Enrollment ID. Everything after the first comma is
      * ignored. 1. Valid enrollments begin with A followed by a - and 95 characters (examples below). 1. One enrollment
@@ -686,7 +686,7 @@ public class Devices extends AbstractModule {
      * characters (Unicode U+0000 - U+0020) are removed from the identity before validation. 1. Empty identities are
      * ignored. 1. Valid enrollment identities may be enclosed within quotation marks. Whitespace inside quotation marks
      * is not trimmed and will cause validation to fail. Empty quotation marks are also invalid. 1. Use UTF-8 encoding.
-     *
+     * 
      * **A valid enrollment file:** ``` "Examples of valid identites, notes"
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12",
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12"
@@ -696,9 +696,9 @@ public class Devices extends AbstractModule {
      * Whitespace is trimmed before validation.
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:60:25:48:44:71:22:15:43:23:12" , Whitespace
      * around quotation marks is also trimmed.
-     *
+     * 
      * ```
-     *
+     * 
      * **A file containing invalid identities:** ```
      * "A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12", First line
      * is ignored. A_4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12,
@@ -707,13 +707,13 @@ public class Devices extends AbstractModule {
      * identity. "", Empty quotation marks are an invalid identity. "
      * A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12 ", Whitespace
      * inside quotation marks is not trimmed, causing an error.
-     *
+     * 
      * ```
-     *
+     * 
      * **An empty file:** ``` "Examples of blank lines that are ignored."
-     *
+     * 
      * ,, , This is also considered to a blank line. ```
-     *
+     * 
      * @param enrollmentIdentities
      *            The `CSV` file containing the enrollment IDs. The maximum file size is 10MB.
      * @return something
@@ -746,7 +746,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device group.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteDeviceGroup(String)}
      * 
@@ -763,10 +763,10 @@ public class Devices extends AbstractModule {
 
     /**
      * Deletes a device group.
-     *
+     * 
      * <p>
      * Delete a group.
-     *
+     * 
      * @param id
      *            The ID of the group.
      * @throws MbedCloudException
@@ -791,8 +791,8 @@ public class Devices extends AbstractModule {
 
     /**
      * Get a page of devices.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #devices(String, com.arm.mbed.cloud.sdk.devices.model.DeviceListOptions)}
      * 
@@ -816,11 +816,11 @@ public class Devices extends AbstractModule {
 
     /**
      * Get a page of devices.
-     *
-     *
+     * 
+     * 
      * <p>
      * Get a page of devices.
-     *
+     * 
      * @param id
      *            a string
      * @param options
@@ -1172,7 +1172,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of device enrollment denials matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all device enrollment denials matching filter options.
      * 
@@ -1207,7 +1207,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of device enrollments matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all device enrollments matching filter options.
      * 
@@ -1242,7 +1242,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of device events matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all device events matching filter options.
      * 
@@ -1277,7 +1277,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of device groups matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all device groups matching filter options.
      * 
@@ -1312,7 +1312,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of devices matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all devices matching filter options.
      * 
@@ -1346,15 +1346,15 @@ public class Devices extends AbstractModule {
 
     /**
      * Lists device enrollment denials matching filter options.
-     *
+     * 
      * <p>
      * This produces a list of failed attempts to bootstrap using a particular certificate which is blacklisted
      * (trusted_certificate). Returned list can be filtered by endpoint name. Trusted certificate ID filter is required.
-     *
+     * 
      * **Example usage:** ``` curl -X GET -H 'Authorization: Bearer [valid access token]' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials?trusted_certificate_id__eq={cert-id}&amp;endpoint_name__eq={endpoint_name}
      * ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of device enrollment denials corresponding to filter options (One page).
@@ -1391,14 +1391,14 @@ public class Devices extends AbstractModule {
 
     /**
      * Lists device enrollments matching filter options.
-     *
+     * 
      * <p>
      * Provides a list of pending and claimed enrollments.
-     *
+     * 
      * **Example:** ``` curl -X GET \ -H 'Authorization: Bearer [api_key]' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments ``` With query parameters: ``` curl -X GET \ -H
      * 'Authorization: Bearer [api_key]' \ 'https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit=10' ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of device enrollments corresponding to filter options (One page).
@@ -1431,16 +1431,16 @@ public class Devices extends AbstractModule {
 
     /**
      * Lists device events matching filter options.
-     *
+     * 
      * <p>
      * List all device events for an account.
-     *
+     * 
      * **Example:** Following example gets device-events limiting returned results to max 5 events ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/device-events?limit=5 \ -H 'Authorization: Bearer [API key]' ``` or to get
      * events for certain device filter based on device_id: ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/device-events?device_id=[device_id] \ -H 'Authorization: Bearer [API key]'
      * ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of device events corresponding to filter options (One page).
@@ -1522,10 +1522,10 @@ public class Devices extends AbstractModule {
 
     /**
      * Lists device groups matching filter options.
-     *
+     * 
      * <p>
      * List all groups.
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of device groups corresponding to filter options (One page).
@@ -1610,14 +1610,14 @@ public class Devices extends AbstractModule {
 
     /**
      * Lists devices matching filter options.
-     *
+     * 
      * <p>
      * List all devices.
-     *
+     * 
      * **Example:** Following example filters devices according to state field and returns only devices in 'registered'
      * state: ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices?filter=state%3Dregistered \ -H
      * 'Authorization: Bearer [API key]' ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of devices corresponding to filter options (One page).
@@ -1943,7 +1943,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device.
-     *
+     * 
      * <p>
      * Similar to {@link #readDevice(String)}
      * 
@@ -1962,14 +1962,14 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device.
-     *
+     * 
      * <p>
      * Retrieve information about a specific device.
-     *
+     * 
      * **Example:** Following example must be updated with the device's ID to the URL. The id is from of
      * "01667c6e992c00000000000100100370" ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/devices/[device_ID] \
      * -H 'Authorization: Bearer [API key]' ```
-     *
+     * 
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
      * @return something
@@ -1997,7 +1997,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment.
-     *
+     * 
      * <p>
      * Similar to {@link #readDeviceEnrollment(String)}
      * 
@@ -2016,13 +2016,13 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment.
-     *
+     * 
      * <p>
      * Check detailed enrollment info, for example, date of claim or expiration date.
-     *
+     * 
      * **Example:** ``` curl -X GET \ -H 'Authorization: Bearer [api_key]' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} ```
-     *
+     * 
      * @param id
      *            Enrollment identity.
      * @return something
@@ -2050,7 +2050,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment bulk create.
-     *
+     * 
      * <p>
      * Similar to {@link #readDeviceEnrollmentBulkCreate(String)}
      * 
@@ -2070,15 +2070,15 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment bulk create.
-     *
+     * 
      * <p>
      * Provides information on bulk upload for the given ID, for example, bulk status and number of processed enrollment
      * identities. Provides links to bulk upload reports as well.
-     *
+     * 
      * **Report file format:** The report files have a header line, and the values are separated by commas. Delimit
      * lines with a line break (CRLF). Make sure the report file is compliant with IETF Informal CSV common format [RFC
      * 41 80](https://tools.ietf.org/html/rfc4180).
-     *
+     * 
      * An example of a full report file: ```
      * "entity__id","entity__created_at","error__code","error__type","error__message","error__fields"
      * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","2018-09-07T12:10:58.428Z","","","",""
@@ -2090,7 +2090,7 @@ public class Devices extends AbstractModule {
      * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","409","duplicate","Enrollment
      * identity is already claimed in the mbed Cloud.","" ``` **Example:** ``` curl -X GET \ -H 'Authorization: Bearer
      * [api_key]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} ```
-     *
+     * 
      * @param id
      *            Bulk ID. Bulk ID
      * @return something
@@ -2118,7 +2118,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment bulk delete.
-     *
+     * 
      * <p>
      * Similar to {@link #readDeviceEnrollmentBulkDelete(String)}
      * 
@@ -2138,15 +2138,15 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment bulk delete.
-     *
+     * 
      * <p>
      * Provides information on bulk delete for the given ID, for example, bulk status and the number of processed
      * enrollment identities. Provides links to bulk delete reports as well.
-     *
+     * 
      * **Report file format:** The report files have a header line and the value are separated by commas. The lines are
      * delimited by a line break (CRLF). Make sure the report file is compliant with IETF Informal CSV common format [
      * RFC 4180](https://tools.ietf.org/html/rfc4180).
-     *
+     * 
      * An example of a full report file: ```
      * "entity__id","entity__deleted_at","error__code","error__type","error__message","error__fields"
      * "A-F9:AA:AA:AA:DE:31:C7:30:72:55:27:AE:8B:E1:1C:6F:42:7D:06:CF:FB:18:6F:59:48:29:B3:98:4B:76:8F:9E","2018-09-07T12:10:58.428Z","","","",""
@@ -2158,7 +2158,7 @@ public class Devices extends AbstractModule {
      * "A-FF:AA:AA:AA:3B:43:EB:D7:C7:30:03:5F:C8:D0:15:91:70:C2:5D:4F:EB:24:E9:3A:BB:D8:3C:FE:20:EA:B1:72","409","duplicate","Enrollment
      * identity is already claimed in the mbed Cloud.","" ``` **Example:** ``` curl -X GET \ -H 'Authorization: Bearer
      * [api_key]' \ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id} ```
-     *
+     * 
      * @param id
      *            Bulk ID. Bulk ID
      * @return something
@@ -2186,13 +2186,13 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device enrollment denial.
-     *
+     * 
      * <p>
      * Query for a single attempt to bootstrap with a blacklisted certificate by ID.
-     *
+     * 
      * **Example usage:** ``` curl -X GET -H 'Authorization: Bearer [valid access token]' \
      * https://api.us-east-1.mbedcloud.com/v3/device-enrollment-denials/{device_enrollment_denial_id} ```
-     *
+     * 
      * @param deviceEnrollmentDenialId
      *            id of the recorded failed bootstrap attempt. id of the recorded failed bootstrap attempt
      * @return something
@@ -2222,7 +2222,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device events.
-     *
+     * 
      * <p>
      * Similar to {@link #readDeviceEvents(String)}
      * 
@@ -2241,14 +2241,14 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device events.
-     *
+     * 
      * <p>
      * Retrieve a specific device event.
-     *
+     * 
      * **Example:** To fetch a specific event you can use the 'id' field form the '/v3/device-events'. Form of
      * '016c03d40a4e000000000001001003b4' ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/device-events/[device_event_id] \ -H 'Authorization: Bearer [API key]' ```
-     *
+     * 
      * @param id
      *            a string
      * @return something
@@ -2276,7 +2276,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device group.
-     *
+     * 
      * <p>
      * Similar to {@link #readDeviceGroup(String)}
      * 
@@ -2295,10 +2295,10 @@ public class Devices extends AbstractModule {
 
     /**
      * Gets a device group.
-     *
+     * 
      * <p>
      * Get a group.
-     *
+     * 
      * @param id
      *            The group ID.
      * @return something
@@ -2327,8 +2327,8 @@ public class Devices extends AbstractModule {
 
     /**
      * Remove a device from a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #removeDevice(String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
      * 
@@ -2345,8 +2345,8 @@ public class Devices extends AbstractModule {
 
     /**
      * Remove a device from a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #removeDevice(String, String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
      * 
@@ -2365,11 +2365,11 @@ public class Devices extends AbstractModule {
 
     /**
      * Remove a device from a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Remove one device from a group.
-     *
+     * 
      * @param deviceId
      *            a string
      * @param id
@@ -2406,11 +2406,11 @@ public class Devices extends AbstractModule {
 
     /**
      * Remove a device from a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Remove one device from a group.
-     *
+     * 
      * @param deviceGroupId
      *            The ID of the group.
      * @param device
@@ -2442,8 +2442,8 @@ public class Devices extends AbstractModule {
 
     /**
      * Request certificate renewal.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #renewCertificate(String, String)}
      * 
@@ -2466,17 +2466,17 @@ public class Devices extends AbstractModule {
 
     /**
      * Request certificate renewal.
-     *
-     *
+     * 
+     * 
      * <p>
      * Request a certificate renewal.
-     *
+     * 
      * **Example:**
-     *
+     * 
      * ``` curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/devices/01612df56f3b0a580a010fc700000000/certificates/customer.dlms/renew
      * \ -H 'Authorization: Bearer [api_key]' \ -H 'content-length: 0' ```
-     *
+     * 
      * @param certificateName
      *            The certificate name.
      * @param id
@@ -2511,7 +2511,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Modifies a device.
-     *
+     * 
      * <p>
      * Similar to {@link #updateDevice(String, com.arm.mbed.cloud.sdk.devices.model.Device)}
      * 
@@ -2531,14 +2531,14 @@ public class Devices extends AbstractModule {
 
     /**
      * Modifies a device.
-     *
+     * 
      * <p>
      * Update a specific device.
-     *
+     * 
      * **Example:** Following example will update the specific devices description field to contain "Testing description
      * field". ``` curl -X PUT https://api.us-east-1.mbedcloud.com/v3/devices/[device_ID] \ -H 'Authorization: Bearer
      * [API key]' \ -H 'content-type: application/json' \ -d '{"description": "Testing description field"}' ```
-     *
+     * 
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
      * @param device
@@ -2573,7 +2573,7 @@ public class Devices extends AbstractModule {
 
     /**
      * Modifies a device group.
-     *
+     * 
      * <p>
      * Similar to {@link #updateDeviceGroup(String, com.arm.mbed.cloud.sdk.devices.model.DeviceGroup)}
      * 
@@ -2593,10 +2593,10 @@ public class Devices extends AbstractModule {
 
     /**
      * Modifies a device group.
-     *
+     * 
      * <p>
      * Modify the attributes of a group.
-     *
+     * 
      * @param id
      *            The group ID.
      * @param group

@@ -30,7 +30,7 @@ public class TestDeviceLifecycleStatus {
             devicelifecyclestatus = DeviceLifecycleStatus.getValue("enabled");
             assertNotNull(devicelifecyclestatus);
             assertFalse(devicelifecyclestatus.isDefault());
-            devicelifecyclestatus = DeviceLifecycleStatus.getValue("97f8be4d-c4fd-4b3a-bda1-cefa671745a2");
+            devicelifecyclestatus = DeviceLifecycleStatus.getValue("7198a91f-245a-4607-b7b6-42301ab71c4a");
             assertNotNull(devicelifecyclestatus);
             assertTrue(devicelifecyclestatus.isDefault());
         } catch (Exception exception) {

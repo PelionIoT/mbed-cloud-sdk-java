@@ -7,12 +7,14 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountApiKeysApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountIdentityProvidersApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountPolicyGroupsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountProfileApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountUserInvitationsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountUsersApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsAccountsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsApiKeysApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsIdentityProvidersApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsPolicyGroupsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsUserInvitationsApi;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.TenantAccountsUsersApi;
@@ -82,10 +84,22 @@ public class AccountsEndpoints extends AbstractEndpoints {
     private final AccountApiKeysApi accountApiKeysApi;
 
     /**
+     * Low level endpoints for account identity providers apis.
+     */
+    @Internal
+    private final AccountIdentityProvidersApi accountIdentityProvidersApi;
+
+    /**
      * Low level endpoints for account policy groups apis.
      */
     @Internal
     private final AccountPolicyGroupsApi accountPolicyGroupsApi;
+
+    /**
+     * Low level endpoints for tenant accounts identity providers apis.
+     */
+    @Internal
+    private final TenantAccountsIdentityProvidersApi tenantAccountsIdentityProvidersApi;
 
     /**
      * Low level endpoints for tenant accounts policy groups apis.
@@ -122,7 +136,9 @@ public class AccountsEndpoints extends AbstractEndpoints {
         this.tenantAccountsUserInvitationsApi = initialiseService(TenantAccountsUserInvitationsApi.class);
         this.tenantAccountsUsersApi = initialiseService(TenantAccountsUsersApi.class);
         this.accountApiKeysApi = initialiseService(AccountApiKeysApi.class);
+        this.accountIdentityProvidersApi = initialiseService(AccountIdentityProvidersApi.class);
         this.accountPolicyGroupsApi = initialiseService(AccountPolicyGroupsApi.class);
+        this.tenantAccountsIdentityProvidersApi = initialiseService(TenantAccountsIdentityProvidersApi.class);
         this.tenantAccountsPolicyGroupsApi = initialiseService(TenantAccountsPolicyGroupsApi.class);
         this.accountUsersApi = initialiseService(AccountUsersApi.class);
         this.accountUserInvitationsApi = initialiseService(AccountUserInvitationsApi.class);
@@ -136,6 +152,16 @@ public class AccountsEndpoints extends AbstractEndpoints {
     @Internal
     public AccountApiKeysApi getAccountApiKeysApi() {
         return accountApiKeysApi;
+    }
+
+    /**
+     * Gets low level endpoints for account identity providers apis.
+     * 
+     * @return accountIdentityProvidersApi
+     */
+    @Internal
+    public AccountIdentityProvidersApi getAccountIdentityProvidersApi() {
+        return accountIdentityProvidersApi;
     }
 
     /**
@@ -156,6 +182,16 @@ public class AccountsEndpoints extends AbstractEndpoints {
     @Internal
     public TenantAccountsApiKeysApi getTenantAccountsApiKeysApi() {
         return tenantAccountsApiKeysApi;
+    }
+
+    /**
+     * Gets low level endpoints for tenant accounts identity providers apis.
+     * 
+     * @return tenantAccountsIdentityProvidersApi
+     */
+    @Internal
+    public TenantAccountsIdentityProvidersApi getTenantAccountsIdentityProvidersApi() {
+        return tenantAccountsIdentityProvidersApi;
     }
 
     /**
@@ -260,7 +296,7 @@ public class AccountsEndpoints extends AbstractEndpoints {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

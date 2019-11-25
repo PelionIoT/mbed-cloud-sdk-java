@@ -73,7 +73,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Creates a {@link Paginator} for the list of campaign device metadata matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -93,7 +93,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Creates a {@link Paginator} for the list of campaign device metadata matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#allDeviceMetadata(com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignDeviceMetadataListOptions, com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
@@ -114,13 +114,13 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Creates a {@link Paginator} for the list of campaign device metadata matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#allDeviceMetadata(String, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignDeviceMetadataListOptions)}
      * 
      * @param id
-     *            The update campaign ID. The update campaign ID
+     *            The campaign ID.
      * @param options
      *            list options.
      * @return paginator over the list of campaign device metadata
@@ -135,8 +135,8 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Archive a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -152,8 +152,8 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Archive a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#archive(com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
@@ -169,13 +169,13 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Archive a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.DeviceUpdate#archive(String)}
      * 
      * @param id
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -185,7 +185,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -204,7 +204,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Adds an update campaign.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -222,7 +222,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Adds an update campaign.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#createUpdateCampaign(com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
@@ -240,7 +240,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Deletes an update campaign.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -257,7 +257,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Deletes an update campaign.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#deleteUpdateCampaign(com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
@@ -274,12 +274,12 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Deletes an update campaign.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.DeviceUpdate#deleteUpdateCampaign(String)}
      * 
      * @param id
-     *            The ID of the update campaign. The ID of the update campaign
+     *            The campaign ID.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -290,7 +290,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * List all campaign device metadata .
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -310,7 +310,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * List all campaign device metadata .
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#deviceMetadata(com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignDeviceMetadataListOptions, com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
@@ -331,13 +331,13 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * List all campaign device metadata .
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#deviceMetadata(String, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignDeviceMetadataListOptions)}
      * 
      * @param id
-     *            The update campaign ID. The update campaign ID
+     *            The campaign ID.
      * @param options
      *            list options.
      * @return the list of campaign device metadata corresponding to filter options (One page).
@@ -402,7 +402,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Gets an update campaign.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -420,7 +420,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Gets an update campaign.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#readUpdateCampaign(com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
@@ -437,12 +437,12 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Gets an update campaign.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.DeviceUpdate#readUpdateCampaign(String)}
      * 
      * @param id
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -454,8 +454,8 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Start a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -471,8 +471,8 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Start a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#start(com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
@@ -488,13 +488,13 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Start a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.DeviceUpdate#start(String)}
      * 
      * @param id
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -504,8 +504,8 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Stop a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -521,8 +521,8 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Stop a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#stop(com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
@@ -538,13 +538,13 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Stop a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.DeviceUpdate#stop(String)}
      * 
      * @param id
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -554,7 +554,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Modifies an update campaign.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -572,7 +572,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Modifies an update campaign.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#updateUpdateCampaign(com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
@@ -590,7 +590,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Modifies an update campaign.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -598,7 +598,7 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignDao#update(String, com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
      * 
      * @param id
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @return an updated update campaign
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -609,13 +609,13 @@ public class UpdateCampaignDao extends AbstractModelDao<UpdateCampaign> implemen
 
     /**
      * Modifies an update campaign.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#updateUpdateCampaign(String, com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
      * 
      * @param id
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @param campaign
      *            an update campaign.
      * @return an updated update campaign

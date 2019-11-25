@@ -18,7 +18,7 @@ import java.util.Objects;
 public class FirmwareImage implements SdkModel {
     /**
      * Mapping needed for encoding or decoding filters.
-     *
+     * 
      * <p>
      * Filters are used when listing models. See {@link com.arm.mbed.cloud.sdk.common.listing.filtering.Filters}
      */
@@ -31,7 +31,7 @@ public class FirmwareImage implements SdkModel {
     private static final long serialVersionUID = 4431926369181323L;
 
     /**
-     * The time the object was created.
+     * The time the entity was created.
      */
     private final Date createdAt;
 
@@ -66,20 +66,20 @@ public class FirmwareImage implements SdkModel {
     private String name;
 
     /**
-     * The time the object was updated.
+     * The time the entity was updated.
      */
     private final Date updatedAt;
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #FirmwareImage()} instead.
      * 
      * @param createdAt
-     *            The time the object was created.
+     *            The time the entity was created.
      * @param datafileChecksum
      *            The checksum (sha256) generated for the datafile.
      * @param datafileSize
@@ -93,7 +93,7 @@ public class FirmwareImage implements SdkModel {
      * @param name
      *            The firmware image name.
      * @param updatedAt
-     *            The time the object was updated.
+     *            The time the entity was updated.
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
@@ -112,7 +112,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -142,11 +142,11 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on object identifier.
      * <p>
-     *
+     * 
      * @param id
      *            The firmware image ID.
      */
@@ -157,14 +157,14 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #FirmwareImage()} instead.
      * 
      * @param createdAt
-     *            The time the object was created.
+     *            The time the entity was created.
      * @param datafileChecksum
      *            The checksum (sha256) generated for the datafile.
      * @param datafileSize
@@ -172,7 +172,7 @@ public class FirmwareImage implements SdkModel {
      * @param datafileUrl
      *            The firmware image file URL.
      * @param updatedAt
-     *            The time the object was updated.
+     *            The time the entity was updated.
      */
     @Internal
     public FirmwareImage(Date createdAt, String datafileChecksum, long datafileSize, String datafileUrl,
@@ -182,7 +182,7 @@ public class FirmwareImage implements SdkModel {
     }
 
     /**
-     * Gets the time the object was created.
+     * Gets the time the entity was created.
      * 
      * @return createdAt
      */
@@ -228,7 +228,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Sets the description of the object.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 2000} to be valid
      * 
@@ -272,7 +272,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Sets the firmware image id.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -295,7 +295,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Sets the firmware image name.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 128} to be valid
      * 
@@ -317,7 +317,7 @@ public class FirmwareImage implements SdkModel {
     }
 
     /**
-     * Gets the time the object was updated.
+     * Gets the time the entity was updated.
      * 
      * @return updatedAt
      */
@@ -327,7 +327,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Method generating the mapping needed for encoding or decoding filters.
-     *
+     * 
      * <p>
      * Filters are used when listing models. See {@link com.arm.mbed.cloud.sdk.common.listing.filtering.Filters}
      * 
@@ -342,7 +342,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -357,7 +357,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -380,7 +380,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -394,7 +394,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -475,7 +475,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -488,7 +488,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

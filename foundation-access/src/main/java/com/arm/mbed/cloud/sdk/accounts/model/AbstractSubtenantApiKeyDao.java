@@ -75,7 +75,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
@@ -98,7 +98,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -118,7 +118,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
@@ -139,7 +139,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Adds a subtenant api key.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -157,7 +157,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Adds a subtenant api key.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantApiKey(com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
@@ -175,7 +175,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Adds a subtenant api key.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -194,7 +194,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Adds a subtenant api key.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantApiKey(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
@@ -214,7 +214,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Deletes a subtenant api key.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -231,7 +231,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Deletes a subtenant api key.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantApiKey(com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
@@ -248,7 +248,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Deletes a subtenant api key.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantApiKey(String, String)}
      * 
@@ -315,8 +315,8 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Get groups associated with the API key.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
@@ -339,8 +339,8 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Get groups associated with the API key.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -360,8 +360,8 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Get groups associated with the API key.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
@@ -382,7 +382,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Gets a subtenant api key.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -400,7 +400,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Gets a subtenant api key.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantApiKey(com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
@@ -417,7 +417,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Gets a subtenant api key.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantApiKey(String, String)}
      * 
@@ -435,7 +435,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Modifies a subtenant api key.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -453,7 +453,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Modifies a subtenant api key.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#updateSubtenantApiKey(com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
@@ -471,7 +471,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Modifies a subtenant api key.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -492,7 +492,7 @@ public abstract class AbstractSubtenantApiKeyDao extends AbstractModelDao<Subten
 
     /**
      * Modifies a subtenant api key.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#updateSubtenantApiKey(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}

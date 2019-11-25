@@ -78,7 +78,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Adds a subtenant user invitation.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -96,7 +96,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Adds a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
@@ -115,7 +115,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Adds a subtenant user invitation.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -134,7 +134,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Adds a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
@@ -156,7 +156,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Adds a subtenant user invitation.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -175,7 +175,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Adds a subtenant user invitation.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -197,7 +197,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Adds a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(int, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
@@ -221,7 +221,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Adds a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUserInvitation(int, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
@@ -243,7 +243,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Deletes a subtenant user invitation.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -260,7 +260,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Deletes a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
@@ -277,7 +277,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Deletes a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUserInvitation(String, String)}
      * 
@@ -344,7 +344,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Gets a subtenant user invitation.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -362,7 +362,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Gets a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantUserInvitation(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
@@ -380,7 +380,7 @@ public abstract class AbstractSubtenantUserInvitationDao extends AbstractModelDa
 
     /**
      * Gets a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantUserInvitation(String, String)}
      * 

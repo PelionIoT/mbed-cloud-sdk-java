@@ -218,7 +218,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -251,7 +251,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -276,7 +276,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -303,7 +303,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -336,7 +336,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInCreatedAtsFilter(String)}
@@ -355,7 +355,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInCreatedAtsFilter(java.util.List)}
@@ -374,7 +374,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInCreatedAtsFilter(java.util.Date[])}
@@ -393,7 +393,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -426,7 +426,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInCreatedAtsFilter(String)}
@@ -445,7 +445,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInCreatedAtsFilter(java.util.List)}
@@ -464,7 +464,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInCreatedAtsFilter(java.util.Date[])}
@@ -493,7 +493,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addLessThanCreatedAtFilter(java.util.Date)}
@@ -522,7 +522,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addGreaterThanCreatedAtFilter(java.util.Date)}
@@ -560,7 +560,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addEqualToNameFilter(String)}
@@ -589,7 +589,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotEqualToNameFilter(String)}
@@ -608,7 +608,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -641,7 +641,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInNamesFilter(String)}
      * 
@@ -659,7 +659,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInNamesFilter(java.util.List)}
@@ -678,7 +678,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInNamesFilter(String[])}
      * 
@@ -696,7 +696,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -729,7 +729,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInNamesFilter(String)}
@@ -748,7 +748,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInNamesFilter(java.util.List)}
@@ -767,7 +767,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInNamesFilter(String[])}
@@ -805,7 +805,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addEqualToIdFilter(String)}
      * 
@@ -833,7 +833,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotEqualToIdFilter(String)}
@@ -852,7 +852,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -885,7 +885,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInIdsFilter(String)}
      * 
@@ -903,7 +903,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInIdsFilter(java.util.List)}
@@ -922,7 +922,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInIdsFilter(String[])}
      * 
@@ -940,7 +940,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -973,7 +973,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInIdsFilter(String)}
      * 
@@ -991,7 +991,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInIdsFilter(java.util.List)}
@@ -1010,7 +1010,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInIdsFilter(String[])}
@@ -1048,7 +1048,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code deviceFilter}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addEqualToDeviceFilterFilter(String)}
@@ -1077,7 +1077,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code deviceFilter}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotEqualToDeviceFilterFilter(String)}
@@ -1096,7 +1096,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code deviceFilter}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1129,7 +1129,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code deviceFilter}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInDeviceFiltersFilter(String)}
@@ -1148,7 +1148,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code deviceFilter}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInDeviceFiltersFilter(java.util.List)}
@@ -1167,7 +1167,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code deviceFilter}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInDeviceFiltersFilter(String[])}
@@ -1186,7 +1186,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code deviceFilter}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1219,7 +1219,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code deviceFilter}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInDeviceFiltersFilter(String)}
@@ -1238,7 +1238,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code deviceFilter}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInDeviceFiltersFilter(java.util.List)}
@@ -1257,7 +1257,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code deviceFilter}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInDeviceFiltersFilter(String[])}
@@ -1285,7 +1285,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code finished}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1318,7 +1318,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code finished}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInFinishedsFilter(String)}
@@ -1337,7 +1337,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code finished}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInFinishedsFilter(java.util.List)}
@@ -1356,7 +1356,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code finished}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInFinishedsFilter(java.util.Date[])}
@@ -1375,7 +1375,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code finished}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1408,7 +1408,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code finished}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInFinishedsFilter(String)}
@@ -1427,7 +1427,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code finished}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInFinishedsFilter(java.util.List)}
@@ -1446,7 +1446,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code finished}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInFinishedsFilter(java.util.Date[])}
@@ -1475,7 +1475,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code finished}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addLessThanFinishedFilter(java.util.Date)}
@@ -1504,7 +1504,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code finished}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addGreaterThanFinishedFilter(java.util.Date)}
@@ -1532,7 +1532,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code startedAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1565,7 +1565,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code startedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInStartedAtsFilter(String)}
@@ -1584,7 +1584,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code startedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInStartedAtsFilter(java.util.List)}
@@ -1603,7 +1603,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code startedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInStartedAtsFilter(java.util.Date[])}
@@ -1622,7 +1622,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code startedAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1655,7 +1655,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code startedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInStartedAtsFilter(String)}
@@ -1674,7 +1674,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code startedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInStartedAtsFilter(java.util.List)}
@@ -1693,7 +1693,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code startedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInStartedAtsFilter(java.util.Date[])}
@@ -1722,7 +1722,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code startedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addLessThanStartedAtFilter(java.util.Date)}
@@ -1751,7 +1751,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code startedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addGreaterThanStartedAtFilter(java.util.Date)}
@@ -1779,7 +1779,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code when}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1812,7 +1812,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code when}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInWhensFilter(String)}
      * 
@@ -1830,7 +1830,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code when}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInWhensFilter(java.util.List)}
@@ -1849,7 +1849,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code when}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInWhensFilter(java.util.Date[])}
@@ -1868,7 +1868,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code when}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1901,7 +1901,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code when}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInWhensFilter(String)}
@@ -1920,7 +1920,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code when}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInWhensFilter(java.util.List)}
@@ -1939,7 +1939,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code when}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInWhensFilter(java.util.Date[])}
@@ -1968,7 +1968,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code when}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addLessThanWhenFilter(java.util.Date)}
@@ -1997,7 +1997,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code when}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addGreaterThanWhenFilter(java.util.Date)}
@@ -2025,7 +2025,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -2058,7 +2058,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInUpdatedAtsFilter(String)}
@@ -2077,7 +2077,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInUpdatedAtsFilter(java.util.List)}
@@ -2096,7 +2096,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInUpdatedAtsFilter(java.util.Date[])}
@@ -2115,7 +2115,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -2148,7 +2148,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInUpdatedAtsFilter(String)}
@@ -2167,7 +2167,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInUpdatedAtsFilter(java.util.List)}
@@ -2186,7 +2186,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInUpdatedAtsFilter(java.util.Date[])}
@@ -2215,7 +2215,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addLessThanUpdatedAtFilter(java.util.Date)}
@@ -2244,7 +2244,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addGreaterThanUpdatedAtFilter(java.util.Date)}
@@ -2282,7 +2282,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code rootManifestId}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addEqualToRootManifestIdFilter(String)}
@@ -2311,7 +2311,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code rootManifestId}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotEqualToRootManifestIdFilter(String)}
@@ -2330,7 +2330,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code rootManifestId}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -2363,7 +2363,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code rootManifestId}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInRootManifestIdsFilter(String)}
@@ -2382,7 +2382,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code rootManifestId}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInRootManifestIdsFilter(java.util.List)}
@@ -2401,7 +2401,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code rootManifestId}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInRootManifestIdsFilter(String[])}
@@ -2420,7 +2420,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code rootManifestId}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -2453,7 +2453,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code rootManifestId}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInRootManifestIdsFilter(String)}
@@ -2472,7 +2472,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code rootManifestId}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInRootManifestIdsFilter(java.util.List)}
@@ -2491,7 +2491,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code rootManifestId}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInRootManifestIdsFilter(String[])}
@@ -2529,7 +2529,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addEqualToDescriptionFilter(String)}
@@ -2558,7 +2558,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotEqualToDescriptionFilter(String)}
@@ -2577,7 +2577,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -2610,7 +2610,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInDescriptionsFilter(String)}
@@ -2629,7 +2629,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInDescriptionsFilter(java.util.List)}
@@ -2648,7 +2648,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addInDescriptionsFilter(String[])}
@@ -2667,7 +2667,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -2700,7 +2700,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInDescriptionsFilter(String)}
@@ -2719,7 +2719,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInDescriptionsFilter(java.util.List)}
@@ -2738,7 +2738,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions#addNotInDescriptionsFilter(String[])}
@@ -2757,7 +2757,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -2773,7 +2773,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -2788,7 +2788,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -2803,7 +2803,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -2834,7 +2834,7 @@ public class UpdateCampaignListOptions extends ListOptions {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()

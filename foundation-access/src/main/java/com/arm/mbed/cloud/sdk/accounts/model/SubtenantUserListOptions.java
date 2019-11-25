@@ -64,7 +64,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -97,7 +97,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -122,7 +122,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -159,7 +159,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions#addEqualToStatusFilter(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserStatus)}
@@ -178,7 +178,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -211,7 +211,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions#addInStatusesFilter(String)}
      * 
@@ -229,7 +229,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions#addInStatusesFilter(java.util.List)}
@@ -248,7 +248,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions#addInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserStatus[])}
@@ -267,7 +267,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -300,7 +300,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions#addNotInStatusesFilter(String)}
      * 
@@ -318,7 +318,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions#addNotInStatusesFilter(java.util.List)}
@@ -337,7 +337,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions#addNotInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserStatus[])}
@@ -356,7 +356,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -372,7 +372,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -387,7 +387,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -402,7 +402,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -433,7 +433,7 @@ public class SubtenantUserListOptions extends ListOptions {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()

@@ -75,7 +75,7 @@ public abstract class AbstractCampaignStatisticsDao extends AbstractModelDao<Cam
 
     /**
      * Creates a {@link Paginator} for the list of campaign statistics events matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -95,7 +95,7 @@ public abstract class AbstractCampaignStatisticsDao extends AbstractModelDao<Cam
 
     /**
      * Creates a {@link Paginator} for the list of campaign statistics events matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#allEvents(com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsEventsListOptions, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatistics)}
@@ -116,15 +116,15 @@ public abstract class AbstractCampaignStatisticsDao extends AbstractModelDao<Cam
 
     /**
      * Creates a {@link Paginator} for the list of campaign statistics events matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#allEvents(String, String, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsEventsListOptions)}
      * 
      * @param campaignId
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @param id
-     *            The summary status. For example, fail. The summary status. For example, fail
+     *            The summary status. For example, fail.
      * @param options
      *            list options.
      * @return paginator over the list of campaign statistics events
@@ -139,7 +139,7 @@ public abstract class AbstractCampaignStatisticsDao extends AbstractModelDao<Cam
 
     /**
      * Get a list of events grouped by summary .
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -159,7 +159,7 @@ public abstract class AbstractCampaignStatisticsDao extends AbstractModelDao<Cam
 
     /**
      * Get a list of events grouped by summary .
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#events(com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsEventsListOptions, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatistics)}
@@ -180,15 +180,15 @@ public abstract class AbstractCampaignStatisticsDao extends AbstractModelDao<Cam
 
     /**
      * Get a list of events grouped by summary .
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#events(String, String, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsEventsListOptions)}
      * 
      * @param campaignId
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @param id
-     *            The summary status. For example, fail. The summary status. For example, fail
+     *            The summary status. For example, fail.
      * @param options
      *            list options.
      * @return the list of campaign statistics events corresponding to filter options (One page).
@@ -253,7 +253,7 @@ public abstract class AbstractCampaignStatisticsDao extends AbstractModelDao<Cam
 
     /**
      * Gets a campaign statistics.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -271,7 +271,7 @@ public abstract class AbstractCampaignStatisticsDao extends AbstractModelDao<Cam
 
     /**
      * Gets a campaign statistics.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#readCampaignStatistics(com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatistics)}
@@ -288,7 +288,7 @@ public abstract class AbstractCampaignStatisticsDao extends AbstractModelDao<Cam
 
     /**
      * Gets a campaign statistics.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#readCampaignStatistics(String, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsId)}
@@ -296,7 +296,7 @@ public abstract class AbstractCampaignStatisticsDao extends AbstractModelDao<Cam
      * @param campaignId
      *            ID of the associated campaign.
      * @param id
-     *            ID of the event type description. ID of the event type description
+     *            ID of the event type description.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.

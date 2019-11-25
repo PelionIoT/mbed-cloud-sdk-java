@@ -76,7 +76,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
@@ -99,7 +99,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -119,7 +119,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
@@ -140,7 +140,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Adds a subtenant user.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -158,7 +158,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Adds a subtenant user.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUser(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
@@ -176,7 +176,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Adds a subtenant user.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -195,7 +195,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Adds a subtenant user.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -217,7 +217,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Adds a subtenant user.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUser(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
@@ -239,7 +239,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Adds a subtenant user.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantUser(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
@@ -259,7 +259,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Deletes a subtenant user.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -276,7 +276,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Deletes a subtenant user.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUser(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
@@ -293,7 +293,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Deletes a subtenant user.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantUser(String, String)}
      * 
@@ -360,8 +360,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Get user's groups.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
@@ -384,8 +384,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Get user's groups.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -405,8 +405,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Get user's groups.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#policyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
@@ -427,7 +427,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Gets a subtenant user.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -445,7 +445,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Gets a subtenant user.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantUser(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
@@ -462,7 +462,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Gets a subtenant user.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantUser(String, String)}
      * 
@@ -480,7 +480,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Modifies a subtenant user.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -498,7 +498,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Modifies a subtenant user.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#updateSubtenantUser(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
@@ -516,7 +516,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Modifies a subtenant user.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -537,7 +537,7 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Modifies a subtenant user.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#updateSubtenantUser(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
@@ -559,8 +559,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Validate the user email.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -576,8 +576,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Validate the user email.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#validateEmail(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
@@ -593,8 +593,8 @@ public abstract class AbstractSubtenantUserDao extends AbstractModelDao<Subtenan
 
     /**
      * Validate the user email.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#validateEmail(String, String)}
      * 

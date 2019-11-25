@@ -19,14 +19,14 @@ public class TestDeviceEvents {
     @Test
     public void testClone() {
         try {
-            DeviceEvents deviceevents1 = new DeviceEvents(null, new Date(1567417607146L), null,
-                                                          new Date(1567417601376L),
-                                                          "4f2547cb-460d-4608-8221-ebcc9bd2c513",
-                                                          "771f5699-167e-4c45-853e-4c727e202125",
-                                                          "2fc08f83-5fea-48d8-ad09-6fb599ebb0a2",
-                                                          "d6ea3f10-80b0-461d-be9c-e2b0738a175f",
-                                                          "5e8bdfd6-ac51-4ab9-9801-caa7c1d1f9ba",
-                                                          "e7fa5b77-6d3d-44d2-a976-a219690d5902", false);
+            DeviceEvents deviceevents1 = new DeviceEvents(null, new Date(1574704666421L), null,
+                                                          new Date(1574704664531L),
+                                                          "ef070826-4155-41c7-910f-d0fd8579a314",
+                                                          "3ddab6de-8972-4a51-9de3-a7805f8a0ff1",
+                                                          "e4540f33-23ca-4c74-add9-b278f793f397",
+                                                          "74bf47d7-64b4-4ca1-ba03-e1524ddf0a11",
+                                                          "e5e58694-5a3d-49ad-870a-676a60c066da",
+                                                          "d0414c7e-319e-4c04-a219-1b76abffae18", true);
             DeviceEvents deviceevents2 = deviceevents1.clone();
             assertNotNull(deviceevents1);
             assertNotNull(deviceevents2);
@@ -44,22 +44,22 @@ public class TestDeviceEvents {
     @Test
     public void testHashCode() {
         try {
-            DeviceEvents deviceevents1 = new DeviceEvents(null, new Date(1567417606129L), null,
-                                                          new Date(1567417607702L),
-                                                          "d02cf53a-8bd1-4cfd-9ac2-3131c18b63a3",
-                                                          "7cec758d-ee90-4fe5-9029-0d774b0a0b8a",
-                                                          "a6692b46-915d-4d89-ba74-1c931eb72dbf",
-                                                          "eee6a4ab-1202-4af4-ba43-07a9d23170c8",
-                                                          "0577e27a-6438-4820-a54c-7ff4d8491b88",
-                                                          "9343c9c1-1f73-4d5a-b6a8-8ac6bf923f8e", false);
-            DeviceEvents deviceevents2 = new DeviceEvents(null, new Date(1567417606129L), null,
-                                                          new Date(1567417607702L),
-                                                          "d02cf53a-8bd1-4cfd-9ac2-3131c18b63a3",
-                                                          "7cec758d-ee90-4fe5-9029-0d774b0a0b8a",
-                                                          "a6692b46-915d-4d89-ba74-1c931eb72dbf",
-                                                          "eee6a4ab-1202-4af4-ba43-07a9d23170c8",
-                                                          "0577e27a-6438-4820-a54c-7ff4d8491b88",
-                                                          "9343c9c1-1f73-4d5a-b6a8-8ac6bf923f8e", false);
+            DeviceEvents deviceevents1 = new DeviceEvents(null, new Date(1574704660784L), null,
+                                                          new Date(1574704665134L),
+                                                          "8d6a46b6-a8cb-4a44-989a-ef421e63600f",
+                                                          "a2bb268e-7944-4178-bf29-02a68e095fa0",
+                                                          "3e39cdb8-1cb3-4509-8b76-da3e898de131",
+                                                          "b1a86eec-4937-4d2d-be29-8f4d30b2b33b",
+                                                          "801999d5-0a89-4606-91bc-ff1b6304bcc5",
+                                                          "c1797e35-a4d2-4e2e-81b8-6083ed55b732", true);
+            DeviceEvents deviceevents2 = new DeviceEvents(null, new Date(1574704660784L), null,
+                                                          new Date(1574704665134L),
+                                                          "8d6a46b6-a8cb-4a44-989a-ef421e63600f",
+                                                          "a2bb268e-7944-4178-bf29-02a68e095fa0",
+                                                          "3e39cdb8-1cb3-4509-8b76-da3e898de131",
+                                                          "b1a86eec-4937-4d2d-be29-8f4d30b2b33b",
+                                                          "801999d5-0a89-4606-91bc-ff1b6304bcc5",
+                                                          "c1797e35-a4d2-4e2e-81b8-6083ed55b732", true);
             assertNotNull(deviceevents1);
             assertNotNull(deviceevents2);
             assertNotSame(deviceevents2, deviceevents1);
@@ -80,13 +80,13 @@ public class TestDeviceEvents {
     @SuppressWarnings("resource")
     @Test
     public void testIsValid() {
-        DeviceEvents deviceevents = new DeviceEvents(null, new Date(1567417605492L), null, new Date(1567417603062L),
-                                                     "abcd2993-e775-42aa-91af-35b325c3782e",
-                                                     "2b316721-db61-44a0-add3-659f10070d85",
-                                                     "3b739bc5-bd5a-497b-82ca-494022cace5c",
-                                                     "a9419f3d-7e5c-409a-aa13-939d141ca1cc",
-                                                     "371d2aed-a44b-4dc8-b852-e9f5f02e27fc",
-                                                     "3b24e425-db8f-49e8-a786-cbb303e8be3e", true);
+        DeviceEvents deviceevents = new DeviceEvents(null, new Date(1574704666848L), null, new Date(1574704667387L),
+                                                     "668385ec-0114-42e4-babe-70a49ab0f7f2",
+                                                     "78078802-684e-4718-9e6e-e27380dc5448",
+                                                     "d31e7a7d-ed30-449c-90f0-a551b05c0495",
+                                                     "f5477138-9962-41a4-ba75-503511317228",
+                                                     "b5556125-9603-46f1-940a-bdc67dcfec99",
+                                                     "39747350-0e1d-4772-9c7a-05e99a6f7655", true);
         assertTrue(deviceevents.isValid());
     }
 
@@ -97,30 +97,30 @@ public class TestDeviceEvents {
     @Test
     public void testEquals() {
         try {
-            DeviceEvents deviceevents1 = new DeviceEvents(null, new Date(1567417601921L), null,
-                                                          new Date(1567417600888L),
-                                                          "9ed94655-92a7-4496-ac74-3bd5ddc03715",
-                                                          "20ef5fb7-074b-4400-9ea1-237cddd8f45f",
-                                                          "ac02471f-0e81-4a11-afb7-579425855e30",
-                                                          "107d356e-c1ca-4f04-9c7e-4c0ee8be0767",
-                                                          "6ca5611c-03c5-4aa8-8d47-54507104e1ab",
-                                                          "971af6f9-780d-41f7-89cc-8d749c800771", true);
-            DeviceEvents deviceevents2 = new DeviceEvents(null, new Date(1567417601921L), null,
-                                                          new Date(1567417600888L),
-                                                          "9ed94655-92a7-4496-ac74-3bd5ddc03715",
-                                                          "20ef5fb7-074b-4400-9ea1-237cddd8f45f",
-                                                          "ac02471f-0e81-4a11-afb7-579425855e30",
-                                                          "107d356e-c1ca-4f04-9c7e-4c0ee8be0767",
-                                                          "6ca5611c-03c5-4aa8-8d47-54507104e1ab",
-                                                          "971af6f9-780d-41f7-89cc-8d749c800771", true);
-            DeviceEvents deviceevents3 = new DeviceEvents(null, new Date(1567417608006L), null,
-                                                          new Date(1567417603615L),
-                                                          "d8e3a8d7-120f-4cc4-bb45-5358d2eca910",
-                                                          "58432384-5d3f-4094-bfdd-ca0591a041a8",
-                                                          "34006632-0830-4612-9fd2-55c82b584d83",
-                                                          "ab98ccb8-7ce3-4822-8c9a-9d51d20f9234",
-                                                          "02ab5941-2076-4612-9ea7-52215d950c4a",
-                                                          "43bebba7-aa5e-4088-9b6f-d41b0b01447a", true);
+            DeviceEvents deviceevents1 = new DeviceEvents(null, new Date(1574704664465L), null,
+                                                          new Date(1574704663577L),
+                                                          "bc4f6261-3d93-4b87-b223-5fa5eef7ef05",
+                                                          "b8cd3717-1d00-4d5b-95c2-e7df4a3044dd",
+                                                          "1657aacd-4abd-45e0-97c2-1f9ca9cca853",
+                                                          "5ea6f0de-51bf-4a58-9b86-5a24e2e25fd8",
+                                                          "7f32e507-1f3e-4af1-a25d-0dc7f402e37d",
+                                                          "11918595-502a-41c9-9cd0-a0a47ee3cef8", true);
+            DeviceEvents deviceevents2 = new DeviceEvents(null, new Date(1574704664465L), null,
+                                                          new Date(1574704663577L),
+                                                          "bc4f6261-3d93-4b87-b223-5fa5eef7ef05",
+                                                          "b8cd3717-1d00-4d5b-95c2-e7df4a3044dd",
+                                                          "1657aacd-4abd-45e0-97c2-1f9ca9cca853",
+                                                          "5ea6f0de-51bf-4a58-9b86-5a24e2e25fd8",
+                                                          "7f32e507-1f3e-4af1-a25d-0dc7f402e37d",
+                                                          "11918595-502a-41c9-9cd0-a0a47ee3cef8", true);
+            DeviceEvents deviceevents3 = new DeviceEvents(null, new Date(1574704666019L), null,
+                                                          new Date(1574704664964L),
+                                                          "21985221-2041-4873-9378-7592bc6d4afc",
+                                                          "8158ce7e-465c-4c9b-a5c9-ca4304abba31",
+                                                          "c1ff0673-e697-4dd3-bb03-d1a57ac4baa7",
+                                                          "124f415e-e2ff-4d40-8da6-8707a3a638f3",
+                                                          "b0ad10e4-0d91-489c-bb96-9183f92d2a7f",
+                                                          "3072d12c-4cee-47b8-b157-40af95942b0b", true);
             assertNotNull(deviceevents1);
             assertNotNull(deviceevents2);
             assertNotNull(deviceevents3);

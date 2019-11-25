@@ -122,7 +122,7 @@ public abstract class AbstractCampaignDeviceMetadataDao extends AbstractModelDao
 
     /**
      * Gets a campaign device metadata.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -140,7 +140,7 @@ public abstract class AbstractCampaignDeviceMetadataDao extends AbstractModelDao
 
     /**
      * Gets a campaign device metadata.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#readCampaignDeviceMetadata(com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignDeviceMetadata)}
@@ -158,14 +158,14 @@ public abstract class AbstractCampaignDeviceMetadataDao extends AbstractModelDao
 
     /**
      * Gets a campaign device metadata.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.DeviceUpdate#readCampaignDeviceMetadata(String, String)}
      * 
      * @param campaignId
-     *            The device's campaign ID. The device's campaign ID
+     *            The device's campaign ID.
      * @param id
-     *            The metadata record ID. The metadata record ID
+     *            The metadata record ID.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.

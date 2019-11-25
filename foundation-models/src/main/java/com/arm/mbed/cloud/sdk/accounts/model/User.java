@@ -149,7 +149,7 @@ public class User implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -247,7 +247,7 @@ public class User implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -286,11 +286,11 @@ public class User implements SdkModel {
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on object identifier.
      * <p>
-     *
+     * 
      * @param id
      *            The ID of the user.
      */
@@ -301,7 +301,7 @@ public class User implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -419,7 +419,7 @@ public class User implements SdkModel {
 
     /**
      * Sets the email address.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /^(?=.{3,254}$).+@.+/} to be valid
      * 
@@ -461,7 +461,7 @@ public class User implements SdkModel {
 
     /**
      * Sets the full name of the user.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -513,7 +513,7 @@ public class User implements SdkModel {
 
     /**
      * Sets the id of the user.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
@@ -527,7 +527,7 @@ public class User implements SdkModel {
 
     /**
      * Sets the id of the user.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * <p>
@@ -686,7 +686,7 @@ public class User implements SdkModel {
 
     /**
      * Sets phone number.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -737,7 +737,7 @@ public class User implements SdkModel {
      * Sets the status of the user. enrolling state indicates that the user is in the middle of the enrollment process.
      * invited means that the user has not accepted the invitation request. reset means that the password must be
      * changed immediately. inactive users are locked out and not permitted to use the system.
-     *
+     * 
      * <p>
      * Similar to {@link #setStatus(com.arm.mbed.cloud.sdk.accounts.model.UserStatus)}
      * 
@@ -782,7 +782,7 @@ public class User implements SdkModel {
 
     /**
      * Sets a username.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /[\\w\\-,._@+=]{4,30}/} to be valid
      * 
@@ -805,7 +805,7 @@ public class User implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -825,7 +825,7 @@ public class User implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -864,7 +864,7 @@ public class User implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -878,7 +878,7 @@ public class User implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -1043,7 +1043,7 @@ public class User implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -1056,7 +1056,7 @@ public class User implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

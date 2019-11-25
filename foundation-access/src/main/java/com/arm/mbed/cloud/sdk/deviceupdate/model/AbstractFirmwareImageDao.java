@@ -77,7 +77,7 @@ public abstract class AbstractFirmwareImageDao extends AbstractModelDao<Firmware
 
     /**
      * Adds a firmware image.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -85,7 +85,7 @@ public abstract class AbstractFirmwareImageDao extends AbstractModelDao<Firmware
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareImageDao#create(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareImage)}
      * 
      * @param firmwareImageFile
-     *            The firmware image file to upload. The firmware image file to upload
+     *            The firmware image file to upload.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -96,13 +96,13 @@ public abstract class AbstractFirmwareImageDao extends AbstractModelDao<Firmware
 
     /**
      * Adds a firmware image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#createFirmwareImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareImage)}
      * 
      * @param firmwareImageFile
-     *            The firmware image file to upload. The firmware image file to upload
+     *            The firmware image file to upload.
      * @param firmwareImage
      *            a firmware image.
      * @return something
@@ -117,17 +117,17 @@ public abstract class AbstractFirmwareImageDao extends AbstractModelDao<Firmware
 
     /**
      * Adds a firmware image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#createFirmwareImage(com.arm.mbed.cloud.sdk.common.model.DataFile, String, String)}
      * 
      * @param firmwareImageFile
-     *            The firmware image file to upload. The firmware image file to upload
+     *            The firmware image file to upload.
      * @param description
-     *            The description of the object. The description of the object
+     *            The description of the object.
      * @param name
-     *            The firmware image name. The firmware image name
+     *            The firmware image name.
      * @return an added firmware image
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -140,7 +140,7 @@ public abstract class AbstractFirmwareImageDao extends AbstractModelDao<Firmware
 
     /**
      * Deletes a firmware image.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -157,7 +157,7 @@ public abstract class AbstractFirmwareImageDao extends AbstractModelDao<Firmware
 
     /**
      * Deletes a firmware image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#deleteFirmwareImage(com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareImage)}
@@ -174,12 +174,12 @@ public abstract class AbstractFirmwareImageDao extends AbstractModelDao<Firmware
 
     /**
      * Deletes a firmware image.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.DeviceUpdate#deleteFirmwareImage(String)}
      * 
      * @param id
-     *            The firmware image ID. The firmware image ID
+     *            The firmware image ID.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -240,7 +240,7 @@ public abstract class AbstractFirmwareImageDao extends AbstractModelDao<Firmware
 
     /**
      * Gets a firmware image.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -258,7 +258,7 @@ public abstract class AbstractFirmwareImageDao extends AbstractModelDao<Firmware
 
     /**
      * Gets a firmware image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#readFirmwareImage(com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareImage)}
@@ -275,12 +275,12 @@ public abstract class AbstractFirmwareImageDao extends AbstractModelDao<Firmware
 
     /**
      * Gets a firmware image.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.DeviceUpdate#readFirmwareImage(String)}
      * 
      * @param id
-     *            The firmware image ID. The firmware image ID
+     *            The firmware image ID.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.

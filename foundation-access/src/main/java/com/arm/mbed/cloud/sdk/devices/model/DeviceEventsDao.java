@@ -70,7 +70,7 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -139,7 +139,7 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
 
     /**
      * Gets a device events.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -157,7 +157,7 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
 
     /**
      * Gets a device events.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(com.arm.mbed.cloud.sdk.devices.model.DeviceEvents)}
@@ -174,7 +174,7 @@ public class DeviceEventsDao extends AbstractModelDao<DeviceEvents> implements R
 
     /**
      * Gets a device events.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Devices#readDeviceEvents(String)}
      * 

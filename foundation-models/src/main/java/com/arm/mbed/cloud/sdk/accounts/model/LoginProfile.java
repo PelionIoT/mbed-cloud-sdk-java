@@ -5,12 +5,23 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * Model for a login profile.
  */
 @Preamble(description = "Model for a login profile.")
 public class LoginProfile implements SdkModel {
+    /**
+     * Mapping needed for encoding or decoding filters.
+     * 
+     * <p>
+     * Filters are used when listing models. See {@link com.arm.mbed.cloud.sdk.common.listing.filtering.Filters}
+     */
+    @Internal
+    public static final Map<String, String> FILTER_MAPPING = generateFilterMapping();
+
     /**
      * Serialisation Id.
      */
@@ -22,13 +33,18 @@ public class LoginProfile implements SdkModel {
     private String id;
 
     /**
+     * Identity provider type.
+     */
+    private final LoginProfileType loginProfileType;
+
+    /**
      * Name of the identity provider.
      */
     private String name;
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -36,19 +52,22 @@ public class LoginProfile implements SdkModel {
      * 
      * @param id
      *            ID of the identity provider.
+     * @param loginProfileType
+     *            Identity provider type.
      * @param name
      *            Name of the identity provider.
      */
     @Internal
-    public LoginProfile(String id, String name) {
+    public LoginProfile(String id, LoginProfileType loginProfileType, String name) {
         super();
+        this.loginProfileType = loginProfileType;
         setId(id);
         setName(name);
     }
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -60,6 +79,7 @@ public class LoginProfile implements SdkModel {
     @Internal
     public LoginProfile(LoginProfile loginProfile) {
         this(loginProfile == null ? (String) null : loginProfile.id,
+             loginProfile == null ? LoginProfileType.getDefault() : loginProfile.loginProfileType,
              loginProfile == null ? (String) null : loginProfile.name);
     }
 
@@ -67,22 +87,38 @@ public class LoginProfile implements SdkModel {
      * Constructor.
      */
     public LoginProfile() {
-        this((String) null, (String) null);
+        this((String) null, LoginProfileType.getDefault(), (String) null);
     }
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on object identifier.
      * <p>
-     *
+     * 
      * @param id
      *            ID of the identity provider.
      */
     public LoginProfile(String id) {
         this();
         setId(id);
+    }
+
+    /**
+     * Internal constructor.
+     * 
+     * <p>
+     * Constructor based on read-only fields.
+     * <p>
+     * Note: Should not be used. Use {@link #LoginProfile()} instead.
+     * 
+     * @param loginProfileType
+     *            Identity provider type.
+     */
+    @Internal
+    public LoginProfile(LoginProfileType loginProfileType) {
+        this((String) null, loginProfileType, (String) null);
     }
 
     /**
@@ -108,7 +144,7 @@ public class LoginProfile implements SdkModel {
 
     /**
      * Sets id of the identity provider.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -118,6 +154,15 @@ public class LoginProfile implements SdkModel {
     @Internal
     public void setLoginProfileId(String loginProfileId) {
         setId(loginProfileId);
+    }
+
+    /**
+     * Gets identity provider type.
+     * 
+     * @return loginProfileType
+     */
+    public LoginProfileType getLoginProfileType() {
+        return loginProfileType;
     }
 
     /**
@@ -140,8 +185,23 @@ public class LoginProfile implements SdkModel {
     }
 
     /**
+     * Method generating the mapping needed for encoding or decoding filters.
+     * 
+     * <p>
+     * Filters are used when listing models. See {@link com.arm.mbed.cloud.sdk.common.listing.filtering.Filters}
+     * 
+     * @return the mapping table
+     */
+    @Internal
+    protected static final Map<String, String> generateFilterMapping() {
+        final Map<String, String> filterMapping = new Hashtable<>(1);
+        filterMapping.put("loginProfileType", "type");
+        return filterMapping;
+    }
+
+    /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -149,12 +209,12 @@ public class LoginProfile implements SdkModel {
      */
     @Override
     public String toString() {
-        return "LoginProfile [id=" + id + ", name=" + name + "]";
+        return "LoginProfile [id=" + id + ", loginProfileType=" + loginProfileType + ", name=" + name + "]";
     }
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -165,13 +225,14 @@ public class LoginProfile implements SdkModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((loginProfileType == null) ? 0 : loginProfileType.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -185,7 +246,7 @@ public class LoginProfile implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -215,6 +276,9 @@ public class LoginProfile implements SdkModel {
         } else if (!id.equals(other.id)) {
             return false;
         }
+        if (loginProfileType != other.loginProfileType) {
+            return false;
+        }
         if (name == null) {
             if (other.name != null) {
                 return false;
@@ -227,7 +291,7 @@ public class LoginProfile implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -240,7 +304,7 @@ public class LoginProfile implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

@@ -102,4 +102,21 @@ public class SubtenantPolicyGroupDao extends AbstractSubtenantPolicyGroupDao {
         // TODO Auto-generated method stub.;
         throw new NotImplementedException();
     }
+
+    /**
+     * Deletes a subtenant policy group.
+     * 
+     * @param id
+     *            a string.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     * @throws java.lang.UnsupportedOperationException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public void delete(String id) throws MbedCloudException, UnsupportedOperationException, NotImplementedException {
+        // TODO Auto-generated method stub
+        throw new NotImplementedException();
+    }
+
 }

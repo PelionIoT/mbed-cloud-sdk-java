@@ -71,7 +71,7 @@ public class LightThemeColorListDao extends AbstractModelListDao<LightThemeColor
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -166,7 +166,7 @@ public class LightThemeColorListDao extends AbstractModelListDao<LightThemeColor
 
     /**
      * Lists light theme colors matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#listLightThemeColors(com.arm.mbed.cloud.sdk.branding.model.LightThemeColorListOptions)}

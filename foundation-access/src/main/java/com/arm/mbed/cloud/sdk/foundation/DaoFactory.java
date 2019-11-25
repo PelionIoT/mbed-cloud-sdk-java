@@ -6,9 +6,13 @@ import com.arm.mbed.cloud.sdk.accounts.model.AccountDao;
 import com.arm.mbed.cloud.sdk.accounts.model.AccountListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyDao;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListDao;
+import com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderDao;
+import com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupDao;
 import com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyDao;
+import com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProviderDao;
+import com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProviderListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListDao;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserDao;
@@ -89,11 +93,11 @@ public class DaoFactory implements Cloneable {
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
-     *
+     * 
      * @param context
      *            Context.
      */
@@ -111,11 +115,11 @@ public class DaoFactory implements Cloneable {
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
-     *
+     * 
      * @param daoFactory
      *            a dao factory.
      */
@@ -125,7 +129,7 @@ public class DaoFactory implements Cloneable {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -139,7 +143,7 @@ public class DaoFactory implements Cloneable {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -152,7 +156,7 @@ public class DaoFactory implements Cloneable {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -625,6 +629,30 @@ public class DaoFactory implements Cloneable {
     }
 
     /**
+     * Gets an identity provider dao.
+     * 
+     * @return an identity provider dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public IdentityProviderDao getIdentityProviderDao() throws MbedCloudException {
+        return new IdentityProviderDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets an identity provider list dao.
+     * 
+     * @return an identity provider list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public IdentityProviderListDao getIdentityProviderListDao() throws MbedCloudException {
+        return new IdentityProviderListDao().configureAndGet(context);
+    }
+
+    /**
      * Gets a light theme color dao.
      * 
      * @return a light theme color dao
@@ -766,6 +794,30 @@ public class DaoFactory implements Cloneable {
     @SuppressWarnings("resource")
     public SubtenantDarkThemeImageDao getSubtenantDarkThemeImageDao() throws MbedCloudException {
         return new SubtenantDarkThemeImageDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a subtenant identity provider dao.
+     * 
+     * @return a subtenant identity provider dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public SubtenantIdentityProviderDao getSubtenantIdentityProviderDao() throws MbedCloudException {
+        return new SubtenantIdentityProviderDao().configureAndGet(context);
+    }
+
+    /**
+     * Gets a subtenant identity provider list dao.
+     * 
+     * @return a subtenant identity provider list dao
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @SuppressWarnings("resource")
+    public SubtenantIdentityProviderListDao getSubtenantIdentityProviderListDao() throws MbedCloudException {
+        return new SubtenantIdentityProviderListDao().configureAndGet(context);
     }
 
     /**
@@ -950,7 +1002,7 @@ public class DaoFactory implements Cloneable {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -966,7 +1018,7 @@ public class DaoFactory implements Cloneable {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()

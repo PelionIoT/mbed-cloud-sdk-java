@@ -24,6 +24,11 @@ public class ActiveSession implements SdkModel {
     private final String accountId;
 
     /**
+     * Creation UTC time RFC3339.
+     */
+    private final Date createdAt;
+
+    /**
      * IP address of the client.
      */
     private final String ipAddress;
@@ -45,7 +50,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -53,6 +58,8 @@ public class ActiveSession implements SdkModel {
      * 
      * @param accountId
      *            The UUID of the account.
+     * @param createdAt
+     *            Creation UTC time RFC3339.
      * @param ipAddress
      *            IP address of the client.
      * @param loginTime
@@ -63,9 +70,11 @@ public class ActiveSession implements SdkModel {
      *            User Agent header from the login request.
      */
     @Internal
-    public ActiveSession(String accountId, String ipAddress, Date loginTime, String referenceToken, String userAgent) {
+    public ActiveSession(String accountId, Date createdAt, String ipAddress, Date loginTime, String referenceToken,
+                         String userAgent) {
         super();
         this.accountId = accountId;
+        this.createdAt = createdAt;
         this.ipAddress = ipAddress;
         this.loginTime = loginTime;
         this.referenceToken = referenceToken;
@@ -74,7 +83,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -86,6 +95,7 @@ public class ActiveSession implements SdkModel {
     @Internal
     public ActiveSession(ActiveSession activeSession) {
         this(activeSession == null ? (String) null : activeSession.accountId,
+             activeSession == null ? new Date() : activeSession.createdAt,
              activeSession == null ? (String) null : activeSession.ipAddress,
              activeSession == null ? new Date() : activeSession.loginTime,
              activeSession == null ? (String) null : activeSession.referenceToken,
@@ -96,7 +106,7 @@ public class ActiveSession implements SdkModel {
      * Constructor.
      */
     public ActiveSession() {
-        this((String) null, (String) null, new Date(), (String) null, (String) null);
+        this((String) null, new Date(), (String) null, new Date(), (String) null, (String) null);
     }
 
     /**
@@ -114,7 +124,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Gets id.
-     *
+     * 
      * <p>
      * Warning: ActiveSession model does not have any ID field. This always returns {@code null}.
      * 
@@ -133,6 +143,15 @@ public class ActiveSession implements SdkModel {
      */
     public String getAccountId() {
         return accountId;
+    }
+
+    /**
+     * Gets creation utc time rfc3339.
+     * 
+     * @return createdAt
+     */
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
     /**
@@ -173,7 +192,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -181,13 +200,13 @@ public class ActiveSession implements SdkModel {
      */
     @Override
     public String toString() {
-        return "ActiveSession [accountId=" + accountId + ", ipAddress=" + ipAddress + ", loginTime=" + loginTime
-               + ", referenceToken=" + referenceToken + ", userAgent=" + userAgent + "]";
+        return "ActiveSession [accountId=" + accountId + ", createdAt=" + createdAt + ", ipAddress=" + ipAddress
+               + ", loginTime=" + loginTime + ", referenceToken=" + referenceToken + ", userAgent=" + userAgent + "]";
     }
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -198,6 +217,7 @@ public class ActiveSession implements SdkModel {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
+        result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((ipAddress == null) ? 0 : ipAddress.hashCode());
         result = prime * result + ((loginTime == null) ? 0 : loginTime.hashCode());
         result = prime * result + ((referenceToken == null) ? 0 : referenceToken.hashCode());
@@ -207,7 +227,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -221,7 +241,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -249,6 +269,13 @@ public class ActiveSession implements SdkModel {
                 return false;
             }
         } else if (!accountId.equals(other.accountId)) {
+            return false;
+        }
+        if (createdAt == null) {
+            if (other.createdAt != null) {
+                return false;
+            }
+        } else if (!createdAt.equals(other.createdAt)) {
             return false;
         }
         if (ipAddress == null) {
@@ -284,7 +311,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -297,7 +324,7 @@ public class ActiveSession implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

@@ -71,7 +71,7 @@ public class UpdateCampaignListDao extends AbstractModelListDao<UpdateCampaign, 
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -166,7 +166,7 @@ public class UpdateCampaignListDao extends AbstractModelListDao<UpdateCampaign, 
 
     /**
      * Lists update campaigns matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#listUpdateCampaigns(com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions)}

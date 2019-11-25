@@ -72,7 +72,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Adds a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -90,7 +90,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Adds a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
@@ -109,7 +109,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Adds a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -128,7 +128,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Adds a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createSubtenantTrustedCertificate(String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
@@ -150,7 +150,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Deletes a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -167,7 +167,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Deletes a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#deleteSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
@@ -184,7 +184,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Deletes a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteSubtenantTrustedCertificate(String, String)}
      * 
@@ -201,8 +201,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -219,8 +219,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
@@ -238,8 +238,8 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getDeveloperCertificateInfo(String)}
      * 
@@ -305,7 +305,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Gets a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -323,7 +323,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Gets a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
@@ -341,7 +341,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Gets a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#readSubtenantTrustedCertificate(String, String)}
      * 
@@ -359,7 +359,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Modifies a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -377,7 +377,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Modifies a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#updateSubtenantTrustedCertificate(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}
@@ -396,7 +396,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Modifies a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -417,7 +417,7 @@ public abstract class AbstractSubtenantTrustedCertificateDao extends AbstractMod
 
     /**
      * Modifies a subtenant trusted certificate.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#updateSubtenantTrustedCertificate(String, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate)}

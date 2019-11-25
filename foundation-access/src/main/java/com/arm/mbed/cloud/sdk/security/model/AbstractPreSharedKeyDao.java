@@ -75,7 +75,7 @@ public abstract class AbstractPreSharedKeyDao extends AbstractModelDao<PreShared
 
     /**
      * Adds a pre shared key.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -95,7 +95,7 @@ public abstract class AbstractPreSharedKeyDao extends AbstractModelDao<PreShared
 
     /**
      * Adds a pre shared key.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createPreSharedKey(String, com.arm.mbed.cloud.sdk.security.model.PreSharedKey)}
@@ -115,7 +115,7 @@ public abstract class AbstractPreSharedKeyDao extends AbstractModelDao<PreShared
 
     /**
      * Deletes a pre shared key.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -132,7 +132,7 @@ public abstract class AbstractPreSharedKeyDao extends AbstractModelDao<PreShared
 
     /**
      * Deletes a pre shared key.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#deletePreSharedKey(com.arm.mbed.cloud.sdk.security.model.PreSharedKey)}
@@ -149,7 +149,7 @@ public abstract class AbstractPreSharedKeyDao extends AbstractModelDao<PreShared
 
     /**
      * Deletes a pre shared key.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#deletePreSharedKey(String)}
      * 
@@ -215,7 +215,7 @@ public abstract class AbstractPreSharedKeyDao extends AbstractModelDao<PreShared
 
     /**
      * Gets a pre shared key.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -233,7 +233,7 @@ public abstract class AbstractPreSharedKeyDao extends AbstractModelDao<PreShared
 
     /**
      * Gets a pre shared key.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readPreSharedKey(com.arm.mbed.cloud.sdk.security.model.PreSharedKey)}
@@ -250,7 +250,7 @@ public abstract class AbstractPreSharedKeyDao extends AbstractModelDao<PreShared
 
     /**
      * Gets a pre shared key.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#readPreSharedKey(String)}
      * 

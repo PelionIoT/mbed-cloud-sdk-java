@@ -133,7 +133,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -166,7 +166,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -191,7 +191,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -218,7 +218,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -251,7 +251,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInUpdatedAtsFilter(String)}
      * 
@@ -269,7 +269,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInUpdatedAtsFilter(java.util.List)}
@@ -288,7 +288,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInUpdatedAtsFilter(java.util.Date[])}
@@ -307,7 +307,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -340,7 +340,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInUpdatedAtsFilter(String)}
      * 
@@ -358,7 +358,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInUpdatedAtsFilter(java.util.List)}
@@ -377,7 +377,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInUpdatedAtsFilter(java.util.Date[])}
@@ -406,7 +406,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addLessThanUpdatedAtFilter(java.util.Date)}
@@ -435,7 +435,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addGreaterThanUpdatedAtFilter(java.util.Date)}
@@ -473,7 +473,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addEqualToNameFilter(String)}
      * 
@@ -501,7 +501,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotEqualToNameFilter(String)}
      * 
@@ -519,7 +519,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -552,7 +552,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInNamesFilter(String)}
      * 
@@ -570,7 +570,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInNamesFilter(java.util.List)}
      * 
@@ -588,7 +588,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInNamesFilter(String[])}
      * 
@@ -606,7 +606,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -639,7 +639,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInNamesFilter(String)}
      * 
@@ -657,7 +657,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInNamesFilter(java.util.List)}
@@ -676,7 +676,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInNamesFilter(String[])}
      * 
@@ -713,7 +713,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code devicesCount}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addEqualToDevicesCountFilter(int)}
      * 
@@ -741,7 +741,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code devicesCount}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotEqualToDevicesCountFilter(int)}
@@ -760,7 +760,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code devicesCount}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -793,7 +793,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code devicesCount}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInDevicesCountsFilter(String)}
      * 
@@ -811,7 +811,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code devicesCount}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInDevicesCountsFilter(java.util.List)}
@@ -830,7 +830,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code devicesCount}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInDevicesCountsFilter(Integer[])}
@@ -849,7 +849,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code devicesCount}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -882,7 +882,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code devicesCount}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInDevicesCountsFilter(String)}
@@ -901,7 +901,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code devicesCount}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInDevicesCountsFilter(java.util.List)}
@@ -920,7 +920,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code devicesCount}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInDevicesCountsFilter(Integer[])}
@@ -949,7 +949,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code devicesCount}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addLessThanDevicesCountFilter(int)}
      * 
@@ -977,7 +977,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code devicesCount}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addGreaterThanDevicesCountFilter(int)}
@@ -1005,7 +1005,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1038,7 +1038,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInCreatedAtsFilter(String)}
      * 
@@ -1056,7 +1056,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInCreatedAtsFilter(java.util.List)}
@@ -1075,7 +1075,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInCreatedAtsFilter(java.util.Date[])}
@@ -1094,7 +1094,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1127,7 +1127,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInCreatedAtsFilter(String)}
      * 
@@ -1145,7 +1145,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInCreatedAtsFilter(java.util.List)}
@@ -1164,7 +1164,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInCreatedAtsFilter(java.util.Date[])}
@@ -1193,7 +1193,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addLessThanCreatedAtFilter(java.util.Date)}
@@ -1222,7 +1222,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addGreaterThanCreatedAtFilter(java.util.Date)}
@@ -1260,7 +1260,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addEqualToIdFilter(String)}
      * 
@@ -1288,7 +1288,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotEqualToIdFilter(String)}
      * 
@@ -1306,7 +1306,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1339,7 +1339,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInIdsFilter(String)}
      * 
@@ -1357,7 +1357,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInIdsFilter(java.util.List)}
      * 
@@ -1375,7 +1375,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addInIdsFilter(String[])}
      * 
@@ -1393,7 +1393,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1426,7 +1426,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInIdsFilter(String)}
      * 
@@ -1444,7 +1444,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInIdsFilter(java.util.List)}
      * 
@@ -1462,7 +1462,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions#addNotInIdsFilter(String[])}
      * 
@@ -1480,7 +1480,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -1496,7 +1496,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -1511,7 +1511,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -1526,7 +1526,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -1557,7 +1557,7 @@ public class DeviceGroupListOptions extends ListOptions {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()

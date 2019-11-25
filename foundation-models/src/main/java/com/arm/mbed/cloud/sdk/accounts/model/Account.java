@@ -44,7 +44,7 @@ public class Account implements SdkModel {
     private String adminFullName;
 
     /**
-     * The ID of the admin user created for this account.
+     * The ID of the admin user created for this account. Present only in the response for the account creation.
      */
     private final String adminId;
 
@@ -67,6 +67,17 @@ public class Account implements SdkModel {
      * An array of aliases.
      */
     private List<String> aliases;
+
+    /**
+     * Business model for this account. Manageable by the root admin only.
+     */
+    @DefaultValue("active_device_business_model")
+    private AccountBusinessModel businessModel;
+
+    /**
+     * Business model history for this account.
+     */
+    private final List<Object> businessModelHistory;
 
     /**
      * The city part of the postal address.
@@ -147,8 +158,19 @@ public class Account implements SdkModel {
     private int idleTimeout;
 
     /**
-     * List of limits as key-value pairs if requested.
+     * List of account limitation objects.
      */
+    private final List<Object> limitations;
+
+    /**
+     * List of limits as key-value pairs if requested.
+     * 
+     * <p>
+     * 
+     * @deprecated This field has been deprecated since Tue Aug 27 13:03:58 BST 2019 and will be removed by Thu Aug 27
+     *             13:03:58 BST 2020. Superseded by the limitations parameter.
+     */
+    @Deprecated
     private final Map<String, String> limits;
 
     /**
@@ -245,7 +267,7 @@ public class Account implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -262,7 +284,8 @@ public class Account implements SdkModel {
      *            The full name of the admin user created for this account. Present only in the response for account
      *            creation.
      * @param adminId
-     *            The ID of the admin user created for this account.
+     *            The ID of the admin user created for this account. Present only in the response for the account
+     *            creation.
      * @param adminKey
      *            The admin API key created for this account. Present only in the response for account creation.
      * @param adminName
@@ -273,6 +296,10 @@ public class Account implements SdkModel {
      *            creation.
      * @param aliases
      *            An array of aliases.
+     * @param businessModel
+     *            Business model for this account. Manageable by the root admin only.
+     * @param businessModelHistory
+     *            Business model history for this account.
      * @param city
      *            The city part of the postal address.
      * @param company
@@ -303,6 +330,8 @@ public class Account implements SdkModel {
      *            Account ID.
      * @param idleTimeout
      *            The reference token expiration time, in minutes, for this account.
+     * @param limitations
+     *            List of account limitation objects.
      * @param limits
      *            List of limits as key-value pairs if requested.
      * @param mfaStatus
@@ -346,11 +375,13 @@ public class Account implements SdkModel {
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
     public Account(String addressLine1, String addressLine2, String adminEmail, String adminFullName, String adminId,
-                   String adminKey, String adminName, String adminPassword, List<String> aliases, String city,
-                   String company, String contact, String contractNumber, String country, Date createdAt,
-                   Map<String, String> customFields, String customerNumber, String displayName, String email,
-                   String endMarket, Date expiration, @DefaultValue("1") int expirationWarningThreshold, String id,
-                   @DefaultValue("1") int idleTimeout, Map<String, String> limits, AccountMfaStatus mfaStatus,
+                   String adminKey, String adminName, String adminPassword, List<String> aliases,
+                   @DefaultValue("active_device_business_model") AccountBusinessModel businessModel,
+                   List<Object> businessModelHistory, String city, String company, String contact,
+                   String contractNumber, String country, Date createdAt, Map<String, String> customFields,
+                   String customerNumber, String displayName, String email, String endMarket, Date expiration,
+                   @DefaultValue("1") int expirationWarningThreshold, String id, @DefaultValue("1") int idleTimeout,
+                   List<Object> limitations, Map<String, String> limits, AccountMfaStatus mfaStatus,
                    List<String> notificationEmails, ParentAccount parentAccount, String parentId,
                    PasswordPolicy passwordPolicy, @DefaultValue("1") int passwordRecoveryExpiration, String phoneNumber,
                    List<Policy> policies, String postalCode, String reason, String referenceNote, String salesContact,
@@ -359,8 +390,10 @@ public class Account implements SdkModel {
         super();
         this.adminId = adminId;
         this.adminKey = adminKey;
+        this.businessModelHistory = businessModelHistory;
         this.createdAt = createdAt;
         this.expiration = expiration;
+        this.limitations = limitations;
         this.limits = limits;
         this.parentAccount = parentAccount;
         this.parentId = parentId;
@@ -379,6 +412,7 @@ public class Account implements SdkModel {
         setAdminName(adminName);
         setAdminPassword(adminPassword);
         setAliases(aliases);
+        setBusinessModel(businessModel);
         setCity(city);
         setCompany(company);
         setContact(contact);
@@ -404,7 +438,7 @@ public class Account implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -421,8 +455,11 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.adminFullName, account == null ? (String) null : account.adminId,
              account == null ? (String) null : account.adminKey, account == null ? (String) null : account.adminName,
              account == null ? (String) null : account.adminPassword,
-             account == null ? (List<String>) null : account.aliases, account == null ? (String) null : account.city,
-             account == null ? (String) null : account.company, account == null ? (String) null : account.contact,
+             account == null ? (List<String>) null : account.aliases,
+             account == null ? AccountBusinessModel.getValue("active_device_business_model") : account.businessModel,
+             account == null ? (List<Object>) null : account.businessModelHistory,
+             account == null ? (String) null : account.city, account == null ? (String) null : account.company,
+             account == null ? (String) null : account.contact,
              account == null ? (String) null : account.contractNumber,
              account == null ? (String) null : account.country, account == null ? new Date() : account.createdAt,
              account == null ? (Map<String, String>) null : account.customFields,
@@ -430,7 +467,8 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.displayName, account == null ? (String) null : account.email,
              account == null ? (String) null : account.endMarket, account == null ? new Date() : account.expiration,
              account == null ? 1 : account.expirationWarningThreshold, account == null ? (String) null : account.id,
-             account == null ? 1 : account.idleTimeout, account == null ? (Map<String, String>) null : account.limits,
+             account == null ? 1 : account.idleTimeout, account == null ? (List<Object>) null : account.limitations,
+             account == null ? (Map<String, String>) null : account.limits,
              account == null ? AccountMfaStatus.getDefault() : account.mfaStatus,
              account == null ? (List<String>) null : account.notificationEmails,
              account == null ? (ParentAccount) null : account.parentAccount,
@@ -452,9 +490,10 @@ public class Account implements SdkModel {
      */
     public Account() {
         this((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, (List<String>) null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, new Date(), (Map<String, String>) null, (String) null, (String) null, (String) null,
-             (String) null, new Date(), 1, (String) null, 1, (Map<String, String>) null, AccountMfaStatus.getDefault(),
+             (String) null, (List<String>) null, AccountBusinessModel.getValue("active_device_business_model"),
+             (List<Object>) null, (String) null, (String) null, (String) null, (String) null, (String) null, new Date(),
+             (Map<String, String>) null, (String) null, (String) null, (String) null, (String) null, new Date(), 1,
+             (String) null, 1, (List<Object>) null, (Map<String, String>) null, AccountMfaStatus.getDefault(),
              (List<String>) null, (ParentAccount) null, (String) null, (PasswordPolicy) null, 1, (String) null,
              (List<Policy>) null, (String) null, (String) null, (String) null, (String) null, (String) null,
              AccountStatus.getDefault(), (String) null, (String) null, new Date(), new Date());
@@ -462,11 +501,11 @@ public class Account implements SdkModel {
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on object identifier.
      * <p>
-     *
+     * 
      * @param id
      *            Account ID.
      */
@@ -477,20 +516,25 @@ public class Account implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #Account()} instead.
      * 
      * @param adminId
-     *            The ID of the admin user created for this account.
+     *            The ID of the admin user created for this account. Present only in the response for the account
+     *            creation.
      * @param adminKey
      *            The admin API key created for this account. Present only in the response for account creation.
+     * @param businessModelHistory
+     *            Business model history for this account.
      * @param createdAt
      *            Creation UTC time RFC3339.
      * @param expiration
      *            Expiration time of the account, as UTC time RFC3339.
+     * @param limitations
+     *            List of account limitation objects.
      * @param limits
      *            List of limits as key-value pairs if requested.
      * @param parentAccount
@@ -517,16 +561,17 @@ public class Account implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public Account(String adminId, String adminKey, Date createdAt, Date expiration, Map<String, String> limits,
-                   ParentAccount parentAccount, String parentId, List<Policy> policies, String reason,
-                   String referenceNote, AccountStatus status, String templateId, String tier, Date updatedAt,
-                   Date upgradedAt) {
+    public Account(String adminId, String adminKey, List<Object> businessModelHistory, Date createdAt, Date expiration,
+                   List<Object> limitations, Map<String, String> limits, ParentAccount parentAccount, String parentId,
+                   List<Policy> policies, String reason, String referenceNote, AccountStatus status, String templateId,
+                   String tier, Date updatedAt, Date upgradedAt) {
         this((String) null, (String) null, (String) null, (String) null, adminId, adminKey, (String) null,
-             (String) null, (List<String>) null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, createdAt, (Map<String, String>) null, (String) null, (String) null, (String) null,
-             (String) null, expiration, 1, (String) null, 1, limits, AccountMfaStatus.getDefault(), (List<String>) null,
-             parentAccount, parentId, (PasswordPolicy) null, 1, (String) null, policies, (String) null, reason,
-             referenceNote, (String) null, (String) null, status, templateId, tier, updatedAt, upgradedAt);
+             (String) null, (List<String>) null, AccountBusinessModel.getValue("active_device_business_model"),
+             businessModelHistory, (String) null, (String) null, (String) null, (String) null, (String) null, createdAt,
+             (Map<String, String>) null, (String) null, (String) null, (String) null, (String) null, expiration, 1,
+             (String) null, 1, limitations, limits, AccountMfaStatus.getDefault(), (List<String>) null, parentAccount,
+             parentId, (PasswordPolicy) null, 1, (String) null, policies, (String) null, reason, referenceNote,
+             (String) null, (String) null, status, templateId, tier, updatedAt, upgradedAt);
     }
 
     /**
@@ -540,7 +585,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets postal address line 1.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -572,7 +617,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets postal address line 2.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -606,7 +651,7 @@ public class Account implements SdkModel {
     /**
      * Sets the email address of the admin user created for this account. present only in the response for account
      * creation.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /^(?=.{3,254}$).+@.+/} to be valid
      * 
@@ -639,7 +684,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the full name of the admin user created for this account. present only in the response for account creation.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -662,7 +707,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the id of the admin user created for this account.
+     * Gets the id of the admin user created for this account. present only in the response for the account creation.
      * 
      * @return adminId
      */
@@ -690,7 +735,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the username of the admin user created for this account. present only in the response for account creation.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -743,7 +788,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets an array of aliases.
-     *
+     * 
      * <p>
      * Note: the number of elements has to be less than or equal to {@code 10} to be valid
      * 
@@ -765,6 +810,48 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets business model for this account. manageable by the root admin only.
+     * 
+     * @return businessModel
+     */
+    public AccountBusinessModel getBusinessModel() {
+        return businessModel;
+    }
+
+    /**
+     * Sets business model for this account. manageable by the root admin only.
+     * 
+     * @param businessModel
+     *            Business model for this account. Manageable by the root admin only.
+     */
+    public void setBusinessModel(@DefaultValue("active_device_business_model") AccountBusinessModel businessModel) {
+        this.businessModel = businessModel;
+    }
+
+    /**
+     * Sets business model for this account. manageable by the root admin only.
+     * 
+     * <p>
+     * Similar to {@link #setBusinessModel(com.arm.mbed.cloud.sdk.accounts.model.AccountBusinessModel)}
+     * 
+     * @param businessModel
+     *            Business model for this account. Manageable by the root admin only.
+     */
+    @Internal
+    public void setBusinessModel(@DefaultValue("active_device_business_model") String businessModel) {
+        this.businessModel = AccountBusinessModel.getValue(businessModel);
+    }
+
+    /**
+     * Gets business model history for this account.
+     * 
+     * @return businessModelHistory
+     */
+    public List<Object> getBusinessModelHistory() {
+        return businessModelHistory;
+    }
+
+    /**
      * Gets the city part of the postal address.
      * 
      * @return city
@@ -775,7 +862,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the city part of the postal address.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -807,7 +894,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the name of the company.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -839,7 +926,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the name of the contact person for this account.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -890,7 +977,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the country part of the postal address.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -969,7 +1056,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the display name for the account.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -1001,7 +1088,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the company email address for this account.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /^(?=.{3,254}$).+@.+/} to be valid
      * 
@@ -1072,7 +1159,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets indicates how many days (1-180) before account expiration a notification email is sent.
-     *
+     * 
      * <p>
      * Note: the value has to be greater than or equal to {@code 1} to be valid
      * <p>
@@ -1107,7 +1194,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets account id.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
@@ -1121,7 +1208,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets account id.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * <p>
@@ -1156,7 +1243,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the reference token expiration time, in minutes, for this account.
-     *
+     * 
      * <p>
      * Note: the value has to be greater than or equal to {@code 1} to be valid
      * <p>
@@ -1180,10 +1267,25 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets list of account limitation objects.
+     * 
+     * @return limitations
+     */
+    public List<Object> getLimitations() {
+        return limitations;
+    }
+
+    /**
      * Gets list of limits as key-value pairs if requested.
+     * 
+     * <p>
+     * 
+     * @deprecated This field has been deprecated since Tue Aug 27 13:03:58 BST 2019 and will be removed by Thu Aug 27
+     *             13:03:58 BST 2020. Superseded by the limitations parameter.
      * 
      * @return limits
      */
+    @Deprecated
     public Map<String, String> getLimits() {
         return limits;
     }
@@ -1209,7 +1311,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the enforcement status of multi-factor authentication, either `enforced` or `optional`.
-     *
+     * 
      * <p>
      * Similar to {@link #setMfaStatus(com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus)}
      * 
@@ -1288,7 +1390,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets indicates for how many minutes a password recovery email is valid.
-     *
+     * 
      * <p>
      * Note: the value has to be greater than or equal to {@code 1} to be valid
      * <p>
@@ -1322,7 +1424,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the phone number of a company representative.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -1363,7 +1465,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the postal code part of the postal address.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -1413,7 +1515,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets email address of the sales contact.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /^(?=.{3,254}$).+@.+/} to be valid
      * 
@@ -1445,7 +1547,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the state part of the postal address.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -1514,7 +1616,7 @@ public class Account implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -1524,14 +1626,15 @@ public class Account implements SdkModel {
     public String toString() {
         return "Account [addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", adminEmail=" + adminEmail
                + ", adminFullName=" + adminFullName + ", adminId=" + adminId + ", adminKey=" + adminKey + ", adminName="
-               + adminName + ", adminPassword=" + adminPassword + ", aliases=" + aliases + ", city=" + city
-               + ", company=" + company + ", contact=" + contact + ", contractNumber=" + contractNumber + ", country="
-               + country + ", createdAt=" + createdAt + ", customFields=" + customFields + ", customerNumber="
-               + customerNumber + ", displayName=" + displayName + ", email=" + email + ", endMarket=" + endMarket
-               + ", expiration=" + expiration + ", expirationWarningThreshold=" + expirationWarningThreshold + ", id="
-               + id + ", idleTimeout=" + idleTimeout + ", limits=" + limits + ", mfaStatus=" + mfaStatus
-               + ", notificationEmails=" + notificationEmails + ", parentAccount=" + parentAccount + ", parentId="
-               + parentId + ", passwordPolicy=" + passwordPolicy + ", passwordRecoveryExpiration="
+               + adminName + ", adminPassword=" + adminPassword + ", aliases=" + aliases + ", businessModel="
+               + businessModel + ", businessModelHistory=" + businessModelHistory + ", city=" + city + ", company="
+               + company + ", contact=" + contact + ", contractNumber=" + contractNumber + ", country=" + country
+               + ", createdAt=" + createdAt + ", customFields=" + customFields + ", customerNumber=" + customerNumber
+               + ", displayName=" + displayName + ", email=" + email + ", endMarket=" + endMarket + ", expiration="
+               + expiration + ", expirationWarningThreshold=" + expirationWarningThreshold + ", id=" + id
+               + ", idleTimeout=" + idleTimeout + ", limitations=" + limitations + ", limits=" + limits + ", mfaStatus="
+               + mfaStatus + ", notificationEmails=" + notificationEmails + ", parentAccount=" + parentAccount
+               + ", parentId=" + parentId + ", passwordPolicy=" + passwordPolicy + ", passwordRecoveryExpiration="
                + passwordRecoveryExpiration + ", phoneNumber=" + phoneNumber + ", policies=" + policies
                + ", postalCode=" + postalCode + ", reason=" + reason + ", referenceNote=" + referenceNote
                + ", salesContact=" + salesContact + ", state=" + state + ", status=" + status + ", templateId="
@@ -1540,7 +1643,7 @@ public class Account implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -1559,6 +1662,8 @@ public class Account implements SdkModel {
         result = prime * result + ((adminName == null) ? 0 : adminName.hashCode());
         result = prime * result + ((adminPassword == null) ? 0 : adminPassword.hashCode());
         result = prime * result + ((aliases == null) ? 0 : aliases.hashCode());
+        result = prime * result + ((businessModel == null) ? 0 : businessModel.hashCode());
+        result = prime * result + ((businessModelHistory == null) ? 0 : businessModelHistory.hashCode());
         result = prime * result + ((city == null) ? 0 : city.hashCode());
         result = prime * result + ((company == null) ? 0 : company.hashCode());
         result = prime * result + ((contact == null) ? 0 : contact.hashCode());
@@ -1574,6 +1679,7 @@ public class Account implements SdkModel {
         result = prime * result + Objects.hashCode(Integer.valueOf(expirationWarningThreshold));
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + Objects.hashCode(Integer.valueOf(idleTimeout));
+        result = prime * result + ((limitations == null) ? 0 : limitations.hashCode());
         result = prime * result + ((limits == null) ? 0 : limits.hashCode());
         result = prime * result + ((mfaStatus == null) ? 0 : mfaStatus.hashCode());
         result = prime * result + ((notificationEmails == null) ? 0 : notificationEmails.hashCode());
@@ -1598,7 +1704,7 @@ public class Account implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -1612,7 +1718,7 @@ public class Account implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -1697,6 +1803,16 @@ public class Account implements SdkModel {
                 return false;
             }
         } else if (!aliases.equals(other.aliases)) {
+            return false;
+        }
+        if (businessModel != other.businessModel) {
+            return false;
+        }
+        if (businessModelHistory == null) {
+            if (other.businessModelHistory != null) {
+                return false;
+            }
+        } else if (!businessModelHistory.equals(other.businessModelHistory)) {
             return false;
         }
         if (city == null) {
@@ -1794,6 +1910,13 @@ public class Account implements SdkModel {
             return false;
         }
         if (idleTimeout != other.idleTimeout) {
+            return false;
+        }
+        if (limitations == null) {
+            if (other.limitations != null) {
+                return false;
+            }
+        } else if (!limitations.equals(other.limitations)) {
             return false;
         }
         if (limits == null) {
@@ -1922,7 +2045,7 @@ public class Account implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -1940,7 +2063,7 @@ public class Account implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

@@ -182,7 +182,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of campaign device metadata matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #deviceMetadata(com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignDeviceMetadataListOptions, com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
@@ -223,12 +223,12 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of campaign device metadata matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all update campaigns matching filter options.
      * 
      * @param id
-     *            The update campaign ID. The update campaign ID
+     *            The campaign ID.
      * @param options
      *            list options.
      * @return paginator over the list of campaign device metadata
@@ -263,7 +263,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of campaign statistics events matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #events(com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsEventsListOptions, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatistics)}
@@ -305,14 +305,14 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of campaign statistics events matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all campaign statistics matching filter options.
      * 
      * @param campaignId
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @param id
-     *            The summary status. For example, fail. The summary status. For example, fail
+     *            The summary status. For example, fail.
      * @param options
      *            list options.
      * @return paginator over the list of campaign statistics events
@@ -350,13 +350,15 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Archive a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
-     * This command will archive a campaign.
-     *
+     * Archive a campaign. [br] **Usage example:** ``` curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/archive \ -H
+     * 'Authorization: [valid access token]' ```
+     * 
      * @param id
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -372,15 +374,15 @@ public class DeviceUpdate extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi().updateCampaignArchive(finalId);
+                return endpoints.getDeviceUpdateCampaignsApi().updateCampaignArchive(finalId);
             }
         }, true);
     }
 
     /**
      * Archive a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #archive(String)}
      * 
@@ -397,7 +399,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -410,12 +412,12 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Adds a firmware image.
-     *
+     * 
      * <p>
      * Similar to {@link #createFirmwareImage(com.arm.mbed.cloud.sdk.common.model.DataFile, String, String)}
      * 
      * @param firmwareImageFile
-     *            The firmware image file to upload. The firmware image file to upload
+     *            The firmware image file to upload.
      * @return an added firmware image
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -429,12 +431,12 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Adds a firmware image.
-     *
+     * 
      * <p>
      * Similar to {@link #createFirmwareImage(com.arm.mbed.cloud.sdk.common.model.DataFile, String, String)}
      * 
      * @param firmwareImageFile
-     *            The firmware image file to upload. The firmware image file to upload
+     *            The firmware image file to upload.
      * @param firmwareImage
      *            a firmware image.
      * @return something
@@ -454,17 +456,22 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Adds a firmware image.
-     *
+     * 
      * <p>
-     * Create a firmware image. This is not a standard create method as it uploads a file which creates an entity which
-     * contains URIs to the uploaded file.
-     *
+     * Create a firmware image. [br] **Usage example:** ``` curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images \ -H 'Authorization: [valid access token]' \ -H
+     * 'Content-Type: multipart/form-data' \ -F 'datafile=@myimage.bin;type=application/octet-stream' -F
+     * 'description=bla bla' \ -F 'name=My Linux Image' ```
+     * 
+     * This is not a standard create method as it uploads a file which creates an entity which contains URIs to the
+     * uploaded file.
+     * 
      * @param firmwareImageFile
-     *            The firmware image file to upload. The firmware image file to upload
+     *            The firmware image file to upload.
      * @param description
-     *            The description of the object. The description of the object
+     *            The description of the object.
      * @param name
-     *            The firmware image name. The firmware image name
+     *            The firmware image name.
      * @return an added firmware image
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -488,7 +495,7 @@ public class DeviceUpdate extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage>
                                            call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceUpdateFirmwareImagesApi()
                                                         .firmwareImageCreate(DataFileAdapter.reverseMap("datafile",
                                                                                                         finalFirmwareImageFile),
                                                                              finalDescription, finalName);
@@ -498,7 +505,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Adds a firmware manifest.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #createFirmwareManifest(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.common.model.DataFile, String, String)}
@@ -518,7 +525,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Adds a firmware manifest.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #createFirmwareManifest(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.common.model.DataFile, String, String)}
@@ -526,7 +533,7 @@ public class DeviceUpdate extends AbstractModule {
      * @param firmwareManifestFile
      *            The manifest file to create. The API gateway enforces the account-specific file size.
      * @param keyTableFile
-     *            The key table of pre-shared keys for devices. The key table of pre-shared keys for devices
+     *            The key table of pre-shared keys for devices. The table is generated by the manifest tool.
      * @param firmwareManifest
      *            a firmware manifest.
      * @return something
@@ -549,19 +556,24 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Adds a firmware manifest.
-     *
+     * 
      * <p>
-     * Upload a firmware manifest. The API enforces a maximum size of manifests of 2 KB. This is not a standard create
-     * method as it uploads a file (or files) which creates an entity which contains URIs to the uploaded file(s).
-     *
+     * Upload a firmware manifest. The API enforces a maximum manifest size of 2KB. [br] **Usage example:** ``` curl -X
+     * POST https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \ -H 'Authorization: [valid access token]' \ -H
+     * 'Content-Type: multipart/form-data' \ -F 'datafile=@myimage.bin;type=application/octet-stream' \ -F
+     * 'description=bla bla' \ -F 'key_table=@myKeyTable.proto;type=' \ -F 'name=My Manifest' ```
+     * 
+     * This is not a standard create method as it uploads a file (or files) which creates an entity which contains URIs
+     * to the uploaded file(s).
+     * 
      * @param firmwareManifestFile
      *            The manifest file to create. The API gateway enforces the account-specific file size.
      * @param keyTableFile
-     *            The key table of pre-shared keys for devices. The key table of pre-shared keys for devices
+     *            The key table of pre-shared keys for devices. The table is generated by the manifest tool.
      * @param description
-     *            The description of the firmware manifest. The description of the firmware manifest
+     *            The description of the firmware manifest.
      * @param name
-     *            The name of the object. The name of the object
+     *            The name of the object.
      * @return an added firmware manifest
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -588,7 +600,7 @@ public class DeviceUpdate extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest>
                                            call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceUpdateFirmwareManifestsApi()
                                                         .firmwareManifestCreate(DataFileAdapter.reverseMap("datafile",
                                                                                                            finalFirmwareManifestFile),
                                                                                 finalDescription,
@@ -601,7 +613,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Adds a firmware manifest.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #createFirmwareManifest(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifest)}
@@ -626,10 +638,14 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Adds an update campaign.
-     *
+     * 
      * <p>
-     * Create an update campaign.
-     *
+     * Create an update campaign. [br] **Usage example:** ``` curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns \ -H 'Authorization: [valid access token]' \ -H
+     * 'content-type: application/json;charset=UTF-8' \ -d '{ "campaign_strategy": "one-shot", "description": "Campaign
+     * is for ...", "device_filter": "id__eq=123400000000000000000000000ae45", "name": "campaign", "root_manifest_id":
+     * "5678000000000000000000000000bd98", }' ```
+     * 
      * @param campaign
      *            an update campaign.
      * @return an added update campaign
@@ -652,7 +668,7 @@ public class DeviceUpdate extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaign>
                                            call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceUpdateCampaignsApi()
                                                         .updateCampaignCreate(UpdateCampaignAdapter.reverseMapAddRequest(finalCampaign));
                                     }
                                 }, true);
@@ -660,7 +676,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Deletes a firmware image.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteFirmwareImage(String)}
      * 
@@ -677,12 +693,14 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Deletes a firmware image.
-     *
+     * 
      * <p>
-     * Delete a firmware image.
-     *
+     * Delete a firmware image. [br] **Usage example:** ``` curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/12345678901234567890123456789012 \ -H 'Authorization:
+     * [valid access token]' ```
+     * 
      * @param id
-     *            The firmware image ID. The firmware image ID
+     *            The firmware image ID.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -698,14 +716,14 @@ public class DeviceUpdate extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi().firmwareImageDestroy(finalId);
+                return endpoints.getDeviceUpdateFirmwareImagesApi().firmwareImageDestroy(finalId);
             }
         });
     }
 
     /**
      * Deletes a firmware manifest.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteFirmwareManifest(String)}
      * 
@@ -722,12 +740,14 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Deletes a firmware manifest.
-     *
+     * 
      * <p>
-     * Delete a firmware manifest.
-     *
+     * Delete a firmware manifest. [br] **Usage example:** ``` curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/12345678901234567890123456789012 \ -H 'Authorization:
+     * [valid access token]' ```
+     * 
      * @param id
-     *            The firmware manifest ID. The firmware manifest ID
+     *            The firmware manifest ID.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -743,19 +763,21 @@ public class DeviceUpdate extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi().firmwareManifestDestroy(finalId);
+                return endpoints.getDeviceUpdateFirmwareManifestsApi().firmwareManifestDestroy(finalId);
             }
         });
     }
 
     /**
      * Deletes an update campaign.
-     *
+     * 
      * <p>
-     * Delete an update campaign.
-     *
+     * Delete an update campaign. [br] **Usage example:** ``` curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \ -H 'Authorization:
+     * [valid access token]' ```
+     * 
      * @param id
-     *            The ID of the update campaign. The ID of the update campaign
+     *            The campaign ID.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -771,14 +793,14 @@ public class DeviceUpdate extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi().updateCampaignDestroy(finalId);
+                return endpoints.getDeviceUpdateCampaignsApi().updateCampaignDestroy(finalId);
             }
         });
     }
 
     /**
      * Deletes an update campaign.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteUpdateCampaign(String)}
      * 
@@ -795,7 +817,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * List all campaign device metadata .
-     *
+     * 
      * <p>
      * Similar to
      * {@link #deviceMetadata(String, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignDeviceMetadataListOptions)}
@@ -820,12 +842,14 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * List all campaign device metadata .
-     *
+     * 
      * <p>
-     * Get campaign device metadata.
-     *
+     * Get metadata for all devices in a campaign. [br] **Usage example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata
+     * \ -H 'Authorization: [valid access token]' ```
+     * 
      * @param id
-     *            The update campaign ID. The update campaign ID
+     *            The campaign ID.
      * @param options
      *            list options.
      * @return the list of campaign device metadata corresponding to filter options (One page).
@@ -850,7 +874,7 @@ public class DeviceUpdate extends AbstractModule {
                                      */
                                     @Override
                                     public Call<CampaignDeviceMetadataPage> call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceUpdateCampaignsApi()
                                                         .updateCampaignMetadataList(finalId, finalOptions.getPageSize(),
                                                                                     finalOptions.getOrder().toString(),
                                                                                     finalOptions.getAfter(),
@@ -861,7 +885,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Get a list of events grouped by summary .
-     *
+     * 
      * <p>
      * Similar to
      * {@link #events(String, String, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsEventsListOptions)}
@@ -886,14 +910,16 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Get a list of events grouped by summary .
-     *
+     * 
      * <p>
-     * Get a list of events grouped by summary
-     *
+     * Get a list of events grouped by summary. [br] **Usage example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012/event_types
+     * \ -H 'Authorization: [valid access token]' ```
+     * 
      * @param campaignId
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @param id
-     *            The summary status. For example, fail. The summary status. For example, fail
+     *            The summary status. For example, fail.
      * @param options
      *            list options.
      * @return the list of campaign statistics events corresponding to filter options (One page).
@@ -920,8 +946,8 @@ public class DeviceUpdate extends AbstractModule {
                                      */
                                     @Override
                                     public Call<EventTypeList> call() {
-                                        return endpoints.getDefaultApi().updateCampaignEventTypesList(finalCampaignId,
-                                                                                                      finalId);
+                                        return endpoints.getDeviceUpdateCampaignsApi()
+                                                        .updateCampaignEventTypesList(finalCampaignId, finalId);
                                     }
                                 });
     }
@@ -949,12 +975,12 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of campaign statistics matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all campaign statistics matching filter options.
      * 
      * @param campaignId
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @param options
      *            list options.
      * @return paginator over the list of campaign statistics
@@ -989,7 +1015,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of firmware images matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all firmware images matching filter options.
      * 
@@ -1024,7 +1050,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of firmware manifests matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all firmware manifests matching filter options.
      * 
@@ -1060,7 +1086,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of update campaigns matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all update campaigns matching filter options.
      * 
@@ -1110,7 +1136,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of update campaigns matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #listAllUpdateCampaigns(String, String, String, String, com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions)}
@@ -1131,12 +1157,15 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Lists campaign statistics matching filter options.
-     *
+     * 
      * <p>
-     * Get a list of statistics for a campaign
-     *
+     * Get a list of statistics for a campaign, including the number of devices reporting specific event codes. [br]
+     * **Usage example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics \ -H
+     * 'Authorization: [valid access token]' ```
+     * 
      * @param campaignId
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @param options
      *            list options.
      * @return the list of campaign statistics corresponding to filter options (One page).
@@ -1161,17 +1190,19 @@ public class DeviceUpdate extends AbstractModule {
                                      */
                                     @Override
                                     public Call<EventTypeSummaryList> call() {
-                                        return endpoints.getDefaultApi().updateCampaignStatisticsList(finalCampaignId);
+                                        return endpoints.getDeviceUpdateCampaignsApi()
+                                                        .updateCampaignStatisticsList(finalCampaignId);
                                     }
                                 });
     }
 
     /**
      * Lists firmware images matching filter options.
-     *
+     * 
      * <p>
-     * List all firmware images.
-     *
+     * List all firmware images. [br] **Usage example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images \ -H 'Authorization: [valid access token]' ```
+     * 
      * @param options
      *            list options.
      * @return the list of firmware images corresponding to filter options (One page).
@@ -1193,7 +1224,7 @@ public class DeviceUpdate extends AbstractModule {
                                      */
                                     @Override
                                     public Call<FirmwareImagePage> call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceUpdateFirmwareImagesApi()
                                                         .firmwareImageList(finalOptions.getPageSize(),
                                                                            finalOptions.getOrder().toString(),
                                                                            finalOptions.getAfter(),
@@ -1275,10 +1306,11 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Lists firmware manifests matching filter options.
-     *
+     * 
      * <p>
-     * List firmware manifests.
-     *
+     * List all firmware manifests. [br] **Usage example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests \ -H 'Authorization: [valid access token]' ```
+     * 
      * @param options
      *            list options.
      * @return the list of firmware manifests corresponding to filter options (One page).
@@ -1301,7 +1333,7 @@ public class DeviceUpdate extends AbstractModule {
                                      */
                                     @Override
                                     public Call<FirmwareManifestPage> call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceUpdateFirmwareManifestsApi()
                                                         .firmwareManifestList(finalOptions.getPageSize(),
                                                                               finalOptions.getOrder().toString(),
                                                                               finalOptions.getAfter(),
@@ -1393,10 +1425,11 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Lists update campaigns matching filter options.
-     *
+     * 
      * <p>
-     * Get update campaigns for devices specified by a filter.
-     *
+     * Get update campaigns for devices specified by a filter. [br] **Usage example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns \ -H 'Authorization: [valid access token]' ```
+     * 
      * @param stateEq
      *            a string
      * @param stateNeq
@@ -1432,7 +1465,7 @@ public class DeviceUpdate extends AbstractModule {
                                      */
                                     @Override
                                     public Call<UpdateCampaignPage> call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceUpdateCampaignsApi()
                                                         .updateCampaignList(finalOptions.getPageSize(),
                                                                             finalOptions.getOrder().toString(),
                                                                             finalOptions.getAfter(),
@@ -1536,7 +1569,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Lists update campaigns matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #listUpdateCampaigns(String, String, String, String, com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignListOptions)}
@@ -1557,7 +1590,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Gets a campaign device metadata.
-     *
+     * 
      * <p>
      * Similar to {@link #readCampaignDeviceMetadata(String, String)}
      * 
@@ -1577,14 +1610,16 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Gets a campaign device metadata.
-     *
+     * 
      * <p>
-     * Get update campaign metadata.
-     *
+     * Get update campaign metadata for a specific device. [br] **Usage example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/campaign-device-metadata/12345678901234567890123456789012
+     * \ -H 'Authorization: [valid access token]' ```
+     * 
      * @param campaignId
-     *            The device's campaign ID. The device's campaign ID
+     *            The device's campaign ID.
      * @param id
-     *            The metadata record ID. The metadata record ID
+     *            The metadata record ID.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -1607,15 +1642,15 @@ public class DeviceUpdate extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadata>
                                            call() {
-                                        return endpoints.getDefaultApi().updateCampaignMetadataRetrieve(finalCampaignId,
-                                                                                                        finalId);
+                                        return endpoints.getDeviceUpdateCampaignsApi()
+                                                        .updateCampaignMetadataRetrieve(finalCampaignId, finalId);
                                     }
                                 });
     }
 
     /**
      * Gets a campaign statistics.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #readCampaignStatistics(String, com.arm.mbed.cloud.sdk.deviceupdate.model.CampaignStatisticsId)}
@@ -1637,14 +1672,16 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Gets a campaign statistics.
-     *
+     * 
      * <p>
-     * Get a summary status
-     *
+     * Get the count of successfully updated, skipped, and failed devices. [br] **Usage example:** ``` curl
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012
+     * \ -H 'Authorization: [valid access token]' ```
+     * 
      * @param campaignId
      *            ID of the associated campaign.
      * @param id
-     *            ID of the event type description. ID of the event type description
+     *            ID of the event type description.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -1666,7 +1703,7 @@ public class DeviceUpdate extends AbstractModule {
                                      */
                                     @Override
                                     public Call<EventTypeSummary> call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceUpdateCampaignsApi()
                                                         .updateCampaignStatisticsRetrieve(finalCampaignId,
                                                                                           finalId == null ? null
                                                                                                           : finalId.getString());
@@ -1676,7 +1713,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Gets a campaign statistics events.
-     *
+     * 
      * <p>
      * Similar to {@link #readCampaignStatisticsEvents(String, String, String)}
      * 
@@ -1698,10 +1735,13 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Gets a campaign statistics events.
-     *
+     * 
      * <p>
-     * Get an event type for a campaign
-     *
+     * Get the count for a specific event type; for example, succeeded, failed, or skipped. [br] **Usage example:** ```
+     * curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/statistics/12345678901234567890123456789012/event_types/12345678901234567890123456789012
+     * \ -H 'Authorization: [valid access token]' ```
+     * 
      * @param campaignId
      *            ID of the associated campaign.
      * @param summaryStatusId
@@ -1732,7 +1772,7 @@ public class DeviceUpdate extends AbstractModule {
                                      */
                                     @Override
                                     public Call<EventType> call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceUpdateCampaignsApi()
                                                         .updateCampaignEventTypesRetrieve(finalCampaignId,
                                                                                           finalSummaryStatusId,
                                                                                           finalId);
@@ -1742,7 +1782,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Gets a firmware image.
-     *
+     * 
      * <p>
      * Similar to {@link #readFirmwareImage(String)}
      * 
@@ -1761,12 +1801,14 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Gets a firmware image.
-     *
+     * 
      * <p>
-     * Retrieve a firmware image.
-     *
+     * Retrieve a firmware image. [br] **Usage example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-images/12345678901234567890123456789012 \ -H 'Authorization:
+     * [valid access token]' ```
+     * 
      * @param id
-     *            The firmware image ID. The firmware image ID
+     *            The firmware image ID.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -1786,14 +1828,15 @@ public class DeviceUpdate extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage>
                                            call() {
-                                        return endpoints.getDefaultApi().firmwareImageRetrieve(finalId);
+                                        return endpoints.getDeviceUpdateFirmwareImagesApi()
+                                                        .firmwareImageRetrieve(finalId);
                                     }
                                 });
     }
 
     /**
      * Gets a firmware manifest.
-     *
+     * 
      * <p>
      * Similar to {@link #readFirmwareManifest(String)}
      * 
@@ -1812,12 +1855,14 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Gets a firmware manifest.
-     *
+     * 
      * <p>
-     * Retrieve a firmware manifest.
-     *
+     * Retrieve a firmware manifest. [br] **Usage example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/firmware-manifests/12345678901234567890123456789012 \ -H 'Authorization:
+     * [valid access token]' ```
+     * 
      * @param id
-     *            The firmware manifest ID. The firmware manifest ID
+     *            The firmware manifest ID.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -1837,19 +1882,22 @@ public class DeviceUpdate extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest>
                                            call() {
-                                        return endpoints.getDefaultApi().firmwareManifestRetrieve(finalId);
+                                        return endpoints.getDeviceUpdateFirmwareManifestsApi()
+                                                        .firmwareManifestRetrieve(finalId);
                                     }
                                 });
     }
 
     /**
      * Gets an update campaign.
-     *
+     * 
      * <p>
-     * Get an update campaign.
-     *
+     * Get an update campaign. [br] **Usage example:** ``` curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \ -H 'Authorization:
+     * [valid access token]' ```
+     * 
      * @param id
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -1869,14 +1917,14 @@ public class DeviceUpdate extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaign>
                                            call() {
-                                        return endpoints.getDefaultApi().updateCampaignRetrieve(finalId);
+                                        return endpoints.getDeviceUpdateCampaignsApi().updateCampaignRetrieve(finalId);
                                     }
                                 });
     }
 
     /**
      * Gets an update campaign.
-     *
+     * 
      * <p>
      * Similar to {@link #readUpdateCampaign(String)}
      * 
@@ -1895,13 +1943,15 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Start a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
-     * This command will begin the process of starting a campaign.
-     *
+     * Start a campaign. [br] **Usage example:** ``` curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/start \ -H
+     * 'Authorization: [valid access token]' ```
+     * 
      * @param id
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -1917,15 +1967,15 @@ public class DeviceUpdate extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi().updateCampaignStart(finalId);
+                return endpoints.getDeviceUpdateCampaignsApi().updateCampaignStart(finalId);
             }
         }, true);
     }
 
     /**
      * Start a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #start(String)}
      * 
@@ -1942,13 +1992,16 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Stop a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
-     * This command will begin the process of stopping a campaign.
-     *
+     * Stop a campaign. Stopping is a process that requires the campaign go through several
+     * [phases](../updating-firmware/running-update-campaigns.html#stopping). [br] **Usage example:** ``` curl -X POST
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012/stop \ -H
+     * 'Authorization: [valid access token]' ```
+     * 
      * @param id
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -1964,15 +2017,15 @@ public class DeviceUpdate extends AbstractModule {
              */
             @Override
             public Call<Void> call() {
-                return endpoints.getDefaultApi().updateCampaignStop(finalId);
+                return endpoints.getDeviceUpdateCampaignsApi().updateCampaignStop(finalId);
             }
         }, true);
     }
 
     /**
      * Stop a campaign.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #stop(String)}
      * 
@@ -1989,12 +2042,16 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Modifies an update campaign.
-     *
+     * 
      * <p>
-     * Modify an update campaign.
-     *
+     * Modify an update campaign. [br] **Usage example:** ``` curl -X PUT
+     * https://api.us-east-1.mbedcloud.com/v3/update-campaigns/12345678901234567890123456789012 \ -H 'Authorization:
+     * [valid access token]' \ d '{ "description": "Campaign is for ...", "device_filter":
+     * "id__eq=123400000000000000000000000ae45", "name": "campaign", "root_manifest_id":
+     * "5678000000000000000000000000bd98", }' ```
+     * 
      * @param id
-     *            The campaign ID. The campaign ID
+     *            The campaign ID.
      * @param campaign
      *            an update campaign.
      * @return an updated update campaign
@@ -2020,7 +2077,7 @@ public class DeviceUpdate extends AbstractModule {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaign>
                                            call() {
-                                        return endpoints.getDefaultApi()
+                                        return endpoints.getDeviceUpdateCampaignsApi()
                                                         .updateCampaignUpdate(finalId,
                                                                               UpdateCampaignAdapter.reverseMapUpdateRequest(finalCampaign));
                                     }
@@ -2029,7 +2086,7 @@ public class DeviceUpdate extends AbstractModule {
 
     /**
      * Modifies an update campaign.
-     *
+     * 
      * <p>
      * Similar to {@link #updateUpdateCampaign(String, com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign)}
      * 

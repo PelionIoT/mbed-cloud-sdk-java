@@ -44,7 +44,8 @@ public class SubtenantPolicyGroup implements SdkModel {
     /**
      * The name of the group.
      */
-    private final String name;
+    @Required
+    private String name;
 
     /**
      * Last update UTC time RFC3339.
@@ -58,7 +59,7 @@ public class SubtenantPolicyGroup implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -85,16 +86,16 @@ public class SubtenantPolicyGroup implements SdkModel {
         super();
         this.apikeyCount = apikeyCount;
         this.createdAt = createdAt;
-        this.name = name;
         this.updatedAt = updatedAt;
         this.userCount = userCount;
         setAccountId(accountId);
         setId(id);
+        setName(name);
     }
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -123,11 +124,11 @@ public class SubtenantPolicyGroup implements SdkModel {
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on object identifier.
      * <p>
-     *
+     * 
      * @param id
      *            The ID of the group.
      */
@@ -138,7 +139,7 @@ public class SubtenantPolicyGroup implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -148,16 +149,30 @@ public class SubtenantPolicyGroup implements SdkModel {
      *            The number of API keys in this group.
      * @param createdAt
      *            Creation UTC time RFC3339.
-     * @param name
-     *            The name of the group.
      * @param updatedAt
      *            Last update UTC time RFC3339.
      * @param userCount
      *            The number of users in this group.
      */
     @Internal
-    public SubtenantPolicyGroup(int apikeyCount, Date createdAt, String name, Date updatedAt, int userCount) {
-        this((String) null, apikeyCount, createdAt, (String) null, name, updatedAt, userCount);
+    public SubtenantPolicyGroup(int apikeyCount, Date createdAt, Date updatedAt, int userCount) {
+        this((String) null, apikeyCount, createdAt, (String) null, (String) null, updatedAt, userCount);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * <p>
+     * Constructor based on required fields.
+     * <p>
+     * 
+     * @param accountId
+     *            The ID of the account this group belongs to.
+     * @param name
+     *            The name of the group.
+     */
+    public SubtenantPolicyGroup(String accountId, String name) {
+        this(accountId, 0, new Date(), (String) null, name, new Date(), 0);
     }
 
     /**
@@ -171,7 +186,7 @@ public class SubtenantPolicyGroup implements SdkModel {
 
     /**
      * Sets the id of the account this group belongs to.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
@@ -223,7 +238,7 @@ public class SubtenantPolicyGroup implements SdkModel {
 
     /**
      * Sets the id of the group.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
@@ -237,7 +252,7 @@ public class SubtenantPolicyGroup implements SdkModel {
 
     /**
      * Sets the id of the group.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * <p>
@@ -271,6 +286,30 @@ public class SubtenantPolicyGroup implements SdkModel {
     }
 
     /**
+     * Sets the name of the group.
+     * 
+     * <p>
+     * Note: the length of the string has to be less than or equal to {@code 100} to be valid
+     * 
+     * @param name
+     *            The name of the group.
+     */
+    @Required
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Checks whether name value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isNameValid() {
+        return name != null && (name.length() <= 100);
+    }
+
+    /**
      * Gets last update utc time rfc3339.
      * 
      * @return updatedAt
@@ -290,7 +329,7 @@ public class SubtenantPolicyGroup implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -305,7 +344,7 @@ public class SubtenantPolicyGroup implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -327,7 +366,7 @@ public class SubtenantPolicyGroup implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -341,7 +380,7 @@ public class SubtenantPolicyGroup implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -410,7 +449,7 @@ public class SubtenantPolicyGroup implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -418,12 +457,12 @@ public class SubtenantPolicyGroup implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return isAccountIdValid() && isIdValid();
+        return isAccountIdValid() && isIdValid() && isNameValid();
     }
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

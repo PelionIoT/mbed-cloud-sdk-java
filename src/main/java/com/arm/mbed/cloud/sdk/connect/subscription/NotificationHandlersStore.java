@@ -34,6 +34,7 @@ import com.arm.mbed.cloud.sdk.common.WebsocketClient;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.RegisterWebsocketChannel;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.WebsocketChannel;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationCallback;
@@ -638,10 +639,10 @@ public class NotificationHandlersStore implements Closeable {
         private boolean registerWebsocketChannel() {
             logger.logDebug("Registering the websocket.");
             try {
-                call("registerWebsocketChannel()", new CloudCall<WebsocketChannel>() {
+                call("registerWebsocketChannel()", new CloudCall<RegisterWebsocketChannel>() {
 
                     @Override
-                    public Call<WebsocketChannel> call() {
+                    public Call<RegisterWebsocketChannel> call() {
                         return endpoint.getNotifications().registerWebsocket();
                     }
                 });

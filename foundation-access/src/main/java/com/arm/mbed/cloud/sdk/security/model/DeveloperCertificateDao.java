@@ -74,7 +74,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -93,7 +93,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Adds a developer certificate.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -111,7 +111,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Adds a developer certificate.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#createDeveloperCertificate(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
@@ -129,7 +129,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Deletes a developer certificate.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -146,7 +146,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Deletes a developer certificate.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#deleteDeveloperCertificate(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
@@ -163,7 +163,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Deletes a developer certificate.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#deleteDeveloperCertificate(String)}
      * 
@@ -179,8 +179,8 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Get trusted certificate by ID.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -197,8 +197,8 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Get trusted certificate by ID.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificateInfo(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
@@ -216,8 +216,8 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Get trusted certificate by ID.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#getTrustedCertificateInfo(String)}
      * 
@@ -283,7 +283,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Gets a developer certificate.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -301,7 +301,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Gets a developer certificate.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#readDeveloperCertificate(com.arm.mbed.cloud.sdk.security.model.DeveloperCertificate)}
@@ -318,7 +318,7 @@ public class DeveloperCertificateDao extends AbstractModelDao<DeveloperCertifica
 
     /**
      * Gets a developer certificate.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Security#readDeveloperCertificate(String)}
      * 

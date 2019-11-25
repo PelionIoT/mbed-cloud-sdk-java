@@ -8,9 +8,12 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaign;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignPhase;
+import com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignStrategy;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPostRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPutRequest;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -41,13 +44,14 @@ public final class UpdateCampaignAdapter {
             return null;
         }
         final UpdateCampaignPostRequest updateCampaignPostRequest = new UpdateCampaignPostRequest();
+        updateCampaignPostRequest.setApprovalRequired(Boolean.valueOf(toBeMapped.isApprovalRequired()));
+        updateCampaignPostRequest.setAutostop(Boolean.valueOf(toBeMapped.isAutostop()));
+        updateCampaignPostRequest.setAutostopSuccessPercent(BigDecimal.valueOf(toBeMapped.getAutostopSuccessPercent()));
+        updateCampaignPostRequest.setCampaignStrategy(translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelUpdatecampaignpostrequestCampaignstrategyenum(toBeMapped.getCampaignStrategy()));
         updateCampaignPostRequest.setDescription(toBeMapped.getDescription());
         updateCampaignPostRequest.setDeviceFilter(toBeMapped.getDeviceFilter());
         updateCampaignPostRequest.setName(toBeMapped.getName());
-        // No field equivalent to object in UpdateCampaignPostRequest was found in UpdateCampaign
         updateCampaignPostRequest.setRootManifestId(toBeMapped.getRootManifestId());
-        // No field equivalent to state in UpdateCampaignPostRequest was found in UpdateCampaign
-        updateCampaignPostRequest.setWhen(TranslationUtils.toDateTime(toBeMapped.getWhen()));
         return updateCampaignPostRequest;
     }
 
@@ -64,12 +68,23 @@ public final class UpdateCampaignAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final UpdateCampaign updateCampaign = new UpdateCampaign(toBeMapped.getAutostopReason(),
+        final UpdateCampaign updateCampaign = new UpdateCampaign(TranslationUtils.toDate(toBeMapped.getActiveAt()),
+                                                                 TranslationUtils.toDate(toBeMapped.getArchivedAt()),
+                                                                 toBeMapped.getAutostopReason(),
                                                                  TranslationUtils.toDate(toBeMapped.getCreatedAt()),
                                                                  TranslationUtils.toDate(toBeMapped.getFinished()),
-                                                                 toBeMapped.getPhase(), toBeMapped.getRootManifestUrl(),
+                                                                 translateToUpdateCampaignPhase(toBeMapped.getPhase()),
+                                                                 toBeMapped.getRootManifestUrl(),
                                                                  TranslationUtils.toDate(toBeMapped.getStartedAt()),
-                                                                 TranslationUtils.toDate(toBeMapped.getUpdatedAt()));
+                                                                 TranslationUtils.toDate(toBeMapped.getStartingAt()),
+                                                                 TranslationUtils.toDate(toBeMapped.getStoppedAt()),
+                                                                 TranslationUtils.toDate(toBeMapped.getStoppingAt()),
+                                                                 TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
+                                                                 TranslationUtils.toDate(toBeMapped.getWhen()));
+        updateCampaign.setApprovalRequired(TranslationUtils.toBool(toBeMapped.isApprovalRequired()));
+        updateCampaign.setAutostop(TranslationUtils.toBool(toBeMapped.isAutostop()));
+        updateCampaign.setAutostopSuccessPercent(TranslationUtils.toLong(toBeMapped.getAutostopSuccessPercent()));
+        updateCampaign.setCampaignStrategy(translateToUpdateCampaignStrategy(toBeMapped.getCampaignStrategy()));
         updateCampaign.setDescription(toBeMapped.getDescription());
         updateCampaign.setDeviceFilter(toBeMapped.getDeviceFilter());
         // No field equivalent to deviceFilterHelper in UpdateCampaign was found in
@@ -77,7 +92,6 @@ public final class UpdateCampaignAdapter {
         updateCampaign.setId(toBeMapped.getId());
         updateCampaign.setName(toBeMapped.getName());
         updateCampaign.setRootManifestId(toBeMapped.getRootManifestId());
-        updateCampaign.setWhen(TranslationUtils.toDate(toBeMapped.getWhen()));
         return updateCampaign;
     }
 
@@ -227,13 +241,97 @@ public final class UpdateCampaignAdapter {
             return null;
         }
         final UpdateCampaignPutRequest updateCampaignPutRequest = new UpdateCampaignPutRequest();
+        updateCampaignPutRequest.setApprovalRequired(Boolean.valueOf(toBeMapped.isApprovalRequired()));
+        updateCampaignPutRequest.setAutostop(Boolean.valueOf(toBeMapped.isAutostop()));
+        updateCampaignPutRequest.setAutostopSuccessPercent(BigDecimal.valueOf(toBeMapped.getAutostopSuccessPercent()));
         updateCampaignPutRequest.setDescription(toBeMapped.getDescription());
         updateCampaignPutRequest.setDeviceFilter(toBeMapped.getDeviceFilter());
         updateCampaignPutRequest.setName(toBeMapped.getName());
-        // No field equivalent to object in UpdateCampaignPutRequest was found in UpdateCampaign
         updateCampaignPutRequest.setRootManifestId(toBeMapped.getRootManifestId());
-        // No field equivalent to state in UpdateCampaignPutRequest was found in UpdateCampaign
-        updateCampaignPutRequest.setWhen(TranslationUtils.toDateTime(toBeMapped.getWhen()));
         return updateCampaignPutRequest;
+    }
+
+    /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
+     *            an update campaign strategy.
+     * @return mapped enum value
+     */
+    @Internal
+    protected static UpdateCampaignPostRequest.CampaignStrategyEnum
+              translateToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelUpdatecampaignpostrequestCampaignstrategyenum(UpdateCampaignStrategy toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        switch (toBeMapped) {
+            case ONE_SHOT:
+                return UpdateCampaignPostRequest.CampaignStrategyEnum.ONE_SHOT;
+            case CONTINUOUS:
+                return UpdateCampaignPostRequest.CampaignStrategyEnum.CONTINUOUS;
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
+     *            a campaign strategy enum.
+     * @return mapped enum value
+     */
+    @Internal
+    protected static UpdateCampaignStrategy
+              translateToUpdateCampaignStrategy(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaign.CampaignStrategyEnum toBeMapped) {
+        if (toBeMapped == null) {
+            return UpdateCampaignStrategy.getUnknownEnum();
+        }
+        switch (toBeMapped) {
+            case ONE_SHOT:
+                return UpdateCampaignStrategy.ONE_SHOT;
+            case CONTINUOUS:
+                return UpdateCampaignStrategy.CONTINUOUS;
+            default:
+                return UpdateCampaignStrategy.getUnknownEnum();
+        }
+    }
+
+    /**
+     * Maps the enum value.
+     * 
+     * @param toBeMapped
+     *            a phase enum.
+     * @return mapped enum value
+     */
+    @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
+    protected static UpdateCampaignPhase
+              translateToUpdateCampaignPhase(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaign.PhaseEnum toBeMapped) {
+        if (toBeMapped == null) {
+            return UpdateCampaignPhase.getUnknownEnum();
+        }
+        switch (toBeMapped) {
+            case DRAFT:
+                return UpdateCampaignPhase.DRAFT;
+            case AWAITING_APPROVAL:
+                return UpdateCampaignPhase.AWAITING_APPROVAL;
+            case TIMED:
+                return UpdateCampaignPhase.TIMED;
+            case STARTING:
+                return UpdateCampaignPhase.STARTING;
+            case ACTIVE:
+                return UpdateCampaignPhase.ACTIVE;
+            case STOPPING:
+                return UpdateCampaignPhase.STOPPING;
+            case STOPPED:
+                return UpdateCampaignPhase.STOPPED;
+            case DELETED:
+                return UpdateCampaignPhase.DELETED;
+            case ARCHIVED:
+                return UpdateCampaignPhase.ARCHIVED;
+            default:
+                return UpdateCampaignPhase.getUnknownEnum();
+        }
     }
 }

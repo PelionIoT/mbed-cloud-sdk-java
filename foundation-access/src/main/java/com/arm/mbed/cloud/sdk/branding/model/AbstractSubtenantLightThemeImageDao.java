@@ -77,7 +77,7 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
 
     /**
      * Deletes a subtenant light theme image.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -85,7 +85,7 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
      * {@link com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageDao#delete(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
@@ -96,13 +96,13 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
 
     /**
      * Deletes a subtenant light theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#deleteSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantLightThemeImage
      *            a subtenant light theme image.
      * @throws MbedCloudException
@@ -115,13 +115,13 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
 
     /**
      * Deletes a subtenant light theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#deleteSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Name of the branding images (icon or picture).
      * @throws MbedCloudException
@@ -184,7 +184,7 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
 
     /**
      * Gets a subtenant light theme image.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -192,7 +192,7 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
      * {@link com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageDao#read(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -204,13 +204,13 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
 
     /**
      * Gets a subtenant light theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#readSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param subtenantLightThemeImage
      *            a subtenant light theme image.
      * @return something
@@ -226,13 +226,13 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
 
     /**
      * Gets a subtenant light theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#readSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param reference
      *            Name of the image.
      * @return something
@@ -247,7 +247,7 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
 
     /**
      * Modifies a subtenant light theme image.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -255,7 +255,7 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
      * {@link com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageDao#update(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param image
      *            The image in PNG or JPEG format as multipart form data.
      * @return something
@@ -269,13 +269,13 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
 
     /**
      * Modifies a subtenant light theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#updateSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImage)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param image
      *            The image in PNG or JPEG format as multipart form data.
      * @param subtenantLightThemeImage
@@ -293,13 +293,13 @@ public abstract class AbstractSubtenantLightThemeImageDao extends AbstractModelD
 
     /**
      * Modifies a subtenant light theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#updateSubtenantLightThemeImage(String, com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageReference)}
      * 
      * @param accountId
-     *            Account ID.
+     *            The ID of the account.
      * @param image
      *            The image in PNG or JPEG format as multipart form data.
      * @param reference

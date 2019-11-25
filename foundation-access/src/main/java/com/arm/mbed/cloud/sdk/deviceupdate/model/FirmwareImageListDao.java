@@ -71,7 +71,7 @@ public class FirmwareImageListDao extends AbstractModelListDao<FirmwareImage, Fi
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -166,7 +166,7 @@ public class FirmwareImageListDao extends AbstractModelListDao<FirmwareImage, Fi
 
     /**
      * Lists firmware images matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#listFirmwareImages(com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareImageListOptions)}

@@ -71,7 +71,7 @@ public class DeviceGroupListDao extends AbstractModelListDao<DeviceGroup, Device
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -166,7 +166,7 @@ public class DeviceGroupListDao extends AbstractModelListDao<DeviceGroup, Device
 
     /**
      * Lists device groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Devices#listDeviceGroups(com.arm.mbed.cloud.sdk.devices.model.DeviceGroupListOptions)}

@@ -4,8 +4,10 @@ package com.arm.mbed.cloud.sdk;
 
 import com.arm.mbed.cloud.sdk.accounts.adapters.AccountAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.ApiKeyAdapter;
+import com.arm.mbed.cloud.sdk.accounts.adapters.IdentityProviderAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.PolicyGroupAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.SubtenantApiKeyAdapter;
+import com.arm.mbed.cloud.sdk.accounts.adapters.SubtenantIdentityProviderAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.SubtenantPolicyGroupAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.SubtenantUserAdapter;
 import com.arm.mbed.cloud.sdk.accounts.adapters.SubtenantUserInvitationAdapter;
@@ -16,10 +18,17 @@ import com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions;
 import com.arm.mbed.cloud.sdk.accounts.model.AccountsEndpoints;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKey;
 import com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions;
+import com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider;
+import com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderAlgorithm;
+import com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderListOptions;
+import com.arm.mbed.cloud.sdk.accounts.model.OidcRequest;
 import com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup;
 import com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions;
+import com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProvider;
+import com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProviderAlgorithm;
+import com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProviderListOptions;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions;
 import com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser;
@@ -69,6 +78,8 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Brandin
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImageList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.IdentityProviderInfo;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.IdentityProviderList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRespList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoRespList;
@@ -77,6 +88,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInv
 import com.arm.mbed.cloud.sdk.security.adapters.SubtenantTrustedCertificateAdapter;
 import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificate;
 import com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions;
+
 import retrofit2.Call;
 
 /**
@@ -117,6 +129,18 @@ public class Accounts extends AbstractModule {
      * Parameter name.
      */
     @Internal
+    private static final String TAG_IDENTITY_PROVIDER = "identityProvider";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
+    private static final String TAG_OIDC_ATTRIBUTES = "oidcAttributes";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
     private static final String TAG_POLICY_GROUP = "policyGroup";
 
     /**
@@ -124,6 +148,12 @@ public class Accounts extends AbstractModule {
      */
     @Internal
     private static final String TAG_SUBTENANT_API_KEY = "subtenantApiKey";
+
+    /**
+     * Parameter name.
+     */
+    @Internal
+    private static final String TAG_SUBTENANT_IDENTITY_PROVIDER = "subtenantIdentityProvider";
 
     /**
      * Parameter name.
@@ -196,7 +226,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #apiKeys(com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
@@ -235,7 +265,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of api keys matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all policy groups matching filter options.
      * 
@@ -273,7 +303,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all accounts matching filter options.
      * 
@@ -318,7 +348,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all subtenant policy groups matching filter options.
      * 
@@ -361,7 +391,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #apiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -407,7 +437,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #allApiKeys(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
@@ -430,7 +460,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #allApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -453,7 +483,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #apiKeys(com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
@@ -493,12 +523,12 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant dark theme colors matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all accounts matching filter options.
      * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return paginator over the list of subtenant dark theme colors
@@ -533,7 +563,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant dark theme colors matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #darkThemeBrandingColors(com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -574,12 +604,12 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant dark theme images matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all accounts matching filter options.
      * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return paginator over the list of subtenant dark theme images
@@ -614,7 +644,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant dark theme images matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #darkThemeBrandingImages(com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -655,12 +685,12 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant light theme colors matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all accounts matching filter options.
      * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return paginator over the list of subtenant light theme colors
@@ -696,7 +726,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant light theme colors matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #lightThemeBrandingColors(com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -738,12 +768,12 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant light theme images matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all accounts matching filter options.
      * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return paginator over the list of subtenant light theme images
@@ -779,7 +809,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant light theme images matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #lightThemeBrandingImages(com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -821,7 +851,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #policyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
@@ -860,7 +890,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #policyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.User)}
@@ -899,7 +929,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of policy groups matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all users matching filter options.
      * 
@@ -937,7 +967,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all subtenant users matching filter options.
      * 
@@ -981,7 +1011,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #policyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
@@ -1022,7 +1052,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #policyGroups(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
@@ -1063,7 +1093,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #trustedCertificates(Integer, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1117,7 +1147,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all accounts matching filter options.
      * 
@@ -1168,7 +1198,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #allTrustedCertificates(String, Integer, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
@@ -1193,7 +1223,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #allTrustedCertificates(Integer, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1218,7 +1248,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all accounts matching filter options.
      * 
@@ -1258,7 +1288,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #userInvitations(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1298,7 +1328,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all subtenant policy groups matching filter options.
      * 
@@ -1351,7 +1381,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all accounts matching filter options.
      * 
@@ -1396,7 +1426,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #users(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
@@ -1447,7 +1477,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all subtenant policy groups matching filter options.
      * 
@@ -1489,7 +1519,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #users(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1535,7 +1565,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #allUsers(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -1558,7 +1588,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of users matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all policy groups matching filter options.
      * 
@@ -1595,7 +1625,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #allUsers(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1618,7 +1648,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #users(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
@@ -1658,7 +1688,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #users(com.arm.mbed.cloud.sdk.accounts.model.UserListOptions, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
@@ -1697,8 +1727,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get the API keys of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #apiKeys(String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
      * 
@@ -1721,14 +1751,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get the API keys of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Manage policy groups.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/api-keys \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            The ID of the group.
      * @param options
@@ -1764,14 +1794,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all API keys.
-     *
-     *
+     * 
+     * 
      * <p>
      * Retrieve API keys in an array, optionally filtered by the owner.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \ -H
      * 'Authorization: Bearer [api_key]' ``` This lists the api keys of the subtenant account.
-     *
+     * 
      * @param id
      *            Account ID.
      * @param keyEq
@@ -1815,15 +1845,15 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get API keys of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * List the API keys of the group with details.
-     *
+     * 
      * **Example:** ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/api-keys \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -1865,8 +1895,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all API keys.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #apiKeys(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
@@ -1895,8 +1925,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all API keys.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #apiKeys(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
@@ -1919,8 +1949,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all API keys.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #apiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1943,8 +1973,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get API keys of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #apiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
      * 
@@ -1968,7 +1998,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -1981,7 +2011,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds an account.
-     *
+     * 
      * <p>
      * Similar to {@link #createAccount(String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
@@ -2000,15 +2030,15 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds an account.
-     *
+     * 
      * <p>
      * Create a new account.
-     *
+     * 
      * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts \ -H 'Authorization: Bearer
      * [api_key]' \ -H 'content-type: application/json' \ -d '{"display_name": "MyAccount1", "admin_name":
      * "accountAdmin1", "email": "example_admin@myaccount.info", "country": "United Kingdom", "end_market": "Smart
      * City", "address_line1": "110 Fulbourn Rd", "city": "Cambridge", "contact": "J. Doe", "company": "Arm"}' ```
-     *
+     * 
      * @param action
      *            Action, either `create` or `enroll`.
      *            <ul>
@@ -2060,13 +2090,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds an api key.
-     *
+     * 
      * <p>
      * Create a new API key.
-     *
+     * 
      * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d '{"name": "MyKey1"}' \ -H
      * 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' ```
-     *
+     * 
      * @param apiKey
      *            an api key.
      * @return an added api key
@@ -2095,15 +2125,145 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Adds an identity provider.
+     * 
+     * <p>
+     * Similar to
+     * {@link #createIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * 
+     * @param identityProvider
+     *            an identity provider.
+     * @return an added identity provider
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider
+           createIdentityProvider(@NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        return createIdentityProvider(false, (OidcRequest) null, identityProvider);
+    }
+
+    /**
+     * Adds an identity provider.
+     * 
+     * <p>
+     * Create a new identity provider.
+     * 
+     * @param discovery
+     *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
+     *            mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint *
+     *            userinfo_endpoint * revocation_endpoint * jwks_uri * keys. Indicates that the OpenID Connect endpoints
+     *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
+     *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
+     *            jwks_uri * keys
+     * @param oidcAttributes
+     *            Represents OIDC specific attributes.
+     * @param identityProvider
+     *            an identity provider.
+     * @return an added identity provider
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider
+           createIdentityProvider(@Nullable boolean discovery, @Nullable OidcRequest oidcAttributes,
+                                  @NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        checkModelValidity(oidcAttributes, TAG_OIDC_ATTRIBUTES);
+        checkModelValidity(identityProvider, TAG_IDENTITY_PROVIDER);
+        final boolean finalDiscovery = discovery;
+        final OidcRequest finalOidcAttributes = oidcAttributes;
+        final IdentityProvider finalIdentityProvider = identityProvider;
+        return CloudCaller.call(this, "createIdentityProvider()", IdentityProviderAdapter.getMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderInfo> call() {
+                                        return endpoints.getAccountIdentityProvidersApi()
+                                                        .createIdentityProvider(IdentityProviderAdapter.reverseMapAddRequest(finalIdentityProvider)
+                                                                                                       .oidcAttributes(null),
+                                                                                Boolean.valueOf(finalDiscovery));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Adds a policy group.
+     * 
+     * <p>
+     * Create a new group.
+     * 
+     * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups \ -H 'Authorization: Bearer
+     * [api_key]' \ -H 'content-type: application/json' -d '{"name": "MyGroup1"}' ```
+     * 
+     * @param members
+     *            Represents arrays of user and API key IDs.
+     * @param policyGroup
+     *            a policy group.
+     * @return an added policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public PolicyGroup createPolicyGroup(@Nullable Object members,
+                                         @NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        checkNotNull(policyGroup, TAG_POLICY_GROUP);
+        checkModelValidity(policyGroup, TAG_POLICY_GROUP);
+        final Object finalMembers = members;
+        final PolicyGroup finalPolicyGroup = policyGroup;
+        return CloudCaller.call(this, "createPolicyGroup()", PolicyGroupAdapter.getMapper(),
+                                new CloudRequest.CloudCall<GroupSummary>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<GroupSummary> call() {
+                                        return endpoints.getAccountPolicyGroupsApi()
+                                                        .createGroup(PolicyGroupAdapter.reverseMapAddRequest(finalPolicyGroup)
+                                                                                       .members(null));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Adds a policy group.
+     * 
+     * <p>
+     * Similar to {@link #createPolicyGroup(java.lang.Object, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @param policyGroup
+     *            a policy group.
+     * @return an added policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public PolicyGroup createPolicyGroup(@NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        checkNotNull(policyGroup, TAG_POLICY_GROUP);
+        return createPolicyGroup((Object) null, policyGroup);
+    }
+
+    /**
      * Adds a subtenant api key.
-     *
+     * 
      * <p>
      * Create a new API key. There is no default value for the owner ID, and it must be from the same account where the
      * new API key is created.
-     *
+     * 
      * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys \ -H
      * 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \ -d '{"name": "MyKey1"}' ```
-     *
+     * 
      * @param accountId
      *            The ID of the account.
      * @param subtenantApiKey
@@ -2139,7 +2299,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds a subtenant api key.
-     *
+     * 
      * <p>
      * Similar to {@link #createSubtenantApiKey(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
      * 
@@ -2158,15 +2318,268 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Adds a subtenant identity provider.
+     * 
+     * <p>
+     * Similar to
+     * {@link #createSubtenantIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProvider)}
+     * 
+     * @param accountId
+     *            The ID of the account the identity provider belongs to.
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return an added subtenant identity provider
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           createSubtenantIdentityProvider(@NonNull String accountId,
+                                           @NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        return createSubtenantIdentityProvider(false, (OidcRequest) null, accountId, subtenantIdentityProvider);
+    }
+
+    /**
+     * Adds a subtenant identity provider.
+     * 
+     * <p>
+     * Similar to
+     * {@link #createSubtenantIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProvider)}
+     * 
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           createSubtenantIdentityProvider(@NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        return createSubtenantIdentityProvider(false, (OidcRequest) null, subtenantIdentityProvider);
+    }
+
+    /**
+     * Adds a subtenant identity provider.
+     * 
+     * <p>
+     * Create a new identity provider.
+     * 
+     * @param discovery
+     *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
+     *            mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint *
+     *            userinfo_endpoint * revocation_endpoint * jwks_uri * keys. Indicates that the OpenID Connect endpoints
+     *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
+     *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
+     *            jwks_uri * keys
+     * @param oidcAttributes
+     *            Represents OIDC specific attributes.
+     * @param accountId
+     *            The ID of the account the identity provider belongs to.
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return an added subtenant identity provider
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           createSubtenantIdentityProvider(@Nullable boolean discovery, @Nullable OidcRequest oidcAttributes,
+                                           @NonNull String accountId,
+                                           @NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        checkModelValidity(oidcAttributes, TAG_OIDC_ATTRIBUTES);
+        checkModelValidity(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        final boolean finalDiscovery = discovery;
+        final OidcRequest finalOidcAttributes = oidcAttributes;
+        final String finalAccountId = accountId;
+        final SubtenantIdentityProvider finalSubtenantIdentityProvider = subtenantIdentityProvider;
+        return CloudCaller.call(this, "createSubtenantIdentityProvider()", SubtenantIdentityProviderAdapter.getMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderInfo> call() {
+                                        return endpoints.getTenantAccountsIdentityProvidersApi()
+                                                        .createAccountIdentityProvider(finalAccountId,
+                                                                                       SubtenantIdentityProviderAdapter.reverseMapAddRequest(finalSubtenantIdentityProvider)
+                                                                                                                       .oidcAttributes(null),
+                                                                                       Boolean.valueOf(finalDiscovery));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Adds a subtenant identity provider.
+     * 
+     * <p>
+     * Similar to
+     * {@link #createSubtenantIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProvider)}
+     * 
+     * @param discovery
+     *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
+     *            mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint *
+     *            userinfo_endpoint * revocation_endpoint * jwks_uri * keys. Indicates that the OpenID Connect endpoints
+     *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
+     *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
+     *            jwks_uri * keys
+     * @param oidcAttributes
+     *            Represents OIDC specific attributes.
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           createSubtenantIdentityProvider(@Nullable boolean discovery, @Nullable OidcRequest oidcAttributes,
+                                           @NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        checkModelValidity(oidcAttributes, TAG_OIDC_ATTRIBUTES);
+        checkModelValidity(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        return createSubtenantIdentityProvider(discovery, oidcAttributes, subtenantIdentityProvider.getAccountId(),
+                                               subtenantIdentityProvider);
+    }
+
+    /**
+     * Adds a subtenant policy group.
+     * 
+     * <p>
+     * Create a new group.
+     * 
+     * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups \ -H
+     * 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \ -d '{"name": "MyGroup1"}' ```
+     * 
+     * @param members
+     *            Represents arrays of user and API key IDs.
+     * @param accountId
+     *            The ID of the account this group belongs to.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return an added subtenant policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantPolicyGroup
+           createSubtenantPolicyGroup(@Nullable Object members, @NonNull String accountId,
+                                      @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        checkModelValidity(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        final Object finalMembers = members;
+        final String finalAccountId = accountId;
+        final SubtenantPolicyGroup finalSubtenantPolicyGroup = subtenantPolicyGroup;
+        return CloudCaller.call(this, "createSubtenantPolicyGroup()", SubtenantPolicyGroupAdapter.getMapper(),
+                                new CloudRequest.CloudCall<GroupSummary>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<GroupSummary> call() {
+                                        return endpoints.getTenantAccountsPolicyGroupsApi()
+                                                        .createAccountGroup(finalAccountId,
+                                                                            SubtenantPolicyGroupAdapter.reverseMapAddRequest(finalSubtenantPolicyGroup)
+                                                                                                       .members(null));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Adds a subtenant policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link #createSubtenantPolicyGroup(java.lang.Object, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param members
+     *            Represents arrays of user and API key IDs.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantPolicyGroup
+           createSubtenantPolicyGroup(@Nullable Object members,
+                                      @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        checkModelValidity(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        return createSubtenantPolicyGroup(members, subtenantPolicyGroup.getAccountId(), subtenantPolicyGroup);
+    }
+
+    /**
+     * Adds a subtenant policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link #createSubtenantPolicyGroup(java.lang.Object, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param accountId
+     *            The ID of the account this group belongs to.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return an added subtenant policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantPolicyGroup
+           createSubtenantPolicyGroup(@NonNull String accountId,
+                                      @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        return createSubtenantPolicyGroup((Object) null, accountId, subtenantPolicyGroup);
+    }
+
+    /**
+     * Adds a subtenant policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link #createSubtenantPolicyGroup(java.lang.Object, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantPolicyGroup
+           createSubtenantPolicyGroup(@NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        return createSubtenantPolicyGroup((Object) null, subtenantPolicyGroup);
+    }
+
+    /**
      * Adds a subtenant user.
-     *
+     * 
      * <p>
      * Create or invite a new user to the account. Only email address is used; other attributes are set in the second
      * step.
-     *
+     * 
      * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users \ -H
      * 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \ -d {"email": "myemail@company.com"} ```
-     *
+     * 
      * @param action
      *            Create or invite user.
      * @param accountId
@@ -2206,7 +2619,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds a subtenant user.
-     *
+     * 
      * <p>
      * Similar to {@link #createSubtenantUser(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
      * 
@@ -2229,7 +2642,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds a subtenant user.
-     *
+     * 
      * <p>
      * Similar to {@link #createSubtenantUser(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
      * 
@@ -2248,7 +2661,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #createSubtenantUserInvitation(int, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
@@ -2273,7 +2686,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #createSubtenantUserInvitation(int, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
@@ -2294,13 +2707,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds a subtenant user invitation.
-     *
+     * 
      * <p>
      * Invite a new or existing user.
-     *
+     * 
      * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/accouns/{account_id}/user-invitations \ -H
      * 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \ -d {"email": "myemail@company.com"} ```
-     *
+     * 
      * @param validForDays
      *            Specifies how many days the invitation will be valid for.
      * @param accountId
@@ -2341,7 +2754,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #createSubtenantUserInvitation(int, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitation)}
@@ -2367,14 +2780,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds a user.
-     *
+     * 
      * <p>
      * Create or invite a new user to the account. Only email address is used; other attributes are set in the second
      * step.
-     *
+     * 
      * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/users?action=invite \ -H 'Authorization:
      * Bearer [api_key]' \ -H 'content-type: application/json' \ -d {"email": "myemail@company.com"} ```
-     *
+     * 
      * @param action
      *            Action, either `create` or `invite`.
      * @param user
@@ -2409,7 +2822,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds a user.
-     *
+     * 
      * <p>
      * Similar to {@link #createUser(String, com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
@@ -2428,7 +2841,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds a user invitation.
-     *
+     * 
      * <p>
      * Similar to {@link #createUserInvitation(int, com.arm.mbed.cloud.sdk.accounts.model.UserInvitation)}
      * 
@@ -2447,13 +2860,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Adds a user invitation.
-     *
+     * 
      * <p>
      * Invite a new or existing user.
-     *
+     * 
      * **Example:** ``` curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations \ -H 'Authorization: Bearer
      * [api_key]' \ -H 'content-type: application/json' \ -d {"email": "myemail@company.com"} ```
-     *
+     * 
      * @param validForDays
      *            Specifies how many days the invitation will be valid for.
      * @param userInvitation
@@ -2488,16 +2901,16 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get dark theme branding colors.
-     *
-     *
+     * 
+     * 
      * <p>
      * Retrieve dark theme branding colors for an account.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/dark \
      * -H 'Authorization: Bearer [api_key]' ``` This lists the dark theme banding colors of the subtenant account.
-     *
+     * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return the list of subtenant dark theme colors corresponding to filter options (One page).
@@ -2530,8 +2943,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get dark theme branding colors.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #darkThemeBrandingColors(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorListOptions)}
@@ -2556,16 +2969,16 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get metadata of all dark theme images.
-     *
-     *
+     * 
+     * 
      * <p>
      * Retrieve the metadata of all dark theme branding images.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/dark \
      * -H 'Authorization: Bearer [api_key]' ``` This lists the dark theme banding images of the subtenant account.
-     *
+     * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return the list of subtenant dark theme images corresponding to filter options (One page).
@@ -2598,8 +3011,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get metadata of all dark theme images.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #darkThemeBrandingImages(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageListOptions)}
@@ -2624,7 +3037,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Deletes an api key.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteApiKey(String)}
      * 
@@ -2641,13 +3054,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Deletes an api key.
-     *
+     * 
      * <p>
      * Delete the API key.
-     *
+     * 
      * **Example:** ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            The ID of the API key to delete.
      * @throws MbedCloudException
@@ -2671,14 +3084,221 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Deletes an identity provider.
+     * 
+     * <p>
+     * Similar to {@link #deleteIdentityProvider(String)}
+     * 
+     * @param identityProvider
+     *            an identity provider.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void deleteIdentityProvider(@NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        deleteIdentityProvider(identityProvider.getId());
+    }
+
+    /**
+     * Deletes an identity provider.
+     * 
+     * <p>
+     * Delete an identity provider by ID.
+     * 
+     * @param id
+     *            The ID of the identity provider to delete.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void deleteIdentityProvider(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        CloudCaller.call(this, "deleteIdentityProvider()", null, new CloudRequest.CloudCall<Void>() {
+            /**
+             * Makes the low level call to the Cloud.
+             * 
+             * @return Corresponding Retrofit2 Call object
+             */
+            @Override
+            public Call<Void> call() {
+                return endpoints.getAccountIdentityProvidersApi().deleteIdentityProvider(finalId);
+            }
+        });
+    }
+
+    /**
+     * Deletes a policy group.
+     * 
+     * <p>
+     * Similar to {@link #deletePolicyGroup(String)}
+     * 
+     * @param policyGroup
+     *            a policy group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void deletePolicyGroup(@NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        checkNotNull(policyGroup, TAG_POLICY_GROUP);
+        deletePolicyGroup(policyGroup.getId());
+    }
+
+    /**
+     * Deletes a policy group.
+     * 
+     * <p>
+     * Delete a group.
+     * 
+     * **Example:** ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \ -H
+     * 'Authorization: Bearer [api_key]' ```
+     * 
+     * @param id
+     *            The ID of the group to delete.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void deletePolicyGroup(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        CloudCaller.call(this, "deletePolicyGroup()", null, new CloudRequest.CloudCall<Void>() {
+            /**
+             * Makes the low level call to the Cloud.
+             * 
+             * @return Corresponding Retrofit2 Call object
+             */
+            @Override
+            public Call<Void> call() {
+                return endpoints.getAccountPolicyGroupsApi().deleteGroup(finalId);
+            }
+        });
+    }
+
+    /**
+     * Delete the service provider certificate.
+     * 
+     * 
+     * <p>
+     * Similar to {@link #deleteServiceProviderCertificate(String)}
+     * 
+     * @param identityProvider
+     *            an identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider
+           deleteServiceProviderCertificate(@NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        return deleteServiceProviderCertificate(identityProvider.getId());
+    }
+
+    /**
+     * Delete the service provider certificate.
+     * 
+     * 
+     * <p>
+     * Delete a service provider certificate.
+     * 
+     * @param id
+     *            Entity ID.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider deleteServiceProviderCertificate(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "deleteServiceProviderCertificate()", IdentityProviderAdapter.getMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderInfo> call() {
+                                        return endpoints.getAccountIdentityProvidersApi().deleteSpCertificate(finalId);
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Delete the service provider certificate.
+     * 
+     * 
+     * <p>
+     * Delete a service provider certificate.
+     * 
+     * @param accountId
+     *            The ID of the account the identity provider belongs to.
+     * @param id
+     *            Entity ID.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider deleteServiceProviderCertificate(@NonNull String accountId,
+                                                                      @NonNull String id) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        return CloudCaller.call(this, "deleteServiceProviderCertificate()",
+                                SubtenantIdentityProviderAdapter.getMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderInfo> call() {
+                                        return endpoints.getTenantAccountsIdentityProvidersApi()
+                                                        .deleteAccountSpCertificate(finalAccountId, finalId);
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Delete the service provider certificate.
+     * 
+     * 
+     * <p>
+     * Similar to {@link #deleteServiceProviderCertificate(String, String)}
+     * 
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           deleteServiceProviderCertificate(@NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        return deleteServiceProviderCertificate(subtenantIdentityProvider.getAccountId(),
+                                                subtenantIdentityProvider.getId());
+    }
+
+    /**
      * Deletes a subtenant api key.
-     *
+     * 
      * <p>
      * Delete an API key.
-     *
+     * 
      * **Example:** ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id}
      * \ -H 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -2707,7 +3327,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Deletes a subtenant api key.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteSubtenantApiKey(String, String)}
      * 
@@ -2723,14 +3343,120 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Deletes a subtenant identity provider.
+     * 
+     * <p>
+     * Delete an identity provider by ID.
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the identity provider to delete.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void deleteSubtenantIdentityProvider(@NonNull String accountId,
+                                                @NonNull String id) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        CloudCaller.call(this, "deleteSubtenantIdentityProvider()", null, new CloudRequest.CloudCall<Void>() {
+            /**
+             * Makes the low level call to the Cloud.
+             * 
+             * @return Corresponding Retrofit2 Call object
+             */
+            @Override
+            public Call<Void> call() {
+                return endpoints.getTenantAccountsIdentityProvidersApi().deleteAccountIdentityProvider(finalAccountId,
+                                                                                                       finalId);
+            }
+        });
+    }
+
+    /**
+     * Deletes a subtenant identity provider.
+     * 
+     * <p>
+     * Similar to {@link #deleteSubtenantIdentityProvider(String, String)}
+     * 
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void
+           deleteSubtenantIdentityProvider(@NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        deleteSubtenantIdentityProvider(subtenantIdentityProvider.getAccountId(), subtenantIdentityProvider.getId());
+    }
+
+    /**
+     * Deletes a subtenant policy group.
+     * 
+     * <p>
+     * Delete a group.
+     * 
+     * **Example:** ``` curl -X DELETE
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id} \ -H 'Authorization: Bearer
+     * [api_key]' ```
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the group to delete.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void deleteSubtenantPolicyGroup(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        CloudCaller.call(this, "deleteSubtenantPolicyGroup()", null, new CloudRequest.CloudCall<Void>() {
+            /**
+             * Makes the low level call to the Cloud.
+             * 
+             * @return Corresponding Retrofit2 Call object
+             */
+            @Override
+            public Call<Void> call() {
+                return endpoints.getTenantAccountsPolicyGroupsApi().deleteAccountGroup(finalAccountId, finalId);
+            }
+        });
+    }
+
+    /**
+     * Deletes a subtenant policy group.
+     * 
+     * <p>
+     * Similar to {@link #deleteSubtenantPolicyGroup(String, String)}
+     * 
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public void
+           deleteSubtenantPolicyGroup(@NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        deleteSubtenantPolicyGroup(subtenantPolicyGroup.getAccountId(), subtenantPolicyGroup.getId());
+    }
+
+    /**
      * Deletes a subtenant user.
-     *
+     * 
      * <p>
      * Delete a user.
-     *
+     * 
      * **Example:** ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -2759,7 +3485,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Deletes a subtenant user.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteSubtenantUser(String, String)}
      * 
@@ -2776,14 +3502,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Deletes a subtenant user invitation.
-     *
+     * 
      * <p>
      * Delete an active user invitation sent to a new or existing user.
-     *
+     * 
      * **Example:** ``` curl -X DELETE
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -2812,7 +3538,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Deletes a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteSubtenantUserInvitation(String, String)}
      * 
@@ -2830,13 +3556,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Deletes a user.
-     *
+     * 
      * <p>
      * Delete a user.
-     *
+     * 
      * **Example:** ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            The ID of the user to delete.
      * @throws MbedCloudException
@@ -2861,7 +3587,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Deletes a user.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteUser(String)}
      * 
@@ -2878,13 +3604,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Deletes a user invitation.
-     *
+     * 
      * <p>
      * Delete an active user invitation sent to a new or existing user.
-     *
+     * 
      * **Example:** ``` curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            The ID of the invitation to delete.
      * @throws MbedCloudException
@@ -2909,7 +3635,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Deletes a user invitation.
-     *
+     * 
      * <p>
      * Similar to {@link #deleteUserInvitation(String)}
      * 
@@ -2922,6 +3648,268 @@ public class Accounts extends AbstractModule {
     public void deleteUserInvitation(@NonNull UserInvitation userInvitation) throws MbedCloudException {
         checkNotNull(userInvitation, TAG_USER_INVITATION);
         deleteUserInvitation(userInvitation.getId());
+    }
+
+    /**
+     * Generate a new service provider certificate.
+     * 
+     * 
+     * <p>
+     * Similar to
+     * {@link #generateServiceProviderCertificate(com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderAlgorithm, int, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * 
+     * @param identityProvider
+     *            an identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider
+           generateServiceProviderCertificate(@NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        return generateServiceProviderCertificate(IdentityProviderAlgorithm.getDefault(), 0, identityProvider);
+    }
+
+    /**
+     * Generate a new service provider certificate.
+     * 
+     * 
+     * <p>
+     * Similar to
+     * {@link #generateServiceProviderCertificate(com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderAlgorithm, int, String, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * 
+     * @param algorithm
+     *            The algorithm and its key size used for generating the certificate. Defaults to RSA2048.
+     * @param validity
+     *            Validity for the certificate in days.
+     * @param identityProvider
+     *            an identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider
+           generateServiceProviderCertificate(@Nullable IdentityProviderAlgorithm algorithm, @Nullable int validity,
+                                              @NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        return generateServiceProviderCertificate(algorithm, validity, identityProvider.getId(), identityProvider);
+    }
+
+    /**
+     * Generate a new service provider certificate.
+     * 
+     * 
+     * <p>
+     * Generate a new service provider certificate.
+     * 
+     * @param algorithm
+     *            The algorithm and its key size used for generating the certificate. Defaults to RSA2048.
+     * @param validity
+     *            Validity for the certificate in days.
+     * @param id
+     *            Entity ID.
+     * @param identityProvider
+     *            an identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider
+           generateServiceProviderCertificate(@Nullable IdentityProviderAlgorithm algorithm, @Nullable int validity,
+                                              @NonNull String id,
+                                              @NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        checkModelValidity(identityProvider, TAG_IDENTITY_PROVIDER);
+        final IdentityProviderAlgorithm finalAlgorithm = algorithm;
+        final int finalValidity = validity;
+        final String finalId = id;
+        final IdentityProvider finalIdentityProvider = identityProvider;
+        return CloudCaller.call(this, "generateServiceProviderCertificate()", IdentityProviderAdapter.getMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderInfo> call() {
+                                        return endpoints.getAccountIdentityProvidersApi()
+                                                        .generateSpCertificate(finalId,
+                                                                               IdentityProviderAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelCertificateGenerationReq(finalIdentityProvider)
+                                                                                                      .algorithm(null)
+                                                                                                      .validity(Integer.valueOf(finalValidity)));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Generate a new service provider certificate.
+     * 
+     * 
+     * <p>
+     * Similar to
+     * {@link #generateServiceProviderCertificate(com.arm.mbed.cloud.sdk.accounts.model.IdentityProviderAlgorithm, int, String, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * 
+     * @param id
+     *            Entity ID.
+     * @param identityProvider
+     *            an identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider
+           generateServiceProviderCertificate(@NonNull String id,
+                                              @NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        return generateServiceProviderCertificate(IdentityProviderAlgorithm.getDefault(), 0, id, identityProvider);
+    }
+
+    /**
+     * Generate a new service provider certificate.
+     * 
+     * 
+     * <p>
+     * Similar to
+     * {@link #generateServiceProviderCertificate(com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProviderAlgorithm, int, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProvider)}
+     * 
+     * @param accountId
+     *            The ID of the account the identity provider belongs to.
+     * @param id
+     *            Entity ID.
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           generateServiceProviderCertificate(@NonNull String accountId, @NonNull String id,
+                                              @NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        return generateServiceProviderCertificate(SubtenantIdentityProviderAlgorithm.getDefault(), 0, accountId, id,
+                                                  subtenantIdentityProvider);
+    }
+
+    /**
+     * Generate a new service provider certificate.
+     * 
+     * 
+     * <p>
+     * Similar to
+     * {@link #generateServiceProviderCertificate(com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProviderAlgorithm, int, com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProvider)}
+     * 
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           generateServiceProviderCertificate(@NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        return generateServiceProviderCertificate(SubtenantIdentityProviderAlgorithm.getDefault(), 0,
+                                                  subtenantIdentityProvider);
+    }
+
+    /**
+     * Generate a new service provider certificate.
+     * 
+     * 
+     * <p>
+     * Generate a new service provider certificate.
+     * 
+     * @param algorithm
+     *            The algorithm and its key size used for generating the certificate. Defaults to RSA2048.
+     * @param validity
+     *            Validity for the certificate in days.
+     * @param accountId
+     *            The ID of the account the identity provider belongs to.
+     * @param id
+     *            Entity ID.
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           generateServiceProviderCertificate(@Nullable SubtenantIdentityProviderAlgorithm algorithm,
+                                              @Nullable int validity, @NonNull String accountId, @NonNull String id,
+                                              @NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        checkModelValidity(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        final SubtenantIdentityProviderAlgorithm finalAlgorithm = algorithm;
+        final int finalValidity = validity;
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        final SubtenantIdentityProvider finalSubtenantIdentityProvider = subtenantIdentityProvider;
+        return CloudCaller.call(this, "generateServiceProviderCertificate()",
+                                SubtenantIdentityProviderAdapter.getMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderInfo> call() {
+                                        return endpoints.getTenantAccountsIdentityProvidersApi()
+                                                        .generateAccountSpCertificate(finalAccountId, finalId,
+                                                                                      SubtenantIdentityProviderAdapter.mapToComArmMbedCloudSdkLowlevelPelionclouddevicemanagementModelCertificateGenerationReq(finalSubtenantIdentityProvider)
+                                                                                                                      .algorithm(null)
+                                                                                                                      .validity(Integer.valueOf(finalValidity)));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Generate a new service provider certificate.
+     * 
+     * 
+     * <p>
+     * Similar to
+     * {@link #generateServiceProviderCertificate(com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProviderAlgorithm, int, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProvider)}
+     * 
+     * @param algorithm
+     *            The algorithm and its key size used for generating the certificate. Defaults to RSA2048.
+     * @param validity
+     *            Validity for the certificate in days.
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           generateServiceProviderCertificate(@Nullable SubtenantIdentityProviderAlgorithm algorithm,
+                                              @Nullable int validity,
+                                              @NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        return generateServiceProviderCertificate(algorithm, validity, subtenantIdentityProvider.getAccountId(),
+                                                  subtenantIdentityProvider.getId(), subtenantIdentityProvider);
     }
 
     /**
@@ -2947,16 +3935,16 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get light theme branding colors.
-     *
-     *
+     * 
+     * 
      * <p>
      * Retrieve light theme branding colors for an account.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-colors/light \
      * -H 'Authorization: Bearer [api_key]' ``` This lists the light theme banding colors of the subtenant account.
-     *
+     * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return the list of subtenant light theme colors corresponding to filter options (One page).
@@ -2989,8 +3977,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get light theme branding colors.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #lightThemeBrandingColors(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorListOptions)}
@@ -3015,16 +4003,16 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get metadata of all light theme images.
-     *
-     *
+     * 
+     * 
      * <p>
      * Retrieve the metadata of all light theme branding images.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/branding-images/light \
      * -H 'Authorization: Bearer [api_key]' ``` This lists the light theme banding images of the subtenant account.
-     *
+     * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return the list of subtenant light theme images corresponding to filter options (One page).
@@ -3057,8 +4045,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get metadata of all light theme images.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #lightThemeBrandingImages(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions)}
@@ -3083,7 +4071,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Lists accounts matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #listAccounts(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
@@ -3103,13 +4091,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Lists accounts matching filter options.
-     *
+     * 
      * <p>
      * Returns an array of account objects, optionally filtered by status and tier level.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts \ -H 'Authorization: Bearer
      * [api_key]' ```
-     *
+     * 
      * @param format
      *            Format information for the query response. Supported: format=breakdown.
      * @param properties
@@ -3166,7 +4154,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of accounts matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #listAllAccounts(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions)}
@@ -3186,7 +4174,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of accounts matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all accounts matching filter options.
      * 
@@ -3231,7 +4219,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to {@link #listAllApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
      * 
@@ -3249,7 +4237,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of api keys matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all api keys matching filter options.
      * 
@@ -3288,8 +4276,43 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Creates a {@link Paginator} for the list of identity providers matching filter options.
+     * 
+     * <p>
+     * Gets an iterator over all identity providers matching filter options.
+     * 
+     * @param options
+     *            list options.
+     * @return paginator over the list of identity providers
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<IdentityProvider>
+           listAllIdentityProviders(@Nullable IdentityProviderListOptions options) throws MbedCloudException {
+        final IdentityProviderListOptions finalOptions = (options == null) ? new IdentityProviderListOptions()
+                                                                           : options;
+        return new Paginator<IdentityProvider>(finalOptions, new PageRequester<IdentityProvider>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<IdentityProvider> requestNewPage(ListOptions options) throws MbedCloudException {
+                return listIdentityProviders((IdentityProviderListOptions) options);
+            }
+        });
+    }
+
+    /**
      * Creates a {@link Paginator} for the list of policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to {@link #listAllPolicyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
      * 
@@ -3308,7 +4331,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of policy groups matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all policy groups matching filter options.
      * 
@@ -3345,8 +4368,49 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Creates a {@link Paginator} for the list of subtenant identity providers matching filter options.
+     * 
+     * <p>
+     * Gets an iterator over all subtenant identity providers matching filter options.
+     * 
+     * @param accountId
+     *            The ID of the account.
+     * @param options
+     *            list options.
+     * @return paginator over the list of subtenant identity providers
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public Paginator<SubtenantIdentityProvider>
+           listAllSubtenantIdentityProviders(@NonNull String accountId,
+                                             @Nullable SubtenantIdentityProviderListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        final String finalAccountId = accountId;
+        final SubtenantIdentityProviderListOptions finalOptions = (options == null) ? new SubtenantIdentityProviderListOptions()
+                                                                                    : options;
+        return new Paginator<SubtenantIdentityProvider>(finalOptions, new PageRequester<SubtenantIdentityProvider>() {
+            /**
+             * Makes one page request.
+             * 
+             * @param options
+             *            a list options.
+             * @return Corresponding page requester
+             * @throws MbedCloudException
+             *             if an error occurs during the process.
+             */
+            @Override
+            public ListResponse<SubtenantIdentityProvider>
+                   requestNewPage(ListOptions options) throws MbedCloudException {
+                return listSubtenantIdentityProviders(finalAccountId, (SubtenantIdentityProviderListOptions) options);
+            }
+        });
+    }
+
+    /**
      * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all subtenant policy groups matching filter options.
      * 
@@ -3390,7 +4454,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #listAllSubtenantPolicyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
@@ -3414,7 +4478,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of user invitations matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all user invitations matching filter options.
      * 
@@ -3448,7 +4512,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Creates a {@link Paginator} for the list of users matching filter options.
-     *
+     * 
      * <p>
      * Gets an iterator over all users matching filter options.
      * 
@@ -3481,7 +4545,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Lists api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to {@link #listApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
      * 
@@ -3499,13 +4563,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Lists api keys matching filter options.
-     *
+     * 
      * <p>
      * Retrieve API keys in an array, optionally filtered by the owner.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys \ -H 'Authorization: Bearer
      * [api_key]' ```
-     *
+     * 
      * @param keyEq
      *            a string
      * @param ownerEq
@@ -3543,8 +4607,44 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Lists identity providers matching filter options.
+     * 
+     * <p>
+     * Retrieve identity providers in an array.
+     * 
+     * @param options
+     *            list options.
+     * @return the list of identity providers corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<IdentityProvider>
+           listIdentityProviders(@Nullable IdentityProviderListOptions options) throws MbedCloudException {
+        final IdentityProviderListOptions finalOptions = (options == null) ? new IdentityProviderListOptions()
+                                                                           : options;
+        return CloudCaller.call(this, "listIdentityProviders()", IdentityProviderAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderList> call() {
+                                        return endpoints.getAccountIdentityProvidersApi()
+                                                        .getAllIdentityProviders(finalOptions.getPageSize(),
+                                                                                 finalOptions.getAfter(),
+                                                                                 finalOptions.getOrder().toString(),
+                                                                                 ListOptionsEncoder.encodeInclude(finalOptions));
+                                    }
+                                });
+    }
+
+    /**
      * Lists policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to {@link #listPolicyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
      * 
@@ -3563,13 +4663,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Lists policy groups matching filter options.
-     *
+     * 
      * <p>
      * Retrieve all group information.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups \ -H 'Authorization: Bearer
      * [api_key]' ```
-     *
+     * 
      * @param nameEq
      *            a string
      * @param options
@@ -3605,14 +4705,58 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Lists subtenant identity providers matching filter options.
+     * 
+     * <p>
+     * Retrieve identity providers in an array.
+     * 
+     * @param accountId
+     *            The ID of the account.
+     * @param options
+     *            list options.
+     * @return the list of subtenant identity providers corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public ListResponse<SubtenantIdentityProvider>
+           listSubtenantIdentityProviders(@NonNull String accountId,
+                                          @Nullable SubtenantIdentityProviderListOptions options) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        final String finalAccountId = accountId;
+        final SubtenantIdentityProviderListOptions finalOptions = (options == null) ? new SubtenantIdentityProviderListOptions()
+                                                                                    : options;
+        return CloudCaller.call(this, "listSubtenantIdentityProviders()",
+                                SubtenantIdentityProviderAdapter.getListMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderList>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderList> call() {
+                                        return endpoints.getTenantAccountsIdentityProvidersApi()
+                                                        .getAllAccountIdentityProviders(finalAccountId,
+                                                                                        finalOptions.getPageSize(),
+                                                                                        finalOptions.getAfter(),
+                                                                                        finalOptions.getOrder()
+                                                                                                    .toString(),
+                                                                                        ListOptionsEncoder.encodeInclude(finalOptions));
+                                    }
+                                });
+    }
+
+    /**
      * Lists subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Retrieve all group information.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param nameEq
@@ -3654,7 +4798,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Lists subtenant policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link #listSubtenantPolicyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
@@ -3678,13 +4822,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Lists user invitations matching filter options.
-     *
+     * 
      * <p>
      * Retrieve details for all the active user invitations.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/user-invitations \ -H 'Authorization: Bearer
      * [api_key]' ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of user invitations corresponding to filter options (One page).
@@ -3717,13 +4861,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Lists users matching filter options.
-     *
+     * 
      * <p>
      * Retrieve the details of all users.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/users \ -H 'Authorization: Bearer [api_key]'
      * ```
-     *
+     * 
      * @param options
      *            list options.
      * @return the list of users corresponding to filter options (One page).
@@ -3764,7 +4908,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets my account.
-     *
+     * 
      * <p>
      * Similar to {@link #myAccount(String, String)}
      * 
@@ -3780,14 +4924,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets my account.
-     *
+     * 
      * <p>
      * Retrieve detailed information about the account.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/me?include=policies \ -H
      * 'Authorization: Bearer [api_key]' ``` This is provided by the SDK to avoid listing to retrieve the user's own
      * Account.
-     *
+     * 
      * @param include
      *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.
      * @param properties
@@ -3818,13 +4962,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets my api key.
-     *
+     * 
      * <p>
      * Retrieve API key details.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys/me \ -H 'Authorization: Bearer
      * [api_key]' ``` This is provided by the SDK to avoid listing to retrieve the user's own API Key.
-     *
+     * 
      * @return something
      * @throws MbedCloudException
      *             if an error occurs during the process.
@@ -3848,8 +4992,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get groups of the API key.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #policyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
      * 
@@ -3872,8 +5016,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get groups of the user.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #policyGroups(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}
      * 
@@ -3896,14 +5040,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get groups of the user.
-     *
-     *
+     * 
+     * 
      * <p>
      * Retrieve groups of the user.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/users/{user_id}/groups \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            The ID of the user.
      * @param options
@@ -3939,14 +5083,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get user's groups.
-     *
-     *
+     * 
+     * 
      * <p>
      * Retrieve user's groups.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/groups
      * \ -H 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -3989,8 +5133,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get groups associated with the API key.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #policyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
@@ -4015,8 +5159,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get user's groups.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #policyGroups(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupListOptions)}
@@ -4041,7 +5185,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets an account.
-     *
+     * 
      * <p>
      * Similar to {@link #readAccount(String, String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
@@ -4060,7 +5204,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets an account.
-     *
+     * 
      * <p>
      * Similar to {@link #readAccount(String, String, String)}
      * 
@@ -4079,12 +5223,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets an account.
-     *
+     * 
      * <p>
      * Similar to {@link #readAccount(String, String, String)}
      * 
      * @param include
-     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts,
+     *            history.
      * @param properties
      *            Property name to return from account-specific properties.
      * @param account
@@ -4103,17 +5248,18 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets an account.
-     *
+     * 
      * <p>
      * Retrieve detailed information about an account.
-     *
+     * 
      * **Example:**
-     *
+     * 
      * ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \ -H 'Authorization: Bearer
      * [api_key]' ```
-     *
+     * 
      * @param include
-     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts,
+     *            history.
      * @param properties
      *            Property name to return from account-specific properties.
      * @param id
@@ -4147,7 +5293,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets an api key.
-     *
+     * 
      * <p>
      * Similar to {@link #readApiKey(String)}
      * 
@@ -4166,13 +5312,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets an api key.
-     *
+     * 
      * <p>
      * Retrieve API key details.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            The ID of the API key.
      * @return something
@@ -4199,8 +5345,58 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Gets an identity provider.
+     * 
+     * <p>
+     * Similar to {@link #readIdentityProvider(String)}
+     * 
+     * @param identityProvider
+     *            an identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider readIdentityProvider(@NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        return readIdentityProvider(identityProvider.getId());
+    }
+
+    /**
+     * Gets an identity provider.
+     * 
+     * <p>
+     * Retrieve by ID.
+     * 
+     * @param id
+     *            Entity ID.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider readIdentityProvider(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "readIdentityProvider()", IdentityProviderAdapter.getMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderInfo> call() {
+                                        return endpoints.getAccountIdentityProvidersApi().getIdentityProvider(finalId);
+                                    }
+                                });
+    }
+
+    /**
      * Gets a policy group.
-     *
+     * 
      * <p>
      * Similar to {@link #readPolicyGroup(String)}
      * 
@@ -4219,13 +5415,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets a policy group.
-     *
+     * 
      * <p>
      * Retrieve general information about a group.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            The ID of the group.
      * @return something
@@ -4253,13 +5449,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets a subtenant api key.
-     *
+     * 
      * <p>
      * Retrieve API key details.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \
      * -H 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            The ID of the account.
      * @param id
@@ -4293,7 +5489,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets a subtenant api key.
-     *
+     * 
      * <p>
      * Similar to {@link #readSubtenantApiKey(String, String)}
      * 
@@ -4311,15 +5507,73 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Gets a subtenant identity provider.
+     * 
+     * <p>
+     * Manage identity providers of a tenant account.
+     * 
+     * @param accountId
+     *            The ID of the account the identity provider belongs to.
+     * @param id
+     *            Entity ID.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider readSubtenantIdentityProvider(@NonNull String accountId,
+                                                                   @NonNull String id) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        return CloudCaller.call(this, "readSubtenantIdentityProvider()", SubtenantIdentityProviderAdapter.getMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderInfo> call() {
+                                        return endpoints.getTenantAccountsIdentityProvidersApi()
+                                                        .getAccountIdentityProvider(finalAccountId, finalId);
+                                    }
+                                });
+    }
+
+    /**
+     * Gets a subtenant identity provider.
+     * 
+     * <p>
+     * Similar to {@link #readSubtenantIdentityProvider(String, String)}
+     * 
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           readSubtenantIdentityProvider(@NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        return readSubtenantIdentityProvider(subtenantIdentityProvider.getAccountId(),
+                                             subtenantIdentityProvider.getId());
+    }
+
+    /**
      * Gets a subtenant policy group.
-     *
+     * 
      * <p>
      * Retrieve general information about the group.
-     *
+     * 
      * **Example:** ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id} \ -H 'Authorization: Bearer
      * [api_key]' ```
-     *
+     * 
      * @param accountId
      *            The ID of the account this group belongs to.
      * @param id
@@ -4353,7 +5607,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets a subtenant policy group.
-     *
+     * 
      * <p>
      * Similar to {@link #readSubtenantPolicyGroup(String, String)}
      * 
@@ -4373,13 +5627,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets a subtenant user.
-     *
+     * 
      * <p>
      * Retrieve user details.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            The ID of the account.
      * @param id
@@ -4412,7 +5666,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets a subtenant user.
-     *
+     * 
      * <p>
      * Similar to {@link #readSubtenantUser(String, String)}
      * 
@@ -4431,14 +5685,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets a subtenant user invitation.
-     *
+     * 
      * <p>
      * Retrieve details of an active user invitation sent for a new or existing user.
-     *
+     * 
      * **Example:** ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations/{invitation_id} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            The ID of the account the user is invited to.
      * @param id
@@ -4472,7 +5726,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets a subtenant user invitation.
-     *
+     * 
      * <p>
      * Similar to {@link #readSubtenantUserInvitation(String, String)}
      * 
@@ -4492,13 +5746,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets a user.
-     *
+     * 
      * <p>
      * Retrieve the details of a user.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \ -H 'Authorization: Bearer
      * [api_key]' ```
-     *
+     * 
      * @param id
      *            The ID of the user.
      * @return something
@@ -4526,7 +5780,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets a user.
-     *
+     * 
      * <p>
      * Similar to {@link #readUser(String)}
      * 
@@ -4545,13 +5799,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets a user invitation.
-     *
+     * 
      * <p>
      * Retrieve the details of an active user invitation.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation_id} \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            The ID of the invitation.
      * @return something
@@ -4579,7 +5833,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Gets a user invitation.
-     *
+     * 
      * <p>
      * Similar to {@link #readUserInvitation(String)}
      * 
@@ -4597,9 +5851,120 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Refreshes the OIDC signing keys.
+     * 
+     * 
+     * <p>
+     * Similar to {@link #refreshTokens(String)}
+     * 
+     * @param identityProvider
+     *            an identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider refreshTokens(@NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        return refreshTokens(identityProvider.getId());
+    }
+
+    /**
+     * Refreshes the OIDC signing keys.
+     * 
+     * 
+     * <p>
+     * Refreshes an OIDC IdP's signing keys.
+     * 
+     * @param id
+     *            Entity ID.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider refreshTokens(@NonNull String id) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        final String finalId = id;
+        return CloudCaller.call(this, "refreshTokens()", IdentityProviderAdapter.getMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderInfo> call() {
+                                        return endpoints.getAccountIdentityProvidersApi().refreshJwks(finalId);
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Refreshes the OIDC signing keys.
+     * 
+     * 
+     * <p>
+     * Refreshes an OIDC IdP's signing keys.
+     * 
+     * @param accountId
+     *            The ID of the account the identity provider belongs to.
+     * @param id
+     *            Entity ID.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider refreshTokens(@NonNull String accountId,
+                                                   @NonNull String id) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        return CloudCaller.call(this, "refreshTokens()", SubtenantIdentityProviderAdapter.getMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderInfo> call() {
+                                        return endpoints.getTenantAccountsIdentityProvidersApi()
+                                                        .refreshAccountJwks(finalAccountId, finalId);
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Refreshes the OIDC signing keys.
+     * 
+     * 
+     * <p>
+     * Similar to {@link #refreshTokens(String, String)}
+     * 
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           refreshTokens(@NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        return refreshTokens(subtenantIdentityProvider.getAccountId(), subtenantIdentityProvider.getId());
+    }
+
+    /**
      * Get all trusted certificates.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #trustedCertificates(String, Integer, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
@@ -4630,14 +5995,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all trusted certificates.
-     *
-     *
+     * 
+     * 
      * <p>
      * Retrieve trusted certificates in an array.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/trusted-certificates \
      * -H 'Authorization: Bearer [api_key]' ``` This lists the trusted certificates of the subtenant account.
-     *
+     * 
      * @param id
      *            Account ID.
      * @param expireEq
@@ -4706,8 +6071,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all trusted certificates.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #trustedCertificates(String, Integer, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
@@ -4732,8 +6097,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get all trusted certificates.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #trustedCertificates(Integer, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -4758,7 +6123,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Modifies an account.
-     *
+     * 
      * <p>
      * Similar to {@link #updateAccount(String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
@@ -4778,15 +6143,15 @@ public class Accounts extends AbstractModule {
 
     /**
      * Modifies an account.
-     *
+     * 
      * <p>
      * Update an account.
-     *
+     * 
      * **Example:**
-     *
+     * 
      * ``` curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id} \ -H 'Authorization: Bearer
      * [api_key]' \ -H 'content-type: application/json' \ -d '{"phone_number": "12345678"}' ```
-     *
+     * 
      * @param id
      *            Account ID.
      * @param account
@@ -4821,7 +6186,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Modifies an api key.
-     *
+     * 
      * <p>
      * Similar to {@link #updateApiKey(String, com.arm.mbed.cloud.sdk.accounts.model.ApiKey)}
      * 
@@ -4841,13 +6206,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Modifies an api key.
-     *
+     * 
      * <p>
      * Update API key details.
-     *
+     * 
      * **Example:** `curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey_id} \ -H 'Authorization: Bearer
      * [api_key]' \ -H 'content-type: application/json' \ -d '{"name": "TestApiKey25"}' ```
-     *
+     * 
      * @param id
      *            The ID of the API key.
      * @param apiKey
@@ -4881,14 +6246,209 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Modifies an identity provider.
+     * 
+     * <p>
+     * Similar to
+     * {@link #updateIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * 
+     * @param identityProvider
+     *            an identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider
+           updateIdentityProvider(@NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        return updateIdentityProvider(false, (OidcRequest) null, identityProvider);
+    }
+
+    /**
+     * Modifies an identity provider.
+     * 
+     * <p>
+     * Similar to
+     * {@link #updateIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, String, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * 
+     * @param id
+     *            Entity ID.
+     * @param identityProvider
+     *            an identity provider.
+     * @return an updated identity provider
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider
+           updateIdentityProvider(@NonNull String id,
+                                  @NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        return updateIdentityProvider(false, (OidcRequest) null, id, identityProvider);
+    }
+
+    /**
+     * Modifies an identity provider.
+     * 
+     * <p>
+     * Similar to
+     * {@link #updateIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, String, com.arm.mbed.cloud.sdk.accounts.model.IdentityProvider)}
+     * 
+     * @param discovery
+     *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
+     *            mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint *
+     *            userinfo_endpoint * revocation_endpoint * jwks_uri * keys. Indicates that the OpenID Connect endpoints
+     *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
+     *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
+     *            jwks_uri * keys
+     * @param oidcAttributes
+     *            Represents OIDC specific attributes.
+     * @param identityProvider
+     *            an identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider
+           updateIdentityProvider(@Nullable boolean discovery, @Nullable OidcRequest oidcAttributes,
+                                  @NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        checkModelValidity(oidcAttributes, TAG_OIDC_ATTRIBUTES);
+        checkModelValidity(identityProvider, TAG_IDENTITY_PROVIDER);
+        return updateIdentityProvider(discovery, oidcAttributes, identityProvider.getId(), identityProvider);
+    }
+
+    /**
+     * Modifies an identity provider.
+     * 
+     * <p>
+     * Update an existing identity provider.
+     * 
+     * @param discovery
+     *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
+     *            mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint *
+     *            userinfo_endpoint * revocation_endpoint * jwks_uri * keys. Indicates that the OpenID Connect endpoints
+     *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
+     *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
+     *            jwks_uri * keys
+     * @param oidcAttributes
+     *            Represents OIDC specific attributes.
+     * @param id
+     *            Entity ID.
+     * @param identityProvider
+     *            an identity provider.
+     * @return an updated identity provider
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public IdentityProvider
+           updateIdentityProvider(@Nullable boolean discovery, @Nullable OidcRequest oidcAttributes, @NonNull String id,
+                                  @NonNull IdentityProvider identityProvider) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        checkNotNull(identityProvider, TAG_IDENTITY_PROVIDER);
+        checkModelValidity(oidcAttributes, TAG_OIDC_ATTRIBUTES);
+        checkModelValidity(identityProvider, TAG_IDENTITY_PROVIDER);
+        final boolean finalDiscovery = discovery;
+        final OidcRequest finalOidcAttributes = oidcAttributes;
+        final String finalId = id;
+        final IdentityProvider finalIdentityProvider = identityProvider;
+        return CloudCaller.call(this, "updateIdentityProvider()", IdentityProviderAdapter.getMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderInfo> call() {
+                                        return endpoints.getAccountIdentityProvidersApi()
+                                                        .updateIdentityProvider(finalId,
+                                                                                IdentityProviderAdapter.reverseMapUpdateRequest(finalIdentityProvider)
+                                                                                                       .oidcAttributes(null),
+                                                                                Boolean.valueOf(finalDiscovery));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Modifies a policy group.
+     * 
+     * <p>
+     * Similar to {@link #updatePolicyGroup(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @param policyGroup
+     *            a policy group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public PolicyGroup updatePolicyGroup(@NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        checkNotNull(policyGroup, TAG_POLICY_GROUP);
+        checkModelValidity(policyGroup, TAG_POLICY_GROUP);
+        return updatePolicyGroup(policyGroup.getId(), policyGroup);
+    }
+
+    /**
+     * Modifies a policy group.
+     * 
+     * <p>
+     * Update a group name.
+     * 
+     * **Example:** ``` curl -X PUT https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id} \ -H 'Authorization:
+     * Bearer [api_key]' \ -H 'content-type: application/json' \ -d '{"name": "TestGroup2"}' ```
+     * 
+     * @param id
+     *            The ID of the group.
+     * @param policyGroup
+     *            a policy group.
+     * @return an updated policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public PolicyGroup updatePolicyGroup(@NonNull String id,
+                                         @NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        checkNotNull(id, TAG_ID);
+        checkNotNull(policyGroup, TAG_POLICY_GROUP);
+        checkModelValidity(policyGroup, TAG_POLICY_GROUP);
+        final String finalId = id;
+        final PolicyGroup finalPolicyGroup = policyGroup;
+        return CloudCaller.call(this, "updatePolicyGroup()", PolicyGroupAdapter.getMapper(),
+                                new CloudRequest.CloudCall<GroupSummary>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<GroupSummary> call() {
+                                        return endpoints.getAccountPolicyGroupsApi()
+                                                        .updateGroupName(finalId,
+                                                                         PolicyGroupAdapter.reverseMapUpdateRequest(finalPolicyGroup));
+                                    }
+                                }, true);
+    }
+
+    /**
      * Modifies a subtenant api key.
-     *
+     * 
      * <p>
      * Update API key details.
-     *
+     * 
      * **Example:** ``` curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/api-keys/{apikey_id} \
      * -H 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \ -d '{"name": "TestApiKey25"}' ```
-     *
+     * 
      * @param accountId
      *            The ID of the account.
      * @param id
@@ -4928,7 +6488,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Modifies a subtenant api key.
-     *
+     * 
      * <p>
      * Similar to {@link #updateSubtenantApiKey(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKey)}
      * 
@@ -4947,14 +6507,227 @@ public class Accounts extends AbstractModule {
     }
 
     /**
+     * Modifies a subtenant identity provider.
+     * 
+     * <p>
+     * Similar to
+     * {@link #updateSubtenantIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProvider)}
+     * 
+     * @param accountId
+     *            The ID of the account the identity provider belongs to.
+     * @param id
+     *            Entity ID.
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return an updated subtenant identity provider
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           updateSubtenantIdentityProvider(@NonNull String accountId, @NonNull String id,
+                                           @NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        return updateSubtenantIdentityProvider(false, (OidcRequest) null, accountId, id, subtenantIdentityProvider);
+    }
+
+    /**
+     * Modifies a subtenant identity provider.
+     * 
+     * <p>
+     * Similar to
+     * {@link #updateSubtenantIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProvider)}
+     * 
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           updateSubtenantIdentityProvider(@NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        return updateSubtenantIdentityProvider(false, (OidcRequest) null, subtenantIdentityProvider);
+    }
+
+    /**
+     * Modifies a subtenant identity provider.
+     * 
+     * <p>
+     * Update an existing identity provider.
+     * 
+     * @param discovery
+     *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
+     *            mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint *
+     *            userinfo_endpoint * revocation_endpoint * jwks_uri * keys. Indicates that the OpenID Connect endpoints
+     *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
+     *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
+     *            jwks_uri * keys
+     * @param oidcAttributes
+     *            Represents OIDC specific attributes.
+     * @param accountId
+     *            The ID of the account the identity provider belongs to.
+     * @param id
+     *            Entity ID.
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return an updated subtenant identity provider
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           updateSubtenantIdentityProvider(@Nullable boolean discovery, @Nullable OidcRequest oidcAttributes,
+                                           @NonNull String accountId, @NonNull String id,
+                                           @NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        checkModelValidity(oidcAttributes, TAG_OIDC_ATTRIBUTES);
+        checkModelValidity(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        final boolean finalDiscovery = discovery;
+        final OidcRequest finalOidcAttributes = oidcAttributes;
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        final SubtenantIdentityProvider finalSubtenantIdentityProvider = subtenantIdentityProvider;
+        return CloudCaller.call(this, "updateSubtenantIdentityProvider()", SubtenantIdentityProviderAdapter.getMapper(),
+                                new CloudRequest.CloudCall<IdentityProviderInfo>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<IdentityProviderInfo> call() {
+                                        return endpoints.getTenantAccountsIdentityProvidersApi()
+                                                        .updateAccountIdentityProvider(finalAccountId, finalId,
+                                                                                       SubtenantIdentityProviderAdapter.reverseMapUpdateRequest(finalSubtenantIdentityProvider)
+                                                                                                                       .oidcAttributes(null),
+                                                                                       Boolean.valueOf(finalDiscovery));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Modifies a subtenant identity provider.
+     * 
+     * <p>
+     * Similar to
+     * {@link #updateSubtenantIdentityProvider(boolean, com.arm.mbed.cloud.sdk.accounts.model.OidcRequest, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantIdentityProvider)}
+     * 
+     * @param discovery
+     *            Indicates that the OpenID Connect endpoints and keys should be set using the OpenID Connect Discovery
+     *            mechanism. The following parameters are set automatically: * authorization_endpoint * token_endpoint *
+     *            userinfo_endpoint * revocation_endpoint * jwks_uri * keys. Indicates that the OpenID Connect endpoints
+     *            and keys should be set using the OpenID Connect Discovery mechanism. The following parameters are set
+     *            automatically: * authorization_endpoint * token_endpoint * userinfo_endpoint * revocation_endpoint *
+     *            jwks_uri * keys
+     * @param oidcAttributes
+     *            Represents OIDC specific attributes.
+     * @param subtenantIdentityProvider
+     *            a subtenant identity provider.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantIdentityProvider
+           updateSubtenantIdentityProvider(@Nullable boolean discovery, @Nullable OidcRequest oidcAttributes,
+                                           @NonNull SubtenantIdentityProvider subtenantIdentityProvider) throws MbedCloudException {
+        checkNotNull(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        checkModelValidity(oidcAttributes, TAG_OIDC_ATTRIBUTES);
+        checkModelValidity(subtenantIdentityProvider, TAG_SUBTENANT_IDENTITY_PROVIDER);
+        return updateSubtenantIdentityProvider(discovery, oidcAttributes, subtenantIdentityProvider.getAccountId(),
+                                               subtenantIdentityProvider.getId(), subtenantIdentityProvider);
+    }
+
+    /**
+     * Modifies a subtenant policy group.
+     * 
+     * <p>
+     * Update a group name.
+     * 
+     * **Example:** ``` curl -X PUT
+     * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/ \ -H 'Authorization:
+     * Bearer [api_key]' \ -H 'content-type: application/json' \ -d '{"name": "TestGroup2"}' ```
+     * 
+     * @param accountId
+     *            The ID of the account this group belongs to.
+     * @param id
+     *            The ID of the group.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return an updated subtenant policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantPolicyGroup
+           updateSubtenantPolicyGroup(@NonNull String accountId, @NonNull String id,
+                                      @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(accountId, TAG_ACCOUNT_ID);
+        checkNotNull(id, TAG_ID);
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        checkModelValidity(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        final String finalAccountId = accountId;
+        final String finalId = id;
+        final SubtenantPolicyGroup finalSubtenantPolicyGroup = subtenantPolicyGroup;
+        return CloudCaller.call(this, "updateSubtenantPolicyGroup()", SubtenantPolicyGroupAdapter.getMapper(),
+                                new CloudRequest.CloudCall<GroupSummary>() {
+                                    /**
+                                     * Makes the low level call to the Cloud.
+                                     * 
+                                     * @return Corresponding Retrofit2 Call object
+                                     */
+                                    @Override
+                                    public Call<GroupSummary> call() {
+                                        return endpoints.getTenantAccountsPolicyGroupsApi()
+                                                        .updateAccountGroupName(finalAccountId, finalId,
+                                                                                SubtenantPolicyGroupAdapter.reverseMapUpdateRequest(finalSubtenantPolicyGroup));
+                                    }
+                                }, true);
+    }
+
+    /**
+     * Modifies a subtenant policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link #updateSubtenantPolicyGroup(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    @Nullable
+    public SubtenantPolicyGroup
+           updateSubtenantPolicyGroup(@NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        checkNotNull(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        checkModelValidity(subtenantPolicyGroup, TAG_SUBTENANT_POLICY_GROUP);
+        return updateSubtenantPolicyGroup(subtenantPolicyGroup.getAccountId(), subtenantPolicyGroup.getId(),
+                                          subtenantPolicyGroup);
+    }
+
+    /**
      * Modifies a subtenant user.
-     *
+     * 
      * <p>
      * Update user details.
-     *
+     * 
      * **Example:** ``` curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id} \ -H
      * 'Authorization: Bearer [api_key]' \ -H 'content-type: application/json' \ -d '{"username": "myusername"}' ```
-     *
+     * 
      * @param accountId
      *            The ID of the account.
      * @param id
@@ -4994,7 +6767,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Modifies a subtenant user.
-     *
+     * 
      * <p>
      * Similar to {@link #updateSubtenantUser(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUser)}
      * 
@@ -5014,13 +6787,13 @@ public class Accounts extends AbstractModule {
 
     /**
      * Modifies a user.
-     *
+     * 
      * <p>
      * Update user details
-     *
+     * 
      * **Example:** ``` curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/{user_id} \ -H 'Authorization: Bearer
      * [api_key]' \ -H 'content-type: application/json' \ -d '{"username": "myusername"}' ```
-     *
+     * 
      * @param id
      *            The ID of the user.
      * @param user
@@ -5055,7 +6828,7 @@ public class Accounts extends AbstractModule {
 
     /**
      * Modifies a user.
-     *
+     * 
      * <p>
      * Similar to {@link #updateUser(String, com.arm.mbed.cloud.sdk.accounts.model.User)}
      * 
@@ -5075,14 +6848,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get the details of all user invitations.
-     *
-     *
+     * 
+     * 
      * <p>
      * Retrieve details of all active user invitations sent for new or existing users.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/user-invitations \ -H
      * 'Authorization: Bearer [api_key]' ``` This lists the user invitations of the subtenant account.
-     *
+     * 
      * @param id
      *            Account ID.
      * @param options
@@ -5121,8 +6894,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get the details of all user invitations.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #userInvitations(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions)}
@@ -5146,15 +6919,15 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
-     * List users of the group with details.
-     *
+     * List a group's users, with details.
+     * 
      * **Example:** ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -5207,14 +6980,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get the details of all users.
-     *
-     *
+     * 
+     * 
      * <p>
      * Retrieve details of all users.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users \ -H
      * 'Authorization: Bearer [api_key]' ``` This lists the users of the subtenant account.
-     *
+     * 
      * @param id
      *            Account ID.
      * @param emailEq
@@ -5265,8 +7038,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #users(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -5299,15 +7072,15 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
-     * List users of the group with details.
-     *
+     * List a group's users, with details.
+     * 
      * **Example:** ``` curl -X GET
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/policy-groups/{group_id}/users \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -5354,8 +7127,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get the details of all users.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #users(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
      * 
@@ -5383,8 +7156,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get the details of all users.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #users(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
      * 
@@ -5406,14 +7179,14 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Retrieve users of a group with details.
-     *
+     * 
      * **Example:** ``` curl -X GET https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group_id}/users \ -H
      * 'Authorization: Bearer [api_key]' ```
-     *
+     * 
      * @param id
      *            The ID of the group.
      * @param options
@@ -5454,8 +7227,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get the details of all users.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link #users(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -5478,8 +7251,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #users(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
      * 
@@ -5503,8 +7276,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #users(String, com.arm.mbed.cloud.sdk.accounts.model.UserListOptions)}
      * 
@@ -5527,15 +7300,15 @@ public class Accounts extends AbstractModule {
 
     /**
      * Validate the user email.
-     *
-     *
+     * 
+     * 
      * <p>
      * Validate user email.
-     *
+     * 
      * **Example:** ``` curl -X POST
      * https://api.us-east-1.mbedcloud.com/v3/accounts/{account_id}/users/{user_id}/validate-email \ -H 'Authorization:
      * Bearer [api_key]' ```
-     *
+     * 
      * @param accountId
      *            Account ID.
      * @param id
@@ -5564,8 +7337,8 @@ public class Accounts extends AbstractModule {
 
     /**
      * Validate the user email.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to {@link #validateEmail(String, String)}
      * 

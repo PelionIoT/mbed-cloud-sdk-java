@@ -115,7 +115,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -148,7 +148,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -173,7 +173,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -210,7 +210,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code tier}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#addEqualToTierFilter(String)}
      * 
@@ -247,7 +247,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#addEqualToStatusFilter(com.arm.mbed.cloud.sdk.accounts.model.AccountStatus)}
@@ -266,7 +266,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -299,7 +299,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#addInStatusesFilter(String)}
      * 
@@ -317,7 +317,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#addInStatusesFilter(java.util.List)}
      * 
@@ -335,7 +335,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#addInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.AccountStatus[])}
@@ -354,7 +354,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -387,7 +387,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#addNotInStatusesFilter(String)}
      * 
@@ -405,7 +405,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#addNotInStatusesFilter(java.util.List)}
@@ -424,7 +424,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code status}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#addNotInStatusesFilter(com.arm.mbed.cloud.sdk.accounts.model.AccountStatus[])}
@@ -462,7 +462,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code endMarket}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#addEqualToEndMarketFilter(String)}
      * 
@@ -499,7 +499,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Sets "a like" filter by {@code country}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.accounts.model.AccountListOptions#addLikeCountryFilter(String)}
      * 
@@ -517,7 +517,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -533,7 +533,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -548,7 +548,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -563,7 +563,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -594,7 +594,7 @@ public class AccountListOptions extends ListOptions {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()

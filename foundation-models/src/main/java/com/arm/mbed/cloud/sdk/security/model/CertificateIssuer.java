@@ -38,7 +38,7 @@ public class CertificateIssuer implements SdkModel {
     /**
      * General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be
      * empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-     *
+     * 
      */
     private Map<String, String> issuerAttributes;
 
@@ -46,7 +46,7 @@ public class CertificateIssuer implements SdkModel {
      * The type of the certificate issuer. - GLOBAL_SIGN: Certificates are issued by GlobalSign service. The users must
      * provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by CFSSL authenticated
      * signing service. The users must provide their own CFSSL host_url and credentials.
-     *
+     * 
      */
     @Required
     private CertificateIssuerType issuerType;
@@ -59,7 +59,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -74,12 +74,12 @@ public class CertificateIssuer implements SdkModel {
      * @param issuerAttributes
      *            General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the
      *            value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-     *
+     * 
      * @param issuerType
      *            The type of the certificate issuer. - GLOBAL_SIGN: Certificates are issued by GlobalSign service. The
      *            users must provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by
      *            CFSSL authenticated signing service. The users must provide their own CFSSL host_url and credentials.
-     *
+     * 
      * @param name
      *            Certificate issuer name, unique per account.
      */
@@ -97,7 +97,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -126,11 +126,11 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on object identifier.
      * <p>
-     *
+     * 
      * @param id
      *            The ID of the certificate issuer.
      */
@@ -141,7 +141,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -158,16 +158,16 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on required fields.
      * <p>
-     *
+     * 
      * @param issuerType
      *            The type of the certificate issuer. - GLOBAL_SIGN: Certificates are issued by GlobalSign service. The
      *            users must provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by
      *            CFSSL authenticated signing service. The users must provide their own CFSSL host_url and credentials.
-     *
+     * 
      * @param name
      *            Certificate issuer name, unique per account.
      */
@@ -195,7 +195,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Sets general description for the certificate issuer.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -239,7 +239,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Sets the id of the certificate issuer.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -268,7 +268,7 @@ public class CertificateIssuer implements SdkModel {
      * @param issuerAttributes
      *            General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the
      *            value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.
-     *
+     * 
      */
     public void setIssuerAttributes(Map<String, String> issuerAttributes) {
         this.issuerAttributes = issuerAttributes;
@@ -294,7 +294,7 @@ public class CertificateIssuer implements SdkModel {
      *            The type of the certificate issuer. - GLOBAL_SIGN: Certificates are issued by GlobalSign service. The
      *            users must provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by
      *            CFSSL authenticated signing service. The users must provide their own CFSSL host_url and credentials.
-     *
+     * 
      */
     @Required
     public void setIssuerType(CertificateIssuerType issuerType) {
@@ -305,7 +305,7 @@ public class CertificateIssuer implements SdkModel {
      * Sets the type of the certificate issuer. - global_sign: certificates are issued by globalsign service. the users
      * must provide their own globalsign account credentials. - cfssl_auth: certificates are issued by cfssl
      * authenticated signing service. the users must provide their own cfssl host_url and credentials.
-     *
+     * 
      * <p>
      * Similar to {@link #setIssuerType(com.arm.mbed.cloud.sdk.security.model.CertificateIssuerType)}
      * 
@@ -313,7 +313,7 @@ public class CertificateIssuer implements SdkModel {
      *            The type of the certificate issuer. - GLOBAL_SIGN: Certificates are issued by GlobalSign service. The
      *            users must provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by
      *            CFSSL authenticated signing service. The users must provide their own CFSSL host_url and credentials.
-     *
+     * 
      */
     @Internal
     @Required
@@ -342,7 +342,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Sets certificate issuer name, unique per account.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 50} to be valid
      * 
@@ -366,7 +366,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -380,7 +380,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -401,7 +401,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -415,7 +415,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -481,7 +481,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()
@@ -494,7 +494,7 @@ public class CertificateIssuer implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

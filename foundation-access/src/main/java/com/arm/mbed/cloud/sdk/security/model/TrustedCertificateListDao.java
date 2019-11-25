@@ -71,7 +71,7 @@ public class TrustedCertificateListDao extends AbstractModelListDao<TrustedCerti
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -166,7 +166,7 @@ public class TrustedCertificateListDao extends AbstractModelListDao<TrustedCerti
 
     /**
      * Lists trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Security#listTrustedCertificates(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateListOptions)}

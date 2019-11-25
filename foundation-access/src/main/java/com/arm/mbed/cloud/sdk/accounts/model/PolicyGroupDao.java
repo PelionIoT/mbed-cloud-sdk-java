@@ -12,7 +12,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
+import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 
@@ -24,7 +24,7 @@ import com.arm.mbed.cloud.sdk.common.listing.Paginator;
  *      Object</a>
  */
 @Preamble(description = "Data Access Object (DAO) for policy groups.")
-public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements ReadDao<PolicyGroup> {
+public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements CrudDao<PolicyGroup> {
     /**
      * Constructor.
      * 
@@ -73,7 +73,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Creates a {@link Paginator} for the list of api keys matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -92,7 +92,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Creates a {@link Paginator} for the list of api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
@@ -112,7 +112,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Creates a {@link Paginator} for the list of api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
@@ -132,7 +132,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Creates a {@link Paginator} for the list of users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, com.arm.mbed.cloud.sdk.accounts.model.UserListOptions)}
@@ -151,7 +151,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Creates a {@link Paginator} for the list of users matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -170,7 +170,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Creates a {@link Paginator} for the list of users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(com.arm.mbed.cloud.sdk.accounts.model.UserListOptions, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
@@ -190,8 +190,8 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Get the API keys of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -210,8 +210,8 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Get the API keys of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#apiKeys(com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
@@ -231,8 +231,8 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Get the API keys of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#apiKeys(String, com.arm.mbed.cloud.sdk.accounts.model.ApiKeyListOptions)}
@@ -252,7 +252,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -266,6 +266,130 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
         } catch (MbedCloudException exception) {
             return null;
         }
+    }
+
+    /**
+     * Adds a policy group.
+     * 
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupDao#create(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @return an added policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public PolicyGroup create() throws MbedCloudException {
+        return create(getModel());
+    }
+
+    /**
+     * Adds a policy group.
+     * 
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupDao#create(java.lang.Object, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @param members
+     *            Represents arrays of user and API key IDs.
+     * @return an added policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public PolicyGroup create(@Nullable Object members) throws MbedCloudException {
+        return create(members, getModel());
+    }
+
+    /**
+     * Adds a policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createPolicyGroup(java.lang.Object, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @param members
+     *            Represents arrays of user and API key IDs.
+     * @param policyGroup
+     *            a policy group.
+     * @return an added policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public PolicyGroup create(@Nullable Object members, @NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createPolicyGroup(members, policyGroup));
+    }
+
+    /**
+     * Adds a policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createPolicyGroup(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @param policyGroup
+     *            a policy group.
+     * @return an added policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public PolicyGroup create(@NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createPolicyGroup(policyGroup));
+    }
+
+    /**
+     * Deletes a policy group.
+     * 
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupDao#delete(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public void delete() throws MbedCloudException {
+        delete(getModel());
+    }
+
+    /**
+     * Deletes a policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#deletePolicyGroup(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @param policyGroup
+     *            a policy group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public void delete(@NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        ((Accounts) getModuleOrThrow()).deletePolicyGroup(policyGroup);
+    }
+
+    /**
+     * Deletes a policy group.
+     * 
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deletePolicyGroup(String)}
+     * 
+     * @param id
+     *            The ID of the group to delete.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public void delete(@NonNull String id) throws MbedCloudException {
+        ((Accounts) getModuleOrThrow()).deletePolicyGroup(id);
     }
 
     /**
@@ -320,7 +444,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Gets a policy group.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -338,7 +462,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Gets a policy group.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#readPolicyGroup(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
@@ -355,7 +479,7 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Gets a policy group.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readPolicyGroup(String)}
      * 
@@ -371,9 +495,83 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
     }
 
     /**
+     * Modifies a policy group.
+     * 
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupDao#update(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public PolicyGroup update() throws MbedCloudException {
+        return update(getModel());
+    }
+
+    /**
+     * Modifies a policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#updatePolicyGroup(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @param policyGroup
+     *            a policy group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public PolicyGroup update(@NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updatePolicyGroup(policyGroup));
+    }
+
+    /**
+     * Modifies a policy group.
+     * 
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupDao#update(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @param id
+     *            The ID of the group.
+     * @return an updated policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public PolicyGroup update(@NonNull String id) throws MbedCloudException {
+        return update(id, getModel());
+    }
+
+    /**
+     * Modifies a policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#updatePolicyGroup(String, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}
+     * 
+     * @param id
+     *            The ID of the group.
+     * @param policyGroup
+     *            a policy group.
+     * @return an updated policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public PolicyGroup update(@NonNull String id, @NonNull PolicyGroup policyGroup) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updatePolicyGroup(id, policyGroup));
+    }
+
+    /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#users(String, com.arm.mbed.cloud.sdk.accounts.model.UserListOptions)}
@@ -392,8 +590,8 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -412,8 +610,8 @@ public class PolicyGroupDao extends AbstractModelDao<PolicyGroup> implements Rea
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#users(com.arm.mbed.cloud.sdk.accounts.model.UserListOptions, com.arm.mbed.cloud.sdk.accounts.model.PolicyGroup)}

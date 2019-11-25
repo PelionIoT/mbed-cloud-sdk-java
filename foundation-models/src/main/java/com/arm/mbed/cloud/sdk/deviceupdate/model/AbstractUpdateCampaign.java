@@ -3,17 +3,20 @@
 // Code customisation should happen in the child class [UpdateCampaign]
 package com.arm.mbed.cloud.sdk.deviceupdate.model;
 
+import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Model for an update campaign.
  */
 @Preamble(description = "Model for an update campaign.")
-@SuppressWarnings("PMD.CyclomaticComplexity")
+@SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.AvoidDuplicateLiterals" })
 public abstract class AbstractUpdateCampaign implements SdkModel {
     /**
      * Serialisation Id.
@@ -21,12 +24,45 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     private static final long serialVersionUID = -131142121920181L;
 
     /**
+     * The time the campaign entered the active state.
+     */
+    protected final Date activeAt;
+
+    /**
+     * Flag indicating whether approval is needed to start the campaign.
+     */
+    protected boolean approvalRequired;
+
+    /**
+     * The time the campaign was archived.
+     */
+    protected final Date archivedAt;
+
+    /**
+     * Flag indicating whether the campaign should be auto-stopped on reaching a threshold.
+     */
+    protected boolean autostop;
+
+    /**
      * Text description of why a campaign failed to start or why a campaign stopped.
      */
     protected final String autostopReason;
 
     /**
-     * The time the update campaign was created.
+     * Percent of successful device updates to auto stop the campaign.
+     */
+    protected double autostopSuccessPercent;
+
+    /**
+     * How the campaign adds devices. A `one-shot` campaign does not add new devices after it has started. A
+     * `continuous` campaign means that devices may be added to the campaign after it has started. The default is
+     * `one-shot`.
+     */
+    @DefaultValue("one-shot")
+    protected UpdateCampaignStrategy campaignStrategy;
+
+    /**
+     * The time the entity was created.
      */
     protected final Date createdAt;
 
@@ -42,7 +78,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     protected String deviceFilter;
 
     /**
-     * The campaign finish timestamp.
+     * The time the campaign finished.
      */
     protected final Date finished;
 
@@ -57,27 +93,42 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     protected String name;
 
     /**
-     * The current phase of the campaign.
+     * The phase of the campaign.
      */
-    protected final String phase;
+    protected final UpdateCampaignPhase phase;
 
     /**
-     * value.
+     * The ID of the manifest that will be sent to the device as part of the campaign.
      */
     protected String rootManifestId;
 
     /**
-     * value.
+     * The URL for the manifest that will be sent to the device as part of the campaign.
      */
     protected final String rootManifestUrl;
 
     /**
-     * value.
+     * The time the campaign was started.
      */
     protected final Date startedAt;
 
     /**
-     * The time the object was updated.
+     * The time the campaign will be started.
+     */
+    protected final Date startingAt;
+
+    /**
+     * The time the campaign was stopped.
+     */
+    protected final Date stoppedAt;
+
+    /**
+     * The time the campaign will be stopped.
+     */
+    protected final Date stoppingAt;
+
+    /**
+     * The time the entity was updated.
      */
     protected final Date updatedAt;
 
@@ -85,68 +136,101 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
      * The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has
      * elapsed.
      */
-    protected Date when;
+    protected final Date when;
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
      * Note: Should not be used. Use {@link #AbstractUpdateCampaign()} instead.
      * 
+     * @param activeAt
+     *            The time the campaign entered the active state.
+     * @param approvalRequired
+     *            Flag indicating whether approval is needed to start the campaign.
+     * @param archivedAt
+     *            The time the campaign was archived.
+     * @param autostop
+     *            Flag indicating whether the campaign should be auto-stopped on reaching a threshold.
      * @param autostopReason
      *            Text description of why a campaign failed to start or why a campaign stopped.
+     * @param autostopSuccessPercent
+     *            Percent of successful device updates to auto stop the campaign.
+     * @param campaignStrategy
+     *            How the campaign adds devices. A `one-shot` campaign does not add new devices after it has started. A
+     *            `continuous` campaign means that devices may be added to the campaign after it has started. The
+     *            default is `one-shot`.
      * @param createdAt
-     *            The time the update campaign was created.
+     *            The time the entity was created.
      * @param description
      *            An optional description of the campaign.
      * @param deviceFilter
      *            The filter for the devices the campaign is targeting at.
      * @param finished
-     *            The campaign finish timestamp.
+     *            The time the campaign finished.
      * @param id
      *            The campaign ID.
      * @param name
      *            The campaign name.
      * @param phase
-     *            The current phase of the campaign.
+     *            The phase of the campaign.
      * @param rootManifestId
-     *            value.
+     *            The ID of the manifest that will be sent to the device as part of the campaign.
      * @param rootManifestUrl
-     *            value.
+     *            The URL for the manifest that will be sent to the device as part of the campaign.
      * @param startedAt
-     *            value.
+     *            The time the campaign was started.
+     * @param startingAt
+     *            The time the campaign will be started.
+     * @param stoppedAt
+     *            The time the campaign was stopped.
+     * @param stoppingAt
+     *            The time the campaign will be stopped.
      * @param updatedAt
-     *            The time the object was updated.
+     *            The time the entity was updated.
      * @param when
      *            The scheduled start time for the campaign. The campaign will start within 1 minute when then start
      *            time has elapsed.
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public AbstractUpdateCampaign(String autostopReason, Date createdAt, String description, String deviceFilter,
-                                  Date finished, String id, String name, String phase, String rootManifestId,
-                                  String rootManifestUrl, Date startedAt, Date updatedAt, Date when) {
+    public AbstractUpdateCampaign(Date activeAt, boolean approvalRequired, Date archivedAt, boolean autostop,
+                                  String autostopReason, double autostopSuccessPercent,
+                                  @DefaultValue("one-shot") UpdateCampaignStrategy campaignStrategy, Date createdAt,
+                                  String description, String deviceFilter, Date finished, String id, String name,
+                                  UpdateCampaignPhase phase, String rootManifestId, String rootManifestUrl,
+                                  Date startedAt, Date startingAt, Date stoppedAt, Date stoppingAt, Date updatedAt,
+                                  Date when) {
         super();
+        this.activeAt = activeAt;
+        this.archivedAt = archivedAt;
         this.autostopReason = autostopReason;
         this.createdAt = createdAt;
         this.finished = finished;
         this.phase = phase;
         this.rootManifestUrl = rootManifestUrl;
         this.startedAt = startedAt;
+        this.startingAt = startingAt;
+        this.stoppedAt = stoppedAt;
+        this.stoppingAt = stoppingAt;
         this.updatedAt = updatedAt;
+        this.when = when;
+        setApprovalRequired(approvalRequired);
+        setAutostop(autostop);
+        setAutostopSuccessPercent(autostopSuccessPercent);
+        setCampaignStrategy(campaignStrategy);
         setDescription(description);
         setDeviceFilter(deviceFilter);
         setId(id);
         setName(name);
         setRootManifestId(rootManifestId);
-        setWhen(when);
     }
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -157,17 +241,27 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
      */
     @Internal
     public AbstractUpdateCampaign(AbstractUpdateCampaign abstractUpdateCampaign) {
-        this(abstractUpdateCampaign == null ? (String) null : abstractUpdateCampaign.autostopReason,
+        this(abstractUpdateCampaign == null ? new Date() : abstractUpdateCampaign.activeAt,
+             abstractUpdateCampaign != null && abstractUpdateCampaign.approvalRequired,
+             abstractUpdateCampaign == null ? new Date() : abstractUpdateCampaign.archivedAt,
+             abstractUpdateCampaign != null && abstractUpdateCampaign.autostop,
+             abstractUpdateCampaign == null ? (String) null : abstractUpdateCampaign.autostopReason,
+             abstractUpdateCampaign == null ? 0.0 : abstractUpdateCampaign.autostopSuccessPercent,
+             abstractUpdateCampaign == null ? UpdateCampaignStrategy.getValue("one-shot")
+                                            : abstractUpdateCampaign.campaignStrategy,
              abstractUpdateCampaign == null ? new Date() : abstractUpdateCampaign.createdAt,
              abstractUpdateCampaign == null ? (String) null : abstractUpdateCampaign.description,
              abstractUpdateCampaign == null ? (String) null : abstractUpdateCampaign.deviceFilter,
              abstractUpdateCampaign == null ? new Date() : abstractUpdateCampaign.finished,
              abstractUpdateCampaign == null ? (String) null : abstractUpdateCampaign.id,
              abstractUpdateCampaign == null ? (String) null : abstractUpdateCampaign.name,
-             abstractUpdateCampaign == null ? (String) null : abstractUpdateCampaign.phase,
+             abstractUpdateCampaign == null ? UpdateCampaignPhase.getDefault() : abstractUpdateCampaign.phase,
              abstractUpdateCampaign == null ? (String) null : abstractUpdateCampaign.rootManifestId,
              abstractUpdateCampaign == null ? (String) null : abstractUpdateCampaign.rootManifestUrl,
              abstractUpdateCampaign == null ? new Date() : abstractUpdateCampaign.startedAt,
+             abstractUpdateCampaign == null ? new Date() : abstractUpdateCampaign.startingAt,
+             abstractUpdateCampaign == null ? new Date() : abstractUpdateCampaign.stoppedAt,
+             abstractUpdateCampaign == null ? new Date() : abstractUpdateCampaign.stoppingAt,
              abstractUpdateCampaign == null ? new Date() : abstractUpdateCampaign.updatedAt,
              abstractUpdateCampaign == null ? new Date() : abstractUpdateCampaign.when);
     }
@@ -176,17 +270,19 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
      * Constructor.
      */
     public AbstractUpdateCampaign() {
-        this((String) null, new Date(), (String) null, (String) null, new Date(), (String) null, (String) null,
-             (String) null, (String) null, (String) null, new Date(), new Date(), new Date());
+        this(new Date(), false, new Date(), false, (String) null, 0.0, UpdateCampaignStrategy.getValue("one-shot"),
+             new Date(), (String) null, (String) null, new Date(), (String) null, (String) null,
+             UpdateCampaignPhase.getDefault(), (String) null, (String) null, new Date(), new Date(), new Date(),
+             new Date(), new Date(), new Date());
     }
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on object identifier.
      * <p>
-     *
+     * 
      * @param id
      *            The campaign ID.
      */
@@ -197,32 +293,104 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #AbstractUpdateCampaign()} instead.
      * 
+     * @param activeAt
+     *            The time the campaign entered the active state.
+     * @param archivedAt
+     *            The time the campaign was archived.
      * @param autostopReason
      *            Text description of why a campaign failed to start or why a campaign stopped.
      * @param createdAt
-     *            The time the update campaign was created.
+     *            The time the entity was created.
      * @param finished
-     *            The campaign finish timestamp.
+     *            The time the campaign finished.
      * @param phase
-     *            The current phase of the campaign.
+     *            The phase of the campaign.
      * @param rootManifestUrl
-     *            value.
+     *            The URL for the manifest that will be sent to the device as part of the campaign.
      * @param startedAt
-     *            value.
+     *            The time the campaign was started.
+     * @param startingAt
+     *            The time the campaign will be started.
+     * @param stoppedAt
+     *            The time the campaign was stopped.
+     * @param stoppingAt
+     *            The time the campaign will be stopped.
      * @param updatedAt
-     *            The time the object was updated.
+     *            The time the entity was updated.
+     * @param when
+     *            The scheduled start time for the campaign. The campaign will start within 1 minute when then start
+     *            time has elapsed.
      */
     @Internal
-    public AbstractUpdateCampaign(String autostopReason, Date createdAt, Date finished, String phase,
-                                  String rootManifestUrl, Date startedAt, Date updatedAt) {
-        this(autostopReason, createdAt, (String) null, (String) null, finished, (String) null, (String) null, phase,
-             (String) null, rootManifestUrl, startedAt, updatedAt, new Date());
+    @SuppressWarnings("PMD.CyclomaticComplexity")
+    public AbstractUpdateCampaign(Date activeAt, Date archivedAt, String autostopReason, Date createdAt, Date finished,
+                                  UpdateCampaignPhase phase, String rootManifestUrl, Date startedAt, Date startingAt,
+                                  Date stoppedAt, Date stoppingAt, Date updatedAt, Date when) {
+        this(activeAt, false, archivedAt, false, autostopReason, 0.0, UpdateCampaignStrategy.getValue("one-shot"),
+             createdAt, (String) null, (String) null, finished, (String) null, (String) null, phase, (String) null,
+             rootManifestUrl, startedAt, startingAt, stoppedAt, stoppingAt, updatedAt, when);
+    }
+
+    /**
+     * Gets the time the campaign entered the active state.
+     * 
+     * @return activeAt
+     */
+    public Date getActiveAt() {
+        return activeAt;
+    }
+
+    /**
+     * Gets flag indicating whether approval is needed to start the campaign.
+     * 
+     * @return approvalRequired
+     */
+    public boolean isApprovalRequired() {
+        return approvalRequired;
+    }
+
+    /**
+     * Sets flag indicating whether approval is needed to start the campaign.
+     * 
+     * @param approvalRequired
+     *            Flag indicating whether approval is needed to start the campaign.
+     */
+    public void setApprovalRequired(boolean approvalRequired) {
+        this.approvalRequired = approvalRequired;
+    }
+
+    /**
+     * Gets the time the campaign was archived.
+     * 
+     * @return archivedAt
+     */
+    public Date getArchivedAt() {
+        return archivedAt;
+    }
+
+    /**
+     * Gets flag indicating whether the campaign should be auto-stopped on reaching a threshold.
+     * 
+     * @return autostop
+     */
+    public boolean isAutostop() {
+        return autostop;
+    }
+
+    /**
+     * Sets flag indicating whether the campaign should be auto-stopped on reaching a threshold.
+     * 
+     * @param autostop
+     *            Flag indicating whether the campaign should be auto-stopped on reaching a threshold.
+     */
+    public void setAutostop(boolean autostop) {
+        this.autostop = autostop;
     }
 
     /**
@@ -235,7 +403,69 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     }
 
     /**
-     * Gets the time the update campaign was created.
+     * Gets percent of successful device updates to auto stop the campaign.
+     * 
+     * @return autostopSuccessPercent
+     */
+    public double getAutostopSuccessPercent() {
+        return autostopSuccessPercent;
+    }
+
+    /**
+     * Sets percent of successful device updates to auto stop the campaign.
+     * 
+     * @param autostopSuccessPercent
+     *            Percent of successful device updates to auto stop the campaign.
+     */
+    public void setAutostopSuccessPercent(double autostopSuccessPercent) {
+        this.autostopSuccessPercent = autostopSuccessPercent;
+    }
+
+    /**
+     * Gets how the campaign adds devices. a `one-shot` campaign does not add new devices after it has started. a
+     * `continuous` campaign means that devices may be added to the campaign after it has started. the default is
+     * `one-shot`.
+     * 
+     * @return campaignStrategy
+     */
+    public UpdateCampaignStrategy getCampaignStrategy() {
+        return campaignStrategy;
+    }
+
+    /**
+     * Sets how the campaign adds devices. a `one-shot` campaign does not add new devices after it has started. a
+     * `continuous` campaign means that devices may be added to the campaign after it has started. the default is
+     * `one-shot`.
+     * 
+     * @param campaignStrategy
+     *            How the campaign adds devices. A `one-shot` campaign does not add new devices after it has started. A
+     *            `continuous` campaign means that devices may be added to the campaign after it has started. The
+     *            default is `one-shot`.
+     */
+    public void setCampaignStrategy(@DefaultValue("one-shot") UpdateCampaignStrategy campaignStrategy) {
+        this.campaignStrategy = campaignStrategy;
+    }
+
+    /**
+     * Sets how the campaign adds devices. a `one-shot` campaign does not add new devices after it has started. a
+     * `continuous` campaign means that devices may be added to the campaign after it has started. the default is
+     * `one-shot`.
+     * 
+     * <p>
+     * Similar to {@link #setCampaignStrategy(com.arm.mbed.cloud.sdk.deviceupdate.model.UpdateCampaignStrategy)}
+     * 
+     * @param campaignStrategy
+     *            How the campaign adds devices. A `one-shot` campaign does not add new devices after it has started. A
+     *            `continuous` campaign means that devices may be added to the campaign after it has started. The
+     *            default is `one-shot`.
+     */
+    @Internal
+    public void setCampaignStrategy(@DefaultValue("one-shot") String campaignStrategy) {
+        this.campaignStrategy = UpdateCampaignStrategy.getValue(campaignStrategy);
+    }
+
+    /**
+     * Gets the time the entity was created.
      * 
      * @return createdAt
      */
@@ -254,7 +484,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
 
     /**
      * Sets an optional description of the campaign.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 2000} to be valid
      * 
@@ -306,7 +536,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     }
 
     /**
-     * Gets the campaign finish timestamp.
+     * Gets the time the campaign finished.
      * 
      * @return finished
      */
@@ -337,7 +567,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
 
     /**
      * Sets the campaign id.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * 
@@ -360,7 +590,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
 
     /**
      * Sets the campaign name.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 128} to be valid
      * 
@@ -382,16 +612,16 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     }
 
     /**
-     * Gets the current phase of the campaign.
+     * Gets the phase of the campaign.
      * 
      * @return phase
      */
-    public String getPhase() {
+    public UpdateCampaignPhase getPhase() {
         return phase;
     }
 
     /**
-     * Gets value.
+     * Gets the id of the manifest that will be sent to the device as part of the campaign.
      * 
      * @return rootManifestId
      */
@@ -400,17 +630,17 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     }
 
     /**
-     * Sets value.
+     * Sets the id of the manifest that will be sent to the device as part of the campaign.
      * 
      * @param rootManifestId
-     *            value.
+     *            The ID of the manifest that will be sent to the device as part of the campaign.
      */
     public void setRootManifestId(String rootManifestId) {
         this.rootManifestId = rootManifestId;
     }
 
     /**
-     * Gets value.
+     * Gets the url for the manifest that will be sent to the device as part of the campaign.
      * 
      * @return rootManifestUrl
      */
@@ -419,7 +649,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     }
 
     /**
-     * Gets value.
+     * Gets the time the campaign was started.
      * 
      * @return startedAt
      */
@@ -428,7 +658,34 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     }
 
     /**
-     * Gets the time the object was updated.
+     * Gets the time the campaign will be started.
+     * 
+     * @return startingAt
+     */
+    public Date getStartingAt() {
+        return startingAt;
+    }
+
+    /**
+     * Gets the time the campaign was stopped.
+     * 
+     * @return stoppedAt
+     */
+    public Date getStoppedAt() {
+        return stoppedAt;
+    }
+
+    /**
+     * Gets the time the campaign will be stopped.
+     * 
+     * @return stoppingAt
+     */
+    public Date getStoppingAt() {
+        return stoppingAt;
+    }
+
+    /**
+     * Gets the time the entity was updated.
      * 
      * @return updatedAt
      */
@@ -447,20 +704,8 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     }
 
     /**
-     * Sets the scheduled start time for the campaign. the campaign will start within 1 minute when then start time has
-     * elapsed.
-     * 
-     * @param when
-     *            The scheduled start time for the campaign. The campaign will start within 1 minute when then start
-     *            time has elapsed.
-     */
-    public void setWhen(Date when) {
-        this.when = when;
-    }
-
-    /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -474,7 +719,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -485,7 +730,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -493,16 +738,19 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
      */
     @Override
     public String toString() {
-        return "AbstractUpdateCampaign [autostopReason=" + autostopReason + ", createdAt=" + createdAt
-               + ", description=" + description + ", deviceFilter=" + deviceFilter + ", finished=" + finished + ", id="
-               + id + ", name=" + name + ", phase=" + phase + ", rootManifestId=" + rootManifestId
-               + ", rootManifestUrl=" + rootManifestUrl + ", startedAt=" + startedAt + ", updatedAt=" + updatedAt
+        return "AbstractUpdateCampaign [activeAt=" + activeAt + ", approvalRequired=" + approvalRequired
+               + ", archivedAt=" + archivedAt + ", autostop=" + autostop + ", autostopReason=" + autostopReason
+               + ", autostopSuccessPercent=" + autostopSuccessPercent + ", campaignStrategy=" + campaignStrategy
+               + ", createdAt=" + createdAt + ", description=" + description + ", deviceFilter=" + deviceFilter
+               + ", finished=" + finished + ", id=" + id + ", name=" + name + ", phase=" + phase + ", rootManifestId="
+               + rootManifestId + ", rootManifestUrl=" + rootManifestUrl + ", startedAt=" + startedAt + ", startingAt="
+               + startingAt + ", stoppedAt=" + stoppedAt + ", stoppingAt=" + stoppingAt + ", updatedAt=" + updatedAt
                + ", when=" + when + "]";
     }
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -512,7 +760,13 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((activeAt == null) ? 0 : activeAt.hashCode());
+        result = prime * result + Objects.hashCode(Boolean.valueOf(approvalRequired));
+        result = prime * result + ((archivedAt == null) ? 0 : archivedAt.hashCode());
+        result = prime * result + Objects.hashCode(Boolean.valueOf(autostop));
         result = prime * result + ((autostopReason == null) ? 0 : autostopReason.hashCode());
+        result = prime * result + Objects.hashCode(BigDecimal.valueOf(autostopSuccessPercent));
+        result = prime * result + ((campaignStrategy == null) ? 0 : campaignStrategy.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((deviceFilter == null) ? 0 : deviceFilter.hashCode());
@@ -523,6 +777,9 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
         result = prime * result + ((rootManifestId == null) ? 0 : rootManifestId.hashCode());
         result = prime * result + ((rootManifestUrl == null) ? 0 : rootManifestUrl.hashCode());
         result = prime * result + ((startedAt == null) ? 0 : startedAt.hashCode());
+        result = prime * result + ((startingAt == null) ? 0 : startingAt.hashCode());
+        result = prime * result + ((stoppedAt == null) ? 0 : stoppedAt.hashCode());
+        result = prime * result + ((stoppingAt == null) ? 0 : stoppingAt.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
         result = prime * result + ((when == null) ? 0 : when.hashCode());
         return result;
@@ -530,7 +787,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -554,11 +811,37 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
         if (!other.canEqual(this)) {
             return false;
         }
+        if (activeAt == null) {
+            if (other.activeAt != null) {
+                return false;
+            }
+        } else if (!activeAt.equals(other.activeAt)) {
+            return false;
+        }
+        if (approvalRequired != other.approvalRequired) {
+            return false;
+        }
+        if (archivedAt == null) {
+            if (other.archivedAt != null) {
+                return false;
+            }
+        } else if (!archivedAt.equals(other.archivedAt)) {
+            return false;
+        }
+        if (autostop != other.autostop) {
+            return false;
+        }
         if (autostopReason == null) {
             if (other.autostopReason != null) {
                 return false;
             }
         } else if (!autostopReason.equals(other.autostopReason)) {
+            return false;
+        }
+        if (autostopSuccessPercent != other.autostopSuccessPercent) {
+            return false;
+        }
+        if (campaignStrategy != other.campaignStrategy) {
             return false;
         }
         if (createdAt == null) {
@@ -603,11 +886,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
         } else if (!name.equals(other.name)) {
             return false;
         }
-        if (phase == null) {
-            if (other.phase != null) {
-                return false;
-            }
-        } else if (!phase.equals(other.phase)) {
+        if (phase != other.phase) {
             return false;
         }
         if (rootManifestId == null) {
@@ -631,6 +910,27 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
         } else if (!startedAt.equals(other.startedAt)) {
             return false;
         }
+        if (startingAt == null) {
+            if (other.startingAt != null) {
+                return false;
+            }
+        } else if (!startingAt.equals(other.startingAt)) {
+            return false;
+        }
+        if (stoppedAt == null) {
+            if (other.stoppedAt != null) {
+                return false;
+            }
+        } else if (!stoppedAt.equals(other.stoppedAt)) {
+            return false;
+        }
+        if (stoppingAt == null) {
+            if (other.stoppingAt != null) {
+                return false;
+            }
+        } else if (!stoppingAt.equals(other.stoppingAt)) {
+            return false;
+        }
         if (updatedAt == null) {
             if (other.updatedAt != null) {
                 return false;
@@ -650,7 +950,7 @@ public abstract class AbstractUpdateCampaign implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()

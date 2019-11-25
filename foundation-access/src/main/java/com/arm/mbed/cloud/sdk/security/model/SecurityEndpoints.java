@@ -170,7 +170,7 @@ public class SecurityEndpoints extends AbstractEndpoints {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

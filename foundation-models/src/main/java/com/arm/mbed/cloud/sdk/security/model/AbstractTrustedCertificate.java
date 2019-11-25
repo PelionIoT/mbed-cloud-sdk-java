@@ -111,7 +111,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -181,7 +181,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -224,11 +224,11 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on object identifier.
      * <p>
-     *
+     * 
      * @param id
      *            Entity ID.
      */
@@ -239,7 +239,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -278,11 +278,11 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Constructor.
-     *
+     * 
      * <p>
      * Constructor based on required fields.
      * <p>
-     *
+     * 
      * @param certificate
      *            X509.v3 trusted certificate in PEM format.
      * @param name
@@ -364,7 +364,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Sets human readable description of this certificate.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 500} to be valid
      * 
@@ -425,7 +425,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Sets entity id.
-     *
+     * 
      * <p>
      * Note: the length of the string has to match {@code /[a-f0-9]{32}/} to be valid
      * 
@@ -439,7 +439,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Sets entity id.
-     *
+     * 
      * <p>
      * Similar to {@link #setId(String)}
      * <p>
@@ -483,7 +483,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Sets certificate name.
-     *
+     * 
      * <p>
      * Note: the length of the string has to be less than or equal to {@code 100} to be valid
      * 
@@ -536,7 +536,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Sets service name where the certificate is used.
-     *
+     * 
      * <p>
      * Similar to {@link #setService(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService)}
      * 
@@ -580,7 +580,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Sets status of the certificate.
-     *
+     * 
      * <p>
      * Similar to {@link #setStatus(com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus)}
      * 
@@ -621,7 +621,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -635,7 +635,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -646,7 +646,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -664,7 +664,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
@@ -696,7 +696,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -824,7 +824,7 @@ public abstract class AbstractTrustedCertificate implements SdkModel {
 
     /**
      * Checks whether the model is valid or not.
-     *
+     * 
      * <p>
      * 
      * @see SdkModel#isValid()

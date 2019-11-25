@@ -75,7 +75,7 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
 
     /**
      * Deletes a dark theme color.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -92,7 +92,7 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
 
     /**
      * Deletes a dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#deleteDarkThemeColor(com.arm.mbed.cloud.sdk.branding.model.DarkThemeColorReference)}
@@ -108,7 +108,7 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
 
     /**
      * Deletes a dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#deleteDarkThemeColor(com.arm.mbed.cloud.sdk.branding.model.DarkThemeColor)}
@@ -175,7 +175,7 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
 
     /**
      * Gets a dark theme color.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -193,7 +193,7 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
 
     /**
      * Gets a dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#readDarkThemeColor(com.arm.mbed.cloud.sdk.branding.model.DarkThemeColorReference)}
@@ -210,7 +210,7 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
 
     /**
      * Gets a dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#readDarkThemeColor(com.arm.mbed.cloud.sdk.branding.model.DarkThemeColor)}
@@ -227,7 +227,7 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
 
     /**
      * Modifies a dark theme color.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -245,7 +245,7 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
 
     /**
      * Modifies a dark theme color.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -264,7 +264,7 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
 
     /**
      * Modifies a dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#updateDarkThemeColor(com.arm.mbed.cloud.sdk.branding.model.DarkThemeColorReference, com.arm.mbed.cloud.sdk.branding.model.DarkThemeColor)}
@@ -284,7 +284,7 @@ public abstract class AbstractDarkThemeColorDao extends AbstractModelDao<DarkThe
 
     /**
      * Modifies a dark theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#updateDarkThemeColor(com.arm.mbed.cloud.sdk.branding.model.DarkThemeColor)}

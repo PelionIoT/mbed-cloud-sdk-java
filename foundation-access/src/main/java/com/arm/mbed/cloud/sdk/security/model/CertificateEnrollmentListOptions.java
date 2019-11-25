@@ -150,7 +150,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -183,7 +183,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -208,7 +208,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -245,7 +245,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addLessThanUpdatedAtFilter(java.util.Date)}
@@ -274,7 +274,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addGreaterThanUpdatedAtFilter(java.util.Date)}
@@ -312,7 +312,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code certificateName}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addEqualToCertificateNameFilter(String)}
@@ -350,7 +350,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code deviceId}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addEqualToDeviceIdFilter(String)}
@@ -388,7 +388,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code enrollResult}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addNotEqualToEnrollResultFilter(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult)}
@@ -418,7 +418,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code enrollResult}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addEqualToEnrollResultFilter(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult)}
@@ -457,7 +457,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addLessThanCreatedAtFilter(java.util.Date)}
@@ -486,7 +486,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addGreaterThanCreatedAtFilter(java.util.Date)}
@@ -524,7 +524,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code enrollStatus}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addNotEqualToEnrollStatusFilter(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus)}
@@ -554,7 +554,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code enrollStatus}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions#addEqualToEnrollStatusFilter(com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus)}
@@ -574,7 +574,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -590,7 +590,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -605,7 +605,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -620,7 +620,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -651,7 +651,7 @@ public class CertificateEnrollmentListOptions extends ListOptions {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()

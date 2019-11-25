@@ -8,8 +8,10 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupUpdateInfo;
 import java.util.List;
 
 /**
@@ -25,6 +27,68 @@ public final class PolicyGroupAdapter {
     private PolicyGroupAdapter() {
         super();
         // Nothing to do;
+    }
+
+    /**
+     * Maps a policy group into a group creation info.
+     * 
+     * @param toBeMapped
+     *            a policy group.
+     * @return mapped a group creation info
+     */
+    @Internal
+    public static GroupCreationInfo reverseMapAddRequest(PolicyGroup toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final GroupCreationInfo groupCreationInfo = new GroupCreationInfo();
+        // No field equivalent to members in GroupCreationInfo was found in PolicyGroup
+        groupCreationInfo.setName(toBeMapped.getName());
+        return groupCreationInfo;
+    }
+
+    /**
+     * Maps a group summary into a policy group.
+     * 
+     * @param toBeMapped
+     *            a group summary.
+     * @return mapped a policy group
+     */
+    @Internal
+    public static PolicyGroup map(GroupSummary toBeMapped) {
+        if (toBeMapped == null) {
+            return null;
+        }
+        final PolicyGroup policyGroup = new PolicyGroup(toBeMapped.getAccountId(),
+                                                        TranslationUtils.toInt(toBeMapped.getApikeyCount()),
+                                                        TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                        TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
+                                                        TranslationUtils.toInt(toBeMapped.getUserCount()));
+        policyGroup.setId(toBeMapped.getId());
+        policyGroup.setName(toBeMapped.getName());
+        return policyGroup;
+    }
+
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper
+     */
+    @Internal
+    public static GenericAdapter.Mapper<GroupSummary, PolicyGroup> getMapper() {
+        return new GenericAdapter.Mapper<GroupSummary, PolicyGroup>() {
+            /**
+             * Maps.
+             * 
+             * @param toBeMapped
+             *            model to be mapped.
+             * @return a mapped object
+             */
+            @Override
+            public PolicyGroup map(GroupSummary toBeMapped) {
+                return PolicyGroupAdapter.map(toBeMapped);
+            }
+        };
     }
 
     /**
@@ -134,46 +198,19 @@ public final class PolicyGroupAdapter {
     }
 
     /**
-     * Maps a group summary into a policy group.
+     * Maps a policy group into a group update info.
      * 
      * @param toBeMapped
-     *            a group summary.
-     * @return mapped a policy group
+     *            a policy group.
+     * @return mapped a group update info
      */
     @Internal
-    public static PolicyGroup map(GroupSummary toBeMapped) {
+    public static GroupUpdateInfo reverseMapUpdateRequest(PolicyGroup toBeMapped) {
         if (toBeMapped == null) {
             return null;
         }
-        final PolicyGroup policyGroup = new PolicyGroup(toBeMapped.getAccountId(),
-                                                        TranslationUtils.toInt(toBeMapped.getApikeyCount()),
-                                                        TranslationUtils.toDate(toBeMapped.getCreatedAt()),
-                                                        toBeMapped.getName(),
-                                                        TranslationUtils.toDate(toBeMapped.getUpdatedAt()),
-                                                        TranslationUtils.toInt(toBeMapped.getUserCount()));
-        policyGroup.setId(toBeMapped.getId());
-        return policyGroup;
-    }
-
-    /**
-     * Gets a mapper.
-     * 
-     * @return a mapper
-     */
-    @Internal
-    public static GenericAdapter.Mapper<GroupSummary, PolicyGroup> getMapper() {
-        return new GenericAdapter.Mapper<GroupSummary, PolicyGroup>() {
-            /**
-             * Maps.
-             * 
-             * @param toBeMapped
-             *            model to be mapped.
-             * @return a mapped object
-             */
-            @Override
-            public PolicyGroup map(GroupSummary toBeMapped) {
-                return PolicyGroupAdapter.map(toBeMapped);
-            }
-        };
+        final GroupUpdateInfo groupUpdateInfo = new GroupUpdateInfo();
+        groupUpdateInfo.setName(toBeMapped.getName());
+        return groupUpdateInfo;
     }
 }

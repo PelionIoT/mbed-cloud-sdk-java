@@ -13,7 +13,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
-import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
+import com.arm.mbed.cloud.sdk.common.dao.CrudDao;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 
@@ -26,7 +26,7 @@ import com.arm.mbed.cloud.sdk.common.listing.Paginator;
  */
 @Preamble(description = "Data Access Object (DAO) for subtenant policy groups.")
 public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<SubtenantPolicyGroup>
-                                                      implements ReadDao<SubtenantPolicyGroup> {
+                                                      implements CrudDao<SubtenantPolicyGroup> {
     /**
      * Constructor.
      * 
@@ -75,7 +75,7 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
@@ -98,7 +98,7 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -118,7 +118,7 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
@@ -139,7 +139,7 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -168,7 +168,7 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -195,7 +195,7 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
@@ -223,7 +223,7 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -245,7 +245,7 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -264,7 +264,7 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
@@ -285,8 +285,8 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Get API keys of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#apiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
@@ -309,8 +309,8 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Get API keys of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -330,8 +330,8 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Get API keys of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#apiKeys(com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
@@ -348,6 +348,217 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
            apiKeys(@Nullable SubtenantApiKeyListOptions options,
                    @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
         return ((Accounts) getModuleOrThrow()).apiKeys(options, subtenantPolicyGroup);
+    }
+
+    /**
+     * Adds a subtenant policy group.
+     * 
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupDao#create(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public SubtenantPolicyGroup create() throws MbedCloudException {
+        return create(getModel());
+    }
+
+    /**
+     * Adds a subtenant policy group.
+     * 
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupDao#create(java.lang.Object, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param members
+     *            Represents arrays of user and API key IDs.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public SubtenantPolicyGroup create(@Nullable Object members) throws MbedCloudException {
+        return create(members, getModel());
+    }
+
+    /**
+     * Adds a subtenant policy group.
+     * 
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupDao#create(java.lang.Object, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param members
+     *            Represents arrays of user and API key IDs.
+     * @param accountId
+     *            The ID of the account this group belongs to.
+     * @return an added subtenant policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public SubtenantPolicyGroup create(@Nullable Object members, @NonNull String accountId) throws MbedCloudException {
+        return create(members, accountId, getModel());
+    }
+
+    /**
+     * Adds a subtenant policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantPolicyGroup(java.lang.Object, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param members
+     *            Represents arrays of user and API key IDs.
+     * @param accountId
+     *            The ID of the account this group belongs to.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return an added subtenant policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public SubtenantPolicyGroup create(@Nullable Object members, @NonNull String accountId,
+                                       @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createSubtenantPolicyGroup(members, accountId,
+                                                                                         subtenantPolicyGroup));
+    }
+
+    /**
+     * Adds a subtenant policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantPolicyGroup(java.lang.Object, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param members
+     *            Represents arrays of user and API key IDs.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public SubtenantPolicyGroup create(@Nullable Object members,
+                                       @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createSubtenantPolicyGroup(members,
+                                                                                         subtenantPolicyGroup));
+    }
+
+    /**
+     * Adds a subtenant policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantPolicyGroup(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public SubtenantPolicyGroup create(@NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createSubtenantPolicyGroup(subtenantPolicyGroup));
+    }
+
+    /**
+     * Adds a subtenant policy group.
+     * 
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupDao#create(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param accountId
+     *            The ID of the account this group belongs to.
+     * @return an added subtenant policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public SubtenantPolicyGroup create(@NonNull String accountId) throws MbedCloudException {
+        return create(accountId, getModel());
+    }
+
+    /**
+     * Adds a subtenant policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#createSubtenantPolicyGroup(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param accountId
+     *            The ID of the account this group belongs to.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return an added subtenant policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public SubtenantPolicyGroup create(@NonNull String accountId,
+                                       @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).createSubtenantPolicyGroup(accountId,
+                                                                                         subtenantPolicyGroup));
+    }
+
+    /**
+     * Deletes a subtenant policy group.
+     * 
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupDao#delete(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public void delete() throws MbedCloudException {
+        delete(getModel());
+    }
+
+    /**
+     * Deletes a subtenant policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantPolicyGroup(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public void delete(@NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        ((Accounts) getModuleOrThrow()).deleteSubtenantPolicyGroup(subtenantPolicyGroup);
+    }
+
+    /**
+     * Deletes a subtenant policy group.
+     * 
+     * <p>
+     * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#deleteSubtenantPolicyGroup(String, String)}
+     * 
+     * @param accountId
+     *            Account ID.
+     * @param id
+     *            The ID of the group to delete.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public void delete(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+        ((Accounts) getModuleOrThrow()).deleteSubtenantPolicyGroup(accountId, id);
     }
 
     /**
@@ -402,7 +613,7 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Gets a subtenant policy group.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -420,7 +631,7 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Gets a subtenant policy group.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantPolicyGroup(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
@@ -437,7 +648,7 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Gets a subtenant policy group.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readSubtenantPolicyGroup(String, String)}
      * 
@@ -454,9 +665,89 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
     }
 
     /**
+     * Modifies a subtenant policy group.
+     * 
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupDao#update(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public SubtenantPolicyGroup update() throws MbedCloudException {
+        return update(getModel());
+    }
+
+    /**
+     * Modifies a subtenant policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#updateSubtenantPolicyGroup(com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return something
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @Override
+    public SubtenantPolicyGroup update(@NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateSubtenantPolicyGroup(subtenantPolicyGroup));
+    }
+
+    /**
+     * Modifies a subtenant policy group.
+     * 
+     * <p>
+     * Note: uses internal data model
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroupDao#update(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param accountId
+     *            The ID of the account this group belongs to.
+     * @param id
+     *            The ID of the group.
+     * @return an updated subtenant policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public SubtenantPolicyGroup update(@NonNull String accountId, @NonNull String id) throws MbedCloudException {
+        return update(accountId, id, getModel());
+    }
+
+    /**
+     * Modifies a subtenant policy group.
+     * 
+     * <p>
+     * Similar to
+     * {@link com.arm.mbed.cloud.sdk.Accounts#updateSubtenantPolicyGroup(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
+     * 
+     * @param accountId
+     *            The ID of the account this group belongs to.
+     * @param id
+     *            The ID of the group.
+     * @param subtenantPolicyGroup
+     *            a subtenant policy group.
+     * @return an updated subtenant policy group
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    public SubtenantPolicyGroup update(@NonNull String accountId, @NonNull String id,
+                                       @NonNull SubtenantPolicyGroup subtenantPolicyGroup) throws MbedCloudException {
+        return setAndGetModel(((Accounts) getModuleOrThrow()).updateSubtenantPolicyGroup(accountId, id,
+                                                                                         subtenantPolicyGroup));
+    }
+
+    /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#users(String, String, String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -485,8 +776,8 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -513,8 +804,8 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#users(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}
@@ -542,8 +833,8 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#users(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -565,8 +856,8 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -585,8 +876,8 @@ public abstract class AbstractSubtenantPolicyGroupDao extends AbstractModelDao<S
 
     /**
      * Get users of a group.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#users(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.SubtenantPolicyGroup)}

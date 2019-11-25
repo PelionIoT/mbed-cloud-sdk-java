@@ -6,7 +6,9 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DefaultApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceUpdateCampaignsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceUpdateFirmwareImagesApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceUpdateFirmwareManifestsApi;
 
 /**
  * Endpoints for DeviceUpdate APIs module.
@@ -15,10 +17,22 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DefaultAp
 @Internal
 public class DeviceUpdateEndpoints extends AbstractEndpoints {
     /**
-     * Low level endpoints for default apis.
+     * Low level endpoints for device update campaigns apis.
      */
     @Internal
-    private final DefaultApi defaultApi;
+    private final DeviceUpdateCampaignsApi deviceUpdateCampaignsApi;
+
+    /**
+     * Low level endpoints for device update firmware images apis.
+     */
+    @Internal
+    private final DeviceUpdateFirmwareImagesApi deviceUpdateFirmwareImagesApi;
+
+    /**
+     * Low level endpoints for device update firmware manifests apis.
+     */
+    @Internal
+    private final DeviceUpdateFirmwareManifestsApi deviceUpdateFirmwareManifestsApi;
 
     /**
      * Constructor.
@@ -28,22 +42,44 @@ public class DeviceUpdateEndpoints extends AbstractEndpoints {
      */
     public DeviceUpdateEndpoints(ServiceRegistry services) {
         super(services);
-        this.defaultApi = initialiseService(DefaultApi.class);
+        this.deviceUpdateCampaignsApi = initialiseService(DeviceUpdateCampaignsApi.class);
+        this.deviceUpdateFirmwareImagesApi = initialiseService(DeviceUpdateFirmwareImagesApi.class);
+        this.deviceUpdateFirmwareManifestsApi = initialiseService(DeviceUpdateFirmwareManifestsApi.class);
     }
 
     /**
-     * Gets low level endpoints for default apis.
+     * Gets low level endpoints for device update campaigns apis.
      * 
-     * @return defaultApi
+     * @return deviceUpdateCampaignsApi
      */
     @Internal
-    public DefaultApi getDefaultApi() {
-        return defaultApi;
+    public DeviceUpdateCampaignsApi getDeviceUpdateCampaignsApi() {
+        return deviceUpdateCampaignsApi;
+    }
+
+    /**
+     * Gets low level endpoints for device update firmware images apis.
+     * 
+     * @return deviceUpdateFirmwareImagesApi
+     */
+    @Internal
+    public DeviceUpdateFirmwareImagesApi getDeviceUpdateFirmwareImagesApi() {
+        return deviceUpdateFirmwareImagesApi;
+    }
+
+    /**
+     * Gets low level endpoints for device update firmware manifests apis.
+     * 
+     * @return deviceUpdateFirmwareManifestsApi
+     */
+    @Internal
+    public DeviceUpdateFirmwareManifestsApi getDeviceUpdateFirmwareManifestsApi() {
+        return deviceUpdateFirmwareManifestsApi;
     }
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()

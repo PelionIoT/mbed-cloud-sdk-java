@@ -71,7 +71,7 @@ public class FirmwareManifestListDao extends AbstractModelListDao<FirmwareManife
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -166,7 +166,7 @@ public class FirmwareManifestListDao extends AbstractModelListDao<FirmwareManife
 
     /**
      * Lists firmware manifests matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.DeviceUpdate#listFirmwareManifests(com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions)}

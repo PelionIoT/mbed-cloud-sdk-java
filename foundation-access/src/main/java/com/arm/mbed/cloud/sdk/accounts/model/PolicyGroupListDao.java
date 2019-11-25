@@ -71,7 +71,7 @@ public class PolicyGroupListDao extends AbstractModelListDao<PolicyGroup, Policy
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -166,7 +166,7 @@ public class PolicyGroupListDao extends AbstractModelListDao<PolicyGroup, Policy
 
     /**
      * Lists policy groups matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#listPolicyGroups(com.arm.mbed.cloud.sdk.accounts.model.PolicyGroupListOptions)}

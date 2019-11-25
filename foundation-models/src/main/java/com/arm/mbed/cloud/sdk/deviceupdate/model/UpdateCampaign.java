@@ -6,6 +6,7 @@ package com.arm.mbed.cloud.sdk.deviceupdate.model;
 import java.util.Date;
 import java.util.Map;
 
+import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
@@ -34,100 +35,154 @@ public class UpdateCampaign extends AbstractUpdateCampaign {
      * Internal constructor.
      * 
      * <p>
+     * Constructor based on all fields.
+     * <p>
      * Note: Should not be used. Use {@link #UpdateCampaign()} instead.
      * 
      * @param deviceFilterHelper
      *            Helper for creating the device filter string. This helper can be used instead of setting device filter
      *            directly. This allows the campaign filter to be created in a way which is similar to the device
      *            listing filter.
+     * @param activeAt
+     *            The time the campaign entered the active state.
+     * @param approvalRequired
+     *            Flag indicating whether approval is needed to start the campaign.
+     * @param archivedAt
+     *            The time the campaign was archived.
+     * @param autostop
+     *            Flag indicating whether the campaign should be auto-stopped on reaching a threshold.
      * @param autostopReason
      *            Text description of why a campaign failed to start or why a campaign stopped.
+     * @param autostopSuccessPercent
+     *            Percent of successful device updates to auto stop the campaign.
+     * @param campaignStrategy
+     *            How the campaign adds devices. A `one-shot` campaign does not add new devices after it has started. A
+     *            `continuous` campaign means that devices may be added to the campaign after it has started. The
+     *            default is `one-shot`.
      * @param createdAt
-     *            The time the update campaign was created.
+     *            The time the entity was created.
      * @param description
      *            An optional description of the campaign.
      * @param deviceFilter
      *            The filter for the devices the campaign is targeting at.
      * @param finished
-     *            The campaign finish timestamp.
+     *            The time the campaign finished.
      * @param id
      *            The campaign ID.
      * @param name
      *            The campaign name.
      * @param phase
-     *            The current phase of the campaign.
+     *            The phase of the campaign.
      * @param rootManifestId
-     *            value.
+     *            The ID of the manifest that will be sent to the device as part of the campaign.
      * @param rootManifestUrl
-     *            value.
+     *            The URL for the manifest that will be sent to the device as part of the campaign.
      * @param startedAt
-     *            value.
+     *            The time the campaign was started.
+     * @param startingAt
+     *            The time the campaign will be started.
+     * @param stoppedAt
+     *            The time the campaign was stopped.
+     * @param stoppingAt
+     *            The time the campaign will be stopped.
      * @param updatedAt
-     *            The time the object was updated.
+     *            The time the entity was updated.
      * @param when
      *            The scheduled start time for the campaign. The campaign will start within 1 minute when then start
      *            time has elapsed.
      */
     @Internal
-    @SuppressWarnings("PMD.CyclomaticComplexity")
-    public UpdateCampaign(Filters deviceFilterHelper, String autostopReason, Date createdAt, String description,
-                          String deviceFilter, Date finished, String id, String name, String phase,
-                          String rootManifestId, String rootManifestUrl, Date startedAt, Date updatedAt, Date when) {
-        super(autostopReason, createdAt, description, deviceFilter, finished, id, name, phase, rootManifestId,
-              rootManifestUrl, startedAt, updatedAt, when);
+    public UpdateCampaign(Filters deviceFilterHelper, Date activeAt, boolean approvalRequired, Date archivedAt,
+                          boolean autostop, String autostopReason, double autostopSuccessPercent,
+                          @DefaultValue("one-shot") UpdateCampaignStrategy campaignStrategy, Date createdAt,
+                          String description, String deviceFilter, Date finished, String id, String name,
+                          UpdateCampaignPhase phase, String rootManifestId, String rootManifestUrl, Date startedAt,
+                          Date startingAt, Date stoppedAt, Date stoppingAt, Date updatedAt, Date when) {
+        super(activeAt, approvalRequired, archivedAt, autostop, autostopReason, autostopSuccessPercent,
+              campaignStrategy, createdAt, description, deviceFilter, finished, id, name, phase, rootManifestId,
+              rootManifestUrl, startedAt, startingAt, stoppedAt, stoppingAt, updatedAt, when);
         setDeviceFiltersHelper(deviceFilterHelper);
     }
 
     /**
      * Internal constructor.
-     *
+     * 
+     * <p>
+     * Constructor based on read-only fields.
      * <p>
      * Note: Should not be used. Use {@link #UpdateCampaign()} instead.
      * 
+     * @param activeAt
+     *            The time the campaign entered the active state.
+     * @param archivedAt
+     *            The time the campaign was archived.
      * @param autostopReason
      *            Text description of why a campaign failed to start or why a campaign stopped.
      * @param createdAt
-     *            The time the update campaign was created.
+     *            The time the entity was created.
      * @param finished
-     *            The campaign finish timestamp.
+     *            The time the campaign finished.
      * @param phase
-     *            The current phase of the campaign.
+     *            The phase of the campaign.
      * @param rootManifestUrl
-     *            value.
+     *            The URL for the manifest that will be sent to the device as part of the campaign.
      * @param startedAt
-     *            value.
+     *            The time the campaign was started.
+     * @param startingAt
+     *            The time the campaign will be started.
+     * @param stoppedAt
+     *            The time the campaign was stopped.
+     * @param stoppingAt
+     *            The time the campaign will be stopped.
      * @param updatedAt
-     *            The time the object was updated.
+     *            The time the entity was updated.
+     * @param when
+     *            The scheduled start time for the campaign. The campaign will start within 1 minute when then start
+     *            time has elapsed.
      */
     @Internal
-    public UpdateCampaign(String autostopReason, Date createdAt, Date finished, String phase, String rootManifestUrl,
-                          Date startedAt, Date updatedAt) {
-        super(autostopReason, createdAt, finished, phase, rootManifestUrl, startedAt, updatedAt);
+    public UpdateCampaign(Date activeAt, Date archivedAt, String autostopReason, Date createdAt, Date finished,
+                          UpdateCampaignPhase phase, String rootManifestUrl, Date startedAt, Date startingAt,
+                          Date stoppedAt, Date stoppingAt, Date updatedAt, Date when) {
+        this(null, activeAt, false, archivedAt, false, autostopReason, 0.0, UpdateCampaignStrategy.getValue("one-shot"),
+             createdAt, (String) null, (String) null, finished, (String) null, (String) null, phase, (String) null,
+             rootManifestUrl, startedAt, startingAt, stoppedAt, stoppingAt, updatedAt, when);
     }
 
     /**
      * Internal constructor.
      * 
      * <p>
+     * Constructor based on a similar object.
+     * <p>
      * Note: Should not be used. Use {@link #UpdateCampaign()} instead.
      * 
      * @param updateCampaign
-     *            an update campaign.
+     *            an abstract update campaign.
      */
     @Internal
     public UpdateCampaign(UpdateCampaign updateCampaign) {
         this(updateCampaign == null ? (Filters) null : updateCampaign.getDeviceFiltersHelper(),
+             updateCampaign == null ? new Date() : updateCampaign.activeAt,
+             updateCampaign != null && updateCampaign.approvalRequired,
+             updateCampaign == null ? new Date() : updateCampaign.archivedAt,
+             updateCampaign != null && updateCampaign.autostop,
              updateCampaign == null ? (String) null : updateCampaign.autostopReason,
+             updateCampaign == null ? 0.0 : updateCampaign.autostopSuccessPercent,
+             updateCampaign == null ? UpdateCampaignStrategy.getValue("one-shot") : updateCampaign.campaignStrategy,
              updateCampaign == null ? new Date() : updateCampaign.createdAt,
              updateCampaign == null ? (String) null : updateCampaign.description,
              updateCampaign == null ? (String) null : updateCampaign.deviceFilter,
              updateCampaign == null ? new Date() : updateCampaign.finished,
              updateCampaign == null ? (String) null : updateCampaign.id,
              updateCampaign == null ? (String) null : updateCampaign.name,
-             updateCampaign == null ? (String) null : updateCampaign.phase,
+             updateCampaign == null ? UpdateCampaignPhase.getDefault() : updateCampaign.phase,
              updateCampaign == null ? (String) null : updateCampaign.rootManifestId,
              updateCampaign == null ? (String) null : updateCampaign.rootManifestUrl,
              updateCampaign == null ? new Date() : updateCampaign.startedAt,
+             updateCampaign == null ? new Date() : updateCampaign.startingAt,
+             updateCampaign == null ? new Date() : updateCampaign.stoppedAt,
+             updateCampaign == null ? new Date() : updateCampaign.stoppingAt,
              updateCampaign == null ? new Date() : updateCampaign.updatedAt,
              updateCampaign == null ? new Date() : updateCampaign.when);
     }
@@ -136,8 +191,10 @@ public class UpdateCampaign extends AbstractUpdateCampaign {
      * Constructor.
      */
     public UpdateCampaign() {
-        this((Filters) null, (String) null, new Date(), (String) null, (String) null, new Date(), (String) null,
-             (String) null, (String) null, (String) null, (String) null, new Date(), new Date(), new Date());
+        this((Filters) null, new Date(), false, new Date(), false, (String) null, 0.0,
+             UpdateCampaignStrategy.getValue("one-shot"), new Date(), (String) null, (String) null, new Date(),
+             (String) null, (String) null, UpdateCampaignPhase.getDefault(), (String) null, (String) null, new Date(),
+             new Date(), new Date(), new Date(), new Date(), new Date());
     }
 
     /**

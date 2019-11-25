@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -273,12 +274,17 @@ public class MethodMapper extends Method {
                                           mapListMethodName, fromVariableName, getterName);
                     }
                 } else if (TypeUtils.checkIfModel(fType)) {
-                    final TypeParameter modelAdapterType = fetcher.fetch(fromFieldType, fType, action).toType();
-                    modelAdapterType.translate();
-                    code.addStatement("$L.$L($T.$L($L.$L()))", variableName, setterName,
-                                      modelAdapterType.hasClass() ? modelAdapterType.getClazz()
-                                                                  : modelAdapterType.getTypeName(),
-                                      mapFunction, fromVariableName, getterName);
+                    final ModelAdapter adapter = fetcher.fetch(fromFieldType, fType, action);
+                    if (adapter != null) {
+                        final TypeParameter modelAdapterType = adapter.toType();
+                        modelAdapterType.translate();
+                        code.addStatement("$L.$L($T.$L($L.$L()))", variableName, setterName,
+                                          modelAdapterType.hasClass() ? modelAdapterType.getClazz()
+                                                                      : modelAdapterType.getTypeName(),
+                                          mapFunction, fromVariableName, getterName);
+                    } else {
+                        recordThatAdapterWasNotFound(code, fromFieldType, fType, toFieldName);
+                    }
                 } else {
                     code.addStatement("$L.$L($L.$L())", variableName, setterName, fromVariableName, getterName);
                 }
@@ -295,6 +301,13 @@ public class MethodMapper extends Method {
                  fromType.hasClass() ? fromType.getClazz() : fromType.getTypeName());
     }
 
+    private static void recordThatAdapterWasNotFound(CodeBlock.Builder code, final TypeParameter fromType,
+                                                     final TypeParameter toType, final String toFieldName) {
+        code.add("//No adapter method was found in order to perform a translation from $T to $T for field: $L"
+                 + System.lineSeparator(), fromType.hasClass() ? fromType.getClazz() : fromType.getTypeName(),
+                 toType.hasClass() ? toType.getClazz() : toType.getTypeName(), toFieldName);
+    }
+
     public static Class<?> getWrapperEquivalent(TypeParameter parameterType) {
         if (!parameterType.isPrimitive()) {
             return null;
@@ -304,7 +317,7 @@ public class MethodMapper extends Method {
         }
         // must be a number
         if (parameterType.isDecimal()) {
-            return Double.class;
+            return BigDecimal.class;
         } else if (parameterType.isInteger()) {
             return Integer.class;
         }

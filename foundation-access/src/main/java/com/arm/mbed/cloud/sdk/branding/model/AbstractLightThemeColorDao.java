@@ -75,7 +75,7 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
 
     /**
      * Deletes a light theme color.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -92,7 +92,7 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
 
     /**
      * Deletes a light theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#deleteLightThemeColor(com.arm.mbed.cloud.sdk.branding.model.LightThemeColorReference)}
@@ -108,7 +108,7 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
 
     /**
      * Deletes a light theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#deleteLightThemeColor(com.arm.mbed.cloud.sdk.branding.model.LightThemeColor)}
@@ -175,7 +175,7 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
 
     /**
      * Gets a light theme color.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -193,7 +193,7 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
 
     /**
      * Gets a light theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#readLightThemeColor(com.arm.mbed.cloud.sdk.branding.model.LightThemeColorReference)}
@@ -210,7 +210,7 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
 
     /**
      * Gets a light theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#readLightThemeColor(com.arm.mbed.cloud.sdk.branding.model.LightThemeColor)}
@@ -227,7 +227,7 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
 
     /**
      * Modifies a light theme color.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -245,7 +245,7 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
 
     /**
      * Modifies a light theme color.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -264,7 +264,7 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
 
     /**
      * Modifies a light theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#updateLightThemeColor(com.arm.mbed.cloud.sdk.branding.model.LightThemeColorReference, com.arm.mbed.cloud.sdk.branding.model.LightThemeColor)}
@@ -284,7 +284,7 @@ public abstract class AbstractLightThemeColorDao extends AbstractModelDao<LightT
 
     /**
      * Modifies a light theme color.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#updateLightThemeColor(com.arm.mbed.cloud.sdk.branding.model.LightThemeColor)}

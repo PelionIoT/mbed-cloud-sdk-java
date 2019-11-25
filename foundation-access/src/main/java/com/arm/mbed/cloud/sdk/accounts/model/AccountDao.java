@@ -87,7 +87,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
@@ -112,7 +112,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -137,7 +137,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -162,7 +162,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
@@ -182,7 +182,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -202,7 +202,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant api keys matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allApiKeys(com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -222,13 +222,13 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant dark theme colors matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allDarkThemeBrandingColors(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorListOptions)}
      * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return paginator over the list of subtenant dark theme colors
@@ -243,7 +243,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant dark theme colors matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -263,7 +263,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant dark theme colors matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allDarkThemeBrandingColors(com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -284,13 +284,13 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant dark theme images matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allDarkThemeBrandingImages(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageListOptions)}
      * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return paginator over the list of subtenant dark theme images
@@ -305,7 +305,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant dark theme images matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -325,7 +325,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant dark theme images matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allDarkThemeBrandingImages(com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -346,13 +346,13 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant light theme colors matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allLightThemeBrandingColors(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorListOptions)}
      * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return paginator over the list of subtenant light theme colors
@@ -367,7 +367,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant light theme colors matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -387,7 +387,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant light theme colors matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allLightThemeBrandingColors(com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -408,13 +408,13 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant light theme images matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allLightThemeBrandingImages(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions)}
      * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return paginator over the list of subtenant light theme images
@@ -429,7 +429,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant light theme images matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -449,7 +449,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant light theme images matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allLightThemeBrandingImages(com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -470,7 +470,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -495,7 +495,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allTrustedCertificates(Integer, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -521,7 +521,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allTrustedCertificates(String, Integer, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
@@ -546,7 +546,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allTrustedCertificates(String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
@@ -567,7 +567,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -587,7 +587,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant trusted certificates matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allTrustedCertificates(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -608,7 +608,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUserInvitations(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions)}
@@ -629,7 +629,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -649,7 +649,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant user invitations matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUserInvitations(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -669,7 +669,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -694,7 +694,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -718,7 +718,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -743,7 +743,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -763,7 +763,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -782,7 +782,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Creates a {@link Paginator} for the list of subtenant users matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#allUsers(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -802,8 +802,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all API keys.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#apiKeys(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
@@ -828,8 +828,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all API keys.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -854,8 +854,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all API keys.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#apiKeys(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -880,8 +880,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all API keys.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#apiKeys(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions)}
@@ -901,8 +901,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all API keys.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -922,8 +922,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all API keys.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#apiKeys(com.arm.mbed.cloud.sdk.accounts.model.SubtenantApiKeyListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -943,7 +943,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -961,7 +961,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Adds an account.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -979,7 +979,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Adds an account.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#createAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
@@ -996,7 +996,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Adds an account.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1032,7 +1032,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Adds an account.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#createAccount(String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1069,14 +1069,14 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get dark theme branding colors.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#darkThemeBrandingColors(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorListOptions)}
      * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return the list of subtenant dark theme colors corresponding to filter options (One page).
@@ -1091,8 +1091,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get dark theme branding colors.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1112,8 +1112,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get dark theme branding colors.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#darkThemeBrandingColors(com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeColorListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1134,14 +1134,14 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get metadata of all dark theme images.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#darkThemeBrandingImages(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageListOptions)}
      * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return the list of subtenant dark theme images corresponding to filter options (One page).
@@ -1156,8 +1156,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get metadata of all dark theme images.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1177,8 +1177,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get metadata of all dark theme images.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#darkThemeBrandingImages(com.arm.mbed.cloud.sdk.branding.model.SubtenantDarkThemeImageListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1249,14 +1249,14 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get light theme branding colors.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#lightThemeBrandingColors(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorListOptions)}
      * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return the list of subtenant light theme colors corresponding to filter options (One page).
@@ -1271,8 +1271,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get light theme branding colors.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1292,8 +1292,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get light theme branding colors.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#lightThemeBrandingColors(com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeColorListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1314,14 +1314,14 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get metadata of all light theme images.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#lightThemeBrandingImages(String, com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions)}
      * 
      * @param id
-     *            Account ID.
+     *            The ID of the account.
      * @param options
      *            list options.
      * @return the list of subtenant light theme images corresponding to filter options (One page).
@@ -1336,8 +1336,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get metadata of all light theme images.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1357,8 +1357,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get metadata of all light theme images.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#lightThemeBrandingImages(com.arm.mbed.cloud.sdk.branding.model.SubtenantLightThemeImageListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1379,7 +1379,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets my account.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#myAccount()}
      * 
@@ -1394,7 +1394,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets my account.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#myAccount(String, String)}
      * 
@@ -1413,7 +1413,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets an account.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1431,7 +1431,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets an account.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
@@ -1447,7 +1447,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets an account.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readAccount(String)}
      * 
@@ -1464,7 +1464,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets an account.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1472,7 +1472,8 @@ public class AccountDao extends AbstractModelDao<Account>
      * {@link com.arm.mbed.cloud.sdk.accounts.model.AccountDao#read(String, String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param include
-     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts,
+     *            history.
      * @param properties
      *            Property name to return from account-specific properties.
      * @return something
@@ -1485,13 +1486,14 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets an account.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#readAccount(String, String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
      * @param include
-     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts,
+     *            history.
      * @param properties
      *            Property name to return from account-specific properties.
      * @param account
@@ -1507,12 +1509,13 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Gets an account.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#readAccount(String, String, String)}
      * 
      * @param include
-     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts.
+     *            Comma-separated additional data to return. Currently supported: limits, policies, sub_accounts,
+     *            history.
      * @param properties
      *            Property name to return from account-specific properties.
      * @param id
@@ -1528,8 +1531,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all trusted certificates.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1554,8 +1557,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all trusted certificates.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#trustedCertificates(Integer, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1581,8 +1584,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all trusted certificates.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#trustedCertificates(String, Integer, String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
@@ -1607,8 +1610,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all trusted certificates.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#trustedCertificates(String, com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions)}
@@ -1629,8 +1632,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all trusted certificates.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1650,8 +1653,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get all trusted certificates.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#trustedCertificates(com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1672,7 +1675,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Modifies an account.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1690,7 +1693,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Modifies an account.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.Accounts#updateAccount(com.arm.mbed.cloud.sdk.accounts.model.Account)}
      * 
@@ -1707,7 +1710,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Modifies an account.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1726,7 +1729,7 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Modifies an account.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#updateAccount(String, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1745,8 +1748,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get the details of all user invitations.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#userInvitations(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions)}
@@ -1767,8 +1770,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get the details of all user invitations.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1788,8 +1791,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get the details of all user invitations.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#userInvitations(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserInvitationListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1809,8 +1812,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get the details of all users.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#users(String, String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -1835,8 +1838,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get the details of all users.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1860,8 +1863,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get the details of all users.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#users(String, String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}
@@ -1886,8 +1889,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get the details of all users.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#users(String, com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions)}
@@ -1907,8 +1910,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get the details of all users.
-     *
-     *
+     * 
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -1927,8 +1930,8 @@ public class AccountDao extends AbstractModelDao<Account>
 
     /**
      * Get the details of all users.
-     *
-     *
+     * 
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Accounts#users(com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserListOptions, com.arm.mbed.cloud.sdk.accounts.model.Account)}

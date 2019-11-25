@@ -37,7 +37,9 @@ public final class ActiveSessionAdapter {
         if (toBeMapped == null) {
             return null;
         }
-        final ActiveSession activeSession = new ActiveSession(toBeMapped.getAccountId(), toBeMapped.getIpAddress(),
+        final ActiveSession activeSession = new ActiveSession(toBeMapped.getAccountId(),
+                                                              TranslationUtils.toDate(toBeMapped.getCreatedAt()),
+                                                              toBeMapped.getIpAddress(),
                                                               TranslationUtils.toDate(toBeMapped.getLoginTime()),
                                                               toBeMapped.getReferenceToken(),
                                                               toBeMapped.getUserAgent());

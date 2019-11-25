@@ -76,7 +76,7 @@ public abstract class AbstractDarkThemeImageDao extends AbstractModelDao<DarkThe
 
     /**
      * Deletes a dark theme image.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -93,7 +93,7 @@ public abstract class AbstractDarkThemeImageDao extends AbstractModelDao<DarkThe
 
     /**
      * Deletes a dark theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#deleteDarkThemeImage(com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageReference)}
@@ -109,7 +109,7 @@ public abstract class AbstractDarkThemeImageDao extends AbstractModelDao<DarkThe
 
     /**
      * Deletes a dark theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#deleteDarkThemeImage(com.arm.mbed.cloud.sdk.branding.model.DarkThemeImage)}
@@ -176,7 +176,7 @@ public abstract class AbstractDarkThemeImageDao extends AbstractModelDao<DarkThe
 
     /**
      * Gets a dark theme image.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -194,7 +194,7 @@ public abstract class AbstractDarkThemeImageDao extends AbstractModelDao<DarkThe
 
     /**
      * Gets a dark theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#readDarkThemeImage(com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageReference)}
@@ -211,7 +211,7 @@ public abstract class AbstractDarkThemeImageDao extends AbstractModelDao<DarkThe
 
     /**
      * Gets a dark theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#readDarkThemeImage(com.arm.mbed.cloud.sdk.branding.model.DarkThemeImage)}
@@ -228,7 +228,7 @@ public abstract class AbstractDarkThemeImageDao extends AbstractModelDao<DarkThe
 
     /**
      * Modifies a dark theme image.
-     *
+     * 
      * <p>
      * Note: uses internal data model
      * <p>
@@ -247,7 +247,7 @@ public abstract class AbstractDarkThemeImageDao extends AbstractModelDao<DarkThe
 
     /**
      * Modifies a dark theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#updateDarkThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.DarkThemeImage)}
@@ -267,7 +267,7 @@ public abstract class AbstractDarkThemeImageDao extends AbstractModelDao<DarkThe
 
     /**
      * Modifies a dark theme image.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#updateDarkThemeImage(com.arm.mbed.cloud.sdk.common.model.DataFile, com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageReference)}

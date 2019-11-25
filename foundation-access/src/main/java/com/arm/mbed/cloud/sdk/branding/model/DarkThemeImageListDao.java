@@ -71,7 +71,7 @@ public class DarkThemeImageListDao extends AbstractModelListDao<DarkThemeImage, 
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -166,7 +166,7 @@ public class DarkThemeImageListDao extends AbstractModelListDao<DarkThemeImage, 
 
     /**
      * Lists dark theme images matching filter options.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.Branding#listDarkThemeImages(com.arm.mbed.cloud.sdk.branding.model.DarkThemeImageListOptions)}

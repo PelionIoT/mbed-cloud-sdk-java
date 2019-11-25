@@ -201,7 +201,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on all fields.
      * <p>
@@ -234,7 +234,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on a similar object.
      * <p>
@@ -259,7 +259,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Internal constructor.
-     *
+     * 
      * <p>
      * Constructor based on read-only fields.
      * <p>
@@ -286,7 +286,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -319,7 +319,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInCreatedAtsFilter(String)}
@@ -338,7 +338,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInCreatedAtsFilter(java.util.List)}
@@ -357,7 +357,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInCreatedAtsFilter(java.util.Date[])}
@@ -376,7 +376,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -409,7 +409,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInCreatedAtsFilter(String)}
@@ -428,7 +428,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInCreatedAtsFilter(java.util.List)}
@@ -447,7 +447,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInCreatedAtsFilter(java.util.Date[])}
@@ -476,7 +476,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addLessThanCreatedAtFilter(java.util.Date)}
@@ -505,7 +505,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code createdAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addGreaterThanCreatedAtFilter(java.util.Date)}
@@ -543,7 +543,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addEqualToNameFilter(String)}
@@ -572,7 +572,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotEqualToNameFilter(String)}
@@ -591,7 +591,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -624,7 +624,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInNamesFilter(String)}
      * 
@@ -642,7 +642,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInNamesFilter(java.util.List)}
@@ -661,7 +661,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInNamesFilter(String[])}
@@ -680,7 +680,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -713,7 +713,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInNamesFilter(String)}
@@ -732,7 +732,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInNamesFilter(java.util.List)}
@@ -751,7 +751,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code name}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInNamesFilter(String[])}
@@ -789,7 +789,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addEqualToIdFilter(String)}
@@ -818,7 +818,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotEqualToIdFilter(String)}
@@ -837,7 +837,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -870,7 +870,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInIdsFilter(String)}
      * 
@@ -888,7 +888,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInIdsFilter(java.util.List)}
@@ -907,7 +907,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInIdsFilter(String[])}
      * 
@@ -925,7 +925,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -958,7 +958,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInIdsFilter(String)}
@@ -977,7 +977,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInIdsFilter(java.util.List)}
@@ -996,7 +996,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code id}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInIdsFilter(String[])}
@@ -1034,7 +1034,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code datafileUrl}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addEqualToDatafileUrlFilter(String)}
@@ -1063,7 +1063,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code datafileUrl}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotEqualToDatafileUrlFilter(String)}
@@ -1082,7 +1082,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code datafileUrl}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1115,7 +1115,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code datafileUrl}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInDatafileUrlsFilter(String)}
@@ -1134,7 +1134,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code datafileUrl}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInDatafileUrlsFilter(java.util.List)}
@@ -1153,7 +1153,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code datafileUrl}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInDatafileUrlsFilter(String[])}
@@ -1172,7 +1172,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code datafileUrl}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1205,7 +1205,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code datafileUrl}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInDatafileUrlsFilter(String)}
@@ -1224,7 +1224,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code datafileUrl}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInDatafileUrlsFilter(java.util.List)}
@@ -1243,7 +1243,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code datafileUrl}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInDatafileUrlsFilter(String[])}
@@ -1281,7 +1281,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code datafileSize}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addEqualToDatafileSizeFilter(long)}
@@ -1310,7 +1310,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code datafileSize}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotEqualToDatafileSizeFilter(long)}
@@ -1329,7 +1329,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code datafileSize}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1362,7 +1362,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code datafileSize}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInDatafileSizesFilter(String)}
@@ -1381,7 +1381,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code datafileSize}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInDatafileSizesFilter(java.util.List)}
@@ -1400,7 +1400,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code datafileSize}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInDatafileSizesFilter(Long[])}
@@ -1419,7 +1419,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code datafileSize}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1452,7 +1452,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code datafileSize}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInDatafileSizesFilter(String)}
@@ -1471,7 +1471,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code datafileSize}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInDatafileSizesFilter(java.util.List)}
@@ -1490,7 +1490,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code datafileSize}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInDatafileSizesFilter(Long[])}
@@ -1528,7 +1528,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code deviceClass}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addEqualToDeviceClassFilter(String)}
@@ -1557,7 +1557,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code deviceClass}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotEqualToDeviceClassFilter(String)}
@@ -1576,7 +1576,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code deviceClass}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1609,7 +1609,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code deviceClass}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInDeviceClassFilter(String)}
@@ -1628,7 +1628,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code deviceClass}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInDeviceClassFilter(java.util.List)}
@@ -1647,7 +1647,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code deviceClass}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInDeviceClassFilter(String[])}
@@ -1666,7 +1666,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code deviceClass}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1699,7 +1699,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code deviceClass}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInDeviceClassFilter(String)}
@@ -1718,7 +1718,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code deviceClass}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInDeviceClassFilter(java.util.List)}
@@ -1737,7 +1737,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code deviceClass}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInDeviceClassFilter(String[])}
@@ -1765,7 +1765,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code timestamp}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1798,7 +1798,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code timestamp}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInTimestampsFilter(String)}
@@ -1817,7 +1817,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code timestamp}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInTimestampsFilter(java.util.List)}
@@ -1836,7 +1836,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code timestamp}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInTimestampsFilter(java.util.Date[])}
@@ -1855,7 +1855,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code timestamp}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -1888,7 +1888,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code timestamp}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInTimestampsFilter(String)}
@@ -1907,7 +1907,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code timestamp}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInTimestampsFilter(java.util.List)}
@@ -1926,7 +1926,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code timestamp}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInTimestampsFilter(java.util.Date[])}
@@ -1955,7 +1955,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code timestamp}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addLessThanTimestampFilter(java.util.Date)}
@@ -1984,7 +1984,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code timestamp}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addGreaterThanTimestampFilter(java.util.Date)}
@@ -2012,7 +2012,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -2045,7 +2045,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInUpdatedAtsFilter(String)}
@@ -2064,7 +2064,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInUpdatedAtsFilter(java.util.List)}
@@ -2083,7 +2083,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInUpdatedAtsFilter(java.util.Date[])}
@@ -2102,7 +2102,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -2135,7 +2135,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInUpdatedAtsFilter(String)}
@@ -2154,7 +2154,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInUpdatedAtsFilter(java.util.List)}
@@ -2173,7 +2173,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInUpdatedAtsFilter(java.util.Date[])}
@@ -2202,7 +2202,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a less than" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addLessThanUpdatedAtFilter(java.util.Date)}
@@ -2231,7 +2231,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a greater than" filter by {@code updatedAt}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addGreaterThanUpdatedAtFilter(java.util.Date)}
@@ -2269,7 +2269,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an equal to" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addEqualToDescriptionFilter(String)}
@@ -2298,7 +2298,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not equal to" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotEqualToDescriptionFilter(String)}
@@ -2317,7 +2317,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -2350,7 +2350,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInDescriptionsFilter(String)}
@@ -2369,7 +2369,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInDescriptionsFilter(java.util.List)}
@@ -2388,7 +2388,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "an in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addInDescriptionsFilter(String[])}
@@ -2407,7 +2407,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Note: In this case, the filter is a string corresponding to a list of values separated by a comma
      * 
@@ -2440,7 +2440,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInDescriptionsFilter(String)}
@@ -2459,7 +2459,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInDescriptionsFilter(java.util.List)}
@@ -2478,7 +2478,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Sets "a not in" filter by {@code description}.
-     *
+     * 
      * <p>
      * Similar to
      * {@link com.arm.mbed.cloud.sdk.deviceupdate.model.FirmwareManifestListOptions#addNotInDescriptionsFilter(String[])}
@@ -2497,7 +2497,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Returns a string representation of the object.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#toString()
@@ -2513,7 +2513,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Method to ensure {@link #equals(Object)} is correct.
-     *
+     * 
      * <p>
      * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      * 
@@ -2528,7 +2528,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Clones this instance.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#clone()
@@ -2543,7 +2543,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#equals(java.lang.Object)
@@ -2574,7 +2574,7 @@ public class FirmwareManifestListOptions extends ListOptions {
 
     /**
      * Calculates the hash code of this instance based on field values.
-     *
+     * 
      * <p>
      * 
      * @see java.lang.Object#hashCode()
