@@ -439,7 +439,7 @@ dependencies {
     testCompile 'org.slf4j:slf4j-simple:1.7.29'
     testCompile 'com.squareup.okhttp:mockwebserver:2.7.5'
     testCompile  'com.github.dtmo.jfiglet:jfiglet:1.0.0'
-    testCompile 'ru.vyarus:generics-resolver:3.0.0'
+    testCompile 'ru.vyarus:generics-resolver:3.0.1'
     testImplementation 'junit:junit:4.12'
     testImplementation 'nl.jqno.equalsverifier:equalsverifier:2.5.+'
     coverage 'org.jacoco:org.jacoco.agent:0.7.9:runtime@jar'
