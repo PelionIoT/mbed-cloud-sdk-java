@@ -470,7 +470,7 @@ public class TestServer {
                     if (!result.wasExceptionRaised()) {
                         return result.getResult();
                     }
-                    logger.logDebug("RESULT error happened: " + result.getMetadata());
+                   // logger.logDebug("RESULT error happened: " + result.getMetadata());
                     throw new APICallException(result);
                 }
             }, true);
@@ -499,7 +499,7 @@ public class TestServer {
                     if (!result.wasExceptionRaised()) {
                         return result.getResult();
                     }
-                    logger.logDebug("RESULT error happened: " + result.getMetadata());
+                    //logger.logDebug("RESULT error happened: " + result.getMetadata());
                     throw new APICallException(result);
                 }
             }, true);
@@ -525,12 +525,12 @@ public class TestServer {
                 APIMethodResult result = engine.callAPIOnLowLevelInstance(instance.getId(), method, params);
                 if (!result.wasExceptionRaised()) {
                     String resultJson = Serializer.convertLegacyResultToJson(result.getResult());
-                    logger.logDebug("RESULT: " + String.valueOf(resultJson));
+                    //logger.logDebug("RESULT: " + String.valueOf(resultJson));
                     engine.deleteLowLevelInstance(instance.getId());
                     respond(200, routingContext, resultJson);
                 } else {
                     engine.deleteLowLevelInstance(instance.getId());
-                    logger.logDebug("RESULT error happened: " + result.getMetadata());
+                    //logger.logDebug("RESULT error happened: " + result.getMetadata());
                     if (result.getMetadata() == null) {
                         sendError(setResponse(500, routingContext), null,
                                   (result.getException().getMessage() == null)
@@ -650,7 +650,7 @@ public class TestServer {
             resultObj = Serializer.convertResultToJsonObject(apiResult, true);
         }
         final String resultJson = Serializer.convertJsonResultToJsonString(resultObj);
-        logger.logInfo("RESULT: " + String.valueOf(resultJson));
+        //logger.logInfo("RESULT: " + String.valueOf(resultJson));
         respond(statusCode, routingContext, resultJson);
     }
 
