@@ -1,6 +1,19 @@
 # Pelion Cloud SDK for Java
 [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
+----
+> Due to a redirected focus onto future development of the Pelion Device Management APIs, this SDK Is no longer actively supported and there is no commitment for future maintenance releases.
+>
+> The open source project and corresponding packages for this SDK remain publicly available. 
+>
+>Existing applications developed using the SDK will continue to operate against existing Pelion Device Management REST APIs (assuming that those APIs are not subject to the deprecation process for commercial customers). New APIs supported by Pelion Device Management will only be available through the REST APIs. 
+>
+>It is recommended that for ongoing development, applications which previously used the SDK should be migrated over time to access the Pelion Device Management REST APIs directly. 
+>
+>Please see this [page](https://www.pelion.com/docs/device-management/current/service-api-references/index.html), which provides additional information on using the REST APIs. By following this guide, you will learn how to build a web application using the REST APIs directly.
+
+----
+
 The Pelion Device Management SDK (formerly known as Mbed Cloud SDK) provides a simplified interface to the [Pelion Device Management APIs](https://www.mbed.com/en/platform/cloud/) by exposing functionality using conventions and paradigms familiar to Java developers.
 
 ## Prerequisites
