@@ -21,7 +21,7 @@ dependencies {
     api 'com.squareup.okhttp3:logging-interceptor:4.2.0'
     api 'joda-time:joda-time:2.10.5'
     api 'com.jcabi:jcabi-manifests:1.1'
-    api 'io.github.cdimascio:java-dotenv:5.1.0'
+    api 'io.github.cdimascio:java-dotenv:5.2.2'
 
     // Use JUnit test framework
     testImplementation 'org.slf4j:slf4j-simple:1.7.29'
