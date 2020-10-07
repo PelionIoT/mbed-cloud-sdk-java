@@ -430,7 +430,7 @@ dependencies {
     compile project(':foundation-access')
     compile project(':backends:pelioncloud_devicemanagement')
 
-    compile 'io.reactivex.rxjava2:rxjava:2.2.10'
+    compile 'io.reactivex.rxjava2:rxjava:2.2.20'
     compile 'joda-time:joda-time:2.10.5'
     compile 'com.jcabi:jcabi-manifests:1.1'
     compile 'io.github.cdimascio:java-dotenv:5.1.0'
